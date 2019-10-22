@@ -104,7 +104,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 completion(.failure(.unexpectedResponse))
                 return
             }
-            guard let firstRevision = results.items().first?.items.first, let firstRevisionDate = firstRevision.revisionDate else {
+            guard let firstRevisionDate = results.lastRevision?.revisionDate else {
                 completion(.failure(.unexpectedResponse))
                 return
             }
