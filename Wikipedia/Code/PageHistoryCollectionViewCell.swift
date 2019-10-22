@@ -30,9 +30,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             let added = sizeDiff > 0
             sizeDiffLabel.text = added ? "+\(sizeDiff)" : "\(sizeDiff)"
             if added || sizeDiff == 0 {
-                sizeDiffLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-size-diff-addition", value: "Added {{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Accessibility label text telling the user how many bytes were added in a revision"), sizeDiff)
+                sizeDiffLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-size-diff-addition", value: "Added {{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Accessibility label text telling the user how many bytes were added in a revision - %1$@ is replaced with the number of bytes added in a revision"), sizeDiff)
             } else {
-                sizeDiffLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-size-diff-subtraction", value: "Removed {{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Accessibility label text telling the user how many bytes were removed in a revision"), abs(sizeDiff))
+                sizeDiffLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-size-diff-subtraction", value: "Removed {{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Accessibility label text telling the user how many bytes were removed in a revision - %1$d is replaced with the number of bytes removed in a revision"), abs(sizeDiff))
             }
             setNeedsLayout()
         }

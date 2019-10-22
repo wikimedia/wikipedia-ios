@@ -479,8 +479,8 @@
 "page-history-reverted-edits" = "Text for view that shows many edits were reverted";
 "page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision";
 "page-history-revision-history-title" = "Title for revision history view";
-"page-history-revision-size-diff-addition" = "Accessibility label text telling the user how many bytes were added in a revision";
-"page-history-revision-size-diff-subtraction" = "Accessibility label text telling the user how many bytes were removed in a revision";
+"page-history-revision-size-diff-addition" = "Accessibility label text telling the user how many bytes were added in a revision - $1 is replaced with the number of bytes added in a revision";
+"page-history-revision-size-diff-subtraction" = "Accessibility label text telling the user how many bytes were removed in a revision - $1 is replaced with the number of bytes removed in a revision";
 "page-history-revisions-comparison-warning" = "Text telling the user how many revisions can be selected for comparison";
 "page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with they year when the first edit was made.";
 "page-history-user-edits" = "Text for view that shows many edits were made by logged-in users";
