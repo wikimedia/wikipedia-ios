@@ -177,6 +177,8 @@
 "reading-list-sync-enable-button-title" = "Iespējot sinhronizāciju";
 "reading-lists-article-not-synced" = "Nav sinhronizēts";
 "reading-lists-default-list-title" = "Saglabāts";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Sintakses izcelšana";
+"reading-themes-controls-syntax-highlighting" = "Sintakses izcelšana";
 "reference-title" = "Atsauce $1";
 "replace-infolabel-method-replace" = "Aizvietot";
 "replace-infolabel-method-replace-all" = "Aizvietot visus";
