@@ -47,8 +47,7 @@
 "abuse-filter-disallow-heading" = "Et voi julkaista tätä muokkausta.";
 "abuse-filter-disallow-unconstructive" = "Automaattinen suodatin on tunnistanut tämän muokkauksen mahdollisesti haitalliseksi tai vandalismin yritykseksi.";
 "abuse-filter-warning-blanking" = "Osioiden tai kokonaisten artikkelien tyhjennystä";
-// Fuzzy
-"abuse-filter-warning-caps" = "Kirjoittamista ISOILLA KIRJAIMILLA";
+"abuse-filter-warning-caps" = "Kaikki teksti tikkukirjaimilla";
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti julkaista sen?";
 "abuse-filter-warning-irrelevant" = "Aiheeseen liittymättömiä ulkoisia linkkejä tai kuvia";
 "abuse-filter-warning-repeat" = "Toistuvia merkkejä";
@@ -175,10 +174,12 @@
 "edit-clear-formatting-accessibility-label" = "Poista muotoilu";
 "edit-comment-accessibility-label" = "Lisää kommenttisyntaksi";
 "edit-comment-remove-accessibility-label" = "Poista kommenttisyntaksi";
+"edit-decrease-indent-depth-accessibility-label" = "Vähennä sisennyksen syvyyttä";
 "edit-direction-down-accessibility-label" = "Liikuta kursoria alaspäin";
 "edit-direction-left-accessibility-label" = "Liikuta kursoria vasemmalle";
 "edit-direction-right-accessibility-label" = "Liikuta kursoria oikealle";
 "edit-direction-up-accessibility-label" = "Liikuta kursoria ylös";
+"edit-increase-indent-depth-accessibility-label" = "Lisää sisennyksen syvyyttä";
 "edit-italic-accessibility-label" = "Lisää kursivoitu muotoilu";
 "edit-italic-remove-accessibility-label" = "Poista kursivoitu muotoilu";
 "edit-link-accessibility-label" = "Lisää linkkisyntaksi";
@@ -188,6 +189,7 @@
 "edit-link-remove-link-title" = "Poista linkki";
 "edit-link-title" = "Muokkaa linkkiä";
 "edit-menu-item" = "Muokkaa";
+"edit-minor-learn-more-text" = "Lue lisää pienistä muutoksista";
 "edit-minor-text" = "Tämä on pieni muutos";
 "edit-published" = "Muokkaus julkaistu";
 "edit-published-subtitle" = "Teit juuri Wikipediasta paremman kaikille";
@@ -684,6 +686,7 @@
 "talk-page-new-banner-subtitle" = "Muista, me kaikki olemme ihmisiä täällä";
 "talk-page-new-reply-body-accessibility-label" = "Kirjoita vastaus";
 "talk-page-new-reply-body-placeholder-text" = "Kirjoita vastaus";
+"talk-page-new-reply-success-text" = "Vastauksesi julkaistiin onnistuneesti";
 "talk-page-new-subject-placeholder-text" = "Aihe";
 "talk-page-new-subject-textfield-accessibility-label" = "Aihe";
 "talk-page-new-topic-title" = "Uusi keskustelu";

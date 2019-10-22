@@ -8,6 +8,7 @@
 // Author: Dschultz
 // Author: Elisardojm
 // Author: Fitoschido
+// Author: Hasley
 // Author: Indiralena
 // Author: Irus
 // Author: JO777
@@ -454,6 +455,7 @@
 "languages-wikipedia" = "Idiomas de Wikipedia";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "El contenido está disponible bajo la licencia $1, salvo que se indique lo contrario.";
+"link-loading-title" = "Cargando página…";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sin acceder";
 "logged-out-log-back-in-button-title" = "Volver a acceder a tu cuenta";
 "logged-out-subtitle" = "Hubo un problema al autenticar tu cuenta. Para poder sincronizar tus listas de lectura y editar bajo tu nombre de usuario, por favor, vuelve a acceder.";
