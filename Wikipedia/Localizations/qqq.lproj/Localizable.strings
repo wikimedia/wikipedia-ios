@@ -483,7 +483,6 @@
 "page-history-revision-size-diff-subtraction" = "Accessibility label text telling the user how many bytes were removed in a revision";
 "page-history-revisions-comparison-warning" = "Text telling the user how many revisions can be selected for comparison";
 "page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with they year when the first edit was made.";
-"page-history-title" = "Header text for Page History interface. {{Identical|Article history}}";
 "page-history-user-edits" = "Text for view that shows many edits were made by logged-in users";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}";
 "page-last-edited" = "Relative days since an article was last edited. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
