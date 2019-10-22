@@ -276,7 +276,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     @objc private func showDiff(_ sender: UIBarButtonItem) {
-
+        guard let firstIndexPath = indexPathsSelectedForComparison[0], let secondIndexPath = indexPathsSelectedForComparison[1] else {
+            return
+        }
+        let firstRevision = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
+        let secondRevision = pageHistorySections[secondIndexPath.section].items[secondIndexPath.item]
     }
 
     override func apply(theme: Theme) {
