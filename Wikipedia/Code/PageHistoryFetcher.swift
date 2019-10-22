@@ -124,14 +124,12 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     }
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
-        guard let project = pageURL.wmf_site?.host else {
-            return nil
-        }
-        var pathComponents = ["core", "v0.1", "page"]
-        pathComponents.append(pageTitle)
+        // TODO: Get project from pageURL
+        var pathComponents = ["v1", "page"]
+        pathComponents.append(pageTitle.wmf_denormalizedPageTitle())
         pathComponents.append(contentsOf: ["history", "counts"])
         pathComponents.append(editCountType.rawValue)
-        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents)
+        let components = configuration.mediaWikiRestAPIURLForHost("en.wikipedia.beta.wmflabs.org", appending: pathComponents)
         return components.url
     }
 
@@ -144,7 +142,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             let group = DispatchGroup()
             var editCountsGroupedByType = EditCountsGroupedByType()
             for editCountType in editCountTypes {
-                guard let url = self.editCountsURL(for: editCountType, pageTitle: "Dog", pageURL: pageURL) else {
+                guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL) else {
                     continue
                 }
                 group.enter()
