@@ -67,10 +67,12 @@ private extension DiffListChangeCell {
     }
     
     func addTextLabels(to textStackView: UIStackView, newViewModel: DiffListChangeViewModel) {
-        for _ in newViewModel.items {
+        for item in newViewModel.items {
             let label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
+            label.backgroundColor = item.backgroundColor
+            label.textAlignment = item.textAlignment
             textStackView.addArrangedSubview(label)
         }
     }

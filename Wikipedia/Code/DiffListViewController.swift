@@ -157,23 +157,23 @@ class DiffListViewController: ViewController {
         }
     }
     
-        func backgroundUpdateListViewModels(listViewModel: [DiffListGroupViewModel], updateType: DiffListViewController.ListUpdateType, completion: @escaping () -> Void) {
-    
-            let group = DispatchGroup()
-    
-            let chunked = listViewModel.chunked(into: 10)
-    
-            for chunk in chunked {
-                chunkedHeightCalculationsConcurrentQueue.async(group: group) {
-                    
-                    self.updateListViewModels(listViewModel: chunk, updateType: updateType)
-                }
-            }
-    
-            group.notify(queue: layoutSubviewsHeightCalculationsSerialQueue) {
-                completion()
+    func backgroundUpdateListViewModels(listViewModel: [DiffListGroupViewModel], updateType: DiffListViewController.ListUpdateType, completion: @escaping () -> Void) {
+
+        let group = DispatchGroup()
+
+        let chunked = listViewModel.chunked(into: 10)
+
+        for chunk in chunked {
+            chunkedHeightCalculationsConcurrentQueue.async(group: group) {
+                
+                self.updateListViewModels(listViewModel: chunk, updateType: updateType)
             }
         }
+
+        group.notify(queue: layoutSubviewsHeightCalculationsSerialQueue) {
+            completion()
+        }
+    }
     
     func applyListViewModelChanges(updateType: DiffListViewController.ListUpdateType) {
         switch updateType {

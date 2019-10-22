@@ -207,11 +207,11 @@
 		6782DBCF2343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBCC2343FDF2003FA21B /* DiffListUneditedCell.swift */; };
 		6782DBD02343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBCC2343FDF2003FA21B /* DiffListUneditedCell.swift */; };
 		6782DBD12343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBCC2343FDF2003FA21B /* DiffListUneditedCell.swift */; };
-		6782DBD32343FE03003FA21B /* DiffListViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListViewModels.swift */; };
-		6782DBD42343FE03003FA21B /* DiffListViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListViewModels.swift */; };
-		6782DBD52343FE03003FA21B /* DiffListViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListViewModels.swift */; };
-		6782DBD62343FE03003FA21B /* DiffListViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListViewModels.swift */; };
-		6782DBD72343FE03003FA21B /* DiffListViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListViewModels.swift */; };
+		6782DBD32343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */; };
+		6782DBD42343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */; };
+		6782DBD52343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */; };
+		6782DBD62343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */; };
+		6782DBD72343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */; };
 		6782DBD92344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD82344EC86003FA21B /* DiffHeaderViewModels.swift */; };
 		6782DBDA2344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD82344EC86003FA21B /* DiffHeaderViewModels.swift */; };
 		6782DBDB2344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBD82344EC86003FA21B /* DiffHeaderViewModels.swift */; };
@@ -284,6 +284,31 @@
 		6789FA3022E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA3122E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA3222E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
+		678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
+		678D79E6235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
+		678D79E7235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
+		678D79E8235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
+		678D79E9235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
+		678D79EA235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
+		678D79EB235E5959006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
+		678D79EC235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
+		678D79ED235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
+		678D79EE235E595B006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
+		678D79F0235E5979006161FF /* DiffListChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */; };
+		678D79F1235E5979006161FF /* DiffListChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */; };
+		678D79F2235E5979006161FF /* DiffListChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */; };
+		678D79F3235E5979006161FF /* DiffListChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */; };
+		678D79F4235E5979006161FF /* DiffListChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */; };
+		678D79F6235E599B006161FF /* DiffListContextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79F5235E599B006161FF /* DiffListContextViewModel.swift */; };
+		678D79F7235E599B006161FF /* DiffListContextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79F5235E599B006161FF /* DiffListContextViewModel.swift */; };
+		678D79F8235E599B006161FF /* DiffListContextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79F5235E599B006161FF /* DiffListContextViewModel.swift */; };
+		678D79F9235E599B006161FF /* DiffListContextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79F5235E599B006161FF /* DiffListContextViewModel.swift */; };
+		678D79FA235E599B006161FF /* DiffListContextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79F5235E599B006161FF /* DiffListContextViewModel.swift */; };
+		678D79FC235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
+		678D79FD235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
+		678D79FE235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
+		678D79FF235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
+		678D7A00235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
 		6790AAF322D6861500D442D6 /* TalkPageNetworkDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0AB226A6DCA00537BC9 /* TalkPageNetworkDataTests.swift */; };
 		6790AAF422D6861500D442D6 /* TalkPageFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0AD226A74C200537BC9 /* TalkPageFetcherTests.swift */; };
 		6790AAF522D6861500D442D6 /* TalkPageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734114F22700A95005B31DA /* TalkPageControllerTests.swift */; };
@@ -3887,7 +3912,7 @@
 		6782DBC02343FDCA003FA21B /* DiffListChangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeCell.swift; sourceTree = "<group>"; };
 		6782DBC62343FDE4003FA21B /* DiffListContextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextCell.swift; sourceTree = "<group>"; };
 		6782DBCC2343FDF2003FA21B /* DiffListUneditedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedCell.swift; sourceTree = "<group>"; };
-		6782DBD22343FE03003FA21B /* DiffListViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListViewModels.swift; sourceTree = "<group>"; };
+		6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListGroupViewModel.swift; sourceTree = "<group>"; };
 		6782DBD82344EC86003FA21B /* DiffHeaderViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderViewModels.swift; sourceTree = "<group>"; };
 		6782DBE02345053C003FA21B /* DiffHeaderExtendedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffHeaderExtendedView.xib; sourceTree = "<group>"; };
 		6782DBE12345054C003FA21B /* DiffHeaderExtendedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderExtendedView.swift; sourceTree = "<group>"; };
@@ -3900,6 +3925,11 @@
 		6782DC102346920B003FA21B /* DiffContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffContainerViewModel.swift; sourceTree = "<group>"; };
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
 		6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPage+Extensions.swift"; sourceTree = "<group>"; };
+		678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeItemViewModel.swift; sourceTree = "<group>"; };
+		678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListItemHighlightRange.swift; sourceTree = "<group>"; };
+		678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeViewModel.swift; sourceTree = "<group>"; };
+		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
+		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
@@ -6570,7 +6600,7 @@
 		6782DBDF2344F154003FA21B /* List */ = {
 			isa = PBXGroup;
 			children = (
-				6782DBD22343FE03003FA21B /* DiffListViewModels.swift */,
+				678D79E2235E58CF006161FF /* DiffListViewModels */,
 				6782DBC02343FDCA003FA21B /* DiffListChangeCell.swift */,
 				6782DC162347EE59003FA21B /* DiffListChangeCell.xib */,
 				6782DBC62343FDE4003FA21B /* DiffListContextCell.swift */,
@@ -6580,6 +6610,19 @@
 				6782DBBA2343B861003FA21B /* DiffListViewController.swift */,
 			);
 			name = List;
+			sourceTree = "<group>";
+		};
+		678D79E2235E58CF006161FF /* DiffListViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */,
+				678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */,
+				678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */,
+				678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */,
+				678D79F5235E599B006161FF /* DiffListContextViewModel.swift */,
+				678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */,
+			);
+			name = DiffListViewModels;
 			sourceTree = "<group>";
 		};
 		6798332722C3F2700073CE6F /* UITextView */ = {
@@ -10993,6 +11036,7 @@
 				830D71C31F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				7A7AC84621B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
+				678D79FC235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				B01E54AF206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				B0CD9DDC1F70997300051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				83987AD020E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
@@ -11187,7 +11231,8 @@
 				832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				67F73E712267B8020079DEEF /* TalkPageTopicListViewController.swift in Sources */,
 				7A19C64820DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
-				6782DBD32343FE03003FA21B /* DiffListViewModels.swift in Sources */,
+				678D79E6235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */,
+				6782DBD32343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67059DB52260D034009811AA /* SchemeHandler.swift in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
@@ -11206,6 +11251,7 @@
 				7A8422532268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				B0BCF0B9202537D800986F72 /* Panels.swift in Sources */,
 				D8E27BA61F82B38500F9D2B3 /* RMessage.m in Sources */,
+				678D79F0235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
 				B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				6782DBC72343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
@@ -11222,6 +11268,7 @@
 				B0E803761C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				7ADF498721B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
+				678D79F6235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
@@ -11307,6 +11354,7 @@
 				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
+				678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
 				0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
@@ -11479,12 +11527,13 @@
 				D80ED2AA1EE57F4800CE8C50 /* WMFSearchFetcher.m in Sources */,
 				D80ED2AC1EE57F4800CE8C50 /* LoggingDefaults.swift in Sources */,
 				67DB112B2261820600F789B0 /* SchemeHandler+ArticleSectionHandler.swift in Sources */,
-				6782DBD72343FE03003FA21B /* DiffListViewModels.swift in Sources */,
+				6782DBD72343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690922399D1B008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				7A9A612221124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				67E069152239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				D80ED2B01EE57F4800CE8C50 /* MWKTitleLanguageController.m in Sources */,
 				D80ED2B11EE57F4800CE8C50 /* UIView+WMFSnapshotting.m in Sources */,
+				678D79FA235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				7A60E9DA215D511900F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D80ED2B21EE57F4800CE8C50 /* ColumnarCollectionViewController.swift in Sources */,
 				D80ED2B41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
@@ -11616,6 +11665,7 @@
 				8382F8D720D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				7A82899021B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07E226A57DF00537BC9 /* AccountViewController.swift in Sources */,
+				678D79EA235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				7A32078C21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				8304D7C41F60131900A0CDD6 /* WMFWebView.m in Sources */,
@@ -11732,6 +11782,7 @@
 				41FCAA3A21C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				7A1C4993227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				D80ED3751EE57F4800CE8C50 /* WMFFirstRandomViewController.m in Sources */,
+				678D79EE235E595B006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				7A6ED51520ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				6734EE7A22976AEE00F00B05 /* ActionButton.swift in Sources */,
 				D80ED3771EE57F4800CE8C50 /* ArticlePopoverViewController.swift in Sources */,
@@ -11802,6 +11853,7 @@
 				8320331F22B9052A004A9EDA /* NavigationStateController.swift in Sources */,
 				D80ED3A01EE57F4800CE8C50 /* MapUtilities.swift in Sources */,
 				D80ED3A21EE57F4800CE8C50 /* WKWebView+ElementLocation.m in Sources */,
+				678D7A00235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				D80ED3A31EE57F4800CE8C50 /* WMFImageInfoController.m in Sources */,
 				D80ED3A41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBD21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
@@ -11821,6 +11873,7 @@
 				67E8B081226A57E500537BC9 /* TalkPageTopicCell.swift in Sources */,
 				D80ED3AE1EE57F4800CE8C50 /* PageHistoryFetcher.swift in Sources */,
 				D80ED3AF1EE57F4800CE8C50 /* WikiTextSectionFetcher.m in Sources */,
+				678D79F4235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 				D80ED3B01EE57F4800CE8C50 /* CreateAccountFunnel.m in Sources */,
 				D80ED3B21EE57F4800CE8C50 /* WMFShareFunnel.m in Sources */,
 			);
@@ -12188,6 +12241,7 @@
 				B01E54B2206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				83987AD320E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */,
+				678D79FF235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				7A420DB722A029780005689B /* EditFunnel.swift in Sources */,
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
@@ -12196,6 +12250,7 @@
 				8382F8D620D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				B07F823E203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				B0C7A0811F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
+				678D79ED235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */,
 				B0432347210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				7A20AE0B2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
@@ -12382,7 +12437,7 @@
 				7ABAD6B720338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				7A19C64B20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				832289DE1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
-				6782DBD62343FE03003FA21B /* DiffListViewModels.swift in Sources */,
+				6782DBD62343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67059DB82260D61A009811AA /* SchemeHandler.swift in Sources */,
 				D8A42AEF1E815A9C00D8E281 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
 				7A9A612121124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
@@ -12401,6 +12456,7 @@
 				B0370E191FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				D8A42AFD1E815A9C00D8E281 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8A42AFE1E815A9C00D8E281 /* WMFRandomArticleViewController.m in Sources */,
+				678D79F3235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 				B0BCF0BC202537D800986F72 /* Panels.swift in Sources */,
 				D8A42B001E815A9C00D8E281 /* WMFArticleViewController.m in Sources */,
 				6782DBCA2343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
@@ -12417,12 +12473,14 @@
 				D8A42B0D1E815A9C00D8E281 /* WMFSettingsMenuItem.m in Sources */,
 				B0CD9DEE1F70997500051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
+				678D79F9235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				D8A42B101E815A9C00D8E281 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7ADF498A21B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				67DB110622612C3400F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */,
 				D8A42B161E815A9C00D8E281 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
+				678D79E9235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				6734116722739CCC005B31DA /* TalkPageLocalHandler.swift in Sources */,
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
@@ -12682,12 +12740,13 @@
 				D8CE25181E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D8CE25191E698E2400DAE2E0 /* WMFSearchFetcher.m in Sources */,
 				67DB11192261820400F789B0 /* SchemeHandler+ArticleSectionHandler.swift in Sources */,
-				6782DBD42343FE03003FA21B /* DiffListViewModels.swift in Sources */,
+				6782DBD42343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690C22399D1D008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				7A9A611F21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				67E069132239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
 				D8CE25201E698E2400DAE2E0 /* MWKTitleLanguageController.m in Sources */,
+				678D79F7235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
@@ -12819,6 +12878,7 @@
 				B0CD9DE01F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				7A82898D21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */,
+				678D79E7235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				7A32078921E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
@@ -12935,6 +12995,7 @@
 				41FCAA3721C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				7A1C4990227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				D8CE25D81E698E2400DAE2E0 /* WMFRandomDiceButton.m in Sources */,
+				678D79EB235E5959006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				D8CE25DE1E698E2400DAE2E0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				6734EE7722976AED00F00B05 /* ActionButton.swift in Sources */,
 				7A6ED51820ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
@@ -13005,6 +13066,7 @@
 				8320331C22B90528004A9EDA /* NavigationStateController.swift in Sources */,
 				D8CE260C1E698E2400DAE2E0 /* MapUtilities.swift in Sources */,
 				D8CE260E1E698E2400DAE2E0 /* WKWebView+ElementLocation.m in Sources */,
+				678D79FD235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				D8CE260F1E698E2400DAE2E0 /* WMFImageInfoController.m in Sources */,
 				D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
@@ -13024,6 +13086,7 @@
 				67E8B07F226A57E400537BC9 /* TalkPageTopicCell.swift in Sources */,
 				D8CE261A1E698E2400DAE2E0 /* WikiTextSectionFetcher.m in Sources */,
 				B025D8CA1EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
+				678D79F1235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 				D8CE261B1E698E2400DAE2E0 /* CreateAccountFunnel.m in Sources */,
 				D8CE261D1E698E2400DAE2E0 /* WMFShareFunnel.m in Sources */,
 			);
@@ -13112,12 +13175,13 @@
 				7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				67DB111F2261820500F789B0 /* SchemeHandler+ArticleSectionHandler.swift in Sources */,
-				6782DBD52343FE03003FA21B /* DiffListViewModels.swift in Sources */,
+				6782DBD52343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690B22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				D8EC3E0B1E9BDA35006712EB /* SavedArticlesFetcher.m in Sources */,
 				67E069122239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				D8EC3E0C1E9BDA35006712EB /* WMFSettingsTableViewCell.m in Sources */,
 				D8EC3E0D1E9BDA35006712EB /* UIView+WMFSubviews.swift in Sources */,
+				678D79F8235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				D8EC3E0F1E9BDA35006712EB /* WMFReferencePopoverMessageViewController.m in Sources */,
 				7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8EC3E101E9BDA35006712EB /* WMFSearchFetcher.m in Sources */,
@@ -13249,6 +13313,7 @@
 				D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */,
 				7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */,
+				678D79E8235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				7A32078A21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -13365,6 +13430,7 @@
 				41FCAA3821C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				7A1C4991227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				B031032F1F677BED00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
+				678D79EC235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				D858C7B8210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				6734EE7822976AED00F00B05 /* ActionButton.swift in Sources */,
 				7A6ED51420ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
@@ -13435,6 +13501,7 @@
 				8320331D22B90529004A9EDA /* NavigationStateController.swift in Sources */,
 				D8EC3F0B1E9BDA35006712EB /* MapUtilities.swift in Sources */,
 				D8EC3F0D1E9BDA35006712EB /* WKWebView+ElementLocation.m in Sources */,
+				678D79FE235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				D8EC3F0E1E9BDA35006712EB /* WMFImageInfoController.m in Sources */,
 				D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBB21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
@@ -13454,6 +13521,7 @@
 				67E8B083226A57E600537BC9 /* TalkPageTopicCell.swift in Sources */,
 				D8EC3F191E9BDA35006712EB /* WikiTextSectionFetcher.m in Sources */,
 				B025D8CB1EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
+				678D79F2235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 				D8EC3F1A1E9BDA35006712EB /* CreateAccountFunnel.m in Sources */,
 				D8EC3F1C1E9BDA35006712EB /* WMFShareFunnel.m in Sources */,
 			);

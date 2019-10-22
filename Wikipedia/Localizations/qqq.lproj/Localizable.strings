@@ -161,12 +161,14 @@
 "diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
 "diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.";
 "diff-context-lines-expanded-button-title" = "Expand button title in diff compare context section when section is in expanded state.";
-"diff-context-lines-format" = "Label in diff to indicate how many lines a context section encompases. $1 is replaced by the starting line number and $2 is replaced by the ending line number";
+"diff-multi-line-format" = "Label in diff to indicate how many lines a context section encompases. This format is for multiple context lines. $1 is replaced by the starting line number and $2 is replaced by the ending line number.";
+"diff-paragraph-moved" = "Label in diff to indicate that a paragraph has been moved. This label is in the location of where the paragraph was moved from.";
 "diff-single-header-editor-number-edits-format" = "Label to show the number of total edits made by the editor when viewing a single revision. $1 is replaced with the editor's number of edits.";
 "diff-single-header-editor-title" = "Title label in header editor view when viewing a single revision.";
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
 "diff-single-header-subtitle-bytes-removed" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were removed in this revision.";
 "diff-single-header-summary-heading" = "Heading label in header summary view when viewing a single revision.";
+"diff-single-line-format" = "Label in diff to indicate how many lines a context section encompases. This format is for a single context line. $1 is replaced by the context line number.";
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
