@@ -372,13 +372,18 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.author = cachedCellContent.author
             cell.sizeDiff = cachedCellContent.sizeDiff
             cell.comment = cachedCellContent.comment
-            cell.isSelected = cachedCellContent.selectionIndex != nil
-            if cell.isSelected {
-                cell.selectionThemeModel = cachedCellContent.selectionThemeModel
+            if state == .editing {
+                cell.isSelected = cachedCellContent.selectionIndex != nil
+                if cell.isSelected {
+                    cell.selectionThemeModel = cachedCellContent.selectionThemeModel
+                } else {
+                    cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
+                }
+                cell.selectionIndex = cachedCellContent.selectionIndex
             } else {
-                cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
+                cell.selectionIndex = nil
+                cell.selectionThemeModel = nil
             }
-            cell.selectionIndex = cachedCellContent.selectionIndex
         } else {
             if let date = item.revisionDate {
                 if indexPath.section == 0, (date as NSDate).wmf_isTodayUTC() {
