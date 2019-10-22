@@ -38,17 +38,17 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cgQ-ly-f1a">
-                                <rect key="frame" x="10" y="50.5" width="292" height="198.5"/>
+                                <rect key="frame" x="0.0" y="40.5" width="312" height="218.5"/>
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="cgQ-ly-f1a" firstAttribute="leading" secondItem="OLE-pI-J1X" secondAttribute="leading" constant="10" id="7gx-x2-Z89"/>
+                            <constraint firstItem="cgQ-ly-f1a" firstAttribute="leading" secondItem="OLE-pI-J1X" secondAttribute="leading" id="7gx-x2-Z89"/>
                             <constraint firstItem="5Fk-fp-646" firstAttribute="top" secondItem="OLE-pI-J1X" secondAttribute="top" id="FnU-4Z-h8R"/>
-                            <constraint firstAttribute="trailing" secondItem="cgQ-ly-f1a" secondAttribute="trailing" constant="10" id="UrC-c3-Hgc"/>
+                            <constraint firstAttribute="trailing" secondItem="cgQ-ly-f1a" secondAttribute="trailing" id="UrC-c3-Hgc"/>
                             <constraint firstItem="5Fk-fp-646" firstAttribute="leading" secondItem="OLE-pI-J1X" secondAttribute="leading" id="c1o-S6-cOC"/>
-                            <constraint firstItem="cgQ-ly-f1a" firstAttribute="top" secondItem="5Fk-fp-646" secondAttribute="bottom" constant="10" id="cBT-nc-DO9"/>
+                            <constraint firstItem="cgQ-ly-f1a" firstAttribute="top" secondItem="5Fk-fp-646" secondAttribute="bottom" id="cBT-nc-DO9"/>
                             <constraint firstAttribute="trailing" secondItem="5Fk-fp-646" secondAttribute="trailing" id="ttg-fx-Qyr"/>
-                            <constraint firstAttribute="bottom" secondItem="cgQ-ly-f1a" secondAttribute="bottom" constant="10" id="vFf-dW-RhI"/>
+                            <constraint firstAttribute="bottom" secondItem="cgQ-ly-f1a" secondAttribute="bottom" id="vFf-dW-RhI"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -59,6 +59,7 @@
                     <constraint firstItem="OLE-pI-J1X" firstAttribute="leading" secondItem="C9r-Gi-A19" secondAttribute="leading" constant="15" id="oC5-aU-G5R"/>
                 </constraints>
             </collectionViewCellContentView>
+            <gestureRecognizers/>
             <size key="customSize" width="342" height="279"/>
             <connections>
                 <outlet property="headingBottomConstraint" destination="N2y-lE-hNZ" id="Jdm-0w-WQQ"/>

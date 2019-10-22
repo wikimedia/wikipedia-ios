@@ -1,6 +1,10 @@
 
 import UIKit
 
+protocol DiffListChangeCellDelegate: class {
+    func didTapItem(item: DiffListChangeItemViewModel)
+}
+
 class DiffListChangeCell: UICollectionViewCell {
     static let reuseIdentifier = "DiffListChangeCell"
     
@@ -24,7 +28,17 @@ class DiffListChangeCell: UICollectionViewCell {
     @IBOutlet var textStackView: UIStackView!
     @IBOutlet var innerView: UIView!
     
+    private var tapGestureRecognizer: UITapGestureRecognizer?
+    
     private(set) var viewModel: DiffListChangeViewModel?
+    
+    weak var delegate: DiffListChangeCellDelegate?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedLabelWithSender(_:)))
+    }
     
     func update(_ viewModel: DiffListChangeViewModel) {
         
@@ -56,6 +70,15 @@ class DiffListChangeCell: UICollectionViewCell {
         
         apply(theme: viewModel.theme)
     }
+    
+    @objc func tappedLabelWithSender(_ sender: UITapGestureRecognizer) {
+        if let sender = sender.view as? UILabel,
+            let item = viewModel?.items[safeIndex: sender.tag],
+            item.diffItemType == .moveSource || item.diffItemType == .moveDestination {
+            
+            delegate?.didTapItem(item: item)
+        }
+    }
 }
 
 private extension DiffListChangeCell {
@@ -67,12 +90,19 @@ private extension DiffListChangeCell {
     }
     
     func addTextLabels(to textStackView: UIStackView, newViewModel: DiffListChangeViewModel) {
-        for item in newViewModel.items {
+        for (index, item) in newViewModel.items.enumerated() {
             let label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
             label.backgroundColor = item.backgroundColor
             label.textAlignment = item.textAlignment
+            label.isUserInteractionEnabled = true
+            label.tag = index
+            
+            if let tapGestureRecognizer = tapGestureRecognizer {
+                label.addGestureRecognizer(tapGestureRecognizer)
+            }
+            
             textStackView.addArrangedSubview(label)
         }
     }

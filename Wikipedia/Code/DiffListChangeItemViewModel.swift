@@ -9,7 +9,7 @@ final class DiffListChangeItemViewModel {
     let textAlignment: NSTextAlignment
     let backgroundColor: UIColor
     private let groupedMoveIndexes: [String: Int]
-    private let moveInfo: DiffMoveInfo?
+    let moveInfo: DiffMoveInfo?
 
     var theme: Theme {
         didSet {
@@ -83,6 +83,7 @@ final class DiffListChangeItemViewModel {
         if let moveInfo = moveInfo,
             let moveIndex = groupedMoveIndexes[moveInfo.id] {
             
+            let moveIndexString = "  \(moveIndex + 1)  "
             let imageAttachment = NSTextAttachment()
             let imageName = moveInfo.linkDirection == .down ? "moveArrowDown" : "moveArrowUp"
             imageAttachment.image = UIImage(named: imageName)
@@ -91,7 +92,15 @@ final class DiffListChangeItemViewModel {
             if diffItemType == .moveSource {
                 modifiedText = WMFLocalizedString("diff-paragraph-moved", value:"Paragraph moved", comment:"Label in diff to indicate that a paragraph has been moved. This label is in the location of where the paragraph was moved from.")
             } else if diffItemType == .moveDestination {
-                //maybe todo: offset highlight ranges since we will be inserting an arrow in front?
+                
+                //todo: offset highlighted ranges since we added move index & arrow in the front
+                let originalHighlightedRanges = modifiedHighlightedRanges
+                modifiedHighlightedRanges.removeAll(keepingCapacity: true)
+                for highlightedRange in originalHighlightedRanges {
+                    let amountToOffset = imageString.string.count + moveIndexString.count
+                    let newRange = DiffListItemHighlightRange(start: highlightedRange.start + amountToOffset, length: highlightedRange.length, type: highlightedRange.type)
+                    modifiedHighlightedRanges.append(newRange)
+                }
             }
             
             let attributedString = NSAttributedString(string: modifiedText, attributes: attributes)
@@ -101,7 +110,7 @@ final class DiffListChangeItemViewModel {
                 //insert move index number
                 let indexAttributes = [NSAttributedString.Key.font: UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection),
                                        NSAttributedString.Key.foregroundColor: theme.colors.warning]
-                let indexAttributedString = NSAttributedString(string: "  \(moveIndex + 1)  "  , attributes: indexAttributes)
+                let indexAttributedString = NSAttributedString(string: moveIndexString, attributes: indexAttributes)
                 maybeMutableAttributedString.insert(indexAttributedString, at: 0)
                 
                 //insert move arrow

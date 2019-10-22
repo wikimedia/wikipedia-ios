@@ -216,6 +216,7 @@ extension DiffListViewController: UICollectionViewDataSource {
         if let viewModel = viewModel as? DiffListChangeViewModel,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListChangeCell.reuseIdentifier, for: indexPath) as? DiffListChangeCell {
             cell.update(viewModel)
+            cell.delegate = self
             return cell
         } else if let viewModel = viewModel as? DiffListContextViewModel,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListContextCell.reuseIdentifier, for: indexPath) as? DiffListContextCell {
@@ -270,6 +271,33 @@ extension DiffListViewController: DiffListContextCellDelegate {
         if let contextViewModel = dataSource[safeIndex: indexPath.item] as? DiffListContextViewModel,
         let cell = collectionView.cellForItem(at: indexPath) as? DiffListContextCell {
             cell.update(contextViewModel, indexPath: indexPath)
+        }
+    }
+}
+
+extension DiffListViewController: DiffListChangeCellDelegate {
+    func didTapItem(item: DiffListChangeItemViewModel) {
+        
+        guard let tappedMoveInfo = item.moveInfo else {
+            return
+        }
+        
+        let tappedLinkId = tappedMoveInfo.linkId
+        
+        var indexToScrollTo: Int?
+        for (index, viewModel) in dataSource.enumerated() {
+            if let changeViewModel = viewModel as? DiffListChangeViewModel {
+                for item in changeViewModel.items {
+                    if let moveInfo = item.moveInfo,
+                        moveInfo.id == tappedLinkId {
+                        indexToScrollTo = index
+                    }
+                }
+            }
+        }
+        
+        if let indexToScrollTo = indexToScrollTo {
+            collectionView.scrollToItem(at: IndexPath(item: indexToScrollTo, section: 0), at: .centeredVertically, animated: true)
         }
     }
 }
