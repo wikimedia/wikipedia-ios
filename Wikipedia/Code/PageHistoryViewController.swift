@@ -219,7 +219,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
-    private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(showDiff(_:)))
+    private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(tappedCompare(_:)))
     private lazy var firstComparisonSelectionButton: AlignedImageButton = {
         let button = makeComparisonSelectionButton()
         button.tag = 0
@@ -275,12 +275,21 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         secondComparisonSelectionButton.backgroundColor = theme.colors.paperBackground
     }
 
-    @objc private func showDiff(_ sender: UIBarButtonItem) {
+    @objc private func tappedCompare(_ sender: UIBarButtonItem) {
         guard let firstIndexPath = indexPathsSelectedForComparison[0], let secondIndexPath = indexPathsSelectedForComparison[1] else {
             return
         }
-        let firstRevision = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
-        let secondRevision = pageHistorySections[secondIndexPath.section].items[secondIndexPath.item]
+        let fromRevision = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
+        let toRevision = pageHistorySections[secondIndexPath.section].items[secondIndexPath.item]
+        
+        //tonitodo: remove intermediate counts here and fetch from diff screen
+        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle, numberOfIntermediateRevisions: 5, numberOfIntermediateUsers: 3))
+    }
+    
+    private func showDiff(from: WMFPageHistoryRevision, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
+        
+        let diffContainerVC = DiffContainerViewController(type: type, fromModel: from, toModel: to, theme: theme)
+        wmf_push(diffContainerVC, animated: true)
     }
 
     override func apply(theme: Theme) {
@@ -495,7 +504,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var postedMaxRevisionsSelectedAccessibilityNotification = false
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if state == .editing {
+        
+        switch state {
+        case .editing:
             if maxNumberOfRevisionsSelected {
                 pageHistoryHintController?.hide(false, presenter: self, theme: theme)
                 if !postedMaxRevisionsSelectedAccessibilityNotification {
@@ -506,9 +517,37 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             } else {
                 return true
             }
+        case .idle:
+            
+            return true
         }
-        // TODO: Allow selection to show individual diff
-        return false
+    }
+    
+    private func pushToSingleRevisionDiff(indexPath: IndexPath) {
+        
+        guard let section = pageHistorySections[safeIndex: indexPath.section] else {
+            return
+        }
+        
+        if let toRevision = section.items[safeIndex: indexPath.item] {
+
+            var sectionOffset = 0
+            var fromItemIndex = indexPath.item + 1
+            //if last revision in section, go to next section for selecting second
+            let isLastInSection = indexPath.item == section.items.count - 1
+            
+            if isLastInSection {
+                sectionOffset = 1
+                fromItemIndex = 0
+            }
+            
+            guard let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex] else {
+                //maybe they selected the first item in history?
+                return
+            }
+            
+            showDiff(from: fromRevision, to: toRevision, type: .single(byteDifference: toRevision.revisionSize))
+        }
     }
 
     var openSelectionIndex = 0
@@ -516,6 +555,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var indexPathsSelectedForComparison = [Int: IndexPath]()
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if state == .editing {
             selectedCellsCount += 1
             defer {
@@ -562,7 +602,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
             openSelectionIndex += 1
         } else {
-            // TODO: Push new vc
+            let cell = collectionView.cellForItem(at: indexPath)
+            cell?.isSelected = false
+            pushToSingleRevisionDiff(indexPath: indexPath)
         }
     }
 

@@ -18,23 +18,7 @@ class DiffContainerViewController: ViewController {
     
     private let type: DiffContainerViewModel.DiffType
     
-    //TONITODO: delete
-    @objc static func stubCompareContainerViewController(theme: Theme) -> DiffContainerViewController {
-        let revisionModel1 = StubRevisionModel(revisionId: 123, summary: "Summary 1", username: "fancypants", timestamp: Date(timeInterval: -(60*60*24*3), since: Date()))
-        let revisionModel2 = StubRevisionModel(revisionId: 234, summary: "Summary 2", username: "funtimez2019", timestamp: Date(timeInterval: -(60*60*24*2), since: Date()))
-        let stubCompareVC = DiffContainerViewController(type: .compare(articleTitle: "Dog", numberOfIntermediateRevisions: 1, numberOfIntermediateUsers: 1), fromModel: revisionModel1, toModel: revisionModel2, theme: theme, diffController: DiffController())
-        return stubCompareVC
-    }
-    
-    @objc static func stubSingleContainerViewController(theme: Theme) -> DiffContainerViewController {
-        let revisionModel1 = StubRevisionModel(revisionId: 123, summary: "Summary 1", username: "fancypants", timestamp: Date(timeInterval: -(60*60*24*3), since: Date()))
-        let revisionModel2 = StubRevisionModel(revisionId: 234, summary: "Summary 2", username: "funtimez2019", timestamp: Date(timeInterval: -(60*60*24*2), since: Date()))
-        let stubSingleVC = DiffContainerViewController(type: .single(byteDifference: -6), fromModel: revisionModel1, toModel: revisionModel2, theme: theme, diffController: DiffController())
-        return stubSingleVC
-    }
-    
-    init(type: DiffContainerViewModel.DiffType, fromModel: StubRevisionModel, toModel: StubRevisionModel, theme: Theme, diffController: DiffController) {
-        
+    init(type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController = DiffController()) {
         self.type = type
         self.diffController = diffController
         

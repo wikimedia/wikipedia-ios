@@ -21,7 +21,7 @@ final class DiffHeaderViewModel: Themeable {
         }
     }
     
-    init(diffType: DiffContainerViewModel.DiffType, fromModel: StubRevisionModel, toModel: StubRevisionModel, theme: Theme) {
+    init(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, theme: Theme) {
         
         self.diffType = diffType
         
@@ -35,8 +35,13 @@ final class DiffHeaderViewModel: Themeable {
             
             formatString = "HH:mm zzz, dd MMM yyyy" //tonitodo: "UTC" instead of "GMT" in result?
             dateFormatter.dateFormat = formatString
-            let heading = (toModel.timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDateToNow()
-            let title = dateFormatter.string(from: toModel.timestamp)
+            
+            var heading: String?
+            var title: String?
+            if let toDate = toModel.revisionDate as NSDate? {
+                heading = toDate.wmf_localizedRelativeDateStringFromLocalDateToNow()
+                title = dateFormatter.string(from: toDate as Date)
+            }
             
             let subtitle: String
             if byteDifference < 0 {
@@ -47,9 +52,9 @@ final class DiffHeaderViewModel: Themeable {
             
             titleViewModel = DiffHeaderTitleViewModel(heading: heading, title: title, subtitle: subtitle, subtitleTextStyle: DynamicTextStyle.boldSubheadline, subtitleColor: nil)
             
-            let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), tags: [], summary: toModel.summary) //TONITODO: TAGS
+            let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), tags: [], summary: toModel.parsedComment) //TONITODO: TAGS
             
-            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.username, state: .loadingNumberOfEdits)
+            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, state: .loadingNumberOfEdits)
             
             self.title = titleViewModel
             self.headerType = .single(editorViewModel: editorViewModel, summaryViewModel: summaryViewModel)
@@ -88,14 +93,14 @@ final class DiffHeaderViewModel: Themeable {
 }
 
 final class DiffHeaderTitleViewModel {
-    let heading: String
-    let title: String
+    let heading: String? //tonitodo: because WMFPageHistoryRevision revisionDate is nullable and that's displayed as a title in single revision view, can we make it not optional. same with title
+    let title: String?
     let subtitle: String
     let subtitleTextStyle: DynamicTextStyle
     var subtitleColor: UIColor?
     
-    init(heading: String, title: String, subtitle: String, subtitleTextStyle: DynamicTextStyle, subtitleColor: UIColor?) {
-        self.heading = heading.localizedUppercase
+    init(heading: String?, title: String?, subtitle: String, subtitleTextStyle: DynamicTextStyle, subtitleColor: UIColor?) {
+        self.heading = heading?.localizedUppercase
         self.title = title
         self.subtitle = subtitle
         self.subtitleTextStyle = subtitleTextStyle
@@ -110,9 +115,9 @@ enum DiffHeaderTag {
 final class DiffHeaderEditSummaryViewModel {
     let heading: String
     let tags: [DiffHeaderTag]
-    let summary: String
+    let summary: String? //tonitodo - because WMFPageHistoryRevision.parsedComment is nullable, can we make that not optional
     
-    init(heading: String, tags: [DiffHeaderTag], summary: String) {
+    init(heading: String, tags: [DiffHeaderTag], summary: String?) {
         self.heading = heading
         self.tags = tags
         self.summary = summary
@@ -127,11 +132,11 @@ final class DiffHeaderEditorViewModel {
     }
     
     let heading: String
-    let username: String
+    let username: String? //tonitodo: because WMFPageHistoryRevision user is nullable, can we make that not nullable
     var state: State
     let numberOfEditsFormat = WMFLocalizedString("diff-single-header-editor-number-edits-format", value:"{{PLURAL:%1$d|%1$d edit|%1$d edits}}", comment:"Label to show the number of total edits made by the editor when viewing a single revision. %1$d is replaced with the editor's number of edits.")
     
-    init(heading: String, username: String, state: State) {
+    init(heading: String, username: String?, state: State) {
         self.heading = heading
         self.username = username
         self.state = state
@@ -142,7 +147,7 @@ final class DiffHeaderCompareViewModel: Themeable {
     let fromModel: DiffHeaderCompareItemViewModel
     let toModel: DiffHeaderCompareItemViewModel
     
-    init(fromModel: StubRevisionModel, toModel: StubRevisionModel, dateFormatter: DateFormatter, theme: Theme) {
+    init(fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme) {
         self.fromModel = DiffHeaderCompareItemViewModel(type: .from, model: fromModel, dateFormatter: dateFormatter, theme: theme)
         self.toModel = DiffHeaderCompareItemViewModel(type: .to, model: toModel, dateFormatter: dateFormatter, theme: theme)
     }
@@ -156,13 +161,13 @@ final class DiffHeaderCompareViewModel: Themeable {
 final class DiffHeaderCompareItemViewModel: Themeable {
     let type: DiffHeaderCompareType
     let heading: String
-    let username: String
+    let username: String? //tonitodo: because WMFPageHistoryRevision.user is nullable, can we make not nullable
     let tags: [DiffHeaderTag]
-    let summary: String
-    let timestampString: String
+    let summary: String? //tonitodo: because WMFPageHistoryRevision.parsedComment is nullable, can we make not nullable
+    let timestampString: String? //tonitodo: because WMFPageHistoryRevision.revisionDate is nullable, can we make not nullable
     var accentColor: UIColor
     
-    init(type: DiffHeaderCompareType, model: StubRevisionModel, dateFormatter: DateFormatter, theme: Theme) {
+    init(type: DiffHeaderCompareType, model: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme) {
         
         self.type = type
         switch type {
@@ -172,10 +177,15 @@ final class DiffHeaderCompareItemViewModel: Themeable {
             heading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "To:", comment: "Heading label in to revision info box when comparing two revisions.")
         }
         
-        self.username = model.username
+        self.username = model.user
         self.tags = [] //TONITODO: tags here
-        self.summary = model.summary
-        self.timestampString = dateFormatter.string(from: model.timestamp)
+        self.summary = model.parsedComment
+        
+        if let date = model.revisionDate {
+            self.timestampString = dateFormatter.string(from: date)
+        } else {
+            self.timestampString = nil
+        }
         
         accentColor = theme.colors.link //compile error without this, overwrite in apply(theme:)
         apply(theme: theme)
