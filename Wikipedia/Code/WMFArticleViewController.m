@@ -2089,11 +2089,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (void)webView:(WKWebView *)webView contextMenuWillPresentForElement:(WKContextMenuElementInfo *)elementInfo API_AVAILABLE(ios(13.0)) {
-}
-
-- (void)webView:(WKWebView *)webView contextMenuDidEndForElement:(WKContextMenuElementInfo *)elementInf API_AVAILABLE(ios(13.0)) {
-}
 #pragma mark - Article link and image peeking via WKUIDelegate
 
 - (BOOL)webView:(WKWebView *)webView shouldPreviewElement:(WKPreviewElementInfo *)elementInfo {
