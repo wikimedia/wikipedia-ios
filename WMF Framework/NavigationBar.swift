@@ -340,6 +340,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc dynamic public var visibleHeight: CGFloat = 0
+    @objc dynamic public var insetTop: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
     public var shadowAlpha: CGFloat {
@@ -523,6 +524,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
+    
+        // HAX: something odd going on with iOS 11...
+        insetTop = backgroundView.frame.origin.y
+        if #available(iOS 12, *) {
+            insetTop = visibleHeight
+        }
     }
     
     

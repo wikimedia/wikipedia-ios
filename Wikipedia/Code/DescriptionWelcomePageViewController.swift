@@ -50,6 +50,9 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         let controller = DescriptionWelcomeContainerViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
         controller.welcomeNavigationDelegate = self
         controller.pageType = type
+        controller.nextButtonAction = { [weak self] sender in
+            self?.skipButtonTapped(sender)
+        }
         return controller
     }
     
@@ -151,7 +154,7 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         }
     }
     
-    @objc @IBAction func skipButtonTapped(_ sender: UIButton) {
+    @objc func skipButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion:completionBlock)
     }
     

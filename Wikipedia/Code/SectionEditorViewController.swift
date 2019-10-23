@@ -631,10 +631,14 @@ extension SectionEditorViewController: FocusNavigationViewDelegate {
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerScrollDelegate {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint) {
-        guard presentedViewController == nil else {
+        guard
+            presentedViewController == nil,
+            newContentOffset.x.isFinite,
+            newContentOffset.y.isFinite
+        else {
             return
         }
-        self.webView.scrollView.wmf_safeSetContentOffset(newContentOffset, animated: true, completion: nil)
+        self.webView.scrollView.setContentOffset(newContentOffset, animated: true)
     }
 }
 
@@ -643,7 +647,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle?.wmf_stringByRemovingHTML(), siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
-        let navigationController = UINavigationController(rootViewController: insertMediaViewController)
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
         navigationController.isNavigationBarHidden = true
         present(navigationController, animated: true)
     }

@@ -121,3 +121,18 @@ span.IPA + small {
       background: #fff;
     }
 }
+
+/* Hide page issues since they're in the footer menu: T233361 */
+.ambox {
+  display: none !important;
+}
+
+/* Hide hatnotes since they're in the footer menu */
+.hatnote {
+    display: none;
+}
+
+/* Prevent text size increase on landscape on non-iPads: T233254 and https://stackoverflow.com/a/2711132 */
+body {
+  -webkit-text-size-adjust: 100%;
+}

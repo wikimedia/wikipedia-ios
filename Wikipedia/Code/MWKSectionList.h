@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_END
 /// @return The first section whose `text` is not empty, or `nil` if all sections (or the receiver) are empty.
 - (nullable MWKSection *)firstNonEmptySection;
 
-- (nullable MWKSection *)sectionWithFragment:(nonnull NSString *)fragment;
+- (nullable MWKSection *)sectionWithAnchor:(nonnull NSString *)anchor;
 
 NS_ASSUME_NONNULL_BEGIN
 - (BOOL)save:(NSError **)outError;

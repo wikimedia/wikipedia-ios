@@ -20,6 +20,8 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
     @IBOutlet private var scrollViewGradientView:WelcomePanelScrollViewGradient!
     @IBOutlet private var nextButtonContainerView:UIView!
 
+    var nextButtonAction: ((UIButton) -> Void)?
+
     private var viewControllerForContainerView:UIViewController? = nil
     var pageType:DescriptionWelcomePageType = .intro
 
@@ -34,6 +36,8 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
         nextButtonContainerView.isHidden = pageType != .exploration
         
         view.wmf_configureSubviewsForDynamicType()
+
+        nextButton.addTarget(self, action: #selector(performNextButtonAction(_:)), for: .touchUpInside)
     }
     
     private func embedContainerControllerView() {
@@ -63,6 +67,10 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
         if scrollView.wmf_contentSizeHeightExceedsBoundsHeight() {
             scrollView.wmf_flashVerticalScrollIndicatorAfterDelay(1.5)
         }
+    }
+
+    @objc private func performNextButtonAction(_ sender: UIButton) {
+        nextButtonAction?(sender)
     }
 }
 

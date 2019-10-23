@@ -140,6 +140,7 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+        collectionView.reloadData()
     }
 
     // MARK: - Empty State

@@ -120,6 +120,11 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
     }
 
     open func selectAndScrollToItem(_ item: TableOfContentsItem?, animated: Bool) {
+        
+        guard isViewLoaded else {
+            return
+        }
+        
         guard let item = item else{
             assertionFailure("Passing nil TOC item")
             return
