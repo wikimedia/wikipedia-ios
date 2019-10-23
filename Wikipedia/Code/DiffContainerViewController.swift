@@ -85,6 +85,11 @@ class DiffContainerViewController: ViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showDiffPanelOnce()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -173,6 +178,18 @@ private extension DiffContainerViewController {
             wmf_add(childController: diffListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             self.diffListViewController = diffListViewController
         }
+    }
+    
+    func showDiffPanelOnce() {
+        let key = "didShowDiffPanel"
+        if (UserDefaults.wmf.bool(forKey: key)) {
+            return
+        }
+        let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] (action) in
+            self?.presentedViewController?.dismiss(animated: true)
+        }, secondaryButtonTapHandler: nil, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
+        present(panelVC, animated: true)
+        UserDefaults.wmf.set(true, forKey: key)
     }
 }
 
