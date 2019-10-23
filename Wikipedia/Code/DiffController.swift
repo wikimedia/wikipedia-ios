@@ -18,8 +18,15 @@ class DiffController {
                  let result = try JSONDecoder().decode(DiffResponse.self, from: data)
                 
                 let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: result)
-                let response: [DiffListGroupViewModel] = self.viewModels(from: result, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
+
+                switch type {
+                case .single:
+                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: result, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
                     completion?(.success(response))
+                case .compare:
+                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: result, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
+                    completion?(.success(response))
+                }
             }
             catch (let error) {
                 completion?(.failure(error))
@@ -51,8 +58,53 @@ class DiffController {
         
         return result
     }
+    
+    private func viewModelsForSingle(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
         
-    private func viewModels(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
+        var result: [DiffListGroupViewModel] = []
+        
+        var sectionItems: [DiffItem] = []
+        var lastItem: DiffItem?
+
+        let packageUpSectionItemsIfNeeded = {
+            
+            if sectionItems.count > 0 {
+                //package contexts up into change view model, append to result
+                
+                let changeType: DiffListChangeType = .singleRevison
+                
+                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, sectionTitles: response.sectionTitles)
+                result.append(changeViewModel)
+                sectionItems.removeAll()
+            }
+            
+        }
+        
+        for item in response.diff {
+
+            
+            if item.type == .context {
+                
+                continue
+                
+            } else {
+                
+                if item.sectionTitleIndex != lastItem?.sectionTitleIndex {
+                    packageUpSectionItemsIfNeeded()
+                }
+                
+                sectionItems.append(item)
+            }
+            
+            lastItem = item
+            
+            continue
+        }
+        
+        return result
+    }
+        
+    private func viewModelsForCompare(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
@@ -83,7 +135,7 @@ class DiffController {
                     changeType = .singleRevison
                 }
                 
-                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes)
+                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, sectionTitles: response.sectionTitles)
                 result.append(changeViewModel)
                 changeItems.removeAll()
             }

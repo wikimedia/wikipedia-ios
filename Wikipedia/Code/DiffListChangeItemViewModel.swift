@@ -62,23 +62,33 @@ final class DiffListChangeItemViewModel {
     }
     
     private static func calculateTextPadding(type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: DiffItem?) -> NSDirectionalEdgeInsets {
-        switch type {
-        case .compareRevision:
-            var top: CGFloat = 0
-            var bottom: CGFloat = 0
-            if diffItemType == .moveSource || diffItemType == .moveDestination {
-                top = 15
-                if let middleItem = nextMiddleItem,
-                middleItem.type == .moveSource || middleItem.type == .moveDestination {
-                    bottom = 0
-                } else {
-                    bottom = 15
-                }
+        
+        var top: CGFloat = 0
+        var bottom: CGFloat = 0
+        if diffItemType == .moveSource || diffItemType == .moveDestination {
+            top = 10
+            if let middleItem = nextMiddleItem,
+            middleItem.type == .moveSource || middleItem.type == .moveDestination {
+                bottom = 0
+            } else {
+                bottom = 15
             }
-            return NSDirectionalEdgeInsets(top: top, leading: 10, bottom: bottom, trailing: 10)
-        case .singleRevison:
-            return NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        } else {
+            if let middleItem = nextMiddleItem,
+            middleItem.type == .moveSource || middleItem.type == .moveDestination {
+                bottom = 10
+            }
         }
+        
+        switch type {
+        case .singleRevison:
+            let leading: CGFloat = (diffItemType == .moveSource || diffItemType == .moveDestination) ? 10 : 0
+            let trailing: CGFloat = (diffItemType == .moveSource || diffItemType == .moveDestination) ? 10 : 0
+            return NSDirectionalEdgeInsets(top: top, leading: leading, bottom: bottom, trailing: trailing)
+        case .compareRevision:
+            return NSDirectionalEdgeInsets(top: top, leading: 10, bottom: bottom, trailing: 10)
+        }
+        
     }
     
     private static func calculateAttributedString(with text: String, highlightedRanges: [DiffListItemHighlightRange], traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, moveInfo: DiffMoveInfo?, groupedMoveIndexes: [String: Int]) -> NSAttributedString {

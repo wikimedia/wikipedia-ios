@@ -45,9 +45,9 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
     private static func calculateInnerPadding(traitCollection: UITraitCollection) -> NSDirectionalEdgeInsets {
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
-            return NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 0, trailing: 50)
+            return NSDirectionalEdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50)
         default:
-            return NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15)
+            return NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         }
     }
     

@@ -80,9 +80,9 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     private static func calculateInnerPadding(traitCollection: UITraitCollection) -> NSDirectionalEdgeInsets {
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
-            return NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 0, trailing: 50)
+            return NSDirectionalEdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50)
         default:
-            return NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15)
+            return NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         }
     }
     
@@ -91,7 +91,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         var height: CGFloat = 0
         height = calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: contextItemPadding, contextFont: contextFont, headingFont: headingFont)
         
-        for item in items {
+        for (index, item) in items.enumerated() {
             
             height += contextItemPadding.top
             
@@ -106,8 +106,12 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             height += itemTextHeight
             height += contextItemPadding.bottom
             
-            height += DiffListContextViewModel.contextItemStackSpacing
+            if index < (items.count - 1) {
+                height += DiffListContextViewModel.contextItemStackSpacing
+            }
         }
+        
+        height += DiffListContextViewModel.containerStackSpacing
         
         return height
     }
@@ -123,7 +127,6 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         height += ceil(attributedString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
         
         height += innerPadding.bottom
-        height += DiffListContextViewModel.containerStackSpacing
         
         return height
     }

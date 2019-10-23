@@ -169,7 +169,7 @@ private extension DiffContainerViewController {
     
     func setupDiffListViewControllerIfNeeded() {
         if diffListViewController == nil {
-            let diffListViewController = DiffListViewController(theme: theme, delegate: self)
+            let diffListViewController = DiffListViewController(theme: theme, delegate: self, type: type)
             wmf_add(childController: diffListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             self.diffListViewController = diffListViewController
         }

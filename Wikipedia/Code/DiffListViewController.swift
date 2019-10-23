@@ -15,7 +15,7 @@ class DiffListViewController: ViewController {
     }
 
     lazy private(set) var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutCopy)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.contentInsetAdjustmentBehavior = .never
@@ -23,8 +23,23 @@ class DiffListViewController: ViewController {
         return collectionView
     }()
     
+    var layoutCopy: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 20
+        switch type {
+        case .single:
+            layout.sectionInset = UIEdgeInsets(top: 15, left: 0, bottom: 10, right: 0)
+        case .compare:
+            layout.sectionInset = UIEdgeInsets(top: 25, left: 0, bottom: 10, right: 0)
+        }
+        
+        return layout
+    }
+    
     private var dataSource: [DiffListGroupViewModel] = []
     private weak var delegate: DiffListDelegate?
+    private let type: DiffContainerViewModel.DiffType
 
     private var updateWidthsOnLayoutSubviews = false
     private var isRotating = false
@@ -37,7 +52,8 @@ class DiffListViewController: ViewController {
     private let chunkedHeightCalculationsConcurrentQueue = DispatchQueue(label: "com.wikipedia.diff.chunkedHeightCalculations", qos: .userInteractive, attributes: .concurrent)
     private let layoutSubviewsHeightCalculationsSerialQueue = DispatchQueue(label: "com.wikipedia.diff.layoutHeightCalculations", qos: .userInteractive)
     
-    init(theme: Theme, delegate: DiffListDelegate?) {
+    init(theme: Theme, delegate: DiffListDelegate?, type: DiffContainerViewModel.DiffType) {
+        self.type = type
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         self.delegate = delegate
@@ -179,7 +195,7 @@ class DiffListViewController: ViewController {
         switch updateType {
         case .itemExpandUpdate:
             
-            collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
+            collectionView.setCollectionViewLayout(layoutCopy, animated: true)
  
         default:
             collectionView.reloadData()

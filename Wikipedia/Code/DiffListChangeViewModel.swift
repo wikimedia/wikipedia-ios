@@ -58,7 +58,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int]) {
+    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], sectionTitles: [String]) {
         
         self.type = type
         self.theme = theme
@@ -66,17 +66,11 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         self.traitCollection = traitCollection
         self.innerViewClipsToBounds = type == .compareRevision
         
-        if let firstItemLineNumber = diffItems.first?.lineNumber,
-            let lastItemLineNumber = diffItems.last?.lineNumber {
-            
-            if diffItems.count == 1 {
-                self.heading = String.localizedStringWithFormat(CommonStrings.diffSingleLineFormat, firstItemLineNumber)
-            } else {
-                self.heading = String.localizedStringWithFormat(CommonStrings.diffMultiLineFormat, firstItemLineNumber, lastItemLineNumber)
-            }
-            
-        } else {
-            self.heading = "" //tonitodo: optional would be better
+        switch type {
+        case .compareRevision:
+            self.heading = DiffListChangeViewModel.calculateHeadingsFromLineNumbers(diffItems: diffItems)
+        case .singleRevison:
+            self.heading = DiffListChangeViewModel.calculateHeadingsFromSectionTitles(diffItems: diffItems, sectionTitles: sectionTitles)
         }
         
         var itemViewModels: [DiffListChangeItemViewModel] = []
@@ -99,6 +93,38 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         stackViewPadding = DiffListChangeViewModel.calculateStackViewPadding(type: type, items: items)
         
         height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, stackViewPadding: stackViewPadding)
+    }
+    
+    private static func calculateHeadingsFromSectionTitles(diffItems: [DiffItem], sectionTitles: [String]) -> String {
+  
+        for item in diffItems {
+            if let sectionTitleIndex = item.sectionTitleIndex,
+                let sectionTitle = sectionTitles[safeIndex: sectionTitleIndex] {
+                return sectionTitle
+            }
+        }
+        
+        return "Unknown Section" //tonitodo: need business logic for this situation (intro change, delete line, move source, anything that doesn't have a section in to version)
+    }
+    
+    private static func calculateHeadingsFromLineNumbers(diffItems: [DiffItem]) -> String {
+        
+        //tonitodo: might want to be a little more flexible with this. Glean whatever range you can, not just strictly looking at first and last
+        if let firstItemLineNumber = diffItems.first?.lineNumber {
+            
+            let lastItemLineNumber = diffItems.last?.lineNumber
+            
+            if diffItems.count == 1 || lastItemLineNumber == nil {
+               return String.localizedStringWithFormat(CommonStrings.diffSingleLineFormat, firstItemLineNumber)
+            } else if let lastItemLineNumber = lastItemLineNumber {
+                return String.localizedStringWithFormat(CommonStrings.diffMultiLineFormat, firstItemLineNumber, lastItemLineNumber)
+            } else {
+                return ""
+            }
+            
+        } else {
+            return "" //tonitodo: optional would be better
+        }
     }
     
     private static func calculateBorderColor(type: DiffListChangeType, theme: Theme) -> UIColor {
@@ -189,9 +215,9 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     private static func calculateInnerPadding(traitCollection: UITraitCollection) -> NSDirectionalEdgeInsets {
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
-            return NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 10, trailing: 50)
+            return NSDirectionalEdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50)
         default:
-            return NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)
+            return NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         }
     }
     
