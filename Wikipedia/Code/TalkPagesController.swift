@@ -98,7 +98,8 @@ class TalkPageController {
                             let fetchResult = FetchResult(objectID: localObjectID, isInitialLocalResult: false)
                             completion?(.success(fetchResult))
                         } else {
-                            self.fetchAndUpdateLocalTalkPage(with: localObjectID, revisionID: lastRevisionID, completion: { (result) in
+                            // we just want the latest revision, so don't pass revisionID
+                            self.fetchAndUpdateLocalTalkPage(with: localObjectID, revisionID: nil, completion: { (result) in
                                 switch result {
                                 case .success(let response):
                                     let fetchResult = FetchResult(objectID: response, isInitialLocalResult: false)
@@ -315,7 +316,7 @@ private extension TalkPageController {
         }
     }
     
-    func fetchAndUpdateLocalTalkPage(with moid: NSManagedObjectID, revisionID: Int, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
+    func fetchAndUpdateLocalTalkPage(with moid: NSManagedObjectID, revisionID: Int?, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
         fetchTalkPage(revisionID: revisionID) { (result) in
             self.moc.perform {
                 do {

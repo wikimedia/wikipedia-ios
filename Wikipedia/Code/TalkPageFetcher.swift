@@ -15,6 +15,7 @@ class NetworkTalkPage {
 
 class NetworkBase: Codable {
     let topics: [NetworkTopic]
+    let revision: Int?
 }
 
 class NetworkTopic:  NSObject, Codable {
@@ -100,7 +101,7 @@ enum TalkPageFetcherError: Error {
 }
 
 class TalkPageFetcher: Fetcher {
-    
+    static let etagRegex = try? NSRegularExpression(pattern: "([0-9]+)/", options: .caseInsensitive)
     private let sectionUploader = WikiTextSectionUploader()
     
     func addTopic(to title: String, siteURL: URL, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
@@ -148,6 +149,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
+    
     func fetchTalkPage(urlTitle: String, displayTitle: String, siteURL: URL, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
         guard let taskURLWithRevID = getURL(for: urlTitle, siteURL: siteURL, revisionID: revisionID),
@@ -185,8 +187,27 @@ class TalkPageFetcher: Fetcher {
                     reply.sort = replyIndex
                 }
             }
-
-            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: networkBase.topics, revisionId: revisionID, displayTitle: displayTitle)
+            
+            // all of this can be removed afer https://gerrit.wikimedia.org/r/#/c/mediawiki/services/mobileapps/+/545375/
+            // is deployed
+            let revision: Int
+            if let networkRev = networkBase.revision {
+                revision = networkRev
+            } else if let requestedRev = revisionID {
+                revision = requestedRev
+            } else {
+                guard
+                    let etag = (response as? HTTPURLResponse)?.allHeaderFields["Etag"] as? String,
+                    let match = TalkPageFetcher.etagRegex?.firstMatch(in: etag, options: [], range: NSRange(location: 0, length: etag.count)),
+                    let string = TalkPageFetcher.etagRegex?.replacementString(for: match, in: etag, offset: 0, template: "$1"),
+                    let etagRev = Int(string)
+                else {
+                    completion(.failure(RequestError.unexpectedResponse))
+                    return
+                }
+                revision = etagRev
+            }
+            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: networkBase.topics, revisionId: revision, displayTitle: displayTitle)
             completion(.success(talkPage))
         }
     }
