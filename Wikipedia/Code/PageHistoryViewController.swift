@@ -337,7 +337,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     // MARK: Layout
 
     // Reset on refresh
-    private var cellContentCache = NSCache<NSIndexPath, CellContent>()
+    private var cellContentCache = NSCache<NSNumber, CellContent>()
 
     private class CellContent: NSObject {
         let time: String?
@@ -364,12 +364,13 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision? = nil, at indexPath: IndexPath) {
         let item = item ?? pageHistorySections[indexPath.section].items[indexPath.item]
+        let revisionID = NSNumber(value: item.revisionID)
         defer {
             cell.setEditing(state == .editing, animated: false)
             cell.enableEditing(!maxNumberOfRevisionsSelected, animated: false)
             cell.apply(theme: theme)
         }
-        if let cachedCellContent = cellContentCache.object(forKey: indexPath as NSIndexPath) {
+        if let cachedCellContent = cellContentCache.object(forKey: revisionID) {
             cell.time = cachedCellContent.time
             cell.displayTime = cachedCellContent.displayTime
             cell.authorImage = cachedCellContent.authorImage
@@ -408,9 +409,14 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
 
-        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionIndex: cell.selectionIndex), forKey: indexPath as NSIndexPath)
+        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionIndex: cell.selectionIndex), forKey: revisionID)
 
         cell.apply(theme: theme)
+    }
+
+    private func revisionID(forItemAtIndexPath indexPath: IndexPath) -> NSNumber {
+        let item = pageHistorySections[indexPath.section].items[indexPath.item]
+        return NSNumber(value: item.revisionID)
     }
 
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
@@ -420,12 +426,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private func updateSelectionThemeModel(_ selectionThemeModel: SelectionThemeModel?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
         cell.selectionThemeModel = selectionThemeModel
-        cellContentCache.object(forKey: indexPath as NSIndexPath)?.selectionThemeModel = selectionThemeModel
+        cellContentCache.object(forKey: revisionID(forItemAtIndexPath: indexPath))?.selectionThemeModel = selectionThemeModel
     }
 
     private func updateSelectionIndex(_ selectionIndex: Int?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
         cell.selectionIndex = selectionIndex
-        cellContentCache.object(forKey: indexPath as NSIndexPath)?.selectionIndex = selectionIndex
+        cellContentCache.object(forKey: revisionID(forItemAtIndexPath: indexPath))?.selectionIndex = selectionIndex
     }
 
     public class SelectionThemeModel {
@@ -486,64 +492,78 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: boundsSize, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 0, interItemSpacing: 20)
     }
 
+    private var postedMaxRevisionsSelectedAccessibilityNotification = false
+
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return state == .editing && !maxNumberOfRevisionsSelected
+        if state == .editing {
+            if maxNumberOfRevisionsSelected {
+                pageHistoryHintController?.hide(false, presenter: self, theme: theme)
+                if !postedMaxRevisionsSelectedAccessibilityNotification {
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.maxRevisionsSelectedWarningTitle)
+                    postedMaxRevisionsSelectedAccessibilityNotification = true
+                }
+                return false
+            } else {
+                return true
+            }
+        }
+        // TODO: Allow selection to show individual diff
+        return false
     }
 
     var openSelectionIndex = 0
-    private var postedMaxRevisionsSelectedAccessibilityNotification = false
+
     private var indexPathsSelectedForComparison = [Int: IndexPath]()
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedCellsCount += 1
-        defer {
-            compareToolbarButton.isEnabled = maxNumberOfRevisionsSelected
-        }
+        if state == .editing {
+            selectedCellsCount += 1
+            defer {
+                compareToolbarButton.isEnabled = maxNumberOfRevisionsSelected
+            }
 
-        guard let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell else {
-            return
-        }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell else {
+                return
+            }
 
-        let button: UIButton?
-        let themeModel: SelectionThemeModel?
-        if maxNumberOfRevisionsSelected {
-            forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
-                if !cell.isSelected {
-                    self.updateSelectionThemeModel(self.disabledSelectionThemeModel, for: cell, at: indexPath)
+            let button: UIButton?
+            let themeModel: SelectionThemeModel?
+            if maxNumberOfRevisionsSelected {
+                forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
+                    if !cell.isSelected {
+                        self.updateSelectionThemeModel(self.disabledSelectionThemeModel, for: cell, at: indexPath)
+                    }
+                    cell.enableEditing(false)
                 }
-                cell.enableEditing(false)
             }
-            pageHistoryHintController?.hide(false, presenter: self, theme: theme)
-            if !postedMaxRevisionsSelectedAccessibilityNotification {
-                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.maxRevisionsSelectedWarningTitle)
-                postedMaxRevisionsSelectedAccessibilityNotification = true
+            switch openSelectionIndex {
+            case 0:
+                button = firstComparisonSelectionButton
+                themeModel = firstSelectionThemeModel
+            case 1:
+                button = secondComparisonSelectionButton
+                themeModel = secondSelectionThemeModel
+            default:
+                button = nil
+                themeModel = nil
             }
-        }
-        switch openSelectionIndex {
-        case 0:
-            button = firstComparisonSelectionButton
-            themeModel = firstSelectionThemeModel
-        case 1:
-            button = secondComparisonSelectionButton
-            themeModel = secondSelectionThemeModel
-        default:
-            button = nil
-            themeModel = nil
-        }
-        if let button = button, let themeModel = themeModel {
-            button.backgroundColor = themeModel.backgroundColor
-            button.setImage(cell.authorImage, for: .normal)
-            button.setTitle(cell.time, for: .normal)
-            button.imageView?.tintColor = themeModel.authorColor
-            button.setTitleColor(themeModel.authorColor, for: .normal)
-            button.tintColor = themeModel.authorColor
-            indexPathsSelectedForComparison[button.tag] = indexPath
-        }
-        updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
-        updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
-        cell.apply(theme: theme)
+            if let button = button, let themeModel = themeModel {
+                button.backgroundColor = themeModel.backgroundColor
+                button.setImage(cell.authorImage, for: .normal)
+                button.setTitle(cell.time, for: .normal)
+                button.imageView?.tintColor = themeModel.authorColor
+                button.setTitleColor(themeModel.authorColor, for: .normal)
+                button.tintColor = themeModel.authorColor
+                indexPathsSelectedForComparison[button.tag] = indexPath
+            }
+            updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
+            updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
+            cell.apply(theme: theme)
 
-        openSelectionIndex += 1
+            openSelectionIndex += 1
+        } else {
+            // TODO: Push new vc
+        }
     }
 
     @objc private func scrollToComparisonSelection(_ sender: UIButton) {
