@@ -1131,7 +1131,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([navigationAction.request.URL.scheme isEqualToString:@"wmfapp"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
-        decisionHandler(WKNavigationActionPolicyAllow);
+        decisionHandler(WKNavigationActionPolicyCancel);
     }
 }
 
