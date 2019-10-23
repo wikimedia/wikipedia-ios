@@ -1127,6 +1127,21 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 #pragma mark - WKNavigationDelegate
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if ([navigationAction.request.URL.scheme isEqualToString:@"wmfapp"]) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction preferences:(WKWebpagePreferences *)preferences decisionHandler:(void (^)(WKNavigationActionPolicy, WKWebpagePreferences *))decisionHandler API_AVAILABLE(ios(13.0)) {
+    if ([navigationAction.request.URL.scheme isEqualToString:@"wmfapp"]) {
+        decisionHandler(WKNavigationActionPolicyAllow, preferences);
+    } else {
+        decisionHandler(WKNavigationActionPolicyCancel, preferences);
+    }
+}
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
     DDLogError(@"webViewContentProcessDidTerminate: %@", webView);
