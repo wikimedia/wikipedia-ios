@@ -107,7 +107,8 @@ final class NavigationStateController: NSObject {
                 }
                 let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 articleVC.shouldRequestLatestRevisionOnInitialLoad = false
-                pushOrPresent(articleVC, navigationController: navigationController, presentation: viewController.presentation)
+                // never present an article modal, the nav bar disappears
+                pushOrPresent(articleVC, navigationController: navigationController, presentation: .push)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()
                 pushOrPresent(themeableNavigationController, navigationController: navigationController, presentation: viewController.presentation)
