@@ -1033,7 +1033,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self addChildViewController:self.webViewController];
     [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
-
+    self.webViewController.webView.UIDelegate = self;
     self.pullToRefresh = [[UIRefreshControl alloc] init];
     self.pullToRefresh.tintColor = self.theme.colors.refreshControlTint;
     self.pullToRefresh.enabled = [self canRefresh];
@@ -2007,7 +2007,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             return peekVC;
         }
         actionProvider:^UIMenu *_Nullable(NSArray<UIMenuElement *> *_Nonnull suggestedActions) {
-            return nil;
+            return [self previewMenuElementsForPreviewViewController:peekVC suggestedActions:suggestedActions];
         }];
     completionHandler(config);
 }
@@ -2016,7 +2016,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (animator.preferredCommitStyle == UIContextMenuInteractionCommitStyleDismiss) {
         return;
     }
-    [self commitViewController:animator.previewViewController];
+    UIViewController *vc = animator.previewViewController;
+    [animator addCompletion:^{
+        [self commitViewController:vc];
+    }];
 }
 
 - (void)webView:(WKWebView *)webView contextMenuWillPresentForElement:(WKContextMenuElementInfo *)elementInfo API_AVAILABLE(ios(13.0)) {
@@ -2070,12 +2073,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)registerForPreviewingIfAvailable {
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
-        if (self.peekingAllowed) {
-            self.webViewController.webView.UIDelegate = self;
-            self.webViewController.webView.allowsLinkPreview = YES;
-        } else {
-            self.webViewController.webView.allowsLinkPreview = NO;
-        }
         [self unregisterForPreviewing];
         self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.headerView];
     } else {
@@ -2091,6 +2088,32 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 #pragma mark - Peeking helpers
+
+- (nullable UIMenu *)previewMenuElementsForPreviewViewController:(UIViewController *)previewViewController suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions API_AVAILABLE(ios(13.0)) {
+    if (![previewViewController respondsToSelector:@selector(previewActions)]) {
+        return nil;
+    }
+    id maybeLegacyActions = [(id)previewViewController previewActions];
+    if (![maybeLegacyActions isKindOfClass:[NSArray class]]) {
+        return nil;
+    }
+    NSArray *legacyActions = (NSArray *)maybeLegacyActions;
+    NSMutableArray<UIMenuElement *> *menuItems = [NSMutableArray arrayWithCapacity:legacyActions.count];
+    for (id maybeLegacyAction in legacyActions) {
+        if (![maybeLegacyAction isKindOfClass:[UIPreviewAction class]]) {
+            continue;
+        }
+        UIPreviewAction *legacyAction = (UIPreviewAction *)maybeLegacyAction;
+        UIAction *action = [UIAction actionWithTitle:legacyAction.title
+                                               image:nil
+                                          identifier:nil
+                                             handler:^(UIAction *action) {
+                                                 legacyAction.handler(legacyAction, previewViewController);
+                                             }];
+        [menuItems addObject:action];
+    }
+    return [UIMenu menuWithTitle:@"" children:menuItems];
+}
 
 - (NSArray<NSString *> *)peekableImageExtensions {
     return @[@"jpg", @"jpeg", @"gif", @"png", @"svg"];
