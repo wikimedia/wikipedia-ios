@@ -2,12 +2,14 @@ import Foundation
 import Mantle
 import WMF
 
-open class PageHistoryFetcher: WMFLegacyFetcher {
-    @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
+public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: Int?]
+
+public final class PageHistoryFetcher: WMFLegacyFetcher {
+    @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
         var params: [String: AnyObject] = [
             "action": "query" as AnyObject,
             "prop": "revisions" as AnyObject,
-            "rvprop": "ids|timestamp|user|size|parsedcomment" as AnyObject,
+            "rvprop": "ids|timestamp|user|size|parsedcomment|flags" as AnyObject,
             "rvlimit": 51 as AnyObject,
             "rvdir": "older" as AnyObject,
             "titles": requestParams.title as AnyObject,
@@ -85,6 +87,137 @@ open class PageHistoryFetcher: WMFLegacyFetcher {
             return revisionsByDay
         })
     }
+
+    // MARK: Creation date
+
+    public func fetchPageCreationDate(for pageTitle: String, pageURL: URL, completion: @escaping (Result<Date, RequestError>) -> Void) {
+        let params: [String: AnyObject] = [
+            "action": "query" as AnyObject,
+            "prop": "revisions" as AnyObject,
+            "rvlimit": 1 as AnyObject,
+            "rvdir": "newer" as AnyObject,
+            "titles": pageTitle as AnyObject,
+            "format": "json" as AnyObject
+        ]
+        performMediaWikiAPIGET(for: pageURL, withQueryParameters: params) { (result, response, error) in
+            guard let result = result, let results = self.parseSections(result) else {
+                completion(.failure(.unexpectedResponse))
+                return
+            }
+            guard let firstRevisionDate = results.lastRevision?.revisionDate else {
+                completion(.failure(.unexpectedResponse))
+                return
+            }
+            completion(.success(firstRevisionDate))
+        }
+    }
+
+    // MARK: Edit counts
+
+    public enum EditCountType: String {
+        case editors
+        case edits
+        case revertedEdits = "revertededits"
+        case botEdits = "botedits"
+        case anonEdits = "anonedits"
+        case userEdits
+    }
+
+    private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
+        // TODO: Get project from pageURL
+        var pathComponents = ["v1", "page"]
+        pathComponents.append(pageTitle.wmf_denormalizedPageTitle())
+        pathComponents.append(contentsOf: ["history", "counts"])
+        pathComponents.append(editCountType.rawValue)
+        let components = configuration.mediaWikiRestAPIURLForHost("en.wikipedia.beta.wmflabs.org", appending: pathComponents)
+        return components.url
+    }
+
+    private struct EditCount: Decodable {
+        let count: Int?
+    }
+
+    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, RequestError>) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let group = DispatchGroup()
+            var editCountsGroupedByType = EditCountsGroupedByType()
+            for editCountType in editCountTypes {
+                guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL) else {
+                    continue
+                }
+                group.enter()
+                self.session.jsonDecodableTask(with: url) { (editCount: EditCount?, _, _) in
+                    defer {
+                        group.leave()
+                    }
+                    editCountsGroupedByType[editCountType] = editCount?.count
+                }
+            }
+            group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                if let edits = editCountsGroupedByType[.edits], let editsCount = edits, let anonEdits = editCountsGroupedByType[.anonEdits], let anonEditsCount = anonEdits {
+                    editCountsGroupedByType[.userEdits] = editsCount - anonEditsCount
+                }
+                completion(.success(editCountsGroupedByType))
+            }
+        }
+    }
+
+    // MARK: Edit metrics
+
+    private struct EditMetrics: Decodable {
+        let items: [Item]?
+
+        struct Item: Decodable {
+            let results: [Result]?
+
+            struct Result: Decodable {
+                let edits: Int?
+            }
+        }
+    }
+
+    public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], RequestError>) -> Void ) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard
+                let title = pageTitle.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+                let project = pageURL.wmf_site?.host,
+                let yearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date()),
+                let from = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: yearAgo),
+                let to = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: Date())
+            else {
+                completion(.failure(.invalidParameters))
+                return
+            }
+//            let pathComponents = ["metrics", "edits", "per-page", project, title, "all-editor-types", "monthly", from, to]
+//            let components =  self.configuration.wikimediaMobileAppsServicesAPIURLComponents(appending: pathComponents)
+//            guard let url = components.url else {
+//                completion(.failure(.invalidParameters))
+//                return
+//            }
+            let url = URL(string: "https://wikimedia.org/api/rest_v1/metrics/edits/per-page/\(project)/\(title)/all-editor-types/monthly/\(from)/\(to)")!
+            self.session.jsonDecodableTask(with: url) { (editMetrics: EditMetrics?, response: URLResponse?, error: Error?) in
+                // TODO: Handle errors, page younger than 1
+                var allEdits = [NSNumber]()
+                defer {
+                    completion(.success(allEdits))
+                }
+                guard
+                    let items = editMetrics?.items,
+                    let firstItem = items.first,
+                    let results = firstItem.results
+                else {
+                    return
+                }
+                for case let result in results {
+                    guard let edits = result.edits else {
+                        continue
+                    }
+                    allEdits.append(NSNumber(value: edits))
+                }
+            }
+        }
+    }
+
 }
 
 private typealias RevisionsByDay = [Int: PageHistorySection]

@@ -14,6 +14,7 @@ import UIKit
     public static let headline = DynamicTextStyle(.system, .headline)
     public static let mediumHeadline = DynamicTextStyle(.system, .headline, .medium)
     public static let semiboldHeadline = DynamicTextStyle(.system, .headline, .semibold)
+    public static let boldHeadline = DynamicTextStyle(.system, .headline, .bold)
     public static let heavyHeadline = DynamicTextStyle(.system, .headline, .heavy)
 
     public static let footnote = DynamicTextStyle(.system, .footnote)
@@ -26,6 +27,7 @@ import UIKit
     public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
 
     public static let boldTitle2 = DynamicTextStyle(.system, .title2, .bold)
+    public static let semiboldTitle3 = DynamicTextStyle(.system, .title3, .bold)
 
     public static let callout = DynamicTextStyle(.system, .callout)
     public static let semiboldCallout = DynamicTextStyle(.system, .callout, .semibold)

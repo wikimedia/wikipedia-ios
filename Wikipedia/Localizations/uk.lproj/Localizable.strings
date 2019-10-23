@@ -35,7 +35,7 @@
 "about-repositories" = "Репозиторії";
 "about-repositories-app-source-license" = "Вихідний код доступний під $1.";
 "about-repositories-app-source-license-mit" = "Ліцензія MIT";
-"about-send-feedback" = "Надіслати відгук про програму";
+"about-send-feedback" = "Надіслати відгук про додаток";
 "about-testers" = "Тестери";
 "about-testers-details" = "QA-тестування від $1";
 "about-title" = "Про";
@@ -98,7 +98,7 @@
 "announcements-dismiss" = "Відхилити";
 "app-store-keywords" = "Вікіпедія, стаття, вікі, wiki, енциклопедія, інформація, знання, дослідження, інформація, читання, навчання";
 "app-store-release-notes" = "Тепер стрічка в додатку цілком налаштовувана та легша до використання. Поліпшена локалізація, підвищена продуктивність, деякі помилки виправлені.";
-"app-store-short-description" = "Завантажте додаток Вікіпедія, аби дослідити місця поблизу, зберігати статті оф-лайн і підлаштувати своє читання";
+"app-store-short-description" = "Завантажте додаток Вікіпедії, аби дослідити місця поблизу, зберігати статті офлайн і підлаштувати своє читання";
 "app-store-subtitle" = "Вільна енциклопедія";
 "appearance-settings-adjust-text-sizing" = "Налаштувати розмір тексту статті";
 "appearance-settings-expand-tables" = "Розгорнути таблиці";
@@ -110,7 +110,7 @@
 "appearance-settings-theme-options" = "Налаштування теми оформлення";
 "article-about-title" = "Про цю статтю";
 "article-delete" = "Видалити";
-"article-deleted-accessibility-notification" = "Вилучено $2 {{PLURAL:$1|статтю|статті|статей}}";
+"article-deleted-accessibility-notification" = "Вилучено $1 {{PLURAL:$1|статтю|статті|статей}}";
 "article-languages-filter-placeholder" = "Знайти мову";
 "article-languages-label" = "Вибрати мову";
 "article-languages-others" = "Інші мови";
@@ -143,10 +143,10 @@
 "description-edit-for-article" = "Короткий опис «$1»";
 "description-edit-learn-more" = "Дізнатися більше";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Змінюючи опис назви, я погоджуюся на $1 та без відкличемо опубліковую свій внесок за ліцензією $2.";
+"description-edit-license" = "Змінюючи опис назви, я погоджуюся на $1 та безвідклично публікую свій внесок за ліцензією $2.";
 "description-edit-pencil-introduction" = "Редагувати вступ";
 "description-edit-pencil-title" = "Редагувати опис назви";
-"description-edit-placeholder-title" = "Найкращі за все — короткі описи";
+"description-edit-placeholder-title" = "Найкращі — короткі описи";
 "description-edit-publish" = "Опублікувати опис";
 "description-edit-title" = "Редагувати опис";
 "description-edit-warning" = "Намагайтеся обмежувати обсяг описів, щоб користувачі могли зрозуміти предмет статті з одного погляду";
@@ -168,7 +168,7 @@
 "description-published-footer" = "У цьому додатку ви також можете редагувати статті. Натисніть на іконку із зображенням ручки, аби виправити описки та невеликі речення";
 "description-published-subtitle" = "Ви щойно зробили Вікіпедію ліпшою для всіх";
 "description-published-title" = "Опис опубліковано!";
-"description-welcome-concise-sub-title" = "В ідеалі один рядок від двох до двадцятьох слів";
+"description-welcome-concise-sub-title" = "В ідеалі один рядок від двох до дванадцяти слів";
 "description-welcome-concise-title" = "Будь ласка, коротше";
 "description-welcome-descriptions-sub-title" = "Підсумовує вміст статті, щоб допомогти користувачам зрозуміти предмет статті з першого погляду";
 "description-welcome-descriptions-title" = "Описи назв";
@@ -239,7 +239,7 @@
 "editing-welcome-citations-subtitle" = "Уся інформація має бути перевіреною. Додаючи нову інформацію до статті, редактори мають вказувати посилання на надійне джерело інформації, що повністю висвітлює редагування.";
 "editing-welcome-citations-title" = "Користуйтеся перевіреними джерелами";
 "editing-welcome-impartial-tone-subtitle" = "Ми прагнемо, щоб статті були написані безпристрастно. Під час редагування намагайтеся дотримуватися достовірного представлення світу, як його описують надійні джерела.";
-"editing-welcome-impartial-tone-title" = "Пишіть непредвзято";
+"editing-welcome-impartial-tone-title" = "Пишіть неупереджено";
 "editing-welcome-set-knowledge-free-subtitle" = "Аби надати доступ до знань людства кожному, ми потребуємо вашої участі у їхньому створенні завдяки вичитуванню, редагуванню статей і додаванню інформації на теми, що є найбільш релевантними для вас.";
 "editing-welcome-set-knowledge-free-title" = "Зробіть інформацію доступною всім";
 "empty-insert-media-title" = "Оберіть файл з Вікісховища";
@@ -251,11 +251,11 @@
 "empty-no-reading-lists-message" = "Створюйте списки зі статей про місця подорожей, найцікавіші теми та ще про багато іншого";
 "empty-no-reading-lists-title" = "Упорядкуйте збережені статті за допомоги читальних списків";
 "empty-no-saved-pages-in-reading-list-message" = "Сторінки з'являться тут після того, як ви збережете їх у списку";
-"empty-no-saved-pages-in-reading-list-title" = "Жодна сторінка збережена до цього списку";
-"empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду їх пізніше, навіть в автономному режимі";
+"empty-no-saved-pages-in-reading-list-title" = "Жодна сторінка не збережена до цього списку";
+"empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду пізніше, навіть в автономному режимі";
 "empty-no-saved-pages-title" = "Ще немає збережених сторінок";
 "empty-no-search-results-message" = "Нічого не знайдено";
-"empty-talk-page-title" = "На сторінці обговорення користувача поки нема дописів";
+"empty-talk-page-title" = "На сторінці обговорення користувача поки немає дописів";
 "error-generic-description" = "Сталася неочікувана помилка.";
 "error-generic-recovery-suggestion" = "Будь ласка, спробуйте пізніше";
 "error-unknown" = "Сталася невідома помилка.";
@@ -309,8 +309,8 @@
 "explore-feed-preferences-show-randomizer-footer-text" = "Приховання картки «Рандомайзер» буде застосовано для всіх доступних мов.";
 "explore-feed-preferences-show-randomizer-title" = "Показати картку «Рандомайзер»";
 "explore-feed-preferences-show-related-pages-title" = "Показувати картку «Оскільки ви читали»";
-"explore-feed-preferences-show-top-read-footer-text" = "Приховання картки «Найбліьш читані» буде застосовано для всіх доступних мов.";
-"explore-feed-preferences-show-top-read-title" = "Показати картку «Найбільш читають»";
+"explore-feed-preferences-show-top-read-footer-text" = "Приховання картки «Найбільш читані» буде застосовано для всіх доступних мов.";
+"explore-feed-preferences-show-top-read-title" = "Показати картку «Найбільш читані»";
 "explore-feed-preferences-top-read-description" = "Найбільш читані статті за день";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Вимкнути стрічку";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Приховання всіх карток призведе до приховання всієї стрічки та замінить її вкладинкою «Налаштування».";
@@ -374,7 +374,7 @@
 "find-next-button-accessibility" = "Наступне входження";
 "find-previous-button-accessibility" = "Попереднє входження";
 "find-replace-header" = "Пошук та заміна";
-"find-replace-header-close-accessibility" = "Закрити діалог пошуку таі заміни";
+"find-replace-header-close-accessibility" = "Закрити діалог пошуку та заміни";
 "find-textfield-accessibility" = "Пошук";
 "forgot-password-button-title" = "Скинути";
 "forgot-password-email-sent" = "Електронний лист з інструкціями щодо скидання пароля надіслано";
@@ -443,6 +443,7 @@
 "languages-wikipedia" = "Мови Вікіпедії";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
+"link-loading-title" = "Завантаження сторінки…";
 "logged-out-continue-without-logging-in-button-title" = "Продовжити без входу";
 "logged-out-log-back-in-button-title" = "Назад до входу з обліковим записом";
 "logged-out-subtitle" = "Відбулася помилка при автентифікації вашого облікового запису. Вам потрібно повторно увійти, аби можна було узгодити читальні списки та редагувати під вашим ім'ям користувача.";
@@ -467,9 +468,9 @@
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "menu-cancel-accessibility-label" = "Скасувати";
-"more-languages-tooltip-description" = "Шукати у Вікіпедії майже на 300 мовах";
+"more-languages-tooltip-description" = "Шукати у Вікіпедії майже 300 мовами";
 "more-languages-tooltip-title" = "Додати мови";
-"move-articles-to-reading-list" = "Перенести  {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
+"move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
@@ -479,7 +480,7 @@
 "new-password-title" = "Встановіть свій пароль";
 "no-email-account-alert" = "Будь ласка, налаштуйте обліковий запис електронної пошти на вашому пристрої і спробуйте знову.";
 "no-internet-connection" = "Немає з'єднання з інтернетом";
-"no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але не може бути завантажена через відсутність підключення до Інтернету";
+"no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але вона не може бути завантажена через відсутність підключення до Інтернету";
 "no-internet-connection-article-reload-button" = "Повернутися до останньої збереженої версії";
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
@@ -539,7 +540,7 @@
 "places-unknown-distance" = "невідома відстань";
 "potd-description-prefix" = "Зображення дня за $1";
 "potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
-"preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся застосунком, аби вдосконалити його";
+"preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся додатком, аби вдосконалити його";
 "preference-title-eventlogging-opt-in" = "Надсилати звіти про використання";
 "rank-accessibility-label" = "Номер $1";
 "readers-accessibility-label" = "$1 читачів";
@@ -584,10 +585,10 @@
 "reading-list-sync-disabled-panel-message" = "Синхронизація читальних списків була вимкнена на вашому обліковому запису на іншому приладі. Ви можете знову ввімкнути її в налаштуваннях.";
 "reading-list-sync-disabled-panel-title" = "Синхронізація вимкнена";
 "reading-list-sync-enable-button-title" = "Увімкнути синхронізацію";
-"reading-list-sync-enable-subtitle" = "Ваші збережені статті та читальні списки тепер можуть зберігатися на вашому обліковому запису у Вікіпедії та синхронізовані між додатками Вікіпедії.";
+"reading-list-sync-enable-subtitle" = "Ваші збережені статті та читальні списки тепер можуть бути збережені на вашому обліковому запису у Вікіпедії та синхронізовані між додатками Вікіпедії.";
 "reading-list-sync-enable-title" = "Увімкнути синхронізацію читальних списків?";
-"reading-list-sync-enabled-panel-message" = "Синхронізація читальних списків була увімкнена на цьому обліковому запису. Ви можете вимкнути її в налаштуваннях.";
-"reading-list-sync-enabled-panel-title" = "Синхронізація на цьому обліковому запису ввімкнена";
+"reading-list-sync-enabled-panel-message" = "Синхронізація читальних списків була увімкнена для цього облікового запису. Ви можете вимкнути її в налаштуваннях.";
+"reading-list-sync-enabled-panel-title" = "Синхронізація цього облікового запису ввімкнена";
 "reading-list-unable-to-add-entry" = "Під час додавання запису до вашого читального списку сталася непередбачена помилка. Будь ласка, повторіть спробу пізніше.";
 "reading-list-unable-to-create" = "Під час створення вашого читального списку сталася непередбачена помилка. Будь ласка, повторіть спробу пізніше.";
 "reading-list-unable-to-delete" = "Під час видалення вашого читального списку сталася непередбачена помилка. Будь ласка, повторіть спробу пізніше.";

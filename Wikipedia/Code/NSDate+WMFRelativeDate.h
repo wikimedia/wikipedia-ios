@@ -8,6 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+extern NSString *const WMFAbbreviatedRelativeDateAgo;
+extern NSString *const WMFAbbreviatedRelativeDate;
+
 @interface NSDate (WMFRelativeDate)
 
 - (NSString *)wmf_localizedRelativeDateStringFromLocalDateToNow; // to now
@@ -15,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)wmf_localizedRelativeDateStringFromLocalDateToLocalDate:(NSDate *)date;
 
 - (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate;
+
+- (NSDictionary<NSString *, NSString *> *)wmf_localizedRelativeDateStringFromLocalDateToNowAbbreviated;
 
 @end
 

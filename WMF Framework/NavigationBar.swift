@@ -53,6 +53,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var allowsExtendedHitsFallThrough: Bool = false //if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
+
+    public var shadowColorKeyPath: KeyPath<Theme, UIColor> = \Theme.colors.chromeShadow
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -86,8 +88,21 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
         if displayType == .backVisible {
-            if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.firstIndex(of: vc), index > 0 {
-                items.append(nc.viewControllers[index - 1].navigationItem)
+            
+            if let vc = delegate, let nc = vc.navigationController {
+                
+                var indexToAppend: Int = 0
+                if let index = nc.viewControllers.firstIndex(of: vc), index > 0 {
+                    indexToAppend = index
+                } else if let parentVC = vc.parent,
+                    let index = nc.viewControllers.firstIndex(of: parentVC),
+                    index > 0 {
+                    indexToAppend = index
+                }
+                
+                if indexToAppend > 0 {
+                    items.append(nc.viewControllers[indexToAppend].navigationItem)
+                }
             }
         }
         
@@ -685,7 +700,7 @@ extension NavigationBar: Themeable {
         extendedView.backgroundColor = .clear
         underBarView.backgroundColor = .clear
         
-        shadow.backgroundColor = theme.colors.chromeShadow
+        shadow.backgroundColor = theme[keyPath: shadowColorKeyPath]
         
         progressView.progressViewStyle = .bar
         progressView.trackTintColor = .clear

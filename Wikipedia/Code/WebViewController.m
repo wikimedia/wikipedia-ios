@@ -5,7 +5,6 @@
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "PageHistoryViewController.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
@@ -42,6 +41,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, strong) WMFTheme *theme;
 
 @property (nonatomic, getter=isAfterFirstUserScrollInteraction) BOOL afterFirstUserScrollInteraction;
+
+@property (nonatomic, assign) BOOL indexHTMLDocumentLoadedFired;
 
 @property (nonatomic, strong) NSMutableArray<dispatch_block_t> *scrollViewAnimationCompletions; // called on scrollViewDidEndScrollingAnimation
 
@@ -286,12 +287,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleReferenceClickedScriptMessage:(NSDictionary *)messageDict {
     NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
     self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] wmf_map:^id(NSDictionary *referenceDict) {
-        CGFloat offset;
-        if (@available(iOS 12.0, *)) {
-            offset = 0;
-        } else {
-            offset = self.webView.scrollView.contentInset.top;
-        }
+        CGFloat offset = self.webView.scrollView.contentInset.top + [self.webView iOS12yOffsetHack];
         return [[WMFReference alloc] initWithScriptMessageDict:referenceDict yOffset:offset];
     }];
 
@@ -319,6 +315,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
         self.afterFirstUserScrollInteraction = NO;
+        self.indexHTMLDocumentLoadedFired = YES;
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
         BOOL collapseTables = ![[NSUserDefaults wmf] wmf_isAutomaticTableOpeningEnabled];
@@ -714,6 +711,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (interactivePopGR) {
         [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:interactivePopGR];
     }
+
+    //catches state restoration bug where web view never loads if article is deeper in the stack
+    if (!self.indexHTMLDocumentLoadedFired && self.article && self.articleURL) {
+        [self setArticle:self.article articleURL:self.articleURL];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -804,7 +806,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                                        if (completion) {
                                                                            completion();
                                                                        }
-                                                                        [self.delegate webViewController:self didScrollToAnchor:anchor];
+                                                                       [self.delegate webViewController:self didScrollToAnchor:anchor];
                                                                    }];
                                                      } else if (completion) {
                                                          completion();
@@ -1069,11 +1071,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)shareSnippet:(NSString *)snippet {
     [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
-}
-
-- (void)editHistoryButtonPushed {
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
-    [self presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)setFontSizeMultiplier:(NSNumber *)fontSize {

@@ -314,6 +314,7 @@
 "languages-wikipedia" = "Wikipediasprog";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
+"link-loading-title" = "Indlæser side...";
 "logged-out-continue-without-logging-in-button-title" = "Fortsæt uden at logge på";
 "logged-out-log-back-in-button-title" = "Log ind på din konto igen";
 "logged-out-subtitle" = "Et problem medførte, at du ikke længere er logget ind. Du må logge ind igen, for at kunne synkronisere læselister og redigere under dit brugernavn.";

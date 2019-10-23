@@ -448,6 +448,7 @@
 "languages-wikipedia" = "لغات ويكيبيديا";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "المحتوى متاح بموجب رخصة $1 إلا في حالة ذكر خلاف ذلك.";
+"link-loading-title" = "جارٍ تحميل الصفحة...";
 "logged-out-continue-without-logging-in-button-title" = "المتابعة بدون تسجيل الدخول";
 "logged-out-log-back-in-button-title" = "العودة لتسجيل الدخول إلى حسابك";
 "logged-out-subtitle" = "حدثت مشكلة في مصادقة حسابك، لمزامنة قوائم القراءة الخاصة بك وتعديلها تحت اسم المستخدم الخاص بك الرجاء تسجيل الدخول مرة أخرى.";

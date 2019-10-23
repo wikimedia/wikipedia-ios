@@ -9,6 +9,7 @@
 // Author: Endermoon
 // Author: GoForceX
 // Author: Hudafu
+// Author: Josephine W.
 // Author: JuneAugsut
 // Author: Kuailong
 // Author: LNDDYL
@@ -417,6 +418,7 @@
 "languages-wikipedia" = "维基百科语言";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "除非另有说明，内容基于$1授权。";
+"link-loading-title" = "页面加载中……";
 "logged-out-continue-without-logging-in-button-title" = "在没有登入时继续";
 "logged-out-log-back-in-button-title" = "重新登录您的账户";
 "logged-out-subtitle" = "验证你的账户时出现了问题。请重新登录以同步或编辑你的阅读列表。";

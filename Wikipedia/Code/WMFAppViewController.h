@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)applyTheme:(WMFTheme *)theme;
 
+- (void)showSearchInCurrentNavigationController;
+
 @end
 
 NS_ASSUME_NONNULL_END

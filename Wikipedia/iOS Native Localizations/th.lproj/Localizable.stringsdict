@@ -58,6 +58,22 @@
 			<string>เหตุการณ์ย้อนหลัง %1$d เหตุการณ์</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>แก้ไขเมื่อ %1$d วันที่ผ่านมา</string>
+			<key>zero</key>
+			<string>แก้ไขเมื่อวันนี้</string>
+		</dict>
+	</dict>
 	<key>page-read-in-other-languages</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -100,6 +116,74 @@
 			<string>คุณได้เกินขีดจำกัดของ %1$d article ต่อบัญชี</string>
 			<key>other</key>
 			<string>คุณได้เกินขีดจำกัดของ %1$d บทความ ต่อบัญชี</string>
+		</dict>
+	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d วันที่ผ่านมา</string>
+			<key>zero</key>
+			<string>วันนี้</string>
+		</dict>
+	</dict>
+	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ชั่วโมงที่ผ่านมา</string>
+			<key>other</key>
+			<string>%1$d ชั่วโมงที่ผ่านมา</string>
+			<key>zero</key>
+			<string>เมื่อสักครู่</string>
+		</dict>
+	</dict>
+	<key>relative-date-minutes-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d นาทีที่ผ่านมา</string>
+			<key>other</key>
+			<string>%1$d นาทีที่ผ่านมา</string>
+			<key>zero</key>
+			<string>เมื่อสักครู่</string>
+		</dict>
+	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ปีที่ผ่านมา</string>
+			<key>zero</key>
+			<string>ปีนี้</string>
 		</dict>
 	</dict>
 </dict>

@@ -57,6 +57,13 @@ class HintController: NSObject {
         apply(theme: theme)
     }
 
+    func toggle(presenter: HintPresentingViewController, context: Context?, theme: Theme, setPrimaryColor: ((inout UIColor?) -> Void)? = nil, setBackgroundColor: ((inout UIColor?) -> Void)? = nil) {
+        setPrimaryColor?(&hintViewController.primaryColor)
+        setBackgroundColor?(&hintViewController.backgroundColor)
+        self.presenter = presenter
+        apply(theme: theme)
+    }
+
     private func addHint(to presenter: HintPresentingViewController) {
         guard isHintHidden else {
             return
