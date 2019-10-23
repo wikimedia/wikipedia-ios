@@ -500,6 +500,8 @@
 "page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
 "page-talk-page" = "Label for button linking out to an article's talk page";
+"panel-compare-revisions-text" = "Text for educational panel about comparing revisions";
+"panel-compare-revisions-title" = "Title for educational panel about comparing revisions";
 "pictured" = "Indicates the person or item is pictured (as in a news story).";
 "places-accessibility-clear-saved-searches" = "Accessibility hint for clearing saved searches";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group {{Identical|Article}}";
