@@ -1023,13 +1023,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 
     [self updateTableOfContentsInsets];
+    [self setupTableOfContentsViewController];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
 
     [self updateTableOfContentsDisplayModeWithTraitCollection:newCollection];
-    [self setupTableOfContentsViewController];
 }
 
 #pragma mark - Web View Setup
