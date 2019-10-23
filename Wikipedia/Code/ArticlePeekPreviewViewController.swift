@@ -53,20 +53,23 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.isHidden = false
 
         activityIndicatorView.stopAnimating()
-        view.setNeedsLayout()
+        
+        updatePreferredContentSize(for: view.bounds.width)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = theme.colors.paperBackground
-
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.style = theme.isDark ? .white : .gray
         activityIndicatorView.startAnimating()
-
         view.addSubview(activityIndicatorView)
+        
+        expandedArticleView.translatesAutoresizingMaskIntoConstraints = false
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
-
         expandedArticleView.updateFonts(with: traitCollection)
     }
     
@@ -79,7 +82,6 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         super.viewDidLayoutSubviews()
         expandedArticleView.frame = view.bounds
         activityIndicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        updatePreferredContentSize(for: view.bounds.width)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
