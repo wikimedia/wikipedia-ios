@@ -72,6 +72,7 @@ extern NSString *const WMFEditPublishedNotification;
 
 - (void)articleDidLoad;
 - (void)kickoffProgressView;
+
 - (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 @end

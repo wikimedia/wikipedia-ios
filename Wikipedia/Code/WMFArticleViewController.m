@@ -1041,7 +1041,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self addChildViewController:self.webViewController];
     [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
-    
+
+    self.webViewController.webView.UIDelegate = self;
     self.pullToRefresh = [[UIRefreshControl alloc] init];
     self.pullToRefresh.tintColor = self.theme.colors.refreshControlTint;
     self.pullToRefresh.enabled = [self canRefresh];
@@ -2045,14 +2046,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     //no-op
 }
 
-#pragma mark - Article link and image peeking via WKUIDelegate
+#pragma mark - Context menus
 
-- (BOOL)webView:(WKWebView *)webView shouldPreviewElement:(WKPreviewElementInfo *)elementInfo {
-    return elementInfo.linkURL && [elementInfo.linkURL wmf_isPeekable];
-}
-
-- (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
-    NSURLComponents *linkURLComponents = [[NSURLComponents alloc] initWithURL:elementInfo.linkURL resolvingAgainstBaseURL:NO];
+- (NSURL *)updatedLinkURLForPreviewingLinkURL:(NSURL *)linkURL {
+    NSURLComponents *linkURLComponents = [[NSURLComponents alloc] initWithURL:linkURL resolvingAgainstBaseURL:NO];
     NSString *eventLoggingLabel = linkURLComponents.wmf_eventLoggingLabel;
     DDLogDebug(@"Event logging label is %@", eventLoggingLabel);
     if (eventLoggingLabel) {
@@ -2061,21 +2058,55 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.eventLoggingLabel = EventLoggingLabelOutLink;
     }
     NSURLComponents *updatedLinkURLComponents = linkURLComponents.wmf_componentsByRemovingInternalQueryParameters;
-    NSURL *updatedLinkURL = updatedLinkURLComponents.URL ?: elementInfo.linkURL;
+
+    return updatedLinkURLComponents.URL ?: linkURL;
+}
+
+- (void)webView:(WKWebView *)webView contextMenuConfigurationForElement:(WKContextMenuElementInfo *)elementInfo completionHandler:(void (^)(UIContextMenuConfiguration *_Nullable))completionHandler API_AVAILABLE(ios(13.0)) {
+    NSURL *updatedLinkURL = [self updatedLinkURLForPreviewingLinkURL:elementInfo.linkURL];
+    UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
+    if (!peekVC) {
+        completionHandler(nil);
+    }
+    [self.webViewController hideFindInPageWithCompletion:nil];
+    UIContextMenuConfiguration *config = [UIContextMenuConfiguration configurationWithIdentifier:updatedLinkURL
+        previewProvider:^UIViewController *_Nullable {
+            return peekVC;
+        }
+        actionProvider:^UIMenu *_Nullable(NSArray<UIMenuElement *> *_Nonnull suggestedActions) {
+            return [self previewMenuElementsForPreviewViewController:peekVC suggestedActions:suggestedActions];
+        }];
+    completionHandler(config);
+}
+
+- (void)webView:(WKWebView *)webView contextMenuForElement:(WKContextMenuElementInfo *)elementInfo willCommitWithAnimator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)) {
+    if (animator.preferredCommitStyle == UIContextMenuInteractionCommitStyleDismiss) {
+        return;
+    }
+    UIViewController *vc = animator.previewViewController;
+    [animator addCompletion:^{
+        [self commitViewController:vc];
+    }];
+}
+
+- (void)webView:(WKWebView *)webView contextMenuWillPresentForElement:(WKContextMenuElementInfo *)elementInfo API_AVAILABLE(ios(13.0)) {
+}
+
+- (void)webView:(WKWebView *)webView contextMenuDidEndForElement:(WKContextMenuElementInfo *)elementInf API_AVAILABLE(ios(13.0)) {
+}
+#pragma mark - Article link and image peeking via WKUIDelegate
+
+- (BOOL)webView:(WKWebView *)webView shouldPreviewElement:(WKPreviewElementInfo *)elementInfo {
+    return elementInfo.linkURL && [elementInfo.linkURL wmf_isPeekable];
+}
+
+- (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
+    NSURL *updatedLinkURL = [self updatedLinkURLForPreviewingLinkURL:elementInfo.linkURL];
     UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
     if (peekVC) {
         [self.webViewController hideFindInPageWithCompletion:nil];
-        
-        if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
-            ((WMFArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
-        }
-        
-        if ([peekVC conformsToProtocol:@protocol(WMFThemeable)]) {
-            [(id<WMFThemeable>)peekVC applyTheme:self.theme];
-        }
-        return peekVC;
     }
-    return nil;
+    return peekVC;
 }
 
 - (void)webView:(WKWebView *)webView commitPreviewingViewController:(UIViewController *)previewingViewController {
@@ -2109,12 +2140,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)registerForPreviewingIfAvailable {
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
-        if (self.peekingAllowed) {
-            self.webViewController.webView.UIDelegate = self;
-            self.webViewController.webView.allowsLinkPreview = YES;
-        } else {
-            self.webViewController.webView.allowsLinkPreview = NO;
-        }
         [self unregisterForPreviewing];
         self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.headerView];
     } else {
@@ -2131,16 +2156,50 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Peeking helpers
 
+- (nullable UIMenu *)previewMenuElementsForPreviewViewController:(UIViewController *)previewViewController suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions API_AVAILABLE(ios(13.0)) {
+    if (![previewViewController respondsToSelector:@selector(previewActions)]) {
+        return nil;
+    }
+    id maybeLegacyActions = [(id)previewViewController previewActions];
+    if (![maybeLegacyActions isKindOfClass:[NSArray class]]) {
+        return nil;
+    }
+    NSArray *legacyActions = (NSArray *)maybeLegacyActions;
+    NSMutableArray<UIMenuElement *> *menuItems = [NSMutableArray arrayWithCapacity:legacyActions.count];
+    for (id maybeLegacyAction in legacyActions) {
+        if (![maybeLegacyAction isKindOfClass:[UIPreviewAction class]]) {
+            continue;
+        }
+        UIPreviewAction *legacyAction = (UIPreviewAction *)maybeLegacyAction;
+        UIAction *action = [UIAction actionWithTitle:legacyAction.title
+                                               image:nil
+                                          identifier:nil
+                                             handler:^(UIAction *action) {
+                                                 legacyAction.handler(legacyAction, previewViewController);
+                                             }];
+        [menuItems addObject:action];
+    }
+    return [UIMenu menuWithTitle:@"" children:menuItems];
+}
+
 - (NSArray<NSString *> *)peekableImageExtensions {
     return @[@"jpg", @"jpeg", @"gif", @"png", @"svg"];
 }
 
 - (nullable UIViewController *)peekViewControllerForURL:(NSURL *)linkURL {
+    UIViewController *peekVC = nil;
     if ([self.peekableImageExtensions containsObject:[[linkURL pathExtension] lowercaseString]]) {
-        return [self viewControllerForImageFilePageURL:linkURL withTopBarHidden:YES];
+        peekVC = [self viewControllerForImageFilePageURL:linkURL withTopBarHidden:YES];
     } else {
-        return [self viewControllerForPreviewURL:linkURL];
+        peekVC = [self viewControllerForPreviewURL:linkURL];
     }
+    if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
+        ((WMFArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
+    }
+    if ([peekVC conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)peekVC applyTheme:self.theme];
+    }
+    return peekVC;
 }
 
 - (NSURL *)galleryURLFromImageFilePageURL:(NSURL *)imageFilePageURL {
