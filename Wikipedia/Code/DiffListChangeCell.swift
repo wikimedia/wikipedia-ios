@@ -42,10 +42,10 @@ class DiffListChangeCell: UICollectionViewCell {
     
     func update(_ viewModel: DiffListChangeViewModel) {
         
-        textLeadingConstraint.constant = viewModel.textPadding.leading
-        textTrailingConstraint.constant = viewModel.textPadding.trailing
-        textTopConstraint.constant = viewModel.textPadding.top
-        textBottomConstraint.constant = viewModel.textPadding.bottom
+        textLeadingConstraint.constant = viewModel.stackViewPadding.leading
+        textTrailingConstraint.constant = viewModel.stackViewPadding.trailing
+        textTopConstraint.constant = viewModel.stackViewPadding.top
+        textBottomConstraint.constant = viewModel.stackViewPadding.bottom
         
         innerLeadingConstraint.constant = viewModel.innerPadding.leading
         innerTrailingConstraint.constant = viewModel.innerPadding.trailing
@@ -94,22 +94,34 @@ private extension DiffListChangeCell {
             let label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
-            label.backgroundColor = item.backgroundColor
             label.textAlignment = item.textAlignment
             label.isUserInteractionEnabled = true
             label.tag = index
+            label.translatesAutoresizingMaskIntoConstraints = false
             
             if let tapGestureRecognizer = tapGestureRecognizer {
                 label.addGestureRecognizer(tapGestureRecognizer)
             }
             
-            textStackView.addArrangedSubview(label)
+            //add surrounding view
+            let view = UIView(frame: .zero)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(label)
+            view.backgroundColor = item.backgroundColor
+            
+            let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: item.textPadding.top)
+            let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: item.textPadding.bottom)
+            let leading = label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: item.textPadding.leading)
+            let trailing = view.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: item.textPadding.trailing)
+            view.addConstraints([top, bottom, leading, trailing])
+            
+            textStackView.addArrangedSubview(view)
         }
     }
     
     func updateTextLabels(in textStackView: UIStackView, newViewModel: DiffListChangeViewModel) {
         for (index, subview) in textStackView.arrangedSubviews.enumerated() {
-            if let label = subview as? UILabel,
+            if let label = subview.subviews.first as? UILabel,
                 let item = newViewModel.items[safeIndex: index] {
                 label.attributedText = item.textAttributedString
             }

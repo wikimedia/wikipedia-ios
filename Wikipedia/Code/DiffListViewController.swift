@@ -297,7 +297,7 @@ extension DiffListViewController: DiffListChangeCellDelegate {
         }
         
         if let indexToScrollTo = indexToScrollTo {
-            collectionView.scrollToItem(at: IndexPath(item: indexToScrollTo, section: 0), at: .centeredVertically, animated: true)
+            collectionView.scrollToItem(at: IndexPath(item: indexToScrollTo, section: 0), at: .top, animated: true)
         }
     }
 }

@@ -10,6 +10,7 @@ final class DiffListChangeItemViewModel {
     let backgroundColor: UIColor
     private let groupedMoveIndexes: [String: Int]
     let moveInfo: DiffMoveInfo?
+    private(set) var textPadding: NSDirectionalEdgeInsets
 
     var theme: Theme {
         didSet {
@@ -25,7 +26,7 @@ final class DiffListChangeItemViewModel {
     
     private(set) var textAttributedString: NSAttributedString
     
-    init(item: DiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, groupedMoveIndexes: [String: Int]) {
+    init(item: DiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, groupedMoveIndexes: [String: Int], nextMiddleItem: DiffItem?) {
         self.text = item.text
         self.traitCollection = traitCollection
         self.theme = theme
@@ -56,7 +57,28 @@ final class DiffListChangeItemViewModel {
         textAlignment = diffItemType == .moveSource ? .center : .natural
         backgroundColor = (diffItemType == .moveSource || diffItemType == .moveDestination) ? theme.colors.cardBorder : theme.colors.paperBackground
         
+        self.textPadding = DiffListChangeItemViewModel.calculateTextPadding(type: type, diffItemType: diffItemType, nextMiddleItem: nextMiddleItem)
         self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: item.moveInfo, groupedMoveIndexes: groupedMoveIndexes)
+    }
+    
+    private static func calculateTextPadding(type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: DiffItem?) -> NSDirectionalEdgeInsets {
+        switch type {
+        case .compareRevision:
+            var top: CGFloat = 0
+            var bottom: CGFloat = 0
+            if diffItemType == .moveSource || diffItemType == .moveDestination {
+                top = 15
+                if let middleItem = nextMiddleItem,
+                middleItem.type == .moveSource || middleItem.type == .moveDestination {
+                    bottom = 0
+                } else {
+                    bottom = 15
+                }
+            }
+            return NSDirectionalEdgeInsets(top: top, leading: 10, bottom: bottom, trailing: 10)
+        case .singleRevison:
+            return NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        }
     }
     
     private static func calculateAttributedString(with text: String, highlightedRanges: [DiffListItemHighlightRange], traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, moveInfo: DiffMoveInfo?, groupedMoveIndexes: [String: Int]) -> NSAttributedString {
@@ -69,13 +91,14 @@ final class DiffListChangeItemViewModel {
         let boldFontStyle: DynamicTextStyle = type == .singleRevison ? .boldCallout : .boldFootnote
         
         let font = diffItemType == .moveSource || diffItemType == .moveDestination ? UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection) : UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection)
-        let attributes = [NSAttributedString.Key.font: font]
         
-        //todo: failed progress on adding line spacing
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        let lineSpacing: CGFloat = 4
-//        paragraphStyle.lineSpacing = lineSpacing
-//        paragraphStyle.lineHeightMultiple = font.lineHeightMultipleToMatch(lineSpacing: lineSpacing)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        let lineSpacing: CGFloat = 4
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.lineHeightMultiple = font.lineHeightMultipleToMatch(lineSpacing: lineSpacing)
+        let attributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.paragraphStyle: paragraphStyle.copy()]
         
         
         //additional move changes that are specific to the client
@@ -91,9 +114,9 @@ final class DiffListChangeItemViewModel {
             
             if diffItemType == .moveSource {
                 modifiedText = WMFLocalizedString("diff-paragraph-moved", value:"Paragraph moved", comment:"Label in diff to indicate that a paragraph has been moved. This label is in the location of where the paragraph was moved from.")
+                paragraphStyle.alignment = .center
             } else if diffItemType == .moveDestination {
                 
-                //todo: offset highlighted ranges since we added move index & arrow in the front
                 let originalHighlightedRanges = modifiedHighlightedRanges
                 modifiedHighlightedRanges.removeAll(keepingCapacity: true)
                 for highlightedRange in originalHighlightedRanges {
@@ -115,6 +138,10 @@ final class DiffListChangeItemViewModel {
                 
                 //insert move arrow
                 maybeMutableAttributedString.insert(imageString, at:0)
+                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2], range: NSRange(location: 0, length: 1))
+                
+                //line spacing moved paragraphs
+                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle.copy()], range: NSRange(location: 0, length: maybeMutableAttributedString.string.count))
             }
         }
         
@@ -170,17 +197,6 @@ final class DiffListChangeItemViewModel {
     }
 }
 
-//fileprivate extension UIFont
-//{
-//    func lineSpacingToMatch(lineHeightMultiple: CGFloat) -> CGFloat {
-//        return self.lineHeight * (lineHeightMultiple - 1)
-//    }
-//
-//    func lineHeightMultipleToMatch(lineSpacing: CGFloat) -> CGFloat {
-//        return 1 + lineSpacing / self.lineHeight
-//    }
-//}
-
 extension DiffListChangeItemViewModel: Equatable {
     static func == (lhs: DiffListChangeItemViewModel, rhs: DiffListChangeItemViewModel) -> Bool {
         return lhs.highlightedRanges == rhs.highlightedRanges &&
@@ -195,4 +211,15 @@ extension DiffListItemHighlightRange: Equatable {
             lhs.type == rhs.type
     }
     
+}
+
+fileprivate extension UIFont
+{
+    func lineSpacingToMatch(lineHeightMultiple: CGFloat) -> CGFloat {
+        return self.lineHeight * (lineHeightMultiple - 1)
+    }
+
+    func lineHeightMultipleToMatch(lineSpacing: CGFloat) -> CGFloat {
+        return 1 + lineSpacing / self.lineHeight
+    }
 }

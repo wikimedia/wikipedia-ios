@@ -45,3 +45,22 @@ struct DiffMoveInfo: Codable {
     let linkId: String
     let linkDirection: DiffLinkDirection
 }
+
+extension DiffItem: Equatable {
+    static func == (lhs: DiffItem, rhs: DiffItem) -> Bool {
+        return lhs.lineNumber == rhs.lineNumber &&
+            lhs.type == rhs.type &&
+            lhs.text == rhs.text &&
+            lhs.highlightRanges == rhs.highlightRanges &&
+            lhs.moveInfo == rhs.moveInfo &&
+            lhs.sectionTitleIndex == rhs.sectionTitleIndex
+    }
+}
+
+extension DiffHighlightRange: Equatable {
+    
+}
+
+extension DiffMoveInfo: Equatable {
+    
+}
