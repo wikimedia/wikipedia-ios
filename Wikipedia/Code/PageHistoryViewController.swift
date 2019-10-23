@@ -73,7 +73,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationBar.shadowColorKeyPath = \Theme.colors.border
         countsViewController.didMove(toParent: self)
 
-        collectionView.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier)
+        layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
 
@@ -314,8 +314,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageHistoryCollectionViewCell.identifier, for: indexPath) as? PageHistoryCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let item = pageHistorySections[indexPath.section].items[indexPath.item]
-        configure(cell: cell, for: item, at: indexPath)
+        configure(cell: cell, at: indexPath)
         return cell
     }
 
@@ -363,7 +362,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
-    private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision, at indexPath: IndexPath) {
+    private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision? = nil, at indexPath: IndexPath) {
+        let item = item ?? pageHistorySections[indexPath.section].items[indexPath.item]
         defer {
             cell.setEditing(state == .editing, animated: false)
             cell.enableEditing(!maxNumberOfRevisionsSelected, animated: false)
@@ -413,6 +413,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         cell.apply(theme: theme)
     }
 
+    override func contentSizeCategoryDidChange(_ notification: Notification?) {
+        layoutCache.reset()
+        super.contentSizeCategoryDidChange(notification)
+    }
+
     private func updateSelectionThemeModel(_ selectionThemeModel: SelectionThemeModel?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
         cell.selectionThemeModel = selectionThemeModel
         cellContentCache.object(forKey: indexPath as NSIndexPath)?.selectionThemeModel = selectionThemeModel
@@ -460,18 +465,20 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }()
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        if let estimate = cellLayoutEstimate {
-            return estimate
+        let identifier = PageHistoryCollectionViewCell.identifier
+        let item = pageHistorySections[indexPath.section].items[indexPath.item]
+        let userInfo = "phc-cell-\(item.revisionID)"
+        if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 80)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier) as? PageHistoryCollectionViewCell else {
             return estimate
         }
-        let item = pageHistorySections[indexPath.section].items[indexPath.item]
         configure(cell: placeholderCell, for: item, at: indexPath)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        cellLayoutEstimate = estimate
+        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
 
