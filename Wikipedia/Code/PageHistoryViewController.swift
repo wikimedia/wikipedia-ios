@@ -73,6 +73,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationBar.shadowColorKeyPath = \Theme.colors.border
         countsViewController.didMove(toParent: self)
 
+
+        navigationBar.isUnderBarViewHidingEnabled = true
+
         layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
