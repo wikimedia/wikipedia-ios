@@ -136,6 +136,11 @@ public class Configuration: NSObject {
         return builder.components(byAppending: pathComponents)
     }
     
+    public func mediaWikiAPIURForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
+        return builder.components(byAppending: pathComponents)
+    }
+    
     @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
     public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiAPIURLComponentsBuilderForHost(host)

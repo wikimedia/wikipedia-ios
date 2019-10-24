@@ -88,7 +88,7 @@ open class Fetcher: NSObject {
     
     @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:completionHandler:)
     @discardableResult public func performMediaWikiAPIPOST(for URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        let components = configuration.mediaWikiAPIURForHost(URL?.host)
+        let components = configuration.mediaWikiAPIURForHost(URL?.host, with: nil)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.postFormEncodedBodyParametersToURL(to: components.url, bodyParameters: bodyParameters) { (result, response, error) in
             completionHandler(result, response, error)

@@ -15,12 +15,16 @@ class DiffContainerViewController: ViewController {
     private var headerTitleView: DiffHeaderTitleView?
     private var diffListViewController: DiffListViewController?
     private let diffController: DiffController
+    private let fromRevisionId: Int
+    private let toRevisionId: Int
     
     private let type: DiffContainerViewModel.DiffType
     
     init(type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController = DiffController()) {
         self.type = type
         self.diffController = diffController
+        self.fromRevisionId = fromModel.revisionID
+        self.toRevisionId = toModel.revisionID
         
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, theme: theme)
         
@@ -43,7 +47,7 @@ class DiffContainerViewController: ViewController {
         view.setNeedsLayout()
         view.layoutIfNeeded()
         let width = diffListViewController?.collectionView.frame.width
-        diffController.fetchDiff(theme: theme, traitCollection: traitCollection, type: type) { [weak self] (result) in
+        diffController.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, theme: theme, traitCollection: traitCollection, type: type) { [weak self] (result) in
 
             guard let self = self else {
                 return

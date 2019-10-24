@@ -3,38 +3,34 @@ import Foundation
 
 class DiffController {
     
-    func fetchDiff(theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, completion: ((Result<[DiffListGroupViewModel], Error>) -> Void)? = nil) {
-        
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        
-        queue.async { [weak self] in
+    let fetcher: DiffFetcher
+    
+    init(fetcher: DiffFetcher = DiffFetcher()) {
+        self.fetcher = fetcher
+    }
+    
+    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
             
-            guard let self = self else { return }
-            
-            do {
-
-                 let url = Bundle.main.url(forResource: "ObamaTest", withExtension: "json")!
-                 let data = try Data(contentsOf: url)
-                 let result = try JSONDecoder().decode(DiffResponse.self, from: data)
+        fetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { (result) in
+            switch result {
+            case .success(let diffResponse):
                 
-                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: result)
-
+                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
                 switch type {
                 case .single:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: result, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
-                    completion?(.success(response))
+                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: diffResponse, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
+                    completion(.success(response))
                 case .compare:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: result, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
-                    completion?(.success(response))
+                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: diffResponse, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
+                    completion(.success(response))
                 }
-            }
-            catch (let error) {
-                completion?(.failure(error))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
     
-    private func groupedIndexesOfMoveItems(from response: DiffResponse) -> [String: Int] {
+    private func groupedIndexesOfMoveItems(from response: Diff) -> [String: Int] {
         let movedItems = response.diff.filter { $0.type == .moveSource || $0.type == .moveDestination }
         
         var indexCounter = 0
@@ -59,7 +55,7 @@ class DiffController {
         return result
     }
     
-    private func viewModelsForSingle(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
+    private func viewModelsForSingle(from response: Diff, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
@@ -101,10 +97,12 @@ class DiffController {
             continue
         }
         
+        packageUpSectionItemsIfNeeded()
+        
         return result
     }
         
-    private func viewModelsForCompare(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
+    private func viewModelsForCompare(from response: Diff, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
@@ -175,6 +173,9 @@ class DiffController {
             
             continue
         }
+        
+        //should end with 2 context items
+        packageUpContextItemsIfNeeded()
         
         return result
     }

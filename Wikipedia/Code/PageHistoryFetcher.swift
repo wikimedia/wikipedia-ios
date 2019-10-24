@@ -21,7 +21,15 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         if let rvContinueKey = requestParams.pagingInfo.rvContinueKey {
             params["rvcontinue"] = rvContinueKey as AnyObject?
         }
-        performMediaWikiAPIGET(for: siteURL, withQueryParameters: params) { (result, response, error) in
+        
+        //TODO: forcing wmflabs here for usertesting
+        var siteUrlPathComponents = siteURL.pathComponents
+        siteUrlPathComponents.removeAll(where: {$0 == "/"})
+        guard let newSiteURL = configuration.mediaWikiAPIURForHost("en.wikipedia.beta.wmflabs.org", appending: siteUrlPathComponents).url else {
+            return
+        }
+        
+        performMediaWikiAPIGET(for: newSiteURL, withQueryParameters: params) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return
@@ -99,7 +107,15 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             "titles": pageTitle as AnyObject,
             "format": "json" as AnyObject
         ]
-        performMediaWikiAPIGET(for: pageURL, withQueryParameters: params) { (result, response, error) in
+        
+        //TODO: forcing wmflabs here for usertesting
+        var pageUrlPathComponents = pageURL.pathComponents
+        pageUrlPathComponents.removeAll(where: {$0 == "/"})
+        guard let newPageURL = configuration.mediaWikiAPIURForHost("en.wikipedia.beta.wmflabs.org", appending: pageUrlPathComponents).url else {
+            return
+        }
+        
+        performMediaWikiAPIGET(for: newPageURL, withQueryParameters: params) { (result, response, error) in
             guard let result = result, let results = self.parseSections(result) else {
                 completion(.failure(.unexpectedResponse))
                 return

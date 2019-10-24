@@ -58,7 +58,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], sectionTitles: [String]) {
+    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], sectionTitles: [String]?) {
         
         self.type = type
         self.theme = theme
@@ -70,7 +70,12 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         case .compareRevision:
             self.heading = DiffListChangeViewModel.calculateHeadingsFromLineNumbers(diffItems: diffItems)
         case .singleRevison:
-            self.heading = DiffListChangeViewModel.calculateHeadingsFromSectionTitles(diffItems: diffItems, sectionTitles: sectionTitles)
+            if let sectionTitles = sectionTitles, !sectionTitles.isEmpty {
+                self.heading = DiffListChangeViewModel.calculateHeadingsFromSectionTitles(diffItems: diffItems, sectionTitles: sectionTitles)
+            } else {
+                self.heading = DiffListChangeViewModel.calculateHeadingsFromLineNumbers(diffItems: diffItems)
+            }
+            
         }
         
         var itemViewModels: [DiffListChangeItemViewModel] = []
