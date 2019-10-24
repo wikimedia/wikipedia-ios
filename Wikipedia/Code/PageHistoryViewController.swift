@@ -73,6 +73,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationBar.shadowColorKeyPath = \Theme.colors.border
         countsViewController.didMove(toParent: self)
 
+
+        navigationBar.isUnderBarViewHidingEnabled = true
+
         layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
@@ -193,15 +196,20 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 selectedCellsCount = 0
                 pageHistoryHintController?.hide(true, presenter: self, theme: theme)
                 openSelectionIndex = 0
+
                 NSLayoutConstraint.deactivate(comparisonSelectionButtonWidthConstraints)
                 navigationItem.rightBarButtonItem = compareButton
-                collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
+
+                indexPathsSelectedForComparison.removeAll(keepingCapacity: true)
                 forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
-                    self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
                     self.collectionView.deselectItem(at: indexPath, animated: true)
+                    self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
+                    self.updateSelectionIndex(nil, for: cell, at: indexPath)
                     cell.enableEditing(true) // confusing, have a reset method
                     cell.setEditing(false)
+                    cell.apply(theme: self.theme)
                 }
+
                 resetComparisonSelectionButtons()
                 navigationController?.setToolbarHidden(true, animated: true)
             case .editing:
@@ -387,7 +395,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.sizeDiff = cachedCellContent.sizeDiff
             cell.comment = cachedCellContent.comment
             if state == .editing {
-                cell.isSelected = cachedCellContent.selectionIndex != nil
+                if cachedCellContent.selectionIndex != nil {
+                    cell.isSelected = true
+                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+                }
                 if cell.isSelected {
                     cell.selectionThemeModel = cachedCellContent.selectionThemeModel
                 } else {
@@ -558,6 +569,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         
         if state == .editing {
             selectedCellsCount += 1
+
             defer {
                 compareToolbarButton.isEnabled = maxNumberOfRevisionsSelected
             }
@@ -601,6 +613,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.apply(theme: theme)
 
             openSelectionIndex += 1
+
+            collectionView.reloadData()
         } else {
             let cell = collectionView.cellForItem(at: indexPath)
             cell?.isSelected = false
@@ -618,11 +632,16 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellsCount -= 1
         pageHistoryHintController?.hide(true, presenter: self, theme: theme)
+
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
-            openSelectionIndex = collectionView.indexPathsForSelectedItems?.count ?? 0 == 0 ? 0 : selectionIndex
+            indexPathsSelectedForComparison.removeValue(forKey: selectionIndex)
+            openSelectionIndex = selectionIndex
+
             forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
-                self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
-                cell.enableEditing(true, animated: false)
+                if !cell.isSelected {
+                    self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
+                    cell.enableEditing(true, animated: false)
+                }
             }
             let button: UIButton?
             switch selectionIndex {
@@ -639,6 +658,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             updateSelectionIndex(nil, for: cell, at: indexPath)
             updateSelectionThemeModel(nil, for: cell, at: indexPath)
             cell.apply(theme: theme)
+            collectionView.reloadData()
         }
         compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
     }

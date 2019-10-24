@@ -676,7 +676,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.contentWidthPercentage = 1;
 
     self.webView = [[WMFWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
-    self.webView.allowsLinkPreview = NO;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -1143,8 +1142,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.scrollViewAnimationCompletions[0]();
     [self.scrollViewAnimationCompletions removeObjectAtIndex:0];
 }
-
-#pragma mark - WKNavigationDelegate
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
     DDLogError(@"webViewContentProcessDidTerminate: %@", webView);

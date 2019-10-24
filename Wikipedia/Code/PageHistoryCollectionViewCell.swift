@@ -111,7 +111,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     }
 
     func enableEditing(_ enableEditing: Bool, animated: Bool = true) {
-        guard !isSelected, isEditingEnabled != enableEditing else {
+        guard !isSelected else {
             return
         }
         layoutIfNeeded()
