@@ -188,13 +188,11 @@ class TalkPageFetcher: Fetcher {
                 }
             }
             
-            // all of this can be removed afer https://gerrit.wikimedia.org/r/#/c/mediawiki/services/mobileapps/+/545375/
-            // is deployed
+            // all of this can be removed after
+            // https://gerrit.wikimedia.org/r/#/c/mediawiki/services/mobileapps/+/545375/ is deployed
             let revision: Int
             if let networkRev = networkBase.revision {
                 revision = networkRev
-            } else if let requestedRev = revisionID {
-                revision = requestedRev
             } else {
                 guard
                     let etag = (response as? HTTPURLResponse)?.allHeaderFields["Etag"] as? String,

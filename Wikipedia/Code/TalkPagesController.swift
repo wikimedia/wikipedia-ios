@@ -98,7 +98,7 @@ class TalkPageController {
                             let fetchResult = FetchResult(objectID: localObjectID, isInitialLocalResult: false)
                             completion?(.success(fetchResult))
                         } else {
-                            // we just want the latest revision, so don't pass revisionID
+                            // Omit the revisionID to get the latest revision. Including a revision bypasses the cache and slows down the response
                             self.fetchAndUpdateLocalTalkPage(with: localObjectID, revisionID: nil, completion: { (result) in
                                 switch result {
                                 case .success(let response):
