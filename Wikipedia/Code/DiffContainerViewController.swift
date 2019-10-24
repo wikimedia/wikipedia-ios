@@ -36,7 +36,6 @@ class DiffContainerViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
         apply(theme: theme)
@@ -80,11 +79,6 @@ class DiffContainerViewController: ViewController {
         if let scrollView = diffListViewController?.scrollView {
             configureExtendedViewSquishing(scrollView: scrollView)
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
     }
     
     override func apply(theme: Theme) {
