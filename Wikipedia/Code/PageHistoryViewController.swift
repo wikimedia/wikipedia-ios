@@ -570,6 +570,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.apply(theme: theme)
 
             openSelectionIndex += 1
+
+            collectionView.reloadData()
         } else {
             // TODO: Push new vc
         }
