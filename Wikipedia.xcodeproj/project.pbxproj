@@ -104,6 +104,14 @@
 		670F766222B0C49000D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		670F766322B0C49100D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */; };
+		6724288E23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
+		6724288F23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
+		6724289023612AF100490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
+		6724289123612AF100490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
+		6724289223612AF500490629 /* DiffListUneditedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */; };
+		6724289323612AF600490629 /* DiffListUneditedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */; };
+		6724289423612AF700490629 /* DiffListUneditedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */; };
+		6724289523612AF700490629 /* DiffListUneditedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */; };
 		672B127822A450F000CC85A5 /* TalkPageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */; };
 		672C35EB22D8E7CA007B8D46 /* EmptyRefreshingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */; };
 		672C35EC22D8E7D2007B8D46 /* EmptyRefreshingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */; };
@@ -3970,12 +3978,12 @@
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		67CB2BCF231492D800D9034D /* LoadingFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFlowController.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
 		67CEF2642351111A00D5CA6C /* ObamaTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ObamaTest.json; sourceTree = "<group>"; };
 		67CEF26E2351113000D5CA6C /* DiffController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffController.swift; sourceTree = "<group>"; };
-		67CB2BCF231492D800D9034D /* LoadingFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFlowController.swift; sourceTree = "<group>"; };
 		67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeView.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
@@ -6599,6 +6607,15 @@
 			name = "Reading Themes Controls";
 			sourceTree = "<group>";
 		};
+		676028E7231037B20018EAD9 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */,
+				676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
 		6782DB8F2343B691003FA21B /* Diff */ = {
 			isa = PBXGroup;
 			children = (
@@ -6660,15 +6677,6 @@
 				678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */,
 			);
 			name = DiffListViewModels;
-            sourceTree = "<group>";
-        };
-		676028E7231037B20018EAD9 /* Loading */ = {
-			isa = PBXGroup;
-			children = (
-				676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */,
-				676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */,
-			);
-			name = Loading;
 			sourceTree = "<group>";
 		};
 		6798332722C3F2700073CE6F /* UITextView */ = {
@@ -10182,6 +10190,7 @@
 				7A827662226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				D80ED3D61EE57F4800CE8C50 /* NotificationBackgroundSuccess.png in Resources */,
 				83836ED51F615E5B007D1A05 /* ShareViewController.xib in Resources */,
+				6724289123612AF100490629 /* DiffListContextCell.xib in Resources */,
 				D80ED3D71EE57F4800CE8C50 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D80ED3D81EE57F4800CE8C50 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				7A9524E022669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
@@ -10262,6 +10271,7 @@
 				7AC19E4E2301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.xib in Resources */,
 				D80ED4161EE57F4800CE8C50 /* WMFRandomDiceButton.html in Resources */,
 				7A2FE55A2051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
+				6724289523612AF700490629 /* DiffListUneditedCell.xib in Resources */,
 				D80ED4191EE57F4800CE8C50 /* WMFForgotPasswordViewController.storyboard in Resources */,
 				7A9A611C21124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				83AE1C891F34BB66004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
@@ -10341,6 +10351,7 @@
 				7A16C4EE212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				7A84225B2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				D8A42BC51E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
+				6724289023612AF100490629 /* DiffListContextCell.xib in Resources */,
 				B0B423701EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8A42BC61E815A9C00D8E281 /* NotificationBackgroundErrorIcon.png in Resources */,
 				7AB20A1422FC8432006FECB4 /* PageHistoryCountsViewController.xib in Resources */,
@@ -10439,6 +10450,7 @@
 				B0F4762321F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
 				D8A42C181E815A9C00D8E281 /* NotificationButtonBackground@2x.png in Resources */,
 				7AEC9861219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
+				6724289423612AF700490629 /* DiffListUneditedCell.xib in Resources */,
 				7A707985223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10461,6 +10473,7 @@
 				7A16C4EC212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				7A8422592268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				D8CE264C1E698E2400DAE2E0 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
+				6724288E23612AF000490629 /* DiffListContextCell.xib in Resources */,
 				B0B4236E1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8CE264D1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon.png in Resources */,
 				7AB20A1222FC8432006FECB4 /* PageHistoryCountsViewController.xib in Resources */,
@@ -10559,6 +10572,7 @@
 				B0F4762121F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
 				D8CE269F1E698E2400DAE2E0 /* NotificationButtonBackground@2x.png in Resources */,
 				7AEC985F219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
+				6724289223612AF500490629 /* DiffListUneditedCell.xib in Resources */,
 				7A707983223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10581,6 +10595,7 @@
 				7A16C4ED212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				7A84225A2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				D8EC3F4C1E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.xib in Resources */,
+				6724288F23612AF000490629 /* DiffListContextCell.xib in Resources */,
 				B0B4236F1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8EC3F4D1E9BDA35006712EB /* NotificationBackgroundErrorIcon.png in Resources */,
 				7AB20A1322FC8432006FECB4 /* PageHistoryCountsViewController.xib in Resources */,
@@ -10679,6 +10694,7 @@
 				B0F4762221F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
 				D8EC3F9F1E9BDA35006712EB /* NotificationButtonBackground@2x.png in Resources */,
 				7AEC9860219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
+				6724289323612AF600490629 /* DiffListUneditedCell.xib in Resources */,
 				7A707984223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
