@@ -15,6 +15,16 @@ class DiffHeaderCompareView: UIView {
     private var beginSquishYOffset: CGFloat = 0
     private var scrollYOffset: CGFloat = 0
     
+    var delegate: DiffHeaderActionDelegate? {
+        get {
+            return fromItemView.delegate
+        }
+        set {
+            fromItemView.delegate = newValue
+            toItemView.delegate = newValue
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -63,6 +73,16 @@ class DiffHeaderCompareView: UIView {
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let fromConvertedPoint = self.convert(point, to: fromItemView)
+        if fromItemView.point(inside: fromConvertedPoint, with: event) {
+            return true
+        }
+        
+        let toConvertedPoint = self.convert(point, to: toItemView)
+        if toItemView.point(inside: toConvertedPoint, with: event) {
+            return true
+        }
+        
         return false
     }
 }

@@ -15,16 +15,28 @@ class DiffContainerViewController: ViewController {
     private var headerTitleView: DiffHeaderTitleView?
     private var diffListViewController: DiffListViewController?
     private let diffController: DiffController
-    private let fromRevisionId: Int
-    private let toRevisionId: Int
+    private let fromModel: WMFPageHistoryRevision?
+    private let toModel: WMFPageHistoryRevision
+    private let siteURL: URL
+    private let articleTitle: String
     
     private let type: DiffContainerViewModel.DiffType
     
-    init(type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController = DiffController()) {
+    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController? = nil) {
         self.type = type
-        self.diffController = diffController
-        self.fromRevisionId = fromModel.revisionID
-        self.toRevisionId = toModel.revisionID
+        
+        self.fromModel = fromModel
+        self.toModel = toModel
+        self.articleTitle = articleTitle
+        
+        let forceSiteURL = URL(string: "https://en.wikipedia.beta.wmflabs.org")! //tonitodo: hardcoded to wmflabs for now
+        self.siteURL = forceSiteURL
+        
+        if let diffController = diffController {
+            self.diffController = diffController
+        } else {
+            self.diffController = DiffController(siteURL: forceSiteURL, articleTitle: articleTitle, type: type)
+        }
         
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, theme: theme)
         
@@ -47,7 +59,7 @@ class DiffContainerViewController: ViewController {
         view.setNeedsLayout()
         view.layoutIfNeeded()
         let width = diffListViewController?.collectionView.frame.width
-        diffController.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, theme: theme, traitCollection: traitCollection, type: type) { [weak self] (result) in
+        diffController.fetchDiff(fromRevisionId: fromModel?.revisionID, toRevisionId: toModel.revisionID, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
 
             guard let self = self else {
                 return
@@ -74,7 +86,13 @@ class DiffContainerViewController: ViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.showDiffPanelOnce()
+        
+        switch type {
+        case .compare:
+            self.showDiffPanelOnce()
+        case .single:
+            break
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -135,6 +153,7 @@ private extension DiffContainerViewController {
             navigationBar.allowsUnderbarHitsFallThrough = true
             navigationBar.allowsExtendedHitsFallThrough = true
             navigationBar.addExtendedNavigationBarView(headerExtendedView)
+            headerExtendedView.delegate = self
             
             self.headerExtendedView = headerExtendedView
         }
@@ -181,4 +200,37 @@ extension DiffContainerViewController: DiffListDelegate {
         
         configureExtendedViewSquishing(scrollView: scrollView)
     }
+}
+
+extension DiffContainerViewController: DiffHeaderActionDelegate {
+    func tappedUsername(username: String) {
+        if let username = (username as NSString).wmf_normalizedPageTitle() {
+            let userPageURL = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
+            wmf_openExternalUrl(userPageURL)
+        }
+    }
+    
+    func tappedRevision(revisionID: Int) {
+        //tonitodo: won't know byte difference until fromRevisionId is fetched later 😭
+        
+        guard let fromModel = fromModel else {
+            assertionFailure("Revision tapping is not supported on a page without a from model")
+            return
+        }
+        
+        let revision: WMFPageHistoryRevision
+        if revisionID == fromModel.revisionID {
+            revision = fromModel
+        } else if revisionID == toModel.revisionID {
+            revision = toModel
+        } else {
+            assertionFailure("Trouble determining revision model to push on next")
+            return
+        }
+        
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: 0), fromModel: nil, toModel: revision, theme: theme)
+        wmf_push(singleDiffVC, animated: true)
+    }
+    
+    
 }

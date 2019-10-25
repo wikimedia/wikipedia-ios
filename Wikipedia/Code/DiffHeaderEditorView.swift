@@ -8,7 +8,13 @@ class DiffHeaderEditorView: UIView {
     @IBOutlet var userIconImageView: UIImageView!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var numberOfEditsLabel: UILabel!
-
+    @IBOutlet var userStackView: UIStackView!
+    
+    private var tapGestureRecognizer: UITapGestureRecognizer?
+    weak var delegate: DiffHeaderActionDelegate?
+    
+    private var viewModel: DiffHeaderEditorViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -19,16 +25,21 @@ class DiffHeaderEditorView: UIView {
         commonInit()
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        if let tapGestureRecognizer = tapGestureRecognizer {
+            userStackView.addGestureRecognizer(tapGestureRecognizer)
+        }
+    }
+    
     func update(_ viewModel: DiffHeaderEditorViewModel) {
+        
+        self.viewModel = viewModel
         
         headingLabel.text = viewModel.heading
         usernameLabel.text = viewModel.username
-        if #available(iOS 13.0, *) {
-            userIconImageView.image = UIImage(systemName: "person.fill")
-        } else {
-            userIconImageView.isHidden = true //TONITODO: get asset for this
-        }
-        //tonitodo: tappable usericon and username label
+        userIconImageView.image = UIImage(named: "user-edit")
         switch viewModel.state {
         case .loadedNumberOfEdits(let numberOfEdits):
             numberOfEditsLabel.text = String.localizedStringWithFormat(viewModel.numberOfEditsFormat, numberOfEdits)
@@ -46,7 +57,14 @@ class DiffHeaderEditorView: UIView {
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return usernameLabel.point(inside: point, with: event)
+        let userStackViewConvertedPoint = self.convert(point, to: userStackView)
+        return userStackView.point(inside: userStackViewConvertedPoint, with: event)
+    }
+    
+    @objc func tappedUserWithSender(_ sender: UITapGestureRecognizer) {
+        if let username = viewModel?.username {
+            delegate?.tappedUsername(username: username)
+        }
     }
 }
 
@@ -57,12 +75,13 @@ private extension DiffHeaderEditorView {
             addSubview(contentView)
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedUserWithSender(_:)))
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
     
-        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldCallout, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
+        usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumCaption1, compatibleWithTraitCollection: traitCollection)
         numberOfEditsLabel.font = UIFont.wmf_font(DynamicTextStyle.callout, compatibleWithTraitCollection: traitCollection)
     }
 }

@@ -3,6 +3,7 @@ import UIKit
 
 class DiffHeaderCompareItemView: UIView {
 
+    @IBOutlet var userStackView: UIStackView!
     @IBOutlet var containerStackView: UIStackView!
     @IBOutlet var contentView: UIView!
     @IBOutlet var headingLabel: UILabel!
@@ -21,6 +22,10 @@ class DiffHeaderCompareItemView: UIView {
         return timestampLabel.frame.maxY + stackViewTopPaddingConstraint.constant + squishedBottomPadding
     }
     private var viewModel: DiffHeaderCompareItemViewModel?
+    
+    private var usernameTapGestureRecognizer: UITapGestureRecognizer?
+    private var timestampTapGestureRecognizer:  UITapGestureRecognizer?
+    weak var delegate: DiffHeaderActionDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,19 +39,23 @@ class DiffHeaderCompareItemView: UIView {
         containerStackView.spacing = maxContainerStackViewSpacing
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        if let usernameTapGestureRecognizer = usernameTapGestureRecognizer {
+            userStackView.addGestureRecognizer(usernameTapGestureRecognizer)
+        }
+        
+        if let timestampTapGestureRecognizer = timestampTapGestureRecognizer {
+            timestampLabel.addGestureRecognizer(timestampTapGestureRecognizer)
+        }
     }
     
     func update(_ viewModel: DiffHeaderCompareItemViewModel) {
 
         headingLabel.text = viewModel.heading
         timestampLabel.text = viewModel.timestampString
-        if #available(iOS 13.0, *) {
-            userIconImageView.image = UIImage(systemName: "person.fill")
-        } else {
-            userIconImageView.isHidden = true //TONITODO: get asset for this
-        }
+        userIconImageView.image = UIImage(named: "user-edit")
         usernameLabel.text = viewModel.username
         //tagsLabel.text = "m" //TONITODO: tags
         tagLabel.isHidden = true
@@ -71,6 +80,30 @@ class DiffHeaderCompareItemView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts(with: traitCollection)
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let userStackViewConvertedPoint = self.convert(point, to: userStackView)
+        if userStackView.point(inside: userStackViewConvertedPoint, with: event) {
+            return true
+        }
+        
+        let timestampLabelConvertedPoint = self.convert(point, to: timestampLabel)
+        if timestampLabel.point(inside: timestampLabelConvertedPoint, with: event) {
+            return true
+        }
+        
+        return false
+    }
+    
+    @objc func tappedElementWithSender(_ sender: UITapGestureRecognizer) {
+        if let username = viewModel?.username,
+            sender == usernameTapGestureRecognizer {
+            delegate?.tappedUsername(username: username)
+        } else if let revisionID = viewModel?.revisionID,
+            sender == timestampTapGestureRecognizer {
+            delegate?.tappedRevision(revisionID: revisionID)
+        }
+    }
 }
 
 private extension DiffHeaderCompareItemView {
@@ -80,10 +113,12 @@ private extension DiffHeaderCompareItemView {
             addSubview(contentView)
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        usernameTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
+        timestampTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
-        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
         timestampLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
         usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumCaption1, compatibleWithTraitCollection: traitCollection)
         tagLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)

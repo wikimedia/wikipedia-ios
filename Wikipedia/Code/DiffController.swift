@@ -1,27 +1,93 @@
 
 import Foundation
 
+enum DiffError: Error {
+    case generateUrlFailure
+    case missingDiffResponseFailure
+    case missingUrlResponseFailure
+    case fetchRevisionIDFailure
+    case noPreviousRevisionID
+}
+
 class DiffController {
     
-    let fetcher: DiffFetcher
+    let diffFetcher: DiffFetcher
+    let revisionFetcher: WMFArticleRevisionFetcher
+    let articleTitle: String
+    let siteURL: URL
+    let type: DiffContainerViewModel.DiffType
     
-    init(fetcher: DiffFetcher = DiffFetcher()) {
-        self.fetcher = fetcher
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), type: DiffContainerViewModel.DiffType) {
+        self.diffFetcher = diffFetcher
+        self.revisionFetcher = revisionFetcher
+        self.articleTitle = articleTitle
+        self.siteURL = siteURL
+        self.type = type
     }
     
-    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+    func fetchDiff(fromRevisionId: Int?, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+        
+        if let fromRevisionId = fromRevisionId {
+            fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, theme: theme, traitCollection: traitCollection, completion: completion)
+            return
+        }
+        
+        fetchSingleNextRevision(toRevisionId: toRevisionId) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let fromRevisionId):
+                self?.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, theme: theme, traitCollection: traitCollection, completion: completion)
+            }
+        }
+    }
+    
+    private func fetchSingleNextRevision(toRevisionId: Int, completion: @escaping ((Result<Int, Error>) -> Void)) {
+        
+        //TODO: forcing wmflabs here for usertesting
+        
+        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle(),
+            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true)else {
+            return
+        }
+        
+        revisionFetcher.fetchLatestRevisions(forArticleURL: articleURL, articleTitle: articleTitle, resultLimit: 2, startingWithRevision: NSNumber(value: toRevisionId), endingWithRevision: nil, failure: { (error) in
+            completion(.failure(error))
+        }) { (result) in
             
-        fetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { (result) in
+            let queryResults = (result as? [WMFRevisionQueryResults])?.first ?? (result as? WMFRevisionQueryResults)
+            
+            guard let lastRevisionId = queryResults?.revisions.last?.revisionId.intValue else {
+                completion(.failure(DiffError.fetchRevisionIDFailure))
+                return
+            }
+            
+            if lastRevisionId == toRevisionId {
+                completion(.failure(DiffError.noPreviousRevisionID))
+                return
+            }
+            
+            completion(.success(lastRevisionId))
+            
+        }
+    }
+    
+    private func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+        
+        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
+            
+            guard let self = self else { return }
+            
             switch result {
             case .success(let diffResponse):
                 
                 let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
-                switch type {
+                switch self.type {
                 case .single:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: diffResponse, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
+                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes)
                     completion(.success(response))
                 case .compare:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: diffResponse, theme: theme, traitCollection: traitCollection, type: type, groupedMoveIndexes: groupedMoveIndexes)
+                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes)
                     completion(.success(response))
                 }
             case .failure(let error):
@@ -29,6 +95,8 @@ class DiffController {
             }
         }
     }
+    
+    
     
     private func groupedIndexesOfMoveItems(from response: Diff) -> [String: Int] {
         let movedItems = response.diff.filter { $0.type == .moveSource || $0.type == .moveDestination }

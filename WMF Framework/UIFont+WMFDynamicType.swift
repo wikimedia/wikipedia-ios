@@ -46,6 +46,7 @@ import UIKit
     public static let caption2 = DynamicTextStyle(.system, .caption2)
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
     public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [UIFontDescriptor.SymbolicTraits.traitItalic])
+    public static let italicCaption1 = DynamicTextStyle(.system, .caption1, .regular, [UIFontDescriptor.SymbolicTraits.traitItalic])
 
     public static let georgiaTitle3 = DynamicTextStyle(.georgia, .title3)
 

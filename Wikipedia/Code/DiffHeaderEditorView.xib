@@ -14,6 +14,7 @@
                 <outlet property="headingLabel" destination="Sta-K4-qZ1" id="Lyb-Cr-Awa"/>
                 <outlet property="numberOfEditsLabel" destination="wrd-bf-sK1" id="Dj1-T5-Q97"/>
                 <outlet property="userIconImageView" destination="2YL-zz-Zvo" id="rNJ-nS-R57"/>
+                <outlet property="userStackView" destination="E2K-FS-OPW" id="m0S-Jp-Ti1"/>
                 <outlet property="usernameLabel" destination="wgq-xk-VdA" id="O0d-Xc-Lfh"/>
             </connections>
         </placeholder>

@@ -270,7 +270,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         task = [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority failure:failure success:success];
     } else if (checkForNewerRevision) {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
+                                                          articleTitle: nil
                                                            resultLimit:1
+                                                  startingWithRevision: nil
                                                     endingWithRevision:cachedArticle.revisionId
                                                                failure:failure
                                                                success:^(id _Nonnull results) {

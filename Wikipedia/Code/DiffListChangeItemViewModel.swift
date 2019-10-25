@@ -97,8 +97,8 @@ final class DiffListChangeItemViewModel {
         var modifiedText = text
         var modifiedHighlightedRanges = highlightedRanges
         
-        let regularFontStyle: DynamicTextStyle = type == .singleRevison ? .callout : .footnote
-        let boldFontStyle: DynamicTextStyle = type == .singleRevison ? .boldCallout : .boldFootnote
+        let regularFontStyle: DynamicTextStyle = .footnote
+        let boldFontStyle: DynamicTextStyle = .boldFootnote
         
         let font = diffItemType == .moveSource || diffItemType == .moveDestination ? UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection) : UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection)
         
@@ -141,7 +141,7 @@ final class DiffListChangeItemViewModel {
             if let maybeMutableAttributedString = maybeMutableAttributedString {
                 
                 //insert move index number
-                let indexAttributes = [NSAttributedString.Key.font: UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection),
+                let indexAttributes = [NSAttributedString.Key.font: UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection),
                                        NSAttributedString.Key.foregroundColor: theme.colors.warning]
                 let indexAttributedString = NSAttributedString(string: moveIndexString, attributes: indexAttributes)
                 maybeMutableAttributedString.insert(indexAttributedString, at: 0)
@@ -199,8 +199,9 @@ final class DiffListChangeItemViewModel {
                 mutableAttributedString.addAttributes(deletedAttributes, range: nsRange)
             }
 
+            let font = UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection)
             mutableAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: highlightColor, range: nsRange)
-            mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection), range: nsRange)
+            mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: font, range: nsRange)
         }
         
         return mutableAttributedString

@@ -21,7 +21,7 @@ final class DiffHeaderViewModel: Themeable {
         }
     }
     
-    init(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, theme: Theme) {
+    init(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme) {
         
         self.diffType = diffType
         
@@ -60,6 +60,11 @@ final class DiffHeaderViewModel: Themeable {
             self.headerType = .single(editorViewModel: editorViewModel, summaryViewModel: summaryViewModel)
             
         case .compare(let articleTitle, let numberOfIntermediateRevisions, let numberOfIntermediateUsers):
+            
+            guard let fromModel = fromModel else {
+                fatalError("Compare DiffType must have valid fromRevisionID")
+            }
+            
             formatString = "HH:mm, dd MMM yyyy"
             dateFormatter.dateFormat = formatString
             let heading = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
@@ -148,8 +153,8 @@ final class DiffHeaderCompareViewModel: Themeable {
     let toModel: DiffHeaderCompareItemViewModel
     
     init(fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme) {
-        self.fromModel = DiffHeaderCompareItemViewModel(type: .from, model: fromModel, dateFormatter: dateFormatter, theme: theme)
-        self.toModel = DiffHeaderCompareItemViewModel(type: .to, model: toModel, dateFormatter: dateFormatter, theme: theme)
+        self.fromModel = DiffHeaderCompareItemViewModel(type: .from, model: fromModel, dateFormatter: dateFormatter, theme: theme, revisionID: fromModel.revisionID)
+        self.toModel = DiffHeaderCompareItemViewModel(type: .to, model: toModel, dateFormatter: dateFormatter, theme: theme, revisionID: toModel.revisionID)
     }
     
     func apply(theme: Theme) {
@@ -166,8 +171,9 @@ final class DiffHeaderCompareItemViewModel: Themeable {
     let summary: String? //tonitodo: because WMFPageHistoryRevision.parsedComment is nullable, can we make not nullable
     let timestampString: String? //tonitodo: because WMFPageHistoryRevision.revisionDate is nullable, can we make not nullable
     var accentColor: UIColor
+    let revisionID: Int
     
-    init(type: DiffHeaderCompareType, model: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme) {
+    init(type: DiffHeaderCompareType, model: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme, revisionID: Int) {
         
         self.type = type
         switch type {
@@ -186,6 +192,8 @@ final class DiffHeaderCompareItemViewModel: Themeable {
         } else {
             self.timestampString = nil
         }
+        
+        self.revisionID = revisionID
         
         accentColor = theme.colors.link //compile error without this, overwrite in apply(theme:)
         apply(theme: theme)

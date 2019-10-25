@@ -1,13 +1,6 @@
 
 import Foundation
 
-enum DiffError: Error {
-    case generateUrlFailure
-    case missingDiffResponseFailure
-    case missingUrlResponseFailure
-    
-}
-
 class DiffFetcher: Fetcher {
     
     func fetchDiff(fromRevisionId: Int, toRevisionId: Int, completion: @escaping ((Result<Diff, Error>) -> Void)) {

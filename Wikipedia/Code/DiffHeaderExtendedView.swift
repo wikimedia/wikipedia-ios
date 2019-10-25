@@ -1,6 +1,10 @@
 
 import UIKit
 
+protocol DiffHeaderActionDelegate: class {
+    func tappedUsername(username: String)
+    func tappedRevision(revisionID: Int)
+}
 
 class DiffHeaderExtendedView: UIView {
  
@@ -14,6 +18,16 @@ class DiffHeaderExtendedView: UIView {
     @IBOutlet var compareDivView: UIView!
     
     private var viewModel: DiffHeaderViewModel?
+    
+    var delegate: DiffHeaderActionDelegate? {
+        get {
+            return editorView.delegate
+        }
+        set {
+            editorView.delegate = newValue
+            compareView.delegate = newValue
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
