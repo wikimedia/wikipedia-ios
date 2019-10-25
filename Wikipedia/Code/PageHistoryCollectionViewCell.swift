@@ -262,7 +262,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         } else {
             commentLabel.isHidden = true
         }
-        return CGSize(width: size.width, height: max(leadingPaneOrigin.y, trailingPaneOrigin.y) + layoutMargins.bottom)
+        let height = max(leadingPaneOrigin.y, trailingPaneOrigin.y) + layoutMargins.bottom
+        selectView.frame.size = CGSize(width: selectView.frame.width, height: height)
+        return CGSize(width: size.width, height: height)
     }
 }
 
