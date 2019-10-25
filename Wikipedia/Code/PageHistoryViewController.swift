@@ -215,14 +215,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             case .editing:
                 navigationItem.rightBarButtonItem = cancelComparisonButton
                 collectionView.allowsMultipleSelection = true
-                forEachVisibleCell { $1.setEditing(true) }
+                forEachVisibleCell { $1.setEditing(true, animated: true) }
                 compareToolbarButton.isEnabled = false
                 comparisonSelectionButtonWidthConstraints = [firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90), secondComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90)]
                 NSLayoutConstraint.activate(comparisonSelectionButtonWidthConstraints)
                 setToolbarItems([UIBarButtonItem(customView: firstComparisonSelectionButton), UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 10), UIBarButtonItem(customView: secondComparisonSelectionButton), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),  compareToolbarButton], animated: true)
                 navigationController?.setToolbarHidden(false, animated: true)
             }
-            collectionView.collectionViewLayout.invalidateLayout()
+            layoutCache.reset()
+            layout.invalidateLayout(with: layout.invalidationContextForDataChange())
             navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         }
     }
@@ -430,6 +431,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
             }
         }
+
+        cell.layoutMargins = layout.itemLayoutMargins
 
         cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionIndex: cell.selectionIndex), forKey: revisionID)
 

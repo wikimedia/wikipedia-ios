@@ -145,7 +145,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
-        guard context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange else {
+        guard context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange || context.dataDidChange else {
             return
         }
         
@@ -163,6 +163,12 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         let superContext = super.invalidationContext(forBoundsChange: newBounds)
         let context = superContext as? ColumnarCollectionViewLayoutInvalidationContext ?? ColumnarCollectionViewLayoutInvalidationContext()
         context.boundsDidChange = true
+        return context
+    }
+
+    public func invalidationContextForDataChange() -> UICollectionViewLayoutInvalidationContext {
+        let context = ColumnarCollectionViewLayoutInvalidationContext()
+        context.dataDidChange = true
         return context
     }
     

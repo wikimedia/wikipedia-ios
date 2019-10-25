@@ -148,6 +148,7 @@ class ColumnarCollectionViewLayoutInvalidationContext: UICollectionViewLayoutInv
     var originalLayoutAttributes: UICollectionViewLayoutAttributes?
     var preferredLayoutAttributes: UICollectionViewLayoutAttributes?
     var boundsDidChange: Bool = false
+    var dataDidChange: Bool = false
 }
 
 public class ColumnarCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
