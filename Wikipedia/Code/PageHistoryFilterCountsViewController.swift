@@ -18,7 +18,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
             counts = []
             defer {
                 collectionView.reloadData()
-                activityIndicator.isHidden = true
+                activityIndicator.stopAnimating()
             }
             guard let editCounts = editCountsGroupedByType else {
                 return
