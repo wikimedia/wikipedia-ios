@@ -108,14 +108,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             "format": "json" as AnyObject
         ]
         
-        //TODO: forcing wmflabs here for usertesting
-        var pageUrlPathComponents = pageURL.pathComponents
-        pageUrlPathComponents.removeAll(where: {$0 == "/"})
-        guard let newPageURL = configuration.mediaWikiAPIURForHost("en.wikipedia.beta.wmflabs.org", appending: pageUrlPathComponents).url else {
-            return
-        }
-        
-        performMediaWikiAPIGET(for: newPageURL, withQueryParameters: params) { (result, response, error) in
+        performMediaWikiAPIGET(for: pageURL, withQueryParameters: params) { (result, response, error) in
             guard let result = result, let results = self.parseSections(result) else {
                 completion(.failure(.unexpectedResponse))
                 return

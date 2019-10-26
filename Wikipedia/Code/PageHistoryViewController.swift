@@ -534,7 +534,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 return true
             }
         case .idle:
-            
             return true
         }
     }
