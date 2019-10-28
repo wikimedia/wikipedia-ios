@@ -57,8 +57,14 @@ class DiffHeaderCompareItemView: UIView {
         timestampLabel.text = viewModel.timestampString
         userIconImageView.image = UIImage(named: "user-edit")
         usernameLabel.text = viewModel.username
-        //tagsLabel.text = "m" //TONITODO: tags
-        tagLabel.isHidden = true
+        
+        if viewModel.isMinor {
+            tagLabel.text =  "m"
+            tagLabel.isHidden = false
+        } else {
+            tagLabel.isHidden = true
+        }
+         
         summaryLabel.text = viewModel.summary //TONITODO: italic for some of this
         
         updateFonts(with: traitCollection)
@@ -122,7 +128,7 @@ private extension DiffHeaderCompareItemView {
         timestampLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
         usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumCaption1, compatibleWithTraitCollection: traitCollection)
         tagLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
-        summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.caption1, compatibleWithTraitCollection: traitCollection) //tonitodo: italic attributed string?
+        summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.italicCaption1, compatibleWithTraitCollection: traitCollection)
     }
 }
 

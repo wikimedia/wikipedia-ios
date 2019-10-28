@@ -52,7 +52,7 @@ final class DiffHeaderViewModel: Themeable {
             
             titleViewModel = DiffHeaderTitleViewModel(heading: heading, title: title, subtitle: subtitle, subtitleTextStyle: DynamicTextStyle.boldSubheadline, subtitleColor: nil)
             
-            let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), tags: [], summary: toModel.parsedComment) //TONITODO: TAGS
+            let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), isMinor: toModel.isMinor, summary: toModel.parsedComment)
             
             let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, state: .loadingNumberOfEdits)
             
@@ -113,19 +113,15 @@ final class DiffHeaderTitleViewModel {
     }
 }
 
-enum DiffHeaderTag {
-    case minor //todo: populate this
-}
-
 final class DiffHeaderEditSummaryViewModel {
     let heading: String
-    let tags: [DiffHeaderTag]
+    let isMinor: Bool
     let summary: String? //tonitodo - because WMFPageHistoryRevision.parsedComment is nullable, can we make that not optional
     
-    init(heading: String, tags: [DiffHeaderTag], summary: String?) {
+    init(heading: String, isMinor: Bool, summary: String?) {
         self.heading = heading
-        self.tags = tags
-        self.summary = summary
+        self.isMinor = isMinor
+        self.summary = summary?.removingHTML
     }
 }
 
@@ -167,7 +163,7 @@ final class DiffHeaderCompareItemViewModel: Themeable {
     let type: DiffHeaderCompareType
     let heading: String
     let username: String? //tonitodo: because WMFPageHistoryRevision.user is nullable, can we make not nullable
-    let tags: [DiffHeaderTag]
+    let isMinor: Bool
     let summary: String? //tonitodo: because WMFPageHistoryRevision.parsedComment is nullable, can we make not nullable
     let timestampString: String? //tonitodo: because WMFPageHistoryRevision.revisionDate is nullable, can we make not nullable
     var accentColor: UIColor
@@ -184,8 +180,8 @@ final class DiffHeaderCompareItemViewModel: Themeable {
         }
         
         self.username = model.user
-        self.tags = [] //TONITODO: tags here
-        self.summary = model.parsedComment
+        self.isMinor = model.isMinor
+        self.summary = model.parsedComment?.removingHTML
         
         if let date = model.revisionDate {
             self.timestampString = dateFormatter.string(from: date)

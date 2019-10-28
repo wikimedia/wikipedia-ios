@@ -21,10 +21,10 @@
                         <rect key="frame" x="15" y="10" width="551" height="230"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VRz-Uv-s4m">
-                                <rect key="frame" x="0.0" y="0.0" width="551" height="250"/>
+                                <rect key="frame" x="0.0" y="0.0" width="551" height="255"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Flo-X1-rNM">
-                                        <rect key="frame" x="0.0" y="0.0" width="551" height="20.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="Flo-X1-rNM">
+                                        <rect key="frame" x="0.0" y="0.0" width="551" height="25.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKH-3d-ozT">
                                                 <rect key="frame" x="0.0" y="0.0" width="505" height="20.5"/>
@@ -33,7 +33,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMp-XK-7tI">
-                                                <rect key="frame" x="505" y="0.0" width="46" height="20.5"/>
+                                                <rect key="frame" x="505" y="-4.5" width="46" height="30"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
                                                     <action selector="tappedExpandButton:" destination="pcl-SU-yr6" eventType="touchUpInside" id="NNC-qQ-PbK"/>
@@ -42,7 +42,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="551" placeholderIntrinsicHeight="214.5" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bj9-UT-jG2">
-                                        <rect key="frame" x="0.0" y="35.5" width="551" height="214.5"/>
+                                        <rect key="frame" x="0.0" y="40.5" width="551" height="214.5"/>
                                     </stackView>
                                 </subviews>
                             </stackView>

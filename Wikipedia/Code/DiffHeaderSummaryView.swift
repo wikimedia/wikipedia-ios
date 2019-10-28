@@ -23,7 +23,14 @@ class DiffHeaderSummaryView: UIView, Themeable {
     func update(_ viewModel: DiffHeaderEditSummaryViewModel) {
 
         headingLabel.text = viewModel.heading
-        tagLabel.text = "m" //TONITODO: tags
+        
+        if viewModel.isMinor {
+            tagLabel.text =  "m"
+            tagLabel.isHidden = false
+        } else {
+            tagLabel.isHidden = true
+        }
+        
         summaryLabel.text = viewModel.summary
         
         updateFonts(with: traitCollection)

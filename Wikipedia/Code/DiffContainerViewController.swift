@@ -211,7 +211,6 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     }
     
     func tappedRevision(revisionID: Int) {
-        //tonitodo: won't know byte difference until fromRevisionId is fetched later 😭
         
         guard let fromModel = fromModel else {
             assertionFailure("Revision tapping is not supported on a page without a from model")
@@ -228,7 +227,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: 0), fromModel: nil, toModel: revision, theme: theme)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme)
         wmf_push(singleDiffVC, animated: true)
     }
     

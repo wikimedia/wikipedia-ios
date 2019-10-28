@@ -100,6 +100,8 @@ class DiffListViewController: ViewController {
                                 self.collectionView.scrollToItem(at: indexPathBeforeRotating, at: .centeredVertically, animated: false)
                                 self.indexPathBeforeRotating = nil
                             }
+                            
+                            self.updateScrollViewInsets()
                         }
                         
                     }
