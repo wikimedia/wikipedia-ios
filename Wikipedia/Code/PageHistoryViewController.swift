@@ -633,7 +633,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
             indexPathsSelectedForComparison.removeValue(forKey: selectionIndex)
-            openSelectionIndex = selectionIndex
+            openSelectionIndex = indexPathsSelectedForComparison.isEmpty ? 0 : selectionIndex
 
             forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
                 if !cell.isSelected {
