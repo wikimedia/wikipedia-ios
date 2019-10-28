@@ -82,8 +82,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         apply(theme: theme)
 
-        // TODO: Move networking
-
         pageHistoryFetcher.fetchPageCreationDate(for: pageTitle, pageURL: pageURL) { result in
             switch result {
             case .failure(let error):
