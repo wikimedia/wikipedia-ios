@@ -2,10 +2,6 @@
 import Foundation
 
 struct DiffResponse: Codable {
-    let diff: Diff
-}
-
-struct Diff: Codable {
     let diff: [DiffItem]
     let sectionTitles: [String]?
 }

@@ -7,22 +7,42 @@ enum DiffError: Error {
     case missingUrlResponseFailure
     case fetchRevisionIDFailure
     case noPreviousRevisionID
+    case unrecognizedHardcodedIdsForIntermediateCounts
 }
 
 class DiffController {
     
     let diffFetcher: DiffFetcher
     let revisionFetcher: WMFArticleRevisionFetcher
+    let globalUserInfoFetcher: GlobalUserInfoFetcher
     let articleTitle: String
     let siteURL: URL
     let type: DiffContainerViewModel.DiffType
     
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), type: DiffContainerViewModel.DiffType) {
         self.diffFetcher = diffFetcher
         self.revisionFetcher = revisionFetcher
+        self.globalUserInfoFetcher = globalUserInfoFetcher
         self.articleTitle = articleTitle
         self.siteURL = siteURL
         self.type = type
+    }
+    
+    func fetchIntermediateCounts(fromRevisionId: Int, toRevisionId: Int, completion: @escaping ((Result<(revision: Int, user: Int), Error>) -> Void)) {
+        
+        //tonitodo: intermediate counts endpoint when ready
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            if fromRevisionId == 392751 && toRevisionId == 399777 {
+                completion(.success((revision: 60, user: 12)))
+            }
+            
+            completion(.failure(DiffError.unrecognizedHardcodedIdsForIntermediateCounts))
+        }
+    }
+    
+    func fetchEditCount(guiUser: String, siteURL: URL, completion: @escaping ((Result<Int, Error>) -> Void)) {
+        globalUserInfoFetcher.fetchEditCount(guiUser: guiUser, siteURL: siteURL, completion: completion)
     }
     
     func fetchDiff(fromRevisionId: Int?, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
@@ -98,7 +118,7 @@ class DiffController {
     
     
     
-    private func groupedIndexesOfMoveItems(from response: Diff) -> [String: Int] {
+    private func groupedIndexesOfMoveItems(from response: DiffResponse) -> [String: Int] {
         let movedItems = response.diff.filter { $0.type == .moveSource || $0.type == .moveDestination }
         
         var indexCounter = 0
@@ -123,7 +143,7 @@ class DiffController {
         return result
     }
     
-    private func viewModelsForSingle(from response: Diff, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
+    private func viewModelsForSingle(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
@@ -170,7 +190,7 @@ class DiffController {
         return result
     }
         
-    private func viewModelsForCompare(from response: Diff, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
+    private func viewModelsForCompare(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int]) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         

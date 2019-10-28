@@ -3,7 +3,7 @@ import Foundation
 
 class DiffFetcher: Fetcher {
     
-    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, completion: @escaping ((Result<Diff, Error>) -> Void)) {
+    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, completion: @escaping ((Result<DiffResponse, Error>) -> Void)) {
         
         guard let url = compareURL(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) else {
             completion(.failure(DiffError.generateUrlFailure))
@@ -27,7 +27,7 @@ class DiffFetcher: Fetcher {
                 return
             }
             
-            completion(.success(result.diff))
+            completion(.success(result))
         }
     }
     

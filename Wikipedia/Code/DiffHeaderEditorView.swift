@@ -40,13 +40,14 @@ class DiffHeaderEditorView: UIView {
         headingLabel.text = viewModel.heading
         usernameLabel.text = viewModel.username
         userIconImageView.image = UIImage(named: "user-edit")
-        switch viewModel.state {
-        case .loadedNumberOfEdits(let numberOfEdits):
-            numberOfEditsLabel.text = String.localizedStringWithFormat(viewModel.numberOfEditsFormat, numberOfEdits)
+        
+        if let numberOfEditsForDisplay = viewModel.numberOfEditsForDisplay,
+        !numberOfEditsForDisplay.isEmpty {
+            numberOfEditsLabel.text = numberOfEditsForDisplay
             numberOfEditsLabel.isHidden = false
-        default:
+        } else {
             numberOfEditsLabel.isHidden =  true
-        } //TONITODO: activity indicator and stuff
+        }
         
         updateFonts(with: traitCollection)
     }

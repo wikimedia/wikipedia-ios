@@ -303,8 +303,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             toRevision = revision1
         }
         
-        //tonitodo: remove intermediate counts here and fetch from diff screen
-        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle, numberOfIntermediateRevisions: 5, numberOfIntermediateUsers: 3))
+        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle))
     }
     
     private func showDiff(from: WMFPageHistoryRevision, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {

@@ -351,6 +351,7 @@
 		6798332B22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		6798332C22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		6798332D22C3F2960073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
+		67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		67CB2BD0231492D800D9034D /* LoadingFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2BCF231492D800D9034D /* LoadingFlowController.swift */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D21222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -3984,6 +3985,7 @@
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
 		67CB2BCF231492D800D9034D /* LoadingFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFlowController.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
@@ -6634,6 +6636,7 @@
 				6782DC102346920B003FA21B /* DiffContainerViewModel.swift */,
 				67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */,
 				672428962362113400490629 /* DiffFetcher.swift */,
+				67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */,
 			);
 			name = Diff;
 			sourceTree = "<group>";
@@ -11364,6 +11367,7 @@
 				7ADF498721B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				678D79F6235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */,
+				67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				6734116422739CA2005B31DA /* TalkPageLocalHandler.swift in Sources */,
