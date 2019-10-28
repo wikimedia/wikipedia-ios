@@ -185,7 +185,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         }
     }
 
-    public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], RequestError>) -> Void ) {
+    public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], Error>) -> Void ) {
         DispatchQueue.global(qos: .userInitiated).async {
             guard
                 let title = pageTitle.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
@@ -194,17 +194,23 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 let from = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: yearAgo),
                 let to = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: Date())
             else {
-                completion(.failure(.invalidParameters))
+                completion(.failure(RequestError.invalidParameters))
                 return
             }
             let pathComponents = ["metrics", "edits", "per-page", project, title, "all-editor-types", "monthly", from, to]
             let components =  self.configuration.wikimediaMobileAppsServicesAPIURLComponents(appending: pathComponents)
             guard let url = components.url else {
-                completion(.failure(.invalidParameters))
+                completion(.failure(RequestError.invalidParameters))
                 return
             }
             self.session.jsonDecodableTask(with: url) { (editMetrics: EditMetrics?, response: URLResponse?, error: Error?) in
-                // TODO: Handle errors, page younger than 1
+                if let error = error {
+                    completion(.failure(error))
+                }
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                    completion(.failure(RequestError.unexpectedResponse))
+                    return
+                }
                 var allEdits = [NSNumber]()
                 defer {
                     completion(.success(allEdits))
