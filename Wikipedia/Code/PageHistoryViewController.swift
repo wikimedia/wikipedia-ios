@@ -87,14 +87,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         pageHistoryFetcher.fetchPageCreationDate(for: pageTitle, pageURL: pageURL) { result in
             switch result {
             case .failure(let error):
-                // TODO: Handle error
-                print(error)
+                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
             case .success(let firstEditDate):
                 self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { result in
                     switch result {
                     case .failure(let error):
-                        // TODO: Handle error
-                        print(error)
+                        self.showNoInternetConnectionAlertOrOtherWarning(from: error)
                     case .success(let editCounts):
                         if case let totalEditCount?? = editCounts[.edits] {
                             DispatchQueue.main.async {
@@ -109,8 +107,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         pageHistoryFetcher.fetchEditCounts(.edits, .anonEdits, .botEdits, .revertedEdits, for: pageTitle, pageURL: pageURL) { result in
             switch result {
             case .failure(let error):
-                // TODO: Handle error
-                print(error)
+                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
             case .success(let editCountsGroupedByType):
                 DispatchQueue.main.async {
                     self.countsViewController.editCountsGroupedByType = editCountsGroupedByType
@@ -121,8 +118,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         pageHistoryFetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { result in
             switch result {
             case .failure(let error):
-                // TODO: Handle error
-                print(error)
+                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
                 self.countsViewController.timeseriesOfEditsCounts = []
             case .success(let timeseriesOfEditCounts):
                 DispatchQueue.main.async {
@@ -665,5 +661,23 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             collectionView.reloadData()
         }
         compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
+    }
+
+    // MARK: Error handling
+
+    private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
+        if (error as NSError).wmf_isNetworkConnectionError() {
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+            }
+        } else {
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            }
+        }
     }
 }
