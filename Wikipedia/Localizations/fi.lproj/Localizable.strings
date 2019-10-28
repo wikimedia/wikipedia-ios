@@ -373,6 +373,7 @@
 "info-box-title" = "Pikafaktoja";
 "insert-action-title" = "Lisää";
 "insert-link-title" = "Lisää linkki";
+"insert-media-alternative-text-placeholder" = "Kuvaile tätä kuvaa";
 "insert-media-alternative-text-title" = "Vaihtoehtoinen teksti";
 "insert-media-caption-title" = "Kuvateksti";
 "insert-media-image-position-setting-center" = "Keski";
