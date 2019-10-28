@@ -197,13 +197,12 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 completion(.failure(.invalidParameters))
                 return
             }
-//            let pathComponents = ["metrics", "edits", "per-page", project, title, "all-editor-types", "monthly", from, to]
-//            let components =  self.configuration.wikimediaMobileAppsServicesAPIURLComponents(appending: pathComponents)
-//            guard let url = components.url else {
-//                completion(.failure(.invalidParameters))
-//                return
-//            }
-            let url = URL(string: "https://wikimedia.org/api/rest_v1/metrics/edits/per-page/\(project)/\(title)/all-editor-types/monthly/\(from)/\(to)")!
+            let pathComponents = ["metrics", "edits", "per-page", project, title, "all-editor-types", "monthly", from, to]
+            let components =  self.configuration.wikimediaMobileAppsServicesAPIURLComponents(appending: pathComponents)
+            guard let url = components.url else {
+                completion(.failure(.invalidParameters))
+                return
+            }
             self.session.jsonDecodableTask(with: url) { (editMetrics: EditMetrics?, response: URLResponse?, error: Error?) in
                 // TODO: Handle errors, page younger than 1
                 var allEdits = [NSNumber]()
