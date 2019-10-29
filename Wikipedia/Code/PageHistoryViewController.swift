@@ -697,17 +697,19 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     // MARK: Error handling
 
     private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
-        if (error as NSError).wmf_isNetworkConnectionError() {
-            if UIAccessibility.isVoiceOverRunning {
-                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
+        DispatchQueue.main.async {
+            if (error as NSError).wmf_isNetworkConnectionError() {
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
+                } else {
+                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+                }
             } else {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
-            }
-        } else {
-            if UIAccessibility.isVoiceOverRunning {
-                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
-            } else {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
+                } else {
+                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                }
             }
         }
     }
