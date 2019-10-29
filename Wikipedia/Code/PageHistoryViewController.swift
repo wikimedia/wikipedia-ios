@@ -394,9 +394,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision? = nil, at indexPath: IndexPath) {
         let item = item ?? pageHistorySections[indexPath.section].items[indexPath.item]
         let revisionID = NSNumber(value: item.revisionID)
+        let isSelected = indexPathsSelectedForComparison.contains(indexPath)
         defer {
             cell.setEditing(state == .editing, animated: false)
-            cell.enableEditing(!maxNumberOfRevisionsSelected, animated: false)
+            if !isSelected {
+                cell.enableEditing(!maxNumberOfRevisionsSelected, animated: false)
+            }
             cell.apply(theme: theme)
         }
         if let cachedCellContent = cellContentCache.object(forKey: revisionID) {
@@ -411,7 +414,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.isSelected = true
                     collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
                 }
-                if cell.isSelected {
+                if isSelected {
                     cell.selectionThemeModel = cachedCellContent.selectionThemeModel
                 } else {
                     cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
@@ -436,7 +439,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.author = item.user
             cell.sizeDiff = item.revisionSize
             cell.comment = item.parsedComment?.removingHTML
-            if !cell.isSelected {
+            if isSelected, let selectionIndex = indexPathsSelectedForComparisonGroupedByButtonTags.first(where: { $0.value == indexPath })?.key {
+                cell.isSelected = true
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+                cell.selectionThemeModel = selectionIndex == 0 ? firstSelectionThemeModel : secondSelectionThemeModel
+                cell.selectionIndex = selectionIndex
+            } else {
                 cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
             }
         }
@@ -577,6 +585,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     var openSelectionIndex = 0
 
     private var indexPathsSelectedForComparisonGroupedByButtonTags = [Int: IndexPath]() {
+        didSet {
+            indexPathsSelectedForComparison = Set(indexPathsSelectedForComparisonGroupedByButtonTags.values)
+        }
+    }
+    private var indexPathsSelectedForComparison = Set<IndexPath>()
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
