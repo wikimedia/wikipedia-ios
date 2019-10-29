@@ -13,7 +13,7 @@ class DiffHeaderCompareItemView: UIView {
     @IBOutlet var summaryLabel: UILabel!
     @IBOutlet var userIconImageView: UIImageView!
     @IBOutlet var stackViewTopPaddingConstraint: NSLayoutConstraint!
-    let squishedBottomPadding: CGFloat = 5.5
+    let squishedBottomPadding: CGFloat = 4
     let maxStackViewTopPadding: CGFloat = 14
     let minStackViewTopPadding: CGFloat = 6
     let maxContainerStackViewSpacing: CGFloat = 10
