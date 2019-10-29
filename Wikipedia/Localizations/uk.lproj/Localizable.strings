@@ -389,7 +389,7 @@
 "home-button-explore-accessibility-label" = "Вікіпедіє, повернутися до стрічки";
 "home-button-history-accessibility-label" = "Вікіпедіє, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедіє, повернутися до Збереженого";
-"home-more-like-footer" = "Більше схоже на $1";
+"home-more-like-footer" = "Більше схожого на $1";
 "home-nearby-footer" = "Більше місць поблизу";
 "home-nearby-location-footer" = "Більше поблизу $1";
 "home-news-footer" = "Більше новин";
@@ -488,7 +488,7 @@
 "on-this-day-detail-header-date-range" = "з $1 по $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 історична подія|$1 історичні події|$1 історичних подій}}";
 "on-this-day-footer" = "Більше історичних подій цього дня";
-"on-this-day-footer-with-event-count" = "Ще $1 історичних подій, що сталися в цей день";
+"on-this-day-footer-with-event-count" = "Ще $1 історичних подій, що сталися цього дня";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
@@ -706,7 +706,7 @@
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
 "share-a-fact-made-with" = "Створено за допомоги додатку Вікіпедія";
-"share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
+"share-article-name-on-wikipedia" = "«$1» у @Wikipedia:";
 "share-building" = "Створення картки «Поділися фактом»...";
 "share-custom-menu-item" = "Поділитися…";
 "share-default-format" = "«$1» з «$2»: $3";
