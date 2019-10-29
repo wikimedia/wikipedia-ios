@@ -49,8 +49,8 @@ class DiffListViewController: ViewController {
         return collectionView.indexPathForItem(at: center)
     }
     private var indexPathBeforeRotating: IndexPath?
-    private let chunkedHeightCalculationsConcurrentQueue = DispatchQueue(label: "com.wikipedia.diff.chunkedHeightCalculations", qos: .userInteractive, attributes: .concurrent)
-    private let layoutSubviewsHeightCalculationsSerialQueue = DispatchQueue(label: "com.wikipedia.diff.layoutHeightCalculations", qos: .userInteractive)
+    private let chunkedHeightCalculationsConcurrentQueue = DispatchQueue(label: "org.wikipedia.diff.chunkedHeightCalculations", qos: .userInteractive, attributes: .concurrent)
+    private let layoutSubviewsHeightCalculationsSerialQueue = DispatchQueue(label: "org.wikipedia.diff.layoutHeightCalculations", qos: .userInteractive)
     
     init(theme: Theme, delegate: DiffListDelegate?, type: DiffContainerViewModel.DiffType) {
         self.type = type
@@ -100,6 +100,8 @@ class DiffListViewController: ViewController {
                                 self.collectionView.scrollToItem(at: indexPathBeforeRotating, at: .centeredVertically, animated: false)
                                 self.indexPathBeforeRotating = nil
                             }
+                            
+                            self.updateScrollViewInsets()
                         }
                         
                     }

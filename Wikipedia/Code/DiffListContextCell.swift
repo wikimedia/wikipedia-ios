@@ -39,7 +39,17 @@ class DiffListContextCell: UICollectionViewCell {
         
         headingLabel.font = viewModel.headingFont
         headingLabel.text = viewModel.heading
-        expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+        
+        if self.viewModel == nil {
+            expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+        } else {
+            expandButton.alpha = 0
+            expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+            UIView.animate(withDuration: 0.2) {
+                self.expandButton.alpha = 1
+            }
+        }
+        
         expandButton.titleLabel?.font = viewModel.contextFont
         
         apply(theme: viewModel.theme)

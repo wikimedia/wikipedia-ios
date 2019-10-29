@@ -54,34 +54,12 @@ class DiffContainerViewController: ViewController {
         
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
+        fetchIntermediateCountIfNeeded()
         apply(theme: theme)
         
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
-        let width = diffListViewController?.collectionView.frame.width
-        diffController.fetchDiff(fromRevisionId: fromModel?.revisionID, toRevisionId: toModel.revisionID, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
-
-            guard let self = self else {
-                return
-            }
-
-            switch result {
-            case .success(let listViewModel):
-
-                self.containerViewModel.listViewModel = listViewModel
-                self.diffListViewController?.updateListViewModels(listViewModel: listViewModel, updateType: .initialLoad(width: width ?? 0))
-                
-                DispatchQueue.main.async {
-                    self.diffListViewController?.applyListViewModelChanges(updateType: .initialLoad(width: width ?? 0))
-                    
-                    self.diffListViewController?.updateScrollViewInsets()
-                }
-                
-            case .failure(let error):
-                print(error)
-                //tonitodo: error handling
-            }
-        }
+        fetchDiff()
+        fetchEditCountIfNeeded()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,6 +98,122 @@ class DiffContainerViewController: ViewController {
 }
 
 private extension DiffContainerViewController {
+    
+    func fetchEditCountIfNeeded() {
+        switch type {
+        case .single:
+            if let username = toModel.user {
+                diffController.fetchEditCount(guiUser: username, siteURL: siteURL) { [weak self] (result) in
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let editCount):
+                            self.updateHeaderWithEditCount(editCount)
+                        case .failure(let error):
+                            break
+                        }
+                    }
+                }
+            }
+        case .compare:
+            break
+        }
+    }
+    
+    func fetchIntermediateCountIfNeeded() {
+        switch type {
+        case .compare:
+            if let fromModel = fromModel {
+                let fromID = fromModel.revisionID
+                let toID = toModel.revisionID
+                diffController.fetchIntermediateCounts(fromRevisionId: fromID, toRevisionId: toID) { [weak self] (result) in
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let counts):
+                            self.updateHeaderWithIntermediateCounts(counts)
+                        case .failure(let error):
+                            break
+                        }
+                    }
+                }
+            } else {
+                assertionFailure("Expect compare type to have fromModel for fetching intermediate count")
+            }
+        case .single:
+            break
+        }
+    }
+    
+    func updateHeaderWithIntermediateCounts(_ counts: (revision: Int, user: Int)) {
+        
+        //update view model
+        let headerViewModel = containerViewModel.headerViewModel
+        
+        switch type {
+        case .compare(let articleTitle):
+            
+            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, counts: counts)
+            headerViewModel.title = newTitleViewModel
+            headerTitleView?.update(newTitleViewModel)
+        case .single:
+            assertionFailure("Should not call this method for the compare type.")
+            return
+        }
+    }
+    
+    func updateHeaderWithEditCount(_ editCount: Int) {
+        
+        //update view model
+        let header = containerViewModel.headerViewModel
+        switch header.headerType {
+        case .single(let editorViewModel, _):
+            editorViewModel.numberOfEdits = editCount
+        case .compare:
+            assertionFailure("Should not call this method for the compare type.")
+            return
+        }
+        
+        //update view
+        headerExtendedView?.update(header)
+    }
+    
+    func fetchDiff() {
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        let width = diffListViewController?.collectionView.frame.width
+        diffController.fetchDiff(fromRevisionId: fromModel?.revisionID, toRevisionId: toModel.revisionID, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
+
+            guard let self = self else {
+                return
+            }
+
+            switch result {
+            case .success(let listViewModel):
+
+                self.containerViewModel.listViewModel = listViewModel
+                self.diffListViewController?.updateListViewModels(listViewModel: listViewModel, updateType: .initialLoad(width: width ?? 0))
+                
+                DispatchQueue.main.async {
+                    self.diffListViewController?.applyListViewModelChanges(updateType: .initialLoad(width: width ?? 0))
+                    
+                    self.diffListViewController?.updateScrollViewInsets()
+                }
+                
+            case .failure(let error):
+                print(error)
+                //tonitodo: error handling
+            }
+        }
+    }
     
     func configureExtendedViewSquishing(scrollView: UIScrollView) {
         guard let headerTitleView = headerTitleView,
@@ -211,7 +305,6 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     }
     
     func tappedRevision(revisionID: Int) {
-        //tonitodo: won't know byte difference until fromRevisionId is fetched later 😭
         
         guard let fromModel = fromModel else {
             assertionFailure("Revision tapping is not supported on a page without a from model")
@@ -228,7 +321,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: 0), fromModel: nil, toModel: revision, theme: theme)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme)
         wmf_push(singleDiffVC, animated: true)
     }
     

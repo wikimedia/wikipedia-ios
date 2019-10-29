@@ -23,22 +23,15 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VRz-Uv-s4m">
                                 <rect key="frame" x="0.0" y="0.0" width="551" height="250"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Flo-X1-rNM">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="29k-XH-xU4">
                                         <rect key="frame" x="0.0" y="0.0" width="551" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKH-3d-ozT">
-                                                <rect key="frame" x="0.0" y="0.0" width="505" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="495" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMp-XK-7tI">
-                                                <rect key="frame" x="505" y="0.0" width="46" height="20.5"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="tappedExpandButton:" destination="pcl-SU-yr6" eventType="touchUpInside" id="NNC-qQ-PbK"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="551" placeholderIntrinsicHeight="214.5" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bj9-UT-jG2">
@@ -46,11 +39,21 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMp-XK-7tI">
+                                <rect key="frame" x="505" y="-4.5" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="tappedExpandButton:" destination="pcl-SU-yr6" eventType="touchUpInside" id="NNC-qQ-PbK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="JMp-XK-7tI" firstAttribute="leading" secondItem="GKH-3d-ozT" secondAttribute="trailing" constant="10" id="0cB-Ce-Ynn"/>
                             <constraint firstItem="VRz-Uv-s4m" firstAttribute="leading" secondItem="oq0-Jd-j19" secondAttribute="leading" id="Fyc-CS-XOD"/>
+                            <constraint firstItem="JMp-XK-7tI" firstAttribute="firstBaseline" secondItem="GKH-3d-ozT" secondAttribute="firstBaseline" id="MyQ-Kt-la7"/>
                             <constraint firstAttribute="height" constant="250" id="P6U-tF-0ur"/>
                             <constraint firstItem="VRz-Uv-s4m" firstAttribute="top" secondItem="oq0-Jd-j19" secondAttribute="top" id="WRd-20-CcZ"/>
+                            <constraint firstItem="JMp-XK-7tI" firstAttribute="trailing" secondItem="VRz-Uv-s4m" secondAttribute="trailing" id="XXH-Gm-qN4"/>
                             <constraint firstAttribute="trailing" secondItem="VRz-Uv-s4m" secondAttribute="trailing" id="maK-ok-Rrd"/>
                         </constraints>
                         <variation key="default">

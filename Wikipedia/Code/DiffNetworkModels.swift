@@ -1,13 +1,14 @@
 
 import Foundation
 
-struct DiffResponse: Codable {
-    let diff: Diff
+struct SectionInfo: Codable {
+    let title: String
+    let location: Int
 }
 
-struct Diff: Codable {
-    let diff: [DiffItem]
-    let sectionTitles: [String]?
+struct DiffResponse: Codable {
+    var diff: [DiffItem] //tonitodo: change back to let after finished hardcoding for user testing
+    var sectionInfo: [SectionInfo]? //tonitodo: change back to let after finished hardcoding for user testing
 }
 
 enum DiffItemType: Int, Codable {
@@ -41,7 +42,7 @@ struct DiffItem: Codable {
     let text: String
     let highlightRanges: [DiffHighlightRange]?
     let moveInfo: DiffMoveInfo?
-    let sectionTitleIndex: Int?
+    var sectionInfoIndex: Int? //tonitodo: change back to let after finished hardcoding for user testing
 }
 
 struct DiffMoveInfo: Codable {
@@ -57,7 +58,7 @@ extension DiffItem: Equatable {
             lhs.text == rhs.text &&
             lhs.highlightRanges == rhs.highlightRanges &&
             lhs.moveInfo == rhs.moveInfo &&
-            lhs.sectionTitleIndex == rhs.sectionTitleIndex
+            lhs.sectionInfoIndex == rhs.sectionInfoIndex
     }
 }
 

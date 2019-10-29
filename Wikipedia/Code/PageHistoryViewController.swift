@@ -282,11 +282,26 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         guard let firstIndexPath = indexPathsSelectedForComparison[0], let secondIndexPath = indexPathsSelectedForComparison[1] else {
             return
         }
-        let fromRevision = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
-        let toRevision = pageHistorySections[secondIndexPath.section].items[secondIndexPath.item]
+        let revision1 = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
+        let revision2 = pageHistorySections[secondIndexPath.section].items[secondIndexPath.item]
         
-        //tonitodo: remove intermediate counts here and fetch from diff screen
-        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle, numberOfIntermediateRevisions: 5, numberOfIntermediateUsers: 3))
+        guard let date1 = revision1.revisionDate,
+            let date2 = revision2.revisionDate else {
+                return
+        }
+        
+        //show older revision as "from" no matter what order was selected
+        let fromRevision: WMFPageHistoryRevision
+        let toRevision: WMFPageHistoryRevision
+        if date1.compare(date2) == .orderedAscending {
+            fromRevision = revision1
+            toRevision = revision2
+        } else {
+            fromRevision = revision2
+            toRevision = revision1
+        }
+        
+        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle))
     }
     
     private func showDiff(from: WMFPageHistoryRevision, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {

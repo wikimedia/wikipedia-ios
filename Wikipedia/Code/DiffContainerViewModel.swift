@@ -5,7 +5,7 @@ final class DiffContainerViewModel {
     
     enum DiffType {
         case single(byteDifference: Int)
-        case compare(articleTitle: String, numberOfIntermediateRevisions: Int, numberOfIntermediateUsers: Int)
+        case compare(articleTitle: String)
     }
     
     let headerViewModel: DiffHeaderViewModel

@@ -58,7 +58,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], sectionTitles: [String]?) {
+    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], sectionInfo: [SectionInfo]?) {
         
         self.type = type
         self.theme = theme
@@ -70,8 +70,8 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         case .compareRevision:
             self.heading = DiffListChangeViewModel.calculateHeadingsFromLineNumbers(diffItems: diffItems)
         case .singleRevison:
-            if let sectionTitles = sectionTitles, !sectionTitles.isEmpty {
-                self.heading = DiffListChangeViewModel.calculateHeadingsFromSectionTitles(diffItems: diffItems, sectionTitles: sectionTitles)
+            if let sectionInfo = sectionInfo, !sectionInfo.isEmpty {
+                self.heading = DiffListChangeViewModel.calculateHeadingsFromSectionInfo(diffItems: diffItems, sectionInfo: sectionInfo)
             } else {
                 self.heading = DiffListChangeViewModel.calculateHeadingsFromLineNumbers(diffItems: diffItems)
             }
@@ -100,12 +100,12 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, stackViewPadding: stackViewPadding)
     }
     
-    private static func calculateHeadingsFromSectionTitles(diffItems: [DiffItem], sectionTitles: [String]) -> String {
+    private static func calculateHeadingsFromSectionInfo(diffItems: [DiffItem], sectionInfo: [SectionInfo]) -> String {
   
         for item in diffItems {
-            if let sectionTitleIndex = item.sectionTitleIndex,
-                let sectionTitle = sectionTitles[safeIndex: sectionTitleIndex] {
-                return sectionTitle
+            if let sectionInfoIndex = item.sectionInfoIndex,
+                let sectionInfo = sectionInfo[safeIndex: sectionInfoIndex] {
+                return sectionInfo.title
             }
         }
         
