@@ -212,7 +212,13 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
         let availableWidth = editableContent.frame.width - layoutMargins.right - layoutMargins.left
         let leadingPaneAvailableWidth = availableWidth / 3
-        let trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth
+
+        let trailingPaneAvailableWidth: CGFloat
+        if isRTL {
+            trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth - (spacing * 3)
+        } else {
+            trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth
+        }
 
         var leadingPaneOrigin = CGPoint(x: isRTL ? availableWidth - leadingPaneAvailableWidth : layoutMargins.left, y: layoutMargins.top)
         var trailingPaneOrigin = CGPoint(x: isRTL ? layoutMargins.left : layoutMargins.left + leadingPaneAvailableWidth, y: layoutMargins.top)
