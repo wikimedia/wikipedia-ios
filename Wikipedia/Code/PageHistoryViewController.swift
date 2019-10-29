@@ -594,6 +594,22 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             let button: UIButton?
             let themeModel: SelectionThemeModel?
             if maxNumberOfRevisionsSelected {
+                assert(indexPathsSelectedForComparison.count == 1)
+                if let previouslySelectedIndexPath = indexPathsSelectedForComparison.first?.value, let previouslySelectedCell = collectionView.cellForItem(at: previouslySelectedIndexPath) as?  PageHistoryCollectionViewCell {
+                    if previouslySelectedIndexPath > indexPath, previouslySelectedCell.selectionIndex == 0 {
+                        updateComparisonButton(secondComparisonSelectionButton, with: secondSelectionThemeModel, cell: previouslySelectedCell)
+                        indexPathsSelectedForComparison[secondComparisonSelectionButton.tag] = previouslySelectedIndexPath
+                        updateSelectionIndex(openSelectionIndex, for: previouslySelectedCell, at: previouslySelectedIndexPath)
+                        updateSelectionThemeModel(secondSelectionThemeModel, for: previouslySelectedCell, at: previouslySelectedIndexPath)
+                        openSelectionIndex = 0
+                    } else if previouslySelectedIndexPath < indexPath, previouslySelectedCell.selectionIndex == 1 {
+                        updateComparisonButton(firstComparisonSelectionButton, with: firstSelectionThemeModel, cell: previouslySelectedCell)
+                        indexPathsSelectedForComparison[firstComparisonSelectionButton.tag] = previouslySelectedIndexPath
+                        updateSelectionIndex(openSelectionIndex, for: previouslySelectedCell, at: previouslySelectedIndexPath)
+                        updateSelectionThemeModel(firstSelectionThemeModel, for: previouslySelectedCell, at: previouslySelectedIndexPath)
+                        openSelectionIndex = 1
+                    }
+                }
                 forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
                     if !cell.isSelected {
                         self.updateSelectionThemeModel(self.disabledSelectionThemeModel, for: cell, at: indexPath)
@@ -613,18 +629,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 themeModel = nil
             }
             if let button = button, let themeModel = themeModel {
-                button.backgroundColor = themeModel.backgroundColor
-                button.setImage(cell.authorImage, for: .normal)
-                button.setTitle(cell.time, for: .normal)
-                button.imageView?.tintColor = themeModel.authorColor
-                button.setTitleColor(themeModel.authorColor, for: .normal)
-                button.tintColor = themeModel.authorColor
+                updateComparisonButton(button, with: themeModel, cell: cell)
                 indexPathsSelectedForComparison[button.tag] = indexPath
             }
             updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
             updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
-            cell.apply(theme: theme)
-
             openSelectionIndex += 1
 
             collectionView.reloadData()
@@ -633,6 +642,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell?.isSelected = false
             pushToSingleRevisionDiff(indexPath: indexPath)
         }
+    }
+
+    private func updateComparisonButton(_ button: UIButton, with themeModel: SelectionThemeModel, cell: PageHistoryCollectionViewCell) {
+        button.backgroundColor = themeModel.backgroundColor
+        button.setImage(cell.authorImage, for: .normal)
+        button.setTitle(cell.time, for: .normal)
+        button.imageView?.tintColor = themeModel.authorColor
+        button.setTitleColor(themeModel.authorColor, for: .normal)
+        button.tintColor = themeModel.authorColor
     }
 
     @objc private func scrollToComparisonSelection(_ sender: UIButton) {
