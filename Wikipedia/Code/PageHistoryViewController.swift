@@ -222,7 +222,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
-    private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(tappedCompare(_:)))
+    private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .done, target: self, action: #selector(tappedCompare(_:)))
     private lazy var firstComparisonSelectionButton: AlignedImageButton = {
         let button = makeComparisonSelectionButton()
         button.tag = 0
