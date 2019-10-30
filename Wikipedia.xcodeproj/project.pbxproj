@@ -108,6 +108,11 @@
 		671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E022367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E032367EDC700111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
+		671F5E05236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
+		671F5E06236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
+		671F5E07236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
+		671F5E08236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
+		671F5E09236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
 		6724288E23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		6724288F23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		6724289023612AF100490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
@@ -3941,6 +3946,7 @@
 		6706A21822927D63004774E2 /* TalkPageHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHintViewController.swift; sourceTree = "<group>"; };
 		670F765E22B0C10600D87545 /* FakeProgressLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressLoading.swift; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
+		671F5E04236A22B800111116 /* DogTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DogTest.json; sourceTree = "<group>"; };
 		672428962362113400490629 /* DiffFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
 		672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageHeaderView.xib; sourceTree = "<group>"; };
 		672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyRefreshingViewController.swift; sourceTree = "<group>"; };
@@ -6632,6 +6638,7 @@
 			isa = PBXGroup;
 			children = (
 				67CEF26E2351113000D5CA6C /* DiffController.swift */,
+				671F5E04236A22B800111116 /* DogTest.json */,
 				67CEF2642351111A00D5CA6C /* ObamaTest.json */,
 				6782DBDF2344F154003FA21B /* List */,
 				6782DBDE2344F147003FA21B /* Header */,
@@ -10074,6 +10081,7 @@
 				67CEF25F234FCA8100D5CA6C /* DiffListContextCell.xib in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
 				D8D92B601DF22E1700B95311 /* NotificationBackgroundSuccess.png in Resources */,
+				671F5E05236A22B900111116 /* DogTest.json in Resources */,
 				7A9A611821124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EB212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				7A8422582268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
@@ -10226,6 +10234,7 @@
 				D80ED3E41EE57F4800CE8C50 /* WMFTableOfContentsCell.xib in Resources */,
 				83E52BBD1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				D80ED3E51EE57F4800CE8C50 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
+				671F5E09236A22B900111116 /* DogTest.json in Resources */,
 				BA4524211F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				7ADF499021B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A9524D422665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -10433,6 +10442,7 @@
 				67861A16223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8A42BFD1E815A9C00D8E281 /* Launch Screen.storyboard in Resources */,
 				D8A42BFE1E815A9C00D8E281 /* EditSaveViewController.storyboard in Resources */,
+				671F5E08236A22B900111116 /* DogTest.json in Resources */,
 				D8A42BFF1E815A9C00D8E281 /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2962289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
 				D82E958D1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
@@ -10555,6 +10565,7 @@
 				67861A14223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8CE26841E698E2400DAE2E0 /* Launch Screen.storyboard in Resources */,
 				D8CE26851E698E2400DAE2E0 /* EditSaveViewController.storyboard in Resources */,
+				671F5E06236A22B900111116 /* DogTest.json in Resources */,
 				D8CE26861E698E2400DAE2E0 /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2942289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
 				D82E958B1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
@@ -10677,6 +10688,7 @@
 				67861A15223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8EC3F841E9BDA35006712EB /* Launch Screen.storyboard in Resources */,
 				D8EC3F851E9BDA35006712EB /* EditSaveViewController.storyboard in Resources */,
+				671F5E07236A22B900111116 /* DogTest.json in Resources */,
 				D8EC3F861E9BDA35006712EB /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2952289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
 				D82E958C1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
