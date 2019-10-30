@@ -2029,6 +2029,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
     if (!peekVC) {
         completionHandler(nil);
+        return;
     }
     [self.webViewController hideFindInPageWithCompletion:nil];
     UIContextMenuConfiguration *config = [UIContextMenuConfiguration configurationWithIdentifier:updatedLinkURL
