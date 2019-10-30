@@ -22,7 +22,6 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            updatePreferredContentSize(for: view.bounds.width)
             guard let key = articleURL.wmf_databaseKey else {
                 return
             }
@@ -72,7 +71,10 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
         expandedArticleView.updateFonts(with: traitCollection)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchArticle()
     }
 
