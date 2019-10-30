@@ -423,6 +423,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             } else {
                 cell.selectionIndex = nil
                 cell.selectionThemeModel = nil
+                cell.isSelected = false
             }
         } else {
             if let date = item.revisionDate {
