@@ -11,15 +11,9 @@ enum DiffError: Error {
 }
 
 //eventually used to power "Moved [down/up] n lines / Moved [down/up] n sections" text in diff
-struct DiffMoveDistance {
-    
-    enum MoveDistanceType {
-        case line
-        case section
-    }
-    
-    let type: MoveDistanceType
-    let amount: Int
+enum MoveDistance {
+    case line(amount: Int)
+    case section(amount: Int, name: String)
 }
 
 class DiffController {
@@ -186,8 +180,7 @@ class DiffController {
         return result
     }
     
-    private func moveDistanceOfMoveItems(from response: DiffResponse) -> [String: DiffMoveDistance] {
-        print("huh")
+    private func moveDistanceOfMoveItems(from response: DiffResponse) -> [String: MoveDistance] {
         let movedItems = response.diff.filter { $0.type == .moveSource || $0.type == .moveDestination }
         
         guard let sectionInfoArray = response.sectionInfo,
@@ -202,7 +195,7 @@ class DiffController {
             }
         }
         
-        var result: [String: DiffMoveDistance] = [:]
+        var result: [String: MoveDistance] = [:]
         for item in movedItems {
             if let id = item.moveInfo?.id,
                 let linkId = item.moveInfo?.linkId,
@@ -216,9 +209,13 @@ class DiffController {
                     let numSectionsTraversed = abs(correspondingSectionInfo.location - sectionInfo.location)
                     if numSectionsTraversed > 0 {
                         
-                        let sectionMoveDistance = DiffMoveDistance(type: .section, amount: numSectionsTraversed)
-                        result[id] = sectionMoveDistance
-                        result[linkId] = sectionMoveDistance
+                        let sectionMoveDistance = MoveDistance.section(amount: numSectionsTraversed, name: correspondingSectionInfo.title)
+                        
+                        if result[id] == nil && result[linkId] == nil {
+                            result[id] = sectionMoveDistance
+                            result[linkId] = sectionMoveDistance
+                        }
+                        
                         continue
                     }
                 }
@@ -229,7 +226,7 @@ class DiffController {
                     let lineNumbersTraversed = abs(lineNumber - correspondingLineNumber)
                     if lineNumbersTraversed > 0 {
                         
-                        let lineNumberMoveDistance = DiffMoveDistance(type: .line, amount: lineNumbersTraversed)
+                        let lineNumberMoveDistance = MoveDistance.line(amount: lineNumbersTraversed)
                         result[id] = lineNumberMoveDistance
                         result[linkId] = lineNumberMoveDistance
                     }
@@ -346,7 +343,7 @@ class DiffController {
          */
     }
     
-    private func viewModelsForSingle(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: DiffMoveDistance]) -> [DiffListGroupViewModel] {
+    private func viewModelsForSingle(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance]) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
@@ -393,7 +390,7 @@ class DiffController {
         return result
     }
         
-    private func viewModelsForCompare(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: DiffMoveDistance]) -> [DiffListGroupViewModel] {
+    private func viewModelsForCompare(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance]) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
