@@ -100,59 +100,30 @@ class DiffController {
     
     private func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        
-        queue.async { [weak self] in
-            guard let self = self else { return }
-            
-            do {
+        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
 
-                let url = Bundle.main.url(forResource: "DogTest", withExtension: "json")!
-                let data = try Data(contentsOf: url)
-                var result = try JSONDecoder().decode(DiffResponse.self, from: data)
-                
-                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: result)
-                self.populateDeletedMovedSectionTitlesAndLineNumbers(into: &result)
-                let moveDistances = self.moveDistanceOfMoveItems(from: result)
+            guard let self = self else { return }
+
+            switch result {
+            case .success(var diffResponse):
+
+                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
+                self.hardCodeSectionInfo(into: &diffResponse, toRevisionID: toRevisionId)
+                self.populateDeletedMovedSectionTitlesAndLineNumbers(into: &diffResponse)
+                let moveDistances = self.moveDistanceOfMoveItems(from: diffResponse)
                 switch self.type {
                 case .single:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: result, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
+                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
 
                     completion(.success(response))
                 case .compare:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: result, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
+                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
                     completion(.success(response))
                 }
-                
-            } catch (let error) {
-                    completion(.failure(error))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
-        
-//        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
-//
-//            guard let self = self else { return }
-//
-//            switch result {
-//            case .success(var diffResponse):
-//
-//                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
-//                let moveDistances = self.moveDistanceOfMoveItems(from: diffResponse)
-//                switch self.type {
-//                case .single:
-//                    //self.hardCodeSectionInfo(into: &diffResponse, toRevisionID: toRevisionId)
-//                    self.populateDeletedMovedSectionTitles(into: &diffResponse)
-//                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
-//
-//                    completion(.success(response))
-//                case .compare:
-//                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
-//                    completion(.success(response))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
     }
     
     private func groupedIndexesOfMoveItems(from response: DiffResponse) -> [String: Int] {

@@ -108,11 +108,6 @@
 		671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E022367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E032367EDC700111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
-		671F5E05236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
-		671F5E06236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
-		671F5E07236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
-		671F5E08236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
-		671F5E09236A22B900111116 /* DogTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E04236A22B800111116 /* DogTest.json */; };
 		6724288E23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		6724288F23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		6724289023612AF100490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
@@ -369,11 +364,6 @@
 		67CEF25F234FCA8100D5CA6C /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		67CEF2612350C29D00D5CA6C /* DiffListUneditedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */; };
 		67CEF263235110F700D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
-		67CEF2652351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2662351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2672351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2682351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2692351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
 		67CEF26A2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
 		67CEF26B2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
 		67CEF26C2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
@@ -3946,7 +3936,6 @@
 		6706A21822927D63004774E2 /* TalkPageHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHintViewController.swift; sourceTree = "<group>"; };
 		670F765E22B0C10600D87545 /* FakeProgressLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressLoading.swift; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
-		671F5E04236A22B800111116 /* DogTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DogTest.json; sourceTree = "<group>"; };
 		672428962362113400490629 /* DiffFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
 		672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageHeaderView.xib; sourceTree = "<group>"; };
 		672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyRefreshingViewController.swift; sourceTree = "<group>"; };
@@ -4000,7 +3989,6 @@
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
-		67CEF2642351111A00D5CA6C /* ObamaTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ObamaTest.json; sourceTree = "<group>"; };
 		67CEF26E2351113000D5CA6C /* DiffController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffController.swift; sourceTree = "<group>"; };
 		67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeView.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
@@ -6638,8 +6626,6 @@
 			isa = PBXGroup;
 			children = (
 				67CEF26E2351113000D5CA6C /* DiffController.swift */,
-				671F5E04236A22B800111116 /* DogTest.json */,
-				67CEF2642351111A00D5CA6C /* ObamaTest.json */,
 				6782DBDF2344F154003FA21B /* List */,
 				6782DBDE2344F147003FA21B /* Header */,
 				6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */,
@@ -10081,7 +10067,6 @@
 				67CEF25F234FCA8100D5CA6C /* DiffListContextCell.xib in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
 				D8D92B601DF22E1700B95311 /* NotificationBackgroundSuccess.png in Resources */,
-				671F5E05236A22B900111116 /* DogTest.json in Resources */,
 				7A9A611821124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EB212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				7A8422582268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
@@ -10104,7 +10089,6 @@
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
-				67CEF2652351111B00D5CA6C /* ObamaTest.json in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				83E52BB91F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224C2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
@@ -10234,7 +10218,6 @@
 				D80ED3E41EE57F4800CE8C50 /* WMFTableOfContentsCell.xib in Resources */,
 				83E52BBD1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				D80ED3E51EE57F4800CE8C50 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
-				671F5E09236A22B900111116 /* DogTest.json in Resources */,
 				BA4524211F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				7ADF499021B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A9524D422665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -10308,7 +10291,6 @@
 				D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */,
 				D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */,
 				B0524AFA2144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
-				67CEF2692351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D80ED4231EE57F4800CE8C50 /* ReadingThemesControlsViewController.xib in Resources */,
 				B0524B0721484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
 				D80ED4241EE57F4800CE8C50 /* NotificationButtonBackground@2x.png in Resources */,
@@ -10442,14 +10424,12 @@
 				67861A16223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8A42BFD1E815A9C00D8E281 /* Launch Screen.storyboard in Resources */,
 				D8A42BFE1E815A9C00D8E281 /* EditSaveViewController.storyboard in Resources */,
-				671F5E08236A22B900111116 /* DogTest.json in Resources */,
 				D8A42BFF1E815A9C00D8E281 /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2962289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
 				D82E958D1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				7A6F560221AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5592051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
-				67CEF2682351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC1A2347EE5A003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
@@ -10565,14 +10545,12 @@
 				67861A14223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8CE26841E698E2400DAE2E0 /* Launch Screen.storyboard in Resources */,
 				D8CE26851E698E2400DAE2E0 /* EditSaveViewController.storyboard in Resources */,
-				671F5E06236A22B900111116 /* DogTest.json in Resources */,
 				D8CE26861E698E2400DAE2E0 /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2942289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
 				D82E958B1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				7A6F560021AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
-				67CEF2662351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC182347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
@@ -10688,14 +10666,12 @@
 				67861A15223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8EC3F841E9BDA35006712EB /* Launch Screen.storyboard in Resources */,
 				D8EC3F851E9BDA35006712EB /* EditSaveViewController.storyboard in Resources */,
-				671F5E07236A22B900111116 /* DogTest.json in Resources */,
 				D8EC3F861E9BDA35006712EB /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2952289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
 				D82E958C1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				7A6F560121AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
-				67CEF2672351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC192347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
