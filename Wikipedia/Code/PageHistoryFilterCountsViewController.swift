@@ -26,15 +26,16 @@ class PageHistoryFilterCountsViewController: UIViewController {
             if case let userEdits?? = editCounts[.userEdits] {
                 counts.append(Count(title: WMFLocalizedString("page-history-user-edits", value: "user edits", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit")!, count: userEdits))
             }
-            if case let anonEdits?? = editCounts[.anonEdits] {
+            if case let anonEdits?? = editCounts[.anonymous] {
                 counts.append(Count(title: WMFLocalizedString("page-history-ip-edits", value: "IP edits", comment: "Text for view that shows many edits were made by anonymous users - IP refers to the 'IP address'"), image: UIImage(named: "anon")!, count: anonEdits))
             }
-            if case let botEdits?? = editCounts[.botEdits] {
+            if case let botEdits?? = editCounts[.bot] {
                 counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot")!, count: botEdits))
             }
-            if case let revertedEdits?? = editCounts[.revertedEdits] {
-                counts.append(Count(title: WMFLocalizedString("page-history-reverted-edits", value: "reverted edits", comment: "Text for view that shows many edits were reverted"), image: UIImage(named: "reverted")!, count: revertedEdits))
+            if case let minorEdits?? = editCounts[.minor] {
+                counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "reverted")!, count: minorEdits))
             }
+            updateLayout(60, countOfColumns: counts.count)
             delegate?.didDetermineFilterCountsAvailability(!counts.isEmpty, viewController: self)
         }
     }
@@ -63,18 +64,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
         addActivityIndicator()
         activityIndicator.style = theme.isDark ? .white : .gray
         activityIndicator.startAnimating()
-
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .horizontal
-            flowLayout.minimumInteritemSpacing = 0
-            flowLayout.sectionInset = .zero
-            flowLayout.minimumLineSpacing = 0
-            let countOfColumns: CGFloat = 4
-            let availableWidth = collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
-            let dimension = floor(availableWidth / countOfColumns)
-            flowLayout.itemSize = CGSize(width: dimension, height: collectionViewHeightConstraint.constant)
-        }
-
+        updateLayout(collectionViewHeightConstraint.constant)
         apply(theme: theme)
     }
 
@@ -90,14 +80,22 @@ class PageHistoryFilterCountsViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
-            if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                let countOfColumns: CGFloat = 4
-                let availableWidth = self.collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - self.collectionView.contentInset.left - self.collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
-                let dimension = floor(availableWidth / countOfColumns)
-                flowLayout.itemSize = CGSize(width: dimension, height: 60)
-            }
+            self.updateLayout(60)
             self.collectionView.collectionViewLayout.invalidateLayout()
         })
+    }
+
+    private func updateLayout(_ collectionViewHeight: CGFloat, countOfColumns: Int = 4) {
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .horizontal
+            flowLayout.minimumInteritemSpacing = 0
+            flowLayout.sectionInset = .zero
+            flowLayout.minimumLineSpacing = 0
+            let countOfColumns = CGFloat(countOfColumns)
+            let availableWidth = collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
+            let dimension = floor(availableWidth / countOfColumns)
+            flowLayout.itemSize = CGSize(width: dimension, height: collectionViewHeight)
+        }
     }
 }
 

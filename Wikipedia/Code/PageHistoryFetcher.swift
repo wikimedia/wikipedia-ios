@@ -126,9 +126,9 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     public enum EditCountType: String {
         case editors
         case edits
-        case revertedEdits = "revertededits"
-        case botEdits = "botedits"
-        case anonEdits = "anonedits"
+        case minor
+        case bot
+        case anonymous
         case userEdits
     }
 
@@ -159,11 +159,12 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                     defer {
                         group.leave()
                     }
+                    // TODO: Check for additional info in the response. If the count of minor edits is > 500k, the count will be set to 500k and the response will include additional information. 
                     editCountsGroupedByType[editCountType] = editCount?.count
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                if let edits = editCountsGroupedByType[.edits], let editsCount = edits, let anonEdits = editCountsGroupedByType[.anonEdits], let anonEditsCount = anonEdits {
+                if let edits = editCountsGroupedByType[.edits], let editsCount = edits, let anonEdits = editCountsGroupedByType[.anonymous], let anonEditsCount = anonEdits {
                     editCountsGroupedByType[.userEdits] = editsCount - anonEditsCount
                 }
                 completion(.success(editCountsGroupedByType))

@@ -102,7 +102,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
 
-        pageHistoryFetcher.fetchEditCounts(.edits, .anonEdits, .botEdits, .revertedEdits, for: pageTitle, pageURL: pageURL) { result in
+        pageHistoryFetcher.fetchEditCounts(.edits, .anonymous, .bot, .minor, for: pageTitle, pageURL: pageURL) { result in
             switch result {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
