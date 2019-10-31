@@ -418,6 +418,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.selectionThemeModel = cachedCellContent.selectionThemeModel
                 } else {
                     cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
+                    cell.isSelected = false
                 }
                 cell.selectionIndex = cachedCellContent.selectionIndex
             } else {
