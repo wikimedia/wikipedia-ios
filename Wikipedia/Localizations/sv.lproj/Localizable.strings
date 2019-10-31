@@ -107,7 +107,7 @@
 "appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i det mörka och svarta temat";
 "appearance-settings-reading-themes" = "Lästeman";
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
-"appearance-settings-text-sizing-example-text" = "Dra i reglaget för att ändra artikelns textstorlek. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
+"appearance-settings-text-sizing-example-text" = "Dra i reglaget för att ändra textstorleken för artiklar. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
 "appearance-settings-theme-options" = "Temaalternativ";
 "article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
@@ -276,7 +276,7 @@
 "explore-feed-preferences-continue-reading-description" = "Snabblänk tillbaka för att läsa en öppen artikel";
 "explore-feed-preferences-customize-explore-feed" = "Anpassa utforskarflöde";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Anpassa utforskarflödet";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "När en korttyp döljs kommer denna korttyp sluta dyka upp i utforskarflödet.";
+"explore-feed-preferences-customize-explore-feed-footer-text" = "När en korttyp döljs kommer den sluta dyka upp i utforskarflödet.";
 "explore-feed-preferences-explore-tab" = "Utforskarflik";
 "explore-feed-preferences-featured-article-description" = "Dagens utmärkta artikel på Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Av";
