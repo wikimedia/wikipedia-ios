@@ -125,9 +125,11 @@
 "description-welcome-descriptions-title" = "Sainchuntais theideal";
 "description-welcome-start-editing-button" = "Cuir in eagar";
 "dim-images" = "Maolaigh íomhánna";
+"edit-style-table-view-title" = "Stíl";
 "edit-summary-choice-fixed-grammar" = "Réitíodh gramadach";
 "edit-summary-choice-fixed-typos" = "Réitíodh botún cló";
 "edit-summary-choice-linked-words" = "Cuireadh naisc leis";
+"edit-summary-placeholder-text" = "Conas mar a fheabhsaigh tú an t-alt?";
 "edit-text-size-table-view-title" = "Clómhéid";
 "empty-no-article-message" = "Tá brón orainn, níorbh fhéidir an t-alt a lódáil";
 "empty-no-feed-message" = "Féadfaidh tú do chuid alt molta a fhéachaint nuair a bheidh idirlíon agat";
