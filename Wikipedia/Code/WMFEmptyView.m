@@ -197,6 +197,19 @@
     return view;
 }
 
++ (instancetype)emptyDiffEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"empty-diff"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-diff-title", nil, nil, @"No differences between revisions", @"Text for placeholder label visible when diff page is empty");
+    view.backgroundColorKeyPath = @"colors.midBackground";
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
 - (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nonnull SEL)action {
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];

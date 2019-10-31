@@ -5,6 +5,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@property (nonatomic, strong, readonly) NSString *backgroundColorKeyPath;
+
 + (instancetype)blankEmptyView;
 + (instancetype)noFeedEmptyView;
 + (instancetype)noArticleEmptyView;
@@ -17,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noSelectedImageToInsertEmptyView;
 + (instancetype)unableToLoadTalkPageEmptyView;
 + (instancetype)emptyTalkPageEmptyView;
++ (instancetype)emptyDiffEmptyView;
 
 NS_ASSUME_NONNULL_END
 

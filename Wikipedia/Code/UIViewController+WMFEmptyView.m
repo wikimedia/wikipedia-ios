@@ -50,6 +50,9 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeEmptyTalkPage:
             view = [WMFEmptyView emptyTalkPageEmptyView];
             break;
+        case WMFEmptyViewTypeDiff:
+            view = [WMFEmptyView emptyDiffEmptyView];
+            break;
             
         default:
             return nil;

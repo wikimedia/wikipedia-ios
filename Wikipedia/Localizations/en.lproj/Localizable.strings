@@ -244,6 +244,7 @@
 "editing-welcome-impartial-tone-title" = "Write in an impartial tone";
 "editing-welcome-set-knowledge-free-subtitle" = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.";
 "editing-welcome-set-knowledge-free-title" = "Set knowledge free";
+"empty-diff-title" = "No differences between revisions";
 "empty-insert-media-title" = "Select a file from Wikimedia Commons";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";

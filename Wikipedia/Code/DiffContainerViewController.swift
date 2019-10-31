@@ -13,6 +13,7 @@ class DiffContainerViewController: ViewController {
     private var containerViewModel: DiffContainerViewModel
     private var headerExtendedView: DiffHeaderExtendedView?
     private var headerTitleView: DiffHeaderTitleView?
+    private var emptyViewController: EmptyViewController?
     private var diffListViewController: DiffListViewController?
     private let diffController: DiffController
     private let fromModel: WMFPageHistoryRevision?
@@ -43,6 +44,10 @@ class DiffContainerViewController: ViewController {
         super.init()
         
         self.theme = theme
+        
+        self.containerViewModel.stateHandler = { [weak self] in
+            self?.evaluateState()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,6 +84,10 @@ class DiffContainerViewController: ViewController {
         if let scrollView = diffListViewController?.scrollView {
             configureExtendedViewSquishing(scrollView: scrollView)
         }
+
+        if let emptyViewController = emptyViewController {
+            emptyViewController.setContentInset(inset: UIEdgeInsets(top: navigationBar.visibleHeight, left: 0, bottom: 0, right: 0))
+        }
     }
     
     override func apply(theme: Theme) {
@@ -98,6 +107,19 @@ class DiffContainerViewController: ViewController {
 }
 
 private extension DiffContainerViewController {
+    
+    func evaluateState() {
+        
+        switch containerViewModel.state {
+            case .empty:
+                setupEmptyViewControllerIfNeeded()
+                emptyViewController?.view.isHidden = false
+                
+        default:
+            emptyViewController?.view.isHidden = true
+            break
+        }
+    }
     
     func fetchEditCountIfNeeded() {
         switch type {
@@ -206,6 +228,10 @@ private extension DiffContainerViewController {
                     self.diffListViewController?.applyListViewModelChanges(updateType: .initialLoad(width: width ?? 0))
                     
                     self.diffListViewController?.updateScrollViewInsets()
+                    
+                    if listViewModel.count == 0 {
+                        self.containerViewModel.state = .empty
+                    }
                 }
                 
             case .failure(let error):
@@ -267,6 +293,21 @@ private extension DiffContainerViewController {
         navigationBar.isExtendedViewHidingEnabled = containerViewModel.headerViewModel.isExtendedViewHidingEnabled
     }
     
+    func setupEmptyViewControllerIfNeeded() {
+        
+        guard emptyViewController == nil else {
+            return
+        }
+
+        emptyViewController = EmptyViewController(canRefresh: false, theme: theme)
+        if let emptyViewController = emptyViewController {
+            wmf_add(childController: emptyViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+            emptyViewController.type = .diff
+            emptyViewController.view.isHidden = true
+            emptyViewController.delegate = self
+        }
+    }
+    
     func setupDiffListViewControllerIfNeeded() {
         if diffListViewController == nil {
             let diffListViewController = DiffListViewController(theme: theme, delegate: self, type: type)
@@ -293,6 +334,16 @@ extension DiffContainerViewController: DiffListDelegate {
         self.scrollViewDidScroll(scrollView)
         
         configureExtendedViewSquishing(scrollView: scrollView)
+    }
+}
+
+extension DiffContainerViewController: EmptyViewControllerDelegate {
+    func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
+        //no refreshing
+    }
+    
+    func emptyViewScrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.scrollViewDidScroll(scrollView)
     }
 }
 

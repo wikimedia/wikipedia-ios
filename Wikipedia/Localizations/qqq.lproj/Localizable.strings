@@ -244,6 +244,7 @@
 "editing-welcome-impartial-tone-title" = "Title for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles";
 "editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
+"empty-diff-title" = "Text for placeholder label visible when diff page is empty";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
