@@ -58,7 +58,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], sectionInfo: [SectionInfo]?) {
+    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance], sectionInfo: [SectionInfo]?) {
         
         self.type = type
         self.theme = theme
@@ -83,7 +83,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             
             //passing in next middle item to avoid double-space calculations for moved items
             let nextItem: DiffItem? = diffItems[safeIndex: index + 1]
-            let changeItemViewModel = DiffListChangeItemViewModel(item: diffItem, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItem.type, groupedMoveIndexes: groupedMoveIndexes, nextMiddleItem: nextItem)
+            let changeItemViewModel = DiffListChangeItemViewModel(item: diffItem, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItem.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, nextMiddleItem: nextItem)
             itemViewModels.append(changeItemViewModel)
         }
         
@@ -113,11 +113,12 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     }
     
     private static func calculateHeadingsFromLineNumbers(diffItems: [DiffItem]) -> String {
+
+        let lineNumbers = diffItems.compactMap { ($0.type != .deleteLine && $0.type != .moveSource) ? $0.lineNumber : nil }
         
-        //tonitodo: might want to be a little more flexible with this. Glean whatever range you can, not just strictly looking at first and last
-        if let firstItemLineNumber = diffItems.first?.lineNumber {
+        if let firstItemLineNumber = lineNumbers.first {
             
-            let lastItemLineNumber = diffItems.last?.lineNumber
+            let lastItemLineNumber = lineNumbers.last
             
             if diffItems.count == 1 || lastItemLineNumber == nil {
                return String.localizedStringWithFormat(CommonStrings.diffSingleLineFormat, firstItemLineNumber)

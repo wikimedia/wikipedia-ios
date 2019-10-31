@@ -364,11 +364,6 @@
 		67CEF25F234FCA8100D5CA6C /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		67CEF2612350C29D00D5CA6C /* DiffListUneditedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */; };
 		67CEF263235110F700D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
-		67CEF2652351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2662351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2672351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2682351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
-		67CEF2692351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
 		67CEF26A2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
 		67CEF26B2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
 		67CEF26C2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
@@ -3994,7 +3989,6 @@
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
-		67CEF2642351111A00D5CA6C /* ObamaTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ObamaTest.json; sourceTree = "<group>"; };
 		67CEF26E2351113000D5CA6C /* DiffController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffController.swift; sourceTree = "<group>"; };
 		67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeView.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
@@ -6632,7 +6626,6 @@
 			isa = PBXGroup;
 			children = (
 				67CEF26E2351113000D5CA6C /* DiffController.swift */,
-				67CEF2642351111A00D5CA6C /* ObamaTest.json */,
 				6782DBDF2344F154003FA21B /* List */,
 				6782DBDE2344F147003FA21B /* Header */,
 				6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */,
@@ -10096,7 +10089,6 @@
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
-				67CEF2652351111B00D5CA6C /* ObamaTest.json in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				83E52BB91F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224C2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
@@ -10299,7 +10291,6 @@
 				D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */,
 				D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */,
 				B0524AFA2144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
-				67CEF2692351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D80ED4231EE57F4800CE8C50 /* ReadingThemesControlsViewController.xib in Resources */,
 				B0524B0721484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
 				D80ED4241EE57F4800CE8C50 /* NotificationButtonBackground@2x.png in Resources */,
@@ -10439,7 +10430,6 @@
 				7A6F560221AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5592051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
-				67CEF2682351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC1A2347EE5A003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
@@ -10561,7 +10551,6 @@
 				7A6F560021AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
-				67CEF2662351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC182347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
@@ -10683,7 +10672,6 @@
 				7A6F560121AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
-				67CEF2672351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC192347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,

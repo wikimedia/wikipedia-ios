@@ -164,6 +164,11 @@
 "diff-context-lines-expanded-button-title" = "Hide";
 "diff-multi-line-format" = "Lines $1 - $2";
 "diff-paragraph-moved" = "Paragraph moved";
+"diff-paragraph-moved-direction-down" = "down";
+"diff-paragraph-moved-direction-up" = "up";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 line|$1 lines}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 section|$1 sections}}";
+"diff-paragraph-moved-format" = "Paragraph moved $1 $2";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edit|$1 edits}}";
 "diff-single-header-editor-title" = "Editor information";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte added|$1 bytes added}}";

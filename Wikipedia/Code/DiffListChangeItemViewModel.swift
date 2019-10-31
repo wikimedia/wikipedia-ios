@@ -9,30 +9,32 @@ final class DiffListChangeItemViewModel {
     let textAlignment: NSTextAlignment
     let backgroundColor: UIColor
     private let groupedMoveIndexes: [String: Int]
+    private let moveDistances: [String: MoveDistance]
     let moveInfo: DiffMoveInfo?
     private(set) var textPadding: NSDirectionalEdgeInsets
 
     var theme: Theme {
         didSet {
-            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, groupedMoveIndexes: groupedMoveIndexes)
+            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
         }
     }
     
     var traitCollection: UITraitCollection {
         didSet {
-            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, groupedMoveIndexes: groupedMoveIndexes)
+            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
         }
     }
     
     private(set) var textAttributedString: NSAttributedString
     
-    init(item: DiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, groupedMoveIndexes: [String: Int], nextMiddleItem: DiffItem?) {
+    init(item: DiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance], nextMiddleItem: DiffItem?) {
         self.text = item.text
         self.traitCollection = traitCollection
         self.theme = theme
         self.type = type
         self.diffItemType = diffItemType
         self.groupedMoveIndexes = groupedMoveIndexes
+        self.moveDistances = moveDistances
         self.moveInfo = item.moveInfo
         
         //tonitodo: clean up
@@ -58,7 +60,7 @@ final class DiffListChangeItemViewModel {
         backgroundColor = (diffItemType == .moveSource || diffItemType == .moveDestination) ? theme.colors.cardBorder : theme.colors.paperBackground
         
         self.textPadding = DiffListChangeItemViewModel.calculateTextPadding(type: type, diffItemType: diffItemType, nextMiddleItem: nextMiddleItem)
-        self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: item.moveInfo, groupedMoveIndexes: groupedMoveIndexes)
+        self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: item.moveInfo, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
     }
     
     private static func calculateTextPadding(type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: DiffItem?) -> NSDirectionalEdgeInsets {
@@ -91,7 +93,7 @@ final class DiffListChangeItemViewModel {
         
     }
     
-    private static func calculateAttributedString(with text: String, highlightedRanges: [DiffListItemHighlightRange], traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, moveInfo: DiffMoveInfo?, groupedMoveIndexes: [String: Int]) -> NSAttributedString {
+    private static func calculateAttributedString(with text: String, highlightedRanges: [DiffListItemHighlightRange], traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, moveInfo: DiffMoveInfo?, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance]) -> NSAttributedString {
         
         //tonitodo: clean up this method 🤮
         var modifiedText = text
@@ -123,7 +125,31 @@ final class DiffListChangeItemViewModel {
             let imageString = NSAttributedString(attachment: imageAttachment)
             
             if diffItemType == .moveSource {
-                modifiedText = WMFLocalizedString("diff-paragraph-moved", value:"Paragraph moved", comment:"Label in diff to indicate that a paragraph has been moved. This label is in the location of where the paragraph was moved from.")
+                
+                if let moveDistance = moveDistances[moveInfo.id] {
+                    
+                    var moveDistanceString: String
+                    switch moveDistance {
+                    case .section(let sectionNumberAmount, _):
+                        let moveDistanceSectionsFormat = WMFLocalizedString("diff-paragraph-moved-distance-section", value:"{{PLURAL:%1$d|%1$d section|%1$d sections}}", comment:"Diff view distance moved in sections when a paragraph has moved across sections - %1$@ is replaced with the number of sections a paragraph has moved across.")
+                        moveDistanceString = String.localizedStringWithFormat(moveDistanceSectionsFormat, sectionNumberAmount)
+                    case .line (let lineNumberAmount):
+                        let moveDistanceLinesFormat = WMFLocalizedString("diff-paragraph-moved-distance-line", value:"{{PLURAL:%1$d|%1$d line|%1$d lines}}", comment:"Diff view distance moved in line numbers when a paragraph has moved lines but remained in the same section - %1$@ is replaced with the number of lines a paragraph has moved across.")
+                        moveDistanceString = String.localizedStringWithFormat(moveDistanceLinesFormat, lineNumberAmount)
+                    }
+                    
+                    let paragraphMovedFormat = WMFLocalizedString("diff-paragraph-moved-format", value: "Paragraph moved %1$@ %2$@", comment: "Label in moved paragraph source location on diff view for indicating how far and what direction a pargraph has moved. %1$@ is replaced by the move direction (e.g. 'up' or 'down') and %2$@ is replaced by the move type and move distance (e.g. '2 lines', '4 sections')")
+                    let upOrDownString: String
+                    switch moveInfo.linkDirection {
+                    case .down: upOrDownString = WMFLocalizedString("diff-paragraph-moved-direction-down", value: "down", comment: "Label in moved pararaph source location on diff view for indicating that a paragraph was moved down in the document.")
+                    case .up: upOrDownString = WMFLocalizedString("diff-paragraph-moved-direction-up", value: "up", comment: "Label in moved pararaph source location on diff view for indicating that a paragraph was moved up in the document.")
+                    }
+                    
+                    modifiedText = String.localizedStringWithFormat(paragraphMovedFormat, upOrDownString, moveDistanceString)
+                } else {
+                     modifiedText = WMFLocalizedString("diff-paragraph-moved", value:"Paragraph moved", comment:"Label in diff to indicate that a paragraph has been moved. This label is in the location of where the paragraph was moved from.")
+                }
+               
                 paragraphStyle.alignment = .center
             } else if diffItemType == .moveDestination {
                 
