@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 
+@objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate let articleURL: URL
@@ -20,12 +21,23 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         return nil
     }
     
-    fileprivate func fetchArticle() {
+    private var isFetched = false
+    @objc func fetchArticle(_ completion:(() -> Void)? = nil ) {
+        assert(Thread.isMainThread)
+        guard !isFetched else {
+            completion?()
+            return
+        }
+        isFetched = true
         guard let article = dataStore.fetchArticle(with: articleURL) else {
             guard let key = articleURL.wmf_databaseKey else {
+                completion?()
                 return
             }
             dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
+                defer {
+                    completion?()
+                }
                 guard let article = article else {
                     return
                 }
@@ -34,6 +46,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
             return
         }
         updateView(with: article)
+        completion?()
     }
     
     public func updatePreferredContentSize(for contentWidth: CGFloat) {
@@ -53,8 +66,6 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.isHidden = false
 
         activityIndicatorView.stopAnimating()
-        
-        updatePreferredContentSize(for: view.bounds.width)
     }
     
     override func viewDidLoad() {
@@ -75,7 +86,9 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchArticle()
+        fetchArticle {
+            self.updatePreferredContentSize(for: self.view.bounds.width)
+        }
     }
 
     override func viewDidLayoutSubviews() {

@@ -14,6 +14,10 @@ extension UIViewController {
         articlePeekPreviewViewController.didMove(toParent: self)
     }
     
+    @objc var wmf_PeekableChildViewController: UIViewController? {
+        return children.first(where: { $0 is Peekable })
+    }
+    
     @objc func wmf_removePeekableChildViewControllers() {
         for vc in children {
             guard vc is Peekable else {
