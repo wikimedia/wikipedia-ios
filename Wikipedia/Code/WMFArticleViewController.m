@@ -2026,19 +2026,29 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webView:(WKWebView *)webView contextMenuConfigurationForElement:(WKContextMenuElementInfo *)elementInfo completionHandler:(void (^)(UIContextMenuConfiguration *_Nullable))completionHandler API_AVAILABLE(ios(13.0)) {
     NSURL *updatedLinkURL = [self updatedLinkURLForPreviewingLinkURL:elementInfo.linkURL];
-    UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
-    if (!peekVC) {
+    UIViewController *peekParentVC = [self peekViewControllerForURL:updatedLinkURL];
+    UIViewController *peekVC = [peekParentVC wmf_PeekableChildViewController];
+    if (!peekParentVC) {
         completionHandler(nil);
+        return;
     }
+
     [self.webViewController hideFindInPageWithCompletion:nil];
     UIContextMenuConfiguration *config = [UIContextMenuConfiguration configurationWithIdentifier:updatedLinkURL
         previewProvider:^UIViewController *_Nullable {
-            return peekVC;
+            return peekParentVC;
         }
         actionProvider:^UIMenu *_Nullable(NSArray<UIMenuElement *> *_Nonnull suggestedActions) {
-            return [self previewMenuElementsForPreviewViewController:peekVC suggestedActions:suggestedActions];
+            return [self previewMenuElementsForPreviewViewController:peekParentVC suggestedActions:suggestedActions];
         }];
-    completionHandler(config);
+    if (peekVC && [peekVC isKindOfClass:[WMFArticlePeekPreviewViewController class]]) {
+        WMFArticlePeekPreviewViewController *peekPreviewVC = (WMFArticlePeekPreviewViewController *)peekVC;
+        [peekPreviewVC fetchArticle:^{
+            completionHandler(config);
+        }];
+    } else {
+        completionHandler(config);
+    }
 }
 
 - (void)webView:(WKWebView *)webView contextMenuForElement:(WKContextMenuElementInfo *)elementInfo willCommitWithAnimator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)) {
