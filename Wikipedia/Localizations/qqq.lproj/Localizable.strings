@@ -603,7 +603,7 @@
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
 "reading-list-sync-enabled-panel-message" = "Message for panel informing user that sync is enabled for their account.";
-"reading-list-sync-enabled-panel-title" = "Title for panel informing user that sync was disabled on their Wikipedia account on another device";
+"reading-list-sync-enabled-panel-title" = "Title for panel informing user that sync was enabled on their Wikipedia account on another device";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
 "reading-list-unable-to-delete" = "Informs the user that an error occurred while deleting their reading list.";
