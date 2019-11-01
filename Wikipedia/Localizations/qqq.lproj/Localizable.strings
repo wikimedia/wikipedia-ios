@@ -169,6 +169,7 @@
 "diff-paragraph-moved-distance-line" = "Diff view distance moved in line numbers when a paragraph has moved lines but remained in the same section - $1 is replaced with the number of lines a paragraph has moved across.";
 "diff-paragraph-moved-distance-section" = "Diff view distance moved in sections when a paragraph has moved across sections - $1 is replaced with the number of sections a paragraph has moved across.";
 "diff-paragraph-moved-format" = "Label in moved paragraph source location on diff view for indicating how far and what direction a pargraph has moved. $1 is replaced by the move direction (e.g. 'up' or 'down') and $2 is replaced by the move type and move distance (e.g. '2 lines', '4 sections')";
+"diff-revision-error-title" = "Text for placeholder label visible when an individual revision's changes are not viewable, either because of no line changes or an error when fetching the diff.";
 "diff-single-header-editor-number-edits-format" = "Label to show the number of total edits made by the editor when viewing a single revision. $1 is replaced with the editor's number of edits.";
 "diff-single-header-editor-title" = "Title label in header editor view when viewing a single revision.";
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
@@ -244,7 +245,7 @@
 "editing-welcome-impartial-tone-title" = "Title for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles";
 "editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
-"empty-diff-title" = "Text for placeholder label visible when diff page is empty";
+"empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";

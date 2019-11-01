@@ -222,7 +222,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 
         let topInset = navigationBar.visibleHeight
         let topEmptySpacing = view.bounds.height - toolbar.frame.minY
-        emptyViewController.centerEmptyView(topInset: topInset, topEmptySpacing: topEmptySpacing)
+        emptyViewController.centerEmptyView(topInset: topInset, topEmptyViewSpacing: topEmptySpacing)
     }
     
     override func apply(theme: Theme) {

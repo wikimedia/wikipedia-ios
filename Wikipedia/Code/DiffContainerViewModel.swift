@@ -12,7 +12,7 @@ final class DiffContainerViewModel {
         case loading
         case empty
         case data
-        case error
+        case error(error: Error)
     }
     
     let headerViewModel: DiffHeaderViewModel

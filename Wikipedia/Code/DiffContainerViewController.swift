@@ -13,7 +13,7 @@ class DiffContainerViewController: ViewController {
     private var containerViewModel: DiffContainerViewModel
     private var headerExtendedView: DiffHeaderExtendedView?
     private var headerTitleView: DiffHeaderTitleView?
-    private var emptyViewController: EmptyViewController?
+    private var scrollingEmptyViewController: EmptyViewController?
     private var diffListViewController: DiffListViewController?
     private let diffController: DiffController
     private let fromModel: WMFPageHistoryRevision?
@@ -22,6 +22,12 @@ class DiffContainerViewController: ViewController {
     private let articleTitle: String
     
     private let type: DiffContainerViewModel.DiffType
+    
+    lazy private(set) var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
     
     init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController? = nil) {
         self.type = type
@@ -85,7 +91,7 @@ class DiffContainerViewController: ViewController {
             configureExtendedViewSquishing(scrollView: scrollView)
         }
 
-        if let emptyViewController = emptyViewController {
+        if let emptyViewController = scrollingEmptyViewController {
             navigationBar.setNeedsLayout()
             navigationBar.layoutSubviews()
             let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight)
@@ -115,14 +121,36 @@ private extension DiffContainerViewController {
     func evaluateState() {
         
         switch containerViewModel.state {
-            case .empty:
-                setupEmptyViewControllerIfNeeded()
-                emptyViewController?.view.isHidden = false
-                diffListViewController?.view.isHidden = true
-                
-        default:
-            emptyViewController?.view.isHidden = true
+
+        case .loading:
+            fakeProgressController.start()
+            scrollingEmptyViewController?.view.isHidden = true
+            diffListViewController?.view.isHidden = true
+            wmf_hideEmptyView()
+        case .empty:
+            fakeProgressController.stop()
+            setupScrollingEmptyViewControllerIfNeeded()
+            switch type {
+            case .compare:
+                scrollingEmptyViewController?.type = .diffCompare
+            case .single:
+                scrollingEmptyViewController?.type = .diffSingle
+            }
+            scrollingEmptyViewController?.view.isHidden = false
+            diffListViewController?.view.isHidden = true
+            wmf_hideEmptyView()
+        case .error(let error):
+            fakeProgressController.stop()
+            showNoInternetConnectionAlertOrOtherWarning(from: error)
+            setupScrollingEmptyViewControllerIfNeeded()
+            scrollingEmptyViewController?.type = .diffError
+            scrollingEmptyViewController?.view.isHidden = false
+            diffListViewController?.view.isHidden = true
+        case .data:
+            fakeProgressController.stop()
+            scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = false
+            wmf_hideEmptyView()
             break
         }
     }
@@ -141,7 +169,7 @@ private extension DiffContainerViewController {
                         switch result {
                         case .success(let editCount):
                             self.updateHeaderWithEditCount(editCount)
-                        case .failure(let error):
+                        case .failure:
                             break
                         }
                     }
@@ -168,7 +196,7 @@ private extension DiffContainerViewController {
                         switch result {
                         case .success(let counts):
                             self.updateHeaderWithIntermediateCounts(counts)
-                        case .failure(let error):
+                        case .failure:
                             break
                         }
                     }
@@ -218,6 +246,8 @@ private extension DiffContainerViewController {
         view.setNeedsLayout()
         view.layoutIfNeeded()
         let width = diffListViewController?.collectionView.frame.width
+        
+        containerViewModel.state = .loading
         diffController.fetchDiff(fromRevisionId: fromModel?.revisionID, toRevisionId: toModel.revisionID, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
 
             guard let self = self else {
@@ -235,14 +265,13 @@ private extension DiffContainerViewController {
                     
                     self.diffListViewController?.updateScrollViewInsets()
                     
-                    if listViewModel.count == 0 {
-                        self.containerViewModel.state = .empty
-                    }
+                    self.containerViewModel.state = listViewModel.count == 0 ? .empty : .data
                 }
                 
             case .failure(let error):
-                print(error)
-                //tonitodo: error handling
+                DispatchQueue.main.async {
+                    self.containerViewModel.state = .error(error: error)
+                }
             }
         }
     }
@@ -299,18 +328,17 @@ private extension DiffContainerViewController {
         navigationBar.isExtendedViewHidingEnabled = containerViewModel.headerViewModel.isExtendedViewHidingEnabled
     }
     
-    func setupEmptyViewControllerIfNeeded() {
+    func setupScrollingEmptyViewControllerIfNeeded() {
         
-        guard emptyViewController == nil else {
+        guard scrollingEmptyViewController == nil else {
             return
         }
 
-        emptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
-        if let emptyViewController = emptyViewController {
+        scrollingEmptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
+        if let emptyViewController = scrollingEmptyViewController {
             emptyViewController.canRefresh = false
             emptyViewController.theme = theme
             addChildViewController(childViewController: emptyViewController, belowSubview: navigationBar)
-            emptyViewController.type = .diff
             emptyViewController.view.isHidden = true
             emptyViewController.delegate = self
         }
@@ -347,6 +375,35 @@ private extension DiffContainerViewController {
         }, secondaryButtonTapHandler: nil, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)
         UserDefaults.wmf.set(true, forKey: key)
+    }
+    
+    private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
+
+        if (error as NSError).wmf_isNetworkConnectionError() {
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+            }
+            
+        } else if let diffError = error as? DiffError {
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: diffError.localizedDescription)
+             } else {
+                WMFAlertManager.sharedInstance.showWarningAlert(diffError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            }
+            
+        }  else {
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            }
+            
+        }
     }
 }
 

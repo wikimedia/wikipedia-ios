@@ -58,10 +58,10 @@ class EmptyViewController: UIViewController {
         })
     }
     
-    func centerEmptyView(topInset: CGFloat, topEmptySpacing: CGFloat) {
+    func centerEmptyView(topInset: CGFloat, topEmptyViewSpacing: CGFloat) {
 
         scrollView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        emptyContainerViewTopConstraint.constant = topEmptySpacing
+        emptyContainerViewTopConstraint.constant = topEmptyViewSpacing
     }
     
     func centerEmptyView(within targetRect: CGRect) {

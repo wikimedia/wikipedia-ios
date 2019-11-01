@@ -26,7 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noSelectedImageToInsertEmptyView;
 + (instancetype)unableToLoadTalkPageEmptyView;
 + (instancetype)emptyTalkPageEmptyView;
-+ (instancetype)emptyDiffEmptyView;
++ (instancetype)emptyDiffCompareEmptyView;
++ (instancetype)emptyDiffSingleEmptyView;
++ (instancetype)errorDiffEmptyView;
 
 NS_ASSUME_NONNULL_END
 

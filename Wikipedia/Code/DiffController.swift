@@ -8,6 +8,10 @@ enum DiffError: Error {
     case fetchRevisionIDFailure
     case noPreviousRevisionID
     case unrecognizedHardcodedIdsForIntermediateCounts
+    
+    var localizedDescription: String {
+        return CommonStrings.genericErrorDescription
+    }
 }
 
 //eventually used to power "Moved [down/up] n lines / Moved [down/up] n sections" text in diff

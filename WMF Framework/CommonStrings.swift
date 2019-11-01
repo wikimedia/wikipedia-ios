@@ -199,4 +199,6 @@ public class CommonStrings: NSObject {
 
     public static let compareTitle = WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items")
     public static let maxRevisionsSelectedWarningTitle = WMFLocalizedString("page-history-revisions-comparison-warning", value: "Only two revisions can be selected", comment: "Text telling the user how many revisions can be selected for comparison")
+    
+    @objc public static let diffSingleRevisionErrorTitle = WMFLocalizedString("diff-revision-error-title", value: "Unable to load revision", comment: "Text for placeholder label visible when an individual revision's changes are not viewable, either because of no line changes or an error when fetching the diff.")
 }
