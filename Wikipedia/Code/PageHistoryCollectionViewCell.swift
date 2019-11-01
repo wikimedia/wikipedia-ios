@@ -278,5 +278,3 @@ extension PageHistoryCollectionViewCell: Themeable {
         editableContent.backgroundColor = roundedContent.backgroundColor
     }
 }
-    }
-}
