@@ -7,11 +7,13 @@ protocol EmptyViewControllerDelegate: AnyObject {
 
 class EmptyViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var emptyContainerView: UIView!
     private var emptyView: WMFEmptyView? = nil
-    private let scrollView = UIScrollView()
-    private var canRefresh: Bool
+    var canRefresh: Bool = false
     weak var delegate: EmptyViewControllerDelegate?
-    private var theme: Theme = .light
+    var theme: Theme = .light
+    @IBOutlet var emptyContainerViewTopConstraint: NSLayoutConstraint!
     
     var type: WMFEmptyViewType? {
         didSet {
@@ -21,9 +23,8 @@ class EmptyViewController: UIViewController {
                 
                 if let newType = type,
                     let emptyView = EmptyViewController.emptyView(of: newType, theme: self.theme, frame: .zero) {
-                    emptyView.translatesAutoresizingMaskIntoConstraints = false
-                    scrollView.wmf_addSubviewWithConstraintsToEdges(emptyView)
-                    view.widthAnchor.constraint(equalTo: emptyView.widthAnchor, multiplier: 1).isActive = true
+                    emptyContainerView.wmf_addSubviewWithConstraintsToEdges(emptyView)
+
                     self.emptyView = emptyView
                     apply(theme: theme)
                 }
@@ -31,28 +32,11 @@ class EmptyViewController: UIViewController {
         }
     }
     
-    init(canRefresh: Bool, theme: Theme) {
-        self.canRefresh = canRefresh
-        super.init(nibName: nil, bundle: nil)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        apply(theme: theme)
-    }
-    
-    private func commonInit() {
-
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.alwaysBounceVertical = true
         scrollView.delegate = self
-        view.wmf_addSubviewWithConstraintsToEdges(scrollView)
+        scrollView.alwaysBounceVertical = true
         
         if (canRefresh) {
             refreshControl.layer.zPosition = -100
@@ -72,8 +56,10 @@ class EmptyViewController: UIViewController {
         })
     }
     
-    func setContentInset(inset: UIEdgeInsets) {
-        scrollView.contentInset = inset
+    func centerEmptyView(topInset: CGFloat, topEmptySpacing: CGFloat) {
+
+        scrollView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+        emptyContainerViewTopConstraint.constant = topEmptySpacing
     }
 }
 

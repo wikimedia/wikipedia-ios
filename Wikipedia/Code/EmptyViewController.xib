@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="emptyContainerView" destination="pqN-Gv-roH" id="AEh-mi-BqF"/>
+                <outlet property="emptyContainerViewTopConstraint" destination="GTm-Hg-Ke3" id="m9A-XC-bdG"/>
+                <outlet property="scrollView" destination="fPS-jj-Koy" id="Pml-KU-5ee"/>
+                <outlet property="view" destination="5Jq-Rh-nAa" id="QF2-Nv-sSd"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="5Jq-Rh-nAa">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPS-jj-Koy">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="pqN-Gv-roH">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="21"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="pqN-Gv-roH" firstAttribute="top" secondItem="fPS-jj-Koy" secondAttribute="top" id="GTm-Hg-Ke3"/>
+                        <constraint firstItem="pqN-Gv-roH" firstAttribute="leading" secondItem="fPS-jj-Koy" secondAttribute="leading" id="S6T-jX-tjE"/>
+                        <constraint firstAttribute="trailing" secondItem="pqN-Gv-roH" secondAttribute="trailing" id="UOt-ma-glF"/>
+                        <constraint firstAttribute="bottom" secondItem="pqN-Gv-roH" secondAttribute="bottom" id="hH1-hr-ETY"/>
+                        <constraint firstItem="pqN-Gv-roH" firstAttribute="width" secondItem="fPS-jj-Koy" secondAttribute="width" id="zN3-4v-9sL"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="6WP-ts-y49"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="mvU-aO-CNY"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="fPS-jj-Koy" secondAttribute="bottom" id="CRM-xg-ZMk"/>
+                <constraint firstItem="fPS-jj-Koy" firstAttribute="top" secondItem="5Jq-Rh-nAa" secondAttribute="top" id="Krd-c8-TSZ"/>
+                <constraint firstItem="fPS-jj-Koy" firstAttribute="leading" secondItem="5Jq-Rh-nAa" secondAttribute="leading" id="Th2-jW-wFy"/>
+                <constraint firstAttribute="trailing" secondItem="fPS-jj-Koy" secondAttribute="trailing" id="b3s-PI-5gh"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="hvs-DU-6q1"/>
+            <point key="canvasLocation" x="120" y="753"/>
+        </view>
+    </objects>
+</document>

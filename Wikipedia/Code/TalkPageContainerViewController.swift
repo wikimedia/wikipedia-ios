@@ -62,7 +62,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let dataStore: MWKDataStore
     private(set) var controller: TalkPageController
     private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
-    private let emptyViewController = EmptyViewController(canRefresh: true, theme: .light)
+    private let emptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
     private var talkPage: TalkPage? {
         didSet {
             guard let talkPage = self.talkPage else {
@@ -220,7 +220,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        emptyViewController.setContentInset(inset: UIEdgeInsets(top: navigationBar.visibleHeight, left: 0, bottom: 0, right: 0))
+        let topInset = navigationBar.visibleHeight
+        let topEmptySpacing = view.bounds.height - toolbar.frame.minY
+        emptyViewController.centerEmptyView(topInset: topInset, topEmptySpacing: topEmptySpacing)
     }
     
     override func apply(theme: Theme) {
@@ -359,6 +361,8 @@ private extension TalkPageContainerViewController {
     }
     
     func setupEmptyViewController() {
+        emptyViewController.canRefresh = true
+        emptyViewController.theme = theme
         emptyViewController.delegate = self
         emptyViewController.apply(theme: theme)
         let _ = addChildViewController(childViewController: emptyViewController, belowSubview: toolbar, topAnchorPadding: 0)

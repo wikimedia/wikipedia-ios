@@ -86,7 +86,21 @@ class DiffContainerViewController: ViewController {
         }
 
         if let emptyViewController = emptyViewController {
-            emptyViewController.setContentInset(inset: UIEdgeInsets(top: navigationBar.visibleHeight, left: 0, bottom: 0, right: 0))
+            let availableSpace = emptyViewController.view.bounds.height - navigationBar.visibleHeight
+            
+            var topEmptySpacing: CGFloat = 0
+            switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
+            
+            case (.regular, .regular): topEmptySpacing = 50
+            case (.compact, _):
+                let proportionalSpacing = availableSpace * 0.24
+                topEmptySpacing = max(10, proportionalSpacing)
+            default:
+                let proportionalSpacing = availableSpace * 0.18
+                topEmptySpacing = max(10, proportionalSpacing)
+            }
+            
+            emptyViewController.centerEmptyView(topInset: navigationBar.visibleHeight, topEmptySpacing: topEmptySpacing)
         }
     }
     
@@ -98,7 +112,7 @@ class DiffContainerViewController: ViewController {
         
         super.apply(theme: theme)
         
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.midBackground
         
         headerTitleView?.apply(theme: theme)
         headerExtendedView?.apply(theme: theme)
@@ -114,9 +128,11 @@ private extension DiffContainerViewController {
             case .empty:
                 setupEmptyViewControllerIfNeeded()
                 emptyViewController?.view.isHidden = false
+                diffListViewController?.view.isHidden = true
                 
         default:
             emptyViewController?.view.isHidden = true
+            diffListViewController?.view.isHidden = false
             break
         }
     }
@@ -299,14 +315,29 @@ private extension DiffContainerViewController {
             return
         }
 
-        emptyViewController = EmptyViewController(canRefresh: false, theme: theme)
+        emptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
         if let emptyViewController = emptyViewController {
-            wmf_add(childController: emptyViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+            emptyViewController.canRefresh = false
+            emptyViewController.theme = theme
+            addChildViewController(childViewController: emptyViewController, belowSubview: navigationBar)
             emptyViewController.type = .diff
             emptyViewController.view.isHidden = true
             emptyViewController.delegate = self
         }
     }
+    
+    func addChildViewController(childViewController: UIViewController, belowSubview: UIView) {
+           addChild(childViewController)
+           childViewController.view.translatesAutoresizingMaskIntoConstraints = false
+           view.insertSubview(childViewController.view, belowSubview: belowSubview)
+           
+           let topConstraint = childViewController.view.topAnchor.constraint(equalTo: view.topAnchor)
+            let bottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+           let leadingConstraint = childViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+           let trailingConstraint = childViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+           NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+           childViewController.didMove(toParent: self)
+       }
     
     func setupDiffListViewControllerIfNeeded() {
         if diffListViewController == nil {
