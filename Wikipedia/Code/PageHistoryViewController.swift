@@ -396,9 +396,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let revisionID = NSNumber(value: item.revisionID)
         let isSelected = indexPathsSelectedForComparison.contains(indexPath)
         defer {
-            cell.setEditing(state == .editing, animated: false)
+            cell.setEditing(state == .editing)
             if !isSelected {
-                cell.enableEditing(!maxNumberOfRevisionsSelected, animated: false)
+                cell.enableEditing(!maxNumberOfRevisionsSelected)
             }
             cell.apply(theme: theme)
         }
@@ -686,7 +686,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
                 if !cell.isSelected {
                     self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
-                    cell.enableEditing(true, animated: false)
+                    cell.enableEditing(true)
                 }
             }
             let button: UIButton?
