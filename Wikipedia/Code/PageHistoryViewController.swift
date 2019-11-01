@@ -195,21 +195,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 navigationItem.rightBarButtonItem = compareButton
 
                 indexPathsSelectedForComparisonGroupedByButtonTags.removeAll(keepingCapacity: true)
-                forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
-                    self.collectionView.deselectItem(at: indexPath, animated: true)
-                    self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
-                    self.updateSelectionIndex(nil, for: cell, at: indexPath)
-                    cell.enableEditing(true) // confusing, have a reset method
-                    cell.setEditing(false)
-                    cell.apply(theme: self.theme)
-                }
-
                 resetComparisonSelectionButtons()
                 navigationController?.setToolbarHidden(true, animated: true)
             case .editing:
                 navigationItem.rightBarButtonItem = cancelComparisonButton
                 collectionView.allowsMultipleSelection = true
-                forEachVisibleCell { $1.setEditing(true, animated: true) }
                 compareToolbarButton.isEnabled = false
                 comparisonSelectionButtonWidthConstraints = [firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90), secondComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90)]
                 NSLayoutConstraint.activate(comparisonSelectionButtonWidthConstraints)
@@ -217,7 +207,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 navigationController?.setToolbarHidden(false, animated: true)
             }
             layoutCache.reset()
-            layout.invalidateLayout(with: layout.invalidationContextForDataChange())
+            collectionView.performBatchUpdates({
+                self.collectionView.reloadSections(IndexSet(integersIn: 0..<collectionView.numberOfSections))
+            })
             navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         }
     }
