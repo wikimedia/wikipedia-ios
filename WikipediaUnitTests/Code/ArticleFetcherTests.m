@@ -134,13 +134,11 @@
         }
         success:^(MWKArticle *article, NSURL *articleURL) {
             firstFetchResult = article;
-            [self.tempDataStore asynchronouslyCacheArticle:article
-                                                    toDisk:YES
-                                                completion:^(NSError *error) {
-                                                    savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
-                                                    XCTAssertNil(error);
-                                                    XCTAssert([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]);
-                                                }];
+            NSError *error = nil;
+            [self.tempDataStore cacheArticle:article toDisk:YES error:&error];
+            savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
+            XCTAssertNil(error);
+            XCTAssert([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]);
 
             [fetcher fetchArticleForURL:dummyArticleURL
                 saveToDisk:YES
@@ -155,15 +153,11 @@
                     XCTAssert(secondFetchResult != firstFetchResult,
                               @"Expected object returned from 2nd fetch to not be identical to 1st.");
                     XCTAssert([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]);
-
-                    [self.tempDataStore asynchronouslyCacheArticle:article
-                                                            toDisk:YES
-                                                        completion:^(NSError *error) {
-                                                            XCTAssertNil(error);
-                                                            MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
-                                                            XCTAssert([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]);
-                                                            [expectation fulfill];
-                                                        }];
+                    [self.tempDataStore cacheArticle:article toDisk:YES error:&error];
+                    XCTAssertNil(error);
+                    MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
+                    XCTAssert([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]);
+                    [expectation fulfill];
                 }];
         }];
 
