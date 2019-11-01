@@ -501,7 +501,7 @@
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
 "page-history-ip-edits" = "Text for view that shows many edits were made by anonymous users - IP refers to the 'IP address'";
-"page-history-reverted-edits" = "Text for view that shows many edits were reverted";
+"page-history-minor-edits" = "Text for view that shows many edits were marked as minor edits";
 "page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision";
 "page-history-revision-history-title" = "Title for revision history view";
 "page-history-revision-size-diff-addition" = "Accessibility label text telling the user how many bytes were added in a revision - $1 is replaced with the number of bytes added in a revision";
@@ -605,7 +605,7 @@
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
 "reading-list-sync-enabled-panel-message" = "Message for panel informing user that sync is enabled for their account.";
-"reading-list-sync-enabled-panel-title" = "Title for panel informing user that sync was disabled on their Wikipedia account on another device";
+"reading-list-sync-enabled-panel-title" = "Title for panel informing user that sync was enabled on their Wikipedia account on another device";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
 "reading-list-unable-to-delete" = "Informs the user that an error occurred while deleting their reading list.";

@@ -679,6 +679,8 @@
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";
 "table-of-contents-heading" = "Innhold";
 "table-title-other" = "Mer informasjon";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "leːst";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʉːˈlɛst";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mørk";
 "theme-default-display-name" = "Standard";

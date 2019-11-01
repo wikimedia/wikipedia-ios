@@ -1,5 +1,6 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
+// Author: Ahmad252
 // Author: Alifakoor
 // Author: Alirezaaa
 // Author: Alp Er Tunqa
@@ -57,7 +58,7 @@
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "about-wikipedia" = "ویکی‌پدیا";
 "abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را منتشر کنید";
-"abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار، این ویرایش را به‌طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است. لطفاً بازگردید و ویرایش‌تان را اصلاح کنید.";
+"abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار، این ویرایش را به‌طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده‌است. لطفاً بازگردید و ویرایش‌تان را اصلاح کنید.";
 "abuse-filter-warning-blanking" = "خالی کردن بخش‌ها یا کل مقاله‌ها";
 "abuse-filter-warning-caps" = "همهٔ حروف به‌صورت بزرگ";
 "abuse-filter-warning-heading" = "به نظر می‌آید این ویرایش غیرسازنده باشد، آیا مطمئنید می‌خواهید منتشرش کنید؟";

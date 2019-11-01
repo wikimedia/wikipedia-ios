@@ -66,7 +66,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     private var isEditing = false {
         didSet {
-            willStartEditing = false
             setNeedsLayout()
         }
     }
@@ -78,59 +77,28 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
     }
 
-    private var willStartEditing = false {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-
     var selectionIndex: Int?
     var selectionThemeModel: PageHistoryCollectionViewCellSelectionThemeModel?
 
-    func setEditing(_ editing: Bool, animated: Bool = true) {
-        willStartEditing = editing
-        selectView.isSelected = isSelected
-        layoutIfNeeded()
-        if animated {
-            let animator = UIViewPropertyAnimator(duration: 0.3, curve: .linear) {
-                self.isEditing = editing
-                self.layoutIfNeeded()
-            }
-            let delayFactor: CGFloat = editing ? 0.05 : 0.25
-            animator.addAnimations({
-                self.selectView.setNeedsLayout()
-                self.selectView.alpha = editing ? 1 : 0
-            }, delayFactor: delayFactor)
-            animator.startAnimation()
-        } else {
-            isEditing = editing
-            selectView.setNeedsLayout()
-            layoutIfNeeded()
-            selectView.alpha = editing ? 1 : 0
+    func setEditing(_ editing: Bool) {
+        guard editing != isEditing else {
+            return
         }
+        selectView.isSelected = isSelected
+        isEditing = editing
+        selectView.alpha = editing ? 1 : 0
+        layoutIfNeeded()
     }
 
-    func enableEditing(_ enableEditing: Bool, animated: Bool = true) {
+    func enableEditing(_ enableEditing: Bool) {
         guard !isSelected else {
             return
         }
         layoutIfNeeded()
-        if animated {
-            let animator = UIViewPropertyAnimator(duration: 0.3, curve: .linear) {
-                self.isEditingEnabled = enableEditing
-                self.selectView.isSelectionDisabled = !enableEditing
-                self.layoutIfNeeded()
-            }
-            animator.addAnimations({
-                self.selectView.setNeedsLayout()
-            }, delayFactor: 0.05)
-            animator.startAnimation()
-        } else {
-            isEditingEnabled = enableEditing
-            selectView.isSelectionDisabled = !enableEditing
-            selectView.setNeedsLayout()
-            layoutIfNeeded()
-        }
+        selectView.layoutIfNeeded()
+        isEditingEnabled = enableEditing
+        selectView.isSelectionDisabled = !enableEditing
+        layoutIfNeeded()
     }
 
     override func setup() {
@@ -158,7 +126,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     override func reset() {
         super.reset()
         isEditing = false
-        willStartEditing = false
         isEditingEnabled = true
         selectView.isSelectionDisabled = false
         selectionThemeModel = nil
@@ -175,9 +142,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     override var isSelected: Bool {
         didSet {
-            guard isEditing else {
-                return
-            }
             selectView.isSelected = isSelected
         }
     }
@@ -194,13 +158,11 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
         let semanticContentAttribute: UISemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
 
-        if willStartEditing {
-            let x = isRTL ? roundedContent.frame.maxX : 0
-            selectView.frame = CGRect(x: x, y: 0, width: 30, height: bounds.height)
-        } else if isEditing {
-            let spaceOccupiedBySelectView = selectView.frame.width * 2
+        if isEditing {
+            let selectViewWidth: CGFloat = 30
+            let spaceOccupiedBySelectView: CGFloat = selectViewWidth * 2 + spacing
             let x = isRTL ? widthMinusMargins - spaceOccupiedBySelectView : roundedContent.frame.origin.x
-            selectView.frame.origin = CGPoint(x: x, y: 0)
+            selectView.frame = CGRect(x: x, y: 0, width: selectViewWidth, height: bounds.height)
             selectView.layoutIfNeeded()
             let editableContentX = isRTL ? 0 : editableContent.frame.origin.x + spaceOccupiedBySelectView
             editableContent.frame = CGRect(x: editableContentX, y: 0, width: widthMinusMargins - spaceOccupiedBySelectView, height: bounds.height)
@@ -277,7 +239,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 extension PageHistoryCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-
         if let selectionThemeModel = selectionThemeModel {
             selectView.selectedImage = selectionThemeModel.selectedImage
             roundedContent.layer.borderColor = selectionThemeModel.borderColor.cgColor
@@ -314,5 +275,6 @@ extension PageHistoryCollectionViewCell: Themeable {
                 }
             }
         }
+        editableContent.backgroundColor = roundedContent.backgroundColor
     }
 }

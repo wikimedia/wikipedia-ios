@@ -102,7 +102,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
 
-        pageHistoryFetcher.fetchEditCounts(.edits, .anonEdits, .botEdits, .revertedEdits, for: pageTitle, pageURL: pageURL) { result in
+        pageHistoryFetcher.fetchEditCounts(.edits, .anonymous, .bot, .minor, for: pageTitle, pageURL: pageURL) { result in
             switch result {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -195,21 +195,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 navigationItem.rightBarButtonItem = compareButton
 
                 indexPathsSelectedForComparisonGroupedByButtonTags.removeAll(keepingCapacity: true)
-                forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
-                    self.collectionView.deselectItem(at: indexPath, animated: true)
-                    self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
-                    self.updateSelectionIndex(nil, for: cell, at: indexPath)
-                    cell.enableEditing(true) // confusing, have a reset method
-                    cell.setEditing(false)
-                    cell.apply(theme: self.theme)
-                }
-
                 resetComparisonSelectionButtons()
                 navigationController?.setToolbarHidden(true, animated: true)
             case .editing:
                 navigationItem.rightBarButtonItem = cancelComparisonButton
                 collectionView.allowsMultipleSelection = true
-                forEachVisibleCell { $1.setEditing(true, animated: true) }
                 compareToolbarButton.isEnabled = false
                 comparisonSelectionButtonWidthConstraints = [firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90), secondComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90)]
                 NSLayoutConstraint.activate(comparisonSelectionButtonWidthConstraints)
@@ -217,7 +207,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 navigationController?.setToolbarHidden(false, animated: true)
             }
             layoutCache.reset()
-            layout.invalidateLayout(with: layout.invalidationContextForDataChange())
+            collectionView.performBatchUpdates({
+                self.collectionView.reloadSections(IndexSet(integersIn: 0..<collectionView.numberOfSections))
+            })
             navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         }
     }
@@ -396,9 +388,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let revisionID = NSNumber(value: item.revisionID)
         let isSelected = indexPathsSelectedForComparison.contains(indexPath)
         defer {
-            cell.setEditing(state == .editing, animated: false)
+            cell.setEditing(state == .editing)
             if !isSelected {
-                cell.enableEditing(!maxNumberOfRevisionsSelected, animated: false)
+                cell.enableEditing(!maxNumberOfRevisionsSelected)
             }
             cell.apply(theme: theme)
         }
@@ -418,6 +410,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.selectionThemeModel = cachedCellContent.selectionThemeModel
                 } else {
                     cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
+                    cell.isSelected = false
                 }
                 cell.selectionIndex = cachedCellContent.selectionIndex
             } else {
@@ -685,7 +678,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
                 if !cell.isSelected {
                     self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
-                    cell.enableEditing(true, animated: false)
+                    cell.enableEditing(true)
                 }
             }
             let button: UIButton?
