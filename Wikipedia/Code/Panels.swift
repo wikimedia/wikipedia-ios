@@ -64,7 +64,7 @@ class SyncEnabledPanelViewController: ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage(named: "reading-lists-sync-enabled-disabled")
-        heading = WMFLocalizedString("reading-list-sync-enabled-panel-title", value: "Sync is enabled on this account", comment: "Title for panel informing user that sync was disabled on their Wikipedia account on another device")
+        heading = WMFLocalizedString("reading-list-sync-enabled-panel-title", value: "Sync is enabled on this account", comment: "Title for panel informing user that sync was enabled on their Wikipedia account on another device")
         subheading = WMFLocalizedString("reading-list-sync-enabled-panel-message", value: "Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", comment: "Message for panel informing user that sync is enabled for their account.")
         primaryButtonTitle = CommonStrings.gotItButtonTitle
     }
