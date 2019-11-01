@@ -2029,7 +2029,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UIViewController *peekParentVC = [self peekViewControllerForURL:updatedLinkURL];
     UIViewController *peekVC = [peekParentVC wmf_PeekableChildViewController];
     if (!peekParentVC) {
-        completionHandler(nil);
+        UIContextMenuConfiguration *nullConfig = [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+            return nil;
+        } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+            return nil;
+        }];
+        completionHandler(nullConfig);
         return;
     }
 
