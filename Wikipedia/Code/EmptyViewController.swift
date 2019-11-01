@@ -23,6 +23,7 @@ class EmptyViewController: UIViewController {
                 
                 if let newType = type,
                     let emptyView = EmptyViewController.emptyView(of: newType, theme: self.theme, frame: .zero) {
+                    emptyView.delegate = self
                     emptyContainerView.wmf_addSubviewWithConstraintsToEdges(emptyView)
 
                     self.emptyView = emptyView
@@ -37,6 +38,7 @@ class EmptyViewController: UIViewController {
         
         scrollView.delegate = self
         scrollView.alwaysBounceVertical = true
+        scrollView.contentInsetAdjustmentBehavior = .never
         
         if (canRefresh) {
             refreshControl.layer.zPosition = -100
@@ -60,6 +62,18 @@ class EmptyViewController: UIViewController {
 
         scrollView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
         emptyContainerViewTopConstraint.constant = topEmptySpacing
+    }
+    
+    func centerEmptyView(within targetRect: CGRect) {
+        scrollView.contentInset = UIEdgeInsets(top: targetRect.minY, left: 0, bottom: 0, right: 0)
+    }
+    
+    private func determineTopOffset(emptyViewHeight: CGFloat) {
+        let availableHeight = view.bounds.height - scrollView.contentInset.top
+        let middle = availableHeight/2
+        let heightMiddle = emptyViewHeight / 2
+        let targetY = middle - heightMiddle
+        emptyContainerViewTopConstraint.constant = max(0, ceil(targetY))
     }
 }
 
@@ -88,5 +102,11 @@ extension EmptyViewController: Themeable {
 extension EmptyViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.emptyViewScrollViewDidScroll(scrollView)
+    }
+}
+
+extension EmptyViewController: WMFEmptyViewDelegate {
+    func heightChanged(_ height: CGFloat) {
+        determineTopOffset(emptyViewHeight: height)
     }
 }

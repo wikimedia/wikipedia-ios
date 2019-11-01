@@ -86,21 +86,11 @@ class DiffContainerViewController: ViewController {
         }
 
         if let emptyViewController = emptyViewController {
-            let availableSpace = emptyViewController.view.bounds.height - navigationBar.visibleHeight
-            
-            var topEmptySpacing: CGFloat = 0
-            switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
-            
-            case (.regular, .regular): topEmptySpacing = 50
-            case (.compact, _):
-                let proportionalSpacing = availableSpace * 0.24
-                topEmptySpacing = max(10, proportionalSpacing)
-            default:
-                let proportionalSpacing = availableSpace * 0.18
-                topEmptySpacing = max(10, proportionalSpacing)
-            }
-            
-            emptyViewController.centerEmptyView(topInset: navigationBar.visibleHeight, topEmptySpacing: topEmptySpacing)
+            navigationBar.setNeedsLayout()
+            navigationBar.layoutSubviews()
+            let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight)
+            let convertedTargetRect = view.convert(targetRect, to: emptyViewController.view)
+            emptyViewController.centerEmptyView(within: convertedTargetRect)
         }
     }
     

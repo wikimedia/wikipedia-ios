@@ -244,6 +244,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    [self.delegate heightChanged:self.bounds.size.height];
 
     if (![self.actionLine superview]) {
         return;
