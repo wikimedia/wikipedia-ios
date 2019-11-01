@@ -153,6 +153,7 @@
                     XCTAssert(secondFetchResult != firstFetchResult,
                               @"Expected object returned from 2nd fetch to not be identical to 1st.");
                     XCTAssert([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]);
+                    NSError *error = nil;
                     [self.tempDataStore cacheArticle:article toDisk:YES error:&error];
                     XCTAssertNil(error);
                     MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
