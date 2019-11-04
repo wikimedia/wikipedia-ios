@@ -497,10 +497,10 @@
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
+"page-history-anonymous-edits" = "Text for view that shows many edits were made by anonymous users";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
-"page-history-ip-edits" = "Text for view that shows many edits were made by anonymous users - IP refers to the 'IP address'";
 "page-history-minor-edits" = "Text for view that shows many edits were marked as minor edits";
 "page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision";
 "page-history-revision-history-title" = "Title for revision history view";
