@@ -152,6 +152,8 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
         let widthMinusMargins = layoutWidth(for: size)
 
+        let innerMargins = UIEdgeInsets(top: layoutMargins.top, left: 15, bottom: layoutMargins.bottom, right: 15)
+
         roundedContent.frame = CGRect(x: layoutMargins.left, y: 0, width: widthMinusMargins, height: bounds.height)
         editableContent.frame = CGRect(x: 0, y: 0, width: widthMinusMargins, height: bounds.height)
 
@@ -172,18 +174,18 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             editableContent.frame = CGRect(x: 0, y: 0, width: widthMinusMargins, height: bounds.height)
         }
 
-        let availableWidth = editableContent.frame.width - layoutMargins.right - layoutMargins.left
+        let availableWidth = editableContent.frame.width - innerMargins.right - innerMargins.left
         let leadingPaneAvailableWidth = availableWidth / 3
 
         let trailingPaneAvailableWidth: CGFloat
         if isRTL {
-            trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth - (spacing * 3)
+            trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth - innerMargins.left
         } else {
             trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth
         }
 
-        var leadingPaneOrigin = CGPoint(x: isRTL ? availableWidth - leadingPaneAvailableWidth : layoutMargins.left, y: layoutMargins.top)
-        var trailingPaneOrigin = CGPoint(x: isRTL ? layoutMargins.left : layoutMargins.left + leadingPaneAvailableWidth, y: layoutMargins.top)
+        var leadingPaneOrigin = CGPoint(x: isRTL ? availableWidth - leadingPaneAvailableWidth : innerMargins.left, y: layoutMargins.top)
+        var trailingPaneOrigin = CGPoint(x: isRTL ? innerMargins.left : innerMargins.left + leadingPaneAvailableWidth, y: layoutMargins.top)
 
         if timeLabel.wmf_hasText {
             let timeLabelFrame = timeLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: semanticContentAttribute, apply: apply)
