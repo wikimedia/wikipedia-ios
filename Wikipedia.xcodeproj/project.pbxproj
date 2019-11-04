@@ -633,6 +633,16 @@
 		7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
 		7A35CB8A1FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
 		7A35CB8B1FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
+		7A393281236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39327F236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift */; };
+		7A393282236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39327F236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift */; };
+		7A393283236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39327F236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift */; };
+		7A393284236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39327F236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift */; };
+		7A393285236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39327F236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift */; };
+		7A393286236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */; };
+		7A393287236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */; };
+		7A393288236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */; };
+		7A393289236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */; };
+		7A39328A236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */; };
 		7A3AD05820ADB1A900C92E04 /* WMFAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */; };
 		7A3AD05920ADB1BD00C92E04 /* WMFAuthLoginInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */; };
 		7A3AD05A20ADB1CD00C92E04 /* WMFAccountLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */; };
@@ -4059,6 +4069,8 @@
 		7A3159CE206458B000143119 /* ReadingListAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListAlertType.swift; sourceTree = "<group>"; };
 		7A32078721E40193009E1677 /* SectionEditorMenuItemsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorMenuItemsController.swift; sourceTree = "<group>"; };
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
+		7A39327F236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHistoryComparisonSelectionViewController.swift; sourceTree = "<group>"; };
+		7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageHistoryComparisonSelectionViewController.xib; sourceTree = "<group>"; };
 		7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WMFCaptcha.swift; path = "../../WMF Framework/WMFCaptcha.swift"; sourceTree = "<group>"; };
 		7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
 		7A4170D8229EFC2A00251582 /* PageNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNamespace.swift; sourceTree = "<group>"; };
@@ -5864,6 +5876,8 @@
 			isa = PBXGroup;
 			children = (
 				7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */,
+				7A39327F236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift */,
+				7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */,
 				7ADF853523516CF500500ADC /* PageHistoryHintController.swift */,
 				7A0FF2CB230343BA00E755D4 /* PageHistoryCollectionViewCell.swift */,
 				7A0FF2D1230349AA00E755D4 /* Counts */,
@@ -10132,6 +10146,7 @@
 				7A2432C31FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				6782DC172347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */,
+				7A393286236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				6782DBEA23453787003FA21B /* DiffHeaderEditorView.xib in Resources */,
 				B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				67E06919223B32DF008550AC /* FocusNavigationView.xib in Resources */,
@@ -10285,6 +10300,7 @@
 				D80ED41C1EE57F4800CE8C50 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D80ED41E1EE57F4800CE8C50 /* WebViewController.storyboard in Resources */,
 				B01EA0822022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
+				7A39328A236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				D80ED41F1EE57F4800CE8C50 /* NotificationButtonBackground.png in Resources */,
 				6782DBEE23453787003FA21B /* DiffHeaderEditorView.xib in Resources */,
 				6782DBF423453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
@@ -10379,6 +10395,7 @@
 				7A84224F2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8A42BD71E815A9C00D8E281 /* WMFEmptyView.xib in Resources */,
 				D8A42BD81E815A9C00D8E281 /* NotificationBackgroundMessage@2x.png in Resources */,
+				7A393289236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA4524201F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				B0D3E714214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				BA45242C1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
@@ -10500,6 +10517,7 @@
 				7A84224D2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8CE265E1E698E2400DAE2E0 /* WMFEmptyView.xib in Resources */,
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
+				7A393287236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241E1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				B0D3E712214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				BA45242A1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
@@ -10621,6 +10639,7 @@
 				7A84224E2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8EC3F5E1E9BDA35006712EB /* WMFEmptyView.xib in Resources */,
 				D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */,
+				7A393288236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241F1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				B0D3E713214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				BA45242B1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
@@ -11174,6 +11193,7 @@
 				D808DCED1E438C0C00A3E89C /* PlaceSearch.swift in Sources */,
 				B0524B47214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
 				B3F21D0F1EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
+				7A393281236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */,
 				BA8203E21F15B4CC00925E93 /* ShareActivityController.swift in Sources */,
 				D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */,
@@ -11719,6 +11739,7 @@
 				D80ED3041EE57F4800CE8C50 /* NewsCollectionViewHeader.swift in Sources */,
 				7AB6F10322AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
 				675F268F23156A57007AAEEA /* LoadingFlowController.swift in Sources */,
+				7A393285236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CF22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B73214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				D80ED3051EE57F4800CE8C50 /* WMFSuggestedPagesFunnel.m in Sources */,
@@ -12395,6 +12416,7 @@
 				7A6ED51620ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				7A6ED52020ADBF950001849F /* LoginFunnel.swift in Sources */,
 				D8A42A7C1E815A9C00D8E281 /* WMFDatabaseHouseKeeper.swift in Sources */,
+				7A393284236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				7A84224A2268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				7AFC79FB21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
@@ -12948,6 +12970,7 @@
 				D8CE256C1E698E2400DAE2E0 /* WMFAccountCreator.swift in Sources */,
 				7AB6F10022AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
 				675F268C23156A56007AAEEA /* LoadingFlowController.swift in Sources */,
+				7A393282236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
@@ -13391,6 +13414,7 @@
 				7AFA21BD20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				7AB6F10122AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
 				675F268D23156A56007AAEEA /* LoadingFlowController.swift in Sources */,
+				7A393283236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,
