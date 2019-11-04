@@ -147,7 +147,7 @@
  * static NSString *const PurpleTag = @"PurpleTag";
  *
  * #define DDLogPurple(frmt, ...) LOG_OBJC_TAG_MACRO(NO, 0, 0, 0, PurpleTag, frmt, ##__VA_ARGS__)
- * 
+ *
  * And then where you configure CocoaLumberjack:
  *
  * purple = DDMakeColor((64/255.0), (0/255.0), (128/255.0));
