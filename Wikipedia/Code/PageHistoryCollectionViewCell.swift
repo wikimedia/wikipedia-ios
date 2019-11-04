@@ -161,7 +161,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         if isEditing {
             let selectViewWidth: CGFloat = 30
             let spaceOccupiedBySelectView: CGFloat = selectViewWidth * 2 + spacing
-            let x = isRTL ? widthMinusMargins - spaceOccupiedBySelectView : roundedContent.frame.origin.x
+            let x = isRTL ? widthMinusMargins - spaceOccupiedBySelectView + (selectViewWidth / 2) : (spaceOccupiedBySelectView / 2) - (selectViewWidth / 2)
             selectView.frame = CGRect(x: x, y: 0, width: selectViewWidth, height: bounds.height)
             selectView.layoutIfNeeded()
             let editableContentX = isRTL ? 0 : editableContent.frame.origin.x + spaceOccupiedBySelectView
