@@ -35,6 +35,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
     private lazy var countsViewController = PageHistoryCountsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_language))
+    private lazy var comparisonSelectionViewController: PageHistoryComparisonSelectionViewController = {
+        let comparisonSelectionViewController = PageHistoryComparisonSelectionViewController(nibName: "PageHistoryComparisonSelectionViewController", bundle: nil)
+        comparisonSelectionViewController.delegate = self
+        return comparisonSelectionViewController
+    }()
 
     @objc init(pageTitle: String, pageURL: URL) {
         self.pageTitle = pageTitle
@@ -61,6 +66,42 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private lazy var cancelComparisonButton = UIBarButtonItem(title: CommonStrings.cancelActionTitle, style: .done, target: self, action: #selector(cancelComparison(_:)))
 
+    private var comparisonSelectionViewHeightConstraint: NSLayoutConstraint?
+    private var comparisonSelectionViewVisibleConstraint: NSLayoutConstraint?
+    private var comparisonSelectionViewHiddenConstraint: NSLayoutConstraint?
+
+    private func setupComparisonSelectionViewController() {
+        addChild(comparisonSelectionViewController)
+        comparisonSelectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(comparisonSelectionViewController.view)
+        comparisonSelectionViewController.didMove(toParent: self)
+        comparisonSelectionViewVisibleConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.bottomAnchor)
+        comparisonSelectionViewHiddenConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.topAnchor)
+
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: comparisonSelectionViewController.view.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: comparisonSelectionViewController.view.trailingAnchor)
+
+        NSLayoutConstraint.activate([comparisonSelectionViewHiddenConstraint!, leadingConstraint, trailingConstraint])
+    }
+
+    private func setComparisonSelectionViewHidden(_ hidden: Bool, animated: Bool) {
+        let changes = {
+            if hidden {
+                self.comparisonSelectionViewVisibleConstraint?.isActive = false
+                self.comparisonSelectionViewHiddenConstraint?.isActive = true
+            } else {
+                self.comparisonSelectionViewHiddenConstraint?.isActive = false
+                self.comparisonSelectionViewVisibleConstraint?.isActive = true
+            }
+            self.view.layoutIfNeeded()
+        }
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: changes)
+        } else {
+            changes()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         hintController = PageHistoryHintController()
@@ -73,12 +114,13 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationBar.shadowColorKeyPath = \Theme.colors.border
         countsViewController.didMove(toParent: self)
 
-
         navigationBar.isUnderBarViewHidingEnabled = true
 
         layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+
+        setupComparisonSelectionViewController()
 
         apply(theme: theme)
 
@@ -190,22 +232,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 selectedCellsCount = 0
                 pageHistoryHintController?.hide(true, presenter: self, theme: theme)
                 openSelectionIndex = 0
-
-                NSLayoutConstraint.deactivate(comparisonSelectionButtonWidthConstraints)
                 navigationItem.rightBarButtonItem = compareButton
-
                 indexPathsSelectedForComparisonGroupedByButtonTags.removeAll(keepingCapacity: true)
-                resetComparisonSelectionButtons()
-                navigationController?.setToolbarHidden(true, animated: true)
+                comparisonSelectionViewController.resetSelectionButtons()
             case .editing:
                 navigationItem.rightBarButtonItem = cancelComparisonButton
                 collectionView.allowsMultipleSelection = true
-                compareToolbarButton.isEnabled = false
-                comparisonSelectionButtonWidthConstraints = [firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90), secondComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90)]
-                NSLayoutConstraint.activate(comparisonSelectionButtonWidthConstraints)
-                setToolbarItems([UIBarButtonItem(customView: firstComparisonSelectionButton), UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 10), UIBarButtonItem(customView: secondComparisonSelectionButton), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),  compareToolbarButton], animated: true)
-                navigationController?.setToolbarHidden(false, animated: true)
+                comparisonSelectionViewController.setCompareButtonEnabled(false)
             }
+            setComparisonSelectionViewHidden(state == .idle, animated: true)
             layoutCache.reset()
             collectionView.performBatchUpdates({
                 self.collectionView.reloadSections(IndexSet(integersIn: 0..<collectionView.numberOfSections))
@@ -214,35 +249,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
-    private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .done, target: self, action: #selector(tappedCompare(_:)))
-    private lazy var firstComparisonSelectionButton: AlignedImageButton = {
-        let button = makeComparisonSelectionButton()
-        button.tag = 0
-        return button
-    }()
-    private lazy var secondComparisonSelectionButton: AlignedImageButton = {
-        let button = makeComparisonSelectionButton()
-        button.tag = 1
-        return button
-    }()
     private var comparisonSelectionButtonWidthConstraints = [NSLayoutConstraint]()
-
-    private func makeComparisonSelectionButton() -> AlignedImageButton {
-        let button = AlignedImageButton(frame: .zero)
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        button.cornerRadius = 8
-        button.clipsToBounds = true
-        button.backgroundColor = theme.colors.paperBackground
-        button.imageView?.tintColor = theme.colors.link
-        button.setTitleColor(theme.colors.link, for: .normal)
-        button.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        button.horizontalSpacing = 10
-        button.contentHorizontalAlignment = .leading
-        button.leftPadding = 10
-        button.rightPadding = 10
-        button.addTarget(self, action: #selector(scrollToComparisonSelection(_:)), for: .touchUpInside)
-        return button
-    }
 
     @objc private func compare(_ sender: UIBarButtonItem) {
         state = .editing
@@ -259,41 +266,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     @objc private func cancelComparison(_ sender: UIBarButtonItem?) {
         state = .idle
-    }
-
-    private func resetComparisonSelectionButtons() {
-        firstComparisonSelectionButton.setTitle(nil, for: .normal)
-        firstComparisonSelectionButton.setImage(nil, for: .normal)
-        secondComparisonSelectionButton.setTitle(nil, for: .normal)
-        secondComparisonSelectionButton.setImage(nil, for: .normal)
-        firstComparisonSelectionButton.backgroundColor = theme.colors.paperBackground
-        secondComparisonSelectionButton.backgroundColor = theme.colors.paperBackground
-    }
-
-    @objc private func tappedCompare(_ sender: UIBarButtonItem) {
-        guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[0], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[1] else {
-            return
-        }
-        let revision1 = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
-        let revision2 = pageHistorySections[secondIndexPath.section].items[secondIndexPath.item]
-        
-        guard let date1 = revision1.revisionDate,
-            let date2 = revision2.revisionDate else {
-                return
-        }
-        
-        //show older revision as "from" no matter what order was selected
-        let fromRevision: WMFPageHistoryRevision
-        let toRevision: WMFPageHistoryRevision
-        if date1.compare(date2) == .orderedAscending {
-            fromRevision = revision1
-            toRevision = revision2
-        } else {
-            fromRevision = revision2
-            toRevision = revision1
-        }
-        
-        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle))
     }
     
     private func showDiff(from: WMFPageHistoryRevision, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
@@ -315,10 +287,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
         countsViewController.apply(theme: theme)
-        navigationController?.toolbar.isTranslucent = false
-        navigationController?.toolbar.tintColor = theme.colors.midBackground
-        navigationController?.toolbar.barTintColor = theme.colors.midBackground
-        compareToolbarButton.tintColor = theme.colors.link
+        comparisonSelectionViewController.apply(theme: theme)
     }
 
     // MARK: UICollectionViewDataSource
@@ -585,33 +554,42 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
     private var indexPathsSelectedForComparison = Set<IndexPath>()
 
+    private func selectionThemeModelForSelectionIndex(_ selectionIndex: Int) -> SelectionThemeModel? {
+        assert(0...1 ~= selectionIndex, "Unsupported selection index")
+        if selectionIndex == 0 {
+            return firstSelectionThemeModel
+        } else if selectionIndex == 1 {
+            return secondSelectionThemeModel
+        } else {
+            return nil
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if state == .editing {
             selectedCellsCount += 1
 
             defer {
-                compareToolbarButton.isEnabled = maxNumberOfRevisionsSelected
+                comparisonSelectionViewController.setCompareButtonEnabled(maxNumberOfRevisionsSelected)
             }
 
             guard let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell else {
                 return
             }
 
-            let button: UIButton?
-            let themeModel: SelectionThemeModel?
             if maxNumberOfRevisionsSelected {
                 assert(indexPathsSelectedForComparisonGroupedByButtonTags.count == 1)
                 if let previouslySelectedIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags.first?.value, let previouslySelectedCell = collectionView.cellForItem(at: previouslySelectedIndexPath) as?  PageHistoryCollectionViewCell {
                     if previouslySelectedIndexPath > indexPath, previouslySelectedCell.selectionIndex == 0 {
-                        updateComparisonButton(secondComparisonSelectionButton, with: secondSelectionThemeModel, cell: previouslySelectedCell)
-                        indexPathsSelectedForComparisonGroupedByButtonTags[secondComparisonSelectionButton.tag] = previouslySelectedIndexPath
+                        comparisonSelectionViewController.updateSelectionButtonWithTag(1, with: secondSelectionThemeModel, cell: previouslySelectedCell)
+                        indexPathsSelectedForComparisonGroupedByButtonTags[1] = previouslySelectedIndexPath
                         updateSelectionIndex(openSelectionIndex, for: previouslySelectedCell, at: previouslySelectedIndexPath)
                         updateSelectionThemeModel(secondSelectionThemeModel, for: previouslySelectedCell, at: previouslySelectedIndexPath)
                         openSelectionIndex = 0
                     } else if previouslySelectedIndexPath < indexPath, previouslySelectedCell.selectionIndex == 1 {
-                        updateComparisonButton(firstComparisonSelectionButton, with: firstSelectionThemeModel, cell: previouslySelectedCell)
-                        indexPathsSelectedForComparisonGroupedByButtonTags[firstComparisonSelectionButton.tag] = previouslySelectedIndexPath
+                        comparisonSelectionViewController.updateSelectionButtonWithTag(0, with: firstSelectionThemeModel, cell: previouslySelectedCell)
+                        indexPathsSelectedForComparisonGroupedByButtonTags[0] = previouslySelectedIndexPath
                         updateSelectionIndex(openSelectionIndex, for: previouslySelectedCell, at: previouslySelectedIndexPath)
                         updateSelectionThemeModel(firstSelectionThemeModel, for: previouslySelectedCell, at: previouslySelectedIndexPath)
                         openSelectionIndex = 1
@@ -624,47 +602,19 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.enableEditing(false)
                 }
             }
-            switch openSelectionIndex {
-            case 0:
-                button = firstComparisonSelectionButton
-                themeModel = firstSelectionThemeModel
-            case 1:
-                button = secondComparisonSelectionButton
-                themeModel = secondSelectionThemeModel
-            default:
-                button = nil
-                themeModel = nil
+            if let themeModel = selectionThemeModelForSelectionIndex(openSelectionIndex) {
+                comparisonSelectionViewController.updateSelectionButtonWithTag(openSelectionIndex, with: themeModel, cell: cell)
+                updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
+                indexPathsSelectedForComparisonGroupedByButtonTags[openSelectionIndex] = indexPath
+                updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
+                openSelectionIndex += 1
+                collectionView.reloadData()
             }
-            if let button = button, let themeModel = themeModel {
-                updateComparisonButton(button, with: themeModel, cell: cell)
-                indexPathsSelectedForComparisonGroupedByButtonTags[button.tag] = indexPath
-            }
-            updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
-            updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
-            openSelectionIndex += 1
-
-            collectionView.reloadData()
         } else {
             let cell = collectionView.cellForItem(at: indexPath)
             cell?.isSelected = false
             pushToSingleRevisionDiff(indexPath: indexPath)
         }
-    }
-
-    private func updateComparisonButton(_ button: UIButton, with themeModel: SelectionThemeModel, cell: PageHistoryCollectionViewCell) {
-        button.backgroundColor = themeModel.backgroundColor
-        button.setImage(cell.authorImage, for: .normal)
-        button.setTitle(cell.time, for: .normal)
-        button.imageView?.tintColor = themeModel.authorColor
-        button.setTitleColor(themeModel.authorColor, for: .normal)
-        button.tintColor = themeModel.authorColor
-    }
-
-    @objc private func scrollToComparisonSelection(_ sender: UIButton) {
-        guard let indexPath = indexPathsSelectedForComparisonGroupedByButtonTags[sender.tag] else {
-            return
-        }
-        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -681,24 +631,13 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.enableEditing(true)
                 }
             }
-            let button: UIButton?
-            switch selectionIndex {
-            case 0:
-                button = firstComparisonSelectionButton
-            case 1:
-                button = secondComparisonSelectionButton
-            default:
-                button = nil
-            }
-            button?.backgroundColor = theme.colors.paperBackground
-            button?.setImage(nil, for: .normal)
-            button?.setTitle(nil, for: .normal)
+            comparisonSelectionViewController.resetSelectionButtonWithTag(selectionIndex)
             updateSelectionIndex(nil, for: cell, at: indexPath)
             updateSelectionThemeModel(nil, for: cell, at: indexPath)
             cell.apply(theme: theme)
             collectionView.reloadData()
         }
-        compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
+        comparisonSelectionViewController.setCompareButtonEnabled(maxNumberOfRevisionsSelected)
     }
 
     // MARK: Error handling
@@ -719,5 +658,40 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 }
             }
         }
+    }
+}
+
+extension PageHistoryViewController: PageHistoryComparisonSelectionViewControllerDelegate {
+    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, didTapSelectionButton button: UIButton) {
+        guard let indexPath = indexPathsSelectedForComparisonGroupedByButtonTags[button.tag] else {
+            return
+        }
+        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+    }
+
+    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, didTapCompareButton button: UIButton) {
+        guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[0], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[1] else {
+            return
+        }
+        let revision1 = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
+        let revision2 = pageHistorySections[secondIndexPath.section].items[secondIndexPath.item]
+
+        guard let date1 = revision1.revisionDate,
+            let date2 = revision2.revisionDate else {
+                return
+        }
+
+        //show older revision as "from" no matter what order was selected
+        let fromRevision: WMFPageHistoryRevision
+        let toRevision: WMFPageHistoryRevision
+        if date1.compare(date2) == .orderedAscending {
+            fromRevision = revision1
+            toRevision = revision2
+        } else {
+            fromRevision = revision2
+            toRevision = revision1
+        }
+
+        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle))
     }
 }
