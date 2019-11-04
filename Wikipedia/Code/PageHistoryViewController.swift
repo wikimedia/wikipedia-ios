@@ -464,11 +464,29 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     private lazy var firstSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.osage, backgroundColor: UIColor("FEF9E7"), authorColor: UIColor.osage, commentColor: .abbey, timeColor: .battleshipGray, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        let backgroundColor: UIColor
+        let timeColor: UIColor
+        if theme.isDark {
+            backgroundColor = UIColor.osage15PercentAlpha
+            timeColor = theme.colors.tertiaryText
+        } else {
+            backgroundColor = UIColor.wmf_lightYellow
+            timeColor = .battleshipGray
+        }
+        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.osage.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.osage, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var secondSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link.withAlphaComponent(0.3), backgroundColor: UIColor.lightBlue, authorColor: theme.colors.link, commentColor: .abbey, timeColor: .battleshipGray, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        let backgroundColor: UIColor
+        let timeColor: UIColor
+        if theme.isDark {
+            backgroundColor = theme.colors.link.withAlphaComponent(0.2)
+            timeColor = theme.colors.tertiaryText
+        } else {
+            backgroundColor = UIColor.wmf_lightBlue
+            timeColor = .battleshipGray
+        }
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link, backgroundColor: backgroundColor, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var disabledSelectionThemeModel: SelectionThemeModel = {

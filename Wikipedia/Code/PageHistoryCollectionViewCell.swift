@@ -262,7 +262,8 @@ extension PageHistoryCollectionViewCell: Themeable {
                 }
             }
         } else {
-            roundedContent.layer.borderColor = theme.colors.border.cgColor
+            roundedContent.layer.borderColor = theme.isDark ? UIColor
+                .wmf_gray.cgColor : theme.colors.border.cgColor
             roundedContent.backgroundColor = theme.colors.paperBackground
             authorButton.setTitleColor(theme.colors.link, for: .normal)
             authorButton.tintColor = theme.colors.link
@@ -279,6 +280,5 @@ extension PageHistoryCollectionViewCell: Themeable {
                 }
             }
         }
-        editableContent.backgroundColor = roundedContent.backgroundColor
     }
 }

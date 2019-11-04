@@ -51,7 +51,7 @@ public extension UIColor {
     fileprivate static let green50 = UIColor(0x00AF89)
     fileprivate static let blue10 = UIColor(0x2A4B8D)
     fileprivate static let blue50 = UIColor(0x3366CC)
-    static let lightBlue = UIColor(0xEAF3FF)
+    fileprivate static let lightBlue = UIColor(0xEAF3FF)
     fileprivate static let mesosphere = UIColor(0x43464A)
     static let thermosphere = UIColor(0x2E3136)
     fileprivate static let stratosphere = UIColor(0x6699FF)
@@ -64,6 +64,8 @@ public extension UIColor {
     fileprivate static let papyrus = UIColor(0xF0E6D6)
     fileprivate static let kraft = UIColor(0xCBC8C1)
     static let osage = UIColor(0xFF9500)
+    static let osage15PercentAlpha = UIColor(0xFF9500, alpha: 0.15)
+    static let lightBlue20PercentAlpha = UIColor(0xEAF3FF, alpha: 0.2)
     fileprivate static let sand = UIColor(0xE8DCCA)
     fileprivate static let palenavy = UIColor(0xEEF2FB)
     

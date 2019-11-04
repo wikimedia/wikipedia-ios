@@ -50,7 +50,8 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         button?.setTitle(nil, for: .normal)
         button?.setImage(nil, for: .normal)
         button?.backgroundColor = theme.colors.paperBackground
-        button?.borderWidth = 0
+        button?.borderWidth = 1
+        button?.borderColor = theme.isDark ? UIColor.wmf_gray : theme.colors.border
     }
 
     public func resetSelectionButtonWithTag(_ tag: Int) {
