@@ -203,6 +203,8 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             sizeDiffLabel.isHidden = true
         }
 
+        authorButton.semanticContentAttribute = semanticContentAttribute
+
         if authorButton.titleLabel?.wmf_hasText ?? false {
             if apply {
                 authorButton.setImage(authorImage, for: .normal)
