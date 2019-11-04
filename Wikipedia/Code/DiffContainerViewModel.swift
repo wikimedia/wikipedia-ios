@@ -8,9 +8,23 @@ final class DiffContainerViewModel {
         case compare(articleTitle: String)
     }
     
+    enum State {
+        case loading
+        case empty
+        case data
+        case error(error: Error)
+    }
+    
     let headerViewModel: DiffHeaderViewModel
     let type: DiffType
     var listViewModel: [DiffListGroupViewModel]?
+    
+    var state: State = .loading {
+        didSet {
+            stateHandler?()
+        }
+    }
+    var stateHandler: (() -> Void)?
     
     init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, listViewModel: [DiffListGroupViewModel]?, theme: Theme) {
         self.type = type

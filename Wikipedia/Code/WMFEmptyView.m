@@ -197,6 +197,45 @@
     return view;
 }
 
++ (instancetype)emptyDiffCompareEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"empty-diff"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-diff-compare-title", nil, nil, @"No differences between revisions", @"Text for placeholder label visible when diff comparision between revisions is empty.");
+    view.backgroundColorKeyPath = @"colors.midBackground";
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
++ (instancetype)emptyDiffSingleEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"error-diff"];
+    view.titleLabel.text = [WMFCommonStrings diffSingleRevisionErrorTitle];
+    view.backgroundColorKeyPath = @"colors.midBackground";
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
++ (instancetype)errorDiffEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"error-diff"];
+    view.titleLabel.text = [WMFCommonStrings diffSingleRevisionErrorTitle];
+    view.backgroundColorKeyPath = @"colors.midBackground";
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
 - (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nonnull SEL)action {
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];
@@ -231,6 +270,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    [self.delegate heightChanged:self.bounds.size.height];
 
     if (![self.actionLine superview]) {
         return;

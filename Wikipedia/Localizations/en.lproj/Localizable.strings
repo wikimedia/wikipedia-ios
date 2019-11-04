@@ -169,6 +169,7 @@
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 line|$1 lines}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 section|$1 sections}}";
 "diff-paragraph-moved-format" = "Paragraph moved $1 $2";
+"diff-revision-error-title" = "Unable to load revision";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edit|$1 edits}}";
 "diff-single-header-editor-title" = "Editor information";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte added|$1 bytes added}}";
@@ -244,6 +245,7 @@
 "editing-welcome-impartial-tone-title" = "Write in an impartial tone";
 "editing-welcome-set-knowledge-free-subtitle" = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.";
 "editing-welcome-set-knowledge-free-title" = "Set knowledge free";
+"empty-diff-compare-title" = "No differences between revisions";
 "empty-insert-media-title" = "Select a file from Wikimedia Commons";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
