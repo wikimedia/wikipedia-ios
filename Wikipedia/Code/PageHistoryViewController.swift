@@ -230,7 +230,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             switch state {
             case .idle:
                 selectedCellsCount = 0
-                pageHistoryHintController?.hide(true, presenter: self, theme: theme)
+                pageHistoryHintController?.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
                 openSelectionIndex = 0
                 navigationItem.rightBarButtonItem = compareButton
                 indexPathsSelectedForComparisonGroupedByButtonTags.removeAll(keepingCapacity: true)
@@ -504,7 +504,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         switch state {
         case .editing:
             if maxNumberOfRevisionsSelected {
-                pageHistoryHintController?.hide(false, presenter: self, theme: theme)
+                pageHistoryHintController?.hide(false, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
                 if !postedMaxRevisionsSelectedAccessibilityNotification {
                     UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.maxRevisionsSelectedWarningTitle)
                     postedMaxRevisionsSelectedAccessibilityNotification = true
@@ -619,7 +619,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellsCount -= 1
-        pageHistoryHintController?.hide(true, presenter: self, theme: theme)
+        pageHistoryHintController?.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
 
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
             indexPathsSelectedForComparisonGroupedByButtonTags.removeValue(forKey: selectionIndex)
