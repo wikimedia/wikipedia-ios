@@ -12,6 +12,23 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
         updateFonts()
     }
 
+    @IBOutlet private var sizingOnlyWidthConstraint: NSLayoutConstraint!
+
+    func sizeWith(width: CGFloat, title: String, image: UIImage, imageText: String, isRightSeparatorHidden: Bool) -> CGSize {
+        if let sizingOnlyWidthConstraint = sizingOnlyWidthConstraint, sizingOnlyWidthConstraint.constant != width {
+            sizingOnlyWidthConstraint.constant = width
+        } else {
+            sizingOnlyWidthConstraint = widthAnchor.constraint(equalToConstant: width)
+            sizingOnlyWidthConstraint?.isActive = true
+        }
+        configure(with: title, image: image, imageText: imageText, isRightSeparatorHidden: isRightSeparatorHidden)
+        setNeedsLayout()
+        layoutIfNeeded()
+        return systemLayoutSizeFitting(UIView.layoutFittingCompressedSize,
+                                            withHorizontalFittingPriority: UILayoutPriority.defaultHigh,
+                                            verticalFittingPriority: UILayoutPriority.defaultLow)
+    }
+
     private func updateFonts() {
         imageLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
