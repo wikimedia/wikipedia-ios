@@ -1,11 +1,6 @@
 import UIKit
 import WMF
 
-@objc(WMFPageHistoryViewControllerDelegate)
-protocol PageHistoryViewControllerDelegate: AnyObject {
-    func pageHistoryViewControllerDidDisappear(_ pageHistoryViewController: PageHistoryViewController)
-}
-
 typealias PageHistoryCollectionViewCellSelectionThemeModel = PageHistoryViewController.SelectionThemeModel
 
 @objc(WMFPageHistoryViewController)
@@ -31,8 +26,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
         return false;
     }
-
-    @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
     private lazy var countsViewController = PageHistoryCountsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_language))
     private lazy var comparisonSelectionViewController: PageHistoryComparisonSelectionViewController = {
@@ -105,10 +98,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hintController = PageHistoryHintController()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("article-title", value: "Article", comment: "Generic article title"), style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = compareButton
         title = CommonStrings.historyTabTitle
-
+        navigationItem.rightBarButtonItem = compareButton
         addChild(countsViewController)
         navigationBar.addUnderNavigationBarView(countsViewController.view)
         navigationBar.shadowColorKeyPath = \Theme.colors.border
@@ -173,11 +164,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelComparison(nil)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        delegate?.pageHistoryViewControllerDidDisappear(self)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -245,7 +231,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             collectionView.performBatchUpdates({
                 self.collectionView.reloadSections(IndexSet(integersIn: 0..<collectionView.numberOfSections))
             })
-            navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         }
     }
 
@@ -279,13 +264,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = view.backgroundColor
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
+        compareButton.tintColor = theme.colors.link
+        cancelComparisonButton.tintColor = theme.colors.link
         countsViewController.apply(theme: theme)
         comparisonSelectionViewController.apply(theme: theme)
     }

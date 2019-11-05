@@ -165,12 +165,14 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             let spaceOccupiedBySelectView: CGFloat = selectViewWidth * 2 + spacing
             let x = isRTL ? widthMinusMargins - spaceOccupiedBySelectView + (selectViewWidth / 2) : (spaceOccupiedBySelectView / 2) - (selectViewWidth / 2)
             selectView.frame = CGRect(x: x, y: 0, width: selectViewWidth, height: bounds.height)
+            selectView.alpha = 1
             selectView.layoutIfNeeded()
             let editableContentX = isRTL ? 0 : editableContent.frame.origin.x + spaceOccupiedBySelectView
             editableContent.frame = CGRect(x: editableContentX, y: 0, width: widthMinusMargins - spaceOccupiedBySelectView, height: bounds.height)
         } else {
             let x = isRTL ? roundedContent.frame.maxX : 0
             selectView.frame.origin = CGPoint(x: x, y: 0)
+            selectView.alpha = 0
             editableContent.frame = CGRect(x: 0, y: 0, width: widthMinusMargins, height: bounds.height)
         }
 
@@ -181,11 +183,11 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         if isRTL {
             trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth - innerMargins.left
         } else {
-            trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth
+            trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth - spacing * 2
         }
 
         var leadingPaneOrigin = CGPoint(x: isRTL ? availableWidth - leadingPaneAvailableWidth : innerMargins.left, y: layoutMargins.top)
-        var trailingPaneOrigin = CGPoint(x: isRTL ? innerMargins.left : innerMargins.left + leadingPaneAvailableWidth, y: layoutMargins.top)
+        var trailingPaneOrigin = CGPoint(x: isRTL ? innerMargins.left : innerMargins.left + leadingPaneAvailableWidth + spacing * 2, y: layoutMargins.top)
 
         if timeLabel.wmf_hasText {
             let timeLabelFrame = timeLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: semanticContentAttribute, apply: apply)
