@@ -1828,6 +1828,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (title && url) {
         WMFPageHistoryViewController *editHistoryVC = [[WMFPageHistoryViewController alloc] initWithPageTitle:title pageURL:url];
         [editHistoryVC applyTheme:self.theme];
+        UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title") style:UIBarButtonItemStylePlain target:nil action:nil];
+        editHistoryVC.navigationItem.backBarButtonItem = backButtonItem;
         [self wmf_pushViewController:editHistoryVC animated:YES];
     }
 }
