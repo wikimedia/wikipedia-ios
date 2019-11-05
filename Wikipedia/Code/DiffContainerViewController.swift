@@ -108,7 +108,108 @@ class DiffContainerViewController: ViewController, HintPresenting {
         let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextRevision.revisionSize), fromModel: toModel, toModel: nextRevision, theme: theme, revisionDelegate: revisionDelegate)
         wmf_push(singleDiffVC, animated: true)
     }
+
+    lazy var arrowDownButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(named:"chevron-down"), style: .plain, target: self, action: #selector(arrowDownButtonTapped))
+        guard let fromModel = fromModel, let previousRevision = revisionDelegate?.retrievePreviousRevision(with: fromModel) else {
+            item.isEnabled = false
+            return item
+        }
+        return item
+    }()
+
+    lazy var arrowUpButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(named:"chevron-up"), style: .plain, target: self, action: #selector(arrowUpButtonTapped))
+        guard let nextRevision = revisionDelegate?.retrieveNextRevision(with: toModel) else {
+            item.isEnabled = false
+            return item
+        }
+        return item
+    }()
+
+    lazy var shareButton: UIBarButtonItem = {
+        return UIBarButtonItem(image: UIImage(named:"share"), style: .plain, target: self, action: #selector(shareButtonTapped))
+    }()
+
+    lazy var smileButton: UIBarButtonItem = {
+        return UIBarButtonItem(image: UIImage(named:"diff-smile"), style: .plain, target: self, action: #selector(smileButtonTapped))
+    }()
+
+    lazy var smileButtonFilled: UIBarButtonItem = {
+        return UIBarButtonItem(image: UIImage(named:"diff-smile-filled"), style: .plain, target: self, action: #selector(filledSmileButtonTapped))
+    }()
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isToolbarHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        switch type {
+        case .single:
+            self.navigationController?.isToolbarHidden = false
+            updateToolbarItems(thankButton: smileButton)
+            break
+        case .compare:
+            break
+        }
+    }
+
+    private func updateToolbarItems(thankButton: UIBarButtonItem) {
+        self.toolbarItems = [
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 15),
+            arrowUpButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 10),
+            arrowDownButton,
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            thankButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 15),
+            shareButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 15)
+        ]
+    }
+
+    @objc func filledSmileButtonTapped(_ : UIBarButtonItem) {
+        self.show(hintViewController: AuthorAlreadyThankedHintVC())
+    }
+    
+    @objc func smileButtonTapped(_ : UIBarButtonItem) {
+        guard !toModel.isAnon else {
+            self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
+            return
+        }
+        guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
+            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {}, loginDismissedCompletion: nil)
+            return
+        }
+        wmf_showThankRevisionAuthorPanel(theme: theme, sendThanksHandler: {_ in
+            self.dismiss(animated: true, completion: {
+                self.thankRevisionAuthor()
+            })
+        })
+    }
+    
+    private func fullRevisionDiffURL() -> URL? {
+        var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+        components?.path = "/w/index.php"
+        components?.queryItems = [
+            URLQueryItem(name: "title", value: articleTitle),
+            URLQueryItem(name: "diff", value: String(toModel.revisionID)),
+            URLQueryItem(name: "oldid", value: String(toModel.parentID))
+        ]
+        return components?.url
+    }
+    
+    @objc func shareButtonTapped(_ sender: UIButton) {
+        guard let diffURL = fullRevisionDiffURL() else {
+            assertionFailure("Couldn't get full revision diff URL")
+            return
+        }
+        present(UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()]), animated: true)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
