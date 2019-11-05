@@ -33,7 +33,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
                 counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot")!, count: botEdits))
             }
             if case let minorEdits?? = editCounts[.minor] {
-                counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "reverted")!, count: minorEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "m")!, count: minorEdits))
             }
             updateLayout(countOfColumns: counts.count)
             delegate?.didDetermineFilterCountsAvailability(!counts.isEmpty, viewController: self)
