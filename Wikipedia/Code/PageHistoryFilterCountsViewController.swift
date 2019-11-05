@@ -35,7 +35,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
             if case let minorEdits?? = editCounts[.minor] {
                 counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "reverted")!, count: minorEdits))
             }
-            updateLayout(60, countOfColumns: counts.count)
+            updateLayout(countOfColumns: counts.count)
             delegate?.didDetermineFilterCountsAvailability(!counts.isEmpty, viewController: self)
         }
     }
@@ -50,21 +50,20 @@ class PageHistoryFilterCountsViewController: UIViewController {
         return NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: count))
     }
 
+    private lazy var collectionViewHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 60)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // TODO: Move out into separate types
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "PageHistoryFilterCountCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: PageHistoryFilterCountCollectionViewCell.identifier)
 
-        // TODO: Adjust height for the highest cell
-        let collectionViewHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 60)
         collectionViewHeightConstraint.isActive = true
+
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         addActivityIndicator()
         activityIndicator.style = theme.isDark ? .white : .gray
         activityIndicator.startAnimating()
-        updateLayout(collectionViewHeightConstraint.constant)
+        updateLayout()
         apply(theme: theme)
     }
 
@@ -80,22 +79,24 @@ class PageHistoryFilterCountsViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
-            self.updateLayout(60)
             self.collectionView.collectionViewLayout.invalidateLayout()
+            self.updateLayout()
         })
     }
 
-    private func updateLayout(_ collectionViewHeight: CGFloat, countOfColumns: Int = 4) {
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .horizontal
-            flowLayout.minimumInteritemSpacing = 0
-            flowLayout.sectionInset = .zero
-            flowLayout.minimumLineSpacing = 0
-            let countOfColumns = CGFloat(countOfColumns)
-            let availableWidth = collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
-            let dimension = floor(availableWidth / countOfColumns)
-            flowLayout.itemSize = CGSize(width: dimension, height: collectionViewHeight)
-        }
+    private func updateLayout(countOfColumns: Int = 4) {
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.sectionInset = .zero
+        flowLayout.minimumLineSpacing = 0
+        let countOfColumns = CGFloat(countOfColumns)
+        let availableWidth = collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
+        let dimension = floor(availableWidth / countOfColumns)
+        flowLayout.estimatedItemSize = CGSize(width: dimension, height: collectionViewHeightConstraint.constant)
+    }
+
+    private var flowLayout: UICollectionViewFlowLayout {
+        return collectionView.collectionViewLayout as! UICollectionViewFlowLayout
     }
 }
 
@@ -111,6 +112,7 @@ extension PageHistoryFilterCountsViewController: UICollectionViewDataSource {
         let Count = counts[indexPath.item]
         cell.configure(with: Count.title, image: Count.image, imageText: displayCount(Count.count), isRightSeparatorHidden: indexPath.item == counts.count - 1)
         cell.apply(theme: theme)
+        collectionViewHeightConstraint.constant = max(collectionViewHeightConstraint.constant, cell.frame.height)
         return cell
     }
 }
