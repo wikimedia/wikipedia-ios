@@ -35,7 +35,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
             if case let minorEdits?? = editCounts[.minor] {
                 counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "m")!, count: minorEdits))
             }
-            updateLayout(countOfColumns: counts.count)
+            countOfColumns = CGFloat(counts.count)
             delegate?.didDetermineFilterCountsAvailability(!counts.isEmpty, viewController: self)
         }
     }
@@ -56,14 +56,18 @@ class PageHistoryFilterCountsViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "PageHistoryFilterCountCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: PageHistoryFilterCountCollectionViewCell.identifier)
-
         collectionViewHeightConstraint.isActive = true
-
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+
         addActivityIndicator()
         activityIndicator.style = theme.isDark ? .white : .gray
         activityIndicator.startAnimating()
-        updateLayout()
+
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.sectionInset = .zero
+        flowLayout.minimumLineSpacing = 0
+
         apply(theme: theme)
     }
 
@@ -80,23 +84,35 @@ class PageHistoryFilterCountsViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
             self.collectionView.collectionViewLayout.invalidateLayout()
-            self.updateLayout()
+            self.calculateSizes()
         })
     }
 
-    private func updateLayout(countOfColumns: Int = 4) {
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.sectionInset = .zero
-        flowLayout.minimumLineSpacing = 0
-        let countOfColumns = CGFloat(countOfColumns)
+    private var countOfColumns: CGFloat = 4 {
+        didSet {
+            calculateSizes()
+        }
+    }
+
+    private var columnWidth: CGFloat {
         let availableWidth = collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
-        let dimension = floor(availableWidth / countOfColumns)
-        flowLayout.itemSize = CGSize(width: dimension, height: collectionViewHeightConstraint.constant)
+        return floor(availableWidth / countOfColumns)
     }
 
     private var flowLayout: UICollectionViewFlowLayout {
         return collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+    }
+
+    private lazy var placeholderCell = PageHistoryFilterCountCollectionViewCell.wmf_viewFromClassNib()!
+
+    private func calculateSizes() {
+        var height = collectionViewHeightConstraint.constant
+        for (index, count) in counts.enumerated() {
+            let size = placeholderCell.sizeWith(width: columnWidth, title: count.title, image: count.image, imageText: displayCount(count.count), isRightSeparatorHidden: index == counts.count - 1)
+            height = max(height, size.height)
+        }
+        collectionViewHeightConstraint.constant = height
+        flowLayout.itemSize = CGSize(width: columnWidth, height: height)
     }
 }
 
@@ -109,12 +125,16 @@ extension PageHistoryFilterCountsViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageHistoryFilterCountCollectionViewCell.identifier, for: indexPath) as? PageHistoryFilterCountCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let Count = counts[indexPath.item]
-        cell.configure(with: Count.title, image: Count.image, imageText: displayCount(Count.count), isRightSeparatorHidden: indexPath.item == counts.count - 1)
-        cell.apply(theme: theme)
-        collectionViewHeightConstraint.constant = max(collectionViewHeightConstraint.constant, cell.frame.height)
+        configure(cell, at: indexPath)
         return cell
     }
+
+    private func configure(_ cell: PageHistoryFilterCountCollectionViewCell, at indexPath: IndexPath) {
+        let count = counts[indexPath.item]
+        cell.configure(with: count.title, image: count.image, imageText: displayCount(count.count), isRightSeparatorHidden: indexPath.item == counts.count - 1)
+        cell.apply(theme: theme)
+    }
+
 }
 
 extension PageHistoryFilterCountsViewController: Themeable {
