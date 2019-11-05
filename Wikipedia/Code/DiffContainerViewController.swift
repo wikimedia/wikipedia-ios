@@ -13,7 +13,7 @@ protocol DiffRevisionRetrieving: class {
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
 }
 
-class DiffContainerViewController: ViewController {
+class DiffContainerViewController: ViewController, HintPresenting {
     
     private var containerViewModel: DiffContainerViewModel
     private var headerExtendedView: DiffHeaderExtendedView?
@@ -34,6 +34,8 @@ class DiffContainerViewController: ViewController {
         progressController.delay = 0.0
         return progressController
     }()
+
+    var hintController: HintController?
     
     init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController? = nil, revisionDelegate: DiffRevisionRetrieving?) {
         self.type = type
