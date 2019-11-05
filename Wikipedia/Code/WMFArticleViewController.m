@@ -92,7 +92,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
                                         DescriptionEditViewControllerDelegate,
-                                        WMFPageHistoryViewControllerDelegate,
                                         WMFHintPresenting>
 
 // Data
@@ -1828,14 +1827,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSURL *url = self.article.url;
     if (title && url) {
         WMFPageHistoryViewController *editHistoryVC = [[WMFPageHistoryViewController alloc] initWithPageTitle:title pageURL:url];
-        editHistoryVC.delegate = self;
         [editHistoryVC applyTheme:self.theme];
         [self wmf_pushViewController:editHistoryVC animated:YES];
     }
-}
-
-- (void)pageHistoryViewControllerDidDisappear:(WMFPageHistoryViewController *)pageHistoryViewController {
-    [self setNavigationItemTitleForArticle:self.article];
 }
 
 - (void)showTalkPage {

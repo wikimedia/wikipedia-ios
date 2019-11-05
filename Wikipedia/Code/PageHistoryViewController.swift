@@ -1,11 +1,6 @@
 import UIKit
 import WMF
 
-@objc(WMFPageHistoryViewControllerDelegate)
-protocol PageHistoryViewControllerDelegate: AnyObject {
-    func pageHistoryViewControllerDidDisappear(_ pageHistoryViewController: PageHistoryViewController)
-}
-
 typealias PageHistoryCollectionViewCellSelectionThemeModel = PageHistoryViewController.SelectionThemeModel
 
 @objc(WMFPageHistoryViewController)
@@ -31,8 +26,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
         return false;
     }
-
-    @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
     private lazy var countsViewController = PageHistoryCountsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_language))
     private lazy var comparisonSelectionViewController: PageHistoryComparisonSelectionViewController = {
@@ -173,11 +166,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelComparison(nil)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        delegate?.pageHistoryViewControllerDidDisappear(self)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
