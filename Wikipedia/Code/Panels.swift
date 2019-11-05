@@ -107,7 +107,29 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
         image = UIImage(named: "reading-list-user")
         heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing saved articles.")
         subheading = CommonStrings.readingListLoginSubtitle
-        primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
+        primaryButtonTitle = CommonStrings.loginOrCreateAccountTitle
+    }
+}
+
+class LoginOrCreateAccountToToThankRevisionAuthorPanelViewController : ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "diff-smile-heart")
+        heading = WMFLocalizedString("diff-thanks-login-title", value:"Log in to send 'Thanks'", comment:"Title for thanks login panel.")
+        subheading = WMFLocalizedString("diff-thanks-login-subtitle", value:"'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. You must be logged in to send 'Thanks'.", comment:"Subtitle for thanks login panel.")
+        primaryButtonTitle = CommonStrings.loginOrCreateAccountTitle
+        secondaryButtonTitle = CommonStrings.cancelActionTitle
+    }
+}
+
+class ThankRevisionAuthorPanelViewController : ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "diff-smile-heart")
+        heading = WMFLocalizedString("diff-thanks-send-title", value:"Publicly send 'Thanks'", comment:"Title for sending thanks panel.")
+        subheading = WMFLocalizedString("diff-thanks-send-subtitle", value:"'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.", comment:"Subtitle for sending thanks panel.")
+        primaryButtonTitle = WMFLocalizedString("diff-thanks-send-button-title", value:"Send 'Thanks'", comment:"Title for sending thanks button.")
+        secondaryButtonTitle = CommonStrings.cancelActionTitle
     }
 }
 
@@ -323,6 +345,31 @@ extension UIViewController {
         
         let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         
+        present(panelVC, animated: true)
+    }
+
+    @objc func wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
+
+        let loginToThankTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true, completion: {
+                self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
+            })
+        }
+        
+        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true)
+        }
+        
+        let panelVC = LoginOrCreateAccountToToThankRevisionAuthorPanelViewController(showCloseButton: false, primaryButtonTapHandler: loginToThankTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
+        
+        present(panelVC, animated: true)
+    }
+
+    func wmf_showThankRevisionAuthorPanel(theme: Theme, sendThanksHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
+        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true)
+        }
+        let panelVC = ThankRevisionAuthorPanelViewController(showCloseButton: false, primaryButtonTapHandler: sendThanksHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)
     }
     
