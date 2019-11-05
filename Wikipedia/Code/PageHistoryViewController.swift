@@ -98,10 +98,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hintController = PageHistoryHintController()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("article-title", value: "Article", comment: "Generic article title"), style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = compareButton
         title = CommonStrings.historyTabTitle
-
+        navigationItem.rightBarButtonItem = compareButton
         addChild(countsViewController)
         navigationBar.addUnderNavigationBarView(countsViewController.view)
         navigationBar.shadowColorKeyPath = \Theme.colors.border
@@ -233,7 +231,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             collectionView.performBatchUpdates({
                 self.collectionView.reloadSections(IndexSet(integersIn: 0..<collectionView.numberOfSections))
             })
-            navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         }
     }
 
@@ -267,13 +264,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = view.backgroundColor
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
+        compareButton.tintColor = theme.colors.link
+        cancelComparisonButton.tintColor = theme.colors.link
         countsViewController.apply(theme: theme)
         comparisonSelectionViewController.apply(theme: theme)
     }
