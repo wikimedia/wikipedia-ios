@@ -268,10 +268,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         state = .idle
     }
     
-    private func showDiff(from: WMFPageHistoryRevision, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
+    private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
         
         if let siteURL = pageURL.wmf_site {
-            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, theme: theme)
+            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, theme: theme, revisionDelegate: self)
             wmf_push(diffContainerVC, animated: true)
         }
     }
@@ -554,10 +554,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 fromItemIndex = 0
             }
             
-            guard let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex] else {
-                //maybe they selected the first item in history?
-                return
-            }
+            let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex]
             
             showDiff(from: fromRevision, to: toRevision, type: .single(byteDifference: toRevision.revisionSize))
         }
@@ -712,4 +709,63 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
 
         showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle))
     }
+}
+
+extension PageHistoryViewController: DiffRevisionRetrieving {
+    func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
+        
+        for (sectionIndex, section) in pageHistorySections.enumerated() {
+            for (itemIndex, item) in section.items.enumerated() {
+                
+                if item.revisionID == sourceRevision.revisionID {
+                    if itemIndex == (section.items.count - 1) {
+                        return pageHistorySections[safeIndex: sectionIndex + 1]?.items.first
+                    } else {
+                        return section.items[safeIndex: itemIndex + 1]
+                    }
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
+        
+        var previousSection: PageHistorySection?
+        var previousItem: WMFPageHistoryRevision?
+        
+        for section in pageHistorySections {
+            for item in section.items {
+        
+                if item.revisionID == sourceRevision.revisionID {
+                    
+                    guard let previousItem = previousItem else {
+                        
+                        guard let previousSection = previousSection else {
+                            
+                            //user tapped latest revision, no later revision available.
+                            return nil
+                        }
+                        
+                        return previousSection.items.last
+                        
+                    }
+                        
+                    return previousItem
+                    
+                }
+                
+                previousItem = item
+            }
+            
+            previousSection = section
+            previousItem = nil
+        }
+        
+        return nil
+        
+    }
+    
+    
 }

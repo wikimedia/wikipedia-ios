@@ -8,6 +8,11 @@ struct StubRevisionModel {
     let timestamp: Date
 }
 
+protocol DiffRevisionRetrieving: class {
+    func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
+    func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
+}
+
 class DiffContainerViewController: ViewController {
     
     private var containerViewModel: DiffContainerViewModel
@@ -20,6 +25,7 @@ class DiffContainerViewController: ViewController {
     private let toModel: WMFPageHistoryRevision
     private let siteURL: URL
     private let articleTitle: String
+    private weak var revisionDelegate: DiffRevisionRetrieving?
     
     private let type: DiffContainerViewModel.DiffType
     
@@ -29,12 +35,13 @@ class DiffContainerViewController: ViewController {
         return progressController
     }()
     
-    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController? = nil) {
+    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController? = nil, revisionDelegate: DiffRevisionRetrieving?) {
         self.type = type
         
         self.fromModel = fromModel
         self.toModel = toModel
         self.articleTitle = articleTitle
+        self.revisionDelegate = revisionDelegate
         
         let forceSiteURL = URL(string: "https://en.wikipedia.beta.wmflabs.org")! //tonitodo: hardcoded to wmflabs for now
         self.siteURL = forceSiteURL
@@ -71,6 +78,33 @@ class DiffContainerViewController: ViewController {
         fetchDiff()
         fetchEditCountIfNeeded()
         
+    }
+    
+    @objc func tappedDown() {
+        
+        guard let fromModel = fromModel else {
+            assertionFailure("fromModel needs to be populated at this point before user attempts to go further back in history")
+            return
+        }
+        
+        //note DiffContainerViewController knows how to determine a fromModel on it's own. Hence why we don't care if previousRevision is null here, this is just an optimization.
+        let previousRevision = revisionDelegate?.retrievePreviousRevision(with: fromModel)
+        
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: fromModel.revisionSize), fromModel: previousRevision, toModel: fromModel, theme: theme, revisionDelegate: revisionDelegate)
+        wmf_push(singleDiffVC, animated: true)
+        
+    }
+    
+    @objc func tappedUp() {
+        
+        //note because we aren't filtering in History yet, PageHistoryViewController should always be able to tell us the next revision. If filtering is implemented this method will fail, and we will need to have DiffContainerViewController know how to handle a situation where fromModel is populated but toModel is not (that is, hide header & list, fetch next toModel & diff, then show header & list)
+        guard let nextRevision = revisionDelegate?.retrieveNextRevision(with: toModel) else {
+            assertionFailure("Unable to determine next revision. Perhaps user tapped the latest revision in history? Up arrow should be disabled in this case.")
+            return
+        }
+        
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextRevision.revisionSize), fromModel: toModel, toModel: nextRevision, theme: theme, revisionDelegate: revisionDelegate)
+        wmf_push(singleDiffVC, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -450,7 +484,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme, revisionDelegate: revisionDelegate)
         wmf_push(singleDiffVC, animated: true)
     }
     
