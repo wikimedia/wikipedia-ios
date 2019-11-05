@@ -490,3 +490,53 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     
     
 }
+
+class AuthorAlreadyThankedHintVC: HintViewController {
+    override func configureSubviews() {
+        viewType = .warning
+        warningLabel.text = WMFLocalizedString("diff-thanks-sent-already", value: "You’ve already sent a ‘Thanks’ for this edit", comment: "Message indicating thanks was already sent")
+        warningSubtitleLabel.text = WMFLocalizedString("diff-thanks-sent-cannot-unsend", value: "Thanks cannot be unsent", comment: "Message indicating thanks cannot be unsent")
+    }
+}
+
+class AnonymousUsersCannotBeThankedHintVC: HintViewController {
+    override func configureSubviews() {
+        viewType = .warning
+        warningLabel.text = WMFLocalizedString("diff-thanks-anonymous-no-thanks", value: "Anonymous users cannot be thanked", comment: "Message indicating anonymous users cannot be thanked")
+        warningSubtitleLabel.text = nil
+    }
+}
+
+class RevisionAuthorThankedHintVC: HintViewController {
+    var recipient: String
+    init(recipient: String) {
+        self.recipient = recipient
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    override func configureSubviews() {
+        viewType = .default
+        let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was set to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
+        let thanksMessageWithRecipient = String.localizedStringWithFormat(thanksMessage, recipient)
+        defaultImageView.image = UIImage(named: "selected")
+        defaultLabel.text = thanksMessageWithRecipient
+    }
+}
+
+class RevisionAuthorThanksErrorHintVC: HintViewController {
+    var error: Error
+    init(error: Error) {
+        self.error = error
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    override func configureSubviews() {
+        viewType = .warning
+        warningLabel.text = (error as NSError).alertMessage()
+        warningSubtitleLabel.text = nil
+    }
+}
