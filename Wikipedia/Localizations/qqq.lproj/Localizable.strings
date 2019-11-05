@@ -176,6 +176,15 @@
 "diff-single-header-subtitle-bytes-removed" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were removed in this revision.";
 "diff-single-header-summary-heading" = "Heading label in header summary view when viewing a single revision.";
 "diff-single-line-format" = "Label in diff to indicate how many lines a context section encompases. This format is for a single context line. $1 is replaced by the context line number.";
+"diff-thanks-anonymous-no-thanks" = "Message indicating anonymous users cannot be thanked";
+"diff-thanks-login-subtitle" = "Subtitle for thanks login panel.";
+"diff-thanks-login-title" = "Title for thanks login panel.";
+"diff-thanks-send-button-title" = "Title for sending thanks button.";
+"diff-thanks-send-subtitle" = "Subtitle for sending thanks panel.";
+"diff-thanks-send-title" = "Title for sending thanks panel.";
+"diff-thanks-sent" = "Message indicating thanks was sent. Parameters:\n* $1 - name of user who was thanked";
+"diff-thanks-sent-already" = "Message indicating thanks was already sent";
+"diff-thanks-sent-cannot-unsend" = "Message indicating thanks cannot be unsent";
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
@@ -593,7 +602,7 @@
 "reading-list-list-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account. $1 will be replaced with the maximum number of allowed lists";
 "reading-list-list-limit-reached" = "Informs the user that they have reached the allowed limit of reading lists per account. $1 will be replaced with the maximum number of allowed reading lists";
 "reading-list-login-button-title" = "Title for button to login to sync saved articles and reading lists.";
-"reading-list-login-or-create-account-button-title" = "Title for button to login or create account to sync saved articles and reading lists.";
+"reading-list-login-or-create-account-button-title" = "Title for button to login or create account.";
 "reading-list-login-or-create-account-title" = "Title for syncing saved articles.";
 "reading-list-login-subtitle" = "Subtitle explaining that saved articles and reading lists can be synced across Wikipedia apps.";
 "reading-list-login-title" = "Title for syncing save articles.";
