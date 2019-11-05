@@ -247,6 +247,10 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         view.backgroundColor = theme.colors.midBackground
         
+        smileButton.tintColor = toModel.isAnon ? .gray : theme.colors.link
+        smileButtonFilled.tintColor = theme.colors.link
+        shareButton.tintColor = theme.colors.link
+        
         headerTitleView?.apply(theme: theme)
         headerExtendedView?.apply(theme: theme)
         diffListViewController?.apply(theme: theme)
