@@ -82,8 +82,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
     }
     
-    @objc func tappedDown() {
-        
+    @objc func arrowDownButtonTapped(_ : UIBarButtonItem) {
+
         guard let fromModel = fromModel else {
             assertionFailure("fromModel needs to be populated at this point before user attempts to go further back in history")
             return
@@ -97,7 +97,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
     }
     
-    @objc func tappedUp() {
+    @objc func arrowUpButtonTapped(_ : UIBarButtonItem) {
         
         //note because we aren't filtering in History yet, PageHistoryViewController should always be able to tell us the next revision. If filtering is implemented this method will fail, and we will need to have DiffContainerViewController know how to handle a situation where fromModel is populated but toModel is not (that is, hide header & list, fetch next toModel & diff, then show header & list)
         guard let nextRevision = revisionDelegate?.retrieveNextRevision(with: toModel) else {
