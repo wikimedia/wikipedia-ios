@@ -213,6 +213,43 @@ private extension DiffContainerViewController {
             break
         }
     }
+
+    private func show(hintViewController: HintViewController){
+        let showHint = {
+            self.hintController = HintController(hintViewController: hintViewController)
+            self.hintController?.toggle(presenter: self, context: nil, theme: self.theme)
+            self.hintController?.setHintHidden(false)
+        }
+        if let hintController = self.hintController {
+            hintController.setHintHidden(true) {
+                showHint()
+            }
+        } else {
+            showHint()
+        }
+    }
+    
+    func thankRevisionAuthor() {
+        switch type {
+        case .single:
+            diffController.thankRevisionAuthor(toRevisionId: toModel.revisionID) { [weak self] (result) in
+                guard let self = self else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let result):
+                        self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
+                        self.updateToolbarItems(thankButton: self.smileButtonFilled)
+                    case .failure(let error as NSError):
+                        self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
+                    }
+                }
+            }
+        case .compare:
+            break
+        }
+    }
     
     func fetchIntermediateCountIfNeeded() {
         switch type {
