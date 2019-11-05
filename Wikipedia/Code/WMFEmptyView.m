@@ -212,8 +212,8 @@
 
 + (instancetype)emptyDiffSingleEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
-    view.imageView.image = [UIImage imageNamed:@"error-diff"];
-    view.titleLabel.text = [WMFCommonStrings diffSingleRevisionErrorTitle];
+    view.imageView.image = [UIImage imageNamed:@"empty-single-diff"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-diff-single-title", nil, nil, @"No viewable changes made", @"Text for placeholder label visible when diff returned for single revision is empty.");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
@@ -226,7 +226,7 @@
 + (instancetype)errorDiffEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"error-diff"];
-    view.titleLabel.text = [WMFCommonStrings diffSingleRevisionErrorTitle];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"diff-revision-error-title", nil, nil, @"Unable to load revision", @"Text for placeholder label visible when there has been an error while fetching the diff.");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
