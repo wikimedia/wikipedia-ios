@@ -92,7 +92,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
         let countOfColumns = CGFloat(countOfColumns)
         let availableWidth = collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
         let dimension = floor(availableWidth / countOfColumns)
-        flowLayout.estimatedItemSize = CGSize(width: dimension, height: collectionViewHeightConstraint.constant)
+        flowLayout.itemSize = CGSize(width: dimension, height: collectionViewHeightConstraint.constant)
     }
 
     private var flowLayout: UICollectionViewFlowLayout {
