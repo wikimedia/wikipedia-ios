@@ -43,10 +43,13 @@ class HintController: NSObject {
         }
     }
 
-    func dismissHint() {
+    func dismissHint(completion: (() -> Void)? = nil) {
         self.task?.cancel()
         let task = DispatchWorkItem { [weak self] in
             self?.setHintHidden(true)
+            if let completion = completion {
+                completion()
+            }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + hintVisibilityTime , execute: task)
         self.task = task
@@ -127,12 +130,15 @@ class HintController: NSObject {
         hintViewController.viewType = .default
     }
 
-    func setHintHidden(_ hidden: Bool) {
+    func setHintHidden(_ hidden: Bool, completion: (() -> Void)? = nil) {        
         guard
             isHintHidden != hidden,
             let presenter = presenter,
             presenter.presentedViewController == nil
         else {
+            if let completion = completion {
+                completion()
+            }
             return
         }
 
@@ -159,8 +165,11 @@ class HintController: NSObject {
             if hidden {
                 self.adjustSpacingIfPresenterHasSecondToolbar(hintHidden: hidden)
                 self.removeHint()
+                if let completion = completion {
+                    completion()
+                }
             } else {
-                self.dismissHint()
+                self.dismissHint(completion: completion)
             }
         })
     }
