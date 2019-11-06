@@ -30,11 +30,11 @@
 }
 
 - (NSURLSessionTask *)performMediaWikiAPIPOSTForURL:(NSURL *)URL withBodyParameters:(NSDictionary<NSString *, NSString *> *)bodyParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    return [self.fetcher performMediaWikiAPIPOSTForURL:URL withBodyParameters:bodyParameters cancellationKey:nil reattemptLoginOn401Response:true completionHandler:completionHandler];
+    return [self.fetcher performMediaWikiAPIPOSTForURL:URL withBodyParameters:bodyParameters cancellationKey:nil completionHandler:completionHandler];
 }
 
 - (NSString *)performMediaWikiAPIPOSTWithCSRFTokenForURL:(NSURL *)URL withBodyParameters:(NSDictionary<NSString *, NSString *> *)bodyParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    return [self.fetcher performTokenizedMediaWikiAPIPOSTWithTokenType:WMFTokenTypeCsrf toURL:URL withBodyParameters:bodyParameters cancellationKey:nil reattemptLoginOn401Response:true completionHandler:completionHandler];
+    return [self.fetcher performTokenizedMediaWikiAPIPOSTWithTokenType:WMFTokenTypeCsrf toURL:URL withBodyParameters:bodyParameters cancellationKey:nil completionHandler:completionHandler];
 }
 
 - (NSURLSessionTask *)performMediaWikiAPIGETForURL:(NSURL *)URL withQueryParameters:(NSDictionary<NSString *, id> *)queryParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler {
