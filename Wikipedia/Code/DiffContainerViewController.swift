@@ -345,7 +345,7 @@ private extension DiffContainerViewController {
         }
     }
     
-    func thankRevisionAuthor() {
+    private func thankRevisionAuthor() {
         switch type {
         case .single:
             diffController.thankRevisionAuthor(toRevisionId: toModel.revisionID) { [weak self] (result) in
