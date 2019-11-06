@@ -181,7 +181,9 @@ class DiffContainerViewController: ViewController, HintPresenting {
             return
         }
         guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {}, loginDismissedCompletion: nil)
+            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {
+                self.apply(theme: self.theme)
+            }, loginDismissedCompletion: nil)
             return
         }
         wmf_showThankRevisionAuthorPanel(theme: theme, sendThanksHandler: {_ in
@@ -247,7 +249,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         view.backgroundColor = theme.colors.midBackground
         
-        smileButton.tintColor = toModel.isAnon ? .gray : theme.colors.link
+        smileButton.tintColor = WMFAuthenticationManager.sharedInstance.isLoggedIn ? theme.colors.link : .gray
         smileButtonFilled.tintColor = theme.colors.link
         shareButton.tintColor = theme.colors.link
         
