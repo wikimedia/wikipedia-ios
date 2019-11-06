@@ -186,7 +186,14 @@ class DiffContainerViewController: ViewController, HintPresenting {
             }, loginDismissedCompletion: nil)
             return
         }
+
+        guard !UserDefaults.wmf.wmf_didShowThankRevisionAuthorEducationPanel() else {
+            thankRevisionAuthor()
+            return
+        }
+
         wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
+            UserDefaults.wmf.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
             self.dismiss(animated: true, completion: {
                 self.thankRevisionAuthor()
             })
