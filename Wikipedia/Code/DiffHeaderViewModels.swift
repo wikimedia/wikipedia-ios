@@ -216,9 +216,9 @@ final class DiffHeaderCompareItemViewModel: Themeable {
     func apply(theme: Theme) {
         switch type {
         case .from:
-            accentColor = theme.colors.link //TONITODO: maybe new color style here?
+            accentColor = theme.colors.link
         case .to:
-            accentColor = theme.colors.warning //TONITODO: maybe new color style here? this is not a warning label
+            accentColor = theme.colors.diffCompareAccent
         }
     }
 }

@@ -213,6 +213,7 @@ class DiffListViewController: ViewController {
         super.apply(theme: theme)
         
         updateListViewModels(listViewModel: dataSource, updateType: .theme(theme: theme))
+        applyListViewModelChanges(updateType: .theme(theme: theme))
 
         collectionView.backgroundColor = theme.colors.paperBackground
     }

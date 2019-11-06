@@ -26,6 +26,7 @@ class DiffContainerViewController: ViewController {
     private let siteURL: URL
     private let articleTitle: String
     private weak var revisionDelegate: DiffRevisionRetrieving?
+    private let safeAreaBottomAlignView = UIView()
     
     private let type: DiffContainerViewModel.DiffType
     
@@ -128,8 +129,11 @@ class DiffContainerViewController: ViewController {
         if let emptyViewController = scrollingEmptyViewController {
             navigationBar.setNeedsLayout()
             navigationBar.layoutSubviews()
-            let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight)
+            let bottomSafeAreaHeight = view.bounds.height - safeAreaBottomAlignView.frame.maxY
+            let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight - bottomSafeAreaHeight)
+            //tonitodo: this still doesn't seem quite centered...
             let convertedTargetRect = view.convert(targetRect, to: emptyViewController.view)
+            print(convertedTargetRect)
             emptyViewController.centerEmptyView(within: convertedTargetRect)
         }
     }
@@ -142,11 +146,12 @@ class DiffContainerViewController: ViewController {
         
         super.apply(theme: theme)
         
-        view.backgroundColor = theme.colors.midBackground
+        view.backgroundColor = theme.colors.paperBackground
         
         headerTitleView?.apply(theme: theme)
         headerExtendedView?.apply(theme: theme)
         diffListViewController?.apply(theme: theme)
+        scrollingEmptyViewController?.apply(theme: theme)
     }
 }
 
@@ -372,24 +377,22 @@ private extension DiffContainerViewController {
         if let emptyViewController = scrollingEmptyViewController {
             emptyViewController.canRefresh = false
             emptyViewController.theme = theme
-            addChildViewController(childViewController: emptyViewController, belowSubview: navigationBar)
+            
+            //add alignment view view
+            safeAreaBottomAlignView.translatesAutoresizingMaskIntoConstraints = false
+            safeAreaBottomAlignView.isHidden = true
+            view.addSubview(safeAreaBottomAlignView)
+            let leadingConstraint = view.leadingAnchor.constraint(equalTo: safeAreaBottomAlignView.leadingAnchor)
+            let bottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaBottomAlignView.bottomAnchor)
+            let widthAnchor = safeAreaBottomAlignView.widthAnchor.constraint(equalToConstant: 1)
+            let heightAnchor = safeAreaBottomAlignView.heightAnchor.constraint(equalToConstant: 1)
+            NSLayoutConstraint.activate([leadingConstraint, bottomConstraint, widthAnchor, heightAnchor])
+            
+            wmf_add(childController: emptyViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             emptyViewController.view.isHidden = true
             emptyViewController.delegate = self
         }
     }
-    
-    func addChildViewController(childViewController: UIViewController, belowSubview: UIView) {
-           addChild(childViewController)
-           childViewController.view.translatesAutoresizingMaskIntoConstraints = false
-           view.insertSubview(childViewController.view, belowSubview: belowSubview)
-           
-           let topConstraint = childViewController.view.topAnchor.constraint(equalTo: view.topAnchor)
-            let bottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-           let leadingConstraint = childViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-           let trailingConstraint = childViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-           NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-           childViewController.didMove(toParent: self)
-       }
     
     func setupDiffListViewControllerIfNeeded() {
         if diffListViewController == nil {
