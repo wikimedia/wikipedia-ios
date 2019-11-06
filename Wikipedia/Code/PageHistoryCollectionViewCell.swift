@@ -282,5 +282,6 @@ extension PageHistoryCollectionViewCell: Themeable {
                 }
             }
         }
+        selectView.apply(theme: theme)
     }
 }
