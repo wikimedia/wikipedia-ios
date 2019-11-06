@@ -25,6 +25,7 @@ let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 let WMFDidShowReadingListCardInFeed = "WMFDidShowReadingListCardInFeed"
 let WMFDidShowEnableReadingListSyncPanelKey = "WMFDidShowEnableReadingListSyncPanelKey"
 let WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey = "WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey"
+let WMFDidShowThankRevisionAuthorEducationPanelKey = "WMFDidShowThankRevisionAuthorEducationPanelKey"
 let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedArticlesPanel"
 let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
@@ -426,6 +427,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         return self.bool(forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
     }
 
+    @objc func wmf_setDidShowThankRevisionAuthorEducationPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowThankRevisionAuthorEducationPanelKey)
+    }
+    
+    @objc func wmf_didShowThankRevisionAuthorEducationPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowThankRevisionAuthorEducationPanelKey)
+    }
+    
     @objc func wmf_setDidShowFirstEditPublishedPanel(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowFirstEditPublishedPanelKey)
     }
