@@ -112,16 +112,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
  *
  *  @param article    The article to save.
  **/
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk;
-
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable void (^)(NSError *error))completion;
-
-/**
- *  Cancel the asynchronous save for the @c article.
- *
- *  @param article    The article to cancel.
- **/
-- (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article;
+- (void)cacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk error:(NSError **)error;
 
 @property (readonly, copy, nonatomic) NSString *basePath;
 
