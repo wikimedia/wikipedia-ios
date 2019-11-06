@@ -28,7 +28,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OkU-7n-3tD">
-                                <rect key="frame" x="3.5" y="10" width="118" height="50"/>
+                                <rect key="frame" x="6" y="10" width="113" height="50"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WiJ-Pt-qSB">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -37,10 +37,10 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WW3-S4-I0r">
-                                        <rect key="frame" x="58" y="0.0" width="60" height="50"/>
+                                        <rect key="frame" x="58" y="0.0" width="55" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="165" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhB-cn-Q2C">
-                                                <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="55" height="50"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -75,6 +75,7 @@
                             <constraint firstItem="OQ1-ln-qkh" firstAttribute="centerX" secondItem="rXI-77-ezI" secondAttribute="centerX" id="jFK-zU-OCf"/>
                             <constraint firstItem="OQ1-ln-qkh" firstAttribute="top" secondItem="OkU-7n-3tD" secondAttribute="bottom" constant="6" id="pOI-mp-Tfd"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OQ1-ln-qkh" secondAttribute="bottom" constant="10" id="ubW-8V-KQ5"/>
+                            <constraint firstAttribute="width" constant="125" id="xk2-L0-teT"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -82,7 +83,9 @@
             <constraints>
                 <constraint firstItem="rXI-77-ezI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2p6-mv-H9o"/>
                 <constraint firstItem="rXI-77-ezI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="NvA-UV-HAR"/>
+                <constraint firstAttribute="bottom" secondItem="rXI-77-ezI" secondAttribute="bottom" id="STg-Nr-ETA"/>
                 <constraint firstAttribute="bottom" secondItem="rXI-77-ezI" secondAttribute="bottom" id="bPF-GP-TMJ"/>
+                <constraint firstItem="rXI-77-ezI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iX3-yM-dvZ"/>
                 <constraint firstAttribute="trailing" secondItem="rXI-77-ezI" secondAttribute="trailing" id="spT-u4-0IT"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -91,6 +94,7 @@
                 <outlet property="imageLabel" destination="zhB-cn-Q2C" id="1qo-FR-ism"/>
                 <outlet property="imageView" destination="WiJ-Pt-qSB" id="Po1-tg-mDM"/>
                 <outlet property="rightSeparator" destination="0qG-fG-hKR" id="zuw-yS-HY2"/>
+                <outlet property="sizingOnlyWidthConstraint" destination="xk2-L0-teT" id="iai-ex-V1r"/>
                 <outlet property="titleLabel" destination="OQ1-ln-qkh" id="T8L-Jc-QjG"/>
             </connections>
             <point key="canvasLocation" x="192.0289855072464" y="171.09375"/>

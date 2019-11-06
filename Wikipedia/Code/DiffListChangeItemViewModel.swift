@@ -7,7 +7,7 @@ final class DiffListChangeItemViewModel {
     let type: DiffListChangeType
     let diffItemType: DiffItemType
     let textAlignment: NSTextAlignment
-    let backgroundColor: UIColor
+    private(set) var backgroundColor: UIColor
     private let groupedMoveIndexes: [String: Int]
     private let moveDistances: [String: MoveDistance]
     let moveInfo: DiffMoveInfo?
@@ -15,6 +15,7 @@ final class DiffListChangeItemViewModel {
 
     var theme: Theme {
         didSet {
+            backgroundColor = DiffListChangeItemViewModel.calculateBackgroundColor(diffItemType: diffItemType, theme: theme)
             textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
         }
     }
@@ -57,10 +58,14 @@ final class DiffListChangeItemViewModel {
         self.highlightedRanges = highlightedRanges
 
         textAlignment = diffItemType == .moveSource ? .center : .natural
-        backgroundColor = (diffItemType == .moveSource || diffItemType == .moveDestination) ? theme.colors.cardBorder : theme.colors.paperBackground
+        backgroundColor = DiffListChangeItemViewModel.calculateBackgroundColor(diffItemType: diffItemType, theme: theme)
         
         self.textPadding = DiffListChangeItemViewModel.calculateTextPadding(type: type, diffItemType: diffItemType, nextMiddleItem: nextMiddleItem)
         self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: item.moveInfo, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
+    }
+    
+    private static func calculateBackgroundColor(diffItemType: DiffItemType, theme: Theme) -> UIColor {
+        (diffItemType == .moveSource || diffItemType == .moveDestination) ? theme.colors.diffMoveParagraphBackground : theme.colors.paperBackground
     }
     
     private static func calculateTextPadding(type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: DiffItem?) -> NSDirectionalEdgeInsets {
@@ -174,7 +179,9 @@ final class DiffListChangeItemViewModel {
                 
                 //insert move arrow
                 maybeMutableAttributedString.insert(imageString, at:0)
-                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2], range: NSRange(location: 0, length: 1))
+                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2,
+                NSAttributedString.Key.foregroundColor: theme.colors.warning
+                ], range: NSRange(location: 0, length: 1))
                 
                 //line spacing moved paragraphs
                 maybeMutableAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle.copy()], range: NSRange(location: 0, length: maybeMutableAttributedString.string.count))
@@ -210,24 +217,37 @@ final class DiffListChangeItemViewModel {
         for range in modifiedHighlightedRanges {
 
             let nsRange = NSRange(location: range.start, length: range.length)
-            let highlightColor: UIColor
+            var highlightColor: UIColor?
+            let textColor: UIColor?
 
+            let isNotLightAndEmpty = theme != Theme.light && (diffItemType == .addLine || diffItemType == .deleteLine) &&
+            text.isEmpty
+            
             switch range.type {
             case .added:
-                highlightColor = theme.colors.diffHighlightAdd
+                highlightColor = isNotLightAndEmpty ? theme.colors.diffTextAdd : theme.colors.diffHighlightAdd
+                textColor = theme.colors.diffTextAdd
 
             case .deleted:
-                highlightColor = theme.colors.diffHighlightDelete
+                highlightColor = isNotLightAndEmpty ? theme.colors.diffTextDelete : theme.colors.diffHighlightDelete
+                textColor = theme.colors.diffTextDelete
                 let deletedAttributes: [NSAttributedString.Key: Any]  = [
                     NSAttributedString.Key.strikethroughStyle:NSUnderlineStyle.single.rawValue,
-                    NSAttributedString.Key.strikethroughColor:UIColor.black
+                    NSAttributedString.Key.strikethroughColor:theme.colors.diffStrikethroughColor as Any
                 ]
                 mutableAttributedString.addAttributes(deletedAttributes, range: nsRange)
             }
 
             let font = UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection)
-            mutableAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: highlightColor, range: nsRange)
             mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: font, range: nsRange)
+            
+            if let highlightColor = highlightColor {
+                mutableAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: highlightColor, range: nsRange)
+            }
+            
+            if let textColor = textColor {
+                mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor, range: nsRange)
+            }
         }
         
         return mutableAttributedString

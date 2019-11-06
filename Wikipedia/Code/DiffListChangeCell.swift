@@ -153,6 +153,18 @@ extension DiffListChangeCell: Themeable {
             
             headingContainerView.backgroundColor = viewModel.borderColor
             headingLabel.attributedText = viewModel.headingAttributedString
+            
+            guard viewModel.items.count == textStackView.arrangedSubviews.count else {
+                assertionFailure("textStackView subviews should equal the number of items in DiffChangeViewModel.")
+                return
+            }
+            
+            let zipped = zip(viewModel.items, textStackView.arrangedSubviews)
+            
+            for zippedItem in zipped {
+                
+                zippedItem.1.backgroundColor = zippedItem.0.backgroundColor
+            }
         }
         
     }

@@ -1,4 +1,5 @@
 import Foundation
+import WMF
 
 protocol EmptyViewControllerDelegate: AnyObject {
     func triggeredRefresh(refreshCompletion: @escaping () -> Void)
@@ -90,6 +91,7 @@ extension EmptyViewController: Themeable {
             let bgKeyPath = theme.value(forKeyPath: emptyView.backgroundColorKeyPath) as? UIColor {
             view.backgroundColor = bgKeyPath
             scrollView.backgroundColor = bgKeyPath
+            (emptyView as Themeable).apply(theme: theme)
         } else {
             view.backgroundColor = theme.colors.paperBackground
             scrollView.backgroundColor = theme.colors.paperBackground

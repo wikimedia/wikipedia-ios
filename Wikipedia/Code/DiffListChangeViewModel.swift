@@ -136,7 +136,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     private static func calculateBorderColor(type: DiffListChangeType, theme: Theme) -> UIColor {
         switch type {
         case .compareRevision:
-            return theme.colors.warning
+            return theme.colors.diffCompareAccent
         case .singleRevison:
             return theme.colors.paperBackground
         }
@@ -145,7 +145,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     private static func calculateHeadingColor(type: DiffListChangeType, theme: Theme) -> UIColor {
         switch type {
         case .compareRevision:
-            return UIColor.white //tonitodo: should this change based on theme
+            return theme.colors.diffCompareChangeHeading
         case .singleRevison:
             return theme.colors.secondaryText
         }
