@@ -122,7 +122,7 @@ class LoginOrCreateAccountToToThankRevisionAuthorPanelViewController : Scrollabl
     }
 }
 
-class ThankRevisionAuthorPanelViewController : ScrollableEducationPanelViewController {
+class ThankRevisionAuthorEducationPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage(named: "diff-smile-heart")
@@ -365,11 +365,11 @@ extension UIViewController {
         present(panelVC, animated: true)
     }
 
-    func wmf_showThankRevisionAuthorPanel(theme: Theme, sendThanksHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
+    func wmf_showThankRevisionAuthorEducationPanel(theme: Theme, sendThanksHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
         let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true)
         }
-        let panelVC = ThankRevisionAuthorPanelViewController(showCloseButton: false, primaryButtonTapHandler: sendThanksHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
+        let panelVC = ThankRevisionAuthorEducationPanelViewController(showCloseButton: false, primaryButtonTapHandler: sendThanksHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)
     }
     
