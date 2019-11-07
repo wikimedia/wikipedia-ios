@@ -788,6 +788,35 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     self.navigationBar.isExtendedViewFadingEnabled = NO;
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
     [self setToolbarHidden:NO animated:NO];
+
+    [self showAnnouncementCardIfNeeded];
+}
+
+- (void)showAnnouncementCardIfNeeded {
+    if (NSUserDefaults.wmf.shouldCheckForArticleAnnouncements) {
+        WMFContentGroup *contentGroup = [self.dataStore.viewContext newestVisibleGroupOfKind:WMFContentGroupKindAnnouncement withPredicate:[NSPredicate predicateWithFormat:@"placement == %@", @"article"]];
+        WMFAnnouncement *announcement = (WMFAnnouncement *)contentGroup.contentPreview;
+        dispatch_block_t dismiss = ^{
+            [contentGroup markDismissed];
+            [contentGroup updateVisibilityForUserIsLoggedIn:WMFSession.shared.isAuthenticated];
+            NSError *saveError = nil;
+            if (![self.dataStore.viewContext save:&saveError]) {
+                DDLogError(@"Error saving: %@", saveError);
+            }
+            NSUserDefaults.wmf.shouldCheckForArticleAnnouncements = NO;
+        };
+        if (announcement) {
+            [self wmf_showAnnouncementPanelWithAnnouncement:announcement primaryButtonTapHandler:^(id _Nonnull sender) {
+                [self wmf_openExternalUrl:announcement.actionURL];
+            } secondaryButtonTapHandler:^(id _Nonnull sender) {
+                dismiss();
+            } footerLinkAction:^(NSURL * _Nonnull url) {
+                [self wmf_openExternalUrl:url];
+            } dissmissHandler:^{
+                dismiss();
+            } theme:self.theme];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
