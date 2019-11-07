@@ -1,8 +1,8 @@
 import UIKit
 
 protocol PageHistoryComparisonSelectionViewControllerDelegate: AnyObject {
-    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, didTapSelectionButton button: UIButton)
-    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, didTapCompareButton button: UIButton)
+    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, selectionOrder: SelectionOrder)
+    func pageHistoryComparisonSelectionViewControllerDidTapCompare(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController)
 }
 
 class PageHistoryComparisonSelectionViewController: UIViewController {
@@ -39,11 +39,14 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
     }
 
     @objc private func performSelectionButtonAction(_ sender: AlignedImageButton) {
-        delegate?.pageHistoryComparisonSelectionViewController(self, didTapSelectionButton: sender)
+        guard let selectionOrder = SelectionOrder(rawValue: sender.tag) else {
+            return
+        }
+        delegate?.pageHistoryComparisonSelectionViewController(self, selectionOrder: selectionOrder)
     }
 
     @objc private func performCompareButtonAction(_ sender: UIButton) {
-        delegate?.pageHistoryComparisonSelectionViewController(self, didTapCompareButton: sender)
+        delegate?.pageHistoryComparisonSelectionViewControllerDidTapCompare(self)
     }
 
     private func reset(button: AlignedImageButton?) {
@@ -54,9 +57,8 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         button?.borderColor = theme.isDark ? UIColor.wmf_gray : theme.colors.border
     }
 
-    public func resetSelectionButtonWithTag(_ tag: Int) {
-        assert(0...1 ~= tag, "Unsupported tag")
-        reset(button: buttonWithTag(tag))
+    public func resetSelectionButton(_ selectionOrder: SelectionOrder) {
+        reset(button: button(selectionOrder))
     }
 
     public func resetSelectionButtons() {
@@ -68,19 +70,18 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         compareButton.isEnabled = enabled
     }
 
-    private func buttonWithTag(_ tag: Int) -> AlignedImageButton? {
-        assert(0...1 ~= tag, "Unsupported tag")
-        if tag == 0 {
+    private func button(_ selectionOrder: SelectionOrder) -> AlignedImageButton? {
+        if selectionOrder == .first {
             return firstSelectionButton
-        } else if tag == 1 {
+        } else if selectionOrder == .second {
             return secondSelectionButton
         } else {
             return nil
         }
     }
 
-    public func updateSelectionButtonWithTag(_ tag: Int, with themeModel: PageHistoryViewController.SelectionThemeModel, cell: PageHistoryCollectionViewCell) {
-        let button = buttonWithTag(tag)
+    public func updateSelectionButton(_ selectionOrder: SelectionOrder, with themeModel: PageHistoryViewController.SelectionThemeModel, cell: PageHistoryCollectionViewCell) {
+        let button = self.button(selectionOrder)
         UIView.performWithoutAnimation {
             button?.setTitle(cell.time, for: .normal)
             button?.setImage(cell.authorImage, for: .normal)

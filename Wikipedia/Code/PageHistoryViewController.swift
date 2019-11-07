@@ -3,6 +3,19 @@ import WMF
 
 typealias PageHistoryCollectionViewCellSelectionThemeModel = PageHistoryViewController.SelectionThemeModel
 
+enum SelectionOrder: Int {
+    case first
+    case second
+
+    init?(_ rawValue: Int?) {
+        if let rawValue = rawValue, let SelectionOrder = SelectionOrder(rawValue: rawValue) {
+            self = SelectionOrder
+        } else {
+            return nil
+        }
+    }
+}
+
 @objc(WMFPageHistoryViewController)
 class PageHistoryViewController: ColumnarCollectionViewController {
     private let pageTitle: String
@@ -62,6 +75,50 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var comparisonSelectionViewHeightConstraint: NSLayoutConstraint?
     private var comparisonSelectionViewVisibleConstraint: NSLayoutConstraint?
     private var comparisonSelectionViewHiddenConstraint: NSLayoutConstraint?
+
+    private enum State {
+        case idle
+        case editing
+    }
+
+    private var maxNumberOfRevisionsSelected: Bool {
+        assert((0...2).contains(selectedCellsCount))
+        return selectedCellsCount == 2
+    }
+    private var selectedCellsCount = 0
+
+    private var pageHistoryHintController: PageHistoryHintController? {
+        return hintController as? PageHistoryHintController
+    }
+
+    private var state: State = .idle {
+        didSet {
+            switch state {
+            case .idle:
+                selectedCellsCount = 0
+                pageHistoryHintController?.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
+                openSelectionIndex = 0
+                UIView.performWithoutAnimation {
+                    self.navigationItem.rightBarButtonItem = compareButton
+                }
+                indexPathsSelectedForComparisonGroupedByButtonTags.removeAll(keepingCapacity: true)
+                comparisonSelectionViewController.resetSelectionButtons()
+            case .editing:
+                UIView.performWithoutAnimation {
+                    self.navigationItem.rightBarButtonItem = cancelComparisonButton
+                }
+                collectionView.allowsMultipleSelection = true
+                comparisonSelectionViewController.setCompareButtonEnabled(false)
+            }
+            setComparisonSelectionViewHidden(state == .idle, animated: true)
+            layoutCache.reset()
+            collectionView.performBatchUpdates({
+                self.collectionView.reloadSections(IndexSet(integersIn: 0..<collectionView.numberOfSections))
+            })
+        }
+    }
+
+    private var comparisonSelectionButtonWidthConstraints = [NSLayoutConstraint]()
 
     private func setupComparisonSelectionViewController() {
         addChild(comparisonSelectionViewController)
@@ -214,48 +271,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         getPageHistory()
     }
 
-    private enum State {
-        case idle
-        case editing
-    }
-
-    private var maxNumberOfRevisionsSelected: Bool {
-        assert((0...2).contains(selectedCellsCount))
-        return selectedCellsCount == 2
-    }
-    private var selectedCellsCount = 0
-
-    private var pageHistoryHintController: PageHistoryHintController? {
-        return hintController as? PageHistoryHintController
-    }
-
-    private var state: State = .idle {
-        didSet {
-            switch state {
-            case .idle:
-                selectedCellsCount = 0
-                pageHistoryHintController?.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
-                openSelectionIndex = 0
-                navigationItem.rightBarButtonItem = compareButton
-                indexPathsSelectedForComparisonGroupedByButtonTags.removeAll(keepingCapacity: true)
-                comparisonSelectionViewController.resetSelectionButtons()
-            case .editing:
-                navigationItem.rightBarButtonItem = cancelComparisonButton
-                collectionView.allowsMultipleSelection = true
-                comparisonSelectionViewController.setCompareButtonEnabled(false)
-            }
-            setComparisonSelectionViewHidden(state == .idle, animated: true)
-            layoutCache.reset()
-            collectionView.performBatchUpdates({
-                self.collectionView.reloadSections(IndexSet(integersIn: 0..<collectionView.numberOfSections))
-            })
-        }
-    }
-
-    private var comparisonSelectionButtonWidthConstraints = [NSLayoutConstraint]()
-
     @objc private func compare(_ sender: UIBarButtonItem) {
         state = .editing
+    }
+
+    @objc private func cancelComparison(_ sender: UIBarButtonItem?) {
+        state = .idle
     }
 
     private func forEachVisibleCell(_ block: (IndexPath, PageHistoryCollectionViewCell) -> Void) {
@@ -265,10 +286,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
             block(indexPath, pageHistoryCollectionViewCell)
         }
-    }
-
-    @objc private func cancelComparison(_ sender: UIBarButtonItem?) {
-        state = .idle
     }
     
     private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
@@ -339,9 +356,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let sizeDiff: Int?
         let comment: String?
         var selectionThemeModel: SelectionThemeModel?
-        var selectionIndex: Int?
+        var selectionOrderRawValue: Int?
 
-        init(time: String?, displayTime: String?, author: String?, authorImage: UIImage?, sizeDiff: Int?, comment: String?, selectionThemeModel: SelectionThemeModel?, selectionIndex: Int?) {
+        init(time: String?, displayTime: String?, author: String?, authorImage: UIImage?, sizeDiff: Int?, comment: String?, selectionThemeModel: SelectionThemeModel?, selectionOrderRawValue: Int?) {
             self.time = time
             self.displayTime = displayTime
             self.author = author
@@ -349,7 +366,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             self.sizeDiff = sizeDiff
             self.comment = comment
             self.selectionThemeModel = selectionThemeModel
-            self.selectionIndex = selectionIndex
+            self.selectionOrderRawValue = selectionOrderRawValue
             super.init()
         }
     }
@@ -373,7 +390,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.sizeDiff = cachedCellContent.sizeDiff
             cell.comment = cachedCellContent.comment
             if state == .editing {
-                if cachedCellContent.selectionIndex != nil {
+                if cachedCellContent.selectionOrderRawValue != nil {
                     cell.isSelected = true
                     collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
                 }
@@ -383,9 +400,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
                     cell.isSelected = false
                 }
-                cell.selectionIndex = cachedCellContent.selectionIndex
+                cell.selectionOrder = SelectionOrder(cachedCellContent.selectionOrderRawValue)
             } else {
-                cell.selectionIndex = nil
+                cell.selectionOrder = nil
                 cell.selectionThemeModel = nil
                 cell.isSelected = false
             }
@@ -408,7 +425,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 cell.isSelected = true
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
                 cell.selectionThemeModel = selectionIndex == 0 ? firstSelectionThemeModel : secondSelectionThemeModel
-                cell.selectionIndex = selectionIndex
+                cell.selectionOrder = SelectionOrder(rawValue: selectionIndex)
             } else {
                 cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
             }
@@ -417,7 +434,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         cell.isMinor = item.isMinor
         cell.layoutMargins = layout.itemLayoutMargins
 
-        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionIndex: cell.selectionIndex), forKey: revisionID)
+        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionOrderRawValue: cell.selectionOrder?.rawValue), forKey: revisionID)
 
         cell.apply(theme: theme)
     }
@@ -437,9 +454,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         cellContentCache.object(forKey: revisionID(forItemAtIndexPath: indexPath))?.selectionThemeModel = selectionThemeModel
     }
 
-    private func updateSelectionIndex(_ selectionIndex: Int?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
-        cell.selectionIndex = selectionIndex
-        cellContentCache.object(forKey: revisionID(forItemAtIndexPath: indexPath))?.selectionIndex = selectionIndex
+    private func updateSelectionOrder(_ selectionOrder: SelectionOrder?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
+        cell.selectionOrder = selectionOrder
+        cellContentCache.object(forKey: revisionID(forItemAtIndexPath: indexPath))?.selectionOrderRawValue = selectionOrder?.rawValue
     }
 
     public class SelectionThemeModel {
@@ -572,11 +589,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
     private var indexPathsSelectedForComparison = Set<IndexPath>()
 
-    private func selectionThemeModelForSelectionIndex(_ selectionIndex: Int) -> SelectionThemeModel? {
-        assert(0...1 ~= selectionIndex, "Unsupported selection index")
-        if selectionIndex == 0 {
+    private func selectionThemeModel(for selectionOrder: SelectionOrder) -> SelectionThemeModel? {
+        if selectionOrder == .first {
             return firstSelectionThemeModel
-        } else if selectionIndex == 1 {
+        } else if selectionOrder == .second {
             return secondSelectionThemeModel
         } else {
             return nil
@@ -584,7 +600,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if state == .editing {
             selectedCellsCount += 1
 
@@ -598,20 +613,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
             if maxNumberOfRevisionsSelected {
                 assert(indexPathsSelectedForComparisonGroupedByButtonTags.count == 1)
-                if let previouslySelectedIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags.first?.value, let previouslySelectedCell = collectionView.cellForItem(at: previouslySelectedIndexPath) as?  PageHistoryCollectionViewCell {
-                    if previouslySelectedIndexPath > indexPath, previouslySelectedCell.selectionIndex == 0 {
-                        comparisonSelectionViewController.updateSelectionButtonWithTag(1, with: secondSelectionThemeModel, cell: previouslySelectedCell)
-                        indexPathsSelectedForComparisonGroupedByButtonTags[1] = previouslySelectedIndexPath
-                        updateSelectionIndex(openSelectionIndex, for: previouslySelectedCell, at: previouslySelectedIndexPath)
-                        updateSelectionThemeModel(secondSelectionThemeModel, for: previouslySelectedCell, at: previouslySelectedIndexPath)
-                        openSelectionIndex = 0
-                    } else if previouslySelectedIndexPath < indexPath, previouslySelectedCell.selectionIndex == 1 {
-                        comparisonSelectionViewController.updateSelectionButtonWithTag(0, with: firstSelectionThemeModel, cell: previouslySelectedCell)
-                        indexPathsSelectedForComparisonGroupedByButtonTags[0] = previouslySelectedIndexPath
-                        updateSelectionIndex(openSelectionIndex, for: previouslySelectedCell, at: previouslySelectedIndexPath)
-                        updateSelectionThemeModel(firstSelectionThemeModel, for: previouslySelectedCell, at: previouslySelectedIndexPath)
-                        openSelectionIndex = 1
+                if let previouslySelectedIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags.first?.value, let previouslySelectedCell = collectionView.cellForItem(at: previouslySelectedIndexPath) as?  PageHistoryCollectionViewCell, let newSelectionOrder = SelectionOrder(rawValue: openSelectionIndex), let previousSelectionOrder = previouslySelectedCell.selectionOrder {
+                    if previouslySelectedIndexPath > indexPath, previousSelectionOrder == .first {
+                        swapSelection(.second, newSelectionOrder: newSelectionOrder, for: previouslySelectedCell, at: previouslySelectedIndexPath)
+                        openSelectionIndex = previousSelectionOrder.rawValue
+                    } else if previouslySelectedIndexPath < indexPath, previousSelectionOrder == .second {
+                        swapSelection(.first, newSelectionOrder: newSelectionOrder, for: previouslySelectedCell, at: previouslySelectedIndexPath)
+                        openSelectionIndex = previousSelectionOrder.rawValue
                     }
+
                 }
                 forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
                     if !cell.isSelected {
@@ -620,11 +630,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.enableEditing(false)
                 }
             }
-            if let themeModel = selectionThemeModelForSelectionIndex(openSelectionIndex) {
-                comparisonSelectionViewController.updateSelectionButtonWithTag(openSelectionIndex, with: themeModel, cell: cell)
+            if let selectionOrder = SelectionOrder(rawValue: openSelectionIndex), let themeModel = selectionThemeModel(for: selectionOrder) {
+                comparisonSelectionViewController.updateSelectionButton(selectionOrder, with: themeModel, cell: cell)
                 updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
                 indexPathsSelectedForComparisonGroupedByButtonTags[openSelectionIndex] = indexPath
-                updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
+                updateSelectionOrder(selectionOrder, for: cell, at: indexPath)
                 openSelectionIndex += 1
                 collectionView.reloadData()
             }
@@ -635,13 +645,23 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
+    private func swapSelection(_ selectionOrder: SelectionOrder, newSelectionOrder: SelectionOrder, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
+        guard let newSelectionThemeModel = selectionThemeModel(for: selectionOrder) else {
+            return
+        }
+        comparisonSelectionViewController.updateSelectionButton(newSelectionOrder, with: newSelectionThemeModel, cell: cell)
+        indexPathsSelectedForComparisonGroupedByButtonTags[selectionOrder.rawValue] = indexPath
+        updateSelectionOrder(newSelectionOrder, for: cell, at: indexPath)
+        updateSelectionThemeModel(newSelectionThemeModel, for: cell, at: indexPath)
+    }
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellsCount -= 1
         pageHistoryHintController?.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
 
-        if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
-            indexPathsSelectedForComparisonGroupedByButtonTags.removeValue(forKey: selectionIndex)
-            openSelectionIndex = indexPathsSelectedForComparisonGroupedByButtonTags.isEmpty ? 0 : selectionIndex
+        if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionOrder = cell.selectionOrder {
+            indexPathsSelectedForComparisonGroupedByButtonTags.removeValue(forKey: selectionOrder.rawValue)
+            openSelectionIndex = indexPathsSelectedForComparisonGroupedByButtonTags.isEmpty ? 0 : selectionOrder.rawValue
 
             forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
                 if !cell.isSelected {
@@ -649,8 +669,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.enableEditing(true)
                 }
             }
-            comparisonSelectionViewController.resetSelectionButtonWithTag(selectionIndex)
-            updateSelectionIndex(nil, for: cell, at: indexPath)
+            comparisonSelectionViewController.resetSelectionButton(selectionOrder)
+            updateSelectionOrder(nil, for: cell, at: indexPath)
             updateSelectionThemeModel(nil, for: cell, at: indexPath)
             cell.apply(theme: theme)
             collectionView.reloadData()
@@ -680,15 +700,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 }
 
 extension PageHistoryViewController: PageHistoryComparisonSelectionViewControllerDelegate {
-    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, didTapSelectionButton button: UIButton) {
-        guard let indexPath = indexPathsSelectedForComparisonGroupedByButtonTags[button.tag] else {
+    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, selectionOrder: SelectionOrder) {
+        guard let indexPath = indexPathsSelectedForComparisonGroupedByButtonTags[selectionOrder.rawValue] else {
             return
         }
         collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
     }
 
-    func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, didTapCompareButton button: UIButton) {
-        guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[0], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[1] else {
+    func pageHistoryComparisonSelectionViewControllerDidTapCompare(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController) {
+        guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue] else {
             return
         }
         let revision1 = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]
