@@ -105,14 +105,14 @@ public class Configuration: NSObject {
         switch Stage.current {
         case .local:
             var components = URLComponents()
-            components.host = host ?? Domain.metaWiki
+            components.host = host ?? Domain.englishWikipedia
             components.scheme = Scheme.http
             components.host = Domain.localhost
             components.port = 8080
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiRestAPIComponents)
         default:
             var components = URLComponents()
-            components.host = host ?? Domain.metaWiki
+            components.host = host ?? Domain.englishWikipedia
             components.scheme = Scheme.https
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiRestAPIComponents)
         }
