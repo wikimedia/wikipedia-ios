@@ -24,16 +24,16 @@ class PageHistoryFilterCountsViewController: UIViewController {
                 return
             }
             if case let userEdits?? = editCounts[.userEdits] {
-                counts.append(Count(title: WMFLocalizedString("page-history-user-edits", value: "user edits", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit")!, count: userEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-user-edits", value: "user edits", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit"), count: userEdits))
             }
             if case let anonEdits?? = editCounts[.anonymous] {
-                counts.append(Count(title: WMFLocalizedString("page-history-anonymous-edits", value: "anon edits", comment: "Text for view that shows many edits were made by anonymous users"), image: UIImage(named: "anon")!, count: anonEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-anonymous-edits", value: "anon edits", comment: "Text for view that shows many edits were made by anonymous users"), image: UIImage(named: "anon"), count: anonEdits))
             }
             if case let botEdits?? = editCounts[.bot] {
-                counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot")!, count: botEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot"), count: botEdits))
             }
             if case let minorEdits?? = editCounts[.minor] {
-                counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "m")!, count: minorEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "m"), count: minorEdits))
             }
             countOfColumns = CGFloat(counts.count)
             delegate?.didDetermineFilterCountsAvailability(!counts.isEmpty, viewController: self)
@@ -42,7 +42,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
 
     private struct Count {
         let title: String
-        let image: UIImage
+        let image: UIImage?
         let count: Int
     }
 
