@@ -221,11 +221,11 @@ import Foundation
     }
     
     /**
-     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received
-     and an attempt to re-login with stored credentials fails.
+     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received.
+     'isFromPOSTLoginOrLogoutRequest' prevents possible recursion if login or logout calls themselves result in 401.
     */
-    private func handleResponse(_ response: URLResponse?) {
-        guard let response = response, let httpResponse = response as? HTTPURLResponse else {
+    private func handleResponse(_ response: URLResponse?, isFromPOSTLoginOrLogoutRequest: Bool = false) {
+        guard let response = response, let httpResponse = response as? HTTPURLResponse, isFromPOSTLoginOrLogoutRequest == false else {
             return
         }
         switch httpResponse.statusCode {
