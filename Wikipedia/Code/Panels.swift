@@ -1,3 +1,41 @@
+class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
+    private let announcement: WMFAnnouncement
+    private let panelWidth: CGFloat
+
+    init(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dissmissHandler: ScrollableEducationPanelDismissHandler?, width: CGFloat, theme: Theme) {
+        self.announcement = announcement
+        self.panelWidth = width
+        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dissmissHandler, theme: theme)
+        isUrgent = announcement.type == "fundraising"
+        self.footerLinkAction = footerLinkAction
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        backgroundColor = theme.colors.cardBackground
+        primaryButtonBackgroundColor = theme.colors.cardButtonBackground
+        secondaryButtonTintColor = theme.colors.secondaryText
+        footerTextViewTextColor = theme.colors.secondaryText
+        super.viewDidLoad()
+        isEffectsViewHidden = true
+        subheadingHTML = announcement.text
+        subheadingTextAlignment = .left
+        primaryButtonTitle = announcement.actionTitle
+        secondaryButtonTitle = announcement.negativeText
+        width = panelWidth
+        footerHTML = announcement.captionHTML
+        secondaryButtonTextStyle = .mediumFootnote
+        spacing = 20
+        buttonCornerRadius = 8
+        buttonTopSpacing = 10
+        primaryButtonTitleEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
+        dismissWhenTappedOutside = true
+        contentHorizontalPadding = 20
+    }
+}
 
 class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
@@ -168,6 +206,17 @@ extension UIViewController {
             return false
         }
         return !fetchedObjects.isEmpty
+    }
+
+    @objc func wmf_showAnnouncementPanel(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dissmissHandler: ScrollableEducationPanelDismissHandler?, theme: Theme) {
+        let panel = AnnouncementPanelViewController(announcement: announcement, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: { (sender: Any) in
+            secondaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+        }, footerLinkAction: footerLinkAction, dissmissHandler: {
+            dissmissHandler?()
+            self.dismiss(animated: true)
+        }, width: view.frame.width * 0.9, theme: theme)
+        present(panel, animated: true)
     }
         
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {
