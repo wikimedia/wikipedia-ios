@@ -806,16 +806,21 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             NSUserDefaults.wmf.shouldCheckForArticleAnnouncements = NO;
         };
         if (announcement) {
-            [self wmf_showAnnouncementPanelWithAnnouncement:announcement primaryButtonTapHandler:^(id _Nonnull sender) {
-                [self wmf_openExternalUrl:announcement.actionURL];
-                dismiss();
-            } secondaryButtonTapHandler:^(id _Nonnull sender) {
-                dismiss();
-            } footerLinkAction:^(NSURL * _Nonnull url) {
-                [self wmf_openExternalUrl:url];
-            } dissmissHandler:^{
-                dismiss();
-            } theme:self.theme];
+            [self wmf_showAnnouncementPanelWithAnnouncement:announcement
+                primaryButtonTapHandler:^(id _Nonnull sender) {
+                    [self wmf_openExternalUrl:announcement.actionURL];
+                    dismiss();
+                }
+                secondaryButtonTapHandler:^(id _Nonnull sender) {
+                    dismiss();
+                }
+                footerLinkAction:^(NSURL *_Nonnull url) {
+                    [self wmf_openExternalUrl:url];
+                }
+                dissmissHandler:^{
+                    dismiss();
+                }
+                theme:self.theme];
         }
     }
 }
