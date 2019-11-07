@@ -221,7 +221,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                     let firstItem = items.first,
                     let results = firstItem.results
                 else {
-                    return
+                    completion(.failure(RequestError.noNewData))
                 }
                 for case let result in results {
                     guard let edits = result.edits else {
