@@ -27,7 +27,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
                 counts.append(Count(title: WMFLocalizedString("page-history-user-edits", value: "user edits", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit")!, count: userEdits))
             }
             if case let anonEdits?? = editCounts[.anonymous] {
-                counts.append(Count(title: WMFLocalizedString("page-history-anonymous-edits", value: "anonymous edits", comment: "Text for view that shows many edits were made by anonymous users"), image: UIImage(named: "anon")!, count: anonEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-anonymous-edits", value: "anon edits", comment: "Text for view that shows many edits were made by anonymous users"), image: UIImage(named: "anon")!, count: anonEdits))
             }
             if case let botEdits?? = editCounts[.bot] {
                 counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot")!, count: botEdits))
