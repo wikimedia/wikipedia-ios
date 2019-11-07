@@ -150,7 +150,7 @@
 "description-edit-publish" = "Опублікувати опис";
 "description-edit-title" = "Редагувати опис";
 "description-edit-warning" = "Намагайтеся обмежувати обсяг описів, щоб користувачі могли зрозуміти предмет статті з одного погляду";
-"description-help-about-description" = "Описи допомагають користувачам зрозуміти предмет статті з першого погляду, підсумовуючи вміст статті";
+"description-help-about-description" = "Описи допомагають читачам зрозуміти предмет статті з першого погляду, підсумовуючи вміст статті";
 "description-help-about-title" = "Про";
 "description-help-about-wikidata" = "Про Вікідані";
 "description-help-more-info-description" = "Описи зберігаються та обслуговуються на Вікіданих — проекті Фонду Вікімедіа, який слугує вільною, спільною, багатомовною, допоміжною базою даних, яка підтримує Вікіпедію та інші проекти.";
@@ -170,7 +170,7 @@
 "description-published-title" = "Опис опубліковано!";
 "description-welcome-concise-sub-title" = "В ідеалі один рядок від двох до дванадцяти слів";
 "description-welcome-concise-title" = "Будь ласка, коротше";
-"description-welcome-descriptions-sub-title" = "Підсумовує вміст статті, щоб допомогти користувачам зрозуміти предмет статті з першого погляду";
+"description-welcome-descriptions-sub-title" = "Підсумовує вміст статті, щоб допомогти читачам зрозуміти предмет статті з першого погляду";
 "description-welcome-descriptions-title" = "Описи назв";
 "description-welcome-promise-title" = "Розпочинаючи використання, я обіцяю не зловживати цією можливістю";
 "description-welcome-start-editing-button" = "Почати редагування";
