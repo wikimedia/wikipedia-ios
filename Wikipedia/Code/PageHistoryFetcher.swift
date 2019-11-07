@@ -215,6 +215,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             self.session.jsonDecodableTask(with: url) { (editMetrics: EditMetrics?, response: URLResponse?, error: Error?) in
                 if let error = error {
                     completion(.failure(error))
+                    return
                 }
                 guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                     completion(.failure(RequestError.unexpectedResponse))
