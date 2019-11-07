@@ -104,15 +104,15 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             let attributedText = html.byAttributingHTML(with: .subheadline,
                                                         boldWeight: .bold,
                                                         matching: traitCollection,
-                                                        color: UIColor.black,
+                                                        color: theme.colors.primaryText,
                                                         tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior
                                                         additionalTagAttributes: [
                 "u": [
-                    NSAttributedString.Key.underlineColor: UIColor.black,
+                    NSAttributedString.Key.underlineColor: theme.colors.error,
                     NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
                 ],
                 "strong": [
-                    NSAttributedString.Key.foregroundColor: UIColor.black
+                    NSAttributedString.Key.foregroundColor: theme.colors.primaryText
                 ]
             ])
             let pStyle = NSMutableParagraphStyle()
