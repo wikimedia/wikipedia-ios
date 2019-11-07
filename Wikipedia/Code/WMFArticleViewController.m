@@ -808,6 +808,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         if (announcement) {
             [self wmf_showAnnouncementPanelWithAnnouncement:announcement primaryButtonTapHandler:^(id _Nonnull sender) {
                 [self wmf_openExternalUrl:announcement.actionURL];
+                dismiss();
             } secondaryButtonTapHandler:^(id _Nonnull sender) {
                 dismiss();
             } footerLinkAction:^(NSURL * _Nonnull url) {
