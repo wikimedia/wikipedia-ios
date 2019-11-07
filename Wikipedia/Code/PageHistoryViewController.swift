@@ -396,6 +396,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
 
+        cell.isMinor = item.isMinor
         cell.layoutMargins = layout.itemLayoutMargins
 
         cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionIndex: cell.selectionIndex), forKey: revisionID)
