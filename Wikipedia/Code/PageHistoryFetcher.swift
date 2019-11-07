@@ -146,16 +146,20 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         let count: Int?
     }
 
-    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, RequestError>) -> Void) {
+    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let group = DispatchGroup()
             var editCountsGroupedByType = EditCountsGroupedByType()
+            var mostRecentError: Error?
             for editCountType in editCountTypes {
                 guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL) else {
                     continue
                 }
                 group.enter()
-                self.session.jsonDecodableTask(with: url) { (editCount: EditCount?, _, _) in
+                self.session.jsonDecodableTask(with: url) { (editCount: EditCount?, response: URLResponse?, error: Error?) in
+                    if let error = error {
+                        mostRecentError = error
+                    }
                     defer {
                         group.leave()
                     }
@@ -167,7 +171,11 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 if let edits = editCountsGroupedByType[.edits], let editsCount = edits, let anonEdits = editCountsGroupedByType[.anonymous], let anonEditsCount = anonEdits {
                     editCountsGroupedByType[.userEdits] = editsCount - anonEditsCount
                 }
-                completion(.success(editCountsGroupedByType))
+                if editCountsGroupedByType.isEmpty, let mostRecentError = mostRecentError {
+                    completion(.failure(mostRecentError))
+                } else {
+                    completion(.success(editCountsGroupedByType))
+                }
             }
         }
     }
