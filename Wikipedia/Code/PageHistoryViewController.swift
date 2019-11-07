@@ -115,12 +115,18 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         apply(theme: theme)
 
-        pageHistoryFetcher.fetchPageCreationDate(for: pageTitle, pageURL: pageURL) { result in
+        pageHistoryFetcher.fetchPageCreationDate(for: pageTitle, pageURL: pageURL) { [weak self] result in
+            guard let self = self else {
+                return
+            }
             switch result {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
             case .success(let firstEditDate):
-                self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { result in
+                self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { [weak self] result in
+                    guard let self = self else {
+                        return
+                    }
                     switch result {
                     case .failure(let error):
                         self.showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -135,7 +141,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
 
-        pageHistoryFetcher.fetchEditCounts(.edits, .anonymous, .bot, .minor, for: pageTitle, pageURL: pageURL) { result in
+        pageHistoryFetcher.fetchEditCounts(.edits, .anonymous, .bot, .minor, for: pageTitle, pageURL: pageURL) { [weak self] result in
+            guard let self = self else {
+                return
+            }
             switch result {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -146,7 +155,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
 
-        pageHistoryFetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { result in
+        pageHistoryFetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { [weak self] result in
+            guard let self = self else {
+                return
+            }
             switch result {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -174,9 +186,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private func getPageHistory() {
         isLoadingData = true
 
-        pageHistoryFetcher.fetchRevisionInfo(pageURL, requestParams: pageHistoryFetcherParams, failure: { error in
-            print(error)
+        pageHistoryFetcher.fetchRevisionInfo(pageURL, requestParams: pageHistoryFetcherParams, failure: { [weak self] error in
+            guard let self = self else {
+                return
+            }
             self.isLoadingData = false
+            self.showNoInternetConnectionAlertOrOtherWarning(from: error)
         }) { results in
             self.pageHistorySections.append(contentsOf: results.items())
             self.pageHistoryFetcherParams = results.getPageHistoryRequestParameters(self.pageURL)
