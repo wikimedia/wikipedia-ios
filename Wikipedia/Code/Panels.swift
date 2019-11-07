@@ -214,7 +214,6 @@ extension UIViewController {
             self.dismiss(animated: true)
         }, footerLinkAction: footerLinkAction, dissmissHandler: {
             dissmissHandler?()
-            self.dismiss(animated: true)
         }, width: view.frame.width * 0.9, theme: theme)
         present(panel, animated: true)
     }
