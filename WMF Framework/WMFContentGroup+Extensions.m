@@ -668,6 +668,10 @@
     return [self newestGroupWithPredicate:compoundPredicate ?: predicate];
 }
 
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
+    [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:YES];
+}
+
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind {
     return [self newestGroupOfKind:kind requireIsVisible:YES];
 }
