@@ -65,7 +65,6 @@ public extension UIColor {
     fileprivate static let kraft = UIColor(0xCBC8C1)
     static let osage = UIColor(0xFF9500)
     static let osage15PercentAlpha = UIColor(0xFF9500, alpha: 0.15)
-    static let lightBlue20PercentAlpha = UIColor(0xEAF3FF, alpha: 0.2)
     fileprivate static let sand = UIColor(0xE8DCCA)
     fileprivate static let palenavy = UIColor(0xEEF2FB)
     
