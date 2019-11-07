@@ -15,11 +15,8 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var sizingOnlyWidthConstraint: NSLayoutConstraint!
 
     func sizeWith(width: CGFloat, title: String, image: UIImage, imageText: String, isRightSeparatorHidden: Bool) -> CGSize {
-        if let sizingOnlyWidthConstraint = sizingOnlyWidthConstraint, sizingOnlyWidthConstraint.constant != width {
+        if sizingOnlyWidthConstraint.constant != width {
             sizingOnlyWidthConstraint.constant = width
-        } else {
-            sizingOnlyWidthConstraint = widthAnchor.constraint(equalToConstant: width)
-            sizingOnlyWidthConstraint?.isActive = true
         }
         configure(with: title, image: image, imageText: imageText, isRightSeparatorHidden: isRightSeparatorHidden)
         setNeedsLayout()
