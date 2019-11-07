@@ -333,6 +333,13 @@ import Foundation
         return task
     }
     
+    private lazy var loginAndLogoutQueryItems = {
+        return Set<URLQueryItem>([
+            URLQueryItem(name: "action", value: "clientlogin"),
+            URLQueryItem(name: "action", value: "logout")
+        ])
+    }()
+    
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
             self.handleResponse(response)
