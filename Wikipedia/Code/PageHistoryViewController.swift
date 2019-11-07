@@ -115,6 +115,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         apply(theme: theme)
 
+        getEditCounts()
+        getPageHistory()
+    }
+
+    private func getEditCounts() {
         pageHistoryFetcher.fetchPageCreationDate(for: pageTitle, pageURL: pageURL) { [weak self] result in
             guard let self = self else {
                 return
@@ -169,8 +174,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 }
             }
         }
-
-        getPageHistory()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
