@@ -221,9 +221,6 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                     return
                 }
                 var allEdits = [NSNumber]()
-                defer {
-                    completion(.success(allEdits))
-                }
                 guard
                     let items = editMetrics?.items,
                     let firstItem = items.first,
@@ -238,6 +235,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                     }
                     allEdits.append(NSNumber(value: edits))
                 }
+                completion(.success(allEdits))
             }
         }
     }
