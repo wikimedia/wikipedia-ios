@@ -129,6 +129,7 @@ private extension DiffListContextCell {
             let label = subview.subviews.first as? UILabel {
                 label.text = item
                 label.font = newViewModel.contextFont
+                label.textColor = theme.colors.primaryText
             }
         }
     }
