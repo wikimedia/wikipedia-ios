@@ -669,7 +669,7 @@
 }
 
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
-    [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:YES];
+    return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:YES];
 }
 
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind {
