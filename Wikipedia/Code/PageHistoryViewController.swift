@@ -3,7 +3,7 @@ import WMF
 
 typealias PageHistoryCollectionViewCellSelectionThemeModel = PageHistoryViewController.SelectionThemeModel
 
-enum SelectionOrder: Int {
+enum SelectionOrder: Int, CaseIterable {
     case first
     case second
 
@@ -82,7 +82,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     private var maxNumberOfRevisionsSelected: Bool {
-        assert((0...2).contains(selectedCellsCount))
+        assert((0...SelectionOrder.allCases.count).contains(selectedCellsCount))
         return selectedCellsCount == 2
     }
     private var selectedCellsCount = 0
