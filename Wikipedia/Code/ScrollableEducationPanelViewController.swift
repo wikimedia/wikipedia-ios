@@ -58,7 +58,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     var width: CGFloat = 280 {
         didSet {
             widthConstraint.constant = width
-            view.setNeedsLayout()
         }
     }
     
@@ -93,11 +92,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     var subheadingHTML: String? {
-        get {
-            return subheadingLabel.text
-        }
-        set {
-            guard let html = newValue else {
+        didSet {
+            guard let html = subheadingHTML else {
                 subheadingLabel.attributedText = nil
                 return
             }
@@ -213,7 +209,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     var buttonTopSpacing: CGFloat = 0 {
         didSet {
             buttonTopSpacingConstraint.constant = buttonTopSpacing
-            view.setNeedsLayout()
         }
     }
 
