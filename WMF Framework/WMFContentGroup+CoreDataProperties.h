@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic)  int16_t undoTypeInteger;
 
+@property (nullable, nonatomic, copy) NSString *placement;
+
 @end
 
 NS_ASSUME_NONNULL_END
