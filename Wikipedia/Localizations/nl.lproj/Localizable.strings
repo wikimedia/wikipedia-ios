@@ -705,6 +705,7 @@
 "talk-page-link-user-action-sheet-safari" = "Gebruikerspagina bekijken in Safari";
 "talk-page-link-user-action-sheet-title" = "Gebruikerspagina's";
 "talk-page-new-banner-title" = "Wees vriendelijk";
+"talk-page-new-reply-body-accessibility-label" = "Stel een reactie op";
 "talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
 "talk-page-new-reply-success-text" = "Uw reactie is succesvol gepubliceerd";
 "talk-page-new-subject-placeholder-text" = "Onderwerp";
@@ -712,6 +713,7 @@
 "talk-page-new-topic-title" = "Nieuw overleg";
 "talk-page-reply-title" = "Reageren";
 "talk-page-topic-title" = "Overleg";
+"talk-pages-reply-button-title" = "Op deze discussie reageren";
 "theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
