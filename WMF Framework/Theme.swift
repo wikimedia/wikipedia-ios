@@ -230,7 +230,7 @@ public class Colors: NSObject {
     public let diffTextDelete: UIColor
     public let diffHighlightAdd: UIColor?
     public let diffHighlightDelete: UIColor?
-    public let diffStrikethroughColor: UIColor?
+    public let diffStrikethroughColor: UIColor
     public let diffContextItemBackground: UIColor
     public let diffContextItemBorder: UIColor
     public let diffMoveParagraphBackground: UIColor
