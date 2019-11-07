@@ -637,7 +637,7 @@
 }
 
 - (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind requireIsVisible:(BOOL)isVisibleRequired {
-    return [self newestVisibleGroupOfKind:kind withPredicate:nil];
+    return [self newestGroupOfKind:kind withPredicate:nil requireIsVisible:isVisibleRequired];
 }
 
 - (nullable WMFContentGroup *)newestGroupWithPredicate:(nullable NSPredicate *)predicate {
@@ -654,11 +654,16 @@
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
-    NSPredicate *newestVisibleGroupOfKindPredicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && isVisible == YES", @(kind)];
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)additionalPredicate requireIsVisible:(BOOL)isVisibleRequired {
+    NSPredicate *predicate = nil;
+    if (isVisibleRequired) {
+        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && isVisible == YES", @(kind)];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    }
     NSCompoundPredicate *compoundPredicate = nil;
-    if (predicate) {
-        compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[newestVisibleGroupOfKindPredicate, predicate]];
+    if (additionalPredicate) {
+        compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, additionalPredicate]];
     }
     return [self newestGroupWithPredicate:compoundPredicate ?: predicate];
 }
