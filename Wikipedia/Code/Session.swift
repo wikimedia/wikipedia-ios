@@ -466,3 +466,20 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         callback.success()
     }
 }
+
+extension URLRequest {
+    func wmf_isPOSTContainingAnyItem(in soughtSet: Set<URLQueryItem>) -> Bool {
+        guard
+            let httpMethod = httpMethod,
+            httpMethod.uppercased() == "POST",
+            let httpBody = httpBody,
+            let bodyString = String(data: httpBody, encoding: String.Encoding.utf8),
+            let bodyURL = URL(string: "?\(bodyString)"),
+            let bodyComponents = URLComponents(url: bodyURL, resolvingAgainstBaseURL: false),
+            let bodyQueryItems = bodyComponents.queryItems
+        else {
+            return false
+        }
+        return !Set<URLQueryItem>(bodyQueryItems).intersection(soughtSet).isEmpty
+    }
+}
