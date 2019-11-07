@@ -341,8 +341,11 @@ import Foundation
     }()
     
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+
+        let requestIsPOSTLoginOrLogout = request.wmf_isPOSTContainingAnyItem(in: loginAndLogoutQueryItems)
+        
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
-            self.handleResponse(response)
+            self.handleResponse(response, isFromPOSTLoginOrLogoutRequest: requestIsPOSTLoginOrLogout)
             guard let data = data else {
                 completionHandler(nil, response as? HTTPURLResponse, error)
                 return
