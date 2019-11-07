@@ -180,9 +180,7 @@ final class DiffListChangeItemViewModel {
                 
                 //insert move arrow
                 maybeMutableAttributedString.insert(imageString, at:0)
-                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2,
-                NSAttributedString.Key.foregroundColor: theme.colors.diffCompareAccent
-                ], range: NSRange(location: 0, length: 1))
+                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2], range: NSRange(location: 0, length: 1))
                 
                 //line spacing moved paragraphs
                 maybeMutableAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle.copy()], range: NSRange(location: 0, length: maybeMutableAttributedString.string.count))
