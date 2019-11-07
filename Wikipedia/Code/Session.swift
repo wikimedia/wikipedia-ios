@@ -225,19 +225,21 @@ import Foundation
      'isFromPOSTLoginOrLogoutRequest' prevents possible recursion if login or logout calls themselves result in 401.
     */
     private func handleResponse(_ response: URLResponse?, isFromPOSTLoginOrLogoutRequest: Bool = false) {
-        guard let response = response, let httpResponse = response as? HTTPURLResponse, isFromPOSTLoginOrLogoutRequest == false else {
+        guard let response = response, let httpResponse = response as? HTTPURLResponse else {
             return
         }
         switch httpResponse.statusCode {
         case 401:
-            WMFAuthenticationManager.sharedInstance.attemptLogin { (loginResult) in
-                switch loginResult {
-                case .failure:
-                    WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
-                        self.removeAllCookies()
+            if (!isFromPOSTLoginOrLogoutRequest){
+                WMFAuthenticationManager.sharedInstance.attemptLogin { (loginResult) in
+                    switch loginResult {
+                    case .failure:
+                        WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
+                            self.removeAllCookies()
+                        }
+                    default:
+                        break
                     }
-                default:
-                    break
                 }
             }
         default:
