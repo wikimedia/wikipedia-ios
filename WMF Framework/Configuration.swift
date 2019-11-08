@@ -39,6 +39,7 @@ public class Configuration: NSObject {
         static let wikiResourceComponent = ["wiki"]
         static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
+        static let mediaWikiRestAPIComponents = ["w", "rest.php"]
     }
     
     public struct APIURLComponentsBuilder {
@@ -99,6 +100,23 @@ public class Configuration: NSObject {
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
+
+    func mediaWikiRestAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
+        switch Stage.current {
+        case .local:
+            var components = URLComponents()
+            components.host = host ?? Domain.englishWikipedia
+            components.scheme = Scheme.http
+            components.host = Domain.localhost
+            components.port = 8080
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiRestAPIComponents)
+        default:
+            var components = URLComponents()
+            components.host = host ?? Domain.englishWikipedia
+            components.scheme = Scheme.https
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiRestAPIComponents)
+        }
+    }
     
     func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
         var components = URLComponents()
@@ -112,19 +130,29 @@ public class Configuration: NSObject {
         return builder.components(byAppending: pathComponents)
     }
     
-    @objc(wikimediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
-    public func wikimediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+    @objc(wikimediaMobileAppsServicesAPIURLComponentsAppendingPathComponents:)
+    public func wikimediaMobileAppsServicesAPIURLComponents(appending pathComponents: [String] = [""]) -> URLComponents {
         let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(Domain.wikimedia)
         return builder.components(byAppending: pathComponents)
     }
     
+    public func mediaWikiAPIURForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
+        return builder.components(byAppending: pathComponents)
+    }
+    
     @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
-    public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
+    public func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
         guard let queryParameters = queryParameters else {
             return builder.components()
         }
         return builder.components(queryParameters: queryParameters)
+    }
+
+    public func mediaWikiRestAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = mediaWikiRestAPIURLComponentsBuilderForHost(host)
+        return builder.components(byAppending: pathComponents)
     }
     
     public func articleURLForHost(_ host: String, appending pathComponents: [String]) -> URLComponents {
@@ -134,10 +162,10 @@ public class Configuration: NSObject {
     
     public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
         guard let wikiLanguage = wikiLanguage else {
-            return mediaWikiAPIURForHost(nil, with: queryParameters)
+            return mediaWikiAPIURLForHost(nil, with: queryParameters)
         }
         let host = "\(wikiLanguage).\(Domain.wikipedia)"
-        return mediaWikiAPIURForHost(host, with: queryParameters)
+        return mediaWikiAPIURLForHost(host, with: queryParameters)
     }
     
     public func wikidataAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {

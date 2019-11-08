@@ -151,6 +151,16 @@ class NoInternetConnectionPanelViewController: ScrollableEducationPanelViewContr
     }
 }
 
+class DiffEducationalPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "panel-compare-revisions")
+        heading = WMFLocalizedString("panel-compare-revisions-title", value: "Comparing revisions", comment: "Title for educational panel about comparing revisions")
+        subheading = WMFLocalizedString("panel-compare-revisions-text", value: "Comparing revisions helps to show how an article has changed over time. When you compare two revisions of an article, the differences between them are generated. ", comment: "Text for educational panel about comparing revisions")
+        primaryButtonTitle = CommonStrings.gotItButtonTitle
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
