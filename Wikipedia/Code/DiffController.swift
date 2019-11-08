@@ -25,14 +25,16 @@ class DiffController {
     let diffFetcher: DiffFetcher
     let revisionFetcher: WMFArticleRevisionFetcher
     let globalUserInfoFetcher: GlobalUserInfoFetcher
+    let diffThanker: DiffThanker
     let articleTitle: String
     let siteURL: URL
     let type: DiffContainerViewModel.DiffType
     
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), type: DiffContainerViewModel.DiffType) {
         self.diffFetcher = diffFetcher
         self.revisionFetcher = revisionFetcher
         self.globalUserInfoFetcher = globalUserInfoFetcher
+        self.diffThanker = diffThanker
         self.articleTitle = articleTitle
         self.siteURL = siteURL
         self.type = type
@@ -70,6 +72,10 @@ class DiffController {
                 self?.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, theme: theme, traitCollection: traitCollection, completion: completion)
             }
         }
+    }
+    
+    func thankRevisionAuthor(toRevisionId: Int, completion: @escaping ((Result<DiffThankerResult, Error>) -> Void)) {
+        diffThanker.thank(siteURL: siteURL, rev: toRevisionId, completion: completion)
     }
     
     private func fetchSingleNextRevision(toRevisionId: Int, completion: @escaping ((Result<Int, Error>) -> Void)) {

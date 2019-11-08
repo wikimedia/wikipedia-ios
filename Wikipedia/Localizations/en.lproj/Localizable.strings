@@ -176,6 +176,15 @@
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte removed|$1 bytes removed}}";
 "diff-single-header-summary-heading" = "Edit summary";
 "diff-single-line-format" = "Line $1";
+"diff-thanks-anonymous-no-thanks" = "Anonymous users cannot be thanked";
+"diff-thanks-login-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. You must be logged in to send 'Thanks'.";
+"diff-thanks-login-title" = "Log in to send 'Thanks'";
+"diff-thanks-send-button-title" = "Send 'Thanks'";
+"diff-thanks-send-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.";
+"diff-thanks-send-title" = "Publicly send 'Thanks'";
+"diff-thanks-sent" = "Your 'Thanks' was set to $1";
+"diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
+"diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 line unedited|$1 lines unedited}}";
 "dim-images" = "Dim images";
 "edit-bold-accessibility-label" = "Add bold formatting";
