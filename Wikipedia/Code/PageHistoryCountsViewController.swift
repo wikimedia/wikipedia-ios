@@ -84,11 +84,19 @@ class PageHistoryCountsViewController: UIViewController {
         guard isFirstLayoutPass else {
             return
         }
+        updateFonts()
+        isFirstLayoutPass = false
+    }
+
+    private func updateFonts() {
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         pageTitleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         countsLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+    }
 
-        isFirstLayoutPass = false
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
     }
 }
 
