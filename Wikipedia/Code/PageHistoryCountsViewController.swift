@@ -26,7 +26,7 @@ class PageHistoryCountsViewController: UIViewController {
     func set(totalEditCount: Int, firstEditDate: Date) {
         let firstEditYear = String(Calendar.current.component(.year, from: firstEditDate))
         countsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("page-history-stats-text", value: "%1$d edits since %2$@", comment: "Text for representing the number of edits that were made to an article and the year when the first edit was made. %1$d is replaced with the number of edits, %2$d is replaced with they year when the first edit was made."), totalEditCount, firstEditYear)
-        setViewHidden(countsLabel, hidden: false)
+        countsLabel.setTransparent(false)
     }
 
     var timeseriesOfEditsCounts: [NSNumber] = [] {
@@ -34,7 +34,7 @@ class PageHistoryCountsViewController: UIViewController {
             if timeseriesOfEditsCounts.isEmpty != sparklineView.isHidden {
                 setSparklineViewHidden(timeseriesOfEditsCounts.isEmpty)
             }
-            setViewHidden(sparklineView, hidden: timeseriesOfEditsCounts.isEmpty)
+            sparklineView.setTransparent(timeseriesOfEditsCounts.isEmpty)
             sparklineView.dataValues = timeseriesOfEditsCounts
             sparklineView.updateMinAndMaxFromDataValues()
         }
@@ -54,12 +54,6 @@ class PageHistoryCountsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setViewHidden(_ element: UIView, hidden: Bool) {
-        UIView.animate(withDuration: 0.2) {
-            element.alpha = hidden ? 0 : 1
-        }
-    }
-
     private func setSparklineViewHidden(_ hidden: Bool) {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.2) {
@@ -74,7 +68,7 @@ class PageHistoryCountsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setSparklineViewHidden(false)
-        setViewHidden(countsLabel, hidden: true)
+        countsLabel.setTransparent(true)
 
         titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view").uppercased(with: locale)
         pageTitleLabel.text = pageTitle
