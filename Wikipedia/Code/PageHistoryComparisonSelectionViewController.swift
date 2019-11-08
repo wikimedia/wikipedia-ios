@@ -71,12 +71,11 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
     }
 
     private func button(_ selectionOrder: SelectionOrder) -> AlignedImageButton? {
-        if selectionOrder == .first {
+        switch selectionOrder {
+        case .first:
             return firstSelectionButton
-        } else if selectionOrder == .second {
+        case .second:
             return secondSelectionButton
-        } else {
-            return nil
         }
     }
 
