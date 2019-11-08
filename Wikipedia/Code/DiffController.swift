@@ -28,6 +28,10 @@ class DiffController {
     let diffThanker: DiffThanker
     let articleTitle: String
     let siteURL: URL
+    lazy var semanticContentAttribute: UISemanticContentAttribute = {
+        let language = siteURL.wmf_language
+        return MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+    }()
     let type: DiffContainerViewModel.DiffType
     
     init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), type: DiffContainerViewModel.DiffType) {
@@ -338,7 +342,7 @@ class DiffController {
                 
                 let changeType: DiffListChangeType = .singleRevison
                 
-                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo)
+                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo, semanticContentAttribute: self.semanticContentAttribute)
                 result.append(changeViewModel)
                 sectionItems.removeAll()
             }
@@ -383,7 +387,7 @@ class DiffController {
             
             if contextItems.count > 0 {
                 //package contexts up into context view model, append to result
-                let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, traitCollection: traitCollection)
+                let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
                 result.append(contextViewModel)
                 contextItems.removeAll()
             }
@@ -402,7 +406,7 @@ class DiffController {
                     changeType = .singleRevison
                 }
                 
-                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo)
+                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo, semanticContentAttribute: self.semanticContentAttribute)
                 result.append(changeViewModel)
                 changeItems.removeAll()
             }

@@ -90,6 +90,7 @@ private extension DiffListContextCell {
                 label.numberOfLines = 0
                 label.lineBreakMode = .byWordWrapping
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.semanticContentAttribute = newViewModel.semanticContentAttribute
                 
                 let view = UIView(frame: .zero)
                 view.translatesAutoresizingMaskIntoConstraints = false
