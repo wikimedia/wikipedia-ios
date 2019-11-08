@@ -708,7 +708,7 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
     }
 
     func pageHistoryComparisonSelectionViewControllerDidTapCompare(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController) {
-        guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue] else {
+        guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.second.rawValue] else {
             return
         }
         let revision1 = pageHistorySections[firstIndexPath.section].items[firstIndexPath.item]

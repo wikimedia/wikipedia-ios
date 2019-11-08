@@ -19,7 +19,7 @@ class DiffHeaderExtendedView: UIView {
     
     private var viewModel: DiffHeaderViewModel?
     
-    var delegate: DiffHeaderActionDelegate? {
+    weak var delegate: DiffHeaderActionDelegate? {
         get {
             return editorView.delegate
         }

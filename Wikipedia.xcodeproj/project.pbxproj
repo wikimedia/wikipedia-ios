@@ -214,11 +214,6 @@
 		6782DBB12343B812003FA21B /* DiffHeaderCompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBAE2343B812003FA21B /* DiffHeaderCompareView.swift */; };
 		6782DBB22343B812003FA21B /* DiffHeaderCompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBAE2343B812003FA21B /* DiffHeaderCompareView.swift */; };
 		6782DBB32343B812003FA21B /* DiffHeaderCompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBAE2343B812003FA21B /* DiffHeaderCompareView.swift */; };
-		6782DBB52343B83D003FA21B /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBB42343B83D003FA21B /* DiffToolbarView.swift */; };
-		6782DBB62343B83D003FA21B /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBB42343B83D003FA21B /* DiffToolbarView.swift */; };
-		6782DBB72343B83D003FA21B /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBB42343B83D003FA21B /* DiffToolbarView.swift */; };
-		6782DBB82343B83D003FA21B /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBB42343B83D003FA21B /* DiffToolbarView.swift */; };
-		6782DBB92343B83D003FA21B /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBB42343B83D003FA21B /* DiffToolbarView.swift */; };
 		6782DBBB2343B861003FA21B /* DiffListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBBA2343B861003FA21B /* DiffListViewController.swift */; };
 		6782DBBC2343B861003FA21B /* DiffListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBBA2343B861003FA21B /* DiffListViewController.swift */; };
 		6782DBBD2343B861003FA21B /* DiffListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DBBA2343B861003FA21B /* DiffListViewController.swift */; };
@@ -3971,7 +3966,6 @@
 		6782DBA22343B7EE003FA21B /* DiffHeaderSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderSummaryView.swift; sourceTree = "<group>"; };
 		6782DBA82343B7FC003FA21B /* DiffHeaderEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderEditorView.swift; sourceTree = "<group>"; };
 		6782DBAE2343B812003FA21B /* DiffHeaderCompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderCompareView.swift; sourceTree = "<group>"; };
-		6782DBB42343B83D003FA21B /* DiffToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffToolbarView.swift; sourceTree = "<group>"; };
 		6782DBBA2343B861003FA21B /* DiffListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListViewController.swift; sourceTree = "<group>"; };
 		6782DBC02343FDCA003FA21B /* DiffListChangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeCell.swift; sourceTree = "<group>"; };
 		6782DBC62343FDE4003FA21B /* DiffListContextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextCell.swift; sourceTree = "<group>"; };
@@ -6645,7 +6639,6 @@
 				6782DBDF2344F154003FA21B /* List */,
 				6782DBDE2344F147003FA21B /* Header */,
 				6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */,
-				6782DBB42343B83D003FA21B /* DiffToolbarView.swift */,
 				6782DC102346920B003FA21B /* DiffContainerViewModel.swift */,
 				67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */,
 				672428962362113400490629 /* DiffFetcher.swift */,
@@ -11230,7 +11223,6 @@
 				83E776A320FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				7A4D227D21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
-				6782DBB52343B83D003FA21B /* DiffToolbarView.swift in Sources */,
 				B0524B75214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				6734115422735788005B31DA /* TalkPageFetcher.swift in Sources */,
 				676028EF231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */,
@@ -11754,7 +11746,6 @@
 				6782DBAD2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A6ED51A20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D80ED3071EE57F4800CE8C50 /* WMFWelcomeContainerViewController.swift in Sources */,
-				6782DBB92343B83D003FA21B /* DiffToolbarView.swift in Sources */,
 				6782DC02234537D1003FA21B /* DiffHeaderExtendedView.swift in Sources */,
 				7AB809E022679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
 				7AC19E492301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift in Sources */,
@@ -12455,7 +12446,6 @@
 				D8A42A9A1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				7A6ED50C20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
-				6782DBB82343B83D003FA21B /* DiffToolbarView.swift in Sources */,
 				673411572273578A005B31DA /* TalkPageFetcher.swift in Sources */,
 				676028F2231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */,
 				B0C17B9C21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
@@ -12985,7 +12975,6 @@
 				6782DBAA2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
-				6782DBB62343B83D003FA21B /* DiffToolbarView.swift in Sources */,
 				6782DBF9234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,
 				7AB809DD22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
 				7AC19E462301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift in Sources */,
@@ -13429,7 +13418,6 @@
 				6782DBAB2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				D8EC3E611E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				7A6ED51920ADBF950001849F /* SettingsFunnel.swift in Sources */,
-				6782DBB72343B83D003FA21B /* DiffToolbarView.swift in Sources */,
 				6782DBFC234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,
 				7AB809DE22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
 				7AC19E472301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift in Sources */,

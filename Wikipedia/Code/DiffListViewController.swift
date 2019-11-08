@@ -84,8 +84,8 @@ class DiffListViewController: ViewController {
             
             if updateWidthsOnLayoutSubviews {
                 
-                //possibly overkill...simple main thread way to do this is updateListViewModels(listViewModel: self.dataSource, updateType: updateType) followed by the main thread lines 78-83. This does seem very slightly faster for rotation though, and could yield more gains as diffs get larger. More improvements could be size caching & putting layoutSubviewsHeightCalculationsSerialQueue instead into an NSOperation to be cancelled if another viewDidLayoutSubviews is called. No need to continue calculating sizes if collection view frame has changed again.
-                //todo: clean up - move this and updateListViewModel methods into separate class, DiffListSizeCalculator or something
+                //More improvements could be size caching & putting layoutSubviewsHeightCalculationsSerialQueue instead into an NSOperation to be cancelled if another viewDidLayoutSubviews is called.
+                //tonitodo: clean up - move this and updateListViewModel methods into separate class, DiffListSizeCalculator or something
                 let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: self.collectionView.frame.width, traitCollection: self.traitCollection)
                 
                 //actually not sure if this serial queue is needed or simply calling on the main thread (also serial) is the same. this also seems faster than without though.
@@ -206,11 +206,11 @@ class DiffListViewController: ViewController {
     
     override func apply(theme: Theme) {
         
+        super.apply(theme: theme)
+        
         guard isViewLoaded else {
             return
         }
-        
-        super.apply(theme: theme)
         
         updateListViewModels(listViewModel: dataSource, updateType: .theme(theme: theme))
         applyListViewModelChanges(updateType: .theme(theme: theme))

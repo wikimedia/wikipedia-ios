@@ -13,7 +13,7 @@ class EmptyViewController: UIViewController {
     private var emptyView: WMFEmptyView? = nil
     var canRefresh: Bool = false
     weak var delegate: EmptyViewControllerDelegate?
-    var theme: Theme = .light
+    var theme: Theme = .standard
     @IBOutlet var emptyContainerViewTopConstraint: NSLayoutConstraint!
     
     var type: WMFEmptyViewType? {
