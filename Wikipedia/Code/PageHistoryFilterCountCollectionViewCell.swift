@@ -14,12 +14,9 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private var sizingOnlyWidthConstraint: NSLayoutConstraint!
 
-    func sizeWith(width: CGFloat, title: String, image: UIImage, imageText: String, isRightSeparatorHidden: Bool) -> CGSize {
-        if let sizingOnlyWidthConstraint = sizingOnlyWidthConstraint, sizingOnlyWidthConstraint.constant != width {
+    func sizeWith(width: CGFloat, title: String, image: UIImage?, imageText: String, isRightSeparatorHidden: Bool) -> CGSize {
+        if sizingOnlyWidthConstraint.constant != width {
             sizingOnlyWidthConstraint.constant = width
-        } else {
-            sizingOnlyWidthConstraint = widthAnchor.constraint(equalToConstant: width)
-            sizingOnlyWidthConstraint?.isActive = true
         }
         configure(with: title, image: image, imageText: imageText, isRightSeparatorHidden: isRightSeparatorHidden)
         setNeedsLayout()
@@ -39,7 +36,7 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
         updateFonts()
     }
 
-    func configure(with title: String, image: UIImage, imageText: String, isRightSeparatorHidden: Bool) {
+    func configure(with title: String, image: UIImage?, imageText: String, isRightSeparatorHidden: Bool) {
         titleLabel.text = title
         imageView.image = image
         imageLabel.text = imageText

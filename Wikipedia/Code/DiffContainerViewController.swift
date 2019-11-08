@@ -252,11 +252,11 @@ class DiffContainerViewController: ViewController, HintPresenting {
     
     override func apply(theme: Theme) {
         
+        super.apply(theme: theme)
+        
         guard isViewLoaded else {
             return
         }
-        
-        super.apply(theme: theme)
         
         view.backgroundColor = theme.colors.paperBackground
         
@@ -281,7 +281,6 @@ private extension DiffContainerViewController {
             fakeProgressController.start()
             scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = true
-            wmf_hideEmptyView()
         case .empty:
             fakeProgressController.stop()
             setupScrollingEmptyViewControllerIfNeeded()
@@ -293,7 +292,6 @@ private extension DiffContainerViewController {
             }
             scrollingEmptyViewController?.view.isHidden = false
             diffListViewController?.view.isHidden = true
-            wmf_hideEmptyView()
         case .error(let error):
             fakeProgressController.stop()
             showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -305,8 +303,6 @@ private extension DiffContainerViewController {
             fakeProgressController.stop()
             scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = false
-            wmf_hideEmptyView()
-            break
         }
     }
     
@@ -414,7 +410,6 @@ private extension DiffContainerViewController {
             headerTitleView?.update(newTitleViewModel)
         case .single:
             assertionFailure("Should not call this method for the compare type.")
-            return
         }
     }
     

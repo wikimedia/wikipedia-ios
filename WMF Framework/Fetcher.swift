@@ -88,7 +88,7 @@ open class Fetcher: NSObject {
     
     @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:completionHandler:)
     @discardableResult public func performMediaWikiAPIPOST(for URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        let components = configuration.mediaWikiAPIURForHost(URL?.host, with: nil)
+        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: nil)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.postFormEncodedBodyParametersToURL(to: components.url, bodyParameters: bodyParameters) { (result, response, error) in
             completionHandler(result, response, error)
@@ -100,7 +100,7 @@ open class Fetcher: NSObject {
 
     @objc(performMediaWikiAPIGETForURL:withQueryParameters:cancellationKey:completionHandler:)
     @discardableResult public func performMediaWikiAPIGET(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey?, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        let components = configuration.mediaWikiAPIURForHost(URL?.host, with: queryParameters)
+        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.getJSONDictionary(from: components.url) { (result, response, error) in
             let returnError = error ?? WMFErrorForApiErrorObject(result?["error"] as? [AnyHashable : Any])

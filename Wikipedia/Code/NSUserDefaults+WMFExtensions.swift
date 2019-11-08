@@ -129,7 +129,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         guard name != nil, name != Theme.defaultThemeName else {
             return Theme.defaultAnalyticsThemeName
         }
-        return Theme.withName(name)?.displayName ?? Theme.light.displayName
+        return Theme.withName(name)?.name ?? Theme.light.name
     }
     
     @objc var themeDisplayName: String {

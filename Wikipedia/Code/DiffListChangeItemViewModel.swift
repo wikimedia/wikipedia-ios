@@ -115,6 +115,7 @@ final class DiffListChangeItemViewModel {
         paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.lineHeightMultiple = font.lineHeightMultipleToMatch(lineSpacing: lineSpacing)
         let attributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText,
                           NSAttributedString.Key.paragraphStyle: paragraphStyle.copy()]
         
         
@@ -173,15 +174,13 @@ final class DiffListChangeItemViewModel {
                 
                 //insert move index number
                 let indexAttributes = [NSAttributedString.Key.font: UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection),
-                                       NSAttributedString.Key.foregroundColor: theme.colors.warning]
+                                       NSAttributedString.Key.foregroundColor: theme.colors.diffCompareAccent]
                 let indexAttributedString = NSAttributedString(string: moveIndexString, attributes: indexAttributes)
                 maybeMutableAttributedString.insert(indexAttributedString, at: 0)
                 
                 //insert move arrow
                 maybeMutableAttributedString.insert(imageString, at:0)
-                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2,
-                NSAttributedString.Key.foregroundColor: theme.colors.warning
-                ], range: NSRange(location: 0, length: 1))
+                maybeMutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2], range: NSRange(location: 0, length: 1))
                 
                 //line spacing moved paragraphs
                 maybeMutableAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle.copy()], range: NSRange(location: 0, length: maybeMutableAttributedString.string.count))

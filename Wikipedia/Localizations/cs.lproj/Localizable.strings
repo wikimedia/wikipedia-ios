@@ -13,6 +13,7 @@
 // Author: Ilimanaq29
 // Author: Juandev
 // Author: Korytaacheck
+// Author: Luky001
 // Author: Marek Pavlica
 // Author: Matěj Suchánek
 // Author: Meliganai
@@ -595,7 +596,7 @@
 "reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy k přečtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
 "reading-list-sync-enable-title" = "Zapnout synchronizaci seznamů k přečtení?";
 "reading-list-sync-enabled-panel-message" = "Synchronizace seznamů k přečtení je pro tento účet zapnutá. Chcete-li synchronizaci ukončit, můžete synchronizaci vypnout pro tento účet aktualizací nastavení.";
-"reading-list-sync-enabled-panel-title" = "Synchronizace je na tomto účtu vypnuta";
+"reading-list-sync-enabled-panel-title" = "Synchronizace je na tomto účtu zapnuta";
 "reading-list-unable-to-add-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu k přečtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-create" = "Nastala neočekávaná chyba při vytváření vašeho seznamu k přečtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-delete" = "Nastala neočekávaná chyba při odstraňování vašeho seznamu k přečtení. Zkuste to prosím později znovu.";

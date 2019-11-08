@@ -162,7 +162,7 @@
 "diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
 "diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.";
 "diff-context-lines-expanded-button-title" = "Expand button title in diff compare context section when section is in expanded state.";
-"diff-multi-line-format" = "Label in diff to indicate how many lines a context section encompases. This format is for multiple context lines. $1 is replaced by the starting line number and $2 is replaced by the ending line number.";
+"diff-multi-line-format" = "Label in diff to indicate how many lines a change section encompases. This format is for multiple change lines. $1 is replaced by the starting line number and $2 is replaced by the ending line number.";
 "diff-paragraph-moved" = "Label in diff to indicate that a paragraph has been moved. This label is in the location of where the paragraph was moved from.";
 "diff-paragraph-moved-direction-down" = "Label in moved pararaph source location on diff view for indicating that a paragraph was moved down in the document.";
 "diff-paragraph-moved-direction-up" = "Label in moved pararaph source location on diff view for indicating that a paragraph was moved up in the document.";
@@ -175,7 +175,7 @@
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
 "diff-single-header-subtitle-bytes-removed" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were removed in this revision.";
 "diff-single-header-summary-heading" = "Heading label in header summary view when viewing a single revision.";
-"diff-single-line-format" = "Label in diff to indicate how many lines a context section encompases. This format is for a single context line. $1 is replaced by the context line number.";
+"diff-single-line-format" = "Label in diff to indicate how many lines a change section encompases. This format is for a single change line. $1 is replaced by the change line number.";
 "diff-thanks-anonymous-no-thanks" = "Message indicating anonymous users cannot be thanked";
 "diff-thanks-login-subtitle" = "Subtitle for thanks login panel.";
 "diff-thanks-login-title" = "Title for thanks login panel.";

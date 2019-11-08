@@ -77,7 +77,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
     }
 
-    var selectionIndex: Int?
+    var selectionOrder: SelectionOrder?
     var selectionThemeModel: PageHistoryCollectionViewCellSelectionThemeModel?
 
     func setEditing(_ editing: Bool) {
@@ -129,7 +129,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         isEditingEnabled = true
         selectView.isSelectionDisabled = false
         selectionThemeModel = nil
-        selectionIndex = nil
+        selectionOrder = nil
     }
 
     override func updateFonts(with traitCollection: UITraitCollection) {
