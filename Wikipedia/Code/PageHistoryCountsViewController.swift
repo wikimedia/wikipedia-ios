@@ -40,7 +40,7 @@ class PageHistoryCountsViewController: UIViewController {
         }
     }
 
-    var theme = Theme.standard
+    private var theme = Theme.standard
 
     private var isFirstLayoutPass = true
 
