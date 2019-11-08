@@ -6,8 +6,8 @@ protocol PageHistoryComparisonSelectionViewControllerDelegate: AnyObject {
 }
 
 class PageHistoryComparisonSelectionViewController: UIViewController {
-    @IBOutlet weak var firstSelectionButton: AlignedImageButton!
-    @IBOutlet weak var secondSelectionButton: AlignedImageButton!
+    @IBOutlet private weak var firstSelectionButton: AlignedImageButton!
+    @IBOutlet private weak var secondSelectionButton: AlignedImageButton!
     @IBOutlet private weak var compareButton: UIButton!
 
     private var theme = Theme.standard
