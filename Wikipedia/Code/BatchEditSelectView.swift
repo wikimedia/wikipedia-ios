@@ -17,15 +17,31 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var isSelected: Bool = false {
+    public var isSelected: Bool = false {
+        didSet {
+            updateMultiSelectIndicatorImage()
+        }
+    }
+
+    public var isSelectionDisabled: Bool = false {
+        didSet {
+            updateMultiSelectIndicatorImage()
+        }
+    }
+
+    public var selectedImage: UIImage? {
         didSet {
             updateMultiSelectIndicatorImage()
         }
     }
     
     fileprivate func updateMultiSelectIndicatorImage() {
-        let image = isSelected ? theme.multiSelectIndicatorImage : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
-        multiSelectIndicator?.image = image
+        guard !isSelectionDisabled else {
+            multiSelectIndicator?.image = UIImage(named: "selection-disabled", in: Bundle.main, compatibleWith: nil)
+            multiSelectIndicator?.tintColor = theme.colors.midBackground
+            return
+        }
+        multiSelectIndicator?.image = isSelected ? (selectedImage ?? theme.multiSelectIndicatorImage) : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
     }
     
     public override var frame: CGRect {
