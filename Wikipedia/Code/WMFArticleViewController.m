@@ -9,7 +9,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import "PageHistoryViewController.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
@@ -1280,11 +1279,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
-        if ([navigationTitle length] > 16) {
-            navigationTitle = nil;
-        }
-        self.navigationItem.title = navigationTitle;
+        [self setNavigationItemTitleForArticle:self.article];
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();
@@ -1294,6 +1289,14 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             [self.dataStore.historyList addPageToHistoryWithURL:self.articleURL];
         }
     });
+}
+
+- (void)setNavigationItemTitleForArticle:(MWKArticle *)article {
+    NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
+    if ([navigationTitle length] > 16) {
+        navigationTitle = nil;
+    }
+    self.navigationItem.title = navigationTitle;
 }
 
 - (void)endRefreshing {
@@ -1855,9 +1858,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showEditHistory {
-    PageHistoryViewController *editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
-    editHistoryVC.article = self.article;
-    [self presentViewControllerEmbeddedInNavigationController:editHistoryVC];
+    NSString *title = self.article.url.wmf_title;
+    NSURL *url = self.article.url;
+    if (title && url) {
+        WMFPageHistoryViewController *editHistoryVC = [[WMFPageHistoryViewController alloc] initWithPageTitle:title pageURL:url];
+        [editHistoryVC applyTheme:self.theme];
+        UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title") style:UIBarButtonItemStylePlain target:nil action:nil];
+        editHistoryVC.navigationItem.backBarButtonItem = backButtonItem;
+        [self wmf_pushViewController:editHistoryVC animated:YES];
+    }
 }
 
 - (void)showTalkPage {

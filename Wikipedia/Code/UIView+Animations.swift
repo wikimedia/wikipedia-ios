@@ -15,4 +15,17 @@ extension UIView {
                 self.layer.transform = CATransform3DIdentity
             }, completion: nil)
     }
+
+    public func setTransparent(_ transparent: Bool, animated: Bool = true, animationDuration: CGFloat = 0.2) {
+        let changes = {
+            self.alpha = transparent ? 0 : 1
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2) {
+                changes()
+            }
+        } else {
+            changes()
+        }
+    }
 }

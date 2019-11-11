@@ -112,6 +112,7 @@
 "article-languages-yours" = "Le tue lingue";
 "article-read-more-title" = "Leggi altro";
 "article-share" = "Condividi";
+"article-title" = "Voce";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "back-button-accessibility-label" = "Indietro";
 "button-next" = "Successivo";
@@ -152,6 +153,16 @@
 "description-welcome-concise-sub-title" = "Idealmente una riga, da due a dodici parole";
 "description-welcome-descriptions-title" = "Descrizioni del titolo";
 "description-welcome-start-editing-button" = "Inizia a modificare";
+"diff-compare-header-from-info-heading" = "Da:";
+"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 versione intermedia|$1 versioni intermedie}}";
+"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 utente|$1 utenti}}";
+"diff-compare-header-to-info-heading" = "A:";
+"diff-context-lines-collapsed-button-title" = "Mostra";
+"diff-multi-line-format" = "Righe $1 - $2";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sezione|$1 sezioni}}";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 modifica|$1 modifiche}}";
+"diff-single-header-subtitle-bytes-added" = "$1 byte {{PLURAL:$1|aggiunto|aggiunti}}";
+"diff-single-line-format" = "Riga $1";
 "edit-bold-accessibility-label" = "Aggiungi la formattazione in grassetto";
 "edit-bold-remove-accessibility-label" = "Rimuovi la formattazione in grassetto";
 "edit-clear-formatting-accessibility-label" = "Rimuovi formattazione";
@@ -366,7 +377,9 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
 "page-edit-history" = "Cronologia delle modifiche completa";
-"page-history-title" = "Cronologia dell'articolo";
+"page-history-revision-author-accessibility-label" = "Autore: %@";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|Aggiunto|Aggiunti}} $1 byte";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
 "page-issues" = "Problemi alla pagina";
 "page-last-edited" = "Modificata {{PLURAL:$1|0=oggi|1=ieri|$1 giorni fa}}";
 "page-location" = "Visualizza sulla mappa";
@@ -431,7 +444,11 @@
 "reference-title" = "Riferimento $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Oggi|1=Ieri|$1 giorni fa}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
+"relative-date-hours-ago-abbreviated" = "$1h fa";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
+"relative-date-minutes-ago-abbreviated" = "$1m fa";
+"relative-date-seconds-abbreviated" = "$1s";
+"relative-date-seconds-ago-abbreviated" = "$1s fa";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|1=L'anno scorso|$1 anni fa}}";
 "replace-button-accessibility" = "Esegui $1.";
 "replace-infolabel-method-replace" = "Sostituisci";

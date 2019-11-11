@@ -43,10 +43,13 @@ class HintController: NSObject {
         }
     }
 
-    func dismissHint() {
+    func dismissHint(completion: (() -> Void)? = nil) {
         self.task?.cancel()
         let task = DispatchWorkItem { [weak self] in
             self?.setHintHidden(true)
+            if let completion = completion {
+                completion()
+            }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + hintVisibilityTime , execute: task)
         self.task = task
@@ -57,6 +60,18 @@ class HintController: NSObject {
         apply(theme: theme)
     }
 
+    func toggle(presenter: HintPresentingViewController, context: Context?, theme: Theme, subview: UIView? = nil, additionalBottomSpacing: CGFloat = 0, setPrimaryColor: ((inout UIColor?) -> Void)? = nil, setBackgroundColor: ((inout UIColor?) -> Void)? = nil) {
+        self.subview = subview
+        self.additionalBottomSpacing = additionalBottomSpacing
+        setPrimaryColor?(&hintViewController.primaryColor)
+        setBackgroundColor?(&hintViewController.backgroundColor)
+        self.presenter = presenter
+        apply(theme: theme)
+    }
+
+    private var subview: UIView?
+    private var additionalBottomSpacing: CGFloat = 0
+
     private func addHint(to presenter: HintPresentingViewController) {
         guard isHintHidden else {
             return
@@ -64,11 +79,11 @@ class HintController: NSObject {
 
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
-        var additionalBottomSpacing: CGFloat = 0
-
         if let wmfVCPresenter = presenter as? WMFViewController { // not ideal, violates encapsulation
             wmfVCPresenter.view.insertSubview(containerView, belowSubview: wmfVCPresenter.toolbar)
             additionalBottomSpacing = wmfVCPresenter.toolbar.frame.size.height
+        } else if let subview = subview {
+            presenter.view.insertSubview(containerView, belowSubview: subview)
         } else {
             presenter.view.addSubview(containerView)
         }
@@ -115,12 +130,15 @@ class HintController: NSObject {
         hintViewController.viewType = .default
     }
 
-    func setHintHidden(_ hidden: Bool) {
+    func setHintHidden(_ hidden: Bool, completion: (() -> Void)? = nil) {        
         guard
             isHintHidden != hidden,
             let presenter = presenter,
             presenter.presentedViewController == nil
         else {
+            if let completion = completion {
+                completion()
+            }
             return
         }
 
@@ -147,8 +165,11 @@ class HintController: NSObject {
             if hidden {
                 self.adjustSpacingIfPresenterHasSecondToolbar(hintHidden: hidden)
                 self.removeHint()
+                if let completion = completion {
+                    completion()
+                }
             } else {
-                self.dismissHint()
+                self.dismissHint(completion: completion)
             }
         })
     }
