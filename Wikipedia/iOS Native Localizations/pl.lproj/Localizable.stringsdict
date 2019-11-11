@@ -34,6 +34,112 @@
 			<string>artykuły usunięte</string>
 		</dict>
 	</dict>
+	<key>diff-compare-header-subtitle-num-users</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d użytkownik</string>
+			<key>other</key>
+			<string>%1$d użytkowników</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-line</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d linie</string>
+			<key>one</key>
+			<string>%1$d linia</string>
+			<key>other</key>
+			<string>%1$d linii</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-section</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d sekcje</string>
+			<key>one</key>
+			<string>%1$d sekcja</string>
+			<key>other</key>
+			<string>%1$d sekcji</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d edycje</string>
+			<key>one</key>
+			<string>%1$d edycja</string>
+			<key>other</key>
+			<string>%1$d edycji</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Dodano %1$d bajty</string>
+			<key>one</key>
+			<string>Dodano %1$d bajt</string>
+			<key>other</key>
+			<string>Dodano %1$d bajtów</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-removed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Usunięto %1$d bajty</string>
+			<key>one</key>
+			<string>Usunięto %1$d bajt</string>
+			<key>other</key>
+			<string>Usunięto %1$d bajtów</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -66,6 +172,42 @@
 			<string>%1$d wydarzenie historyczne</string>
 			<key>other</key>
 			<string>%1$d wydarzeń historycznych</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-addition</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Dodano %1$d bajty</string>
+			<key>one</key>
+			<string>Dodano 1 bajt</string>
+			<key>other</key>
+			<string>Dodano %1$d bajtów</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-subtraction</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Usunięto %1$d bajty</string>
+			<key>one</key>
+			<string>Usunięto 1 bajt</string>
+			<key>other</key>
+			<string>Usunięto %1$d bajtów</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>

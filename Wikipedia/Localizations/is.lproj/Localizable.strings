@@ -455,7 +455,6 @@
 "on-this-day-title" = "Á þessum degi";
 "original-tab-button-popover-description" = "Ýttu á 'W'-ið til að fara til baka á flipann þar sem þú varst";
 "page-edit-history" = "Öll breytingaskráin";
-"page-history-title" = "Breytingaskrá greinar";
 "page-issues" = "Vandamál varðandi síðu";
 "page-last-edited" = "{{PLURAL:$1|0=Breytt í dag|1=Breytt í gær|Breytt fyrir $1 dögum síðan}}";
 "page-location" = "Skoða á korti";

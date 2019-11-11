@@ -491,7 +491,6 @@
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
 "page-edit-history" = "היסטוריית עריכה מלאה";
-"page-history-title" = "היסטוריית הערך";
 "page-issues" = "בעיות בדף";
 "page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
 "page-location" = "הצגה על מפה";

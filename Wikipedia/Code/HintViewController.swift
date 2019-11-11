@@ -18,8 +18,15 @@ class HintViewController: UIViewController {
     @IBOutlet weak var confirmationImageView: UIImageView!
     @IBOutlet weak var confirmationAccessoryButton: UIButton!
 
+    @IBOutlet weak var warningView: UIView!
+    @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var warningSubtitleLabel: UILabel!
+    
     @IBOutlet var safeAreaBottomConstraint: NSLayoutConstraint!
     @IBOutlet var viewBottomConstraint: NSLayoutConstraint!
+
+    var backgroundColor: UIColor?
+    var primaryColor: UIColor?
     
     //if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
     //must also override extendsUnderSafeArea to true in HintController
@@ -30,20 +37,27 @@ class HintViewController: UIViewController {
     weak var delegate: HintViewControllerDelegate?
 
     var theme = Theme.standard
-
+    
     enum ViewType {
         case `default`
         case confirmation
+        case warning
     }
 
     var viewType: ViewType = .default {
         didSet {
             switch viewType {
             case .default:
+                warningView.isHidden = true
                 confirmationView.isHidden = true
                 defaultView.isHidden = false
             case .confirmation:
+                warningView.isHidden = true
                 confirmationView.isHidden = false
+                defaultView.isHidden = true
+            case .warning:
+                warningView.isHidden = false
+                confirmationView.isHidden = true
                 defaultView.isHidden = true
             }
             delegate?.hintViewControllerViewTypeDidChange(self, newViewType: viewType)
@@ -95,6 +109,8 @@ class HintViewController: UIViewController {
     private func updateFonts() {
         defaultLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
         confirmationLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
+        warningLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
+        warningSubtitleLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
     }
 }
 
@@ -114,9 +130,13 @@ extension HintViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.hintBackground
-        defaultLabel?.textColor = theme.colors.link
-        confirmationLabel?.textColor = theme.colors.link
-        confirmationAccessoryButton.tintColor = theme.colors.link
+
+        view.backgroundColor = backgroundColor ?? (viewType == .warning ? theme.colors.hintWarningBackground : theme.colors.hintBackground)
+        defaultLabel?.textColor = primaryColor ?? theme.colors.link
+        confirmationLabel?.textColor = primaryColor ?? theme.colors.link
+        confirmationAccessoryButton.tintColor = primaryColor ?? theme.colors.link
+        defaultImageView.tintColor = primaryColor ?? theme.colors.link
+        warningLabel?.textColor = primaryColor ?? theme.colors.warning
+        warningSubtitleLabel?.textColor = primaryColor ?? theme.colors.primaryText
     }
 }

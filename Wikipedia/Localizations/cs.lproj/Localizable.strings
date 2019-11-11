@@ -126,6 +126,7 @@
 "article-read-more-title" = "Číst dál";
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
+"article-title" = "Článek";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládací prvky pro čtení motivů";
 "article-unable-to-load-section" = "Nelze načíst tento oddíl. Zkuste aktualizovat stránku, v některých případech to může pomoci.";
 "back-button-accessibility-label" = "Zpět";
@@ -182,6 +183,18 @@
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
+"diff-compare-header-from-info-heading" = "Od:";
+"diff-compare-header-heading" = "Porovnat revize";
+"diff-compare-header-subtitle-format" = "Revize $1 od uživatele $2 není zobrazena / nejsou zobrazeny";
+"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 uživatel|$1 uživatelé|$1 uživatelů}}";
+"diff-compare-header-to-info-heading" = "Do:";
+"diff-compare-title" = "Porovnat revize";
+"diff-context-lines-collapsed-button-title" = "Zobrazit";
+"diff-context-lines-expanded-button-title" = "Skrýt";
+"diff-paragraph-moved" = "Odstavec přesunut";
+"diff-paragraph-moved-direction-down" = "dolů";
+"diff-paragraph-moved-direction-up" = "nahoru";
+"diff-single-header-summary-heading" = "Shrnutí editace";
 "dim-images" = "Ztmavení obrázků";
 "edit-bold-accessibility-label" = "Přidat tučné formátování";
 "edit-bold-remove-accessibility-label" = "Odebrat tučné formátování";
@@ -501,7 +514,6 @@
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";
 "page-edit-history" = "Celá historie editací";
-"page-history-title" = "Historie článku";
 "page-issues" = "Nedostatky stránky";
 "page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";
 "page-location" = "Zobrazit na mapě";
@@ -633,8 +645,14 @@
 "reading-themes-controls-syntax-highlighting" = "Zvýraznění syntaxe";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|1=Včera|2=Předevčírem|Před $1 dny}}";
+"relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Před $1 hodinou|Před $1 hodinami}}";
+"relative-date-hours-ago-abbreviated" = "před $1 h";
+"relative-date-minutes-abbreviated" = "$1 min";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Právě teď|Před $1 minutou|Před $1 minutami}}";
+"relative-date-minutes-ago-abbreviated" = "před $1 min";
+"relative-date-seconds-abbreviated" = "$1 s";
+"relative-date-seconds-ago-abbreviated" = "před $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Loni|2=Předloni|Před $1 lety}}";
 "replace-button-accessibility" = "Provést $1.";
 "replace-buttons-replace-accessibility" = "Nahradit v jednom případě";
@@ -781,6 +799,7 @@
 "two-factor-login-with-backup-code" = "Použít jeden z vašich záložních kódů";
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
 "unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
+"unknown-generic-text" = "Neznámé";
 "view-in-browser-footer-link" = "Zobrazit článek v prohlížeči";
 "welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";
