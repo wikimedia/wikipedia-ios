@@ -436,7 +436,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از $2 ویکی‌پدیا";
 "on-this-day-title" = "در این روز";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
-"page-history-title" = "تاریخچهٔ مقاله";
 "page-issues" = "موضوعات صفحه";
 "page-last-edited" = "{{PLURAL:$1|0=ویرایش‌شده امروز|1=ویرایش‌شده دیروز|ویرایش‌شده $1 روز پیش}}";
 "page-location" = "دیدن در نقشه";

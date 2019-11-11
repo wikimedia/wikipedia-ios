@@ -478,7 +478,6 @@
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
 "page-edit-history" = "Vollständige Versionsgeschichte";
-"page-history-title" = "Artikelversionsgeschichte";
 "page-issues" = "Seitenprobleme";
 "page-last-edited" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}} bearbeitet";
 "page-location" = "Auf einer Karte ansehen";
