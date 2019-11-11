@@ -220,7 +220,7 @@
 "diff-thanks-sent" = "'Teşekkürün' $1 olarak ayarlandı";
 "diff-thanks-sent-already" = "Bu düzenleme için zaten bir 'Teşekkür' gönderdiniz";
 "diff-thanks-sent-cannot-unsend" = "Teşekkürler gönderilemez";
-"diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
 "dim-images" = "Resimleri karart";
 "edit-bold-accessibility-label" = "Kalın formatı ekle";
 "edit-bold-remove-accessibility-label" = "Kalın formatı kaldır";
