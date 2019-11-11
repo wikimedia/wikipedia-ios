@@ -400,7 +400,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
 "page-edit-history" = "Teljes laptörténet";
-"page-history-title" = "Cikktörténet";
 "page-issues" = "A lap problémái";
 "page-last-edited" = "Szerkesztve {{PLURAL:$1|0=ma|1=tegnap|$1 napja}}";
 "page-location" = "Megtekintés térképen";

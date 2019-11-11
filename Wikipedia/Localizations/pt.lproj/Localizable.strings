@@ -490,7 +490,6 @@
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
 "page-edit-history" = "Histórico completo";
-"page-history-title" = "Histórico do artigo";
 "page-issues" = "Problemas da página";
 "page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado há $1 dias}}";
 "page-location" = "Ver num mapa";
