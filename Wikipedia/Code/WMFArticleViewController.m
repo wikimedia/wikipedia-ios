@@ -794,7 +794,14 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)showAnnouncementCardIfNeeded {
     if (NSUserDefaults.wmf.shouldCheckForArticleAnnouncements) {
-        WMFContentGroup *contentGroup = [self.dataStore.viewContext newestVisibleGroupOfKind:WMFContentGroupKindAnnouncement withPredicate:[NSPredicate predicateWithFormat:@"placement == %@", @"article"]];
+        // wasDismissed != YES didn't work
+        NSMutableArray<NSPredicate *> *orPredicates = [NSMutableArray arrayWithCapacity:2];
+        [orPredicates addObject:[NSPredicate predicateWithFormat:@"wasDismissed == NULL"]];
+        [orPredicates addObject:[NSPredicate predicateWithFormat:@"wasDismissed == NO"]];
+        NSMutableArray<NSPredicate *> *andPredicates = [NSMutableArray arrayWithCapacity:2];
+        [andPredicates addObject:[NSPredicate predicateWithFormat:@"placement == %@", @"article"]];
+        [andPredicates addObject:[NSCompoundPredicate orPredicateWithSubpredicates:orPredicates]];
+        WMFContentGroup *contentGroup = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindAnnouncement withPredicate:[NSCompoundPredicate andPredicateWithSubpredicates:andPredicates]];
         WMFAnnouncement *announcement = (WMFAnnouncement *)contentGroup.contentPreview;
         dispatch_block_t dismiss = ^{
             [contentGroup markDismissed];
