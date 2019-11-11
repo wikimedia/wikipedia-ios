@@ -486,7 +486,6 @@
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
 "page-edit-history" = "Úplná história úprav";
-"page-history-title" = "História článku";
 "page-issues" = "Problémy stránky";
 "page-last-edited" = "{{PLURAL:$1|0=Upravené dnes|1=Upravené včera|2=Upravené predvčerom|Upravené pred $1 dňami}}";
 "page-location" = "Zobraziť na mape";

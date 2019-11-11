@@ -446,7 +446,6 @@
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
-"page-history-title" = "Artikkelhistorikk";
 "page-issues" = "Merknader for siden";
 "page-last-edited" = "{{PLURAL:$1|0=Redigert i dag|1=Redigert i går|Redigert for $1 dager siden}}";
 "page-location" = "Vis på kart";
