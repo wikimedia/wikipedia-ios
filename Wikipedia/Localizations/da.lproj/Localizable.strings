@@ -106,6 +106,7 @@
 "article-languages-yours" = "Dine sprog";
 "article-read-more-title" = "Læs mere";
 "article-share" = "Del";
+"article-title" = "Artikel";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbage";
@@ -154,6 +155,7 @@
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "description-welcome-promise-title" = "Begynder du at redigere, så lover du samtidig ikke at misbruge denne funktion";
 "description-welcome-start-editing-button" = "Start med at redigere";
+"diff-context-lines-collapsed-button-title" = "Vis";
 "dim-images" = "Mørklæg billeder";
 "edit-clear-formatting-accessibility-label" = "Fjern formatering";
 "edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
@@ -361,7 +363,6 @@
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Tryk på «W» for at gå tilbage til fanen du startede fra";
 "page-edit-history" = "Fuld redigeringshistorik";
-"page-history-title" = "Artikelhistorik";
 "page-issues" = "Problemer med siden";
 "page-last-edited" = "{{PLURAL:$1|0=Redigeret i dag|1=Redigeret i går|Redigeret for $1 dage siden}}";
 "page-location" = "Vis på et kort";
@@ -583,6 +584,7 @@
 "two-factor-login-title" = "Log ind på din konto";
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
+"unknown-generic-text" = "Ukendt";
 "view-in-browser-footer-link" = "Vis artikel i browser";
 "welcome-exploration-explore-feed-description" = "Anbefalet læsning og daglige artikler fra vores fællesskab";
 "welcome-exploration-explore-feed-title" = "Udforsk nyhedskilde";

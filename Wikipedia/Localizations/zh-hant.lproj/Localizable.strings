@@ -23,6 +23,7 @@
 // Author: Wwycheuk
 // Author: Xiplus
 // Author: 予弦
+// Author: 沈澄心
 // Author: 烈羽
 // Author: 神樂坂秀吉
 
@@ -124,6 +125,7 @@
 "article-read-more-title" = "延伸閱讀";
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
+"article-title" = "條目";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back-button-accessibility-label" = "返回";
@@ -180,6 +182,39 @@
 "description-welcome-descriptions-title" = "標題描述";
 "description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
 "description-welcome-start-editing-button" = "開始編輯";
+"diff-compare-header-from-info-heading" = "從：";
+"diff-compare-header-heading" = "比較修訂";
+"diff-compare-header-subtitle-format" = "未顯示由$2作的 $1 次中間修訂";
+"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 個中間修訂|$1 個中間修訂}}";
+"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 位使用者|$1 位使用者}}";
+"diff-compare-header-to-info-heading" = "到：";
+"diff-compare-title" = "比較修訂";
+"diff-context-lines-collapsed-button-title" = "顯示";
+"diff-context-lines-expanded-button-title" = "隱藏";
+"diff-multi-line-format" = "$1 到 $2 行";
+"diff-paragraph-moved" = "章節已移動";
+"diff-paragraph-moved-direction-down" = "向下";
+"diff-paragraph-moved-direction-up" = "向上";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 行|$1 行}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1個段落|$1個段落}}";
+"diff-paragraph-moved-format" = "章節已移動$1 $2";
+"diff-revision-error-title" = "無法載入修訂";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 次編輯|$1 次編輯}}";
+"diff-single-header-editor-title" = "編者資訊";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已添加|$1 位元組已添加}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 位元組已移除|$1 位元組已移除}}";
+"diff-single-header-summary-heading" = "編輯摘要";
+"diff-single-line-format" = "$1 行";
+"diff-thanks-anonymous-no-thanks" = "匿名使用者無法被感謝";
+"diff-thanks-login-subtitle" = "「感謝」是在維基百科上向其他編者所修改出內容表達讚賞的簡易方式，您必須先登入才能發送感謝。";
+"diff-thanks-login-title" = "登入來發送感謝";
+"diff-thanks-send-button-title" = "發送感謝";
+"diff-thanks-send-subtitle" = "「感謝」是在維基百科上向其他編者所修改出內容表達讚賞的簡易方式，請留意感謝無法撤回發送，並且是公開可見的。";
+"diff-thanks-send-title" = "公開發送感謝";
+"diff-thanks-sent" = "您的感謝發送給$1";
+"diff-thanks-sent-already" = "您已曾為此編輯發送過感謝";
+"diff-thanks-sent-cannot-unsend" = "感謝無法撤回發送";
+"diff-unedited-lines-format" = "{{PLURAL:$1|共 $1 行尚未編輯|共 $1 行尚未編輯}}";
 "dim-images" = "調暗圖片";
 "edit-bold-accessibility-label" = "添加粗體格式";
 "edit-bold-remove-accessibility-label" = "移除粗體格式";
@@ -248,6 +283,8 @@
 "editing-welcome-impartial-tone-title" = "以客觀語氣編寫";
 "editing-welcome-set-knowledge-free-subtitle" = "為了讓任何人能取用世界上的知識，我們需要您透過閱讀、編輯、貢獻您最感興趣的主題來參與創建。";
 "editing-welcome-set-knowledge-free-title" = "讓知識能自由取得";
+"empty-diff-compare-title" = "修訂之間無差異";
+"empty-diff-single-title" = "沒有做出可觀察到的變更";
 "empty-insert-media-title" = "選擇來自維基共享資源的檔案";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";
@@ -499,7 +536,18 @@
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
 "page-edit-history" = "完整編輯歷史";
-"page-history-title" = "條目歷史";
+"page-history-anonymous-edits" = "匿名編輯";
+"page-history-bot-edits" = "機器人編輯";
+"page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
+"page-history-compare-title" = "比較";
+"page-history-minor-edits" = "小修改";
+"page-history-revision-author-accessibility-label" = "作者：%@";
+"page-history-revision-history-title" = "修訂歷史";
+"page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 位元組|$1 位元組}}";
+"page-history-revision-size-diff-subtraction" = "已移除 {{PLURAL:$1|$1 位元組|$1 位元組}}";
+"page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
+"page-history-stats-text" = "自 $2 共 $1 次編輯";
+"page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
 "page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
 "page-location" = "在地圖上檢視";
@@ -511,6 +559,8 @@
 "page-read-in-other-languages" = "在 {{PLURAL:$1|$1 種其它語言}}中可用";
 "page-similar-titles" = "相似的頁面";
 "page-talk-page" = "檢視對話頁";
+"panel-compare-revisions-text" = "比較修訂能協助顯示出條目隨著時間的內容變化，當您比較條目裡的兩個修訂時，會產生兩者間的差異。";
+"panel-compare-revisions-title" = "比較修訂";
 "pictured" = "如圖";
 "places-accessibility-clear-saved-searches" = "清除已儲搜尋";
 "places-accessibility-group" = "$1 個條目";
@@ -631,8 +681,14 @@
 "reading-themes-controls-syntax-highlighting" = "語法突顯";
 "reference-title" = "參考資料 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|1=昨天|$1 天前}}";
+"relative-date-hours-abbreviated" = "$1 小時";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
+"relative-date-hours-ago-abbreviated" = "$1 小時前";
+"relative-date-minutes-abbreviated" = "$1 分";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
+"relative-date-minutes-ago-abbreviated" = "$1 分前";
+"relative-date-seconds-abbreviated" = "$1 秒";
+"relative-date-seconds-ago-abbreviated" = "$1 秒前";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|1=去年|$1 年前}}";
 "replace-button-accessibility" = "實行$1。";
 "replace-buttons-replace-accessibility" = "取代單一實體";
@@ -779,6 +835,7 @@
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
 "unable-to-load-talk-page-title" = "無法載入對話頁";
+"unknown-generic-text" = "未知";
 "view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
 "welcome-exploration-explore-feed-title" = "探索摘要";

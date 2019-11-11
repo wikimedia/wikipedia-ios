@@ -449,7 +449,6 @@
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
 "page-edit-history" = "Täysi muokkaushistoria";
-"page-history-title" = "Artikkelin historia";
 "page-issues" = "Sivun ongelmat";
 "page-last-edited" = "{{PLURAL:$1|0=Muokattu tänään|1=Muokattu eilen|Muokattu $1 päivää sitten}}";
 "page-location" = "Näytä kartalla";

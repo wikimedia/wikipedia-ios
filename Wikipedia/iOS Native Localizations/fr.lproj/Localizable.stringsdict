@@ -18,7 +18,7 @@
 			<string>Ajouter %1$d articles à la liste de lecture</string>
 		</dict>
 	</dict>
-	<key>article-deleted-accessibility-notification</key>
+	<key>diff-compare-header-subtitle-num-users</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -29,9 +29,57 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Article supprimé</string>
+			<string>%1$d utilisateur</string>
 			<key>other</key>
-			<string>Articles supprimés</string>
+			<string>%1$d utilisateurs</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-line</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ligne</string>
+			<key>other</key>
+			<string>%1$d lignes</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-section</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d section</string>
+			<key>other</key>
+			<string>%1$d sections</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d modification</string>
+			<key>other</key>
+			<string>%1$d modifications</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -50,7 +98,7 @@
 			<string>Placer %1$d articles dans la liste de lecture</string>
 		</dict>
 	</dict>
-	<key>on-this-day-detail-header-title</key>
+	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -61,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d événement historique</string>
+			<string>%1$d modification depuis le %2$@</string>
 			<key>other</key>
-			<string>%1$d événements historiques</string>
+			<string>%1$d modifications depuis le %2$@</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>

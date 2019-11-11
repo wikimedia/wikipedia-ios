@@ -55,6 +55,7 @@
 "article-languages-yours" = "Tavas valodas";
 "article-read-more-title" = "Lasīt vairāk";
 "article-share" = "Dalīties";
+"article-title" = "Raksts";
 "back-button-accessibility-label" = "Atpakaļ";
 "button-next" = "Tālāk";
 "button-ok" = "Labi";
@@ -66,6 +67,9 @@
 "close-button-accessibility-label" = "Aizvērt";
 "description-edit-learn-more" = "Uzzināt vairāk";
 "description-published-button-title" = "Gatavs";
+"diff-compare-header-from-info-heading" = "No:";
+"diff-compare-title" = "Salīdzināt versijas";
+"diff-thanks-send-button-title" = "Sūtīt pateicību";
 "edit-direction-left-accessibility-label" = "Pārvietot kursoru pa kreisi";
 "edit-direction-right-accessibility-label" = "Pārvietot kursoru pa labi";
 "edit-link-title" = "Labot saiti";
@@ -154,11 +158,14 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
 "page-edit-history" = "Pilna labojumu vēsture";
-"page-history-title" = "Raksta vēsture";
+"page-history-compare-title" = "Salīdzināt";
+"page-history-revision-author-accessibility-label" = "Autors: %@";
+"page-history-revision-history-title" = "Versiju hronoloģija";
 "page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
 "page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
 "page-similar-titles" = "Līdzīgas lapas";
 "page-talk-page" = "Skatīt diskusiju lapu";
+"panel-compare-revisions-title" = "Versiju salīdzināšana";
 "places-accessibility-group" = "$1 rakstu";
 "places-enable-location-action-button-title" = "Iespējot atrašanās vietu";
 "places-filter-saved-articles" = "Saglabātie raksti";
@@ -180,6 +187,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Sintakses izcelšana";
 "reading-themes-controls-syntax-highlighting" = "Sintakses izcelšana";
 "reference-title" = "Atsauce $1";
+"relative-date-seconds-abbreviated" = "$1s";
 "replace-infolabel-method-replace" = "Aizvietot";
 "replace-infolabel-method-replace-all" = "Aizvietot visus";
 "replace-textfield-accessibility" = "Aizvietot";
