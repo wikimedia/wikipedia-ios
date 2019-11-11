@@ -9,8 +9,8 @@ enum DiffListChangeType {
 final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let type: DiffListChangeType
-    let heading: String
-    private(set) var headingAttributedString: NSAttributedString
+    let heading: String?
+    private(set) var headingAttributedString: NSAttributedString?
     let items: [DiffListChangeItemViewModel]
     var theme: Theme {
         didSet {
@@ -58,7 +58,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance], sectionInfo: [SectionInfo]?) {
+    init(type: DiffListChangeType, diffItems: [TransformDiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection) {
         
         self.type = type
         self.theme = theme
@@ -70,20 +70,15 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         case .compareRevision:
             self.heading = DiffListChangeViewModel.calculateHeadingsFromLineNumbers(diffItems: diffItems)
         case .singleRevison:
-            if let sectionInfo = sectionInfo, !sectionInfo.isEmpty {
-                self.heading = DiffListChangeViewModel.calculateHeadingsFromSectionInfo(diffItems: diffItems, sectionInfo: sectionInfo)
-            } else {
-                self.heading = DiffListChangeViewModel.calculateHeadingsFromLineNumbers(diffItems: diffItems)
-            }
-            
+            self.heading = DiffListChangeViewModel.calculateHeadingsFromSectionTitles(diffItems: diffItems)
         }
         
         var itemViewModels: [DiffListChangeItemViewModel] = []
-        for (index, diffItem) in diffItems.enumerated() {
+        for (index, item) in diffItems.enumerated() {
             
             //passing in next middle item to avoid double-space calculations for moved items
-            let nextItem: DiffItem? = diffItems[safeIndex: index + 1]
-            let changeItemViewModel = DiffListChangeItemViewModel(item: diffItem, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItem.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, nextMiddleItem: nextItem)
+            let nextItem: TransformDiffItem? = diffItems[safeIndex: index + 1]
+            let changeItemViewModel = DiffListChangeItemViewModel(item: item, traitCollection: traitCollection, theme: theme, type: type, diffItemType: item.diffItem.type, nextMiddleItem: nextItem)
             itemViewModels.append(changeItemViewModel)
         }
         
@@ -100,21 +95,20 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, stackViewPadding: stackViewPadding)
     }
     
-    private static func calculateHeadingsFromSectionInfo(diffItems: [DiffItem], sectionInfo: [SectionInfo]) -> String {
+    private static func calculateHeadingsFromSectionTitles(diffItems: [TransformDiffItem]) -> String? {
   
         for item in diffItems {
-            if let sectionInfoIndex = item.sectionInfoIndex,
-                let sectionInfo = sectionInfo[safeIndex: sectionInfoIndex] {
-                return sectionInfo.title
+            if let sectionTitle = item.sectionTitle {
+                return sectionTitle
             }
         }
         
-        return "Unknown Section" //tonitodo: need business logic for this situation (intro change, delete line, move source, anything that doesn't have a section in to version)
+        return calculateHeadingsFromLineNumbers(diffItems: diffItems)
     }
     
-    private static func calculateHeadingsFromLineNumbers(diffItems: [DiffItem]) -> String {
+    private static func calculateHeadingsFromLineNumbers(diffItems: [TransformDiffItem]) -> String? {
 
-        let lineNumbers = diffItems.compactMap { ($0.type != .deleteLine && $0.type != .moveSource) ? $0.lineNumber : nil }
+        let lineNumbers = diffItems.compactMap { $0.lineNumber }
         
         if let firstItemLineNumber = lineNumbers.first {
             
@@ -125,11 +119,11 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             } else if let lastItemLineNumber = lastItemLineNumber {
                 return String.localizedStringWithFormat(CommonStrings.diffMultiLineFormat, firstItemLineNumber, lastItemLineNumber)
             } else {
-                return ""
+                return nil
             }
             
         } else {
-            return "" //tonitodo: optional would be better
+            return nil
         }
     }
     
@@ -184,7 +178,11 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         }
     }
     
-    private static func calculateHeadingAttributedString(headingColor: UIColor, text: String, traitCollection: UITraitCollection) -> NSAttributedString {
+    private static func calculateHeadingAttributedString(headingColor: UIColor, text: String?, traitCollection: UITraitCollection) -> NSAttributedString? {
+        
+        guard let text = text else {
+            return nil
+        }
         
         let font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
         let attributes: [NSAttributedString.Key: Any] = [
@@ -194,13 +192,16 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         return NSAttributedString(string: text, attributes: attributes)
     }
     
-    private static func calculateHeight(items: [DiffListChangeItemViewModel], availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, headingAttributedString: NSAttributedString, headingPadding: NSDirectionalEdgeInsets, stackViewPadding: NSDirectionalEdgeInsets) -> CGFloat {
+    private static func calculateHeight(items: [DiffListChangeItemViewModel], availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, headingAttributedString: NSAttributedString?, headingPadding: NSDirectionalEdgeInsets, stackViewPadding: NSDirectionalEdgeInsets) -> CGFloat {
 
         var height: CGFloat = 0
         
         for item in items {
-            let newHeight = ceil(item.textAttributedString.boundingRect(with: CGSize(width: availableWidth - item.textPadding.leading - item.textPadding.trailing, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
-            height += newHeight
+            if let textAttributedString = item.textAttributedString {
+                let newHeight = ceil(textAttributedString.boundingRect(with: CGSize(width: availableWidth - item.textPadding.leading - item.textPadding.trailing, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+                height += newHeight
+            }
+            
             height += item.textPadding.top
             height += item.textPadding.bottom
         }
@@ -208,7 +209,9 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         //add heading height
         height += headingPadding.top
         height += headingPadding.bottom
-        height += ceil(headingAttributedString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        if let headingAttributedString = headingAttributedString {
+            height += ceil(headingAttributedString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        }
         
         height += innerPadding.top
         height += innerPadding.bottom

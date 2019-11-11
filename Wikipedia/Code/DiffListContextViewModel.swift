@@ -47,13 +47,13 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         return contextFont.pointSize * 1.8
     }
     
-    init(diffItems: [DiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, traitCollection: UITraitCollection) {
+    init(diffItems: [TransformDiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, traitCollection: UITraitCollection) {
         self.isExpanded = isExpanded
         self.theme = theme
         self._width = width
         self.traitCollection = traitCollection
         
-        self.items = diffItems.map{ $0.text.count == 0 ? nil : $0.text }
+        self.items = diffItems.map{ $0.diffItem.text.count == 0 ? nil : $0.diffItem.text }
         
         if let firstItemLineNumber = diffItems.first?.lineNumber,
             let lastItemLineNumber = diffItems.last?.lineNumber {

@@ -1,6 +1,36 @@
 
 import Foundation
 
+struct TransformDiffItem {
+    let diffItem: DiffItem
+    var sectionTitle: String?
+    let lineNumber: Int?
+    var transformMoveInfo: TransformMoveInfo?
+}
+
+struct TransformMoveInfo {
+    let moveInfo: DiffMoveInfo
+    var groupedIndex: Int?
+    var moveDistance: TransformMoveDistance?
+}
+
+//eventually used to power "Moved [down/up] n lines / Moved [down/up] n sections" text in diff
+enum TransformMoveDistance {
+    case line(amount: Int)
+    case section(amount: Int)
+}
+
+struct TransformSectionInfo {
+    
+    struct Side {
+        let title: String
+        let order: Int
+    }
+    
+    let from: Side?
+    let to: Side?
+}
+
 enum DiffError: Error {
     case generateUrlFailure
     case missingDiffResponseFailure
@@ -8,16 +38,11 @@ enum DiffError: Error {
     case fetchRevisionIDFailure
     case noPreviousRevisionID
     case unrecognizedHardcodedIdsForIntermediateCounts
+    case failureTransformingNetworkModels
     
     var localizedDescription: String {
         return CommonStrings.genericErrorDescription
     }
-}
-
-//eventually used to power "Moved [down/up] n lines / Moved [down/up] n sections" text in diff
-enum MoveDistance {
-    case line(amount: Int)
-    case section(amount: Int, name: String)
 }
 
 class DiffController {
@@ -110,30 +135,182 @@ class DiffController {
     
     private func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
-        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
-
+        let queue = DispatchQueue.global(qos: .userInitiated)
+        
+        queue.async { [weak self] in
             guard let self = self else { return }
+            
+            do {
 
-            switch result {
-            case .success(var diffResponse):
-
+            let url = Bundle.main.url(forResource: "test", withExtension: "json")!
+            let data = try Data(contentsOf: url)
+            let diffResponse = try JSONDecoder().decode(DiffResponse.self, from: data)
+                
                 let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
-                self.hardCodeSectionInfo(into: &diffResponse, toRevisionID: toRevisionId)
-                self.populateDeletedMovedSectionTitlesAndLineNumbers(into: &diffResponse)
-                let moveDistances = self.moveDistanceOfMoveItems(from: diffResponse)
+                let transformSectionInfo = self.transformSectionInfosOfItems(from: diffResponse)
+                let transformDiffItems = self.transformDiffItemsWithPopulatedLineNumbers(from: diffResponse)
+                
+                guard let populatedTransformDiffItems = self.populateAdditionalSectionAndMoveInfo(transformSectionInfo: transformSectionInfo, transformDiffItems: transformDiffItems, groupedMoveIndexes: groupedMoveIndexes) else {
+                    completion(.failure(DiffError.failureTransformingNetworkModels))
+                    return
+                }
+                
                 switch self.type {
                 case .single:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
+                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
 
                     completion(.success(response))
                 case .compare:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
+                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
                     completion(.success(response))
                 }
-            case .failure(let error):
+                
+            } catch (let error) {
                 completion(.failure(error))
             }
         }
+        
+//        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
+//
+//            guard let self = self else { return }
+//
+//            switch result {
+//            case .success(let diffResponse):
+//
+//                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
+//                let transformSectionInfo = self.transformSectionInfosOfItems(from: diffResponse)
+//                let transformDiffItems = self.transformDiffItemsWithPopulatedLineNumbers(from: diffResponse)
+//                
+//                guard let populatedTransformDiffItems = self.populateAdditionalSectionAndMoveInfo(transformSectionInfo: transformSectionInfo, transformDiffItems: transformDiffItems, groupedMoveIndexes: groupedMoveIndexes) else {
+//                    completion(.failure(DiffError.failureTransformingNetworkModels))
+//                    return
+//                }
+//                
+//                switch self.type {
+//                case .single:
+//                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
+//
+//                    completion(.success(response))
+//                case .compare:
+//                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
+//                    completion(.success(response))
+//                }
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+    }
+    
+    private func populateAdditionalSectionAndMoveInfo(transformSectionInfo: [TransformSectionInfo], transformDiffItems: [TransformDiffItem], groupedMoveIndexes: [String: Int]) -> [TransformDiffItem]? {
+        
+        guard transformDiffItems.count == transformSectionInfo.count,
+            transformDiffItems.count == transformDiffItems.count else {
+            assertionFailure("Expecting section info count to equal number of diff items")
+            return nil
+        }
+        
+        var newItems: [TransformDiffItem] = []
+        let zipped = zip(transformDiffItems, transformSectionInfo)
+        
+        let movedItems = transformDiffItems.filter { $0.diffItem.type == .moveSource || $0.diffItem.type == .moveDestination }
+        var correspondingMoveItems: [String: DiffItem] = [:]
+        for item in movedItems {
+            if let linkId = item.diffItem.moveInfo?.linkId {
+                correspondingMoveItems[linkId] = item.diffItem
+            }
+        }
+        
+        for var zippedItem in zipped {
+            
+            zippedItem.0.sectionTitle = zippedItem.1.to?.title ?? zippedItem.1.from?.title
+            
+            if let moveInfo = zippedItem.0.diffItem.moveInfo {
+                
+                let groupedIndex = groupedMoveIndexes[moveInfo.id]
+                
+                var moveDistance: TransformMoveDistance? = nil
+                if let fromSectionTitle = zippedItem.1.from?.title,
+                    let toSectionTitle = zippedItem.1.to?.title,
+                    let fromSectionOrder = zippedItem.1.from?.order,
+                    let toSectionOrder = zippedItem.1.to?.order {
+                        
+                    switch (fromSectionTitle == toSectionTitle, fromSectionOrder != toSectionOrder) {
+                        
+                        case (false, false):
+                            moveDistance = .section(amount: abs(fromSectionOrder - toSectionOrder))
+                        default:
+                        //fallback to line numbers
+                            if let correspondingMoveItem = correspondingMoveItems[moveInfo.id],
+                                let firstLineNumber = zippedItem.0.lineNumber,
+                                let nextLineNumber = correspondingMoveItem.lineNumber {
+                                moveDistance = .line(amount: abs(firstLineNumber - nextLineNumber))
+                            }
+                    }
+                }
+                
+                let transformMoveInfo = TransformMoveInfo(moveInfo: moveInfo, groupedIndex: groupedIndex, moveDistance: moveDistance)
+                zippedItem.0.transformMoveInfo = transformMoveInfo
+            }
+            
+            newItems.append(zippedItem.0)
+        }
+        
+        return newItems
+    }
+    
+    private func transformSectionInfosOfItems(from response: DiffResponse) -> [TransformSectionInfo] {
+        
+        var result: [TransformSectionInfo] = []
+        
+        var fromSections = response.from.sections
+        var toSections = response.to.sections
+        
+        let fromIsEmpty = fromSections.isEmpty
+        let toIsEmpty = toSections.isEmpty
+        
+        var lastFrom: DiffSection? = nil
+        var lastTo: DiffSection? = nil
+        
+        var lastFromIndex = -1
+        var lastToIndex = -1
+        
+        var currentFrom = fromSections.first
+        var currentTo = toSections.first
+        
+        for item in response.diff {
+            
+            //from side
+            var fromSide: TransformSectionInfo.Side?
+            while !fromIsEmpty &&
+            currentFrom!.offset <= item.offset.from {
+                
+                    lastFrom = fromSections.removeFirst()
+                    lastFromIndex = lastFromIndex + 1
+                    currentFrom = fromSections.first
+            }
+            
+            if let lastFrom = lastFrom {
+                fromSide = TransformSectionInfo.Side(title: lastFrom.title, order: lastFromIndex)
+            }
+            
+            //to side
+            var toSide: TransformSectionInfo.Side?
+            while !toIsEmpty &&
+            currentTo!.offset <= item.offset.to {
+                
+                    lastTo = toSections.removeFirst()
+                    lastToIndex = lastToIndex + 1
+                    currentTo = toSections.first
+            }
+            
+            if let lastTo = lastTo {
+                toSide = TransformSectionInfo.Side(title: lastTo.title, order: lastToIndex)
+            }
+            
+            result.append(TransformSectionInfo(from: fromSide, to: toSide))
+        }
+        
+        return result
     }
     
     private func groupedIndexesOfMoveItems(from response: DiffResponse) -> [String: Int] {
@@ -161,200 +338,56 @@ class DiffController {
         return result
     }
     
-    private func moveDistanceOfMoveItems(from response: DiffResponse) -> [String: MoveDistance] {
-        let movedItems = response.diff.filter { $0.type == .moveSource || $0.type == .moveDestination }
+    private func transformDiffItemsWithPopulatedLineNumbers(from response: DiffResponse) -> [TransformDiffItem] {
         
-        guard let sectionInfoArray = response.sectionInfo,
-            !sectionInfoArray.isEmpty else {
-                return [:]
-        }
+        var items: [TransformDiffItem] = []
         
-        var correspondingMoveItems: [String: DiffItem] = [:]
-        for item in movedItems {
-            if let linkId = item.moveInfo?.linkId {
-                correspondingMoveItems[linkId] = item
-            }
-        }
-        
-        var result: [String: MoveDistance] = [:]
-        for item in movedItems {
-            if let id = item.moveInfo?.id,
-                let linkId = item.moveInfo?.linkId,
-                let correspondingItem = correspondingMoveItems[id] {
-                
-                if let sectionInfoIndex = item.sectionInfoIndex,
-                    let correspondingSectionInfoIndex = correspondingItem.sectionInfoIndex,
-                    let sectionInfo = sectionInfoArray[safeIndex: sectionInfoIndex],
-                    let correspondingSectionInfo = sectionInfoArray[safeIndex: correspondingSectionInfoIndex] {
-                    
-                    let numSectionsTraversed = abs(correspondingSectionInfo.location - sectionInfo.location)
-                    if numSectionsTraversed > 0 {
-                        
-                        let sectionMoveDistance = MoveDistance.section(amount: numSectionsTraversed, name: correspondingSectionInfo.title)
-                        
-                        if result[id] == nil && result[linkId] == nil {
-                            result[id] = sectionMoveDistance
-                            result[linkId] = sectionMoveDistance
-                        }
-                        
-                        continue
-                    }
-                }
-                
-                if let lineNumber = item.lineNumber,
-                    let correspondingLineNumber = correspondingItem.lineNumber {
-                    
-                    let lineNumbersTraversed = abs(lineNumber - correspondingLineNumber)
-                    if lineNumbersTraversed > 0 {
-                        
-                        let lineNumberMoveDistance = MoveDistance.line(amount: lineNumbersTraversed)
-                        result[id] = lineNumberMoveDistance
-                        result[linkId] = lineNumberMoveDistance
-                    }
-                }
-            }
-        }
-        
-        return result
-    }
-    
-    private func hardCodeSectionInfo(into response: inout DiffResponse, toRevisionID: Int) {
-        if toRevisionID == 399777 {
-            response.sectionInfo = [
-                SectionInfo(title: "==Taxonomy==", location: 1),
-                SectionInfo(title: "==Biology==", location: 2),
-                SectionInfo(title: "===Senses===", location: 3)
-//                SectionInfo(title: "====Vision====", location: 4),
-//                SectionInfo(title: "===='''Hearing'''====", location: 5),
-//                SectionInfo(title: "====Smell====", location: 6),
-//                SectionInfo(title: "===Physical characteristics===", location: 7),
-//                SectionInfo(title: "====Coat====", location: 8),
-//                SectionInfo(title: "===Types and breeds===", location: 9),
-//                SectionInfo(title: "== See also ==", location: 10),
-//                SectionInfo(title: "==See also (as well)==", location: 11),
-//                SectionInfo(title: "==References==", location: 12),
-//                SectionInfo(title: "==Bibliography==", location: 13),
-//                SectionInfo(title: "==Further reading==", location: 14),
-//                SectionInfo(title: "== External links ==", location: 15),
-            ]
-            
-            var newItems: [DiffItem] = []
-            for (diffIndex, var item) in response.diff.enumerated() {
-                switch diffIndex {
-                case 0, 1, 4, 5: item.sectionInfoIndex = 0
-                case 6, 7, 8, 9, 10: item.sectionInfoIndex = 1
-                case 11: item.sectionInfoIndex = 2
-                default:
-                    break
-                }
-                
-                newItems.append(item)
-            }
-            
-            response.diff = newItems
-        } else if toRevisionID == 392751 {
-            //only intro (before any sections) changed on this one so not hardcoding any section info
-        }
-    }
-    
-    private func populateDeletedMovedSectionTitlesAndLineNumbers(into response: inout DiffResponse) {
-        
-        //We have some unknown sections and line numbers from the endpoint (deleted lines and moved paragraph sources, since they have no current place in the document). Fuzzying the logic here - propogating previous section infos and line numbers forward.
-        
-        var lastSectionInfoIndex: Int?
         var lastLineNumber: Int?
-        
-        var newItems: [DiffItem] = []
-        for var item in response.diff {
+        for item in response.diff {
             
-            if let sectionInfoIndex = item.sectionInfoIndex {
-                lastSectionInfoIndex = sectionInfoIndex
-            } else {
-                item.sectionInfoIndex = lastSectionInfoIndex
-            }
-            
+            let transformDiffItem: TransformDiffItem
             if let lineNumber = item.lineNumber {
                 lastLineNumber = lineNumber
+                transformDiffItem = TransformDiffItem(diffItem: item, sectionTitle: nil, lineNumber: lineNumber, transformMoveInfo: nil)
             } else {
-                item.lineNumber = lastLineNumber
+                transformDiffItem = TransformDiffItem(diffItem: item, sectionTitle: nil, lineNumber: lastLineNumber, transformMoveInfo: nil)
             }
             
-            newItems.append(item)
+            items.append(transformDiffItem)
         }
         
-        response.diff = newItems
-        
-        //tonitodo: finish better logic, popualte section infos only if surrounded by items with the same section infos
-        //test: if a section heading is deleted or moved, how does this handle?
-        /*
-         
-         var lastSectionInfo: Int?
-         var missingSectionTitleItems: [DiffItem] = []
-         
-         var newItems: [DiffItem] = []
-         for var item in response.diff {
-             
-             if let sectionInfoIndex = item.sectionInfoIndex {
-                 
-                 if let lastSectionInfo = lastSectionInfo,
-                     !missingSectionTitleItems.isEmpty,
-                     sectionInfoIndex == lastSectionInfo {
-                     //populate missing section title items & clean out
-                     
-                     for var item in missingSectionTitleItems {
-                         item.sectionInfoIndex = lastSectionInfo
-                     }
-                     
-                     missingSectionTitleItems.removeAll()
-                 }
-                    
-                 
-                 lastSectionInfo = sectionInfoIndex
-             } else {
-                 if lastSectionInfo != nil {
-                     //start gathering items with missing section titles
-                     missingSectionTitleItems.append(item)
-                 }
-             }
-             
-             newItems.append(item)
-         }
-         
-         response.diff = newItems
-         */
+        return items
     }
     
-    private func viewModelsForSingle(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance]) -> [DiffListGroupViewModel] {
+    private func viewModelsForSingle(from transformDiffItems: [TransformDiffItem], theme: Theme, traitCollection: UITraitCollection) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
-        var sectionItems: [DiffItem] = []
-        var lastItem: DiffItem?
+        var sectionItems: [TransformDiffItem] = []
+        var lastItem: TransformDiffItem?
 
         let packageUpSectionItemsIfNeeded = {
             
             if sectionItems.count > 0 {
                 //package contexts up into change view model, append to result
                 
-                let changeType: DiffListChangeType = .singleRevison
-                
-                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo)
+                let changeViewModel = DiffListChangeViewModel(type: .singleRevison, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection)
                 result.append(changeViewModel)
                 sectionItems.removeAll()
             }
             
         }
         
-        for item in response.diff {
+        for item in transformDiffItems {
 
             
-            if item.type == .context {
+            if item.diffItem.type == .context {
                 
                 continue
                 
             } else {
                 
-                if item.sectionInfoIndex != lastItem?.sectionInfoIndex {
+                if item.sectionTitle != lastItem?.sectionTitle {
                     packageUpSectionItemsIfNeeded()
                 }
                 
@@ -371,13 +404,13 @@ class DiffController {
         return result
     }
         
-    private func viewModelsForCompare(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance]) -> [DiffListGroupViewModel] {
+    private func viewModelsForCompare(from transformDiffItems: [TransformDiffItem], theme: Theme, traitCollection: UITraitCollection) -> [DiffListGroupViewModel] {
         
         var result: [DiffListGroupViewModel] = []
         
-        var contextItems: [DiffItem] = []
-        var changeItems: [DiffItem] = []
-        var lastItem: DiffItem?
+        var contextItems: [TransformDiffItem] = []
+        var changeItems: [TransformDiffItem] = []
+        var lastItem: TransformDiffItem?
         
         let packageUpContextItemsIfNeeded = {
             
@@ -394,22 +427,14 @@ class DiffController {
             if changeItems.count > 0 {
                 //package contexts up into change view model, append to result
                 
-                let changeType: DiffListChangeType
-                switch type {
-                case .compare:
-                    changeType = .compareRevision
-                default:
-                    changeType = .singleRevison
-                }
-                
-                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo)
+                let changeViewModel = DiffListChangeViewModel(type: .compareRevision, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection)
                 result.append(changeViewModel)
                 changeItems.removeAll()
             }
             
         }
         
-        for item in response.diff {
+        for item in transformDiffItems {
             
             if let lastItemLineNumber = lastItem?.lineNumber,
                 let currentItemLineNumber = item.lineNumber {
@@ -425,7 +450,7 @@ class DiffController {
                 }
             }
             
-            if item.type == .context {
+            if item.diffItem.type == .context {
                 
                 packageUpChangeItemsIfNeeded()
                 

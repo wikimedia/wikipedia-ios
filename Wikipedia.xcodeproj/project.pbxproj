@@ -184,6 +184,11 @@
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A82280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		677E49B222A03859002D40D6 /* LanguageLinkNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */; };
+		6780D5B4237A1F490087A5D1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* test.json */; };
+		6780D5B5237A1F490087A5D1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* test.json */; };
+		6780D5B6237A1F490087A5D1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* test.json */; };
+		6780D5B7237A1F490087A5D1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* test.json */; };
+		6780D5B8237A1F490087A5D1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* test.json */; };
 		6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF442264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF452264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
@@ -312,11 +317,6 @@
 		6789FA3122E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA3222E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
-		678D79E6235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
-		678D79E7235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
-		678D79E8235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
-		678D79E9235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
-		678D79EA235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */; };
 		678D79EB235E5959006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
 		678D79EC235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
 		678D79ED235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
@@ -3965,6 +3965,7 @@
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		677670B12320C42D00F2A194 /* WMFLoadingFlowControllerProtocols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLoadingFlowControllerProtocols.h; sourceTree = "<group>"; };
 		677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageLinkNamespace.swift; sourceTree = "<group>"; };
+		6780D5B3237A1F480087A5D1 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		6780DF422264265400D9069D /* RemoteSubHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSubHandler.swift; sourceTree = "<group>"; };
 		6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffContainerViewController.swift; sourceTree = "<group>"; };
 		6782DB9C2343B7DB003FA21B /* DiffHeaderTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderTitleView.swift; sourceTree = "<group>"; };
@@ -3989,7 +3990,6 @@
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
 		6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPage+Extensions.swift"; sourceTree = "<group>"; };
 		678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeItemViewModel.swift; sourceTree = "<group>"; };
-		678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListItemHighlightRange.swift; sourceTree = "<group>"; };
 		678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeViewModel.swift; sourceTree = "<group>"; };
 		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
@@ -6641,6 +6641,7 @@
 		6782DB8F2343B691003FA21B /* Diff */ = {
 			isa = PBXGroup;
 			children = (
+				6780D5B3237A1F480087A5D1 /* test.json */,
 				67CEF26E2351113000D5CA6C /* DiffController.swift */,
 				6782DBDF2344F154003FA21B /* List */,
 				6782DBDE2344F147003FA21B /* Header */,
@@ -6694,7 +6695,6 @@
 			children = (
 				6782DBD22343FE03003FA21B /* DiffListGroupViewModel.swift */,
 				678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */,
-				678D79E5235E594E006161FF /* DiffListItemHighlightRange.swift */,
 				678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */,
 				678D79F5235E599B006161FF /* DiffListContextViewModel.swift */,
 				678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */,
@@ -10150,6 +10150,7 @@
 				6782DC172347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */,
 				7A393286236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
+				6780D5B4237A1F490087A5D1 /* test.json in Resources */,
 				6782DBEA23453787003FA21B /* DiffHeaderEditorView.xib in Resources */,
 				B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				67E06919223B32DF008550AC /* FocusNavigationView.xib in Resources */,
@@ -10274,6 +10275,7 @@
 				7A71567722697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */,
 				D80ED3FA1EE57F4800CE8C50 /* WMFReferencePanels.storyboard in Resources */,
 				D80ED3FB1EE57F4800CE8C50 /* Places.storyboard in Resources */,
+				6780D5B8237A1F490087A5D1 /* test.json in Resources */,
 				83023C0F20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D80ED3FD1EE57F4800CE8C50 /* WMFAccountCreationViewController.storyboard in Resources */,
 				D80ED3FE1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon.png in Resources */,
@@ -10435,6 +10437,7 @@
 				D8A42BEE1E815A9C00D8E281 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8A42BF11E815A9C00D8E281 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D8A42BF41E815A9C00D8E281 /* WMFTableOfContentsHeader.xib in Resources */,
+				6780D5B7237A1F490087A5D1 /* test.json in Resources */,
 				D8A42BF71E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C61FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D8A42BF91E815A9C00D8E281 /* TSMessagesDefaultDesign.json in Resources */,
@@ -10557,6 +10560,7 @@
 				D8CE26751E698E2400DAE2E0 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8CE26781E698E2400DAE2E0 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D8CE267B1E698E2400DAE2E0 /* WMFTableOfContentsHeader.xib in Resources */,
+				6780D5B5237A1F490087A5D1 /* test.json in Resources */,
 				D8CE267E1E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C41FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D8CE26801E698E2400DAE2E0 /* TSMessagesDefaultDesign.json in Resources */,
@@ -10679,6 +10683,7 @@
 				D8EC3F751E9BDA35006712EB /* WMFSettingsTableViewCell.xib in Resources */,
 				D8EC3F781E9BDA35006712EB /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D8EC3F7B1E9BDA35006712EB /* WMFTableOfContentsHeader.xib in Resources */,
+				6780D5B6237A1F490087A5D1 /* test.json in Resources */,
 				D8EC3F7E1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C51FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D8EC3F801E9BDA35006712EB /* TSMessagesDefaultDesign.json in Resources */,
@@ -11342,7 +11347,6 @@
 				832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				67F73E712267B8020079DEEF /* TalkPageTopicListViewController.swift in Sources */,
 				7A19C64820DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
-				678D79E6235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				6782DBD32343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67059DB52260D034009811AA /* SchemeHandler.swift in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
@@ -11786,7 +11790,6 @@
 				8382F8D720D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				7A82899021B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07E226A57DF00537BC9 /* AccountViewController.swift in Sources */,
-				678D79EA235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				7A32078C21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				8304D7C41F60131900A0CDD6 /* WMFWebView.m in Sources */,
@@ -12611,7 +12614,6 @@
 				D8A42B161E815A9C00D8E281 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
-				678D79E9235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				6734116722739CCC005B31DA /* TalkPageLocalHandler.swift in Sources */,
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
@@ -13017,7 +13019,6 @@
 				B0CD9DE01F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				7A82898D21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */,
-				678D79E7235E594E006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				7A32078921E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
@@ -13461,7 +13462,6 @@
 				D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */,
 				7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */,
-				678D79E8235E594F006161FF /* DiffListItemHighlightRange.swift in Sources */,
 				7A32078A21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */,
