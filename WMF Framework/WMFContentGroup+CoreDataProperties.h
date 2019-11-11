@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t contentGroupKindInteger;
 @property (nonatomic) int16_t contentTypeInteger;
 
-@property (nonatomic) BOOL isVisible; // isVisible in the explore feed
-@property (nonatomic) BOOL wasDismissed; // wasDismissed by the user
+@property (nonatomic) BOOL isVisible;
+@property (nonatomic) BOOL wasDismissed;
 
 @property (nullable, nonatomic, copy) NSArray<id<NSCoding>> *content DEPRECATED_ATTRIBUTE; // use contentPreview for feed card content and fullContent for detail view content
 @property (nullable, nonatomic, copy) id<NSCoding> contentPreview;

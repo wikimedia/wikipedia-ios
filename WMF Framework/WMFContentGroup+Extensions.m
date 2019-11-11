@@ -535,12 +535,9 @@
     }
 
     if (!announcement.startTime || !announcement.endTime) {
-        markInvisible();
-        return;
-    }
-    
-    if ([announcement.placement isEqualToString:@"article"]) { // exclude article announcements from the feed by marking them invisible
-        markInvisible();
+        if (self.isVisible) {
+            self.isVisible = NO;
+        }
         return;
     }
 
@@ -681,10 +678,6 @@
 
 - (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind {
     return [self newestGroupOfKind:kind requireIsVisible:NO];
-}
-
-- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
-    return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:NO];
 }
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
