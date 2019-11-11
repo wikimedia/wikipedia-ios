@@ -202,6 +202,7 @@
             <fetchIndexElement property="midnightUTCDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="dailySortPriority" type="Binary" order="ascending"/>
             <fetchIndexElement property="date" type="Binary" order="ascending"/>
+            <fetchIndexElement property="placement" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="compoundIndex1">
             <fetchIndexElement property="contentGroupKindInteger" type="Binary" order="ascending"/>
