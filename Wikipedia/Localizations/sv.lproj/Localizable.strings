@@ -494,7 +494,6 @@
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
 "page-edit-history" = "Full redigeringshistorik";
-"page-history-title" = "Artikelhistorik";
 "page-issues" = "Sidproblem";
 "page-last-edited" = "Redigerades {{PLURAL:$1|0=idag|1=igår|för $1 dygn sedan}}";
 "page-location" = "Visa på en karta";

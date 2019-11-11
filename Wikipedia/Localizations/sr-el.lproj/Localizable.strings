@@ -425,7 +425,6 @@
 "on-this-day-title" = "Na današnji dan";
 "original-tab-button-popover-description" = "Dodirnite „W” da biste se vratili na početnu karticu";
 "page-edit-history" = "Celokupna istorija izmena";
-"page-history-title" = "Istorija članka";
 "page-issues" = "Problemi sa stranicom";
 "page-last-edited" = "{{PLURAL:$1|0=Uređeno danas|1=Uređeno juče|Uređeno pre $1 dana}}";
 "page-location" = "Prikaži na mapi";

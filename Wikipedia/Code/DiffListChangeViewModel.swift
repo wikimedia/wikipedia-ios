@@ -58,7 +58,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance], sectionInfo: [SectionInfo]?) {
+    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance], sectionInfo: [SectionInfo]?, semanticContentAttribute: UISemanticContentAttribute) {
         
         self.type = type
         self.theme = theme
@@ -83,7 +83,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             
             //passing in next middle item to avoid double-space calculations for moved items
             let nextItem: DiffItem? = diffItems[safeIndex: index + 1]
-            let changeItemViewModel = DiffListChangeItemViewModel(item: diffItem, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItem.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, nextMiddleItem: nextItem)
+            let changeItemViewModel = DiffListChangeItemViewModel(item: diffItem, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItem.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, nextMiddleItem: nextItem, semanticContentAttribute: semanticContentAttribute)
             itemViewModels.append(changeItemViewModel)
         }
         

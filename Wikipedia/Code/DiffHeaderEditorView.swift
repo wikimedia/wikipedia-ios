@@ -77,6 +77,9 @@ private extension DiffHeaderEditorView {
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedUserWithSender(_:)))
+        
+        let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+        numberOfEditsLabel.textAlignment = isRTL ? .left : .right
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {

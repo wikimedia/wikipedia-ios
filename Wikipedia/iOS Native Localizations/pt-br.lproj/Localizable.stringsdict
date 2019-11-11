@@ -34,6 +34,134 @@
 			<string>artigos eliminados</string>
 		</dict>
 	</dict>
+	<key>diff-compare-header-subtitle-num-revisions</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d revisão intermediária</string>
+			<key>other</key>
+			<string>%1$d revisões intermediárias</string>
+		</dict>
+	</dict>
+	<key>diff-compare-header-subtitle-num-users</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d usuário</string>
+			<key>other</key>
+			<string>%1$d usuários</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-line</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d linha</string>
+			<key>other</key>
+			<string>%1$d linhas</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-section</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d seção</string>
+			<key>other</key>
+			<string>%1$d seções</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d edição</string>
+			<key>other</key>
+			<string>%1$d edições</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d byte adicionado</string>
+			<key>other</key>
+			<string>%1$d bytes adicionados</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-removed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d byte removido</string>
+			<key>other</key>
+			<string>%1$d bytes removidos</string>
+		</dict>
+	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d linha não editada</string>
+			<key>other</key>
+			<string>%1$d linhas não editadas</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -64,6 +192,38 @@
 			<string>%1$d evento histórico</string>
 			<key>other</key>
 			<string>%1$d eventos históricos</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-addition</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Adicionado %1$d byte</string>
+			<key>other</key>
+			<string>Adicionado %1$d bytes</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-subtraction</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Removido %1$d byte</string>
+			<key>other</key>
+			<string>Removido %1$d bytes</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
