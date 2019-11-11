@@ -7,6 +7,7 @@ public class AlignedImageButton: UIButton {
     public override func layoutSubviews() {
         super.layoutSubviews()
         if isFirstLayout {
+            updateSemanticContentAttribute()
             adjustInsets()
             isFirstLayout = false
         }
@@ -60,10 +61,10 @@ public class AlignedImageButton: UIButton {
         layoutDirection = traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
         if imageIsRightAligned {
             if layoutDirection == .leftToRight {
-                semanticContentAttribute = .forceRightToLeft
+                semanticContentAttribute = .forceLeftToRight
                 imageView?.semanticContentAttribute = .forceLeftToRight
             } else {
-                semanticContentAttribute = .forceLeftToRight
+                semanticContentAttribute = .forceRightToLeft
                 imageView?.semanticContentAttribute = .forceRightToLeft
             }
         } else {
