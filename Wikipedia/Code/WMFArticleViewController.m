@@ -2130,8 +2130,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }];
     if (peekVC && [peekVC isKindOfClass:[WMFArticlePeekPreviewViewController class]]) {
         WMFArticlePeekPreviewViewController *peekPreviewVC = (WMFArticlePeekPreviewViewController *)peekVC;
+        __block BOOL didCallCompletion = false;
+        NSTimeInterval completionTimeout = 0.5;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(completionTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (!didCallCompletion) {
+                completionHandler(config);
+                didCallCompletion = true;
+            }
+        });
         [peekPreviewVC fetchArticle:^{
-            completionHandler(config);
+            assert([NSThread isMainThread]);
+            if (!didCallCompletion) {
+                completionHandler(config);
+                didCallCompletion = true;
+            }
         }];
     } else {
         completionHandler(config);
