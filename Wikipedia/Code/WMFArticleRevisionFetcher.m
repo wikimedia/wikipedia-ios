@@ -8,10 +8,13 @@
 @implementation WMFArticleRevisionFetcher
 
 - (NSURLSessionTask *)fetchLatestRevisionsForArticleURL:(NSURL *)articleURL
+                                           articleTitle: (NSString *)articleTitle
                                             resultLimit:(NSUInteger)numberOfResults
-                                     endingWithRevision:(NSNumber *)revisionId
+                                   startingWithRevision:(NSNumber *)startRevisionId
+                                     endingWithRevision:(NSNumber *)endRevisionId
                                                 failure:(WMFErrorHandler)failure
                                                 success:(WMFSuccessIdHandler)success {
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{
                                                                                         @"format": @"json",
                                                                                         @"continue": @"",
@@ -19,14 +22,23 @@
                                                                                         @"action": @"query",
                                                                                         @"prop": @"revisions",
                                                                                         @"redirects": @1,
-                                                                                        @"titles": articleURL.wmf_title,
                                                                                         @"rvlimit": @(numberOfResults),
                                                                                         @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
                                                                                         //@"pilicense": @"any"
                                                                                         }];
     
-    if (revisionId != nil) {
-        parameters[@"rvendid"] = revisionId;
+    if (articleTitle != nil) {
+        parameters[@"titles"] = articleTitle;
+    } else {
+        parameters[@"titles"] = articleURL.wmf_title;
+    }
+    
+    if (startRevisionId != nil) {
+        parameters[@"rvstartid"] = startRevisionId;
+    }
+    
+    if (endRevisionId != nil) {
+        parameters[@"rvendid"] = endRevisionId;
     }
     return [self performMediaWikiAPIGETForURL:articleURL withQueryParameters:[parameters copy] completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {

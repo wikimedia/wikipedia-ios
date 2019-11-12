@@ -509,7 +509,6 @@
 "on-this-day-title" = "Un día como hoy";
 "original-tab-button-popover-description" = "Pulsa en la 'W' para volver a la pestaña desde la que comenzaste";
 "page-edit-history" = "Historial de edición completo";
-"page-history-title" = "Historial de página";
 "page-issues" = "Problemas de la página";
 "page-last-edited" = "\n\n{{PLURAL:$1|0=Editado hoy|1=Editado ayer|Editado hace $1 días}}";
 "page-location" = "Ver en mapa";

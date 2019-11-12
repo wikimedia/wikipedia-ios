@@ -507,7 +507,6 @@
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";
 "page-edit-history" = "すべての編集履歴";
-"page-history-title" = "記事の履歴";
 "page-issues" = "ページの問題点";
 "page-last-edited" = "{{PLURAL:$1|0=今日編集|1=昨日編集|$1日前に編集}}";
 "page-location" = "地図で見る";

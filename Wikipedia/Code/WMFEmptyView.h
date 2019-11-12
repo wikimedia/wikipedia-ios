@@ -1,9 +1,18 @@
 @import UIKit;
 @import WMF.Swift;
 
+@protocol WMFEmptyViewDelegate
+@optional
+- (void)heightChanged:(CGFloat)height;
+@end
+
 @interface WMFEmptyView : UIView <WMFThemeable>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@property (nonatomic, strong, readonly) NSString *backgroundColorKeyPath;
+
+@property (nonatomic, weak) id<WMFEmptyViewDelegate> delegate;
 
 + (instancetype)blankEmptyView;
 + (instancetype)noFeedEmptyView;
@@ -17,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noSelectedImageToInsertEmptyView;
 + (instancetype)unableToLoadTalkPageEmptyView;
 + (instancetype)emptyTalkPageEmptyView;
++ (instancetype)emptyDiffCompareEmptyView;
++ (instancetype)emptyDiffSingleEmptyView;
++ (instancetype)errorDiffEmptyView;
 
 NS_ASSUME_NONNULL_END
 

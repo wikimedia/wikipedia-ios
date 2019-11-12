@@ -62,7 +62,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let dataStore: MWKDataStore
     private(set) var controller: TalkPageController
     private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
-    private let emptyViewController = EmptyRefreshingViewController()
+    private let emptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
     private var talkPage: TalkPage? {
         didSet {
             guard let talkPage = self.talkPage else {
@@ -77,7 +77,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var introTopic: TalkPageTopic?
     private var topicListViewController: TalkPageTopicListViewController?
     private var replyListViewController: TalkPageReplyListViewController?
-    private var emptyContainerTopConstraint: NSLayoutConstraint?
     private var emptyView: WMFEmptyView?
     private var headerView: TalkPageHeaderView?
     private var addButton: UIBarButtonItem?
@@ -221,9 +220,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if let emptyContainerTopConstraint = emptyContainerTopConstraint {
-            emptyContainerTopConstraint.constant =  navigationBar.visibleHeight
-        }
+        let topInset = navigationBar.visibleHeight
+        let topEmptySpacing = view.bounds.height - toolbar.frame.minY
+        emptyViewController.centerEmptyView(topInset: topInset, topEmptyViewSpacing: topEmptySpacing)
     }
     
     override func apply(theme: Theme) {
@@ -362,10 +361,11 @@ private extension TalkPageContainerViewController {
     }
     
     func setupEmptyViewController() {
+        emptyViewController.canRefresh = true
+        emptyViewController.theme = theme
         emptyViewController.delegate = self
         emptyViewController.apply(theme: theme)
-        let constraints = addChildViewController(childViewController: emptyViewController, belowSubview: toolbar, topAnchorPadding: navigationBar.visibleHeight)
-        emptyContainerTopConstraint = constraints.top
+        let _ = addChildViewController(childViewController: emptyViewController, belowSubview: toolbar, topAnchorPadding: 0)
         emptyViewController.view.isHidden = true
     }
     
@@ -435,6 +435,7 @@ private extension TalkPageContainerViewController {
             navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
             navigationBar.title = controller.displayTitle
+           
             updateScrollViewInsets()
         }
     }
@@ -758,9 +759,13 @@ extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     }
 }
 
-//MARK: EmptyRefreshingViewControllerDelegate
+//MARK: EmptyViewControllerDelegate
 
-extension TalkPageContainerViewController: EmptyRefreshingViewControllerDelegate {
+extension TalkPageContainerViewController: EmptyViewControllerDelegate {
+    func emptyViewScrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.scrollViewDidScroll(scrollView)
+    }
+    
     func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
         fetch {
             refreshCompletion()

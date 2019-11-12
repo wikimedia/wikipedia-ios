@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiffListContextCell" id="pcl-SU-yr6" customClass="DiffListContextCell" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="581" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="JUE-et-Byw">
+                <rect key="frame" x="0.0" y="0.0" width="581" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oq0-Jd-j19">
+                        <rect key="frame" x="15" y="10" width="551" height="230"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VRz-Uv-s4m">
+                                <rect key="frame" x="0.0" y="0.0" width="551" height="250"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="29k-XH-xU4">
+                                        <rect key="frame" x="0.0" y="0.0" width="551" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKH-3d-ozT">
+                                                <rect key="frame" x="0.0" y="0.0" width="495" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="551" placeholderIntrinsicHeight="214.5" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bj9-UT-jG2">
+                                        <rect key="frame" x="0.0" y="35.5" width="551" height="214.5"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMp-XK-7tI">
+                                <rect key="frame" x="505" y="-4.5" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="tappedExpandButton:" destination="pcl-SU-yr6" eventType="touchUpInside" id="NNC-qQ-PbK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="JMp-XK-7tI" firstAttribute="leading" secondItem="GKH-3d-ozT" secondAttribute="trailing" constant="10" id="0cB-Ce-Ynn"/>
+                            <constraint firstItem="VRz-Uv-s4m" firstAttribute="leading" secondItem="oq0-Jd-j19" secondAttribute="leading" id="Fyc-CS-XOD"/>
+                            <constraint firstItem="JMp-XK-7tI" firstAttribute="firstBaseline" secondItem="GKH-3d-ozT" secondAttribute="firstBaseline" id="MyQ-Kt-la7"/>
+                            <constraint firstAttribute="height" constant="250" id="P6U-tF-0ur"/>
+                            <constraint firstItem="VRz-Uv-s4m" firstAttribute="top" secondItem="oq0-Jd-j19" secondAttribute="top" id="WRd-20-CcZ"/>
+                            <constraint firstItem="JMp-XK-7tI" firstAttribute="trailing" secondItem="VRz-Uv-s4m" secondAttribute="trailing" id="XXH-Gm-qN4"/>
+                            <constraint firstAttribute="trailing" secondItem="VRz-Uv-s4m" secondAttribute="trailing" id="maK-ok-Rrd"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="P6U-tF-0ur"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="oq0-Jd-j19" firstAttribute="top" secondItem="JUE-et-Byw" secondAttribute="top" constant="10" id="4r9-GU-ddR"/>
+                    <constraint firstAttribute="trailing" secondItem="oq0-Jd-j19" secondAttribute="trailing" constant="15" id="Nm1-2B-K91"/>
+                    <constraint firstAttribute="bottom" secondItem="oq0-Jd-j19" secondAttribute="bottom" constant="10" id="Tn7-IB-pm4"/>
+                    <constraint firstItem="oq0-Jd-j19" firstAttribute="leading" secondItem="JUE-et-Byw" secondAttribute="leading" constant="15" id="tRF-9B-sV1"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="581" height="250"/>
+            <connections>
+                <outlet property="containerStackView" destination="VRz-Uv-s4m" id="vuP-Fs-X3e"/>
+                <outlet property="contextItemStackView" destination="bj9-UT-jG2" id="HQP-io-Nk5"/>
+                <outlet property="expandButton" destination="JMp-XK-7tI" id="3fz-2n-lXX"/>
+                <outlet property="headingLabel" destination="GKH-3d-ozT" id="O19-vy-A5E"/>
+                <outlet property="innerBottomConstraint" destination="Tn7-IB-pm4" id="xNk-rT-TG8"/>
+                <outlet property="innerLeadingConstraint" destination="tRF-9B-sV1" id="nab-iq-Zi9"/>
+                <outlet property="innerTopConstraint" destination="4r9-GU-ddR" id="WVz-Cg-RuS"/>
+                <outlet property="innerTrailingConstraint" destination="Nm1-2B-K91" id="1GE-ba-Zpb"/>
+            </connections>
+            <point key="canvasLocation" x="255.79710144927537" y="42.857142857142854"/>
+        </collectionViewCell>
+    </objects>
+</document>
