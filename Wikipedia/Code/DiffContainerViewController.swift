@@ -20,6 +20,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
     private var headerTitleView: DiffHeaderTitleView?
     private var scrollingEmptyViewController: EmptyViewController?
     private var diffListViewController: DiffListViewController?
+    private var diffToolbarView: DiffToolbarView?
     private let diffController: DiffController
     private let fromModel: WMFPageHistoryRevision?
     private let toModel: WMFPageHistoryRevision
@@ -74,6 +75,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         super.viewDidLoad()
         
         setupHeaderViewIfNeeded()
+        setupToolbarIfNeeded()
         setupDiffListViewControllerIfNeeded()
         fetchIntermediateCountIfNeeded()
         apply(theme: theme)
@@ -81,124 +83,6 @@ class DiffContainerViewController: ViewController, HintPresenting {
         fetchDiff()
         fetchEditCountIfNeeded()
         
-    }
-    
-    @objc func arrowDownButtonTapped(_ : UIBarButtonItem) {
-
-        guard let fromModel = fromModel else {
-            assertionFailure("fromModel needs to be populated at this point before user attempts to go further back in history")
-            return
-        }
-        
-        //note DiffContainerViewController knows how to determine a fromModel on it's own. Hence why we don't care if previousRevision is null here, this is just an optimization.
-        let previousRevision = revisionDelegate?.retrievePreviousRevision(with: fromModel)
-        
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: fromModel.revisionSize), fromModel: previousRevision, toModel: fromModel, theme: theme, revisionDelegate: revisionDelegate)
-        wmf_push(singleDiffVC, animated: true)
-        
-    }
-    
-    @objc func arrowUpButtonTapped(_ : UIBarButtonItem) {
-        
-        //note because we aren't filtering in History yet, PageHistoryViewController should always be able to tell us the next revision. If filtering is implemented this method will fail, and we will need to have DiffContainerViewController know how to handle a situation where fromModel is populated but toModel is not (that is, hide header & list, fetch next toModel & diff, then show header & list)
-        guard let nextRevision = revisionDelegate?.retrieveNextRevision(with: toModel) else {
-            assertionFailure("Unable to determine next revision. Perhaps user tapped the latest revision in history? Up arrow should be disabled in this case.")
-            return
-        }
-        
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextRevision.revisionSize), fromModel: toModel, toModel: nextRevision, theme: theme, revisionDelegate: revisionDelegate)
-        wmf_push(singleDiffVC, animated: true)
-    }
-
-    lazy var arrowDownButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(named:"chevron-down"), style: .plain, target: self, action: #selector(arrowDownButtonTapped))
-        guard let fromModel = fromModel, let previousRevision = revisionDelegate?.retrievePreviousRevision(with: fromModel) else {
-            item.isEnabled = false
-            return item
-        }
-        return item
-    }()
-
-    lazy var arrowUpButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(named:"chevron-up"), style: .plain, target: self, action: #selector(arrowUpButtonTapped))
-        guard let nextRevision = revisionDelegate?.retrieveNextRevision(with: toModel) else {
-            item.isEnabled = false
-            return item
-        }
-        return item
-    }()
-
-    lazy var shareButton: UIBarButtonItem = {
-        return UIBarButtonItem(image: UIImage(named:"share"), style: .plain, target: self, action: #selector(shareButtonTapped))
-    }()
-
-    lazy var smileButton: UIBarButtonItem = {
-        return UIBarButtonItem(image: UIImage(named:"diff-smile"), style: .plain, target: self, action: #selector(smileButtonTapped))
-    }()
-
-    lazy var smileButtonFilled: UIBarButtonItem = {
-        return UIBarButtonItem(image: UIImage(named:"diff-smile-filled"), style: .plain, target: self, action: #selector(filledSmileButtonTapped))
-    }()
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.isToolbarHidden = true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        switch type {
-        case .single:
-            self.navigationController?.isToolbarHidden = false
-            updateToolbarItems(thankButton: smileButton)
-            break
-        case .compare:
-            break
-        }
-    }
-
-    private func updateToolbarItems(thankButton: UIBarButtonItem) {
-        self.toolbarItems = [
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 15),
-            arrowUpButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 10),
-            arrowDownButton,
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            thankButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 15),
-            shareButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 15)
-        ]
-    }
-
-    @objc func filledSmileButtonTapped(_ : UIBarButtonItem) {
-        self.show(hintViewController: AuthorAlreadyThankedHintVC())
-    }
-    
-    @objc func smileButtonTapped(_ : UIBarButtonItem) {
-        guard !toModel.isAnon else {
-            self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
-            return
-        }
-        guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {
-                self.apply(theme: self.theme)
-            }, loginDismissedCompletion: nil)
-            return
-        }
-
-        guard !UserDefaults.wmf.wmf_didShowThankRevisionAuthorEducationPanel() else {
-            thankRevisionAuthor()
-            return
-        }
-
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
-            UserDefaults.wmf.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-            self.dismiss(animated: true, completion: {
-                self.thankRevisionAuthor()
-            })
-        })
     }
     
     private func fullRevisionDiffURL() -> URL? {
@@ -210,14 +94,6 @@ class DiffContainerViewController: ViewController, HintPresenting {
             URLQueryItem(name: "oldid", value: String(toModel.parentID))
         ]
         return components?.url
-    }
-    
-    @objc func shareButtonTapped(_ sender: UIButton) {
-        guard let diffURL = fullRevisionDiffURL() else {
-            assertionFailure("Couldn't get full revision diff URL")
-            return
-        }
-        present(UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()]), animated: true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -260,14 +136,11 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         view.backgroundColor = theme.colors.paperBackground
         
-        smileButton.tintColor = WMFAuthenticationManager.sharedInstance.isLoggedIn ? theme.colors.link : .gray
-        smileButtonFilled.tintColor = theme.colors.link
-        shareButton.tintColor = theme.colors.link
-        
         headerTitleView?.apply(theme: theme)
         headerExtendedView?.apply(theme: theme)
         diffListViewController?.apply(theme: theme)
         scrollingEmptyViewController?.apply(theme: theme)
+        diffToolbarView?.apply(theme: theme)
     }
 }
 
@@ -332,9 +205,14 @@ private extension DiffContainerViewController {
     }
 
     private func show(hintViewController: HintViewController){
+        
+        guard let toolbarView =  diffToolbarView else {
+            return
+        }
+        
         let showHint = {
             self.hintController = HintController(hintViewController: hintViewController)
-            self.hintController?.toggle(presenter: self, context: nil, theme: self.theme)
+            self.hintController?.toggle(presenter: self, context: nil, theme: self.theme, additionalBottomSpacing: toolbarView.toolbarHeight)
             self.hintController?.setHintHidden(false)
         }
         if let hintController = self.hintController {
@@ -357,7 +235,6 @@ private extension DiffContainerViewController {
                     switch result {
                     case .success(let result):
                         self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
-                        self.updateToolbarItems(thankButton: self.smileButtonFilled)
                     case .failure(let error as NSError):
                         self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
                     }
@@ -542,11 +419,52 @@ private extension DiffContainerViewController {
         }
     }
     
+    func setupToolbarIfNeeded() {
+        
+        switch type {
+        case .single:
+            if diffToolbarView == nil {
+                let toolbarView = DiffToolbarView(frame: .zero)
+                self.diffToolbarView = toolbarView
+                toolbarView.delegate = self
+                toolbarView.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(toolbarView)
+                let bottom = view.bottomAnchor.constraint(equalTo: toolbarView.bottomAnchor)
+                let leading = view.leadingAnchor.constraint(equalTo: toolbarView.leadingAnchor)
+                let trailing = view.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor)
+                NSLayoutConstraint.activate([bottom, leading, trailing])
+                toolbarView.apply(theme: theme)
+            }
+        default:
+            break
+        }
+        
+    }
+    
     func setupDiffListViewControllerIfNeeded() {
         if diffListViewController == nil {
             let diffListViewController = DiffListViewController(theme: theme, delegate: self, type: type)
-            wmf_add(childController: diffListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             self.diffListViewController = diffListViewController
+            
+            switch type {
+            case .single:
+                if let listView = diffListViewController.view,
+                    let toolbarView = diffToolbarView {
+                    addChild(diffListViewController)
+                    listView.translatesAutoresizingMaskIntoConstraints = false
+                    view.insertSubview(listView, belowSubview: navigationBar)
+                    let bottom = toolbarView.topAnchor.constraint(equalTo: listView.bottomAnchor)
+                    let leading = view.leadingAnchor.constraint(equalTo: listView.leadingAnchor)
+                    let trailing = view.trailingAnchor.constraint(equalTo: listView.trailingAnchor)
+                    let top = view.topAnchor.constraint(equalTo: listView.topAnchor)
+                    NSLayoutConstraint.activate([top, leading, trailing, bottom])
+                    diffListViewController.didMove(toParent: self)
+                }
+            case .compare:
+                wmf_add(childController: diffListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+            }
+            
+            
         }
     }
     
@@ -690,4 +608,92 @@ class RevisionAuthorThanksErrorHintVC: HintViewController {
         warningLabel.text = (error as NSError).alertMessage()
         warningSubtitleLabel.text = nil
     }
+}
+
+extension DiffContainerViewController: DiffToolbarViewDelegate {
+    
+    private func replaceLastAndPush(with viewController: UIViewController) {
+        if var newViewControllers = navigationController?.viewControllers {
+            newViewControllers.removeLast()
+            newViewControllers.append(viewController)
+            navigationController?.setViewControllers(newViewControllers, animated: true)
+        }
+    }
+    
+    func tappedPrevious() {
+        //note because we aren't filtering in History yet, PageHistoryViewController should always be able to tell us the next revision. If filtering is implemented this method will fail, and we will need to have DiffContainerViewController know how to handle a situation where fromModel is populated but toModel is not (that is, hide header & list, fetch next toModel & diff, then show header & list)
+        guard let nextRevision = revisionDelegate?.retrieveNextRevision(with: toModel) else {
+            assertionFailure("Unable to determine next revision. Perhaps user tapped the latest revision in history? Up arrow should be disabled in this case.")
+            return
+        }
+        
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextRevision.revisionSize), fromModel: toModel, toModel: nextRevision, theme: theme, revisionDelegate: revisionDelegate)
+        
+        replaceLastAndPush(with: singleDiffVC)
+    }
+    
+    func tappedNext() {
+        guard let fromModel = fromModel else {
+            assertionFailure("fromModel needs to be populated at this point before user attempts to go further back in history")
+            return
+        }
+        
+        //note DiffContainerViewController knows how to determine a fromModel on it's own. Hence why we don't care if previousRevision is null here, this is just an optimization.
+        let previousRevision = revisionDelegate?.retrievePreviousRevision(with: fromModel)
+        
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: fromModel.revisionSize), fromModel: previousRevision, toModel: fromModel, theme: theme, revisionDelegate: revisionDelegate)
+        
+        replaceLastAndPush(with: singleDiffVC)
+    }
+    
+    func tappedShare(_ sender: UIView?) {
+        guard let diffURL = fullRevisionDiffURL(),
+        let toolbarView = diffToolbarView else {
+            assertionFailure("Couldn't get full revision diff URL")
+            return
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
+        
+        if let popover = activityViewController.popoverPresentationController {
+            popover.sourceView = sender
+            popover.sourceRect = sender?.bounds ?? toolbarView.bounds
+            popover.permittedArrowDirections = .down
+        }
+        
+        present(activityViewController, animated: true)
+    }
+    
+    func tappedThank(isAlreadySelected: Bool, isLoggedIn: Bool) {
+        guard !isAlreadySelected else {
+            self.show(hintViewController: AuthorAlreadyThankedHintVC())
+            return
+        }
+        
+        guard !toModel.isAnon else {
+            self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
+            return
+        }
+        
+        guard isLoggedIn else {
+            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {
+                self.apply(theme: self.theme)
+            }, loginDismissedCompletion: nil)
+            return
+        }
+
+        guard !UserDefaults.wmf.wmf_didShowThankRevisionAuthorEducationPanel() else {
+            thankRevisionAuthor()
+            return
+        }
+
+        wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
+            UserDefaults.wmf.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
+            self.dismiss(animated: true, completion: {
+                self.thankRevisionAuthor()
+            })
+        })
+    }
+    
+    
 }
