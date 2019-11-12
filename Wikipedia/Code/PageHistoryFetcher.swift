@@ -22,14 +22,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             params["rvcontinue"] = rvContinueKey as AnyObject?
         }
         
-        //TODO: forcing wmflabs here for usertesting
-        var siteUrlPathComponents = siteURL.pathComponents
-        siteUrlPathComponents.removeAll(where: {$0 == "/"})
-        guard let newSiteURL = configuration.mediaWikiAPIURForHost("en.wikipedia.beta.wmflabs.org", appending: siteUrlPathComponents).url else {
-            return
-        }
-        
-        performMediaWikiAPIGET(for: newSiteURL, withQueryParameters: params) { (result, response, error) in
+        performMediaWikiAPIGET(for: siteURL, withQueryParameters: params) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return
@@ -133,12 +126,16 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     }
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
-        // TODO: Get project from pageURL
+        
+        guard let project = pageURL.wmf_site?.host else {
+            return nil
+        }
+
         var pathComponents = ["v1", "page"]
         pathComponents.append(pageTitle.wmf_denormalizedPageTitle())
         pathComponents.append(contentsOf: ["history", "counts"])
         pathComponents.append(editCountType.rawValue)
-        let components = configuration.mediaWikiRestAPIURLForHost("en.wikipedia.beta.wmflabs.org", appending: pathComponents)
+        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents)
         return components.url
     }
 

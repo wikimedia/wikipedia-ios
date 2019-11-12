@@ -8,7 +8,6 @@
 @implementation WMFArticleRevisionFetcher
 
 - (NSURLSessionTask *)fetchLatestRevisionsForArticleURL:(NSURL *)articleURL
-                                           articleTitle: (NSString *)articleTitle
                                             resultLimit:(NSUInteger)numberOfResults
                                    startingWithRevision:(NSNumber *)startRevisionId
                                      endingWithRevision:(NSNumber *)endRevisionId
@@ -22,16 +21,11 @@
                                                                                         @"action": @"query",
                                                                                         @"prop": @"revisions",
                                                                                         @"redirects": @1,
+                                                                                        @"titles": articleURL.wmf_title,
                                                                                         @"rvlimit": @(numberOfResults),
                                                                                         @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
                                                                                         //@"pilicense": @"any"
                                                                                         }];
-    
-    if (articleTitle != nil) {
-        parameters[@"titles"] = articleTitle;
-    } else {
-        parameters[@"titles"] = articleURL.wmf_title;
-    }
     
     if (startRevisionId != nil) {
         parameters[@"rvstartid"] = startRevisionId;
