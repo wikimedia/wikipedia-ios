@@ -47,6 +47,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
+        static let shouldCheckForArticleAnnouncements = "WMFShouldCheckForArticleAnnouncements"
     }
 
     @objc static let wmf: UserDefaults = {
@@ -531,6 +532,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
+        }
+    }
+
+    @objc var shouldCheckForArticleAnnouncements: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
         }
     }
 #if UI_TEST
