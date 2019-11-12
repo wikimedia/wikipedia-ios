@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>6.4.1</string>
+	<string>6.5.0</string>
 	<key>CFBundleVersion</key>
 	<string>0</string>
 	<key>NSExtension</key>
@@ -29,7 +29,7 @@
 			<key>UNNotificationExtensionDefaultContentHidden</key>
 			<true/>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<real>0.68989999999999996</real>
+			<real>0.6899</real>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>
