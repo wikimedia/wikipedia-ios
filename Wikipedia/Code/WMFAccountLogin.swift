@@ -43,7 +43,7 @@ public class WMFAccountLoginResult: NSObject {
 }
 
 public class WMFAccountLogin: Fetcher {
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = true, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         
         var parameters = [
             "action": "clientlogin",

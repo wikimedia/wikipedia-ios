@@ -68,7 +68,7 @@ public class WMFAuthenticationManager: Fetcher {
         return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
-    public func attemptLogin(reattemptOn401Response: Bool = true, completion: @escaping AuthenticationResultHandler) {
+    public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
         self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
             switch loginResult {
             case .success(let result):
@@ -96,7 +96,7 @@ public class WMFAuthenticationManager: Fetcher {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = true, completion: @escaping AuthenticationResultHandler) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
         guard let siteURL = loginSiteURL else {
             DispatchQueue.main.async {
                 completion(.failure(AuthenticationError.missingLoginURL))
@@ -126,7 +126,7 @@ public class WMFAuthenticationManager: Fetcher {
      *  @param success  The handler for success - at this point the user is logged in
      *  @param completion
      */
-    public func loginWithSavedCredentials(reattemptOn401Response: Bool = true, completion: @escaping AuthenticationResultHandler) {
+    public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
         
         guard hasKeychainCredentials,
             let userName = KeychainCredentialsManager.shared.username,
