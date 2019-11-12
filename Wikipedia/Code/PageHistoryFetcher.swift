@@ -127,12 +127,13 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
         
-        guard let project = pageURL.wmf_site?.host else {
+        guard let project = pageURL.wmf_site?.host,
+        let title = pageTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
             return nil
         }
 
         var pathComponents = ["v1", "page"]
-        pathComponents.append(pageTitle.wmf_denormalizedPageTitle())
+        pathComponents.append(title)
         pathComponents.append(contentsOf: ["history", "counts"])
         pathComponents.append(editCountType.rawValue)
         let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents)
