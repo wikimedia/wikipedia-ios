@@ -61,10 +61,10 @@ public class AlignedImageButton: UIButton {
         layoutDirection = traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
         if imageIsRightAligned {
             if layoutDirection == .leftToRight {
-                semanticContentAttribute = .forceLeftToRight
+                semanticContentAttribute = .forceRightToLeft
                 imageView?.semanticContentAttribute = .forceLeftToRight
             } else {
-                semanticContentAttribute = .forceRightToLeft
+                semanticContentAttribute = .forceLeftToRight
                 imageView?.semanticContentAttribute = .forceRightToLeft
             }
         } else {
