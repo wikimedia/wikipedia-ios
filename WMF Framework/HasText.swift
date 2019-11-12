@@ -55,6 +55,12 @@ extension UILabel {
     }
 }
 
+extension UITextView {
+    public var wmf_hasAnyNonWhitespaceText: Bool {
+        return text?.wmf_hasNonWhitespaceText ?? false || attributedText?.wmf_hasNonWhitespaceText ?? false
+    }
+}
+
 extension UIButton {
     public var wmf_hasText: Bool {
         guard let label = titleLabel else {

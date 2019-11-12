@@ -14,6 +14,7 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, endTime): @"end_time",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, platforms): @"platforms",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, countries): @"countries",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, placement): @"placement",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, text): @"text",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",

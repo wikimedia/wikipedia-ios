@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSDate *endTime;
 @property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *platforms;
 @property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *countries;
+@property (nonatomic, copy, readonly, nullable) NSString *placement;
 
 @property (nonatomic, copy, readonly, nullable) NSURL *imageURL;
 @property (nonatomic, copy, readonly, nullable) NSNumber *imageHeight;
