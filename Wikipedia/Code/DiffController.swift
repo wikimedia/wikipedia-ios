@@ -212,11 +212,15 @@ class DiffController {
         var newItems: [TransformDiffItem] = []
         let zipped = zip(transformDiffItems, transformSectionInfo)
         
-        let movedItems = transformDiffItems.filter { $0.diffItem.type == .moveSource || $0.diffItem.type == .moveDestination }
-        var correspondingMoveItems: [String: DiffItem] = [:]
-        for item in movedItems {
-            if let linkId = item.diffItem.moveInfo?.linkId {
-                correspondingMoveItems[linkId] = item.diffItem
+        var correspondingMoveItems: [String: (linkItem: TransformDiffItem, linkSectionInfo: TransformSectionInfo)] = [:]
+        for zippedItem in zipped {
+            guard zippedItem.0.diffItem.type == .moveDestination ||
+                zippedItem.0.diffItem.type == .moveSource else {
+                continue
+            }
+            
+            if let linkId = zippedItem.0.diffItem.moveInfo?.linkId {
+                correspondingMoveItems[linkId] = (zippedItem.0, zippedItem.1)
             }
         }
         
@@ -229,22 +233,34 @@ class DiffController {
                 let groupedIndex = groupedMoveIndexes[moveInfo.id]
                 
                 var moveDistance: TransformMoveDistance? = nil
-                if let fromSectionTitle = zippedItem.1.from?.title,
-                    let toSectionTitle = zippedItem.1.to?.title,
-                    let fromSectionOrder = zippedItem.1.from?.order,
-                    let toSectionOrder = zippedItem.1.to?.order {
-                        
-                    switch (fromSectionTitle == toSectionTitle, fromSectionOrder != toSectionOrder) {
-                        
-                        case (false, false):
-                            moveDistance = .section(amount: abs(fromSectionOrder - toSectionOrder))
-                        default:
+                
+                if let correspondingMoveItem = correspondingMoveItems[moveInfo.id] {
+                    
+                    let fromSectionTitle = zippedItem.0.diffItem.type == .moveSource ? zippedItem.1.from?.title : correspondingMoveItem.linkSectionInfo.from?.title
+                    let toSectionTitle = zippedItem.0.diffItem.type == .moveSource ? correspondingMoveItem.linkSectionInfo.to?.title : zippedItem.1.to?.title
+                    let fromSectionOrder = zippedItem.0.diffItem.type == .moveSource ? zippedItem.1.from?.order : correspondingMoveItem.linkSectionInfo.from?.order
+                    let toSectionOrder = zippedItem.0.diffItem.type == .moveSource ? correspondingMoveItem.linkSectionInfo.to?.order : zippedItem.1.to?.order
+                    
+                    if let fromSectionTitle = fromSectionTitle,
+                        let toSectionTitle = toSectionTitle,
+                        let fromSectionOrder = fromSectionOrder,
+                        let toSectionOrder = toSectionOrder {
+                            
+                        switch (fromSectionTitle == toSectionTitle, fromSectionOrder == toSectionOrder) {
+                            
+                            case (false, false):
+                                moveDistance = .section(amount: abs(fromSectionOrder - toSectionOrder))
+                            default:
+                                break
+                        }
+                    }
+                    
+                    if moveDistance == nil {
                         //fallback to line numbers
-                            if let correspondingMoveItem = correspondingMoveItems[moveInfo.id],
-                                let firstLineNumber = zippedItem.0.lineNumber,
-                                let nextLineNumber = correspondingMoveItem.lineNumber {
-                                moveDistance = .line(amount: abs(firstLineNumber - nextLineNumber))
-                            }
+                        if let firstLineNumber = zippedItem.0.lineNumber,
+                            let nextLineNumber = correspondingMoveItem.linkItem.lineNumber {
+                            moveDistance = .line(amount: abs(firstLineNumber - nextLineNumber))
+                        }
                     }
                 }
                 
@@ -265,9 +281,6 @@ class DiffController {
         var fromSections = response.from.sections
         var toSections = response.to.sections
         
-        let fromIsEmpty = fromSections.isEmpty
-        let toIsEmpty = toSections.isEmpty
-        
         var lastFrom: DiffSection? = nil
         var lastTo: DiffSection? = nil
         
@@ -281,31 +294,39 @@ class DiffController {
             
             //from side
             var fromSide: TransformSectionInfo.Side?
-            while !fromIsEmpty &&
-            currentFrom!.offset <= item.offset.from {
+            
+            if let itemFromOffset = item.offset.from {
+                while currentFrom != nil &&
+                currentFrom!.offset <= itemFromOffset {
+                    
+                        lastFrom = fromSections.removeFirst()
+                        lastFromIndex = lastFromIndex + 1
+                        currentFrom = fromSections.first
+                }
                 
-                    lastFrom = fromSections.removeFirst()
-                    lastFromIndex = lastFromIndex + 1
-                    currentFrom = fromSections.first
+                if let lastFrom = lastFrom {
+                    fromSide = TransformSectionInfo.Side(title: lastFrom.title, order: lastFromIndex)
+                }
             }
             
-            if let lastFrom = lastFrom {
-                fromSide = TransformSectionInfo.Side(title: lastFrom.title, order: lastFromIndex)
-            }
             
             //to side
             var toSide: TransformSectionInfo.Side?
-            while !toIsEmpty &&
-            currentTo!.offset <= item.offset.to {
+            
+            if let itemToOffset = item.offset.to {
+                while currentTo != nil &&
+                currentTo!.offset <= itemToOffset {
+                    
+                        lastTo = toSections.removeFirst()
+                        lastToIndex = lastToIndex + 1
+                        currentTo = toSections.first
+                }
                 
-                    lastTo = toSections.removeFirst()
-                    lastToIndex = lastToIndex + 1
-                    currentTo = toSections.first
+                if let lastTo = lastTo {
+                    toSide = TransformSectionInfo.Side(title: lastTo.title, order: lastToIndex)
+                }
             }
             
-            if let lastTo = lastTo {
-                toSide = TransformSectionInfo.Side(title: lastTo.title, order: lastToIndex)
-            }
             
             result.append(TransformSectionInfo(from: fromSide, to: toSide))
         }

@@ -8,8 +8,8 @@ struct DiffSection: Codable {
 }
 
 struct DiffItemOffset: Codable {
-    let from: Int
-    let to: Int
+    let from: Int?
+    let to: Int?
 }
 
 struct DiffSideMetaData: Codable {
