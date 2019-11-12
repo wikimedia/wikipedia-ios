@@ -5,8 +5,7 @@ enum DiffError: Error {
     case generateUrlFailure
     case missingDiffResponseFailure
     case missingUrlResponseFailure
-    case fetchRevisionIDFailure
-    case noPreviousRevisionID
+    case fetchRevisionModelFailure
     case unrecognizedHardcodedIdsForIntermediateCounts
     
     var localizedDescription: String {
@@ -22,8 +21,14 @@ enum MoveDistance {
 
 class DiffController {
     
+    enum RevisionDirection {
+        case next
+        case previous
+    }
+    
     let diffFetcher: DiffFetcher
     let revisionFetcher: WMFArticleRevisionFetcher
+    let pageHistoryFetcher: PageHistoryFetcher
     let globalUserInfoFetcher: GlobalUserInfoFetcher
     let diffThanker: DiffThanker
     let articleTitle: String
@@ -34,9 +39,10 @@ class DiffController {
     }()
     let type: DiffContainerViewModel.DiffType
     
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), pageHistoryFetcher: PageHistoryFetcher = PageHistoryFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), type: DiffContainerViewModel.DiffType) {
         self.diffFetcher = diffFetcher
         self.revisionFetcher = revisionFetcher
+        self.pageHistoryFetcher = pageHistoryFetcher
         self.globalUserInfoFetcher = globalUserInfoFetcher
         self.diffThanker = diffThanker
         self.articleTitle = articleTitle
@@ -61,28 +67,11 @@ class DiffController {
         globalUserInfoFetcher.fetchEditCount(guiUser: guiUser, siteURL: siteURL, completion: completion)
     }
     
-    func fetchDiff(fromRevisionId: Int?, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
-        
-        if let fromRevisionId = fromRevisionId {
-            fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, theme: theme, traitCollection: traitCollection, completion: completion)
-            return
-        }
-        
-        fetchSingleNextRevision(toRevisionId: toRevisionId) { [weak self] (result) in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success(let fromRevisionId):
-                self?.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, theme: theme, traitCollection: traitCollection, completion: completion)
-            }
-        }
-    }
-    
     func thankRevisionAuthor(toRevisionId: Int, completion: @escaping ((Result<DiffThankerResult, Error>) -> Void)) {
         diffThanker.thank(siteURL: siteURL, rev: toRevisionId, completion: completion)
     }
     
-    private func fetchSingleNextRevision(toRevisionId: Int, completion: @escaping ((Result<Int, Error>) -> Void)) {
+    func fetchRevision(sourceRevisionId: Int, direction: RevisionDirection, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
         
         //TODO: forcing wmflabs here for usertesting
         
@@ -91,28 +80,23 @@ class DiffController {
             return
         }
         
-        revisionFetcher.fetchLatestRevisions(forArticleURL: articleURL, articleTitle: articleTitle, resultLimit: 2, startingWithRevision: NSNumber(value: toRevisionId), endingWithRevision: nil, failure: { (error) in
+        let direction: PageHistoryRequestDirection = direction == .previous ? .older : .newer
+        let requestParams = PageHistoryRequestParameters(title: articleTitle, direction: direction, rvLimit: 1)
+        
+        pageHistoryFetcher.fetchRevisionInfo(siteURL, requestParams: requestParams, failure: { (error) in
             completion(.failure(error))
-        }) { (result) in
+        }) { (results) in
             
-            let queryResults = (result as? [WMFRevisionQueryResults])?.first ?? (result as? WMFRevisionQueryResults)
-            
-            guard let lastRevisionId = queryResults?.revisions.last?.revisionId.intValue else {
-                completion(.failure(DiffError.fetchRevisionIDFailure))
+            if let resultModel = results.items().first?.items.first {
+                completion(.success(resultModel))
                 return
             }
             
-            if lastRevisionId == toRevisionId {
-                completion(.failure(DiffError.noPreviousRevisionID))
-                return
-            }
-            
-            completion(.success(lastRevisionId))
-            
+            completion(.failure(DiffError.fetchRevisionModelFailure))
         }
     }
     
-    private func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
         diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
 
