@@ -93,7 +93,7 @@ final class DiffListChangeItemViewModel {
         }
     }
     
-    private static func moveAttributedString(with text: String, diffItemType: DiffItemType, moveInfo: TransformMoveInfo, highlightedRanges: inout [DiffHighlightRange], traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
+    private static func moveAttributedString(with text: String, diffItemType: DiffItemType, moveInfo: TransformMoveInfo, highlightedRanges: inout [DiffHighlightRange], traitCollection: UITraitCollection, theme: Theme) -> (moveAttributedString: NSAttributedString?, lengthOfPrefix: Int)? {
         
         guard !text.isEmpty,
             (diffItemType == .moveSource || diffItemType == .moveDestination) else {
@@ -153,15 +153,14 @@ final class DiffListChangeItemViewModel {
             let mutableAttributedString = NSMutableAttributedString(string: modifiedText)
 
             //insert move index number
-            let indexAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.diffCompareAccent]
-            let indexAttributedString = NSAttributedString(string: moveIndexString, attributes: indexAttributes)
+            let indexAttributedString = NSAttributedString(string: moveIndexString)
             mutableAttributedString.insert(indexAttributedString, at: 0)
             
             //insert move arrow
             mutableAttributedString.insert(imageString, at:0)
             mutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2], range: NSRange(location: 0, length: 1))
             
-            return mutableAttributedString.copy() as? NSAttributedString
+            return (moveAttributedString: mutableAttributedString.copy() as? NSAttributedString, lengthOfPrefix: indexAttributedString.length + imageString.length)
         }
         
         return nil
@@ -201,13 +200,16 @@ final class DiffListChangeItemViewModel {
         let regularFontStyle = DynamicTextStyle.footnote
         let boldFontStyle = DynamicTextStyle.boldFootnote
 
-        let font = diffItemType == .moveSource || diffItemType == .moveDestination ? UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection) : UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection)
+        let font = diffItemType == .moveSource || diffItemType == .moveDestination ? UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection) : UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection)
 
         var moveItemAttributedString: NSAttributedString?
+        var lengthOfPrefix: Int?
         switch diffItemType {
         case .moveSource, .moveDestination:
             if let moveInfo = moveInfo {
-                moveItemAttributedString = moveAttributedString(with: text, diffItemType: diffItemType, moveInfo: moveInfo, highlightedRanges: &modifiedHighlightedRanges, traitCollection: traitCollection, theme: theme)
+                let moveResult = moveAttributedString(with: text, diffItemType: diffItemType, moveInfo: moveInfo, highlightedRanges: &modifiedHighlightedRanges, traitCollection: traitCollection, theme: theme)
+                moveItemAttributedString = moveResult?.0
+                lengthOfPrefix = moveResult?.1
             }
         case .addLine, .deleteLine:
             updateParamsForAddDeleteLine(text: &modifiedText, diffItemType: diffItemType, highlightedRanges: &modifiedHighlightedRanges)
@@ -228,8 +230,12 @@ final class DiffListChangeItemViewModel {
         
         let finalAttributedStringToHighlight: NSMutableAttributedString
         
-        if let moveItemAttributedString = moveItemAttributedString {
+        if let moveItemAttributedString = moveItemAttributedString,
+            let lengthOfPrefix = lengthOfPrefix {
+            let moveIndexAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.diffCompareAccent]
             finalAttributedStringToHighlight = NSMutableAttributedString(attributedString: moveItemAttributedString)
+            finalAttributedStringToHighlight.addAttributes(attributes, range: NSRange(location: 0, length: moveItemAttributedString.length))
+            finalAttributedStringToHighlight.addAttributes(moveIndexAttributes, range: NSRange(location: 0, length: lengthOfPrefix))
         } else {
             finalAttributedStringToHighlight = NSMutableAttributedString(string: modifiedText, attributes: attributes)
         }

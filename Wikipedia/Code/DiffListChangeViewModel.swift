@@ -108,7 +108,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     private static func calculateHeadingsFromLineNumbers(diffItems: [TransformDiffItem]) -> String? {
 
-        let lineNumbers = diffItems.compactMap { $0.lineNumber }
+        let lineNumbers = diffItems.compactMap { ($0.diffItem.type == .deleteLine && $0.diffItem.text.isEmpty) ? nil : $0.lineNumber }
         
         if let firstItemLineNumber = lineNumbers.first {
             
