@@ -221,25 +221,23 @@ import Foundation
     }
     
     /**
-     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received.
-     'isFromPOSTLoginOrLogoutRequest' prevents possible recursion if login or logout calls themselves result in 401.
+     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received
+     and an attempt to re-login with stored credentials fails.
     */
-    private func handleResponse(_ response: URLResponse?, isFromPOSTLoginOrLogoutRequest: Bool = false) {
+    private func handleResponse(_ response: URLResponse?) {
         guard let response = response, let httpResponse = response as? HTTPURLResponse else {
             return
         }
         switch httpResponse.statusCode {
         case 401:
-            if (!isFromPOSTLoginOrLogoutRequest){
-                WMFAuthenticationManager.sharedInstance.attemptLogin { (loginResult) in
-                    switch loginResult {
-                    case .failure:
-                        WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
-                            self.removeAllCookies()
-                        }
-                    default:
-                        break
+            WMFAuthenticationManager.sharedInstance.attemptLogin { (loginResult) in
+                switch loginResult {
+                case .failure:
+                    WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
+                        self.removeAllCookies()
                     }
+                default:
+                    break
                 }
             }
         default:
@@ -335,19 +333,9 @@ import Foundation
         return task
     }
     
-    private lazy var loginAndLogoutQueryItems = {
-        return Set<URLQueryItem>([
-            URLQueryItem(name: "action", value: "clientlogin"),
-            URLQueryItem(name: "action", value: "logout")
-        ])
-    }()
-    
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-
-        let requestIsPOSTLoginOrLogout = request.wmf_isPOSTContainingAnyItem(in: loginAndLogoutQueryItems)
-        
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
-            self.handleResponse(response, isFromPOSTLoginOrLogoutRequest: requestIsPOSTLoginOrLogout)
+            self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, response as? HTTPURLResponse, error)
                 return
@@ -476,22 +464,5 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         }
         
         callback.success()
-    }
-}
-
-extension URLRequest {
-    func wmf_isPOSTContainingAnyItem(in soughtSet: Set<URLQueryItem>) -> Bool {
-        guard
-            let httpMethod = httpMethod,
-            httpMethod.uppercased() == "POST",
-            let httpBody = httpBody,
-            let bodyString = String(data: httpBody, encoding: String.Encoding.utf8),
-            let bodyURL = URL(string: "?\(bodyString)"),
-            let bodyComponents = URLComponents(url: bodyURL, resolvingAgainstBaseURL: false),
-            let bodyQueryItems = bodyComponents.queryItems
-        else {
-            return false
-        }
-        return !Set<URLQueryItem>(bodyQueryItems).intersection(soughtSet).isEmpty
     }
 }
