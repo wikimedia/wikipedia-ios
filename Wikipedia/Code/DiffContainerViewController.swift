@@ -15,6 +15,11 @@ protocol DiffRevisionRetrieving: class {
 
 class DiffContainerViewController: ViewController, HintPresenting {
     
+    struct NextPrevModel {
+        let from: WMFPageHistoryRevision
+        let to: WMFPageHistoryRevision
+    }
+    
     private var containerViewModel: DiffContainerViewModel
     private var headerExtendedView: DiffHeaderExtendedView?
     private var headerTitleView: DiffHeaderTitleView?
@@ -26,10 +31,11 @@ class DiffContainerViewController: ViewController, HintPresenting {
     private var toModel: WMFPageHistoryRevision?
     private let siteURL: URL
     private let articleTitle: String
-    private weak var revisionDelegate: DiffRevisionRetrieving?
     private let safeAreaBottomAlignView = UIView()
     
     private let type: DiffContainerViewModel.DiffType
+    
+    private let revisionRetrievingDelegate: DiffRevisionRetrieving?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -39,7 +45,18 @@ class DiffContainerViewController: ViewController, HintPresenting {
 
     var hintController: HintController?
     
-    init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, theme: Theme, diffController: DiffController? = nil, revisionDelegate: DiffRevisionRetrieving?) {
+    private var prevModel: NextPrevModel? {
+        didSet {
+            diffToolbarView?.setPreviousButtonState(isEnabled: prevModel != nil)
+        }
+    }
+    private var nextModel: NextPrevModel? {
+        didSet {
+            diffToolbarView?.setNextButtonState(isEnabled: nextModel != nil)
+        }
+    }
+    
+    init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, theme: Theme, diffController: DiffController? = nil, revisionRetrievingDelegate: DiffRevisionRetrieving?) {
         
         guard fromModel != nil || toModel != nil else {
             assertionFailure("Need at least one revision model for diff screen.")
@@ -51,15 +68,15 @@ class DiffContainerViewController: ViewController, HintPresenting {
         self.fromModel = fromModel
         self.toModel = toModel
         self.articleTitle = articleTitle
-        self.revisionDelegate = revisionDelegate
         
         let forceSiteURL = URL(string: "https://en.wikipedia.beta.wmflabs.org")! //tonitodo: hardcoded to wmflabs for now
         self.siteURL = forceSiteURL
+        self.revisionRetrievingDelegate = revisionRetrievingDelegate
         
         if let diffController = diffController {
             self.diffController = diffController
         } else {
-            self.diffController = DiffController(siteURL: forceSiteURL, articleTitle: articleTitle, type: type)
+            self.diffController = DiffController(siteURL: forceSiteURL, articleTitle: articleTitle, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type)
         }
         
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, theme: theme)
@@ -88,6 +105,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
             fetchToModelAndSetup()
         } else {
             startSetup()
+            midSetup()
             completeSetup()
         }
     }
@@ -150,12 +168,15 @@ private extension DiffContainerViewController {
             return
         }
         
-        diffController.fetchRevision(sourceRevisionId: fromModel.revisionID, direction: .next) { (result) in
+        startSetup()
+        containerViewModel.state = .loading
+        
+        diffController.fetchRevision(sourceRevision: fromModel, direction: .next) { (result) in
             switch result {
             case .success(let revision):
                 DispatchQueue.main.async {
                     self.toModel = revision
-                    self.startSetup()
+                    self.midSetup()
                     self.completeSetup()
                 }
             case .failure(let error):
@@ -174,8 +195,10 @@ private extension DiffContainerViewController {
         }
         
         startSetup()
+        midSetup()
+        containerViewModel.state = .loading
         
-        diffController.fetchRevision(sourceRevisionId: toModel.revisionID, direction: .previous) { (result) in
+        diffController.fetchRevision(sourceRevision: toModel, direction: .previous) { (result) in
             switch result {
             case .success(let revision):
                 DispatchQueue.main.async {
@@ -191,13 +214,17 @@ private extension DiffContainerViewController {
     }
     
     func startSetup() {
+        setupToolbarIfNeeded()
+        containerViewModel.state = .loading
+    }
+    
+    func midSetup() {
         guard let _ = toModel else {
             assertionFailure("Expecting at least toModel to be populated for this method.")
             return
         }
         
         setupHeaderViewIfNeeded()
-        setupToolbarIfNeeded()
         setupDiffListViewControllerIfNeeded()
         fetchIntermediateCountIfNeeded()
         fetchEditCountIfNeeded()
@@ -212,8 +239,70 @@ private extension DiffContainerViewController {
                 return
         }
         
-        //finish setup once both models are populated
+        //models ready to fetch diff.
         fetchDiff()
+        
+        //Still need models for enabling/disabling prev/next buttons
+        populatePrevNextModelsForToolbar()
+    }
+    
+    func populatePrevNextModelsForToolbar() {
+        
+        guard let fromModel = fromModel,
+            let toModel = toModel else {
+                assertionFailure("Both models must be populated at this point.")
+                return
+        }
+        
+        //populate nextModel for enabling previous/next button
+        let nextFromModel = toModel
+        var nextToModel: WMFPageHistoryRevision?
+        diffController.fetchRevision(sourceRevision: nextFromModel, direction: .next) { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let revision):
+                DispatchQueue.main.async {
+                    nextToModel = revision
+                    if let nextToModel = nextToModel {
+                        self.nextModel = NextPrevModel(from: nextFromModel, to: nextToModel)
+                    }
+                    self.completeSetup()
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.containerViewModel.state = .error(error: error)
+                }
+            }
+        }
+        
+        //populate nextModel for enabling previous/next button
+        var prevFromModel: WMFPageHistoryRevision?
+        let prevToModel = fromModel
+        diffController.fetchRevision(sourceRevision: prevToModel, direction: .previous) { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let revision):
+                DispatchQueue.main.async {
+                    prevFromModel = revision
+                    if let prevFromModel = prevFromModel {
+                        self.prevModel = NextPrevModel(from: prevFromModel, to: prevToModel)
+                    }
+                    self.completeSetup()
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.containerViewModel.state = .error(error: error)
+                }
+            }
+        }
     }
     
     func fullRevisionDiffURL() -> URL? {
@@ -423,7 +512,6 @@ private extension DiffContainerViewController {
         view.layoutIfNeeded()
         let width = diffListViewController?.collectionView.frame.width
         
-        containerViewModel.state = .loading
         diffController.fetchDiff(fromRevisionId: fromModel.revisionID, toRevisionId: toModel.revisionID, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
 
             guard let self = self else {
@@ -551,6 +639,8 @@ private extension DiffContainerViewController {
                 let trailing = view.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor)
                 NSLayoutConstraint.activate([bottom, leading, trailing])
                 toolbarView.apply(theme: theme)
+                toolbarView.setPreviousButtonState(isEnabled: false)
+                toolbarView.setNextButtonState(isEnabled: false)
             }
         default:
             break
@@ -671,7 +761,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme, revisionDelegate: revisionDelegate) {
+        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate) {
             wmf_push(singleDiffVC, animated: true)
         }
     }
@@ -739,31 +829,24 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     
     func tappedPrevious() {
         
-        guard let toModel = toModel else {
+        guard let prevModel = prevModel else {
+            assertionFailure("Expecting prevModel to be populated. Previous button should have been disabled if there's no model.")
             return
         }
         
-        //note because we aren't filtering in History yet, PageHistoryViewController should always be able to tell us the next revision. If filtering is implemented this method will fail, and we will need to have DiffContainerViewController know how to handle a situation where fromModel is populated but toModel is not (that is, hide header & list, fetch next toModel & diff, then show header & list)
-        guard let nextRevision = revisionDelegate?.retrieveNextRevision(with: toModel) else {
-            assertionFailure("Unable to determine next revision. Perhaps user tapped the latest revision in history? Up arrow should be disabled in this case.")
-            return
-        }
-        
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextRevision.revisionSize), fromModel: toModel, toModel: nextRevision, theme: theme, revisionDelegate: revisionDelegate) {
+        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: prevModel.to.revisionSize), fromModel: prevModel.from, toModel: prevModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate) {
             replaceLastAndPush(with: singleDiffVC)
         }
     }
     
     func tappedNext() {
-        guard let fromModel = fromModel else {
-            assertionFailure("fromModel needs to be populated at this point before user attempts to go further back in history")
+        
+        guard let nextModel = nextModel else {
+            assertionFailure("Expecting prevModel to be populated. Previous button should have been disabled if there's no model.")
             return
         }
         
-        //note DiffContainerViewController knows how to determine a fromModel on it's own. Hence why we don't care if previousRevision is null here, this is just an optimization.
-        let previousRevision = revisionDelegate?.retrievePreviousRevision(with: fromModel)
-        
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: fromModel.revisionSize), fromModel: previousRevision, toModel: fromModel, theme: theme, revisionDelegate: revisionDelegate) {
+        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextModel.to.revisionSize), fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate) {
             replaceLastAndPush(with: singleDiffVC)
         }
     }

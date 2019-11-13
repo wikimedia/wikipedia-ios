@@ -38,8 +38,9 @@ class DiffController {
         return MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
     }()
     let type: DiffContainerViewModel.DiffType
+    private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
     
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), pageHistoryFetcher: PageHistoryFetcher = PageHistoryFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), pageHistoryFetcher: PageHistoryFetcher = PageHistoryFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
         self.diffFetcher = diffFetcher
         self.revisionFetcher = revisionFetcher
         self.pageHistoryFetcher = pageHistoryFetcher
@@ -47,6 +48,7 @@ class DiffController {
         self.diffThanker = diffThanker
         self.articleTitle = articleTitle
         self.siteURL = siteURL
+        self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.type = type
     }
     
@@ -71,12 +73,28 @@ class DiffController {
         diffThanker.thank(siteURL: siteURL, rev: toRevisionId, completion: completion)
     }
     
-    func fetchRevision(sourceRevisionId: Int, direction: RevisionDirection, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+    func fetchRevision(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
         
-        //TODO: forcing wmflabs here for usertesting
+        if let revisionRetrievingDelegate = revisionRetrievingDelegate {
+            
+            //optimization - first try to grab a revision we might already have in memory from the revisionRetrievingDelegate
+            switch direction {
+            case .next:
+                if let nextRevision = revisionRetrievingDelegate.retrieveNextRevision(with: sourceRevision) {
+                    completion(.success(nextRevision))
+                    return
+                }
+            case .previous:
+                if let previousRevision = revisionRetrievingDelegate.retrievePreviousRevision(with: sourceRevision) {
+                    completion(.success(previousRevision))
+                    return
+                }
+            }
+        }
         
+        //failing that try fetching revision from pageHistoryFetcher
         guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle(),
-            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true)else {
+            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true) else {
             return
         }
         
