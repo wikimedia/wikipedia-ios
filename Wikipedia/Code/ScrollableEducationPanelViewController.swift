@@ -186,6 +186,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     var backgroundColor: UIColor?
     var primaryButtonBackgroundColor: UIColor?
+    var primaryButtonBorderWidth: CGFloat = 1 {
+        didSet {
+            primaryButton?.layer.borderWidth = primaryButtonBorderWidth
+        }
+    }
     var secondaryButtonTintColor: UIColor?
     var footerTextViewTextColor: UIColor?
     var isEffectsViewHidden: Bool = false {
@@ -366,7 +371,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         closeButton.tintColor = theme.colors.primaryText
         primaryButton?.tintColor = theme.colors.link
         secondaryButton?.tintColor = secondaryButtonTintColor ?? theme.colors.link
-        primaryButton?.layer.borderWidth = 0
         primaryButton?.layer.borderColor = theme.colors.link.cgColor
         primaryButton.backgroundColor = primaryButtonBackgroundColor
 
