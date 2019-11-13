@@ -142,6 +142,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
 
     private struct EditCount: Decodable {
         let count: Int?
+        let limit: Bool?
     }
 
     public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
@@ -157,12 +158,18 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 self.session.jsonDecodableTask(with: url) { (editCount: EditCount?, response: URLResponse?, error: Error?) in
                     if let error = error {
                         mostRecentError = error
-                    }
-                    defer {
                         group.leave()
+                        return
                     }
-                    // TODO: Check for additional info in the response. If the count of minor edits is > 500k, the count will be set to 500k and the response will include additional information. 
-                    editCountsGroupedByType[editCountType] = editCount?.count
+                    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                        mostRecentError = RequestError.unexpectedResponse
+                        group.leave()
+                        return
+                    }
+                    if editCount?.limit == nil { // Exclude limited counts for now
+                        editCountsGroupedByType[editCountType] = editCount?.count
+                    }
+                    group.leave()
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
