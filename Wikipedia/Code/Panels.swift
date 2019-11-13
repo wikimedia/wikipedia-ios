@@ -32,6 +32,7 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
         buttonCornerRadius = 8
         buttonTopSpacing = 10
         primaryButtonTitleEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
+        primaryButtonBorderWidth = 0
         dismissWhenTappedOutside = true
         contentHorizontalPadding = 20
     }
