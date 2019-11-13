@@ -68,15 +68,13 @@ class DiffContainerViewController: ViewController, HintPresenting {
         self.fromModel = fromModel
         self.toModel = toModel
         self.articleTitle = articleTitle
-        
-        let forceSiteURL = URL(string: "https://en.wikipedia.beta.wmflabs.org")! //tonitodo: hardcoded to wmflabs for now
-        self.siteURL = forceSiteURL
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
+        self.siteURL = siteURL
         
         if let diffController = diffController {
             self.diffController = diffController
         } else {
-            self.diffController = DiffController(siteURL: forceSiteURL, articleTitle: articleTitle, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type)
+            self.diffController = DiffController(siteURL: siteURL, articleTitle: articleTitle, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type)
         }
         
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, theme: theme)

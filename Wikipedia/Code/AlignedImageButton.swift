@@ -7,6 +7,7 @@ public class AlignedImageButton: UIButton {
     public override func layoutSubviews() {
         super.layoutSubviews()
         if isFirstLayout {
+            updateSemanticContentAttribute()
             adjustInsets()
             isFirstLayout = false
         }

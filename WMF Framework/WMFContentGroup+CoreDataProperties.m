@@ -26,5 +26,6 @@
 @dynamic contentDate;
 @dynamic countOfFullContent;
 @dynamic undoTypeInteger;
+@dynamic placement;
 
 @end

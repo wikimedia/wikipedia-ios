@@ -93,15 +93,16 @@ class DiffController {
         }
         
         //failing that try fetching revision from pageHistoryFetcher
-        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle(),
-            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true) else {
+
+        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
             return
         }
-        
+
         let direction: PageHistoryRequestDirection = direction == .previous ? .older : .newer
         let requestParams = PageHistoryRequestParameters(title: articleTitle, direction: direction, rvLimit: 1)
         
         pageHistoryFetcher.fetchRevisionInfo(siteURL, requestParams: requestParams, failure: { (error) in
+
             completion(.failure(error))
         }) { (results) in
             
@@ -116,7 +117,7 @@ class DiffController {
     
     func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
-        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
+        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
 
             guard let self = self else { return }
 
