@@ -71,12 +71,16 @@ class DiffHeaderExtendedView: UIView {
             compareDivView.isHidden = false
             compareView.update(compareViewModel)
         case .single(let editorViewModel, let summaryViewModel):
-            summaryView.isHidden = false
             editorView.isHidden = false
             editorDivView.isHidden = false
             compareView.isHidden = true
             compareDivView.isHidden = true
-            summaryView.update(summaryViewModel)
+            if let summary = summaryViewModel.summary, summary.wmf_hasNonWhitespaceText {
+                summaryView.isHidden = false
+                summaryView.update(summaryViewModel)
+            } else {
+                summaryView.isHidden = true
+            }
             editorView.update(editorViewModel)
         }
     }
