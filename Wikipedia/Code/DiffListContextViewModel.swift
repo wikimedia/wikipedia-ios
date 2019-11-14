@@ -40,6 +40,8 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     static let contextItemStackSpacing: CGFloat = 5
     static let containerStackSpacing: CGFloat = 15
     
+    let semanticContentAttribute: UISemanticContentAttribute
+    
     private var availableWidth: CGFloat {
         return width - innerPadding.leading - innerPadding.trailing - DiffListContextViewModel.contextItemTextPadding.leading - DiffListContextViewModel.contextItemTextPadding.trailing
     }
@@ -47,11 +49,13 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         return contextFont.pointSize * 1.8
     }
     
-    init(diffItems: [TransformDiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, traitCollection: UITraitCollection) {
+    init(diffItems: [TransformDiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, traitCollection: UITraitCollection, semanticContentAttribute: UISemanticContentAttribute) {
+
         self.isExpanded = isExpanded
         self.theme = theme
         self._width = width
         self.traitCollection = traitCollection
+        self.semanticContentAttribute = semanticContentAttribute
         
         self.items = diffItems.map{ $0.diffItem.text.count == 0 ? nil : $0.diffItem.text }
         

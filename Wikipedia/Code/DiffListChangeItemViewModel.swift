@@ -10,29 +10,34 @@ final class DiffListChangeItemViewModel {
     private(set) var backgroundColor: UIColor
     let moveInfo: TransformMoveInfo?
     private(set) var textPadding: NSDirectionalEdgeInsets
+    private let semanticContentAttribute: UISemanticContentAttribute
 
     var theme: Theme {
         didSet {
             backgroundColor = DiffListChangeItemViewModel.calculateBackgroundColor(diffItemType: diffItemType, theme: theme)
-            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo)
+            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, semanticContentAttribute: semanticContentAttribute)
         }
     }
     
     var traitCollection: UITraitCollection {
         didSet {
-            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo)
+            textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, semanticContentAttribute: semanticContentAttribute)
         }
     }
     
     private(set) var textAttributedString: NSAttributedString?
     
-    init(item: TransformDiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: TransformDiffItem?) {
+
+    init(item: TransformDiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: TransformDiffItem?, semanticContentAttribute: UISemanticContentAttribute) {
         self.text = item.diffItem.text
+
         self.traitCollection = traitCollection
         self.theme = theme
         self.type = type
         self.diffItemType = diffItemType
+
         self.moveInfo = item.transformMoveInfo
+        self.semanticContentAttribute = semanticContentAttribute
         
         //account for utf8 offsets in highlighted ranges
         var convertedHighlightedRanges: [DiffHighlightRange] = []
@@ -57,7 +62,8 @@ final class DiffListChangeItemViewModel {
         backgroundColor = DiffListChangeItemViewModel.calculateBackgroundColor(diffItemType: diffItemType, theme: theme)
         
         self.textPadding = DiffListChangeItemViewModel.calculateTextPadding(type: type, diffItemType: diffItemType, nextMiddleItem: nextMiddleItem)
-        self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: item.transformMoveInfo)
+
+        self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: item.transformMoveInfo, semanticContentAttribute: semanticContentAttribute)
     }
     
     private static func calculateBackgroundColor(diffItemType: DiffItemType, theme: Theme) -> UIColor {
@@ -192,7 +198,7 @@ final class DiffListChangeItemViewModel {
         }
     }
     
-    private static func calculateAttributedString(with text: String, highlightedRanges: [DiffHighlightRange], traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, moveInfo: TransformMoveInfo?) -> NSAttributedString? {
+    private static func calculateAttributedString(with text: String, highlightedRanges: [DiffHighlightRange], traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, moveInfo: TransformMoveInfo?, semanticContentAttribute: UISemanticContentAttribute) -> NSAttributedString? {
         
         var modifiedText = text
         var modifiedHighlightedRanges = highlightedRanges
@@ -221,9 +227,18 @@ final class DiffListChangeItemViewModel {
         let lineSpacing: CGFloat = 4
         paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.lineHeightMultiple = font.lineHeightMultipleToMatch(lineSpacing: lineSpacing)
+        
         if diffItemType == .moveSource {
             paragraphStyle.alignment = .center
+        } else {
+            switch semanticContentAttribute {
+            case .forceRightToLeft:
+                paragraphStyle.alignment = .right
+            default:
+                paragraphStyle.alignment = .left
+            }
         }
+        
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText,
                           NSAttributedString.Key.paragraphStyle: paragraphStyle.copy()]

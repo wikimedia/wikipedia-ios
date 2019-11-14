@@ -35,7 +35,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var subheadingLabel: UILabel!
     @IBOutlet fileprivate weak var primaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var secondaryButton: AutoLayoutSafeMultiLineButton!
-    @IBOutlet fileprivate weak var footerLabel: UILabel!
+    @IBOutlet fileprivate weak var footerTextView: UITextView!
 
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var stackView: UIStackView!
@@ -48,7 +48,18 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var showCloseButton = true
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
-    private var theme: Theme = Theme.standard
+    var theme: Theme = Theme.standard
+
+    @IBOutlet private var widthConstraint: NSLayoutConstraint!
+    @IBOutlet private var buttonTopSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet private var stackViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private var stackViewTrailingConstraint: NSLayoutConstraint!
+
+    var width: CGFloat = 280 {
+        didSet {
+            widthConstraint.constant = width
+        }
+    }
     
     var image:UIImage? {
         get {
@@ -80,6 +91,47 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
 
+    var subheadingHTML: String? {
+        didSet {
+            guard let html = subheadingHTML else {
+                subheadingLabel.attributedText = nil
+                return
+            }
+            let attributedText = html.byAttributingHTML(with: .subheadline,
+                                                        boldWeight: .bold,
+                                                        matching: traitCollection,
+                                                        color: theme.colors.primaryText,
+                                                        tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior
+                                                        additionalTagAttributes: [
+                "u": [
+                    NSAttributedString.Key.underlineColor: theme.colors.error,
+                    NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
+                ],
+                "strong": [
+                    NSAttributedString.Key.foregroundColor: theme.colors.primaryText
+                ]
+            ])
+            let pStyle = NSMutableParagraphStyle()
+            pStyle.lineHeightMultiple = 1.2
+            let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
+            attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+            subheadingLabel.attributedText = attributedText
+        }
+    }
+
+    var subheadingTextAlignment: NSTextAlignment = .center {
+        didSet {
+            subheadingLabel.textAlignment = subheadingTextAlignment
+        }
+    }
+
+    var contentHorizontalPadding: CGFloat = 15 {
+        didSet {
+            stackViewLeadingConstraint.constant = contentHorizontalPadding
+            stackViewTrailingConstraint.constant = contentHorizontalPadding
+        }
+    }
+
     var primaryButtonTitle:String? {
         get {
             return primaryButton.title(for: .normal)
@@ -102,11 +154,72 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     var footer:String? {
         get {
-            return footerLabel.text
+            return footerTextView.text
         }
         set {
-            footerLabel.text = newValue
+            footerTextView.text = newValue
             view.setNeedsLayout()
+        }
+    }
+
+    var footerHTML: String? {
+        didSet {
+            updateFooterHTML()
+        }
+    }
+
+    var footerLinkAction: ((URL) -> Void)? = nil
+
+    private func updateFooterHTML() {
+        guard let footerHTML = footerHTML else {
+            footerTextView.attributedText = nil
+            return
+        }
+        let attributedText = footerHTML.byAttributingHTML(with: .footnote, matching: traitCollection, color: footerTextView.textColor)
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineBreakMode = .byWordWrapping
+        pStyle.baseWritingDirection = .natural
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
+        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        footerTextView.attributedText = attributedText
+    }
+
+    var backgroundColor: UIColor?
+    var primaryButtonBackgroundColor: UIColor?
+    var primaryButtonBorderWidth: CGFloat = 1 {
+        didSet {
+            primaryButton?.layer.borderWidth = primaryButtonBorderWidth
+        }
+    }
+    var secondaryButtonTintColor: UIColor?
+    var footerTextViewTextColor: UIColor?
+    var isEffectsViewHidden: Bool = false {
+        didSet {
+            effectsView.isHidden = isEffectsViewHidden
+        }
+    }
+    var isUrgent: Bool = false
+    var spacing: CGFloat = 14 {
+        didSet {
+            stackView.spacing = spacing
+        }
+    }
+
+    var buttonCornerRadius: CGFloat = 5 {
+        didSet {
+            primaryButton.cornerRadius = buttonCornerRadius
+        }
+    }
+
+    var buttonTopSpacing: CGFloat = 0 {
+        didSet {
+            buttonTopSpacingConstraint.constant = buttonTopSpacing
+        }
+    }
+
+    var primaryButtonTitleEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14) {
+        didSet {
+            primaryButton.titleEdgeInsets = primaryButtonTitleEdgeInsets
         }
     }
 
@@ -143,12 +256,18 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         updateFonts()
+
+        stackView.spacing = spacing
+
+        footerTextView.delegate = self
         
         apply(theme: theme)
     }
+
+    var dismissWhenTappedOutside: Bool = false
     
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
-        if (showCloseButton && sender.view == view) {
+        if (showCloseButton || dismissWhenTappedOutside) && sender.view == view  {
             dismiss(animated: true, completion: nil)
         }
     }
@@ -160,7 +279,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         subheadingLabel.text = nil
         primaryButton.setTitle(nil, for: .normal)
         secondaryButton.setTitle(nil, for: .normal)
-        footerLabel.text = nil
+        footerTextView.text = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -181,8 +300,14 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         updateFonts()
     }
 
+    var secondaryButtonTextStyle: DynamicTextStyle = .semiboldFootnote {
+        didSet {
+            updateFonts()
+        }
+    }
+
     private func updateFonts() {
-        secondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        secondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
     }
     
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
@@ -195,7 +320,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         // Collapse stack view cells for labels/buttons if no text.
         headingLabel.isHidden = !headingLabel.wmf_hasAnyNonWhitespaceText
         subheadingLabel.isHidden = !subheadingLabel.wmf_hasAnyNonWhitespaceText
-        footerLabel.isHidden = !footerLabel.wmf_hasAnyNonWhitespaceText
+        footerTextView.isHidden = !footerTextView.wmf_hasAnyNonWhitespaceText
         primaryButton.isHidden = !primaryButton.wmf_hasAnyNonWhitespaceText
         secondaryButton.isHidden = !secondaryButton.wmf_hasAnyNonWhitespaceText
     }
@@ -242,13 +367,27 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
         headingLabel?.textColor = theme.colors.primaryText
         subheadingLabel?.textColor = theme.colors.primaryText
-        footerLabel?.textColor = theme.colors.primaryText
+        footerTextView?.textColor = footerTextViewTextColor ?? theme.colors.primaryText
         closeButton.tintColor = theme.colors.primaryText
         primaryButton?.tintColor = theme.colors.link
-        secondaryButton?.tintColor = theme.colors.link
+        secondaryButton?.tintColor = secondaryButtonTintColor ?? theme.colors.link
         primaryButton?.layer.borderColor = theme.colors.link.cgColor
-        
-        effectsView.effect = UIBlurEffect(style: theme.colors.blurEffectStyle)
-        effectsView.backgroundColor = theme.colors.blurEffectBackground
+        primaryButton.backgroundColor = primaryButtonBackgroundColor
+
+        if isUrgent {
+            roundedCornerContainer.layer.borderWidth = 3
+            roundedCornerContainer.layer.borderColor = theme.colors.error.cgColor
+        } else {
+            roundedCornerContainer.layer.borderWidth = 0
+        }
+        roundedCornerContainer.backgroundColor = backgroundColor
+        updateFooterHTML()
+    }
+}
+
+extension ScrollableEducationPanelViewController: UITextViewDelegate {
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        footerLinkAction?(URL)
+        return false
     }
 }

@@ -53,6 +53,10 @@ class DiffController {
     let diffThanker: DiffThanker
     let articleTitle: String
     let siteURL: URL
+    lazy var semanticContentAttribute: UISemanticContentAttribute = {
+        let language = siteURL.wmf_language
+        return MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+    }()
     let type: DiffContainerViewModel.DiffType
     
     init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), type: DiffContainerViewModel.DiffType) {
@@ -105,14 +109,12 @@ class DiffController {
     
     private func fetchSingleNextRevision(toRevisionId: Int, completion: @escaping ((Result<Int, Error>) -> Void)) {
         
-        //TODO: forcing wmflabs here for usertesting
-        
         guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle(),
-            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true)else {
+            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true) else {
             return
         }
         
-        revisionFetcher.fetchLatestRevisions(forArticleURL: articleURL, articleTitle: articleTitle, resultLimit: 2, startingWithRevision: NSNumber(value: toRevisionId), endingWithRevision: nil, failure: { (error) in
+        revisionFetcher.fetchLatestRevisions(forArticleURL: articleURL, resultLimit: 2, startingWithRevision: NSNumber(value: toRevisionId), endingWithRevision: nil, failure: { (error) in
             completion(.failure(error))
         }) { (result) in
             
@@ -138,6 +140,9 @@ class DiffController {
         let queue = DispatchQueue.global(qos: .userInitiated)
         
         queue.async { [weak self] in
+
+        //diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
+
             guard let self = self else { return }
             
             do {
@@ -391,8 +396,9 @@ class DiffController {
             
             if sectionItems.count > 0 {
                 //package contexts up into change view model, append to result
-                
-                let changeViewModel = DiffListChangeViewModel(type: .singleRevison, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection)
+
+                let changeViewModel = DiffListChangeViewModel(type: .singleRevison, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
+
                 result.append(changeViewModel)
                 sectionItems.removeAll()
             }
@@ -437,7 +443,7 @@ class DiffController {
             
             if contextItems.count > 0 {
                 //package contexts up into context view model, append to result
-                let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, traitCollection: traitCollection)
+                let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
                 result.append(contextViewModel)
                 contextItems.removeAll()
             }
@@ -447,8 +453,9 @@ class DiffController {
             
             if changeItems.count > 0 {
                 //package contexts up into change view model, append to result
-                
-                let changeViewModel = DiffListChangeViewModel(type: .compareRevision, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection)
+
+                let changeViewModel = DiffListChangeViewModel(type: .compareRevision, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
+
                 result.append(changeViewModel)
                 changeItems.removeAll()
             }
