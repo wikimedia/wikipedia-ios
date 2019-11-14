@@ -381,6 +381,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             roundedCornerContainer.layer.borderWidth = 0
         }
         effectsView.effect = UIBlurEffect(style: theme.blurEffectStyle)
+        effectsView.backgroundColor = theme.colors.blurEffectBackground
+        
         roundedCornerContainer.backgroundColor = backgroundColor
         updateFooterHTML()
     }
