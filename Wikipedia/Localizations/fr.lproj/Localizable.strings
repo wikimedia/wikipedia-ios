@@ -36,7 +36,7 @@
 "about-libraries" = "Bibliothèques utilisées";
 "about-libraries-complete-list" = "Liste complète";
 "about-libraries-license" = "Licence";
-"about-libraries-licenses-title" = "Nous aimons le logiciel en source ouverte $1";
+"about-libraries-licenses-title" = "Nous aimons les logiciels au code source ouvert $1";
 "about-places-maps-license" = "Licence des cartes de Lieux";
 "about-places-maps-license-details" = "Lieux utilise les cartes fournies par Apple Maps. $1.";
 "about-places-maps-license-details-link-text" = "Voyez ici les détails de la licence";
@@ -548,6 +548,7 @@
 "page-history-revision-size-diff-addition" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
 "page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
 "page-history-revisions-comparison-warning" = "Seulement deux versions doivent être sélectionnées";
+// Fuzzy
 "page-history-stats-text" = "$1 modification{{PLURAL:$1||s}} depuis le $2";
 "page-history-user-edits" = "modifications par un utilisateur";
 "page-issues" = "Problèmes de page";

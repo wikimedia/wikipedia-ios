@@ -544,7 +544,7 @@
 "page-history-revision-size-diff-addition" = "إضافة {{PLURAL:$1|1 بايت}}";
 "page-history-revision-size-diff-subtraction" = "إزالة {{PLURAL:$1|1 بايت}}";
 "page-history-revisions-comparison-warning" = "يمكن تحديد مراجعتين فقط";
-"page-history-stats-text" = "$1 تعديلات منذ $2";
+"page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
 "page-issues" = "مشاكل في الصفحة";
 "page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|منذ $1 أيام}}";
