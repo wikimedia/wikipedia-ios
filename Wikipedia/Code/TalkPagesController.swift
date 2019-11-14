@@ -233,7 +233,7 @@ private extension TalkPageController {
         }
         
         let revisionIDNumber: NSNumber? = revisionID != nil ? NSNumber(value: revisionID!) : nil
-        let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, articleTitle: nil, resultLimit: 1, startingWithRevision: nil, endingWithRevision: revisionIDNumber, failure: errorHandler, success: successIDHandler)
+        let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, startingWithRevision: nil, endingWithRevision: revisionIDNumber, failure: errorHandler, success: successIDHandler)
         
         //todo: task tracking
         revisionFetcherTask?.resume()

@@ -22,14 +22,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             params["rvcontinue"] = rvContinueKey as AnyObject?
         }
         
-        //TODO: forcing wmflabs here for usertesting
-        var siteUrlPathComponents = siteURL.pathComponents
-        siteUrlPathComponents.removeAll(where: {$0 == "/"})
-        guard let newSiteURL = configuration.mediaWikiAPIURForHost("en.wikipedia.beta.wmflabs.org", appending: siteUrlPathComponents).url else {
-            return
-        }
-        
-        performMediaWikiAPIGET(for: newSiteURL, withQueryParameters: params) { (result, response, error) in
+        performMediaWikiAPIGET(for: siteURL, withQueryParameters: params) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return
@@ -113,7 +106,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 completion(.failure(.unexpectedResponse))
                 return
             }
-            guard let firstRevisionDate = results.lastRevision?.revisionDate else {
+            guard let firstRevisionDate = results.lastRevision?.revisionDate ?? results.items().first?.items.first?.revisionDate else {
                 completion(.failure(.unexpectedResponse))
                 return
             }
@@ -133,17 +126,23 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     }
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
-        // TODO: Get project from pageURL
+        
+        guard let project = pageURL.wmf_site?.host,
+        let title = pageTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+            return nil
+        }
+
         var pathComponents = ["v1", "page"]
-        pathComponents.append(pageTitle.wmf_denormalizedPageTitle())
+        pathComponents.append(title)
         pathComponents.append(contentsOf: ["history", "counts"])
         pathComponents.append(editCountType.rawValue)
-        let components = configuration.mediaWikiRestAPIURLForHost("en.wikipedia.beta.wmflabs.org", appending: pathComponents)
+        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents)
         return components.url
     }
 
     private struct EditCount: Decodable {
         let count: Int?
+        let limit: Bool?
     }
 
     public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
@@ -159,12 +158,18 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 self.session.jsonDecodableTask(with: url) { (editCount: EditCount?, response: URLResponse?, error: Error?) in
                     if let error = error {
                         mostRecentError = error
-                    }
-                    defer {
                         group.leave()
+                        return
                     }
-                    // TODO: Check for additional info in the response. If the count of minor edits is > 500k, the count will be set to 500k and the response will include additional information. 
-                    editCountsGroupedByType[editCountType] = editCount?.count
+                    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                        mostRecentError = RequestError.unexpectedResponse
+                        group.leave()
+                        return
+                    }
+                    if editCount?.limit == nil { // Exclude limited counts for now
+                        editCountsGroupedByType[editCountType] = editCount?.count
+                    }
+                    group.leave()
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
