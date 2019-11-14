@@ -10,8 +10,8 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             "action": "query" as AnyObject,
             "prop": "revisions" as AnyObject,
             "rvprop": "ids|timestamp|user|size|parsedcomment|flags" as AnyObject,
-            "rvlimit": requestParams.numberOfItems as AnyObject? ?? 51 as AnyObject,
-            "rvdir": requestParams.direction?.rawValue as AnyObject? ?? PageHistoryRequestDirection.older.rawValue as AnyObject,
+            "rvlimit": 51 as AnyObject,
+            "rvdir": "older" as AnyObject,
             "titles": requestParams.title as AnyObject,
             "continue": requestParams.pagingInfo.continueKey as AnyObject? ?? "" as AnyObject,
             "format": "json" as AnyObject
@@ -20,10 +20,6 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         
         if let rvContinueKey = requestParams.pagingInfo.rvContinueKey {
             params["rvcontinue"] = rvContinueKey as AnyObject?
-        }
-        
-        if let revisionStartId = requestParams.revisionStartId {
-            params["rvstartid"] = revisionStartId as AnyObject
         }
         
         performMediaWikiAPIGET(for: siteURL, withQueryParameters: params) { (result, response, error) in
@@ -284,32 +280,15 @@ open class HistoryFetchResults: NSObject {
     }
 }
 
-public enum PageHistoryRequestDirection: String {
-    case older
-    case newer
-}
-
 open class PageHistoryRequestParameters: NSObject {
     fileprivate let pagingInfo: PagingInfo
     fileprivate let lastRevisionFromPreviousCall: WMFPageHistoryRevision?
     fileprivate let title: String
-    private(set) var direction: PageHistoryRequestDirection? = nil
-    private(set) var numberOfItems: Int? = nil
-    private(set) var revisionStartId: Int? = nil
     
     fileprivate init(title: String, pagingInfo: PagingInfo, lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
         self.title = title
         self.pagingInfo = pagingInfo
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
-    }
-    
-    public init(title: String, direction: PageHistoryRequestDirection?, numberOfItems: Int?, revisionStartId: Int?) {
-        self.title = title
-        pagingInfo = (nil, nil, false)
-        self.direction = direction
-        self.numberOfItems = numberOfItems
-        self.lastRevisionFromPreviousCall = nil
-        self.revisionStartId = revisionStartId
     }
     
     //TODO: get rid of this when the VC is swift and we can use default values in the other init
