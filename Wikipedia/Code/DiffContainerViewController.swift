@@ -37,6 +37,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
     
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
     private let firstRevision: WMFPageHistoryRevision?
+    var animateDirection: DiffRevisionAnimator.Direction?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -109,6 +110,14 @@ class DiffContainerViewController: ViewController, HintPresenting {
             completeSetup()
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let toolbarView = diffToolbarView {
+            view.bringSubviewToFront(toolbarView)
+        }
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -119,6 +128,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
         case .single:
             break
         }
+        
+        resetPrevNextAnimateState()
     }
     
     override func viewDidLayoutSubviews() {
@@ -132,7 +143,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
             navigationBar.setNeedsLayout()
             navigationBar.layoutSubviews()
             let bottomSafeAreaHeight = safeAreaBottomAlignView.frame.height
-            let bottomHeight = diffToolbarView?.frame.height ?? bottomSafeAreaHeight
+            let bottomHeight = bottomSafeAreaHeight
             let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight - bottomHeight)
             //tonitodo: this still doesn't seem quite centered...
             let convertedTargetRect = view.convert(targetRect, to: emptyViewController.view)
@@ -161,6 +172,11 @@ class DiffContainerViewController: ViewController, HintPresenting {
 //MARK: Private
 
 private extension DiffContainerViewController {
+    
+    func resetPrevNextAnimateState() {
+        self.navigationController?.delegate = nil
+        animateDirection = nil
+    }
     
     func fetchToModelAndSetup() {
         guard let fromModel = fromModel else {
@@ -342,7 +358,13 @@ private extension DiffContainerViewController {
             case .single:
                 scrollingEmptyViewController?.type = .diffSingle
             }
-            scrollingEmptyViewController?.view.isHidden = false
+            
+            if let direction = animateDirection {
+                animateInOut(viewController: scrollingEmptyViewController, direction: direction)
+            } else {
+                scrollingEmptyViewController?.view.isHidden = false
+            }
+            
             diffListViewController?.view.isHidden = true
         case .error(let error):
             fakeProgressController.stop()
@@ -354,7 +376,28 @@ private extension DiffContainerViewController {
         case .data:
             fakeProgressController.stop()
             scrollingEmptyViewController?.view.isHidden = true
-            diffListViewController?.view.isHidden = false
+            
+            if let direction = animateDirection {
+                animateInOut(viewController: diffListViewController, direction: direction)
+            } else {
+                diffListViewController?.view.isHidden = false
+            }
+        }
+    }
+    
+    func animateInOut(viewController: UIViewController?, direction: DiffRevisionAnimator.Direction) {
+        viewController?.view.alpha = 0
+        viewController?.view.isHidden = false
+        
+        if let oldFrame = viewController?.view.frame {
+            let newY = direction == .down ? oldFrame.maxY : oldFrame.minY - oldFrame.height
+            let newFrame = CGRect(x: oldFrame.minX, y: newY, width: oldFrame.width, height: oldFrame.height)
+            viewController?.view.frame = newFrame
+            
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+                viewController?.view.alpha = 1
+                viewController?.view.frame = oldFrame
+            }, completion: nil)
         }
     }
     
@@ -608,25 +651,41 @@ private extension DiffContainerViewController {
         }
 
         scrollingEmptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
-        if let emptyViewController = scrollingEmptyViewController {
+        if let emptyViewController = scrollingEmptyViewController,
+            let emptyView = emptyViewController.view {
             emptyViewController.canRefresh = false
             emptyViewController.theme = theme
             
-            //add alignment view view
-            safeAreaBottomAlignView.translatesAutoresizingMaskIntoConstraints = false
-            safeAreaBottomAlignView.isHidden = true
-            view.addSubview(safeAreaBottomAlignView)
-            let leadingConstraint = view.leadingAnchor.constraint(equalTo: safeAreaBottomAlignView.leadingAnchor)
-            let bottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaBottomAlignView.bottomAnchor)
-            let widthAnchor = safeAreaBottomAlignView.widthAnchor.constraint(equalToConstant: 1)
-            let heightAnchor = safeAreaBottomAlignView.heightAnchor.constraint(equalToConstant: 1)
-            NSLayoutConstraint.activate([leadingConstraint, bottomConstraint, widthAnchor, heightAnchor])
+            setupSafeAreaBottomAlignView()
             
-            let belowSubview = diffToolbarView ?? navigationBar
-            wmf_add(childController: emptyViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowSubview)
+            addChild(emptyViewController)
+            emptyView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(emptyView, belowSubview: navigationBar)
+            let bottomAnchor = diffToolbarView?.topAnchor ?? safeAreaBottomAlignView.bottomAnchor
+            let bottom = emptyView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            let leading = view.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor)
+            let trailing = view.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor)
+            let top = view.topAnchor.constraint(equalTo: emptyView.topAnchor)
+            NSLayoutConstraint.activate([top, leading, trailing, bottom])
+            emptyViewController.didMove(toParent: self)
+            
             emptyViewController.view.isHidden = true
             emptyViewController.delegate = self
+            
         }
+    }
+    
+    func setupSafeAreaBottomAlignView() {
+        //add alignment view view
+        safeAreaBottomAlignView.translatesAutoresizingMaskIntoConstraints = false
+        safeAreaBottomAlignView.isHidden = true
+        view.addSubview(safeAreaBottomAlignView)
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: safeAreaBottomAlignView.leadingAnchor)
+        let bottomAnchor = diffToolbarView?.topAnchor ?? view.safeAreaLayoutGuide.bottomAnchor
+        let bottomConstraint = safeAreaBottomAlignView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        let widthAnchor = safeAreaBottomAlignView.widthAnchor.constraint(equalToConstant: 1)
+        let heightAnchor = safeAreaBottomAlignView.heightAnchor.constraint(equalToConstant: 1)
+        NSLayoutConstraint.activate([leadingConstraint, bottomConstraint, widthAnchor, heightAnchor])
     }
     
     func setupToolbarIfNeeded() {
@@ -638,7 +697,7 @@ private extension DiffContainerViewController {
                 self.diffToolbarView = toolbarView
                 toolbarView.delegate = self
                 toolbarView.translatesAutoresizingMaskIntoConstraints = false
-                view.addSubview(toolbarView)
+                view.insertSubview(toolbarView, aboveSubview: navigationBar)
                 let bottom = view.bottomAnchor.constraint(equalTo: toolbarView.bottomAnchor)
                 let leading = view.leadingAnchor.constraint(equalTo: toolbarView.leadingAnchor)
                 let trailing = view.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor)
@@ -834,6 +893,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     
     func tappedPrevious() {
         
+        self.navigationController?.delegate = self
+        animateDirection = .down
+        
         guard prevModel != nil ||
             (firstRevision != nil && fromModel != nil && firstRevision!.revisionID == fromModel!.revisionID) else {
                 assertionFailure("Expecting either a prevModel populated to push or a firstRevision to push.")
@@ -856,6 +918,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     func tappedNext() {
+        
+        self.navigationController?.delegate = self
+        animateDirection = .up
         
         guard let nextModel = nextModel else {
             assertionFailure("Expecting prevModel to be populated. Previous button should have been disabled if there's no model.")
@@ -922,4 +987,26 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     
+}
+
+extension DiffContainerViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if let direction = animateDirection {
+            return DiffRevisionAnimator(direction: direction)
+        }
+        
+        return nil
+    }
+}
+
+extension DiffContainerViewController: DiffRevisionAnimating {
+    var embeddedViewController: UIViewController? {
+        switch containerViewModel.state {
+        case .data, .loading:
+            return diffListViewController
+        case .empty, .error:
+            return scrollingEmptyViewController
+        }
+    }
 }
