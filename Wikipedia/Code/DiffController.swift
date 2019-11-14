@@ -84,14 +84,12 @@ class DiffController {
     
     private func fetchSingleNextRevision(toRevisionId: Int, completion: @escaping ((Result<Int, Error>) -> Void)) {
         
-        //TODO: forcing wmflabs here for usertesting
-        
         guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle(),
-            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true)else {
+            let articleURL = siteURL.wmf_URL(withPath: "/wiki/\(articleTitle)", isMobile: true) else {
             return
         }
         
-        revisionFetcher.fetchLatestRevisions(forArticleURL: articleURL, articleTitle: articleTitle, resultLimit: 2, startingWithRevision: NSNumber(value: toRevisionId), endingWithRevision: nil, failure: { (error) in
+        revisionFetcher.fetchLatestRevisions(forArticleURL: articleURL, resultLimit: 2, startingWithRevision: NSNumber(value: toRevisionId), endingWithRevision: nil, failure: { (error) in
             completion(.failure(error))
         }) { (result) in
             
@@ -114,7 +112,7 @@ class DiffController {
     
     private func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
-        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
+        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
 
             guard let self = self else { return }
 
