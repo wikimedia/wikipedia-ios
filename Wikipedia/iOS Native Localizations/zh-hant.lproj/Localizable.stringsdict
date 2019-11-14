@@ -226,6 +226,20 @@
 			<string>已移除 %1$d 位元組</string>
 		</dict>
 	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>自%2$@共%1$d次編輯</string>
+		</dict>
+	</dict>
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
