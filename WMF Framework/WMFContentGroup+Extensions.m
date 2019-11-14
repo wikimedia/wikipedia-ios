@@ -637,13 +637,11 @@
 }
 
 - (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind requireIsVisible:(BOOL)isVisibleRequired {
+    return [self newestGroupOfKind:kind withPredicate:nil requireIsVisible:isVisibleRequired];
+}
+
+- (nullable WMFContentGroup *)newestGroupWithPredicate:(nullable NSPredicate *)predicate {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    NSPredicate *predicate = nil;
-    if (isVisibleRequired) {
-        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && isVisible == YES", @(kind)];
-    } else {
-        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
-    }
     fetchRequest.predicate = predicate;
     fetchRequest.fetchLimit = 1;
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
@@ -654,6 +652,24 @@
         return nil;
     }
     return [contentGroups firstObject];
+}
+
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)additionalPredicate requireIsVisible:(BOOL)isVisibleRequired {
+    NSPredicate *predicate = nil;
+    if (isVisibleRequired) {
+        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && isVisible == YES", @(kind)];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    }
+    NSCompoundPredicate *compoundPredicate = nil;
+    if (additionalPredicate) {
+        compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, additionalPredicate]];
+    }
+    return [self newestGroupWithPredicate:compoundPredicate ?: predicate];
+}
+
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
+    return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:YES];
 }
 
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind {

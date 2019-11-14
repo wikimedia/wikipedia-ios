@@ -85,6 +85,10 @@
                                                  associatedContent:nil
                                                 customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                                     group.contentPreview = obj;
+                                                    group.placement = obj.placement;
+                                                    if ([obj.placement isEqualToString:@"article"]) {
+                                                        NSUserDefaults.wmf.shouldCheckForArticleAnnouncements = YES;
+                                                    }
                                                 }];
             [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
         }];

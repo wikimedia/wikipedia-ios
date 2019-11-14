@@ -21,6 +21,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
                 activityIndicator.stopAnimating()
             }
             guard let editCounts = editCountsGroupedByType else {
+                delegate?.didDetermineFilterCountsAvailability(false, viewController: self)
                 return
             }
             if case let userEdits?? = editCounts[.userEdits] {
