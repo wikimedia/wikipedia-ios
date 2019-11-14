@@ -932,20 +932,14 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
     }
     
-    func tappedShare(_ sender: UIView?) {
-        guard let diffURL = fullRevisionDiffURL(),
-        let toolbarView = diffToolbarView else {
+    func tappedShare(_ sender: UIBarButtonItem) {
+        guard let diffURL = fullRevisionDiffURL() else {
             assertionFailure("Couldn't get full revision diff URL")
             return
         }
         
         let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
-        
-        if let popover = activityViewController.popoverPresentationController {
-            popover.sourceView = sender
-            popover.sourceRect = sender?.bounds ?? toolbarView.bounds
-            popover.permittedArrowDirections = .down
-        }
+        activityViewController.popoverPresentationController?.barButtonItem = sender
         
         present(activityViewController, animated: true)
     }

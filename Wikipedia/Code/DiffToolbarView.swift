@@ -4,7 +4,7 @@ import UIKit
 protocol DiffToolbarViewDelegate: class {
     func tappedPrevious()
     func tappedNext()
-    func tappedShare(_ sender: UIView?)
+    func tappedShare(_ sender: UIBarButtonItem)
     func tappedThank(isAlreadySelected: Bool, isLoggedIn: Bool)
 }
 
@@ -93,7 +93,7 @@ class DiffToolbarView: UIView {
     }
     
     @objc func tappedShare(_ sender: UIBarButtonItem) {
-        delegate?.tappedShare(sender.customView)
+        delegate?.tappedShare(shareButton)
     }
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
