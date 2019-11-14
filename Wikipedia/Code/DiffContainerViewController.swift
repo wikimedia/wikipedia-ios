@@ -210,12 +210,14 @@ class DiffContainerViewController: ViewController, HintPresenting {
         return components?.url
     }
     
-    @objc func shareButtonTapped(_ sender: UIButton) {
+    @objc func shareButtonTapped(_ sender: UIBarButtonItem) {
         guard let diffURL = fullRevisionDiffURL() else {
             assertionFailure("Couldn't get full revision diff URL")
             return
         }
-        present(UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()]), animated: true)
+        let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
+        activityViewController.popoverPresentationController?.barButtonItem = sender
+        present(activityViewController, animated: true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
