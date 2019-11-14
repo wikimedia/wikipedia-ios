@@ -50,6 +50,22 @@
 			<string>%1$d historesch Evenementer</string>
 		</dict>
 	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 Ännerung zanter %2$@</string>
+			<key>other</key>
+			<string>%1$d Ännerungen zanter %2$@</string>
+		</dict>
+	</dict>
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
