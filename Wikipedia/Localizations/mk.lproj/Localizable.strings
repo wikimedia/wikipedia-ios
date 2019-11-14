@@ -526,7 +526,7 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Отстранет $1 бајт|Отстранети $1 бајти}}";
 "page-history-revisions-comparison-warning" = "Можете да изберете само две преработки";
-"page-history-stats-text" = "$1 уредувања од $2 наваму";
+"page-history-stats-text" = "{{PLURAL:$1|$1 уредување|$1 уредувања}} од $2 наваму";
 "page-history-user-edits" = "кориснички уредувања";
 "page-issues" = "Проблеми со страницата";
 "page-last-edited" = "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}";

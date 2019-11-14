@@ -11,6 +11,7 @@
 // Author: HakanIST
 // Author: Hedda
 // Author: Incelemeelemani
+// Author: JoeWalshWMF
 // Author: Kumkumuk
 // Author: Macofe
 // Author: Mavrikant
@@ -552,6 +553,7 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 bayt|$1 bayt}} eklendi";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 bayt|$1 bayt}} kaldırıldı";
 "page-history-revisions-comparison-warning" = "Sadece iki revizyon seçilebilir";
+// Fuzzy
 "page-history-stats-text" = "$2'den beri $1 düzenliyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";

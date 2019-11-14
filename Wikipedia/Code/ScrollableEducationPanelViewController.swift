@@ -40,7 +40,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var stackView: UIStackView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
-    @IBOutlet fileprivate weak var effectsView: UIVisualEffectView!
 
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
@@ -184,15 +183,12 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         footerTextView.attributedText = attributedText
     }
 
-    var backgroundColor: UIColor?
-    var primaryButtonBackgroundColor: UIColor?
-    var secondaryButtonTintColor: UIColor?
-    var footerTextViewTextColor: UIColor?
-    var isEffectsViewHidden: Bool = false {
+    var primaryButtonBorderWidth: CGFloat = 1 {
         didSet {
-            effectsView.isHidden = isEffectsViewHidden
+            primaryButton?.layer.borderWidth = primaryButtonBorderWidth
         }
     }
+    
     var isUrgent: Bool = false
     var spacing: CGFloat = 14 {
         didSet {
@@ -362,13 +358,12 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
         headingLabel?.textColor = theme.colors.primaryText
         subheadingLabel?.textColor = theme.colors.primaryText
-        footerTextView?.textColor = footerTextViewTextColor ?? theme.colors.primaryText
+        footerTextView?.textColor = theme.colors.secondaryText
         closeButton.tintColor = theme.colors.primaryText
         primaryButton?.tintColor = theme.colors.link
-        secondaryButton?.tintColor = secondaryButtonTintColor ?? theme.colors.link
-        primaryButton?.layer.borderWidth = 0
+        secondaryButton?.tintColor = theme.colors.secondaryText
         primaryButton?.layer.borderColor = theme.colors.link.cgColor
-        primaryButton.backgroundColor = primaryButtonBackgroundColor
+        primaryButton.backgroundColor = theme.colors.cardButtonBackground
 
         if isUrgent {
             roundedCornerContainer.layer.borderWidth = 3
@@ -376,7 +371,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         } else {
             roundedCornerContainer.layer.borderWidth = 0
         }
-        roundedCornerContainer.backgroundColor = backgroundColor
+        roundedCornerContainer.backgroundColor = theme.colors.cardBackground
         updateFooterHTML()
     }
 }

@@ -15,12 +15,7 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
     }
 
     override func viewDidLoad() {
-        backgroundColor = theme.colors.cardBackground
-        primaryButtonBackgroundColor = theme.colors.cardButtonBackground
-        secondaryButtonTintColor = theme.colors.secondaryText
-        footerTextViewTextColor = theme.colors.secondaryText
         super.viewDidLoad()
-        isEffectsViewHidden = true
         subheadingHTML = announcement.text
         subheadingTextAlignment = .left
         primaryButtonTitle = announcement.actionTitle
@@ -32,6 +27,7 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
         buttonCornerRadius = 8
         buttonTopSpacing = 10
         primaryButtonTitleEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
+        primaryButtonBorderWidth = 0
         dismissWhenTappedOutside = true
         contentHorizontalPadding = 20
     }

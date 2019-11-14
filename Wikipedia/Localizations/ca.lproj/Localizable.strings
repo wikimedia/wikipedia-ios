@@ -116,6 +116,7 @@
 "article-read-more-title" = "Més informació";
 "article-save-error-not-enough-space" = "No teniu prou espai al dispositiu per desar l'article.";
 "article-share" = "Comparteix";
+"article-title" = "Article";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back-button-accessibility-label" = "Enrere";
@@ -172,6 +173,8 @@
 "description-welcome-descriptions-title" = "Descripcions del títol";
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
+"diff-context-lines-collapsed-button-title" = "Mostra";
+"diff-context-lines-expanded-button-title" = "Amaga";
 "diff-paragraph-moved" = "S'ha mogut el paràgraf";
 "diff-paragraph-moved-direction-down" = "avall";
 "diff-paragraph-moved-direction-up" = "amunt";
@@ -650,8 +653,14 @@
 "reading-themes-controls-syntax-highlighting" = "Ressaltat de la sintaxi";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|1=Ahir|Fa $1 dies}}";
+"relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
+"relative-date-hours-ago-abbreviated" = "fa $1 h";
+"relative-date-minutes-abbreviated" = "$1 m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ara mateix|Fa $1 minut|Fa $1 minuts}}";
+"relative-date-minutes-ago-abbreviated" = "fa $1 m";
+"relative-date-seconds-abbreviated" = "$1 s";
+"relative-date-seconds-ago-abbreviated" = "fa $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|1=L'any passat|Fa $1 anys}}";
 "replace-button-accessibility" = "Realitza $1.";
 "replace-buttons-replace-accessibility" = "Reemplaça una única instància";
@@ -798,6 +807,7 @@
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
 "unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
+"unknown-generic-text" = "Desconegut";
 "view-in-browser-footer-link" = "Mostra l'article al navegador";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";

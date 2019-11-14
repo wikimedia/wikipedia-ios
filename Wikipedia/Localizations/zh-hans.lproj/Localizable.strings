@@ -206,6 +206,7 @@
 "diff-paragraph-moved-direction-up" = "向上";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1个段落|$1个段落}}";
 "diff-revision-error-title" = "无法加载修订版本数据";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1次编辑}}";
 "diff-single-header-editor-title" = "编辑者信息";
 "diff-single-header-summary-heading" = "编辑摘要";
 "diff-single-line-format" = "第$1行";
@@ -215,6 +216,7 @@
 "diff-thanks-send-title" = "公开发送感谢";
 "diff-thanks-sent" = "您的感谢被发送给$1";
 "diff-thanks-sent-already" = "您已为此次编辑发送感谢";
+"diff-thanks-sent-cannot-unsend" = "感谢无法撤回";
 "dim-images" = "使图片变暗";
 "edit-bold-accessibility-label" = "添加加粗格式";
 "edit-bold-remove-accessibility-label" = "移除加粗格式";
@@ -506,7 +508,8 @@
 "page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 byte|$1字节}}";
 "page-history-revision-size-diff-subtraction" = "已删除 {{PLURAL:$1|$1 byte|$1字节}}";
 "page-history-revisions-comparison-warning" = "您只能选择两个修订版本";
-"page-history-stats-text" = "自$2共$1次编辑";
+"page-history-stats-text" = "自$2共{{PLURAL:$1|$1次编辑}}";
+"page-history-user-edits" = "用户编辑数";
 "page-issues" = "页面问题";
 "page-last-edited" = "{{PLURAL:$1|0=编辑于今天|1=编辑于昨天|编辑于 $1 天前}}";
 "page-location" = "在地图上查看";

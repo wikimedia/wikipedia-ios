@@ -258,6 +258,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 উইকিপিডিয়া থেকে $1";
 "on-this-day-title" = "আজকের এই দিনে";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
+"page-history-minor-edits" = "অনুল্লেখ্য সম্পাদনা";
 "page-issues" = "পাতার সমস্যা";
 // Fuzzy
 "page-last-edited" = "$1 দিন আগে সম্পাদিত";
