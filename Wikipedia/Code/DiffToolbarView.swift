@@ -27,15 +27,22 @@ class DiffToolbarView: UIView {
     lazy var shareButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.accessibilityShareTitle
+        
+        if let button = item.customView as? UIButton {
+            button.contentEdgeInsets = UIEdgeInsets(top: -5, left: 0, bottom: 0, right: 0)
+        }
+        
         return item
     }()
 
     lazy var thankButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "diff-smile", target: self, action: #selector(tappedThank(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-thank-user-accessibility", value: "Thank User", comment: "Accessibility title for the 'Thank User' action button when viewing a single revision diff.")
+        
         if let button = item.customView as? UIButton {
-            button.contentEdgeInsets = UIEdgeInsets(top: 11, left: 0, bottom: 0, right: 0)
+            button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         }
+
         return item
     }()
     
@@ -74,15 +81,7 @@ class DiffToolbarView: UIView {
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
-        let smallFixedSize = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        smallFixedSize.width = 10
-        
-        let largeFixedSize = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        largeFixedSize.width = 15
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        toolbar.items = [largeFixedSize, nextButton, smallFixedSize, previousButton, spacer, thankButton, largeFixedSize, shareButton, largeFixedSize]
+        setItems()
     }
     
    @objc func tappedPrevious(_ sender: UIBarButtonItem) {
@@ -103,6 +102,32 @@ class DiffToolbarView: UIView {
         if isLoggedIn {
             isThankSelected = true
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setItems()
+    }
+
+    private func setItems() {
+        let nextPrevSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        nextPrevSpacing.width = 26
+        
+        let marginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
+        case (.regular, .regular):
+            marginSpacing.width = 50
+        default:
+            marginSpacing.width = 26
+        }
+        
+        let largeFixedSize = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        largeFixedSize.width = 30
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        toolbar.items = [marginSpacing, nextButton, nextPrevSpacing, previousButton, spacer, thankButton, largeFixedSize, shareButton, marginSpacing]
     }
     
     func setPreviousButtonState(isEnabled: Bool) {
