@@ -224,6 +224,13 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     }
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
+    var isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets: Bool {
+        if #available(iOS 13.0, *) {
+            return true
+        } else {
+            return false
+        }
+    }
     
     public final func updateScrollViewInsets(preserveAnimation: Bool = false) {
         guard let scrollView = scrollView, scrollView.contentInsetAdjustmentBehavior == .never else {
@@ -252,8 +259,14 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
             bottom = max(bottom, keyboardIntersection.height)
         }
+        let scrollIndicatorInsets: UIEdgeInsets
         
-        let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        if isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets {
+            scrollIndicatorInsets = UIEdgeInsets(top: top - safeInsets.top, left: safeInsets.left, bottom: bottom - safeInsets.bottom, right: safeInsets.right)
+        } else {
+            scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        }
+        
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
         }

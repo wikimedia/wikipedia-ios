@@ -3,9 +3,9 @@ import Foundation
 
 class DiffFetcher: Fetcher {
     
-    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, completion: @escaping ((Result<DiffResponse, Error>) -> Void)) {
+    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, siteURL: URL, completion: @escaping ((Result<DiffResponse, Error>) -> Void)) {
         
-        guard let url = compareURL(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) else {
+        guard let url = compareURL(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) else {
             completion(.failure(DiffError.generateUrlFailure))
             return
         }
@@ -31,13 +31,17 @@ class DiffFetcher: Fetcher {
         }
     }
     
-    private func compareURL(fromRevisionId: Int, toRevisionId: Int) -> URL? {
+    private func compareURL(fromRevisionId: Int, toRevisionId: Int, siteURL: URL) -> URL? {
+        
+        guard let host = siteURL.host else {
+            return nil
+        }
 
         var pathComponents = ["v1", "revision"]
         pathComponents.append("\(fromRevisionId)")
         pathComponents.append("compare")
         pathComponents.append("\(toRevisionId)")
-        let components = configuration.mediaWikiRestAPIURLForHost("en.wikipedia.beta.wmflabs.org", appending: pathComponents)
+        let components = configuration.mediaWikiRestAPIURLForHost(host, appending: pathComponents)
         return components.url
     }
 }

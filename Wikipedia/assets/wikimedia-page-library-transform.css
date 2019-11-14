@@ -516,6 +516,13 @@ div.pagelib_collapse_table_container {
   clear: both;
 }
 
+.pagelib_collapse_table {
+  float: none !important;
+  max-width: none !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
 .pagelib_theme_dark .content div.pagelib_collapse_table_container {
   box-shadow: none !important;
   background-color: #222 !important;
