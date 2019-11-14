@@ -36,6 +36,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
     private let type: DiffContainerViewModel.DiffType
     
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
+    private let firstRevision: WMFPageHistoryRevision?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -56,7 +57,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, theme: Theme, diffController: DiffController? = nil, revisionRetrievingDelegate: DiffRevisionRetrieving?) {
+    init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, theme: Theme, diffController: DiffController? = nil, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?) {
         
         guard fromModel != nil || toModel != nil else {
             assertionFailure("Need at least one revision model for diff screen.")
@@ -70,6 +71,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         self.articleTitle = articleTitle
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.siteURL = siteURL
+        self.firstRevision = firstRevision
         
         if let diffController = diffController {
             self.diffController = diffController
@@ -129,11 +131,11 @@ class DiffContainerViewController: ViewController, HintPresenting {
         if let emptyViewController = scrollingEmptyViewController {
             navigationBar.setNeedsLayout()
             navigationBar.layoutSubviews()
-            let bottomSafeAreaHeight = view.bounds.height - safeAreaBottomAlignView.frame.maxY
-            let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight - bottomSafeAreaHeight)
+            let bottomSafeAreaHeight = safeAreaBottomAlignView.frame.height
+            let bottomHeight = diffToolbarView?.frame.height ?? bottomSafeAreaHeight
+            let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight - bottomHeight)
             //tonitodo: this still doesn't seem quite centered...
             let convertedTargetRect = view.convert(targetRect, to: emptyViewController.view)
-            print(convertedTargetRect)
             emptyViewController.centerEmptyView(within: convertedTargetRect)
         }
     }
@@ -268,16 +270,23 @@ private extension DiffContainerViewController {
                     if let nextToModel = nextToModel {
                         self.nextModel = NextPrevModel(from: nextFromModel, to: nextToModel)
                     }
-                    self.completeSetup()
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.containerViewModel.state = .error(error: error)
-                }
+            case .failure:
+                break
             }
         }
         
-        //populate nextModel for enabling previous/next button
+        //if fromModel is firstRevision, allow previous button to be enabled.
+        //no need to attempt fetching previous revision if we already know there is no previous.
+        if let firstRevision = firstRevision {
+            if fromModel.revisionID == firstRevision.revisionID {
+                diffToolbarView?.setPreviousButtonState(isEnabled: true)
+                return
+            }
+        }
+        
+        
+        //populate prevModel for enabling previous/next button
         var prevFromModel: WMFPageHistoryRevision?
         let prevToModel = fromModel
         diffController.fetchRevision(sourceRevision: prevToModel, direction: .previous) { [weak self] (result) in
@@ -293,12 +302,9 @@ private extension DiffContainerViewController {
                     if let prevFromModel = prevFromModel {
                         self.prevModel = NextPrevModel(from: prevFromModel, to: prevToModel)
                     }
-                    self.completeSetup()
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.containerViewModel.state = .error(error: error)
-                }
+            case .failure:
+                break
             }
         }
     }
@@ -616,7 +622,8 @@ private extension DiffContainerViewController {
             let heightAnchor = safeAreaBottomAlignView.heightAnchor.constraint(equalToConstant: 1)
             NSLayoutConstraint.activate([leadingConstraint, bottomConstraint, widthAnchor, heightAnchor])
             
-            wmf_add(childController: emptyViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+            let belowSubview = diffToolbarView ?? navigationBar
+            wmf_add(childController: emptyViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowSubview)
             emptyViewController.view.isHidden = true
             emptyViewController.delegate = self
         }
@@ -759,7 +766,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate) {
+        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revision.revisionSize), fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision) {
             wmf_push(singleDiffVC, animated: true)
         }
     }
@@ -827,12 +834,23 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     
     func tappedPrevious() {
         
-        guard let prevModel = prevModel else {
-            assertionFailure("Expecting prevModel to be populated. Previous button should have been disabled if there's no model.")
-            return
+        guard prevModel != nil ||
+            (firstRevision != nil && fromModel != nil && firstRevision!.revisionID == fromModel!.revisionID) else {
+                assertionFailure("Expecting either a prevModel populated to push or a firstRevision to push.")
+                return
         }
         
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: prevModel.to.revisionSize), fromModel: prevModel.from, toModel: prevModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate) {
+        let maybeRevisionSize = prevModel?.to.revisionSize ?? firstRevision?.revisionSize
+        let fromModel = prevModel?.from
+        let toModel = prevModel?.to ?? firstRevision
+        
+        guard let revisionSize = maybeRevisionSize,
+            (fromModel != nil || toModel != nil) else {
+                assertionFailure("Need revision size and one model before pushing on new DiffContainerVC")
+                return
+        }
+        
+        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: revisionSize), fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision) {
             replaceLastAndPush(with: singleDiffVC)
         }
     }
@@ -844,7 +862,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextModel.to.revisionSize), fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate) {
+        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single(byteDifference: nextModel.to.revisionSize), fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision) {
             replaceLastAndPush(with: singleDiffVC)
         }
     }

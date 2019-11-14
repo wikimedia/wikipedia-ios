@@ -27,8 +27,6 @@ class DiffController {
     }
     
     let diffFetcher: DiffFetcher
-    let revisionFetcher: WMFArticleRevisionFetcher
-    let pageHistoryFetcher: PageHistoryFetcher
     let globalUserInfoFetcher: GlobalUserInfoFetcher
     let diffThanker: DiffThanker
     let articleTitle: String
@@ -40,10 +38,8 @@ class DiffController {
     let type: DiffContainerViewModel.DiffType
     private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
     
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), revisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), pageHistoryFetcher: PageHistoryFetcher = PageHistoryFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
         self.diffFetcher = diffFetcher
-        self.revisionFetcher = revisionFetcher
-        self.pageHistoryFetcher = pageHistoryFetcher
         self.globalUserInfoFetcher = globalUserInfoFetcher
         self.diffThanker = diffThanker
         self.articleTitle = articleTitle
@@ -92,27 +88,14 @@ class DiffController {
             }
         }
         
-        //failing that try fetching revision from pageHistoryFetcher
-
+        //failing that try fetching revision from API
         guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
             return
         }
 
-        let direction: PageHistoryRequestDirection = direction == .previous ? .older : .newer
-        let requestParams = PageHistoryRequestParameters(title: articleTitle, direction: direction, rvLimit: 1)
+        let direction: DiffFetcher.SingleRevisionRequestDirection = direction == .previous ? .older : .newer
         
-        pageHistoryFetcher.fetchRevisionInfo(siteURL, requestParams: requestParams, failure: { (error) in
-
-            completion(.failure(error))
-        }) { (results) in
-            
-            if let resultModel = results.items().first?.items.first {
-                completion(.success(resultModel))
-                return
-            }
-            
-            completion(.failure(DiffError.fetchRevisionModelFailure))
-        }
+        diffFetcher.fetchSingleRevisionInfo(siteURL, sourceRevision: sourceRevision, title: articleTitle, direction: direction, completion: completion)
     }
     
     func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {

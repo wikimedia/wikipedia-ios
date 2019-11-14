@@ -13,13 +13,13 @@ class DiffToolbarView: UIView {
     @IBOutlet private var toolbar: UIToolbar!
     @IBOutlet var contentView: UIView!
     lazy var previousButton: IconBarButtonItem = {
-        let item = IconBarButtonItem(iconName: "chevron-up", target: self, action: #selector(tappedPrevious(_:)), for: .touchUpInside)
+        let item = IconBarButtonItem(iconName: "chevron-down", target: self, action: #selector(tappedPrevious(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-previous-revision-accessibility", value: "Previous Revision", comment: "Accessibility title for the 'Previous Revision' action button when viewing a single revision diff.")
         return item
     }()
 
     lazy var nextButton: IconBarButtonItem = {
-        let item = IconBarButtonItem(iconName: "chevron-down", target: self, action: #selector(tappedNext(_:)), for: .touchUpInside)
+        let item = IconBarButtonItem(iconName: "chevron-up", target: self, action: #selector(tappedNext(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-next-revision-accessibility", value: "Next Revision", comment: "Accessibility title for the 'Next Revision' action button when viewing a single revision diff.")
         return item
     }()
@@ -82,7 +82,7 @@ class DiffToolbarView: UIView {
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        toolbar.items = [largeFixedSize, previousButton, smallFixedSize, nextButton, spacer, thankButton, largeFixedSize, shareButton, largeFixedSize]
+        toolbar.items = [largeFixedSize, nextButton, smallFixedSize, previousButton, spacer, thankButton, largeFixedSize, shareButton, largeFixedSize]
     }
     
    @objc func tappedPrevious(_ sender: UIBarButtonItem) {
@@ -106,15 +106,11 @@ class DiffToolbarView: UIView {
     }
     
     func setPreviousButtonState(isEnabled: Bool) {
-        
+        previousButton.isEnabled = isEnabled
     }
     
     func setNextButtonState(isEnabled: Bool) {
-        
-    }
-    
-    func setThankButtonState(isEnabled: Bool) {
-        
+        nextButton.isEnabled = isEnabled
     }
 }
 
