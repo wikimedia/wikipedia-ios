@@ -70,6 +70,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.historyTabTitle, style: .plain, target: nil, action: nil)
         
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
