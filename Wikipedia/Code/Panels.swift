@@ -15,12 +15,7 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
     }
 
     override func viewDidLoad() {
-        backgroundColor = theme.colors.cardBackground
-        primaryButtonBackgroundColor = theme.colors.cardButtonBackground
-        secondaryButtonTintColor = theme.colors.secondaryText
-        footerTextViewTextColor = theme.colors.secondaryText
         super.viewDidLoad()
-        isEffectsViewHidden = true
         subheadingHTML = announcement.text
         subheadingTextAlignment = .left
         primaryButtonTitle = announcement.actionTitle
