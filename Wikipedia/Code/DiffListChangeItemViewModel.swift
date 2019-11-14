@@ -106,8 +106,8 @@ final class DiffListChangeItemViewModel {
         var modifiedText = text
         var modifiedHighlightedRanges = highlightedRanges
         
-        let regularFontStyle: DynamicTextStyle = .footnote
-        let boldFontStyle: DynamicTextStyle = .boldFootnote
+        let regularFontStyle: DynamicTextStyle = .subheadline
+        let boldFontStyle: DynamicTextStyle = .boldSubheadline
         
         let font = diffItemType == .moveSource || diffItemType == .moveDestination ? UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection) : UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection)
         
