@@ -7470,7 +7470,6 @@
 		BC45D5471C31E1EA007C72F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				D818FEB321E39DFE001A7A00 /* WKWebViewConfiguration */,
 				BC45D5561C31EEBE007C72F3 /* Error Handling */,
 				BC45D5591C31EFF8007C72F3 /* i18n */,
 				BC628C791B389E2B00B3F85C /* Images */,
@@ -8519,13 +8518,6 @@
 				677670B12320C42D00F2A194 /* WMFLoadingFlowControllerProtocols.h */,
 			);
 			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		D818FEB321E39DFE001A7A00 /* WKWebViewConfiguration */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = WKWebViewConfiguration;
 			sourceTree = "<group>";
 		};
 		D82014811E68693600BA8579 /* HexColors */ = {
