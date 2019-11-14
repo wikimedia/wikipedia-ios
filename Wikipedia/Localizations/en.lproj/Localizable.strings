@@ -182,7 +182,7 @@
 "diff-thanks-send-button-title" = "Send 'Thanks'";
 "diff-thanks-send-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.";
 "diff-thanks-send-title" = "Publicly send 'Thanks'";
-"diff-thanks-sent" = "Your 'Thanks' was set to $1";
+"diff-thanks-sent" = "Your 'Thanks' was sent to $1";
 "diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
 "diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 line unedited|$1 lines unedited}}";
