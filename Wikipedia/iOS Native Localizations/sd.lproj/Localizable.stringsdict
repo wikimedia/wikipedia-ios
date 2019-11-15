@@ -34,6 +34,134 @@
 			<string>مضمونَ ڊھيل</string>
 		</dict>
 	</dict>
+	<key>diff-compare-header-subtitle-num-revisions</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d وچيون ورجاءُ</string>
+			<key>other</key>
+			<string>%1$d وچيان ورجاءَ</string>
+		</dict>
+	</dict>
+	<key>diff-compare-header-subtitle-num-users</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d واپرائيندڙ</string>
+			<key>other</key>
+			<string>%1$d واپرائيندڙَ</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-line</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d سٽ</string>
+			<key>other</key>
+			<string>%1$d سٽون</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-section</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ڀاڱو</string>
+			<key>other</key>
+			<string>%1$d ڀاڱا</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d سنوار</string>
+			<key>other</key>
+			<string>%1$d سنوارون</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d بائيٽ وڌي</string>
+			<key>other</key>
+			<string>%1$d بائيٽون وڌيون</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-removed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d بائيٽ ھٽائي</string>
+			<key>other</key>
+			<string>%1$d بائيٽون ھٽايون</string>
+		</dict>
+	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d سٽ اڻسنواريل</string>
+			<key>other</key>
+			<string>%1$d سٽون اڻسنواريل</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -64,6 +192,38 @@
 			<string>%1$d تاريخي واقعو</string>
 			<key>other</key>
 			<string>%1$d تاريخي واقعا</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-addition</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d بائيٽ وڌيـ(ـون)</string>
+			<key>other</key>
+			<string>%1$d بائيٽون وڌيـ(ـون)</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-subtraction</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d بائيٽ ھٽائيـ(ـون)</string>
+			<key>other</key>
+			<string>%1$d بائيٽون ھٽائيـ(ـون)</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>

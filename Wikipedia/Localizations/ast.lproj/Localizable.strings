@@ -124,6 +124,8 @@
 "description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-help-about-title" = "Tocante a";
+"diff-multi-line-format" = "Ringleres $1-$2";
+"diff-single-line-format" = "Ringlera $1";
 "dim-images" = "Amenorgar el rellume d'imáxenes";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";

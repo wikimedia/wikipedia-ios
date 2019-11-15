@@ -380,6 +380,7 @@
 "page-history-revision-author-accessibility-label" = "Autore: %@";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Aggiunto|Aggiunti}} $1 byte";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
+"page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";
 "page-issues" = "Problemi alla pagina";
 "page-last-edited" = "Modificata {{PLURAL:$1|0=oggi|1=ieri|$1 giorni fa}}";
 "page-location" = "Visualizza sulla mappa";

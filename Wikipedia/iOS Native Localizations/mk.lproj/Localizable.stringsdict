@@ -226,6 +226,22 @@
 			<string>Отстранети %1$d бајти</string>
 		</dict>
 	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d уредување од %2$@ наваму</string>
+			<key>other</key>
+			<string>%1$d уредувања од %2$@ наваму</string>
+		</dict>
+	</dict>
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -161,6 +161,7 @@
 "page-history-compare-title" = "Salīdzināt";
 "page-history-revision-author-accessibility-label" = "Autors: %@";
 "page-history-revision-history-title" = "Versiju hronoloģija";
+"page-history-stats-text" = "{{PLURAL:$1|$1 labojumi|$1 labojums|$1 labojumi}} kopš $2";
 "page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
 "page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
 "page-similar-titles" = "Līdzīgas lapas";
