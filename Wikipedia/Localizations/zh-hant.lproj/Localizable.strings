@@ -546,7 +546,7 @@
 "page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 位元組|$1 位元組}}";
 "page-history-revision-size-diff-subtraction" = "已移除 {{PLURAL:$1|$1 位元組|$1 位元組}}";
 "page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
-"page-history-stats-text" = "自 $2 共 $1 次編輯";
+"page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
 "page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
 "page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
@@ -823,7 +823,7 @@
 "theme-black-display-name" = "漆黑";
 "theme-dark-display-name" = "陰暗";
 "theme-default-display-name" = "預設";
-"theme-default-explanation" = "匹配系統主題";
+"theme-default-explanation" = "符合系統主題";
 "theme-light-display-name" = "明亮";
 "theme-sepia-display-name" = "深褐";
 "top-read-header-generic" = "維基百科";

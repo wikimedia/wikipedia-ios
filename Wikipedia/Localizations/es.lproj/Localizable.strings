@@ -137,6 +137,7 @@
 "article-read-more-title" = "Seguir leyendo";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
+"article-title" = "Artículo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "back-button-accessibility-label" = "Volver";
@@ -193,6 +194,14 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
+"diff-context-lines-collapsed-button-title" = "Mostrar";
+"diff-context-lines-expanded-button-title" = "Ocultar";
+"diff-multi-line-format" = "Renglones $1-$2";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 renglón|$1 renglones}}";
+"diff-single-header-editor-title" = "Información sobre el editor";
+"diff-single-header-summary-heading" = "Resumen de edición";
+"diff-single-line-format" = "Renglón $1";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 renglón|$1 renglones}} sin editar";
 "dim-images" = "Atenuación de imágenes";
 "edit-bold-accessibility-label" = "\nAñadir negritas";
 "edit-bold-remove-accessibility-label" = "\nQuitar negritas";
@@ -640,8 +649,12 @@
 "reading-themes-controls-syntax-highlighting" = "Resaltado de sintaxis";
 "reference-title" = "Referencia $1";
 "relative-date-days-ago" = "\n{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
+"relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
+"relative-date-hours-ago-abbreviated" = "hace $1 h";
+"relative-date-minutes-abbreviated" = "$1 m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
+"relative-date-minutes-ago-abbreviated" = "hace $1 m";
 "relative-date-years-ago" = "\n{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
 "replace-button-accessibility" = "Realizar $1.";
 "replace-buttons-replace-accessibility" = "Reemplazar una sóla instancia";

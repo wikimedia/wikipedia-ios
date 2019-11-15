@@ -515,6 +515,7 @@
 "page-history-revision-size-diff-addition" = "Dodano {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revision-size-diff-subtraction" = "Usunięto {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revisions-comparison-warning" = "Wybrane moga być tylko dwie wersje";
+// Fuzzy
 "page-history-stats-text" = "$1 edycji od $2";
 "page-history-user-edits" = "edycje użytkownika";
 "page-issues" = "Problemy ze stroną";
