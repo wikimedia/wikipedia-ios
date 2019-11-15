@@ -485,7 +485,7 @@ private extension DiffContainerViewController {
             navigationBar.allowsUnderbarHitsFallThrough = true
             navigationBar.addUnderNavigationBarView(headerTitleView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-            navigationBar.isShadowBelowUnderBarView = true
+            navigationBar.isShadowShowing = false
             
             self.headerTitleView = headerTitleView
         }

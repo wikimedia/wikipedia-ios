@@ -42,6 +42,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             updateShadowConstraints()
         }
     }
+    public var isShadowShowing: Bool = true {
+        didSet {
+            updateShadowConstraints()
+        }
+    }
     
     @objc public var isTopSpacingHidingEnabled: Bool = true
     @objc public var isBarHidingEnabled: Bool = true
@@ -461,8 +466,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private func updateShadowConstraints() {
-        shadowTopUnderBarViewBottomConstraint.isActive = isShadowBelowUnderBarView
-        shadowTopExtendedViewBottomConstraint.isActive = !isShadowBelowUnderBarView
+        if isShadowShowing {
+            shadowTopUnderBarViewBottomConstraint.isActive = isShadowBelowUnderBarView
+            shadowTopExtendedViewBottomConstraint.isActive = !isShadowBelowUnderBarView
+        } else {
+            NSLayoutConstraint.deactivate([shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint])
+        }
         setNeedsUpdateConstraints()
     }
     
