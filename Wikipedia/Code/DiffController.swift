@@ -5,7 +5,7 @@ enum DiffError: Error {
     case generateUrlFailure
     case missingDiffResponseFailure
     case missingUrlResponseFailure
-    case fetchRevisionModelFailure
+    case fetchRevisionConstructTitleFailure
     case unrecognizedHardcodedIdsForIntermediateCounts
     
     var localizedDescription: String {
@@ -90,6 +90,7 @@ class DiffController {
         
         //failing that try fetching revision from API
         guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
             return
         }
 

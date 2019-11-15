@@ -102,6 +102,7 @@ class DiffFetcher: Fetcher {
                 }
                 
                 completion(.success(singleRevision))
+                return
             }
             
             completion(.failure(DiffFetcherError.failureParsingRevisions))

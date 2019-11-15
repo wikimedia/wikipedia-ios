@@ -112,14 +112,14 @@ class DiffToolbarView: UIView {
 
     private func setItems() {
         let nextPrevSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        nextPrevSpacing.width = 26
+        nextPrevSpacing.width = 17
         
         let marginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
             marginSpacing.width = 50
         default:
-            marginSpacing.width = 26
+            marginSpacing.width = 0
         }
         
         let largeFixedSize = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)

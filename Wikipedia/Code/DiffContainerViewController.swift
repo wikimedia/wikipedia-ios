@@ -37,7 +37,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
     
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
     private let firstRevision: WMFPageHistoryRevision?
-    var animateDirection: DiffRevisionAnimator.Direction?
+    var animateDirection: DiffRevisionTransition.Direction?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -145,7 +145,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
             let bottomSafeAreaHeight = safeAreaBottomAlignView.frame.height
             let bottomHeight = bottomSafeAreaHeight
             let targetRect = CGRect(x: 0, y: navigationBar.visibleHeight, width: emptyViewController.view.frame.width, height: emptyViewController.view.frame.height - navigationBar.visibleHeight - bottomHeight)
-            //tonitodo: this still doesn't seem quite centered...
+
             let convertedTargetRect = view.convert(targetRect, to: emptyViewController.view)
             emptyViewController.centerEmptyView(within: convertedTargetRect)
         }
@@ -174,7 +174,6 @@ class DiffContainerViewController: ViewController, HintPresenting {
 private extension DiffContainerViewController {
     
     func resetPrevNextAnimateState() {
-        self.navigationController?.delegate = nil
         animateDirection = nil
     }
     
@@ -385,7 +384,7 @@ private extension DiffContainerViewController {
         }
     }
     
-    func animateInOut(viewController: UIViewController?, direction: DiffRevisionAnimator.Direction) {
+    func animateInOut(viewController: UIViewController?, direction: DiffRevisionTransition.Direction) {
         viewController?.view.alpha = 0
         viewController?.view.isHidden = false
         
@@ -394,7 +393,7 @@ private extension DiffContainerViewController {
             let newFrame = CGRect(x: oldFrame.minX, y: newY, width: oldFrame.width, height: oldFrame.height)
             viewController?.view.frame = newFrame
             
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: DiffRevisionTransition.duration, delay: 0.0, options: .curveEaseInOut, animations: {
                 viewController?.view.alpha = 1
                 viewController?.view.frame = oldFrame
             }, completion: nil)
@@ -893,7 +892,6 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     
     func tappedPrevious() {
         
-        self.navigationController?.delegate = self
         animateDirection = .down
         
         guard prevModel != nil ||
@@ -919,7 +917,6 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     
     func tappedNext() {
         
-        self.navigationController?.delegate = self
         animateDirection = .up
         
         guard let nextModel = nextModel else {
@@ -987,7 +984,7 @@ extension DiffContainerViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         if let direction = animateDirection {
-            return DiffRevisionAnimator(direction: direction)
+            return DiffRevisionTransition(direction: direction)
         }
         
         return nil

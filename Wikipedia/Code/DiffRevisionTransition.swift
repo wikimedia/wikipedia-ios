@@ -3,10 +3,12 @@ import Foundation
 
 protocol DiffRevisionAnimating: class {
     var embeddedViewController: UIViewController? { get }
-    var animateDirection: DiffRevisionAnimator.Direction?  { get set }
+    var animateDirection: DiffRevisionTransition.Direction?  { get set }
 }
 
-class DiffRevisionAnimator : NSObject, UIViewControllerAnimatedTransitioning {
+class DiffRevisionTransition : NSObject, UIViewControllerAnimatedTransitioning {
+    
+    static let duration = TimeInterval(0.3)
     
     enum Direction {
         case up
@@ -23,9 +25,13 @@ class DiffRevisionAnimator : NSObject, UIViewControllerAnimatedTransitioning {
 
         let container = transitionContext.containerView
 
-        guard let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) else { return }
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else { return }
-        guard let toVC = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? DiffRevisionAnimating) else { return }
+        guard let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from),
+        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to),
+        let toVC = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? DiffRevisionAnimating) else {
+            
+            transitionContext.completeTransition(false)
+            return
+        }
         
         let fromEmbedVC = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? DiffRevisionAnimating)?.embeddedViewController
         toVC.animateDirection = direction
@@ -45,7 +51,7 @@ class DiffRevisionAnimator : NSObject, UIViewControllerAnimatedTransitioning {
              oldFromEmbedVCFrame = fromFrame
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: DiffRevisionTransition.duration, delay: 0.0, options: .curveEaseInOut, animations: {
             toView.alpha = 1
             
             if let newFromEmbedVCFrame = newFromEmbedVCFrame {
@@ -61,6 +67,6 @@ class DiffRevisionAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+        return DiffRevisionTransition.duration
     }
 }
