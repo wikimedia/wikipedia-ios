@@ -14,6 +14,7 @@ class DiffHeaderExtendedView: UIView {
     @IBOutlet var editorView: DiffHeaderEditorView!
     @IBOutlet var compareView: DiffHeaderCompareView!
     @IBOutlet var divViews: [UIView]!
+    @IBOutlet var summaryDivView: UIView!
     @IBOutlet var editorDivView: UIView!
     @IBOutlet var compareDivView: UIView!
     
@@ -65,6 +66,7 @@ class DiffHeaderExtendedView: UIView {
         switch new.headerType {
         case .compare(let compareViewModel, _):
             summaryView.isHidden = true
+            summaryDivView.isHidden = true
             editorView.isHidden = true
             editorDivView.isHidden = true
             compareView.isHidden = false
@@ -77,9 +79,11 @@ class DiffHeaderExtendedView: UIView {
             compareDivView.isHidden = true
             if let summary = summaryViewModel.summary, summary.wmf_hasNonWhitespaceText {
                 summaryView.isHidden = false
+                summaryDivView.isHidden = false
                 summaryView.update(summaryViewModel)
             } else {
                 summaryView.isHidden = true
+                summaryDivView.isHidden = true
             }
             editorView.update(editorViewModel)
         }
