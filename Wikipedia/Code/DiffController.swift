@@ -136,21 +136,52 @@ class DiffController {
     }
     
     private func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+//
+//        let queue = DispatchQueue.global(qos: .userInitiated)
+//
+//        queue.async { [weak self] in
+//
+//        //diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
+//
+//            guard let self = self else { return }
+//
+//            do {
+//
+//            let url = Bundle.main.url(forResource: "test", withExtension: "json")!
+//            let data = try Data(contentsOf: url)
+//            let diffResponse = try JSONDecoder().decode(DiffResponse.self, from: data)
+//
+//                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
+//                let transformSectionInfo = self.transformSectionInfosOfItems(from: diffResponse)
+//                let transformDiffItems = self.transformDiffItemsWithPopulatedLineNumbers(from: diffResponse)
+//
+//                guard let populatedTransformDiffItems = self.populateAdditionalSectionAndMoveInfo(transformSectionInfo: transformSectionInfo, transformDiffItems: transformDiffItems, groupedMoveIndexes: groupedMoveIndexes) else {
+//                    completion(.failure(DiffError.failureTransformingNetworkModels))
+//                    return
+//                }
+//
+//                switch self.type {
+//                case .single:
+//                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
+//
+//                    completion(.success(response))
+//                case .compare:
+//                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
+//                    completion(.success(response))
+//                }
+//
+//            } catch (let error) {
+//                completion(.failure(error))
+//            }
+//        }
         
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        
-        queue.async { [weak self] in
-
-        //diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
+        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
 
             guard let self = self else { return }
-            
-            do {
 
-            let url = Bundle.main.url(forResource: "test", withExtension: "json")!
-            let data = try Data(contentsOf: url)
-            let diffResponse = try JSONDecoder().decode(DiffResponse.self, from: data)
-                
+            switch result {
+            case .success(let diffResponse):
+
                 let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
                 let transformSectionInfo = self.transformSectionInfosOfItems(from: diffResponse)
                 let transformDiffItems = self.transformDiffItemsWithPopulatedLineNumbers(from: diffResponse)
@@ -169,41 +200,10 @@ class DiffController {
                     let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
                     completion(.success(response))
                 }
-                
-            } catch (let error) {
+            case .failure(let error):
                 completion(.failure(error))
             }
         }
-        
-//        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId) { [weak self] (result) in
-//
-//            guard let self = self else { return }
-//
-//            switch result {
-//            case .success(let diffResponse):
-//
-//                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
-//                let transformSectionInfo = self.transformSectionInfosOfItems(from: diffResponse)
-//                let transformDiffItems = self.transformDiffItemsWithPopulatedLineNumbers(from: diffResponse)
-//                
-//                guard let populatedTransformDiffItems = self.populateAdditionalSectionAndMoveInfo(transformSectionInfo: transformSectionInfo, transformDiffItems: transformDiffItems, groupedMoveIndexes: groupedMoveIndexes) else {
-//                    completion(.failure(DiffError.failureTransformingNetworkModels))
-//                    return
-//                }
-//                
-//                switch self.type {
-//                case .single:
-//                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
-//
-//                    completion(.success(response))
-//                case .compare:
-//                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: populatedTransformDiffItems, theme: theme, traitCollection: traitCollection)
-//                    completion(.success(response))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
     }
     
     private func populateAdditionalSectionAndMoveInfo(transformSectionInfo: [TransformSectionInfo], transformDiffItems: [TransformDiffItem], groupedMoveIndexes: [String: Int]) -> [TransformDiffItem]? {
@@ -300,7 +300,7 @@ class DiffController {
             //from side
             var fromSide: TransformSectionInfo.Side?
             
-            if let itemFromOffset = item.offset.from {
+            if let itemFromOffset = item.offset?.from {
                 while currentFrom != nil &&
                 currentFrom!.offset <= itemFromOffset {
                     
@@ -310,7 +310,7 @@ class DiffController {
                 }
                 
                 if let lastFrom = lastFrom {
-                    fromSide = TransformSectionInfo.Side(title: lastFrom.title, order: lastFromIndex)
+                    fromSide = TransformSectionInfo.Side(title: lastFrom.heading, order: lastFromIndex)
                 }
             }
             
@@ -318,7 +318,7 @@ class DiffController {
             //to side
             var toSide: TransformSectionInfo.Side?
             
-            if let itemToOffset = item.offset.to {
+            if let itemToOffset = item.offset?.to {
                 while currentTo != nil &&
                 currentTo!.offset <= itemToOffset {
                     
@@ -328,7 +328,7 @@ class DiffController {
                 }
                 
                 if let lastTo = lastTo {
-                    toSide = TransformSectionInfo.Side(title: lastTo.title, order: lastToIndex)
+                    toSide = TransformSectionInfo.Side(title: lastTo.heading, order: lastToIndex)
                 }
             }
             

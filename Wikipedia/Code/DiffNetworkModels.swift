@@ -3,7 +3,7 @@ import Foundation
 
 struct DiffSection: Codable {
     let level: Int
-    let title: String
+    let heading: String
     let offset: Int
 }
 
@@ -52,7 +52,7 @@ struct DiffItem: Codable {
     let text: String
     let highlightRanges: [DiffHighlightRange]?
     let moveInfo: DiffMoveInfo?
-    let offset: DiffItemOffset
+    let offset: DiffItemOffset? //tonitodo - make non-optional when this comes from the API
     let lineNumber: Int?
 }
 
