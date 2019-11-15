@@ -44,7 +44,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     public var isShadowShowing: Bool = true {
         didSet {
-            updateShadowConstraints()
+            updateShadowHeightConstraintConstant()
         }
     }
     
@@ -330,7 +330,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         guard traitCollection.displayScale > 0 else {
             return
         }
-        shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
+        
+        if !isShadowShowing {
+            shadowHeightConstraint.constant = 0
+        } else {
+            shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
+        }
     }
     
     
@@ -466,12 +471,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private func updateShadowConstraints() {
-        if isShadowShowing {
-            shadowTopUnderBarViewBottomConstraint.isActive = isShadowBelowUnderBarView
-            shadowTopExtendedViewBottomConstraint.isActive = !isShadowBelowUnderBarView
-        } else {
-            NSLayoutConstraint.deactivate([shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint])
-        }
+        shadowTopUnderBarViewBottomConstraint.isActive = isShadowBelowUnderBarView
+        shadowTopExtendedViewBottomConstraint.isActive = !isShadowBelowUnderBarView
         setNeedsUpdateConstraints()
     }
     
