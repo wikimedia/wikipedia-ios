@@ -63,6 +63,15 @@ class DiffListChangeCell: UICollectionViewCell {
         apply(theme: viewModel.theme)
     }
     
+    func yLocationOfItem(index: Int, convertView: UIView) -> CGFloat? {
+        
+        guard let item = textStackView.arrangedSubviews[safeIndex: index] else {
+            return nil
+        }
+        
+        return textStackView.convert(item.frame, to: convertView).minY
+    }
+    
     @objc func tappedLabelWithSender(_ sender: UITapGestureRecognizer) {
         if let sender = sender.view as? UILabel,
             let item = viewModel?.items[safeIndex: sender.tag],
