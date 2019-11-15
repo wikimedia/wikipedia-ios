@@ -28,17 +28,9 @@ class DiffListChangeCell: UICollectionViewCell {
     @IBOutlet var textStackView: UIStackView!
     @IBOutlet var innerView: UIView!
     
-    private var tapGestureRecognizer: UITapGestureRecognizer?
-    
     private(set) var viewModel: DiffListChangeViewModel?
     
     weak var delegate: DiffListChangeCellDelegate?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedLabelWithSender(_:)))
-    }
     
     func update(_ viewModel: DiffListChangeViewModel) {
         
@@ -98,9 +90,11 @@ private extension DiffListChangeCell {
             label.isUserInteractionEnabled = true
             label.tag = index
             label.translatesAutoresizingMaskIntoConstraints = false
-            
-            if let tapGestureRecognizer = tapGestureRecognizer {
-                label.addGestureRecognizer(tapGestureRecognizer)
+
+            if label.gestureRecognizers == nil {
+                addTapGestureRecognizer(to: label)
+            } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
+                addTapGestureRecognizer(to: label)
             }
             
             //add surrounding view
@@ -117,6 +111,11 @@ private extension DiffListChangeCell {
             
             textStackView.addArrangedSubview(view)
         }
+    }
+
+    private func addTapGestureRecognizer(to label: UILabel) {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedLabelWithSender(_:)))
+        label.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func updateTextLabels(in textStackView: UIStackView, newViewModel: DiffListChangeViewModel) {
