@@ -180,7 +180,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                if let edits = editCountsGroupedByType[.edits], !edits.limit, let anonEdits = editCountsGroupedByType[.anonymous], !anonEdits.limit {
+                if editCountTypes.contains(.userEdits), let edits = editCountsGroupedByType[.edits], !edits.limit, let anonEdits = editCountsGroupedByType[.anonymous], !anonEdits.limit {
                     editCountsGroupedByType[.userEdits] = (edits.count - anonEdits.count, false)
                 }
                 if editCountsGroupedByType.isEmpty, let mostRecentError = mostRecentError {
