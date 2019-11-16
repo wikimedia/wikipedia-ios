@@ -2,7 +2,7 @@ import Foundation
 import Mantle
 import WMF
 
-public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: Int?]
+public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: (count: Int?, limit: Bool)]
 
 public final class PageHistoryFetcher: WMFLegacyFetcher {
     @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
@@ -166,15 +166,13 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                         group.leave()
                         return
                     }
-                    if editCount?.limit == nil { // Exclude limited counts for now
-                        editCountsGroupedByType[editCountType] = editCount?.count
-                    }
+                    editCountsGroupedByType[editCountType] = (editCount?.count, editCount?.limit ?? false)
                     group.leave()
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                if let edits = editCountsGroupedByType[.edits], let editsCount = edits, let anonEdits = editCountsGroupedByType[.anonymous], let anonEditsCount = anonEdits {
-                    editCountsGroupedByType[.userEdits] = editsCount - anonEditsCount
+                if let edits = editCountsGroupedByType[.edits], let editsCount = edits.count, !edits.limit, let anonEdits = editCountsGroupedByType[.anonymous], let anonEditsCount = anonEdits.count, !anonEdits.limit {
+                    editCountsGroupedByType[.userEdits] = (editsCount - anonEditsCount, false)
                 }
                 if editCountsGroupedByType.isEmpty, let mostRecentError = mostRecentError {
                     completion(.failure(mostRecentError))
