@@ -38,7 +38,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
 
     var hintController: HintController?
     
-    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme, diffController: DiffController? = nil, revisionDelegate: DiffRevisionRetrieving?) {
+    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionDelegate: DiffRevisionRetrieving?) {
         self.type = type
         
         self.fromModel = fromModel
