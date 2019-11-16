@@ -34,38 +34,6 @@
 			<string>articles deleted</string>
 		</dict>
 	</dict>
-	<key>diff-compare-header-subtitle-num-revisions</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d intermediate revision</string>
-			<key>other</key>
-			<string>%1$d intermediate revisions</string>
-		</dict>
-	</dict>
-	<key>diff-compare-header-subtitle-num-users</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d user</string>
-			<key>other</key>
-			<string>%1$d users</string>
-		</dict>
-	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -160,6 +128,22 @@
 			<string>%1$d line unedited</string>
 			<key>other</key>
 			<string>%1$d lines unedited</string>
+		</dict>
+	</dict>
+	<key>intermediate-edits-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d intermediate revision not shown</string>
+			<key>other</key>
+			<string>%1$d intermediate revisions not shown</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>

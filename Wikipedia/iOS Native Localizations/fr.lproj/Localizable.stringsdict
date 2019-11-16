@@ -18,22 +18,6 @@
 			<string>Ajouter %1$d articles à la liste de lecture</string>
 		</dict>
 	</dict>
-	<key>diff-compare-header-subtitle-num-users</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d utilisateur</string>
-			<key>other</key>
-			<string>%1$d utilisateurs</string>
-		</dict>
-	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
