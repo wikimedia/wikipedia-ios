@@ -65,7 +65,7 @@ final class DiffHeaderViewModel: Themeable {
                 fatalError("Compare DiffType must have valid fromRevisionID")
             }
             
-            titleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, counts: nil)
+            titleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: nil)
             
             self.title = titleViewModel
             
