@@ -125,7 +125,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         case userEdits
     }
 
-    private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
+    private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL, from fromRevision: Int? = nil , to toRevision: Int? = nil) -> URL? {
         
         guard let project = pageURL.wmf_site?.host,
         let title = pageTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
@@ -136,7 +136,13 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         pathComponents.append(title)
         pathComponents.append(contentsOf: ["history", "counts"])
         pathComponents.append(editCountType.rawValue)
-        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents)
+        let queryParameters: [String: String]?
+        if let fromRevision = fromRevision, let toRevision = toRevision {
+            queryParameters = ["from": String(fromRevision), "to": String(toRevision)]
+        } else {
+            queryParameters = nil
+        }
+        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents, queryParameters: queryParameters)
         return components.url
     }
 
@@ -145,13 +151,13 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         let limit: Bool?
     }
 
-    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
+    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, from fromRevision: Int? = nil , to toRevision: Int? = nil, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let group = DispatchGroup()
             var editCountsGroupedByType = EditCountsGroupedByType()
             var mostRecentError: Error?
             for editCountType in editCountTypes {
-                guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL) else {
+                guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL, from: fromRevision, to: toRevision) else {
                     continue
                 }
                 group.enter()
