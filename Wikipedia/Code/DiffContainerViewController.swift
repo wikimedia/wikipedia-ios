@@ -370,19 +370,17 @@ private extension DiffContainerViewController {
             if let fromModel = fromModel {
                 let fromID = fromModel.revisionID
                 let toID = toModel.revisionID
-                diffController.fetchIntermediateCounts(fromRevisionId: fromID, toRevisionId: toID) { [weak self] (result) in
-                    
-                    guard let self = self else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let counts):
-                            self.updateHeaderWithIntermediateCounts(counts)
-                        case .failure:
-                            break
+                diffController.fetchIntermediateCounts(for: articleTitle, pageURL: siteURL, from: fromID, to: toID) { [weak self] (result) in
+                    switch result {
+                    case .success(let editCounts):
+                        guard let self = self else {
+                            return
                         }
+                        DispatchQueue.main.async {
+                            self.updateHeaderWithIntermediateCounts(editCounts)
+                        }
+                    default:
+                        break
                     }
                 }
             } else {
@@ -393,15 +391,11 @@ private extension DiffContainerViewController {
         }
     }
     
-    func updateHeaderWithIntermediateCounts(_ counts: (revision: Int, user: Int)) {
-        
-        //update view model
-        let headerViewModel = containerViewModel.headerViewModel
-        
+    func updateHeaderWithIntermediateCounts(_ editCounts: EditCountsGroupedByType) {
         switch type {
         case .compare(let articleTitle):
-            
-            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, counts: counts)
+            let headerViewModel = containerViewModel.headerViewModel
+            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: editCounts)
             headerViewModel.title = newTitleViewModel
             headerTitleView?.update(newTitleViewModel)
         case .single:
