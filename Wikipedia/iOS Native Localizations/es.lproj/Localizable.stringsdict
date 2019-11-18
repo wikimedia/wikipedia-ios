@@ -5,8 +5,8 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Añadir %#@v0@ a la lista de lectura</string>
-		<key>v0</key>
+		<string>Añadir %#@v1@ a la lista de lectura</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -21,8 +21,8 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -37,8 +37,8 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -53,8 +53,8 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@ sin editar</string>
-		<key>v0</key>
+		<string>%#@v1@ sin editar</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -69,8 +69,8 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Trasladar %#@v0@ a la lista de lectura</string>
-		<key>v0</key>
+		<string>Trasladar %#@v1@ a la lista de lectura</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -85,8 +85,8 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -103,8 +103,8 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>
 
-%#@v0@</string>
-		<key>v0</key>
+%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -120,8 +120,8 @@
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>
-Disponible en %#@v0@</string>
-		<key>v0</key>
+Disponible en %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -136,8 +136,8 @@ Disponible en %#@v0@</string>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -152,8 +152,8 @@ Disponible en %#@v0@</string>
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Has sobrepasado el límite de %#@v0@ por cuenta.</string>
-		<key>v0</key>
+		<string>Has sobrepasado el límite de %#@v1@ por cuenta.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -168,8 +168,8 @@ Disponible en %#@v0@</string>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@ añadir a la lista. Has alcanzado el límite de $2 artículos por lista en $3</string>
-		<key>v0</key>
+		<string>%#@v1@ añadir a la lista. Has alcanzado el límite de %2$d artículos por lista en %3$@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -184,8 +184,8 @@ Disponible en %#@v0@</string>
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Has sobrepasado el límite de %#@v0@ de lectura por cuenta.</string>
-		<key>v0</key>
+		<string>Has sobrepasado el límite de %#@v1@ de lectura por cuenta.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -200,8 +200,8 @@ Disponible en %#@v0@</string>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@ de lectura</string>
-		<key>v0</key>
+		<string>%#@v1@ de lectura</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -216,8 +216,8 @@ Disponible en %#@v0@</string>
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Esta acción no se puede deshacer. Cualquier artículo sólo guardado en %#@v0@ no será guardado.</string>
-		<key>v0</key>
+		<string>Esta acción no se puede deshacer. Cualquier artículo sólo guardado en %#@v1@ no será guardado.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -232,8 +232,8 @@ Disponible en %#@v0@</string>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>¿Quieres eliminar %#@v0@?</string>
-		<key>v0</key>
+		<string>¿Quieres eliminar %#@v1@?</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -249,8 +249,8 @@ Disponible en %#@v0@</string>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>
-%#@v0@</string>
-		<key>v0</key>
+%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -267,8 +267,8 @@ Disponible en %#@v0@</string>
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -285,8 +285,8 @@ Disponible en %#@v0@</string>
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -304,8 +304,8 @@ Disponible en %#@v0@</string>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>
-%#@v0@</string>
-		<key>v0</key>
+%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -322,8 +322,8 @@ Disponible en %#@v0@</string>
 	<key>replace-replace-all-results-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -338,8 +338,8 @@ Disponible en %#@v0@</string>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>No guardar %#@v0@ eliminará de todas las listas de lectura asociadas</string>
-		<key>v0</key>
+		<string>No guardar %#@v1@ eliminará de todas las listas de lectura asociadas</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -354,8 +354,8 @@ Disponible en %#@v0@</string>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>¿No guardar %#@v0@?</string>
-		<key>v0</key>
+		<string>¿No guardar %#@v1@?</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>

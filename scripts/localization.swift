@@ -92,8 +92,8 @@ extension String {
         
         var format = ""
         var location = 0
-        for (index, result) in results.enumerated() {
-            format += nsSelf.substring(with: NSMakeRange(location, result.range.location - location))
+        for result in results {
+            format += nsSelf.substring(with: NSMakeRange(location, result.range.location - location)).iOSNativeLocalization(tokens: tokens)
             location = result.range.location + result.range.length
             let contents = dictionaryRegex.replacementString(for: result, in: self, offset: 0, template: "$1")
              
@@ -109,14 +109,19 @@ extension String {
                 continue
             }
             
-            let token = firstComponent.suffix(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7))
-            guard (token as NSString).length == 2 else {
+            let token = firstComponent.suffix(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7)).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let nsToken = (token as NSString)
+            let tokenNumber = nsToken.substring(from: 1)
+            
+            guard
+                let tokenInt = Int(tokenNumber),
+                tokenInt > 0
+            else {
                 continue
             }
             
-            let range = result.range
             let keyDictionary = NSMutableDictionary(capacity: 5)
-            let formatValueType = tokens["1"] ?? "d"
+            let formatValueType = tokens[tokenNumber] ?? "d"
             keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
             keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
             
@@ -177,11 +182,11 @@ extension String {
                 }
             }
         
-            let key = "v\(index)"
+            let key = "v\(tokenInt)"
             mutableDictionary[key] = keyDictionary
             format += "%#@\(key)@"
         }
-        format += nsSelf.substring(with: NSMakeRange(location, nsSelf.length - location))
+        format += nsSelf.substring(with: NSMakeRange(location, nsSelf.length - location)).iOSNativeLocalization(tokens: tokens)
         mutableDictionary["NSStringLocalizedFormatKey"] = format
         return mutableDictionary
     }
