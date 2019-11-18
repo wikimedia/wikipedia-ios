@@ -661,6 +661,7 @@
 "relative-date-minutes-abbreviated" = "Relative minutes, abbreviated. $1 will be replaced with the number of minutes.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with the number of minutes ago.";
 "relative-date-minutes-ago-abbreviated" = "Relative minutes ago, abbreviated. $1 will be replaced with the number of minutes ago.";
+"relative-date-months-ago" = "Relative months ago. 0 = this month, singular = last month. $1 will be replaced with the number of months ago.";
 "relative-date-seconds-abbreviated" = "Relative seconds, abbreviated. $1 will be replaced with the number of seconds.";
 "relative-date-seconds-ago-abbreviated" = "Relative seconds ago, abbreviated. $1 will be replaced with the number of seconds ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";
