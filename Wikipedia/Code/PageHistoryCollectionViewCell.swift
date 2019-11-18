@@ -47,7 +47,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     var author: String? {
         didSet {
             authorButton.setTitle(author, for: .normal)
-            authorButton.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-author-accessibility-label", value: "Author: %@", comment: "Accessibility label text telling the user who authored a revision"), author ?? WMFLocalizedString("unknown-generic-text", value: "Unknown", comment: "Default text used in places where no contextual information is provided"))
+            authorButton.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-author-accessibility-label", value: "Author: %@", comment: "Accessibility label text telling the user who authored a revision. %@ is replaced with the author."), author ?? WMFLocalizedString("unknown-generic-text", value: "Unknown", comment: "Default text used in places where no contextual information is provided"))
             setNeedsLayout()
         }
     }

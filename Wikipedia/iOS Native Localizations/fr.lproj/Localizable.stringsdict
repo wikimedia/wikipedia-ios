@@ -197,7 +197,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d modification%#@v1@ depuis le %2$@</string>
+		<string>%#@v1@ depuis %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d modification</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d modifications</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -404,6 +404,22 @@
 			<string>Il y a %1$d minutes</string>
 			<key>zero</key>
 			<string>Il y a un instant</string>
+		</dict>
+	</dict>
+	<key>relative-date-months-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Il y a %1$d mois</string>
+			<key>zero</key>
+			<string>Ce mois-ci</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>

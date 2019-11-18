@@ -212,6 +212,7 @@
 "diff-thanks-send-button-title" = "Wyślij podziękowanie";
 "diff-thanks-send-subtitle" = "Podziękowania są prostym sposobem na okazanie wdzięczności za wkład edytora w Wikipedię. Nie mogą zostać cofnięte i są publicznie widoczne dla innych.";
 "diff-thanks-send-title" = "Wyślij podziękowanie";
+// Fuzzy
 "diff-thanks-sent" = "Twoje podziękowanie zostało wysłane do $1";
 "diff-thanks-sent-already" = "Wysłano już podziękowanie za tę edycję";
 "diff-thanks-sent-cannot-unsend" = "Podziękowania nie mogą zostać anulowane";

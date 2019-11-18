@@ -214,6 +214,7 @@
 "diff-thanks-login-title" = "登录以发送感谢";
 "diff-thanks-send-button-title" = "发送感谢";
 "diff-thanks-send-title" = "公开发送感谢";
+// Fuzzy
 "diff-thanks-sent" = "您的感谢被发送给$1";
 "diff-thanks-sent-already" = "您已为此次编辑发送感谢";
 "diff-thanks-sent-cannot-unsend" = "感谢无法撤回";

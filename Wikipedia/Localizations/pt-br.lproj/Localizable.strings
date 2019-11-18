@@ -216,7 +216,7 @@
 "diff-thanks-send-button-title" = "Enviar 'Obrigado'";
 "diff-thanks-send-subtitle" = "'Obrigado' é uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. Os agradecimentos não podem ser desfeitos e podem ser visualizados publicamente.";
 "diff-thanks-send-title" = "Envie publicamente \"Obrigado\"";
-"diff-thanks-sent" = "O seu \"Obrigado\" foi definido para $1";
+"diff-thanks-sent" = "O seu 'Obrigado' foi enviado para $1";
 "diff-thanks-sent-already" = "Você já enviou um \"Obrigado\" por esta edição";
 "diff-thanks-sent-cannot-unsend" = "Os agradecimentos enviados não podem ser desfeitos";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";

@@ -334,7 +334,7 @@
         XCTAssertTrue([qqqStrings valueForKey:enKey], @"Expected en key in qqq");
 
         NSString *enString = enStrings[enKey];
-        NSString *qqqString = qqqStrings[enKey];
+        NSString *qqqString = qqqStrings[enKey]; 
         NSArray<NSTextCheckingResult *> *enSubstitutionMatches = [TWNStringsTests.twnTokenRegex matchesInString:enString options:0 range:NSMakeRange(0, enString.length)];
         NSArray<NSTextCheckingResult *> *qqqSubstitutionMatches = [TWNStringsTests.twnTokenRegex matchesInString:qqqString options:0 range:NSMakeRange(0, qqqString.length)];
 
