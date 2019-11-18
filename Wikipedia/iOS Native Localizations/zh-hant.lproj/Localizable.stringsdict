@@ -34,38 +34,6 @@
 			<string>條目</string>
 		</dict>
 	</dict>
-	<key>diff-compare-header-subtitle-num-revisions</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d 個中間修訂</string>
-			<key>other</key>
-			<string>%1$d 個中間修訂</string>
-		</dict>
-	</dict>
-	<key>diff-compare-header-subtitle-num-users</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d 位使用者</string>
-			<key>other</key>
-			<string>%1$d 位使用者</string>
-		</dict>
-	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

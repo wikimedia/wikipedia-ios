@@ -46,7 +46,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
     }()
 
     var hintController: HintController?
-    
+
     private var prevModel: NextPrevModel? {
         didSet {
             diffToolbarView?.setPreviousButtonState(isEnabled: prevModel != nil)
@@ -58,13 +58,13 @@ class DiffContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, theme: Theme, diffController: DiffController? = nil, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?) {
+    init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?) {
         
         guard fromModel != nil || toModel != nil else {
             assertionFailure("Need at least one revision model for diff screen.")
             return nil
         }
-        
+
         self.type = type
         
         self.fromModel = fromModel
@@ -73,13 +73,9 @@ class DiffContainerViewController: ViewController, HintPresenting {
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.siteURL = siteURL
         self.firstRevision = firstRevision
-        
-        if let diffController = diffController {
-            self.diffController = diffController
-        } else {
-            self.diffController = DiffController(siteURL: siteURL, articleTitle: articleTitle, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type)
-        }
-        
+
+        self.diffController = DiffController(siteURL: siteURL, articleTitle: articleTitle, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type)
+
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, theme: theme)
         
         super.init()
@@ -489,19 +485,17 @@ private extension DiffContainerViewController {
             if let fromModel = fromModel {
                 let fromID = fromModel.revisionID
                 let toID = toModel.revisionID
-                diffController.fetchIntermediateCounts(fromRevisionId: fromID, toRevisionId: toID) { [weak self] (result) in
-                    
-                    guard let self = self else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let counts):
-                            self.updateHeaderWithIntermediateCounts(counts)
-                        case .failure:
-                            break
+                diffController.fetchIntermediateCounts(for: articleTitle, pageURL: siteURL, from: fromID, to: toID) { [weak self] (result) in
+                    switch result {
+                    case .success(let editCounts):
+                        guard let self = self else {
+                            return
                         }
+                        DispatchQueue.main.async {
+                            self.updateHeaderWithIntermediateCounts(editCounts)
+                        }
+                    default:
+                        break
                     }
                 }
             } else {
@@ -511,18 +505,14 @@ private extension DiffContainerViewController {
             break
         }
     }
-    
-    func updateHeaderWithIntermediateCounts(_ counts: (revision: Int, user: Int)) {
-        
-        //update view model
-        guard let headerViewModel = containerViewModel.headerViewModel else {
-            return
-        }
-        
+
+    func updateHeaderWithIntermediateCounts(_ editCounts: EditCountsGroupedByType) {
         switch type {
         case .compare(let articleTitle):
-            
-            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, counts: counts)
+            guard let headerViewModel = containerViewModel.headerViewModel else {
+                return
+            }
+            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: editCounts)
             headerViewModel.title = newTitleViewModel
             headerTitleView?.update(newTitleViewModel)
         case .single:

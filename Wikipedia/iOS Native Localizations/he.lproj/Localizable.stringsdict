@@ -34,22 +34,6 @@
 			<string>הערכים נמחקו</string>
 		</dict>
 	</dict>
-	<key>diff-compare-header-subtitle-num-users</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>משתמש אחד</string>
-			<key>other</key>
-			<string>%1$d משתמשים</string>
-		</dict>
-	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
