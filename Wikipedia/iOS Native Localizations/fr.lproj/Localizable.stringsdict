@@ -109,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d modification depuis le %2$@</string>
+			<string>%1$d modification depuis %2$@</string>
 			<key>other</key>
-			<string>%1$d modifications depuis le %2$@</string>
+			<string>%1$d modifications depuis %2$@</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>

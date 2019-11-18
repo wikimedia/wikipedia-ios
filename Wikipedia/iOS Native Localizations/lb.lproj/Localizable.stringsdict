@@ -50,6 +50,22 @@
 			<string>%1$d historesch Evenementer</string>
 		</dict>
 	</dict>
+	<key>page-history-revision-size-diff-addition</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>(1 Byte) derbäigesat</string>
+			<key>other</key>
+			<string>(%1$d Byten) derbäigesat</string>
+		</dict>
+	</dict>
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
