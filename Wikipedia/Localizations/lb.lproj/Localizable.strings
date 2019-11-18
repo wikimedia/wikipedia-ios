@@ -321,7 +321,7 @@
 "page-edit-history" = "All Versioune vun der Säit";
 "page-history-anonymous-edits" = "anonym Ännerungen";
 "page-history-minor-edits" = "kleng Ännerungen";
-"page-history-revision-author-accessibility-label" = "Auteur: %1@";
+"page-history-revision-author-accessibility-label" = "Auteur: $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
 "page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";

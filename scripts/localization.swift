@@ -30,7 +30,7 @@ fileprivate var twnTokenRegex: NSRegularExpression? = {
 
 fileprivate var iOSTokenRegex: NSRegularExpression? = {
     do {
-        return try NSRegularExpression(pattern: "(?:[%])(:?[0-9]+)(?:[$])(:?[@dDuUxXoOfeEgGcCsSpaAF])", options: [])
+        return try NSRegularExpression(pattern: "%([0-9]*)\\$?([@dDuUxXoOfeEgGcCsSpaAF])", options: [])
     } catch {
         assertionFailure("Localization token regex failed to compile")
     }
@@ -191,15 +191,21 @@ extension String {
         let nativeLocalization = NSMutableString(string: self)
         var offset = 0
         let fullRange = NSRange(location: 0, length: nativeLocalization.length)
+        var index = 1
         regex.enumerateMatches(in: self, options: [], range: fullRange) { (result, flags, stop) in
             guard let result = result else {
                 return
             }
-            let token = regex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
+            var token = regex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
+            // fix for unordered tokens
+            if token == "" {
+                token = "\(index)"
+            }
             let replacement = String(format: format, token)
             let replacementRange = NSRange(location: result.range.location + offset, length: result.range.length)
             nativeLocalization.replaceCharacters(in: replacementRange, with: replacement)
             offset += (replacement as NSString).length - result.range.length
+            index += 1
         }
         return nativeLocalization as String
     }
