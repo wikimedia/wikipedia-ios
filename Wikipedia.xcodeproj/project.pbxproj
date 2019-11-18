@@ -98,6 +98,11 @@
 		67059DB92260D61B009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
 		6706A21722925FD2004774E2 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21622925FD2004774E2 /* InfoBannerView.swift */; };
 		6706A21922927D63004774E2 /* TalkPageHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21822927D63004774E2 /* TalkPageHintViewController.swift */; };
+		6707C032237DBCEA0017E7B6 /* DiffRevisionTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */; };
+		6707C033237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */; };
+		6707C034237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */; };
+		6707C035237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */; };
+		6707C036237DBCEF0017E7B6 /* DiffRevisionTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */; };
 		6707C038237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */; };
 		6707C039237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */; };
 		6707C03A237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */; };
@@ -199,6 +204,16 @@
 		6780D5B6237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B7237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B8237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
+		6780D5BA237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */; };
+		6780D5BB237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */; };
+		6780D5BC237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */; };
+		6780D5BD237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */; };
+		6780D5BE237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */; };
+		6780D5C0237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
+		6780D5C1237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
+		6780D5C2237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
+		6780D5C3237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
+		6780D5C4237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
 		6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF442264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF452264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
@@ -3940,6 +3955,7 @@
 		67059DB42260D034009811AA /* SchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandler.swift; sourceTree = "<group>"; };
 		6706A21622925FD2004774E2 /* InfoBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
 		6706A21822927D63004774E2 /* TalkPageHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHintViewController.swift; sourceTree = "<group>"; };
+		6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffRevisionTransition.swift; sourceTree = "<group>"; };
 		6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		670F765E22B0C10600D87545 /* FakeProgressLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressLoading.swift; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
@@ -3963,6 +3979,8 @@
 		677670B12320C42D00F2A194 /* WMFLoadingFlowControllerProtocols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLoadingFlowControllerProtocols.h; sourceTree = "<group>"; };
 		677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageLinkNamespace.swift; sourceTree = "<group>"; };
 		6780D5B3237A1F480087A5D1 /* DiffResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiffResponse.json; sourceTree = "<group>"; };
+		6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffToolbarView.swift; sourceTree = "<group>"; };
+		6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffToolbarView.xib; sourceTree = "<group>"; };
 		6780DF422264265400D9069D /* RemoteSubHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSubHandler.swift; sourceTree = "<group>"; };
 		6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffContainerViewController.swift; sourceTree = "<group>"; };
 		6782DB9C2343B7DB003FA21B /* DiffHeaderTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderTitleView.swift; sourceTree = "<group>"; };
@@ -6645,6 +6663,9 @@
 				67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */,
 				B09705B3236B29D7006FDB5C /* DiffThanker.swift */,
 				674E8AB82382DEFF0053D206 /* DiffTransformer.swift */,
+				6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */,
+				6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */,
+				6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */,
 			);
 			name = Diff;
 			sourceTree = "<group>";
@@ -10067,6 +10088,7 @@
 				7AB20A1122FC8432006FECB4 /* PageHistoryCountsViewController.xib in Resources */,
 				D8D92B5C1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png in Resources */,
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
+				6780D5C0237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */,
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				7AFA21C020110D7900E957E7 /* HintViewController.xib in Resources */,
@@ -10192,6 +10214,7 @@
 				6724289123612AF100490629 /* DiffListContextCell.xib in Resources */,
 				D80ED3D71EE57F4800CE8C50 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D80ED3D81EE57F4800CE8C50 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
+				6780D5C4237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7A9524E022669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				D80ED3D91EE57F4800CE8C50 /* NotificationBackgroundErrorIcon.png in Resources */,
 				D80ED3DA1EE57F4800CE8C50 /* WMFLanguageCell.xib in Resources */,
@@ -10384,6 +10407,7 @@
 				D8A42BDA1E815A9C00D8E281 /* WMFLoginViewController.storyboard in Resources */,
 				7AC19E4D2301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.xib in Resources */,
 				D8A42BDC1E815A9C00D8E281 /* WMFWelcome.storyboard in Resources */,
+				6780D5C3237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172C2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -10507,6 +10531,7 @@
 				D8CE26611E698E2400DAE2E0 /* WMFLoginViewController.storyboard in Resources */,
 				7AC19E4B2301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.xib in Resources */,
 				D8CE26631E698E2400DAE2E0 /* WMFWelcome.storyboard in Resources */,
+				6780D5C1237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -10630,6 +10655,7 @@
 				D8EC3F611E9BDA35006712EB /* WMFLoginViewController.storyboard in Resources */,
 				7AC19E4C2301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.xib in Resources */,
 				D8EC3F631E9BDA35006712EB /* WMFWelcome.storyboard in Resources */,
+				6780D5C2237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -11161,6 +11187,7 @@
 				676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				67E8B0762268DE4B00537BC9 /* TalkPageContainerViewController.swift in Sources */,
+				6780D5BA237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */,
 				41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m in Sources */,
@@ -11371,6 +11398,7 @@
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				7A0FF2CC230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
+				6707C032237DBCEA0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				BAFCE8431F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift in Sources */,
 				0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */,
 				83023C1120E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
@@ -11641,6 +11669,7 @@
 				B0524B69214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB952343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				6782DC0F23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
+				6780D5BE237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				B0016CC721362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				D80ED2B81EE57F4800CE8C50 /* WMFChangePasswordViewController.swift in Sources */,
 				6707C03C237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
@@ -11761,6 +11790,7 @@
 				7A82899021B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07E226A57DF00537BC9 /* AccountViewController.swift in Sources */,
 				7A32078C21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
+				6707C036237DBCEF0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				8304D7C41F60131900A0CDD6 /* WMFWebView.m in Sources */,
 				7A49A20521231510005C574C /* CollectionViewFooter.swift in Sources */,
@@ -12380,6 +12410,7 @@
 				67D3C456228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
 				7AC19E352301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				41CCB67721CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
+				6780D5BD237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				8350FC4F20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D8A42A761E815A9C00D8E281 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -12590,6 +12621,7 @@
 				83F26B2D220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				7AA96D5F21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				D8A42B231E815A9C00D8E281 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
+				6707C035237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				7A0FF2CF230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
 				B09CE59D222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
@@ -12868,6 +12900,7 @@
 				6734EE7B22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */,
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
+				6780D5BB237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				6782DC0C23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
 				B0016CC421362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				6707C039237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
@@ -12988,6 +13021,7 @@
 				7A82898D21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */,
 				7A32078921E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
+				6707C033237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				7A49A20221231510005C574C /* CollectionViewFooter.swift in Sources */,
@@ -13310,6 +13344,7 @@
 				6734EE7C22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */,
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB932343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
+				6780D5BC237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				6782DC0D23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
 				D8EC3E181E9BDA35006712EB /* UIView+WMFSnapshotting.m in Sources */,
 				6707C03A237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
@@ -13430,6 +13465,7 @@
 				7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */,
 				7A32078A21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
+				6707C034237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */,
 				7A49A20321231510005C574C /* CollectionViewFooter.swift in Sources */,
