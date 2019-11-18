@@ -203,8 +203,8 @@ final class DiffListChangeItemViewModel {
         var modifiedText = text
         var modifiedHighlightedRanges = highlightedRanges
         
-        let regularFontStyle = DynamicTextStyle.footnote
-        let boldFontStyle = DynamicTextStyle.boldFootnote
+        let regularFontStyle = DynamicTextStyle.subheadline
+        let boldFontStyle = DynamicTextStyle.boldSubheadline
 
         let font = diffItemType == .moveSource || diffItemType == .moveDestination ? UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection) : UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection)
 
@@ -299,16 +299,5 @@ extension DiffListChangeItemViewModel: Equatable {
     static func == (lhs: DiffListChangeItemViewModel, rhs: DiffListChangeItemViewModel) -> Bool {
         return lhs.highlightedRanges == rhs.highlightedRanges &&
             lhs.text == rhs.text
-    }
-}
-
-fileprivate extension UIFont
-{
-    func lineSpacingToMatch(lineHeightMultiple: CGFloat) -> CGFloat {
-        return self.lineHeight * (lineHeightMultiple - 1)
-    }
-
-    func lineHeightMultipleToMatch(lineSpacing: CGFloat) -> CGFloat {
-        return 1 + lineSpacing / self.lineHeight
     }
 }

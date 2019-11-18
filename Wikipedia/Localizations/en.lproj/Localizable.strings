@@ -658,6 +658,7 @@
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
 "relative-date-minutes-ago-abbreviated" = "$1m ago";
+"relative-date-months-ago" = "{{PLURAL:$1|0=This month|1=Last month|$1 months ago}}";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s ago";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";

@@ -90,7 +90,6 @@ private extension DiffListContextCell {
                 label.numberOfLines = 0
                 label.lineBreakMode = .byWordWrapping
                 label.translatesAutoresizingMaskIntoConstraints = false
-                label.semanticContentAttribute = newViewModel.semanticContentAttribute
                 
                 let view = UIView(frame: .zero)
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -126,11 +125,9 @@ private extension DiffListContextCell {
             subview.borderWidth = 1
             subview.layer.cornerRadius = 5
             
-            if let item = newViewModel.items[safeIndex: index] as? String,
+            if let item = newViewModel.items[safeIndex: index] as? DiffListContextItemViewModel,
             let label = subview.subviews.first as? UILabel {
-                label.text = item
-                label.font = newViewModel.contextFont
-                label.textColor = theme.colors.primaryText
+                label.attributedText = item.textAttributedString
             }
         }
     }
