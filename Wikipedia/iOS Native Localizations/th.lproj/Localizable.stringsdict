@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>เพิ่ม %1$d บทความลงในรายการอ่าน</string>
+			<string>%1$d บทความ</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -27,7 +27,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>ลบบทความแล้ว</string>
+			<string>บทความ</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -41,7 +41,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>ย้าย %1$d บทความลงในรายการอ่าน</string>
+			<string>%1$d บทความ</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -85,7 +85,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>มีใน %1$d ภาษาอื่น</string>
+			<string>%1$d ภาษาอื่น</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -113,9 +113,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>คุณได้เกินขีดจำกัดของ %1$d article ต่อบัญชี</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>คุณได้เกินขีดจำกัดของ %1$d บทความ ต่อบัญชี</string>
+			<string>%1$d บทความ</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>

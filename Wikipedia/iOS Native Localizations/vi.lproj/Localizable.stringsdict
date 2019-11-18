@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>đã xóa bài</string>
+			<string>bài</string>
 			<key>other</key>
-			<string>đã xóa các bài</string>
+			<string>các bài</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Di chuyển %1$d bài viết vào danh sách đọc</string>
+			<string>%1$d bài viết</string>
 			<key>other</key>
-			<string>Di chuyển %1$d bài viết vào danh sách đọc</string>
+			<string>%1$d bài viết</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Không thể hoàn tác tác vụ này. Bài nào chỉ được lưu vào danh sách này sẽ không được lưu.</string>
+			<string>danh sách</string>
 			<key>other</key>
-			<string>Không thể hoàn tác tác vụ này. Bài nào chỉ được lưu vào các danh sách này sẽ không được lưu.</string>
+			<string>các danh sách</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Xóa danh sách?</string>
+			<string>danh sách</string>
 			<key>other</key>
-			<string>Xóa các danh sách?</string>
+			<string>các danh sách</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -145,9 +145,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Khi xóa bài đã lưu, nó sẽ được loại bỏ khỏi các danh sách đọc</string>
+			<string>bài đã lưu, nó</string>
 			<key>other</key>
-			<string>Khi xóa các bài đã lưu, chúng sẽ được loại bỏ khỏi các danh sách đọc</string>
+			<string>các bài đã lưu, chúng</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -161,9 +161,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Xóa bài đã lưu?</string>
+			<string>bài</string>
 			<key>other</key>
-			<string>Xóa các bài đã lưu?</string>
+			<string>các bài</string>
 		</dict>
 	</dict>
 </dict>

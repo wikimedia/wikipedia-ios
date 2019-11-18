@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Aldoni %1$d artikolon al legolisto</string>
+			<string>%1$d artikolon</string>
 			<key>other</key>
-			<string>Aldoni %1$d artikolojn al legolisto</string>
+			<string>%1$d artikolojn</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Movi %1$d artikolon al legolisto</string>
+			<string>%1$d artikolon</string>
 			<key>other</key>
-			<string>Movi %1$d artikolojn al legolisto</string>
+			<string>%1$d artikolojn</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Redaktita antaŭ %1$d tagoj</string>
+			<string>antaŭ %1$d tagoj</string>
 			<key>zero</key>
-			<string>Redaktita hodiaŭ</string>
+			<string>hodiaŭ</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Havebla en %1$d alia lingvo</string>
+			<string>%1$d alia lingvo</string>
 			<key>other</key>
-			<string>Havebla en %1$d aliaj lingvoj</string>
+			<string>%1$d aliaj lingvoj</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Vi preterpasis la limon de po %1$d artikolo por konto.</string>
+			<string>%1$d artikolo</string>
 			<key>other</key>
-			<string>Vi preterpasis la limon de po %1$d artikoloj por konto.</string>
+			<string>%1$d artikoloj</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikolo ne povis esti aldonita al via listo. Vi atingis la limon de po %2$d artikoloj por legolisto por %3$@</string>
+			<string>Artikolo</string>
 			<key>other</key>
-			<string>Artikoloj ne povis esti aldonita al via listo. Vi atingis la limon de po %2$d artikoloj por legolisto por %3$@</string>
+			<string>Artikoloj</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Vi preterpasis la limon de po %1$d legolisto por konto.</string>
+			<string>%1$d legolisto</string>
 			<key>other</key>
-			<string>Vi preterpasis la limon de po %1$d legolistoj por konto.</string>
+			<string>%1$d legolistoj</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -189,9 +189,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ĉi tiu ago ne povas esti malfarita. Ajnaj artikoloj konservitaj nur al ĉi tiu listo estas malkonservotaj.</string>
+			<string>ĉi tiu listo</string>
 			<key>other</key>
-			<string>Ĉi tiu ago ne povas esti malfarita. Ajnaj artikoloj konservitaj nur al ĉi tiuj listoj estas malkonservotaj.</string>
+			<string>ĉi tiuj listoj</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ĉu forigi la liston?</string>
+			<string>liston</string>
 			<key>other</key>
-			<string>Ĉu forigi la listojn?</string>
+			<string>listojn</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -305,9 +305,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Se vi malkonservas ĉi tiun artikolon, ĝi estas forigota de ĉiuj ligitaj legolistoj</string>
+			<string>ĉi tiun artikolon, ĝi estas forigota</string>
 			<key>other</key>
-			<string>Se vi malkonservas ĉi tiujn artikolojn, ili estas forigotaj de ĉiuj ligitaj legolistoj</string>
+			<string>ĉi tiujn artikolojn, ili estas forigotaj</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -321,9 +321,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ĉu malkonservi la artikolon?</string>
+			<string>la artikolon</string>
 			<key>other</key>
-			<string>Ĉu malkonservi la artikolojn?</string>
+			<string>la artikolojn</string>
 		</dict>
 	</dict>
 </dict>

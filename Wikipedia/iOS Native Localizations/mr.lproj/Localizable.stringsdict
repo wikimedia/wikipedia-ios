@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>काढून टाका यादी?</string>
+			<string>यादी</string>
 			<key>other</key>
-			<string>काढून टाका याद्या?</string>
+			<string>याद्या</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>साठवू नका लेख?</string>
+			<string>लेख</string>
 			<key>other</key>
-			<string>साठवू नका लेख?</string>
+			<string>लेख</string>
 		</dict>
 	</dict>
 </dict>

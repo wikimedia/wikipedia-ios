@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d மற்ற மொழியில் கிடைக்கத்தக்கது</string>
+			<string>%1$d மற்ற மொழியில்</string>
 			<key>other</key>
-			<string>%1$d மற்ற மொழிகளில் கிடைக்கத்தக்கது</string>
+			<string>%1$d மற்ற மொழிகளில்</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

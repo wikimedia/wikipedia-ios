@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Lisää %1$d artikkeli lukulistaan</string>
+			<string>%1$d artikkeli</string>
 			<key>other</key>
-			<string>Lisää %1$d artikkelia lukulistaan</string>
+			<string>%1$d artikkelia</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikkeli poistettu</string>
+			<string>artikkeli</string>
 			<key>other</key>
-			<string>artikkelia poistettu</string>
+			<string>artikkelia</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Siirrä %1$d artikkeli lukulistaan</string>
+			<string>%1$d artikkeli</string>
 			<key>other</key>
-			<string>Siirrä %1$d artikkelia lukulistaan</string>
+			<string>%1$d artikkelia</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Saatavilla %1$d muulla kielellä</string>
+			<string>%1$d muulla kielellä</string>
 			<key>other</key>
-			<string>Saatavilla %1$d muulla kielellä</string>
+			<string>%1$d muulla kielellä</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Olet ylittänyt tunnuskohtaisen rajoituksen, joka on %1$d artikkeli tunnusta kohden.</string>
+			<string>%1$d artikkeli</string>
 			<key>other</key>
-			<string>Olet ylittänyt tunnuskohtaisen rajoituksen, joka on %1$d artikkelia tunnusta kohden.</string>
+			<string>%1$d artikkelia</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikkelia ei voitu lisätä listaan. Olet kohdannut %2$d artikkelin rajan listassa "%3$@"</string>
+			<string>Artikkelia</string>
 			<key>other</key>
-			<string>Artikkeleita ei voitu lisätä listaan. Olet kohdannut %2$d artikkelin rajan listassa "%3$@"</string>
+			<string>Artikkeleita</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Olet ylittänyt tunnuskohtaisen rajoituksen, joka on %1$d lukulista tunnusta kohden.</string>
+			<string>%1$d lukulista</string>
 			<key>other</key>
-			<string>Olet ylittänyt tunnuskohtaisen rajoituksen, joka on %1$d lukulistaa tunnusta kohden.</string>
+			<string>%1$d lukulistaa</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -189,9 +189,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain tähän listaan ei tallenneta.</string>
+			<string>tähän listaan</string>
 			<key>other</key>
-			<string>Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain näihin listoihin ei tallenneta.</string>
+			<string>näihin listoihin</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Poista lista?</string>
+			<string>lista</string>
 			<key>other</key>
-			<string>Poista listaa?</string>
+			<string>listaa</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -305,9 +305,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tämän artikkelin tallentamattomaksi jättäminen poistaa sen kaikista niihin liittyvistä lukulistoista</string>
+			<string>Tämän artikkelin tallentamattomaksi jättäminen poistaa sen</string>
 			<key>other</key>
-			<string>Näiden artikkelien tallentamattomaksi jättäminen poistaa ne kaikista niihin liittyvistä lukulistoista</string>
+			<string>Näiden artikkelien tallentamattomaksi jättäminen poistaa ne</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -321,9 +321,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Poista artikkeli?</string>
+			<string>artikkeli</string>
 			<key>other</key>
-			<string>Poista artikkelia?</string>
+			<string>artikkelia</string>
 		</dict>
 	</dict>
 </dict>

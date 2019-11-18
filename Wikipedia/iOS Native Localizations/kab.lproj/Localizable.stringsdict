@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d amagrad</string>
+			<string>amagrad</string>
 			<key>other</key>
-			<string>%1$d imagraden</string>
+			<string>imagraden</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>

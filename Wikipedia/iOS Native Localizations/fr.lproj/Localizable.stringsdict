@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ajouter %1$d article à la liste de lecture</string>
+			<string></string>
 			<key>other</key>
-			<string>Ajouter %1$d articles à la liste de lecture</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Article supprimé%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>Articles supprimé%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -40,9 +40,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Article%1$d||s supprimé</string>
+			<string></string>
 			<key>other</key>
-			<string>Article%1$d||s supprimés</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-revisions</key>
@@ -56,9 +56,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d version intermédiaire%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d versions intermédiaire%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -67,9 +67,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d version%1$d||s intermédiaire</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d version%1$d||s intermédiaires</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-users</key>
@@ -83,9 +83,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d utilisateur</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d utilisateurs</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -99,9 +99,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d ligne</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d lignes</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-section</key>
@@ -115,9 +115,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d section</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d sections</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
@@ -131,9 +131,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d modification</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d modifications</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-added</key>
@@ -147,9 +147,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet ajouté%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octets ajouté%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -158,9 +158,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet%1$d||s ajouté</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octet%1$d||s ajoutés</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -174,9 +174,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet enlevé%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octets enlevé%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -185,9 +185,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet%1$d||s enlevé</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octet%1$d||s enlevés</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>diff-unedited-lines-format</key>
@@ -201,9 +201,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d ligne restaurée%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d lignes restaurée%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -212,9 +212,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d ligne%1$d||s restaurée</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d ligne%1$d||s restaurées</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -228,9 +228,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Placer %1$d article dans la liste de lecture</string>
+			<string></string>
 			<key>other</key>
-			<string>Placer %1$d articles dans la liste de lecture</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -244,9 +244,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d événement historique%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d événements historique%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -255,9 +255,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d événement%1$d||s historique</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d événement%1$d||s historiques</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
@@ -271,9 +271,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet ajouté%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octets ajouté%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -282,9 +282,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet%1$d||s ajouté</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octet%1$d||s ajoutés</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -298,9 +298,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet enlevé%1$d||s</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octets enlevé%1$d||s</string>
+			<string>s</string>
 		</dict>
 		<key>v1</key>
 		<dict>
@@ -309,9 +309,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d octet%1$d||s enlevé</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d octet%1$d||s enlevés</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
@@ -325,9 +325,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d modification depuis le %2$@</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d modifications depuis le %2$@</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -357,9 +357,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Disponible dans %1$d autre langue</string>
+			<string>%1$d autre langue</string>
 			<key>other</key>
-			<string>Disponible dans %1$d autres langues</string>
+			<string>%1$d autres langues</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -373,9 +373,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d article</string>
+			<string>article</string>
 			<key>other</key>
-			<string>%1$d articles</string>
+			<string>articles</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
@@ -389,9 +389,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Vous avez dépassé la limite de %1$d article par compte.</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>Vous avez dépassé la limite de %1$d articles par compte.</string>
+			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -405,9 +405,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>L’article n’a pas pu être ajouté à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@</string>
+			<string>L’article n’a pas pu être ajouté</string>
 			<key>other</key>
-			<string>Les articles n’ont pas pu être ajoutés à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@</string>
+			<string>Les articles n’ont pas pu être ajoutés</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -421,9 +421,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Vous avez dépassé la limite de %1$d liste de lecture par compte.</string>
+			<string>%1$d liste</string>
 			<key>other</key>
-			<string>Vous avez dépassé la limite de %1$d listes de lecture par compte.</string>
+			<string>%1$d listes</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -437,9 +437,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d liste de lecture</string>
+			<string>%1$d liste</string>
 			<key>other</key>
-			<string>%1$d listes de lecture</string>
+			<string>%1$d listes</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -453,9 +453,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Cette action ne peut pas être annulée. Tout article enregistré uniquement dans cette liste ne sera pas enregistré.</string>
+			<string>cette liste</string>
 			<key>other</key>
-			<string>Cette action ne peut pas être annulée. Tout article enregistré uniquement dans ces listes ne sera pas enregistré.</string>
+			<string>ces listes</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -469,9 +469,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Supprimer la liste ?</string>
+			<string>la liste</string>
 			<key>other</key>
-			<string>Supprimer les listes ?</string>
+			<string>les listes</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -569,9 +569,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ne plus enregistrer cet article le supprimera de toutes les listes de lecture associées</string>
+			<string>cet article le supprimera</string>
 			<key>other</key>
-			<string>Ne plus enregistrer ces articles les supprimera de toutes les listes de lecture associées</string>
+			<string>ces articles les supprimera</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -585,9 +585,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ne plus enregistrer l’article ?</string>
+			<string>l’article</string>
 			<key>other</key>
-			<string>Ne plus enregistrer les articles ?</string>
+			<string>les articles</string>
 		</dict>
 	</dict>
 </dict>

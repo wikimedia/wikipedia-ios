@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>문서 %1$d개를 읽기 목록에 추가</string>
+			<string>문서 %1$d개</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -27,7 +27,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>문서가 삭제됨</string>
+			<string>문서</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-users</key>
@@ -87,7 +87,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>문서 %1$d개를 읽기 목록으로 이동</string>
+			<string>문서 %1$d개</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -131,7 +131,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%1$d개의 다른 언어로 읽어보기</string>
+			<string>%1$d개의 다른 언어</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -159,7 +159,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>계정 당 %1$d개의 문서 제한에 도달했습니다.</string>
+			<string>%1$d개의 문서</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -173,7 +173,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>계정 당 %1$d개의 읽기 목록 제한에 도달했습니다.</string>
+			<string>%1$d개의 읽기 목록</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -201,7 +201,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>이 작업은 취소할 수 없습니다. 이 목록에 저장된 문서들만 저장이 취소됩니다.</string>
+			<string>이 목록</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -215,7 +215,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>목록을 삭제하시겠습니까?</string>
+			<string>목록</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -311,7 +311,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>이 문서의 저장을 취소하면 관련된 모든 읽기 목록의 선택 항목을 제거합니다</string>
+			<string>이 문서의</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -325,7 +325,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>문서의 저장을 취소하시겠습니까?</string>
+			<string>문서</string>
 		</dict>
 	</dict>
 </dict>

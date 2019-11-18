@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Lebokaké %1$d artikel ing pratélan wacan</string>
+			<string>%1$d artikel</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -27,9 +27,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikel kabusak</string>
+			<string>artikel</string>
 			<key>other</key>
-			<string>artikel kabusak</string>
+			<string>artikel</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -73,7 +73,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Cumawis ing %1$d basa liyané</string>
+			<string>%1$d basa liyané</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

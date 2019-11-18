@@ -153,11 +153,11 @@ extension String {
                     continue
                 }
                 
-                keyDictionary[keyToInsert] = nsSelf.replacingCharacters(in:range, with: componentToInsert).iOSNativeLocalization(tokens: tokens)
+                keyDictionary[keyToInsert] = componentToInsert.iOSNativeLocalization(tokens: tokens)
             }
             
             if let other = unlabeledComponents.last {
-                keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).iOSNativeLocalization(tokens: tokens)
+                keyDictionary["other"] = other.iOSNativeLocalization(tokens: tokens)
                 
                 for (keyIndex, component) in unlabeledComponents.enumerated() {
                     guard
@@ -166,7 +166,7 @@ extension String {
                     else {
                         break
                     }
-                    keyDictionary[remainingKeys[keyIndex]] = nsSelf.replacingCharacters(in:range, with: component).iOSNativeLocalization(tokens: tokens)
+                    keyDictionary[remainingKeys[keyIndex]] = component.iOSNativeLocalization(tokens: tokens)
                 }
             } else if keyDictionary["other"] == nil {
                 if keyDictionary["many"] != nil {

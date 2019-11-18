@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>فہرست مطالعہ میں %1$d مضمون کو شامل کریں</string>
+			<string>%1$d مضمون</string>
 			<key>other</key>
-			<string>فہرست مطالعہ میں %1$d مضامین کو شامل کریں</string>
+			<string>%1$d مضامین</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>مطالعہ کی فہرست میں %1$d مضمون کو منتقل کریں</string>
+			<string>%1$d مضمون</string>
 			<key>other</key>
-			<string>مطالعہ کی فہرست میں %1$d مضامین کو منتقل کریں</string>
+			<string>%1$d مضامین</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

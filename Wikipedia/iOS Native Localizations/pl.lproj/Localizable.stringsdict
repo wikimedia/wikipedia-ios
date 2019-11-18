@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Dodaj %1$d artykuł do listy do przeczytania</string>
+			<string>%1$d artykuł</string>
 			<key>other</key>
-			<string>Dodaj %1$d artykuły do listy do przeczytania</string>
+			<string>%1$d artykuły</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -115,11 +115,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Dodano %1$d bajty</string>
+			<string>%1$d bajty</string>
 			<key>one</key>
-			<string>Dodano %1$d bajt</string>
+			<string>%1$d bajt</string>
 			<key>other</key>
-			<string>Dodano %1$d bajtów</string>
+			<string>%1$d bajtów</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -133,11 +133,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Usunięto %1$d bajty</string>
+			<string>%1$d bajty</string>
 			<key>one</key>
-			<string>Usunięto %1$d bajt</string>
+			<string>%1$d bajt</string>
 			<key>other</key>
-			<string>Usunięto %1$d bajtów</string>
+			<string>%1$d bajtów</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -151,9 +151,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Przenieś %1$d artykuł do listy do przeczytania</string>
+			<string>%1$d artykuł</string>
 			<key>other</key>
-			<string>Przenieś %1$d artykuły do listy do przeczytania</string>
+			<string>%1$d artykuły</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -185,11 +185,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Dodano %1$d bajty</string>
+			<string>%1$d bajty</string>
 			<key>one</key>
-			<string>Dodano 1 bajt</string>
+			<string>1 bajt</string>
 			<key>other</key>
-			<string>Dodano %1$d bajtów</string>
+			<string>%1$d bajtów</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -203,11 +203,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Usunięto %1$d bajty</string>
+			<string>%1$d bajty</string>
 			<key>one</key>
-			<string>Usunięto 1 bajt</string>
+			<string>1 bajt</string>
 			<key>other</key>
-			<string>Usunięto %1$d bajtów</string>
+			<string>%1$d bajtów</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
@@ -221,9 +221,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Dostępne w %1$d innym języku</string>
+			<string>%1$d innym języku</string>
 			<key>other</key>
-			<string>Dostępne w %1$d innych językach</string>
+			<string>%1$d innych językach</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -255,9 +255,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Przekroczyłeś limit %1$d artykułu na konto.</string>
+			<string>%1$d artykułu</string>
 			<key>other</key>
-			<string>Przekroczyłeś limit %1$d artykułów na konto.</string>
+			<string>%1$d artykułów</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -271,9 +271,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Przekroczono limit %1$d lista czytelnicza  na konto.</string>
+			<string>%1$d lista czytelnicza </string>
 			<key>other</key>
-			<string>Przekroczono limit %1$d list czytelniczych na konto.</string>
+			<string>%1$d list czytelniczych</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -287,9 +287,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Usunąć listę?</string>
+			<string>listę</string>
 			<key>other</key>
-			<string>Usunąć listy?</string>
+			<string>listy</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>

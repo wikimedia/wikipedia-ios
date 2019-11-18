@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Scriosadh %1$d alt amháin</string>
+			<string>alt amháin</string>
 			<key>other</key>
-			<string>Scriosadh %1$d alt</string>
+			<string>alt</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ar fáil i dteanga amháin eile</string>
+			<string>dteanga amháin eile</string>
 			<key>other</key>
-			<string>Ar fáil i %1$d teanga eile</string>
+			<string>%1$d teanga eile</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d maddeyi okuma listesine ekleyin</string>
+			<string>%1$d maddeyi</string>
 			<key>other</key>
-			<string>%1$d maddeyi okuma listesine ekleyin</string>
+			<string>%1$d maddeyi</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>madde silindi</string>
+			<string>madde</string>
 			<key>other</key>
-			<string>madde silindi</string>
+			<string>madde</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-revisions</key>
@@ -173,9 +173,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d maddeyi okuma listesine taşıyın</string>
+			<string>%1$d maddeyi</string>
 			<key>other</key>
-			<string>%1$d maddeyi okuma listesine taşıyın</string>
+			<string>%1$d maddeyi</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d bayt eklendi</string>
+			<string>%1$d bayt</string>
 			<key>other</key>
-			<string>%1$d bayt eklendi</string>
+			<string>%1$d bayt</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -221,9 +221,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d bayt kaldırıldı</string>
+			<string>%1$d bayt</string>
 			<key>other</key>
-			<string>%1$d bayt kaldırıldı</string>
+			<string>%1$d bayt</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -253,9 +253,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d farklı dilde mevcut</string>
+			<string>%1$d farklı dilde</string>
 			<key>other</key>
-			<string>%1$d farklı dilde mevcut</string>
+			<string>%1$d farklı dilde</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -285,9 +285,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Hesap başına %1$d madde sınırını aştınız.</string>
+			<string>%1$d madde</string>
 			<key>other</key>
-			<string>Hesap başına %1$d madde sınırını aştınız.</string>
+			<string>%1$d madde</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -301,9 +301,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Madde, bu listeye eklenemez. %3$@ için okuma listesi başına %2$d madde sınırına ulaştınız</string>
+			<string>Madde</string>
 			<key>other</key>
-			<string>Madde, bu listeye eklenemez. %3$@ için okuma listesi başına %2$d madde sınırına ulaştınız</string>
+			<string>Madde</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -317,9 +317,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Hesap başına %1$d okuma listesi sınırını aştınız.</string>
+			<string>%1$d okuma listesi</string>
 			<key>other</key>
-			<string>Hesap başına %1$d okuma listesi sınırını aştınız.</string>
+			<string>%1$d okuma listesi</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -349,9 +349,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Bu eylem geri alınamaz. bu listeye kaydedilen maddeler kaydedilmez.</string>
+			<string>bu listeye</string>
 			<key>other</key>
-			<string>Bu eylem geri alınamaz. bu listelere kaydedilen maddeler kaydedilmez.</string>
+			<string>bu listelere</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -365,9 +365,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Listeyi silinsin mi?</string>
+			<string>Listeyi</string>
 			<key>other</key>
-			<string>Listeleri silinsin mi?</string>
+			<string>Listeleri</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -465,9 +465,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Bu maddeyi iptal etmek, ilgili tüm okuma listelerinden kaldırır</string>
+			<string>Bu maddeyi</string>
 			<key>other</key>
-			<string>Bu maddeleri iptal etmek, ilgili tüm okuma listelerinden kaldırır</string>
+			<string>Bu maddeleri</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -481,9 +481,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Maddeyi iptal edilsin mi?</string>
+			<string>Maddeyi</string>
 			<key>other</key>
-			<string>Maddeleri iptal edilsin mi?</string>
+			<string>Maddeleri</string>
 		</dict>
 	</dict>
 </dict>

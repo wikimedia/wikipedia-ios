@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Añadir %1$d artículu a la llista de llectura</string>
+			<string>%1$d artículu</string>
 			<key>other</key>
-			<string>Añadir %1$d artículos a la llista de llectura</string>
+			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Treslladar %1$d artículu a la llista de llectura</string>
+			<string>%1$d artículu</string>
 			<key>other</key>
-			<string>Treslladar %1$d artículos a la llista de llectura</string>
+			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Disponible'n %1$d idioma más</string>
+			<string>%1$d idioma más</string>
 			<key>other</key>
-			<string>Disponible'n %1$d idiomes más</string>
+			<string>%1$d idiomes más</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -109,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artículu</string>
+			<string>artículu</string>
 			<key>other</key>
-			<string>%1$d artículos</string>
+			<string>artículos</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Pasasti la llende de %1$d artículu per cuenta.</string>
+			<string>%1$d artículu</string>
 			<key>other</key>
-			<string>Pasasti la llende de %1$d artículos per cuenta.</string>
+			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>L'artículu nun puede añadise a esta llista. Llegasti a la llende de %2$d artículos por llista de llectura pa %3$@</string>
+			<string>L'artículu nun puede</string>
 			<key>other</key>
-			<string>Los artículos nun pueden añadise a esta llista. Llegasti a la llende de %2$d artículos por llista de llectura pa %3$@</string>
+			<string>Los artículos nun pueden</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Pasasti la llende de %1$d llista de llectura per cuenta.</string>
+			<string>%1$d llista</string>
 			<key>other</key>
-			<string>Pasasti la llende de %1$d llistes de llectura per cuenta.</string>
+			<string>%1$d llistes</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -173,9 +173,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d llista de llectura</string>
+			<string>%1$d llista</string>
 			<key>other</key>
-			<string>%1$d llistes de llectura</string>
+			<string>%1$d llistes</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -189,9 +189,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Esta aición nun puede desfacese. Cuanquier artículu guardáu sólo nesta llista va dexar de guardase.</string>
+			<string>nesta llista</string>
 			<key>other</key>
-			<string>Esta aición nun puede desfacese. Cuanquier artículu guardáu sólo nestes llistes va dexar de guardase.</string>
+			<string>nestes llistes</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>¿Desaniciar la llista?</string>
+			<string>la llista</string>
 			<key>other</key>
-			<string>¿Desaniciar les llistes?</string>
+			<string>les llistes</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -289,9 +289,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Dexar de guardar esti artículu desaniciarálu de toles llistes de llectura asociaes</string>
+			<string>esti artículu desaniciarálu</string>
 			<key>other</key>
-			<string>Dexar de guardar estos artículos desaniciarálos de toles llistes de llectura asociaes</string>
+			<string>estos artículos desaniciarálos</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -305,9 +305,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>¿Dexar de guardar l'artículu?</string>
+			<string>l'artículu</string>
 			<key>other</key>
-			<string>¿Dexar de guardar los artículos?</string>
+			<string>los artículos</string>
 		</dict>
 	</dict>
 </dict>

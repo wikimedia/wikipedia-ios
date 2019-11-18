@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Prieinama %1$d kita kalba</string>
+			<string>%1$d kita kalba</string>
 			<key>other</key>
-			<string>Prieinama %1$d kitų kalbų</string>
+			<string>%1$d kitų kalbų</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

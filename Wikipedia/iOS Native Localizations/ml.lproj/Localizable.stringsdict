@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ലേഖനം ഒഴിവാക്കി</string>
+			<string>ലേഖനം</string>
 			<key>other</key>
-			<string>ലേഖനങ്ങൾ ഒഴിവാക്കി</string>
+			<string>ലേഖനങ്ങൾ</string>
 		</dict>
 	</dict>
 </dict>

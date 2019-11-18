@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>পড়ার তালিকায় %1$dটি নিবন্ধ যোগ করুন</string>
+			<string>%1$dটি নিবন্ধ</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -27,7 +27,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>নিবন্ধ অপসারিত হয়েছে</string>
+			<string>নিবন্ধ</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -55,9 +55,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>তালিকাটি মুছবেন?</string>
+			<string>তালিকাটি</string>
 			<key>other</key>
-			<string>তালিকাগুলি মুছবেন?</string>
+			<string>তালিকাগুলি</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>

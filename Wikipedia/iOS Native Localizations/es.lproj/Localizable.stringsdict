@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Añadir %1$d artículo a la lista de lectura</string>
+			<string>%1$d artículo</string>
 			<key>other</key>
-			<string>Añadir %1$d artículos a la lista de lectura</string>
+			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d renglón sin editar</string>
+			<string>%1$d renglón</string>
 			<key>other</key>
-			<string>%1$d renglones sin editar</string>
+			<string>%1$d renglones</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Trasladar %1$d artículo a la lista de lectura</string>
+			<string>%1$d artículo</string>
 			<key>other</key>
-			<string>Trasladar %1$d artículos a la lista de lectura</string>
+			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -111,13 +111,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>
-
-Editado hace %1$d días</string>
+			<string>Editado hace %1$d días</string>
 			<key>zero</key>
-			<string>
-
-Editado hoy</string>
+			<string>Editado hoy</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
@@ -132,11 +128,9 @@ Disponible en %#@v0@</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>
-Disponible en %1$d idioma más</string>
+			<string>%1$d idioma más</string>
 			<key>other</key>
-			<string>
-Disponible en otros %1$d idiomas</string>
+			<string>otros %1$d idiomas</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -166,9 +160,9 @@ Disponible en otros %1$d idiomas</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Has sobrepasado el límite de %1$d artículo por cuenta.</string>
+			<string>%1$d artículo</string>
 			<key>other</key>
-			<string>Has sobrepasado el límite de %1$d artículos por cuenta.</string>
+			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -182,9 +176,9 @@ Disponible en otros %1$d idiomas</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>El artículo no se puede añadir a la lista. Has alcanzado el límite de %2$d artículos por lista en %3$@</string>
+			<string>El artículo no se puede</string>
 			<key>other</key>
-			<string>Los artículos no se pueden añadir a la lista. Has alcanzado el límite de %2$d artículos por lista en %3$@</string>
+			<string>Los artículos no se pueden</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -198,9 +192,9 @@ Disponible en otros %1$d idiomas</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Has sobrepasado el límite de %1$d lista de lectura por cuenta.</string>
+			<string>%1$d lista</string>
 			<key>other</key>
-			<string>Has sobrepasado el límite de %1$d listas de lectura por cuenta.</string>
+			<string>%1$d listas</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -214,9 +208,9 @@ Disponible en otros %1$d idiomas</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d lista de lectura</string>
+			<string>%1$d lista</string>
 			<key>other</key>
-			<string>%1$d listas de lectura</string>
+			<string>%1$d listas</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -230,9 +224,9 @@ Disponible en otros %1$d idiomas</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Esta acción no se puede deshacer. Cualquier artículo sólo guardado en esta lista no será guardado.</string>
+			<string>esta lista</string>
 			<key>other</key>
-			<string>Esta acción no se puede deshacer. Cualquier artículo sólo guardado en estas listas no será guardado.</string>
+			<string>estas listas</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -246,9 +240,9 @@ Disponible en otros %1$d idiomas</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>¿Quieres eliminar la lista?</string>
+			<string>la lista</string>
 			<key>other</key>
-			<string>¿Quieres eliminar las listas?</string>
+			<string>las listas</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -263,14 +257,11 @@ Disponible en otros %1$d idiomas</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>
-Ayer</string>
+			<string>Ayer</string>
 			<key>other</key>
-			<string>
-Hace %1$d días</string>
+			<string>Hace %1$d días</string>
 			<key>zero</key>
-			<string>
-Hoy</string>
+			<string>Hoy</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>
@@ -321,14 +312,11 @@ Hoy</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>
-El año pasado</string>
+			<string>El año pasado</string>
 			<key>other</key>
-			<string>
-Hace %1$d años</string>
+			<string>Hace %1$d años</string>
 			<key>zero</key>
-			<string>
-Este año</string>
+			<string>Este año</string>
 		</dict>
 	</dict>
 	<key>replace-replace-all-results-count</key>
@@ -358,9 +346,9 @@ Este año</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>No guardar este artículo lo eliminará de todas las listas de lectura asociadas</string>
+			<string>este artículo lo</string>
 			<key>other</key>
-			<string>No guardar estos artículo los eliminará de todas las listas de lectura asociadas</string>
+			<string>estos artículo los</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -374,9 +362,9 @@ Este año</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>¿No guardar el artículo?</string>
+			<string>el artículo</string>
 			<key>other</key>
-			<string>¿No guardar los artículos?</string>
+			<string>los artículos</string>
 		</dict>
 	</dict>
 </dict>

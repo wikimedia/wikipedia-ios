@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Додати %1$d статтю до читального списку</string>
+			<string>%1$d статтю</string>
 			<key>other</key>
-			<string>Додати %1$d статей до читального списку</string>
+			<string>%1$d статей</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Вилучено %1$d статтю</string>
+			<string>статтю</string>
 			<key>other</key>
-			<string>Вилучено %1$d статей</string>
+			<string>статей</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-revisions</key>
@@ -173,9 +173,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Перенести %1$d статтю до читального списку</string>
+			<string>%1$d статтю</string>
 			<key>other</key>
-			<string>Перенести %1$d статей до читального списку</string>
+			<string>%1$d статей</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Додано %1$d байт</string>
+			<string>%1$d байт</string>
 			<key>other</key>
-			<string>Додано %1$d байтів</string>
+			<string>%1$d байтів</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -221,9 +221,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Вилучено %1$d байт</string>
+			<string>%1$d байт</string>
 			<key>other</key>
-			<string>Вилучено %1$d байтів</string>
+			<string>%1$d байтів</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
@@ -237,9 +237,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d редагування з %2$@</string>
+			<string>%1$d редагування</string>
 			<key>other</key>
-			<string>%1$d редагувань з %2$@</string>
+			<string>%1$d редагувань</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -273,9 +273,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Доступно в іншій мові</string>
+			<string>іншій мові</string>
 			<key>other</key>
-			<string>Доступно в %1$d інших мовах</string>
+			<string>%1$d інших мовах</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -289,9 +289,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d стаття</string>
+			<string>стаття</string>
 			<key>other</key>
-			<string>%1$d статей</string>
+			<string>статей</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
@@ -305,9 +305,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ви перевищили ліміт у %1$d статтю для облікового запису.</string>
+			<string>%1$d статтю</string>
 			<key>other</key>
-			<string>Ви перевищили ліміт у %1$d статей для облікового запису.</string>
+			<string>%1$d статей</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -321,9 +321,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Стаття не може бути додана до цього списку. Ви перевищили ліміт у %2$d статей для читального списку %3$@</string>
+			<string>Стаття не може бути додана</string>
 			<key>other</key>
-			<string>Статті не можуть бути додані до цього списку. Ви перевищили ліміт у %2$d статей для читального списку %3$@</string>
+			<string>Статті не можуть бути додані</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -337,9 +337,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ви перевищили ліміт у %1$d читальний список для облікового запису.</string>
+			<string>%1$d читальний список</string>
 			<key>other</key>
-			<string>Ви перевищили ліміт у %1$d читальних списків для облікового запису.</string>
+			<string>%1$d читальних списків</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -369,9 +369,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ця дія не може була скасована. Жодні статті, збережені тільки для цього списку, не збережуться.</string>
+			<string>цього списку</string>
 			<key>other</key>
-			<string>Ця дія не може була скасована. Жодні статті, збережені тільки для цих списків, не збережуться.</string>
+			<string>цих списків</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -385,9 +385,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Видалити список?</string>
+			<string>список</string>
 			<key>other</key>
-			<string>Видалити списки?</string>
+			<string>списки</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -491,9 +491,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Незбереження цієї статті видалить її з усіх пов'язаних читальних списків</string>
+			<string>цієї статті видалить її</string>
 			<key>other</key>
-			<string>Незбереження цих статей видалить їх з усіх пов'язаних читальних списків</string>
+			<string>цих статей видалить їх</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -507,9 +507,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Не зберігати стаття?</string>
+			<string>стаття</string>
 			<key>other</key>
-			<string>Не зберігати статей?</string>
+			<string>статей</string>
 		</dict>
 	</dict>
 </dict>

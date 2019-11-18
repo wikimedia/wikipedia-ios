@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Trasladar %1$d article a la lista de lectura</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>Trasladar %1$d articles a la lista de lectura</string>
+			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

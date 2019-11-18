@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>စာဖတ်စာရင်းသို့ ဆောင်းပါး $၁ ခု ပေါင်းထည့်ရန်</string>
+			<string>$၁ ခု</string>
 			<key>other</key>
-			<string>စာဖတ်စာရင်းသို့ ဆောင်းပါး %1$d ခု ပေါင်းထည့်ရန်</string>
+			<string>%1$d ခု</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ဆောင်းပါး ခု ဖျက်ပစ်ခဲ့သည်</string>
+			<string>ခု</string>
 			<key>other</key>
-			<string>ဆောင်းပါး ခု ဖျက်ပစ်ခဲ့သည်</string>
+			<string>ခု</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>စာဖတ်စာရင်းသို့ ဆောင်းပါးပေါင်း %1$d ခု ရွေ့ရန်</string>
+			<string>%1$d ခု</string>
 			<key>other</key>
-			<string>စာဖတ်စာရင်းသို့ ဆောင်းပါးပေါင်း %1$d ခု ရွေ့ရန်</string>
+			<string>%1$d ခု</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d အခြားဘာသာစကားတွင် ရရှိနိုင်သည်</string>
+			<string>%1$d အခြားဘာသာစကား</string>
 			<key>other</key>
-			<string>%1$d အခြားဘာသာစကားများတွင် ရရှိနိုင်သည်</string>
+			<string>%1$d အခြားဘာသာစကားများ</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>အကောင့်တစ်ခုလျင် %1$d ဆောင်းပါးနှုန်း ကျော်လွန်သွားပါသည်။</string>
+			<string>%1$d ဆောင်းပါး</string>
 			<key>other</key>
-			<string>အကောင့်တစ်ခုလျင် %1$d ဆောင်းပါးများနှုန်း ကျော်လွန်သွားပါသည်။</string>
+			<string>%1$d ဆောင်းပါးများ</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>စာရင်း ကို ဖျက်ပစ်မလား</string>
+			<string>စာရင်း</string>
 			<key>other</key>
-			<string>စာရင်းများ ကို ဖျက်ပစ်မလား</string>
+			<string>စာရင်းများ</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -241,9 +241,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ဆောင်းပါး ခု မသိမ်းတော့ရန်?</string>
+			<string>ခု</string>
 			<key>other</key>
-			<string>ဆောင်းပါး ခု မသိမ်းတော့ရန်?</string>
+			<string>ခု</string>
 		</dict>
 	</dict>
 </dict>

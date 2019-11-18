@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Додавање на %1$d статија во список за читање</string>
+			<string>%1$d статија</string>
 			<key>other</key>
-			<string>Додавање на %1$d статии во список за читање</string>
+			<string>%1$d статии</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -173,9 +173,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Преместување на %1$d статија во список за читање</string>
+			<string>%1$d статија</string>
 			<key>other</key>
-			<string>Преместување на %1$d статии во список за читање</string>
+			<string>%1$d статии</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -237,9 +237,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d уредување од %2$@ наваму</string>
+			<string>%1$d уредување</string>
 			<key>other</key>
-			<string>%1$d уредувања од %2$@ наваму</string>
+			<string>%1$d уредувања</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -269,9 +269,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Достапно на уште %1$d јазик</string>
+			<string>уште %1$d јазик</string>
 			<key>other</key>
-			<string>Достапно на уште %1$d јазици</string>
+			<string>уште %1$d јазици</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -301,9 +301,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ја надминавте границата од %1$d статија.</string>
+			<string>%1$d статија</string>
 			<key>other</key>
-			<string>Ја надминавте границата од %1$d статии.</string>
+			<string>%1$d статии</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -317,9 +317,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Статијата не може да се додаде во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
+			<string>Статијата не може да се додаде</string>
 			<key>other</key>
-			<string>Статиите не можат да се додадат во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
+			<string>Статиите не можат да се додадат</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -333,9 +333,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ја достигнавте границата од %1$d список за читање</string>
+			<string>%1$d список за читање</string>
 			<key>other</key>
-			<string>Ја достигнавте границата од %1$d списоци за читање</string>
+			<string>%1$d списоци за читање</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -365,9 +365,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ова дејство е неповратно. Сите статии зачувани само во овој список ќе бидат одзачувани.</string>
+			<string>овој список</string>
 			<key>other</key>
-			<string>Ова дејство е неповратно. Сите статии зачувани само во овие списоци ќе бидат одзачувани.</string>
+			<string>овие списоци</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -381,9 +381,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Да го избришам списокот?</string>
+			<string>го избришам списокот</string>
 			<key>other</key>
-			<string>Да ги избришам списоците?</string>
+			<string>ги избришам списоците</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -481,9 +481,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Со одзачувувањето, статијава ќе биде отстранета од сите поврзани списоци за читање</string>
+			<string>статијава ќе биде отстранета</string>
 			<key>other</key>
-			<string>Со одзачувувањето, статииве ќе бидат остранети од сите поврзани списоци за читање</string>
+			<string>статииве ќе бидат остранети</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -497,9 +497,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Да ја одзачувам статијата?</string>
+			<string>ја одзачувам статијата</string>
 			<key>other</key>
-			<string>Да ги одзачувам статиите?</string>
+			<string>ги одзачувам статиите</string>
 		</dict>
 	</dict>
 </dict>

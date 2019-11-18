@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>افزودن %1$d article  به فهرست خواندن</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>افزودن %1$d articles  به فهرست خواندن</string>
+			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>مقالهٔ حذف‌شده</string>
+			<string>مقالهٔ</string>
 			<key>other</key>
-			<string>مقاله‌های حذف‌شده</string>
+			<string>مقاله‌های</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>افزودن %1$d article  به فهرست خواندن</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>افزودن %1$d articles  به فهرست خواندن</string>
+			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>موجود به %1$d زیان دیگر</string>
+			<string>%1$d زیان دیگر</string>
 			<key>other</key>
-			<string>موجود به %1$d زبان دیگر</string>
+			<string>%1$d زبان دیگر</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در این فهرست دخیره شده، به صورت دخیره‌ نشده خواهد ماند.</string>
+			<string>این فهرست</string>
 			<key>other</key>
-			<string>این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در این فهرست‌ها دخیره شده، به صورت دخیره‌ نشده خواهد ماند.</string>
+			<string>این فهرست‌ها</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>فهرستt حذف شود؟</string>
+			<string>فهرستt</string>
 			<key>other</key>
-			<string>فهرست‌ها حذف شود؟</string>
+			<string>فهرست‌ها</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -241,9 +241,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>عدم ذخیرهٔ این مقاله آن را از فهرست خواندن حذف می‌کند</string>
+			<string>این مقاله آن را از فهرست خواندن حذف می‌کند</string>
 			<key>other</key>
-			<string>عدم ذخیرهٔ این مقالات آنها را از فهرست خواندن حذف می‌کند</string>
+			<string>این مقالات آنها را از فهرست خواندن حذف می‌کند</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -257,9 +257,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>عدم ذخیرهٔ مقاله؟</string>
+			<string>مقاله</string>
 			<key>other</key>
-			<string>عدم ذخیرهٔ مقالات؟</string>
+			<string>مقالات</string>
 		</dict>
 	</dict>
 </dict>

@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>添加%1$d个条目至阅读列表</string>
+			<string>%1$d个条目</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -27,7 +27,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>条目已删除</string>
+			<string>条目</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-users</key>
@@ -85,7 +85,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>移动%1$d个条目至阅读列表</string>
+			<string>%1$d个条目</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -113,9 +113,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>已添加 %1$d byte</string>
+			<string>%1$d byte</string>
 			<key>other</key>
-			<string>已添加 %1$d字节</string>
+			<string>%1$d字节</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -129,9 +129,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>已删除 %1$d byte</string>
+			<string>%1$d byte</string>
 			<key>other</key>
-			<string>已删除 %1$d字节</string>
+			<string>%1$d字节</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
@@ -145,7 +145,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>自%2$@共%1$d次编辑</string>
+			<string>%1$d次编辑</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -189,7 +189,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>条目不能添加到此列表。您已超过每个%3$@的阅读列表%2$d个条目限制</string>
+			<string>条目</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -222,7 +222,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>删除列表么？</string>
+			<string>列表</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -304,9 +304,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>取消保存此条目将从所有相关阅读列表中移除</string>
+			<string>此</string>
 			<key>other</key>
-			<string>取消保存这些条目将从所有相关阅读列表中移除</string>
+			<string>这些</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -320,7 +320,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>取消保存条目么？</string>
+			<string>条目</string>
 		</dict>
 	</dict>
 </dict>

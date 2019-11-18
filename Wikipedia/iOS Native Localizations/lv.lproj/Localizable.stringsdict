@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d labojumi kopš %2$@</string>
+			<string>%1$d labojumi</string>
 			<key>other</key>
-			<string>%1$d labojumi kopš %2$@</string>
+			<string>%1$d labojumi</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

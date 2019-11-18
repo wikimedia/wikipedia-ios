@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Bæta %1$d grein á leslista</string>
+			<string>%1$d grein</string>
 			<key>other</key>
-			<string>Bæta %1$d greinum á leslista</string>
+			<string>%1$d greinum</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>grein eytt</string>
+			<string>grein</string>
 			<key>other</key>
-			<string>greinum eytt</string>
+			<string>greinum</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Færa %1$d grein á leslista</string>
+			<string>%1$d grein</string>
 			<key>other</key>
-			<string>Færa %1$d greinar á leslista</string>
+			<string>%1$d greinar</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Aðgengilegt á %1$d öðru tungumáli</string>
+			<string>%1$d öðru tungumáli</string>
 			<key>other</key>
-			<string>Aðgengilegt á %1$d öðrum tungumálum</string>
+			<string>%1$d öðrum tungumálum</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Þú hefur farið fram úr hámarkinu með %1$d grein á hvern notandaaðgang.</string>
+			<string>%1$d grein</string>
 			<key>other</key>
-			<string>Þú hefur farið fram úr hámarkinu með %1$d greinar á hvern notandaaðgang.</string>
+			<string>%1$d greinar</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Get ekki bætt grein á þennan lista. Þú hefur náð %2$d greina takmörkum á hvern lista fyrir %3$@</string>
+			<string>grein</string>
 			<key>other</key>
-			<string>Get ekki bætt greinum á þennan lista. Þú hefur náð %2$d greina takmörkum á hvern lista fyrir %3$@</string>
+			<string>greinum</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Þú hefur farið fram úr hámarkinu með %1$d leslista á hvern notandaaðgang.</string>
+			<string>%1$d leslista</string>
 			<key>other</key>
-			<string>Þú hefur farið fram úr hámarkinu með %1$d leslista á hvern notandaaðgang.</string>
+			<string>%1$d leslista</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -189,9 +189,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Þessa aðgerð er ekki hægt að afturkalla. Allar greinar sem einungis eru vistaðar í þennan lista verða óvistaðar.</string>
+			<string>þennan lista verða óvistaðar</string>
 			<key>other</key>
-			<string>Þessa aðgerð er ekki hægt að afturkalla. Allar greinar sem einungis eru vistaðar í þessa lista verða óvistaðar.</string>
+			<string>þessa lista verða óvistaðar</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Eyða lista?</string>
+			<string>lista</string>
 			<key>other</key>
-			<string>Eyða listum?</string>
+			<string>listum</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -305,9 +305,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Afturköllun á vistun þessarar greinar mun fjarlægja hana af öllum tengdum leslistum</string>
+			<string>þessarar greinar mun fjarlægja hana</string>
 			<key>other</key>
-			<string>Afturköllun á vistun þessara greina mun fjarlægja þær af öllum tengdum leslistum</string>
+			<string>þessara greina mun fjarlægja þær</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>

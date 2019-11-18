@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d ыстатыйа</string>
+			<string>ыстатыйа</string>
 			<key>other</key>
-			<string>%1$d ыстатыйалар</string>
+			<string>ыстатыйалар</string>
 		</dict>
 	</dict>
 </dict>

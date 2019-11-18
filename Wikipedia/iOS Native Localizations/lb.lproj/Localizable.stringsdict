@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Een Artikel op d'Lieslëscht derbäisetzen</string>
+			<string>Een Artikel</string>
 			<key>other</key>
-			<string>%1$d Artikelen op d'Lieslëscht derbäisetzen</string>
+			<string>%1$d Artikelen</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikel geläscht</string>
+			<string>Artikel</string>
 			<key>other</key>
-			<string>Artikele geläscht</string>
+			<string>Artikele</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>1 Ännerung zanter %2$@</string>
+			<string>1 Ännerung</string>
 			<key>other</key>
-			<string>%1$d Ännerungen zanter %2$@</string>
+			<string>%1$d Ännerungen</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Viru(n) %1$d Deeg geännert</string>
+			<string>Viru(n) %1$d Deeg</string>
 			<key>zero</key>
-			<string>Haut today geännert</string>
+			<string>Haut today</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Lëscht läschen?</string>
+			<string>Lëscht</string>
 			<key>other</key>
-			<string>Lëschte läschen?</string>
+			<string>Lëschte</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -213,9 +213,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikel läschen?</string>
+			<string>Artikel</string>
 			<key>other</key>
-			<string>Artikele läschen?</string>
+			<string>Artikele</string>
 		</dict>
 	</dict>
 </dict>

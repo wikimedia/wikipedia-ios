@@ -13,11 +13,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Dodaj %1$d članka na listu za čitanje</string>
+			<string>%1$d članka</string>
 			<key>one</key>
-			<string>Dodaj %1$d članak na listu za čitanje</string>
+			<string>%1$d članak</string>
 			<key>other</key>
-			<string>Dodaj %1$d članaka na listu za čitanje</string>
+			<string>%1$d članaka</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -47,11 +47,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Premesti %1$d članka na listu za čitanje</string>
+			<string>%1$d članka</string>
 			<key>one</key>
-			<string>Premesti %1$d članak na listu za čitanje</string>
+			<string>%1$d članak</string>
 			<key>other</key>
-			<string>Premesti %1$d članaka na listu za čitanje</string>
+			<string>%1$d članaka</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -99,11 +99,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%1$d članka</string>
+			<string>članka</string>
 			<key>one</key>
-			<string>%1$d članak</string>
+			<string>članak</string>
 			<key>other</key>
-			<string>%1$d članaka</string>
+			<string>članaka</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
@@ -117,9 +117,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Prekoračili ste ograničenje od %1$d članka po nalogu.</string>
+			<string>%1$d članka</string>
 			<key>other</key>
-			<string>Prekoračili ste ograničenje od %1$d članaka po nalogu.</string>
+			<string>%1$d članaka</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -133,9 +133,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Članak se ne može dodati na listu. Dostigli ste ograničenje od %2$d članaka po listi za čitanje za %3$@.</string>
+			<string>Članak se ne može</string>
 			<key>other</key>
-			<string>Članci se ne mogu dodati na listu. Dostigli ste ograničenje od %2$d članaka po listi za čitanje za %3$@.</string>
+			<string>Članci se ne mogu</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -149,9 +149,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Prekoračili ste ograničenje od %1$d liste za čitanje po nalogu.</string>
+			<string>%1$d liste za čitanje</string>
 			<key>other</key>
-			<string>Prekoračili ste ograničenje od %1$d lista za čitanje po nalogu.</string>
+			<string>%1$d lista za čitanje</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -183,9 +183,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ova radnja je nepovratna. Svi članci sačuvani samo na ovoj listi će biti uklonjeni iz sačuvanih.</string>
+			<string>ovoj listi</string>
 			<key>other</key>
-			<string>Ova radnja je nepovratna. Svi članci sačuvani samo na ovim listama će biti uklonjeni iz sačuvanih.</string>
+			<string>ovim listama</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -199,9 +199,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Izbrisati spisak?</string>
+			<string>spisak</string>
 			<key>other</key>
-			<string>Izbrisati spiskove?</string>
+			<string>spiskove</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -303,9 +303,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ovaj članak će biti izbrisan sa svih povezanih lista za čitanje</string>
+			<string>Ovaj članak će biti izbrisan</string>
 			<key>other</key>
-			<string>Ovi članci će biti izbrisani sa svih povezanih lista za čitanje</string>
+			<string>Ovi članci će biti izbrisani</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -319,9 +319,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ukloniti članak iz sačuvanih?</string>
+			<string>članak</string>
 			<key>other</key>
-			<string>Ukloniti članke iz sačuvanih?</string>
+			<string>članke</string>
 		</dict>
 	</dict>
 </dict>

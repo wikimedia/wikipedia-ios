@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d مضمون پڙھڻ جي فھرست ۾ وجھو</string>
+			<string>%1$d مضمون</string>
 			<key>other</key>
-			<string>%1$d مضمونَ پڙھڻ جي فھرست ۾ وجھو</string>
+			<string>%1$d مضمونَ</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>مضمون ڊھيل</string>
+			<string>مضمون</string>
 			<key>other</key>
-			<string>مضمونَ ڊھيل</string>
+			<string>مضمونَ</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-revisions</key>
@@ -173,9 +173,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d مضمون پڙھڻ جي فھرست ڏانھن چوريو</string>
+			<string>%1$d مضمون</string>
 			<key>other</key>
-			<string>%1$d مضمونَ پڙھڻ جي فھرست ڏانھن چوريو</string>
+			<string>%1$d مضمونَ</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d بائيٽ وڌيـ(ـون)</string>
+			<string>%1$d بائيٽ</string>
 			<key>other</key>
-			<string>%1$d بائيٽون وڌيـ(ـون)</string>
+			<string>%1$d بائيٽون</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -221,9 +221,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d بائيٽ ھٽائيـ(ـون)</string>
+			<string>%1$d بائيٽ</string>
 			<key>other</key>
-			<string>%1$d بائيٽون ھٽائيـ(ـون)</string>
+			<string>%1$d بائيٽون</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -253,9 +253,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d ٻي ٻولي ۾ موجود</string>
+			<string>%1$d ٻي ٻولي</string>
 			<key>other</key>
-			<string>%1$d ٻين ٻولين ۾ موجود</string>
+			<string>%1$d ٻين ٻولين</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -301,9 +301,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھن فھرست ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+			<string>ھن فھرست</string>
 			<key>other</key>
-			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھنن فھرستن ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+			<string>ھنن فھرستن</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -317,9 +317,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>فھرست ڊاھيو؟</string>
+			<string>فھرست</string>
 			<key>other</key>
-			<string>فھرستون ڊاھيو؟</string>
+			<string>فھرستون</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -417,9 +417,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>نہ-سانڍڻ ھن مضمون کي سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو</string>
+			<string>ھن مضمون کي</string>
 			<key>other</key>
-			<string>نہ-سانڍڻ ھنن مضمونن کي سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو</string>
+			<string>ھنن مضمونن کي</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -433,9 +433,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>مضمون اڻسانڍيو؟</string>
+			<string>مضمون</string>
 			<key>other</key>
-			<string>مضمون اڻسانڍيو؟</string>
+			<string>مضمون</string>
 		</dict>
 	</dict>
 </dict>

@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ouzhpennañ %1$d pennad d'ar roll lenn</string>
+			<string>%1$d pennad</string>
 			<key>other</key>
-			<string>Ouzhpennañ %1$d pennad d'ar roll lenn</string>
+			<string>%1$d pennad</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

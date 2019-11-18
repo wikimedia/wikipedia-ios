@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Afegeix %1$d article a la llista de lectura</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>Afegeix %1$d articles a la llista de lectura</string>
+			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Mou %1$d article a la llista de lectura</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>Mou %1$d articles a la llista de lectura</string>
+			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Disponible en %1$d altra llengua</string>
+			<string>%1$d altra llengua</string>
 			<key>other</key>
-			<string>Disponible en %1$d altres llengües</string>
+			<string>%1$d altres llengües</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -237,9 +237,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Heu sobrepassat el límit de %1$d article per compte.</string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>Heu sobrepassat el límit de %1$d articles per compte.</string>
+			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -253,9 +253,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>L'article no poden afegir-se a la llista. Heu arribat al límit de %2$d articles per llista de lectura de %3$@</string>
+			<string>L'article</string>
 			<key>other</key>
-			<string>Els articles no poden afegir-se a la llista. Heu arribat al límit de %2$d articles per llista de lectura de %3$@</string>
+			<string>Els articles</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -269,9 +269,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Heu excedit el límit de %1$d llista de lectura per compte.</string>
+			<string>%1$d llista de lectura</string>
 			<key>other</key>
-			<string>Heu excedit el límit de %1$d llistes de lectura per compte.</string>
+			<string>%1$d llistes de lectura</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -301,9 +301,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>No es pot desfer l'acció. Aquells articles desats només en aquesta llista deixaran d'estar-hi desats.</string>
+			<string>aquesta llista</string>
 			<key>other</key>
-			<string>No es pot desfer l'acció. Aquells articles desats només en aquestes llistes deixaran d'estar-hi desats.</string>
+			<string>aquestes llistes</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -317,9 +317,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Voleu suprimir la llista?</string>
+			<string>la llista</string>
 			<key>other</key>
-			<string>Voleu suprimir les llistes?</string>
+			<string>les llistes</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -417,9 +417,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>En deixar de tenir desat aquest article se suprimirà de totes les llistes de lectura associades</string>
+			<string>aquest article se suprimirà</string>
 			<key>other</key>
-			<string>En deixar de tenir desat aquests articles se suprimiran de totes les llistes de lectura associades</string>
+			<string>aquests articles se suprimiran</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -433,9 +433,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Voleu deixar de tenir desats article?</string>
+			<string>article</string>
 			<key>other</key>
-			<string>Voleu deixar de tenir desats articles?</string>
+			<string>articles</string>
 		</dict>
 	</dict>
 </dict>

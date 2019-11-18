@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Legg til %1$d artikkel i leselisten</string>
+			<string>%1$d artikkel</string>
 			<key>other</key>
-			<string>Legg til %1$d artikler i leselisten</string>
+			<string>%1$d artikler</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikkel slettet</string>
+			<string>artikkel</string>
 			<key>other</key>
-			<string>artikler slettet</string>
+			<string>artikler</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Flytt %1$d artikkel til leselisten</string>
+			<string>%1$d artikkel</string>
 			<key>other</key>
-			<string>Flytt %1$d artikler til leselisten</string>
+			<string>%1$d artikler</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tilgjengelig på %1$d annet språk</string>
+			<string>%1$d annet språk</string>
 			<key>other</key>
-			<string>Tilgjengelig på %1$d andre språk</string>
+			<string>%1$d andre språk</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du har overskredet grensen på %1$d artikkel per konto.</string>
+			<string>%1$d artikkel</string>
 			<key>other</key>
-			<string>Du har overskredet grensen på %1$d artikler per konto.</string>
+			<string>%1$d artikler</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikkelen kunne ikke legges til i listen. Du har nådd grensen på %2$d artikler per leseliste for %3$@</string>
+			<string>Artikkelen</string>
 			<key>other</key>
-			<string>Artiklene kunne ikke legges til i listen. Du har nådd grensen på %2$d artikler per leseliste for %3$@</string>
+			<string>Artiklene</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du har overskredet grensen på %1$d leseliste per konto.</string>
+			<string>%1$d leseliste</string>
 			<key>other</key>
-			<string>Du har overskredet grensen på %1$d leselister per konto.</string>
+			<string>%1$d leselister</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -189,9 +189,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Handlingen kan ikke angres. Artikler som kun er lagret i denne listen vil bli fjernet.</string>
+			<string>denne listen</string>
 			<key>other</key>
-			<string>Handlingen kan ikke angres. Artikler som kun er lagret i disse listene vil bli fjernet.</string>
+			<string>disse listene</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Slett listen?</string>
+			<string>listen</string>
 			<key>other</key>
-			<string>Slett listene?</string>
+			<string>listene</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -305,9 +305,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Fjerning av denne artikkelen vil fjerne den fra alle leselister du måtte ha den i</string>
+			<string>denne artikkelen vil fjerne den</string>
 			<key>other</key>
-			<string>Fjerning av disse artiklene vil fjerne dem fra alle leselister du måtte ha den i</string>
+			<string>disse artiklene vil fjerne dem</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -321,9 +321,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Fjern artikkelen?</string>
+			<string>artikkelen</string>
 			<key>other</key>
-			<string>Fjern artiklene?</string>
+			<string>artiklene</string>
 		</dict>
 	</dict>
 </dict>

@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ein Artikel zu einer Leseliste hinzufügen</string>
+			<string>Ein</string>
 			<key>other</key>
-			<string>%1$d Artikel zu einer Leseliste hinzufügen</string>
+			<string>%1$d</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,7 +29,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Artikel gelöscht</string>
+			<string>Artikel</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -43,9 +43,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Einen Artikel in eine Leseliste verschieben</string>
+			<string>Einen</string>
 			<key>other</key>
-			<string>%1$d Artikel in eine Leseliste verschieben</string>
+			<string>%1$d</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -75,9 +75,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Vor %1$d Tagen bearbeitet</string>
+			<string>Vor %1$d Tagen</string>
 			<key>zero</key>
-			<string>Heute bearbeitet</string>
+			<string>Heute</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
@@ -91,9 +91,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>In einer weiteren Sprache verfügbar</string>
+			<string>einer weiteren Sprache</string>
 			<key>other</key>
-			<string>In %1$d weiteren Sprachen verfügbar</string>
+			<string>%1$d weiteren Sprachen</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -107,9 +107,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ein Artikel</string>
+			<string>Ein</string>
 			<key>other</key>
-			<string>%1$d Artikel</string>
+			<string>%1$d</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
@@ -123,9 +123,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du hast die Grenze von einem Artikel pro Benutzerkonto überschritten.</string>
+			<string>einem Artikel</string>
 			<key>other</key>
-			<string>Du hast die Grenze von %1$d Artikeln pro Benutzerkonto überschritten.</string>
+			<string>%1$d Artikeln</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -139,9 +139,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Der Artikel konnte nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
+			<string>Der Artikel konnte</string>
 			<key>other</key>
-			<string>Die Artikel konnten nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
+			<string>Die Artikel konnten</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -155,9 +155,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du hast die Grenze von einer Leseliste pro Benutzerkonto überschritten.</string>
+			<string>einer Leseliste</string>
 			<key>other</key>
-			<string>Du hast die Grenze von %1$d Leselisten pro Benutzerkonto überschritten.</string>
+			<string>%1$d Leselisten</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -187,9 +187,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in dieser Liste gespeichert sind, werden gelöscht.</string>
+			<string>dieser Liste</string>
 			<key>other</key>
-			<string>Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in diesen Listen gespeichert sind, werden gelöscht.</string>
+			<string>diesen Listen</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -203,9 +203,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Liste löschen?</string>
+			<string>Liste</string>
 			<key>other</key>
-			<string>Listen löschen?</string>
+			<string>Listen</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -287,9 +287,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ein Objekt ersetzt</string>
+			<string>Ein Objekt</string>
 			<key>other</key>
-			<string>%1$d Objekte ersetzt</string>
+			<string>%1$d Objekte</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
@@ -303,9 +303,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Das Löschen dieses Artikels entfernt ihn aus allen verbundenen Leselisten</string>
+			<string>dieses Artikels entfernt ihn</string>
 			<key>other</key>
-			<string>Das Löschen dieser Artikel entfernt sie aus allen verbundenen Leselisten</string>
+			<string>dieser Artikel entfernt sie</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -319,7 +319,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Artikel löschen?</string>
+			<string>Artikel</string>
 		</dict>
 	</dict>
 </dict>

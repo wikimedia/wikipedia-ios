@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d pagina aan leeslijst toevoegen</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>%1$d pagina's aan leeslijst toevoegen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikel verwijderd</string>
+			<string>artikel</string>
 			<key>other</key>
-			<string>artikelen verwijderd</string>
+			<string>artikelen</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel naar de leeslijst verplaatsen</string>
+			<string>%1$d artikel</string>
 			<key>other</key>
-			<string>%1$d artikelen naar de leeslijst verplaatsen</string>
+			<string>%1$d artikelen</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Beschikbaar in %1$d andere taal</string>
+			<string>%1$d andere taal</string>
 			<key>other</key>
-			<string>Beschikbaar in %1$d andere talen</string>
+			<string>%1$d andere talen</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>U hebt de grens van %1$d pagina per profiel overschreden.</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>U hebt de grens van %1$d pagina's per profiel overschreden.</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikel kan niet meer bij deze lijst. Maximum aantal leeslijsten %2$d per leeslijst voor %3$@ bereikt.</string>
+			<string>Artikel kan</string>
 			<key>other</key>
-			<string>Artikelen kunnen niet meer bij deze lijst. Maximum aantal leeslijsten %2$d per leeslijst voor %3$@ bereikt.</string>
+			<string>Artikelen kunnen</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>U hebt de grens van %1$d leeslijst per profiel overschreden.</string>
+			<string>%1$d leeslijst</string>
 			<key>other</key>
-			<string>U hebt de grens van %1$d leeslijsten per profiel overschreden.</string>
+			<string>%1$d leeslijsten</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -189,9 +189,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Deze actie kan niet ongedaan gemaakt worden. Alle artikelen die alleen zijn opgeslagen in deze lijst zijn niet opgeslagen.</string>
+			<string>deze lijst</string>
 			<key>other</key>
-			<string>Deze actie kan niet ongedaan gemaakt worden. Alle artikelen die alleen zijn opgeslagen in deze lijsten zijn niet opgeslagen.</string>
+			<string>deze lijsten</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -205,9 +205,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Deze lijst verwijderen?</string>
+			<string>lijst</string>
 			<key>other</key>
-			<string>Deze lijsten verwijderen?</string>
+			<string>lijsten</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -305,9 +305,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Het wissen van dit artikel wist dit artikel van alle bijbehorende leeslijsten</string>
+			<string>dit artikel wist dit artikel</string>
 			<key>other</key>
-			<string>Het wissen van deze artikelen wist deze artikelen van alle bijbehorende leeslijsten</string>
+			<string>deze artikelen wist deze artikelen</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -321,9 +321,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Wis opgeslagen artikel?</string>
+			<string>artikel</string>
 			<key>other</key>
-			<string>Wis opgeslagen artikelen?</string>
+			<string>artikelen</string>
 		</dict>
 	</dict>
 </dict>

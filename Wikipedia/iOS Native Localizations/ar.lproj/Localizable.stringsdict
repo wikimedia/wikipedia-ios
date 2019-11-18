@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>أضف %1$d مقالة إلى قائمة القراءة</string>
+			<string>%1$d مقالة</string>
 			<key>other</key>
-			<string>أضف %1$d مقالات إلى قائمة القراءة</string>
+			<string>%1$d مقالات</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>تم حذف مقالة</string>
+			<string>مقالة</string>
 			<key>other</key>
-			<string>تم حذف مقالات</string>
+			<string>مقالات</string>
 		</dict>
 	</dict>
 	<key>diff-compare-header-subtitle-num-revisions</key>
@@ -158,9 +158,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>نقل %1$d مقالة إلى قائمة القراءة</string>
+			<string>%1$d مقالة</string>
 			<key>other</key>
-			<string>نقل %1$d مقالات إلى قائمة القراءة</string>
+			<string>%1$d مقالات</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -190,7 +190,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>إضافة 1 بايت</string>
+			<string>1 بايت</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -204,7 +204,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>إزالة 1 بايت</string>
+			<string>1 بايت</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
@@ -218,9 +218,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d تعديل منذ %2$@</string>
+			<string>%1$d تعديل</string>
 			<key>other</key>
-			<string>%1$d تعديلات منذ %2$@</string>
+			<string>%1$d تعديلات</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -234,9 +234,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>عُدِّلت منذ %1$d أيام</string>
+			<string>منذ %1$d أيام</string>
 			<key>zero</key>
-			<string>عُدِّلت اليوم</string>
+			<string>اليوم</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
@@ -250,9 +250,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>متاحة بـ%1$d لغة أخرى</string>
+			<string>بـ%1$d لغة أخرى</string>
 			<key>other</key>
-			<string>متاحة بـ%1$d لغات أخرى</string>
+			<string>بـ%1$d لغات أخرى</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -282,9 +282,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>لقد تجاوزت الحد الأقصى وهو %1$d مقالة لكل حساب.</string>
+			<string>%1$d مقالة</string>
 			<key>other</key>
-			<string>لقد تجاوزت الحد الأقصى وهو %1$d مقالات لكل حساب.</string>
+			<string>%1$d مقالات</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -298,9 +298,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>لا يمكن إضافة مقالة إلى هذه القائمة; لقد بلغت الحد الأقصى %2$d مقالات لكل قائمة قراءة لـ%3$@</string>
+			<string>مقالة</string>
 			<key>other</key>
-			<string>لا يمكن إضافة مقالات إلى هذه القائمة; لقد بلغت الحد الأقصى %2$d مقالات لكل قائمة قراءة لـ%3$@</string>
+			<string>مقالات</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -314,9 +314,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>لقد تجاوزت الحد المسموح به وهو %1$d قائمة قراءة لكل حساب.</string>
+			<string>%1$d قائمة قراءة</string>
 			<key>other</key>
-			<string>لقد تجاوزت الحد المسموح به وهو %1$d قوائم قراءة لكل حساب.</string>
+			<string>%1$d قوائم قراءة</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -346,9 +346,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>لا يمكن التراجع عن هذا الإجراء، أية مقالات يتم حفظها فقط في هذه القائمة ستكون غير محفوظة.</string>
+			<string>القائمة</string>
 			<key>other</key>
-			<string>لا يمكن التراجع عن هذا الإجراء، أية مقالات يتم حفظها فقط في هذه القوائم ستكون غير محفوظة.</string>
+			<string>القوائم</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -362,9 +362,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>حذف القائمة؟</string>
+			<string>القائمة</string>
 			<key>other</key>
-			<string>حذف القوائم؟</string>
+			<string>القوائم</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -446,9 +446,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>تم استبدال %1$d عنصر</string>
+			<string>%1$d عنصر</string>
 			<key>other</key>
-			<string>تم استبدال %1$d عناصر</string>
+			<string>%1$d عناصر</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
@@ -462,9 +462,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>عدم حفظ هذه المقالة سيزيلها من جميع قوائم القراءة المرتبطة</string>
+			<string>المقالة</string>
 			<key>other</key>
-			<string>عدم حفظ هذه المقالات سيزيلها من جميع قوائم القراءة المرتبطة</string>
+			<string>المقالات</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -478,9 +478,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>إلغاء حفظ مقالة؟</string>
+			<string>مقالة</string>
 			<key>other</key>
-			<string>إلغاء حفظ مقالات؟</string>
+			<string>مقالات</string>
 		</dict>
 	</dict>
 </dict>

@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d szócikk hozzáadása az olvasólistához</string>
+			<string>%1$d szócikk</string>
 			<key>other</key>
-			<string>%1$d szócikk hozzáadása az olvasólistához</string>
+			<string>%1$d szócikk</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>szócikk törölve</string>
+			<string>szócikk</string>
 			<key>other</key>
-			<string>szócikk törölve</string>
+			<string>szócikk</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>egy szócikk hozzáadása az olvasólistához</string>
+			<string>egy szócikk</string>
 			<key>other</key>
-			<string>%1$d szócikk hozzáadása az olvasólistához</string>
+			<string>%1$d szócikk</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Szerkesztve %1$d napja</string>
+			<string>%1$d napja</string>
 			<key>zero</key>
-			<string>Szerkesztve ma</string>
+			<string>ma</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>A szócikket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket %3$@ olvasólistában.</string>
+			<string>szócikket</string>
 			<key>other</key>
-			<string>A szócikkeket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket %3$@ olvasólistában.</string>
+			<string>szócikkeket</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -109,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Lista törlése?</string>
+			<string>Lista</string>
 			<key>other</key>
-			<string>Listák törlése?</string>
+			<string>Listák</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
