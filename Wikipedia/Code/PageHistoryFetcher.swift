@@ -91,7 +91,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
 
     // MARK: Creation date
 
-    public func fetchPageCreationDate(for pageTitle: String, pageURL: URL, completion: @escaping (Result<Date, RequestError>) -> Void) {
+    public func fetchFirstRevision(for pageTitle: String, pageURL: URL, completion: @escaping (Result<WMFPageHistoryRevision, RequestError>) -> Void) {
         let params: [String: AnyObject] = [
             "action": "query" as AnyObject,
             "prop": "revisions" as AnyObject,
@@ -106,11 +106,11 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 completion(.failure(.unexpectedResponse))
                 return
             }
-            guard let firstRevisionDate = results.lastRevision?.revisionDate ?? results.items().first?.items.first?.revisionDate else {
+            guard let firstRevision = results.lastRevision ?? results.items().first?.items.first else {
                 completion(.failure(.unexpectedResponse))
                 return
             }
-            completion(.success(firstRevisionDate))
+            completion(.success(firstRevision))
         }
     }
 
@@ -297,6 +297,7 @@ open class PageHistoryRequestParameters: NSObject {
         self.pagingInfo = pagingInfo
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
     }
+    
     //TODO: get rid of this when the VC is swift and we can use default values in the other init
     @objc public init(title: String) {
         self.title = title

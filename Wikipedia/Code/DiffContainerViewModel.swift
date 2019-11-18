@@ -15,7 +15,7 @@ final class DiffContainerViewModel {
         case error(error: Error)
     }
     
-    let headerViewModel: DiffHeaderViewModel
+    let headerViewModel: DiffHeaderViewModel?
     let type: DiffType
     var listViewModel: [DiffListGroupViewModel]?
     
@@ -26,9 +26,15 @@ final class DiffContainerViewModel {
     }
     var stateHandler: (() -> Void)?
     
-    init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, listViewModel: [DiffListGroupViewModel]?, theme: Theme) {
+    init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, listViewModel: [DiffListGroupViewModel]?, theme: Theme) {
         self.type = type
-        self.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: fromModel, toModel: toModel, theme: theme)
+        
+        if let toModel = toModel {
+            self.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: fromModel, toModel: toModel, theme: theme)
+        } else {
+            self.headerViewModel = nil
+        }
+        
         self.listViewModel = listViewModel
     }
 }

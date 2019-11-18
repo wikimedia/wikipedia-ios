@@ -11,10 +11,25 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
         if let detailController = detailAnimationController(for: operation, from: fromVC, to: toVC) {
             return detailController
         }
+        
+        if let revisionController = diffRevisionAnimationController(for: operation, from: fromVC, to: toVC) {
+            return revisionController
+        }
        
         return nil
     }
     
+    private func diffRevisionAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard
+            let fromDiffVC = fromVC as? (DiffRevisionAnimating & DiffContainerViewController),
+            let _ = toVC as? (DiffRevisionAnimating & DiffContainerViewController),
+            let direction = fromDiffVC.animateDirection,
+            operation == .push else {
+                return nil
+        }
+        
+        return DiffRevisionTransition(direction: direction)
+    }
     
     private func searchAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let actualFromVC: UIViewController?

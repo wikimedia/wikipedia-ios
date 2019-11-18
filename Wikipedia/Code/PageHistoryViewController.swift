@@ -28,6 +28,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var isLoadingData = false
 
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
+    private var firstRevision: WMFPageHistoryRevision?
 
     var shouldLoadNewData: Bool {
         if batchComplete || isLoadingData {
@@ -177,16 +178,21 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     private func getEditCounts() {
-        pageHistoryFetcher.fetchPageCreationDate(for: pageTitle, pageURL: pageURL) { [weak self] result in
+        pageHistoryFetcher.fetchFirstRevision(for: pageTitle, pageURL: pageURL) { [weak self] result in
             guard let self = self else {
                 return
             }
             switch result {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-            case .success(let firstEditDate):
+            case .success(let firstRevision):
                 DispatchQueue.main.async {
-                    self.countsViewController.set(totalEditCount: nil, firstEditDate: firstEditDate)
+                    self.firstRevision = firstRevision
+                    if let revisionDate = firstRevision.revisionDate {
+                        self.countsViewController.set(totalEditCount: nil, firstEditDate: revisionDate)
+                    } else {
+                        self.showNoInternetConnectionAlertOrOtherWarning(from: RequestError.unexpectedResponse)
+                    }
                 }
             }
         }
@@ -264,9 +270,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
     
     private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
-        
-        if let siteURL = pageURL.wmf_site {
-            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionDelegate: self)
+        if let siteURL = pageURL.wmf_site,
+            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision) {
             wmf_push(diffContainerVC, animated: true)
         }
     }
