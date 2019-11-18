@@ -202,6 +202,7 @@
 "diff-thanks-send-button-title" = "Enviar 'Agradecimentos'";
 "diff-thanks-send-subtitle" = "'Agradecimentos' é uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. 'Agradecimentos' não pode ser anulado e são visualizados publicamente.";
 "diff-thanks-send-title" = "Envie 'Agradecimentos' publicamente";
+// Fuzzy
 "diff-thanks-sent" = "Os seus 'Agradecimentos' foi definido para $1";
 "diff-thanks-sent-already" = "Já enviou 'Agradecimentos' para esta edição";
 "diff-thanks-sent-cannot-unsend" = "'Agradecimentos' não pode ser anulado";
