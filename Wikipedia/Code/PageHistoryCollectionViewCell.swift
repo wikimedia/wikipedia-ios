@@ -219,7 +219,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
 
         if let comment = comment {
-            // TODO: Adjust icons for themes
             if isMinor, let minorImage = UIImage(named: "minor-edit") {
                 let imageAttachment = NSTextAttachment()
                 imageAttachment.image = minorImage
