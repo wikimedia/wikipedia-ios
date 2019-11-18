@@ -57,7 +57,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         self.traitCollection = traitCollection
         self.semanticContentAttribute = semanticContentAttribute
         
-        self.items = diffItems.map{ $0.diffItem.text.count == 0 ? nil : $0.diffItem.text }
+        self.items = diffItems.map{ $0.text.count == 0 ? nil : $0.text }
         
         if let firstItemLineNumber = diffItems.first?.lineNumber,
             let lastItemLineNumber = diffItems.last?.lineNumber {

@@ -296,46 +296,46 @@
     }],
 	"from": {
 		"sections": [{
-			"title": "== Section 1 ==",
+			"heading": "== Section 1 ==",
 			"level": 2,
 			"offset": 17
 		}, {
-			"title": "== Section 2 ==",
+			"heading": "== Section 2 ==",
 			"level": 2,
 			"offset": 57
 		}, {
-			"title": "=== Subsection 3===",
+			"heading": "=== Subsection 3===",
 			"level": 3,
 			"offset": 98
 		}, {
-			"title": "==Section 4==",
+			"heading": "==Section 4==",
 			"level": 2,
 			"offset": 151
 		}, {
-			"title": "==Section 5==",
+			"heading": "==Section 5==",
 			"level": 2,
 			"offset": 182
 		}]
 	},
 	"to": {
 		"sections": [{
-			"title": "== Section 1 ==",
+			"heading": "== Section 1 ==",
 			"level": 2,
 			"offset": 27
 		}, {
-			"title": "== Section 2 ==",
+			"heading": "== Section 2 ==",
 			"level": 2,
 			"offset": 67
 		}, {
-			"title": "=== Subsection 3===",
+			"heading": "=== Subsection 3===",
 			"level": 3,
 			"offset": 112
 		}, {
-			"title": "==Section 4==",
+			"heading": "==Section 4==",
 			"level": 2,
 			"offset": 161
 		}, {
-			"title": "==Section 5==",
+			"heading": "==Section 5==",
 			"level": 2,
 			"offset": 192
 		}]

@@ -310,7 +310,7 @@ private extension DiffContainerViewController {
         switch type {
         case .single:
             if let username = toModel.user {
-                diffController.fetchEditCount(guiUser: username, siteURL: siteURL) { [weak self] (result) in
+                diffController.fetchEditCount(guiUser: username) { [weak self] (result) in
                     
                     guard let self = self else {
                         return

@@ -301,14 +301,14 @@ extension DiffListViewController: DiffListChangeCellDelegate {
             return
         }
         
-        let tappedLinkId = tappedMoveInfo.moveInfo.linkId
+        let tappedLinkId = tappedMoveInfo.linkId
         
         var indexToScrollTo: Int?
         for (index, viewModel) in dataSource.enumerated() {
             if let changeViewModel = viewModel as? DiffListChangeViewModel {
                 for item in changeViewModel.items {
                     if let moveInfo = item.moveInfo,
-                        moveInfo.moveInfo.id == tappedLinkId {
+                        moveInfo.id == tappedLinkId {
                         indexToScrollTo = index
                     }
                 }

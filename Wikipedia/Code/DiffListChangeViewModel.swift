@@ -78,7 +78,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             
             //passing in next middle item to avoid double-space calculations for moved items
             let nextItem: TransformDiffItem? = diffItems[safeIndex: index + 1]
-            let changeItemViewModel = DiffListChangeItemViewModel(item: item, traitCollection: traitCollection, theme: theme, type: type, diffItemType: item.diffItem.type, nextMiddleItem: nextItem, semanticContentAttribute: semanticContentAttribute)
+            let changeItemViewModel = DiffListChangeItemViewModel(item: item, traitCollection: traitCollection, theme: theme, type: type, diffItemType: item.type, nextMiddleItem: nextItem, semanticContentAttribute: semanticContentAttribute)
 
             itemViewModels.append(changeItemViewModel)
         }
@@ -109,7 +109,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     private static func calculateHeadingsFromLineNumbers(diffItems: [TransformDiffItem]) -> String? {
 
-        let lineNumbers = diffItems.compactMap { ($0.diffItem.type == .deleteLine && $0.diffItem.text.isEmpty) ? nil : $0.lineNumber }
+        let lineNumbers = diffItems.compactMap { ($0.type == .deleteLine && $0.text.isEmpty) ? nil : $0.lineNumber }
         
         if let firstItemLineNumber = lineNumbers.first {
             
