@@ -89,12 +89,16 @@ extension String {
         let results = dictionaryRegex.matches(in: self, options: [], range: fullRange)
         let nsSelf = self as NSString
 
-        
+        // format is the full string with the plural tokens replaced by variables
+        // it will be built by enumerating through the matches for the plural regex
         var format = ""
         var location = 0
         for result in results {
+            // append the next part of the string after the last match and before this one
             format += nsSelf.substring(with: NSMakeRange(location, result.range.location - location)).iOSNativeLocalization(tokens: tokens)
             location = result.range.location + result.range.length
+            
+            // get the contents of the match - the content between {{ and }}
             let contents = dictionaryRegex.replacementString(for: result, in: self, offset: 0, template: "$1")
              
             let components = contents.components(separatedBy: "|")
@@ -182,10 +186,14 @@ extension String {
                 }
             }
         
+            // set the variable name for the plural replacement
             let key = "v\(tokenInt)"
+            // include the dictionary of possible replacements for the plural token
             mutableDictionary[key] = keyDictionary
+            // append the variable name to the format string where the plural token used to be
             format += "%#@\(key)@"
         }
+        // append the final part of the string after the last match
         format += nsSelf.substring(with: NSMakeRange(location, nsSelf.length - location)).iOSNativeLocalization(tokens: tokens)
         mutableDictionary["NSStringLocalizedFormatKey"] = format
         return mutableDictionary
@@ -201,7 +209,8 @@ extension String {
                 return
             }
             var token = regex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
-            // fix for unordered tokens
+            // If the token doesn't have an index, give it one
+            // This allows us to support unordered tokens for single token strings
             if token == "" {
                 token = "\(index)"
             }
