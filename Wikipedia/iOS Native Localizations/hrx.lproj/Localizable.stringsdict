@@ -442,6 +442,24 @@
 			<string>Just now</string>
 		</dict>
 	</dict>
+	<key>relative-date-months-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Last month</string>
+			<key>other</key>
+			<string>%1$d months ago</string>
+			<key>zero</key>
+			<string>This month</string>
+		</dict>
+	</dict>
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

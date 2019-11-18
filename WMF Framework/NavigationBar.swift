@@ -42,6 +42,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             updateShadowConstraints()
         }
     }
+    public var isShadowShowing: Bool = true {
+        didSet {
+            updateShadowHeightConstraintConstant()
+        }
+    }
     
     @objc public var isTopSpacingHidingEnabled: Bool = true
     @objc public var isBarHidingEnabled: Bool = true
@@ -325,7 +330,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         guard traitCollection.displayScale > 0 else {
             return
         }
-        shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
+        
+        if !isShadowShowing {
+            shadowHeightConstraint.constant = 0
+        } else {
+            shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
+        }
     }
     
     

@@ -15,6 +15,8 @@ extern NSString *const WMFAbbreviatedRelativeDate;
 
 - (NSString *)wmf_localizedRelativeDateStringFromLocalDateToNow; // to now
 
+- (NSString *)wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow;
+
 - (NSString *)wmf_localizedRelativeDateStringFromLocalDateToLocalDate:(NSDate *)date;
 
 - (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate;
