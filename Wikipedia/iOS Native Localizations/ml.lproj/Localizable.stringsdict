@@ -5,17 +5,17 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ ഒഴിവാക്കി</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ലേഖനം ഒഴിവാക്കി</string>
+			<string>ലേഖനം</string>
 			<key>other</key>
-			<string>ലേഖനങ്ങൾ ഒഴിവാക്കി</string>
+			<string>ലേഖനങ്ങൾ</string>
 		</dict>
 	</dict>
 </dict>

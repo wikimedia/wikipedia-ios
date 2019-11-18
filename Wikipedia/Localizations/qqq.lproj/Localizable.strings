@@ -299,13 +299,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Text for Explore feed card setting indicating that the feed card is active in all preferred languages";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Text for Explore feed card setting indicating that the global feed card is active";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Text for Explore feed card setting indicating the number of languages it's visible in - $1 is replaced with the number of languages";
-"explore-feed-preferences-feed-cards-hidden-title" = "Title for cell that appears in place of feed card hidden by user via the overflow button - %@ is replaced with feed card type";
+"explore-feed-preferences-feed-cards-hidden-title" = "Title for cell that appears in place of feed card hidden by user via the overflow button - $1 is replaced with feed card type";
 "explore-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
 "explore-feed-preferences-global-cards-description" = "Description of global feed cards";
 "explore-feed-preferences-global-cards-subtitle" = "Subtitle describing non-language specific feed cards";
 "explore-feed-preferences-global-cards-title" = "Title for the setting that allows users to toggle non-language specific feed cards";
 "explore-feed-preferences-hide-card-action-title" = "Title for action that allows users to hide a feed card";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Title for action that allows users to hide all feed cards of given type - $1 is replaced with feed card type";
 "explore-feed-preferences-in-the-news-description" = "Description of In the news section of Explore feed";
 "explore-feed-preferences-languages-footer-text" = "Text for explaining the effects of hiding all feed cards";
 "explore-feed-preferences-on-this-day-description" = "Description of On this day section of Explore feed";
@@ -515,7 +515,7 @@
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
 "page-history-minor-edits" = "Text for view that shows many edits were marked as minor edits";
-"page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision";
+"page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision. $1 is replaced with the author.";
 "page-history-revision-history-title" = "Title for revision history view";
 "page-history-revision-size-diff-addition" = "Accessibility label text telling the user how many bytes were added in a revision - $1 is replaced with the number of bytes added in a revision";
 "page-history-revision-size-diff-subtraction" = "Accessibility label text telling the user how many bytes were removed in a revision - $1 is replaced with the number of bytes removed in a revision";
