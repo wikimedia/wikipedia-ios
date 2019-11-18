@@ -55,6 +55,8 @@
 "action-language-accessibility" = "Change language";
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
+"action-next-revision-accessibility" = "Next Revision";
+"action-previous-revision-accessibility" = "Previous Revision";
 "action-read" = "Read";
 "action-redo" = "Redo";
 "action-remove" = "Remove";
@@ -67,6 +69,7 @@
 "action-share" = "Share";
 "action-share-accessibility" = "Share";
 "action-sort" = "Sort";
+"action-thank-user-accessibility" = "Thank User";
 "action-undo" = "Undo";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
@@ -658,6 +661,7 @@
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
 "relative-date-minutes-ago-abbreviated" = "$1m ago";
+"relative-date-months-ago" = "{{PLURAL:$1|0=This month|1=Last month|$1 months ago}}";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s ago";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";

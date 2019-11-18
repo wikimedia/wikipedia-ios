@@ -55,6 +55,8 @@
 "action-language-accessibility" = "Accessibility title for the 'Language' toolbar button on articles and talk pages.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
+"action-next-revision-accessibility" = "Accessibility title for the 'Next Revision' action button when viewing a single revision diff.";
+"action-previous-revision-accessibility" = "Accessibility title for the 'Previous Revision' action button when viewing a single revision diff.";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-redo" = "Title text and accessibility label for redo action on buttons or info sheets.";
 "action-remove" = "Title of the action that removes the selection from the current context.";
@@ -67,6 +69,7 @@
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}";
 "action-share-accessibility" = "Accessibility title for the 'Share' action";
 "action-sort" = "Title of the sort action.";
+"action-thank-user-accessibility" = "Accessibility title for the 'Thank User' action button when viewing a single revision diff.";
 "action-undo" = "Title text and accessibility label for undo action on buttons or info sheets.";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible. {{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
@@ -658,6 +661,7 @@
 "relative-date-minutes-abbreviated" = "Relative minutes, abbreviated. $1 will be replaced with the number of minutes.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with the number of minutes ago.";
 "relative-date-minutes-ago-abbreviated" = "Relative minutes ago, abbreviated. $1 will be replaced with the number of minutes ago.";
+"relative-date-months-ago" = "Relative months ago. 0 = this month, singular = last month. $1 will be replaced with the number of months ago.";
 "relative-date-seconds-abbreviated" = "Relative seconds, abbreviated. $1 will be replaced with the number of seconds.";
 "relative-date-seconds-ago-abbreviated" = "Relative seconds ago, abbreviated. $1 will be replaced with the number of seconds ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";
