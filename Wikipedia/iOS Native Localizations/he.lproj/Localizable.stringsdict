@@ -5,24 +5,24 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>הוספת %#@v1@ לרשימת הקריאה</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>הוספת דף אחד לרשימת הקריאה</string>
+			<string>דף אחד</string>
 			<key>other</key>
-			<string>הוספת %1$d דפים לרשימת הקריאה</string>
+			<string>%1$d דפים</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -37,8 +37,8 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -53,8 +53,8 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -69,8 +69,8 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -85,8 +85,8 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -101,8 +101,8 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -117,24 +117,24 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>העברת %#@v1@ לרשימת הקריאה</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>העברת דף אחד לרשימת הקריאה</string>
+			<string>דף אחד</string>
 			<key>other</key>
-			<string>העברת %1$d דפים לרשימת הקריאה</string>
+			<string>%1$d דפים</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -149,56 +149,56 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>נוס%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>נוסף בית אחד</string>
+			<string>ף בית אחד</string>
 			<key>other</key>
-			<string>נוספו %1$d בתים</string>
+			<string>פו %1$d בתים</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>הוסר%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>הוסר בית אחד</string>
+			<string> בית אחד</string>
 			<key>other</key>
-			<string>הוסרו %1$d בתים</string>
+			<string>ו %1$d בתים</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ מאז %2$@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>עריכה אחת מאז %2$@</string>
+			<string>עריכה אחת</string>
 			<key>other</key>
-			<string>%1$d עריכות מאז %2$@</string>
+			<string>%1$d עריכות</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -215,24 +215,24 @@
 	<key>page-read-in-other-languages</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>זמין ב%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>זמין בעוד שפה אחת</string>
+			<string>עוד שפה אחת</string>
 			<key>other</key>
-			<string>זמין ב־%1$d שפות נוספות</string>
+			<string>־%1$d שפות נוספות</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -247,56 +247,56 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>חרגת ממגבלת %#@v1@ לחשבון.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>חרגת ממגבלת ערך אחד לחשבון.</string>
+			<string>ערך אחד</string>
 			<key>other</key>
-			<string>חרגת ממגבלת %1$d ערכים לחשבון.</string>
+			<string>%1$d ערכים</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>לא ניתן להוסיף %#@v1@ לרשימה זו. הגעת למגבלה של %2$d ערכים ברשימת קריאה עבור %3$@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>לא ניתן להוסיף ערך לרשימה זו. הגעת למגבלה של %2$d ערכים ברשימת קריאה עבור %3$@</string>
+			<string>ערך</string>
 			<key>other</key>
-			<string>לא ניתן להוסיף ערכים לרשימה זו. הגעת למגבלה של %2$d ערכים ברשימת קריאה עבור %3$@</string>
+			<string>ערכים</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>חרגת ממגבלת %#@v1@ לחשבון.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>חרגת ממגבלת רשימת קריאה אחת לחשבון.</string>
+			<string>רשימת קריאה אחת</string>
 			<key>other</key>
-			<string>חרגת ממגבלת %1$d רשימות קריאה לחשבון.</string>
+			<string>%1$d רשימות קריאה</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -311,40 +311,40 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>לא ניתן לבטל את הפעולה הזו. כל הערכים שנשמרו %#@v1@ לא יישמרו.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>לא ניתן לבטל את הפעולה הזו. כל הערכים שנשמרו ברשימה זו בלבד לא יישמרו.</string>
+			<string>ברשימה זו בלבד</string>
 			<key>other</key>
-			<string>לא ניתן לבטל את הפעולה הזו. כל הערכים שנשמרו ברשימות אלה בלבד לא יישמרו.</string>
+			<string>ברשימות אלה בלבד</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>למחוק את %#@v1@?</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>למחוק את הרשימה?</string>
+			<string>הרשימה</string>
 			<key>other</key>
-			<string>למחוק את הרשימות?</string>
+			<string>הרשימות</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -359,8 +359,8 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -375,8 +375,8 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -391,8 +391,8 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -409,8 +409,8 @@
 	<key>replace-replace-all-results-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -422,20 +422,36 @@
 			<string>%1$d פריטים הוחלפו</string>
 		</dict>
 	</dict>
-	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>ביטול השמירה של %#@v1@ מכל רשימות הקריאה המשויכות %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>לבטל את השמירה של הערך?</string>
+			<string>אליו</string>
 			<key>other</key>
-			<string>לבטל את השמירה של הערכים?</string>
+			<string>אליהם</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>לבטל את השמירה של %#@v1@?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>הערך</string>
+			<key>other</key>
+			<string>הערכים</string>
 		</dict>
 	</dict>
 </dict>

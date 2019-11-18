@@ -66,6 +66,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.historyTabTitle, style: .plain, target: nil, action: nil)
         
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
@@ -473,7 +475,7 @@ private extension DiffContainerViewController {
             navigationBar.allowsUnderbarHitsFallThrough = true
             navigationBar.addUnderNavigationBarView(headerTitleView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-            navigationBar.isShadowBelowUnderBarView = true
+            navigationBar.isShadowShowing = false
             
             self.headerTitleView = headerTitleView
         }

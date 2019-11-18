@@ -5,40 +5,40 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Scriosadh %1$d %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Scriosadh %1$d alt amháin</string>
+			<string>alt amháin</string>
 			<key>other</key>
-			<string>Scriosadh %1$d alt</string>
+			<string>alt</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Ar fáil i %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ar fáil i dteanga amháin eile</string>
+			<string>dteanga amháin eile</string>
 			<key>other</key>
-			<string>Ar fáil i %1$d teanga eile</string>
+			<string>%1$d teanga eile</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -53,8 +53,8 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -69,8 +69,8 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -87,8 +87,8 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -105,8 +105,8 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>

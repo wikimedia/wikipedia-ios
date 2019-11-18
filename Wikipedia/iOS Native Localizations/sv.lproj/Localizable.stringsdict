@@ -5,40 +5,40 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Lägg till %#@v1@ i läslista</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Lägg till %1$d artikel i läslista</string>
+			<string>%1$d artikel</string>
 			<key>other</key>
-			<string>Lägg till %1$d artiklar i läslista</string>
+			<string>%1$d artiklar</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ raderades</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikel raderades</string>
+			<string>artikel</string>
 			<key>other</key>
-			<string>artiklar raderades</string>
+			<string>artiklar</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -53,8 +53,8 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -67,8 +67,8 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -83,8 +83,8 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -97,8 +97,8 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -111,8 +111,8 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -127,24 +127,24 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Flytta %#@v1@ till läslista</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Flytta %1$d artikel till läslista</string>
+			<string>%1$d artikel</string>
 			<key>other</key>
-			<string>Flytta %1$d artiklar till läslista</string>
+			<string>%1$d artiklar</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -159,84 +159,84 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Lade till %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Lade till %1$d byte</string>
+			<string>%1$d byte</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Tog bort %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Tog bort %1$d byte</string>
+			<string>%1$d byte</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ sedan %2$@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d redigering sedan %2$@</string>
+			<string>%1$d redigering</string>
 			<key>other</key>
-			<string>%1$d redigeringar sedan %2$@</string>
+			<string>%1$d redigeringar</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Redigerades %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Redigerades för %1$d dygn sedan</string>
+			<string>för %1$d dygn sedan</string>
 			<key>zero</key>
-			<string>Redigerades idag</string>
+			<string>idag</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Tillgänglig på %#@v1@ språk</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tillgänglig på %1$d annat språk</string>
+			<string>%1$d annat</string>
 			<key>other</key>
-			<string>Tillgänglig på %1$d andra språk</string>
+			<string>%1$d andra</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -251,56 +251,56 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Du har överstigit gränsen på %1$d %#@v1@ per konto.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du har överstigit gränsen på %1$d %1$d artikel per konto.</string>
+			<string>%1$d artikel</string>
 			<key>other</key>
-			<string>Du har överstigit gränsen på %1$d %1$d artiklar per konto.</string>
+			<string>%1$d artiklar</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ kan inte läggas till i denna lista. Du har nått gränsen på %2$d artiklar per läslista för %3$@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikeln kan inte läggas till i denna lista. Du har nått gränsen på %2$d artiklar per läslista för %3$@</string>
+			<string>Artikeln</string>
 			<key>other</key>
-			<string>Artiklarna kan inte läggas till i denna lista. Du har nått gränsen på %2$d artiklar per läslista för %3$@</string>
+			<string>Artiklarna</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Du har överstigit gränsen på %1$d %#@v1@ per konto.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du har överstigit gränsen på %1$d %1$d läslista per konto.</string>
+			<string>%1$d läslista</string>
 			<key>other</key>
-			<string>Du har överstigit gränsen på %1$d %1$d läslistor per konto.</string>
+			<string>%1$d läslistor</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -315,40 +315,40 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Denna handling kan inte ångras. Alla artiklar som endast sparas i %#@v1@ kommer att tas bort.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Denna handling kan inte ångras. Alla artiklar som endast sparas i denna lista kommer att tas bort.</string>
+			<string>denna lista</string>
 			<key>other</key>
-			<string>Denna handling kan inte ångras. Alla artiklar som endast sparas i dessa listor kommer att tas bort.</string>
+			<string>dessa listor</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Radera %#@v1@?</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Radera listan?</string>
+			<string>listan</string>
 			<key>other</key>
-			<string>Radera listorna?</string>
+			<string>listorna</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -363,8 +363,8 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -381,8 +381,8 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -399,8 +399,8 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -415,8 +415,8 @@
 	<key>replace-replace-all-results-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -431,33 +431,33 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>När %#@v1@ bort från alla associerade läslistor</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>När denna artikel tas bort plockas den bort från alla associerade läslistor</string>
+			<string>denna artikel tas bort plockas den</string>
 			<key>other</key>
-			<string>När dessa artiklar tas bort plockas de bort från alla associerade läslistor</string>
+			<string>dessa artiklar tas bort plockas de</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>Ta bort %#@v1@?</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ta bort artikeln?</string>
+			<string>artikeln</string>
 			<key>other</key>
-			<string>Ta bort artiklarna?</string>
+			<string>artiklarna</string>
 		</dict>
 	</dict>
 </dict>

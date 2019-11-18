@@ -13,6 +13,10 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
     return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", language, nil, @"{{PLURAL:%1$d|0=This year|1=Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year. %1$d will be replaced with the number of years ago.");
 }
 
++ (NSString *)monthsAgo {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-months-ago", nil, nil, @"{{PLURAL:%1$d|0=This month|1=Last month|%1$d months ago}}", @"Relative months ago. 0 = this month, singular = last month. %1$d will be replaced with the number of months ago.");
+}
+
 + (NSString *)daysAgo {
     return WMFLocalizedStringWithDefaultValue(@"relative-date-days-ago", nil, nil, @"{{PLURAL:%1$d|0=Today|1=Yesterday|%1$d days ago}}", @"Relative days ago. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago.");
 }
@@ -61,20 +65,48 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
     } else if (days > 0) {
         return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
     } else {
-        NSDateComponents *components = [calendar wmf_components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self toDate:date];
-        if (components.hour > 12) {
-            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days]; //Today or Yesterday
-        } else if (components.hour > 0) {
-            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings hoursAgo], components.hour];
+        return [self localizedStringForDaysHoursOrMinutesForDate:date days:days];
+    }
+}
+
+- (NSString *)wmf_fullyLocalizedRelativeDateStringFromLocalDateToLocalDate:(nonnull NSDate *)date {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSInteger days = [calendar wmf_daysFromDate:self toDate:date]; // Calendar days - less than 24 hours ago that is yesterday returns 1 day ago
+    if (days > 2) {
+        NSDateComponents *components = [calendar wmf_components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self toDate:date];
+        if (components.year > 0) {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings yearsAgoForWikiLanguage:nil], components.year];
+        } else if (components.month > 0) {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings monthsAgo], components.month];
         } else {
-            NSInteger minutes = MAX(0, components.minute);
-            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings minutesAgo], minutes];
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
         }
+    } else if (days > 0) {
+        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
+    } else {
+        return [self localizedStringForDaysHoursOrMinutesForDate:date days:days];
+    }
+}
+
+- (NSString *)localizedStringForDaysHoursOrMinutesForDate:(nonnull NSDate *)date days:(NSInteger)days {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSDateComponents *components = [calendar wmf_components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self toDate:date];
+    if (components.hour > 12) {
+        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days]; //Today or Yesterday
+    } else if (components.hour > 0) {
+        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings hoursAgo], components.hour];
+    } else {
+        NSInteger minutes = MAX(0, components.minute);
+        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings minutesAgo], minutes];
     }
 }
 
 - (NSString *)wmf_localizedRelativeDateStringFromLocalDateToNow {
     return [self wmf_localizedRelativeDateStringFromLocalDateToLocalDate:[NSDate date]];
+}
+
+- (NSString *)wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow {
+    return [self wmf_fullyLocalizedRelativeDateStringFromLocalDateToLocalDate:[NSDate date]];
 }
 
 - (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate {

@@ -39,7 +39,7 @@ final class DiffHeaderViewModel: Themeable {
             var heading: String?
             var title: String?
             if let toDate = toModel.revisionDate as NSDate? {
-                heading = toDate.wmf_localizedRelativeDateStringFromLocalDateToNow()
+                heading = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
                 title = DiffHeaderViewModel.dateFormatter.string(from: toDate as Date)
             }
             
