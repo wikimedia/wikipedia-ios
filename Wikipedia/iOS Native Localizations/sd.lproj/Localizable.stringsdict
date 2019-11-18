@@ -229,17 +229,17 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%2$@ کان %#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$@ کان %1$d سنوار</string>
+			<string>%1$d سنوار</string>
 			<key>other</key>
-			<string>%2$@ کان %1$d سنوارون</string>
+			<string>%1$d سنوارون</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -293,33 +293,33 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>توھان في کاتو %#@v1@ جي حد کان اڳتي وڌي ويا آھيو.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>توھان في کاتو %1$d مضمون جي حد کان اڳتي وڌي ويا آھيو.</string>
+			<string>%1$d مضمون</string>
 			<key>other</key>
-			<string>توھان في کاتو %1$d مضمونن جي حد کان اڳتي وڌي ويا آھيو.</string>
+			<string>%1$d مضمونن</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ فھرست ۾ نٿو/نٿا وجھي سگھجي(جن). توھان في فھرست %2$d مضمونن جي حد تي %3$@ لاءِ پھچي ويا آھيو</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>مضمون فھرست ۾ نٿو/نٿا وجھي سگھجي(جن). توھان في فھرست %2$d مضمونن جي حد تي %3$@ لاءِ پھچي ويا آھيو</string>
+			<string>مضمون</string>
 			<key>other</key>
-			<string>مضمون فھرست ۾ نٿو/نٿا وجھي سگھجي(جن). توھان في فھرست %2$d مضمونن جي حد تي %3$@ لاءِ پھچي ويا آھيو</string>
+			<string>مضمون</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
