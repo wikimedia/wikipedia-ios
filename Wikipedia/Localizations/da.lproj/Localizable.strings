@@ -156,7 +156,11 @@
 "description-welcome-promise-title" = "Begynder du at redigere, så lover du samtidig ikke at misbruge denne funktion";
 "description-welcome-start-editing-button" = "Start med at redigere";
 "diff-compare-header-from-info-heading" = "Fra:";
+"diff-compare-header-to-info-heading" = "Til:";
 "diff-context-lines-collapsed-button-title" = "Vis";
+"diff-context-lines-expanded-button-title" = "Skjul";
+"diff-paragraph-moved-direction-down" = "ned";
+"diff-paragraph-moved-direction-up" = "op";
 "dim-images" = "Mørklæg billeder";
 "edit-clear-formatting-accessibility-label" = "Fjern formatering";
 "edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";

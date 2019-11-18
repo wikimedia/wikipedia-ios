@@ -5,72 +5,40 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ پڙھڻ جي فھرست ۾ وجھو</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d مضمون پڙھڻ جي فھرست ۾ وجھو</string>
+			<string>%1$d مضمون</string>
 			<key>other</key>
-			<string>%1$d مضمونَ پڙھڻ جي فھرست ۾ وجھو</string>
+			<string>%1$d مضمونَ</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ ڊھيل</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>مضمون ڊھيل</string>
+			<string>مضمون</string>
 			<key>other</key>
-			<string>مضمونَ ڊھيل</string>
-		</dict>
-	</dict>
-	<key>diff-compare-header-subtitle-num-revisions</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d وچيون ورجاءُ</string>
-			<key>other</key>
-			<string>%1$d وچيان ورجاءَ</string>
-		</dict>
-	</dict>
-	<key>diff-compare-header-subtitle-num-users</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d واپرائيندڙ</string>
-			<key>other</key>
-			<string>%1$d واپرائيندڙَ</string>
+			<string>مضمونَ</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -85,8 +53,8 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -101,8 +69,8 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -117,8 +85,8 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -133,8 +101,8 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -149,8 +117,8 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -165,24 +133,24 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ پڙھڻ جي فھرست ڏانھن چوريو</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d مضمون پڙھڻ جي فھرست ڏانھن چوريو</string>
+			<string>%1$d مضمون</string>
 			<key>other</key>
-			<string>%1$d مضمونَ پڙھڻ جي فھرست ڏانھن چوريو</string>
+			<string>%1$d مضمونَ</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -197,40 +165,56 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ وڌيـ(ـون)</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d بائيٽ وڌيـ(ـون)</string>
+			<string>%1$d بائيٽ</string>
 			<key>other</key>
-			<string>%1$d بائيٽون وڌيـ(ـون)</string>
+			<string>%1$d بائيٽون</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ ھٽائيـ(ـون)</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d بائيٽ ھٽائيـ(ـون)</string>
+			<string>%1$d بائيٽ</string>
 			<key>other</key>
-			<string>%1$d بائيٽون ھٽائيـ(ـون)</string>
+			<string>%1$d بائيٽون</string>
+		</dict>
+	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%2$@ کان %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d سنوار</string>
+			<key>other</key>
+			<string>%1$d سنوارون</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -245,24 +229,24 @@
 	<key>page-read-in-other-languages</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ ۾ موجود</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d ٻي ٻولي ۾ موجود</string>
+			<string>%1$d ٻي ٻولي</string>
 			<key>other</key>
-			<string>%1$d ٻين ٻولين ۾ موجود</string>
+			<string>%1$d ٻين ٻولين</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -274,11 +258,43 @@
 			<string>%1$d مضمونَ</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>توھان في کاتو %#@v1@ جي حد کان اڳتي وڌي ويا آھيو.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d مضمون</string>
+			<key>other</key>
+			<string>%1$d مضمونن</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ فھرست ۾ نٿو/نٿا وجھي سگھجي(جن). توھان في فھرست %2$d مضمونن جي حد تي %3$@ لاءِ پھچي ويا آھيو</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>مضمون</string>
+			<key>other</key>
+			<string>مضمون</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -293,40 +309,40 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>ھي عمل اڻڪري نٿو سگھجي. رڳو %#@v1@ ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھن فھرست ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+			<string>ھن فھرست</string>
 			<key>other</key>
-			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھنن فھرستن ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+			<string>ھنن فھرستن</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ ڊاھيو؟</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>فھرست ڊاھيو؟</string>
+			<string>فھرست</string>
 			<key>other</key>
-			<string>فھرستون ڊاھيو؟</string>
+			<string>فھرستون</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -341,8 +357,8 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -359,8 +375,8 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -377,8 +393,8 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -393,8 +409,8 @@
 	<key>replace-replace-all-results-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
@@ -409,33 +425,33 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>نہ-سانڍڻ %#@v1@ سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>نہ-سانڍڻ ھن مضمون کي سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو</string>
+			<string>ھن مضمون کي</string>
 			<key>other</key>
-			<string>نہ-سانڍڻ ھنن مضمونن کي سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو</string>
+			<string>ھنن مضمونن کي</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@ اڻسانڍيو؟</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>مضمون اڻسانڍيو؟</string>
+			<string>مضمون</string>
 			<key>other</key>
-			<string>مضمون اڻسانڍيو؟</string>
+			<string>مضمون</string>
 		</dict>
 	</dict>
 </dict>

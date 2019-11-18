@@ -2,7 +2,7 @@ import Foundation
 import Mantle
 import WMF
 
-public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: Int?]
+public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: (count: Int, limit: Bool)]
 
 public final class PageHistoryFetcher: WMFLegacyFetcher {
     @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
@@ -125,8 +125,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         case userEdits
     }
 
-    private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
-        
+    private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL, from fromRevisionID: Int? = nil , to toRevisionID: Int? = nil) -> URL? {
         guard let project = pageURL.wmf_site?.host,
         let title = pageTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
             return nil
@@ -136,7 +135,13 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         pathComponents.append(title)
         pathComponents.append(contentsOf: ["history", "counts"])
         pathComponents.append(editCountType.rawValue)
-        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents)
+        let queryParameters: [String: String]?
+        if let fromRevisionID = fromRevisionID, let toRevisionID = toRevisionID {
+            queryParameters = ["from": String(fromRevisionID), "to": String(toRevisionID)]
+        } else {
+            queryParameters = nil
+        }
+        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents, queryParameters: queryParameters)
         return components.url
     }
 
@@ -145,13 +150,13 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         let limit: Bool?
     }
 
-    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
+    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, from fromRevisionID: Int? = nil , to toRevisionID: Int? = nil, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let group = DispatchGroup()
             var editCountsGroupedByType = EditCountsGroupedByType()
             var mostRecentError: Error?
             for editCountType in editCountTypes {
-                guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL) else {
+                guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL, from: fromRevisionID, to: toRevisionID) else {
                     continue
                 }
                 group.enter()
@@ -166,15 +171,17 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                         group.leave()
                         return
                     }
-                    if editCount?.limit == nil { // Exclude limited counts for now
-                        editCountsGroupedByType[editCountType] = editCount?.count
+                    guard let count = editCount?.count else {
+                        group.leave()
+                        return
                     }
+                    editCountsGroupedByType[editCountType] = (count, editCount?.limit ?? false)
                     group.leave()
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                if let edits = editCountsGroupedByType[.edits], let editsCount = edits, let anonEdits = editCountsGroupedByType[.anonymous], let anonEditsCount = anonEdits {
-                    editCountsGroupedByType[.userEdits] = editsCount - anonEditsCount
+                if editCountTypes.contains(.userEdits), let edits = editCountsGroupedByType[.edits], !edits.limit, let anonEdits = editCountsGroupedByType[.anonymous], !anonEdits.limit {
+                    editCountsGroupedByType[.userEdits] = (edits.count - anonEdits.count, false)
                 }
                 if editCountsGroupedByType.isEmpty, let mostRecentError = mostRecentError {
                     completion(.failure(mostRecentError))
