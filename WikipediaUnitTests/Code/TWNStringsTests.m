@@ -209,7 +209,6 @@
                     NSString *lowercaseString = localizedString.lowercaseString;
                     if ([lowercaseString containsString:@"{{plural:"]) {
                         XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string %@ in %@ with PLURAL: needs an entry in the corresponding stringsdict file. This likely means that this language's Localizable.stringsdict hasn't been added to the project yet.", key, lprojFileName);
-                        XCTAssertFalse([lowercaseString containsString:@"{{plural:$2"], @"%@ in %@ has more than one plural substitution. Only one plural per translation is supported at this time. You can add support for multiple plurals in scripts/localizations.swift.", key, lprojFileName);
                     } else if (![lowercaseString containsString:@"{{formatnum:$"]) {
                         XCTAssertTrue(false, @"%@ in %@ has unsupported {{ }} in localization.", key, lprojFileName);
                     }
@@ -232,7 +231,7 @@
                     NSString *lowercaseString = localizedString.lowercaseString;
                     if ([lowercaseString containsString:@"{{plural:%"]) {
                         XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string %@ in %@ with PLURAL: needs an entry in the corresponding stringsdict file. This likely means that this language's Localizable.stringsdict hasn't been added to the project yet.", key, lprojFileName);
-                        XCTAssertFalse([lowercaseString containsString:@"{{plural:%2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
+
                     } else {
                         XCTAssertTrue(false, @"Unsupported {{ }} in localization");
                     }
