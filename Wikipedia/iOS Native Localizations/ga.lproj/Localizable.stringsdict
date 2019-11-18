@@ -5,7 +5,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
+		<string>Scriosadh $1 %#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>page-read-in-other-languages</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
+		<string>Ar fáil i %#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

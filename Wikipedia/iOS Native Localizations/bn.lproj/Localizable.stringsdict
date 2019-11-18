@@ -5,7 +5,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
+		<string>পড়ার তালিকায় %#@v0@ যোগ করুন</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -19,7 +19,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
+		<string>%#@v0@ অপসারিত হয়েছে</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -47,7 +47,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
+		<string>%#@v0@ মুছবেন?</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

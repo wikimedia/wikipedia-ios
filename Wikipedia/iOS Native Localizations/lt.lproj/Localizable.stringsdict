@@ -37,7 +37,7 @@
 	<key>page-read-in-other-languages</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
+		<string>Prieinama %#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
