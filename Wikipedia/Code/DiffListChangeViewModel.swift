@@ -14,6 +14,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     let items: [DiffListChangeItemViewModel]
     var theme: Theme {
         didSet {
+            
             borderColor = DiffListChangeViewModel.calculateBorderColor(type: type, theme: theme)
             let headingColor = DiffListChangeViewModel.calculateHeadingColor(type: type, theme: theme)
             headingAttributedString = DiffListChangeViewModel.calculateHeadingAttributedString(headingColor: headingColor, text: heading, traitCollection: traitCollection)
@@ -205,6 +206,10 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             
             height += item.textPadding.top
             height += item.textPadding.bottom
+            
+            if let inBetweenSpacing = item.inBetweenSpacing {
+                height += inBetweenSpacing
+            }
         }
         
         //add heading height

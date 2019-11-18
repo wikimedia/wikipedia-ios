@@ -7,14 +7,15 @@ final class DiffListChangeItemViewModel {
     let type: DiffListChangeType
     let diffItemType: DiffItemType
     let textAlignment: NSTextAlignment
-    private(set) var backgroundColor: UIColor
     let moveInfo: TransformMoveInfo?
     private(set) var textPadding: NSDirectionalEdgeInsets
     private let semanticContentAttribute: UISemanticContentAttribute
+    
+    private(set) var hasShadedBackgroundView: Bool
+    private(set) var inBetweenSpacing: CGFloat?
 
     var theme: Theme {
         didSet {
-            backgroundColor = DiffListChangeItemViewModel.calculateBackgroundColor(diffItemType: diffItemType, theme: theme)
             textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: moveInfo, semanticContentAttribute: semanticContentAttribute)
         }
     }
@@ -59,26 +60,27 @@ final class DiffListChangeItemViewModel {
         self.highlightedRanges = convertedHighlightedRanges
 
         textAlignment = diffItemType == .moveSource ? .center : .natural
-        backgroundColor = DiffListChangeItemViewModel.calculateBackgroundColor(diffItemType: diffItemType, theme: theme)
         
-        self.textPadding = DiffListChangeItemViewModel.calculateTextPadding(type: type, diffItemType: diffItemType, nextMiddleItem: nextMiddleItem)
+        let textPaddingAndInBetweenSpacing = DiffListChangeItemViewModel.calculateTextPaddingAndInBetweenSpacing(type: type, diffItemType: diffItemType, nextMiddleItem: nextMiddleItem)
+        self.textPadding =  textPaddingAndInBetweenSpacing.0
+        self.inBetweenSpacing = textPaddingAndInBetweenSpacing.1
+        
+        hasShadedBackgroundView = (diffItemType == .moveSource || diffItemType == .moveDestination)
 
         self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: item.moveInfo, semanticContentAttribute: semanticContentAttribute)
     }
     
-    private static func calculateBackgroundColor(diffItemType: DiffItemType, theme: Theme) -> UIColor {
-        (diffItemType == .moveSource || diffItemType == .moveDestination) ? theme.colors.diffMoveParagraphBackground : theme.colors.paperBackground
-    }
-    
-    private static func calculateTextPadding(type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: TransformDiffItem?) -> NSDirectionalEdgeInsets {
+    private static func calculateTextPaddingAndInBetweenSpacing(type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: TransformDiffItem?) -> (textPadding: NSDirectionalEdgeInsets, inBetweenSpacing: CGFloat?) {
         
         var top: CGFloat = 0
         var bottom: CGFloat = 0
+        var inBetweenSpacing: CGFloat?
         if diffItemType == .moveSource || diffItemType == .moveDestination {
             top = 10
             if let middleItem = nextMiddleItem,
             middleItem.type == .moveSource || middleItem.type == .moveDestination {
-                bottom = 0
+                bottom = 10
+                inBetweenSpacing = 10
             } else {
                 bottom = 15
             }
@@ -93,9 +95,9 @@ final class DiffListChangeItemViewModel {
         case .singleRevison:
             let leading: CGFloat = (diffItemType == .moveSource || diffItemType == .moveDestination) ? 10 : 0
             let trailing: CGFloat = (diffItemType == .moveSource || diffItemType == .moveDestination) ? 10 : 0
-            return NSDirectionalEdgeInsets(top: top, leading: leading, bottom: bottom, trailing: trailing)
+            return (NSDirectionalEdgeInsets(top: top, leading: leading, bottom: bottom, trailing: trailing), inBetweenSpacing)
         case .compareRevision:
-            return NSDirectionalEdgeInsets(top: top, leading: 10, bottom: bottom, trailing: 10)
+            return (NSDirectionalEdgeInsets(top: top, leading: 10, bottom: bottom, trailing: 10), inBetweenSpacing)
         }
     }
     
