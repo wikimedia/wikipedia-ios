@@ -6,7 +6,7 @@ class IconBarButtonItem: UIBarButtonItem {
     @objc convenience init(iconName: String, target: Any?, action: Selector, for controlEvents: UIControl.Event) {
         let image = UIImage(named: iconName)
         let customView = UIButton(type: .system)
-        customView.setBackgroundImage(image, for: .normal)
+        customView.setImage(image, for: .normal)
         customView.addTarget(target, action: action, for: controlEvents)
         customView.adjustsImageWhenDisabled = false
         self.init(customView: customView)

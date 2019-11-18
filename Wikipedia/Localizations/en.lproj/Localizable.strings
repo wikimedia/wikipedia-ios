@@ -55,6 +55,8 @@
 "action-language-accessibility" = "Change language";
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
+"action-next-revision-accessibility" = "Next Revision";
+"action-previous-revision-accessibility" = "Previous Revision";
 "action-read" = "Read";
 "action-redo" = "Redo";
 "action-remove" = "Remove";
@@ -67,6 +69,7 @@
 "action-share" = "Share";
 "action-share-accessibility" = "Share";
 "action-sort" = "Sort";
+"action-thank-user-accessibility" = "Thank User";
 "action-undo" = "Undo";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
