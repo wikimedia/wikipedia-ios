@@ -451,10 +451,10 @@
 "insert-media-uploaded-image-title" = "Uploaded image";
 "intermediate-edits-count" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} not shown";
 "intermediate-edits-count-limited" = "$1+ intermediate revisions not shown";
-"intermediate-edits-editors-count" = "$1 intermediate revisions by $2 users not shown";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} by {{PLURAL:$2|$2 user|$2 users}} not shown";
 "intermediate-edits-editors-count-limited" = "$1+ intermediate revisions by $2+ users not shown";
-"intermediate-edits-editors-limited-count" = "$1 intermediate revisions by $2+ users not shown";
-"intermediate-edits-limited-editors-count" = "$1+ intermediate revisions by $2 users not shown";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} by $2+ users not shown";
+"intermediate-edits-limited-editors-count" = "$1+ intermediate revisions by {{PLURAL:$2|$2 user|$2 users}} not shown";
 "languages-settings-title" = "Languages";
 "languages-title" = "Change language";
 "languages-wikipedia" = "Wikipedia languages";
