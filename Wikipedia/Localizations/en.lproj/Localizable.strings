@@ -637,7 +637,7 @@
 "reading-lists-default-list-title" = "Saved";
 "reading-lists-delete-reading-list-alert-message" = "This action cannot be undone. Any articles saved only to {{PLURAL:$1|this list|these lists}} will be unsaved.";
 "reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
-"reading-lists-large-sync-completed" = "$1 articles and $2 reading lists synced from your account";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 article|$1 articles}} and {{PLURAL:$2|$2 reading list|$2 reading lists}} synced from your account";
 "reading-lists-list-not-synced-limit-exceeded" = "List not synced, limit exceeded";
 "reading-lists-sort-saved-articles" = "Sort saved articles";
 "reading-lists-split-notification" = "There is a limit of $1 articles per reading list. Existing lists with more than this limit have been split into multiple lists.";
