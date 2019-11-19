@@ -22,6 +22,7 @@ class DiffController {
     }
     
     let diffFetcher: DiffFetcher
+    let pageHistoryFetcher: PageHistoryFetcher?
     let globalUserInfoFetcher: GlobalUserInfoFetcher
     let diffThanker: DiffThanker
     let articleTitle: String
@@ -29,10 +30,11 @@ class DiffController {
     let type: DiffContainerViewModel.DiffType
     private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
     let transformer: DiffTransformer
-    
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType, transformer: DiffTransformer? = nil) {
+
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType, transformer: DiffTransformer? = nil) {
 
         self.diffFetcher = diffFetcher
+        self.pageHistoryFetcher = pageHistoryFetcher
         self.globalUserInfoFetcher = globalUserInfoFetcher
         self.diffThanker = diffThanker
         self.articleTitle = articleTitle
@@ -47,21 +49,13 @@ class DiffController {
         }
     }
     
-    func fetchIntermediateCounts(fromRevisionId: Int, toRevisionId: Int, completion: @escaping ((Result<(revision: Int, user: Int), Error>) -> Void)) {
-        
-        //tonitodo: intermediate counts endpoint when ready
-        DispatchQueue.global(qos: .userInitiated).async {
-            
-            if fromRevisionId == 392751 && toRevisionId == 399777 {
-                completion(.success((revision: 60, user: 12)))
-            }
-            
-            completion(.failure(DiffError.unrecognizedHardcodedIdsForIntermediateCounts))
-        }
-    }
-    
     func fetchEditCount(guiUser: String, completion: @escaping ((Result<Int, Error>) -> Void)) {
+
         globalUserInfoFetcher.fetchEditCount(guiUser: guiUser, siteURL: siteURL, completion: completion)
+    }
+
+    func fetchIntermediateCounts(for pageTitle: String, pageURL: URL, from fromRevisionID: Int , to toRevisionID: Int, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
+        pageHistoryFetcher?.fetchEditCounts(.edits, .editors, for: pageTitle, pageURL: pageURL, from: fromRevisionID, to: toRevisionID, completion: completion)
     }
     
     func thankRevisionAuthor(toRevisionId: Int, completion: @escaping ((Result<DiffThankerResult, Error>) -> Void)) {

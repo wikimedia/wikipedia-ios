@@ -24,16 +24,16 @@ class PageHistoryFilterCountsViewController: UIViewController {
                 delegate?.didDetermineFilterCountsAvailability(false, viewController: self)
                 return
             }
-            if case let userEdits?? = editCounts[.userEdits] {
+            if let userEdits = editCounts[.userEdits]?.count {
                 counts.append(Count(title: WMFLocalizedString("page-history-user-edits", value: "user edits", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit"), count: userEdits))
             }
-            if case let anonEdits?? = editCounts[.anonymous] {
+            if let anonEdits = editCounts[.anonymous]?.count {
                 counts.append(Count(title: WMFLocalizedString("page-history-anonymous-edits", value: "anon edits", comment: "Text for view that shows many edits were made by anonymous users"), image: UIImage(named: "anon"), count: anonEdits))
             }
-            if case let botEdits?? = editCounts[.bot] {
+            if let botEdits = editCounts[.bot]?.count {
                 counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot"), count: botEdits))
             }
-            if case let minorEdits?? = editCounts[.minor] {
+            if let minorEdits = editCounts[.minor]?.count {
                 counts.append(Count(title: WMFLocalizedString("page-history-minor-edits", value: "minor edits", comment: "Text for view that shows many edits were marked as minor edits"), image: UIImage(named: "m"), count: minorEdits))
             }
             countOfColumns = CGFloat(counts.count)

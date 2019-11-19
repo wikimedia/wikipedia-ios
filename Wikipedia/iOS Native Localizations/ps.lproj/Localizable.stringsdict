@@ -5,8 +5,8 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>

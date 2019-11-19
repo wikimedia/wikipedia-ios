@@ -150,9 +150,9 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
 
-    public func mediaWikiRestAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+    public func mediaWikiRestAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiRestAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents)
+        return builder.components(byAppending: pathComponents, queryParameters: queryParameters)
     }
     
     public func articleURLForHost(_ host: String, appending pathComponents: [String]) -> URLComponents {
