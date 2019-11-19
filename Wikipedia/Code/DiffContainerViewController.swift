@@ -211,6 +211,13 @@ private extension DiffContainerViewController {
         midSetup()
         containerViewModel.state = .loading
         
+        //different handling for populating view models on first revision in history
+        if let firstRevision = firstRevision,
+            toModel.revisionID == firstRevision.revisionID {
+            completeSetup()
+            return
+        }
+        
         diffController.fetchRevision(sourceRevision: toModel, direction: .previous) { (result) in
             switch result {
             case .success(let revision):
@@ -246,14 +253,18 @@ private extension DiffContainerViewController {
     
     func completeSetup() {
         
-        guard let _ = fromModel,
-            let _ = toModel else {
-                assertionFailure("Both models must be populated at this point.")
+        guard let toModel = toModel,
+            (fromModel != nil || firstRevision != nil && toModel.revisionID == firstRevision!.revisionID) else {
+                assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
                 return
         }
         
-        //models ready to fetch diff.
-        fetchDiff()
+        if let firstRevision = firstRevision,
+            toModel.revisionID == firstRevision.revisionID {
+            fetchFirstDiff()
+        } else {
+            fetchDiff()
+        }
         
         //Still need models for enabling/disabling prev/next buttons
         populatePrevNextModelsForToolbar()
@@ -261,9 +272,9 @@ private extension DiffContainerViewController {
     
     func populatePrevNextModelsForToolbar() {
         
-        guard let fromModel = fromModel,
-            let toModel = toModel else {
-                assertionFailure("Both models must be populated at this point.")
+        guard let toModel = toModel,
+        (fromModel != nil || firstRevision != nil && toModel.revisionID == firstRevision!.revisionID) else {
+                assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
                 return
         }
         
@@ -289,15 +300,18 @@ private extension DiffContainerViewController {
             }
         }
         
-        //if fromModel is firstRevision, allow previous button to be enabled.
+        //if toModel is firstRevision, allow next button to be enabled.
         //no need to attempt fetching previous revision if we already know there is no previous.
         if let firstRevision = firstRevision {
-            if fromModel.revisionID == firstRevision.revisionID {
-                diffToolbarView?.setPreviousButtonState(isEnabled: true)
+            if toModel.revisionID == firstRevision.revisionID {
+                diffToolbarView?.setNextButtonState(isEnabled: true)
                 return
             }
         }
         
+        guard let fromModel = fromModel else {
+            return
+        }
         
         //populate prevModel for enabling previous/next button
         var prevFromModel: WMFPageHistoryRevision?
@@ -539,6 +553,47 @@ private extension DiffContainerViewController {
         headerExtendedView?.update(headerViewModel)
     }
     
+    func fetchFirstDiff() {
+        guard let toModel = toModel else {
+            return
+        }
+        
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        let width = diffListViewController?.collectionView.frame.width
+        
+        diffController.fetchFirstRevision(revisionId: toModel.revisionID, siteURL: siteURL, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
+
+            guard let self = self else {
+                return
+            }
+
+            switch result {
+            case .success(let listViewModel):
+
+                self.updateListViewController(with: listViewModel, collectionViewWidth: width)
+                
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.containerViewModel.state = .error(error: error)
+                }
+            }
+        }
+    }
+    
+    private func updateListViewController(with listViewModels: [DiffListGroupViewModel], collectionViewWidth: CGFloat?) {
+        self.containerViewModel.listViewModel = listViewModels
+        self.diffListViewController?.updateListViewModels(listViewModel: listViewModels, updateType: .initialLoad(width: collectionViewWidth ?? 0))
+        
+        DispatchQueue.main.async {
+            self.diffListViewController?.applyListViewModelChanges(updateType: .initialLoad(width: collectionViewWidth ?? 0))
+            
+            self.diffListViewController?.updateScrollViewInsets()
+            
+            self.containerViewModel.state = listViewModels.count == 0 ? .empty : .data
+        }
+    }
+    
     func fetchDiff() {
         
         guard let toModel = toModel,
@@ -559,16 +614,7 @@ private extension DiffContainerViewController {
             switch result {
             case .success(let listViewModel):
 
-                self.containerViewModel.listViewModel = listViewModel
-                self.diffListViewController?.updateListViewModels(listViewModel: listViewModel, updateType: .initialLoad(width: width ?? 0))
-                
-                DispatchQueue.main.async {
-                    self.diffListViewController?.applyListViewModelChanges(updateType: .initialLoad(width: width ?? 0))
-                    
-                    self.diffListViewController?.updateScrollViewInsets()
-                    
-                    self.containerViewModel.state = listViewModel.count == 0 ? .empty : .data
-                }
+                self.updateListViewController(with: listViewModel, collectionViewWidth: width)
                 
             case .failure(let error):
                 DispatchQueue.main.async {

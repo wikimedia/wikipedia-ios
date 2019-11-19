@@ -37,6 +37,7 @@ struct TransformSectionInfo {
 
 enum DiffTransformerError: Error {
     case failureTransformingNetworkModels
+    case failureParsingFirstRevisionWikitext
 }
 
 //takes a DiffResponse and turns it into  [DiffListGroupViewModel]
@@ -52,6 +53,23 @@ class DiffTransformer {
     init(type: DiffContainerViewModel.DiffType, siteURL: URL) {
         self.type = type
         self.siteURL = siteURL
+    }
+    
+    func firstRevisionViewModels(from wikitext: String, theme: Theme, traitCollection: UITraitCollection) throws -> [DiffListGroupViewModel] {
+        
+        let lines = wikitext.split { $0.isNewline }
+        
+        var items: [DiffListChangeItemViewModel] = []
+        for text in lines {
+            let item = DiffListChangeItemViewModel(firstRevisionText: String(text), traitCollection: traitCollection, theme: theme, semanticContentAttribute: semanticContentAttribute)
+            items.append(item)
+        }
+        
+        if !wikitext.isEmpty && items.isEmpty {
+            throw DiffTransformerError.failureParsingFirstRevisionWikitext
+        }
+        
+        return [DiffListChangeViewModel(type: .singleRevison, items: items, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: semanticContentAttribute)]
     }
     
     func viewModels(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection) throws -> [DiffListGroupViewModel] {

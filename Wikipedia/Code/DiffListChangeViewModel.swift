@@ -59,6 +59,26 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     
     let innerViewClipsToBounds: Bool
     
+    init(type: DiffListChangeType, items: [DiffListChangeItemViewModel], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, semanticContentAttribute: UISemanticContentAttribute) {
+        self.type = type
+        self.theme = theme
+        self._width = width
+        self.traitCollection = traitCollection
+        self.innerViewClipsToBounds = type == .compareRevision
+        self.heading = String.localizedStringWithFormat(CommonStrings.diffSingleLineFormat, 1)
+        self.items = items
+        
+        borderColor = DiffListChangeViewModel.calculateBorderColor(type: type, theme: theme)
+        innerPadding = DiffListChangeViewModel.calculateInnerPadding(traitCollection: traitCollection)
+        headingPadding = DiffListChangeViewModel.calculateHeadingPadding(type: type)
+        
+        let headingColor = DiffListChangeViewModel.calculateHeadingColor(type: type, theme: theme)
+        headingAttributedString = DiffListChangeViewModel.calculateHeadingAttributedString(headingColor: headingColor, text: heading, traitCollection: traitCollection)
+        stackViewPadding = DiffListChangeViewModel.calculateStackViewPadding(type: type, items: items)
+        
+        height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, stackViewPadding: stackViewPadding)
+    }
+    
     init(type: DiffListChangeType, diffItems: [TransformDiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection, semanticContentAttribute: UISemanticContentAttribute) {
         
         self.type = type

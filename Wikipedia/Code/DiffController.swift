@@ -87,6 +87,24 @@ class DiffController {
         diffFetcher.fetchSingleRevisionInfo(siteURL, sourceRevision: sourceRevision, title: articleTitle, direction: direction, completion: completion)
     }
     
+    func fetchFirstRevision(revisionId: Int, siteURL: URL, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+        
+        diffFetcher.fetchWikitext(siteURL: siteURL, revisionId: revisionId) { (result) in
+            switch result {
+            case .success(let wikitext):
+                do {
+                    let viewModels = try self.transformer.firstRevisionViewModels(from: wikitext, theme: theme, traitCollection: traitCollection)
+
+                    completion(.success(viewModels))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
 
 //        let queue = DispatchQueue.global(qos: .userInitiated)
