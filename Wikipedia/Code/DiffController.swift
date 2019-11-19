@@ -31,22 +31,17 @@ class DiffController {
     private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
     let transformer: DiffTransformer
 
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType, transformer: DiffTransformer? = nil) {
+    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
 
         self.diffFetcher = diffFetcher
         self.pageHistoryFetcher = pageHistoryFetcher
-        self.globalUserInfoFetcher = globalUserInfoFetcher
-        self.diffThanker = diffThanker
+        self.globalUserInfoFetcher = GlobalUserInfoFetcher()
+        self.diffThanker = DiffThanker()
         self.articleTitle = articleTitle
         self.siteURL = siteURL
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.type = type
-        
-        if let transformer = transformer {
-            self.transformer = transformer
-        } else {
-            self.transformer = DiffTransformer(type: type, siteURL: siteURL)
-        }
+        self.transformer = DiffTransformer(type: type, siteURL: siteURL)
     }
     
     func fetchEditCount(guiUser: String, completion: @escaping ((Result<Int, Error>) -> Void)) {
