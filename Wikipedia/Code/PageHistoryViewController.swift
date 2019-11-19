@@ -270,9 +270,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
     
     private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
-        
         if let siteURL = pageURL.wmf_site,
-            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision) {
+            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision) {
             wmf_push(diffContainerVC, animated: true)
         }
     }
@@ -717,7 +716,7 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
 
 extension PageHistoryViewController: DiffRevisionRetrieving {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
-
+        
         for (sectionIndex, section) in pageHistorySections.enumerated() {
             for (itemIndex, item) in section.items.enumerated() {
                 
@@ -735,7 +734,7 @@ extension PageHistoryViewController: DiffRevisionRetrieving {
     }
     
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
-
+        
         var previousSection: PageHistorySection?
         var previousItem: WMFPageHistoryRevision?
         

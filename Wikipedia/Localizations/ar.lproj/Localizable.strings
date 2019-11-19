@@ -209,7 +209,7 @@
 "diff-thanks-send-button-title" = "إرسال شكر";
 "diff-thanks-send-subtitle" = "\"شكرا\" هي طريقة سهلة لإظهار التقدير لعمل أحد المحررين على ويكيبيديا.، لا يمكن التراجع عن \"شكرا\" ويمكن عرضها علنا.";
 "diff-thanks-send-title" = "أرسل علنا \"شكرا\"";
-"diff-thanks-sent" = "تم تعيين \"شكرا\" على $1";
+"diff-thanks-sent" = "تم إرسال \"شكرك\" إلى $1";
 "diff-thanks-sent-already" = "لقد أرسلت شكرًا بالفعل لهذا التعديل";
 "diff-thanks-sent-cannot-unsend" = "شكرا لا يمكن أن تكون غير مرسلة";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 سطر غير معدل|$1 أسطر غير معدلة}}";
@@ -685,6 +685,7 @@
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|منذ $1 دقيقة|منذ $1 دقائق}}";
 "relative-date-minutes-ago-abbreviated" = "منذ $1m";
+"relative-date-months-ago" = "{{PLURAL:$1|0=هذا الشهر|1=الشهر الماضي|منذ $1 أشهر}}";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "منذ $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|1=العام الماضي|منذ $1 سنوات}}";

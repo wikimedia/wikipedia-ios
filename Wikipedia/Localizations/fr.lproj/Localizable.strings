@@ -548,8 +548,7 @@
 "page-history-revision-size-diff-addition" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
 "page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
 "page-history-revisions-comparison-warning" = "Seulement deux versions doivent être sélectionnées";
-// Fuzzy
-"page-history-stats-text" = "$1 modification{{PLURAL:$1||s}} depuis le $2";
+"page-history-stats-text" = "{{PLURAL:$1|$1 modification|$1 modifications}} depuis $2";
 "page-history-user-edits" = "modifications par un utilisateur";
 "page-issues" = "Problèmes de page";
 "page-last-edited" = "{{PLURAL:$1|0=Modifié aujourd'hui|1=Modifié hier|Modifié il y a $1 jours}}";
@@ -690,6 +689,7 @@
 "relative-date-minutes-abbreviated" = "$1 min";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Il y a un instant|Il y a $1 minute |Il y a $1 minutes}}";
 "relative-date-minutes-ago-abbreviated" = "il y a $1 min";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Ce mois-ci|1=Dernier mois|Il y a $1 mois}}";
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "il y a $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Cette année|1=L’année passée|Il y a $1 ans}}";
