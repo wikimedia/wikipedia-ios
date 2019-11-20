@@ -19,6 +19,7 @@ class DiffListViewController: ViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.alwaysBounceVertical = true
         scrollView = collectionView
         return collectionView
     }()
@@ -52,6 +53,8 @@ class DiffListViewController: ViewController {
     private let chunkedHeightCalculationsConcurrentQueue = DispatchQueue(label: "org.wikipedia.diff.chunkedHeightCalculations", qos: .userInteractive, attributes: .concurrent)
     private let layoutSubviewsHeightCalculationsSerialQueue = DispatchQueue(label: "org.wikipedia.diff.layoutHeightCalculations", qos: .userInteractive)
     
+    private var scrollDidFinishInfo: (indexPathToScrollTo: IndexPath, changeItemToScrollTo: Int)?
+    
     init(theme: Theme, delegate: DiffListDelegate?, type: DiffContainerViewModel.DiffType) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
@@ -79,35 +82,35 @@ class DiffListViewController: ViewController {
         collectionView.register(DiffListUneditedCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListUneditedCell.reuseIdentifier)
     }
     
-        override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if updateWidthsOnLayoutSubviews {
             
-            if updateWidthsOnLayoutSubviews {
+            //More improvements could be size caching & putting layoutSubviewsHeightCalculationsSerialQueue instead into an NSOperation to be cancelled if another viewDidLayoutSubviews is called.
+            //tonitodo: clean up - move this and updateListViewModel methods into separate class, DiffListSizeCalculator or something
+            let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: self.collectionView.frame.width, traitCollection: self.traitCollection)
+            
+            //actually not sure if this serial queue is needed or simply calling on the main thread (also serial) is the same. this also seems faster than without though.
+            layoutSubviewsHeightCalculationsSerialQueue.async {
                 
-                //More improvements could be size caching & putting layoutSubviewsHeightCalculationsSerialQueue instead into an NSOperation to be cancelled if another viewDidLayoutSubviews is called.
-                //tonitodo: clean up - move this and updateListViewModel methods into separate class, DiffListSizeCalculator or something
-                let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: self.collectionView.frame.width, traitCollection: self.traitCollection)
-                
-                //actually not sure if this serial queue is needed or simply calling on the main thread (also serial) is the same. this also seems faster than without though.
-                layoutSubviewsHeightCalculationsSerialQueue.async {
+                self.backgroundUpdateListViewModels(listViewModel: self.dataSource, updateType: updateType) {
                     
-                    self.backgroundUpdateListViewModels(listViewModel: self.dataSource, updateType: updateType) {
+                    DispatchQueue.main.async {
+                        self.applyListViewModelChanges(updateType: updateType)
                         
-                        DispatchQueue.main.async {
-                            self.applyListViewModelChanges(updateType: updateType)
-                            
-                            if let indexPathBeforeRotating = self.indexPathBeforeRotating {
-                                self.collectionView.scrollToItem(at: indexPathBeforeRotating, at: .centeredVertically, animated: false)
-                                self.indexPathBeforeRotating = nil
-                            }
-                            
-                            self.updateScrollViewInsets()
+                        if let indexPathBeforeRotating = self.indexPathBeforeRotating {
+                            self.collectionView.scrollToItem(at: indexPathBeforeRotating, at: .centeredVertically, animated: false)
+                            self.indexPathBeforeRotating = nil
                         }
                         
+                        self.updateScrollViewInsets()
                     }
+                    
                 }
             }
         }
+    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -143,6 +146,15 @@ class DiffListViewController: ViewController {
         delegate?.diffListScrollViewDidScroll(scrollView)
     }
     
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndScrollingAnimation(scrollView)
+        
+        if let scrollDidFinishInfo = scrollDidFinishInfo {
+            scrollToChangeItem(cellIndexPath: scrollDidFinishInfo.indexPathToScrollTo, itemIndex: scrollDidFinishInfo.changeItemToScrollTo)
+            self.scrollDidFinishInfo = nil
+        }
+    }
+    
     func updateListViewModels(listViewModel: [DiffListGroupViewModel], updateType: DiffListViewController.ListUpdateType) {
         
         switch updateType {
@@ -175,35 +187,6 @@ class DiffListViewController: ViewController {
         }
     }
     
-    func backgroundUpdateListViewModels(listViewModel: [DiffListGroupViewModel], updateType: DiffListViewController.ListUpdateType, completion: @escaping () -> Void) {
-
-        let group = DispatchGroup()
-
-        let chunked = listViewModel.chunked(into: 10)
-
-        for chunk in chunked {
-            chunkedHeightCalculationsConcurrentQueue.async(group: group) {
-                
-                self.updateListViewModels(listViewModel: chunk, updateType: updateType)
-            }
-        }
-
-        group.notify(queue: layoutSubviewsHeightCalculationsSerialQueue) {
-            completion()
-        }
-    }
-    
-    func applyListViewModelChanges(updateType: DiffListViewController.ListUpdateType) {
-        switch updateType {
-        case .itemExpandUpdate:
-            
-            collectionView.setCollectionViewLayout(layoutCopy, animated: true)
- 
-        default:
-            collectionView.reloadData()
-        }
-    }
-    
     override func apply(theme: Theme) {
         
         super.apply(theme: theme)
@@ -217,6 +200,48 @@ class DiffListViewController: ViewController {
 
         collectionView.backgroundColor = theme.colors.paperBackground
     }
+    
+    func applyListViewModelChanges(updateType: DiffListViewController.ListUpdateType) {
+        switch updateType {
+        case .itemExpandUpdate:
+            
+            collectionView.setCollectionViewLayout(layoutCopy, animated: true)
+
+        default:
+            collectionView.reloadData()
+        }
+    }
+}
+
+private extension DiffListViewController {
+    
+    func backgroundUpdateListViewModels(listViewModel: [DiffListGroupViewModel], updateType: DiffListViewController.ListUpdateType, completion: @escaping () -> Void) {
+
+       let group = DispatchGroup()
+
+       let chunked = listViewModel.chunked(into: 10)
+
+       for chunk in chunked {
+           chunkedHeightCalculationsConcurrentQueue.async(group: group) {
+               
+               self.updateListViewModels(listViewModel: chunk, updateType: updateType)
+           }
+       }
+
+       group.notify(queue: layoutSubviewsHeightCalculationsSerialQueue) {
+           completion()
+       }
+   }
+   
+   func scrollToChangeItem(cellIndexPath: IndexPath, itemIndex: Int) {
+       if let cell = collectionView.cellForItem(at: cellIndexPath) as? DiffListChangeCell,
+           let offsetToView = cell.yLocationOfItem(index: itemIndex, convertView: view) {
+           
+           let midPointTarget = collectionView.frame.height / 2
+           let delta = midPointTarget - offsetToView
+           collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y - delta), animated: true)
+       }
+    }
 }
 
 extension DiffListViewController: UICollectionViewDataSource {
@@ -229,8 +254,6 @@ extension DiffListViewController: UICollectionViewDataSource {
         guard let viewModel = dataSource[safeIndex: indexPath.item] else {
             return UICollectionViewCell()
         }
-        
-        //tonitodo: clean up
         
         if let viewModel = viewModel as? DiffListChangeViewModel,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListChangeCell.reuseIdentifier, for: indexPath) as? DiffListChangeCell {
@@ -302,21 +325,44 @@ extension DiffListViewController: DiffListChangeCellDelegate {
         }
         
         let tappedLinkId = tappedMoveInfo.linkId
+        let moveDirection = tappedMoveInfo.linkDirection
         
-        var indexToScrollTo: Int?
+        var indexOfOtherMoveCell: Int?
+        var changeItemToScrollTo: Int?
         for (index, viewModel) in dataSource.enumerated() {
             if let changeViewModel = viewModel as? DiffListChangeViewModel {
-                for item in changeViewModel.items {
+                for (subindex, item) in changeViewModel.items.enumerated() {
                     if let moveInfo = item.moveInfo,
                         moveInfo.id == tappedLinkId {
-                        indexToScrollTo = index
+                        indexOfOtherMoveCell = index
+                        changeItemToScrollTo = subindex
                     }
                 }
             }
         }
         
-        if let indexToScrollTo = indexToScrollTo {
-            collectionView.scrollToItem(at: IndexPath(item: indexToScrollTo, section: 0), at: .top, animated: true)
+        if let indexOfOtherMoveCell = indexOfOtherMoveCell,
+            let changeItemToScrollTo = changeItemToScrollTo {
+
+            let indexPathOfOtherMoveCell = IndexPath(item: indexOfOtherMoveCell, section: 0)
+            let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+            
+            if visibleIndexPaths.contains(indexPathOfOtherMoveCell) { //cell already configured, skip straight to detecting offset needed to get top of *item* on screen.
+                
+                scrollToChangeItem(cellIndexPath: indexPathOfOtherMoveCell, itemIndex: changeItemToScrollTo)
+            } else {
+                
+                //avoids weird bouncing when scrolling up if we choose the index path below
+                let indexAfterIndexOfOtherMoveCell = indexOfOtherMoveCell + 1
+                let indexToScrollTo = moveDirection == .down ? indexOfOtherMoveCell : ((dataSource.count) > indexAfterIndexOfOtherMoveCell) ? indexAfterIndexOfOtherMoveCell : indexOfOtherMoveCell
+                let indexPathToScrollTo = IndexPath(item: indexToScrollTo, section: 0)
+                
+                //first scroll to cell, scrollViewDidEndAnimation will then scroll to item
+                scrollDidFinishInfo = (indexPathOfOtherMoveCell, changeItemToScrollTo)
+                collectionView.scrollToItem(at: indexPathToScrollTo, at: UICollectionView.ScrollPosition.top, animated: true)
+            }
         }
     }
+    
+    
 }

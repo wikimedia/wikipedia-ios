@@ -39,7 +39,7 @@ final class DiffHeaderViewModel: Themeable {
             var heading: String?
             var title: String?
             if let toDate = toModel.revisionDate as NSDate? {
-                heading = toDate.wmf_localizedRelativeDateStringFromLocalDateToNow()
+                heading = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
                 title = DiffHeaderViewModel.dateFormatter.string(from: toDate as Date)
             }
             
@@ -65,7 +65,7 @@ final class DiffHeaderViewModel: Themeable {
                 fatalError("Compare DiffType must have valid fromRevisionID")
             }
             
-            titleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, counts: nil)
+            titleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: nil)
             
             self.title = titleViewModel
             
@@ -80,21 +80,50 @@ final class DiffHeaderViewModel: Themeable {
         apply(theme: theme)
     }
     
-    static func generateTitleViewModelForCompare(articleTitle: String, counts: (revision: Int, user: Int)?) -> DiffHeaderTitleViewModel {
-        
-         let heading = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
-        
-        if let counts = counts {
-           
-            let subtitleFormat = WMFLocalizedString("diff-compare-header-subtitle-format", value:"%1$@ by %2$@ not shown", comment:"Subtitle label in header when comparing two revisions. %1$@ is replaced with the number of intermediate revisions between chosen revisions to compare, and %2$@ is replaced by the number of editors that made those intermediate revisions.")
-            let numberOfIntermediateRevisionsText = String.localizedStringWithFormat(WMFLocalizedString("diff-compare-header-subtitle-num-revisions", value:"{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}}", comment:"Number of revisions text in subtitle label in header when comparing two revisions. %1$d is replaced with the number of intermediate revisions between chosen revisions to compare."), counts.revision)
-            let numberOfIntermediateUsersText = String.localizedStringWithFormat(WMFLocalizedString("diff-compare-header-subtitle-num-users", value:"{{PLURAL:%1$d|%1$d user|%1$d users}}", comment:"Number of users text in subtitle label in header when comparing two revisions. %1$d is replaced with the number of users that made intermediate revisions between revisions being compared."), counts.user)
-            let subtitle = String.localizedStringWithFormat(subtitleFormat, numberOfIntermediateRevisionsText, numberOfIntermediateUsersText)
-            return DiffHeaderTitleViewModel(heading: heading, title: articleTitle, subtitle: subtitle, subtitleTextStyle: DynamicTextStyle.subheadline, subtitleColor: nil)
+    static func generateTitleViewModelForCompare(articleTitle: String, editCounts: EditCountsGroupedByType?) -> DiffHeaderTitleViewModel {
+        let heading = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
+        let subtitle: String?
+
+        if let editCounts = editCounts {
+            switch (editCounts[.edits], editCounts[.editors]) {
+            case (let edits?, let editors?):
+                
+                if edits.count == 0 && editors.count == 0 {
+                    subtitle = nil
+                    break
+                }
+                
+                switch (edits.limit, editors.limit) {
+                case (false, false):
+                    subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-editors-count", value: "{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}} by {{PLURAL:%2$d|%2$d user|%2$d users}} not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions."), edits.count, editors.count)
+                case (true, true):
+                    subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-editors-count-limited", value: "%1$d+ intermediate revisions by %2$d+ users not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions. The numbers are followed by the '+' to indicate that the actual numbers exceed the displayed numbers."), edits.count, editors.count)
+                case (true, false):
+                    subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-limited-editors-count", value: "%1$d+ intermediate revisions by {{PLURAL:%2$d|%2$d user|%2$d users}} not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of intermediate revisions exceeds the displayed number."), edits.count, editors.count)
+                case (false, true):
+                    subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-editors-limited-count", value: "{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}} by %2$d+ users not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions. The number of editors is followed by the '+' to indicate that the actual number of editors exceeds the displayed number."), edits.count, editors.count)
+                }
+            case (let edits?, nil):
+                
+                if edits.count == 0 {
+                    subtitle = nil
+                    break
+                }
+                
+                if edits.limit {
+                    subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-count-limited", value: "%1$d+ intermediate revisions not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. %1$d is replaced with the number of intermediate revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of revisions exceeds the displayed number."), edits.count)
+                } else {
+                    subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-count", value: "{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}} not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. %1$d is replaced with the number of intermediate revisions."), edits.count)
+                }
+            default:
+                subtitle = nil
+                break
+            }
+        } else {
+            subtitle = nil
         }
         
-        return DiffHeaderTitleViewModel(heading: heading, title: articleTitle, subtitle: nil, subtitleTextStyle: DynamicTextStyle.subheadline, subtitleColor: nil)
-        
+        return DiffHeaderTitleViewModel(heading: heading, title: articleTitle, subtitle: subtitle, subtitleTextStyle: DynamicTextStyle.subheadline, subtitleColor: nil)
     }
     
     func apply(theme: Theme) {

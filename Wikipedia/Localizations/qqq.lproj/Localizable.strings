@@ -55,6 +55,8 @@
 "action-language-accessibility" = "Accessibility title for the 'Language' toolbar button on articles and talk pages.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
+"action-next-revision-accessibility" = "Accessibility title for the 'Next Revision' action button when viewing a single revision diff.";
+"action-previous-revision-accessibility" = "Accessibility title for the 'Previous Revision' action button when viewing a single revision diff.";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-redo" = "Title text and accessibility label for redo action on buttons or info sheets.";
 "action-remove" = "Title of the action that removes the selection from the current context.";
@@ -67,6 +69,7 @@
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}";
 "action-share-accessibility" = "Accessibility title for the 'Share' action";
 "action-sort" = "Title of the sort action.";
+"action-thank-user-accessibility" = "Accessibility title for the 'Thank User' action button when viewing a single revision diff.";
 "action-undo" = "Title text and accessibility label for undo action on buttons or info sheets.";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible. {{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
@@ -155,9 +158,6 @@
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "diff-compare-header-from-info-heading" = "Heading label in from revision info box when comparing two revisions.";
 "diff-compare-header-heading" = "Heading label in header when comparing two revisions.";
-"diff-compare-header-subtitle-format" = "Subtitle label in header when comparing two revisions. $1 is replaced with the number of intermediate revisions between chosen revisions to compare, and $2 is replaced by the number of editors that made those intermediate revisions.";
-"diff-compare-header-subtitle-num-revisions" = "Number of revisions text in subtitle label in header when comparing two revisions. $1 is replaced with the number of intermediate revisions between chosen revisions to compare.";
-"diff-compare-header-subtitle-num-users" = "Number of users text in subtitle label in header when comparing two revisions. $1 is replaced with the number of users that made intermediate revisions between revisions being compared.";
 "diff-compare-header-to-info-heading" = "Heading label in to revision info box when comparing two revisions.";
 "diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
 "diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.";
@@ -296,13 +296,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Text for Explore feed card setting indicating that the feed card is active in all preferred languages";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Text for Explore feed card setting indicating that the global feed card is active";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Text for Explore feed card setting indicating the number of languages it's visible in - $1 is replaced with the number of languages";
-"explore-feed-preferences-feed-cards-hidden-title" = "Title for cell that appears in place of feed card hidden by user via the overflow button - %@ is replaced with feed card type";
+"explore-feed-preferences-feed-cards-hidden-title" = "Title for cell that appears in place of feed card hidden by user via the overflow button - $1 is replaced with feed card type";
 "explore-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
 "explore-feed-preferences-global-cards-description" = "Description of global feed cards";
 "explore-feed-preferences-global-cards-subtitle" = "Subtitle describing non-language specific feed cards";
 "explore-feed-preferences-global-cards-title" = "Title for the setting that allows users to toggle non-language specific feed cards";
 "explore-feed-preferences-hide-card-action-title" = "Title for action that allows users to hide a feed card";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Title for action that allows users to hide all feed cards of given type - $1 is replaced with feed card type";
 "explore-feed-preferences-in-the-news-description" = "Description of In the news section of Explore feed";
 "explore-feed-preferences-languages-footer-text" = "Text for explaining the effects of hiding all feed cards";
 "explore-feed-preferences-on-this-day-description" = "Description of On this day section of Explore feed";
@@ -452,6 +452,12 @@
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
 "insert-media-uploaded-image-title" = "Title that appears next to an image in media settings";
+"intermediate-edits-count" = "Subtitle for the number of revisions that were made between two chosen revisions. $1 is replaced with the number of intermediate revisions.";
+"intermediate-edits-count-limited" = "Subtitle for the number of revisions that were made between two chosen revisions. $1 is replaced with the number of intermediate revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of revisions exceeds the displayed number.";
+"intermediate-edits-editors-count" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions.";
+"intermediate-edits-editors-count-limited" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions. The numbers are followed by the '+' to indicate that the actual numbers exceed the displayed numbers.";
+"intermediate-edits-editors-limited-count" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions. The number of editors is followed by the '+' to indicate that the actual number of editors exceeds the displayed number.";
+"intermediate-edits-limited-editors-count" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of intermediate revisions exceeds the displayed number.";
 "languages-settings-title" = "Title for the 'Languages' section in Settings";
 "languages-title" = "Title for language picker {{Identical|Language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
@@ -512,7 +518,7 @@
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
 "page-history-minor-edits" = "Text for view that shows many edits were marked as minor edits";
-"page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision";
+"page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision. $1 is replaced with the author.";
 "page-history-revision-history-title" = "Title for revision history view";
 "page-history-revision-size-diff-addition" = "Accessibility label text telling the user how many bytes were added in a revision - $1 is replaced with the number of bytes added in a revision";
 "page-history-revision-size-diff-subtraction" = "Accessibility label text telling the user how many bytes were removed in a revision - $1 is replaced with the number of bytes removed in a revision";
@@ -658,6 +664,7 @@
 "relative-date-minutes-abbreviated" = "Relative minutes, abbreviated. $1 will be replaced with the number of minutes.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with the number of minutes ago.";
 "relative-date-minutes-ago-abbreviated" = "Relative minutes ago, abbreviated. $1 will be replaced with the number of minutes ago.";
+"relative-date-months-ago" = "Relative months ago. 0 = this month, singular = last month. $1 will be replaced with the number of months ago.";
 "relative-date-seconds-abbreviated" = "Relative seconds, abbreviated. $1 will be replaced with the number of seconds.";
 "relative-date-seconds-ago-abbreviated" = "Relative seconds ago, abbreviated. $1 will be replaced with the number of seconds ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";

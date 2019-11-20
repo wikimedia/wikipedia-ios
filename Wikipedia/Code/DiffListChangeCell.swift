@@ -28,17 +28,12 @@ class DiffListChangeCell: UICollectionViewCell {
     @IBOutlet var textStackView: UIStackView!
     @IBOutlet var innerView: UIView!
     
-    private var tapGestureRecognizer: UITapGestureRecognizer?
-    
     private(set) var viewModel: DiffListChangeViewModel?
+    private var textLabels: [UILabel] = []
+    private var shadedBackgroundViews: [UIView] = []
+    private var spacerViews: [UIView] = []
     
     weak var delegate: DiffListChangeCellDelegate?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedLabelWithSender(_:)))
-    }
     
     func update(_ viewModel: DiffListChangeViewModel) {
         
@@ -58,7 +53,7 @@ class DiffListChangeCell: UICollectionViewCell {
         headingTopConstraint.constant = viewModel.headingPadding.top
 
         if needsNewTextLabels(newViewModel: viewModel) {
-            removeTextLabels(from: textStackView)
+            reset()
             addTextLabels(to: textStackView, newViewModel: viewModel)
         }
         
@@ -69,6 +64,15 @@ class DiffListChangeCell: UICollectionViewCell {
         self.viewModel = viewModel
         
         apply(theme: viewModel.theme)
+    }
+    
+    func yLocationOfItem(index: Int, convertView: UIView) -> CGFloat? {
+        
+        guard let item = textStackView.arrangedSubviews[safeIndex: index] else {
+            return nil
+        }
+        
+        return textStackView.convert(item.frame, to: convertView).minY
     }
     
     @objc func tappedLabelWithSender(_ sender: UITapGestureRecognizer) {
@@ -82,47 +86,98 @@ class DiffListChangeCell: UICollectionViewCell {
 }
 
 private extension DiffListChangeCell {
-    func removeTextLabels(from textStackView: UIStackView) {
+    func reset() {
         for subview in textStackView.arrangedSubviews {
             textStackView.removeArrangedSubview(subview)
             subview.removeFromSuperview()
         }
+        
+        textLabels.removeAll()
+        shadedBackgroundViews.removeAll()
+        spacerViews.removeAll()
     }
     
     func addTextLabels(to textStackView: UIStackView, newViewModel: DiffListChangeViewModel) {
         for (index, item) in newViewModel.items.enumerated() {
             let label = UILabel()
+            textLabels.append(label)
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
             label.textAlignment = item.textAlignment
             label.isUserInteractionEnabled = true
             label.tag = index
             label.translatesAutoresizingMaskIntoConstraints = false
-            
-            if let tapGestureRecognizer = tapGestureRecognizer {
-                label.addGestureRecognizer(tapGestureRecognizer)
+
+            if label.gestureRecognizers == nil {
+                addTapGestureRecognizer(to: label)
+            } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
+                addTapGestureRecognizer(to: label)
             }
             
             //add surrounding view
             let view = UIView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(label)
-            view.backgroundColor = item.backgroundColor
             
-            let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: item.textPadding.top)
-            let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: item.textPadding.bottom)
-            let leading = label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: item.textPadding.leading)
-            let trailing = view.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: item.textPadding.trailing)
-            view.addConstraints([top, bottom, leading, trailing])
+            //shaded background view
+            if item.hasShadedBackgroundView {
+                let shadedBackgroundView = UIView(frame: .zero)
+                shadedBackgroundViews.append(shadedBackgroundView)
+                shadedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+                
+                shadedBackgroundView.addSubview(label)
+                
+                view.addSubview(shadedBackgroundView)
+                
+                let textTop = label.topAnchor.constraint(equalTo: shadedBackgroundView.topAnchor, constant: item.textPadding.top)
+                let textBottom = shadedBackgroundView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: item.textPadding.bottom)
+                let textLeading = label.leadingAnchor.constraint(equalTo: shadedBackgroundView.leadingAnchor, constant: item.textPadding.leading)
+                let textTrailing = shadedBackgroundView.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: item.textPadding.trailing)
+                shadedBackgroundView.addConstraints([textTop, textBottom, textLeading, textTrailing])
+                
+                let top = shadedBackgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+                let leading = shadedBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+                let trailing = view.trailingAnchor.constraint(equalTo: shadedBackgroundView.trailingAnchor, constant: 0)
+                view.addConstraints([top, leading, trailing])
+                
+                if let inBetweenSpacing = item.inBetweenSpacing {
+                    let spacerView = UIView(frame: .zero)
+                    spacerViews.append(spacerView)
+                    spacerView.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(spacerView)
+                    
+                    let spacerTop = spacerView.topAnchor.constraint(equalTo: shadedBackgroundView.bottomAnchor, constant: 0)
+                    let spacerBottom = view.bottomAnchor.constraint(equalTo: spacerView.bottomAnchor, constant: 0)
+                    let spacerLeading = spacerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+                    let spacerTrailing = view.trailingAnchor.constraint(equalTo: spacerView.trailingAnchor, constant: 0)
+                    let spacerHeight = spacerView.heightAnchor.constraint(equalToConstant: inBetweenSpacing)
+                    view.addConstraints([spacerTop, spacerBottom, spacerLeading, spacerTrailing, spacerHeight])
+                } else {
+                    let bottom = view.bottomAnchor.constraint(equalTo: shadedBackgroundView.bottomAnchor, constant: 0)
+                    view.addConstraints([bottom])
+                }
+            } else {
+                view.addSubview(label)
+                let textTop = label.topAnchor.constraint(equalTo: view.topAnchor, constant: item.textPadding.top)
+                let textBottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: item.textPadding.bottom)
+                let textLeading = label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: item.textPadding.leading)
+                let textTrailing = view.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: item.textPadding.trailing)
+                view.addConstraints([textTop, textBottom, textLeading, textTrailing])
+            }
+            
             
             textStackView.addArrangedSubview(view)
         }
     }
+
+    private func addTapGestureRecognizer(to label: UILabel) {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedLabelWithSender(_:)))
+        label.addGestureRecognizer(tapGestureRecognizer)
+    }
     
     func updateTextLabels(in textStackView: UIStackView, newViewModel: DiffListChangeViewModel) {
-        for (index, subview) in textStackView.arrangedSubviews.enumerated() {
-            if let label = subview.subviews.first as? UILabel,
-                let item = newViewModel.items[safeIndex: index] {
+        
+        for (index, label) in textLabels.enumerated() {
+            if let item = newViewModel.items[safeIndex: index] {
                 label.attributedText = item.textAttributedString
             }
         }
@@ -153,19 +208,18 @@ extension DiffListChangeCell: Themeable {
             
             headingContainerView.backgroundColor = viewModel.borderColor
             headingLabel.attributedText = viewModel.headingAttributedString
-            
-            guard viewModel.items.count == textStackView.arrangedSubviews.count else {
-                assertionFailure("textStackView subviews should equal the number of items in DiffChangeViewModel.")
-                return
-            }
-            
-            let zipped = zip(viewModel.items, textStackView.arrangedSubviews)
-            
-            for zippedItem in zipped {
-                
-                zippedItem.1.backgroundColor = zippedItem.0.backgroundColor
-            }
         }
         
+        for shadedBackgroundView in shadedBackgroundViews {
+            shadedBackgroundView.backgroundColor = theme.colors.diffMoveParagraphBackground
+        }
+        
+        for spacerView in spacerViews {
+            spacerView.backgroundColor = theme.colors.paperBackground
+        }
+        
+        for subview in textStackView.arrangedSubviews {
+            subview.backgroundColor = theme.colors.paperBackground
+        }
     }
 }

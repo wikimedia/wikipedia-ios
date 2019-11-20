@@ -89,7 +89,7 @@
 "app-store-subtitle" = "کليل ڄاڻ چيڪلو";
 "appearance-settings-adjust-text-sizing" = "مضمون جي متن جي ماپ ترتيبيو";
 "appearance-settings-expand-tables" = "جدول کوليو";
-"appearance-settings-expand-tables-footer" = "مضمون ۾ خانا، بشمول ترت معلومات، حوالا، حاشيا، ۽ خارجي ڳنڍڻا هميشہ کليل هجن.";
+"appearance-settings-expand-tables-footer" = "مضمونن ۾ جدولون، بشمول ترت معلومات، حوالا، حاشيا، ۽ خارجي ڳنڍڻا عام طور تي کليل هجن.";
 "appearance-settings-image-dimming-footer" = "عڪسن جي غيرشفافيت گھري ۽ ڪاري نظاري تي گھٽايو";
 "appearance-settings-reading-themes" = "پڙھڻ جا نظارا";
 "appearance-settings-set-automatic-table-opening" = "جدول جون ترتيبون";
@@ -191,6 +191,7 @@
 "diff-thanks-send-button-title" = "'مھربانيون' موڪليو";
 "diff-thanks-send-subtitle" = "'مھربانيون' وڪيپيڊيا تي ڪنھن سنواريندڙ جي ڪم جي تعريف ڪرڻ جو آسان طريقو آھن. 'مھربانيون' اڻ نٿيون ڪري سگھجن ۽ عوامي طور ڏسي سگھجندڙ آھن.";
 "diff-thanks-send-title" = "عوامي طور 'مھربانيون' موڪليون";
+// Fuzzy
 "diff-thanks-sent" = "توھان جي 'مھرباني' $1 ڏانھن موڪلي وئي";
 "diff-thanks-sent-already" = "توھان اڳ ئي ھن سنوار لاءِ 'مھربانيون' موڪلي چڪا آھيو";
 "diff-thanks-sent-cannot-unsend" = "مھربانيون اڻ-موڪلجي نٿيون سگھجن";
@@ -498,8 +499,7 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 بائيٽ|$1 بائيٽون}} وڌيـ(ـون)";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 بائيٽ|$1 بائيٽون}} ھٽائيـ(ـون)";
 "page-history-revisions-comparison-warning" = "صرف ٻہ ورجاءَ چونڊي سگھجن ٿا";
-// Fuzzy
-"page-history-stats-text" = "$2 کان $1 سنوارون";
+"page-history-stats-text" = "$2 کان {{PLURAL:$1|$1 سنوار|$1 سنوارون}}";
 "page-history-user-edits" = "واپرائيندڙ سنوارون";
 "page-issues" = "صفحي جا مسئلا";
 "page-last-edited" = "{{PLURAL:$1|0=اڄ سنواريل|1=ڪالھ سنواريل|$1 ڏينھن اڳ سنواريل}}";
@@ -561,6 +561,8 @@
 "reading-list-create-new-list-title" = "ڪا نئين فھرست تخليقيو";
 "reading-list-deleted-accessibility-notification" = "پڙھڻ جي فھرست ڊاٿي وئي";
 "reading-list-do-not-keep-button-title" = "نہ، مضمونن کي آلي مان ڊاھيو";
+"reading-list-entry-limit-exceeded-title" = "توھان في کاتو {{PLURAL:$1|$1 مضمون|$1 مضمونن}} جي حد کان اڳتي وڌي ويا آھيو.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|مضمون|مضمون}} فھرست ۾ نٿو/نٿا وجھي سگھجي(جن). توھان في فھرست $2 مضمونن جي حد تي $3 لاءِ پھچي ويا آھيو";
 "reading-list-exists-with-same-name" = "پڙھڻ جي فھرست جو نالو سڳ ئي استعمال ھيٺ آھي";
 "reading-list-generic-error" = "توھان جي پڙھڻ جون فھرستون چاڙھيندي غير متوقع چڪ پيش آئي.";
 "reading-list-keep-button-title" = "ھا، مضمونن کي آلي تي رکو";

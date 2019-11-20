@@ -211,6 +211,7 @@
 "diff-thanks-send-button-title" = "發送感謝";
 "diff-thanks-send-subtitle" = "「感謝」是在維基百科上向其他編者所修改出內容表達讚賞的簡易方式，請留意感謝無法撤回發送，並且是公開可見的。";
 "diff-thanks-send-title" = "公開發送感謝";
+// Fuzzy
 "diff-thanks-sent" = "您的感謝發送給$1";
 "diff-thanks-sent-already" = "您已曾為此編輯發送過感謝";
 "diff-thanks-sent-cannot-unsend" = "感謝無法撤回發送";
