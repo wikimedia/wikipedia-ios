@@ -10,11 +10,12 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeSearch,
     WMFUserActivityTypeSearchResults,
     WMFUserActivityTypeArticle,
+    WMFUserActivityTypeUserTalk,
     WMFUserActivityTypeSettings,
     WMFUserActivityTypeAppearanceSettings,
     WMFUserActivityTypeContent,
-    WMFUserActivityTypeGenericLink,
-    WMFUserActivityTypeSpecialPage
+    WMFUserActivityTypeExternalLink,
+    WMFUserActivityTypeInAppLink
 };
 
 extern NSString *const WMFNavigateToActivityNotification;
@@ -37,8 +38,6 @@ extern NSString *const WMFNavigateToActivityNotification;
 
 + (instancetype)wmf_settingsViewActivity;
 + (instancetype)wmf_appearanceSettingsActivity;
-
-+ (instancetype)wmf_specialPageActivityWithURL:(NSURL *)url;
 
 + (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url;
 

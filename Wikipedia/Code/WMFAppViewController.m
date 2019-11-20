@@ -1177,8 +1177,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
-        case WMFUserActivityTypeSpecialPage:
-            return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
                 return YES;
@@ -1193,7 +1191,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 return YES;
             }
         } break;
-        case WMFUserActivityTypeGenericLink: {
+        case WMFUserActivityTypeExternalLink:
+        case WMFUserActivityTypeInAppLink: {
             return YES;
         }
         default:
@@ -1335,11 +1334,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
-        case WMFUserActivityTypeGenericLink:
+        case WMFUserActivityTypeExternalLink:
+        case WMFUserActivityTypeInAppLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
-            break;
-        case WMFUserActivityTypeSpecialPage:
-            [self wmf_openExternalUrl:[activity wmf_contentURL]];
             break;
         default:
             done();

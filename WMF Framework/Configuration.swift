@@ -36,12 +36,19 @@ public class Configuration: NSObject {
     
     struct Path {
         static let wikiResource = "/wiki/"
+        static let wResource = "/w/"
+        static let indexPHP = "index.php"
         static let wikiResourceComponent = ["wiki"]
         static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
         static let mediaWikiRestAPIComponents = ["w", "rest.php"]
     }
     
+    let wikiResourceRegex = try! NSRegularExpression(pattern: "^\(Path.wikiResource)(.+)$", options: .caseInsensitive)
+    let wResourceRegex = try! NSRegularExpression(pattern: "^\(Path.wResource)(.+)$", options: .caseInsensitive)
+    // From https://github.com/wikimedia/mediawiki-title
+    let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
+
     public struct APIURLComponentsBuilder {
         let hostComponents: URLComponents
         let basePathComponents: [String]
@@ -190,13 +197,10 @@ public class Configuration: NSObject {
 
         }
     }()
-    
-    @objc public func isWikiResource(_ url: URL?) -> Bool {
-        guard url?.path.contains(Path.wikiResource) ?? false else {
+
+    @objc public func isWikiHost(_ host: String?) -> Bool {
+        guard let host = host else {
             return false
-        }
-        guard let host = url?.host else { // relative paths should work
-            return true
         }
         for domain in wikiResourceDomains {
             if host.isDomainOrSubDomainOf(domain) {
@@ -206,6 +210,76 @@ public class Configuration: NSObject {
         return false
     }
     
+    // Remainder of the path after /wiki/
+    @objc public func wikiResourcePath(_ path: String?) -> String? {
+        guard let path = path else {
+            return nil
+        }
+        guard let match = wikiResourceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) else {
+            return nil
+        }
+        return wikiResourceRegex.replacementString(for: match, in: path, offset: 0, template: "$1")
+        
+    }
+    
+    // Remainder of the path after /w/
+    @objc public func wResourcePath(_ path: String?) -> String? {
+        guard let path = path else {
+            return nil
+        }
+        guard let match = wResourceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) else {
+            return nil
+        }
+        return wResourceRegex.replacementString(for: match, in: path, offset: 0, template: "$1")
+        
+    }
+    
+    @objc public func isWikiResource(_ url: URL?) -> Bool {
+        guard wikiResourcePath(url?.path) != nil else {
+            return false
+        }
+        guard let host = url?.host else { // relative paths should work
+            return true
+        }
+        return isWikiHost(host)
+    }
+    
+    internal func activityTypeForWikiResourcePath(_ path: String, with language: String) -> WMFUserActivityType {
+        if let namespaceMatch = namespaceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) {
+            let namespace = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$1")
+            let canonicalNamespace = namespace.uppercased().replacingOccurrences(of: "_", with: " ")
+            // TODO: replace with lookup table
+            switch canonicalNamespace {
+            case "USER TALK":
+                return .userTalk
+            default:
+                return .inAppLink
+            }
+        }
+        return .article
+    }
+    
+    internal func activityTypeForWResourcePath(_ path: String) -> WMFUserActivityType {
+        return .inAppLink
+    }
+    
+    @objc public func activityTypeForWikiHostURL(_ url: URL?) -> WMFUserActivityType {
+        guard let url = url else {
+            return .inAppLink
+        }
+        let path = url.path
+
+        if let wikiResourcePath = wikiResourcePath(path) {
+            let language = url.wmf_language ?? "en"
+            return activityTypeForWikiResourcePath(wikiResourcePath, with: language)
+        }
+        
+        if let wResourcePath = wResourcePath(path) {
+             return activityTypeForWResourcePath(wResourcePath)
+        }
+      
+        return .inAppLink
+    }
 }
 
 

@@ -59,15 +59,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
-+ (instancetype)wmf_specialPageActivityWithURL:(NSURL *)url {
-    if (!url) {
-        return nil;
-    }
-    NSUserActivity *activity = [self wmf_activityWithType:@"SpecialPage"];
-    activity.userInfo = @{@"WMFURL": url};
-    return activity;
-}
-
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
@@ -235,20 +226,24 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeSettings;
         }
     } else if ([self wmf_contentURL]) {
-        if ([self.activityType isEqualToString:@"org.wikimedia.wikipedia.specialpage"]) {
-            return WMFUserActivityTypeSpecialPage;
-        }
         return WMFUserActivityTypeContent;
-    } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
-        return WMFUserActivityTypeSearchResults;
     } else if ([self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return WMFUserActivityTypeSearchResults;
     } else {
-        if ([self wmf_articleURL].wmf_isWikiResource) {
-            return WMFUserActivityTypeArticle;
-        } else {
-            return WMFUserActivityTypeGenericLink;
-        }
+        return [self typeOfWebpageURL];
+    }
+}
+
+- (WMFConfiguration *)configuration {
+    return [WMFConfiguration current];
+}
+
+- (WMFUserActivityType)typeOfWebpageURL {
+    NSURL *url = self.wmf_articleURL;
+    if ([self.configuration isWikiHost:url.host]) {
+        return [self.configuration activityTypeForWikiHostURL:url];
+    } else {
+        return WMFUserActivityTypeExternalLink;
     }
 }
 
