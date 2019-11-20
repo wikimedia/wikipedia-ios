@@ -21,10 +21,10 @@ final class DiffContainerViewModel {
     
     var state: State = .loading {
         didSet {
-            stateHandler?()
+            stateHandler?(oldValue)
         }
     }
-    var stateHandler: (() -> Void)?
+    var stateHandler: ((_ oldState: DiffContainerViewModel.State) -> Void)?
     
     init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, listViewModel: [DiffListGroupViewModel]?, theme: Theme) {
         self.type = type
