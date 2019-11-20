@@ -43,12 +43,12 @@ class DiffFetcher: Fetcher {
     
     func fetchWikitext(siteURL: URL, revisionId: Int, completion: @escaping (Result<String, Error>) -> Void) {
         
-        let params: [String: AnyObject] = [
-            "action": "query" as AnyObject,
-            "prop": "revisions" as AnyObject,
-            "revids": "\(revisionId)" as AnyObject,
-            "rvprop": "content" as AnyObject,
-            "format": "json" as AnyObject
+        let params: [String: Any] = [
+            "action": "query",
+            "prop": "revisions",
+            "revids": "\(revisionId)",
+            "rvprop": "content",
+            "format": "json"
         ]
         
         performMediaWikiAPIGET(for: siteURL, with: params, cancellationKey: nil) { (result, response, error) in
