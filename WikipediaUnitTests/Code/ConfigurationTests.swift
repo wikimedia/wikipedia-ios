@@ -41,7 +41,7 @@ class ConfigurationTests: XCTestCase {
         info = configuration.activityInfoForWikiResourceURL(components.url!)
         XCTAssertEqual(info!.type, .diff)
         XCTAssertEqual(info!.url, components.url!)
-        XCTAssertEqual(info!.queryItems!.last, NSURLQueryItem(name: "oldid", value: "24601"))
+        XCTAssertEqual(info!.queryItems!.last, URLQueryItem(name: "oldid", value: "24601"))
     }
     
 //    func testWResourcePathActivity() {

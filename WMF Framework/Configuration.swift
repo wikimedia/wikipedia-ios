@@ -262,7 +262,7 @@ public class Configuration: NSObject {
             case "SPECIAL":
                 if let diffMatch = mobilediffRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
                     let oldid = mobilediffRegex.replacementString(for: diffMatch, in: title, offset: 0, template: "$1")
-                    return UserActivityInfo(.diff, url: url, queryItems: [NSURLQueryItem(name: "diff", value: "prev"), NSURLQueryItem(name: "oldid", value: oldid)])
+                    return UserActivityInfo(.diff, url: url, queryItems: [URLQueryItem(name: "diff", value: "prev"), URLQueryItem(name: "oldid", value: oldid)])
                 } else {
                    return defaultActivity
                 }
@@ -278,11 +278,20 @@ public class Configuration: NSObject {
             return nil
         }
         let defaultActivity = UserActivityInfo(.inAppLink, url: url)
-        guard let components = URLComponents(string: path) else {
+        guard var components = URLComponents(string: path) else {
             return defaultActivity
         }
-        guard components.path.lowercased() == "index.php" else {
+        components.query = url.query
+        guard components.path.lowercased() == Path.indexPHP else {
             return defaultActivity
+        }
+        guard let queryItems = components.queryItems else {
+            return defaultActivity
+        }
+        for item in queryItems {
+            if item.name.lowercased() == "search" {
+                return UserActivityInfo(.searchResults, url: url, queryItems: queryItems)
+            }
         }
         return defaultActivity
     }
@@ -310,9 +319,9 @@ public class UserActivityInfo: NSObject {
     @objc public let url: URL?
     @objc public let title: String?
     @objc public let language: String?
-    @objc public let queryItems: [NSURLQueryItem]?
+    @objc public let queryItems: [URLQueryItem]?
     
-    required init(_ type: WMFUserActivityType, url: URL, title: String? = nil, language: String? = nil, queryItems: [NSURLQueryItem]? = nil) {
+    required init(_ type: WMFUserActivityType, url: URL, title: String? = nil, language: String? = nil, queryItems: [URLQueryItem]? = nil) {
         self.type = type
         self.url = url
         self.title = title
