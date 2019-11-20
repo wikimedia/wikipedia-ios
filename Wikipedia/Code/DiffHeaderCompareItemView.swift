@@ -65,7 +65,7 @@ class DiffHeaderCompareItemView: UIView {
             attributedText.addAttributes([NSAttributedString.Key.baselineOffset: -1], range: NSRange(location: 0, length: 1))
             
             if let summary = viewModel.summary {
-                attributedText.append(NSAttributedString(string: " \(summary)"))
+                attributedText.append(NSAttributedString(string: "  \(summary)"))
             }
             
             summaryLabel.attributedText = attributedText

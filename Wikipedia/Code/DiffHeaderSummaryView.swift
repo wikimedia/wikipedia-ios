@@ -28,10 +28,10 @@ class DiffHeaderSummaryView: UIView, Themeable {
             let imageAttachment = NSTextAttachment()
             imageAttachment.image = minorImage
             let attributedText = NSMutableAttributedString(attachment: imageAttachment)
-            attributedText.addAttributes([NSAttributedString.Key.baselineOffset: -0.5], range: NSRange(location: 0, length: 1))
+            attributedText.addAttributes([NSAttributedString.Key.baselineOffset: -1], range: NSRange(location: 0, length: 1))
             
             if let summary = viewModel.summary {
-                attributedText.append(NSAttributedString(string: " \(summary)"))
+                attributedText.append(NSAttributedString(string: "  \(summary)"))
             }
             
             summaryLabel.attributedText = attributedText
