@@ -13,7 +13,40 @@ class ConfigurationTests: XCTestCase {
     }
     
     func testWikiResourcePathActivity() {
-        XCTAssertEqual(configuration.activityTypeForWikiResourcePath("User_talk:Pink_Bull", with: "en"), .userTalk)
-        XCTAssertEqual(configuration.activityTypeForWikiResourcePath("/æ/_raising", with: "en"), .article)
+        guard var components = URLComponents(string: "//en.wikipedia.org/wiki/User_talk:Pink_Bull") else {
+            XCTAssertTrue(false)
+            return
+        }
+        
+        var info = configuration.activityInfoForWikiResourceURL(components.url!)
+        XCTAssertEqual(info!.type, .userTalk)
+        XCTAssertEqual(info!.title, "Pink_Bull")
+        XCTAssertEqual(info!.language, "en")
+
+        components.path = "/wiki//æ/_raising"
+        info = configuration.activityInfoForWikiResourceURL(components.url!)
+        XCTAssertEqual(info!.type, .article)
+        XCTAssertEqual(info!.title, "/æ/_raising")
+        XCTAssertEqual(info!.language, "en")
+        
+        components.host = "fr.m.wikipedia.org"
+        components.path = "/wiki/France"
+        info = configuration.activityInfoForWikiResourceURL(components.url!)
+        XCTAssertEqual(info!.type, .article)
+        XCTAssertEqual(info!.title, "France")
+        XCTAssertEqual(info!.language, "fr")
+        
+        // TODO: update when we handle MobileDiff URLs
+        components.path = "/wiki/Special:MobileDiff/24601"
+        info = configuration.activityInfoForWikiResourceURL(components.url!)
+        XCTAssertEqual(info!.type, .diff)
+        XCTAssertEqual(info!.url, components.url!)
+        XCTAssertEqual(info!.queryItems!.last, NSURLQueryItem(name: "oldid", value: "24601"))
     }
+    
+//    func testWResourcePathActivity() {
+//        XCTAssertEqual(configuration.activityTypeForWResourcePath("index.php?title=Auguste_Rodin&action=history"), .history)
+//        XCTAssertEqual(configuration.activityTypeForWResourcePath("index.php?title=Auguste_Rodin&type=revision&diff=925807777&oldid=925784505"), .diff)
+//        XCTAssertNil(configuration.activityTypeForWResourcePath("index.php"))
+//    }
 }

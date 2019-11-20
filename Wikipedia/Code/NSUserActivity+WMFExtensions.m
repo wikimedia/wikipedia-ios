@@ -241,7 +241,7 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 - (WMFUserActivityType)typeOfWebpageURL {
     NSURL *url = self.wmf_articleURL;
     if ([self.configuration isWikiHost:url.host]) {
-        return [self.configuration activityTypeForWikiHostURL:url];
+        return [self.configuration activityInfoForWikiHostURL:url].type;
     } else {
         return WMFUserActivityTypeExternalLink;
     }

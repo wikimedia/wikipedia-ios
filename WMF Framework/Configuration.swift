@@ -48,7 +48,8 @@ public class Configuration: NSObject {
     let wResourceRegex = try! NSRegularExpression(pattern: "^\(Path.wResource)(.+)$", options: .caseInsensitive)
     // From https://github.com/wikimedia/mediawiki-title
     let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
-
+    let mobilediffRegex = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
+    
     public struct APIURLComponentsBuilder {
         let hostComponents: URLComponents
         let basePathComponents: [String]
@@ -244,43 +245,78 @@ public class Configuration: NSObject {
         return isWikiHost(host)
     }
     
-    internal func activityTypeForWikiResourcePath(_ path: String, with language: String) -> WMFUserActivityType {
+    internal func activityInfoForWikiResourceURL(_ url: URL) -> UserActivityInfo? {
+        guard let path = wikiResourcePath(url.path) else {
+            return nil
+        }
+        let language = url.wmf_language ?? "en"
         if let namespaceMatch = namespaceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) {
             let namespace = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$1")
+            let title = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$2")
             let canonicalNamespace = namespace.uppercased().replacingOccurrences(of: "_", with: " ")
+            let defaultActivity = UserActivityInfo(.inAppLink, url: url)
             // TODO: replace with lookup table
             switch canonicalNamespace {
             case "USER TALK":
-                return .userTalk
+                return UserActivityInfo(.userTalk, url: url, title: title, language: language)
+            case "SPECIAL":
+                if let diffMatch = mobilediffRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
+                    let oldid = mobilediffRegex.replacementString(for: diffMatch, in: title, offset: 0, template: "$1")
+                    return UserActivityInfo(.diff, url: url, queryItems: [NSURLQueryItem(name: "diff", value: "prev"), NSURLQueryItem(name: "oldid", value: oldid)])
+                } else {
+                   return defaultActivity
+                }
             default:
-                return .inAppLink
+                return defaultActivity
             }
         }
-        return .article
+        return UserActivityInfo(.article, url: url, title: path, language: language)
     }
     
-    internal func activityTypeForWResourcePath(_ path: String) -> WMFUserActivityType {
-        return .inAppLink
-    }
-    
-    @objc public func activityTypeForWikiHostURL(_ url: URL?) -> WMFUserActivityType {
-        guard let url = url else {
-            return .inAppLink
+    internal func activityInfoForWResourceURL(_ url: URL) -> UserActivityInfo? {
+        guard let path = wResourcePath(url.path) else {
+            return nil
         }
-        let path = url.path
-
-        if let wikiResourcePath = wikiResourcePath(path) {
-            let language = url.wmf_language ?? "en"
-            return activityTypeForWikiResourcePath(wikiResourcePath, with: language)
+        let defaultActivity = UserActivityInfo(.inAppLink, url: url)
+        guard let components = URLComponents(string: path) else {
+            return defaultActivity
+        }
+        guard components.path.lowercased() == "index.php" else {
+            return defaultActivity
+        }
+        return defaultActivity
+    }
+    
+    @objc public func activityInfoForWikiHostURL(_ url: URL?) -> UserActivityInfo? {
+        guard let url = url else {
+            return nil
         }
         
-        if let wResourcePath = wResourcePath(path) {
-             return activityTypeForWResourcePath(wResourcePath)
+        if let wikiResourcePathInfo = activityInfoForWikiResourceURL(url) {
+            return wikiResourcePathInfo
+        }
+        
+        if let wResourcePathInfo = activityInfoForWResourceURL(url) {
+             return wResourcePathInfo
         }
       
-        return .inAppLink
+        return UserActivityInfo(.inAppLink, url: url)
     }
 }
 
-
-
+@objc(WMFUserActivityInfo)
+public class UserActivityInfo: NSObject {
+    @objc public let type: WMFUserActivityType
+    @objc public let url: URL?
+    @objc public let title: String?
+    @objc public let language: String?
+    @objc public let queryItems: [NSURLQueryItem]?
+    
+    required init(_ type: WMFUserActivityType, url: URL, title: String? = nil, language: String? = nil, queryItems: [NSURLQueryItem]? = nil) {
+        self.type = type
+        self.url = url
+        self.title = title
+        self.language = language
+        self.queryItems = queryItems
+    }
+}
