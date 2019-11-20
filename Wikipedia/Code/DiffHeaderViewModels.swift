@@ -87,6 +87,12 @@ final class DiffHeaderViewModel: Themeable {
         if let editCounts = editCounts {
             switch (editCounts[.edits], editCounts[.editors]) {
             case (let edits?, let editors?):
+                
+                if edits.count == 0 && editors.count == 0 {
+                    subtitle = nil
+                    break
+                }
+                
                 switch (edits.limit, editors.limit) {
                 case (false, false):
                     subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-editors-count", value: "{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}} by {{PLURAL:%2$d|%2$d user|%2$d users}} not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions."), edits.count, editors.count)
@@ -98,6 +104,12 @@ final class DiffHeaderViewModel: Themeable {
                     subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-editors-limited-count", value: "{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}} by %2$d+ users not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions. The number of editors is followed by the '+' to indicate that the actual number of editors exceeds the displayed number."), edits.count, editors.count)
                 }
             case (let edits?, nil):
+                
+                if edits.count == 0 {
+                    subtitle = nil
+                    break
+                }
+                
                 if edits.limit {
                     subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-count-limited", value: "%1$d+ intermediate revisions not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. %1$d is replaced with the number of intermediate revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of revisions exceeds the displayed number."), edits.count)
                 } else {

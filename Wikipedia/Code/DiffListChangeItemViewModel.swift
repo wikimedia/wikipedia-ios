@@ -28,7 +28,30 @@ final class DiffListChangeItemViewModel {
     
     private(set) var textAttributedString: NSAttributedString?
     
-
+    init(firstRevisionText: String, traitCollection: UITraitCollection, theme: Theme, semanticContentAttribute: UISemanticContentAttribute) {
+        let text = firstRevisionText
+        let theme = theme
+        self.text = text
+        self.traitCollection = traitCollection
+        self.theme = theme
+        let type = DiffListChangeType.singleRevison
+        let diffItemType = DiffItemType.addLine
+        self.type = type
+        self.diffItemType = diffItemType
+        self.moveInfo = nil
+        let semanticContentAttribute = semanticContentAttribute
+        self.semanticContentAttribute = semanticContentAttribute
+        
+        let highlightedRanges = [DiffHighlightRange(start: 0, length: text.count, type: .add)]
+        self.highlightedRanges = highlightedRanges
+        self.textAlignment = .natural
+        let textPaddingAndInBetweenSpacing = DiffListChangeItemViewModel.calculateTextPaddingAndInBetweenSpacing(type: type, diffItemType: diffItemType, nextMiddleItem: nil)
+        self.textPadding =  textPaddingAndInBetweenSpacing.0
+        self.inBetweenSpacing = nil
+        self.hasShadedBackgroundView = false
+        self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type, diffItemType: diffItemType, moveInfo: nil, semanticContentAttribute: semanticContentAttribute)
+    }
+    
     init(item: TransformDiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType, diffItemType: DiffItemType, nextMiddleItem: TransformDiffItem?, semanticContentAttribute: UISemanticContentAttribute) {
         self.text = item.text
 

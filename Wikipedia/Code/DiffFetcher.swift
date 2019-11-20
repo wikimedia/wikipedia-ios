@@ -3,6 +3,7 @@ import Foundation
 
 enum DiffFetcherError: Error {
     case failureParsingRevisions
+    case failureParsingWikitext
 }
 
 class DiffFetcher: Fetcher {
@@ -33,6 +34,57 @@ class DiffFetcher: Fetcher {
             
             if let error = error {
                 completion(.failure(error))
+                return
+            }
+            
+            completion(.success(result))
+        }
+    }
+    
+    func fetchWikitext(siteURL: URL, revisionId: Int, completion: @escaping (Result<String, Error>) -> Void) {
+        
+        let params: [String: Any] = [
+            "action": "query",
+            "prop": "revisions",
+            "revids": "\(revisionId)",
+            "rvprop": "content",
+            "format": "json"
+        ]
+        
+        performMediaWikiAPIGET(for: siteURL, with: params, cancellationKey: nil) { (result, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let query = result?["query"] as? [String: AnyObject],
+                let pages = query["pages"] as? [String: AnyObject] else {
+                completion(.failure(DiffFetcherError.failureParsingWikitext))
+                return
+            }
+            
+            var maybeResult: String?
+            for (_, value) in pages {
+                guard let valueDict = value as? [String: AnyObject] else {
+                    continue
+                }
+                
+                if let revisionsArray = valueDict["revisions"] as? [[String: AnyObject]],
+                    revisionsArray.count > 0 {
+                    
+                    for revision in revisionsArray {
+                        
+                        if let text = revision["*"] as? String {
+                            maybeResult = text
+                            break
+                        }
+                            
+                    }
+                }
+            }
+            
+            guard let result = maybeResult else {
+                completion(.failure(DiffFetcherError.failureParsingWikitext))
                 return
             }
             
