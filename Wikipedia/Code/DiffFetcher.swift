@@ -106,17 +106,44 @@ class DiffFetcher: Fetcher {
         return components.url
     }
     
-    func fetchSingleRevisionInfo(_ siteURL: URL, sourceRevision: WMFPageHistoryRevision, title: String, direction: SingleRevisionRequestDirection, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) -> Void {
-        let parameters: [String: Any] = [
+    enum SingleRevisionRequest {
+        case prevOrNext(sourceRevision: WMFPageHistoryRevision, direction: SingleRevisionRequestDirection)
+        case populateModel(revisionID: Int)
+    }
+    
+    struct SingleRevisionResponse {
+        let model: WMFPageHistoryRevision
+        let title: String
+    }
+    
+    func fetchSingleRevisionInfo(_ siteURL: URL, request: SingleRevisionRequest, completion: @escaping ((Result<SingleRevisionResponse, Error>) -> Void)) -> Void {
+        
+        let requestRevisionID: Int
+        var requestDirection: SingleRevisionRequestDirection? = nil
+        let requestNumberOfRevisions: Int
+        
+        switch request {
+        case .populateModel(let revisionID):
+            requestRevisionID = revisionID
+            requestNumberOfRevisions = 1
+        case .prevOrNext(let sourceRevision, let direction):
+            requestRevisionID = sourceRevision.revisionID
+            requestDirection = direction
+            requestNumberOfRevisions = 2
+        }
+        
+        var parameters: [String: Any] = [
             "action": "query",
             "prop": "revisions",
             "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
-            "rvlimit": 2,
-            "rvdir": direction.rawValue,
-            "titles": title,
-            "rvstartid": sourceRevision.revisionID,
+            "rvlimit": requestNumberOfRevisions,
+            "rvstartid": requestRevisionID,
             "format": "json"
         ]
+        
+        if let direction = requestDirection {
+            parameters["rvdir"] = direction.rawValue
+        }
         
         performMediaWikiAPIGET(for: siteURL, with: parameters, cancellationKey: nil) { (result, response, error) in
             
@@ -141,16 +168,71 @@ class DiffFetcher: Fetcher {
                 
                 let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
                 
-                guard let val = value["revisions"],
+                guard let title = value["title"] as? String,
+                    let val = value["revisions"],
                     let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision] else {
                     completion(.failure(DiffFetcherError.failureParsingRevisions))
                     return
                 }
                 
-                let filteredRevisions = revisions.filter { $0.revisionID != sourceRevision.revisionID }
+                let filteredRevisions: [WMFPageHistoryRevision]
+                switch request {
+                case .populateModel:
+                    filteredRevisions = revisions
+                case .prevOrNext(let sourceRevision, _):
+                    filteredRevisions = revisions.filter { $0.revisionID != sourceRevision.revisionID }
+                }
                 guard let singleRevision = filteredRevisions.first else {
                                                                 completion(.failure(DiffFetcherError.failureParsingRevisions))
                                                                 return
+                }
+                
+                let result = SingleRevisionResponse(model: singleRevision, title: title)
+                completion(.success(result))
+                return
+            }
+            
+            completion(.failure(DiffFetcherError.failureParsingRevisions))
+        }
+    }
+    
+    public func fetchFirstRevision(siteURL: URL, articleTitle: String, completion: @escaping (Result<WMFPageHistoryRevision, Error>) -> Void) {
+        let parameters: [String: Any] = [
+            "action": "query",
+            "prop": "revisions",
+            "rvlimit": 1,
+            "rvdir": "newer",
+            "titles": articleTitle,
+            "format": "json"
+        ]
+        
+        performMediaWikiAPIGET(for: siteURL, with: parameters, cancellationKey: nil) { (result, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard
+                let query = result?["query"] as? [String : Any],
+                let pages = query["pages"] as? [String : Any] else {
+                    completion(.failure(DiffFetcherError.failureParsingRevisions))
+                    return
+            }
+            
+            for (_, value) in pages {
+                
+                guard let value = value as? [String: Any] else {
+                    completion(.failure(DiffFetcherError.failureParsingRevisions))
+                    return
+                }
+                
+                let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
+                
+                guard let val = value["revisions"],
+                    let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision],
+                    let singleRevision = revisions.first else {
+                    completion(.failure(DiffFetcherError.failureParsingRevisions))
+                    return
                 }
                 
                 completion(.success(singleRevision))
