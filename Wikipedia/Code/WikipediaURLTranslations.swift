@@ -26,7 +26,7 @@ struct WikipediaURLTranslations: Codable {
 
 extension WikipediaURLTranslations {
     static func commonNamespace(for namespaceString: String, in languageCode: String) -> WikipediaURLCommonNamespace? {
-        return WikipediaURLTranslations.sharedLookupTable[languageCode]?.namespace[namespaceString.lowercased().replacingOccurrences(of: " ", with: "_")]
+        return WikipediaURLTranslations.sharedLookupTable[languageCode]?.namespace[namespaceString.uppercased().replacingOccurrences(of: "_", with: " ")]
     }
 
     static func mainpage(in languageCode: String) -> String? {
