@@ -356,7 +356,7 @@ private extension DiffContainerViewController {
                     }
                 }
             case .failure(let error):
-                print(error)
+                DDLogError("error fetching revision: \(error)")
                 break
             }
         }
