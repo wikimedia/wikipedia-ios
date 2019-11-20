@@ -5,10 +5,10 @@
  - replace spaces in the json with "_" too - also replace them in "namespaceString"
 */
 
-struct WikipediaURLTranslations:Codable {
-    private var languagecode:Dictionary<String, WikipediaURLLanguageCodeTranslations> = Dictionary()
+struct WikipediaURLTranslations: Codable {
+    private var languagecode: Dictionary<String, WikipediaURLLanguageCodeTranslations> = Dictionary()
     private static let sharedLookupTable = WikipediaURLTranslations.init(fileName: "wikipedia-namespaces").languagecode
-    private init(fileName : String) {
+    private init(fileName: String) {
         guard
             let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
             let data = try? Data(contentsOf: url)
@@ -34,9 +34,9 @@ extension WikipediaURLTranslations {
     }
 }
 
-struct WikipediaURLLanguageCodeTranslations:Codable {
-    let namespace:Dictionary<String, WikipediaURLCommonNamespace>
-    let mainpage:String
+struct WikipediaURLLanguageCodeTranslations: Codable {
+    let namespace: Dictionary<String, WikipediaURLCommonNamespace>
+    let mainpage: String
 }
 
 // Emum for namespaces common amongst most Wikipedia languages.
