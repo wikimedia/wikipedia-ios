@@ -58,6 +58,30 @@ class DiffContainerViewController: ViewController, HintPresenting {
         }
     }
     
+    private var isOnFirstRevisionInHistory: Bool {
+            if case .single(_) = type,
+                let toModel = toModel,
+                let firstRevision = firstRevision,
+            fromModel == nil,
+                toModel.revisionID == firstRevision.revisionID {
+                return true
+            }
+        
+        return false
+    }
+    
+    private var isOnSecondRevisionInHistory: Bool {
+            if case .single(_) = type,
+                let _ = toModel,
+                let fromModel = fromModel,
+                let firstRevision = firstRevision,
+                fromModel.revisionID == firstRevision.revisionID {
+                return true
+            }
+        
+        return false
+    }
+    
     init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?) {
         
         guard fromModel != nil || toModel != nil else {
@@ -211,9 +235,9 @@ private extension DiffContainerViewController {
         midSetup()
         containerViewModel.state = .loading
         
-        //different handling for populating view models on first revision in history
-        if let firstRevision = firstRevision,
-            toModel.revisionID == firstRevision.revisionID {
+        //early exit for first revision
+        //there is no previous revision from toModel in this case
+        if isOnFirstRevisionInHistory {
             completeSetup()
             return
         }
@@ -253,14 +277,13 @@ private extension DiffContainerViewController {
     
     func completeSetup() {
         
-        guard let toModel = toModel,
-            (fromModel != nil || firstRevision != nil && toModel.revisionID == firstRevision!.revisionID) else {
+        guard let _ = toModel,
+            (fromModel != nil || isOnFirstRevisionInHistory) else {
                 assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
                 return
         }
         
-        if let firstRevision = firstRevision,
-            toModel.revisionID == firstRevision.revisionID {
+        if isOnFirstRevisionInHistory {
             fetchFirstDiff()
         } else {
             fetchDiff()
@@ -273,7 +296,7 @@ private extension DiffContainerViewController {
     func populatePrevNextModelsForToolbar() {
         
         guard let toModel = toModel,
-        (fromModel != nil || firstRevision != nil && toModel.revisionID == firstRevision!.revisionID) else {
+        (fromModel != nil || isOnFirstRevisionInHistory) else {
                 assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
                 return
         }
@@ -300,13 +323,15 @@ private extension DiffContainerViewController {
             }
         }
         
-        //if toModel is firstRevision, allow next button to be enabled.
-        //no need to attempt fetching previous revision if we already know there is no previous.
-        if let firstRevision = firstRevision {
-            if toModel.revisionID == firstRevision.revisionID {
-                diffToolbarView?.setNextButtonState(isEnabled: true)
-                return
-            }
+        //if on first or second revision, fromModel will be nil and attempting to fetch previous revision will fail.
+        if isOnFirstRevisionInHistory {
+            diffToolbarView?.setNextButtonState(isEnabled: true)
+            return
+        }
+        
+        if isOnSecondRevisionInHistory {
+            diffToolbarView?.setPreviousButtonState(isEnabled: true)
+            return
         }
         
         guard let fromModel = fromModel else {
@@ -330,7 +355,8 @@ private extension DiffContainerViewController {
                         self.prevModel = NextPrevModel(from: prevFromModel, to: prevToModel)
                     }
                 }
-            case .failure:
+            case .failure(let error):
+                print(error)
                 break
             }
         }
@@ -507,6 +533,7 @@ private extension DiffContainerViewController {
                         }
                         DispatchQueue.main.async {
                             self.updateHeaderWithIntermediateCounts(editCounts)
+                            self.diffListViewController?.updateScrollViewInsets()
                         }
                     default:
                         break
@@ -554,7 +581,8 @@ private extension DiffContainerViewController {
     }
     
     func fetchFirstDiff() {
-        guard let toModel = toModel else {
+        guard let toModel = toModel,
+         isOnFirstRevisionInHistory else {
             return
         }
         
@@ -581,7 +609,10 @@ private extension DiffContainerViewController {
         }
     }
     
-    private func updateListViewController(with listViewModels: [DiffListGroupViewModel], collectionViewWidth: CGFloat?) {
+    func updateListViewController(with listViewModels: [DiffListGroupViewModel], collectionViewWidth: CGFloat?) {
+        
+        assert(!Thread.isMainThread, "diffListViewController.updateListViewModels could take a while, would be better from a background thread.")
+        
         self.containerViewModel.listViewModel = listViewModels
         self.diffListViewController?.updateListViewModels(listViewModel: listViewModels, updateType: .initialLoad(width: collectionViewWidth ?? 0))
         
@@ -933,7 +964,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         animateDirection = .down
         
         guard prevModel != nil ||
-            (firstRevision != nil && fromModel != nil && firstRevision!.revisionID == fromModel!.revisionID) else {
+            isOnSecondRevisionInHistory else {
                 assertionFailure("Expecting either a prevModel populated to push or a firstRevision to push.")
                 return
         }
