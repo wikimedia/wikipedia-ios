@@ -62,7 +62,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
             if case .single(_) = type,
                 let toModel = toModel,
                 let firstRevision = firstRevision,
-            fromModel == nil,
+                fromModel == nil,
                 toModel.revisionID == firstRevision.revisionID {
                 return true
             }
