@@ -111,7 +111,8 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         return contextFont.pointSize * 1.8
     }
     
-    init(diffItems: [DiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, traitCollection: UITraitCollection, semanticContentAttribute: UISemanticContentAttribute) {
+    init(diffItems: [TransformDiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, traitCollection: UITraitCollection, semanticContentAttribute: UISemanticContentAttribute) {
+
         self.isExpanded = isExpanded
         self.theme = theme
         self._width = width
