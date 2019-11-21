@@ -122,8 +122,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         self.theme = theme
         
-        self.containerViewModel.stateHandler = { [weak self] in
-            self?.evaluateState()
+        self.containerViewModel.stateHandler = { [weak self] oldState in
+            self?.evaluateState(oldState: oldState)
         }
     }
     
