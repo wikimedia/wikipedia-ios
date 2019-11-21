@@ -36,7 +36,7 @@ class ConfigurationTests: XCTestCase {
         XCTAssertEqual(info!.title, "France")
         XCTAssertEqual(info!.language, "fr")
         
-        // TODO: update when we handle MobileDiff URLs
+        // Special should work on frwiki because it's a canonical namespace
         components.path = "/wiki/Special:MobileDiff/24601"
         info = configuration.activityInfoForWikiResourceURL(components.url!)
         XCTAssertEqual(info!.type, .articleDiff)

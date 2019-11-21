@@ -251,15 +251,14 @@ public class Configuration: NSObject {
         }
         let language = url.wmf_language ?? "en"
         if let namespaceMatch = namespaceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) {
-            let namespace = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$1")
+            let namespaceString = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$1")
             let title = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$2")
-            let canonicalNamespace = namespace.uppercased().replacingOccurrences(of: "_", with: " ")
+            let namespace = WikipediaURLTranslations.commonNamespace(for: namespaceString, in: language)
             let defaultActivity = UserActivityInfo(.inAppLink, url: url)
-            // TODO: replace with lookup table
-            switch canonicalNamespace {
-            case "USER TALK":
+            switch namespace {
+            case .userTalk:
                 return UserActivityInfo(.userTalk, url: url, title: title, language: language)
-            case "SPECIAL":
+            case .special:
                 if let diffMatch = mobilediffRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
                     let oldid = mobilediffRegex.replacementString(for: diffMatch, in: title, offset: 0, template: "$1")
                     return UserActivityInfo(.articleDiff, url: url, queryItems: [URLQueryItem(name: "diff", value: "prev"), URLQueryItem(name: "oldid", value: oldid)])

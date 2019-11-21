@@ -27,7 +27,7 @@ const excludedLanguageCodes = new Set(['be-x-old', 'mo', 'yue'])
 
 const codesFromJSON = json => Object.entries(json.sitematrix).map(langFromSiteInfo).filter(code => code !== undefined && !excludedLanguageCodes.has(code))
 
-const excludedAmbiguousNamespaceIDs = new Set([104, 105, 106, 107, 110, 111])
+const excludedAmbiguousNamespaceIDs = new Set([104, 105, 106, 107, 110, 111]) 
 
 const normalizeString = string => string.toUpperCase().replace(/\s+/g, ' ')
 
@@ -38,7 +38,14 @@ const translationsFromSiteInfoResponseJSON = (siteInfoResponseJSON, sitematrixLa
 
   Object.entries(siteInfoResponseJSON.query.namespaces)
     .filter(item => !excludedAmbiguousNamespaceIDs.has(item[1].id))
-    .forEach(item => namespacedict[normalizeString(item[1].name)] = item[1].id)
+    .forEach(item => {
+      const name = item[1].name
+      namespacedict[normalizeString(name)] = item[1].id
+      const canonicalName = item[1].canonical
+      if (canonicalName && canonicalName !== name) {
+        namespacedict[normalizeString(canonicalName)] = item[1].id
+      }
+    })
 
   Object.entries(siteInfoResponseJSON.query.namespacealiases)
     .filter(item => !excludedAmbiguousNamespaceIDs.has(item[1].id))
