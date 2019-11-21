@@ -1607,11 +1607,6 @@
 		B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */; };
 		B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */; };
 		B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
-		B08423D72384A105005E93A0 /* wikipedia-namespaces.json in Resources */ = {isa = PBXBuildFile; fileRef = B08423D62384A105005E93A0 /* wikipedia-namespaces.json */; };
-		B08423D82384A105005E93A0 /* wikipedia-namespaces.json in Resources */ = {isa = PBXBuildFile; fileRef = B08423D62384A105005E93A0 /* wikipedia-namespaces.json */; };
-		B08423D92384A105005E93A0 /* wikipedia-namespaces.json in Resources */ = {isa = PBXBuildFile; fileRef = B08423D62384A105005E93A0 /* wikipedia-namespaces.json */; };
-		B08423DA2384A105005E93A0 /* wikipedia-namespaces.json in Resources */ = {isa = PBXBuildFile; fileRef = B08423D62384A105005E93A0 /* wikipedia-namespaces.json */; };
-		B08423DB2384A105005E93A0 /* wikipedia-namespaces.json in Resources */ = {isa = PBXBuildFile; fileRef = B08423D62384A105005E93A0 /* wikipedia-namespaces.json */; };
 		B08423DE2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
 		B08423DF2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
 		B08423E02384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
@@ -4389,7 +4384,6 @@
 		B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePanelViewController.swift; path = Wikipedia/Code/WMFWelcomePanelViewController.swift; sourceTree = SOURCE_ROOT; };
 		B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewController.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeAnalyticsViewController.swift; path = Wikipedia/Code/WMFWelcomeAnalyticsViewController.swift; sourceTree = SOURCE_ROOT; };
-		B08423D62384A105005E93A0 /* wikipedia-namespaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-namespaces.json"; sourceTree = "<group>"; };
 		B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaURLTranslations.swift; sourceTree = "<group>"; };
 		B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProgressViewController.swift; sourceTree = "<group>"; };
 		B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SavedProgressViewController.storyboard; sourceTree = "<group>"; };
@@ -7295,7 +7289,6 @@
 		B08423DC2384E260005E93A0 /* URLTranslations */ = {
 			isa = PBXGroup;
 			children = (
-				B08423D62384A105005E93A0 /* wikipedia-namespaces.json */,
 				B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */,
 				B077A51323861E2200223526 /* wikipedia-namespaces */,
 			);
@@ -10156,7 +10149,6 @@
 				7AF0265B22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
-				B08423D72384A105005E93A0 /* wikipedia-namespaces.json in Resources */,
 				7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				B01490A11DB96BD6007F5391 /* WMFReferencePanels.storyboard in Resources */,
 				D87234041E1FF18100751E83 /* Places.storyboard in Resources */,
@@ -10284,7 +10276,6 @@
 				7A16C4EF212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				D80ED3EC1EE57F4800CE8C50 /* NotificationBackgroundWarningIcon.png in Resources */,
 				7A84225C2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
-				B08423DB2384A105005E93A0 /* wikipedia-namespaces.json in Resources */,
 				BA45242D1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				7A6F560321AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				D80ED3ED1EE57F4800CE8C50 /* WMFLoginViewController.storyboard in Resources */,
@@ -10494,7 +10485,6 @@
 				6782DC0823453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
 				D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D322665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
-				B08423DA2384A105005E93A0 /* wikipedia-namespaces.json in Resources */,
 				7ABE17202239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				D8A42C0D1E815A9C00D8E281 /* WMFForgotPasswordViewController.storyboard in Resources */,
 				B0845E1F2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
@@ -10620,7 +10610,6 @@
 				6782DC0623453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D122665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
-				B08423D82384A105005E93A0 /* wikipedia-namespaces.json in Resources */,
 				7ABE171E2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				D8CE26941E698E2400DAE2E0 /* WMFForgotPasswordViewController.storyboard in Resources */,
 				B0845E1D2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
@@ -10746,7 +10735,6 @@
 				6782DC0723453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
 				7A9524D222665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
-				B08423D92384A105005E93A0 /* wikipedia-namespaces.json in Resources */,
 				7ABE171F2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				D8EC3F941E9BDA35006712EB /* WMFForgotPasswordViewController.storyboard in Resources */,
 				B0845E1E2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
