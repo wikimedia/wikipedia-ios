@@ -1226,6 +1226,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeInAppLink:
         case WMFUserActivityTypeArticle:
+        case WMFUserActivityTypeExternalLink:
             break;
         default:
             [self dismissPresentedViewControllers];
