@@ -4,9 +4,9 @@ public class Router: NSObject {
         case inAppLink(_: URL)
         case externalLink(_: URL)
         case article(_: URL)
-        case articleHistory(_: URL)
-        case articleDiffCompare(_: URL, fromRevID: Int, toRevID: Int)
-        case articleDiffSingle(_: URL, toRevID: Int)
+        case articleHistory(_: URL, articleTitle: String)
+        case articleDiffCompare(_: URL, fromRevID: Int?, toRevID: Int?)
+        case articleDiffSingle(_: URL, fromRevID: Int?, toRevID: Int?)
         case userTalk(_: URL)
         case search(_: URL, term: String?)
     }
@@ -22,6 +22,56 @@ public class Router: NSObject {
     private let mobilediffRegexCompare = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)\\.\\.\\.([0-9]+)", options: .caseInsensitive)
     
      internal func destinationForWikiResourceURL(_ url: URL) -> Destination? {
+        
+        if configuration.isWResource(url) {
+            if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
+                let maybeTitle = queryItems.first(where: { $0.name == "title" })?.value
+                let maybeDiff = queryItems.first(where: { $0.name == "diff" })?.value
+                let maybeOldID = queryItems.first(where: { $0.name == "oldid" })?.value
+                let maybeType = queryItems.first(where: { $0.name == "type" })?.value
+                let maybeAction = queryItems.first(where: { $0.name == "action" })?.value
+                let maybeDir = queryItems.first(where: { $0.name == "dir" })?.value
+                let maybeLimit = queryItems.first(where: { $0.name == "limit" })?.value
+                
+                guard let title = maybeTitle else {
+                    return nil
+                }
+                
+                if let _ = maybeLimit,
+                    let _ = maybeDir,
+                    let action = maybeAction,
+                    action == "history" {
+                    //TODO: push history 'slice'
+                    return .articleHistory(url, articleTitle: title)
+                } else if let action = maybeAction,
+                    action == "history" {
+                    return .articleHistory(url, articleTitle: title)
+                } else if let type = maybeType,
+                    type == "revision",
+                    let diffString = maybeDiff,
+                    let oldIDString = maybeOldID,
+                    let toRevID = Int(diffString),
+                    let fromRevID = Int(oldIDString) {
+                    return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: toRevID)
+                } else if let diff = maybeDiff,
+                    diff == "prev",
+                    let oldIDString = maybeOldID,
+                    let toRevID = Int(oldIDString) {
+                    return .articleDiffCompare(url, fromRevID: nil, toRevID: toRevID)
+                } else if let diff = maybeDiff,
+                    diff == "next",
+                    let oldIDString = maybeOldID,
+                    let fromRevID = Int(oldIDString) {
+                    return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: nil)
+                } else if let oldIDString = maybeOldID,
+                    let toRevID = Int(oldIDString) {
+                    return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
+                }
+            }
+            
+            return nil
+        }
+        
         guard let path = configuration.wikiResourcePath(url.path) else {
              return nil
          }
@@ -44,7 +94,7 @@ public class Router: NSObject {
                 }
                  if let singleDiffMatch = mobilediffRegexSingle.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
                     let toRevID = Int(mobilediffRegexSingle.replacementString(for: singleDiffMatch, in: title, offset: 0, template: "$1")) {
-                    return .articleDiffSingle(url, toRevID: toRevID)
+                    return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
                  } else {
                     return inAppLinkActivity
                  }

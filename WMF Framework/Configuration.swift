@@ -245,6 +245,17 @@ public class Configuration: NSObject {
         }
         return isWikiHost(host)
     }
+    
+    @objc public func isWResource(_ url: URL?) -> Bool {
+        guard wResourcePath(url?.path) != nil else {
+            return false
+        }
+        
+        guard let host = url?.host else { // relative paths should work
+            return true
+        }
+        return isWikiHost(host)
+    }
 }
 
 

@@ -28,13 +28,14 @@ class ViewControllerRouter: NSObject {
                 appViewController.wmf_openExternalUrl(linkURL)
                 completion()
                 return true
-            case .articleHistory(let linkURL): // TODO: history
-                let singlePageVC = SinglePageWebViewController(url: linkURL)
-                navigationController.pushViewController(singlePageVC, animated: true)
+            case .articleHistory(let linkURL, let articleTitle):
+                let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL)
+                navigationController.pushViewController(pageHistoryVC, animated: true)
                 completion()
                 return true
             case .articleDiffCompare(let linkURL, let fromRevID, let toRevID):
-                guard let siteURL = linkURL.wmf_site else {
+                guard let siteURL = linkURL.wmf_site,
+                  (fromRevID != nil || toRevID != nil) else {
                     completion()
                     return false
                 }
@@ -43,13 +44,14 @@ class ViewControllerRouter: NSObject {
                 navigationController.pushViewController(diffContainerVC, animated: true)
                 completion()
                 return true
-            case .articleDiffSingle(let linkURL, let toRevID):
-                guard let siteURL = linkURL.wmf_site else {
+            case .articleDiffSingle(let linkURL, let fromRevID, let toRevID):
+                guard let siteURL = linkURL.wmf_site,
+                    (fromRevID != nil || toRevID != nil) else {
                     completion()
                     return false
                 }
                 
-                let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: appViewController.theme, fromRevisionID: nil, toRevisionID: toRevID, type: .single, articleTitle: nil, hidesHistoryBackTitle: true)
+                let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: appViewController.theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil, hidesHistoryBackTitle: true)
                 navigationController.pushViewController(diffContainerVC, animated: true)
                 completion()
                 return true
