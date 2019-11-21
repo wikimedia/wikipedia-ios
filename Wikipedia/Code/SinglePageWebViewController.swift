@@ -39,11 +39,16 @@ class SinglePageWebViewController: ViewController {
             didHandleInitialNavigation = true
             return true
         }
-        // allow redirects and other navigation types
-        guard action.navigationType == .linkActivated else {
+        
+        guard
+            action.navigationType == .linkActivated, // allow redirects and other navigation types
+            let relativeActionURL = action.request.url,
+            let actionURL = URL(string: relativeActionURL.absoluteString, relativeTo: webView.url)?.absoluteURL
+        else {
             return true
         }
-        navigateToActivity(with: url)
+    
+        navigateToActivity(with: actionURL)
         return false
     }
 }
@@ -66,7 +71,8 @@ extension SinglePageWebViewController: WKNavigationDelegate {
         decisionHandler(.allow, preferences)
     }
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        decisionHandler(.cancel)
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        DDLogError("Error loading single page: \(error)")
+        WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
     }
 }
