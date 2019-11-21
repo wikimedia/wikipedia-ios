@@ -1,6 +1,6 @@
 @objc(WMFRouter)
 public class Router: NSObject {
-    public enum Destination {
+    public enum Destination: Equatable {
         case inAppLink(_: URL)
         case externalLink(_: URL)
         case article(_: URL)
@@ -19,7 +19,7 @@ public class Router: NSObject {
     private let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
     private let mobilediffRegex = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
     
-     internal func activityInfoForWikiResourceURL(_ url: URL) -> Destination? {
+     internal func destinationForWikiResourceURL(_ url: URL) -> Destination? {
         guard let path = configuration.wikiResourcePath(url.path) else {
              return nil
          }
@@ -49,7 +49,7 @@ public class Router: NSObject {
          return articleActivity
      }
      
-     internal func activityInfoForWResourceURL(_ url: URL) -> Destination? {
+     internal func destinationForWResourceURL(_ url: URL) -> Destination? {
         guard let path = configuration.wResourcePath(url.path) else {
              return nil
          }
@@ -72,15 +72,14 @@ public class Router: NSObject {
          return defaultActivity
      }
      
-    internal func activityInfoForWikiHostURL(_ url: URL) -> Destination {
-         // standardize on desktop URLs for activities
-         let desktopURL = NSURL.wmf_desktopURL(for: url) ?? url
+    internal func destinationForWikiHostURL(_ url: URL) -> Destination {
+         let canonicalURL = url.canonical
          
-         if let wikiResourcePathInfo = activityInfoForWikiResourceURL(desktopURL) {
+         if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL) {
              return wikiResourcePathInfo
          }
          
-         if let wResourcePathInfo = activityInfoForWResourceURL(desktopURL) {
+         if let wResourcePathInfo = destinationForWResourceURL(canonicalURL) {
               return wResourcePathInfo
          }
          
@@ -97,6 +96,6 @@ public class Router: NSObject {
             return .externalLink(url)
          }
          
-         return activityInfoForWikiHostURL(url)
+         return destinationForWikiHostURL(url)
      }
 }

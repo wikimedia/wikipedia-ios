@@ -81,4 +81,8 @@ extension URL {
     public var wmf_URLForImageSharing: URL {
         return wmf_URLForSharing(with: "sfii1")
     }
+    
+    public var canonical: URL {
+        return (self as NSURL).wmf_database ?? self
+    }
 }

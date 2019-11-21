@@ -3,6 +3,8 @@ import XCTest
 
 class ConfigurationTests: XCTestCase {
     let configuration = Configuration.current
+    let router = Configuration.current.router
+    
     func testWikiResourcePath() {
         XCTAssertEqual(configuration.wikiResourcePath("/wiki//æ/_raising"), "/æ/_raising")
         XCTAssertNil(configuration.wikiResourcePath("/w//æ/_raising"))
@@ -18,35 +20,43 @@ class ConfigurationTests: XCTestCase {
             return
         }
         
-        var info = configuration.activityInfoForWikiResourceURL(components.url!)
-        XCTAssertEqual(info!.type, .userTalk)
-        XCTAssertEqual(info!.title, "Pink_Bull")
-        XCTAssertEqual(info!.language, "en")
+        var dest = try? router.destination(for: components.url!)
+        switch dest {
+        case .userTalk(let linkURL):
+            XCTAssertEqual(linkURL, components.url!.canonical)
+        default:
+            XCTAssertTrue(false)
+        }
 
         components.path = "/wiki//æ/_raising"
-        info = configuration.activityInfoForWikiResourceURL(components.url!)
-        XCTAssertEqual(info!.type, .article)
-        XCTAssertEqual(info!.title, "/æ/_raising")
-        XCTAssertEqual(info!.language, "en")
+        dest = try? router.destination(for: components.url!)
+        switch dest {
+        case .article(let linkURL):
+            XCTAssertEqual(linkURL, components.url!.canonical)
+        default:
+            XCTAssertTrue(false)
+        }
         
         components.host = "fr.m.wikipedia.org"
         components.path = "/wiki/France"
-        info = configuration.activityInfoForWikiResourceURL(components.url!)
-        XCTAssertEqual(info!.type, .article)
-        XCTAssertEqual(info!.title, "France")
-        XCTAssertEqual(info!.language, "fr")
+        dest = try? router.destination(for: components.url!)
+        switch dest {
+        case .article(let linkURL):
+            XCTAssertEqual(linkURL, components.url!.canonical)
+        default:
+            XCTAssertTrue(false)
+        }
         
         // Special should work on frwiki because it's a canonical namespace
         components.path = "/wiki/Special:MobileDiff/24601"
-        info = configuration.activityInfoForWikiResourceURL(components.url!)
-        XCTAssertEqual(info!.type, .articleDiff)
-        XCTAssertEqual(info!.url, components.url!)
-        XCTAssertEqual(info!.queryItems!.last, URLQueryItem(name: "oldid", value: "24601"))
+        dest = try? router.destination(for: components.url!)
+        switch dest {
+        case .articleDiff(let linkURL, let rev):
+            XCTAssertEqual(linkURL, components.url!.canonical)
+            XCTAssertEqual(rev, "24601")
+        default:
+            XCTAssertTrue(false)
+        }
     }
     
-//    func testWResourcePathActivity() {
-//        XCTAssertEqual(configuration.activityTypeForWResourcePath("index.php?title=Auguste_Rodin&action=history"), .articleHistory)
-//        XCTAssertEqual(configuration.activityTypeForWResourcePath("index.php?title=Auguste_Rodin&type=revision&diff=925807777&oldid=925784505"), .diff)
-//        XCTAssertNil(configuration.activityTypeForWResourcePath("index.php"))
-//    }
 }
