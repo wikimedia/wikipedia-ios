@@ -96,6 +96,8 @@
 "action-language-accessibility" = "Cambiar idioma";
 "action-move-to" = "Mover a…";
 "action-move-to-reading-list" = "Mover a una lista de lectura";
+"action-next-revision-accessibility" = "Revisión siguiente";
+"action-previous-revision-accessibility" = "Revisión anterior";
 "action-read" = "Leer";
 "action-redo" = "Rehacer";
 "action-remove" = "Quitar";
@@ -194,6 +196,7 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
+"diff-compare-header-to-info-heading" = "A:";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
 "diff-context-lines-expanded-button-title" = "Ocultar";
 "diff-multi-line-format" = "Renglones $1-$2";
@@ -308,12 +311,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "\nEn todos";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Todas las tarjetas %@ ocultadas";
 "explore-feed-preferences-global-card-footer-text" = "\nEsta tarjeta no depende de ningún idioma, desactivar esta tarjeta la quitará de tu canal Explorar.";
 "explore-feed-preferences-global-cards-description" = "Tarjetas que no dependen del idioma";
 "explore-feed-preferences-global-cards-subtitle" = "No depende de ningún idioma";
 "explore-feed-preferences-global-cards-title" = "\nTarjetas globales";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarjeta";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todas las tarjetas de «%@»";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobre acontecimientos recientes";
 "explore-feed-preferences-languages-footer-text" = "\nOcultar todas las tarjetas de Explorar en todos tus idiomas desactivará la pestaña Explorar.";
@@ -518,6 +523,8 @@
 "on-this-day-title" = "Un día como hoy";
 "original-tab-button-popover-description" = "Pulsa en la 'W' para volver a la pestaña desde la que comenzaste";
 "page-edit-history" = "Historial de edición completo";
+"page-history-anonymous-edits" = "ediciones anónimas";
+"page-history-minor-edits" = "ediciones menores";
 "page-issues" = "Problemas de la página";
 "page-last-edited" = "\n\n{{PLURAL:$1|0=Editado hoy|1=Editado ayer|Editado hace $1 días}}";
 "page-location" = "Ver en mapa";
@@ -634,6 +641,7 @@
 "reading-lists-default-list-title" = "Guardados";
 "reading-lists-delete-reading-list-alert-message" = "Esta acción no se puede deshacer. Cualquier artículo sólo guardado en {{PLURAL:$1|esta lista|estas listas}} no será guardado.";
 "reading-lists-delete-reading-list-alert-title" = "¿Quieres eliminar {{PLURAL:$1|la lista|las listas}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "\n$1 artículos y $2 listas de lectura sincronizadas desde tu cuenta";
 "reading-lists-list-not-synced-limit-exceeded" = "Lista no sincronizada, límite excedido";
 "reading-lists-sort-saved-articles" = "Ordenar artículos guardados";

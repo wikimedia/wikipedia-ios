@@ -86,6 +86,8 @@
 "action-language-accessibility" = "Modifier la langue";
 "action-move-to" = "Déplacer vers...";
 "action-move-to-reading-list" = "Déplacer vers la liste de lecture";
+"action-next-revision-accessibility" = "Révision suivante";
+"action-previous-revision-accessibility" = "Révision précédente";
 "action-read" = "Lire";
 "action-redo" = "Refaire";
 "action-remove" = "Supprimer";
@@ -98,6 +100,7 @@
 "action-share" = "Partager";
 "action-share-accessibility" = "Partager";
 "action-sort" = "Trier";
+"action-thank-user-accessibility" = "Remercier l’utilisateur";
 "action-undo" = "Annuler";
 "action-unsave" = "Non enregistré";
 "action-unsaved-accessibility-notification" = "Article non sauvegardé";
@@ -186,9 +189,6 @@
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "diff-compare-header-from-info-heading" = "De :";
 "diff-compare-header-heading" = "Comparer les versions";
-"diff-compare-header-subtitle-format" = "$1 par $2 non affiché";
-"diff-compare-header-subtitle-num-revisions" = "$1 version{{PLURAL:$1||s}} intermédiaire{{PLURAL:$1||s}}";
-"diff-compare-header-subtitle-num-users" = "$1 utilisateur{{PLURAL:$1||s}}";
 "diff-compare-header-to-info-heading" = "À :";
 "diff-compare-title" = "Comparer les versions";
 "diff-context-lines-collapsed-button-title" = "Afficher";
@@ -327,13 +327,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Tous activés";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activé";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Sur $1";
-"explore-feed-preferences-feed-cards-hidden-title" = "Toutes les cartes de type %@ sont masquées";
+"explore-feed-preferences-feed-cards-hidden-title" = "Toutes les cartes de type $1 sont masquées";
 "explore-feed-preferences-global-card-footer-text" = "Cette carte est indépendante de la langue, en la désactivant, vous la supprimerez du flux d’exploration.";
 "explore-feed-preferences-global-cards-description" = "Cartes indépendantes de la langue";
 "explore-feed-preferences-global-cards-subtitle" = "Indépendant de la langue";
 "explore-feed-preferences-global-cards-title" = "Cartes globales";
 "explore-feed-preferences-hide-card-action-title" = "Masquer cette carte";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Masquer toutes les cartes « %@ »";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Masquer toutes les cartes « $1 »";
 "explore-feed-preferences-in-the-news-description" = "Articles sur les événements actuels";
 "explore-feed-preferences-languages-footer-text" = "Masquer toutes les cartes du fil d’exploration dans toutes vos langues désactivera l’onglet Explorer.";
 "explore-feed-preferences-on-this-day-description" = "Événements de ce jour dans l’historique";
@@ -483,6 +483,12 @@
 "insert-media-media-settings-title" = "Paramètres du média";
 "insert-media-title" = "Insérer le média";
 "insert-media-uploaded-image-title" = "Image téléversée";
+"intermediate-edits-count" = "{{PLURAL:$1|$1 révision intermédiaire non affichée|$1 révisions intermédiaires non affichées}}";
+"intermediate-edits-count-limited" = "$1+ révisions intermédiaires non affichées";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 révision intermédiaire|$1 révisions intermédiaires}} par {{PLURAL:$2|$2 utilisateur|$2 utilisateurs}} non {{PLURAL:$1|affichée|affichées}}";
+"intermediate-edits-editors-count-limited" = "$1+ révisions intermédiaires par $2+ utilisateurs non affichées";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 révision intermédiaire|$1 révisions intermédiaires}} par $2+ utilisateurs non {{PLURAL:$1|affichée|affichées}}";
+"intermediate-edits-limited-editors-count" = "$1+ révisions intermédiaires par {{PLURAL:$2|$2 utilisateur|$2 utilisateurs}} non affichées";
 "languages-settings-title" = "Langues";
 "languages-title" = "Changer de langue";
 "languages-wikipedia" = "Langues de Wikipédia";
@@ -543,7 +549,7 @@
 "page-history-compare-accessibility-hint" = "Tapper pour sélectionner deux versions à comparer";
 "page-history-compare-title" = "Comparer";
 "page-history-minor-edits" = "modifications mineures";
-"page-history-revision-author-accessibility-label" = "Auteur : %@";
+"page-history-revision-author-accessibility-label" = "Auteur : $1";
 "page-history-revision-history-title" = "Historique des versions";
 "page-history-revision-size-diff-addition" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
 "page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
@@ -562,7 +568,7 @@
 "page-similar-titles" = "Pages similaires";
 "page-talk-page" = "Afficher la page de discussion";
 "panel-compare-revisions-text" = "Comparer les versions aide à montrer comment un article a changé au cours du temps. Quand vous comparez deux versions d’un article, les différences entre elles sont générées.";
-"panel-compare-revisions-title" = "Comparaison des versions en cours";
+"panel-compare-revisions-title" = "Comparaison des révisions";
 "pictured" = "en image";
 "places-accessibility-clear-saved-searches" = "Effacer les recherches enregistrées";
 "places-accessibility-group" = "$1 articles";
@@ -668,7 +674,7 @@
 "reading-lists-default-list-title" = "Enregistré";
 "reading-lists-delete-reading-list-alert-message" = "Cette action ne peut pas être annulée. Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera pas enregistré.";
 "reading-lists-delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
-"reading-lists-large-sync-completed" = "$1 articles et $2 listes de lecture synchronisés depuis votre compte";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 article|$1 articles}} et {{PLURAL:$2|$2 liste de lecture|$2 listes de lecture}} synchronisés depuis votre compte";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste non synchronisée, du fait d’un dépassement de limite";
 "reading-lists-sort-saved-articles" = "Trier les articles enregistrés";
 "reading-lists-split-notification" = "Il y a une limite de $1 articles par liste de lecture. Les listes existantes avec plus d’articles que cette limite seront coupées en plusieurs listes.";

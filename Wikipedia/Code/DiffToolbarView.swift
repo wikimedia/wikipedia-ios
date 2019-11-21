@@ -137,6 +137,14 @@ class DiffToolbarView: UIView {
     func setNextButtonState(isEnabled: Bool) {
         nextButton.isEnabled = isEnabled
     }
+    
+    func setThankButtonState(isEnabled: Bool) {
+        thankButton.isEnabled = isEnabled
+    }
+    
+    func setShareButtonState(isEnabled: Bool) {
+        shareButton.isEnabled = isEnabled
+    }
 }
 
 extension DiffToolbarView: Themeable {

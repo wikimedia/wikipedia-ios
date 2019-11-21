@@ -167,6 +167,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سب آن کریں";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 زبانیں";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "تمام %@ کارڈ پوشیدہ";
 "explore-hide-card-prompt" = "یہ کارڈ پوشیدہ کریں";
 "explore-main-page-description" = "ویکیمیڈیا منصوبوں کا صفحہ اول";

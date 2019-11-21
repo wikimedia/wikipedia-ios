@@ -17,6 +17,7 @@
 // Author: Macofe
 // Author: Mazab IZW
 // Author: Nemo bis
+// Author: Nharateh
 // Author: Pawel Niemczuk
 // Author: Peter Bowman
 // Author: Pio387
@@ -89,6 +90,8 @@
 "action-language-accessibility" = "Zmień język";
 "action-move-to" = "Przenieś do...";
 "action-move-to-reading-list" = "Przejdź do listy lektur";
+"action-next-revision-accessibility" = "Następna wersja";
+"action-previous-revision-accessibility" = "Poprzednia wersja";
 "action-read" = "Czytaj";
 "action-redo" = "Ponów";
 "action-remove" = "Usuń";
@@ -101,6 +104,7 @@
 "action-share" = "Udostępnij";
 "action-share-accessibility" = "Udostępnij";
 "action-sort" = "Sortuj";
+"action-thank-user-accessibility" = "Podziękuj użytkownikowi";
 "action-undo" = "Cofnij";
 "action-unsave" = "Niezapisane";
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
@@ -189,16 +193,17 @@
 "description-welcome-start-editing-button" = "Rozpocznij edycję";
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Porównaj wersje";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 użytkownik|$1 użytkowników}}";
 "diff-compare-header-to-info-heading" = "Do:";
 "diff-compare-title" = "Porównaj wersje";
 "diff-context-lines-collapsed-button-title" = "Pokaż";
 "diff-context-lines-expanded-button-title" = "Ukryj";
 "diff-multi-line-format" = "Linie $1 – $2";
+"diff-paragraph-moved" = "Przesunięty akapit";
 "diff-paragraph-moved-direction-down" = "w dół";
 "diff-paragraph-moved-direction-up" = "w górę";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 linia|$1 linie|$1 linii}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sekcja|$1 sekcje|$1 sekcji}}";
+"diff-paragraph-moved-format" = "Akapit przesunięty";
 "diff-revision-error-title" = "Nie udało się załadować wersji";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edycja|$1 edycje|$1 edycji}}";
 "diff-single-header-editor-title" = "Informacje o edytorze";
@@ -212,7 +217,6 @@
 "diff-thanks-send-button-title" = "Wyślij podziękowanie";
 "diff-thanks-send-subtitle" = "Podziękowania są prostym sposobem na okazanie wdzięczności za wkład edytora w Wikipedię. Nie mogą zostać cofnięte i są publicznie widoczne dla innych.";
 "diff-thanks-send-title" = "Wyślij podziękowanie";
-// Fuzzy
 "diff-thanks-sent" = "Twoje podziękowanie zostało wysłane do $1";
 "diff-thanks-sent-already" = "Wysłano już podziękowanie za tę edycję";
 "diff-thanks-sent-cannot-unsend" = "Podziękowania nie mogą zostać anulowane";
@@ -283,6 +287,7 @@
 "editing-welcome-impartial-tone-subtitle" = "Staramy się, aby artykuły były pisane w sposób bezstronny. Podczas edycji staraj się rzetelnie przedstawiać świat, tak jak opisują to wiarygodne źródła.";
 "editing-welcome-impartial-tone-title" = "Pisz bezstronnym tonem";
 "editing-welcome-set-knowledge-free-subtitle" = "Aby zapewnić wszystkim dostęp do wiedzy o świecie, musimy uczestniczyć w jej tworzeniu, czytając, edytując i przyczyniając się do tematów, które są dla Ciebie najważniejsze.";
+"editing-welcome-set-knowledge-free-title" = "Uwolnij wiedzę";
 "empty-diff-compare-title" = "Nie ma różnic pomiędzy wersjami";
 "empty-insert-media-title" = "Wybierz plik z Wikimedia Commons";
 "empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
@@ -311,6 +316,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipedii";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-feed-customize-accessibility-title" = "Dostosuj";
+"explore-feed-language-settings" = "Ustawienia języków Odkryj";
 "explore-feed-preferences-additional-languages-footer-text" = "Dodatkowe języki można dodać na stronie ustawień „Moje języki”.";
 "explore-feed-preferences-card-hidden-title" = "Karta ukryta";
 "explore-feed-preferences-continue-reading-description" = "Szybki link do przeczytania otwartego artykułu";
@@ -337,12 +343,29 @@
 "explore-feed-preferences-potd-description" = "Wyróżniony obraz z Wikimedia Commons";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
 "explore-feed-preferences-related-pages-description" = "Sugestie oparte na historii czytania";
+"explore-feed-preferences-show-continue-reading-title" = "Pokaż kartę Czytaj dalej";
+"explore-feed-preferences-show-featured-article-footer-text" = "Wyłączenie karty Wyróżniony artykuł wyłączy tę kartę we wszystkich dostępnych językach";
+"explore-feed-preferences-show-featured-article-title" = "Pokaż kartę Wyróżniony artykuł";
+"explore-feed-preferences-show-news-footer-text" = "Wyłączenie karty W wiadomościach wyłączy tę kartę we wszystkich dostępnych językach";
+"explore-feed-preferences-show-news-title" = "Pokaż kartę W wiadomościach";
+"explore-feed-preferences-show-on-this-day-footer-text" = "Wyłączenie karty W tym dniu wyłączy tę kartę we wszystkich dostępnych językach";
+"explore-feed-preferences-show-on-this-day-title" = "Pokaż kartę W tym dniu";
+"explore-feed-preferences-show-picture-of-the-day-title" = "Pokaż kartę Grafika dnia";
+"explore-feed-preferences-show-places-footer-text" = "Wyłączenie karty Miejsca wyłączy tę kartę we wszystkich dostępnych językach";
+"explore-feed-preferences-show-places-title" = "Pokaż kartę Miejsca";
+"explore-feed-preferences-show-randomizer-footer-text" = "Wyłączenie karty Losowy artykuł wyłączy tę kartę we wszystkich dostępnych językach";
 "explore-feed-preferences-show-randomizer-title" = "Pokaż kartę Randomizera";
+"explore-feed-preferences-show-related-pages-title" = "Pokaż kartę Ponieważ czytasz";
+"explore-feed-preferences-show-top-read-footer-text" = "Wyłączenie karty Najczęściej czytane wyłączy tę kartę we wszystkich dostępnych językach";
+"explore-feed-preferences-show-top-read-title" = "Pokaż kartę Najczęściej czytane";
 "explore-feed-preferences-top-read-description" = "Najczęściej dzisiaj czytane artykuły";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Wyłącz kanał Eksploruj";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Wyłączenie wszystkich kart wyłączy Odkryj i zastąpi je Ustawieniami";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Wyłączyć kanał Eksploruj?";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Włącz Eksploruj";
+"explore-feed-preferences-turn-off-explore-tab-message" = "Odkryj może być włączone ponownie w ustawieniach Odkryj";
 "explore-feed-preferences-turn-off-explore-tab-title" = "Włączyć kartę Eksploruj?";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Wyłączenie Odkryj zastąpi je Ustawieniami";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Włącz Eksploruj";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Spowoduje to zastąpienie karty Ustawienia kartą Eksploruj. Dostęp do ustawień można uzyskać u góry karty Eksploracja, dotykając ikony koła zębatego";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Włączyć kartę Eksploruj?";
@@ -359,6 +382,7 @@
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Z $1 Wikipedii";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Z Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Twoja lokalizacja z $1 Wikipedii";
 "explore-potd-heading" = "Grafika dnia";
 "explore-potd-sub-heading" = "Z Wikimedia Commons";
 "explore-random-article-heading" = "Losowy artykuł";
@@ -367,6 +391,7 @@
 "explore-randomizer" = "Losowy artykuł";
 "featured-article-empty-title" = "Brak polecanego artykułu";
 "feed-news-notification-button-text" = "Włącz powiadomienia";
+"feed-news-notification-text" = "Zezwól na powiadomienia żeby dostać informacje od Wikipedii kiedy artykuły stają się popularne w wiadomościach";
 "fetcher-error-generic" = "Coś poszło nie tak. Spróbuj ponownie później.";
 "fetcher-error-unexpected-response" = "Aplikacja otrzymała nieoczekiwaną odpowiedź z serwera. Spróbuj ponownie później.";
 "field-alert-captcha-invalid" = "Niepoprawna CAPTCHA";
@@ -390,6 +415,7 @@
 "field-token-title" = "Kod weryfikacyjny";
 "field-username-placeholder" = "wprowadź nazwę użytkownika";
 "field-username-title" = "Nazwa użytkownika";
+"find-clear-button-accessibility" = "Wymaż tekst do szukania";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "Następny wynik wyszukiwania";
 "find-previous-button-accessibility" = "Poprzedni wynik wyszukiwania";
@@ -406,15 +432,19 @@
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
 "history-clear-delete-all" = "Tak, usuń wszystko";
 "history-title" = "Historia";
+"home-button-explore-accessibility-label" = "Wikipedia, wróć do Odkryj";
 "home-button-history-accessibility-label" = "Wikipedia, wróć do historii";
 "home-button-saved-accessibility-label" = "Wikipedia, wróć do Zapisane";
 "home-more-like-footer" = "Więcej jak $1";
 "home-nearby-footer" = "Więcej miejsc w pobliżu Twojej lokalizacji";
+"home-nearby-location-footer" = "Więcej niedaleko";
 "home-news-footer" = "Więcej aktualnych wydarzeń";
 "home-reading-list-prompt" = "Zapisane artykuły można teraz porządkować w listy do czytania i synchronizować na różnych urządzeniach. Zaloguj się, aby umożliwić zapisanie list czytelniczych zgodnie z preferencjami użytkownika.";
 "home-themes-action-title" = "Zarządzaj preferencjami";
 "home-themes-prompt" = "Dostosuj preferencje czytania, w tym rozmiar tekstu i motyw z paska narzędzi artykułu lub w ustawieniach użytkownika, aby zapewnić wygodniejsze czytanie.";
 "home-title" = "Odkryj";
+"home-title-accessibility-label" = "Wikipedia, przewiń do góry Odkryj";
+"icon-shortcut-nearby-title" = "Niedalekie artykuły";
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
@@ -429,6 +459,7 @@
 "info-box-title" = "Szybkie fakty";
 "insert-action-title" = "Wstaw";
 "insert-link-title" = "Wstaw link";
+"insert-media-alternative-text-description" = "Opis tekstu dla czytelników którzy nie widzą grafiki";
 "insert-media-alternative-text-placeholder" = "Opisz ten obraz";
 "insert-media-alternative-text-title" = "Tekst alternatywny";
 "insert-media-caption-caption-placeholder" = "Jak ten obraz odnosi się do artykułu?";
@@ -451,7 +482,10 @@
 "insert-media-image-type-setting-thumbnail" = "Miniatura";
 "insert-media-image-type-settings-title" = "Typ obrazu";
 "insert-media-media-settings-title" = "Ustawienia multimediów";
+"insert-media-title" = "Wstaw media";
 "insert-media-uploaded-image-title" = "Przesłany obraz";
+"intermediate-edits-count-limited" = "Nie pokazano $1+ wersji";
+"intermediate-edits-editors-count" = "Nie pokazano {{PLURAL:$1|$1 wersji utworzonej|$1 wersji utworzonych}} przez {{PLURAL:$2|jednego użytkownika|$2 użytkowników}}";
 "languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";
 "languages-wikipedia" = "Języki Wikipedii";
@@ -505,21 +539,22 @@
 "on-this-day-footer-with-event-count" = "$1 więcej wydarzeń historycznych tego dnia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z $2 Wikipedii";
 "on-this-day-title" = "W tym dniu...";
+"original-tab-button-popover-description" = "Stuknij w 'W' żeby powrócić to początkowej karty";
 "page-edit-history" = "Pełna historia edycji";
 "page-history-anonymous-edits" = "anonimowe edycje";
 "page-history-bot-edits" = "edycje bota";
 "page-history-compare-accessibility-hint" = "Stuknij, aby wybrać dwie wersje do porównania";
 "page-history-compare-title" = "Porównaj";
 "page-history-minor-edits" = "drobne edycje";
-"page-history-revision-author-accessibility-label" = "Autor: %@";
+"page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Historia wersji";
 "page-history-revision-size-diff-addition" = "Dodano {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revision-size-diff-subtraction" = "Usunięto {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revisions-comparison-warning" = "Wybrane moga być tylko dwie wersje";
-// Fuzzy
-"page-history-stats-text" = "$1 edycji od $2";
+"page-history-stats-text" = "{{PLURAL:$1|$1 edycja|$1 edycji}} od $2";
 "page-history-user-edits" = "edycje użytkownika";
 "page-issues" = "Problemy ze stroną";
+"page-last-edited" = "{{PLURAL:$1|0=Edytowane dzisiaj|1=Edytowane wczoraj|Edytowane $1 dni temu}}";
 "page-location" = "Zobacz na mapie";
 "page-protected-autoconfirmed" = "Ta strona została częściowo zabezpieczona.";
 "page-protected-can-not-edit" = "Nie masz uprawnień do edytowania tej strony";
@@ -541,6 +576,8 @@
 "places-empty-search-title" = "Wyszukaj artykuły w Wikipedii z lokalizacjami geograficznymi";
 "places-enable-location-action-button-title" = "Włącz lokalizację";
 "places-enable-location-description" = "Dostęp do Twojej lokalizacji jest dostępny tylko wtedy, gdy aplikacja lub jedna z jej funkcji jest widoczna na ekranie.";
+"places-enable-location-title" = "Odkryj artykuły niedaleko Twojej lokalizacji poprzez włączenie Usług lokalizacji";
+"places-filter-articles-action-sheet-title" = "Filtruj artykuły";
 "places-filter-button-title" = "Filtr";
 "places-filter-no-saved-places" = "Nie masz zapisanych miejsc";
 "places-filter-saved-articles" = "Zapisane artykuły";
@@ -554,6 +591,7 @@
 "places-search-recently-searched-header" = "Ostatnio wyszukiwane";
 "places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
+"places-search-this-area" = "Wyniki w tym rejonie";
 "places-search-top-articles-that-match-scope" = "W pobliżu";
 "places-search-your-current-location" = "Twoja aktualna lokalizacja";
 "places-title" = "Miejsca";
@@ -563,6 +601,7 @@
 "preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "rank-accessibility-label" = "Liczba $1";
 "readers-accessibility-label" = "$1 czytelników";
+"reading-list-add-generic-hint-title" = "Dodaj ten artykuł do listy do przeczytania?";
 "reading-list-add-hint-title" = "Dodać \"$1\" do listy czytania?";
 "reading-list-add-saved-button-title" = "Tak, dodaj je do mojej listy";
 "reading-list-add-saved-subtitle" = "W Twojej aplikacji w Wikipedii są zapisane artykuły. Czy chcesz je zachować i połączyć z listami do czytania zsynchronizowanymi z Twoim kontem?";
@@ -578,6 +617,8 @@
 "reading-list-do-not-keep-button-title" = "Nie, usuń artykuły z urządzenia";
 "reading-list-entry-limit-exceeded-message" = "Zmniejsz liczbę artykułów na tej liście do $1, aby wznowić synchronizację wszystkich artykułów na tej liście.";
 "reading-list-entry-limit-exceeded-title" = "Przekroczyłeś limit {{PLURAL:$1|$1 artykułu|$1 artykułów}} na konto.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Artykuł nie może być dodany|Artykuły nie mogą być dodane}} do tej listy. Został osiągnięty limit $2 artykułów na listę dla $3";
+"reading-list-exists-with-same-name" = "Nazwa listy została już użyta";
 "reading-list-generic-error" = "Wystąpił nieoczekiwany błąd podczas synchronizacji list do czytania.";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-keep-subtitle" = "Istnieją artykuły zsynchronizowane z Twoim kontem Wikipedia. Czy chcesz je zachować na tym urządzeniu po wylogowaniu?";
@@ -603,9 +644,16 @@
 "reading-list-sync-enable-button-title" = "Włącz synchronizację";
 "reading-list-sync-enable-subtitle" = "Zapisane artykuły i listy do czytania można teraz zapisać na koncie w Wikipedii i zsynchronizować z aplikacjami Wikipedii.";
 "reading-list-sync-enable-title" = "Włączyć synchronizację list czytelniczych?";
+"reading-list-sync-enabled-panel-message" = "Synchronizacja list do przeczytania jest włączona dla tego konta. Aby wyłączyć synchronizację list, zmień ustawienia.";
+"reading-list-sync-enabled-panel-title" = "Synchronizacja list do przeczytania jest włączona dla tego konta";
 "reading-list-unable-to-remove-entry" = "Wystąpił nieoczekiwany błąd podczas usuwania pozycji z listy czytelniczej. Spróbuj ponownie później.";
 "reading-list-unable-to-update" = "Wystąpił nieoczekiwany błąd podczas aktualizowania listy czytelniczej. Spróbuj ponownie później.";
+"reading-lists-article-added-confirmation" = "Artykuł dodany do “$1”";
+"reading-lists-article-api-failure" = "Nie można zsynchronizować artykułu";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Limit artykułów przekroczony, nie można zsynchronizować artykułu";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Limit list przekroczony, nie można zsynchronizować artykułu";
 "reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";
+"reading-lists-articles-not-synced-limit-exceeded" = "Nie można było zsynchronizować niektórych artykułów, limit przekroczony";
 "reading-lists-default-list-title" = "Zapisane";
 "reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
 "reading-lists-sort-saved-articles" = "Sortuj zapisane artykuły";

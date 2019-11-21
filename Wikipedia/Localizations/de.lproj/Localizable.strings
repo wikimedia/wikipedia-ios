@@ -269,12 +269,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Auf allen";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Auf";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Auf $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Alle Karten des Typs %@ ausgeblendet";
 "explore-feed-preferences-global-card-footer-text" = "Diese Karte ist nicht sprachspezifisch. Das Ausschalten dieser Karte entfernt sie aus deinem Entdecken-Feed.";
 "explore-feed-preferences-global-cards-description" = "Nicht sprachspezifische Karten";
 "explore-feed-preferences-global-cards-subtitle" = "Nicht sprachspezifisch";
 "explore-feed-preferences-global-cards-title" = "Globale Karten";
 "explore-feed-preferences-hide-card-action-title" = "Diese Karte ausblenden";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Alle „%@“-Karten ausblenden";
 "explore-feed-preferences-in-the-news-description" = "Artikel über aktuelle Ereignisse";
 "explore-feed-preferences-languages-footer-text" = "Das Ausblenden aller Entdecken-Feed-Karten in all deinen Sprachen wird den Entdecken-Reiter ausschalten.";
@@ -594,6 +596,7 @@
 "reading-lists-default-list-title" = "Gespeichert";
 "reading-lists-delete-reading-list-alert-message" = "Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in {{PLURAL:$1|dieser Liste|diesen Listen}} gespeichert sind, werden gelöscht.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 Artikel und $2 Leselisten wurden von deinem Benutzerkonto synchronisiert";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste nicht synchronisiert, Grenze überschritten";
 "reading-lists-sort-saved-articles" = "Gespeicherte Artikel sortieren";

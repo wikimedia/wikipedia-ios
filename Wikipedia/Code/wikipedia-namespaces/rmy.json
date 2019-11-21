@@ -1,0 +1,48 @@
+{
+  "languagecode": {
+    "rmy": {
+      "namespace": {
+        "": 0,
+        "VAKYARIMATA": 1,
+        "JENO": 2,
+        "JENO VAKYARIMATA": 3,
+        "VIKIPIDIYA": 4,
+        "VIKIPIDIYAKE VAKYARIMATA": 5,
+        "CHITRO": 6,
+        "CHITRO VAKYARIMATA": 7,
+        "MEDIYAVIKI": 8,
+        "MEDIYAVIKI VAKYARIMATA": 9,
+        "SIKAVNO": 10,
+        "SIKAVNO VAKYARIMATA": 11,
+        "ZHUTIPEN": 12,
+        "ZHUTIPEN VAKYARIMATA": 13,
+        "SHOPNI": 14,
+        "SHOPNI VAKYARIMATA": 15,
+        "MODUL": 828,
+        "DISCUȚIE MODUL": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MEDIYA": -2,
+        "UZALUTNO": -1,
+        "DISCUŢIE": 1,
+        "DISCUŢIE UTILIZATOR": 3,
+        "WIKIPEDIA": 4,
+        "DISCUŢIE VIKIPIDIYA": 5,
+        "WIKIPEDIA TALK": 5,
+        "FIŞIER": 6,
+        "IMAGE": 6,
+        "IMAGINE": 6,
+        "DISCUŢIE FIŞIER": 7,
+        "DISCUŢIE IMAGINE": 7,
+        "IMAGE TALK": 7,
+        "DISCUŢIE MEDIAWIKI": 9,
+        "DISCUŢIE FORMAT": 11,
+        "DISCUŢIE AJUTOR": 13,
+        "DISCUŢIE CATEGORIE": 15
+      },
+      "mainpage": "Sherutni patrin"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
 // Author: Abijeet Patro
+// Author: JoeWalshWMF
 // Author: Les Meloures
 // Author: Macofe
 // Author: Nemo bis
@@ -169,6 +170,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Aus";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Un";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Op $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "All %@ Kaarte si verstoppt";
 "explore-feed-preferences-global-cards-subtitle" = "Net sproochspezifesch";
 "explore-feed-preferences-global-cards-title" = "Global Kaarten";
@@ -321,6 +323,7 @@
 "page-edit-history" = "All Versioune vun der Säit";
 "page-history-anonymous-edits" = "anonym Ännerungen";
 "page-history-minor-edits" = "kleng Ännerungen";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
@@ -404,6 +407,7 @@
 "reading-lists-default-list-description" = "Standard-Lëscht fir Är gespäichert Artikelen";
 "reading-lists-default-list-title" = "Gespäichert";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Lëscht|Lëschte}} läschen?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 Artikelen a(n) $2   Lieslëschte vun Ärem Benotzerkont synchroniséiert";
 "reading-lists-sort-saved-articles" = "Gespäichert Artikelen zortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";

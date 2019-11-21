@@ -264,12 +264,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alle på";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "På";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Alle %@-kort skjult";
 "explore-feed-preferences-global-card-footer-text" = "Dette kortet er ikke språkspesifikt, ved å skru det av vil det forsvinne fra utforskingssiden din.";
 "explore-feed-preferences-global-cards-description" = "Ikke-språkspesifikke kort";
 "explore-feed-preferences-global-cards-subtitle" = "Ikke-språkspesifikk";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kortet";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle «%@»-kort";
 "explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle hendelser";
 "explore-feed-preferences-languages-footer-text" = "Hvis du skjuler alle kort på alle språk vil utforskingsfanen bli skrudd av.";
@@ -562,6 +564,7 @@
 "reading-lists-default-list-title" = "Lagret";
 "reading-lists-delete-reading-list-alert-message" = "Handlingen kan ikke angres. Artikler som kun er lagret i {{PLURAL:$1|denne listen|disse listene}} vil bli fjernet.";
 "reading-lists-delete-reading-list-alert-title" = "Slett {{PLURAL:$1|listen|listene}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikler og $2 leselister synkronisert fra kontoen din";
 "reading-lists-list-not-synced-limit-exceeded" = "Listen ble ikke synkronisert, grense overskredet";
 "reading-lists-sort-saved-articles" = "Sorter lagrede artikler";

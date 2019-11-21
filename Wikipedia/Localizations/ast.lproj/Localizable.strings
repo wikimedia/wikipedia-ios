@@ -166,12 +166,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Toes activaes";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activáu";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 activaes";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Toles tarxetes %@ tán tapecíes";
 "explore-feed-preferences-global-card-footer-text" = "Esta tarxeta nun depende de la llingua, desactivándola eliminarásla de la canal d'esploración.";
 "explore-feed-preferences-global-cards-description" = "Tarxetes independientes de la llingua";
 "explore-feed-preferences-global-cards-subtitle" = "Independiente de la llingua";
 "explore-feed-preferences-global-cards-title" = "Tarxetes globales";
 "explore-feed-preferences-hide-card-action-title" = "Tapecer esta tarxeta";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Tapecer toles tarxetes «%@»";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobro actividaes de recién";
 "explore-feed-preferences-languages-footer-text" = "Tapecer toles tarxetes de la canal d'esploración en tolos idiomes desactivará la llingüeta Esplorar.";
@@ -430,6 +432,7 @@
 "reading-lists-default-list-title" = "Guardada";
 "reading-lists-delete-reading-list-alert-message" = "Esta aición nun puede desfacese. Cuanquier artículu guardáu sólo {{PLURAL:$1|nesta llista|nestes llistes}} va dexar de guardase.";
 "reading-lists-delete-reading-list-alert-title" = "¿Desaniciar {{PLURAL:$1|la llista|les llistes}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artículos y $2 llistes de llectura sincronizaos dende la to cuenta";
 "reading-lists-list-not-synced-limit-exceeded" = "La llista nun se sincronizó, pasóse la llende";
 "reading-lists-sort-saved-articles" = "Ordenar los artículos guardaos";

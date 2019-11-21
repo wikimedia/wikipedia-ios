@@ -241,12 +241,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Укључено за све";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Укључено";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Укључено $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Све %@ картице су скривене";
 "explore-feed-preferences-global-card-footer-text" = "Ова картица је невезана за језик. Ако је искључите, уклонићете је из фида „Истражи”.";
 "explore-feed-preferences-global-cards-description" = "Картице невезане за језик";
 "explore-feed-preferences-global-cards-subtitle" = "Невезано за језик";
 "explore-feed-preferences-global-cards-title" = "Глобалне картице";
 "explore-feed-preferences-hide-card-action-title" = "Сакриј ову картицу";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Сакриј све “%@” картице";
 "explore-feed-preferences-in-the-news-description" = "Чланци о тренутним догађајима";
 "explore-feed-preferences-languages-footer-text" = "Скривањем свих картица на свим вашим језицима, искључићете фид „Истражи”.";
@@ -552,6 +554,7 @@
 "reading-lists-default-list-title" = "Сачувано";
 "reading-lists-delete-reading-list-alert-message" = "Ова радња је неповратна. Сви чланци сачувани само на {{PLURAL:$1|овој листи|овим листама}} ће бити уклоњени из сачуваних.";
 "reading-lists-delete-reading-list-alert-title" = "Избрисати {{PLURAL:$1|списак|спискове}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "Синхронизовано је $1 чланака и $2 листа за читање са вашег налога";
 "reading-lists-list-not-synced-limit-exceeded" = "Листа није синхронизована. Прекорачено је ограничење.";
 "reading-lists-sort-saved-articles" = "Сортирај сачуване чланке";
