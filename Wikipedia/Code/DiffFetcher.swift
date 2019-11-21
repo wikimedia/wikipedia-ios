@@ -8,7 +8,7 @@ enum DiffFetcherError: Error {
 
 class DiffFetcher: Fetcher {
     
-    enum SingleRevisionRequestDirection: String {
+    enum FetchRevisionModelRequestDirection: String {
         case older
         case newer
     }
@@ -106,27 +106,22 @@ class DiffFetcher: Fetcher {
         return components.url
     }
     
-    enum SingleRevisionRequest {
-        case prevOrNext(sourceRevision: WMFPageHistoryRevision, direction: SingleRevisionRequestDirection)
+    enum FetchRevisionModelRequest {
+        case adjacent(sourceRevision: WMFPageHistoryRevision, direction: FetchRevisionModelRequestDirection)
         case populateModel(revisionID: Int)
     }
     
-    struct SingleRevisionResponse {
-        let model: WMFPageHistoryRevision
-        let title: String
-    }
-    
-    func fetchSingleRevisionInfo(_ siteURL: URL, request: SingleRevisionRequest, completion: @escaping ((Result<SingleRevisionResponse, Error>) -> Void)) -> Void {
+    func fetchRevisionModel(_ siteURL: URL, articleTitle: String, request: FetchRevisionModelRequest, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) -> Void {
         
         let requestRevisionID: Int
-        var requestDirection: SingleRevisionRequestDirection? = nil
+        var requestDirection: FetchRevisionModelRequestDirection? = nil
         let requestNumberOfRevisions: Int
         
         switch request {
         case .populateModel(let revisionID):
             requestRevisionID = revisionID
             requestNumberOfRevisions = 1
-        case .prevOrNext(let sourceRevision, let direction):
+        case .adjacent(let sourceRevision, let direction):
             requestRevisionID = sourceRevision.revisionID
             requestDirection = direction
             requestNumberOfRevisions = 2
@@ -138,6 +133,7 @@ class DiffFetcher: Fetcher {
             "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
             "rvlimit": requestNumberOfRevisions,
             "rvstartid": requestRevisionID,
+            "titles": articleTitle,
             "format": "json"
         ]
         
@@ -168,8 +164,7 @@ class DiffFetcher: Fetcher {
                 
                 let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
                 
-                guard let title = value["title"] as? String,
-                    let val = value["revisions"],
+                guard let val = value["revisions"],
                     let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision] else {
                     completion(.failure(DiffFetcherError.failureParsingRevisions))
                     return
@@ -179,7 +174,7 @@ class DiffFetcher: Fetcher {
                 switch request {
                 case .populateModel:
                     filteredRevisions = revisions
-                case .prevOrNext(let sourceRevision, _):
+                case .adjacent(let sourceRevision, _):
                     filteredRevisions = revisions.filter { $0.revisionID != sourceRevision.revisionID }
                 }
                 guard let singleRevision = filteredRevisions.first else {
@@ -187,8 +182,7 @@ class DiffFetcher: Fetcher {
                                                                 return
                 }
                 
-                let result = SingleRevisionResponse(model: singleRevision, title: title)
-                completion(.success(result))
+                completion(.success(singleRevision))
                 return
             }
             
@@ -196,10 +190,11 @@ class DiffFetcher: Fetcher {
         }
     }
     
-    public func fetchFirstRevision(siteURL: URL, articleTitle: String, completion: @escaping (Result<WMFPageHistoryRevision, Error>) -> Void) {
+    public func fetchFirstRevisionModel(siteURL: URL, articleTitle: String, completion: @escaping (Result<WMFPageHistoryRevision, Error>) -> Void) {
         let parameters: [String: Any] = [
             "action": "query",
             "prop": "revisions",
+            "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
             "rvlimit": 1,
             "rvdir": "newer",
             "titles": articleTitle,

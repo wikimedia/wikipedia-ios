@@ -30,9 +30,9 @@ class DiffContainerViewController: ViewController, HintPresenting {
     private var fromModel: WMFPageHistoryRevision?
     private var fromModelRevisionID: Int?
     private var toModel: WMFPageHistoryRevision?
-    private let toModelRevisionID: Int
+    private let toModelRevisionID: Int?
     private let siteURL: URL
-    private var articleTitle: String?
+    private let articleTitle: String
     private let safeAreaBottomAlignView = UIView()
     
     private let type: DiffContainerViewModel.DiffType
@@ -84,10 +84,11 @@ class DiffContainerViewController: ViewController, HintPresenting {
         return false
     }
     
-    init?(siteURL: URL, type: DiffContainerViewModel.DiffType, theme: Theme, fromRevisionID: Int?, toRevisionID: Int) {
+    init?(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String) {
     
         self.siteURL = siteURL
-        self.type = type
+        self.type = (fromRevisionID != nil && toRevisionID != nil) ? .compare(articleTitle: articleTitle) : .single(byteDifference: 0) //😭 why did I force byte difference so early
+        self.articleTitle = articleTitle
         self.toModelRevisionID = toRevisionID
         self.fromModelRevisionID = fromRevisionID
         
@@ -96,7 +97,6 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         self.firstRevision = nil
         self.revisionRetrievingDelegate = nil
-        self.articleTitle = nil
         self.toModel = nil
         self.fromModel = nil
         
@@ -143,8 +143,6 @@ class DiffContainerViewController: ViewController, HintPresenting {
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.historyTabTitle, style: .plain, target: nil, action: nil)
         
-        assert(fromModel != nil || toModel != nil, "Need at least one revision model for diff screen.")
-        
         let onLoad = { [weak self] in
             
             guard let self = self else { return }
@@ -154,6 +152,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
             } else if self.toModel == nil {
                 self.fetchToModelAndFinishSetup()
             } else {
+                self.populateNewHeaderViewModel()
                 self.midSetup()
                 self.completeSetup()
             }
@@ -161,7 +160,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         startSetup()
         if toModel == nil {
-            populateFromDeepLink { [weak self] (error) in
+            populateModelsFromDeepLink { [weak self] (error) in
                 
                 guard let self = self else { return }
                 
@@ -170,13 +169,16 @@ class DiffContainerViewController: ViewController, HintPresenting {
                     return
                 }
                 
+                if let _ = self.toModel,
+                    let _ = self.fromModel {
+                    self.populateNewHeaderViewModel()
+                }
+                
                 onLoad()
             }
         } else {
             onLoad()
         }
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -241,26 +243,44 @@ class DiffContainerViewController: ViewController, HintPresenting {
 
 private extension DiffContainerViewController {
     
+    func populateNewHeaderViewModel() {
+        guard let toModel = toModel else {
+            assertionFailure("To model needs to be in place for this.")
+            return
+        }
+        
+        let headerDiffType: DiffContainerViewModel.DiffType
+        if case .single = self.type {
+            if let fromModel = fromModel {
+                headerDiffType = .single(byteDifference: toModel.articleSizeAtRevision - fromModel.articleSizeAtRevision)
+            } else if isOnFirstRevisionInHistory {
+                headerDiffType = .single(byteDifference: toModel.articleSizeAtRevision)
+            } else {
+                headerDiffType = self.type
+            }
+        } else {
+            headerDiffType = .compare(articleTitle: self.articleTitle)
+        }
+        self.containerViewModel.headerViewModel = DiffHeaderViewModel(diffType: headerDiffType, fromModel: self.fromModel, toModel: toModel, theme: self.theme)
+    }
+    
     func resetPrevNextAnimateState() {
         animateDirection = nil
     }
     
-    func populateFromDeepLink(completion: @escaping (_ error: Error?) -> Void) {
+    func populateModelsFromDeepLink(completion: @escaping (_ error: Error?) -> Void) {
         guard toModel == nil else {
             assertionFailure("Why are you calling this if you already have toModel?")
             return
         }
         
-        diffController.populateFromDeepLink(toRevisionID: toModelRevisionID, fromRevisionID: fromModelRevisionID) { (result) in
+        diffController.populateModelsFromDeepLink(fromRevisionID: fromModelRevisionID, toRevisionID: toModelRevisionID, articleTitle: articleTitle) { (result) in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-                    self.toModel = response.1.model
-                    self.fromModel = response.0?.model
-                    
-                    if self.articleTitle == nil {
-                        self.articleTitle = response.1.title
-                    }
+                    self.fromModel = response.from
+                    self.toModel = response.to
+                    self.firstRevision = response.first
                     completion(nil)
                 }
             case .failure(let error):
@@ -277,11 +297,13 @@ private extension DiffContainerViewController {
             return
         }
         
-        diffController.fetchRevision(sourceRevision: fromModel, direction: .next) { (result) in
+        diffController.fetchAdjacentRevisionModel(sourceRevision: fromModel, direction: .next, articleTitle: articleTitle) { (result) in
             switch result {
             case .success(let revision):
                 DispatchQueue.main.async {
                     self.toModel = revision
+                    self.populateNewHeaderViewModel()
+                    
                     self.midSetup()
                     self.completeSetup()
                 }
@@ -300,20 +322,23 @@ private extension DiffContainerViewController {
             return
         }
         
-        midSetup()
-        
         //early exit for first revision
         //there is no previous revision from toModel in this case
         if isOnFirstRevisionInHistory {
+            populateNewHeaderViewModel()
+            midSetup()
             completeSetup()
             return
         }
         
-        diffController.fetchRevision(sourceRevision: toModel, direction: .previous) { (result) in
+        diffController.fetchAdjacentRevisionModel(sourceRevision: toModel, direction: .previous, articleTitle: articleTitle) { (result) in
             switch result {
             case .success(let revision):
                 DispatchQueue.main.async {
                     self.fromModel = revision
+                    self.populateNewHeaderViewModel()
+                    
+                    self.midSetup()
                     self.completeSetup()
                 }
             case .failure(let error):
@@ -357,35 +382,12 @@ private extension DiffContainerViewController {
         }
         
         //Still need models for enabling/disabling prev/next buttons
-        prepareToPopulatePrevNextModelsForToolbar()
+        populatePrevNextModelsForToolbar()
     }
     
-    func prepareToPopulatePrevNextModelsForToolbar() {
-        guard let _ = toModel,
-        let articleTitle = articleTitle else {
-            assertionFailure("toModel and articleTitle must be populated at this point.")
-            return
-        }
-        
-        if firstRevision == nil {
-            diffController.fetchFirstRevision(articleTitle: articleTitle) { [weak self] (result) in
-                
-                guard let self = self else { return }
-                
-                switch result {
-                case .success(let response):
-                    DispatchQueue.main.async {
-                        self.firstRevision = response
-                        self.populatePrevNextModelsForToolbar()
-                    }
-                case .failure:
-                    return
-                }
-            }
-            return
-        }
-        
-        self.populatePrevNextModelsForToolbar()
+    func setThankAndShareState(isEnabled: Bool) {
+        diffToolbarView?.setThankButtonState(isEnabled: isEnabled)
+        diffToolbarView?.setShareButtonState(isEnabled: isEnabled)
     }
     
     func populatePrevNextModelsForToolbar() {
@@ -399,7 +401,7 @@ private extension DiffContainerViewController {
         //populate nextModel for enabling previous/next button
         let nextFromModel = toModel
         var nextToModel: WMFPageHistoryRevision?
-        diffController.fetchRevision(sourceRevision: nextFromModel, direction: .next) { [weak self] (result) in
+        diffController.fetchAdjacentRevisionModel(sourceRevision: nextFromModel, direction: .next, articleTitle: articleTitle) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -436,7 +438,7 @@ private extension DiffContainerViewController {
         //populate prevModel for enabling previous/next button
         var prevFromModel: WMFPageHistoryRevision?
         let prevToModel = fromModel
-        diffController.fetchRevision(sourceRevision: prevToModel, direction: .previous) { [weak self] (result) in
+        diffController.fetchAdjacentRevisionModel(sourceRevision: prevToModel, direction: .previous, articleTitle: articleTitle) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -481,6 +483,7 @@ private extension DiffContainerViewController {
             fakeProgressController.start()
             scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = true
+            setThankAndShareState(isEnabled: false)
         case .empty:
             fakeProgressController.stop()
             setupScrollingEmptyViewControllerIfNeeded()
@@ -498,6 +501,7 @@ private extension DiffContainerViewController {
             }
             
             diffListViewController?.view.isHidden = true
+            setThankAndShareState(isEnabled: true)
         case .error(let error):
             fakeProgressController.stop()
             showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -505,6 +509,7 @@ private extension DiffContainerViewController {
             scrollingEmptyViewController?.type = .diffError
             scrollingEmptyViewController?.view.isHidden = false
             diffListViewController?.view.isHidden = true
+            setThankAndShareState(isEnabled: false)
         case .data:
             fakeProgressController.stop()
             scrollingEmptyViewController?.view.isHidden = true
@@ -514,6 +519,8 @@ private extension DiffContainerViewController {
             } else {
                 diffListViewController?.view.isHidden = false
             }
+            
+            setThankAndShareState(isEnabled: true)
         }
     }
     
@@ -611,8 +618,7 @@ private extension DiffContainerViewController {
     
     func fetchIntermediateCountIfNeeded() {
         
-        guard let toModel = toModel,
-        let articleTitle = articleTitle else {
+        guard let toModel = toModel else {
             return
         }
         
@@ -686,7 +692,7 @@ private extension DiffContainerViewController {
         view.layoutIfNeeded()
         let width = diffListViewController?.collectionView.frame.width
         
-        diffController.fetchFirstRevision(revisionId: toModel.revisionID, siteURL: siteURL, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
+        diffController.fetchFirstRevisionDiff(revisionId: toModel.revisionID, siteURL: siteURL, theme: theme, traitCollection: traitCollection) { [weak self] (result) in
 
             guard let self = self else {
                 return
@@ -974,8 +980,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     func tappedRevision(revisionID: Int) {
         
         guard let fromModel = fromModel,
-        let toModel = toModel,
-        let articleTitle = articleTitle  else {
+        let toModel = toModel else {
             assertionFailure("Revision tapping is not supported on a page without models")
             return
         }
@@ -1061,8 +1066,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         animateDirection = .down
         
         guard prevModel != nil ||
-            isOnSecondRevisionInHistory,
-            let articleTitle = articleTitle else {
+            isOnSecondRevisionInHistory else {
                 assertionFailure("Expecting either a prevModel populated to push or a firstRevision to push.")
                 return
         }
@@ -1086,8 +1090,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         animateDirection = .up
         
-        guard let nextModel = nextModel,
-        let articleTitle = articleTitle else {
+        guard let nextModel = nextModel else {
             assertionFailure("Expecting prevModel to be populated. Previous button should have been disabled if there's no model.")
             return
         }

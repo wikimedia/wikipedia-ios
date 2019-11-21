@@ -56,29 +56,40 @@ class DiffController {
         diffThanker.thank(siteURL: siteURL, rev: toRevisionId, completion: completion)
     }
     
-    func fetchFirstRevision(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
-        //failing that try fetching revision from API
+    func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+
         guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
             completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
             return
         }
         
-        diffFetcher.fetchFirstRevision(siteURL: siteURL, articleTitle: articleTitle, completion: completion)
+        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle, completion: completion)
     }
     
-    func populateFromDeepLink(toRevisionID: Int, fromRevisionID: Int?, completion: @escaping ((Result<(DiffFetcher.SingleRevisionResponse?, DiffFetcher.SingleRevisionResponse), Error>) -> Void)) {
+    struct DeepLinkModelsResponse {
+        let from: WMFPageHistoryRevision?
+        let to: WMFPageHistoryRevision?
+        let first: WMFPageHistoryRevision
+    }
+    
+    func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
+        
+        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
+            return
+        }
+        
+        var fromResponse: WMFPageHistoryRevision?
+        var toResponse: WMFPageHistoryRevision?
+        var firstResponse: WMFPageHistoryRevision?
+        
+        let group = DispatchGroup()
         
         if let fromRevisionID = fromRevisionID {
             
-            var fromResponse: DiffFetcher.SingleRevisionResponse?
-            var toResponse: DiffFetcher.SingleRevisionResponse?
-            
-            let group = DispatchGroup()
-            
             group.enter()
-            
-            let fromRequest = DiffFetcher.SingleRevisionRequest.populateModel(revisionID: fromRevisionID)
-            diffFetcher.fetchSingleRevisionInfo(siteURL, request: fromRequest) { (result) in
+            let fromRequest = DiffFetcher.FetchRevisionModelRequest.populateModel(revisionID: fromRevisionID)
+            diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: fromRequest) { (result) in
                 switch result {
                 case .success(let fetchResponse):
                     fromResponse = fetchResponse
@@ -87,9 +98,12 @@ class DiffController {
                 }
                 group.leave()
             }
-            
-            let toRequest = DiffFetcher.SingleRevisionRequest.populateModel(revisionID: toRevisionID)
-            diffFetcher.fetchSingleRevisionInfo(siteURL, request: toRequest) { (result) in
+        }
+        
+        if let toRevisionID = toRevisionID {
+            group.enter()
+            let toRequest = DiffFetcher.FetchRevisionModelRequest.populateModel(revisionID: toRevisionID)
+            diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: toRequest) { (result) in
                 switch result {
                 case .success(let fetchResponse):
                     toResponse = fetchResponse
@@ -98,33 +112,32 @@ class DiffController {
                 }
                 group.leave()
             }
+        }
+        
+        group.enter()
+        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle) { (result) in
+            switch result {
+            case .success(let fetchResponse):
+                firstResponse = fetchResponse
+            case .failure:
+                break
+            }
+            group.leave()
+        }
             
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                guard let toResponse = toResponse,
-                    let fromResponse = fromResponse else {
-                        completion(.failure(DiffError.failureToPopulateModelsFromDeepLink))
-                        return
-                }
-                
-                completion(.success((fromResponse, toResponse)))
-            }
-            
-            return
-        } else {
-            
-            let toRequest = DiffFetcher.SingleRevisionRequest.populateModel(revisionID: toRevisionID)
-            diffFetcher.fetchSingleRevisionInfo(siteURL, request: toRequest) { (result) in
-                switch result {
-                case .success(let fetchResponse):
-                    completion(.success((nil, fetchResponse)))
-                case .failure:
+            guard let firstResponse = firstResponse,
+                (fromResponse != nil || toResponse != nil) else {
                     completion(.failure(DiffError.failureToPopulateModelsFromDeepLink))
-                }
+                    return
             }
+            
+            let response = DeepLinkModelsResponse(from: fromResponse, to: toResponse, first: firstResponse)
+            completion(.success(response))
         }
     }
     
-    func fetchRevision(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+    func fetchAdjacentRevisionModel(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
         
         if let revisionRetrievingDelegate = revisionRetrievingDelegate {
             
@@ -143,21 +156,21 @@ class DiffController {
             }
         }
 
-        let direction: DiffFetcher.SingleRevisionRequestDirection = direction == .previous ? .older : .newer
+        let direction: DiffFetcher.FetchRevisionModelRequestDirection = direction == .previous ? .older : .newer
         
-        let request = DiffFetcher.SingleRevisionRequest.prevOrNext(sourceRevision: sourceRevision, direction: direction)
+        let request = DiffFetcher.FetchRevisionModelRequest.adjacent(sourceRevision: sourceRevision, direction: direction)
         
-        diffFetcher.fetchSingleRevisionInfo(siteURL, request: request) { (result) in
+        diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: request) { (result) in
             switch result {
             case .success(let response):
-                completion(.success(response.model))
+                completion(.success(response))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
     
-    func fetchFirstRevision(revisionId: Int, siteURL: URL, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+    func fetchFirstRevisionDiff(revisionId: Int, siteURL: URL, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
         diffFetcher.fetchWikitext(siteURL: siteURL, revisionId: revisionId) { (result) in
             switch result {

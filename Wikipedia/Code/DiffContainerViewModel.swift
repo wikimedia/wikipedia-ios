@@ -15,7 +15,7 @@ final class DiffContainerViewModel {
         case error(error: Error)
     }
     
-    let headerViewModel: DiffHeaderViewModel?
+    var headerViewModel: DiffHeaderViewModel?
     let type: DiffType
     var listViewModel: [DiffListGroupViewModel]?
     
