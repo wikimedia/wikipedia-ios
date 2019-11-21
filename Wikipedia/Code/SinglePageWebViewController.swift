@@ -26,10 +26,17 @@ class SinglePageWebViewController: ViewController {
         return webView
     }()
     
+    lazy var fakeProgressController: FakeProgressController = {
+        let fpc = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        fpc.delay = 0
+        return fpc
+    }()
+    
     override func viewDidLoad() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView
         super.viewDidLoad()
+        fakeProgressController.start()
         webView.load(URLRequest(url: url))
     }
     
@@ -74,5 +81,9 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         DDLogError("Error loading single page: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        fakeProgressController.finish()
     }
 }
