@@ -230,12 +230,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Uključeno za sve";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Uključeno";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Uključeno $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Sve %@ kartice su skrivene";
 "explore-feed-preferences-global-card-footer-text" = "Ova kartica je nevezana za jezik. Ako je isključite, uklonićete je iz fida „Istraži”.";
 "explore-feed-preferences-global-cards-description" = "Kartice nevezane za jezik";
 "explore-feed-preferences-global-cards-subtitle" = "Nevezano za jezik";
 "explore-feed-preferences-global-cards-title" = "Globalne kartice";
 "explore-feed-preferences-hide-card-action-title" = "Sakrij ovu karticu";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Sakrij sve “%@” kartice";
 "explore-feed-preferences-in-the-news-description" = "Članci o trenutnim događajima";
 "explore-feed-preferences-languages-footer-text" = "Skrivanjem svih kartica na svim vašim jezicima, isključićete fid „Istraži”.";
@@ -542,6 +544,7 @@
 "reading-lists-default-list-title" = "Sačuvano";
 "reading-lists-delete-reading-list-alert-message" = "Ova radnja je nepovratna. Svi članci sačuvani samo na {{PLURAL:$1|ovoj listi|ovim listama}} će biti uklonjeni iz sačuvanih.";
 "reading-lists-delete-reading-list-alert-title" = "Izbrisati {{PLURAL:$1|spisak|spiskove}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "Sinhronizovano je $1 članaka i $2 lista za čitanje sa vašeg naloga";
 "reading-lists-list-not-synced-limit-exceeded" = "Lista nije sinhronizovana. Prekoračeno je ograničenje.";
 "reading-lists-sort-saved-articles" = "Sortiraj sačuvane članke";

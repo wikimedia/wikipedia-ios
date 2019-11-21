@@ -178,9 +178,6 @@
 "description-welcome-start-editing-button" = "Börja redigera";
 "diff-compare-header-from-info-heading" = "Från:";
 "diff-compare-header-heading" = "Jämför sidversioner";
-"diff-compare-header-subtitle-format" = "$1 av $2 visas inte";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 mellanliggande sidversion|$1 mellanliggande sidversioner}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 användare}}";
 "diff-compare-header-to-info-heading" = "Till:";
 "diff-compare-title" = "Jämför sidversioner";
 "diff-context-lines-collapsed-button-title" = "Visa";
@@ -319,12 +316,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "På för alla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "På";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På för $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Alla %@ kort doldes";
 "explore-feed-preferences-global-card-footer-text" = "Detta kort är inte språkspecifikt, kortet kommer att tas bort från ditt utforskarflöde om du inaktiverar det.";
 "explore-feed-preferences-global-cards-description" = "Kort som inte är språkspecifika";
 "explore-feed-preferences-global-cards-subtitle" = "Inte språkspecifikt";
 "explore-feed-preferences-global-cards-title" = "Globala kort";
 "explore-feed-preferences-hide-card-action-title" = "Dölj detta kort";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla kort av typen “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artiklar om nuvarande händelser";
 "explore-feed-preferences-languages-footer-text" = "När alla kort i utforskarflödet på alla dina språk döljs kommer utforskarfliken inaktiveras.";
@@ -535,6 +534,7 @@
 "page-history-compare-accessibility-hint" = "Tryck för att välja två sidversioner att jämföra";
 "page-history-compare-title" = "Jämför";
 "page-history-minor-edits" = "mindre redigeringar";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "Författare: %@";
 "page-history-revision-history-title" = "Sidversionshistorik";
 "page-history-revision-size-diff-addition" = "Lade till {{PLURAL:$1|$1 byte}}";
@@ -660,6 +660,7 @@
 "reading-lists-default-list-title" = "Sparade";
 "reading-lists-delete-reading-list-alert-message" = "Denna handling kan inte ångras. Alla artiklar som endast sparas i {{PLURAL:$1|denna lista|dessa listor}} kommer att tas bort.";
 "reading-lists-delete-reading-list-alert-title" = "Radera {{PLURAL:$1|listan|listorna}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artiklar och $2 läslistor synkroniserades från ditt konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listan är inte synkroniserad, gränsen har överstigits";
 "reading-lists-sort-saved-articles" = "Sortera sparade artiklar";
@@ -681,6 +682,7 @@
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
 "relative-date-minutes-ago-abbreviated" = "$1m sedan";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Denna månad|1=Senaste månaden|$1 månader sedan}}";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s sedan";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|1=Senaste året|$1 år sedan}}";

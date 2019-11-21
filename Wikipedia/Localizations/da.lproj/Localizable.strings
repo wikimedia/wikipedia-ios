@@ -220,7 +220,7 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På $1";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle “%@” kort";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle “$1” kort";
 "explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle begivenheder";
 "explore-hide-card-prompt" = "Skjul dette kort";
 "explore-main-page-description" = "Hovedside for Wikimedia-projekt";
