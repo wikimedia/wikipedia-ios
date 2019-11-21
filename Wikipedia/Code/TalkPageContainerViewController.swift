@@ -554,21 +554,10 @@ private extension TalkPageContainerViewController {
     }
     
     func tappedLink(_ url: URL, loadingViewController: ViewController, sourceView: UIView, sourceRect: CGRect?) {
-        
-        self.currentLoadingViewController = loadingViewController
-        self.currentSourceView = sourceView
-        self.currentSourceRect = sourceRect
-        
-        self.viewState = .linkLoading(loadingViewController: loadingViewController)
-        
         guard let url = URL(string: url.absoluteString, relativeTo: talkPageURL) else {
             return
         }
-        do {
-            try navigateToActivity(with: url)
-        } catch let error {
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
-        }
+        navigateToActivity(with: url)
     }
     
     func changeLanguage(siteURL: URL) {

@@ -1221,7 +1221,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     WMFUserActivityType type = [activity wmf_type];
 
-    if (type != WMFUserActivityTypeSearch) {
+    if (type != WMFUserActivityTypeSearch && type != WMFUserActivityTypeInAppLink) {
         [self dismissPresentedViewControllers];
     }
 
@@ -1331,9 +1331,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeExternalLink:
-        case WMFUserActivityTypeInAppLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
             break;
+        case WMFUserActivityTypeInAppLink: {
+            NSURL *url = activity.webpageURL;
+            if (url) {
+                WMFSinglePageWebViewController *vc = [[WMFSinglePageWebViewController alloc] initWithURL:activity.webpageURL];
+                [self.currentNavigationController pushViewController:vc animated:YES];
+            }
+        } break;
         default:
             done();
             return NO;
@@ -2003,12 +2009,20 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
+- (nullable UINavigationController *)currentNavigationController {
+    if ([self.presentedViewController isKindOfClass:[UINavigationController class]]) {
+        return (UINavigationController *)self.presentedViewController;
+    } else {
+        return self.navigationController;
+    }
+}
+
 - (void)showSearchInCurrentNavigationControllerAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
     [self dismissReadingThemesPopoverIfActive];
 
-    UINavigationController *nc = self.presentedViewController == self.settingsNavigationController ? self.settingsNavigationController : self.navigationController;
+    UINavigationController *nc = self.currentNavigationController;
     if (!nc) {
         return;
     }

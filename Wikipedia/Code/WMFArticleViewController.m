@@ -1682,12 +1682,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    NSError *error = nil;
-    if (![self wmf_navigateToActivityWithURL:url error:&error]) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:^{
-            
-        }];
-    }
+    [self wmf_navigateToActivityWithURL:url];
 }
 
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {
