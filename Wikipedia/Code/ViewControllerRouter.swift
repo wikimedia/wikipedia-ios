@@ -33,9 +33,24 @@ class ViewControllerRouter: NSObject {
                 navigationController.pushViewController(singlePageVC, animated: true)
                 completion()
                 return true
-            case .articleDiff(let linkURL, _): // TODO: diff
-                let singlePageVC = SinglePageWebViewController(url: linkURL)
-                navigationController.pushViewController(singlePageVC, animated: true)
+            case .articleDiffCompare(let linkURL, let fromRevID, let toRevID):
+                guard let siteURL = linkURL.wmf_site else {
+                    completion()
+                    return false
+                }
+                
+                let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: appViewController.theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil, hidesHistoryBackTitle: true)
+                navigationController.pushViewController(diffContainerVC, animated: true)
+                completion()
+                return true
+            case .articleDiffSingle(let linkURL, let toRevID):
+                guard let siteURL = linkURL.wmf_site else {
+                    completion()
+                    return false
+                }
+                
+                let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: appViewController.theme, fromRevisionID: nil, toRevisionID: toRevID, type: .single, articleTitle: nil, hidesHistoryBackTitle: true)
+                navigationController.pushViewController(diffContainerVC, animated: true)
                 completion()
                 return true
             case .inAppLink(let linkURL):

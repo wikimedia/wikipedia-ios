@@ -5,7 +5,8 @@ public class Router: NSObject {
         case externalLink(_: URL)
         case article(_: URL)
         case articleHistory(_: URL)
-        case articleDiff(_: URL, rev: String)
+        case articleDiffCompare(_: URL, fromRevID: Int, toRevID: Int)
+        case articleDiffSingle(_: URL, toRevID: Int)
         case userTalk(_: URL)
         case search(_: URL, term: String?)
     }
@@ -17,7 +18,8 @@ public class Router: NSObject {
     
     // From https://github.com/wikimedia/mediawiki-title
     private let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
-    private let mobilediffRegex = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
+    private let mobilediffRegexSingle = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
+    private let mobilediffRegexCompare = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)\\.\\.\\.([0-9]+)", options: .caseInsensitive)
     
      internal func activityInfoForWikiResourceURL(_ url: URL) -> Destination? {
         guard let path = configuration.wikiResourcePath(url.path) else {
@@ -34,9 +36,15 @@ public class Router: NSObject {
              case .userTalk:
                  return .userTalk(url)
              case .special:
-                 if let diffMatch = mobilediffRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
-                     let oldid = mobilediffRegex.replacementString(for: diffMatch, in: title, offset: 0, template: "$1")
-                    return .articleDiff(url, rev:oldid)
+                if let compareDiffMatch = mobilediffRegexCompare.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
+                    let fromRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$1")),
+                    let toRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$2")) {
+
+                    return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: toRevID)
+                }
+                 if let singleDiffMatch = mobilediffRegexSingle.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
+                    let toRevID = Int(mobilediffRegexSingle.replacementString(for: singleDiffMatch, in: title, offset: 0, template: "$1")) {
+                    return .articleDiffSingle(url, toRevID: toRevID)
                  } else {
                     return inAppLinkActivity
                  }
