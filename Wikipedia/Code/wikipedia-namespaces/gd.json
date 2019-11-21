@@ -1,0 +1,37 @@
+{
+  "languagecode": {
+    "gd": {
+      "namespace": {
+        "": 0,
+        "DEASBAIREACHD": 1,
+        "CLEACHDAICHE": 2,
+        "DEASBAIREACHD A' CHLEACHDAICHE": 3,
+        "UICIPEID": 4,
+        "AN DEASBAIREACHD AIG UICIPEID": 5,
+        "FAIDHLE": 6,
+        "DEASBAIREACHD AN FHAIDHLE": 7,
+        "MEDIAWIKI": 8,
+        "DEASBAIREACHD MEDIAWIKI": 9,
+        "TEAMPLAID": 10,
+        "DEASBAIREACHD NA TEAMPLAID": 11,
+        "COBHAIR": 12,
+        "DEASBAIREACHD NA COBHARACH": 13,
+        "ROINN-SEÒRSA": 14,
+        "DEASBAIREACHD NA ROINN-SEÒRSA": 15,
+        "MÒIDEAL": 828,
+        "DEASBAIREACHD MÒIDEIL": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MEADHAN": -2,
+        "SÒNRAICHTE": -1,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Prìomh-Dhuilleag"
+    }
+  }
+}
