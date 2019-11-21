@@ -1,0 +1,37 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "MYANGEKÕI": 1,
+      "PURUHÁRA": 2,
+      "PURUHÁRA MYANGEKÕI": 3,
+      "VIKIPETÃ": 4,
+      "VIKIPETÃ MYANGEKÕI": 5,
+      "TA'ÃNGA": 6,
+      "TA'ÃNGA MYANGEKÕI": 7,
+      "MEDIAWIKI": 8,
+      "MEDIAWIKI MYANGEKÕI": 9,
+      "TEMBIECHARÃ": 10,
+      "TEMBIECHARÃ MYANGEKÕI": 11,
+      "PYTYVÕ": 12,
+      "PYTYVÕ MYANGEKÕI": 13,
+      "ÑEMOHENDA": 14,
+      "ÑEMOHENDA MYANGEKÕI": 15,
+      "MÓDULO": 828,
+      "MÓDULO DISCUSIÓN": 829,
+      "ACCESORIO": 2300,
+      "ACCESORIO DISCUSIÓN": 2301,
+      "ACCESORIO DEFINICIÓN": 2302,
+      "ACCESORIO DEFINICIÓN DISCUSIÓN": 2303,
+      "MEDIO": -2,
+      "MBA'ECHĨCHĨ": -1,
+      "WIKIPEDIA": 4,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "IMAGEN": 6,
+      "IMAGE TALK": 7,
+      "IMAGEN DISCUSIÓN": 7
+    },
+    "mainpage": "Ape"
+  }
+}

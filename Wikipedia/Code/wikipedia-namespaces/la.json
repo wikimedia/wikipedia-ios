@@ -1,0 +1,40 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "DISPUTATIO": 1,
+      "USOR": 2,
+      "DISPUTATIO USORIS": 3,
+      "VICIPAEDIA": 4,
+      "DISPUTATIO VICIPAEDIAE": 5,
+      "FASCICULUS": 6,
+      "DISPUTATIO FASCICULI": 7,
+      "MEDIAWIKI": 8,
+      "DISPUTATIO MEDIAWIKI": 9,
+      "FORMULA": 10,
+      "DISPUTATIO FORMULAE": 11,
+      "AUXILIUM": 12,
+      "DISPUTATIO AUXILII": 13,
+      "CATEGORIA": 14,
+      "DISPUTATIO CATEGORIAE": 15,
+      "PORTA": 100,
+      "DISPUTATIO PORTAE": 101,
+      "MODULE": 828,
+      "MODULE TALK": 829,
+      "GADGET": 2300,
+      "GADGET TALK": 2301,
+      "GADGET DEFINITION": 2302,
+      "GADGET DEFINITION TALK": 2303,
+      "MEDIA": -2,
+      "SPECIALIS": -1,
+      "WIKIPEDIA": 4,
+      "DISPUTATIO WIKIPEDIA": 5,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "IMAGO": 6,
+      "DISPUTATIO IMAGINIS": 7,
+      "IMAGE TALK": 7
+    },
+    "mainpage": "Vicipaedia:Pagina prima"
+  }
+}

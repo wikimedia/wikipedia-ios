@@ -1,0 +1,38 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "BESPREKING": 1,
+      "GEBRUIKER": 2,
+      "GEBRUIKERBESPREKING": 3,
+      "WIKIPEDIA": 4,
+      "WIKIPEDIABESPREKING": 5,
+      "LÊER": 6,
+      "LÊERBESPREKING": 7,
+      "MEDIAWIKI": 8,
+      "MEDIAWIKIBESPREKING": 9,
+      "SJABLOON": 10,
+      "SJABLOONBESPREKING": 11,
+      "HULP": 12,
+      "HULPBESPREKING": 13,
+      "KATEGORIE": 14,
+      "KATEGORIEBESPREKING": 15,
+      "PORTAAL": 100,
+      "PORTAALBESPREKING": 101,
+      "MODULE": 828,
+      "MODULE TALK": 829,
+      "GADGET": 2300,
+      "GADGET TALK": 2301,
+      "GADGET DEFINITION": 2302,
+      "GADGET DEFINITION TALK": 2303,
+      "MEDIA": -2,
+      "SPESIAAL": -1,
+      "WIKIPEDIA TALK": 5,
+      "BEELD": 6,
+      "IMAGE": 6,
+      "BEELDBESPREKING": 7,
+      "IMAGE TALK": 7
+    },
+    "mainpage": "Tuisblad"
+  }
+}

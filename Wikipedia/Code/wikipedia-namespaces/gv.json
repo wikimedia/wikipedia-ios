@@ -1,0 +1,34 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "RESOONEY": 1,
+      "YMMYDEYR": 2,
+      "RESOONEY YMMYDEYR": 3,
+      "WIKIPEDIA": 4,
+      "RESOONEY WIKIPEDIA": 5,
+      "COADAN": 6,
+      "RESOONEY COADAN": 7,
+      "MEDIAWIKI": 8,
+      "RESOONEY MEDIAWIKI": 9,
+      "CLOWAN": 10,
+      "RESOONEY CLOWAN": 11,
+      "COONEY": 12,
+      "RESOONEY COONEY": 13,
+      "RONNEY": 14,
+      "RESOONEY RONNEY": 15,
+      "MODULE": 828,
+      "MODULE TALK": 829,
+      "GADGET": 2300,
+      "GADGET TALK": 2301,
+      "GADGET DEFINITION": 2302,
+      "GADGET DEFINITION TALK": 2303,
+      "MEANYN": -2,
+      "ER LHEH": -1,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "IMAGE TALK": 7
+    },
+    "mainpage": "Ard-ghuillag"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "KŪKĀKŪKĀ": 1,
+      "MEA HOʻOHANA": 2,
+      "KŪKĀKŪKĀ O MEA HOʻOHANA": 3,
+      "WIKIPEDIA": 4,
+      "KŪKĀKŪKĀ O WIKIPIKIA": 5,
+      "WAIHONA": 6,
+      "KŪKĀKŪKĀ O WAIHONA": 7,
+      "MEDIAWIKI": 8,
+      "KŪKĀKŪKĀ O MEDIAWIKI": 9,
+      "ANAKUHI": 10,
+      "KŪKĀKŪKĀ O ANAKUHI": 11,
+      "KŌKUA": 12,
+      "KŪKĀKŪKĀ O KŌKUA": 13,
+      "MĀHELE": 14,
+      "KŪKĀKŪKĀ O MĀHELE": 15,
+      "MODULE": 828,
+      "MODULE TALK": 829,
+      "GADGET": 2300,
+      "GADGET TALK": 2301,
+      "GADGET DEFINITION": 2302,
+      "GADGET DEFINITION TALK": 2303,
+      "PĀPAHO": -2,
+      "PAPA NUI": -1,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "KIʻI": 6,
+      "IMAGE TALK": 7,
+      "KŪKĀKŪKĀ O KIʻI": 7
+    },
+    "mainpage": "Ka papa kinohi"
+  }
+}

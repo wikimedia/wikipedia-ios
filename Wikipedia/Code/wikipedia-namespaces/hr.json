@@ -1,0 +1,43 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "RAZGOVOR": 1,
+      "SURADNIK": 2,
+      "RAZGOVOR SA SURADNIKOM": 3,
+      "WIKIPEDIJA": 4,
+      "RAZGOVOR WIKIPEDIJA": 5,
+      "DATOTEKA": 6,
+      "RAZGOVOR O DATOTECI": 7,
+      "MEDIAWIKI": 8,
+      "MEDIAWIKI RAZGOVOR": 9,
+      "PREDLOŽAK": 10,
+      "RAZGOVOR O PREDLOŠKU": 11,
+      "POMOĆ": 12,
+      "RAZGOVOR O POMOĆI": 13,
+      "KATEGORIJA": 14,
+      "RAZGOVOR O KATEGORIJI": 15,
+      "PORTAL": 100,
+      "RAZGOVOR O PORTALU": 101,
+      "DODATAK": 102,
+      "RAZGOVOR O DODATKU": 103,
+      "MODUL": 828,
+      "RAZGOVOR O MODULU": 829,
+      "GADGET": 2300,
+      "GADGET TALK": 2301,
+      "GADGET DEFINITION": 2302,
+      "GADGET DEFINITION TALK": 2303,
+      "MEDIJI": -2,
+      "POSEBNO": -1,
+      "SURADNICA": 2,
+      "RAZGOVOR SA SURADNICOM": 3,
+      "WIKIPEDIA": 4,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "SLIKA": 6,
+      "IMAGE TALK": 7,
+      "RAZGOVOR O SLICI": 7
+    },
+    "mainpage": "Glavna stranica"
+  }
+}

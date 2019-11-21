@@ -1,0 +1,42 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "COPENE": 1,
+      "UZEU": 2,
+      "UZEU COPENE": 3,
+      "WIKIPEDIA": 4,
+      "WIKIPEDIA COPENE": 5,
+      "IMÅDJE": 6,
+      "IMÅDJE COPENE": 7,
+      "MEDIAWIKI": 8,
+      "MEDIAWIKI COPENE": 9,
+      "MODELE": 10,
+      "MODELE COPENE": 11,
+      "AIDANCE": 12,
+      "AIDANCE COPENE": 13,
+      "CATEGOREYE": 14,
+      "CATEGOREYE COPENE": 15,
+      "MODULE": 828,
+      "DISCUSSION MODULE": 829,
+      "GADGET": 2300,
+      "DISCUSSION GADGET": 2301,
+      "DÉFINITION DE GADGET": 2302,
+      "DISCUSSION DÉFINITION DE GADGET": 2303,
+      "SUJET": 2600,
+      "MEDIA": -2,
+      "SIPECIÅS": -1,
+      "DISCUTER": 1,
+      "DISCUSSION UTILISATEUR": 3,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "DISCUSSION FICHIER": 7,
+      "DISCUSSION IMAGE": 7,
+      "IMAGE TALK": 7,
+      "DISCUSSION MODÈLE": 11,
+      "DISCUSSION AIDE": 13,
+      "DISCUSSION CATÉGORIE": 15
+    },
+    "mainpage": "Mwaisse pådje"
+  }
+}

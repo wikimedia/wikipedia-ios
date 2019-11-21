@@ -1,0 +1,35 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "NAALTSOOS BAA YÁSHTIʼ": 1,
+      "CHOYOOŁʼĮĮHÍ": 2,
+      "CHOYOOŁʼĮĮHÍ BICHʼĮʼ YÁSHTIʼ": 3,
+      "WIKIIBÍÍDIIYA": 4,
+      "WIKIIBÍÍDIIYA BAA YÁSHTIʼ": 5,
+      "EʼELYAAÍGÍÍ": 6,
+      "EʼELYAAÍGÍÍ BAA YÁSHTIʼ": 7,
+      "MEDIAWIKI": 8,
+      "MEDIAWIKI BAA YÁSHTIʼ": 9,
+      "BEE ÁLNÉÉHÍ": 10,
+      "BEE ÁLNÉÉHÍ BAA YÁSHTIʼ": 11,
+      "ANÁʼÁLWOʼ": 12,
+      "ANÁʼÁLWOʼ BAA YÁSHTIʼ": 13,
+      "TʼÁÁŁÁHÁGI ÁTʼÉEGO": 14,
+      "TʼÁÁŁÁHÁGI ÁTʼÉEGO BAA YÁSHTIʼ": 15,
+      "MODULE": 828,
+      "MODULE TALK": 829,
+      "GADGET": 2300,
+      "GADGET TALK": 2301,
+      "GADGET DEFINITION": 2302,
+      "GADGET DEFINITION TALK": 2303,
+      "MEDIA": -2,
+      "SPECIAL": -1,
+      "WIKIPEDIA": 4,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "IMAGE TALK": 7
+    },
+    "mainpage": "Íiyisíí Naaltsoos"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "translations": {
+    "namespace": {
+      "": 0,
+      "DESCUSIÓN": 1,
+      "USUARIO": 2,
+      "DESCUSIÓN USUARIO": 3,
+      "WIKIPEDIA": 4,
+      "DESCUSIÓN WIKIPEDIA": 5,
+      "IMACHEN": 6,
+      "DESCUSIÓN IMACHEN": 7,
+      "MEDIAWIKI": 8,
+      "DESCUSIÓN MEDIAWIKI": 9,
+      "PLANTILLA": 10,
+      "DESCUSIÓN PLANTILLA": 11,
+      "ADUYA": 12,
+      "DESCUSIÓN ADUYA": 13,
+      "CATEGORÍA": 14,
+      "DESCUSIÓN CATEGORÍA": 15,
+      "PORTAL": 100,
+      "DESCUSIÓN PORTAL": 101,
+      "MÓDULO": 828,
+      "DESCUSIÓN MÓDULO": 829,
+      "ACCESORIO": 2300,
+      "DESCUSIÓN ACCESORIO": 2301,
+      "ACCESORIO DEFINICIÓN": 2302,
+      "DESCUSIÓN DEFINICIÓN ACCESORIO": 2303,
+      "MEDIA": -2,
+      "ESPECIAL": -1,
+      "ESPEZIAL": -1,
+      "USUARIA": 2,
+      "DESCUSIÓN USUARIA": 3,
+      "WIKIPEDIA TALK": 5,
+      "IMAGE": 6,
+      "IMAGEN": 6,
+      "IMAGE TALK": 7,
+      "IMAGEN DISCUSIÓN": 7
+    },
+    "mainpage": "Portalada"
+  }
+}
