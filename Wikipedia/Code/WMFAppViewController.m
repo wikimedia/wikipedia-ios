@@ -1177,6 +1177,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeInAppLink:
         case WMFUserActivityTypeArticleDiff:
         case WMFUserActivityTypeArticleHistory:
+        case WMFUserActivityTypeUserTalk:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
@@ -1223,24 +1224,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     WMFUserActivityType type = [activity wmf_type];
 
     switch (type) {
-        case WMFUserActivityTypeSearch:
-        case WMFUserActivityTypeInAppLink:
-        case WMFUserActivityTypeArticle:
-        case WMFUserActivityTypeExternalLink:
-        case WMFUserActivityTypeArticleDiff:
-        case WMFUserActivityTypeArticleHistory:
-            break;
-        default:
-            [self dismissPresentedViewControllers];
-            break;
-    }
-
-    switch (type) {
         case WMFUserActivityTypeExplore:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypePlaces: {
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypePlaces];
             [self.navigationController popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_articleURL;
@@ -1251,6 +1241,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             }
         } break;
         case WMFUserActivityTypeContent: {
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             UINavigationController *navController = self.navigationController;
             [navController popToRootViewControllerAnimated:animated];
@@ -1279,10 +1270,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
         } break;
         case WMFUserActivityTypeSavedPages:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeSaved];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeHistory:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
@@ -1290,6 +1283,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self showSearchInCurrentNavigationController];
             break;
         case WMFUserActivityTypeSearchResults:
+            [self dismissPresentedViewControllers];
             [self switchToSearchAnimated:YES];
             [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
             [self.searchViewController search];
@@ -1304,11 +1298,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             return YES;
         } break;
         case WMFUserActivityTypeSettings:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:NO];
             [self showSettingsAnimated:animated];
             break;
         case WMFUserActivityTypeAppearanceSettings: {
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:NO];
             WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
@@ -1329,6 +1325,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             WMFSinglePageWebViewController *vc = [[WMFSinglePageWebViewController alloc] initWithURL:activity.webpageURL];
             [self.currentNavigationController pushViewController:vc animated:YES];
         } break;
+        case WMFUserActivityTypeUserTalk: {
+            NSURL *URL = activity.webpageURL;
+            if (!URL) {
+                done();
+                return NO;
+            }
+            WMFTalkPageContainerViewController *vc = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:URL dataStore:self.dataStore theme:self.theme];
+            [self.currentNavigationController pushViewController:vc animated:YES];
+        }
         default:
             done();
             return NO;
