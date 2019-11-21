@@ -1,37 +1,39 @@
 {
-  "translations": {
-    "namespace": {
-      "": 0,
-      "SGWRS": 1,
-      "DEFNYDDIWR": 2,
-      "SGWRS DEFNYDDIWR": 3,
-      "WICIPEDIA": 4,
-      "SGWRS WICIPEDIA": 5,
-      "DELWEDD": 6,
-      "SGWRS DELWEDD": 7,
-      "MEDIAWICI": 8,
-      "SGWRS MEDIAWICI": 9,
-      "NODYN": 10,
-      "SGWRS NODYN": 11,
-      "CYMORTH": 12,
-      "SGWRS CYMORTH": 13,
-      "CATEGORI": 14,
-      "SGWRS CATEGORI": 15,
-      "PORTH": 100,
-      "SGWRS PORTH": 101,
-      "MODIWL": 828,
-      "SGWRS MODIWL": 829,
-      "GADGET": 2300,
-      "GADGET TALK": 2301,
-      "GADGET DEFINITION": 2302,
-      "GADGET DEFINITION TALK": 2303,
-      "MEDIA": -2,
-      "ARBENNIG": -1,
-      "WIKIPEDIA": 4,
-      "WIKIPEDIA TALK": 5,
-      "IMAGE": 6,
-      "IMAGE TALK": 7
-    },
-    "mainpage": "Hafan"
+  "languagecode": {
+    "cy": {
+      "namespace": {
+        "": 0,
+        "SGWRS": 1,
+        "DEFNYDDIWR": 2,
+        "SGWRS DEFNYDDIWR": 3,
+        "WICIPEDIA": 4,
+        "SGWRS WICIPEDIA": 5,
+        "DELWEDD": 6,
+        "SGWRS DELWEDD": 7,
+        "MEDIAWICI": 8,
+        "SGWRS MEDIAWICI": 9,
+        "NODYN": 10,
+        "SGWRS NODYN": 11,
+        "CYMORTH": 12,
+        "SGWRS CYMORTH": 13,
+        "CATEGORI": 14,
+        "SGWRS CATEGORI": 15,
+        "PORTH": 100,
+        "SGWRS PORTH": 101,
+        "MODIWL": 828,
+        "SGWRS MODIWL": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MEDIA": -2,
+        "ARBENNIG": -1,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Hafan"
+    }
   }
 }

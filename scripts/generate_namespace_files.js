@@ -31,7 +31,7 @@ const excludedAmbiguousNamespaceIDs = new Set([104, 105, 106, 107, 110, 111])
 
 const normalizeString = string => string.toUpperCase().replace(/\s+/g, ' ')
 
-const translationsFromSiteInfoResponseJSON = siteInfoResponseJSON => {
+const translationsFromSiteInfoResponseJSON = (siteInfoResponseJSON, sitematrixLangCode) => {
   let namespacedict = {}
 
   console.log(siteInfoResponseJSON.query.general.lang)
@@ -44,10 +44,15 @@ const translationsFromSiteInfoResponseJSON = siteInfoResponseJSON => {
     .filter(item => !excludedAmbiguousNamespaceIDs.has(item[1].id))
     .forEach(item => namespacedict[normalizeString(item[1].alias)] = item[1].id)
 
-  return {
-    namespace: namespacedict,
-    mainpage: siteInfoResponseJSON.query.general.mainpage
-  }
+    let output = {}
+    output[sitematrixLangCode] = {
+      namespace: namespacedict,
+      mainpage: siteInfoResponseJSON.query.general.mainpage
+    }
+
+    return {
+      languagecode: output
+    }
 }
 
 const generateTranslationsJSON = () => {
@@ -58,15 +63,11 @@ const generateTranslationsJSON = () => {
   .then(codes => codes.map(code => `https://${code}.wikipedia.org/w/api.php?action=query&format=json&prop=&list=&meta=siteinfo&siprop=namespaces%7Cgeneral%7Cnamespacealiases&formatversion=2&origin=*`))
   .then(siteInfoURLs => siteInfoURLs.map(url => fetch(url)))
   .then(siteInfoFetches => Promise.all(siteInfoFetches))
-  .then(allFetchResultsJSON => [sitematrixLangCodes, allFetchResultsJSON.map(translationsFromSiteInfoResponseJSON)])
+  .then(allFetchResultsJSON => [sitematrixLangCodes, allFetchResultsJSON.map((siteInfoResponseJSON, i) => translationsFromSiteInfoResponseJSON(siteInfoResponseJSON, sitematrixLangCodes[i]))])
 }
 
 const writeTranslationToFile = (translation, filePath) => {
-  const output = {
-    translations: translation
-  }
-  const formattedOutputJSON = JSON.stringify(output, null, 2)
-  fs.writeFile(filePath, formattedOutputJSON, 'utf8', (err) => {
+  fs.writeFile(filePath, JSON.stringify(translation, null, 2), 'utf8', (err) => {
       if (err) throw err
       console.log(`File saved! ${filePath}`)
   })

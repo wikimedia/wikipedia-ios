@@ -1,34 +1,36 @@
 {
-  "translations": {
-    "namespace": {
-      "": 0,
-      "OLAY": 1,
-      "PARAGAMIT": 2,
-      "OLAY KAN PARAGAMIT": 3,
-      "WIKIPEDIA": 4,
-      "OLAY SA WIKIPEDIA": 5,
-      "LADAWAN": 6,
-      "OLAY SA LADAWAN": 7,
-      "MEDIAWIKI": 8,
-      "OLAY SA MEDIAWIKI": 9,
-      "PLANTILYA": 10,
-      "OLAY SA PLANTILYA": 11,
-      "TABANG": 12,
-      "OLAY SA TABANG": 13,
-      "KATEGORYA": 14,
-      "OLAY SA KATEGORYA": 15,
-      "MODULE": 828,
-      "MODULE TALK": 829,
-      "GADGET": 2300,
-      "GADGET TALK": 2301,
-      "GADGET DEFINITION": 2302,
-      "GADGET DEFINITION TALK": 2303,
-      "MEDIO": -2,
-      "ESPESYAL": -1,
-      "WIKIPEDIA TALK": 5,
-      "IMAGE": 6,
-      "IMAGE TALK": 7
-    },
-    "mainpage": "Panginot na Pahina"
+  "languagecode": {
+    "bcl": {
+      "namespace": {
+        "": 0,
+        "OLAY": 1,
+        "PARAGAMIT": 2,
+        "OLAY KAN PARAGAMIT": 3,
+        "WIKIPEDIA": 4,
+        "OLAY SA WIKIPEDIA": 5,
+        "LADAWAN": 6,
+        "OLAY SA LADAWAN": 7,
+        "MEDIAWIKI": 8,
+        "OLAY SA MEDIAWIKI": 9,
+        "PLANTILYA": 10,
+        "OLAY SA PLANTILYA": 11,
+        "TABANG": 12,
+        "OLAY SA TABANG": 13,
+        "KATEGORYA": 14,
+        "OLAY SA KATEGORYA": 15,
+        "MODULE": 828,
+        "MODULE TALK": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MEDIO": -2,
+        "ESPESYAL": -1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Panginot na Pahina"
+    }
   }
 }

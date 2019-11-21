@@ -1,34 +1,36 @@
 {
-  "translations": {
-    "namespace": {
-      "": 0,
-      "JAM": 1,
-      "DULOOI": 2,
-      "JAM KEKË DULOOI": 3,
-      "WIKIPEDIA": 4,
-      "JAM WƐ̈T Ë WIKIPEDIA": 5,
-      "APAMDUÖÖT": 6,
-      "JAM WƐ̈T Ë APAMDUÖÖT": 7,
-      "MEDIAWIKI": 8,
-      "JAM WƐ̈T Ë MEDIAWIKI": 9,
-      "MACUËC": 10,
-      "JAM WƐ̈T Ë MACUËC": 11,
-      "KUƆNY": 12,
-      "JAM WƐ̈T Ë KUƆNY": 13,
-      "BEKÄTAKTHOOK": 14,
-      "JAM WƐ̈T Ë BEKÄTAKTHOOK": 15,
-      "MUKÄÄCËTÖK": 828,
-      "JAM WƐ̈T Ë MUKÄÄCËTÖK": 829,
-      "MULUUITET": 2300,
-      "JAM WƐ̈T Ë MULUUITET": 2301,
-      "WƐ̈TDIC Ë MULUUITET": 2302,
-      "JAM WƐ̈T Ë WƐ̈TDIC Ë MULUUITET": 2303,
-      "CIƐL": -2,
-      "KËCËWEEK": -1,
-      "WIKIPEDIA TALK": 5,
-      "IMAGE": 6,
-      "IMAGE TALK": 7
-    },
-    "mainpage": "Apam këdït"
+  "languagecode": {
+    "din": {
+      "namespace": {
+        "": 0,
+        "JAM": 1,
+        "DULOOI": 2,
+        "JAM KEKË DULOOI": 3,
+        "WIKIPEDIA": 4,
+        "JAM WƐ̈T Ë WIKIPEDIA": 5,
+        "APAMDUÖÖT": 6,
+        "JAM WƐ̈T Ë APAMDUÖÖT": 7,
+        "MEDIAWIKI": 8,
+        "JAM WƐ̈T Ë MEDIAWIKI": 9,
+        "MACUËC": 10,
+        "JAM WƐ̈T Ë MACUËC": 11,
+        "KUƆNY": 12,
+        "JAM WƐ̈T Ë KUƆNY": 13,
+        "BEKÄTAKTHOOK": 14,
+        "JAM WƐ̈T Ë BEKÄTAKTHOOK": 15,
+        "MUKÄÄCËTÖK": 828,
+        "JAM WƐ̈T Ë MUKÄÄCËTÖK": 829,
+        "MULUUITET": 2300,
+        "JAM WƐ̈T Ë MULUUITET": 2301,
+        "WƐ̈TDIC Ë MULUUITET": 2302,
+        "JAM WƐ̈T Ë WƐ̈TDIC Ë MULUUITET": 2303,
+        "CIƐL": -2,
+        "KËCËWEEK": -1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Apam këdït"
+    }
   }
 }

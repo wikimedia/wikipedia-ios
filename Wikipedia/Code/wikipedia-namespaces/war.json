@@ -1,37 +1,39 @@
 {
-  "translations": {
-    "namespace": {
-      "": 0,
-      "HIRUHIMANGRAW": 1,
-      "GUMARAMIT": 2,
-      "HIRUHIMANGAW HITON GUMARAMIT": 3,
-      "WIKIPEDIA": 4,
-      "HIRUHIMANGRAW HITON WIKIPEDIA": 5,
-      "PAYPAY": 6,
-      "HIRUHIMANGRAW HITON PAYPAY": 7,
-      "MEDYAWIKI": 8,
-      "HIRUHIMANGRAW HITON MEDYAWIKI": 9,
-      "BATAKAN": 10,
-      "HIRUHIMANGRAW HITON BATAKAN": 11,
-      "BULIG": 12,
-      "HIRUHIMANGAW HITON BULIG": 13,
-      "KAARANGAY": 14,
-      "HIRUHIMANGRAW HITON KAARANGAY": 15,
-      "MODULE": 828,
-      "MODULE TALK": 829,
-      "GADGET": 2300,
-      "GADGET TALK": 2301,
-      "GADGET DEFINITION": 2302,
-      "GADGET DEFINITION TALK": 2303,
-      "MEDYA": -2,
-      "PINAUROG": -1,
-      "WIKIPEDIA TALK": 5,
-      "FAYL": 6,
-      "IMAGE": 6,
-      "HIRUHIMANGRAW HITON FAYL": 7,
-      "IMAGE TALK": 7,
-      "HIRUHIMANGRAW HITON MEDIAWIKI": 9
-    },
-    "mainpage": "Syahan nga Pakli"
+  "languagecode": {
+    "war": {
+      "namespace": {
+        "": 0,
+        "HIRUHIMANGRAW": 1,
+        "GUMARAMIT": 2,
+        "HIRUHIMANGAW HITON GUMARAMIT": 3,
+        "WIKIPEDIA": 4,
+        "HIRUHIMANGRAW HITON WIKIPEDIA": 5,
+        "PAYPAY": 6,
+        "HIRUHIMANGRAW HITON PAYPAY": 7,
+        "MEDYAWIKI": 8,
+        "HIRUHIMANGRAW HITON MEDYAWIKI": 9,
+        "BATAKAN": 10,
+        "HIRUHIMANGRAW HITON BATAKAN": 11,
+        "BULIG": 12,
+        "HIRUHIMANGAW HITON BULIG": 13,
+        "KAARANGAY": 14,
+        "HIRUHIMANGRAW HITON KAARANGAY": 15,
+        "MODULE": 828,
+        "MODULE TALK": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MEDYA": -2,
+        "PINAUROG": -1,
+        "WIKIPEDIA TALK": 5,
+        "FAYL": 6,
+        "IMAGE": 6,
+        "HIRUHIMANGRAW HITON FAYL": 7,
+        "IMAGE TALK": 7,
+        "HIRUHIMANGRAW HITON MEDIAWIKI": 9
+      },
+      "mainpage": "Syahan nga Pakli"
+    }
   }
 }

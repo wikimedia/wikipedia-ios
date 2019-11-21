@@ -1,36 +1,38 @@
 {
-  "translations": {
-    "namespace": {
-      "": 0,
-      "DISCUSSION": 1,
-      "UTILISATEUR": 2,
-      "DISCUSSION UTILISATEUR": 3,
-      "WIKIPEDIA": 4,
-      "DISCUSSION WIKIPEDIA": 5,
-      "FICHIER": 6,
-      "DISCUSSION FICHIER": 7,
-      "MEDIAWIKI": 8,
-      "DISCUSSION MEDIAWIKI": 9,
-      "MODÈLE": 10,
-      "DISCUSSION MODÈLE": 11,
-      "AIDE": 12,
-      "DISCUSSION AIDE": 13,
-      "CATÉGORIE": 14,
-      "DISCUSSION CATÉGORIE": 15,
-      "MODULE": 828,
-      "DISCUSSION MODULE": 829,
-      "GADGET": 2300,
-      "DISCUSSION GADGET": 2301,
-      "DÉFINITION DE GADGET": 2302,
-      "DISCUSSION DÉFINITION DE GADGET": 2303,
-      "MÉDIA": -2,
-      "SPÉCIAL": -1,
-      "DISCUTER": 1,
-      "WIKIPEDIA TALK": 5,
-      "IMAGE": 6,
-      "DISCUSSION IMAGE": 7,
-      "IMAGE TALK": 7
-    },
-    "mainpage": "Accueul"
+  "languagecode": {
+    "pcd": {
+      "namespace": {
+        "": 0,
+        "DISCUSSION": 1,
+        "UTILISATEUR": 2,
+        "DISCUSSION UTILISATEUR": 3,
+        "WIKIPEDIA": 4,
+        "DISCUSSION WIKIPEDIA": 5,
+        "FICHIER": 6,
+        "DISCUSSION FICHIER": 7,
+        "MEDIAWIKI": 8,
+        "DISCUSSION MEDIAWIKI": 9,
+        "MODÈLE": 10,
+        "DISCUSSION MODÈLE": 11,
+        "AIDE": 12,
+        "DISCUSSION AIDE": 13,
+        "CATÉGORIE": 14,
+        "DISCUSSION CATÉGORIE": 15,
+        "MODULE": 828,
+        "DISCUSSION MODULE": 829,
+        "GADGET": 2300,
+        "DISCUSSION GADGET": 2301,
+        "DÉFINITION DE GADGET": 2302,
+        "DISCUSSION DÉFINITION DE GADGET": 2303,
+        "MÉDIA": -2,
+        "SPÉCIAL": -1,
+        "DISCUTER": 1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "DISCUSSION IMAGE": 7,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Accueul"
+    }
   }
 }

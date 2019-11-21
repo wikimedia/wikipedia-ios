@@ -1,34 +1,36 @@
 {
-  "translations": {
-    "namespace": {
-      "": 0,
-      "BAAT": 1,
-      "SADASYA": 2,
-      "SADASYA KE BAAT": 3,
-      "WIKIPEDIA": 4,
-      "WIKIPEDIA BAAT": 5,
-      "FILE": 6,
-      "FILE KE BAAT": 7,
-      "MEDIAWIKI": 8,
-      "MEDIAWIKI KE BAAT": 9,
-      "TEMPLATE": 10,
-      "TEMPLATE KE BAAT": 11,
-      "MADAT": 12,
-      "MADAT KE BAAT": 13,
-      "VIBHAG": 14,
-      "VOIBHAG KE BAAT": 15,
-      "MODULE": 828,
-      "MODULE TALK": 829,
-      "GADGET": 2300,
-      "GADGET TALK": 2301,
-      "GADGET DEFINITION": 2302,
-      "GADGET DEFINITION TALK": 2303,
-      "SAADHAN": -2,
-      "KHAAS": -1,
-      "WIKIPEDIA TALK": 5,
-      "IMAGE": 6,
-      "IMAGE TALK": 7
-    },
-    "mainpage": "Pahila Panna"
+  "languagecode": {
+    "hif": {
+      "namespace": {
+        "": 0,
+        "BAAT": 1,
+        "SADASYA": 2,
+        "SADASYA KE BAAT": 3,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA BAAT": 5,
+        "FILE": 6,
+        "FILE KE BAAT": 7,
+        "MEDIAWIKI": 8,
+        "MEDIAWIKI KE BAAT": 9,
+        "TEMPLATE": 10,
+        "TEMPLATE KE BAAT": 11,
+        "MADAT": 12,
+        "MADAT KE BAAT": 13,
+        "VIBHAG": 14,
+        "VOIBHAG KE BAAT": 15,
+        "MODULE": 828,
+        "MODULE TALK": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "SAADHAN": -2,
+        "KHAAS": -1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Pahila Panna"
+    }
   }
 }
