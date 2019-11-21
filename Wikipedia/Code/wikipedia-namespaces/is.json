@@ -1,0 +1,38 @@
+{
+  "languagecode": {
+    "is": {
+      "namespace": {
+        "": 0,
+        "SPJALL": 1,
+        "NOTANDI": 2,
+        "NOTANDASPJALL": 3,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIASPJALL": 5,
+        "MYND": 6,
+        "MYNDASPJALL": 7,
+        "MELDING": 8,
+        "MELDINGARSPJALL": 9,
+        "SNIÐ": 10,
+        "SNIÐASPJALL": 11,
+        "HJÁLP": 12,
+        "HJÁLPARSPJALL": 13,
+        "FLOKKUR": 14,
+        "FLOKKASPJALL": 15,
+        "GÁTT": 100,
+        "GÁTTASPJALL": 101,
+        "MODULE": 828,
+        "MODULE TALK": 829,
+        "SMÁTÓL": 2300,
+        "SMÁTÓLASPJALL": 2301,
+        "SMÁTÓLA SKILGREINING": 2302,
+        "SMÁTÓLA SKILGREININGARSPJALL": 2303,
+        "MIÐILL": -2,
+        "KERFISSÍÐA": -1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Forsíða"
+    }
+  }
+}

@@ -8,6 +8,8 @@ enum DiffError: Error {
     case missingUrlResponseFailure
     case fetchRevisionConstructTitleFailure
     case unrecognizedHardcodedIdsForIntermediateCounts
+    case failureToPopulateModelsFromDeepLink
+    case failureToVerifyRevisionIDs
     
     var localizedDescription: String {
         return CommonStrings.genericErrorDescription
@@ -25,19 +27,17 @@ class DiffController {
     let pageHistoryFetcher: PageHistoryFetcher?
     let globalUserInfoFetcher: GlobalUserInfoFetcher
     let diffThanker: DiffThanker
-    let articleTitle: String
     let siteURL: URL
     let type: DiffContainerViewModel.DiffType
     private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
     let transformer: DiffTransformer
 
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
 
         self.diffFetcher = diffFetcher
         self.pageHistoryFetcher = pageHistoryFetcher
         self.globalUserInfoFetcher = GlobalUserInfoFetcher()
         self.diffThanker = DiffThanker()
-        self.articleTitle = articleTitle
         self.siteURL = siteURL
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.type = type
@@ -57,7 +57,114 @@ class DiffController {
         diffThanker.thank(siteURL: siteURL, rev: toRevisionId, completion: completion)
     }
     
-    func fetchRevision(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+    func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+
+        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
+            return
+        }
+        
+        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle, completion: completion)
+    }
+    
+    struct DeepLinkModelsResponse {
+        let from: WMFPageHistoryRevision?
+        let to: WMFPageHistoryRevision?
+        let first: WMFPageHistoryRevision
+        let articleTitle: String
+    }
+    
+    func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
+        
+        if let articleTitle = articleTitle {
+            populateModelsFromDeepLink(fromRevisionID: fromRevisionID, toRevisionID: toRevisionID, articleTitle: articleTitle, completion: completion)
+            return
+        }
+        
+        let maybeRevisionID = toRevisionID ?? fromRevisionID
+        
+        guard let revisionID = maybeRevisionID else {
+                completion(.failure(DiffError.failureToVerifyRevisionIDs))
+                return
+        }
+        
+        diffFetcher.fetchArticleTitle(siteURL: siteURL, revisionID: revisionID) { (result) in
+            switch result {
+            case .success(let title):
+                
+                self.populateModelsFromDeepLink(fromRevisionID: fromRevisionID, toRevisionID: toRevisionID, articleTitle: title, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    private func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
+        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
+            return
+        }
+        
+        var fromResponse: WMFPageHistoryRevision?
+        var toResponse: WMFPageHistoryRevision?
+        var firstResponse: WMFPageHistoryRevision?
+        
+        let group = DispatchGroup()
+        
+        if let fromRevisionID = fromRevisionID {
+            
+            group.enter()
+            let fromRequest = DiffFetcher.FetchRevisionModelRequest.populateModel(revisionID: fromRevisionID)
+            diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: fromRequest) { (result) in
+                switch result {
+                case .success(let fetchResponse):
+                    fromResponse = fetchResponse
+                case .failure:
+                    break
+                }
+                group.leave()
+            }
+        }
+        
+        if let toRevisionID = toRevisionID {
+            group.enter()
+            let toRequest = DiffFetcher.FetchRevisionModelRequest.populateModel(revisionID: toRevisionID)
+            diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: toRequest) { (result) in
+                switch result {
+                case .success(let fetchResponse):
+                    toResponse = fetchResponse
+                case .failure:
+                    break
+                }
+                group.leave()
+            }
+        }
+        
+        group.enter()
+        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle) { (result) in
+            switch result {
+            case .success(let fetchResponse):
+                firstResponse = fetchResponse
+            case .failure:
+                break
+            }
+            group.leave()
+        }
+            
+            group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            guard let firstResponse = firstResponse,
+                (fromResponse != nil || toResponse != nil) else {
+                    completion(.failure(DiffError.failureToPopulateModelsFromDeepLink))
+                    return
+            }
+            
+            let response = DeepLinkModelsResponse(from: fromResponse, to: toResponse, first: firstResponse, articleTitle: articleTitle)
+            completion(.success(response))
+        }
+    }
+    
+    func fetchAdjacentRevisionModel(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
         
         if let revisionRetrievingDelegate = revisionRetrievingDelegate {
             
@@ -75,19 +182,22 @@ class DiffController {
                 }
             }
         }
-        
-        //failing that try fetching revision from API
-        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
-            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
-            return
-        }
 
-        let direction: DiffFetcher.SingleRevisionRequestDirection = direction == .previous ? .older : .newer
+        let direction: DiffFetcher.FetchRevisionModelRequestDirection = direction == .previous ? .older : .newer
         
-        diffFetcher.fetchSingleRevisionInfo(siteURL, sourceRevision: sourceRevision, title: articleTitle, direction: direction, completion: completion)
+        let request = DiffFetcher.FetchRevisionModelRequest.adjacent(sourceRevision: sourceRevision, direction: direction)
+        
+        diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: request) { (result) in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
-    func fetchFirstRevision(revisionId: Int, siteURL: URL, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+    func fetchFirstRevisionDiff(revisionId: Int, siteURL: URL, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
         diffFetcher.fetchWikitext(siteURL: siteURL, revisionId: revisionId) { (result) in
             switch result {

@@ -82,6 +82,8 @@
 "action-language-accessibility" = "تغيير اللغة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
+"action-next-revision-accessibility" = "المراجعة القادمة";
+"action-previous-revision-accessibility" = "المراجعة السابقة";
 "action-read" = "اقرأ";
 "action-redo" = "إعادة";
 "action-remove" = "إزالة";
@@ -94,6 +96,7 @@
 "action-share" = "شارك";
 "action-share-accessibility" = "مشاركة";
 "action-sort" = "ترتيب";
+"action-thank-user-accessibility" = "شكر المستخدم";
 "action-undo" = "رجوع";
 "action-unsave" = "إلغاء الحفظ";
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
@@ -182,9 +185,6 @@
 "description-welcome-start-editing-button" = "البدء بالتعديل";
 "diff-compare-header-from-info-heading" = "من:";
 "diff-compare-header-heading" = "مقارنة المراجعات";
-"diff-compare-header-subtitle-format" = "$1 بواسطة $2 غير معروض";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 مراجعة وسيطة|$1 مراجعات وسيطة}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL: $1|مستخدم|مستخدمين}}";
 "diff-compare-header-to-info-heading" = "إلى:";
 "diff-compare-title" = "مقارنة المراجعات";
 "diff-context-lines-collapsed-button-title" = "اعرض";
@@ -323,13 +323,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "بالكل";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "مفعلة";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "بـ$1";
-"explore-feed-preferences-feed-cards-hidden-title" = "جميع البطاقات %@ مخفية";
+"explore-feed-preferences-feed-cards-hidden-title" = "جميع البطاقات $1 مخفية";
 "explore-feed-preferences-global-card-footer-text" = "هذه البطاقة ليست لغة محددة ، وسيؤدي إيقاف هذه البطاقة إلى إزالتها من خلاصة استكشافك.";
 "explore-feed-preferences-global-cards-description" = "بطاقات محددة غير اللغة";
 "explore-feed-preferences-global-cards-subtitle" = "لا توجد لغة محددة";
 "explore-feed-preferences-global-cards-title" = "بطاقات عالمية";
 "explore-feed-preferences-hide-card-action-title" = "أخف هذه البطاقة";
-"explore-feed-preferences-hide-feed-cards-action-title" = "إخفاء جميع بطاقات \"%@\"";
+"explore-feed-preferences-hide-feed-cards-action-title" = "إخفاء جميع بطاقات \"$1\"";
 "explore-feed-preferences-in-the-news-description" = "مقالات عن الأحداث الجارية";
 "explore-feed-preferences-languages-footer-text" = "سيؤدي إخفاء جميع بطاقات خلاصات الاستكشاف بجميع اللغات إلى إيقاف علامة التبويب استكشاف.";
 "explore-feed-preferences-on-this-day-description" = "أحداث تاريخية في هذا اليوم";
@@ -479,6 +479,12 @@
 "insert-media-media-settings-title" = "إعدادات الوسائط";
 "insert-media-title" = "إدراج وسائط";
 "insert-media-uploaded-image-title" = "تم رفع الصورة";
+"intermediate-edits-count" = "{{PLURAL:$1|$1 مراجعة وسيطة|$1 مراجعات وسيطة}}";
+"intermediate-edits-count-limited" = "$1+ مراجعات وسيطة لا تظهر";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 مراجعة|$1 مراجعات}} متوسطة بواسطة {{PLURAL:$2|مستخدم|$2 مستخدمين}} غير معروضة";
+"intermediate-edits-editors-count-limited" = "$1+ مراجعات متوسطة بواسطة $2+ مستخدمين غير معروضة";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 مراجعة|$1 مراجعات}} متوسطة بواسطة $2+ مستخدمين غير معروضة";
+"intermediate-edits-limited-editors-count" = "$1+ مراجعات متوسطة بواسطة {{PLURAL:$2|مستخدم|$2 مستخدمين}} غير معروضة";
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
@@ -539,7 +545,7 @@
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
 "page-history-compare-title" = "مقارنة";
 "page-history-minor-edits" = "التعديلات الطفيفة";
-"page-history-revision-author-accessibility-label" = "المؤلف: %@";
+"page-history-revision-author-accessibility-label" = "المؤلف: $1";
 "page-history-revision-history-title" = "تاريخ المراجعة";
 "page-history-revision-size-diff-addition" = "إضافة {{PLURAL:$1|1 بايت}}";
 "page-history-revision-size-diff-subtraction" = "إزالة {{PLURAL:$1|1 بايت}}";
@@ -664,7 +670,7 @@
 "reading-lists-default-list-title" = "محفوظة";
 "reading-lists-delete-reading-list-alert-message" = "لا يمكن التراجع عن هذا الإجراء، أية مقالات يتم حفظها فقط في هذه {{PLURAL:$1|القائمة|القوائم}} ستكون غير محفوظة.";
 "reading-lists-delete-reading-list-alert-title" = "حذف {{PLURAL:$1|القائمة|القوائم}}؟";
-"reading-lists-large-sync-completed" = "تمت مزامنة $1 مقالات و$2 قوائم قراءة من حسابك";
+"reading-lists-large-sync-completed" = "تمت مزامنة {{PLURAL:$1|$1 مقالة|$1 مقالات}} و{{PLURAL:$2|$2 قائمة قراءة|$2 قوائم قراءة}} من حسابك";
 "reading-lists-list-not-synced-limit-exceeded" = "لم تتم مزامنة القائمة; تم تجاوز الحد";
 "reading-lists-sort-saved-articles" = "فرز المقالات المحفوظة";
 "reading-lists-split-notification" = "يوجد حد $1 لكل قائمة قراءة، تم تقسيم القوائم الحالية التي تتضمن أكثر من هذا الحد إلى قوائم متعددة.";

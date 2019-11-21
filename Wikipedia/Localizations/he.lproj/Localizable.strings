@@ -175,7 +175,6 @@
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "diff-compare-header-from-info-heading" = "מ־:";
 "diff-compare-header-heading" = "השוואת גרסאות";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|משתמש אחד|$1 משתמשים}}";
 "diff-compare-header-to-info-heading" = "עד:";
 "diff-compare-title" = "השוואת גרסאות";
 "diff-context-lines-collapsed-button-title" = "הצגה";
@@ -305,12 +304,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "בכל";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "מופעל";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "ב־$1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "כל הכרטיסים מסוג %@ מוסתרים";
 "explore-feed-preferences-global-card-footer-text" = "הכרטיס הזה אינו תלוי בשפה. כיבוי הכרטיס יסיר אותו מהזנת הלחקור שלך.";
 "explore-feed-preferences-global-cards-description" = "כרטיסים שאינם תלויים בשפה";
 "explore-feed-preferences-global-cards-subtitle" = "לא תלוי בשפה";
 "explore-feed-preferences-global-cards-title" = "כרטיסים גלובליים";
 "explore-feed-preferences-hide-card-action-title" = "הסתרת כרטיס זה";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "הסתרת כל הכרטיסים מסוג \"%@\"";
 "explore-feed-preferences-in-the-news-description" = "ערכים על אירועים אקטואליים";
 "explore-feed-preferences-languages-footer-text" = "הסתרת כל הכרטיסים בהזנת לחקור בכל השפות תגרום לכיבוי הלשונית לחקור.";
@@ -520,6 +521,7 @@
 "page-history-bot-edits" = "עריכות של בוטים";
 "page-history-compare-title" = "השוואה";
 "page-history-minor-edits" = "עריכות משניות";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "יוצר: %@";
 "page-history-revision-history-title" = "היסטוריית גרסאות";
 "page-history-revision-size-diff-addition" = "נוס{{PLURAL:$1|ף בית אחד|פו $1 בתים}}";
@@ -644,6 +646,7 @@
 "reading-lists-default-list-title" = "נשמר";
 "reading-lists-delete-reading-list-alert-message" = "לא ניתן לבטל את הפעולה הזו. כל הערכים שנשמרו {{PLURAL:$1|ברשימה זו בלבד|ברשימות אלה בלבד}} לא יישמרו.";
 "reading-lists-delete-reading-list-alert-title" = "למחוק את {{PLURAL:$1|הרשימה|הרשימות}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 ערכים ו־$2 רשימות קריאה סונכרנו מהחשבון שלך";
 "reading-lists-list-not-synced-limit-exceeded" = "הרשימה לא סונכרנה משום שעברת את המגבלה";
 "reading-lists-sort-saved-articles" = "מיון ערכים שמורים";

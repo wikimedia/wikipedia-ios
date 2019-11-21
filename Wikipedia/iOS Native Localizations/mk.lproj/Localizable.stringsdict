@@ -130,6 +130,81 @@
 			<string>%1$d неуредени реда</string>
 		</dict>
 	</dict>
+	<key>intermediate-edits-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Не е прикажана %1$d меѓувремена преработка</string>
+			<key>other</key>
+			<string>Не се прикажани %1$d меѓувремени преработки</string>
+		</dict>
+	</dict>
+	<key>intermediate-edits-editors-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ на %#@v2@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Не е прикажана %1$d меѓувремена преработка</string>
+			<key>other</key>
+			<string>Не се прикажани %1$d меѓувремени преработки</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d корисник</string>
+			<key>other</key>
+			<string>%2$d корисници</string>
+		</dict>
+	</dict>
+	<key>intermediate-edits-editors-limited-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ на %2$d+ корисници</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Не е прикажана %1$d меѓувремена преработка</string>
+			<key>other</key>
+			<string>Не се прикажани %1$d меѓувремени преработки</string>
+		</dict>
+	</dict>
+	<key>intermediate-edits-limited-editors-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Не се прикажани %1$d+ меѓувремени преработки на %#@v2@</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d корисник</string>
+			<key>other</key>
+			<string>%2$d корисници</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -354,6 +429,33 @@
 			<string>ги избришам списоците</string>
 		</dict>
 	</dict>
+	<key>reading-lists-large-sync-completed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ и %#@v2@ од вашата сметка</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Усогласена е %1$d статија</string>
+			<key>other</key>
+			<string>Усогласени се %1$d статии</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d список за читање</string>
+			<key>other</key>
+			<string>%2$d списоци за читање</string>
+		</dict>
+	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -404,6 +506,22 @@
 			<string>пред %1$d минути</string>
 			<key>zero</key>
 			<string>Штотуку</string>
+		</dict>
+	</dict>
+	<key>relative-date-months-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Пред %1$d месеци</string>
+			<key>zero</key>
+			<string>Месецов</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>

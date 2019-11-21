@@ -1596,12 +1596,22 @@
 		B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
 		B068EDE4206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
 		B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
+		B077A51423861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51523861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51623861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51723861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51823861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
 		B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */; };
 		B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */; };
 		B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
 		B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */; };
 		B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */; };
 		B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
+		B08423DE2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
+		B08423DF2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
+		B08423E02384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
+		B08423E12384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
+		B08423E22384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
 		B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
 		B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
 		B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
@@ -4368,11 +4378,13 @@
 		B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFHideKeyboard.swift"; path = "Wikipedia/Code/UIViewController+WMFHideKeyboard.swift"; sourceTree = SOURCE_ROOT; };
 		B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Progress+ProgressUI.swift"; sourceTree = "<group>"; };
 		B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeakScriptMessageDelegate.swift; path = Wikipedia/Code/WeakScriptMessageDelegate.swift; sourceTree = SOURCE_ROOT; };
+		B077A51323861E2200223526 /* wikipedia-namespaces */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "wikipedia-namespaces"; sourceTree = "<group>"; };
 		B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageEqualityTests.m; path = WikipediaUnitTests/Code/MWKImageEqualityTests.m; sourceTree = SOURCE_ROOT; };
 		B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePageViewController.swift; path = Wikipedia/Code/WMFWelcomePageViewController.swift; sourceTree = SOURCE_ROOT; };
 		B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePanelViewController.swift; path = Wikipedia/Code/WMFWelcomePanelViewController.swift; sourceTree = SOURCE_ROOT; };
 		B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewController.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeAnalyticsViewController.swift; path = Wikipedia/Code/WMFWelcomeAnalyticsViewController.swift; sourceTree = SOURCE_ROOT; };
+		B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaURLTranslations.swift; sourceTree = "<group>"; };
 		B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProgressViewController.swift; sourceTree = "<group>"; };
 		B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SavedProgressViewController.storyboard; sourceTree = "<group>"; };
 		B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeAnimationBackgroundView.swift; sourceTree = "<group>"; };
@@ -7274,6 +7286,15 @@
 			name = Help;
 			sourceTree = "<group>";
 		};
+		B08423DC2384E260005E93A0 /* URLTranslations */ = {
+			isa = PBXGroup;
+			children = (
+				B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */,
+				B077A51323861E2200223526 /* wikipedia-namespaces */,
+			);
+			name = URLTranslations;
+			sourceTree = "<group>";
+		};
 		B0866F421CCAEB290088A789 /* Footer */ = {
 			isa = PBXGroup;
 			children = (
@@ -7767,6 +7788,7 @@
 				67DB110822613EF700F789B0 /* SchemeHandler */,
 				04C43AB7183442FC006C643B /* Categories */,
 				BC45D5551C31ED70007C72F3 /* Operations */,
+				B08423DC2384E260005E93A0 /* URLTranslations */,
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
 				7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */,
@@ -10094,6 +10116,7 @@
 				7AFA21C020110D7900E957E7 /* HintViewController.xib in Resources */,
 				7A71567322697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */,
 				B0524B0321484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
+				B077A51423861E2200223526 /* wikipedia-namespaces in Resources */,
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				676028E92310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */,
@@ -10220,6 +10243,7 @@
 				D80ED3DA1EE57F4800CE8C50 /* WMFLanguageCell.xib in Resources */,
 				D80ED3DD1EE57F4800CE8C50 /* InfoPlist.strings in Resources */,
 				D8C4D3D71FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
+				B077A51823861E2200223526 /* wikipedia-namespaces in Resources */,
 				D80ED3DF1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D80ED3E01EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				676070A82280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */,
@@ -10366,6 +10390,7 @@
 				D8A42BBB1E815A9C00D8E281 /* AboutViewController.plist in Resources */,
 				D8A42BBC1E815A9C00D8E281 /* NotificationBackgroundMessage.png in Resources */,
 				7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
+				B077A51723861E2200223526 /* wikipedia-namespaces in Resources */,
 				D8A42BC01E815A9C00D8E281 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8A42BC21E815A9C00D8E281 /* NotificationBackgroundSuccess.png in Resources */,
@@ -10490,6 +10515,7 @@
 				D8CE26421E698E2400DAE2E0 /* AboutViewController.plist in Resources */,
 				D8CE26431E698E2400DAE2E0 /* NotificationBackgroundMessage.png in Resources */,
 				7A741DD0207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
+				B077A51523861E2200223526 /* wikipedia-namespaces in Resources */,
 				D8CE26471E698E2400DAE2E0 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C861F34BB64004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8CE26491E698E2400DAE2E0 /* NotificationBackgroundSuccess.png in Resources */,
@@ -10614,6 +10640,7 @@
 				D8EC3F421E9BDA35006712EB /* AboutViewController.plist in Resources */,
 				D8EC3F431E9BDA35006712EB /* NotificationBackgroundMessage.png in Resources */,
 				7A741DD1207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
+				B077A51623861E2200223526 /* wikipedia-namespaces in Resources */,
 				D8EC3F471E9BDA35006712EB /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8EC3F491E9BDA35006712EB /* NotificationBackgroundSuccess.png in Resources */,
@@ -11259,6 +11286,7 @@
 				B0FFFB2A21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7AF6F76622395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				B0524B51214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
+				B08423DE2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				7AF56C2F21DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
@@ -11842,6 +11870,7 @@
 				7AE99B2C21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				D80ED3471EE57F4800CE8C50 /* ArticlePlace.swift in Sources */,
 				83E776A720FFA4D700E26A47 /* DetailTransition.swift in Sources */,
+				B08423E22384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				D80ED3481EE57F4800CE8C50 /* String?+WMFExtras.swift in Sources */,
 				D80ED34A1EE57F4800CE8C50 /* WMFSearchResults.m in Sources */,
 				BAC6EECB1F1E519C00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
@@ -12482,6 +12511,7 @@
 				D837CC3A231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7AF6F76922395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
+				B08423E12384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				D8A42AA71E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D818D3891ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				B0524B54214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
@@ -13073,6 +13103,7 @@
 				7AE99B2921CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
 				D8CE25AB1E698E2400DAE2E0 /* AppDelegate.m in Sources */,
+				B08423DF2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				83E776A420FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				D8CE25AD1E698E2400DAE2E0 /* ArticlePlace.swift in Sources */,
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
@@ -13517,6 +13548,7 @@
 				7AE99B2A21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95871F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
+				B08423E02384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				D8EC3EA81E9BDA35006712EB /* AppDelegate.m in Sources */,
 				D8EC3EAA1E9BDA35006712EB /* ArticlePlace.swift in Sources */,
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,

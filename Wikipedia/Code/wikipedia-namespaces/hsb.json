@@ -1,0 +1,44 @@
+{
+  "languagecode": {
+    "hsb": {
+      "namespace": {
+        "": 0,
+        "DISKUSIJA": 1,
+        "WUŽIWAR": 2,
+        "DISKUSIJA Z WUŽIWARJOM": 3,
+        "WIKIPEDIJA": 4,
+        "WIKIPEDIJA DISKUSIJA": 5,
+        "DATAJA": 6,
+        "DISKUSIJA K DATAJI": 7,
+        "MEDIAWIKI": 8,
+        "MEDIAWIKI DISKUSIJA": 9,
+        "PŘEDŁOHA": 10,
+        "DISKUSIJA K PŘEDŁOZE": 11,
+        "POMOC": 12,
+        "POMOC DISKUSIJA": 13,
+        "KATEGORIJA": 14,
+        "DISKUSIJA KE KATEGORIJI": 15,
+        "MODUL": 828,
+        "MODUL DISKUSIJA": 829,
+        "GADGET": 2300,
+        "GADGET DISKUSSION": 2301,
+        "GADGET-DEFINITION": 2302,
+        "GADGET-DEFINITION DISKUSSION": 2303,
+        "MEDIA": -2,
+        "SPECIALNJE": -1,
+        "WUŽIWARKA": 2,
+        "DISKUSIJA Z WUŽIWARKU": 3,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA TALK": 5,
+        "BILD": 6,
+        "IMAGE": 6,
+        "WOBRAZ": 6,
+        "BILD DISKUSSION": 7,
+        "DISKUSIJA K WOBRAZEJ": 7,
+        "DISKUSIJA WÓ WOBRAZU": 7,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Hłowna strona"
+    }
+  }
+}

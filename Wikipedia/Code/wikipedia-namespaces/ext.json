@@ -1,0 +1,43 @@
+{
+  "languagecode": {
+    "ext": {
+      "namespace": {
+        "": 0,
+        "CARABA": 1,
+        "USUARIO": 2,
+        "USUARIO CARABA": 3,
+        "GÜIQUIPEYA": 4,
+        "GÜIQUIPEYA CARABA": 5,
+        "ARCHIVU": 6,
+        "ARCHIVU CARABA": 7,
+        "MEDIAWIKI": 8,
+        "MEDIAWIKI CARABA": 9,
+        "PRANTILLA": 10,
+        "PRANTILLA CARABA": 11,
+        "AYUA": 12,
+        "AYUA CARABA": 13,
+        "CATEGORÍA": 14,
+        "CATEGORÍA CARABA": 15,
+        "MÓDULO": 828,
+        "MÓDULO DISCUSIÓN": 829,
+        "ACCESORIO": 2300,
+        "ACCESORIO DISCUSIÓN": 2301,
+        "ACCESORIO DEFINICIÓN": 2302,
+        "ACCESORIO DEFINICIÓN DISCUSIÓN": 2303,
+        "MEDIU": -2,
+        "ESPECIAL": -1,
+        "USUARIA": 2,
+        "USUARIA CARABA": 3,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGEN": 6,
+        "IMAGE TALK": 7,
+        "IMAGEN DISCUSIÓN": 7,
+        "CATEGORIA": 14,
+        "CATEGORIA CARABA": 15
+      },
+      "mainpage": "Página prencipal"
+    }
+  }
+}
