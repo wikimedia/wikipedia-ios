@@ -557,7 +557,7 @@ private extension TalkPageContainerViewController {
         guard let url = URL(string: url.absoluteString, relativeTo: talkPageURL) else {
             return
         }
-        navigateToActivity(with: url)
+        navigateToActivity(with: url.absoluteURL)
     }
     
     func changeLanguage(siteURL: URL) {
