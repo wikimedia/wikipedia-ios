@@ -158,7 +158,7 @@ extern NSString *const WMFEditPencil;
  **/
 - (nullable NSURL *)wmf_URLWithPath:(NSString *)path isMobile:(BOOL)isMobile;
 
-#pragma mark - URL Componenets
+#pragma mark - URL Components
 
 /**
  *  Return a URL with just the domain, language, and mobile subdomain of the reciever.

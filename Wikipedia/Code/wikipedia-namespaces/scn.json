@@ -1,0 +1,44 @@
+{
+  "languagecode": {
+    "scn": {
+      "namespace": {
+        "": 0,
+        "DISCUSSIONI": 1,
+        "UTENTI": 2,
+        "DISCUSSIONI UTENTI": 3,
+        "WIKIPEDIA": 4,
+        "DISCUSSIONI WIKIPEDIA": 5,
+        "FILE": 6,
+        "DISCUSSIONI FILE": 7,
+        "MEDIAWIKI": 8,
+        "DISCUSSIONI MEDIAWIKI": 9,
+        "TEMPLATE": 10,
+        "DISCUSSIONI TEMPLATE": 11,
+        "AIUTU": 12,
+        "DISCUSSIONI AIUTU": 13,
+        "CATIGURÌA": 14,
+        "DISCUSSIONI CATIGURÌA": 15,
+        "PURTALI": 100,
+        "DISCUSSIONI PURTALI": 101,
+        "PRUGGETTU": 102,
+        "DISCUSSIONI PRUGGETTU": 103,
+        "MODULO": 828,
+        "DISCUSSIONI MODULO": 829,
+        "ACCESSORIO": 2300,
+        "DISCUSSIONI ACCESSORIO": 2301,
+        "DEFINIZIONE ACCESSORIO": 2302,
+        "DISCUSSIONI DEFINIZIONE ACCESSORIO": 2303,
+        "MÈDIA": -2,
+        "SPICIALI": -1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMMAGINE": 6,
+        "MMÀGGINI": 6,
+        "DISCUSSIONI IMMAGINE": 7,
+        "DISCUSSIONI MMÀGGINI": 7,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Pàggina principali"
+    }
+  }
+}

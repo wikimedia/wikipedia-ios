@@ -1,0 +1,42 @@
+{
+  "languagecode": {
+    "ia": {
+      "namespace": {
+        "": 0,
+        "DISCUSSION": 1,
+        "USATOR": 2,
+        "DISCUSSION USATOR": 3,
+        "WIKIPEDIA": 4,
+        "DISCUSSION WIKIPEDIA": 5,
+        "FILE": 6,
+        "DISCUSSION FILE": 7,
+        "MEDIAWIKI": 8,
+        "DISCUSSION MEDIAWIKI": 9,
+        "PATRONO": 10,
+        "DISCUSSION PATRONO": 11,
+        "ADJUTA": 12,
+        "DISCUSSION ADJUTA": 13,
+        "CATEGORIA": 14,
+        "DISCUSSION CATEGORIA": 15,
+        "PORTAL": 100,
+        "DISCUSSION PORTAL": 101,
+        "APPENDICE": 102,
+        "DISCUSSION APPENDICE": 103,
+        "MODULE": 828,
+        "MODULE TALK": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MULTIMEDIA": -2,
+        "SPECIAL": -1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGINE": 6,
+        "DISCUSSION IMAGINE": 7,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Pagina principal"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "languagecode": {
+    "frp": {
+      "namespace": {
+        "": 0,
+        "DISCUSSION": 1,
+        "UTILISATOR": 2,
+        "DISCUSSION UTILISATOR": 3,
+        "VOUIQUIPÈDIA": 4,
+        "DISCUSSION VOUIQUIPÈDIA": 5,
+        "FICHIÉR": 6,
+        "DISCUSSION FICHIÉR": 7,
+        "MEDIAWIKI": 8,
+        "DISCUSSION MEDIAWIKI": 9,
+        "MODÈLO": 10,
+        "DISCUSSION MODÈLO": 11,
+        "ÉDE": 12,
+        "DISCUSSION ÉDE": 13,
+        "CATÈGORIE": 14,
+        "DISCUSSION CATÈGORIE": 15,
+        "MODULE": 828,
+        "DISCUSSION MODULE": 829,
+        "GADGET": 2300,
+        "DISCUSSION GADGET": 2301,
+        "DÉFINITION DE GADGET": 2302,
+        "DISCUSSION DÉFINITION DE GADGET": 2303,
+        "MÈDIA": -2,
+        "SPÈCIÂL": -1,
+        "DISCUTAR": 1,
+        "DISCUTER": 1,
+        "USANCIÉR": 2,
+        "DISCUSSION UTILISATEUR": 3,
+        "DISCUSSION USANCIÉR": 3,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "ÉMÂGE": 6,
+        "DISCUSSION FICHIER": 7,
+        "DISCUSSION IMAGE": 7,
+        "DISCUSSION ÉMÂGE": 7,
+        "IMAGE TALK": 7,
+        "DISCUSSION MODÈLE": 11,
+        "DISCUSSION AIDE": 13,
+        "DISCUSSION CATÉGORIE": 15
+      },
+      "mainpage": "Vouiquipèdia:Reçua principâla"
+    }
+  }
+}
