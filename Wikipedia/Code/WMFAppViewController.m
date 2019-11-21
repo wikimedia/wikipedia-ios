@@ -1173,6 +1173,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
+        case WMFUserActivityTypeExternalLink:
+        case WMFUserActivityTypeInAppLink:
+        case WMFUserActivityTypeArticleDiff:
+        case WMFUserActivityTypeArticleHistory:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
@@ -1188,10 +1192,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 return YES;
             }
         } break;
-        case WMFUserActivityTypeExternalLink:
-        case WMFUserActivityTypeInAppLink: {
-            return YES;
-        }
         default:
             return NO;
             break;
@@ -1227,6 +1227,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeInAppLink:
         case WMFUserActivityTypeArticle:
         case WMFUserActivityTypeExternalLink:
+        case WMFUserActivityTypeArticleDiff:
+        case WMFUserActivityTypeArticleHistory:
             break;
         default:
             [self dismissPresentedViewControllers];
@@ -1316,6 +1318,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeExternalLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
             break;
+        case WMFUserActivityTypeArticleHistory: // TODO: properly handle history and diffs
+        case WMFUserActivityTypeArticleDiff:
         case WMFUserActivityTypeInAppLink: {
             NSURL *URL = activity.webpageURL;
             if (!URL) {
