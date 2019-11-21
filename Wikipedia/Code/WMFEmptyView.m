@@ -223,10 +223,23 @@
     return view;
 }
 
-+ (instancetype)errorDiffEmptyView {
++ (instancetype)errorDiffCompareEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"error-diff"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"diff-revision-error-title", nil, nil, @"Unable to load revision", @"Text for placeholder label visible when there has been an error while fetching the diff.");
+    view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
+    view.backgroundColorKeyPath = @"colors.midBackground";
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
++ (instancetype)errorDiffSingleEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"error-single-diff"];
+    view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];

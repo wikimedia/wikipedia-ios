@@ -122,8 +122,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         self.theme = theme
         
-        self.containerViewModel.stateHandler = { [weak self] in
-            self?.evaluateState()
+        self.containerViewModel.stateHandler = { [weak self] oldState in
+            self?.evaluateState(oldState: oldState)
         }
     }
     
@@ -147,8 +147,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
         
         self.theme = theme
         
-        self.containerViewModel.stateHandler = { [weak self] in
-            self?.evaluateState()
+        self.containerViewModel.stateHandler = { [weak self] oldState in
+            self?.evaluateState(oldState: oldState)
         }
     }
     
@@ -241,7 +241,12 @@ class DiffContainerViewController: ViewController, HintPresenting {
             return
         }
         
-        view.backgroundColor = theme.colors.paperBackground
+        switch containerViewModel.state {
+        case .empty, .error:
+            view.backgroundColor = theme.colors.midBackground
+        default:
+            view.backgroundColor = theme.colors.paperBackground
+        }
         
         headerTitleView?.apply(theme: theme)
         headerExtendedView?.apply(theme: theme)
@@ -477,7 +482,27 @@ private extension DiffContainerViewController {
         return components?.url
     }
     
-    func evaluateState() {
+    func evaluateState(oldState: DiffContainerViewModel.State) {
+        
+        //need up update background color if state is error/empty or not
+        switch containerViewModel.state {
+        case .error, .empty:
+            switch oldState {
+            case .error, .empty:
+                break
+            default:
+                apply(theme: theme)
+                diffToolbarView?.parentViewState = containerViewModel.state
+            }
+        default:
+            switch oldState {
+            case .error, .empty:
+                apply(theme: theme)
+                diffToolbarView?.parentViewState = containerViewModel.state
+            default:
+                break
+            }
+        }
         
         switch containerViewModel.state {
 
@@ -508,7 +533,12 @@ private extension DiffContainerViewController {
             fakeProgressController.stop()
             showNoInternetConnectionAlertOrOtherWarning(from: error)
             setupScrollingEmptyViewControllerIfNeeded()
-            scrollingEmptyViewController?.type = .diffError
+            switch type {
+            case .compare:
+                scrollingEmptyViewController?.type = .diffErrorCompare
+            case .single:
+                scrollingEmptyViewController?.type = .diffErrorSingle
+            }
             scrollingEmptyViewController?.view.isHidden = false
             diffListViewController?.view.isHidden = true
             setThankAndShareState(isEnabled: false)

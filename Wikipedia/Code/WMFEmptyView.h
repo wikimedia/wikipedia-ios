@@ -28,7 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)emptyTalkPageEmptyView;
 + (instancetype)emptyDiffCompareEmptyView;
 + (instancetype)emptyDiffSingleEmptyView;
-+ (instancetype)errorDiffEmptyView;
++ (instancetype)errorDiffCompareEmptyView;
++ (instancetype)errorDiffSingleEmptyView;
 
 NS_ASSUME_NONNULL_END
 
