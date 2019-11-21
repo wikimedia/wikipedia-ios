@@ -221,16 +221,33 @@ import Foundation
     }
     
     /**
-     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received.
+     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received
+     and an attempt to re-login with stored credentials fails.
     */
-    private func handleResponse(_ response: URLResponse?) {
+    private func handleResponse(_ response: URLResponse?, reattemptLoginOn401Response: Bool = true) {
         guard let response = response, let httpResponse = response as? HTTPURLResponse else {
             return
         }
-        switch httpResponse.statusCode {
-        case 401:
+        
+        let logout = {
             WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
                 self.removeAllCookies()
+            }
+        }
+        switch httpResponse.statusCode {
+        case 401:
+            if (reattemptLoginOn401Response) {
+                WMFAuthenticationManager.sharedInstance.attemptLogin(reattemptOn401Response: false) { (loginResult) in
+                    switch loginResult {
+                    case .failure(let error):
+                        DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                        logout()
+                    default:
+                        break
+                    }
+                }
+            } else {
+                logout()
             }
         default:
             break
@@ -325,9 +342,9 @@ import Foundation
         return task
     }
     
-    @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+    @discardableResult private func jsonDictionaryTask(with request: URLRequest, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
-            self.handleResponse(response)
+            self.handleResponse(response, reattemptLoginOn401Response: reattemptLoginOn401Response)
             guard let data = data else {
                 completionHandler(nil, response as? HTTPURLResponse, error)
                 return
@@ -369,8 +386,8 @@ import Foundation
         return task
     }
     
-    @objc(postFormEncodedBodyParametersToURL:bodyParameters:completionHandler:)
-    @discardableResult public func postFormEncodedBodyParametersToURL(to url: URL?, bodyParameters: [String: String]? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+    @objc(postFormEncodedBodyParametersToURL:bodyParameters:reattemptLoginOn401Response:completionHandler:)
+    @discardableResult public func postFormEncodedBodyParametersToURL(to url: URL?, bodyParameters: [String: String]? = nil, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard let url = url else {
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
@@ -379,7 +396,7 @@ import Foundation
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
-        let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        let task = jsonDictionaryTask(with: request, reattemptLoginOn401Response: reattemptLoginOn401Response, completionHandler: completionHandler)
         task.resume()
         return task
     }
