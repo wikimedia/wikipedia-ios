@@ -25,8 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
     articleVC.articleLoadCompletion = articleLoadCompletion;
 
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC];
-    [self wmf_pushViewController:loadingFlowController animated:animated];
+    [self wmf_pushViewController:articleVC animated:animated];
     return articleVC;
 }
 
@@ -34,9 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     url = [url wmf_URLWithFragment:nil];
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC];
     
-    [self wmf_pushViewController:loadingFlowController animated:animated];
+    [self wmf_pushViewController:articleVC animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
@@ -47,8 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
     
     //embed in LoadingFlowController first
-
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController];
     
     if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
@@ -57,9 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                          [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
                                                      }];
     } else if (self.navigationController != nil) {
-        [self.navigationController pushViewController:loadingFlowController animated:animated];
+        [self.navigationController pushViewController:viewController animated:animated];
     } else if ([self isKindOfClass:[UINavigationController class]]) {
-        [(UINavigationController *)self pushViewController:loadingFlowController animated:animated];
+        [(UINavigationController *)self pushViewController:viewController animated:animated];
     }
 }
 

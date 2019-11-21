@@ -1682,10 +1682,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    if (self.loadingFlowController) {
-          [self.loadingFlowController tappedLinkWithUrl:url];
-    } else {
-        [self pushArticleViewControllerWithURL:url animated:YES];
+    NSError *error = nil;
+    if (![self wmf_navigateToActivityWithURL:url error:&error]) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:^{
+            
+        }];
     }
 }
 
@@ -2512,34 +2513,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
-}
-
-#pragma mark - WMFLoadingFlowControllerFetchDelegate
-
-- (NSURLSessionTask * _Nullable)linkPushFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<LoadingFlowControllerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
-    return [self fetchArticleWithURL:url forceDownload:NO checkForNewerRevision:NO WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull url) {
-        if (successHandler) {
-            successHandler(article, url);
-        }
-    } andError:^(NSError * _Nonnull error) {
-        if (errorHandler) {
-            errorHandler(error);
-        }
-    }];
-}
-
-#pragma mark - WMFLoadingFlowControllerChildProtocol
-
-- (UIViewController<WMFThemeable> * _Nullable)customNavAnimationHandler {
-    return nil;
-}
-
-- (BOOL)handleCustomSuccessWithArticle:(id<LoadingFlowControllerArticle>)article url:(NSURL *)url {
-    return NO;
-}
-
-- (void)showDefaultLinkFailureWithError:(NSError *)error {
-    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:nil];
 }
 
 @end

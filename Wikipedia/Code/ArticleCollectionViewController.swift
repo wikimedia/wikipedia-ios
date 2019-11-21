@@ -92,8 +92,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     }
 
     func pushUserTalkPage(title: String, siteURL: URL) {
-        let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
-        wmf_push(loadingFlowController, animated: true)
+        let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
+        wmf_push(talkPageContainer, animated: true)
         return
     }
     

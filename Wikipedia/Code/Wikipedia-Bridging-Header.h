@@ -27,7 +27,6 @@
 
 #import "WikiTextSectionUploader.h"
 #import "WMFArticleJSONCompilationHelper.h"
-#import "WMFLoadingFlowControllerProtocols.h"
 
 // Model
 #import "MWKLicense.h"

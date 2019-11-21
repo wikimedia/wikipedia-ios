@@ -1302,8 +1302,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                             if (summary.namespace.number.integerValue == PageNamespaceUserTalk) {
                                                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                                                     NSURL *url = [NSURL wmf_desktopURLForURL:URL];
-                                                                                                    LoadingFlowController *loadingFlowController = [WMFTalkPageContainerViewController containedUserTalkPageContainerWithURL:url dataStore:self.dataStore theme:self.theme];
-                                                                                                    [self wmf_pushViewController:loadingFlowController animated:YES];
+                                                                                                    WMFTalkPageContainerViewController *talkPageContainerVC = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:url dataStore:self.dataStore theme:self.theme];
+                                                                                                    [self wmf_pushViewController:talkPageContainerVC animated:YES];
                                                                                                     [self.dataStore.historyList addPageToHistoryWithURL:url];
                                                                                                     done();
                                                                                                 });

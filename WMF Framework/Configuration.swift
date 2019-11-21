@@ -295,11 +295,7 @@ public class Configuration: NSObject {
         return defaultActivity
     }
     
-    @objc public func activityInfoForWikiHostURL(_ url: URL?) -> UserActivityInfo? {
-        guard let url = url else {
-            return nil
-        }
-        
+   internal func activityInfoForWikiHostURL(_ url: URL) -> UserActivityInfo {
         if let wikiResourcePathInfo = activityInfoForWikiResourceURL(url) {
             return wikiResourcePathInfo
         }
@@ -309,6 +305,19 @@ public class Configuration: NSObject {
         }
       
         return UserActivityInfo(.inAppLink, url: url)
+    }
+    
+    @objc(activityInfoWithURL:error:)
+    public func activityInfo(with url: URL?) throws -> UserActivityInfo {
+        guard let url = url else {
+            throw RequestError.invalidParameters
+        }
+        
+        guard isWikiHost(url.host) else {
+            return UserActivityInfo(.externalLink, url: url)
+        }
+        
+        return activityInfoForWikiHostURL(url)
     }
 }
 

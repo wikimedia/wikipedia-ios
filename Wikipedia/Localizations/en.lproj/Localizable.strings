@@ -463,7 +463,6 @@
 "languages-wikipedia" = "Wikipedia languages";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Content is available under $1 unless otherwise noted.";
-"link-loading-title" = "Loading page...";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
 "logged-out-log-back-in-button-title" = "Log back in to your account";
 "logged-out-subtitle" = "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.";

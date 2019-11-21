@@ -6,8 +6,6 @@
 #import "WMFTableOfContentsDisplay.h"
 #import "WebViewController.h"
 #import "WMFImageGalleryViewController.h"
-#import "WMFLoadingFlowControllerProtocols.h"
-@class LoadingFlowController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,7 +27,7 @@ extern NSString *const WMFEditPublishedNotification;
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : WMFViewController <WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate, WMFLoadingFlowControllerChildProtocol, WMFLoadingFlowControllerFetchDelegate>
+@interface WMFArticleViewController : WMFViewController <WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
@@ -67,8 +65,6 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
 
 - (UIButton *)titleButton;
-
-@property (nonatomic, weak) LoadingFlowController * _Nullable loadingFlowController;
 
 - (void)articleDidLoad;
 - (void)kickoffProgressView;
