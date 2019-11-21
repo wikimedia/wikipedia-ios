@@ -206,7 +206,7 @@ public class WMFAuthenticationManager: Fetcher {
         let postDidLogOutNotification = {
             NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
         }
-        performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"]) { (result, response, error) in
+        performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: false) { (result, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
