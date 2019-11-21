@@ -51,15 +51,12 @@ const translationsFromSiteInfoResponseJSON = (siteInfoResponseJSON, sitematrixLa
     .filter(item => !excludedAmbiguousNamespaceIDs.has(item[1].id))
     .forEach(item => namespacedict[normalizeString(item[1].alias)] = item[1].id)
 
-    let output = {}
-    output[sitematrixLangCode] = {
+    let output = {
       namespace: namespacedict,
       mainpage: siteInfoResponseJSON.query.general.mainpage
     }
 
-    return {
-      languagecode: output
-    }
+    return output
 }
 
 const generateTranslationsJSON = () => {
