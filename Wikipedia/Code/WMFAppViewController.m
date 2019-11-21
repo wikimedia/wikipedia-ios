@@ -1173,6 +1173,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
+            return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
                 return YES;
@@ -1221,8 +1222,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     WMFUserActivityType type = [activity wmf_type];
 
-    if (type != WMFUserActivityTypeSearch && type != WMFUserActivityTypeInAppLink) {
-        [self dismissPresentedViewControllers];
+    switch (type) {
+        case WMFUserActivityTypeSearch:
+        case WMFUserActivityTypeInAppLink:
+        case WMFUserActivityTypeArticle:
+            break;
+        default:
+            [self dismissPresentedViewControllers];
+            break;
     }
 
     switch (type) {
@@ -1290,32 +1297,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 done();
                 return NO;
             }
-            if ([URL.path containsString:@":"]) {
-                [self.dataStore.articleSummaryController.fetcher fetchSummaryForArticleWithKey:URL.wmf_databaseKey
-                                                                                      priority:NSURLSessionTaskPriorityHigh
-                                                                                    completion:^(WMFArticleSummary *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                            if (error) {
-                                                                                                done();
-                                                                                                return;
-                                                                                            }
-                                                                                            if (summary.namespace.number.integerValue == PageNamespaceUserTalk) {
-                                                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                    NSURL *url = [NSURL wmf_desktopURLForURL:URL];
-                                                                                                    WMFTalkPageContainerViewController *talkPageContainerVC = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:url dataStore:self.dataStore theme:self.theme];
-                                                                                                    [self wmf_pushViewController:talkPageContainerVC animated:YES];
-                                                                                                    [self.dataStore.historyList addPageToHistoryWithURL:url];
-                                                                                                    done();
-                                                                                                });
-                                                                                            } else {
-                                                                                                [self showArticleForURL:URL animated:animated completion:done];
-                                                                                            }
-                                                                                        });
-                                                                                    }];
-            } else {
-                [self showArticleForURL:URL animated:animated completion:done];
-            }
-            // don't call done block before this return, wait for completion ^
+            [self showArticleForURL:URL animated:animated completion:done];
             return YES;
         } break;
         case WMFUserActivityTypeSettings:
@@ -1334,11 +1316,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
             break;
         case WMFUserActivityTypeInAppLink: {
-            NSURL *url = activity.webpageURL;
-            if (url) {
-                WMFSinglePageWebViewController *vc = [[WMFSinglePageWebViewController alloc] initWithURL:activity.webpageURL];
-                [self.currentNavigationController pushViewController:vc animated:YES];
+            NSURL *URL = activity.webpageURL;
+            if (!URL) {
+                done();
+                return NO;
             }
+            WMFSinglePageWebViewController *vc = [[WMFSinglePageWebViewController alloc] initWithURL:activity.webpageURL];
+            [self.currentNavigationController pushViewController:vc animated:YES];
         } break;
         default:
             done();
@@ -1371,8 +1355,21 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         completion();
         return visibleArticleViewController;
     }
-    [self dismissPresentedViewControllers];
-    return [self wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore theme:self.theme restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
+
+    UINavigationController *nc = [self currentNavigationController];
+    if (!nc) {
+        completion();
+        return nil;
+    }
+
+    if (nc.presentedViewController) {
+        [nc dismissViewControllerAnimated:NO completion:NULL];
+    }
+
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.session.dataStore theme:self.theme];
+    articleVC.articleLoadCompletion = completion;
+    [nc pushViewController:articleVC animated:YES];
+    return articleVC;
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
