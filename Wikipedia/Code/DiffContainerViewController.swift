@@ -394,6 +394,7 @@ private extension DiffContainerViewController {
     func setThankAndShareState(isEnabled: Bool) {
         diffToolbarView?.setThankButtonState(isEnabled: isEnabled)
         diffToolbarView?.setShareButtonState(isEnabled: isEnabled)
+        diffToolbarView?.apply(theme: theme)
     }
     
     func populatePrevNextModelsForToolbar() {
@@ -622,7 +623,7 @@ private extension DiffContainerViewController {
         }
     }
     
-    private func thankRevisionAuthor() {
+    private func thankRevisionAuthor(completion: @escaping ((Error?) -> Void)) {
         
         guard let toModel = toModel else {
             return
@@ -638,8 +639,10 @@ private extension DiffContainerViewController {
                     switch result {
                     case .success(let result):
                         self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
+                        completion(nil)
                     case .failure(let error as NSError):
                         self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
+                        completion(error)
                     }
                 }
             }
@@ -1147,7 +1150,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         present(activityViewController, animated: true)
     }
     
-    func tappedThank(isAlreadySelected: Bool, isLoggedIn: Bool) {
+    func tappedThank(isAlreadySelected: Bool) {
         
         guard let toModel = toModel else {
             return
@@ -1171,19 +1174,29 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
 
         guard !UserDefaults.wmf.wmf_didShowThankRevisionAuthorEducationPanel() else {
-            thankRevisionAuthor()
+            thankRevisionAuthor { (error) in
+                if error == nil {
+                    self.diffToolbarView?.isThankSelected = true
+                    }
+                }
             return
         }
 
         wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
             UserDefaults.wmf.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
             self.dismiss(animated: true, completion: {
-                self.thankRevisionAuthor()
+                self.thankRevisionAuthor { (error) in
+                    if error == nil {
+                        self.diffToolbarView?.isThankSelected = true
+                        }
+                    }
             })
         })
     }
     
-    
+    var isLoggedIn: Bool {
+        return WMFAuthenticationManager.sharedInstance.isLoggedIn
+    }
 }
 
 extension DiffContainerViewController: UINavigationControllerDelegate {
