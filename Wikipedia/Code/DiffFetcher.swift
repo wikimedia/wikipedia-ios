@@ -4,6 +4,7 @@ import Foundation
 enum DiffFetcherError: Error {
     case failureParsingRevisions
     case failureParsingWikitext
+    case failureParsingTitle
 }
 
 class DiffFetcher: Fetcher {
@@ -235,6 +236,46 @@ class DiffFetcher: Fetcher {
             }
             
             completion(.failure(DiffFetcherError.failureParsingRevisions))
+        }
+    }
+    
+    public func fetchArticleTitle(siteURL: URL, revisionID: Int, completion: @escaping (Result<String, Error>) -> Void) {
+        let parameters: [String: Any] = [
+            "action": "query",
+            "revids": revisionID,
+            "format": "json"
+        ]
+        
+        performMediaWikiAPIGET(for: siteURL, with: parameters, cancellationKey: nil) { (result, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard
+                let query = result?["query"] as? [String : Any],
+                let pages = query["pages"] as? [String : Any] else {
+                    completion(.failure(DiffFetcherError.failureParsingTitle))
+                    return
+            }
+            
+            for (_, value) in pages {
+                
+                guard let value = value as? [String: Any] else {
+                    completion(.failure(DiffFetcherError.failureParsingTitle))
+                    return
+                }
+                
+                guard let title = value["title"] as? String else {
+                    completion(.failure(DiffFetcherError.failureParsingTitle))
+                    return
+                }
+                
+                completion(.success(title))
+                return
+            }
+            
+            completion(.failure(DiffFetcherError.failureParsingTitle))
         }
     }
 }

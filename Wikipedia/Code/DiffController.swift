@@ -9,6 +9,7 @@ enum DiffError: Error {
     case fetchRevisionConstructTitleFailure
     case unrecognizedHardcodedIdsForIntermediateCounts
     case failureToPopulateModelsFromDeepLink
+    case failureToVerifyRevisionIDs
     
     var localizedDescription: String {
         return CommonStrings.genericErrorDescription
@@ -70,10 +71,36 @@ class DiffController {
         let from: WMFPageHistoryRevision?
         let to: WMFPageHistoryRevision?
         let first: WMFPageHistoryRevision
+        let articleTitle: String
     }
     
-    func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
+    func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
         
+        if let articleTitle = articleTitle {
+            populateModelsFromDeepLink(fromRevisionID: fromRevisionID, toRevisionID: toRevisionID, articleTitle: articleTitle, completion: completion)
+            return
+        }
+        
+        let maybeRevisionID = toRevisionID ?? fromRevisionID
+        
+        guard let revisionID = maybeRevisionID else {
+                completion(.failure(DiffError.failureToVerifyRevisionIDs))
+                return
+        }
+        
+        diffFetcher.fetchArticleTitle(siteURL: siteURL, revisionID: revisionID) { (result) in
+            switch result {
+            case .success(let title):
+                
+                self.populateModelsFromDeepLink(fromRevisionID: fromRevisionID, toRevisionID: toRevisionID, articleTitle: title, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    private func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
         guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
             completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
             return
@@ -132,7 +159,7 @@ class DiffController {
                     return
             }
             
-            let response = DeepLinkModelsResponse(from: fromResponse, to: toResponse, first: firstResponse)
+            let response = DeepLinkModelsResponse(from: fromResponse, to: toResponse, first: firstResponse, articleTitle: articleTitle)
             completion(.success(response))
         }
     }

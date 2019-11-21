@@ -11,6 +11,8 @@ final class DiffHeaderViewModel: Themeable {
     var title: DiffHeaderTitleViewModel
     let diffType: DiffContainerViewModel.DiffType
     let headerType: DiffHeaderType
+    private let articleTitle: String
+    private let byteDifference: Int?
     static let dateFormatter = DateFormatter()
     
     var isExtendedViewHidingEnabled: Bool {
@@ -22,16 +24,22 @@ final class DiffHeaderViewModel: Themeable {
         }
     }
     
-    init(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme) {
+    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, byteDifference: Int?, theme: Theme) {
         
         self.diffType = diffType
+        self.articleTitle = articleTitle
+        self.byteDifference = byteDifference
         
         DiffHeaderViewModel.dateFormatter.timeZone = TimeZone(identifier: "UTC")
         let formatString: String
         let titleViewModel: DiffHeaderTitleViewModel
         
         switch diffType {
-        case .single(let byteDifference):
+        case .single:
+            
+            guard let byteDifference = byteDifference else {
+                    return nil
+            }
             
             formatString = "HH:mm zzz, dd MMM yyyy" //tonitodo: "UTC" instead of "GMT" in result?
             DiffHeaderViewModel.dateFormatter.dateFormat = formatString
@@ -59,10 +67,10 @@ final class DiffHeaderViewModel: Themeable {
             self.title = titleViewModel
             self.headerType = .single(editorViewModel: editorViewModel, summaryViewModel: summaryViewModel)
             
-        case .compare(let articleTitle):
+        case .compare:
             
             guard let fromModel = fromModel else {
-                fatalError("Compare DiffType must have valid fromRevisionID")
+                return nil
             }
             
             titleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: nil)
@@ -128,8 +136,9 @@ final class DiffHeaderViewModel: Themeable {
     
     func apply(theme: Theme) {
         switch diffType {
-        case .single(let byteDifference):
-            if byteDifference < 0 {
+        case .single:
+            if let byteDifference = byteDifference,
+                byteDifference < 0 {
                 title.subtitleColor = theme.colors.destructive
             } else {
                 title.subtitleColor = theme.colors.accent
