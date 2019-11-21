@@ -5,7 +5,8 @@ protocol DiffToolbarViewDelegate: class {
     func tappedPrevious()
     func tappedNext()
     func tappedShare(_ sender: UIBarButtonItem)
-    func tappedThank(isAlreadySelected: Bool, isLoggedIn: Bool)
+    func tappedThank(isAlreadySelected: Bool)
+    var isLoggedIn: Bool { get }
 }
 
 class DiffToolbarView: UIView {
@@ -55,7 +56,7 @@ class DiffToolbarView: UIView {
     }()
     
     weak var delegate: DiffToolbarViewDelegate?
-    private var isThankSelected = false {
+    var isThankSelected = false {
         didSet {
             
             let imageName = isThankSelected ? "diff-smile-filled" : "diff-smile"
@@ -67,10 +68,6 @@ class DiffToolbarView: UIView {
     
     var toolbarHeight: CGFloat {
         return toolbar.frame.height
-    }
-    
-    private var isLoggedIn: Bool {
-        return WMFAuthenticationManager.sharedInstance.isLoggedIn
     }
     
     override init(frame: CGRect) {
@@ -105,11 +102,7 @@ class DiffToolbarView: UIView {
     }
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
-        delegate?.tappedThank(isAlreadySelected: isThankSelected, isLoggedIn: isLoggedIn)
-        
-        if isLoggedIn {
-            isThankSelected = true
-        }
+        delegate?.tappedThank(isAlreadySelected: isThankSelected)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -145,7 +138,7 @@ class DiffToolbarView: UIView {
     func setNextButtonState(isEnabled: Bool) {
         nextButton.isEnabled = isEnabled
     }
-  
+    
     func setThankButtonState(isEnabled: Bool) {
         thankButton.isEnabled = isEnabled
     }
@@ -183,7 +176,8 @@ extension DiffToolbarView: Themeable {
         shareButton.apply(theme: theme)
         thankButton.apply(theme: theme)
         
-        if !isLoggedIn {
+        if let delegate = delegate,
+            !delegate.isLoggedIn {
             if let button = thankButton.customView as? UIButton {
                 button.tintColor = theme.colors.disabledLink
             }
