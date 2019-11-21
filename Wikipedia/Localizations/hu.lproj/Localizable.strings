@@ -235,6 +235,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Nem nyelv-specifikus";
 "explore-feed-preferences-global-cards-title" = "Globális kártyák";
 "explore-feed-preferences-hide-card-action-title" = "Kártya elrejtése";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Minden „%@” kártya elrejtése";
 "explore-feed-preferences-in-the-news-description" = "Szócikkek aktuális eseményekről";
 "explore-feed-preferences-on-this-day-description" = "Események ezen a napon";

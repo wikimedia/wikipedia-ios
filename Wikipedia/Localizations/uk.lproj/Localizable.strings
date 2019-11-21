@@ -177,9 +177,6 @@
 "description-welcome-start-editing-button" = "Почати редагування";
 "diff-compare-header-from-info-heading" = "Від:";
 "diff-compare-header-heading" = "Порівняння версій";
-"diff-compare-header-subtitle-format" = "не показано $1 проміжних версій $2 користувачів";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 проміжна версія|$1 проміжних версій}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 користувач|$1 користувача|$1 користувачів}}";
 "diff-compare-header-to-info-heading" = "Кому:";
 "diff-compare-title" = "Порівняння версій";
 "diff-context-lines-collapsed-button-title" = "Показати";
@@ -319,12 +316,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Для всіх";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "На $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Всі картки %@ приховані";
 "explore-feed-preferences-global-card-footer-text" = "Ця картка не є специфічною до мови, її вимкнення вилучить її з вашої стрічки.";
 "explore-feed-preferences-global-cards-description" = "Не специфічні за мовою картки";
 "explore-feed-preferences-global-cards-subtitle" = "Не специфічна за мовою";
 "explore-feed-preferences-global-cards-title" = "Глобальні картки";
 "explore-feed-preferences-hide-card-action-title" = "Сховати цю картку";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Сховати всі картки «%@»";
 "explore-feed-preferences-in-the-news-description" = "Статті про поточні події";
 "explore-feed-preferences-languages-footer-text" = "Приховання всіх карток у всіх мовах призведе до приховання всієї стрічки";
@@ -535,6 +534,7 @@
 "page-history-compare-accessibility-hint" = "Натисніть, щоб порівняти дві версії";
 "page-history-compare-title" = "Порівняти";
 "page-history-minor-edits" = "малі редагування";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "Автор: %@";
 "page-history-revision-history-title" = "Історія версій";
 "page-history-revision-size-diff-addition" = "Додано {{PLURAL:$1|$1 байт|$1 байта|$1 байтів}}";
@@ -660,6 +660,7 @@
 "reading-lists-default-list-title" = "Збережене";
 "reading-lists-delete-reading-list-alert-message" = "Ця дія не може була скасована. Жодні статті, збережені тільки для {{PLURAL:$1|цього списку|цих списків}}, не збережуться.";
 "reading-lists-delete-reading-list-alert-title" = "Видалити {{PLURAL:$1|список|списки}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 статей і $2 списків були синхронізовані з вашого облікового запису";
 "reading-lists-list-not-synced-limit-exceeded" = "Список не збережено, ліміт досягнуто";
 "reading-lists-sort-saved-articles" = "Сортувати збережені статті";

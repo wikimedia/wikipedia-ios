@@ -21,6 +21,7 @@
 // Author: Kaganer
 // Author: Kareyac
 // Author: Katunchik
+// Author: Kent73
 // Author: Kopcap94
 // Author: Macofe
 // Author: Mailman
@@ -306,13 +307,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "вкл. все";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "вкл. $1";
-"explore-feed-preferences-feed-cards-hidden-title" = "Все %@ карточек скрыты";
+"explore-feed-preferences-feed-cards-hidden-title" = "Название ячейки, которая появляется вместо карточки подачи, скрытой пользователем с помощью кнопки переполнения - $ 1 заменяется типом карточки подачи";
 "explore-feed-preferences-global-card-footer-text" = "Эта карточка не является привязанной к языку, поэтому её выключение приведёт к исключению карточки из ленты во всех языках.";
 "explore-feed-preferences-global-cards-description" = "Карточки не привязанные к языкам.";
 "explore-feed-preferences-global-cards-subtitle" = "Не привязана к языку";
 "explore-feed-preferences-global-cards-title" = "Глобальные карточки";
 "explore-feed-preferences-hide-card-action-title" = "Скрыть эту карточку";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Скрыть все карточки из раздела «%@»";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Название для действия, которое позволяет пользователям скрывать все карты каналов данного типа - $ 1 заменяется типом карты каналов";
 "explore-feed-preferences-in-the-news-description" = "Статьи о текущих событиях";
 "explore-feed-preferences-languages-footer-text" = "Скрытие карточек всех типов приведёт к скрытию всей ленты.";
 "explore-feed-preferences-on-this-day-description" = "Исторические события в этот день";
@@ -462,6 +463,7 @@
 "insert-media-media-settings-title" = "Параметры медиафайла";
 "insert-media-title" = "Вставить медиа-файл";
 "insert-media-uploaded-image-title" = "Загруженное изображение";
+"intermediate-edits-count" = "Подзаголовок для количества изменений, которые были сделаны между двумя выбранными изменениями.  $ 1 заменяется количеством промежуточных ревизий.";
 "languages-settings-title" = "Языки";
 "languages-title" = "Изменить язык";
 "languages-wikipedia" = "Языки Википедии";
@@ -633,7 +635,7 @@
 "reading-lists-default-list-title" = "Сохранённые";
 "reading-lists-delete-reading-list-alert-message" = "Это действие не может быть отменено. Любые статьи, сохраненные только для {{PLURAL:$1|этот список|эти списки}} будут несохранены.";
 "reading-lists-delete-reading-list-alert-title" = "Удалить {{PLURAL:$1|список|списки}}?";
-"reading-lists-large-sync-completed" = "$1 статей и $2 списков чтения были синхронизированы с вашей учётной записью";
+"reading-lists-large-sync-completed" = "Предупреждение о том, что большая синхронизация завершена.  $ 1 будет заменено на количество статей, которые были синхронизированы, а $ 2 будет заменено на количество списков чтения, которые были синхронизированы";
 "reading-lists-list-not-synced-limit-exceeded" = "Список не синхронизирован, превышен лимит";
 "reading-lists-sort-saved-articles" = "Отсортировать сохранённые статьи";
 "reading-lists-split-notification" = "Существует лимит в $1 статей в одном списке для чтения. Существующие списки, в которых превышен этот лимит, были разделены на несколько.";

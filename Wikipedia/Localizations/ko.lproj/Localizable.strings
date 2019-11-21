@@ -183,7 +183,6 @@
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
 "diff-compare-header-heading" = "판 비교";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|사용자 $1명|사용자 $1명}}";
 "diff-compare-title" = "판 비교";
 "diff-context-lines-collapsed-button-title" = "표시";
 "diff-context-lines-expanded-button-title" = "숨기기";
@@ -306,12 +305,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "모든 언어에";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "켬";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1개 언어에";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "모든 카드 %@개 숨겨짐";
 "explore-feed-preferences-global-card-footer-text" = "이 카드는 언어가 특정되지 않았으므로 이 카드를 끄면 탐색 피드에서 제거됩니다.";
 "explore-feed-preferences-global-cards-description" = "언어가 특정되지 않은 카드";
 "explore-feed-preferences-global-cards-subtitle" = "언어를 특정하지 않음";
 "explore-feed-preferences-global-cards-title" = "전역 카드";
 "explore-feed-preferences-hide-card-action-title" = "이 카드 숨기기";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "모든 \"%@\" 카드 숨기기";
 "explore-feed-preferences-in-the-news-description" = "요즘 화제에 관한 글";
 "explore-feed-preferences-languages-footer-text" = "자신의 모든 언어의 모든 탐색 피드 카드를 숨기면 탐색 탭이 꺼지게 됩니다.";
@@ -521,6 +522,7 @@
 "page-history-bot-edits" = "봇 편집";
 "page-history-compare-accessibility-hint" = "탭하여 비교할 판 2개를 선택하십시오";
 "page-history-compare-title" = "비교하기";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "만든이: %@";
 "page-history-revision-history-title" = "편집 역사";
 "page-history-revisions-comparison-warning" = "판 2개만 선택할 수 있습니다";
@@ -642,6 +644,7 @@
 "reading-lists-default-list-title" = "저장됨";
 "reading-lists-delete-reading-list-alert-message" = "이 작업은 취소할 수 없습니다. {{PLURAL:$1|이 목록}}에 저장된 문서들만 저장이 취소됩니다.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|목록}}을 삭제하시겠습니까?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "문서 $1개와 읽기 목록 $2개가 장치로부터 동기화되었습니다";
 "reading-lists-list-not-synced-limit-exceeded" = "목록이 동기화되지 않았습니다. 제한에 도달했습니다";
 "reading-lists-sort-saved-articles" = "저장된 문서 정렬";

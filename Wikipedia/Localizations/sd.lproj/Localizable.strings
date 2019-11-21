@@ -164,9 +164,6 @@
 "description-welcome-start-editing-button" = "سنوارڻ شروع ڪريو";
 "diff-compare-header-from-info-heading" = "طرفان:";
 "diff-compare-header-heading" = "ورجاءَ ڀيٽيو";
-"diff-compare-header-subtitle-format" = "$1 پاران $2 ناھي ڏيکاريل";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 وچيون ورجاءُ|$1 وچيان ورجاءَ}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 واپرائيندڙ|$1 واپرائيندڙَ}}";
 "diff-compare-header-to-info-heading" = "ڏانھن:";
 "diff-compare-title" = "ورجاءَ ڀيٽيو";
 "diff-context-lines-collapsed-button-title" = "ڏيکاريو";
@@ -283,12 +280,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سڀ کوليو";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "کوليو";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "کوليو $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "سڀ %@ ڪارڊ لڪل";
 "explore-feed-preferences-global-card-footer-text" = "ھي ڪارڊ ٻولي مخصوص ناھي، ھن ڪارڊ کي بند ڪرڻ ان جي کوجنا رسد مان ھٽائي ڇڏيندو.";
 "explore-feed-preferences-global-cards-description" = "غير-ٻولي مخصوص ڪارڊَ";
 "explore-feed-preferences-global-cards-subtitle" = "ٻولي مخصوص ناھي";
 "explore-feed-preferences-global-cards-title" = "عالمي ڪارڊ";
 "explore-feed-preferences-hide-card-action-title" = "هي ڪارڊ لڪايو";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "سڀ “%@” پتا لڪايو";
 "explore-feed-preferences-in-the-news-description" = "ھاڻوڪن واقعن بابت مضمون";
 "explore-feed-preferences-languages-footer-text" = "توھان جي سڀني ٻولين ۾ کوجنا رسد جا سڀ ڪارڊ لڪائڻ کوجنا ٽيب کي بند ڪري ڇڏيندو";
@@ -494,6 +493,7 @@
 "page-history-compare-accessibility-hint" = "ٻن ورجائن کي چونڊي ڀيٽڻ لاءِ ڇھو";
 "page-history-compare-title" = "ڀيٽيو";
 "page-history-minor-edits" = "معمولي سنوارون";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "مصنف: %@";
 "page-history-revision-history-title" = "ورجاءُ سوانح";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 بائيٽ|$1 بائيٽون}} وڌيـ(ـون)";

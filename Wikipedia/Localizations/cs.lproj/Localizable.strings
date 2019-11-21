@@ -185,8 +185,6 @@
 "description-welcome-start-editing-button" = "Začít editovat";
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Porovnat revize";
-"diff-compare-header-subtitle-format" = "Revize $1 od uživatele $2 není zobrazena / nejsou zobrazeny";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 uživatel|$1 uživatelé|$1 uživatelů}}";
 "diff-compare-header-to-info-heading" = "Do:";
 "diff-compare-title" = "Porovnat revize";
 "diff-context-lines-collapsed-button-title" = "Zobrazit";
@@ -303,12 +301,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ve všech jazycích";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnout";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1 jazycích";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Všech %@ karet je skrytých";
 "explore-feed-preferences-global-card-footer-text" = "V této kartě nelze zvolit jazyk, vypnutím této karty bude odstraněna z vašeho kanálu Objevit.";
 "explore-feed-preferences-global-cards-description" = "Bez možnosti zvolit jazyk";
 "explore-feed-preferences-global-cards-subtitle" = "Bez možnosti zvolit jazyk";
 "explore-feed-preferences-global-cards-title" = "Globální karty";
 "explore-feed-preferences-hide-card-action-title" = "Skrýt tuto kartu";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skrýt všechny karty „%@“";
 "explore-feed-preferences-in-the-news-description" = "Články o aktuálních událostech";
 "explore-feed-preferences-languages-footer-text" = "Skrytí všech karet ve všech vybraných jazycích vypne kanál Objevit.";
@@ -630,6 +630,7 @@
 "reading-lists-default-list-title" = "Uloženo";
 "reading-lists-delete-reading-list-alert-message" = "Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do {{PLURAL:$1|tohoto seznamu|těchto seznamů}} nebudou nadále mezi uloženými.";
 "reading-lists-delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|seznam|seznamy}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 článků a $2 seznamů k přečtení bylo synchronizováno z vašeho účtu";
 "reading-lists-list-not-synced-limit-exceeded" = "Seznam nebyl synchronizován, limit byl překročen";
 "reading-lists-sort-saved-articles" = "Třídění uložených článků";

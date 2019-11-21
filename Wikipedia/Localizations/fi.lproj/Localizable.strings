@@ -249,12 +249,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Kaikilla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Käytössä";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 kielellä";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Kaikki %@ korttia piilotettu";
 "explore-feed-preferences-global-card-footer-text" = "Tämä kortti ei ole kielikohtainen, ja sen poistaminen käytöstä poistaa sen Tutki-syötteestäsi.";
 "explore-feed-preferences-global-cards-description" = "Ei-kielikohtaiset tietyt kortit";
 "explore-feed-preferences-global-cards-subtitle" = "Kielestä riippumaton";
 "explore-feed-preferences-global-cards-title" = "Globaalit kortit";
 "explore-feed-preferences-hide-card-action-title" = "Piilota tämä kortti";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Piilota kaikki ”%@”-kortit";
 "explore-feed-preferences-in-the-news-description" = "Artikkelit ajankohtaisista tapahtumista";
 "explore-feed-preferences-languages-footer-text" = "Kaikkien Tutki-syötekorttien poistaminen käytöstä kaikilla kielillä poistaa Tutki-välilehden käytöstä.";
@@ -565,6 +567,7 @@
 "reading-lists-default-list-title" = "Tallennetut";
 "reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
 "reading-lists-delete-reading-list-alert-title" = "Poista {{PLURAL:$1|lista|listaa}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikkelia ja $2 lukulistaa synkronoitu tunnukseltasi";
 "reading-lists-list-not-synced-limit-exceeded" = "Luettelo ei synkronoitu, raja saavutettu";
 "reading-lists-sort-saved-articles" = "Lajittele tallennetut artikkelit";
