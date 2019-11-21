@@ -1,30 +1,41 @@
 
-struct WikipediaURLTranslations: Codable {
-    private var languagecode: Dictionary<String, WikipediaURLLanguageCodeTranslations> = Dictionary()
-    private static let sharedLookupTable = WikipediaURLTranslations.init(fileName: "wikipedia-namespaces").languagecode
-    private init(fileName: String) {
+struct WikipediaURLTranslations {
+    private static var sharedLookupTable = WikipediaURLTranslation(languageCode: "en").languagecode
+
+    private static func updateLookupTableIfNecessary(for languageCode: String) {
+        guard sharedLookupTable[languageCode] == nil else {
+            return
+        }
+        let translationsForLanguageCode = WikipediaURLTranslation(languageCode: languageCode).languagecode
+        sharedLookupTable.merge(translationsForLanguageCode) {(current, _) in current}
+    }
+    
+    static func commonNamespace(for namespaceString: String, in languageCode: String) -> WikipediaURLCommonNamespace? {
+        updateLookupTableIfNecessary(for: languageCode)
+        return WikipediaURLTranslations.sharedLookupTable[languageCode]?.namespace[namespaceString.uppercased().replacingOccurrences(of: "_", with: " ")]
+    }
+
+    static func mainpage(in languageCode: String) -> String? {
+        updateLookupTableIfNecessary(for: languageCode)
+        return WikipediaURLTranslations.sharedLookupTable[languageCode]?.mainpage
+    }
+}
+
+struct WikipediaURLTranslation: Codable {
+    var languagecode: Dictionary<String, WikipediaURLLanguageCodeTranslations> = Dictionary()
+    init(languageCode: String) {
         guard
-            let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
+            let url = Bundle.main.url(forResource: "wikipedia-namespaces/\(languageCode)", withExtension: "json"),
             let data = try? Data(contentsOf: url)
         else {
             assertionFailure("Unable to open JSON")
             return
         }
         do {
-            languagecode = (try JSONDecoder().decode(WikipediaURLTranslations.self, from: data)).languagecode
+            languagecode = (try JSONDecoder().decode(WikipediaURLTranslation.self, from: data)).languagecode
         } catch {
-            assertionFailure("Unable to decode WikipediaURLTranslations from JSON data")
+            assertionFailure("Unable to decode WikipediaURLTranslation from JSON data")
         }
-    }
-}
-
-extension WikipediaURLTranslations {
-    static func commonNamespace(for namespaceString: String, in languageCode: String) -> WikipediaURLCommonNamespace? {
-        return WikipediaURLTranslations.sharedLookupTable[languageCode]?.namespace[namespaceString.uppercased().replacingOccurrences(of: "_", with: " ")]
-    }
-
-    static func mainpage(in languageCode: String) -> String? {
-        return WikipediaURLTranslations.sharedLookupTable[languageCode]?.mainpage
     }
 }
 
