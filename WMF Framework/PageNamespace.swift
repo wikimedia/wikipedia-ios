@@ -49,6 +49,17 @@
     case gadgetDefinition = 2302
     case gadgetDefinitionTalk = 2303
     case topic = 2600
+    
+    public var canonicalName: String {
+        switch self {
+        case .talk:
+            return "Talk"
+        case .userTalk:
+            return "User talk"
+        default: // add these as needed
+            return ""
+        }
+    }
 }
 
 extension PageNamespace {

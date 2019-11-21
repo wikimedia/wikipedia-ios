@@ -41,8 +41,7 @@
                 return [[MWKLanguageLink alloc] initWithLanguageCode:jsonLink[@"lang"]
                                                        pageTitleText:jsonLink[@"*"]
                                                                 name:jsonLink[@"autonym"]
-                                                       localizedName:jsonLink[@"langname"]
-                                                          namespaces:nil];
+                                                       localizedName:jsonLink[@"langname"]];
             }];
         }] wmf_reject:^BOOL(id key, id obj) {
             return WMF_IS_EQUAL(obj, [NSNull null]);
