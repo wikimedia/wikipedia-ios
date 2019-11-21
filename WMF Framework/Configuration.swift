@@ -262,7 +262,7 @@ public class Configuration: NSObject {
             case "SPECIAL":
                 if let diffMatch = mobilediffRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
                     let oldid = mobilediffRegex.replacementString(for: diffMatch, in: title, offset: 0, template: "$1")
-                    return UserActivityInfo(.diff, url: url, queryItems: [URLQueryItem(name: "diff", value: "prev"), URLQueryItem(name: "oldid", value: oldid)])
+                    return UserActivityInfo(.articleDiff, url: url, queryItems: [URLQueryItem(name: "diff", value: "prev"), URLQueryItem(name: "oldid", value: oldid)])
                 } else {
                    return defaultActivity
                 }

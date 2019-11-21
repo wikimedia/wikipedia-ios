@@ -39,13 +39,13 @@ class ConfigurationTests: XCTestCase {
         // TODO: update when we handle MobileDiff URLs
         components.path = "/wiki/Special:MobileDiff/24601"
         info = configuration.activityInfoForWikiResourceURL(components.url!)
-        XCTAssertEqual(info!.type, .diff)
+        XCTAssertEqual(info!.type, .articleDiff)
         XCTAssertEqual(info!.url, components.url!)
         XCTAssertEqual(info!.queryItems!.last, URLQueryItem(name: "oldid", value: "24601"))
     }
     
 //    func testWResourcePathActivity() {
-//        XCTAssertEqual(configuration.activityTypeForWResourcePath("index.php?title=Auguste_Rodin&action=history"), .history)
+//        XCTAssertEqual(configuration.activityTypeForWResourcePath("index.php?title=Auguste_Rodin&action=history"), .articleHistory)
 //        XCTAssertEqual(configuration.activityTypeForWResourcePath("index.php?title=Auguste_Rodin&type=revision&diff=925807777&oldid=925784505"), .diff)
 //        XCTAssertNil(configuration.activityTypeForWResourcePath("index.php"))
 //    }
