@@ -26,9 +26,10 @@ class SinglePageWebViewController: ViewController {
         return webView
     }()
     
-    override func loadView() {
-        view = webView
+    override func viewDidLoad() {
+        view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView
+        super.viewDidLoad()
         webView.load(URLRequest(url: url))
     }
     
