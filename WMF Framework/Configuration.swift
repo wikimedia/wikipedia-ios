@@ -299,14 +299,18 @@ public class Configuration: NSObject {
     }
     
    internal func activityInfoForWikiHostURL(_ url: URL) -> UserActivityInfo {
-        if let wikiResourcePathInfo = activityInfoForWikiResourceURL(url) {
+        // standardize on desktop URLs for activities
+        let desktopURL = NSURL.wmf_desktopURL(for: url) ?? url
+        
+        if let wikiResourcePathInfo = activityInfoForWikiResourceURL(desktopURL) {
             return wikiResourcePathInfo
         }
         
-        if let wResourcePathInfo = activityInfoForWResourceURL(url) {
+        if let wResourcePathInfo = activityInfoForWResourceURL(desktopURL) {
              return wResourcePathInfo
         }
-      
+        
+        // keep mobile URLs for in app links
         return UserActivityInfo(.inAppLink, url: url)
     }
     
