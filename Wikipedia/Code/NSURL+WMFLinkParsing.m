@@ -249,7 +249,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     }
 }
 
-- (NSURL *)wmf_databaseKeyURL {
+- (NSURL *)wmf_databaseURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
     components.path = [components.path stringByRemovingPercentEncoding] ?: components.path;
@@ -260,7 +260,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 }
 
 - (NSString *)wmf_databaseKey {
-    return self.wmf_databaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
+    return self.wmf_databaseURL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
 - (NSString *)wmf_title {
