@@ -1,3 +1,5 @@
+#import "WMFAppViewController.h"
+
 #import "RMessage.h"
 #import "RMessageView.h"
 

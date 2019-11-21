@@ -46,10 +46,7 @@ public class Configuration: NSObject {
     
     let wikiResourceRegex = try! NSRegularExpression(pattern: "^\(Path.wikiResource)(.+)$", options: .caseInsensitive)
     let wResourceRegex = try! NSRegularExpression(pattern: "^\(Path.wResource)(.+)$", options: .caseInsensitive)
-    // From https://github.com/wikimedia/mediawiki-title
-    let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
-    let mobilediffRegex = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
-    
+
     public struct APIURLComponentsBuilder {
         let hostComponents: URLComponents
         let basePathComponents: [String]
@@ -72,6 +69,10 @@ public class Configuration: NSObject {
     public let centralAuthCookieTargetDomains: [String] // copy cookies to
     
     public let wikiResourceDomains: [String]
+    
+    @objc public lazy var router: Router = {
+       return Router(configuration: self)
+    }()
     
     required init(defaultSiteDomain: String, otherDomains: [String] = []) {
         self.defaultSiteDomain = defaultSiteDomain
@@ -244,103 +245,6 @@ public class Configuration: NSObject {
         }
         return isWikiHost(host)
     }
-    
-    internal func activityInfoForWikiResourceURL(_ url: URL) -> UserActivityInfo? {
-        guard let path = wikiResourcePath(url.path) else {
-            return nil
-        }
-        let language = url.wmf_language ?? "en"
-        let articleActivity = UserActivityInfo(.article, url: url, title: path, language: language)
-        if let namespaceMatch = namespaceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) {
-            let namespaceString = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$1")
-            let title = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$2")
-            let namespace = WikipediaURLTranslations.commonNamespace(for: namespaceString, in: language)
-            let inAppLinkActivity = UserActivityInfo(.inAppLink, url: url)
-            switch namespace {
-            case .userTalk:
-                return UserActivityInfo(.userTalk, url: url, title: title, language: language)
-            case .special:
-                if let diffMatch = mobilediffRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
-                    let oldid = mobilediffRegex.replacementString(for: diffMatch, in: title, offset: 0, template: "$1")
-                    return UserActivityInfo(.articleDiff, url: url, queryItems: [URLQueryItem(name: "diff", value: "prev"), URLQueryItem(name: "oldid", value: oldid)])
-                } else {
-                   return inAppLinkActivity
-                }
-            case nil: // if the string before the : isn't a namespace, it's likely part of an article title
-                return articleActivity
-            default:
-                return inAppLinkActivity
-            }
-        }
-        return articleActivity
-    }
-    
-    internal func activityInfoForWResourceURL(_ url: URL) -> UserActivityInfo? {
-        guard let path = wResourcePath(url.path) else {
-            return nil
-        }
-        let defaultActivity = UserActivityInfo(.inAppLink, url: url)
-        guard var components = URLComponents(string: path) else {
-            return defaultActivity
-        }
-        components.query = url.query
-        guard components.path.lowercased() == Path.indexPHP else {
-            return defaultActivity
-        }
-        guard let queryItems = components.queryItems else {
-            return defaultActivity
-        }
-        for item in queryItems {
-            if item.name.lowercased() == "search" {
-                return UserActivityInfo(.searchResults, url: url, queryItems: queryItems)
-            }
-        }
-        return defaultActivity
-    }
-    
-   internal func activityInfoForWikiHostURL(_ url: URL) -> UserActivityInfo {
-        // standardize on desktop URLs for activities
-        let desktopURL = NSURL.wmf_desktopURL(for: url) ?? url
-        
-        if let wikiResourcePathInfo = activityInfoForWikiResourceURL(desktopURL) {
-            return wikiResourcePathInfo
-        }
-        
-        if let wResourcePathInfo = activityInfoForWResourceURL(desktopURL) {
-             return wResourcePathInfo
-        }
-        
-        // keep mobile URLs for in app links
-        return UserActivityInfo(.inAppLink, url: url)
-    }
-    
-    @objc(activityInfoWithURL:error:)
-    public func activityInfo(with url: URL?) throws -> UserActivityInfo {
-        guard let url = url else {
-            throw RequestError.invalidParameters
-        }
-        
-        guard isWikiHost(url.host) else {
-            return UserActivityInfo(.externalLink, url: url)
-        }
-        
-        return activityInfoForWikiHostURL(url)
-    }
 }
 
-@objc(WMFUserActivityInfo)
-public class UserActivityInfo: NSObject {
-    @objc public let type: WMFUserActivityType
-    @objc public let url: URL?
-    @objc public let title: String?
-    @objc public let language: String?
-    @objc public let queryItems: [URLQueryItem]?
-    
-    required init(_ type: WMFUserActivityType, url: URL, title: String? = nil, language: String? = nil, queryItems: [URLQueryItem]? = nil) {
-        self.type = type
-        self.url = url
-        self.title = title
-        self.language = language
-        self.queryItems = queryItems
-    }
-}
+

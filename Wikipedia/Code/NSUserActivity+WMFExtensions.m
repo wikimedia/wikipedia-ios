@@ -230,21 +230,7 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     } else if ([self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return WMFUserActivityTypeSearchResults;
     } else {
-        return [self typeOfWebpageURL];
-    }
-}
-
-- (WMFConfiguration *)configuration {
-    return [WMFConfiguration current];
-}
-
-- (WMFUserActivityType)typeOfWebpageURL {
-    NSError *error = nil;
-    WMFUserActivityInfo *activityInfo = [self.configuration activityInfoWithURL:self.wmf_articleURL error:&error];
-    if (activityInfo) {
-        return activityInfo.type;
-    } else {
-        return WMFUserActivityTypeExternalLink;
+        return WMFUserActivityTypeLink;
     }
 }
 
@@ -269,7 +255,7 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     }
 }
 
-- (NSURL *)wmf_articleURL {
+- (NSURL *)wmf_linkURL {
     if (self.userInfo[CSSearchableItemActivityIdentifier] != nil) {
         return [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
     } else {
@@ -302,9 +288,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             break;
         case WMFUserActivityTypeContent:
             host = @"content";
-            break;
-        case WMFUserActivityTypeArticle:
-            host = @"article";
             break;
         case WMFUserActivityTypePlaces:
             host = @"places";

@@ -1239,6 +1239,12 @@
 		8320331F22B9052A004A9EDA /* NavigationStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */; };
 		8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */; };
 		8320332322B906A0004A9EDA /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320332222B906A0004A9EDA /* NavigationState.swift */; };
+		8321FCCA23871D8F0079F3C7 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCC923871D8F0079F3C7 /* Router.swift */; };
+		8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCCD2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCCE2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCD02387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
 		83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83222DB21F8E554800338BE5 /* WMFContent+CoreDataClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */; };
@@ -4220,6 +4226,8 @@
 		831C15C52099EB3A001B04BF /* WMFArticle+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Errors.swift"; sourceTree = "<group>"; };
 		8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSManagedObjectContext+NavigationState.swift"; path = "WMF Framework/NSManagedObjectContext+NavigationState.swift"; sourceTree = SOURCE_ROOT; };
 		8320332222B906A0004A9EDA /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationState.swift; path = "WMF Framework/NavigationState.swift"; sourceTree = SOURCE_ROOT; };
+		8321FCC923871D8F0079F3C7 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Router.swift; path = "WMF Framework/Router.swift"; sourceTree = SOURCE_ROOT; };
+		8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRouter.swift; sourceTree = "<group>"; };
 		83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataProperties.h"; sourceTree = "<group>"; };
 		83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataClass.h"; sourceTree = "<group>"; };
 		83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -7479,6 +7487,7 @@
 			children = (
 				B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */,
 				B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */,
+				8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */,
 				B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */,
 			);
 			name = "App View Controller";
@@ -8971,6 +8980,7 @@
 				D82CA32E2020E87D005C2D5C /* ReadingListsOperation.swift */,
 				D82CA3322020E8D8005C2D5C /* ReadingListsSyncOperation.swift */,
 				D8543230218879D000E895B5 /* Configuration.swift */,
+				8321FCC923871D8F0079F3C7 /* Router.swift */,
 				D8181FA42188DC1400FDEC59 /* String+Domains.swift */,
 				8386BDF02386D3E1007EE89D /* RequestError.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
@@ -11175,6 +11185,7 @@
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
 				67F73E792267B9510079DEEF /* TalkPageTopicNewViewController.swift in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
+				8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
@@ -11726,6 +11737,7 @@
 				67CEF2732351113000D5CA6C /* DiffController.swift in Sources */,
 				D80ED2E91EE57F4800CE8C50 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D80ED2EA1EE57F4800CE8C50 /* WMFArticleTextActivitySource.m in Sources */,
+				8321FCD02387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D80ED2EB1EE57F4800CE8C50 /* WMFAuthLinkLabel.swift in Sources */,
 				D80ED2F01EE57F4800CE8C50 /* WMFPasswordResetter.swift in Sources */,
 				D80ED2F31EE57F4800CE8C50 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
@@ -12182,6 +12194,7 @@
 				B389CFD01E6F459F00483C06 /* MWKArticle+MKMapItem.swift in Sources */,
 				D8AAF6B81FE93DE9005760E6 /* UIScrollView+Limits.swift in Sources */,
 				D8FA18AE1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.m in Sources */,
+				8321FCCA23871D8F0079F3C7 /* Router.swift in Sources */,
 				D81930DB1E9F97B200554B19 /* WMFExploreFeedContentController.m in Sources */,
 				D8FA18F71E1BDA4C009675C3 /* GroupedAccessibilityView.swift in Sources */,
 				D8E78FA41FB4C8250094B968 /* ReadingListsController.swift in Sources */,
@@ -12399,6 +12412,7 @@
 				D8A42A6D1E815A9C00D8E281 /* WMFReferencePageBackgroundView.swift in Sources */,
 				7A13A89C2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				7A610CC0220A582A00C266AE /* HintController.swift in Sources */,
+				8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -12958,6 +12972,7 @@
 				67CEF2702351113000D5CA6C /* DiffController.swift in Sources */,
 				D8CE25511E698E2400DAE2E0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
+				8321FCCD2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */,
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
 				D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
@@ -13402,6 +13417,7 @@
 				67CEF2712351113000D5CA6C /* DiffController.swift in Sources */,
 				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8EC3E421E9BDA35006712EB /* WMFTableOfContentsViewController.swift in Sources */,
+				8321FCCE2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D8EC3E441E9BDA35006712EB /* ProtectedEditAttemptFunnel.m in Sources */,
 				D8EC3E451E9BDA35006712EB /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				D8EC3E471E9BDA35006712EB /* UIViewController+WMFArticlePresentation.m in Sources */,
