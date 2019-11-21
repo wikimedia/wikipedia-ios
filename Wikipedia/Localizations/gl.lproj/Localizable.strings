@@ -276,12 +276,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "En todas";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Tódalas tarxetas %@ ocultas";
 "explore-feed-preferences-global-card-footer-text" = "Esta tarxeta non depende da lingua, desactivándoa eliminaraa da súa canle de exploración.";
 "explore-feed-preferences-global-cards-description" = "Tarxetas independentes da lingua";
 "explore-feed-preferences-global-cards-subtitle" = "Independente da lingua";
 "explore-feed-preferences-global-cards-title" = "Tarxetas globais";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarxeta";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Agochar tódalas tarxetas “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artigos sobre eventos actuais";
 "explore-feed-preferences-languages-footer-text" = "Ocultar tódalas tarxetas da canle de exploración en tódalas súas linguas, desactivará a pestana de exploración.";
@@ -603,6 +605,7 @@
 "reading-lists-default-list-title" = "Gardado";
 "reading-lists-delete-reading-list-alert-message" = "Esta acción non pode desfacerse. Tódolos artigos gardados só {{PLURAL:$1|nesta lista|nestas listas}} deixarán de ser gardados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|a lista|as listas}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artigos e $2 listas de lectura sincronizados dende a súa conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista non foi sincronizada, o límite foi excedido";
 "reading-lists-sort-saved-articles" = "Ordear os artigos gardados";

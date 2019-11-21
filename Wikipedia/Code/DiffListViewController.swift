@@ -19,6 +19,7 @@ class DiffListViewController: ViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.alwaysBounceVertical = true
         scrollView = collectionView
         return collectionView
     }()

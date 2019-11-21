@@ -4,6 +4,7 @@ import UIKit
 class DiffHeaderCompareView: UIView {
 
     @IBOutlet var contentView: UIView!
+    @IBOutlet var stackViewContainerView: UIView!
     @IBOutlet var fromItemView: DiffHeaderCompareItemView!
     @IBOutlet var toItemView: DiffHeaderCompareItemView!
     @IBOutlet var divView: UIView!
@@ -91,6 +92,8 @@ extension DiffHeaderCompareView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
+        stackViewContainerView.backgroundColor = theme.colors.paperBackground
+        stackView.backgroundColor = theme.colors.paperBackground
         divView.backgroundColor = theme.colors.chromeShadow
         fromItemView.apply(theme: theme)
         toItemView.apply(theme: theme)

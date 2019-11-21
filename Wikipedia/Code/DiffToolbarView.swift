@@ -10,6 +10,14 @@ protocol DiffToolbarViewDelegate: class {
 
 class DiffToolbarView: UIView {
     
+    var parentViewState: DiffContainerViewModel.State? {
+        didSet {
+            apply(theme: theme)
+        }
+    }
+    
+    private var theme: Theme = .standard
+    
     @IBOutlet private var toolbar: UIToolbar!
     @IBOutlet var contentView: UIView!
     lazy var previousButton: IconBarButtonItem = {
@@ -137,14 +145,39 @@ class DiffToolbarView: UIView {
     func setNextButtonState(isEnabled: Bool) {
         nextButton.isEnabled = isEnabled
     }
+  
+    func setThankButtonState(isEnabled: Bool) {
+        thankButton.isEnabled = isEnabled
+    }
+    
+    func setShareButtonState(isEnabled: Bool) {
+        shareButton.isEnabled = isEnabled
+    }
 }
 
 extension DiffToolbarView: Themeable {
     func apply(theme: Theme) {
+        
+        self.theme = theme
+        
         toolbar.isTranslucent = false
+        
         toolbar.backgroundColor = theme.colors.chromeBackground
         toolbar.barTintColor = theme.colors.chromeBackground
         contentView.backgroundColor = theme.colors.chromeBackground
+        
+        //avoid toolbar disappearing when empty/error states are shown
+        if theme == Theme.black {
+            switch parentViewState {
+            case .error, .empty:
+                    toolbar.backgroundColor = theme.colors.paperBackground
+                    toolbar.barTintColor = theme.colors.paperBackground
+                    contentView.backgroundColor = theme.colors.paperBackground
+            default:
+                break
+            }
+        }
+        
         previousButton.apply(theme: theme)
         nextButton.apply(theme: theme)
         shareButton.apply(theme: theme)

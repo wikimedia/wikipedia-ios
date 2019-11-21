@@ -4,8 +4,8 @@ import Foundation
 final class DiffContainerViewModel {
     
     enum DiffType {
-        case single(byteDifference: Int)
-        case compare(articleTitle: String)
+        case single
+        case compare
     }
     
     enum State {
@@ -15,22 +15,23 @@ final class DiffContainerViewModel {
         case error(error: Error)
     }
     
-    let headerViewModel: DiffHeaderViewModel?
+    var headerViewModel: DiffHeaderViewModel?
     let type: DiffType
     var listViewModel: [DiffListGroupViewModel]?
     
     var state: State = .loading {
         didSet {
-            stateHandler?()
+            stateHandler?(oldValue)
         }
     }
-    var stateHandler: (() -> Void)?
+    var stateHandler: ((_ oldState: DiffContainerViewModel.State) -> Void)?
     
-    init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, listViewModel: [DiffListGroupViewModel]?, theme: Theme) {
+    init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, listViewModel: [DiffListGroupViewModel]?, articleTitle: String?, byteDifference: Int?, theme: Theme) {
         self.type = type
         
-        if let toModel = toModel {
-            self.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: fromModel, toModel: toModel, theme: theme)
+        if let toModel = toModel,
+            let articleTitle = articleTitle {
+            self.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: fromModel, toModel: toModel, articleTitle: articleTitle, byteDifference: byteDifference, theme: theme)
         } else {
             self.headerViewModel = nil
         }

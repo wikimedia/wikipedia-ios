@@ -1,14 +1,25 @@
 
 import Foundation
 
-struct SectionInfo: Codable {
-    let title: String
-    let location: Int
+struct DiffSection: Codable {
+    let level: Int
+    let heading: String
+    let offset: Int
+}
+
+struct DiffItemOffset: Codable {
+    let from: Int?
+    let to: Int?
+}
+
+struct DiffSideMetaData: Codable {
+    let sections: [DiffSection]
 }
 
 struct DiffResponse: Codable {
-    var diff: [DiffItem] //tonitodo: change back to let after finished hardcoding for user testing
-    var sectionInfo: [SectionInfo]? //tonitodo: change back to let after finished hardcoding for user testing
+    let diff: [DiffItem]
+    let from: DiffSideMetaData
+    let to: DiffSideMetaData
 }
 
 enum DiffItemType: Int, Codable {
@@ -37,12 +48,12 @@ struct DiffHighlightRange: Codable {
 }
 
 struct DiffItem: Codable {
-    var lineNumber: Int?
     let type: DiffItemType
     let text: String
     let highlightRanges: [DiffHighlightRange]?
     let moveInfo: DiffMoveInfo?
-    var sectionInfoIndex: Int?
+    let offset: DiffItemOffset? //tonitodo - make non-optional when this comes from the API
+    let lineNumber: Int?
 }
 
 struct DiffMoveInfo: Codable {
@@ -58,14 +69,18 @@ extension DiffItem: Equatable {
             lhs.text == rhs.text &&
             lhs.highlightRanges == rhs.highlightRanges &&
             lhs.moveInfo == rhs.moveInfo &&
-            lhs.sectionInfoIndex == rhs.sectionInfoIndex
+            lhs.offset == rhs.offset
     }
 }
 
-extension DiffHighlightRange: Equatable {
+extension DiffMoveInfo: Equatable {
     
 }
 
-extension DiffMoveInfo: Equatable {
+extension DiffItemOffset: Equatable {
+    
+}
+
+extension DiffHighlightRange: Equatable {
     
 }

@@ -191,9 +191,6 @@
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
 "diff-compare-header-from-info-heading" = "Gönderen:";
 "diff-compare-header-heading" = "Düzeltmeleri Karşılaştır";
-"diff-compare-header-subtitle-format" = "$1 ile $2 gösterilmez";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 ara revizyon|$1 ara revizyon}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 kullanıcı|$1 kullanıcı}}";
 "diff-compare-header-to-info-heading" = "Alıcı:";
 "diff-compare-title" = "Düzeltmeleri Karşılaştır";
 "diff-context-lines-collapsed-button-title" = "Göster";
@@ -333,12 +330,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hepsinde";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Açık";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1'de";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Tüm %@ kartlar gizlendi";
 "explore-feed-preferences-global-card-footer-text" = "Bu kart dile özgü değil, bu kartın kapatılması onu arama beslemenizden kaldırır.";
 "explore-feed-preferences-global-cards-description" = "Dile özgü olmayan kartlar";
 "explore-feed-preferences-global-cards-subtitle" = "Dile özgü değil";
 "explore-feed-preferences-global-cards-title" = "Küresel kartlar";
 "explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “%@” kartlarını gizle";
 "explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında makaleler";
 "explore-feed-preferences-languages-footer-text" = "Tüm Keşfet akış kartlarını tüm dillerinde gizlemek Keşfet sekmesini kapatır.";
@@ -549,6 +548,7 @@
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
 "page-history-compare-title" = "Karşılaştır";
 "page-history-minor-edits" = "küçük değişiklikler";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "Yazar: %@";
 "page-history-revision-history-title" = "Değişiklik geçmişi";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 bayt|$1 bayt}} eklendi";
@@ -675,6 +675,7 @@
 "reading-lists-default-list-title" = "Kaydedildi";
 "reading-lists-delete-reading-list-alert-message" = "Bu eylem geri alınamaz. {{PLURAL:$1|bu listeye|bu listelere}} kaydedilen maddeler kaydedilmez.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Listeyi|Listeleri}} silinsin mi?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "Hesabınızdan senkronize edilen $1 madde ve $2 okuma listesi";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste senkronize edilmedi, limit aşıldı";
 "reading-lists-sort-saved-articles" = "Kayıtlı maddeleri sırala";

@@ -163,6 +163,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationBar.shadowColorKeyPath = \Theme.colors.border
         countsViewController.didMove(toParent: self)
 
+        navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
 
         layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
@@ -556,7 +557,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             
             let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex]
             
-            showDiff(from: fromRevision, to: toRevision, type: .single(byteDifference: toRevision.revisionSize))
+            showDiff(from: fromRevision, to: toRevision, type: .single)
         }
     }
 
@@ -710,7 +711,7 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
             toRevision = revision1
         }
 
-        showDiff(from: fromRevision, to: toRevision, type: .compare(articleTitle: pageTitle))
+        showDiff(from: fromRevision, to: toRevision, type: .compare)
     }
 }
 

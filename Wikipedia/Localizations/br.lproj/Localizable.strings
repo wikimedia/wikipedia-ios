@@ -149,8 +149,10 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Diweredekaet";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Holl gweredekaet";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Gweredekaet";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Kuzhet eo an holl gartennoù %@";
 "explore-feed-preferences-hide-card-action-title" = "Kuzhat ar gartenn-mañ";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Kuzhat an holl gartennoù \"%@\"";
 "explore-feed-preferences-in-the-news-description" = "Pennadoù diwar-benn an darvouoù bremañ";
 "explore-feed-preferences-show-on-this-day-title" = "Diskouez ar gartenn Hiziv";

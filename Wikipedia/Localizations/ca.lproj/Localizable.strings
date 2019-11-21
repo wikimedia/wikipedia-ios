@@ -75,6 +75,8 @@
 "action-language-accessibility" = "Canvia la llengua";
 "action-move-to" = "Mou a…";
 "action-move-to-reading-list" = "Mou a la llista de lectura";
+"action-next-revision-accessibility" = "Revisió següent";
+"action-previous-revision-accessibility" = "Revisió anterior";
 "action-read" = "Llegeix";
 "action-redo" = "Refés";
 "action-remove" = "Suprimeix";
@@ -303,12 +305,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Tots activitats";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activat";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Totes les targetes %@ són amagades";
 "explore-feed-preferences-global-card-footer-text" = "Aquesta targeta no és específica de llengua, en desactivar-la se suprimirà del canal d'exploració.";
 "explore-feed-preferences-global-cards-description" = "Targetes no específiques de la llengua";
 "explore-feed-preferences-global-cards-subtitle" = "No específic de la llengua";
 "explore-feed-preferences-global-cards-title" = "Targetes globals";
 "explore-feed-preferences-hide-card-action-title" = "Amaga la targeta";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Amaga totes les targetes «%@»";
 "explore-feed-preferences-in-the-news-description" = "Articles d'esdeveniments actuals";
 "explore-feed-preferences-languages-footer-text" = "Amagar totes les targetes de canal d'exploració en totes les vostres llengües desactivarà la pestanya d'exploració.";
@@ -517,6 +521,7 @@
 "page-history-anonymous-edits" = "edicions anònimes";
 "page-history-compare-title" = "Compara";
 "page-history-minor-edits" = "edicions menors";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "Autor: %@";
 "page-history-revision-history-title" = "Historial de revisió";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|S'ha afegit $1 byte|S'han afegit $1 bytes}}";
@@ -638,6 +643,7 @@
 "reading-lists-default-list-title" = "Desats";
 "reading-lists-delete-reading-list-alert-message" = "No es pot desfer l'acció. Aquells articles desats només en {{PLURAL:$1|aquesta llista|aquestes llistes}} deixaran d'estar-hi desats.";
 "reading-lists-delete-reading-list-alert-title" = "Voleu suprimir {{PLURAL:$1|la llista|les llistes}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 articles i $2 llistes de lectura sincronitzades des del vostre compte";
 "reading-lists-list-not-synced-limit-exceeded" = "La llista no s'ha sincronitzat. S'ha excedit el límit";
 "reading-lists-sort-saved-articles" = "Ordena els articles desats";
