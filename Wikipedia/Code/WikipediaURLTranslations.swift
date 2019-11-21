@@ -1,10 +1,4 @@
 
-/*
- TODO:
- - re-export the json with all strings lower-cased then update the "commonNamespace" func to force "namespaceString" to lower-case
- - replace spaces in the json with "_" too - also replace them in "namespaceString"
-*/
-
 struct WikipediaURLTranslations: Codable {
     private var languagecode: Dictionary<String, WikipediaURLLanguageCodeTranslations> = Dictionary()
     private static let sharedLookupTable = WikipediaURLTranslations.init(fileName: "wikipedia-namespaces").languagecode
