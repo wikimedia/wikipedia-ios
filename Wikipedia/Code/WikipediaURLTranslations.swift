@@ -21,7 +21,7 @@ struct WikipediaURLTranslations {
     }
 }
 
-struct WikipediaURLTranslation: Codable {
+private struct WikipediaURLTranslation: Codable {
     var languagecode: Dictionary<String, WikipediaURLLanguageCodeTranslations> = Dictionary()
     init(languageCode: String) {
         guard
@@ -39,7 +39,7 @@ struct WikipediaURLTranslation: Codable {
     }
 }
 
-struct WikipediaURLLanguageCodeTranslations: Codable {
+private struct WikipediaURLLanguageCodeTranslations: Codable {
     let namespace: Dictionary<String, WikipediaURLCommonNamespace>
     let mainpage: String
 }
