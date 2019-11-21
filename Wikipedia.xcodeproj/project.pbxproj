@@ -1596,6 +1596,11 @@
 		B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
 		B068EDE4206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
 		B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
+		B077A51423861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51523861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51623861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51723861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
+		B077A51823861E2200223526 /* wikipedia-namespaces in Resources */ = {isa = PBXBuildFile; fileRef = B077A51323861E2200223526 /* wikipedia-namespaces */; };
 		B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */; };
 		B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */; };
 		B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
@@ -4378,6 +4383,7 @@
 		B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFHideKeyboard.swift"; path = "Wikipedia/Code/UIViewController+WMFHideKeyboard.swift"; sourceTree = SOURCE_ROOT; };
 		B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Progress+ProgressUI.swift"; sourceTree = "<group>"; };
 		B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeakScriptMessageDelegate.swift; path = Wikipedia/Code/WeakScriptMessageDelegate.swift; sourceTree = SOURCE_ROOT; };
+		B077A51323861E2200223526 /* wikipedia-namespaces */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "wikipedia-namespaces"; sourceTree = "<group>"; };
 		B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageEqualityTests.m; path = WikipediaUnitTests/Code/MWKImageEqualityTests.m; sourceTree = SOURCE_ROOT; };
 		B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePageViewController.swift; path = Wikipedia/Code/WMFWelcomePageViewController.swift; sourceTree = SOURCE_ROOT; };
 		B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePanelViewController.swift; path = Wikipedia/Code/WMFWelcomePanelViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -7291,6 +7297,7 @@
 			children = (
 				B08423D62384A105005E93A0 /* wikipedia-namespaces.json */,
 				B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */,
+				B077A51323861E2200223526 /* wikipedia-namespaces */,
 			);
 			name = URLTranslations;
 			sourceTree = "<group>";
@@ -10116,6 +10123,7 @@
 				7AFA21C020110D7900E957E7 /* HintViewController.xib in Resources */,
 				7A71567322697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */,
 				B0524B0321484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
+				B077A51423861E2200223526 /* wikipedia-namespaces in Resources */,
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				676028E92310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */,
@@ -10243,6 +10251,7 @@
 				D80ED3DA1EE57F4800CE8C50 /* WMFLanguageCell.xib in Resources */,
 				D80ED3DD1EE57F4800CE8C50 /* InfoPlist.strings in Resources */,
 				D8C4D3D71FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
+				B077A51823861E2200223526 /* wikipedia-namespaces in Resources */,
 				D80ED3DF1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D80ED3E01EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				676070A82280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */,
@@ -10390,6 +10399,7 @@
 				D8A42BBB1E815A9C00D8E281 /* AboutViewController.plist in Resources */,
 				D8A42BBC1E815A9C00D8E281 /* NotificationBackgroundMessage.png in Resources */,
 				7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
+				B077A51723861E2200223526 /* wikipedia-namespaces in Resources */,
 				D8A42BC01E815A9C00D8E281 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8A42BC21E815A9C00D8E281 /* NotificationBackgroundSuccess.png in Resources */,
@@ -10515,6 +10525,7 @@
 				D8CE26421E698E2400DAE2E0 /* AboutViewController.plist in Resources */,
 				D8CE26431E698E2400DAE2E0 /* NotificationBackgroundMessage.png in Resources */,
 				7A741DD0207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
+				B077A51523861E2200223526 /* wikipedia-namespaces in Resources */,
 				D8CE26471E698E2400DAE2E0 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C861F34BB64004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8CE26491E698E2400DAE2E0 /* NotificationBackgroundSuccess.png in Resources */,
@@ -10640,6 +10651,7 @@
 				D8EC3F421E9BDA35006712EB /* AboutViewController.plist in Resources */,
 				D8EC3F431E9BDA35006712EB /* NotificationBackgroundMessage.png in Resources */,
 				7A741DD1207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
+				B077A51623861E2200223526 /* wikipedia-namespaces in Resources */,
 				D8EC3F471E9BDA35006712EB /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8EC3F491E9BDA35006712EB /* NotificationBackgroundSuccess.png in Resources */,
