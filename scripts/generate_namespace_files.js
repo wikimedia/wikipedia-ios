@@ -34,8 +34,6 @@ const normalizeString = string => string.toUpperCase().replace(/\s+/g, ' ')
 const translationsFromSiteInfoResponseJSON = (siteInfoResponseJSON, sitematrixLangCode) => {
   let namespacedict = {}
 
-  console.log(siteInfoResponseJSON.query.general.lang)
-
   Object.entries(siteInfoResponseJSON.query.namespaces)
     .filter(item => !excludedAmbiguousNamespaceIDs.has(item[1].id))
     .forEach(item => namespacedict[normalizeString(item[1].name)] = item[1].id)
@@ -73,9 +71,18 @@ const writeTranslationToFile = (translation, filePath) => {
   })
 }
 
+const writeDuplicateTranslationToFileIfNecessary = (forLangCode, withLangCode, translation) => {
+  if (translation.languagecode[forLangCode]) {
+    translation.languagecode[withLangCode] = translation.languagecode[forLangCode]
+    delete translation.languagecode[forLangCode]
+    writeTranslationToFile(translation, `${outputPath}/${withLangCode}.json`)
+  }
+}
+
 generateTranslationsJSON()
   .then( ([sitematrixLangCodes, translations])  => {
     translations.forEach((translation, i) => {
       writeTranslationToFile(translation, `${outputPath}/${sitematrixLangCodes[i]}.json`)
+      writeDuplicateTranslationToFileIfNecessary('en', 'test', translation)
     })
   })
