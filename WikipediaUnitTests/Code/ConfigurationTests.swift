@@ -51,9 +51,9 @@ class ConfigurationTests: XCTestCase {
         components.path = "/wiki/Special:MobileDiff/24601"
         dest = try? router.destination(for: components.url!)
         switch dest {
-        case .articleDiffSingle(let linkURL, let rev):
+        case .articleDiffSingle(let linkURL, _, let toRevID):
             XCTAssertEqual(linkURL, components.url!.canonical)
-            XCTAssertEqual(rev, 24601)
+            XCTAssertEqual(toRevID, 24601)
         default:
             XCTAssertTrue(false)
         }
