@@ -1,0 +1,38 @@
+{
+  "languagecode": {
+    "fiu-vro": {
+      "namespace": {
+        "": 0,
+        "AROTUS": 1,
+        "PRUUKJA": 2,
+        "PRUUKJA AROTUS": 3,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA AROTUS": 5,
+        "PILT": 6,
+        "PILDI AROTUS": 7,
+        "MEDIAWIKI": 8,
+        "MEDIAWIKI AROTUS": 9,
+        "NÄÜDÜS": 10,
+        "NÄÜDÜSE AROTUS": 11,
+        "OPPUS": 12,
+        "OPPUSÕ AROTUS": 13,
+        "KATÕGOORIA": 14,
+        "KATÕGOORIA AROTUS": 15,
+        "MOODUL": 828,
+        "MOODULI ARUTELU": 829,
+        "TÖÖRIIST": 2300,
+        "TÖÖRIISTA ARUTELU": 2301,
+        "TÖÖRIISTA MÄÄRATLUS": 2302,
+        "TÖÖRIISTA MÄÄRATLUSE ARUTELU": 2303,
+        "MEEDIÄ": -2,
+        "TALLITUSLEHEKÜLG": -1,
+        "WIKIPEDIA ARUTELU": 5,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7,
+        "PILDI ARUTELU": 7
+      },
+      "mainpage": "Pääleht"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "languagecode": {
+    "ga": {
+      "namespace": {
+        "": 0,
+        "PLÉ": 1,
+        "ÚSÁIDEOIR": 2,
+        "PLÉ ÚSÁIDEORA": 3,
+        "VICIPÉID": 4,
+        "PLÉ VICIPÉIDE": 5,
+        "ÍOMHÁ": 6,
+        "PLÉ ÍOMHÁ": 7,
+        "MEDIAWIKI": 8,
+        "PLÉ MEDIAWIKI": 9,
+        "TEIMPLÉAD": 10,
+        "PLÉ TEIMPLÉID": 11,
+        "CABHAIR": 12,
+        "PLÉ CABHRACH": 13,
+        "CATAGÓIR": 14,
+        "PLÉ CATAGÓIRE": 15,
+        "MODULE": 828,
+        "MODULE TALK": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MEÁN": -2,
+        "SPEISIALTA": -1,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7,
+        "PLÉ Í­OMHÁ": 7,
+        "MÚNLA": 10,
+        "PLÉ MÚNLA": 11,
+        "RANG": 14
+      },
+      "mainpage": "Príomhleathanach"
+    }
+  }
+}

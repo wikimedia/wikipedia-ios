@@ -11,6 +11,8 @@ final class DiffHeaderViewModel: Themeable {
     var title: DiffHeaderTitleViewModel
     let diffType: DiffContainerViewModel.DiffType
     let headerType: DiffHeaderType
+    private let articleTitle: String
+    private let byteDifference: Int?
     static let dateFormatter = DateFormatter()
     
     var isExtendedViewHidingEnabled: Bool {
@@ -22,16 +24,22 @@ final class DiffHeaderViewModel: Themeable {
         }
     }
     
-    init(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, theme: Theme) {
+    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, byteDifference: Int?, theme: Theme) {
         
         self.diffType = diffType
+        self.articleTitle = articleTitle
+        self.byteDifference = byteDifference
         
         DiffHeaderViewModel.dateFormatter.timeZone = TimeZone(identifier: "UTC")
         let formatString: String
         let titleViewModel: DiffHeaderTitleViewModel
         
         switch diffType {
-        case .single(let byteDifference):
+        case .single:
+            
+            guard let byteDifference = byteDifference else {
+                    return nil
+            }
             
             formatString = "HH:mm zzz, dd MMM yyyy" //tonitodo: "UTC" instead of "GMT" in result?
             DiffHeaderViewModel.dateFormatter.dateFormat = formatString
@@ -59,10 +67,10 @@ final class DiffHeaderViewModel: Themeable {
             self.title = titleViewModel
             self.headerType = .single(editorViewModel: editorViewModel, summaryViewModel: summaryViewModel)
             
-        case .compare(let articleTitle):
+        case .compare:
             
             guard let fromModel = fromModel else {
-                fatalError("Compare DiffType must have valid fromRevisionID")
+                return nil
             }
             
             titleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: nil)
@@ -87,6 +95,12 @@ final class DiffHeaderViewModel: Themeable {
         if let editCounts = editCounts {
             switch (editCounts[.edits], editCounts[.editors]) {
             case (let edits?, let editors?):
+                
+                if edits.count == 0 && editors.count == 0 {
+                    subtitle = nil
+                    break
+                }
+                
                 switch (edits.limit, editors.limit) {
                 case (false, false):
                     subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-editors-count", value: "{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}} by {{PLURAL:%2$d|%2$d user|%2$d users}} not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions."), edits.count, editors.count)
@@ -98,6 +112,12 @@ final class DiffHeaderViewModel: Themeable {
                     subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-editors-limited-count", value: "{{PLURAL:%1$d|%1$d intermediate revision|%1$d intermediate revisions}} by %2$d+ users not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. %1$d is replaced with the number of intermediate revisions and %2$d is replaced with the number of editors who created those revisions. The number of editors is followed by the '+' to indicate that the actual number of editors exceeds the displayed number."), edits.count, editors.count)
                 }
             case (let edits?, nil):
+                
+                if edits.count == 0 {
+                    subtitle = nil
+                    break
+                }
+                
                 if edits.limit {
                     subtitle = String.localizedStringWithFormat(WMFLocalizedString("intermediate-edits-count-limited", value: "%1$d+ intermediate revisions not shown", comment: "Subtitle for the number of revisions that were made between two chosen revisions. %1$d is replaced with the number of intermediate revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of revisions exceeds the displayed number."), edits.count)
                 } else {
@@ -116,8 +136,9 @@ final class DiffHeaderViewModel: Themeable {
     
     func apply(theme: Theme) {
         switch diffType {
-        case .single(let byteDifference):
-            if byteDifference < 0 {
+        case .single:
+            if let byteDifference = byteDifference,
+                byteDifference < 0 {
                 title.subtitleColor = theme.colors.destructive
             } else {
                 title.subtitleColor = theme.colors.accent

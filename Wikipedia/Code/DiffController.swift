@@ -1,22 +1,19 @@
 
 import Foundation
 
+
 enum DiffError: Error {
     case generateUrlFailure
     case missingDiffResponseFailure
     case missingUrlResponseFailure
     case fetchRevisionConstructTitleFailure
     case unrecognizedHardcodedIdsForIntermediateCounts
+    case failureToPopulateModelsFromDeepLink
+    case failureToVerifyRevisionIDs
     
     var localizedDescription: String {
         return CommonStrings.genericErrorDescription
     }
-}
-
-//eventually used to power "Moved [down/up] n lines / Moved [down/up] n sections" text in diff
-enum MoveDistance {
-    case line(amount: Int)
-    case section(amount: Int, name: String)
 }
 
 class DiffController {
@@ -30,27 +27,25 @@ class DiffController {
     let pageHistoryFetcher: PageHistoryFetcher?
     let globalUserInfoFetcher: GlobalUserInfoFetcher
     let diffThanker: DiffThanker
-    let articleTitle: String
     let siteURL: URL
-    lazy var semanticContentAttribute: UISemanticContentAttribute = {
-        let language = siteURL.wmf_language
-        return MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
-    }()
     let type: DiffContainerViewModel.DiffType
     private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
+    let transformer: DiffTransformer
 
-    init(siteURL: URL, articleTitle: String, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, globalUserInfoFetcher: GlobalUserInfoFetcher = GlobalUserInfoFetcher(), diffThanker: DiffThanker = DiffThanker(), revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
+
         self.diffFetcher = diffFetcher
         self.pageHistoryFetcher = pageHistoryFetcher
-        self.globalUserInfoFetcher = globalUserInfoFetcher
-        self.diffThanker = diffThanker
-        self.articleTitle = articleTitle
+        self.globalUserInfoFetcher = GlobalUserInfoFetcher()
+        self.diffThanker = DiffThanker()
         self.siteURL = siteURL
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.type = type
+        self.transformer = DiffTransformer(type: type, siteURL: siteURL)
     }
     
-    func fetchEditCount(guiUser: String, siteURL: URL, completion: @escaping ((Result<Int, Error>) -> Void)) {
+    func fetchEditCount(guiUser: String, completion: @escaping ((Result<Int, Error>) -> Void)) {
+
         globalUserInfoFetcher.fetchEditCount(guiUser: guiUser, siteURL: siteURL, completion: completion)
     }
 
@@ -62,7 +57,114 @@ class DiffController {
         diffThanker.thank(siteURL: siteURL, rev: toRevisionId, completion: completion)
     }
     
-    func fetchRevision(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+    func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+
+        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
+            return
+        }
+        
+        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle, completion: completion)
+    }
+    
+    struct DeepLinkModelsResponse {
+        let from: WMFPageHistoryRevision?
+        let to: WMFPageHistoryRevision?
+        let first: WMFPageHistoryRevision
+        let articleTitle: String
+    }
+    
+    func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
+        
+        if let articleTitle = articleTitle {
+            populateModelsFromDeepLink(fromRevisionID: fromRevisionID, toRevisionID: toRevisionID, articleTitle: articleTitle, completion: completion)
+            return
+        }
+        
+        let maybeRevisionID = toRevisionID ?? fromRevisionID
+        
+        guard let revisionID = maybeRevisionID else {
+                completion(.failure(DiffError.failureToVerifyRevisionIDs))
+                return
+        }
+        
+        diffFetcher.fetchArticleTitle(siteURL: siteURL, revisionID: revisionID) { (result) in
+            switch result {
+            case .success(let title):
+                
+                self.populateModelsFromDeepLink(fromRevisionID: fromRevisionID, toRevisionID: toRevisionID, articleTitle: title, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    private func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
+        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
+            return
+        }
+        
+        var fromResponse: WMFPageHistoryRevision?
+        var toResponse: WMFPageHistoryRevision?
+        var firstResponse: WMFPageHistoryRevision?
+        
+        let group = DispatchGroup()
+        
+        if let fromRevisionID = fromRevisionID {
+            
+            group.enter()
+            let fromRequest = DiffFetcher.FetchRevisionModelRequest.populateModel(revisionID: fromRevisionID)
+            diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: fromRequest) { (result) in
+                switch result {
+                case .success(let fetchResponse):
+                    fromResponse = fetchResponse
+                case .failure:
+                    break
+                }
+                group.leave()
+            }
+        }
+        
+        if let toRevisionID = toRevisionID {
+            group.enter()
+            let toRequest = DiffFetcher.FetchRevisionModelRequest.populateModel(revisionID: toRevisionID)
+            diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: toRequest) { (result) in
+                switch result {
+                case .success(let fetchResponse):
+                    toResponse = fetchResponse
+                case .failure:
+                    break
+                }
+                group.leave()
+            }
+        }
+        
+        group.enter()
+        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle) { (result) in
+            switch result {
+            case .success(let fetchResponse):
+                firstResponse = fetchResponse
+            case .failure:
+                break
+            }
+            group.leave()
+        }
+            
+            group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            guard let firstResponse = firstResponse,
+                (fromResponse != nil || toResponse != nil) else {
+                    completion(.failure(DiffError.failureToPopulateModelsFromDeepLink))
+                    return
+            }
+            
+            let response = DeepLinkModelsResponse(from: fromResponse, to: toResponse, first: firstResponse, articleTitle: articleTitle)
+            completion(.success(response))
+        }
+    }
+    
+    func fetchAdjacentRevisionModel(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
         
         if let revisionRetrievingDelegate = revisionRetrievingDelegate {
             
@@ -80,39 +182,32 @@ class DiffController {
                 }
             }
         }
-        
-        //failing that try fetching revision from API
-        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
-            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
-            return
-        }
 
-        let direction: DiffFetcher.SingleRevisionRequestDirection = direction == .previous ? .older : .newer
+        let direction: DiffFetcher.FetchRevisionModelRequestDirection = direction == .previous ? .older : .newer
         
-        diffFetcher.fetchSingleRevisionInfo(siteURL, sourceRevision: sourceRevision, title: articleTitle, direction: direction, completion: completion)
+        let request = DiffFetcher.FetchRevisionModelRequest.adjacent(sourceRevision: sourceRevision, direction: direction)
+        
+        diffFetcher.fetchRevisionModel(siteURL, articleTitle: articleTitle, request: request) { (result) in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
-    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
+    func fetchFirstRevisionDiff(revisionId: Int, siteURL: URL, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
         
-        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
-
-            guard let self = self else { return }
-
+        diffFetcher.fetchWikitext(siteURL: siteURL, revisionId: revisionId) { (result) in
             switch result {
-            case .success(var diffResponse):
+            case .success(let wikitext):
+                do {
+                    let viewModels = try self.transformer.firstRevisionViewModels(from: wikitext, theme: theme, traitCollection: traitCollection)
 
-                let groupedMoveIndexes = self.groupedIndexesOfMoveItems(from: diffResponse)
-                self.hardCodeSectionInfo(into: &diffResponse, toRevisionID: toRevisionId)
-                self.populateDeletedMovedSectionTitlesAndLineNumbers(into: &diffResponse)
-                let moveDistances = self.moveDistanceOfMoveItems(from: diffResponse)
-                switch self.type {
-                case .single:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForSingle(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
-
-                    completion(.success(response))
-                case .compare:
-                    let response: [DiffListGroupViewModel] = self.viewModelsForCompare(from: diffResponse, theme: theme, traitCollection: traitCollection, type: self.type, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances)
-                    completion(.success(response))
+                    completion(.success(viewModels))
+                } catch (let error) {
+                    completion(.failure(error))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -120,316 +215,54 @@ class DiffController {
         }
     }
     
-    private func groupedIndexesOfMoveItems(from response: DiffResponse) -> [String: Int] {
-        let movedItems = response.diff.filter { $0.type == .moveSource || $0.type == .moveDestination }
-        
-        var indexCounter = 0
-        var result: [String: Int] = [:]
-        
-        for item in movedItems {
-            
-            if let id = item.moveInfo?.id,
-                let linkId = item.moveInfo?.linkId {
+    func fetchDiff(fromRevisionId: Int, toRevisionId: Int, theme: Theme, traitCollection: UITraitCollection, completion: @escaping ((Result<[DiffListGroupViewModel], Error>) -> Void)) {
 
-                if result[id] == nil {
-                    if let existingIndex = result[linkId] {
-                        result[id] = existingIndex
-                    } else {
-                        result[id] = indexCounter
-                        indexCounter += 1
-                    }
-                }
-            }
-        }
+//        let queue = DispatchQueue.global(qos: .userInitiated)
+//
+//        queue.async { [weak self] in
+//
+//            guard let self = self else { return }
+//
+//            do {
+//
+//            let url = Bundle.main.url(forResource: "DiffResponse", withExtension: "json")!
+//            let data = try Data(contentsOf: url)
+//            let diffResponse = try JSONDecoder().decode(DiffResponse.self, from: data)
+//
+//            
+//                do {
+//                    let viewModels = try self.transformer.viewModels(from: diffResponse, theme: theme, traitCollection: traitCollection)
+//
+//                    completion(.success(viewModels))
+//                } catch (let error) {
+//                    completion(.failure(error))
+//                }
+//                
+//
+//            } catch (let error) {
+//                completion(.failure(error))
+//            }
+//        }
         
-        return result
-    }
-    
-    private func moveDistanceOfMoveItems(from response: DiffResponse) -> [String: MoveDistance] {
-        let movedItems = response.diff.filter { $0.type == .moveSource || $0.type == .moveDestination }
-        
-        guard let sectionInfoArray = response.sectionInfo,
-            !sectionInfoArray.isEmpty else {
-                return [:]
-        }
-        
-        var correspondingMoveItems: [String: DiffItem] = [:]
-        for item in movedItems {
-            if let linkId = item.moveInfo?.linkId {
-                correspondingMoveItems[linkId] = item
-            }
-        }
-        
-        var result: [String: MoveDistance] = [:]
-        for item in movedItems {
-            if let id = item.moveInfo?.id,
-                let linkId = item.moveInfo?.linkId,
-                let correspondingItem = correspondingMoveItems[id] {
-                
-                if let sectionInfoIndex = item.sectionInfoIndex,
-                    let correspondingSectionInfoIndex = correspondingItem.sectionInfoIndex,
-                    let sectionInfo = sectionInfoArray[safeIndex: sectionInfoIndex],
-                    let correspondingSectionInfo = sectionInfoArray[safeIndex: correspondingSectionInfoIndex] {
-                    
-                    let numSectionsTraversed = abs(correspondingSectionInfo.location - sectionInfo.location)
-                    if numSectionsTraversed > 0 {
-                        
-                        let sectionMoveDistance = MoveDistance.section(amount: numSectionsTraversed, name: correspondingSectionInfo.title)
-                        
-                        if result[id] == nil && result[linkId] == nil {
-                            result[id] = sectionMoveDistance
-                            result[linkId] = sectionMoveDistance
-                        }
-                        
-                        continue
-                    }
-                }
-                
-                if let lineNumber = item.lineNumber,
-                    let correspondingLineNumber = correspondingItem.lineNumber {
-                    
-                    let lineNumbersTraversed = abs(lineNumber - correspondingLineNumber)
-                    if lineNumbersTraversed > 0 {
-                        
-                        let lineNumberMoveDistance = MoveDistance.line(amount: lineNumbersTraversed)
-                        result[id] = lineNumberMoveDistance
-                        result[linkId] = lineNumberMoveDistance
-                    }
-                }
-            }
-        }
-        
-        return result
-    }
-    
-    private func hardCodeSectionInfo(into response: inout DiffResponse, toRevisionID: Int) {
-        if toRevisionID == 399777 {
-            response.sectionInfo = [
-                SectionInfo(title: "==Taxonomy==", location: 1),
-                SectionInfo(title: "==Biology==", location: 2),
-                SectionInfo(title: "===Senses===", location: 3)
-//                SectionInfo(title: "====Vision====", location: 4),
-//                SectionInfo(title: "===='''Hearing'''====", location: 5),
-//                SectionInfo(title: "====Smell====", location: 6),
-//                SectionInfo(title: "===Physical characteristics===", location: 7),
-//                SectionInfo(title: "====Coat====", location: 8),
-//                SectionInfo(title: "===Types and breeds===", location: 9),
-//                SectionInfo(title: "== See also ==", location: 10),
-//                SectionInfo(title: "==See also (as well)==", location: 11),
-//                SectionInfo(title: "==References==", location: 12),
-//                SectionInfo(title: "==Bibliography==", location: 13),
-//                SectionInfo(title: "==Further reading==", location: 14),
-//                SectionInfo(title: "== External links ==", location: 15),
-            ]
-            
-            var newItems: [DiffItem] = []
-            for (diffIndex, var item) in response.diff.enumerated() {
-                switch diffIndex {
-                case 0, 1, 4, 5: item.sectionInfoIndex = 0
-                case 6, 7, 8, 9, 10: item.sectionInfoIndex = 1
-                case 11: item.sectionInfoIndex = 2
-                default:
-                    break
-                }
-                
-                newItems.append(item)
-            }
-            
-            response.diff = newItems
-        } else if toRevisionID == 392751 {
-            //only intro (before any sections) changed on this one so not hardcoding any section info
-        }
-    }
-    
-    private func populateDeletedMovedSectionTitlesAndLineNumbers(into response: inout DiffResponse) {
-        
-        //We have some unknown sections and line numbers from the endpoint (deleted lines and moved paragraph sources, since they have no current place in the document). Fuzzying the logic here - propogating previous section infos and line numbers forward.
-        
-        var lastSectionInfoIndex: Int?
-        var lastLineNumber: Int?
-        
-        var newItems: [DiffItem] = []
-        for var item in response.diff {
-            
-            if let sectionInfoIndex = item.sectionInfoIndex {
-                lastSectionInfoIndex = sectionInfoIndex
-            } else {
-                item.sectionInfoIndex = lastSectionInfoIndex
-            }
-            
-            if let lineNumber = item.lineNumber {
-                lastLineNumber = lineNumber
-            } else {
-                item.lineNumber = lastLineNumber
-            }
-            
-            newItems.append(item)
-        }
-        
-        response.diff = newItems
-        
-        //tonitodo: finish better logic, popualte section infos only if surrounded by items with the same section infos
-        //test: if a section heading is deleted or moved, how does this handle?
-        /*
-         
-         var lastSectionInfo: Int?
-         var missingSectionTitleItems: [DiffItem] = []
-         
-         var newItems: [DiffItem] = []
-         for var item in response.diff {
-             
-             if let sectionInfoIndex = item.sectionInfoIndex {
-                 
-                 if let lastSectionInfo = lastSectionInfo,
-                     !missingSectionTitleItems.isEmpty,
-                     sectionInfoIndex == lastSectionInfo {
-                     //populate missing section title items & clean out
-                     
-                     for var item in missingSectionTitleItems {
-                         item.sectionInfoIndex = lastSectionInfo
-                     }
-                     
-                     missingSectionTitleItems.removeAll()
-                 }
-                    
-                 
-                 lastSectionInfo = sectionInfoIndex
-             } else {
-                 if lastSectionInfo != nil {
-                     //start gathering items with missing section titles
-                     missingSectionTitleItems.append(item)
-                 }
-             }
-             
-             newItems.append(item)
-         }
-         
-         response.diff = newItems
-         */
-    }
-    
-    private func viewModelsForSingle(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance]) -> [DiffListGroupViewModel] {
-        
-        var result: [DiffListGroupViewModel] = []
-        
-        var sectionItems: [DiffItem] = []
-        var lastItem: DiffItem?
+        diffFetcher.fetchDiff(fromRevisionId: fromRevisionId, toRevisionId: toRevisionId, siteURL: siteURL) { [weak self] (result) in
 
-        let packageUpSectionItemsIfNeeded = {
-            
-            if sectionItems.count > 0 {
-                //package contexts up into change view model, append to result
-                
-                let changeType: DiffListChangeType = .singleRevison
-                
-                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo, semanticContentAttribute: self.semanticContentAttribute)
-                result.append(changeViewModel)
-                sectionItems.removeAll()
-            }
-            
-        }
-        
-        for item in response.diff {
+            guard let self = self else { return }
 
-            
-            if item.type == .context {
-                
-                continue
-                
-            } else {
-                
-                if item.sectionInfoIndex != lastItem?.sectionInfoIndex {
-                    packageUpSectionItemsIfNeeded()
+            switch result {
+            case .success(let diffResponse):
+
+                do {
+                    let viewModels = try self.transformer.viewModels(from: diffResponse, theme: theme, traitCollection: traitCollection)
+
+                    completion(.success(viewModels))
+                } catch (let error) {
+                    completion(.failure(error))
                 }
-                
-                sectionItems.append(item)
+            case .failure(let error):
+                completion(.failure(error))
             }
-            
-            lastItem = item
-            
-            continue
         }
-        
-        packageUpSectionItemsIfNeeded()
-        
-        return result
     }
-        
-    private func viewModelsForCompare(from response: DiffResponse, theme: Theme, traitCollection: UITraitCollection, type: DiffContainerViewModel.DiffType, groupedMoveIndexes: [String: Int], moveDistances: [String: MoveDistance]) -> [DiffListGroupViewModel] {
-        
-        var result: [DiffListGroupViewModel] = []
-        
-        var contextItems: [DiffItem] = []
-        var changeItems: [DiffItem] = []
-        var lastItem: DiffItem?
-        
-        let packageUpContextItemsIfNeeded = {
-            
-            if contextItems.count > 0 {
-                //package contexts up into context view model, append to result
-                let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
-                result.append(contextViewModel)
-                contextItems.removeAll()
-            }
-        }
-        
-        let packageUpChangeItemsIfNeeded = {
-            
-            if changeItems.count > 0 {
-                //package contexts up into change view model, append to result
-                
-                let changeType: DiffListChangeType
-                switch type {
-                case .compare:
-                    changeType = .compareRevision
-                default:
-                    changeType = .singleRevison
-                }
-                
-                let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, groupedMoveIndexes: groupedMoveIndexes, moveDistances: moveDistances, sectionInfo: response.sectionInfo, semanticContentAttribute: self.semanticContentAttribute)
-                result.append(changeViewModel)
-                changeItems.removeAll()
-            }
-            
-        }
-        
-        for item in response.diff {
-            
-            if let lastItemLineNumber = lastItem?.lineNumber,
-                let currentItemLineNumber = item.lineNumber {
-                let delta = currentItemLineNumber - lastItemLineNumber
-                if delta > 1 {
-                    
-                    packageUpContextItemsIfNeeded()
-                    packageUpChangeItemsIfNeeded()
-                    
-                    //insert unedited lines view model
-                    let uneditedViewModel = DiffListUneditedViewModel(numberOfUneditedLines: delta, theme: theme, width: 0, traitCollection: traitCollection)
-                    result.append(uneditedViewModel)
-                }
-            }
-            
-            if item.type == .context {
-                
-                packageUpChangeItemsIfNeeded()
-                
-                contextItems.append(item)
-                
-            } else {
-                
-                packageUpContextItemsIfNeeded()
-                
-                changeItems.append(item)
-            }
-            
-            lastItem = item
-            
-            continue
-        }
-        
-        packageUpContextItemsIfNeeded()
-        packageUpChangeItemsIfNeeded()
-        
-        return result
-    }
+    
+    
 }

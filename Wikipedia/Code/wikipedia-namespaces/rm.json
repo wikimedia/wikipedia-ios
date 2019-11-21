@@ -1,0 +1,36 @@
+{
+  "languagecode": {
+    "rm": {
+      "namespace": {
+        "": 0,
+        "DISCUSSIUN": 1,
+        "UTILISADER": 2,
+        "UTILISADER DISCUSSIUN": 3,
+        "WIKIPEDIA": 4,
+        "WIKIPEDIA DISCUSSIUN": 5,
+        "DATOTECA": 6,
+        "DATOTECA DISCUSSIUN": 7,
+        "MEDIAWIKI": 8,
+        "MEDIAWIKI DISCUSSIUN": 9,
+        "MODEL": 10,
+        "MODEL DISCUSSIUN": 11,
+        "AGID": 12,
+        "AGID DISCUSSIUN": 13,
+        "CATEGORIA": 14,
+        "CATEGORIA DISCUSSIUN": 15,
+        "MODULE": 828,
+        "MODULE TALK": 829,
+        "GADGET": 2300,
+        "GADGET TALK": 2301,
+        "GADGET DEFINITION": 2302,
+        "GADGET DEFINITION TALK": 2303,
+        "MULTIMEDIA": -2,
+        "SPEZIAL": -1,
+        "WIKIPEDIA TALK": 5,
+        "IMAGE": 6,
+        "IMAGE TALK": 7
+      },
+      "mainpage": "Wikipedia:Pagina principala"
+    }
+  }
+}

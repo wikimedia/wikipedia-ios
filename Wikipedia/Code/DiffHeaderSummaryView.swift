@@ -5,7 +5,6 @@ class DiffHeaderSummaryView: UIView, Themeable {
     
     @IBOutlet var contentView: UIView!
     @IBOutlet var headingLabel: UILabel!
-    @IBOutlet var tagLabel: UILabel!
     @IBOutlet var summaryLabel: UILabel!
     
     override init(frame: CGRect) {
@@ -24,14 +23,21 @@ class DiffHeaderSummaryView: UIView, Themeable {
 
         headingLabel.text = viewModel.heading
         
-        if viewModel.isMinor {
-            tagLabel.text =  "m"
-            tagLabel.isHidden = false
+        if viewModel.isMinor,
+            let minorImage = UIImage(named: "minor-edit") {
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = minorImage
+            let attributedText = NSMutableAttributedString(attachment: imageAttachment)
+            attributedText.addAttributes([NSAttributedString.Key.baselineOffset: -0.5], range: NSRange(location: 0, length: 1))
+            
+            if let summary = viewModel.summary {
+                attributedText.append(NSAttributedString(string: " \(summary)"))
+            }
+            
+            summaryLabel.attributedText = attributedText
         } else {
-            tagLabel.isHidden = true
+            summaryLabel.text = viewModel.summary
         }
-        
-        summaryLabel.text = viewModel.summary
         
         updateFonts(with: traitCollection)
 
@@ -50,7 +56,6 @@ class DiffHeaderSummaryView: UIView, Themeable {
         backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
-        tagLabel.textColor = theme.colors.primaryText
         summaryLabel.textColor = theme.colors.primaryText
     }
 }
@@ -66,7 +71,6 @@ private extension DiffHeaderSummaryView {
     
     func updateFonts(with traitCollection: UITraitCollection) {
         headingLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
-        tagLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
         summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.italicCaption1, compatibleWithTraitCollection: traitCollection)
     }
 }
