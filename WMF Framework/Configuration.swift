@@ -250,11 +250,12 @@ public class Configuration: NSObject {
             return nil
         }
         let language = url.wmf_language ?? "en"
+        let articleActivity = UserActivityInfo(.article, url: url, title: path, language: language)
         if let namespaceMatch = namespaceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) {
             let namespaceString = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$1")
             let title = namespaceRegex.replacementString(for: namespaceMatch, in: path, offset: 0, template: "$2")
             let namespace = WikipediaURLTranslations.commonNamespace(for: namespaceString, in: language)
-            let defaultActivity = UserActivityInfo(.inAppLink, url: url)
+            let inAppLinkActivity = UserActivityInfo(.inAppLink, url: url)
             switch namespace {
             case .userTalk:
                 return UserActivityInfo(.userTalk, url: url, title: title, language: language)
@@ -263,13 +264,15 @@ public class Configuration: NSObject {
                     let oldid = mobilediffRegex.replacementString(for: diffMatch, in: title, offset: 0, template: "$1")
                     return UserActivityInfo(.articleDiff, url: url, queryItems: [URLQueryItem(name: "diff", value: "prev"), URLQueryItem(name: "oldid", value: oldid)])
                 } else {
-                   return defaultActivity
+                   return inAppLinkActivity
                 }
+            case nil: // if the string before the : isn't a namespace, it's likely part of an article title
+                return articleActivity
             default:
-                return defaultActivity
+                return inAppLinkActivity
             }
         }
-        return UserActivityInfo(.article, url: url, title: path, language: language)
+        return articleActivity
     }
     
     internal func activityInfoForWResourceURL(_ url: URL) -> UserActivityInfo? {
