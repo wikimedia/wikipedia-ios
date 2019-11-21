@@ -251,12 +251,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "เปิดทั้งหมด";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "เปิด";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "เปิด $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "ซ่อนทั้งหมด %@ การ์ดอยู่";
 "explore-feed-preferences-global-card-footer-text" = "การ์ดนี้ไม่เจาะจงภาษาใด การปิดการ์ดนี้จะเป็นการเอาการ์ดนี้ออกจากฟีดสำรวจของคุณ";
 "explore-feed-preferences-global-cards-description" = "การ์ดที่ไม่เจาะจงภาษา";
 "explore-feed-preferences-global-cards-subtitle" = "ไม่เจาะจงภาษา";
 "explore-feed-preferences-global-cards-title" = "การ์ดทุกภาษา";
 "explore-feed-preferences-hide-card-action-title" = "ซ่อนการ์ดนี้";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ซ่อนการ์ด “%@” ทั้งหมด";
 "explore-feed-preferences-in-the-news-description" = "บทความเกี่ยวกับเหตุการณ์ปัจจุบัน";
 "explore-feed-preferences-languages-footer-text" = "การซ่อนการ์ดในฟีดสำรวจในภาษาทั้งหมดของคุณจะปิดแท็บสำรวจ";

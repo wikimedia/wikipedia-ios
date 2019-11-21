@@ -206,10 +206,12 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "အကုန်ဖွင့်ရန်";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "ဖွင့်";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "ဖွင့် $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "%@ကဒ်အားလုံး ဝှက်ပြီး";
 "explore-feed-preferences-global-cards-subtitle" = "ဘာသာစကား မသတ်မှတ်ထားပါ";
 "explore-feed-preferences-global-cards-title" = "ကလိုဘယ် ကဒ်များ";
 "explore-feed-preferences-hide-card-action-title" = "ဤကဒ်ကို ဝှက်";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ကဒ်အားလုံး “%@” ဝှက်";
 "explore-feed-preferences-in-the-news-description" = "လက်ရှိအဖြစ်အပျက်များအကြောင်း ဆောင်းပါးများ";
 "explore-feed-preferences-on-this-day-description" = "သမိုင်း၌ ဤနေ့တွင် ဖြစ်ပွားခဲ့သော ဖြစ်ရပ်များ";
@@ -462,6 +464,7 @@
 "reading-lists-default-list-description" = "သင် သိမ်းထားသော ဆောင်းပါးများအတွက် နဂိုစာရင်း";
 "reading-lists-default-list-title" = "သိမ်းဆည်းပြီး";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|စာရင်း|စာရင်းများ}} ကို ဖျက်ပစ်မလား";
+// Fuzzy
 "reading-lists-large-sync-completed" = "သက်၏အကောင့်မှ ဆောင်းပါး $1ခုနှင့် စာဖတ်စာရင်း $2ခု sync လုပ်ပြီးပြီ";
 "reading-lists-list-not-synced-limit-exceeded" = "စာရင်း sync မဖြစ်ပါ၊ ကန့်သတ်ချက် ကျော်လွန်သွားသည်";
 "reading-lists-sort-saved-articles" = "သိမ်းဆည်းခဲ့သော ဆောင်းပါးများကို စီရန်";

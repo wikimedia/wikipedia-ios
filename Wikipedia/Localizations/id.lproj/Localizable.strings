@@ -255,12 +255,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Nyala semua";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Nyala";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Dalam $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Semua %@ kartu disembunyikan";
 "explore-feed-preferences-global-card-footer-text" = "Kartu ini bukan bahasa khusus, mematikan kartu ini akan menghapusnya dari umpan Jelajahi Anda.";
 "explore-feed-preferences-global-cards-description" = "Kartu khusus non-bahasa";
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
 "explore-feed-preferences-global-cards-title" = "Kartu global";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kartu ini";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kartu “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artikel mengenai peristiwa saat ini";
 "explore-feed-preferences-languages-footer-text" = "Menyembunyikan semua kartu umpan Jelajahi dalam semua bahasa Anda akan mematikan tab Jelajahi.";
@@ -547,6 +549,7 @@
 "reading-lists-default-list-title" = "Tersimpan";
 "reading-lists-delete-reading-list-alert-message" = "Tindakan ini tidak bisa dibatalkan. Setiap artikel yang disimpan hanya ke {{PLURAL:$1|daftar ini|daftar ini}} akan disimpan.";
 "reading-lists-delete-reading-list-alert-title" = "Hapus {{PLURAL:$1|daftar|daftar}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikel dan $2 daftar bacaan disinkronkan dari akun Anda";
 "reading-lists-list-not-synced-limit-exceeded" = "Daftar tidak disinkronkan, batas terlampaui";
 "reading-lists-sort-saved-articles" = "Urutkan artikel tersimpan";

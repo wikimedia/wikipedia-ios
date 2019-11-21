@@ -91,6 +91,8 @@
 "action-language-accessibility" = "言語を変更";
 "action-move-to" = "次へ移動…";
 "action-move-to-reading-list" = "あとで読むリストに保存";
+"action-next-revision-accessibility" = "次の版";
+"action-previous-revision-accessibility" = "前の版";
 "action-read" = "読む";
 "action-redo" = "やり直す";
 "action-remove" = "除去";
@@ -103,6 +105,7 @@
 "action-share" = "共有";
 "action-share-accessibility" = "共有";
 "action-sort" = "並べ替え";
+"action-thank-user-accessibility" = "感謝する";
 "action-undo" = "取り消す";
 "action-unsave" = "リストから削除";
 "action-unsaved-accessibility-notification" = "記事をリストから削除しました";
@@ -132,6 +135,7 @@
 "article-read-more-title" = "さらに読む";
 "article-save-error-not-enough-space" = "デバイスの空き容量不足でこの記事を保存できません";
 "article-share" = "共有";
+"article-title" = "記事";
 "article-toolbar-reading-themes-controls-toolbar-item" = "テーマのコントロールを読み込む";
 "article-unable-to-load-section" = "この節を読み込むことができません。記事を更新してみて、問題が解決するかどうか確かめてみてください。";
 "back-button-accessibility-label" = "戻る";
@@ -188,6 +192,18 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
+"diff-compare-header-heading" = "版を比較";
+"diff-compare-title" = "版を比較";
+"diff-context-lines-collapsed-button-title" = "表示";
+"diff-context-lines-expanded-button-title" = "隠す";
+"diff-paragraph-moved-direction-down" = "下へ";
+"diff-paragraph-moved-direction-up" = "上へ";
+"diff-single-line-format" = "$1行目:";
+"diff-thanks-anonymous-no-thanks" = "匿名利用者に感謝することはできません";
+"diff-thanks-login-title" = "ログインして感謝を送信";
+"diff-thanks-send-button-title" = "感謝を示す";
+"diff-thanks-send-title" = "感謝を公に示す";
+"diff-thanks-sent" = "あなたの感謝は $1 に送られました。";
 "dim-images" = "暗い画像";
 "edit-bold-accessibility-label" = "太字にする";
 "edit-bold-remove-accessibility-label" = "太字の解除";
@@ -296,12 +312,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "すべてオンにする";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "オン";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1の言語で利用可能";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "隠されている%@のカードすべて";
 "explore-feed-preferences-global-card-footer-text" = "このカードは言語に依存しないため、非表示にすると「探してみよう」フィードから除去されます。";
 "explore-feed-preferences-global-cards-description" = "言語非依存のカードです";
 "explore-feed-preferences-global-cards-subtitle" = "言語に関係ないもの";
 "explore-feed-preferences-global-cards-title" = "グローバルカード";
 "explore-feed-preferences-hide-card-action-title" = "カードを隠す";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "「%@」のカードをすべて非表示";
 "explore-feed-preferences-in-the-news-description" = "最近の出来事の記事";
 "explore-feed-preferences-languages-footer-text" = "すべての言語で探してみようカードをすべて非表示にすると、「探してみよう」タブも表示されなくなります。";
@@ -507,6 +525,8 @@
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";
 "page-edit-history" = "すべての編集履歴";
+"page-history-anonymous-edits" = "匿名編集";
+"page-history-bot-edits" = "ボット編集";
 "page-issues" = "ページの問題点";
 "page-last-edited" = "{{PLURAL:$1|0=今日編集|1=昨日編集|$1日前に編集}}";
 "page-location" = "地図で見る";
@@ -623,6 +643,7 @@
 "reading-lists-default-list-title" = "とりあえず";
 "reading-lists-delete-reading-list-alert-message" = "この操作は取り消せません。{{PLURAL:$1|このリスト|これらのリスト}}に保存された記事だけが削除されます。";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|リスト|リスト}}を削除？";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1記事と$2あとで読むリストがあなたのアカウントから同期されました";
 "reading-lists-list-not-synced-limit-exceeded" = "上限に達したためリストが同期できませんでした";
 "reading-lists-sort-saved-articles" = "保存した記事を並び替え";

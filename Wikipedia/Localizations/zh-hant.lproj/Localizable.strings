@@ -84,6 +84,8 @@
 "action-language-accessibility" = "變更語言";
 "action-move-to" = "移動至…";
 "action-move-to-reading-list" = "移動至閱讀清單";
+"action-next-revision-accessibility" = "下一個修訂";
+"action-previous-revision-accessibility" = "上一個修訂";
 "action-read" = "閱讀";
 "action-redo" = "重做";
 "action-remove" = "移除";
@@ -96,6 +98,7 @@
 "action-share" = "分享";
 "action-share-accessibility" = "分享";
 "action-sort" = "排序";
+"action-thank-user-accessibility" = "感謝使用者";
 "action-undo" = "還原";
 "action-unsave" = "未儲存";
 "action-unsaved-accessibility-notification" = "條目未儲存";
@@ -184,9 +187,6 @@
 "description-welcome-start-editing-button" = "開始編輯";
 "diff-compare-header-from-info-heading" = "從：";
 "diff-compare-header-heading" = "比較修訂";
-"diff-compare-header-subtitle-format" = "未顯示由$2作的 $1 次中間修訂";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 個中間修訂|$1 個中間修訂}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 位使用者|$1 位使用者}}";
 "diff-compare-header-to-info-heading" = "到：";
 "diff-compare-title" = "比較修訂";
 "diff-context-lines-collapsed-button-title" = "顯示";
@@ -211,8 +211,7 @@
 "diff-thanks-send-button-title" = "發送感謝";
 "diff-thanks-send-subtitle" = "「感謝」是在維基百科上向其他編者所修改出內容表達讚賞的簡易方式，請留意感謝無法撤回發送，並且是公開可見的。";
 "diff-thanks-send-title" = "公開發送感謝";
-// Fuzzy
-"diff-thanks-sent" = "您的感謝發送給$1";
+"diff-thanks-sent" = "您的感謝已發送給$1";
 "diff-thanks-sent-already" = "您已曾為此編輯發送過感謝";
 "diff-thanks-sent-cannot-unsend" = "感謝無法撤回發送";
 "diff-unedited-lines-format" = "{{PLURAL:$1|共 $1 行尚未編輯|共 $1 行尚未編輯}}";
@@ -326,13 +325,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "開啟所有";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "開啟";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "在 $1";
-"explore-feed-preferences-feed-cards-hidden-title" = "所有%@卡片已隱藏";
+"explore-feed-preferences-feed-cards-hidden-title" = "所有$1卡片已隱藏";
 "explore-feed-preferences-global-card-footer-text" = "此卡片沒有指定語言，關閉此卡片會一同從您的探索摘要上移除。";
 "explore-feed-preferences-global-cards-description" = "沒有指定語言的卡片";
 "explore-feed-preferences-global-cards-subtitle" = "沒有指定語言";
 "explore-feed-preferences-global-cards-title" = "全域卡片";
 "explore-feed-preferences-hide-card-action-title" = "隱藏此卡片";
-"explore-feed-preferences-hide-feed-cards-action-title" = "隱藏所有「%@」卡片";
+"explore-feed-preferences-hide-feed-cards-action-title" = "隱藏所有「$1」卡片";
 "explore-feed-preferences-in-the-news-description" = "有關目前最新事件的條目";
 "explore-feed-preferences-languages-footer-text" = "隱藏在您所有語言上的探索摘要卡片類型會一同關閉探索分頁。";
 "explore-feed-preferences-on-this-day-description" = "在歷史上的今天之事件";
@@ -482,6 +481,12 @@
 "insert-media-media-settings-title" = "媒體設定";
 "insert-media-title" = "插入媒體";
 "insert-media-uploaded-image-title" = "已上傳圖片";
+"intermediate-edits-count" = "{{PLURAL:$1|$1 個中間修訂}}未顯示出";
+"intermediate-edits-count-limited" = "$1+ 個以上中間修訂未顯示出";
+"intermediate-edits-editors-count" = "由 {{PLURAL:$2|$2 名使用者}}所做出 {{PLURAL:$1|$1 個中間修訂}}未顯示出";
+"intermediate-edits-editors-count-limited" = "由 $2 名以上使用者所做出 $1+ 個以上中間修訂未顯示出";
+"intermediate-edits-editors-limited-count" = "由 $2+ 名以上使用者所做出 {{PLURAL:$1|$1 個中間修訂}}未顯示出";
+"intermediate-edits-limited-editors-count" = "由 {{PLURAL:$2|$2 名使用者}}所做出 $1+ 個以上中間修訂未顯示出";
 "languages-settings-title" = "語言";
 "languages-title" = "變更語言";
 "languages-wikipedia" = "維基百科語言";
@@ -542,7 +547,7 @@
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
 "page-history-compare-title" = "比較";
 "page-history-minor-edits" = "小修改";
-"page-history-revision-author-accessibility-label" = "作者：%@";
+"page-history-revision-author-accessibility-label" = "作者：$1";
 "page-history-revision-history-title" = "修訂歷史";
 "page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 位元組|$1 位元組}}";
 "page-history-revision-size-diff-subtraction" = "已移除 {{PLURAL:$1|$1 位元組|$1 位元組}}";
@@ -667,7 +672,7 @@
 "reading-lists-default-list-title" = "已儲存";
 "reading-lists-delete-reading-list-alert-message" = "此操作無法還原，任何儲存至{{PLURAL:$1|此清單|這些清單}}的條目將會被取消儲存。";
 "reading-lists-delete-reading-list-alert-title" = "刪除{{PLURAL:$1|清單|清單}}嗎？";
-"reading-lists-large-sync-completed" = "$1 個條目與 $2 個閱讀清單已從您的帳號同步";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1|$1}} 個條目與 {{PLURAL:$2|$2|$2}} 個閱讀清單已從您的帳號同步";
 "reading-lists-list-not-synced-limit-exceeded" = "因超出上限，清單無法同步";
 "reading-lists-sort-saved-articles" = "排序已儲存條目";
 "reading-lists-split-notification" = "在各閱讀清單裡含有 $1 個條目的上限限制。現有清單在超過此限制時，會被拆分成多個清單。";
@@ -688,6 +693,7 @@
 "relative-date-minutes-abbreviated" = "$1 分";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
 "relative-date-minutes-ago-abbreviated" = "$1 分前";
+"relative-date-months-ago" = "{{PLURAL:$1|0=這個月|1=上個月|$1 個月前}}";
 "relative-date-seconds-abbreviated" = "$1 秒";
 "relative-date-seconds-ago-abbreviated" = "$1 秒前";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|1=去年|$1 年前}}";
@@ -863,7 +869,7 @@
 "welcome-send-data-learn-more" = "了解更多關於資料採集";
 "welcome-send-data-sub-title" = "透過讓我們了解您是如何使用，來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
 "welcome-volunteer-send-usage-reports" = "傳送使用情況報告";
-"wikitext-download-failed" = "無法取得最新的版本。";
+"wikitext-download-failed" = "無法取得最新的修訂。";
 "wikitext-downloading" = "載入內容中…";
 "wikitext-preview-changes" = "取得您的變更預覽中...";
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";

@@ -265,12 +265,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alles aan";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Aan";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "In $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Alle %@-kaarten verborgen";
 "explore-feed-preferences-global-card-footer-text" = "Deze kaart is niet-taalspecifiek, het uitschakelen van deze kaart zal deze verwijderen van uw verkennen-tabblad.";
 "explore-feed-preferences-global-cards-description" = "Niet-taalspecifieke kaarten";
 "explore-feed-preferences-global-cards-subtitle" = "Niet-taalspecifiek";
 "explore-feed-preferences-global-cards-title" = "Globale kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Deze kaart verbergen";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Alle kaarten van %@ verbergen";
 "explore-feed-preferences-in-the-news-description" = "Pagina's over huidige gebeurtenissen";
 "explore-feed-preferences-languages-footer-text" = "Het verbergen van alle kaarten op het verkennen-tabblad in alle talen zal het tabblad uitschakelen.";
@@ -584,6 +586,7 @@
 "reading-lists-default-list-title" = "Opgeslagen";
 "reading-lists-delete-reading-list-alert-message" = "Deze actie kan niet ongedaan gemaakt worden. Alle artikelen die alleen zijn opgeslagen in {{PLURAL:$1|deze lijst|deze lijsten}} zijn niet opgeslagen.";
 "reading-lists-delete-reading-list-alert-title" = "Deze {{PLURAL:$1|lijst|lijsten}} verwijderen?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikelen en $2 leeslijsten gesynchroniseerd van uw account";
 "reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-lists-sort-saved-articles" = "Opgeslagen pagina's sorteren";

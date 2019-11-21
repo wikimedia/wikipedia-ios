@@ -242,12 +242,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hidup semua";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Buka";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Dalam $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Semua %@ kad tersembunyi";
 "explore-feed-preferences-global-card-footer-text" = "Kad ini bukan bahasa khusus, mematikan kad ini akan mengeluarkannya dari suapan Teroka anda.";
 "explore-feed-preferences-global-cards-description" = "Kad khusus non-bahasa";
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
 "explore-feed-preferences-global-cards-title" = "Kad global";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kad ini";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kad “%@”";
 "explore-feed-preferences-in-the-news-description" = "Rencana mengenai peristiwa semasa";
 "explore-feed-preferences-languages-footer-text" = "Menyembunyikan semua Mencari kad suapan dalam semua bahasa anda akan mematikan tab Jelajah.";
@@ -534,6 +536,7 @@
 "reading-lists-default-list-title" = "Disimpan";
 "reading-lists-delete-reading-list-alert-message" = "Tindakan ini tidak dapat dibatalkan. Sebarang rencana yang disimpan hanya untuk {{PLURAL:$1|senarai ini|senarai ini}} tidak akan disimpan.";
 "reading-lists-delete-reading-list-alert-title" = "Padamkan {{PLURAL:$1|senarai|senarai}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 rencana dan $2 senarai bacaan disegerakkan dari akaun anda";
 "reading-lists-list-not-synced-limit-exceeded" = "Senarai tidak disegerakkan, had melebihi";
 "reading-lists-sort-saved-articles" = "Isih rencana yang disimpan";

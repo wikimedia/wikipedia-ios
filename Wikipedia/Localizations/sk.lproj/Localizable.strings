@@ -275,12 +275,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Vo všetkých jazykoch";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnúť";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Všetkých %@ kariet je skrytých";
 "explore-feed-preferences-global-card-footer-text" = "Táto karta sa nevzťahuje na jazyk a jej vypnutie ju odstráni z kanálu Objaviť.";
 "explore-feed-preferences-global-cards-description" = "Karty nevzťahujúce sa na jazyk";
 "explore-feed-preferences-global-cards-subtitle" = "Nevzťahujúce sa na jazyk";
 "explore-feed-preferences-global-cards-title" = "Globálne karty";
 "explore-feed-preferences-hide-card-action-title" = "Skryť túto kartu";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skryť všetky karty „%@“";
 "explore-feed-preferences-in-the-news-description" = "Články o súčasných udalostiach";
 "explore-feed-preferences-languages-footer-text" = "Skrytie všetkých kariet vo všetkých vybraných jazykoch vypne kanál Objaviť.";
@@ -602,6 +604,7 @@
 "reading-lists-default-list-title" = "Uložené";
 "reading-lists-delete-reading-list-alert-message" = "Táto akcia nemôže byť zrušená. Akékoľvek články uložené len do {{PLURAL:$1|tohto zoznamu|týchto zoznamov}} nebudú uložené.";
 "reading-lists-delete-reading-list-alert-title" = "Odstrániť {{PLURAL:$1|zoznam|zoznamy}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 článkov a $2 zoznamov na prečítanie bolo zosynchronizované z vášho účtu";
 "reading-lists-list-not-synced-limit-exceeded" = "Zoznam nebol synchronizovaný, limit bol prekročený";
 "reading-lists-sort-saved-articles" = "Zoradiť uložené články";

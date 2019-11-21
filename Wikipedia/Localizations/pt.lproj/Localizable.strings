@@ -175,9 +175,6 @@
 "description-welcome-start-editing-button" = "Começar a editar";
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar Revisões";
-"diff-compare-header-subtitle-format" = "$1 por $2 não mostrado";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 revisão intermediária|$1 revisões intermediárias}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 utilizador|$1 utilizadores}}";
 "diff-compare-header-to-info-heading" = "Para:";
 "diff-compare-title" = "Comparar Revisões";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
@@ -317,12 +314,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Todas";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ligado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Em $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Todos os cartões %@ ocultados";
 "explore-feed-preferences-global-card-footer-text" = "Este cartão não depende da língua, desativá-lo remove-o do seu feed Explorar.";
 "explore-feed-preferences-global-cards-description" = "Cartões independentes da língua";
 "explore-feed-preferences-global-cards-subtitle" = "Independente da língua";
 "explore-feed-preferences-global-cards-title" = "Cartões globais";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar este cartão";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todos os cartões \"%@\"";
 "explore-feed-preferences-in-the-news-description" = "Artigos sobre atualidades";
 "explore-feed-preferences-languages-footer-text" = "Ocultar todos os cartões do feed Explorar em todas as línguas desativa o separador Explorar.";
@@ -533,6 +532,7 @@
 "page-history-compare-accessibility-hint" = "Toque para selecionar 2 revisões para comparar";
 "page-history-compare-title" = "Comparar";
 "page-history-minor-edits" = "edições secundárias";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "Autor: %@";
 "page-history-revision-history-title" = "Histórico de revisões";
 "page-history-revision-size-diff-addition" = "Adicionado {{PLURAL:$1|$1 byte|$1 bytes}}";
@@ -658,6 +658,7 @@
 "reading-lists-default-list-title" = "Guardados";
 "reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser desfeita. Todos os artigos guardados apenas {{PLURAL:$1|nesta lista|nestas listas}} deixarão de ser guardados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artigos e $2 listas de leitura sincronizados da sua conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista não foi sincronizada, o limite foi excedido";
 "reading-lists-sort-saved-articles" = "Ordenar os artigos guardados";

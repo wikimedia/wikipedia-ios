@@ -128,5 +128,6 @@ extension PageHistoryCountsViewController: Themeable {
         countsLabel.textColor = theme.colors.accent
         separator.backgroundColor = theme.colors.border
         filterCountsViewController.apply(theme: theme)
+        sparklineView.apply(theme: theme)
     }
 }

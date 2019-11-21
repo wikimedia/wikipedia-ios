@@ -64,6 +64,8 @@
 "action-language-accessibility" = "Смени јазик";
 "action-move-to" = "Премести во...";
 "action-move-to-reading-list" = "Премести во списокот за читање";
+"action-next-revision-accessibility" = "Следна преработка";
+"action-previous-revision-accessibility" = "Претходна преработка";
 "action-read" = "Прочитај";
 "action-redo" = "Повтори";
 "action-remove" = "Отстрани";
@@ -76,6 +78,7 @@
 "action-share" = "Сподели";
 "action-share-accessibility" = "Сподели";
 "action-sort" = "Подреди";
+"action-thank-user-accessibility" = "Заблагодари се";
 "action-undo" = "Врати";
 "action-unsave" = "Тргни";
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
@@ -164,9 +167,6 @@
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "diff-compare-header-from-info-heading" = "Од:";
 "diff-compare-header-heading" = "Спореди преработки";
-"diff-compare-header-subtitle-format" = "Неприкажано: $1 од $2";
-"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 меѓупреработка|$1 меѓупреработки}}";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 корисник|$1 корисници}}";
 "diff-compare-header-to-info-heading" = "До:";
 "diff-compare-title" = "Спореди преработки";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
@@ -305,13 +305,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "На сите";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "На $1";
-"explore-feed-preferences-feed-cards-hidden-title" = "Сите картички %@ се скриени";
+"explore-feed-preferences-feed-cards-hidden-title" = "Сите картички „$1“ се скриени";
 "explore-feed-preferences-global-card-footer-text" = "Оваа картичка нема посветен јазик. Исклучувајќи ја, ќе ја отстраните од тековникот „Истражи“.";
 "explore-feed-preferences-global-cards-description" = "Нејазични картички";
 "explore-feed-preferences-global-cards-subtitle" = "Нејазични";
 "explore-feed-preferences-global-cards-title" = "Глобални картички";
 "explore-feed-preferences-hide-card-action-title" = "Скриј ја картичкава";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Скриј ги сите картички „%@“";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Скриј ги сите картички „$1“";
 "explore-feed-preferences-in-the-news-description" = "Статии за тековни настани";
 "explore-feed-preferences-languages-footer-text" = "Скривајќи ги сите картички од тековникот „Истражи“ на сите ваши јазици, повеќе нема да се појавува јазичето „Истражи“.";
 "explore-feed-preferences-on-this-day-description" = "Настани од историјата на овој ден";
@@ -461,6 +461,12 @@
 "insert-media-media-settings-title" = "Поставки за слики и снимки";
 "insert-media-title" = "Вметнување на слика или снимка";
 "insert-media-uploaded-image-title" = "Подигни слика";
+"intermediate-edits-count" = "{{PLURAL:$1|Не е прикажана $1 меѓувремена преработка|Не се прикажани $1 меѓувремени преработки}}";
+"intermediate-edits-count-limited" = "Не се прикажани $1+ меѓувремени преработки";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|Не е прикажана $1 меѓувремена преработка|Не се прикажани $1 меѓувремени преработки}} на {{PLURAL:$2|$2 корисник|$2 корисници}}";
+"intermediate-edits-editors-count-limited" = "Не се прикажани $1+ меѓувремени преработки на $2+ корисници";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Не е прикажана $1 меѓувремена преработка|Не се прикажани $1 меѓувремени преработки}} на $2+ корисници";
+"intermediate-edits-limited-editors-count" = "Не се прикажани $1+ меѓувремени преработки на {{PLURAL:$2|$2 корисник|$2 корисници}}";
 "languages-settings-title" = "Јазици";
 "languages-title" = "Смени јазик";
 "languages-wikipedia" = "Јазици на Википедија";
@@ -521,7 +527,7 @@
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
 "page-history-compare-title" = "Спореди";
 "page-history-minor-edits" = "ситни уредувања";
-"page-history-revision-author-accessibility-label" = "Автор: %@";
+"page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-history-title" = "Историја на измените";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Отстранет $1 бајт|Отстранети $1 бајти}}";
@@ -646,7 +652,7 @@
 "reading-lists-default-list-title" = "Зачувани";
 "reading-lists-delete-reading-list-alert-message" = "Ова дејство е неповратно. Сите статии зачувани само во {{PLURAL:$1|овој список|овие списоци}} ќе бидат одзачувани.";
 "reading-lists-delete-reading-list-alert-title" = "Да {{PLURAL:$1|го избришам списокот|ги избришам списоците}}?";
-"reading-lists-large-sync-completed" = "Усогласени се $1 статии и $2 списоци за читање од вашата сметка";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|Усогласена е $1 статија|Усогласени се $1 статии}} и {{PLURAL:$2|$2 список за читање|$2 списоци за читање}} од вашата сметка";
 "reading-lists-list-not-synced-limit-exceeded" = "Списокот не е усогласен. Границата е надмината.";
 "reading-lists-sort-saved-articles" = "Подреди зачувани статии";
 "reading-lists-split-notification" = "Секој список на читање прима највеќе $1 статии. Постоечките списоци со повеќе статии се разделени.";
@@ -667,6 +673,7 @@
 "relative-date-minutes-abbreviated" = "$1 мин.";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
 "relative-date-minutes-ago-abbreviated" = "пред $1 мин.";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Месецов|1=Минатиот месец|Пред $1 месеци}}";
 "relative-date-seconds-abbreviated" = "$1 сек";
 "relative-date-seconds-ago-abbreviated" = "пред $1 сек.";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|1=Лани|Пред $1 години}}";

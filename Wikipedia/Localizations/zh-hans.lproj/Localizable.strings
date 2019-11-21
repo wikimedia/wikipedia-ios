@@ -194,8 +194,6 @@
 "description-welcome-start-editing-button" = "开始编辑";
 "diff-compare-header-from-info-heading" = "发件人：";
 "diff-compare-header-heading" = "比较不同修订版本";
-"diff-compare-header-subtitle-format" = "未显示$2名用户作出的$1次编辑";
-"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1位用户}}";
 "diff-compare-header-to-info-heading" = "收件人：";
 "diff-compare-title" = "比较不同时间的版本";
 "diff-context-lines-collapsed-button-title" = "显示";
@@ -315,12 +313,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "在所有";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "开";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "在$1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "所有%@点卡片已隐藏";
 "explore-feed-preferences-global-card-footer-text" = "此卡片并非语言特定，关闭此卡片将从您的探索订阅源中移除它。";
 "explore-feed-preferences-global-cards-description" = "非语言特定卡片";
 "explore-feed-preferences-global-cards-subtitle" = "非语言特定";
 "explore-feed-preferences-global-cards-title" = "全域卡片";
 "explore-feed-preferences-hide-card-action-title" = "隐藏此卡片";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "隐藏所有的 “%@” 卡片";
 "explore-feed-preferences-in-the-news-description" = "有关当前活动的条目";
 "explore-feed-preferences-languages-footer-text" = "从您所有语言中隐藏所有探索订阅源卡片将关闭探索标签。";
@@ -504,6 +504,7 @@
 "page-history-bot-edits" = "机器人编辑";
 "page-history-compare-title" = "比较";
 "page-history-minor-edits" = "小编辑";
+// Fuzzy
 "page-history-revision-author-accessibility-label" = "作者：%@";
 "page-history-revision-history-title" = "版本历史";
 "page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 byte|$1字节}}";
@@ -629,6 +630,7 @@
 "reading-lists-default-list-title" = "已保存";
 "reading-lists-delete-reading-list-alert-message" = "此操作不能撤销。任何只添加至{{PLURAL:$1此|这些}}列表的条目将被取消保存。";
 "reading-lists-delete-reading-list-alert-title" = "删除{{PLURAL:$1|列表}}么？";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1个条目和$2各阅读列表已从您的账户同步";
 "reading-lists-list-not-synced-limit-exceeded" = "列表未同步，超过限制";
 "reading-lists-sort-saved-articles" = "排序保存的条目";
