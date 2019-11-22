@@ -117,7 +117,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             let button = languageButtons[index]
             button.setTitle(language.localizedName, for: .normal)
             if let selectedLanguage = currentlySelectedSearchLanguage {
-                button.isSelected = language.isEqual(to: selectedLanguage)
+                button.isSelected = language.languageCode == selectedLanguage.languageCode
             }else{
                 assertionFailure("selectedLanguage should have been set at this point")
                 button.isSelected = false
