@@ -645,7 +645,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [self pushArticleViewControllerWithURL:language.articleURL animated:YES];
+                                [self wmf_navigateToURL:language.articleURL];
                              }];
 }
 
@@ -2280,7 +2280,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
-        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
+        [self wmf_pushViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
@@ -2388,16 +2388,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-#pragma mark - Article Navigation
-
-- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController animated:(BOOL)animated {
-    [self wmf_pushArticleViewController:articleViewController animated:YES];
-}
-
-- (void)pushArticleViewControllerWithURL:(NSURL *)url animated:(BOOL)animated {
-
-    [self wmf_pushArticleWithURL:url dataStore:self.dataStore theme:self.theme animated:animated];
-}
 
 #pragma mark - One-time toolbar item popover tips
 

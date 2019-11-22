@@ -431,7 +431,7 @@ extension ReadingListEntryCollectionViewController {
         guard let articleURL = articleURL(at: indexPath) else {
             return
         }
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        navigate(to: articleURL)
         ReadingListsFunnel.shared.logReadStartIReadingList(articleURL)
     }
     

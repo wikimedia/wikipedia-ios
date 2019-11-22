@@ -154,7 +154,7 @@ extension ArticleLocationCollectionViewController {
         if let context = feedFunnelContext {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: indexPath.item, maxViewed: maxViewed)
         }
-        wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, theme: self.theme, animated: true)
+        navigate(to: articleURLs[indexPath.item])
     }
 }
 
