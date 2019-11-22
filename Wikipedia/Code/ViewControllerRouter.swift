@@ -78,15 +78,3 @@ class ViewControllerRouter: NSObject {
     }
     
 }
-
-
-
-//case WMFUserActivityTypeUserTalk: {
-//    NSURL *URL = activity.webpageURL;
-//    if (!URL) {
-//        done();
-//        return NO;
-//    }
-//    WMFTalkPageContainerViewController *vc = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:URL dataStore:self.dataStore theme:self.theme];
-//    [self.currentNavigationController pushViewController:vc animated:YES];
-//}
