@@ -12,7 +12,15 @@ const fetcher = (url, handler) => {
     res.on('data', (chunk) => {
       data += chunk
     })
-    res.on('end', () => handler(null, JSON.parse(data)))
+   
+    res.on('end', () => {
+      try {
+        handler(null, JSON.parse(data))
+      } catch (err) {
+        console.log('error handling ' + url)
+        handler(err, null)
+      }
+    })
   }).on("error", err => handler(err, null))
 }
 
@@ -23,7 +31,7 @@ const outputPath = '../Wikipedia/Code/wikipedia-namespaces'
 
 const langFromSiteInfo = info => Object.entries(info)[1][1].code
 
-const excludedLanguageCodes = new Set(['be-x-old', 'mo', 'yue'])
+const excludedLanguageCodes = new Set(['be-x-old', 'mo', 'yue', 'shy'])
 
 const codesFromJSON = json => Object.entries(json.sitematrix).map(langFromSiteInfo).filter(code => code !== undefined && !excludedLanguageCodes.has(code))
 
@@ -53,7 +61,7 @@ const translationsFromSiteInfoResponseJSON = siteInfoResponseJSON => {
 
     let output = {
       namespace: namespacedict,
-      mainpage: siteInfoResponseJSON.query.general.mainpage
+      mainpage: normalizeString(siteInfoResponseJSON.query.general.mainpage)
     }
 
     return output
