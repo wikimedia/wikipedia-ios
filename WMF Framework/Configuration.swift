@@ -32,6 +32,7 @@ public class Configuration: NSObject {
         static let englishWikipedia = "en.wikipedia.org"
         static let wikimedia = "wikimedia.org"
         static let metaWiki = "meta.wikimedia.org"
+        static let wikimediafoundation = "wikimediafoundation.org"
     }
     
     struct Path {
@@ -80,7 +81,7 @@ public class Configuration: NSObject {
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
-        self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia] + otherDomains
+        self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
     }
     
     func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
