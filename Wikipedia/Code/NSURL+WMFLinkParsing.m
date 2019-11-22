@@ -230,6 +230,14 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     }
 }
 
+- (NSURL *)wmf_canonicalURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    components.path = [components.path stringByRemovingPercentEncoding] ?: components.path;
+    components.scheme = @"https";
+    return components.URL;
+}
+
 - (NSURL *)wmf_databaseURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
