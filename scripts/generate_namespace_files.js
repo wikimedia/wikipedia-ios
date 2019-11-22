@@ -27,11 +27,11 @@ const excludedLanguageCodes = new Set(['be-x-old', 'mo', 'yue'])
 
 const codesFromJSON = json => Object.entries(json.sitematrix).map(langFromSiteInfo).filter(code => code !== undefined && !excludedLanguageCodes.has(code))
 
-const excludedAmbiguousNamespaceIDs = new Set([104, 105, 106, 107, 110, 111]) 
+const excludedAmbiguousNamespaceIDs = new Set([104, 105, 106, 107, 110, 111])
 
 const normalizeString = string => string.toUpperCase().replace(/\s+/g, ' ')
 
-const translationsFromSiteInfoResponseJSON = (siteInfoResponseJSON, sitematrixLangCode) => {
+const translationsFromSiteInfoResponseJSON = siteInfoResponseJSON => {
   let namespacedict = {}
 
   console.log(siteInfoResponseJSON.query.general.lang)
@@ -67,7 +67,7 @@ const generateTranslationsJSON = () => {
   .then(codes => codes.map(code => `https://${code}.wikipedia.org/w/api.php?action=query&format=json&prop=&list=&meta=siteinfo&siprop=namespaces%7Cgeneral%7Cnamespacealiases&formatversion=2&origin=*`))
   .then(siteInfoURLs => siteInfoURLs.map(url => fetch(url)))
   .then(siteInfoFetches => Promise.all(siteInfoFetches))
-  .then(allFetchResultsJSON => [sitematrixLangCodes, allFetchResultsJSON.map((siteInfoResponseJSON, i) => translationsFromSiteInfoResponseJSON(siteInfoResponseJSON, sitematrixLangCodes[i]))])
+  .then(allFetchResultsJSON => [sitematrixLangCodes, allFetchResultsJSON.map(siteInfoResponseJSON => translationsFromSiteInfoResponseJSON(siteInfoResponseJSON))])
 }
 
 const writeTranslationToFile = (translation, filePath) => {
