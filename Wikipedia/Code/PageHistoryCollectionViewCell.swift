@@ -111,6 +111,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         editableContent.addSubview(sizeDiffLabel)
         authorButton.horizontalSpacing = 8
         authorButton.isUserInteractionEnabled = false
+        authorButton.accessibilityTraits = UIAccessibilityTraits.staticText
         editableContent.addSubview(authorButton)
         commentLabel.numberOfLines = 2
         commentLabel.lineBreakMode = .byTruncatingTail
