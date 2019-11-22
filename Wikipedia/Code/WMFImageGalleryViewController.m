@@ -379,9 +379,9 @@ NS_ASSUME_NONNULL_BEGIN
     caption.ownerTapCallback = ^{
         @strongify(self);
         if (imageInfo.license.URL) {
-            [self wmf_navigateToURL:imageInfo.license.URL];
+            [self wmf_navigateToURL:imageInfo.license.URL.wmf_urlByPrependingSchemeIfSchemeless];
         } else if (imageInfo.filePageURL) {
-            [self wmf_navigateToURL:imageInfo.filePageURL];
+            [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
         } else {
             // There should always be a file page URL, but log an error anyway
             DDLogError(@"No license URL or file page URL for %@", imageInfo);
@@ -390,7 +390,7 @@ NS_ASSUME_NONNULL_BEGIN
     caption.infoTapCallback = ^{
         @strongify(self);
         if (imageInfo.filePageURL) {
-            [self wmf_navigateToURL:imageInfo.filePageURL];
+            [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
         }
     };
     @weakify(caption);
