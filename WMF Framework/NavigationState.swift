@@ -41,6 +41,8 @@ public struct NavigationState: Codable {
             case talkPage
             case talkPageReplyList
             
+            case singleWebPage
+            
             case readingListDetail
             
             case detail
@@ -78,9 +80,12 @@ public struct NavigationState: Codable {
 
             public var presentedContentGroupKey: String?
             
+            public var url: URL?
+            
             // TODO: Remove after moving to Swift 5.1 -
             // https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md
-            public init(selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil, presentedContentGroupKey: String? = nil) {
+            public init(url: URL? = nil, selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil, presentedContentGroupKey: String? = nil) {
+                self.url = url
                 self.selectedIndex = selectedIndex
                 self.articleKey = articleKey
                 self.articleSectionAnchor = articleSectionAnchor

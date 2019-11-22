@@ -156,6 +156,11 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 pushOrPresent(detailVC, navigationController: navigationController, presentation: viewController.presentation)
+            case (.singleWebPage, let info):
+                guard let url = info?.url else {
+                    return
+                }
+                pushOrPresent(SinglePageWebViewController(url: url, theme: theme), navigationController: navigationController, presentation: .push)
             default:
                 return
             }
@@ -229,6 +234,9 @@ final class NavigationStateController: NSObject {
         case let detailPresenting as DetailPresentingFromContentGroup:
             kind = .detail
             info = Info(contentGroupIDURIString: detailPresenting.contentGroupIDURIString)
+        case let singlePageWebViewController as SinglePageWebViewController:
+            kind = .singleWebPage
+            info = Info(url: singlePageWebViewController.url)
         default:
             let result = determineKindInfoForArticleOrTalk(obj: viewController)
             kind = result.kind
