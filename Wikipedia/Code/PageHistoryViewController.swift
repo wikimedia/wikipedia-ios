@@ -187,19 +187,45 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
             case .success(let firstRevision):
-                DispatchQueue.main.async {
-                    self.firstRevision = firstRevision
-                    if let revisionDate = firstRevision.revisionDate {
-                        self.countsViewController.set(totalEditCount: nil, firstEditDate: revisionDate)
-                    } else {
-                        self.showNoInternetConnectionAlertOrOtherWarning(from: RequestError.unexpectedResponse)
+                self.firstRevision = firstRevision
+                let firstEditDate = firstRevision.revisionDate
+                
+                self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { [weak self] result in
+                    guard let self = self else {
+                        return
+                    }
+                    switch result {
+                    case .failure(let error):
+                        self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                    case .success(let editCounts):
+                        if let totalEditResponse = editCounts[.edits] {
+                            DispatchQueue.main.async {
+                                let totalEditCount = totalEditResponse.count
+                                if let firstEditDate = firstEditDate,
+                                    totalEditResponse.limit == false {
+                                    self.countsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
-
-        countsViewController.editCountsGroupedByType = nil
-
+        
+        pageHistoryFetcher.fetchEditCounts(.edits, .userEdits, .anonymous, .bot, for: pageTitle, pageURL: pageURL) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .failure(let error):
+                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+            case .success(let editCountsGroupedByType):
+                DispatchQueue.main.async {
+                    self.countsViewController.editCountsGroupedByType = editCountsGroupedByType
+                }
+            }
+        }
+        
         pageHistoryFetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { [weak self] result in
             guard let self = self else {
                 return
@@ -207,6 +233,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             switch result {
             case .failure(let error):
                 self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                self.countsViewController.timeseriesOfEditsCounts = []
             case .success(let timeseriesOfEditCounts):
                 DispatchQueue.main.async {
                     self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
