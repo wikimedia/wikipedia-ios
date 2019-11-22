@@ -20,12 +20,6 @@ NSString *const WMFEndNoteFragmentSubstring = @"endnote_";
     return [self containsString:WMFEndNoteFragmentSubstring];
 }
 
-- (NSString *)wmf_pathWithoutWikiPrefix {
-    NSRange internalLinkRange = [self rangeOfString:WMFInternalLinkPathPrefix];
-    NSString *path = internalLinkRange.location == NSNotFound ? self : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
-    return [path precomposedStringWithCanonicalMapping];
-}
-
 - (NSString *)wmf_unescapedNormalizedPageTitle {
     return [[self stringByRemovingPercentEncoding] wmf_normalizedPageTitle];
 }

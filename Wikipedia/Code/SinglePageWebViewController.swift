@@ -54,7 +54,7 @@ class SinglePageWebViewController: ViewController {
             return true
         }
     
-        navigateToActivity(with: actionURL)
+        navigate(to: actionURL)
         return false
     }
 }

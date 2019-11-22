@@ -185,12 +185,6 @@ extern NSString *const WMFEditPencil;
 #pragma mark - Introspection
 
 /**
- *  Return YES is a URL is a link to a Wiki resource
- *  Checks for the presence of "/wiki/" in the path
- */
-@property (nonatomic, readonly) BOOL wmf_isWikiResource;
-
-/**
  *  Return YES if the receiver has "cite_note" in the path
  */
 @property (nonatomic, readonly) BOOL wmf_isWikiCitation;

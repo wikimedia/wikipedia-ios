@@ -6,12 +6,12 @@ class ConfigurationTests: XCTestCase {
     let router = Configuration.current.router
     
     func testWikiResourcePath() {
-        XCTAssertEqual(configuration.wikiResourcePath("/wiki//æ/_raising"), "/æ/_raising")
-        XCTAssertNil(configuration.wikiResourcePath("/w//æ/_raising"))
+        XCTAssertEqual("/wiki//æ/_raising".wikiResourcePath, "/æ/_raising")
+        XCTAssertNil("/w//æ/_raising".wikiResourcePath)
     }
     
     func testWResourcePath() {
-        XCTAssertEqual(configuration.wResourcePath("/w/index.php?title=/æ/_raising&oldid=905679984"), "index.php?title=/æ/_raising&oldid=905679984")
+        XCTAssertEqual("/w/index.php?title=/æ/_raising&oldid=905679984".wResourcePath, "index.php?title=/æ/_raising&oldid=905679984")
     }
     
     func testWikiResourcePathActivity() {

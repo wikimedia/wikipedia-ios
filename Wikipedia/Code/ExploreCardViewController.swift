@@ -597,13 +597,13 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
                 let url = announcement.actionURL else {
                 return
             }
-            wmf_openExternalUrl(url)
+            navigate(to: url)
             dismissAnnouncementCell(cell)
         }
     }
     
     func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL linkURL: URL) {
-        wmf_openExternalUrl(linkURL)
+        navigate(to: linkURL)
     }
 }
 

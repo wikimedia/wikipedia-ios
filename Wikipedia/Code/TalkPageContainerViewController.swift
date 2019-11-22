@@ -200,6 +200,11 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         fetch()
         
         NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        guard let talkPageURL = talkPageURL else {
+            return
+        }
+        dataStore.historyList.addPageToHistory(with: talkPageURL)
     }
     
     @objc private func didBecomeActive() {
@@ -557,7 +562,7 @@ private extension TalkPageContainerViewController {
         guard let url = URL(string: url.absoluteString, relativeTo: talkPageURL) else {
             return
         }
-        navigateToActivity(with: url.absoluteURL)
+        navigate(to: url.absoluteURL)
     }
     
     func changeLanguage(siteURL: URL) {

@@ -1,7 +1,5 @@
 @import Foundation;
 
-extern NSString *const WMFInternalLinkPathPrefix;
-
 /// Substring within a URL fragment that indicates whether or not it is a citation.
 extern NSString *const WMFCitationFragmentSubstring;
 
@@ -33,13 +31,6 @@ extern NSString *const WMFCitationFragmentSubstring;
  * @return `YES` if the receiver contains a substring indicating that it is an endnote, otherwise `NO`.
  */
 - (BOOL)wmf_isEndNoteFragment;
-
-/**
- * Strips the internal link prefix from the receiver, if present.
- *
- * @warning If you need to be sure any query or fragment are also stripped, use this same category on `NSURL`.
- */
-- (NSString *)wmf_pathWithoutWikiPrefix;
 
 /**
  *  @return Copy of the receiver after normalizing page titles extracted from URLs, replacing percent escapes

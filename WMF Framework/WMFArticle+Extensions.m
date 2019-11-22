@@ -106,10 +106,6 @@
     if (searchResult.geoType != nil) {
         self.geoTypeNumber = searchResult.geoType;
     }
-    if (searchResult.titleNamespace != nil) {
-        self.ns = searchResult.titleNamespace;
-        self.isExcludedFromFeed = self.isExcludedFromFeed || self.ns.integerValue != 0;
-    }
 }
 
 @end
@@ -154,7 +150,7 @@
 }
 
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
-    WMFArticle *article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
+    WMFArticle *article = [[WMFArticle alloc] initWithContext:self];
     article.key = key;
     return article;
 }

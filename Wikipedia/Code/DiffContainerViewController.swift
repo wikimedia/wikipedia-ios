@@ -1015,7 +1015,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     func tappedUsername(username: String) {
         if let username = (username as NSString).wmf_normalizedPageTitle() {
             let userPageURL = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
-            wmf_openExternalUrl(userPageURL)
+            navigate(to: userPageURL)
         }
     }
     

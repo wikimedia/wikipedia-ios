@@ -807,14 +807,14 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         if (announcement) {
             [self wmf_showAnnouncementPanelWithAnnouncement:announcement
                 primaryButtonTapHandler:^(id _Nonnull sender) {
-                    [self wmf_openExternalUrl:announcement.actionURL];
+                    [self wmf_navigateToURL:announcement.actionURL];
                     dismiss();
                 }
                 secondaryButtonTapHandler:^(id _Nonnull sender) {
                     dismiss();
                 }
                 footerLinkAction:^(NSURL *_Nonnull url) {
-                    [self wmf_openExternalUrl:url];
+                    [self wmf_navigateToURL:url];
                 }
                 dissmissHandler:^{
                     dismiss();
@@ -1651,7 +1651,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    [self wmf_navigateToActivityWithURL:url];
+    [self wmf_navigateToURL:url];
 }
 
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {
@@ -1837,7 +1837,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showTalkPage {
     // use wmf_openExternal instead of showExternalURL because this VC
     // should be pushed on the stack instead of displayed here
-    [self wmf_navigateToActivityWithURL:self.articleTalkPageURL];
+    [self wmf_navigateToURL:self.articleTalkPageURL];
 }
 
 - (NSURL *)articleTalkPageURL {

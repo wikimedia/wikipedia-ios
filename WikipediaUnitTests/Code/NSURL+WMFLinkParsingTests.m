@@ -42,14 +42,14 @@
 
 - (void)testInternalLinkPath {
     NSString *testPath = @"foo/bar";
-    NSURL *testURL = [[NSURL URLWithString:WMFInternalLinkPathPrefix]
+    NSURL *testURL = [[NSURL URLWithString:@"/wiki/"]
         URLByAppendingPathComponent:testPath];
     XCTAssert([[testURL wmf_pathWithoutWikiPrefix] isEqualToString:testPath]);
 }
 
 - (void)testInternalLinkPathForURLExcludesFragmentAndQuery {
     NSString *testPath = @"foo/bar";
-    NSString *testPathWithQueryAndFragment = [WMFInternalLinkPathPrefix stringByAppendingFormat:@"%@?baz#buz", testPath];
+    NSString *testPathWithQueryAndFragment = [@"/wiki/" stringByAppendingFormat:@"%@?baz#buz", testPath];
     XCTAssert([[[NSURL URLWithString:testPathWithQueryAndFragment] wmf_pathWithoutWikiPrefix] isEqualToString:testPath]);
 }
 

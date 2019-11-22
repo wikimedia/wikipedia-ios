@@ -26,7 +26,6 @@
 
 #import "WMFDailyStatsLoggingFunnel.h"
 
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 

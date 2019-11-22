@@ -45,10 +45,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return title
     }
     
-    override func isExternalURL(at indexPath: IndexPath) -> Bool {
-        return results[indexPath.item].titleNamespace?.intValue ?? 0 != 0
-    }
-    
     override func articleURL(at indexPath: IndexPath) -> URL? {
         return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
     }
@@ -72,26 +68,13 @@ class SearchResultsViewController: ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
+        
         delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
         guard !delegatesSelection else {
             return
         }
         
-        if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
-            let searchSiteURL = searchSiteURL {
-            
-            let article = dataStore.historyList.addPageToHistory(with: articleURL)
-            article?.update(with: results[indexPath.item])
-            
-            pushUserTalkPage(title: userTalkPageTitle, siteURL: searchSiteURL)
-            return
-        }
-        
-        guard !isExternalURL(at: indexPath) else {
-            wmf_openExternalUrl(articleURL)
-            return
-        }
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        navigate(to: articleURL)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {

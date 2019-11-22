@@ -151,7 +151,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   NSManagedObjectContext *moc = self.dataStore.viewContext;
                                                   WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
-                                                  article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
                                                   BOOL isCached = articleCacheError == nil && saveToDisk;
                                                   article.isCached = isCached;
                                                   if (isCached) {

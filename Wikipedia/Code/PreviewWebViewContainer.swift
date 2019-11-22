@@ -11,7 +11,6 @@ import WMF
 }
 
 class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
-    weak var externalLinksOpenerDelegate: WMFOpenExternalLinkDelegate?
     var theme: Theme = .standard
     @IBOutlet weak var previewSectionLanguageInfoDelegate: WMFPreviewSectionLanguageInfoDelegate!
     @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!

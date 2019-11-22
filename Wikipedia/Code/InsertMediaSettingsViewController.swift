@@ -131,7 +131,7 @@ final class InsertMediaSettingsViewController: ViewController {
         imageView.title = searchResult.displayTitle
         imageView.titleURL = searchResult.imageInfo?.filePageURL
         imageView.titleAction = { [weak self] url in
-            self?.wmf_openExternalUrl(url, useSafari: true)
+            self?.navigate(to: url, useSafari: true)
         }
         imageView.autoresizingMask = []
         return imageView

@@ -394,15 +394,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     func learnMoreButtonTapped(sender: UIButton) {
-        wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Edit_summary"))
+        navigate(to: URL(string: "https://en.wikipedia.org/wiki/Help:Edit_summary"))
     }
 
     @IBAction public func minorEditButtonTapped(sender: UIButton) {
-        wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Minor_edit"))
+        navigate(to: URL(string: "https://en.wikipedia.org/wiki/Help:Minor_edit"))
     }
 
     @IBAction public func watchlistButtonTapped(sender: UIButton) {
-        wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Watchlist"))
+        navigate(to: URL(string: "https://en.wikipedia.org/wiki/Help:Watchlist"))
     }
 
     func summaryChanged(newSummary: String) {

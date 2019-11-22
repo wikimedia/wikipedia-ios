@@ -1,4 +1,5 @@
 #import "WMFArticle+CoreDataClass.h"
+#import <WMF/WMF-Swift.h>
 
 @interface WMFArticle () {
     NSArray<ReadingList *> * _Nullable _sortedNonDefaultReadingLists;
@@ -6,6 +7,16 @@
 @end
 
 @implementation WMFArticle
+
+- (NSNumber *)ns {
+    NSNumber *primitiveNS = [self primitiveValueForKey:@"ns"];
+    if (!primitiveNS) {
+        primitiveNS = self.namespaceNumber;
+        [self setPrimitiveValue:primitiveNS forKey:@"ns"];
+    }
+    return primitiveNS;
+}
+
 
 - (NSArray<ReadingList *> *)sortedNonDefaultReadingLists {
     @synchronized (self) {

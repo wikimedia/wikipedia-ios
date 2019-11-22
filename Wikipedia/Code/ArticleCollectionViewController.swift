@@ -37,10 +37,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         return nil
     }
     
-    open func isExternalURL(at indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
     open func articleURL(at indexPath: IndexPath) -> URL? {
         assert(false, "Subclassers should override this function")
         return nil
@@ -182,11 +178,7 @@ extension ArticleCollectionViewController {
 
         delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
         
-        guard !isExternalURL(at: indexPath) else {
-            wmf_openExternalUrl(articleURL)
-            return
-        }
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        navigate(to: articleURL)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

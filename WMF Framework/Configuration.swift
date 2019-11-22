@@ -35,17 +35,13 @@ public class Configuration: NSObject {
     }
     
     struct Path {
-        static let wikiResource = "/wiki/"
-        static let wResource = "/w/"
-        static let indexPHP = "index.php"
         static let wikiResourceComponent = ["wiki"]
         static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
         static let mediaWikiRestAPIComponents = ["w", "rest.php"]
     }
     
-    let wikiResourceRegex = try! NSRegularExpression(pattern: "^\(Path.wikiResource)(.+)$", options: .caseInsensitive)
-    let wResourceRegex = try! NSRegularExpression(pattern: "^\(Path.wResource)(.+)$", options: .caseInsensitive)
+
 
     public struct APIURLComponentsBuilder {
         let hostComponents: URLComponents
@@ -210,51 +206,6 @@ public class Configuration: NSObject {
             }
         }
         return false
-    }
-    
-    // Remainder of the path after /wiki/
-    @objc public func wikiResourcePath(_ path: String?) -> String? {
-        guard let path = path else {
-            return nil
-        }
-        guard let match = wikiResourceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) else {
-            return nil
-        }
-        return wikiResourceRegex.replacementString(for: match, in: path, offset: 0, template: "$1")
-        
-    }
-    
-    // Remainder of the path after /w/
-    @objc public func wResourcePath(_ path: String?) -> String? {
-        guard let path = path else {
-            return nil
-        }
-        guard let match = wResourceRegex.firstMatch(in: path, options: [], range: NSMakeRange(0, path.count)) else {
-            return nil
-        }
-        return wResourceRegex.replacementString(for: match, in: path, offset: 0, template: "$1")
-        
-    }
-    
-    @objc public func isWikiResource(_ url: URL?) -> Bool {
-        guard wikiResourcePath(url?.path) != nil else {
-            return false
-        }
-        guard let host = url?.host else { // relative paths should work
-            return true
-        }
-        return isWikiHost(host)
-    }
-    
-    @objc public func isWResource(_ url: URL?) -> Bool {
-        guard wResourcePath(url?.path) != nil else {
-            return false
-        }
-        
-        guard let host = url?.host else { // relative paths should work
-            return true
-        }
-        return isWikiHost(host)
     }
 }
 

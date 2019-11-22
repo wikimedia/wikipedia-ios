@@ -1,6 +1,7 @@
 #import <WMF/NSURLComponents+WMFLinkParsing.h>
 #import <WMF/NSString+WMFPageUtilities.h>
 #import <WMF/NSCharacterSet+WMFLinkParsing.h>
+#import <WMF/WMF-Swift.h>
 
 @implementation NSURLComponents (WMFLinkParsing)
 

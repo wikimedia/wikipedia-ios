@@ -25,7 +25,7 @@ class ViewControllerRouter: NSObject {
                 appViewController.showArticle(for: articleURL, animated: true, completion: completion)
                 return true
             case .externalLink(let linkURL):
-                appViewController.wmf_openExternalUrl(linkURL)
+                appViewController.navigate(to: linkURL, useSafari: true)
                 completion()
                 return true
             case .articleHistory(let linkURL, let articleTitle):

@@ -6,23 +6,8 @@
 
 NSString *const WMFCommonsHost = @"upload.wikimedia.org";
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
-NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 NSString *const WMFAPIPath = @"/w/api.php";
 NSString *const WMFEditPencil = @"WMFEditPencil";
-
-@interface NSString (WMFLinkParsing)
-
-- (BOOL)wmf_isWikiResource;
-
-@end
-
-@implementation NSString (WMFLinkParsing)
-
-- (BOOL)wmf_isWikiResource {
-    return [self containsString:WMFInternalLinkPathPrefix];
-}
-
-@end
 
 @implementation NSURL (WMFLinkParsing)
 
@@ -175,10 +160,6 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 }
 
 #pragma mark - Properties
-
-- (BOOL)wmf_isWikiResource {
-    return [WMFConfiguration.current isWikiResource:self];
-}
 
 - (BOOL)wmf_isWikiCitation {
     return [self.fragment wmf_isCitationFragment];

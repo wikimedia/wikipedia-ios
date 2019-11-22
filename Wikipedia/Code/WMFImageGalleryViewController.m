@@ -4,7 +4,6 @@
 @import NYTPhotoViewer;
 #import "Wikipedia-Swift.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
 @import CoreServices;
 
@@ -380,9 +379,9 @@ NS_ASSUME_NONNULL_BEGIN
     caption.ownerTapCallback = ^{
         @strongify(self);
         if (imageInfo.license.URL) {
-            [self wmf_openExternalUrl:imageInfo.license.URL];
+            [self wmf_navigateToURL:imageInfo.license.URL];
         } else if (imageInfo.filePageURL) {
-            [self wmf_openExternalUrl:imageInfo.filePageURL];
+            [self wmf_navigateToURL:imageInfo.filePageURL];
         } else {
             // There should always be a file page URL, but log an error anyway
             DDLogError(@"No license URL or file page URL for %@", imageInfo);
@@ -391,7 +390,7 @@ NS_ASSUME_NONNULL_BEGIN
     caption.infoTapCallback = ^{
         @strongify(self);
         if (imageInfo.filePageURL) {
-            [self wmf_openExternalUrl:imageInfo.filePageURL];
+            [self wmf_navigateToURL:imageInfo.filePageURL];
         }
     };
     @weakify(caption);

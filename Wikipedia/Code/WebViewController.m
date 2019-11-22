@@ -6,7 +6,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WKWebView+ElementLocation.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WebViewController+WMFReferencePopover.h"
@@ -182,7 +181,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)handleFooterBrowserLinkClickedScriptMessage:(NSString *)messageString {
-    [self wmf_openExternalUrl:self.articleURL];
+    [self wmf_navigateToURL:self.articleURL];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
@@ -240,7 +239,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    url = [NSURL URLWithString:href];
                                                    NSCAssert(url, @"Failed to from URL from link %@", href);
                                                    if (url) {
-                                                       [self wmf_openExternalUrl:url];
+                                                       [self wmf_navigateToURL:url];
                                                    }
                                                }
                                            }
@@ -767,7 +766,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)showLicenseButtonPressed {
-    [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
+    [self wmf_navigateToURL:WMFLicenses.CCBYSA3URL];
 }
 
 - (void)setHeaderView:(UIView *)headerView {
@@ -932,7 +931,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                [URL.scheme isEqualToString:@"http"] ||
                                                [URL.scheme isEqualToString:@"https"] ||
                                                [URL.scheme isEqualToString:@"mailto"]) {
-                                               [self wmf_openExternalUrl:URL];
+                                               [self wmf_navigateToURL:URL];
                                            }
                                        }
                                    }];
