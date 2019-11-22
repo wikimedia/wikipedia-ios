@@ -11,13 +11,17 @@ struct WikipediaURLTranslations {
         return lookup
     }
 
+    private static func canonicalized(_ string: String) -> String {
+        return string.uppercased().replacingOccurrences(of: "_", with: " ")
+    }
+    
     static func commonNamespace(for namespaceString: String, in languageCode: String) -> PageNamespace? {
-        let canonicalNamespace = namespaceString.uppercased().replacingOccurrences(of: "_", with: " ")
+        let canonicalNamespace = canonicalized(namespaceString)
         return lookupTable(for: languageCode)?.namespace[canonicalNamespace]
     }
     
-    static func mainpage(in languageCode: String) -> String? {
-        return lookupTable(for: languageCode)?.mainpage
+    static func isMainpageTitle(_ maybeMainpage: String, in languageCode: String) -> Bool {
+        return lookupTable(for: languageCode)?.mainpage == canonicalized(maybeMainpage)
     }
 }
 

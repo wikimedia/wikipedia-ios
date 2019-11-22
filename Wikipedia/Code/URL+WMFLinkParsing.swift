@@ -98,7 +98,7 @@ extension URL {
         guard let language = wmf_language else {
             return nil
         }
-        return wikiResourcePath?.namespaceOfAbsolutePath(with: language)
+        return wikiResourcePath?.namespaceOfWikiResourcePath(with: language)
     }
 }
 
@@ -119,20 +119,21 @@ extension NSRegularExpression {
 
 extension String {
     static let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
-    func namespaceOfAbsolutePath(with language: String) -> PageNamespace? {
+    // Assumes the input is the remainder of a /wiki/ path
+    func namespaceOfWikiResourcePath(with language: String) -> PageNamespace {
         guard let namespaceString = String.namespaceRegex.firstReplacementString(in: self) else {
-            return nil
+            return .main
         }
-        return WikipediaURLTranslations.commonNamespace(for: namespaceString, in: language)
+        return WikipediaURLTranslations.commonNamespace(for: namespaceString, in: language) ?? .main
     }
     
-    func namespaceAndTitleFromWikiResourcePath(with language: String) -> (PageNamespace, String)? {
+    func namespaceAndTitleOfWikiResourcePath(with language: String) -> (namespace: PageNamespace, title: String) {
         guard let result = String.namespaceRegex.firstMatch(in: self) else {
-            return nil
+            return (.main, self)
         }
         let namespaceString = String.namespaceRegex.replacementString(for: result, in: self, offset: 0, template: "$1")
         guard let namespace = WikipediaURLTranslations.commonNamespace(for: namespaceString, in: language) else {
-            return nil
+            return (.main, self)
         }
         let title = String.namespaceRegex.replacementString(for: result, in: self, offset: 0, template: "$2")
         return (namespace, title)

@@ -15,7 +15,8 @@ class URLParsingAndRoutingTests: XCTestCase {
     }
     
     func testNamespace() {
-        XCTAssertEqual("/wiki/The_Clash:_Westway_to_the_World".namespaceOfAbsolutePath(with: "en"), .main)
+        XCTAssertEqual("The_Clash:_Westway_to_the_World".namespaceOfWikiResourcePath(with: "en"), .main)
+        XCTAssertEqual("The_Clash:_Westway_to_the_World".namespaceAndTitleOfWikiResourcePath(with: "en").title,  "The_Clash:_Westway_to_the_World")
     }
     
     func testWikiResourcePathActivity() {

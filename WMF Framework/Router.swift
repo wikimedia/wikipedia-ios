@@ -25,39 +25,36 @@ public class Router: NSObject {
             return nil
         }
         let language = url.wmf_language ?? "en"
-        let articleActivity = Destination.article(url)
-        if let namespaceAndTitle = path.namespaceAndTitleFromWikiResourcePath(with: language) {
-            let namespace = namespaceAndTitle.0
-            let title = namespaceAndTitle.1
-            let inAppLinkActivity = Destination.inAppLink(url)
-            switch namespace {
-            case .userTalk:
-                return .userTalk(url)
-            case .special:
-                if let compareDiffMatch = mobilediffRegexCompare.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
-                    let fromRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$1")),
-                    let toRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$2")) {
-                    
-                    return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: toRevID)
-                }
-                if let singleDiffMatch = mobilediffRegexSingle.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
-                    let toRevID = Int(mobilediffRegexSingle.replacementString(for: singleDiffMatch, in: title, offset: 0, template: "$1")) {
-                    return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
-                }
+        let namespaceAndTitle = path.namespaceAndTitleOfWikiResourcePath(with: language)
+        let namespace = namespaceAndTitle.0
+        let title = namespaceAndTitle.1
+        let inAppLinkDestination = Destination.inAppLink(url)
+        switch namespace {
+        case .userTalk:
+            return .userTalk(url)
+        case .special:
+            if let compareDiffMatch = mobilediffRegexCompare.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
+                let fromRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$1")),
+                let toRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$2")) {
                 
-                if let historyMatch = historyRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
-                    let articleTitle = mobilediffRegexSingle.replacementString(for: historyMatch, in: title, offset: 0, template: "$1")
-                    return .articleHistory(url, articleTitle: articleTitle.wmf_normalizedPageTitle())
-                }
-                
-                return inAppLinkActivity
-            case nil: // if the string before the : isn't a namespace, it's likely part of an article title
-                return articleActivity
-            default:
-                return inAppLinkActivity
+                return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: toRevID)
             }
+            if let singleDiffMatch = mobilediffRegexSingle.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
+                let toRevID = Int(mobilediffRegexSingle.replacementString(for: singleDiffMatch, in: title, offset: 0, template: "$1")) {
+                return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
+            }
+            
+            if let historyMatch = historyRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
+                let articleTitle = mobilediffRegexSingle.replacementString(for: historyMatch, in: title, offset: 0, template: "$1")
+                return .articleHistory(url, articleTitle: articleTitle.wmf_normalizedPageTitle())
+            }
+            
+            return inAppLinkDestination
+        case .main:
+            return WikipediaURLTranslations.isMainpageTitle(title, in: language) ? inAppLinkDestination : Destination.article(url)
+        default:
+            return inAppLinkDestination
         }
-        return articleActivity
     }
     
     internal func destinationForWResourceURL(_ url: URL) -> Destination? {
