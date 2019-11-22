@@ -33,14 +33,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
-    open func userTalkPageTitle(at indexPath: IndexPath) -> String? {
-        return nil
-    }
-    
-    open func isExternalURL(at indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
     open func articleURL(at indexPath: IndexPath) -> URL? {
         assert(false, "Subclassers should override this function")
         return nil
@@ -77,6 +69,12 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         guard let articleURL = articleURL(at: indexPath) else {
             return false
         }
+        guard
+            let ns = articleURL.namespace,
+            ns == .main
+        else {
+            return false
+        }
         return !dataStore.savedPageList.isSaved(articleURL)
     }
     
@@ -92,8 +90,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     }
 
     func pushUserTalkPage(title: String, siteURL: URL) {
-        let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
-        wmf_push(loadingFlowController, animated: true)
+        let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
+        wmf_push(talkPageContainer, animated: true)
         return
     }
     
@@ -182,11 +180,7 @@ extension ArticleCollectionViewController {
 
         delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
         
-        guard !isExternalURL(at: indexPath) else {
-            wmf_openExternalUrl(articleURL)
-            return
-        }
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        navigate(to: articleURL)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

@@ -178,27 +178,12 @@
 		6754E44B22773588005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		6754E44C22773588005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		675A7CFE227A3F7C0034D9D9 /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */; };
-		675F268C23156A56007AAEEA /* LoadingFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2BCF231492D800D9034D /* LoadingFlowController.swift */; };
-		675F268D23156A56007AAEEA /* LoadingFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2BCF231492D800D9034D /* LoadingFlowController.swift */; };
-		675F268E23156A56007AAEEA /* LoadingFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2BCF231492D800D9034D /* LoadingFlowController.swift */; };
-		675F268F23156A57007AAEEA /* LoadingFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2BCF231492D800D9034D /* LoadingFlowController.swift */; };
-		676028E92310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */; };
-		676028EA2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */; };
-		676028EB2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */; };
-		676028EC2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */; };
-		676028ED2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */; };
-		676028EF231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
-		676028F0231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
-		676028F1231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
-		676028F2231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
-		676028F3231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
 		676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */; };
 		676070A42280987C00A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A52280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A62280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A82280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
-		677E49B222A03859002D40D6 /* LanguageLinkNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */; };
 		6780D5B4237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B5237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B6237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
@@ -377,7 +362,6 @@
 		6798332C22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		6798332D22C3F2960073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
-		67CB2BD0231492D800D9034D /* LoadingFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2BCF231492D800D9034D /* LoadingFlowController.swift */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D21222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -1255,6 +1239,12 @@
 		8320331F22B9052A004A9EDA /* NavigationStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */; };
 		8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */; };
 		8320332322B906A0004A9EDA /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320332222B906A0004A9EDA /* NavigationState.swift */; };
+		8321FCCA23871D8F0079F3C7 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCC923871D8F0079F3C7 /* Router.swift */; };
+		8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCCD2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCCE2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
+		8321FCD02387231E0079F3C7 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */; };
 		83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83222DB21F8E554800338BE5 /* WMFContent+CoreDataClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */; };
@@ -1333,6 +1323,19 @@
 		83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED41F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED51F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
+		8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */; };
+		8386BDED2386C269007EE89D /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
+		8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDF02386D3E1007EE89D /* RequestError.swift */; };
+		8386BDF52386D735007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
+		8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
+		8386BDF72386D735007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
+		8386BDF82386D736007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
+		8386BDF92386D737007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
+		8386BDFB2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		8386BDFD2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		8386BDFE2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		8386BDFF2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
 		83927D7B1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
@@ -1607,11 +1610,6 @@
 		B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */; };
 		B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */; };
 		B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
-		B08423DE2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
-		B08423DF2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
-		B08423E02384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
-		B08423E12384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
-		B08423E22384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
 		B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
 		B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
 		B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
@@ -1817,7 +1815,6 @@
 		B0E8054E1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050B1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m */; };
 		B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */; };
-		B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		B0E805911C0CE2C60065EBC0 /* WMFLoginFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805801C0CE2C60065EBC0 /* WMFLoginFunnel.m */; };
@@ -2112,7 +2109,6 @@
 		D80ED2E51EE57F4800CE8C50 /* ProtectedEditAttemptFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */; };
 		D80ED2E61EE57F4800CE8C50 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		D80ED2E81EE57F4800CE8C50 /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
-		D80ED2E91EE57F4800CE8C50 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		D80ED2EA1EE57F4800CE8C50 /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		D80ED2EB1EE57F4800CE8C50 /* WMFAuthLinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B010E1A71E723E3600CFE1CD /* WMFAuthLinkLabel.swift */; };
 		D80ED2F01EE57F4800CE8C50 /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
@@ -2714,7 +2710,6 @@
 		D8A42AC61E815A9C00D8E281 /* ProtectedEditAttemptFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */; };
 		D8A42AC71E815A9C00D8E281 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		D8A42AC91E815A9C00D8E281 /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
-		D8A42ACA1E815A9C00D8E281 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		D8A42ACB1E815A9C00D8E281 /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		D8A42ACC1E815A9C00D8E281 /* WMFAuthLinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B010E1A71E723E3600CFE1CD /* WMFAuthLinkLabel.swift */; };
 		D8A42AD11E815A9C00D8E281 /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
@@ -2978,7 +2973,6 @@
 		D8CE254D1E698E2400DAE2E0 /* ProtectedEditAttemptFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */; };
 		D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		D8CE25501E698E2400DAE2E0 /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
-		D8CE25511E698E2400DAE2E0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
 		D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
@@ -3262,7 +3256,6 @@
 		D8EC3E441E9BDA35006712EB /* ProtectedEditAttemptFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */; };
 		D8EC3E451E9BDA35006712EB /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		D8EC3E471E9BDA35006712EB /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
-		D8EC3E481E9BDA35006712EB /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		D8EC3E491E9BDA35006712EB /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		D8EC3E4C1E9BDA35006712EB /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
 		D8EC3E4F1E9BDA35006712EB /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
@@ -3982,12 +3975,8 @@
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
-		676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingAnimationViewController.xib; sourceTree = "<group>"; };
-		676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationViewController.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
-		677670B12320C42D00F2A194 /* WMFLoadingFlowControllerProtocols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLoadingFlowControllerProtocols.h; sourceTree = "<group>"; };
-		677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageLinkNamespace.swift; sourceTree = "<group>"; };
 		6780D5B3237A1F480087A5D1 /* DiffResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiffResponse.json; sourceTree = "<group>"; };
 		6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffToolbarView.swift; sourceTree = "<group>"; };
 		6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffToolbarView.xib; sourceTree = "<group>"; };
@@ -4021,7 +4010,6 @@
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
-		67CB2BCF231492D800D9034D /* LoadingFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFlowController.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
@@ -4233,6 +4221,8 @@
 		831C15C52099EB3A001B04BF /* WMFArticle+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Errors.swift"; sourceTree = "<group>"; };
 		8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSManagedObjectContext+NavigationState.swift"; path = "WMF Framework/NSManagedObjectContext+NavigationState.swift"; sourceTree = SOURCE_ROOT; };
 		8320332222B906A0004A9EDA /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationState.swift; path = "WMF Framework/NavigationState.swift"; sourceTree = SOURCE_ROOT; };
+		8321FCC923871D8F0079F3C7 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Router.swift; path = "WMF Framework/Router.swift"; sourceTree = SOURCE_ROOT; };
+		8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRouter.swift; sourceTree = "<group>"; };
 		83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataProperties.h"; sourceTree = "<group>"; };
 		83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataClass.h"; sourceTree = "<group>"; };
 		83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -4262,6 +4252,10 @@
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
+		8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParsingAndRoutingTests.swift; sourceTree = "<group>"; };
+		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
+		8386BDF02386D3E1007EE89D /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
+		8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageWebViewController.swift; sourceTree = "<group>"; };
 		83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationPagesViewController.swift; sourceTree = "<group>"; };
 		83927D801F705B7B00051890 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
@@ -4578,11 +4572,8 @@
 		B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFDefaultNib.m"; path = "Wikipedia/Code/UIView+WMFDefaultNib.m"; sourceTree = SOURCE_ROOT; };
 		B0E8051F1C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFFrameUtils.h"; path = "Wikipedia/Code/UIView+WMFFrameUtils.h"; sourceTree = SOURCE_ROOT; };
 		B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFFrameUtils.m"; path = "Wikipedia/Code/UIView+WMFFrameUtils.m"; sourceTree = SOURCE_ROOT; };
-		B0E8052B1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFOpenExternalUrl.h"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.h"; sourceTree = SOURCE_ROOT; };
-		B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFOpenExternalUrl.m"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+ElementLocation.h"; path = "Wikipedia/Code/WKWebView+ElementLocation.h"; sourceTree = SOURCE_ROOT; };
 		B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+ElementLocation.m"; path = "Wikipedia/Code/WKWebView+ElementLocation.m"; sourceTree = SOURCE_ROOT; };
-		B0E805391C0CE0DC0065EBC0 /* WMFOpenExternalLinkDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFOpenExternalLinkDelegateProtocol.h; path = Wikipedia/Code/WMFOpenExternalLinkDelegateProtocol.h; sourceTree = SOURCE_ROOT; };
 		B0E805761C0CE24B0065EBC0 /* WMFDeprecationMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFDeprecationMacros.h; path = Wikipedia/Code/WMFDeprecationMacros.h; sourceTree = SOURCE_ROOT; };
 		B0E805771C0CE2C60065EBC0 /* CreateAccountFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateAccountFunnel.h; path = Wikipedia/Code/CreateAccountFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateAccountFunnel.m; path = Wikipedia/Code/CreateAccountFunnel.m; sourceTree = SOURCE_ROOT; };
@@ -6103,7 +6094,6 @@
 				B0E8079A1C0CEFBD0065EBC0 /* MWKLanguageLink.m */,
 				B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */,
 				B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */,
-				677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */,
 			);
 			name = Language;
 			sourceTree = "<group>";
@@ -6650,15 +6640,6 @@
 				B09B03F41CE0FB7700009083 /* ReadingThemesControlsViewController.xib */,
 			);
 			name = "Reading Themes Controls";
-			sourceTree = "<group>";
-		};
-		676028E7231037B20018EAD9 /* Loading */ = {
-			isa = PBXGroup;
-			children = (
-				676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */,
-				676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */,
-			);
-			name = Loading;
 			sourceTree = "<group>";
 		};
 		6782DB8F2343B691003FA21B /* Diff */ = {
@@ -7498,6 +7479,7 @@
 			children = (
 				B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */,
 				B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */,
+				8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */,
 				B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */,
 			);
 			name = "App View Controller";
@@ -7522,7 +7504,6 @@
 		BC45D54E1C31EAD6007C72F3 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
-				676028E7231037B20018EAD9 /* Loading */,
 				671AC2542226FB26005B37F8 /* Reading Themes Controls */,
 				0EE151921BF540420039828A /* Compass View */,
 				BC45D56C1C32E910007C72F3 /* Buttons */,
@@ -7687,16 +7668,6 @@
 			name = Diagnostics;
 			sourceTree = "<group>";
 		};
-		BC45D5801C32F68A007C72F3 /* External Link Handling */ = {
-			isa = PBXGroup;
-			children = (
-				B0E805391C0CE0DC0065EBC0 /* WMFOpenExternalLinkDelegateProtocol.h */,
-				B0E8052B1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.h */,
-				B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */,
-			);
-			name = "External Link Handling";
-			sourceTree = "<group>";
-		};
 		BC45D5811C32F6BC007C72F3 /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -7706,7 +7677,6 @@
 				B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */,
 				B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */,
 				B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */,
-				BC45D5801C32F68A007C72F3 /* External Link Handling */,
 			);
 			name = UIViewController;
 			sourceTree = "<group>";
@@ -8319,6 +8289,7 @@
 				670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */,
 				D8B9DB022271E4A300B51F14 /* SecurityTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
+				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -8506,6 +8477,8 @@
 				D837CC36231FE9CC00BA6130 /* ThemeableViewController.swift */,
 				D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */,
 				D8B166841FD97A0500097D8B /* ViewController.swift */,
+				8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */,
+				8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */,
 				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
 				8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */,
 				8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */,
@@ -8538,8 +8511,6 @@
 				7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */,
 				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
-				67CB2BCF231492D800D9034D /* LoadingFlowController.swift */,
-				677670B12320C42D00F2A194 /* WMFLoadingFlowControllerProtocols.h */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -8990,7 +8961,9 @@
 				D82CA32E2020E87D005C2D5C /* ReadingListsOperation.swift */,
 				D82CA3322020E8D8005C2D5C /* ReadingListsSyncOperation.swift */,
 				D8543230218879D000E895B5 /* Configuration.swift */,
+				8321FCC923871D8F0079F3C7 /* Router.swift */,
 				D8181FA42188DC1400FDEC59 /* String+Domains.swift */,
+				8386BDF02386D3E1007EE89D /* RequestError.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
 				D826C51A217741C50012F940 /* ReachabilityNotifier.swift */,
 				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
@@ -10119,7 +10092,6 @@
 				B077A51423861E2200223526 /* wikipedia-namespaces in Resources */,
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
-				676028E92310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */,
 				D8421B58203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
@@ -10249,7 +10221,6 @@
 				676070A82280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */,
 				7AFA21C420110D7900E957E7 /* HintViewController.xib in Resources */,
 				D80ED3E21EE57F4800CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
-				676028ED2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */,
 				B0C17B9721FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8421B5C203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				7A8422502268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
@@ -10493,7 +10464,6 @@
 				D8A42C121E815A9C00D8E281 /* WebViewController.storyboard in Resources */,
 				D8A42C131E815A9C00D8E281 /* NotificationButtonBackground.png in Resources */,
 				B0C64A9921F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
-				676028EC2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */,
 				D8A42C151E815A9C00D8E281 /* WMFSettingsViewController.storyboard in Resources */,
 				D8A42C161E815A9C00D8E281 /* Images.xcassets in Resources */,
 				D8A42C171E815A9C00D8E281 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -10618,7 +10588,6 @@
 				D8CE26991E698E2400DAE2E0 /* WebViewController.storyboard in Resources */,
 				D8CE269A1E698E2400DAE2E0 /* NotificationButtonBackground.png in Resources */,
 				B0C64A9721F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
-				676028EA2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */,
 				D8CE269C1E698E2400DAE2E0 /* WMFSettingsViewController.storyboard in Resources */,
 				D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */,
 				D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -10743,7 +10712,6 @@
 				D8EC3F991E9BDA35006712EB /* WebViewController.storyboard in Resources */,
 				D8EC3F9A1E9BDA35006712EB /* NotificationButtonBackground.png in Resources */,
 				B0C64A9821F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
-				676028EB2310389C0018EAD9 /* LoadingAnimationViewController.xib in Resources */,
 				D8EC3F9C1E9BDA35006712EB /* WMFSettingsViewController.storyboard in Resources */,
 				D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */,
 				D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */,
@@ -11136,6 +11104,7 @@
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				B0E808BC1C0D17380065EBC0 /* MWKDataStoreListTests.m in Sources */,
+				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
 				B0E808E81C0D17EE0065EBC0 /* MWKDataStorePathTests.m in Sources */,
 				BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */,
 				B0E8091F1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m in Sources */,
@@ -11197,6 +11166,7 @@
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
 				67F73E792267B9510079DEEF /* TalkPageTopicNewViewController.swift in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
+				8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
@@ -11263,7 +11233,6 @@
 				7A4D227D21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B0524B75214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				6734115422735788005B31DA /* TalkPageFetcher.swift in Sources */,
-				676028EF231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
@@ -11286,7 +11255,6 @@
 				B0FFFB2A21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7AF6F76622395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				B0524B51214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
-				B08423DE2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				7AF56C2F21DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
@@ -11324,8 +11292,6 @@
 				7A9F2776225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */,
-				B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
-				67CB2BD0231492D800D9034D /* LoadingFlowController.swift in Sources */,
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
 				D82E956A1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				833D6B48229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */,
@@ -11494,6 +11460,8 @@
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
+				8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
+				8386BDFB2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
@@ -11747,8 +11715,8 @@
 				7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D80ED2E81EE57F4800CE8C50 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				67CEF2732351113000D5CA6C /* DiffController.swift in Sources */,
-				D80ED2E91EE57F4800CE8C50 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D80ED2EA1EE57F4800CE8C50 /* WMFArticleTextActivitySource.m in Sources */,
+				8321FCD02387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D80ED2EB1EE57F4800CE8C50 /* WMFAuthLinkLabel.swift in Sources */,
 				D80ED2F01EE57F4800CE8C50 /* WMFPasswordResetter.swift in Sources */,
 				D80ED2F31EE57F4800CE8C50 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
@@ -11773,7 +11741,6 @@
 				D80ED3031EE57F4800CE8C50 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D80ED3041EE57F4800CE8C50 /* NewsCollectionViewHeader.swift in Sources */,
 				7AB6F10322AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
-				675F268F23156A57007AAEEA /* LoadingFlowController.swift in Sources */,
 				7A393285236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CF22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B73214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -11830,6 +11797,7 @@
 				D80ED3281EE57F4800CE8C50 /* UIViewController+WMFChildViewController.swift in Sources */,
 				D80ED32B1EE57F4800CE8C50 /* UIView+WMFFrameUtils.m in Sources */,
 				D80ED32C1EE57F4800CE8C50 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
+				8386BDFF2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				D80ED32D1EE57F4800CE8C50 /* WMFTableOfContentsCell.swift in Sources */,
 				D80ED32F1EE57F4800CE8C50 /* WMFSettingsMenuItem.m in Sources */,
 				D80ED3311EE57F4800CE8C50 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
@@ -11860,7 +11828,6 @@
 				41CCB67821CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC5020DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D80ED3431EE57F4800CE8C50 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
-				676028F3231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */,
 				7AF8B7462102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				83A642792226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				D80ED3451EE57F4800CE8C50 /* AppDelegate.m in Sources */,
@@ -11870,7 +11837,6 @@
 				7AE99B2C21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				D80ED3471EE57F4800CE8C50 /* ArticlePlace.swift in Sources */,
 				83E776A720FFA4D700E26A47 /* DetailTransition.swift in Sources */,
-				B08423E22384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				D80ED3481EE57F4800CE8C50 /* String?+WMFExtras.swift in Sources */,
 				D80ED34A1EE57F4800CE8C50 /* WMFSearchResults.m in Sources */,
 				BAC6EECB1F1E519C00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
@@ -11917,6 +11883,7 @@
 				B09CE59E222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				8382F8DD20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				D80ED3691EE57F4800CE8C50 /* WMFLanguageCell.m in Sources */,
+				8386BDF92386D737007EE89D /* ViewController+URLHandling.swift in Sources */,
 				D8E27BAA1F82B38700F9D2B3 /* RMessage.m in Sources */,
 				B01E3B0321F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D80ED36B1EE57F4800CE8C50 /* WMFArticleFetcher.m in Sources */,
@@ -12052,7 +12019,6 @@
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D830D2461DEF3E50005ACB0E /* WMFLegacyContentGroup.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
-				677E49B222A03859002D40D6 /* LanguageLinkNamespace.swift in Sources */,
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
 				D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */,
 				D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */,
@@ -12118,6 +12084,7 @@
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
 				D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */,
 				D8181FA52188DC1400FDEC59 /* String+Domains.swift in Sources */,
+				8386BDED2386C269007EE89D /* WikipediaURLTranslations.swift in Sources */,
 				7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */,
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
@@ -12206,6 +12173,7 @@
 				B389CFD01E6F459F00483C06 /* MWKArticle+MKMapItem.swift in Sources */,
 				D8AAF6B81FE93DE9005760E6 /* UIScrollView+Limits.swift in Sources */,
 				D8FA18AE1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.m in Sources */,
+				8321FCCA23871D8F0079F3C7 /* Router.swift in Sources */,
 				D81930DB1E9F97B200554B19 /* WMFExploreFeedContentController.m in Sources */,
 				D8FA18F71E1BDA4C009675C3 /* GroupedAccessibilityView.swift in Sources */,
 				D8E78FA41FB4C8250094B968 /* ReadingListsController.swift in Sources */,
@@ -12323,6 +12291,7 @@
 				D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */,
 				D8FA18C01E1BD891009675C3 /* NSURL+WMFSchemeHandler.m in Sources */,
 				7AD5D453223874F600C01164 /* RelatedSearchFetcher.swift in Sources */,
+				8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */,
 				D844D9F31D6CC0220042D692 /* MWKLicense.m in Sources */,
 				D85BD2471F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m in Sources */,
 				836944DC1F572452007BD6DA /* ThemeableTextField.swift in Sources */,
@@ -12377,7 +12346,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675F268E23156A56007AAEEA /* LoadingFlowController.swift in Sources */,
 				B0524B2C214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				7A1C4992227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				D8A42A571E815A9C00D8E281 /* UserLocationAnnotationView.swift in Sources */,
@@ -12423,6 +12391,7 @@
 				D8A42A6D1E815A9C00D8E281 /* WMFReferencePageBackgroundView.swift in Sources */,
 				7A13A89C2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				7A610CC0220A582A00C266AE /* HintController.swift in Sources */,
+				8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -12489,7 +12458,6 @@
 				7A6ED50C20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				673411572273578A005B31DA /* TalkPageFetcher.swift in Sources */,
-				676028F2231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */,
 				B0C17B9C21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0F4761E21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
@@ -12511,7 +12479,6 @@
 				D837CC3A231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7AF6F76922395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
-				B08423E12384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				D8A42AA71E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D818D3891ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				B0524B54214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
@@ -12550,7 +12517,6 @@
 				7A9F2779225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				D8A42AC71E815A9C00D8E281 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				D8A42AC91E815A9C00D8E281 /* UIViewController+WMFArticlePresentation.m in Sources */,
-				D8A42ACA1E815A9C00D8E281 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D8A42ACB1E815A9C00D8E281 /* WMFArticleTextActivitySource.m in Sources */,
 				D8A42ACC1E815A9C00D8E281 /* WMFAuthLinkLabel.swift in Sources */,
 				D82E956D1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
@@ -12719,6 +12685,8 @@
 				7A71567122697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
 				D8A42B5B1E815A9C00D8E281 /* WMFFirstRandomViewController.m in Sources */,
 				D8A42B5D1E815A9C00D8E281 /* ArticlePopoverViewController.swift in Sources */,
+				8386BDF82386D736007EE89D /* ViewController+URLHandling.swift in Sources */,
+				8386BDFE2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				D858C7B9210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				D8A42B5E1E815A9C00D8E281 /* WMFLogFormatter.m in Sources */,
 				B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
@@ -12980,8 +12948,8 @@
 				7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D8CE25501E698E2400DAE2E0 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				67CEF2702351113000D5CA6C /* DiffController.swift in Sources */,
-				D8CE25511E698E2400DAE2E0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
+				8321FCCD2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */,
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
 				D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
@@ -13006,7 +12974,6 @@
 				D8CE256B1E698E2400DAE2E0 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D8CE256C1E698E2400DAE2E0 /* WMFAccountCreator.swift in Sources */,
 				7AB6F10022AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
-				675F268C23156A56007AAEEA /* LoadingFlowController.swift in Sources */,
 				7A393282236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -13063,6 +13030,7 @@
 				BA4524251F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				D8CE25891E698E2400DAE2E0 /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				D8CE258E1E698E2400DAE2E0 /* UIView+WMFFrameUtils.m in Sources */,
+				8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* WMFTableOfContentsCell.swift in Sources */,
 				D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */,
@@ -13093,7 +13061,6 @@
 				B0C17B9A21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
-				676028F0231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */,
 				D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				83A642762226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				7AF8B7432102297A009772CC /* SearchSettingsViewController.swift in Sources */,
@@ -13103,7 +13070,6 @@
 				7AE99B2921CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
 				D8CE25AB1E698E2400DAE2E0 /* AppDelegate.m in Sources */,
-				B08423DF2384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				83E776A420FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				D8CE25AD1E698E2400DAE2E0 /* ArticlePlace.swift in Sources */,
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
@@ -13150,6 +13116,7 @@
 				B09CE59B222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				8382F8DA20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				D8CE25CE1E698E2400DAE2E0 /* WMFHamburgerMenuFunnel.m in Sources */,
+				8386BDF52386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8E27BA71F82B38500F9D2B3 /* RMessage.m in Sources */,
 				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
@@ -13427,11 +13394,11 @@
 				67CEF2712351113000D5CA6C /* DiffController.swift in Sources */,
 				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8EC3E421E9BDA35006712EB /* WMFTableOfContentsViewController.swift in Sources */,
+				8321FCCE2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D8EC3E441E9BDA35006712EB /* ProtectedEditAttemptFunnel.m in Sources */,
 				D8EC3E451E9BDA35006712EB /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				D8EC3E471E9BDA35006712EB /* UIViewController+WMFArticlePresentation.m in Sources */,
 				67EA9E11228F0359008D9EFD /* TalkPageHeaderView.swift in Sources */,
-				D8EC3E481E9BDA35006712EB /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				B0408C572127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				D8EC3E491E9BDA35006712EB /* WMFArticleTextActivitySource.m in Sources */,
 				6782DBDB2344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */,
@@ -13451,7 +13418,6 @@
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				7AFA21BD20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				7AB6F10122AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
-				675F268D23156A56007AAEEA /* LoadingFlowController.swift in Sources */,
 				7A393283236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -13508,6 +13474,7 @@
 				D8EC3E821E9BDA35006712EB /* WMFArticleViewController.m in Sources */,
 				D8EC3E851E9BDA35006712EB /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				D8EC3E8A1E9BDA35006712EB /* UIView+WMFFrameUtils.m in Sources */,
+				8386BDFD2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				D8EC3E8B1E9BDA35006712EB /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8EC3E8C1E9BDA35006712EB /* WMFTableOfContentsCell.swift in Sources */,
 				832289DD1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
@@ -13538,7 +13505,6 @@
 				B0C17B9B21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC4E20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
-				676028F1231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */,
 				D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				83A642772226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -13548,7 +13514,6 @@
 				7AE99B2A21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95871F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
-				B08423E02384E2C8005E93A0 /* WikipediaURLTranslations.swift in Sources */,
 				D8EC3EA81E9BDA35006712EB /* AppDelegate.m in Sources */,
 				D8EC3EAA1E9BDA35006712EB /* ArticlePlace.swift in Sources */,
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
@@ -13595,6 +13560,7 @@
 				B09CE59C222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				D8EC3ECC1E9BDA35006712EB /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
+				8386BDF72386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				D8E27BA81F82B38600F9D2B3 /* RMessage.m in Sources */,
 				D8EC3ECE1E9BDA35006712EB /* WMFLanguageCell.m in Sources */,
 				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,

@@ -96,7 +96,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var currentLoadingViewController: ViewController?
     private var currentSourceView: UIView?
     private var currentSourceRect: CGRect?
-    weak var loadingFlowController: LoadingFlowController?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -148,7 +147,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    required init(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, controller: TalkPageController? = nil) {
+    required init(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, controller: TalkPageController? = nil, theme: Theme) {
         self.talkPageTitle = title
         self.siteURL = siteURL
         self.type = type
@@ -166,34 +165,27 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         talkPageSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
 
         super.init()
+        
+        self.theme = theme
     }
     
-    @objc(containedUserTalkPageContainerWithURL:dataStore:theme:)
-    static func containedUserTalkPageContainer(url: URL, dataStore: MWKDataStore, theme: Theme) -> LoadingFlowController? {
+    @objc(userTalkPageContainerWithURL:dataStore:theme:)
+    static func userTalkPageContainer(url: URL, dataStore: MWKDataStore, theme: Theme) -> TalkPageContainerViewController? {
         guard
             let title = url.wmf_title,
             let siteURL = url.wmf_site
             else {
                 return nil
         }
-        return TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
+        return TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
     }
 
-    private static func talkPageContainer(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore) -> TalkPageContainerViewController {
+    public static func talkPageContainer(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, theme: Theme) -> TalkPageContainerViewController {
         let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: title)
         let titleWithPrefix = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: siteURL)
-        return TalkPageContainerViewController(title: titleWithPrefix, siteURL: siteURL, type: type, dataStore: dataStore)
+        return TalkPageContainerViewController(title: titleWithPrefix, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
     }
-    
-    static func containedTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore, type: TalkPageType, fromNavigationStateRestoration: Bool = false, theme: Theme) -> LoadingFlowController {
-        let talkPageContainerVC = talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-        let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: talkPageContainerVC, flowChild: talkPageContainerVC, url: siteURL)
-        talkPageContainerVC.loadingFlowController = loadingFlowController
-        talkPageContainerVC.fromNavigationStateRestoration = fromNavigationStateRestoration
-        talkPageContainerVC.apply(theme: theme)
-        return loadingFlowController
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -208,6 +200,11 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         fetch()
         
         NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        guard let talkPageURL = talkPageURL else {
+            return
+        }
+        dataStore.historyList.addPageToHistory(with: talkPageURL)
     }
     
     @objc private func didBecomeActive() {
@@ -295,10 +292,15 @@ private extension TalkPageContainerViewController {
         present(WMFThemeableNavigationController(rootViewController: languagesVC!, theme: self.theme), animated: true, completion: nil)
     }
     
-    @objc func tappedShare(_ sender: UIButton) {
+    var talkPageURL: URL? {
         var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
-        guard let talkPageURL = talkPageURLComponents?.url else {
+        return talkPageURLComponents?.url
+    }
+    
+    @objc func tappedShare(_ sender: UIButton) {
+       
+        guard let talkPageURL = talkPageURL else {
             return
         }
         let activityViewController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
@@ -502,12 +504,6 @@ private extension TalkPageContainerViewController {
         return absoluteUrl
     }
     
-    func pushTalkPage(title: String, siteURL: URL) {
-        
-        let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
-        self.navigationController?.pushViewController(loadingFlowController, animated: true)
-    }
-    
     func showUserActionSheet(siteURL: URL, absoluteURL: URL, sourceView: UIView, sourceRect: CGRect?) {
         
         let alertController = UIAlertController(title: WMFLocalizedString("talk-page-link-user-action-sheet-title", value: "User pages", comment: "Title of action sheet that displays when user taps a user page link in talk pages"), message: nil, preferredStyle: .actionSheet)
@@ -516,13 +512,7 @@ private extension TalkPageContainerViewController {
         }
         let talkAction = UIAlertAction(title: WMFLocalizedString("talk-page-link-user-action-sheet-app", value: "View User Talk page in app", comment: "Title of action sheet button that takes user to a user talk page in the app after tapping a user page link in talk pages."), style: .default) { (_) in
             
-            let title = absoluteURL.lastPathComponent
-            if let firstColon = title.range(of: ":") {
-                var titleWithoutNamespace = title
-                titleWithoutNamespace.removeSubrange(title.startIndex..<firstColon.upperBound)
-                let titleWithTalkPageNamespace = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: titleWithoutNamespace, siteURL: siteURL)
-                self.pushTalkPage(title: titleWithTalkPageNamespace, siteURL: siteURL)
-            }
+            self.navigate(to: absoluteURL)
         }
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         
@@ -557,15 +547,10 @@ private extension TalkPageContainerViewController {
     }
     
     func tappedLink(_ url: URL, loadingViewController: ViewController, sourceView: UIView, sourceRect: CGRect?) {
-        
-        self.currentLoadingViewController = loadingViewController
-        self.currentSourceView = sourceView
-        self.currentSourceRect = sourceRect
-        
-        self.viewState = .linkLoading(loadingViewController: loadingViewController)
-        
-        loadingFlowController?.tappedLink(url: url)
-  
+        guard let url = URL(string: url.absoluteString, relativeTo: talkPageURL) else {
+            return
+        }
+        navigate(to: url.absoluteURL)
     }
     
     func changeLanguage(siteURL: URL) {
@@ -783,100 +768,6 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
                 changeLanguage(siteURL: siteURL)
         }
         controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-//MARK: WMFLoadingFlowControllerFetchDelegate
-
-extension TalkPageContainerViewController: WMFLoadingFlowControllerFetchDelegate {
-    func loadEmbedFetch(with url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (Error) -> Void) -> URLSessionTask? {
-        assertionFailure("not setup for load embed")
-        return nil
-    }
-    
-    func linkPushFetch(with url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (Error) -> Void) -> URLSessionTask? {
-        assertionFailure("not setup for session task link push fetch")
-        return nil
-    }
-}
-
-//MARK: LoadingFlowControllerTaskTrackingDelegate
-
-extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDelegate {
-
-    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (cancellationKey: String, fetcher: Fetcher)? {
-        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
-            errorHandler(TalkPageError.unableToDetermineAbsoluteURL as NSError, url)
-            return nil
-        }
-        
-        let cancellationKey = self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self] (article, error) in
-            if let article = article {
-                DispatchQueue.main.async {
-                    successHandler(article, absoluteURL)
-                }
-                return
-            }
-            
-            
-            DispatchQueue.main.async {
-            
-                let calculatedError = error ?? NSError(domain: Fetcher.unexpectedResponseError.domain, code:Fetcher.unexpectedResponseError.code, userInfo: nil)
-                errorHandler(calculatedError as NSError, absoluteURL)
-                
-                //reset loading state
-                if let loadingViewController = self?.currentLoadingViewController {
-                    self?.viewState = .linkFailure(loadingViewController: loadingViewController)
-                    self?.currentLoadingViewController = nil
-                }
-            }
-        }
-        
-        if let cancellationKey = cancellationKey {
-            return (cancellationKey: cancellationKey, fetcher: self.dataStore.articleSummaryController.fetcher)
-        }
-        
-        return nil
-        
-    }
-    
-}
-
-//MARK: WMFLoadingFlowControllerChildProtocol
-
-extension TalkPageContainerViewController: WMFLoadingFlowControllerChildProtocol {
-    
-    var customNavAnimationHandler: (UIViewController & Themeable)? {
-        return currentLoadingViewController
-    }
-    
-    func showDefaultLinkFailureWithError(_ error: Error) {
-        showNoInternetConnectionAlertOrOtherWarning(from: error)
-    }
-    
-    func handleCustomSuccess(with article: LoadingFlowControllerArticle, url: URL) -> Bool {
-        
-        defer {
-            self.currentLoadingViewController = nil
-            self.currentSourceView = nil
-            self.currentSourceRect = nil
-        }
-        
-        guard let loadingViewController = self.currentLoadingViewController,
-        let sourceView = self.currentSourceView,
-            let sourceRect = self.currentSourceRect else {
-                return false
-        }
-
-        self.viewState = .linkFinished(loadingViewController: loadingViewController)
-        
-        switch article.namespace {
-        case PageNamespace.user.rawValue:
-            self.showUserActionSheet(siteURL: siteURL, absoluteURL: url, sourceView: sourceView, sourceRect: sourceRect)
-            return true
-        default:
-            return false;
-        }
     }
 }
 

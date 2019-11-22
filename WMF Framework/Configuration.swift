@@ -32,16 +32,18 @@ public class Configuration: NSObject {
         static let englishWikipedia = "en.wikipedia.org"
         static let wikimedia = "wikimedia.org"
         static let metaWiki = "meta.wikimedia.org"
+        static let wikimediafoundation = "wikimediafoundation.org"
     }
     
     struct Path {
-        static let wikiResource = "/wiki/"
         static let wikiResourceComponent = ["wiki"]
         static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
         static let mediaWikiRestAPIComponents = ["w", "rest.php"]
     }
     
+
+
     public struct APIURLComponentsBuilder {
         let hostComponents: URLComponents
         let basePathComponents: [String]
@@ -64,6 +66,11 @@ public class Configuration: NSObject {
     public let centralAuthCookieTargetDomains: [String] // copy cookies to
     
     public let wikiResourceDomains: [String]
+    public let inAppLinkDomains: [String]
+
+    @objc public lazy var router: Router = {
+       return Router(configuration: self)
+    }()
     
     required init(defaultSiteDomain: String, otherDomains: [String] = []) {
         self.defaultSiteDomain = defaultSiteDomain
@@ -73,7 +80,8 @@ public class Configuration: NSObject {
         self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
-        self.wikiResourceDomains = [defaultSiteDomain, Domain.mediaWiki] + otherDomains
+        self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
+        self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
     }
     
     func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
@@ -190,13 +198,10 @@ public class Configuration: NSObject {
 
         }
     }()
-    
-    @objc public func isWikiResource(_ url: URL?) -> Bool {
-        guard url?.path.contains(Path.wikiResource) ?? false else {
+
+    public func isWikipediaHost(_ host: String?) -> Bool {
+        guard let host = host else {
             return false
-        }
-        guard let host = url?.host else { // relative paths should work
-            return true
         }
         for domain in wikiResourceDomains {
             if host.isDomainOrSubDomainOf(domain) {
@@ -206,7 +211,17 @@ public class Configuration: NSObject {
         return false
     }
     
+    public func isInAppLinkHost(_ host: String?) -> Bool {
+        guard let host = host else {
+            return false
+        }
+        for domain in inAppLinkDomains {
+            if host.isDomainOrSubDomainOf(domain) {
+                return true
+            }
+        }
+        return false
+    }
 }
-
 
 

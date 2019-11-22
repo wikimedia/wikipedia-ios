@@ -3,7 +3,6 @@
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
@@ -288,7 +287,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     if (navigationType == WKNavigationTypeLinkActivated &&
         [[self class] isExternalURL:requestURL]) {
-        [self wmf_openExternalUrl:requestURL];
+        [self wmf_navigateToURL:requestURL];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }

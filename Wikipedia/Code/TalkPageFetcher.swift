@@ -58,20 +58,13 @@ enum TalkPageType: Int {
     case article
     
     func canonicalNamespacePrefix(for siteURL: URL) -> String? {
-        
-        //todo: PageNamespace
-        var namespaceRaw: String
+        let namespace: PageNamespace
         switch self {
         case .article:
-            namespaceRaw = "1"
+            namespace = PageNamespace.talk
         case .user:
-            namespaceRaw = "3"
+            namespace = PageNamespace.userTalk
         }
-        
-        guard let namespace = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL)?.namespaces?[namespaceRaw] else {
-            return nil
-        }
-        
         return namespace.canonicalName + ":"
     }
     

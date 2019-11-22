@@ -1,4 +1,5 @@
 #import "WMFArticle+CoreDataClass.h"
+#import <WMF/WMF-Swift.h>
 
 @interface WMFArticle () {
     NSArray<ReadingList *> * _Nullable _sortedNonDefaultReadingLists;

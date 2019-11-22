@@ -164,11 +164,11 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     }
     
     @objc func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
-        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
+        navigate(to: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
     }
     
     @IBAction fileprivate func infoButtonTapped(withSender sender: UIButton) {
-        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Special:Captcha/help"))
+        navigate(to: URL(string: "https://en.wikipedia.org/wiki/Special:Captcha/help"))
     }
 
     @IBAction fileprivate func refreshButtonTapped(withSender sender: UIButton) {

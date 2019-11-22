@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *previewReadingLists;
 @property (nullable, nonatomic, copy) NSNumber *errorCodeNumber;
-@property (nullable, nonatomic, copy) NSNumber *ns;
+@property (nullable, nonatomic, copy) NSNumber *ns __attribute__((deprecated)); // Use namespace extension instead
 
 @end
 
