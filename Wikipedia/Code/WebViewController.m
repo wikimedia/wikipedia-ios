@@ -181,7 +181,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)handleFooterBrowserLinkClickedScriptMessage:(NSString *)messageString {
-    [self wmf_navigateToURL:self.articleURL];
+    [self wmf_navigateToURL:self.articleURL useSafari:YES];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
