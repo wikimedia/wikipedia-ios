@@ -71,6 +71,6 @@ private extension DiffHeaderSummaryView {
     
     func updateFonts(with traitCollection: UITraitCollection) {
         headingLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
-        summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.italicCaption1, compatibleWithTraitCollection: traitCollection)
+        summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
     }
 }
