@@ -504,12 +504,6 @@ private extension TalkPageContainerViewController {
         return absoluteUrl
     }
     
-    func pushTalkPage(title: String, siteURL: URL) {
-        
-        let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
-        self.navigationController?.pushViewController(talkPageContainer, animated: true)
-    }
-    
     func showUserActionSheet(siteURL: URL, absoluteURL: URL, sourceView: UIView, sourceRect: CGRect?) {
         
         let alertController = UIAlertController(title: WMFLocalizedString("talk-page-link-user-action-sheet-title", value: "User pages", comment: "Title of action sheet that displays when user taps a user page link in talk pages"), message: nil, preferredStyle: .actionSheet)
@@ -518,13 +512,7 @@ private extension TalkPageContainerViewController {
         }
         let talkAction = UIAlertAction(title: WMFLocalizedString("talk-page-link-user-action-sheet-app", value: "View User Talk page in app", comment: "Title of action sheet button that takes user to a user talk page in the app after tapping a user page link in talk pages."), style: .default) { (_) in
             
-            let title = absoluteURL.lastPathComponent
-            if let firstColon = title.range(of: ":") {
-                var titleWithoutNamespace = title
-                titleWithoutNamespace.removeSubrange(title.startIndex..<firstColon.upperBound)
-                let titleWithTalkPageNamespace = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: titleWithoutNamespace, siteURL: siteURL)
-                self.pushTalkPage(title: titleWithTalkPageNamespace, siteURL: siteURL)
-            }
+            self.navigate(to: absoluteURL)
         }
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         
