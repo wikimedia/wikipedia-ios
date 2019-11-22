@@ -18,8 +18,9 @@ public class Router: NSObject {
     
     // From https://github.com/wikimedia/mediawiki-title
     private let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
-    private let mobilediffRegexSingle = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
     private let mobilediffRegexCompare = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)\\.\\.\\.([0-9]+)", options: .caseInsensitive)
+    private let mobilediffRegexSingle = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
+    private let historyRegex = try! NSRegularExpression(pattern: "^history/(.*)", options: .caseInsensitive)
     
      internal func destinationForWikiResourceURL(_ url: URL) -> Destination? {
         
@@ -95,9 +96,14 @@ public class Router: NSObject {
                  if let singleDiffMatch = mobilediffRegexSingle.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
                     let toRevID = Int(mobilediffRegexSingle.replacementString(for: singleDiffMatch, in: title, offset: 0, template: "$1")) {
                     return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
-                 } else {
-                    return inAppLinkActivity
                  }
+                
+                if let historyMatch = historyRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
+                    let articleTitle = mobilediffRegexSingle.replacementString(for: historyMatch, in: title, offset: 0, template: "$1")
+                    return .articleHistory(url, articleTitle: articleTitle.wmf_normalizedPageTitle())
+                }
+                 
+                return inAppLinkActivity
              case nil: // if the string before the : isn't a namespace, it's likely part of an article title
                  return articleActivity
              default:
