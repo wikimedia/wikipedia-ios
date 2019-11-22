@@ -80,6 +80,10 @@ const writeTranslationToFile = (translation, filePath) => {
 generateTranslationsJSON()
   .then( ([sitematrixLangCodes, translations])  => {
     translations.forEach((translation, i) => {
-      writeTranslationToFile(translation, `${outputPath}/${sitematrixLangCodes[i]}.json`)
+      let lang = sitematrixLangCodes[i]
+      if (lang === 'en') {
+        writeTranslationToFile(translation, `${outputPath}/test.json`)
+      }
+      writeTranslationToFile(translation, `${outputPath}/${lang}.json`)
     })
   })
