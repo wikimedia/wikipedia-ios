@@ -69,6 +69,12 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         guard let articleURL = articleURL(at: indexPath) else {
             return false
         }
+        guard
+            let ns = articleURL.namespace,
+            ns == .main
+        else {
+            return false
+        }
         return !dataStore.savedPageList.isSaved(articleURL)
     }
     
