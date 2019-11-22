@@ -142,8 +142,7 @@ public class Router: NSObject {
             return wResourcePathInfo
         }
         
-        // keep mobile URLs for in app links
-        return .inAppLink(url)
+        return .inAppLink(canonicalURL)
     }
     
     public func destination(for url: URL?) throws -> Destination {

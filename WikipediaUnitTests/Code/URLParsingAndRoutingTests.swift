@@ -19,6 +19,17 @@ class URLParsingAndRoutingTests: XCTestCase {
         XCTAssertEqual("The_Clash:_Westway_to_the_World".namespaceAndTitleOfWikiResourcePath(with: "en").title,  "The_Clash:_Westway_to_the_World")
     }
     
+    func testMainPage() {
+        let enMainPageURL = URL(string: "https://en.m.wikipedia.org/wiki/Main_Page")!
+        let dest = try? router.destination(for: enMainPageURL)
+        switch dest {
+        case .inAppLink(let linkURL):
+            XCTAssertEqual(linkURL, enMainPageURL.canonical)
+        default:
+            XCTAssertTrue(false)
+        }
+    }
+    
     func testWikiResourcePathActivity() {
         guard var components = URLComponents(string: "//en.wikipedia.org/wiki/User_talk:Pink_Bull") else {
             XCTAssertTrue(false)
