@@ -1279,9 +1279,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             break;
         case WMFUserActivityTypeSearchResults:
             [self dismissPresentedViewControllers];
-            [self switchToSearchAnimated:YES];
-            [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
-            [self.searchViewController search];
+            [self.searchViewController searchAndMakeResultsVisibleForSearchTerm:[activity wmf_searchTerm] animated:animated];
+            [self switchToSearchAnimated:animated];
             break;
         case WMFUserActivityTypeSettings:
             [self dismissPresentedViewControllers];
