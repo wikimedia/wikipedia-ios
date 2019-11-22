@@ -98,7 +98,7 @@ extension URL {
         guard let language = wmf_language else {
             return nil
         }
-        return wikiResourcePath?.namespaceFromWikiResourcePath(with: language)
+        return wikiResourcePath?.namespaceOfAbsolutePath(with: language)
     }
 }
 
@@ -119,7 +119,7 @@ extension NSRegularExpression {
 
 extension String {
     static let namespaceRegex = try! NSRegularExpression(pattern: "^(.+?)_*:_*(.*)$")
-    func namespaceFromWikiResourcePath(with language: String) -> PageNamespace? {
+    func namespaceOfAbsolutePath(with language: String) -> PageNamespace? {
         guard let namespaceString = String.namespaceRegex.firstReplacementString(in: self) else {
             return nil
         }

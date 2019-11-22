@@ -1323,7 +1323,7 @@
 		83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED41F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED51F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
-		8386BDE723857F87007EE89D /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDE623857F87007EE89D /* ConfigurationTests.swift */; };
+		8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */; };
 		8386BDED2386C269007EE89D /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
 		8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDF02386D3E1007EE89D /* RequestError.swift */; };
 		8386BDF52386D735007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
@@ -4252,7 +4252,7 @@
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
-		8386BDE623857F87007EE89D /* ConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
+		8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParsingAndRoutingTests.swift; sourceTree = "<group>"; };
 		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
 		8386BDF02386D3E1007EE89D /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageWebViewController.swift; sourceTree = "<group>"; };
@@ -8289,7 +8289,7 @@
 				670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */,
 				D8B9DB022271E4A300B51F14 /* SecurityTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
-				8386BDE623857F87007EE89D /* ConfigurationTests.swift */,
+				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -11104,7 +11104,7 @@
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				B0E808BC1C0D17380065EBC0 /* MWKDataStoreListTests.m in Sources */,
-				8386BDE723857F87007EE89D /* ConfigurationTests.swift in Sources */,
+				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
 				B0E808E81C0D17EE0065EBC0 /* MWKDataStorePathTests.m in Sources */,
 				BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */,
 				B0E8091F1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m in Sources */,

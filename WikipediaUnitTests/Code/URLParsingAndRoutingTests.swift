@@ -1,7 +1,7 @@
 import XCTest
 @testable import WMF
 
-class ConfigurationTests: XCTestCase {
+class URLParsingAndRoutingTests: XCTestCase {
     let configuration = Configuration.current
     let router = Configuration.current.router
     
@@ -12,6 +12,10 @@ class ConfigurationTests: XCTestCase {
     
     func testWResourcePath() {
         XCTAssertEqual("/w/index.php?title=/æ/_raising&oldid=905679984".wResourcePath, "index.php?title=/æ/_raising&oldid=905679984")
+    }
+    
+    func testNamespace() {
+        XCTAssertEqual("/wiki/The_Clash:_Westway_to_the_World".namespaceOfAbsolutePath(with: "en"), .main)
     }
     
     func testWikiResourcePathActivity() {
