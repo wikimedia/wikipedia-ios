@@ -65,7 +65,8 @@ public class Configuration: NSObject {
     public let centralAuthCookieTargetDomains: [String] // copy cookies to
     
     public let wikiResourceDomains: [String]
-    
+    public let inAppLinkDomains: [String]
+
     @objc public lazy var router: Router = {
        return Router(configuration: self)
     }()
@@ -78,7 +79,8 @@ public class Configuration: NSObject {
         self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
-        self.wikiResourceDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikimedia] + otherDomains
+        self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
+        self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.mediaWiki, Domain.wikimedia] + otherDomains
     }
     
     func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
@@ -196,11 +198,23 @@ public class Configuration: NSObject {
         }
     }()
 
-    @objc public func isWikiHost(_ host: String?) -> Bool {
+    public func isWikipediaHost(_ host: String?) -> Bool {
         guard let host = host else {
             return false
         }
         for domain in wikiResourceDomains {
+            if host.isDomainOrSubDomainOf(domain) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    public func isInAppLinkHost(_ host: String?) -> Bool {
+        guard let host = host else {
+            return false
+        }
+        for domain in inAppLinkDomains {
             if host.isDomainOrSubDomainOf(domain) {
                 return true
             }

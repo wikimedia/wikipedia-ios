@@ -131,7 +131,7 @@ public class Router: NSObject {
         return defaultActivity
     }
     
-    internal func destinationForWikiHostURL(_ url: URL) -> Destination {
+    internal func destinationForWikipediaHostURL(_ url: URL) -> Destination {
         let canonicalURL = url.canonical
         
         if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL) {
@@ -150,10 +150,13 @@ public class Router: NSObject {
             throw RequestError.invalidParameters
         }
         
-        guard configuration.isWikiHost(url.host) else {
-            return .externalLink(url)
+        guard configuration.isWikipediaHost(url.host) else {
+            guard configuration.isInAppLinkHost(url.host) else {
+                return .externalLink(url)
+            }
+            return .inAppLink(url)
         }
         
-        return destinationForWikiHostURL(url)
+        return destinationForWikipediaHostURL(url)
     }
 }
