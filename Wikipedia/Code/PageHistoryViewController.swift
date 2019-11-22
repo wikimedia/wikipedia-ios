@@ -212,7 +212,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
         
-        pageHistoryFetcher.fetchEditCounts(.edits, .anonymous, .bot, for: pageTitle, pageURL: pageURL) { [weak self] result in
+        pageHistoryFetcher.fetchEditCounts(.edits, .userEdits, .anonymous, .bot, for: pageTitle, pageURL: pageURL) { [weak self] result in
             guard let self = self else {
                 return
             }
