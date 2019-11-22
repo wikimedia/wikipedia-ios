@@ -71,12 +71,6 @@ extension PageNamespace {
     }
 }
 
-extension WMFArticle {
-    public var pageNamespace: PageNamespace? {
-        return PageNamespace(namespaceValue: ns?.intValue)
-    }
-}
-
 extension MWKSearchResult {
     public var pageNamespace: PageNamespace? {
         return PageNamespace(namespaceValue: titleNamespace?.intValue)

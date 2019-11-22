@@ -8,16 +8,6 @@
 
 @implementation WMFArticle
 
-- (NSNumber *)ns {
-    NSNumber *primitiveNS = [self primitiveValueForKey:@"ns"];
-    if (!primitiveNS) {
-        primitiveNS = self.namespaceNumber;
-        [self setPrimitiveValue:primitiveNS forKey:@"ns"];
-    }
-    return primitiveNS;
-}
-
-
 - (NSArray<ReadingList *> *)sortedNonDefaultReadingLists {
     @synchronized (self) {
         if (_sortedNonDefaultReadingLists != nil) {

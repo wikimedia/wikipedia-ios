@@ -29,7 +29,11 @@ extension WMFArticle {
     }
     
     public var namespace: PageNamespace? {
-        return self.url?.namespace
+        return url?.namespace
+    }
+    
+    public var namespaceAndTitle: (namespace: PageNamespace, title: String)? {
+        return url?.namespaceAndTitle
     }
     
     @objc public var namespaceNumber: NSNumber? {

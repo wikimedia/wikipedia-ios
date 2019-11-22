@@ -36,15 +36,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return .search
     }
     
-    override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
-        guard let title = results[indexPath.item].title,
-            results[indexPath.item].pageNamespace == .userTalk else {
-                return nil
-        }
-        
-        return title
-    }
-    
     override func articleURL(at indexPath: IndexPath) -> URL? {
         return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
     }

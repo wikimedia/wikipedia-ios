@@ -33,10 +33,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
-    open func userTalkPageTitle(at indexPath: IndexPath) -> String? {
-        return nil
-    }
-    
     open func articleURL(at indexPath: IndexPath) -> URL? {
         assert(false, "Subclassers should override this function")
         return nil

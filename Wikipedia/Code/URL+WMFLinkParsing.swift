@@ -100,6 +100,13 @@ extension URL {
         }
         return wikiResourcePath?.namespaceOfWikiResourcePath(with: language)
     }
+    
+    public var namespaceAndTitle: (namespace: PageNamespace, title: String)? {
+        guard let language = wmf_language else {
+            return nil
+        }
+        return wikiResourcePath?.namespaceAndTitleOfWikiResourcePath(with: language)
+    }
 }
 
 
