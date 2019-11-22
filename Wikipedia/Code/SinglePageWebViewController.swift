@@ -34,6 +34,7 @@ class SinglePageWebViewController: ViewController {
     override func viewDidLoad() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView
+        scrollView?.delegate = self
         super.viewDidLoad()
         fakeProgressController.start()
         webView.load(URLRequest(url: url))
