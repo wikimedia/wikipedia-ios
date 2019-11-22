@@ -24,12 +24,22 @@ class DiffToolbarView: UIView {
     lazy var previousButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "chevron-down", target: self, action: #selector(tappedPrevious(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-previous-revision-accessibility", value: "Previous Revision", comment: "Accessibility title for the 'Previous Revision' action button when viewing a single revision diff.")
+
+        let widthConstraint = NSLayoutConstraint(item: item.customView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 38)
+        widthConstraint.priority = .defaultHigh
+        item.customView!.addConstraints([widthConstraint])
+
         return item
     }()
 
     lazy var nextButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "chevron-up", target: self, action: #selector(tappedNext(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-next-revision-accessibility", value: "Next Revision", comment: "Accessibility title for the 'Next Revision' action button when viewing a single revision diff.")
+
+        let widthConstraint = NSLayoutConstraint(item: item.customView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 38)
+        widthConstraint.priority = .defaultHigh
+        item.customView!.addConstraints([widthConstraint])
+
         return item
     }()
 
@@ -112,9 +122,6 @@ class DiffToolbarView: UIView {
     }
 
     private func setItems() {
-        let nextPrevSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        nextPrevSpacing.width = 17
-        
         let marginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
@@ -128,7 +135,7 @@ class DiffToolbarView: UIView {
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        toolbar.items = [marginSpacing, nextButton, nextPrevSpacing, previousButton, spacer, thankButton, largeFixedSize, shareButton, marginSpacing]
+        toolbar.items = [nextButton, previousButton, spacer, thankButton, largeFixedSize, shareButton, marginSpacing]
     }
     
     func setPreviousButtonState(isEnabled: Bool) {
