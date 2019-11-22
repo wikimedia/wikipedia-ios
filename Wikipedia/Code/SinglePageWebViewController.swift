@@ -37,6 +37,8 @@ class SinglePageWebViewController: ViewController {
         super.viewDidLoad()
         fakeProgressController.start()
         webView.load(URLRequest(url: url))
+        let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
+        navigationItem.rightBarButtonItem = safariItem
     }
     
     var didHandleInitialNavigation = false
@@ -56,6 +58,18 @@ class SinglePageWebViewController: ViewController {
     
         navigate(to: actionURL)
         return false
+    }
+    
+    @objc func tappedAction(_ sender: UIButton) {
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+        
+        if let popover = activityViewController.popoverPresentationController {
+            popover.sourceView = sender
+            popover.sourceRect = sender.bounds
+            popover.permittedArrowDirections = .down
+        }
+        
+        present(activityViewController, animated: true)
     }
 }
 
