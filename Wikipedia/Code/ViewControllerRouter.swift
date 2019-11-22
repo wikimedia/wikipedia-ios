@@ -56,7 +56,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return true
             case .inAppLink(let linkURL):
-                let singlePageVC = SinglePageWebViewController(url: linkURL)
+                let singlePageVC = SinglePageWebViewController(url: linkURL, theme: appViewController.theme)
                 navigationController.pushViewController(singlePageVC, animated: true)
                 completion()
                 return true

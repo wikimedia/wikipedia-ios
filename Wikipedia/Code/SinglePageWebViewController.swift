@@ -1,13 +1,12 @@
 import WebKit
 
-@objc(WMFSinglePageWebViewController)
 class SinglePageWebViewController: ViewController {
     let url: URL
     
-    @objc(initWithURL:)
-    required init(url: URL) {
+    required init(url: URL, theme: Theme) {
         self.url = url
         super.init()
+        self.theme = theme
     }
     
     required init?(coder aDecoder: NSCoder) {
