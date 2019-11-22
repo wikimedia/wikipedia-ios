@@ -83,7 +83,7 @@ extension URL {
     }
     
     public var canonical: URL {
-        return (self as NSURL).wmf_database ?? self
+        return (self as NSURL).wmf_canonical ?? self
     }
     
     public var wikiResourcePath: String? {
