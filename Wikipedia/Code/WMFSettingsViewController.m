@@ -23,7 +23,6 @@
 #import <WMF/SessionSingleton.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import <WMF/MWKLanguageLinkController.h>
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFDailyStatsLoggingFunnel.h"
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "Wikipedia-Swift.h"
@@ -243,19 +242,19 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         }
         case WMFSettingsMenuItemType_Support:
-            [self wmf_openExternalUrl:[self donationURL] useSafari:YES];
+            [self wmf_navigateToURL:[self donationURL] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
-            [self wmf_openExternalUrl:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
+            [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
             break;
         case WMFSettingsMenuItemType_Terms:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
+            [self wmf_navigateToURL:[NSURL URLWithString:WMFSettingsURLTerms]];
             break;
         case WMFSettingsMenuItemType_ZeroFAQ:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
+            [self wmf_navigateToURL:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
             break;
         case WMFSettingsMenuItemType_RateApp:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
+            [self wmf_navigateToURL:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_SendFeedback: {
             WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];

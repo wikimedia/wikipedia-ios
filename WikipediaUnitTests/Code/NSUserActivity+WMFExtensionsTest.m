@@ -25,7 +25,7 @@
 - (void)testArticleURL {
     NSURL *url = [NSURL URLWithString:@"wikipedia://en.wikipedia.org/wiki/Foo"];
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
-    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeArticle);
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeLink);
     XCTAssertEqualObjects(activity.webpageURL.absoluteString, @"https://en.wikipedia.org/wiki/Foo");
 }
 
@@ -50,7 +50,7 @@
 - (void)testSearchURL {
     NSURL *url = [NSURL URLWithString:@"wikipedia://en.wikipedia.org/w/index.php?search=dog"];
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
-    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeSearchResults);
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeLink);
     XCTAssertEqualObjects(activity.webpageURL.absoluteString,
                           @"https://en.wikipedia.org/w/index.php?search=dog&title=Special:Search&fulltext=1");
 }
@@ -66,7 +66,7 @@
     MWKArticle *article = [[MWKArticle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Foo"]];
     article.displaytitle = @"Foo";
     NSUserActivity *activity = [NSUserActivity wmf_articleViewActivityWithArticle:article];
-    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeArticle);
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeLink);
     XCTAssertEqualObjects(activity.webpageURL.absoluteString, @"https://en.wikipedia.org/wiki/Foo");
 }
 

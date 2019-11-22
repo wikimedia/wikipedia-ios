@@ -1,3 +1,5 @@
+#import "WMFAppViewController.h"
+
 #import "RMessage.h"
 #import "RMessageView.h"
 
@@ -6,7 +8,6 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFGradientView.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "UIScrollView+ScrollSubviewToLocation.h"
 
@@ -21,13 +22,11 @@
 #import "WMFArticleFetcher.h"
 #import "SavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
-#import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "PreviewHtmlFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
 #import "WikiTextSectionUploader.h"
 #import "WMFArticleJSONCompilationHelper.h"
-#import "WMFLoadingFlowControllerProtocols.h"
 
 // Model
 #import "MWKLicense.h"

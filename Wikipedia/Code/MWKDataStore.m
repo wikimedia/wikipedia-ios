@@ -373,12 +373,10 @@ static uint64_t bundleHash() {
         updateBlock(entry, preview, article);
     }
 
-    NSEntityDescription *articleEntityDescription = [NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc];
     for (NSString *key in keysToAdd) {
         MWKHistoryEntry *entry = historyEntries[key];
         WMFArticlePreview *preview = articlePreviews[key];
-        WMFArticle *article = [[WMFArticle alloc] initWithEntity:articleEntityDescription insertIntoManagedObjectContext:moc];
-        article.key = key;
+        WMFArticle *article = [moc createArticleWithKey:key];
         updateBlock(entry, preview, article);
     }
 }
@@ -1678,8 +1676,7 @@ static uint64_t bundleHash() {
     }
     WMFArticle *article = [self fetchArticleWithKey:key inManagedObjectContext:moc];
     if (!article) {
-        article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
-        article.key = key;
+        article = [moc createArticleWithKey:key];
         article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
             [self.articlePreviewCache setObject:article forKey:key];

@@ -63,16 +63,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         return ((date as NSDate).wmf_midnightUTCDateFromLocal as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
     }
     
-    override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
-        guard let article = article(at: indexPath),
-            let namespace = article.pageNamespace,
-            namespace == .userTalk else {
-                return nil
-        }
-        
-        return article.displayTitle
-    }
-    
     override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
         header.style = .history
         header.title = titleForHeaderInSection(sectionIndex)
@@ -80,16 +70,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         header.layoutMargins = layout.itemLayoutMargins
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
-            let siteURL = articleURL(at: indexPath)?.wmf_site {
-                pushUserTalkPage(title: userTalkPageTitle, siteURL: siteURL)
-                return
-        }
-        
-        super.collectionView(collectionView, didSelectItemAt: indexPath)
-    }
-
     override func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         super.collectionViewUpdater(updater, didUpdate: collectionView)
         updateVisibleHeaders()

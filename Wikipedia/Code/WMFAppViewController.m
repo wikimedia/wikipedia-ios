@@ -26,7 +26,6 @@
 
 #import "WMFDailyStatsLoggingFunnel.h"
 
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
@@ -79,7 +78,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
-@property (nonatomic, strong, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
 @property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
 
@@ -124,6 +123,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFTalkPageReplyHintController *talkPageReplyHintController;
 @property (nonatomic, strong) WMFTalkPageTopicHintController *talkPageTopicHintController;
 
+@property (nonatomic, strong) WMFConfiguration *configuration;
+@property (nonatomic, strong) WMFViewControllerRouter *router;
+
 @end
 
 @implementation WMFAppViewController
@@ -138,6 +140,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSUserDefaults wmf] removeObserver:self forKeyPath:[WMFUserDefaultsKey defaultTabType]];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.configuration = [WMFConfiguration current];
+        self.router = [[WMFViewControllerRouter alloc] initWithAppViewController:self router:self.configuration.router];
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -1173,28 +1184,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
-        case WMFUserActivityTypeSpecialPage:
             return YES;
         case WMFUserActivityTypeSearchResults:
-            if ([activity wmf_searchTerm] != nil) {
-                return YES;
-            } else {
-                return NO;
-            }
-            break;
-        case WMFUserActivityTypeArticle: {
-            if (![activity wmf_articleURL]) {
-                return NO;
-            } else {
-                return YES;
-            }
-        } break;
-        case WMFUserActivityTypeGenericLink: {
-            return YES;
-        }
+            return [activity wmf_searchTerm] != nil;
+        case WMFUserActivityTypeLink:
+            return [activity wmf_linkURL] != nil;
         default:
             return NO;
-            break;
     }
 }
 
@@ -1222,19 +1218,17 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     WMFUserActivityType type = [activity wmf_type];
 
-    if (type != WMFUserActivityTypeSearch) {
-        [self dismissPresentedViewControllers];
-    }
-
     switch (type) {
         case WMFUserActivityTypeExplore:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypePlaces: {
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypePlaces];
             [self.navigationController popToRootViewControllerAnimated:animated];
-            NSURL *articleURL = activity.wmf_articleURL;
+            NSURL *articleURL = activity.wmf_linkURL;
             if (articleURL) {
                 // For "View on a map" action to succeed, view mode has to be set to map.
                 [[self placesViewController] updateViewModeToMap];
@@ -1242,6 +1236,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             }
         } break;
         case WMFUserActivityTypeContent: {
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             UINavigationController *navController = self.navigationController;
             [navController popToRootViewControllerAnimated:animated];
@@ -1270,10 +1265,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
         } break;
         case WMFUserActivityTypeSavedPages:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeSaved];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeHistory:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
@@ -1281,66 +1278,34 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self showSearchInCurrentNavigationController];
             break;
         case WMFUserActivityTypeSearchResults:
+            [self dismissPresentedViewControllers];
             [self switchToSearchAnimated:YES];
             [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
             [self.searchViewController search];
             break;
-        case WMFUserActivityTypeArticle: {
-            NSURL *URL = [activity wmf_articleURL];
-            if (!URL) {
-                done();
-                return NO;
-            }
-            if ([URL.path containsString:@":"]) {
-                [self.dataStore.articleSummaryController.fetcher fetchSummaryForArticleWithKey:URL.wmf_databaseKey
-                                                                                      priority:NSURLSessionTaskPriorityHigh
-                                                                                    completion:^(WMFArticleSummary *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                            if (error) {
-                                                                                                done();
-                                                                                                return;
-                                                                                            }
-                                                                                            if (summary.namespace.number.integerValue == PageNamespaceUserTalk) {
-                                                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                    NSURL *url = [NSURL wmf_desktopURLForURL:URL];
-                                                                                                    LoadingFlowController *loadingFlowController = [WMFTalkPageContainerViewController containedUserTalkPageContainerWithURL:url dataStore:self.dataStore theme:self.theme];
-                                                                                                    [self wmf_pushViewController:loadingFlowController animated:YES];
-                                                                                                    [self.dataStore.historyList addPageToHistoryWithURL:url];
-                                                                                                    done();
-                                                                                                });
-                                                                                            } else {
-                                                                                                [self showArticleForURL:URL animated:animated completion:done];
-                                                                                            }
-                                                                                        });
-                                                                                    }];
-            } else {
-                [self showArticleForURL:URL animated:animated completion:done];
-            }
-            // don't call done block before this return, wait for completion ^
-            return YES;
-        } break;
         case WMFUserActivityTypeSettings:
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:NO];
             [self showSettingsAnimated:animated];
             break;
         case WMFUserActivityTypeAppearanceSettings: {
+            [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:NO];
             WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
-        case WMFUserActivityTypeGenericLink:
-            [self wmf_openExternalUrl:[activity wmf_articleURL]];
-            break;
-        case WMFUserActivityTypeSpecialPage:
-            [self wmf_openExternalUrl:[activity wmf_contentURL]];
-            break;
-        default:
-            done();
-            return NO;
-            break;
+        default: {
+            NSURL *linkURL = [activity wmf_linkURL];
+            if (!linkURL) {
+                done();
+                return NO;
+            }
+            [NSUserActivity wmf_makeActivityActive:activity];
+            return [self.router routeURL:linkURL completion:done];
+        }
     }
     done();
     [NSUserActivity wmf_makeActivityActive:activity];
@@ -1368,8 +1333,21 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         completion();
         return visibleArticleViewController;
     }
-    [self dismissPresentedViewControllers];
-    return [self wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore theme:self.theme restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
+
+    UINavigationController *nc = [self currentNavigationController];
+    if (!nc) {
+        completion();
+        return nil;
+    }
+
+    if (nc.presentedViewController) {
+        [nc dismissViewControllerAnimated:NO completion:NULL];
+    }
+
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.session.dataStore theme:self.theme];
+    articleVC.articleLoadCompletion = completion;
+    [nc pushViewController:articleVC animated:YES];
+    return articleVC;
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -2006,12 +1984,20 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
+- (nullable UINavigationController *)currentNavigationController {
+    if ([self.presentedViewController isKindOfClass:[UINavigationController class]]) {
+        return (UINavigationController *)self.presentedViewController;
+    } else {
+        return self.navigationController;
+    }
+}
+
 - (void)showSearchInCurrentNavigationControllerAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
     [self dismissReadingThemesPopoverIfActive];
 
-    UINavigationController *nc = self.presentedViewController == self.settingsNavigationController ? self.settingsNavigationController : self.navigationController;
+    UINavigationController *nc = self.currentNavigationController;
     if (!nc) {
         return;
     }

@@ -1666,8 +1666,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         switch action {
         case .read:
-            wmf_pushArticle(with: url, dataStore: dataStore, theme: self.theme, animated: true)
-
+            navigate(to: url)
             break
         case .save:
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)

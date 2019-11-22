@@ -26,15 +26,13 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 - (instancetype)initWithLanguageCode:(nonnull NSString *)languageCode
                        pageTitleText:(nonnull NSString *)pageTitleText
                                 name:(nonnull NSString *)name
-                       localizedName:(nonnull NSString *)localizedName
-                          namespaces:(nullable NSDictionary<NSString *, WMFLanguageLinkNamespace *> *)namespaces {
+                       localizedName:(nonnull NSString *)localizedName {
     self = [super init];
     if (self) {
         self.languageCode = languageCode;
         self.pageTitleText = pageTitleText;
         self.name = name;
         self.localizedName = localizedName;
-        self.namespaces = namespaces;
     }
     return self;
 }

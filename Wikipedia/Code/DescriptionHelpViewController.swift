@@ -115,11 +115,11 @@ class DescriptionHelpViewController: ViewController {
     }
     
     @IBAction func showAboutWikidataPage() {
-        wmf_openExternalUrl(URL(string: "https://m.wikidata.org/wiki/Wikidata:Introduction"))
+        navigate(to: URL(string: "https://m.wikidata.org/wiki/Wikidata:Introduction"))
     }
 
     @IBAction func showWikidataGuidePage() {
-        wmf_openExternalUrl(URL(string: "https://m.wikidata.org/wiki/Help:Description#Guidelines_for_descriptions_in_English"))
+        navigate(to: URL(string: "https://m.wikidata.org/wiki/Help:Description#Guidelines_for_descriptions_in_English"))
     }
 }
 

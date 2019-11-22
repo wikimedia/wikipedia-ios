@@ -5,7 +5,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
     func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController)
 }
 
-class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
+class EditPreviewViewController: UIViewController, Themeable, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
     var section: MWKSection?
     var wikitext = ""
     var editFunnel: EditFunnel?
@@ -75,9 +75,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
         super.viewDidLoad()
         
         navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
-        
-        previewWebViewContainer.externalLinksOpenerDelegate = self
-        
+                
         navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))

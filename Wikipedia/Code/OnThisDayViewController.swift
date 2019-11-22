@@ -271,7 +271,7 @@ extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
             index = nil
         }
         FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: index, maxViewed: maxViewed)
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
+        navigate(to: articleURL)
     }
 }
 

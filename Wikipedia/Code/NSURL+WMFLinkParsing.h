@@ -178,15 +178,11 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_titleWithUnderscores;
 
+@property (nonatomic, copy, readonly, nullable) NSURL *wmf_databaseURL; // canonical URL
+
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for any wiki page
 
 #pragma mark - Introspection
-
-/**
- *  Return YES is a URL is a link to a Wiki resource
- *  Checks for the presence of "/wiki/" in the path
- */
-@property (nonatomic, readonly) BOOL wmf_isWikiResource;
 
 /**
  *  Return YES if the receiver has "cite_note" in the path

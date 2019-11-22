@@ -39,7 +39,9 @@ class DiffContainerViewController: ViewController, HintPresenting {
     
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
     private var firstRevision: WMFPageHistoryRevision?
+    
     var animateDirection: DiffRevisionTransition.Direction?
+    private var hidesHistoryBackTitle: Bool = false
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -90,7 +92,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
                 return nil
         }
         
-        if toModel.revisionSize == 0 { //indication that this has not been calculated yet from Page History, need fromModel for calulation
+        if toModel.revisionSize == 0 { //indication that this has not been calculated yet from Page History, need fromModel for calculation
             
             guard let fromModel = fromModel else {
                 return isOnFirstRevisionInHistory ? toModel.articleSizeAtRevision : nil
@@ -102,13 +104,14 @@ class DiffContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    init?(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, type: DiffContainerViewModel.DiffType, articleTitle: String?) {
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, type: DiffContainerViewModel.DiffType, articleTitle: String?, hidesHistoryBackTitle: Bool = false) {
     
         self.siteURL = siteURL
         self.type = type
         self.articleTitle = articleTitle
         self.toModelRevisionID = toRevisionID
         self.fromModelRevisionID = fromRevisionID
+        self.hidesHistoryBackTitle = hidesHistoryBackTitle
         
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type)
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
@@ -127,7 +130,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    init?(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?) {
+    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?) {
 
         self.type = type
         
@@ -159,7 +162,9 @@ class DiffContainerViewController: ViewController, HintPresenting {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.historyTabTitle, style: .plain, target: nil, action: nil)
+        if !hidesHistoryBackTitle {
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.historyTabTitle, style: .plain, target: nil, action: nil)
+        }
         
         let onLoad = { [weak self] in
             
@@ -1010,7 +1015,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     func tappedUsername(username: String) {
         if let username = (username as NSString).wmf_normalizedPageTitle() {
             let userPageURL = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
-            wmf_openExternalUrl(userPageURL)
+            navigate(to: userPageURL)
         }
     }
     
@@ -1033,9 +1038,8 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision) {
-            wmf_push(singleDiffVC, animated: true)
-        }
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision)
+        wmf_push(singleDiffVC, animated: true)
     }
 }
 
@@ -1118,9 +1122,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision) {
-            replaceLastAndPush(with: singleDiffVC)
-        }
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision)
+        replaceLastAndPush(with: singleDiffVC)
     }
     
     func tappedNext() {
@@ -1133,9 +1136,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        if let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision) {
-            replaceLastAndPush(with: singleDiffVC)
-        }
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision)
+        replaceLastAndPush(with: singleDiffVC)
     }
     
     func tappedShare(_ sender: UIBarButtonItem) {
