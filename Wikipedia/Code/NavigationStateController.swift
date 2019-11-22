@@ -84,9 +84,7 @@ final class NavigationStateController: NSObject {
                 }
                 savedViewController.toggleCurrentView(currentSavedViewRawValue)
             case let searchViewController as SearchViewController:
-                searchViewController.setSearchVisible(true, animated: false)
-                searchViewController.searchTerm = info.searchTerm
-                searchViewController.search()
+                searchViewController.searchAndMakeResultsVisibleForSearchTerm(info.searchTerm, animated: false)
             case let exploreViewController as ExploreViewController:
                 exploreViewController.presentedContentGroupKey = info.presentedContentGroupKey
                 exploreViewController.shouldRestoreScrollPosition = true
