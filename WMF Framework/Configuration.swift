@@ -78,7 +78,7 @@ public class Configuration: NSObject {
         self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
-        self.wikiResourceDomains = [defaultSiteDomain, Domain.mediaWiki] + otherDomains
+        self.wikiResourceDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikimedia] + otherDomains
     }
     
     func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
