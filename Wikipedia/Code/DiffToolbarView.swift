@@ -24,22 +24,14 @@ class DiffToolbarView: UIView {
     lazy var previousButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "chevron-down", target: self, action: #selector(tappedPrevious(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-previous-revision-accessibility", value: "Previous Revision", comment: "Accessibility title for the 'Previous Revision' action button when viewing a single revision diff.")
-
-        let widthConstraint = NSLayoutConstraint(item: item.customView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 38)
-        widthConstraint.priority = .defaultHigh
-        item.customView!.addConstraints([widthConstraint])
-
+        item.customView?.widthAnchor.constraint(equalToConstant: 38).isActive = true
         return item
     }()
 
     lazy var nextButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "chevron-up", target: self, action: #selector(tappedNext(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-next-revision-accessibility", value: "Next Revision", comment: "Accessibility title for the 'Next Revision' action button when viewing a single revision diff.")
-
-        let widthConstraint = NSLayoutConstraint(item: item.customView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 38)
-        widthConstraint.priority = .defaultHigh
-        item.customView!.addConstraints([widthConstraint])
-
+        item.customView?.widthAnchor.constraint(equalToConstant: 38).isActive = true
         return item
     }()
 
