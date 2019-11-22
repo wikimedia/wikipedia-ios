@@ -87,7 +87,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
     }
     
-    @objc var searchTerm: String? {
+    var searchTerm: String? {
         set {
             searchBar.text = newValue
         }
@@ -106,8 +106,15 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             _siteURL = newValue
         }
     }
+    
+    @objc func searchAndMakeResultsVisibleForSearchTerm(_ term: String?, animated: Bool) {
+        shouldAnimateSearchBar = animated
+        searchTerm = term
+        search(for: searchTerm, suggested: false)
+        searchBar.becomeFirstResponder()
+    }
 
-    @objc func search() {
+    func search() {
         search(for: searchTerm, suggested: false)
     }
     
@@ -286,7 +293,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var _isSearchVisible: Bool = false
-    func setSearchVisible(_ visible: Bool, animated: Bool) {
+    private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
         navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
         let completion = { (finished: Bool) in
