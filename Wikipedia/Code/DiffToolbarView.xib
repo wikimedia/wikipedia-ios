@@ -20,14 +20,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSJ-XL-bDW">
-                    <rect key="frame" x="-8" y="0.0" width="423" height="49"/>
+                    <rect key="frame" x="0.0" y="0.0" width="415" height="49"/>
                     <items/>
                 </toolbar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="rSJ-XL-bDW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="4V5-oJ-dKb"/>
-                <constraint firstItem="rSJ-XL-bDW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="-8" id="MXc-HC-4ja"/>
+                <constraint firstItem="rSJ-XL-bDW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="MXc-HC-4ja"/>
                 <constraint firstItem="rSJ-XL-bDW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Ngq-3p-91Z"/>
                 <constraint firstAttribute="top" secondItem="rSJ-XL-bDW" secondAttribute="top" id="biU-b8-ytc"/>
             </constraints>
