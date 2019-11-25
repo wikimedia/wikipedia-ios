@@ -536,7 +536,7 @@
 "page-read-in-other-languages" = "Available in {{PLURAL:$1|$1 other language|$1 other languages}}";
 "page-similar-titles" = "Similar pages";
 "page-talk-page" = "View talk page";
-"panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. When you compare two revisions of an article, the differences between them are generated. ";
+"panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";
 "pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
