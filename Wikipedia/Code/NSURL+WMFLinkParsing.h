@@ -178,7 +178,7 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_titleWithUnderscores;
 
-@property (nonatomic, copy, readonly, nullable) NSURL *wmf_databaseURL; // canonical URL
+@property (nonatomic, copy, readonly, nullable) NSURL *wmf_canonicalURL; // canonical URL
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for any wiki page
 

@@ -16,7 +16,7 @@ extension NSUserActivity {
         }
         guard
             !useSafari,
-            url.scheme == nil || url.scheme == "https" || url.scheme == "http"
+            url.scheme == "https" || url.scheme == "http"
         else {
             UIApplication.shared.open(url)
             return

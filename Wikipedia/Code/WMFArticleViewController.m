@@ -639,7 +639,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
-    [self presentViewControllerEmbeddedInNavigationController:languagesVC];
+    [self presentViewControllerEmbeddedInNavigationController:languagesVC style:WMFThemeableNavigationControllerStyleSheet];
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
@@ -1595,7 +1595,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage theme:self.theme overlayViewTopBarHidden:NO];
     if (fullscreenGallery != nil) {
-        [self presentViewController:fullscreenGallery animated:YES completion:nil];
+        [self presentViewControllerEmbeddedInNavigationController:fullscreenGallery style:WMFThemeableNavigationControllerStyleGallery];
     }
 }
 
@@ -1807,8 +1807,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
 }
 
-- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme style:[viewController isKindOfClass:[WMFSectionEditorViewController class]] ? WMFThemeableNavigationControllerStyleEditor : WMFThemeableNavigationControllerStyleSheet];
+- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController *)viewController style:(WMFThemeableNavigationControllerStyle)style {
+    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme style:style];
     [self presentViewController:navC animated:YES completion:nil];
 }
 
@@ -1858,13 +1858,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showLanguages {
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.article.url];
     languagesVC.delegate = self;
-    [self presentViewControllerEmbeddedInNavigationController:languagesVC];
+    [self presentViewControllerEmbeddedInNavigationController:languagesVC style:WMFThemeableNavigationControllerStyleSheet];
 }
 
 - (void)showPageIssues:(NSArray<NSString *> *)issueStrings {
     WMFPageIssuesTableViewController *issuesVC = [[WMFPageIssuesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     issuesVC.issues = issueStrings;
-    [self presentViewControllerEmbeddedInNavigationController:issuesVC];
+    [self presentViewControllerEmbeddedInNavigationController:issuesVC style:WMFThemeableNavigationControllerStyleSheet];
 }
 
 #pragma mark - Header Tap Gesture
@@ -1873,7 +1873,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme overlayViewTopBarHidden:NO];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
-        [self presentViewController:fullscreenGallery animated:YES completion:nil];
+        [self presentViewControllerEmbeddedInNavigationController:fullscreenGallery style:WMFThemeableNavigationControllerStyleGallery];
     }
 }
 
@@ -2285,7 +2285,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
         }
-        [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+        [self presentViewControllerEmbeddedInNavigationController:viewControllerToCommit style:WMFThemeableNavigationControllerStyleGallery];
     }
 }
 
