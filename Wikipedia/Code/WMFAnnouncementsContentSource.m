@@ -105,12 +105,15 @@
 
 - (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     NSUserDefaults *userDefaults = [NSUserDefaults wmf];
-
+#if WMF_ANNOUNCEMENT_DATE_IGNORE
+    // for testing, don't require the app to exit once before loading announcements
+#else
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
     if ([userDefaults wmf_appResignActiveDate] == nil) {
         return;
     }
+#endif
 
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTheme];
 
@@ -126,11 +129,15 @@
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [self updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
 
+#if WMF_ANNOUNCEMENT_DATE_IGNORE
+    // for testing, don't require the app to exit once before loading announcements
+#else
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
     if ([[NSUserDefaults wmf] wmf_appResignActiveDate] == nil) {
         return;
     }
+#endif
     BOOL isLoggedIn = WMFSession.shared.isAuthenticated;
     [moc enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement
                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
