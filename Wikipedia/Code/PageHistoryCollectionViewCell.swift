@@ -16,6 +16,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     var displayTime: String? {
         didSet {
             timeLabel.text = displayTime
+            if let displayTime = displayTime {
+                timeLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Accessibility label text telling the user what time revision was made - %@ is replaced with the time"), displayTime)
+            }
             setNeedsLayout()
         }
     }
@@ -52,8 +55,19 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
     }
 
+    func applyCellAccessibility() {
+        let isMinorAccessibilityString = isMinor ? WMFLocalizedString("page-history-revision-minor-edit-accessibility-label", value: "Minor edit", comment: "Accessibility label text used if edit was minor") : ""
+        accessibilityLabel = [timeLabel.accessibilityLabel, authorButton.accessibilityLabel, sizeDiffLabel.accessibilityLabel, isMinorAccessibilityString, commentLabel.accessibilityLabel]
+            .compactMap { $0 }
+            .filter { $0.wmf_hasNonWhitespaceText }
+            .joined(separator: ", ") // Adds slight voice-over pause.
+    }
+    
     var comment: String? {
         didSet {
+            if let comment = comment, comment.wmf_hasNonWhitespaceText {
+                commentLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-comment-accessibility-label", value: "Comment %@", comment: "Accessibility label text of author's comment on the revision  - %@ is replaced with revision comment"), comment)
+            }
             setNeedsLayout()
         }
     }
@@ -121,7 +135,8 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         roundedContent.addSubview(selectView)
         roundedContent.addSubview(editableContent)
         contentView.addSubview(roundedContent)
-        accessibilityElements = [timeLabel, sizeDiffLabel, authorButton, commentLabel]
+        isAccessibilityElement = true
+        accessibilityTraits = UIAccessibilityTraits.link
     }
 
     override func reset() {

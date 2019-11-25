@@ -519,9 +519,12 @@
 "page-history-compare-title" = "Compare";
 "page-history-minor-edits" = "minor edits";
 "page-history-revision-author-accessibility-label" = "Author: $1";
+"page-history-revision-comment-accessibility-label" = "Comment $1";
 "page-history-revision-history-title" = "Revision history";
+"page-history-revision-minor-edit-accessibility-label" = "Minor edit";
 "page-history-revision-size-diff-addition" = "Added {{PLURAL:$1|$1 byte|$1 bytes}}";
 "page-history-revision-size-diff-subtraction" = "Removed {{PLURAL:$1|$1 byte|$1 bytes}}";
+"page-history-revision-time-accessibility-label" = "Revision made $1";
 "page-history-revisions-comparison-warning" = "Only two revisions can be selected";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edit|$1 edits}} since $2";
 "page-history-user-edits" = "user edits";
