@@ -52,7 +52,7 @@ struct DiffItem: Codable {
     let text: String
     let highlightRanges: [DiffHighlightRange]?
     let moveInfo: DiffMoveInfo?
-    let offset: DiffItemOffset? //tonitodo - make non-optional when this comes from the API
+    let offset: DiffItemOffset
     let lineNumber: Int?
 }
 
