@@ -212,7 +212,7 @@ class DiffEducationalPanelViewController: ScrollableEducationPanelViewController
         super.viewDidLoad()
         image = UIImage(named: "panel-compare-revisions")
         heading = WMFLocalizedString("panel-compare-revisions-title", value: "Comparing revisions", comment: "Title for educational panel about comparing revisions")
-        subheading = WMFLocalizedString("panel-compare-revisions-text", value: "Comparing revisions helps to show how an article has changed over time. When you compare two revisions of an article, the differences between them are generated. ", comment: "Text for educational panel about comparing revisions")
+        subheading = WMFLocalizedString("panel-compare-revisions-text", value: "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.", comment: "Text for educational panel about comparing revisions")
         primaryButtonTitle = CommonStrings.gotItButtonTitle
     }
 }
