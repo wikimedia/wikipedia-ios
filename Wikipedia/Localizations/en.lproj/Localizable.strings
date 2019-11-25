@@ -175,6 +175,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte added|$1 bytes added}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte removed|$1 bytes removed}}";
 "diff-single-header-summary-heading" = "Edit summary";
+"diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Line $1";
 "diff-thanks-anonymous-no-thanks" = "Anonymous users cannot be thanked";
 "diff-thanks-login-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. You must be logged in to send 'Thanks'.";
