@@ -175,6 +175,7 @@
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
 "diff-single-header-subtitle-bytes-removed" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were removed in this revision.";
 "diff-single-header-summary-heading" = "Heading label in header summary view when viewing a single revision.";
+"diff-single-intro-title" = "Section heading on revision changes diff screen that indicates the following highlighted changes occurred in the intro section.";
 "diff-single-line-format" = "Label in diff to indicate how many lines a change section encompases. This format is for a single change line. $1 is replaced by the change line number.";
 "diff-thanks-anonymous-no-thanks" = "Message indicating anonymous users cannot be thanked";
 "diff-thanks-login-subtitle" = "Subtitle for thanks login panel.";
