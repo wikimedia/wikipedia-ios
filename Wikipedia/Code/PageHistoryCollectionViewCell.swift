@@ -60,7 +60,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         accessibilityLabel = [timeLabel.accessibilityLabel, authorButton.accessibilityLabel, sizeDiffLabel.accessibilityLabel, isMinorAccessibilityString, commentLabel.accessibilityLabel]
             .compactMap { $0 }
             .filter { $0.wmf_hasNonWhitespaceText }
-            .joined(separator: ", ") // Adds slight voice-over pause.
+            .joined(separator: ", ") // Comma adds slight voice-over pause.
     }
     
     var comment: String? {
