@@ -38,6 +38,9 @@
 }
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
+#if WMF_ANNOUNCEMENT_DATE_IGNORE
+    // for testing, don't require the app to exit once before loading announcements
+#else
     if ([[NSUserDefaults wmf] wmf_appResignActiveDate] == nil) {
         [moc performBlock:^{
             [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
@@ -47,6 +50,7 @@
         }];
         return;
     }
+#endif
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
         failure:^(NSError *_Nonnull error) {
