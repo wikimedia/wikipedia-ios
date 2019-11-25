@@ -6,7 +6,8 @@
 typedef NS_ENUM(NSUInteger, WMFThemeableNavigationControllerStyle) {
     WMFThemeableNavigationControllerStyleDefault = 0,
     WMFThemeableNavigationControllerStyleEditor = 1,
-    WMFThemeableNavigationControllerStyleSheet = 2
+    WMFThemeableNavigationControllerStyleSheet = 2,
+    WMFThemeableNavigationControllerStyleGallery = 3
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic, nullable) NSObject<WMFThemeableNavigationControllerDelegate> *themeableNavigationControllerDelegate;
 
-- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme style:(WMFThemeableNavigationControllerStyle)style;
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController theme:(WMFTheme *)theme style:(WMFThemeableNavigationControllerStyle)style;
 
-- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme;
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController theme:(WMFTheme *)theme;
 
 - (void)showSplashView;
 - (void)showSplashViewIfNotShowing;
