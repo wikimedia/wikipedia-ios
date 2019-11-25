@@ -492,7 +492,6 @@
 "languages-wikipedia" = "維基百科語言";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "除非另有註明，否則頁面內容均以 $1 條款授權";
-"link-loading-title" = "載入頁面中...";
 "logged-out-continue-without-logging-in-button-title" = "以不登入來繼續";
 "logged-out-log-back-in-button-title" = "重新登入您的帳號";
 "logged-out-subtitle" = "在驗證您的帳號時發生一些問題。要同步您的閱讀清單，和以您的使用者名稱名義來編輯，請重新登入。";
