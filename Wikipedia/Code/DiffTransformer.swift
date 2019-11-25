@@ -5,7 +5,7 @@ struct TransformDiffItem {
     let type: DiffItemType
     let text: String
     let highlightRanges: [DiffHighlightRange]?
-    let offset: DiffItemOffset? //tonitodo - make non-optional when this comes from the API
+    let offset: DiffItemOffset
     var sectionTitle: String?
     let lineNumber: Int?
     var moveInfo: TransformMoveInfo?
@@ -33,6 +33,8 @@ struct TransformSectionInfo {
     
     let from: Side?
     let to: Side?
+    let fromIsIntro: Bool
+    let toIsIntro: Bool
 }
 
 enum DiffTransformerError: Error {
@@ -119,6 +121,9 @@ class DiffTransformer {
         
         for var zippedItem in zipped {
             
+            var isToIntro = zippedItem.1.toIsIntro
+            var isFromIntro = zippedItem.1.fromIsIntro
+            
             zippedItem.0.sectionTitle = zippedItem.1.to?.title ?? zippedItem.1.from?.title
             
             if let moveInfo = zippedItem.0.moveInfo {
@@ -133,6 +138,8 @@ class DiffTransformer {
                     let toSectionTitle = zippedItem.0.type == .moveSource ? correspondingMoveItem.linkSectionInfo.to?.title : zippedItem.1.to?.title
                     let fromSectionOrder = zippedItem.0.type == .moveSource ? zippedItem.1.from?.order : correspondingMoveItem.linkSectionInfo.from?.order
                     let toSectionOrder = zippedItem.0.type == .moveSource ? correspondingMoveItem.linkSectionInfo.to?.order : zippedItem.1.to?.order
+                    isToIntro = zippedItem.0.type == .moveSource ? correspondingMoveItem.linkSectionInfo.toIsIntro : zippedItem.1.toIsIntro
+                    isFromIntro = zippedItem.0.type == .moveSource ? zippedItem.1.fromIsIntro : correspondingMoveItem.linkSectionInfo.fromIsIntro
                     
                     if let fromSectionTitle = fromSectionTitle,
                         let toSectionTitle = toSectionTitle,
@@ -161,6 +168,12 @@ class DiffTransformer {
                 zippedItem.0.moveInfo = transformMoveInfo
             }
             
+            if zippedItem.0.sectionTitle == nil {
+                if isToIntro && isFromIntro {
+                    zippedItem.0.sectionTitle = WMFLocalizedString("diff-single-intro-title", value:"Intro", comment:"Section heading on revision changes diff screen that indicates the following highlighted changes occurred in the intro section.")
+                }
+            }
+            
             newItems.append(zippedItem.0)
         }
         
@@ -174,6 +187,9 @@ class DiffTransformer {
         var fromSections = response.from.sections
         var toSections = response.to.sections
         
+        let firstFrom = fromSections.first
+        let firstTo = toSections.first
+        
         var lastFrom: DiffSection? = nil
         var lastTo: DiffSection? = nil
         
@@ -183,12 +199,14 @@ class DiffTransformer {
         var currentFrom = fromSections.first
         var currentTo = toSections.first
         
+        var fromIsIntro = false
+        var toIsIntro = false
         for item in response.diff {
             
             //from side
             var fromSide: TransformSectionInfo.Side?
             
-            if let itemFromOffset = item.offset?.from {
+            if let itemFromOffset = item.offset.from {
                 while currentFrom != nil &&
                 currentFrom!.offset <= itemFromOffset {
                     
@@ -200,13 +218,18 @@ class DiffTransformer {
                 if let lastFrom = lastFrom {
                     fromSide = TransformSectionInfo.Side(title: lastFrom.heading, order: lastFromIndex)
                 }
+                
+                if let firstFromOffset = firstFrom?.offset,
+                    fromSide == nil {
+                    fromIsIntro = itemFromOffset < firstFromOffset
+                }
             }
             
             
             //to side
             var toSide: TransformSectionInfo.Side?
             
-            if let itemToOffset = item.offset?.to {
+            if let itemToOffset = item.offset.to {
                 while currentTo != nil &&
                 currentTo!.offset <= itemToOffset {
                     
@@ -218,10 +241,14 @@ class DiffTransformer {
                 if let lastTo = lastTo {
                     toSide = TransformSectionInfo.Side(title: lastTo.heading, order: lastToIndex)
                 }
+                
+                if let firstToOffset = firstTo?.offset,
+                    toSide == nil {
+                    toIsIntro = itemToOffset < firstToOffset
+                }
             }
             
-            
-            result.append(TransformSectionInfo(from: fromSide, to: toSide))
+            result.append(TransformSectionInfo(from: fromSide, to: toSide, fromIsIntro: fromIsIntro, toIsIntro: toIsIntro))
         }
         
         return result
