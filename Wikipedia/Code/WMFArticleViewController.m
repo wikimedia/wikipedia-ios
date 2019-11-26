@@ -805,6 +805,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             NSUserDefaults.wmf.shouldCheckForArticleAnnouncements = NO;
         };
         if (announcement) {
+            FeedFunnelContext *context = [[FeedFunnelContext alloc] initWithContentGroup:contentGroup];
+            [[FeedFunnel shared] logFeedImpressionFor:context];
             [self wmf_showAnnouncementPanelWithAnnouncement:announcement
                 primaryButtonTapHandler:^(id _Nonnull sender) {
                     [self wmf_navigateToURL:announcement.actionURL useSafari:YES];

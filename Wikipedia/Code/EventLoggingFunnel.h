@@ -24,6 +24,8 @@ extern EventLoggingCategory const EventLoggingCategoryLoginToSyncPopover;
 extern EventLoggingCategory const EventLoggingCategoryEnableSyncPopover;
 extern EventLoggingCategory const EventLoggingCategoryUnknown;
 
+extern EventLoggingLabel const EventLoggingLabelAnnouncement;
+extern EventLoggingLabel const EventLoggingLabelArticleAnnouncement;
 extern EventLoggingLabel const EventLoggingLabelFeaturedArticle;
 extern EventLoggingLabel const EventLoggingLabelTopRead;
 extern EventLoggingLabel const EventLoggingLabelReadMore;
