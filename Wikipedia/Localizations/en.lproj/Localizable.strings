@@ -517,6 +517,7 @@
 "page-history-bot-edits" = "bot edits";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
 "page-history-compare-title" = "Compare";
+"page-history-graph-accessibility-label" = "Graph of edits over time";
 "page-history-minor-edits" = "minor edits";
 "page-history-revision-author-accessibility-label" = "Author: $1";
 "page-history-revision-comment-accessibility-label" = "Comment $1";

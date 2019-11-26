@@ -517,6 +517,7 @@
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
+"page-history-graph-accessibility-label" = "Accessibility label text used for edits graph";
 "page-history-minor-edits" = "Text for view that shows many edits were marked as minor edits";
 "page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision. $1 is replaced with the author.";
 "page-history-revision-comment-accessibility-label" = "Accessibility label text of author's comment on the revision  - $1 is replaced with revision comment";
