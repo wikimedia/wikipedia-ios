@@ -2,10 +2,10 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
     private let announcement: WMFAnnouncement
     private let panelWidth: CGFloat
 
-    init(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dissmissHandler: ScrollableEducationPanelDismissHandler?, width: CGFloat, theme: Theme) {
+    init(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dismissHandler: ScrollableEducationPanelDismissHandler?, width: CGFloat, theme: Theme) {
         self.announcement = announcement
         self.panelWidth = width
-        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dissmissHandler, theme: theme)
+        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
         isUrgent = announcement.type == "fundraising"
         self.footerLinkAction = footerLinkAction
     }
@@ -236,12 +236,15 @@ extension UIViewController {
         return !fetchedObjects.isEmpty
     }
 
-    @objc func wmf_showAnnouncementPanel(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dissmissHandler: ScrollableEducationPanelDismissHandler?, theme: Theme) {
-        let panel = AnnouncementPanelViewController(announcement: announcement, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: { (sender: Any) in
+    @objc func wmf_showAnnouncementPanel(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dismissHandler: ScrollableEducationPanelDismissHandler?, theme: Theme) {
+        let panel = AnnouncementPanelViewController(announcement: announcement, primaryButtonTapHandler: { (sender: Any) in
+            primaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+        }, secondaryButtonTapHandler: { (sender: Any) in
             secondaryButtonTapHandler?(sender)
             self.dismiss(animated: true)
-        }, footerLinkAction: footerLinkAction, dissmissHandler: {
-            dissmissHandler?()
+        }, footerLinkAction: footerLinkAction, dismissHandler: {
+            dismissHandler?()
         }, width: view.frame.width * 0.9, theme: theme)
         present(panel, animated: true)
     }
