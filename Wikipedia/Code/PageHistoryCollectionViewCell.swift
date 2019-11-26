@@ -18,6 +18,8 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             timeLabel.text = displayTime
             if let displayTime = displayTime {
                 timeLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Accessibility label text telling the user what time revision was made - %@ is replaced with the time"), displayTime)
+            } else {
+                timeLabel.accessibilityLabel = nil
             }
             setNeedsLayout()
         }
@@ -67,6 +69,8 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         didSet {
             if let comment = comment, comment.wmf_hasNonWhitespaceText {
                 commentLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-comment-accessibility-label", value: "Comment %@", comment: "Accessibility label text of author's comment on the revision  - %@ is replaced with revision comment"), comment)
+            } else {
+                commentLabel.accessibilityLabel = nil
             }
             setNeedsLayout()
         }
