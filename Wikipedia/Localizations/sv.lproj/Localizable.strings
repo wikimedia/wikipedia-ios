@@ -78,6 +78,8 @@
 "action-language-accessibility" = "Byt språk";
 "action-move-to" = "Flytta till...";
 "action-move-to-reading-list" = "Flytta till läslista";
+"action-next-revision-accessibility" = "Nästa version";
+"action-previous-revision-accessibility" = "Föregående sidversion";
 "action-read" = "Läs";
 "action-redo" = "Gör om";
 "action-remove" = "Ta bort";
@@ -90,6 +92,7 @@
 "action-share" = "Dela";
 "action-share-accessibility" = "Dela";
 "action-sort" = "Sortera";
+"action-thank-user-accessibility" = "Tacka användare";
 "action-undo" = "Ångra";
 "action-unsave" = "Ta bort";
 "action-unsaved-accessibility-notification" = "Artikeln togs bort";
@@ -177,9 +180,9 @@
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
 "diff-compare-header-from-info-heading" = "Från:";
-"diff-compare-header-heading" = "Jämför sidversioner";
+"diff-compare-header-heading" = "Jämför versioner";
 "diff-compare-header-to-info-heading" = "Till:";
-"diff-compare-title" = "Jämför sidversioner";
+"diff-compare-title" = "Jämför versioner";
 "diff-context-lines-collapsed-button-title" = "Visa";
 "diff-context-lines-expanded-button-title" = "Dölj";
 "diff-multi-line-format" = "Rader $1 - $2";
@@ -189,7 +192,7 @@
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 rad|$1 rader}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 avsnitt}}";
 "diff-paragraph-moved-format" = "Paragraf flyttades $1 $2";
-"diff-revision-error-title" = "Kunde inte läsa in sidversion";
+"diff-revision-error-title" = "Kunde inte läsa in version";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}}";
 "diff-single-header-editor-title" = "Redigerarinformation";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte lades till}}";
@@ -274,7 +277,7 @@
 "editing-welcome-impartial-tone-title" = "Skriv med en neutral ton";
 "editing-welcome-set-knowledge-free-subtitle" = "För att alla ska få åtkomst till världens kunskap vill vi att du deltar genom att läsa, redigera och bidra till de ämnen som betyder mest för dig.";
 "editing-welcome-set-knowledge-free-title" = "Frigör kunskap";
-"empty-diff-compare-title" = "Ingen skillnad mellan sidversionerna";
+"empty-diff-compare-title" = "Ingen skillnad mellan versionerna";
 "empty-diff-single-title" = "Inga synliga ändringar gjordes";
 "empty-insert-media-title" = "Välj en fil från Wikimedia Commons";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
@@ -316,15 +319,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "På för alla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "På";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På för $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Alla %@ kort doldes";
+"explore-feed-preferences-feed-cards-hidden-title" = "Alla kort av typen $1 doldes";
 "explore-feed-preferences-global-card-footer-text" = "Detta kort är inte språkspecifikt, kortet kommer att tas bort från ditt utforskarflöde om du inaktiverar det.";
 "explore-feed-preferences-global-cards-description" = "Kort som inte är språkspecifika";
 "explore-feed-preferences-global-cards-subtitle" = "Inte språkspecifikt";
 "explore-feed-preferences-global-cards-title" = "Globala kort";
 "explore-feed-preferences-hide-card-action-title" = "Dölj detta kort";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla kort av typen “%@”";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla kort av typen “$1”";
 "explore-feed-preferences-in-the-news-description" = "Artiklar om nuvarande händelser";
 "explore-feed-preferences-languages-footer-text" = "När alla kort i utforskarflödet på alla dina språk döljs kommer utforskarfliken inaktiveras.";
 "explore-feed-preferences-on-this-day-description" = "Händelser i historien på denna dag";
@@ -474,12 +475,17 @@
 "insert-media-media-settings-title" = "Mediainställningar";
 "insert-media-title" = "Infoga media";
 "insert-media-uploaded-image-title" = "Uppladdad bild";
+"intermediate-edits-count" = "{{PLURAL:$1|$1 mellanliggande version|$1 mellanliggande versioner}} visas inte";
+"intermediate-edits-count-limited" = "$1+ mellanliggande sidversioner visas inte";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 mellanliggande version|$1 mellanliggande versioner}} av {{PLURAL:$2|en annan användare|$2 användare}} visas inte";
+"intermediate-edits-editors-count-limited" = "$1+ mellanliggande versioner av $2+ användare visas inte";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 mellanliggande version|$1 mellanliggande versioner}} av $2+ användare visas inte";
+"intermediate-edits-limited-editors-count" = "$1+ mellanliggande versioner av {{PLURAL:$2|$2 användare}} visas inte";
 "languages-settings-title" = "Språk";
 "languages-title" = "Ändra språk";
 "languages-wikipedia" = "Wikipediaspråk";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
-"link-loading-title" = "Laddar sida...";
 "logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
 "logged-out-log-back-in-button-title" = "Logga in på ditt konto igen";
 "logged-out-subtitle" = "Ett problem uppstod när ditt konto autentiserades. Du måste logga in igen för att synkronisera dina läslistor och redigera under ditt användarnamn.";
@@ -531,15 +537,14 @@
 "page-edit-history" = "Full redigeringshistorik";
 "page-history-anonymous-edits" = "anonyma redigeringar";
 "page-history-bot-edits" = "botredigeringar";
-"page-history-compare-accessibility-hint" = "Tryck för att välja två sidversioner att jämföra";
+"page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
 "page-history-compare-title" = "Jämför";
 "page-history-minor-edits" = "mindre redigeringar";
-// Fuzzy
-"page-history-revision-author-accessibility-label" = "Författare: %@";
-"page-history-revision-history-title" = "Sidversionshistorik";
+"page-history-revision-author-accessibility-label" = "Författare: $1";
+"page-history-revision-history-title" = "Versionshistorik";
 "page-history-revision-size-diff-addition" = "Lade till {{PLURAL:$1|$1 byte}}";
 "page-history-revision-size-diff-subtraction" = "Tog bort {{PLURAL:$1|$1 byte}}";
-"page-history-revisions-comparison-warning" = "Endast två sidversioner kan markeras";
+"page-history-revisions-comparison-warning" = "Endast två versioner kan markeras";
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
 "page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
@@ -553,7 +558,7 @@
 "page-read-in-other-languages" = "Tillgänglig på {{PLURAL:$1|$1 annat|$1 andra}} språk";
 "page-similar-titles" = "Liknande sidor";
 "page-talk-page" = "Visa diskussionssidan";
-"panel-compare-revisions-text" = "Jämför sidversioner låter dig se hur en artikel har ändrats med tiden. När du jämför två sidversioner av en artikel genereras skillnaderna mellan dem.";
+"panel-compare-revisions-text" = "Jämför versioner hjälper dig se hur en artikel har ändrats med tiden. När du jämför två versioner av en artikel genereras skillnaderna mellan dem.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "pictured" = "i bild";
 "places-accessibility-clear-saved-searches" = "Rensa sparade sökningar";
@@ -660,8 +665,7 @@
 "reading-lists-default-list-title" = "Sparade";
 "reading-lists-delete-reading-list-alert-message" = "Denna handling kan inte ångras. Alla artiklar som endast sparas i {{PLURAL:$1|denna lista|dessa listor}} kommer att tas bort.";
 "reading-lists-delete-reading-list-alert-title" = "Radera {{PLURAL:$1|listan|listorna}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artiklar och $2 läslistor synkroniserades från ditt konto";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artikel|$1 artiklar}} och {{PLURAL:$2|$2 läslista|$2 läslistor}} synkroniserades från ditt konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listan är inte synkroniserad, gränsen har överstigits";
 "reading-lists-sort-saved-articles" = "Sortera sparade artiklar";
 "reading-lists-split-notification" = "Det finns en gräns på $1 artiklar per läslista. Befintliga listor med mer än denna gräns har delats upp i flera listor.";
