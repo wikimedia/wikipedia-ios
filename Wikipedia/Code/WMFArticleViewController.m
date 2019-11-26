@@ -809,16 +809,16 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             [[FeedFunnel shared] logFeedImpressionFor:context];
             [self wmf_showAnnouncementPanelWithAnnouncement:announcement
                 primaryButtonTapHandler:^(id _Nonnull sender) {
-                    [self wmf_navigateToURL:announcement.actionURL];
+                    [self wmf_navigateToURL:announcement.actionURL useSafari:YES];
                     dismiss();
                 }
                 secondaryButtonTapHandler:^(id _Nonnull sender) {
                     dismiss();
                 }
                 footerLinkAction:^(NSURL *_Nonnull url) {
-                    [self wmf_navigateToURL:url];
+                    [self wmf_navigateToURL:url useSafari:YES];
                 }
-                dissmissHandler:^{
+                dismissHandler:^{
                     dismiss();
                 }
                 theme:self.theme];
