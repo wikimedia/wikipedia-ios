@@ -464,7 +464,6 @@
 "languages-wikipedia" = "Jazyk Wikipedie";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
-"link-loading-title" = "Načítání stránky...";
 "logged-out-continue-without-logging-in-button-title" = "Dokončit bez přihlášení";
 "logged-out-log-back-in-button-title" = "Přihlásit se zpět do vašeho účtu";
 "logged-out-subtitle" = "Při ověřování účtu došlo k chybě. Chcete-li synchronizovat seznamy k přečtení a editovat pod svým uživatelským jménem, prosíme, přihlaste se znovu.";

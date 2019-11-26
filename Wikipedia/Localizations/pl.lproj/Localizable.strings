@@ -491,7 +491,6 @@
 "languages-wikipedia" = "Języki Wikipedii";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Treść udostępniana na licencji $1, jeśli nie podano inaczej.";
-"link-loading-title" = "Ładowanie strony…";
 "logged-out-continue-without-logging-in-button-title" = "Kontynuuj bez logowania";
 "logged-out-log-back-in-button-title" = "Zaloguj się ponownie na swoje konto";
 "logged-out-subtitle" = "Wystąpił problem z uwierzytelnieniem Twojego konta. Aby zsynchronizować listy czytelnicze i edytować je pod nazwą użytkownika, zaloguj się ponownie.";
