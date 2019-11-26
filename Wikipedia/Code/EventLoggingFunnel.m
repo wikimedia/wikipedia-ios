@@ -16,6 +16,8 @@ EventLoggingCategory const EventLoggingCategoryLoginToSyncPopover = @"login_to_s
 EventLoggingCategory const EventLoggingCategoryEnableSyncPopover = @"enable_sync_popover";
 EventLoggingCategory const EventLoggingCategoryUnknown = @"unknown";
 
+EventLoggingLabel const EventLoggingLabelAnnouncement = @"announcement";
+EventLoggingLabel const EventLoggingLabelArticleAnnouncement = @"article_announcement";
 EventLoggingLabel const EventLoggingLabelFeaturedArticle = @"featured_article";
 EventLoggingLabel const EventLoggingLabelTopRead = @"top_read";
 EventLoggingLabel const EventLoggingLabelReadMore = @"read_more";

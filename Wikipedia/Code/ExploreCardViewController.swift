@@ -597,13 +597,13 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
                 let url = announcement.actionURL else {
                 return
             }
-            navigate(to: url)
+            navigate(to: url, useSafari: true)
             dismissAnnouncementCell(cell)
         }
     }
     
     func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL linkURL: URL) {
-        navigate(to: linkURL)
+        navigate(to: linkURL, useSafari: true)
     }
 }
 
