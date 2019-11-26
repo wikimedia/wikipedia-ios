@@ -91,6 +91,8 @@
 "action-language-accessibility" = "Dil değiştir";
 "action-move-to" = "Taşı...";
 "action-move-to-reading-list" = "Okuma listesine taşı";
+"action-next-revision-accessibility" = "Sonraki Revizyon";
+"action-previous-revision-accessibility" = "Önceki Revizyon";
 "action-read" = "Oku";
 "action-redo" = "Yinele";
 "action-remove" = "Kaldır";
@@ -103,6 +105,7 @@
 "action-share" = "Paylaş";
 "action-share-accessibility" = "Paylaş";
 "action-sort" = "Sınıflandır";
+"action-thank-user-accessibility" = "Kullanıcı Teşekkür Et";
 "action-undo" = "Geri al";
 "action-unsave" = "Kaydetme";
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
@@ -215,7 +218,6 @@
 "diff-thanks-send-button-title" = "'Teşekkür' gönder";
 "diff-thanks-send-subtitle" = "'Teşekkür', bir editörün Vikipedi'deki çalışmalarını takdir etmenin kolay bir yoludur. 'Teşekkür' geri alınamaz ve herkes tarafından görülebilir.";
 "diff-thanks-send-title" = "Herkese 'Teşekkür' gönder";
-// Fuzzy
 "diff-thanks-sent" = "'Teşekkürün' $1 olarak ayarlandı";
 "diff-thanks-sent-already" = "Bu düzenleme için zaten bir 'Teşekkür' gönderdiniz";
 "diff-thanks-sent-cannot-unsend" = "Teşekkürler gönderilemez";
@@ -330,15 +332,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hepsinde";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Açık";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1'de";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Tüm %@ kartlar gizlendi";
+"explore-feed-preferences-feed-cards-hidden-title" = "Tüm $1 kartlar gizlendi";
 "explore-feed-preferences-global-card-footer-text" = "Bu kart dile özgü değil, bu kartın kapatılması onu arama beslemenizden kaldırır.";
 "explore-feed-preferences-global-cards-description" = "Dile özgü olmayan kartlar";
 "explore-feed-preferences-global-cards-subtitle" = "Dile özgü değil";
 "explore-feed-preferences-global-cards-title" = "Küresel kartlar";
 "explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “%@” kartlarını gizle";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “$1” kartlarını gizle";
 "explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında makaleler";
 "explore-feed-preferences-languages-footer-text" = "Tüm Keşfet akış kartlarını tüm dillerinde gizlemek Keşfet sekmesini kapatır.";
 "explore-feed-preferences-on-this-day-description" = "Tarihte bugün gerçekleşen olaylar";
@@ -488,12 +488,17 @@
 "insert-media-media-settings-title" = "Dosya ayarları";
 "insert-media-title" = "Dosyayı ekle";
 "insert-media-uploaded-image-title" = "Yüklenen görüntü";
+"intermediate-edits-count" = "{{PLURAL:$1|$1 ara revizyonu|$1 ara revizyonu}} gösterilmemiş";
+"intermediate-edits-count-limited" = "$1+ ara revizyonlar gösterilmemiştir";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 orta revizyon|$1 orta revizyon}} tarafından {{PLURAL:$2|$2 kullanıcı |$2 kullanıcı}} gösterilmiyor";
+"intermediate-edits-editors-count-limited" = "$2+ kullanıcı tarafından yapılan $1+ revizyonlar gösterilmiyor";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 orta revizyon|$1 orta revizyon}} tarafından $2+ kullanıcı gösterilmedi";
+"intermediate-edits-limited-editors-count" = "$1+ {{PLURAL:$2|$2 kullanıcı|$2 kullanıcı}} tarafından yapılan ara revizyonlar gösterilmez";
 "languages-settings-title" = "Diller";
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
-"link-loading-title" = "Sayfa yükleniyor...";
 "logged-out-continue-without-logging-in-button-title" = "Giriş yapmadan devam et";
 "logged-out-log-back-in-button-title" = "Hesabınıza tekrar giriş yapın";
 "logged-out-subtitle" = "Hesabınızı doğrulamada bir sorun oluştu. Okuma listelerinizi senkronize etmek ve kullanıcı adınızla düzenleme yapmak için lütfen tekrar giriş yapın.";
@@ -548,14 +553,12 @@
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
 "page-history-compare-title" = "Karşılaştır";
 "page-history-minor-edits" = "küçük değişiklikler";
-// Fuzzy
-"page-history-revision-author-accessibility-label" = "Yazar: %@";
+"page-history-revision-author-accessibility-label" = "Yazar: $1";
 "page-history-revision-history-title" = "Değişiklik geçmişi";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 bayt|$1 bayt}} eklendi";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 bayt|$1 bayt}} kaldırıldı";
 "page-history-revisions-comparison-warning" = "Sadece iki revizyon seçilebilir";
-// Fuzzy
-"page-history-stats-text" = "$2'den beri $1 düzenliyor";
+"page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";
 "page-last-edited" = "{{PLURAL:$1|0=Bugün düzenlendi|1=Dün düzenlendi|$1 gün önce düzenlendi}}";
@@ -675,8 +678,7 @@
 "reading-lists-default-list-title" = "Kaydedildi";
 "reading-lists-delete-reading-list-alert-message" = "Bu eylem geri alınamaz. {{PLURAL:$1|bu listeye|bu listelere}} kaydedilen maddeler kaydedilmez.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Listeyi|Listeleri}} silinsin mi?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "Hesabınızdan senkronize edilen $1 madde ve $2 okuma listesi";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 makale|$1 makale}} ve {{PLURAL:$2|$2 okuma listesi|$2 okuma listesi}} hesabınızdan senkronize edildi";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste senkronize edilmedi, limit aşıldı";
 "reading-lists-sort-saved-articles" = "Kayıtlı maddeleri sırala";
 "reading-lists-split-notification" = "Okuma listesi başına $1 madde sınırı vardır. Bu sınırı aşan mevcut listeler birden fazla listeye ayrılmıştır.";
@@ -697,6 +699,7 @@
 "relative-date-minutes-abbreviated" = "$1dk";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
 "relative-date-minutes-ago-abbreviated" = "$1dk önce";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Bu ay|1=Geçen ay|$1 ay önce}}";
 "relative-date-seconds-abbreviated" = "$1sn";
 "relative-date-seconds-ago-abbreviated" = "$1sn önce";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|1=Geçen yıl|$1 yıl önce}}";

@@ -75,6 +75,8 @@
 "action-language-accessibility" = "Alterar língua";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover para lista de leitura";
+"action-next-revision-accessibility" = "Revisão seguinte";
+"action-previous-revision-accessibility" = "Revisão anterior";
 "action-read" = "Ler";
 "action-redo" = "Refazer";
 "action-remove" = "Remover";
@@ -87,6 +89,7 @@
 "action-share" = "Partilhar";
 "action-share-accessibility" = "Partilhar";
 "action-sort" = "Ordenar";
+"action-thank-user-accessibility" = "Agradecer ao utilizador";
 "action-undo" = "Desfazer";
 "action-unsave" = "Não guardar";
 "action-unsaved-accessibility-notification" = "Artigo não guardado";
@@ -314,15 +317,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Todas";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ligado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Em $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Todos os cartões %@ ocultados";
+"explore-feed-preferences-feed-cards-hidden-title" = "Todos os cartões $1 ocultados";
 "explore-feed-preferences-global-card-footer-text" = "Este cartão não depende da língua, desativá-lo remove-o do seu feed Explorar.";
 "explore-feed-preferences-global-cards-description" = "Cartões independentes da língua";
 "explore-feed-preferences-global-cards-subtitle" = "Independente da língua";
 "explore-feed-preferences-global-cards-title" = "Cartões globais";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar este cartão";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todos os cartões \"%@\"";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todos os cartões \"$1\"";
 "explore-feed-preferences-in-the-news-description" = "Artigos sobre atualidades";
 "explore-feed-preferences-languages-footer-text" = "Ocultar todos os cartões do feed Explorar em todas as línguas desativa o separador Explorar.";
 "explore-feed-preferences-on-this-day-description" = "Acontecimentos da história neste dia";
@@ -472,12 +473,12 @@
 "insert-media-media-settings-title" = "Configurações multimédia";
 "insert-media-title" = "Inserir multimédia";
 "insert-media-uploaded-image-title" = "Imagem carregada";
+"intermediate-edits-count" = "{{PLURAL:$1|$1 revisão intermédia não mostrada|$1 revisões intermédias não mostradas}}";
 "languages-settings-title" = "Línguas";
 "languages-title" = "Alterar língua";
 "languages-wikipedia" = "Línguas da Wikipédia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação em contrário.";
-"link-loading-title" = "A carregar página...";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem iniciar sessão";
 "logged-out-log-back-in-button-title" = "Entrar novamente na sua conta";
 "logged-out-subtitle" = "Ocorreu um problema na autenticação da sua conta. Para sincronizar as suas listas de leitura e editar com o seu nome de utilizador, volte a iniciar uma sessão.";
@@ -532,8 +533,7 @@
 "page-history-compare-accessibility-hint" = "Toque para selecionar 2 revisões para comparar";
 "page-history-compare-title" = "Comparar";
 "page-history-minor-edits" = "edições secundárias";
-// Fuzzy
-"page-history-revision-author-accessibility-label" = "Autor: %@";
+"page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Histórico de revisões";
 "page-history-revision-size-diff-addition" = "Adicionado {{PLURAL:$1|$1 byte|$1 bytes}}";
 "page-history-revision-size-diff-subtraction" = "Removido {{PLURAL:$1|$1 byte|$1 bytes}}";
@@ -658,8 +658,7 @@
 "reading-lists-default-list-title" = "Guardados";
 "reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser desfeita. Todos os artigos guardados apenas {{PLURAL:$1|nesta lista|nestas listas}} deixarão de ser guardados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artigos e $2 listas de leitura sincronizados da sua conta";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artigo|$1 artigos}} e {{PLURAL:$2|$2 lista de leitura|$2 listas de leitura}} sincronizados da sua conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista não foi sincronizada, o limite foi excedido";
 "reading-lists-sort-saved-articles" = "Ordenar os artigos guardados";
 "reading-lists-split-notification" = "Há um limite de $1 artigos por lista de leitura. As listas existentes que ultrapassavam este limite foram divididas em várias listas.";
@@ -680,6 +679,7 @@
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Há $1 minuto|Há $1 minutos}}";
 "relative-date-minutes-ago-abbreviated" = "Há $1m";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Este mês|1=No mês passado passado|Há $1 meses}}";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "Há $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|1=No ano passado|Há $1 anos}}";

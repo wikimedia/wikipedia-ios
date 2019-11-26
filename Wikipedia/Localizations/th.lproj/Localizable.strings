@@ -414,7 +414,6 @@
 "languages-wikipedia" = "ภาษาของวิกิพีเดีย";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "เนื้อหาอนุญาตให้เผยแพร่ภายใต้ $1 เว้นแต่ระบุไว้เป็นอย่างอื่น";
-"link-loading-title" = "กำลังโหลดหน้า...";
 "logged-out-continue-without-logging-in-button-title" = "ดำเนินการต่อโดยไม่เข้าสู่ระบบ";
 "logged-out-log-back-in-button-title" = "เข้าสู่ระบบกลับไปยังบัญชีของคุณ";
 "logged-out-subtitle" = "มีปัญหาในการรับรองความถูกต้องของบัญชีของคุณ หากต้องการซิงค์รายการอ่านและแก้ไขภายใต้ชื่อผู้ใช้ของคุณ โปรดเข้าสู่ระบบอีกครั้ง";

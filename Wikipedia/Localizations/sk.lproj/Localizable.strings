@@ -438,7 +438,6 @@
 "languages-wikipedia" = "Jazyky Wikipédie";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
-"link-loading-title" = "Načítanie stránky...";
 "logged-out-continue-without-logging-in-button-title" = "Pokračovať bez prihlásenia";
 "logged-out-log-back-in-button-title" = "Prihlásiť sa späť do vášho účtu";
 "logged-out-subtitle" = "Pri overovaní účtu došlo k chybe. Pokiaľ chcete synchronizovať zoznamy na prečítanie a upravovať pod svojím používateľským menom, prosím, prihláste sa znovu.";
