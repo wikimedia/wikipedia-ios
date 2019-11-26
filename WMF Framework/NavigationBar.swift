@@ -87,7 +87,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     private func updateAccessibilityElements() {
         let titleElement = displayType == .largeTitle ? titleBar : bar
-        accessibilityElements = [titleElement, extendedView, underBarView]
+        accessibilityElements = [titleElement, underBarView, extendedView]
     }
     
     @objc public func updateNavigationItems() {
