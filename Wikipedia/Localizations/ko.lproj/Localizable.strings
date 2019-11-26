@@ -468,7 +468,6 @@
 "languages-wikipedia" = "위키백과 언어";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "특별한 언급이 없으면 내용은 $1에 따라 이용할 수 있습니다.";
-"link-loading-title" = "문서를 불러오는 중...";
 "logged-out-continue-without-logging-in-button-title" = "로그인 없이 계속하기";
 "logged-out-log-back-in-button-title" = "자신의 계정으로 다시 로그인";
 "logged-out-subtitle" = "계정 인증에 문제가 있었습니다. 읽기 목록을 동기화하고 사용자 이름을 통해 편집하려면 다시 로그인해 주십시오.";

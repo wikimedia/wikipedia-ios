@@ -143,6 +143,7 @@
 "article-read-more-title" = "Подробнее";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
+"article-title" = "Статья";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "article-unable-to-load-section" = "Не удаётся скачать этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back-button-accessibility-label" = "Назад";
@@ -469,7 +470,6 @@
 "languages-wikipedia" = "Языки Википедии";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Содержимое доступно по лицензии $1";
-"link-loading-title" = "Загрузка страницы…";
 "logged-out-continue-without-logging-in-button-title" = "Продолжить без входа";
 "logged-out-log-back-in-button-title" = "Войдите повторно в свою учётную запись";
 "logged-out-subtitle" = "Произошла ошибка при аутентификации вашей учётной записи. Вам нужно повторно войти, чтобы была возможность синхронизировать списки для чтения и редактировать под вашим именем участника.";
@@ -519,6 +519,12 @@
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-edit-history" = "Полная история редактирования";
+"page-history-anonymous-edits" = "анонимные правки";
+"page-history-bot-edits" = "правки ботов";
+"page-history-compare-title" = "Сравнить";
+"page-history-minor-edits" = "малые правки";
+"page-history-revision-author-accessibility-label" = "Автор: $1";
+"page-history-revision-history-title" = "История изменений";
 "page-issues" = "Вопросы по странице";
 "page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
 "page-location" = "Посмотреть на карте";
