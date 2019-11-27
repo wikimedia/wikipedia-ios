@@ -60,8 +60,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     func updateAccessibilityLabel() {
         let isMinorAccessibilityString = isMinor ? WMFLocalizedString("page-history-revision-minor-edit-accessibility-label", value: "Minor edit", comment: "Accessibility label text used if edit was minor") : ""
         accessibilityLabel = [timeLabel.accessibilityLabel, authorButton.accessibilityLabel, sizeDiffLabel.accessibilityLabel, isMinorAccessibilityString, commentLabel.accessibilityLabel]
-            .compactMap { $0 }
-            .filter { $0.wmf_hasNonWhitespaceText }
+            .compactMap(String.wmf_maybeNonWhitespaceString)
             .joined(separator: ", ") // Comma adds slight voice-over pause.
     }
     

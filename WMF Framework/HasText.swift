@@ -6,6 +6,16 @@ extension String {
     public var wmf_hasNonWhitespaceText: Bool {
         return wmf_hasText && !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
+
+    public static func wmf_maybeNonWhitespaceString(maybeString: String?) -> String? {
+        guard
+            let string = maybeString,
+            string.wmf_hasNonWhitespaceText
+            else {
+                return nil
+        }
+        return string
+    }
 }
 
 extension NSAttributedString {
