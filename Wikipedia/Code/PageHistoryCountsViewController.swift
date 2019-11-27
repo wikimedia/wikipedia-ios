@@ -80,6 +80,11 @@ class PageHistoryCountsViewController: UIViewController {
 
         filterCountsViewController.delegate = self
         wmf_add(childController: filterCountsViewController, andConstrainToEdgesOfContainerView: filterCountsContainerView)
+
+        sparklineView.isAccessibilityElement = true
+        sparklineView.accessibilityLabel = WMFLocalizedString("page-history-graph-accessibility-label", value: "Graph of edits over time", comment: "Accessibility label text used for edits graph")
+
+        view.accessibilityElements = [titleLabel, pageTitleLabel, countsLabel, sparklineView, filterCountsViewController.view].compactMap { $0 as Any }
     }
 
     override func viewDidLayoutSubviews() {
