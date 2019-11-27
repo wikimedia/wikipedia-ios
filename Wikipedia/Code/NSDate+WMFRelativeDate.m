@@ -125,7 +125,7 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
     NSDate *now = [NSDate date];
     NSMutableDictionary *result = [NSMutableDictionary new];
 
-    NSDateComponents *components = [[NSCalendar currentCalendar] wmf_components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self toDate:now];
+    NSDateComponents *components = [[NSCalendar wmf_utcGregorianCalendar] wmf_components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self toDate:now];
     if (components.hour > 0) {
         result[WMFAbbreviatedRelativeDateAgo] = [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings hoursAgoAbbreviated], components.hour];
         result[WMFAbbreviatedRelativeDate] = [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings hoursAbbreviated], components.hour];
