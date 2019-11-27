@@ -250,11 +250,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             return _effectiveArticleSemanticContentAttribute
         }
     }
-
-    // for items like the Save Button that are localized and should match the UI direction
-    public var userInterfaceSemanticContentAttribute: UISemanticContentAttribute {
-        return traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
-    }
     
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
         if _articleSemanticContentAttribute == .unspecified {

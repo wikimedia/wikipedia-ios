@@ -89,12 +89,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         return articleURL(at: indexPath) != nil
     }
 
-    func pushUserTalkPage(title: String, siteURL: URL) {
-        let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
-        wmf_push(talkPageContainer, animated: true)
-        return
-    }
-    
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
         cellLayoutEstimate = nil
         super.contentSizeCategoryDidChange(notification)
@@ -109,13 +103,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     
     var eventLoggingLabel: EventLoggingLabel? {
         return nil
-    }
-
-    var eventLoggingIndex: NSNumber? {
-        guard let index = previewedIndexPath?.item else {
-            return nil
-        }
-        return NSNumber(value: index)
     }
 
     var previewedIndexPath: IndexPath?

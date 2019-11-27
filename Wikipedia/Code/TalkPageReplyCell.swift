@@ -15,10 +15,6 @@ class TalkPageReplyCell: CollectionViewCell {
     
     private var theme: Theme?
     
-    private var isDeviceRTL: Bool {
-        return effectiveUserInterfaceLayoutDirection == .rightToLeft
-    }
-    
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
             textAlignmentOverride = semanticContentAttributeOverride == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left

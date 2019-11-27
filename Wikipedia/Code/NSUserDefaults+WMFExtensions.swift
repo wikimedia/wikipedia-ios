@@ -1,6 +1,5 @@
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
-let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
 let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
 let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"

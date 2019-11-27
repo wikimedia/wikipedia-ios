@@ -16,10 +16,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     private let captionTextView = UITextView()
     public let captionSeparatorView = UIView()
     public let messageSpacing: CGFloat = 20
-    public let buttonMargin: CGFloat = 40
-    public let actionButtonHeight: CGFloat = 40
     public let dismissButtonSpacing: CGFloat = 8
-    public let dismissButtonHeight: CGFloat = 32
     public var imageViewDimension: CGFloat = 150
     public let captionSpacing: CGFloat = 20
 

@@ -128,17 +128,6 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     // MARK: - Sending messages
 
-    func performSetupJS(completionHandler: ((Error?) -> Void)? = nil) {
-        webView.evaluateJavaScript("""
-            window.wmf.setup();
-        """) { (_, error) in
-            guard let completionHandler = completionHandler else {
-                return
-            }
-            completionHandler(error)
-        }
-    }
-
     func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         assert(Thread.isMainThread)
         let escapedWikitext = wikitext.wmf_stringBySanitizingForBacktickDelimitedJavascript()
@@ -271,10 +260,6 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
             self.page = page
             self.label = label
             self.exists = exists
-        }
-
-        var hasLabel: Bool {
-            return label != nil
         }
 
         func articleURL(for siteURL: URL) -> URL? {

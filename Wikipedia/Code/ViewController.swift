@@ -343,17 +343,6 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     }
 }
 
-
-extension ViewController: WMFEmptyViewContainer {
-    func addEmpty(_ emptyView: UIView) {
-        if navigationBar.superview === view {
-            view.insertSubview(emptyView, belowSubview: navigationBar)
-        } else {
-            view.addSubview(emptyView)
-        }
-    }
-}
-
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScroll(scrollView)

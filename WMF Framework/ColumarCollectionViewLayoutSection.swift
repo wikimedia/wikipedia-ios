@@ -50,13 +50,6 @@ class ColumnarCollectionViewLayoutSection {
         items.reserveCapacity(countOfItems)
     }
     
-    private func columnForItem(at itemIndex: Int) -> ColumnarCollectionViewLayoutColumn? {
-        guard let columnIndex = columnIndexByItemIndex[itemIndex] else {
-            return nil
-        }
-        return columns[columnIndex]
-    }
-    
     private var columnForNextItem: ColumnarCollectionViewLayoutColumn {
         let itemIndex = items.count
         let columnIndex = shortestColumnIndex
@@ -67,11 +60,7 @@ class ColumnarCollectionViewLayoutSection {
     var widthForNextItem: CGFloat {
         return columnForNextItem.widthForNextItem
     }
-    
-    var widthForNextSupplementaryView: CGFloat {
-        return frame.size.width
-    }
-    
+
     var originForNextSupplementaryView: CGPoint {
         return CGPoint(x: frame.minX, y: frame.minY)
     }

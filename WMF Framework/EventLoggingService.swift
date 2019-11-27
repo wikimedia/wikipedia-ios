@@ -19,11 +19,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     private var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     private var sendOnWWANThreshold: TimeInterval = 24 * 60 * 60
     private var postBatchSize = 32
-    private var postTimeout: TimeInterval = 60*2 // 2 minutes
-    private var postInterval: TimeInterval = 60*10 // 10 minutes
-    
-    private var debugDisableImmediateSend = false
-    
 
 #if WMF_EVENT_LOGGING_DEV_DEBUG
     private static let scheme = "http"
@@ -216,13 +211,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             block(moc)
         }
     }
-    
-    private func asyncSave() {
-        perform { (moc) in
-            self.save(moc)
-        }
-    }
-    
+
     private func postEvents(_ eventRecords: [EventRecord], onlyWiFi: Bool, completion: @escaping () -> Void) {
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         

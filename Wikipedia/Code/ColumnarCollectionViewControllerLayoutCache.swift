@@ -32,12 +32,7 @@ class ColumnarCollectionViewControllerLayoutCache {
         let cacheKey = cacheKeyForCellWithIdentifier(identifier, userInfo: userInfo)
         return cachedHeights[cacheKey]?[columnWidth.roundedColumnWidth]
     }
-    
-    public func removeCachedHeightsForCellWithIdentifier(_ identifier: String, userInfo: String) {
-        let cacheKey = cacheKeyForCellWithIdentifier(identifier, userInfo: userInfo)
-        cachedHeights.removeValue(forKey: cacheKey)
-    }
-    
+
     public func reset() {
         cachedHeights.removeAll(keepingCapacity: true)
         cacheKeysByArticleKey.removeAll(keepingCapacity: true)

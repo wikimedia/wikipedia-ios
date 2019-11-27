@@ -73,7 +73,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private lazy var cancelComparisonButton = UIBarButtonItem(title: CommonStrings.cancelActionTitle, style: .done, target: self, action: #selector(cancelComparison(_:)))
 
-    private var comparisonSelectionViewHeightConstraint: NSLayoutConstraint?
     private var comparisonSelectionViewVisibleConstraint: NSLayoutConstraint?
     private var comparisonSelectionViewHiddenConstraint: NSLayoutConstraint?
 
@@ -118,8 +117,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             })
         }
     }
-
-    private var comparisonSelectionButtonWidthConstraints = [NSLayoutConstraint]()
 
     private func setupComparisonSelectionViewController() {
         addChild(comparisonSelectionViewController)

@@ -1108,7 +1108,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
 
     struct OldString {
-        static let noSavedPlaces = WMFLocalizedString("places-filter-no-saved-places", value:"You have no saved places", comment:"Explains that you don't have any saved places")
         static let savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
     }
     
@@ -1810,14 +1809,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     // MARK: - Search Filter Dropdown
-    
-    fileprivate func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-
-    }
-    
-    fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-
-    }
 
     fileprivate func updateSearchBarText(forSearch search: PlaceSearch) {
         if (isDefaultSearch(search)) {

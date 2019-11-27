@@ -16,21 +16,12 @@ class ArticlePlaceView: MapAnnotationView {
     
     static let mediumOpaqueDotImage = #imageLiteral(resourceName: "places-dot-medium-opaque")
     static let mediumOpaqueDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-medium")
-    
-    static let extraMediumOpaqueDotImage = #imageLiteral(resourceName: "places-dot-extra-medium-opaque")
-    static let extraMediumOpaqueDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-extra-medium")
-    
+
     static let largeOpaqueDotImage = #imageLiteral(resourceName: "places-dot-large-opaque")
     static let largeOpaqueDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-large")
     
-    static let extraLargeOpaqueDotImage = #imageLiteral(resourceName: "places-dot-extra-large-opaque")
-    static let extraLargeOpaqueDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-extra-large ")
-    
     static let mediumPlaceholderImage = #imageLiteral(resourceName: "places-w-medium")
     static let largePlaceholderImage = #imageLiteral(resourceName: "places-w-large")
-    
-    static let extraMediumPlaceholderImage = #imageLiteral(resourceName: "places-w-extra-medium")
-    static let extraLargePlaceholderImage = #imageLiteral(resourceName: "places-w-extra-large")
     
     public weak var delegate: ArticlePlaceViewDelegate?
     

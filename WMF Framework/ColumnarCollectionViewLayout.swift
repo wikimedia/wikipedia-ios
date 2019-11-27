@@ -15,8 +15,6 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     var oldInfo: ColumnarCollectionViewLayoutInfo?
     var metrics: ColumnarCollectionViewLayoutMetrics?
     var isLayoutValid: Bool = false
-    let defaultColumnWidth: CGFloat = 315
-    let maxColumnWidth: CGFloat = 740
     public var slideInNewContentFromTheTop: Bool = false
     public var animateItems: Bool = false
 

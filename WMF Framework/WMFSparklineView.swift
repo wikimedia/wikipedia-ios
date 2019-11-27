@@ -51,7 +51,6 @@ open class WMFSparklineView : UIView, Themeable {
     var sparklineLayer = CAShapeLayer()
     var gridlineLayer = CAShapeLayer()
     var gradientLayer = CAGradientLayer()
-    let useLogScale = true
     
     public func apply(theme: Theme) {
         gridlineLayer.strokeColor = theme.colors.border.cgColor

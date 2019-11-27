@@ -30,10 +30,6 @@ class TalkPageHeaderView: UIView {
         return viewModel?.info != nil
     }
     
-    private var hasIntroText: Bool {
-        return viewModel?.intro != nil
-    }
-    
     private var hasTitleText: Bool {
         if let viewModel = viewModel {
             return viewModel.title.count > 0

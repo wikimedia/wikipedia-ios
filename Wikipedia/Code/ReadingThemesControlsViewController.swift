@@ -119,20 +119,7 @@ class ReadingThemesControlsViewController: UIViewController {
         button.borderColor = theme.colors.border
         button.accessibilityTraits = UIAccessibilityTraits.button
     }
-    
-    var isTextSizeSliderHidden: Bool {
-        set {
-            let _ = self.view //ensure view is loaded
-            for slideView in textSizeSliderViews {
-                slideView.isHidden = newValue
-            }
-            updatePreferredContentSize()
-        }
-        get {
-            return textSizeSliderViews.first?.isHidden ?? false
-        }
-    }
-    
+
     @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)

@@ -276,52 +276,7 @@ class ReadingListsAPIController: Fetcher {
             }, nil)
         }
     }
-    
-    /**
-     Adds a new entry to a reading list using the reading list API
-     - parameters:
-     - listID: The list ID of the list that is getting an entry
-     - project: The project name of the new entry
-     - title: The title of the new entry
-     - completion: Called after the request completes
-     - entryID: The entry ID if it was created
-     - error: Any error preventing entry creation
-     */
-    func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let title = title.precomposedStringWithCanonicalMapping
-        let project = project.precomposedStringWithCanonicalMapping
-        let bodyParams = ["project": project, "title": title]
-        // "" for trailing slash is required, server 404s otherwise
-        post(path: ["\(listID)", "entries", ""], bodyParameters: bodyParams) { (result, response, error) in
-            if let apiError = error as? APIReadingListError {
-                switch apiError {
-                case .duplicateEntry:
-                    // TODO: Remove when error response returns ID
-                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
-                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
-                            completion(nil, error ?? ReadingListError.unableToAddEntry)
-                            return
-                        }
-                        completion(entry.id, nil)
-                    })
-                default:
-                    completion(nil, apiError)
-                }
-                return
-            } else if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            guard let id = result?["id"] as? Int64 else {
-                completion(nil, ReadingListError.unableToAddEntry)
-                return
-            }
-            
-            completion(id, nil)
-        }
-    }
-    
+
     /**
      Adds a new entry to a reading list using the reading list API
      - parameters:

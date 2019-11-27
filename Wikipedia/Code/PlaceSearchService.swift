@@ -25,7 +25,6 @@ class PlaceSearchService
 {
     public var dataStore: MWKDataStore!
     private let locationSearchFetcher = WMFLocationSearchFetcher()
-    private let wikidataFetcher = WikidataFetcher(session: Session.shared, configuration: Configuration.current)
     
     init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -35,14 +34,6 @@ class PlaceSearchService
         get {
             let savedRequest = WMFArticle.fetchRequest()
             savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-            return savedRequest
-        }
-    }
-    
-    var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
             return savedRequest
         }
     }

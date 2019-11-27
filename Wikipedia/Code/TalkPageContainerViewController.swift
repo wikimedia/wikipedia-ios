@@ -77,7 +77,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var introTopic: TalkPageTopic?
     private var topicListViewController: TalkPageTopicListViewController?
     private var replyListViewController: TalkPageReplyListViewController?
-    private var emptyView: WMFEmptyView?
     private var headerView: TalkPageHeaderView?
     private var addButton: UIBarButtonItem?
     
@@ -91,11 +90,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     var hintController: HintController?
     var fromNavigationStateRestoration: Bool = false
-    private var cancellationKey: String?
-    
-    private var currentLoadingViewController: ViewController?
-    private var currentSourceView: UIView?
-    private var currentSourceRect: CGRect?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)

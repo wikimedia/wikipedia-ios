@@ -41,18 +41,6 @@ extension MWKSection : TableOfContentsItem {
         }
     }
 
-    public var borderType: TableOfContentsBorderType {
-        get {
-            if isLead() {
-                return .none
-            } else if let level = level?.uintValue, level <= 2 {
-                return .topOnly
-            } else {
-                return .none
-            }
-        }
-    }
-
     public var indentationLevel: Int {
         get {
             if let level = toclevel?.intValue {

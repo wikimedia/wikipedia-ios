@@ -5,7 +5,6 @@ class ReadingListHintController: HintController {
 
     private let readingListHintViewController = ReadingListHintViewController()
     private let dataStore: MWKDataStore
-    private var containerView = UIView()
         
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore

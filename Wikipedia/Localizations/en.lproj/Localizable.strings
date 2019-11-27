@@ -556,7 +556,6 @@
 "places-enable-location-title" = "Explore articles near your location by enabling Location Access";
 "places-filter-articles-action-sheet-title" = "Filter articles";
 "places-filter-button-title" = "Filter";
-"places-filter-no-saved-places" = "You have no saved places";
 "places-filter-saved-articles" = "Saved articles";
 "places-filter-top-articles" = "Top read";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";

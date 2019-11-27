@@ -18,16 +18,6 @@ extension ArticleError: LocalizedError {
             return WMFLocalizedString("reading-lists-article-api-failure", value: "Unable to sync article", comment: "Text of the alert label informing the user that article couldn't be saved due to a server-side error")
         }
     }
-    public var failureReason: String? {
-        switch self {
-        case .none:
-            return nil
-        case .saveToDiskFailed:
-            return nil
-        case .apiFailed:
-            return nil
-        }
-    }
     public var recoverySuggestion: String? {
         switch self {
         case .none:

@@ -1,13 +1,5 @@
 import Foundation
 
-public enum CollectionViewCellSwipeType {
-    case primary, secondary, none
-}
-
-enum CollectionViewCellState {
-    case idle, open
-}
-
 // wrapper around UIBarButtonItem that lets us access systemItem after button creation
 public class SystemBarButton: UIBarButtonItem {
     var systemItem: UIBarButtonItem.SystemItem?
@@ -569,11 +561,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
         editingState = navigationDelegate.newEditingState(for: currentEditingState, fromEditBarButtonWithSystemItem: systemItem)
     }
-    
-    public func changeEditingState(to newEditingState: EditingState) {
-        editingState = newEditingState
-    }
-    
+
     public var isTextEditing: Bool = false {
         didSet {
             editingState = isTextEditing ? .editing : .done

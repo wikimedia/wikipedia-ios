@@ -124,8 +124,6 @@
 
     // MARK: Utilities
 
-    public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
-
     private func measureAge(for midnightUTCDate: Date?) -> NSNumber? {
         guard let date = midnightUTCDate else {
             return nil

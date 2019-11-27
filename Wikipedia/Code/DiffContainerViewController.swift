@@ -1,13 +1,6 @@
 
 import UIKit
 
-struct StubRevisionModel {
-    let revisionId: Int
-    let summary: String
-    let username: String
-    let timestamp: Date
-}
-
 protocol DiffRevisionRetrieving: class {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?

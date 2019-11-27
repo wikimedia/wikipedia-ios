@@ -31,11 +31,7 @@ struct ReadingListSyncState: OptionSet {
     static let needsRandomLists = ReadingListSyncState(rawValue: 1 << 7) // for debugging, populate random lists
     static let needsRandomEntries = ReadingListSyncState(rawValue: 1 << 8) // for debugging, populate with random entries
     
-    static let needsEnable: ReadingListSyncState = [.needsRemoteEnable, .needsSync]
     static let needsLocalClear: ReadingListSyncState = [.needsLocalArticleClear, .needsLocalListClear]
-    static let needsClearAndEnable: ReadingListSyncState = [.needsLocalClear, .needsRemoteEnable, .needsSync]
-
-    static let needsDisable: ReadingListSyncState = [.needsRemoteDisable, .needsLocalReset]
 }
 
 public enum ReadingListError: Error, Equatable {

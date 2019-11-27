@@ -70,9 +70,3 @@ extension PageNamespace {
         self.init(rawValue: rawValue)
     }
 }
-
-extension MWKSearchResult {
-    public var pageNamespace: PageNamespace? {
-        return PageNamespace(namespaceValue: titleNamespace?.intValue)
-    }
-}

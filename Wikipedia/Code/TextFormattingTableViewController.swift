@@ -59,16 +59,6 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         }
         return Item(with: Content(type: .detail, title: textStyleFormattingTableViewController.titleLabelText, detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
     }
-
-    private var textSize: Item {
-        let showTextSizeFormattingTableViewController = {
-            self.textSizeFormattingTableViewController.delegate = self.delegate
-            self.textSizeFormattingTableViewController.selectedTextSizeType = self.selectedTextSizeType
-            self.textSizeFormattingTableViewController.apply(theme: self.theme)
-            self.navigationController?.pushViewController(self.textSizeFormattingTableViewController, animated: true)
-        }
-        return Item(with: Content(type: .detail, title: textSizeFormattingTableViewController.titleLabelText, detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
-    }
     
     private func didSelectClearFormatting() {
         guard clearFormatting.content.isEnabled else {

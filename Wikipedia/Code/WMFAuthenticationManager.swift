@@ -53,7 +53,6 @@ public class WMFAuthenticationManager: Fetcher {
         return true
     }
     
-    fileprivate let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     fileprivate let accountLogin = WMFAccountLogin()
     fileprivate let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
     

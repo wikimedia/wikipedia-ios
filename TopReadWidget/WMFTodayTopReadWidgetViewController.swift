@@ -16,7 +16,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
 
     @IBOutlet weak var chevronImageView: UIImageView!
     
-    let databaseDateFormatter = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()
     let headerDateFormatter = DateFormatter.wmf_shortMonthNameDayOfMonthNumber()
     let daysToShowInSparkline = 5
     

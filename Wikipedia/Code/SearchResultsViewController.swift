@@ -24,14 +24,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     var searchSiteURL: URL? = nil
-    
-    func isDisplaying(resultsFor searchTerm: String, from siteURL: URL) -> Bool {
-        guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
-            return false
-        }
-        return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
-    }
-    
+
     override var eventLoggingCategory: EventLoggingCategory {
         return .search
     }

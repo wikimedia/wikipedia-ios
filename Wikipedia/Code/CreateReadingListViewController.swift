@@ -81,21 +81,13 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         readingListNameErrorLabel.isHidden = true
         readingListNameTextField.textColor = theme.colors.primaryText
     }
-    
-    private var shouldEnableCreateReadingListButton: Bool {
-        return (!isReadingListNameFieldEmpty && readingListNameTextField.isFirstResponder) && readingListNameErrorLabel.isHidden
-    }
-    
+
     // MARK: - UITextFieldDelegate
     
     fileprivate var isReadingListNameFieldEmpty: Bool {
         return !readingListNameTextField.wmf_hasNonWhitespaceText
     }
-    
-    fileprivate var isDescriptionFieldEmpty: Bool {
-        return !descriptionTextField.wmf_hasNonWhitespaceText
-    }
-    
+
     @IBAction func textFieldDidChange(_ textField: UITextField) {
         if readingListNameTextField.isFirstResponder {
             hideReadingListError()

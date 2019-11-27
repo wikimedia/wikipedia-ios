@@ -8,21 +8,6 @@ public enum ImageOrigin: Int {
     case unknown = 3
 }
 
-extension ImageOrigin {
-    public var debugColor: UIColor {
-        switch self {
-        case .network:
-            return UIColor.red
-        case .disk:
-            return UIColor.yellow
-        case .memory:
-            return UIColor.green
-        case .unknown:
-            return UIColor.black
-        }
-    }
-}
-
 public protocol ImageOriginConvertible {
     func asImageOrigin() -> ImageOrigin
 }
