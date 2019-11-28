@@ -57,6 +57,8 @@
 "action-find-in-page" = "Op der Säit sichen";
 "action-language-accessibility" = "Sprooch wiesselen";
 "action-move-to" = "Réckelen op...";
+"action-next-revision-accessibility" = "Nächst Versioun";
+"action-previous-revision-accessibility" = "Vireg Versioun";
 "action-read" = "Liesen";
 "action-remove" = "Ewechhuelen";
 "action-replace" = "Ersetzen";
@@ -67,6 +69,7 @@
 "action-share" = "Deelen";
 "action-share-accessibility" = "Deelen";
 "action-sort" = "Zortéieren";
+"action-thank-user-accessibility" = "Dem Benotzer Merci soen";
 "action-undo" = "Réckgängeg maachen";
 "action-unsave" = "Läschen";
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";

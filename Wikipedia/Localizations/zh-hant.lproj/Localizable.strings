@@ -204,6 +204,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已添加|$1 位元組已添加}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 位元組已移除|$1 位元組已移除}}";
 "diff-single-header-summary-heading" = "編輯摘要";
+"diff-single-intro-title" = "介紹";
 "diff-single-line-format" = "$1 行";
 "diff-thanks-anonymous-no-thanks" = "匿名使用者無法被感謝";
 "diff-thanks-login-subtitle" = "「感謝」是在維基百科上向其他編者所修改出內容表達讚賞的簡易方式，您必須先登入才能發送感謝。";
@@ -545,11 +546,15 @@
 "page-history-bot-edits" = "機器人編輯";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
 "page-history-compare-title" = "比較";
+"page-history-graph-accessibility-label" = "在一段時間內編輯的圖式";
 "page-history-minor-edits" = "小修改";
 "page-history-revision-author-accessibility-label" = "作者：$1";
+"page-history-revision-comment-accessibility-label" = "註釋$1";
 "page-history-revision-history-title" = "修訂歷史";
+"page-history-revision-minor-edit-accessibility-label" = "小修改";
 "page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 位元組|$1 位元組}}";
 "page-history-revision-size-diff-subtraction" = "已移除 {{PLURAL:$1|$1 位元組|$1 位元組}}";
+"page-history-revision-time-accessibility-label" = "修訂於 $1";
 "page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
 "page-history-user-edits" = "使用者編輯數";
@@ -564,7 +569,7 @@
 "page-read-in-other-languages" = "在 {{PLURAL:$1|$1 種其它語言}}中可用";
 "page-similar-titles" = "相似的頁面";
 "page-talk-page" = "檢視對話頁";
-"panel-compare-revisions-text" = "比較修訂能協助顯示出條目隨著時間的內容變化，當您比較條目裡的兩個修訂時，會產生兩者間的差異。";
+"panel-compare-revisions-text" = "比較修訂能協助顯示出條目隨著時間的內容變化，比較條目裡的兩個修訂時，會透過凸顯出所更改過的內容，來顯示出這些修訂間的差異。";
 "panel-compare-revisions-title" = "比較修訂";
 "pictured" = "如圖";
 "places-accessibility-clear-saved-searches" = "清除已儲搜尋";

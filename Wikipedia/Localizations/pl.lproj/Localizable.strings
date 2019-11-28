@@ -563,6 +563,7 @@
 "page-read-in-other-languages" = "Dostępne w {{PLURAL:$1|$1 innym języku|$1 innych językach}}";
 "page-similar-titles" = "Podobne strony";
 "page-talk-page" = "Zobacz stronę dyskusji";
+// Fuzzy
 "panel-compare-revisions-text" = "Porównywanie wersji pomaga zobaczyć jak artykuł zmieniał się na przestrzeni czasu. Podczas porównywania dwóch wersji generowane są różnice pomiędzy nimi.";
 "panel-compare-revisions-title" = "Porównaj wersje";
 "pictured" = "z obrazkiem";

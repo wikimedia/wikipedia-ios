@@ -211,6 +211,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bayt eklendi|$1 bayt eklendi}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 bayt kaldırıldı|$1 bayt kaldırıldı}}";
 "diff-single-header-summary-heading" = "Özeti düzenle";
+"diff-single-intro-title" = "Giriş";
 "diff-single-line-format" = "$1 satır";
 "diff-thanks-anonymous-no-thanks" = "Anonim kullanıcılar teşekkür edilemez";
 "diff-thanks-login-subtitle" = "'Teşekkür', bir editörün Vikipedi'deki çalışmalarını takdir etmenin kolay bir yoludur. 'Teşekkür' göndermek için giriş yapmış olmanız gerekir.";
@@ -552,11 +553,15 @@
 "page-history-bot-edits" = "bot düzenlemeleri";
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
 "page-history-compare-title" = "Karşılaştır";
+"page-history-graph-accessibility-label" = "Zaman içindeki düzenlemelerin grafiği";
 "page-history-minor-edits" = "küçük değişiklikler";
 "page-history-revision-author-accessibility-label" = "Yazar: $1";
+"page-history-revision-comment-accessibility-label" = "$1 yorum";
 "page-history-revision-history-title" = "Değişiklik geçmişi";
+"page-history-revision-minor-edit-accessibility-label" = "Küçük düzenleme";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 bayt|$1 bayt}} eklendi";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 bayt|$1 bayt}} kaldırıldı";
+"page-history-revision-time-accessibility-label" = "$1 revizyon yapıldı";
 "page-history-revisions-comparison-warning" = "Sadece iki revizyon seçilebilir";
 "page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
@@ -571,7 +576,7 @@
 "page-read-in-other-languages" = "{{PLURAL:$1|$1 farklı dilde|$1 farklı dilde}} mevcut";
 "page-similar-titles" = "Benzer sayfalar";
 "page-talk-page" = "Tartışma sayfasını görüntüle";
-"panel-compare-revisions-text" = "Revizyonları karşılaştırmak, bir makalenin zaman içinde nasıl değiştiğini göstermeye yardımcı olur. Bir makalenin iki revizyonunu karşılaştırdığınızda, aralarındaki farklar ortaya çıkar.";
+"panel-compare-revisions-text" = "Revizyonları karşılaştırmak, bir makalenin zaman içinde nasıl değiştiğini göstermeye yardımcı olur. Bir makalenin iki revizyonunun karşılaştırılması, değiştirilen herhangi bir içeriği vurgulayarak bu revizyonlar arasındaki farkı gösterecektir.";
 "panel-compare-revisions-title" = "Düzeltmeleri karşılaştırma";
 "pictured" = "resimdeki";
 "places-accessibility-clear-saved-searches" = "Kayıtlı aramaları temizle";

@@ -558,6 +558,7 @@
 "page-read-in-other-languages" = "Tillgänglig på {{PLURAL:$1|$1 annat|$1 andra}} språk";
 "page-similar-titles" = "Liknande sidor";
 "page-talk-page" = "Visa diskussionssidan";
+// Fuzzy
 "panel-compare-revisions-text" = "Jämför versioner hjälper dig se hur en artikel har ändrats med tiden. När du jämför två versioner av en artikel genereras skillnaderna mellan dem.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "pictured" = "i bild";

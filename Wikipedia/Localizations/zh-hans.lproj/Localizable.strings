@@ -10,6 +10,7 @@
 // Author: Endermoon
 // Author: GoForceX
 // Author: Hudafu
+// Author: ITsu
 // Author: Josephine W.
 // Author: JuneAugsut
 // Author: Kuailong
@@ -522,6 +523,7 @@
 "page-read-in-other-languages" = "在$1种其他语言中可用";
 "page-similar-titles" = "相似页面";
 "page-talk-page" = "查看讨论页";
+// Fuzzy
 "panel-compare-revisions-text" = "通过比较不同修订版本，可以看到条目随时间的变化。如果您比较两个不同修订版本，可以看到两个版本之间的区别。";
 "panel-compare-revisions-title" = "比较不同修订版本";
 "pictured" = "图片中";
@@ -683,6 +685,7 @@
 "search-recent-title" = "最近搜索";
 "search-result-redirected-from" = "重定向自：$1";
 "search-title" = "搜索";
+"settings-account" = "账户";
 "settings-appearance" = "阅读参数设置";
 "settings-clear-cache" = "清空缓存的数据";
 "settings-clear-cache-are-you-sure-message" = "清空缓存的数据将腾出约$1空间。这将不会删除您保存的页面。";

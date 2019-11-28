@@ -569,6 +569,7 @@
 "page-read-in-other-languages" = "Disponível em {PLURAL:$1|$1 outro idioma|$1 outros idiomas}}";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discussão";
+// Fuzzy
 "panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo mudou ao longo do tempo. Quando você compara duas revisões de um artigo, as diferenças entre elas são geradas.";
 "panel-compare-revisions-title" = "Comparando revisões";
 "pictured" = "Retratado";
