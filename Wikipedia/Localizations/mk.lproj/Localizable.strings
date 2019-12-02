@@ -184,6 +184,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|Отстранет $1 бајт|Отстранети $1 бајти}}";
 "diff-single-header-summary-heading" = "Опис на уредувањето";
+"diff-single-intro-title" = "Вовед";
 "diff-single-line-format" = "Ред $1";
 "diff-thanks-anonymous-no-thanks" = "Не може да им се благодари на анонимни корисници";
 "diff-thanks-login-subtitle" = "Благодарниците се лесен начин да му кажете на некој уредник дека го цените неговиот труд на Википедија. Мора да бидете најавени за да благодарите.";
@@ -525,11 +526,15 @@
 "page-history-bot-edits" = "ботовски уредувања";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
 "page-history-compare-title" = "Спореди";
+"page-history-graph-accessibility-label" = "Графикони на уредувања низ времето";
 "page-history-minor-edits" = "ситни уредувања";
 "page-history-revision-author-accessibility-label" = "Автор: $1";
+"page-history-revision-comment-accessibility-label" = "Коментар $1";
 "page-history-revision-history-title" = "Историја на измените";
+"page-history-revision-minor-edit-accessibility-label" = "Ситно уредување";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Отстранет $1 бајт|Отстранети $1 бајти}}";
+"page-history-revision-time-accessibility-label" = "Преработката е направена $1";
 "page-history-revisions-comparison-warning" = "Можете да изберете само две преработки";
 "page-history-stats-text" = "{{PLURAL:$1|$1 уредување|$1 уредувања}} од $2 наваму";
 "page-history-user-edits" = "кориснички уредувања";
@@ -544,7 +549,7 @@
 "page-read-in-other-languages" = "Достапно на {{PLURAL:$1|уште $1 јазик|уште $1 јазици}}";
 "page-similar-titles" = "Слични страници";
 "page-talk-page" = "Разговорна страница";
-"panel-compare-revisions-text" = "Споредувањето на преработките дава слика за тоа како една статија се менувала со текот на времето. Кога споредувате две преработки, ви се прикажуваат разликите помеѓу нив.";
+"panel-compare-revisions-text" = "Споредувањето на преработките дава слика за тоа како една статија се менувала со текот на времето. Споредувањето на две преработки на една статија ги прикажува разликите помеѓу нив со истакнување на променетата содржина.";
 "panel-compare-revisions-title" = "Споредба на преработки";
 "pictured" = "на сликата";
 "places-accessibility-clear-saved-searches" = "Исчисти зачувани пребарувања";

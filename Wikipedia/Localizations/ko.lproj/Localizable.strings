@@ -84,6 +84,8 @@
 "action-language-accessibility" = "언어 변경";
 "action-move-to" = "이동...";
 "action-move-to-reading-list" = "읽기 목록으로 이동";
+"action-next-revision-accessibility" = "다음 판";
+"action-previous-revision-accessibility" = "이전 판";
 "action-read" = "읽기";
 "action-redo" = "다시 시도";
 "action-remove" = "제거";
@@ -96,6 +98,7 @@
 "action-share" = "공유";
 "action-share-accessibility" = "공유";
 "action-sort" = "정렬";
+"action-thank-user-accessibility" = "사용자에게 감사 표하기";
 "action-undo" = "실행 취소";
 "action-unsave" = "저장하지 않음";
 "action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
@@ -191,9 +194,12 @@
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|편집 $1개|편집 $1}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1바이트 추가됨}}";
 "diff-single-header-summary-heading" = "편집 요약";
+"diff-single-line-format" = "$1번째 줄";
 "diff-thanks-anonymous-no-thanks" = "익명 사용자는 감사 표현을 받을 수 없습니다";
+"diff-thanks-login-title" = "감사를 표하기 위해 로그인";
 "diff-thanks-send-button-title" = "감사 표현하기";
 "diff-thanks-send-title" = "공개적으로 감사 표하기";
+"diff-thanks-sent" = "$1님에게 감사를 표했습니다";
 "diff-thanks-sent-already" = "이 편집에 이미 감사를 표했습니다";
 "diff-thanks-sent-cannot-unsend" = "감사 표현은 취소할 수 없습니다";
 "dim-images" = "이미지를 어둡게";
@@ -521,9 +527,13 @@
 "page-history-bot-edits" = "봇 편집";
 "page-history-compare-accessibility-hint" = "탭하여 비교할 판 2개를 선택하십시오";
 "page-history-compare-title" = "비교하기";
-// Fuzzy
-"page-history-revision-author-accessibility-label" = "만든이: %@";
+"page-history-graph-accessibility-label" = "시간의 경과에 따른 편집 그래프";
+"page-history-minor-edits" = "사소한 편집";
+"page-history-revision-author-accessibility-label" = "만든이: $1";
 "page-history-revision-history-title" = "편집 역사";
+"page-history-revision-minor-edit-accessibility-label" = "사소한 편집";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1바이트}} 추가됨";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1바이트}} 제거됨";
 "page-history-revisions-comparison-warning" = "판 2개만 선택할 수 있습니다";
 "page-history-user-edits" = "사용자 편집";
 "page-issues" = "문서 이슈";

@@ -383,6 +383,8 @@
 "on-this-day-title" = "In questo giorno";
 "page-edit-history" = "Cronologia delle modifiche completa";
 "page-history-revision-author-accessibility-label" = "Autore: $1";
+"page-history-revision-comment-accessibility-label" = "Commento $1";
+"page-history-revision-minor-edit-accessibility-label" = "Modifica minore";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Aggiunto|Aggiunti}} $1 byte";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
 "page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";

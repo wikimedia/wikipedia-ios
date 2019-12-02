@@ -77,6 +77,8 @@
 "action-language-accessibility" = "Змінити мову";
 "action-move-to" = "Перенести до...";
 "action-move-to-reading-list" = "Перенести до читального списку";
+"action-next-revision-accessibility" = "Наступна версія";
+"action-previous-revision-accessibility" = "Попередня версія";
 "action-read" = "Читати";
 "action-redo" = "Повторити";
 "action-remove" = "Видалити";
@@ -89,6 +91,7 @@
 "action-share" = "Поділитися";
 "action-share-accessibility" = "Поширити";
 "action-sort" = "Сортувати";
+"action-thank-user-accessibility" = "Подякувати користувачеві";
 "action-undo" = "Скасувати";
 "action-unsave" = "Скасувати збереження";
 "action-unsaved-accessibility-notification" = "Стаття видалена із збережених";
@@ -194,6 +197,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт додано|$1 байта додано|$1 байтів додано}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 байт вилучено|$1 байта вилучено|$1 байтів вилучено}}";
 "diff-single-header-summary-heading" = "Опис редагування";
+"diff-single-intro-title" = "Вступ";
 "diff-single-line-format" = "Рядок $1";
 "diff-thanks-anonymous-no-thanks" = "Анонімні користувачі не можуть бути віддячені";
 "diff-thanks-login-subtitle" = "\"Подяка\" це легкий спосіб висловити вдячність за внесок редактора у Вікіпедії. Щоб надіслати подяку ви маєте увійти до системи.";
@@ -201,7 +205,6 @@
 "diff-thanks-send-button-title" = "Подякувати";
 "diff-thanks-send-subtitle" = "\"Подяка\" це легкий спосіб висловити вдячність за внесок редактора у Вікіпедії. Вона не може бути відкликана і є видимою публічно.";
 "diff-thanks-send-title" = "Публічне висловлення подяки";
-// Fuzzy
 "diff-thanks-sent" = "Ваша подяка надіслана до $1";
 "diff-thanks-sent-already" = "Ви вже подякували за це редагування";
 "diff-thanks-sent-cannot-unsend" = "Подяка не може бути відкликана";
@@ -316,15 +319,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Для всіх";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "На $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Всі картки %@ приховані";
+"explore-feed-preferences-feed-cards-hidden-title" = "Всі картки $1 приховані";
 "explore-feed-preferences-global-card-footer-text" = "Ця картка не є специфічною до мови, її вимкнення вилучить її з вашої стрічки.";
 "explore-feed-preferences-global-cards-description" = "Не специфічні за мовою картки";
 "explore-feed-preferences-global-cards-subtitle" = "Не специфічна за мовою";
 "explore-feed-preferences-global-cards-title" = "Глобальні картки";
 "explore-feed-preferences-hide-card-action-title" = "Сховати цю картку";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Сховати всі картки «%@»";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Сховати всі картки «$1»";
 "explore-feed-preferences-in-the-news-description" = "Статті про поточні події";
 "explore-feed-preferences-languages-footer-text" = "Приховання всіх карток у всіх мовах призведе до приховання всієї стрічки";
 "explore-feed-preferences-on-this-day-description" = "Історичні події цього дня";
@@ -474,6 +475,12 @@
 "insert-media-media-settings-title" = "Параметри медіафайлу";
 "insert-media-title" = "Вставити медіафайл";
 "insert-media-uploaded-image-title" = "Завантажене зображення";
+"intermediate-edits-count" = "{{PLURAL:$1|Не показується $1 проміжна версія|Не показуються $1 проміжні версії|Не показується $1 проміжних версій}}";
+"intermediate-edits-count-limited" = "Не показується $1+ проміжних версій";
+"intermediate-edits-editors-count" = "Не {{PLURAL:$1|показана $1 проміжна версія|показано $1 проміжні версії|показані $1 проміжних версій}} {{PLURAL:$2|ще одного користувача|$2 користувачів}}";
+"intermediate-edits-editors-count-limited" = "Не показано $1+ проміжних версій $2+ користувачів";
+"intermediate-edits-editors-limited-count" = "Не {{PLURAL:$1|показано $1 проміжну версію|показані $1 проміжні версії|показано $1 проміжних версій}} $2+ користувачів";
+"intermediate-edits-limited-editors-count" = "Не показано $1+ проміжних версій {{PLURAL:$2|$2 користувача|$2 користувачів}}";
 "languages-settings-title" = "Мови";
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
@@ -532,12 +539,15 @@
 "page-history-bot-edits" = "бото-редагування";
 "page-history-compare-accessibility-hint" = "Натисніть, щоб порівняти дві версії";
 "page-history-compare-title" = "Порівняти";
+"page-history-graph-accessibility-label" = "Графік редагувань за увесь час";
 "page-history-minor-edits" = "малі редагування";
-// Fuzzy
-"page-history-revision-author-accessibility-label" = "Автор: %@";
+"page-history-revision-author-accessibility-label" = "Автор: $1";
+"page-history-revision-comment-accessibility-label" = "Коментар $1";
 "page-history-revision-history-title" = "Історія версій";
+"page-history-revision-minor-edit-accessibility-label" = "Незначне редагування";
 "page-history-revision-size-diff-addition" = "Додано {{PLURAL:$1|$1 байт|$1 байта|$1 байтів}}";
 "page-history-revision-size-diff-subtraction" = "Вилучено {{PLURAL:$1|$1 байт|$1 байта|$1 байтів}}";
+"page-history-revision-time-accessibility-label" = "Версія створена $1";
 "page-history-revisions-comparison-warning" = "Можуть бути вибрані тільки дві версії";
 "page-history-stats-text" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}} з $2";
 "page-history-user-edits" = "редагування користувачів";
@@ -552,7 +562,7 @@
 "page-read-in-other-languages" = "Доступно в {{PLURAL:$1|іншій мові|$1 інших мовах}}";
 "page-similar-titles" = "Подібні сторінки";
 "page-talk-page" = "Сторінка обговорення";
-"panel-compare-revisions-text" = "Порівняння версій допомагає показати як стаття змінювалась з часом. Різниці між версіями статті генеруються тоді, коли дві з них порівнюються.";
+"panel-compare-revisions-text" = "Порівняння версій допомагає показати як стаття змінювалась з часом. Порівняння двох версій статті показує різницю між версіями завдяки підсвічуванню того вмісту, який змінився.";
 "panel-compare-revisions-title" = "Порівняння версій";
 "pictured" = "проілюстровано";
 "places-accessibility-clear-saved-searches" = "Очистити історію пошуку";
@@ -659,8 +669,7 @@
 "reading-lists-default-list-title" = "Збережене";
 "reading-lists-delete-reading-list-alert-message" = "Ця дія не може була скасована. Жодні статті, збережені тільки для {{PLURAL:$1|цього списку|цих списків}}, не збережуться.";
 "reading-lists-delete-reading-list-alert-title" = "Видалити {{PLURAL:$1|список|списки}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 статей і $2 списків були синхронізовані з вашого облікового запису";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 стаття|$1 статті|$1 статей}} і {{PLURAL:$2|$2 список|$2 списки|$2 списків}} синхронізовано з вашого облікового запису";
 "reading-lists-list-not-synced-limit-exceeded" = "Список не збережено, ліміт досягнуто";
 "reading-lists-sort-saved-articles" = "Сортувати збережені статті";
 "reading-lists-split-notification" = "Існує ліміт у $1 статей для одного читального списку. Списки, що містять більше статей, будуть розділені на декілька.";
@@ -681,6 +690,7 @@
 "relative-date-minutes-abbreviated" = "$1 хв.";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Щойно|$1 хвилину назад|$1 хвилини назад|$1 хвилин назад}}";
 "relative-date-minutes-ago-abbreviated" = "$1 хв. тому";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Цього місяця|1=Минулого місяця|$1 місяць тому|$1 місяці тому|$1 місяців тому}}";
 "relative-date-seconds-abbreviated" = "$1 с.";
 "relative-date-seconds-ago-abbreviated" = "$1 с. тому";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Цього року|1=Торік|few=$1 роки назад|many=$1 років назад}}";

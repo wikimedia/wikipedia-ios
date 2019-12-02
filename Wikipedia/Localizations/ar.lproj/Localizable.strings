@@ -202,6 +202,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 بايت مضاف}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 بايت مزال}}";
 "diff-single-header-summary-heading" = "ملخص التعديل";
+"diff-single-intro-title" = "مقدمة";
 "diff-single-line-format" = "سطر $1";
 "diff-thanks-anonymous-no-thanks" = "لا يمكن شكر المستخدمين المجهولين";
 "diff-thanks-login-subtitle" = "\"شكرا\" هي طريقة سهلة لإظهار التقدير لعمل أحد المحررين على ويكيبيديا، يجب تسجيل الدخول لإرسال \"شكرا\".";
@@ -543,11 +544,15 @@
 "page-history-bot-edits" = "تعديلات البوتات";
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
 "page-history-compare-title" = "مقارنة";
+"page-history-graph-accessibility-label" = "الرسم البياني للتعديلات مع مرور الوقت";
 "page-history-minor-edits" = "التعديلات الطفيفة";
 "page-history-revision-author-accessibility-label" = "المؤلف: $1";
+"page-history-revision-comment-accessibility-label" = "تعليق $1";
 "page-history-revision-history-title" = "تاريخ المراجعة";
+"page-history-revision-minor-edit-accessibility-label" = "تعديل طفيف";
 "page-history-revision-size-diff-addition" = "إضافة {{PLURAL:$1|1 بايت}}";
 "page-history-revision-size-diff-subtraction" = "إزالة {{PLURAL:$1|1 بايت}}";
+"page-history-revision-time-accessibility-label" = "قِّدم المراجعة في $1";
 "page-history-revisions-comparison-warning" = "يمكن تحديد مراجعتين فقط";
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
@@ -562,7 +567,7 @@
 "page-read-in-other-languages" = "متاحة {{PLURAL:$1|بـ$1 لغة أخرى|بـ$1 لغات أخرى}}";
 "page-similar-titles" = "صفحات مشابهة";
 "page-talk-page" = "اعرض صفحة النقاش";
-"panel-compare-revisions-text" = "تساعد مقارنة المراجعات في إظهار كيف تم تغيير مقالة بمرور الوقت، عند مقارنة مراجعتي مقالة، يتم إنشاء الاختلافات بينهما.";
+"panel-compare-revisions-text" = "تساعد مقارنة المراجعات في إظهار كيف تم تغيير مقالة بمرور الوقت، ستوضح المقارنة بين مراجعتين لمقالة ما الفرق بين تلك المراجعات من خلال إبراز أي محتوى تم تغييره.";
 "panel-compare-revisions-title" = "مقارنة المراجعات";
 "pictured" = "مصوّر";
 "places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";

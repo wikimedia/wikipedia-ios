@@ -198,6 +198,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte lades till}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte togs bort}}";
 "diff-single-header-summary-heading" = "Redigeringssammanfattning";
+"diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Rad $1";
 "diff-thanks-anonymous-no-thanks" = "Anonyma användare kan inte skickas";
 "diff-thanks-login-subtitle" = "\"Tack\" är ett enkelt sätt att visa sin uppskattning för en redigerares arbete på Wikipedia. Du måste vara inloggad för att skicka ett tack.";
@@ -539,11 +540,15 @@
 "page-history-bot-edits" = "botredigeringar";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
 "page-history-compare-title" = "Jämför";
+"page-history-graph-accessibility-label" = "Tidsdiagram över redigeringar";
 "page-history-minor-edits" = "mindre redigeringar";
 "page-history-revision-author-accessibility-label" = "Författare: $1";
+"page-history-revision-comment-accessibility-label" = "Kommentar $1";
 "page-history-revision-history-title" = "Versionshistorik";
+"page-history-revision-minor-edit-accessibility-label" = "Mindre redigering";
 "page-history-revision-size-diff-addition" = "Lade till {{PLURAL:$1|$1 byte}}";
 "page-history-revision-size-diff-subtraction" = "Tog bort {{PLURAL:$1|$1 byte}}";
+"page-history-revision-time-accessibility-label" = "Versionen gjordes $1";
 "page-history-revisions-comparison-warning" = "Endast två versioner kan markeras";
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
 "page-history-user-edits" = "användarredigeringar";
@@ -558,7 +563,7 @@
 "page-read-in-other-languages" = "Tillgänglig på {{PLURAL:$1|$1 annat|$1 andra}} språk";
 "page-similar-titles" = "Liknande sidor";
 "page-talk-page" = "Visa diskussionssidan";
-"panel-compare-revisions-text" = "Jämför versioner hjälper dig se hur en artikel har ändrats med tiden. När du jämför två versioner av en artikel genereras skillnaderna mellan dem.";
+"panel-compare-revisions-text" = "Jämför versioner för att se hur en artikel har ändrats med tiden. När två versioner av en artikel jämförs kommer skillnaden mellan dessa version visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "pictured" = "i bild";
 "places-accessibility-clear-saved-searches" = "Rensa sparade sökningar";

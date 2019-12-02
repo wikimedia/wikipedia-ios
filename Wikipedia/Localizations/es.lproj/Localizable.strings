@@ -111,7 +111,7 @@
 "action-share" = "Compartir";
 "action-share-accessibility" = "Compartir";
 "action-sort" = "Ordenar";
-"action-thank-user-accessibility" = "Agradecer a Usuario";
+"action-thank-user-accessibility" = "Agradecer a usuario";
 "action-undo" = "Deshacer";
 "action-unsave" = "No guardar";
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
@@ -135,7 +135,7 @@
 "article-delete" = "Borrar";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artículo eliminado|artículos eliminados}}";
 "article-languages-filter-placeholder" = "Buscar idioma";
-"article-languages-label" = "Elige idioma";
+"article-languages-label" = "Elegir un idioma";
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Seguir leyendo";
@@ -217,16 +217,17 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte añadido|$1 bytes añadidos}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte quitado|$1 bytes quitados}}";
 "diff-single-header-summary-heading" = "Resumen de edición";
+"diff-single-intro-title" = "Introducción";
 "diff-single-line-format" = "Renglón $1";
 "diff-thanks-anonymous-no-thanks" = "No se puede agradecer a usuarios anónimos";
 "diff-thanks-login-subtitle" = "'Gracias' es una manera fácil de mostrar agradecimiento por el trabajo de un editor en Wikipedia. Tienes que acceder para enviar 'Gracias'.";
-"diff-thanks-login-title" = "Accede para enviar 'Gracias'";
-"diff-thanks-send-button-title" = "Enviar 'Gracias'";
+"diff-thanks-login-title" = "Accede para enviar agradecimientos";
+"diff-thanks-send-button-title" = "Agradecer";
 "diff-thanks-send-subtitle" = "'Gracias' es una manera fácil de mostrar agradecimiento por el trabajo de un editor en Wikipedia. Dar las 'Gracias' no se puede deshacer y es públicamente visible.";
-"diff-thanks-send-title" = "Enviar 'Gracias' públicamente";
-"diff-thanks-sent" = "Tu 'Gracias' se envió a $1";
-"diff-thanks-sent-already" = "Ya has enviado un 'Gracias' por esta edición";
-"diff-thanks-sent-cannot-unsend" = "No se puede deshacer el envío de 'Gracias'";
+"diff-thanks-send-title" = "Enviar agradecimiento públicamente";
+"diff-thanks-sent" = "Tu agradecimiento se envió a $1";
+"diff-thanks-sent-already" = "Ya has enviado un agradecimiento por esta edición";
+"diff-thanks-sent-cannot-unsend" = "No se puede deshacer el envío de agradecimientos";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 renglón|$1 renglones}} sin editar";
 "dim-images" = "Atenuación de imágenes";
 "edit-bold-accessibility-label" = "\nAñadir negritas";
@@ -558,9 +559,11 @@
 "page-history-bot-edits" = "ediciones de bots";
 "page-history-compare-accessibility-hint" = "Toca para seleccionar dos revisiones para comparar";
 "page-history-compare-title" = "Comparar";
+"page-history-graph-accessibility-label" = "Gráfico de ediciones en el tiempo";
 "page-history-minor-edits" = "ediciones menores";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Historial de revisiones";
+"page-history-revision-minor-edit-accessibility-label" = "Edición menor";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Añadido $1 byte|Añadidos $1 bytes}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Quitado $1 byte|Quitados $1 bytes}}";
 "page-history-revisions-comparison-warning" = "Solo puede seleccionar dos revisiones";
@@ -577,6 +580,7 @@
 "page-read-in-other-languages" = "\nDisponible en {{PLURAL:$1|$1 idioma más|otros $1 idiomas}}";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discusión";
+// Fuzzy
 "panel-compare-revisions-text" = "Comprar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Cuando compara dos revisiones de un artículo, se muestran las diferencia entre ambas.";
 "panel-compare-revisions-title" = "Comparando revisiones";
 "pictured" = "retratado";

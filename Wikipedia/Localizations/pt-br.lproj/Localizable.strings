@@ -209,6 +209,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte adicionado|$1 bytes adicionados}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte removido|$1 bytes removidos}}";
 "diff-single-header-summary-heading" = "Resumo da edição";
+"diff-single-intro-title" = "Introdução";
 "diff-single-line-format" = "Linha $1";
 "diff-thanks-anonymous-no-thanks" = "Usuários anônimos não podem ser agradecidos";
 "diff-thanks-login-subtitle" = "'Obrigado' é uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. Você deve estar logado para enviar 'Obrigado'.";
@@ -550,11 +551,15 @@
 "page-history-bot-edits" = "edições de robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões para comparar";
 "page-history-compare-title" = "Comparar";
+"page-history-graph-accessibility-label" = "Gráfico de edições ao longo do tempo";
 "page-history-minor-edits" = "edições menores";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
+"page-history-revision-comment-accessibility-label" = "Comentário $1";
 "page-history-revision-history-title" = "Histórico de revisão";
+"page-history-revision-minor-edit-accessibility-label" = "Edição menor";
 "page-history-revision-size-diff-addition" = "Adicionado {{PLURAL:$1|$1 byte|$1 bytes}}";
 "page-history-revision-size-diff-subtraction" = "Removido {{PLURAL:$1|$1 byte|$1 bytes}}";
+"page-history-revision-time-accessibility-label" = "Revisão feita $1";
 "page-history-revisions-comparison-warning" = "Apenas duas revisões podem ser selecionadas";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edição|$1 edições}} desde $2";
 "page-history-user-edits" = "edições de usuário";
@@ -569,7 +574,7 @@
 "page-read-in-other-languages" = "Disponível em {PLURAL:$1|$1 outro idioma|$1 outros idiomas}}";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discussão";
-"panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo mudou ao longo do tempo. Quando você compara duas revisões de um artigo, as diferenças entre elas são geradas.";
+"panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo mudou ao longo do tempo. A comparação de duas revisões de um artigo mostrará a diferença entre essas revisões, destacando qualquer conteúdo que foi alterado.";
 "panel-compare-revisions-title" = "Comparando revisões";
 "pictured" = "Retratado";
 "places-accessibility-clear-saved-searches" = "Limpar pesquisas salvas";

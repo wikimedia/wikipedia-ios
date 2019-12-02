@@ -195,6 +195,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|בית אחד נוסף|$1 בתים נוספו}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|בית אחד הוסר|$1 בתים הוסרו}}";
 "diff-single-header-summary-heading" = "עריכת תקציר";
+"diff-single-intro-title" = "מבוא";
 "diff-single-line-format" = "שורה $1";
 "diff-thanks-anonymous-no-thanks" = "אי אפשר להודות למשתמשים אלמוניים";
 "diff-thanks-login-subtitle" = "\"תודה\" היא דרך קלה להראות הערכה לעבודה של עורך בוויקיפדיה. חובה להיות בחשבון כדי לשלוח תודה.";
@@ -461,7 +462,7 @@
 "insert-media-image-preview-more-information-action-title" = "מידע נוסף";
 "insert-media-image-preview-select-image-action-title" = "בחירת תמונה";
 "insert-media-image-size-setting-custom" = "מותאם אישית";
-"insert-media-image-size-setting-default" = "ברירת מחדל";
+"insert-media-image-size-setting-default" = "ברירת המחדל";
 "insert-media-image-size-settings-px-unit-name" = "פיקסל";
 "insert-media-image-size-settings-title" = "גודל תמונה";
 "insert-media-image-type-setting-basic" = "בסיסית";
@@ -536,11 +537,15 @@
 "page-history-bot-edits" = "עריכות של בוטים";
 "page-history-compare-accessibility-hint" = "נא ללחוץ כדי לבחור שתי גרסאות להשוואה";
 "page-history-compare-title" = "השוואה";
+"page-history-graph-accessibility-label" = "תרשים עריכות לעורך זמן";
 "page-history-minor-edits" = "עריכות משניות";
 "page-history-revision-author-accessibility-label" = "יוצר: $1";
+"page-history-revision-comment-accessibility-label" = "הערה: $1";
 "page-history-revision-history-title" = "היסטוריית גרסאות";
+"page-history-revision-minor-edit-accessibility-label" = "עריכה משנית";
 "page-history-revision-size-diff-addition" = "נוס{{PLURAL:$1|ף בית אחד|פו $1 בתים}}";
 "page-history-revision-size-diff-subtraction" = "הוסר{{PLURAL:$1| בית אחד|ו $1 בתים}}";
+"page-history-revision-time-accessibility-label" = "הגרסה נעשתה ב־$1";
 "page-history-revisions-comparison-warning" = "ניתן לבחור שתי גרסאות בלבד";
 "page-history-stats-text" = "{{PLURAL:$1|עריכה אחת|$1 עריכות}} מאז $2";
 "page-history-user-edits" = "עריכות משתמש";
@@ -555,7 +560,7 @@
 "page-read-in-other-languages" = "זמין ב{{PLURAL:$1|עוד שפה אחת|־$1 שפות נוספות}}";
 "page-similar-titles" = "דפים דומים";
 "page-talk-page" = "הצגת דף השיחה";
-"panel-compare-revisions-text" = "השוואת גרסאות עוזרת להראות איך ערך השתנה לאורך זמן. בעת השוואת שתי גרסאות של ערך, מחוללים ההבדלים ביניהם.";
+"panel-compare-revisions-text" = "השוואת גרסאות עוזרת להראות איך ערך השתנה לאורך זמן. השוואת שתי גרסאות של ערך תציג את ההבדל בין שתי הגרסאות האלה באמצעות הדגשת התוכן שהשתנה.";
 "panel-compare-revisions-title" = "גרסאות מושוות";
 "pictured" = "בתמונה";
 "places-accessibility-clear-saved-searches" = "ניקוי חיפושים שמורים";
@@ -819,7 +824,7 @@
 "talk-pages-reply-button-title" = "השב לדיון זה";
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
-"theme-default-display-name" = "ברירת מחדל";
+"theme-default-display-name" = "ברירת המחדל";
 "theme-default-explanation" = "בהתאם לערכת העיצוב של המערכת";
 "theme-light-display-name" = "בהיר";
 "theme-sepia-display-name" = "ספיה";
