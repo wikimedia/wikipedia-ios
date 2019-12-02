@@ -13,13 +13,12 @@ public class ArticleSummaryController: NSObject {
     @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: String, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> String? {
         
         let cancellationKey = fetcher.fetchSummaryForArticle(with: articleKey) { [weak self] (articleSummary, urlResponse, error) in
-            guard let articleSummary = articleSummary,
-                error == nil else {
-                completion?(nil, error)
-                return
-            }
-            
             DispatchQueue.main.async {
+                guard let articleSummary = articleSummary,
+                    error == nil else {
+                    completion?(nil, error)
+                    return
+                }
                 self?.processSummaryResponses(with: [articleKey: articleSummary]) { (result, error) in
                     completion?(result[articleKey], error)
                 }
