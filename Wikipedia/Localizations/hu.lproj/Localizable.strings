@@ -111,6 +111,7 @@
 "article-read-more-title" = "További információ";
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
+"article-title" = "Szócikk";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
 "article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
 "back-button-accessibility-label" = "Vissza";
@@ -126,6 +127,7 @@
 "button-skip" = "Kihagyás";
 "cancel" = "Mégse";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Törlés";
 "close-button-accessibility-label" = "Bezárás";
 "compass-direction" = "$1 óra irányban";
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
@@ -139,6 +141,7 @@
 "description-edit-placeholder-title" = "A rövid leírások jobbak";
 "description-edit-publish" = "Leírás közzététele";
 "description-edit-title" = "Leírás szerkesztése";
+"description-help-about-description" = "A címleírások összefoglalják egy cikk tartalmát, hogy az olvasók gyorsan megérthessék, miről szól.";
 "description-help-about-title" = "Névjegy";
 "description-help-about-wikidata" = "További információ a Wikidatáról";
 "description-help-more-info-description" = "A leírások a Wikidatán tárolódnak, ami a Wikimédia Alapítvány egyik projektje, egy szabad, együttműködő, többnyelvű, másodlagos adatbázis, ami a Wikipédiát és egyéb projekteket támogat.";

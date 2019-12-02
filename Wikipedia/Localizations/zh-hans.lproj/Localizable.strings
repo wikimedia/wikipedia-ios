@@ -507,6 +507,7 @@
 // Fuzzy
 "page-history-revision-author-accessibility-label" = "作者：%@";
 "page-history-revision-history-title" = "版本历史";
+"page-history-revision-minor-edit-accessibility-label" = "小编辑";
 "page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 byte|$1字节}}";
 "page-history-revision-size-diff-subtraction" = "已删除 {{PLURAL:$1|$1 byte|$1字节}}";
 "page-history-revisions-comparison-warning" = "您只能选择两个修订版本";
