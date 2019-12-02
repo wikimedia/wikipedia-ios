@@ -445,6 +445,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionOrderRawValue: cell.selectionOrder?.rawValue), forKey: revisionID)
 
         cell.apply(theme: theme)
+        cell.updateAccessibilityLabel()
     }
 
     private func revisionID(forItemAtIndexPath indexPath: IndexPath) -> NSNumber {

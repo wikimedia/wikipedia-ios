@@ -23,6 +23,11 @@
             return .mainPage
         case .pictureOfTheDay:
             return .pictureOfTheDay
+        case .announcement:
+            guard let announcement = contentPreview as? WMFAnnouncement else {
+                return .announcement
+            }
+            return announcement.placement == "article" ? .articleAnnouncement : .announcement
         default:
             return nil
         }

@@ -267,7 +267,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             self.passwordRepeatField.textColor = theme.colors.warning
             self.passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
             self.passwordRepeatAlertLabel.isHidden = false
-            self.scrollView.scrollSubView(toTop: self.passwordTitleLabel, offset: 6, animated: true)
+            self.scrollView.scrollSubview(toTop: self.passwordTitleLabel, offset: 6, animated: true)
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }

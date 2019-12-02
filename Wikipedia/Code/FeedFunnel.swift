@@ -5,6 +5,7 @@
     let key: String?
     let midnightUTCDate: Date?
     let siteURLString: String?
+    @objc(initWithContentGroup:)
     convenience init(_ group: WMFContentGroup?) {
         self.init(label: group?.eventLoggingLabel, key: group?.key, midnightUTCDate: group?.midnightUTCDate, siteURLString: group?.siteURLString)
     }
@@ -94,7 +95,7 @@
         log(event(category: .feed, label: nil, action: .refresh))
     }
 
-    public func logFeedImpression(for context: FeedFunnelContext?) {
+    @objc public func logFeedImpression(for context: FeedFunnelContext?) {
         log(event(category: .feed, label: context?.label, action: .impression, measureAge: measureAge(for: context?.midnightUTCDate)), language: language(from: context?.siteURLString))
     }
 

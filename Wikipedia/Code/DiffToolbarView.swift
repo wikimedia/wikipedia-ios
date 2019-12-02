@@ -38,11 +38,7 @@ class DiffToolbarView: UIView {
     lazy var shareButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.accessibilityShareTitle
-        
-        if let button = item.customView as? UIButton {
-            button.contentEdgeInsets = UIEdgeInsets(top: -5, left: 0, bottom: 0, right: 0)
-        }
-        
+
         return item
     }()
 
@@ -50,10 +46,6 @@ class DiffToolbarView: UIView {
         let item = IconBarButtonItem(iconName: "diff-smile", target: self, action: #selector(tappedThank(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-thank-user-accessibility", value: "Thank User", comment: "Accessibility title for the 'Thank User' action button when viewing a single revision diff.")
         
-        if let button = item.customView as? UIButton {
-            button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
-        }
-
         return item
     }()
     
@@ -114,12 +106,32 @@ class DiffToolbarView: UIView {
     }
 
     private func setItems() {
-        let marginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        let trailingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
-            marginSpacing.width = 50
+            if #available(iOS 13, *) {
+                trailingMarginSpacing.width = 58
+            } else {
+                trailingMarginSpacing.width = 36
+            }
         default:
-            marginSpacing.width = 0
+            if #available(iOS 13, *) {
+                trailingMarginSpacing.width = 24
+            } else {
+                trailingMarginSpacing.width = 8
+            }
+        }
+        
+        let leadingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
+        case (.regular, .regular):
+            if #available(iOS 13, *) {
+                leadingMarginSpacing.width = 42
+            } else {
+                leadingMarginSpacing.width = 24
+            }
+        default:
+            leadingMarginSpacing.width = 0
         }
         
         let largeFixedSize = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -127,7 +139,7 @@ class DiffToolbarView: UIView {
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        toolbar.items = [nextButton, previousButton, spacer, thankButton, largeFixedSize, shareButton, marginSpacing]
+        toolbar.items = [leadingMarginSpacing, nextButton, previousButton, spacer, thankButton, largeFixedSize, shareButton, trailingMarginSpacing]
     }
     
     func setPreviousButtonState(isEnabled: Bool) {
