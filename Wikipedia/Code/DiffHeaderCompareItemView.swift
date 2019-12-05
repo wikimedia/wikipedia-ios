@@ -94,6 +94,10 @@ class DiffHeaderCompareItemView: UIView {
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+
         let userStackViewConvertedPoint = self.convert(point, to: userStackView)
         if userStackView.point(inside: userStackViewConvertedPoint, with: event) {
             return true
