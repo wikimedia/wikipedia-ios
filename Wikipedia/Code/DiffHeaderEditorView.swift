@@ -31,6 +31,7 @@ class DiffHeaderEditorView: UIView {
         if let tapGestureRecognizer = tapGestureRecognizer {
             userStackView.addGestureRecognizer(tapGestureRecognizer)
         }
+        userStackView.accessibilityTraits = [.link]
     }
     
     func update(_ viewModel: DiffHeaderEditorViewModel) {
