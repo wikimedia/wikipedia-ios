@@ -253,7 +253,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         if let keyboardFrame = keyboardFrame {
             let adjustedKeyboardFrame = view.convert(keyboardFrame, to: scrollView)
             let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
-            bottom = max(bottom, keyboardIntersection.height)
+            bottom = max(bottom, scrollView.bounds.maxY - keyboardIntersection.minY)
         }
         
         let scrollIndicatorInsets: UIEdgeInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)

@@ -1912,7 +1912,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.editFunnel logSectionEditingStartFromSource:source language:articleLanguage];
 
     [self cancelWIconPopoverDisplay];
-    WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
+    WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] initWithNibName:nil bundle:nil];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
     sectionEditVC.editFunnel = self.editFunnel;
