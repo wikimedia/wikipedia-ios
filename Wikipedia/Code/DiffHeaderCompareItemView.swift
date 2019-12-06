@@ -76,6 +76,16 @@ class DiffHeaderCompareItemView: UIView {
         updateFonts(with: traitCollection)
 
         self.viewModel = viewModel
+        updateAccessibilityLabel(viewModel: viewModel)
+    }
+    
+    func updateAccessibilityLabel(viewModel: DiffHeaderCompareItemViewModel) {
+        let isMinorAccessibilityString = viewModel.isMinor ? CommonStrings.minorEditTitle : ""
+        let authorString = String.localizedStringWithFormat(CommonStrings.authorTitle, viewModel.username ?? CommonStrings.unknownTitle)
+        accessibilityLabel = [headingLabel.text, timestampLabel.text, authorString, isMinorAccessibilityString, summaryLabel.text]
+            .compactMap { $0 }
+            .filter { $0.wmf_hasNonWhitespaceText }
+            .joined(separator: ", ") // Comma adds slight voice-over pause.
     }
     
     func squish(by percentage: CGFloat) {
@@ -131,6 +141,7 @@ private extension DiffHeaderCompareItemView {
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         usernameTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
         timestampTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
+        isAccessibilityElement = true
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
