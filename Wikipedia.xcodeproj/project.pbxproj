@@ -1620,6 +1620,7 @@
 		B0845E1E2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
 		B0845E1F2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
 		B0845E202061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
+		B085536C2399E368002100F8 /* UIAccessibility+Grouping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B085536B2399E368002100F8 /* UIAccessibility+Grouping.swift */; };
 		B08624311F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */; };
 		B08624321F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */; };
 		B08624331F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */; };
@@ -4381,6 +4382,7 @@
 		B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaURLTranslations.swift; sourceTree = "<group>"; };
 		B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProgressViewController.swift; sourceTree = "<group>"; };
 		B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SavedProgressViewController.storyboard; sourceTree = "<group>"; };
+		B085536B2399E368002100F8 /* UIAccessibility+Grouping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAccessibility+Grouping.swift"; path = "Wikipedia/Code/UIAccessibility+Grouping.swift"; sourceTree = SOURCE_ROOT; };
 		B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeAnimationBackgroundView.swift; sourceTree = "<group>"; };
 		B0866F431CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionFooter.h; sourceTree = "<group>"; };
 		B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionFooter.m; sourceTree = "<group>"; };
@@ -9120,6 +9122,7 @@
 			isa = PBXGroup;
 			children = (
 				7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */,
+				B085536B2399E368002100F8 /* UIAccessibility+Grouping.swift */,
 				7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */,
 				8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */,
 				D84F92401DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.h */,
@@ -12276,6 +12279,7 @@
 				D83FA6B61D74CDE6008CAB00 /* EventLoggingFunnel.m in Sources */,
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,
+				B085536C2399E368002100F8 /* UIAccessibility+Grouping.swift in Sources */,
 				83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
 				D8733C8B1ECA10930011E379 /* LabelGroupAccessibilityElement.swift in Sources */,
