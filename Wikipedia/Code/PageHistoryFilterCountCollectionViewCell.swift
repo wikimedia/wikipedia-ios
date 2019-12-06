@@ -46,9 +46,7 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
     }
 
     private func updateAccessibilityLabel() {
-        accessibilityLabel = [imageLabel.text, titleLabel.text]
-            .compactMap { $0 }
-            .joined(separator: ", ") // Comma adds slight voice-over pause.
+        accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [imageLabel.text, titleLabel.text])
     }
 }
 

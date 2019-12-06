@@ -59,10 +59,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     func updateAccessibilityLabel() {
         let isMinorAccessibilityString = isMinor ? CommonStrings.minorEditTitle : ""
-        accessibilityLabel = [timeLabel.accessibilityLabel, authorButton.accessibilityLabel, sizeDiffLabel.accessibilityLabel, isMinorAccessibilityString, commentLabel.accessibilityLabel]
-            .compactMap { $0 }
-            .filter { $0.wmf_hasNonWhitespaceText }
-            .joined(separator: ", ") // Comma adds slight voice-over pause.
+        accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [timeLabel.accessibilityLabel, authorButton.accessibilityLabel, sizeDiffLabel.accessibilityLabel, isMinorAccessibilityString, commentLabel.accessibilityLabel])
     }
     
     var comment: String? {

@@ -82,10 +82,7 @@ class DiffHeaderCompareItemView: UIView {
     func updateAccessibilityLabel(viewModel: DiffHeaderCompareItemViewModel) {
         let isMinorAccessibilityString = viewModel.isMinor ? CommonStrings.minorEditTitle : ""
         let authorString = String.localizedStringWithFormat(CommonStrings.authorTitle, viewModel.username ?? CommonStrings.unknownTitle)
-        accessibilityLabel = [headingLabel.text, timestampLabel.text, authorString, isMinorAccessibilityString, summaryLabel.text]
-            .compactMap { $0 }
-            .filter { $0.wmf_hasNonWhitespaceText }
-            .joined(separator: ", ") // Comma adds slight voice-over pause.
+        accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, timestampLabel.text, authorString, isMinorAccessibilityString, summaryLabel.text])
     }
     
     func squish(by percentage: CGFloat) {
