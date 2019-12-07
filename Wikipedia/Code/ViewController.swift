@@ -345,6 +345,32 @@ extension ViewController: WMFEmptyViewContainer {
     }
 }
 
+
+// Workaround for adjustedContentInset.bottom mismatch
+// even when contentInsetAdjustmentBehavior == .never
+// on WKWebView's scrollView when the keyboard is presented
+extension UIScrollView {
+    var isExperiencingContentAdjustmentMismatchBug: Bool {
+        guard
+            contentInsetAdjustmentBehavior == .never,
+            contentInset.bottom > 0,
+            contentInset.bottom != adjustedContentInset.bottom
+        else {
+            return false
+        }
+        return true
+    }
+    
+    func fixAdjustedContentInsetMismatchBugIfNecessary() {
+        guard isExperiencingContentAdjustmentMismatchBug else {
+            return
+        }
+        var adjustedInsets = contentInset
+        adjustedInsets.bottom = 0
+        contentInset = adjustedInsets
+    }
+}
+
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScroll(scrollView)
@@ -356,6 +382,10 @@ extension ViewController: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         navigationBarHider.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+    
+    func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        scrollView.fixAdjustedContentInsetMismatchBugIfNecessary()
     }
     
     #if UI_TEST
