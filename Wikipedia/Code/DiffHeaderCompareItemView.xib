@@ -12,12 +12,14 @@
             <connections>
                 <outlet property="containerStackView" destination="8NE-pY-A7V" id="x6m-kt-OYy"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="RWR-eQ-oKM"/>
+                <outlet property="headingAndTimestampStackView" destination="idd-K7-5Zo" id="5R4-vU-bhy"/>
                 <outlet property="headingLabel" destination="k3C-1t-PsV" id="mwH-bI-ILX"/>
                 <outlet property="stackViewTopPaddingConstraint" destination="SuQ-LJ-aNG" id="Iei-yf-CSI"/>
                 <outlet property="summaryLabel" destination="JqN-eA-lxJ" id="lMm-wE-gw6"/>
                 <outlet property="timestampLabel" destination="tvs-c2-tvH" id="eFr-zS-6Ve"/>
+                <outlet property="userAndSummaryStackView" destination="A7E-Jh-Llz" id="rnm-WO-GZ3"/>
                 <outlet property="userIconImageView" destination="PkK-0Z-KnZ" id="Fzd-on-Pkj"/>
-                <outlet property="userStackView" destination="4zH-8J-qpn" id="hsy-g0-Nqm"/>
+                <outlet property="userStackView" destination="4zH-8J-qpn" id="uPO-WS-eAr"/>
                 <outlet property="usernameLabel" destination="76q-LW-AgX" id="8xh-54-l3p"/>
             </connections>
         </placeholder>
@@ -29,22 +31,27 @@
                 <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8NE-pY-A7V">
                     <rect key="frame" x="15" y="14" width="384" height="107"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3C-1t-PsV">
-                            <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvs-c2-tvH">
-                            <rect key="frame" x="0.0" y="30.5" width="384" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="idd-K7-5Zo">
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="51"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3C-1t-PsV">
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvs-c2-tvH">
+                                    <rect key="frame" x="0.0" y="30.5" width="384" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="A7E-Jh-Llz">
                             <rect key="frame" x="0.0" y="61" width="384" height="46"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="4zH-8J-qpn">
+                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="4zH-8J-qpn">
                                     <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" placeholderIntrinsicWidth="25" placeholderIntrinsicHeight="25" translatesAutoresizingMaskIntoConstraints="NO" id="PkK-0Z-KnZ">
@@ -58,7 +65,7 @@
                                         </label>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="rHP-Rr-BcY">
+                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="rHP-Rr-BcY">
                                     <rect key="frame" x="0.0" y="25.5" width="384" height="20.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="999" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqN-eA-lxJ">
