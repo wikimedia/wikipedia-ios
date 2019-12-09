@@ -292,7 +292,7 @@ private extension UITextView {
     // Text with no leading and trailing space and with repeating internal spaces reduced to single spaces
     func normalizedWhitespaceText() -> String? {
         if let text = text, let whiteSpaceNormalizationRegex = whiteSpaceNormalizationRegex {
-            return whiteSpaceNormalizationRegex.stringByReplacingMatches(in: text, options: [], range: NSMakeRange(0, text.count), withTemplate: " ").trimmingCharacters(in: .whitespacesAndNewlines)
+            return whiteSpaceNormalizationRegex.stringByReplacingMatches(in: text, options: [], range: text.fullRange, withTemplate: " ").trimmingCharacters(in: .whitespacesAndNewlines)
         }
         return text
     }
