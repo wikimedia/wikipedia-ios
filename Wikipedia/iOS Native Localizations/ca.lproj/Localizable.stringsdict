@@ -173,6 +173,22 @@
 			<string>%2$d usuaris</string>
 		</dict>
 	</dict>
+	<key>intermediate-edits-editors-limited-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ per %2$d+ usuaris no mostrats</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d revisió intermèdia</string>
+			<key>other</key>
+			<string>%1$d revisions intermèdies</string>
+		</dict>
+	</dict>
 	<key>intermediate-edits-limited-editors-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

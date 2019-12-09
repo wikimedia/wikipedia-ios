@@ -477,7 +477,7 @@
 "intermediate-edits-count-limited" = "No s'han mostrat $1+ revisions intermèdies";
 "intermediate-edits-editors-count" = "No {{PLURAL:$1|s'ha mostrat $1 revisió intermèdia|s'han mostrat $1 revisions intermèdies}} de {{PLURAL:$2|$2 usuari|$2 usuaris}}";
 "intermediate-edits-editors-count-limited" = "$1+ revisions intermèdies per $2+ usuaris no mostrats";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisió intermèdia|$1 revisions intermèdies}} per 2$+ usuaris no mostrats";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisió intermèdia|$1 revisions intermèdies}} per $2+ usuaris no mostrats";
 "intermediate-edits-limited-editors-count" = "$1+ revisions intermèdies per {{PLURAL:$2|$2 usuari|$2 usuaris}} no mostrades";
 "languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
