@@ -69,6 +69,7 @@
 "description-published-button-title" = "Gatavs";
 "diff-compare-header-from-info-heading" = "No:";
 "diff-compare-title" = "Salīdzināt versijas";
+"diff-single-intro-title" = "Ievads";
 "diff-thanks-send-button-title" = "Sūtīt pateicību";
 "edit-direction-left-accessibility-label" = "Pārvietot kursoru pa kreisi";
 "edit-direction-right-accessibility-label" = "Pārvietot kursoru pa labi";
@@ -159,7 +160,9 @@
 "page-edit-history" = "Pilna labojumu vēsture";
 "page-history-compare-title" = "Salīdzināt";
 "page-history-revision-author-accessibility-label" = "Autors: $1";
+"page-history-revision-comment-accessibility-label" = "Komentārs $1";
 "page-history-revision-history-title" = "Versiju hronoloģija";
+"page-history-revision-minor-edit-accessibility-label" = "Maznozīmīgs labojums";
 "page-history-stats-text" = "{{PLURAL:$1|$1 labojumi|$1 labojums|$1 labojumi}} kopš $2";
 "page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
 "page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";

@@ -178,6 +178,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Додата %1$d бајта</string>
 			<key>one</key>
 			<string>Додат %1$d бајт</string>
 			<key>other</key>
@@ -194,6 +196,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Уклоњена %1$d бајта</string>
 			<key>one</key>
 			<string>Уклоњен %1$d бајт</string>
 			<key>other</key>
