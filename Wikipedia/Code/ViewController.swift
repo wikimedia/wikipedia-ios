@@ -140,6 +140,9 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if #available(iOS 13.0, *) {
+            scrollView?.automaticallyAdjustsScrollIndicatorInsets = false
+        }
         scrollView?.contentInsetAdjustmentBehavior = .never
  
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
@@ -224,13 +227,6 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     }
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
-    var isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets: Bool {
-        if #available(iOS 13.0, *) {
-            return true
-        } else {
-            return false
-        }
-    }
     
     public final func updateScrollViewInsets(preserveAnimation: Bool = false) {
         guard let scrollView = scrollView, scrollView.contentInsetAdjustmentBehavior == .never else {
@@ -259,13 +255,8 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
             bottom = max(bottom, keyboardIntersection.height)
         }
-        let scrollIndicatorInsets: UIEdgeInsets
         
-        if isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets {
-            scrollIndicatorInsets = UIEdgeInsets(top: top - safeInsets.top, left: safeInsets.left, bottom: bottom - safeInsets.bottom, right: safeInsets.right)
-        } else {
-            scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
-        }
+        let scrollIndicatorInsets: UIEdgeInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
         
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height

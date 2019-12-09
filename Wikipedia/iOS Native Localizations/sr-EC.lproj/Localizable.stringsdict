@@ -178,6 +178,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Додата %1$d бајта</string>
 			<key>one</key>
 			<string>Додат %1$d бајт</string>
 			<key>other</key>
@@ -194,6 +196,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Уклоњена %1$d бајта</string>
 			<key>one</key>
 			<string>Уклоњен %1$d бајт</string>
 			<key>other</key>
@@ -351,17 +355,32 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ и %2$d листа за читање са вашег налога.</string>
+		<string>Са вашег налога %#@v1@ и %#@v2@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>су синхронизована %1$d чланка</string>
 			<key>one</key>
-			<string>Синхронизован је %1$d чланак</string>
+			<string>је синхронизован %1$d чланак</string>
 			<key>other</key>
-			<string>Синхронизовано је %1$d чланка</string>
+			<string>је синхронизовано %1$d чланака</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%2$d листе за читање</string>
+			<key>one</key>
+			<string>%2$d листа за читање</string>
+			<key>other</key>
+			<string>листи за читање</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -428,6 +447,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>пре %1$d месеца</string>
+			<key>one</key>
+			<string>пре %1$d месец</string>
 			<key>other</key>
 			<string>пре %1$d месеци</string>
 			<key>zero</key>

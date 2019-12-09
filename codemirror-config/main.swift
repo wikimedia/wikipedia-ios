@@ -19,6 +19,21 @@ let languagesJSONPathComponents = pathComponents + ["Wikipedia", "assets", "lang
 let languagesJSONPath = languagesJSONPathComponents.joined(separator: "/")
 let languagesJSONData = try! Data(contentsOf: URL(fileURLWithPath: languagesJSONPath))
 let languages = try! JSONDecoder().decode([LanguageJSON].self, from: languagesJSONData)
+let jsonExtractionRegex = try! NSRegularExpression(pattern: #"(?:mw\.config\.set\()(.*?)(?:\);\n*\}\);)"#, options: [.dotMatchesLineSeparators])
+
+func extractJSONString(from responseString: String) -> String? {
+    let results = jsonExtractionRegex.matches(in: responseString, range: NSRange(responseString.startIndex..., in: responseString))
+    guard
+        results.count == 1,
+        let firstResult = results.first,
+        firstResult.numberOfRanges == 2,
+        let soughtCaptureGroupRange = Range(firstResult.range(at: 1), in: responseString)
+    else {
+        return nil
+    }
+    return String(responseString[soughtCaptureGroupRange])
+}
+
 
 func getCodeMirrorConfigJSON(for wikiLanguage: String, completion: @escaping (String?) -> Void) {
     guard let url = URL(string: "http://\(wikiLanguage).wikipedia.org/w/load.php?debug=false&lang=en&modules=ext.CodeMirror.data") else {
@@ -34,15 +49,11 @@ func getCodeMirrorConfigJSON(for wikiLanguage: String, completion: @escaping (St
             completion(nil)
             return
         }
-        guard let last = responseString.components(separatedBy: "mw.config.set(").last else {
+        guard let soughtSubstring = extractJSONString(from: responseString) else {
             completion(nil)
             return
         }
-        guard let first = last.components(separatedBy: ");});").first else {
-            completion(nil)
-            return
-        }
-        completion(first.replacingOccurrences(of: "!0", with: "true"))
+        completion(soughtSubstring.replacingOccurrences(of: "!0", with: "true"))
         }.resume()
 }
 
