@@ -3,6 +3,7 @@
 // Author: Agilight
 // Author: Alexandr Efremov
 // Author: Av6
+// Author: BadDog
 // Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Dicto23456
@@ -200,6 +201,10 @@
 "description-welcome-descriptions-title" = "Краткие описания";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+"diff-context-lines-collapsed-button-title" = "Показать";
+"diff-context-lines-expanded-button-title" = "Скрыть";
+"diff-paragraph-moved-direction-down" = "вниз";
+"diff-paragraph-moved-direction-up" = "вверх";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
@@ -308,13 +313,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "вкл. все";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "вкл. $1";
-"explore-feed-preferences-feed-cards-hidden-title" = "Название ячейки, которая появляется вместо карточки подачи, скрытой пользователем с помощью кнопки переполнения - $ 1 заменяется типом карточки подачи";
+"explore-feed-preferences-feed-cards-hidden-title" = "Все %@ карточек скрыты";
 "explore-feed-preferences-global-card-footer-text" = "Эта карточка не является привязанной к языку, поэтому её выключение приведёт к исключению карточки из ленты во всех языках.";
 "explore-feed-preferences-global-cards-description" = "Карточки не привязанные к языкам.";
 "explore-feed-preferences-global-cards-subtitle" = "Не привязана к языку";
 "explore-feed-preferences-global-cards-title" = "Глобальные карточки";
 "explore-feed-preferences-hide-card-action-title" = "Скрыть эту карточку";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Название для действия, которое позволяет пользователям скрывать все карты каналов данного типа - $ 1 заменяется типом карты каналов";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Скрыть все карточки из раздела «%@»";
 "explore-feed-preferences-in-the-news-description" = "Статьи о текущих событиях";
 "explore-feed-preferences-languages-footer-text" = "Скрытие карточек всех типов приведёт к скрытию всей ленты.";
 "explore-feed-preferences-on-this-day-description" = "Исторические события в этот день";
@@ -525,6 +530,7 @@
 "page-history-minor-edits" = "малые правки";
 "page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-history-title" = "История изменений";
+"page-history-revision-minor-edit-accessibility-label" = "Малая правка";
 "page-issues" = "Вопросы по странице";
 "page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
 "page-location" = "Посмотреть на карте";
@@ -641,7 +647,7 @@
 "reading-lists-default-list-title" = "Сохранённые";
 "reading-lists-delete-reading-list-alert-message" = "Это действие не может быть отменено. Любые статьи, сохраненные только для {{PLURAL:$1|этот список|эти списки}} будут несохранены.";
 "reading-lists-delete-reading-list-alert-title" = "Удалить {{PLURAL:$1|список|списки}}?";
-"reading-lists-large-sync-completed" = "Предупреждение о том, что большая синхронизация завершена.  $ 1 будет заменено на количество статей, которые были синхронизированы, а $ 2 будет заменено на количество списков чтения, которые были синхронизированы";
+"reading-lists-large-sync-completed" = "$1 статей и $2 списков чтения были синхронизированы с вашей учётной записью";
 "reading-lists-list-not-synced-limit-exceeded" = "Список не синхронизирован, превышен лимит";
 "reading-lists-sort-saved-articles" = "Отсортировать сохранённые статьи";
 "reading-lists-split-notification" = "Существует лимит в $1 статей в одном списке для чтения. Существующие списки, в которых превышен этот лимит, были разделены на несколько.";
