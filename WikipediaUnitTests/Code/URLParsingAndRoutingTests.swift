@@ -8,6 +8,7 @@ class URLParsingAndRoutingTests: XCTestCase {
     func testWikiResourcePath() {
         XCTAssertEqual("/wiki//æ/_raising".wikiResourcePath, "/æ/_raising")
         XCTAssertNil("/w//æ/_raising".wikiResourcePath)
+        XCTAssertEqual("/wiki/อักษรละติน".wikiResourcePath, "อักษรละติน")
     }
     
     func testWResourcePath() {
