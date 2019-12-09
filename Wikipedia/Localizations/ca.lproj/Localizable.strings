@@ -201,6 +201,7 @@
 "diff-thanks-login-subtitle" = "Els agraïments són una forma senzilla d'apreciació del treball d'un editor a la Viquipèdia. Cal que hàgiu iniciat una sessió per a enviar agraïments.";
 "diff-thanks-login-title" = "Inicia una sessió per a donar les gràcies";
 "diff-thanks-send-button-title" = "Envia un agraïment";
+"diff-thanks-send-subtitle" = "Els agraïments són una forma fàcil de mostrar apreciació pel treball d'un editor a la Viquipèdia. Els agraïments no es poden desfer i són visibles públicament.";
 "diff-thanks-send-title" = "Envia públicament un agraïment";
 "diff-thanks-sent" = "S'ha enviat el vostre agraïment a $1";
 "diff-thanks-sent-already" = "Ja heu enviat un agraïment per aquesta edició";
@@ -472,6 +473,11 @@
 "insert-media-media-settings-title" = "Configuració multimèdia";
 "insert-media-title" = "Insereix fitxer multimèdia";
 "insert-media-uploaded-image-title" = "Imatge carregada";
+"intermediate-edits-count" = "No {{PLURAL:$1|s'ha mostrat $1 revisió intermèdia|s'han mostrat $1 revisions intermèdies}}";
+"intermediate-edits-count-limited" = "No s'han mostrat $1+ revisions intermèdies";
+"intermediate-edits-editors-count" = "No {{PLURAL:$1|s'ha mostrat $1 revisió intermèdia|s'han mostrat $1 revisions intermèdies}} de {{PLURAL:$2|$2 usuari|$2 usuaris}}";
+"intermediate-edits-editors-count-limited" = "$1+ revisions intermèdies per $2+ usuaris no mostrats";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisió intermèdia|$1 revisions intermèdies}} per 2$+ usuaris no mostrats";
 "intermediate-edits-limited-editors-count" = "$1+ revisions intermèdies per {{PLURAL:$2|$2 usuari|$2 usuaris}} no mostrades";
 "languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
@@ -534,12 +540,14 @@
 "page-history-graph-accessibility-label" = "Gràfic d'edicions al llarg del temps";
 "page-history-minor-edits" = "edicions menors";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
+"page-history-revision-comment-accessibility-label" = "Comentari $1";
 "page-history-revision-history-title" = "Historial de revisió";
 "page-history-revision-minor-edit-accessibility-label" = "Edició menor";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|S'ha afegit $1 byte|S'han afegit $1 bytes}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|S'ha suprimit $1 byte|S'han suprimit $1 bytes}}";
 "page-history-revision-time-accessibility-label" = "Revisió feta el $1";
 "page-history-revisions-comparison-warning" = "Només poden seleccionar-se dues revisions";
+"page-history-stats-text" = "{{PLURAL:$1|$1 edició|$1 edicions}} des del $2";
 "page-history-user-edits" = "edicions d'usuaris";
 "page-issues" = "Problemes de la pàgina";
 "page-last-edited" = "{{PLURAL:$1|0=S'ha modificat avui|1=S'ha modificat ahir|S'ha modificat fa $1 dies}}";
@@ -552,6 +560,7 @@
 "page-read-in-other-languages" = "Disponible en {{PLURAL:$1|$1 altra llengua|$1 altres llengües}}";
 "page-similar-titles" = "Pàgines similars";
 "page-talk-page" = "Mostra la pàgina de discussió";
+"panel-compare-revisions-text" = "Comparar revisions ajuda a mostrar com canvia un article al llarg del temps. Comparar dues revisions d'un article mostrarà la diferència entre les revisions ressaltant el contingut que hagi canviat.";
 "panel-compare-revisions-title" = "Comparació de revisions";
 "pictured" = "retratat";
 "places-accessibility-clear-saved-searches" = "Neteja les cerques desades";

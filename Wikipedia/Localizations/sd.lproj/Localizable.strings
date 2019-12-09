@@ -64,6 +64,8 @@
 "action-language-accessibility" = "ٻولي بدليو";
 "action-move-to" = "ڏانهن چوريو";
 "action-move-to-reading-list" = "پڙھڻ جي فھرست ڏانھن چوريو";
+"action-next-revision-accessibility" = "اڳيون ورجاءُ";
+"action-previous-revision-accessibility" = "پويون ورجاءُ";
 "action-read" = "پڙھو";
 "action-redo" = "وري-ڪريو";
 "action-remove" = "هٽايو";
@@ -76,6 +78,7 @@
 "action-share" = "ونڊيو";
 "action-share-accessibility" = "ونڊيو";
 "action-sort" = "مرتب";
+"action-thank-user-accessibility" = "واپرائيندڙ کي مھرباني چئو";
 "action-undo" = "اڻڪريو";
 "action-unsave" = "اڻسانڍيو";
 "action-unsaved-accessibility-notification" = "مضمون اڻسانڍيل";
@@ -181,6 +184,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 بائيٽ وڌي|$1 بائيٽون وڌيون}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 بائيٽ ھٽائي|$1 بائيٽون ھٽايون}}";
 "diff-single-header-summary-heading" = "سنوار جو تتُ";
+"diff-single-intro-title" = "تعارف";
 "diff-single-line-format" = "سِٽَ $1";
 "diff-thanks-anonymous-no-thanks" = "گمنام واپرائيندڙ کي مھرباني نٿي چئي سگھجي";
 "diff-thanks-login-subtitle" = "'مھربانيون' وڪيپيڊيا تي ڪنھن سنواريندڙ جي ڪم جي تعريف ڪرڻ جو آسان طريقو آھن. 'مھربانيون' موڪلڻ لاءِ توھان کي لازمي داخل ٿيل ھجڻ گھرجي.";
@@ -188,7 +192,6 @@
 "diff-thanks-send-button-title" = "'مھربانيون' موڪليو";
 "diff-thanks-send-subtitle" = "'مھربانيون' وڪيپيڊيا تي ڪنھن سنواريندڙ جي ڪم جي تعريف ڪرڻ جو آسان طريقو آھن. 'مھربانيون' اڻ نٿيون ڪري سگھجن ۽ عوامي طور ڏسي سگھجندڙ آھن.";
 "diff-thanks-send-title" = "عوامي طور 'مھربانيون' موڪليون";
-// Fuzzy
 "diff-thanks-sent" = "توھان جي 'مھرباني' $1 ڏانھن موڪلي وئي";
 "diff-thanks-sent-already" = "توھان اڳ ئي ھن سنوار لاءِ 'مھربانيون' موڪلي چڪا آھيو";
 "diff-thanks-sent-cannot-unsend" = "مھربانيون اڻ-موڪلجي نٿيون سگھجن";
@@ -280,15 +283,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سڀ کوليو";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "کوليو";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "کوليو $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "سڀ %@ ڪارڊ لڪل";
+"explore-feed-preferences-feed-cards-hidden-title" = "سڀ $1 ڪارڊ لڪل";
 "explore-feed-preferences-global-card-footer-text" = "ھي ڪارڊ ٻولي مخصوص ناھي، ھن ڪارڊ کي بند ڪرڻ ان جي کوجنا رسد مان ھٽائي ڇڏيندو.";
 "explore-feed-preferences-global-cards-description" = "غير-ٻولي مخصوص ڪارڊَ";
 "explore-feed-preferences-global-cards-subtitle" = "ٻولي مخصوص ناھي";
 "explore-feed-preferences-global-cards-title" = "عالمي ڪارڊ";
 "explore-feed-preferences-hide-card-action-title" = "هي ڪارڊ لڪايو";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "سڀ “%@” پتا لڪايو";
+"explore-feed-preferences-hide-feed-cards-action-title" = "سڀ ”$1“ پتا لڪايو";
 "explore-feed-preferences-in-the-news-description" = "ھاڻوڪن واقعن بابت مضمون";
 "explore-feed-preferences-languages-footer-text" = "توھان جي سڀني ٻولين ۾ کوجنا رسد جا سڀ ڪارڊ لڪائڻ کوجنا ٽيب کي بند ڪري ڇڏيندو";
 "explore-feed-preferences-on-this-day-description" = "هن ڏينھن تي تاريخ ۾ واقعا";
@@ -491,12 +492,15 @@
 "page-history-bot-edits" = "بوٽ سنوارون";
 "page-history-compare-accessibility-hint" = "ٻن ورجائن کي چونڊي ڀيٽڻ لاءِ ڇھو";
 "page-history-compare-title" = "ڀيٽيو";
+"page-history-graph-accessibility-label" = "وقت بہ وقت سنوارن جو گراف";
 "page-history-minor-edits" = "معمولي سنوارون";
-// Fuzzy
-"page-history-revision-author-accessibility-label" = "مصنف: %@";
+"page-history-revision-author-accessibility-label" = "مصنف: $1";
+"page-history-revision-comment-accessibility-label" = "تبصرو $1";
 "page-history-revision-history-title" = "ورجاءُ سوانح";
+"page-history-revision-minor-edit-accessibility-label" = "معمولي سنوار";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 بائيٽ|$1 بائيٽون}} وڌيـ(ـون)";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 بائيٽ|$1 بائيٽون}} ھٽائيـ(ـون)";
+"page-history-revision-time-accessibility-label" = "$1 مطابق ڪيل ورجاءُ";
 "page-history-revisions-comparison-warning" = "صرف ٻہ ورجاءَ چونڊي سگھجن ٿا";
 "page-history-stats-text" = "$2 کان {{PLURAL:$1|$1 سنوار|$1 سنوارون}}";
 "page-history-user-edits" = "واپرائيندڙ سنوارون";
