@@ -130,6 +130,49 @@
 			<string>%1$d línies sense editar</string>
 		</dict>
 	</dict>
+	<key>intermediate-edits-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>No %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>s'ha mostrat %1$d revisió intermèdia</string>
+			<key>other</key>
+			<string>s'han mostrat %1$d revisions intermèdies</string>
+		</dict>
+	</dict>
+	<key>intermediate-edits-editors-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>No %#@v1@ de %#@v2@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>s'ha mostrat %1$d revisió intermèdia</string>
+			<key>other</key>
+			<string>s'han mostrat %1$d revisions intermèdies</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d usuari</string>
+			<key>other</key>
+			<string>%2$d usuaris</string>
+		</dict>
+	</dict>
 	<key>intermediate-edits-limited-editors-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -208,6 +251,22 @@
 			<string>S'ha suprimit %1$d byte</string>
 			<key>other</key>
 			<string>S'han suprimit %1$d bytes</string>
+		</dict>
+	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ des del %2$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d edició</string>
+			<key>other</key>
+			<string>%1$d edicions</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
