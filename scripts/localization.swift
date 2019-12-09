@@ -71,7 +71,7 @@ let keysByPrefix = [
 
 extension String {
     var fullRange: NSRange {
-        return NSRange(location: 0, length: (self as NSString).length)
+        return NSRange(startIndex..<endIndex, in: self)
     }
     var escapedString: String {
         return self.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\n")
