@@ -196,7 +196,7 @@ final class InsertMediaViewController: ViewController {
         let animations = {
             let underBarViewPercentHidden: CGFloat
             let extendedViewPercentHidden: CGFloat
-            if let scrollView = self.scrollView, scrollView.wmf_isAtTop, !focus {
+            if let scrollView = self.scrollView, scrollView.isAtTop, !focus {
                 underBarViewPercentHidden = 0
                 extendedViewPercentHidden = 0
             } else {
