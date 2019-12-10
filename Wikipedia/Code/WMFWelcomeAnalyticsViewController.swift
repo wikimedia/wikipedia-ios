@@ -69,6 +69,6 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
             assertionFailure("Expected URL")
             return
         }
-        navigate(to: url)
+        navigate(to: url, useSafari: true)
     }
 }

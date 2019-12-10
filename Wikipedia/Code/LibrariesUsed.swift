@@ -189,9 +189,9 @@ class LibraryUsedViewController: UIViewController {
         }
         var string = licenseString
         let placeholder = "#temporary_placeholder#"
-        string = multiNewlineRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.count), withTemplate: placeholder)
+        string = multiNewlineRegex.stringByReplacingMatches(in: string, options: [], range: string.fullRange, withTemplate: placeholder)
         string = string.components(separatedBy: .newlines).joined(separator: " ")
-        string = whitespaceRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.count), withTemplate: " ")
+        string = whitespaceRegex.stringByReplacingMatches(in: string, options: [], range: string.fullRange, withTemplate: " ")
         string = string.replacingOccurrences(of: placeholder, with: "\n\n")
         return string
     }
