@@ -7,7 +7,7 @@ extension WMFContentGroup {
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
                 return nil
             }
-            return WMFLegacyArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+            return ArticleContainerViewController(articleURL: articleURL)
         case .pageWithRandomButton:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
                 return nil
