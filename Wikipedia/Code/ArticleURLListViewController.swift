@@ -110,12 +110,12 @@ extension ArticleURLListViewController {
 
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension ArticleURLListViewController {
-    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController, shareActivityController: UIActivityViewController) {
         FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndexPath?.item)
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
     }
 
-    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: feedFunnelContext, index: previewedIndexPath?.item, animated: true)
     }

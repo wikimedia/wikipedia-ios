@@ -1,6 +1,6 @@
-#import "WMFArticleViewController.h"
+#import "WMFLegacyArticleViewController.h"
 
-@class WMFTableOfContentsViewController, WebViewController;
+@class WMFTableOfContentsViewController, LegacyWebViewController;
 
 typedef NS_ENUM(NSInteger, WMFArticleFooterViewIndex) {
     WMFArticleFooterViewIndexAboutThisArticle = 0,
@@ -9,14 +9,14 @@ typedef NS_ENUM(NSInteger, WMFArticleFooterViewIndex) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleViewController (WMFPrivate)
+@interface WMFLegacyArticleViewController (WMFPrivate)
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
 
 // Children
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
-@property (nonatomic, strong) WebViewController *webViewController;
+@property (nonatomic, strong) LegacyWebViewController *webViewController;
 
 @end
 

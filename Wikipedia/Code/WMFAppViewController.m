@@ -1313,19 +1313,19 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Utilities
 
-- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
+- (WMFLegacyArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
     return [self showArticleForURL:articleURL
                           animated:animated
                         completion:^{
                         }];
 }
 
-- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+- (WMFLegacyArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
     if (!articleURL.wmf_title) {
         completion();
         return nil;
     }
-    WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
+    WMFLegacyArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
     NSString *visibleKey = visibleArticleViewController.articleURL.wmf_databaseKey;
     NSString *articleKey = articleURL.wmf_databaseKey;
     if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
@@ -1343,7 +1343,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.session.dataStore theme:self.theme];
+    WMFLegacyArticleViewController *articleVC = [[WMFLegacyArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.session.dataStore theme:self.theme];
     articleVC.articleLoadCompletion = completion;
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
@@ -1365,11 +1365,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return self.navigationController.viewControllers.count > 1;
 }
 
-- (WMFArticleViewController *)visibleArticleViewController {
+- (WMFLegacyArticleViewController *)visibleArticleViewController {
     UINavigationController *navVC = self.navigationController;
     UIViewController *topVC = navVC.topViewController;
-    if ([topVC isKindOfClass:[WMFArticleViewController class]]) {
-        return (WMFArticleViewController *)topVC;
+    if ([topVC isKindOfClass:[WMFLegacyArticleViewController class]]) {
+        return (WMFLegacyArticleViewController *)topVC;
     }
     return nil;
 }
@@ -1635,8 +1635,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if ([viewController isKindOfClass:[ExploreViewController class]]) {
         ExploreViewController *vc = (ExploreViewController *)viewController;
         vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-title-accessibility-label", nil, nil, @"Wikipedia, scroll to top of Explore", @"Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
-    } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
-        WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
+    } else if ([viewController isKindOfClass:[WMFLegacyArticleViewController class]]) {
+        WMFLegacyArticleViewController *vc = (WMFLegacyArticleViewController *)viewController;
         if (self.selectedIndex == WMFAppTabTypeMain) {
             vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
         } else if (self.selectedIndex == WMFAppTabTypeSaved) {
@@ -1719,7 +1719,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
         NSURL *articleURL = [NSURL URLWithString:articleURLString];
         if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
-            WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
+            WMFLegacyArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
             [articleVC shareArticleWhenReady];
         } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
             [self showInTheNewsForNotificationInfo:info];

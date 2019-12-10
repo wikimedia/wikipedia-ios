@@ -2485,7 +2485,7 @@ extension PlacesViewController {
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        if let articleViewController = viewControllerToCommit as? WMFArticleViewController {
+        if let articleViewController = viewControllerToCommit as? WMFLegacyArticleViewController {
             wmf_push(articleViewController, animated: true)
         } else {
             wmf_push(viewControllerToCommit, animated: true)

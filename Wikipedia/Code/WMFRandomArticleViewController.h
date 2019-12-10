@@ -1,6 +1,6 @@
-#import "WMFArticleViewController.h"
+#import "WMFLegacyArticleViewController.h"
 
-@interface WMFRandomArticleViewController : WMFArticleViewController
+@interface WMFRandomArticleViewController : WMFLegacyArticleViewController
 
 #if WMF_TWEAKS_ENABLED
 @property (nonatomic, getter=isPermaRandomMode) BOOL permaRandomMode;

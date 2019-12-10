@@ -11,10 +11,10 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
 
     var lastSectionAppearedMessageReceivedExpectation: XCTestExpectation?
     
-    lazy var webVCConfiguredToEmitLastSectionAppearanceEvent: WebViewController = {
-        // WebViewController configured to emit an event when an article is loaded:
+    lazy var webVCConfiguredToEmitLastSectionAppearanceEvent: LegacyWebViewController = {
+        // LegacyWebViewController configured to emit an event when an article is loaded:
         //    - 'lastSectionAppeared'
-        let vc = WebViewController.wmf_initialViewControllerFromClassStoryboard()!
+        let vc = LegacyWebViewController.wmf_initialViewControllerFromClassStoryboard()!
     
         // Configure the WKUserContentController used by the web view controller - easy way to attach testing JS while
         // keeping all existing JS in place.

@@ -1,7 +1,7 @@
 @import UIKit;
 @import UserNotifications;
 @class WMFTheme;
-@class WMFArticleViewController;
+@class WMFLegacyArticleViewController;
 @class MWKDataStore;
 @class WMFTheme;
 
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showSearchInCurrentNavigationController;
 
-- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
+- (WMFLegacyArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
 @end
 

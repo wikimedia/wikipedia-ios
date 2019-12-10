@@ -1,6 +1,6 @@
 import Foundation
 
-extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
+extension WMFLegacyArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
     public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
         webViewController.getCurrentVisibleSectionCompletion { (section, error) in
@@ -87,7 +87,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
     }
 }
 
-extension WMFArticleViewController {
+extension WMFLegacyArticleViewController {
 
     /**
      Create ToC items.

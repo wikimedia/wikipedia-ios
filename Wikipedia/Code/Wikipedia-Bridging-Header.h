@@ -37,8 +37,8 @@
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"
-#import "WMFArticleViewController_Private.h"
-#import "WebViewController.h"
+#import "WMFLegacyArticleViewController_Private.h"
+#import "LegacyWebViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"

@@ -690,7 +690,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(true)
-            } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+            } else if let avc = viewControllerToCommit as? WMFLegacyArticleViewController {
                 avc.articlePreviewingActionsDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             }
@@ -711,7 +711,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             potd.setOverlayViewTopBarHidden(false)
             present(potd, animated: false)
             FeedFunnel.shared.logFeedCardOpened(for: previewed.context)
-        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+        } else if let avc = viewControllerToCommit as? WMFLegacyArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
             wmf_push(avc, context: previewed.context, index: previewed.indexPath?.item, animated: false)
         } else {
@@ -948,17 +948,17 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension ExploreViewController {
-    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController, shareActivityController: UIActivityViewController) {
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
         FeedFunnel.shared.logFeedShareTapped(for: previewed.context, index: previewed.indexPath?.item)
     }
 
-    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
     }
 
-    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController, didSave: Bool, articleURL: URL) {
         if didSave {
             ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
         } else {

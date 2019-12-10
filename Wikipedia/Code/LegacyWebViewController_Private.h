@@ -1,4 +1,4 @@
-#import "WebViewController.h"
+#import "LegacyWebViewController.h"
 #import "WKWebView+ElementLocation.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
@@ -9,7 +9,7 @@ const CGFloat WebViewControllerHeaderImageHeight = 210;
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WebViewController ()
+@interface LegacyWebViewController ()
 
 @property (nonatomic, strong, readwrite, nullable) WKWebView *webView;
 
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Designated initializer.
  * @param session The current session, defaults to `+[SessionSingleton sharedInstance]`.
- * @return A new `WebViewController` with the given session.
+ * @return A new `LegacyWebViewController` with the given session.
  */
 - (instancetype)initWithSession:(SessionSingleton *)session;
 
