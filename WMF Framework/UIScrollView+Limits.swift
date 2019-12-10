@@ -2,11 +2,11 @@ import UIKit
 
 extension UIScrollView {
     fileprivate var wmf_topOffsetY: CGFloat {
-        return 0 - contentInset.top
+        return 0 - adjustedContentInset.top
     }
 
     fileprivate var wmf_bottomOffsetY: CGFloat {
-        return contentSize.height - bounds.size.height + contentInset.bottom
+        return contentSize.height - bounds.size.height + adjustedContentInset.bottom
     }
 
     fileprivate var wmf_topOffset: CGPoint {
@@ -48,7 +48,7 @@ extension UIScrollView {
         
         if wasAtTop {
             contentOffset = wmf_topOffset
-        } else if contentSize.height > bounds.inset(by: contentInset).height && wasAtBottom {
+        } else if contentSize.height > bounds.inset(by: adjustedContentInset).height && wasAtBottom {
             contentOffset = wmf_bottomOffset
         }
         
