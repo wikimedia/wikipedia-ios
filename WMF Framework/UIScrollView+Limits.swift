@@ -1,36 +1,37 @@
 import UIKit
 
 extension UIScrollView {
-    fileprivate var wmf_topOffsetY: CGFloat {
+    private var topOffsetY: CGFloat {
         return 0 - adjustedContentInset.top
     }
 
-    fileprivate var wmf_bottomOffsetY: CGFloat {
+    private var bottomOffsetY: CGFloat {
         return contentSize.height - bounds.size.height + adjustedContentInset.bottom
     }
 
-    fileprivate var wmf_topOffset: CGPoint {
-        return CGPoint(x: contentOffset.x, y: wmf_topOffsetY)
+    private var topOffset: CGPoint {
+        return CGPoint(x: contentOffset.x, y: topOffsetY)
     }
 
-    fileprivate var wmf_bottomOffset: CGPoint {
-        return CGPoint(x: contentOffset.x, y: wmf_bottomOffsetY)
+    private var bottomOffset: CGPoint {
+        return CGPoint(x: contentOffset.x, y: bottomOffsetY)
     }
 
-    public var wmf_isAtTop: Bool {
-        return contentOffset.y <= wmf_topOffsetY
+    public var isAtTop: Bool {
+        return contentOffset.y <= topOffsetY
     }
 
-    fileprivate var wmf_isAtBottom: Bool {
-        return contentOffset.y >= wmf_bottomOffsetY
+    private var isAtBottom: Bool {
+        return contentOffset.y >= bottomOffsetY
     }
 
-    @objc public func wmf_setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true, preserveAnimation: Bool = false) -> Bool {
+    @objc(wmf_setContentInset:scrollIndicatorInsets:preserveContentOffset:preserveAnimation:)
+    public func setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true, preserveAnimation: Bool = false) -> Bool {
         guard updatedContentInset != contentInset || updatedScrollIndicatorInsets != scrollIndicatorInsets else {
             return false
         }
-        let wasAtTop = wmf_isAtTop
-        let wasAtBottom = wmf_isAtBottom
+        let wasAtTop = isAtTop
+        let wasAtBottom = isAtBottom
         scrollIndicatorInsets = updatedScrollIndicatorInsets
 
         if preserveAnimation {
@@ -47,9 +48,9 @@ extension UIScrollView {
         }
         
         if wasAtTop {
-            contentOffset = wmf_topOffset
+            contentOffset = topOffset
         } else if contentSize.height > bounds.inset(by: adjustedContentInset).height && wasAtBottom {
-            contentOffset = wmf_bottomOffset
+            contentOffset = bottomOffset
         }
         
         return true
