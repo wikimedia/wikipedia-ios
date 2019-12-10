@@ -52,17 +52,14 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     var author: String? {
         didSet {
             authorButton.setTitle(author, for: .normal)
-            authorButton.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-author-accessibility-label", value: "Author: %@", comment: "Accessibility label text telling the user who authored a revision. %@ is replaced with the author."), author ?? WMFLocalizedString("unknown-generic-text", value: "Unknown", comment: "Default text used in places where no contextual information is provided"))
+            authorButton.accessibilityLabel = String.localizedStringWithFormat(CommonStrings.authorTitle, author ?? CommonStrings.unknownTitle)
             setNeedsLayout()
         }
     }
 
     func updateAccessibilityLabel() {
-        let isMinorAccessibilityString = isMinor ? WMFLocalizedString("page-history-revision-minor-edit-accessibility-label", value: "Minor edit", comment: "Accessibility label text used if edit was minor") : ""
-        accessibilityLabel = [timeLabel.accessibilityLabel, authorButton.accessibilityLabel, sizeDiffLabel.accessibilityLabel, isMinorAccessibilityString, commentLabel.accessibilityLabel]
-            .compactMap { $0 }
-            .filter { $0.wmf_hasNonWhitespaceText }
-            .joined(separator: ", ") // Comma adds slight voice-over pause.
+        let isMinorAccessibilityString = isMinor ? CommonStrings.minorEditTitle : ""
+        accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [timeLabel.accessibilityLabel, authorButton.accessibilityLabel, sizeDiffLabel.accessibilityLabel, isMinorAccessibilityString, commentLabel.accessibilityLabel])
     }
     
     var comment: String? {
