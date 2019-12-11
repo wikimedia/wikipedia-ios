@@ -6,7 +6,7 @@ class WKWebViewWithSettableInputViews: WKWebView {
 
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
-        WKWebViewWithSettableInputViews.overrideUserInteractionRequirementIfNecessary()
+        WKWebViewWithSettableInputViews.overrideUserInteractionRequirementForElementFocusIfNecessary()
         overrideNestedContentViewGetters()
     }
     
@@ -89,28 +89,35 @@ class WKWebViewWithSettableInputViews: WKWebView {
     }
 }
 
-//https://stackoverflow.com/questions/32449870/programmatically-focus-on-a-form-in-a-webview-wkwebview
 
 typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
 
 private var didSetKeyboardRequiresUserInteraction = false
 
 extension WKWebViewWithSettableInputViews {
-    static func overrideUserInteractionRequirementIfNecessary() {
+    // Swizzle a WKWebView method to allow web elements to be focused without user interaction
+    // Replace the method with an implementation that wrapa the existing implementation and always passes true for `userIsInteracting`
+    // https://stackoverflow.com/questions/32449870/programmatically-focus-on-a-form-in-a-webview-wkwebview
+    static func overrideUserInteractionRequirementForElementFocusIfNecessary() {
         assert(Thread.isMainThread)
         guard !didSetKeyboardRequiresUserInteraction else {
             return
         }
-        setKeyboardRequiresUserInteraction(false)
-        didSetKeyboardRequiresUserInteraction = true
-    }
-    static func setKeyboardRequiresUserInteraction( _ value: Bool) {
+        defer {
+            didSetKeyboardRequiresUserInteraction = true
+        }
+
         guard let WKContentView: AnyClass = NSClassFromString("WKContentView") else {
             DDLogError("keyboardDisplayRequiresUserAction extension: Cannot find the WKContentView class")
             return
         }
         
-        let selectorStrings = ["_elementDidFocus:userIsInteracting:blurPreviousNode:activityStateChanges:userObject:", "_elementDidFocus:userIsInteracting:blurPreviousNode:changingActivityState:userObject:", "_startAssistingNode:userIsInteracting:blurPreviousNode:changingActivityState:userObject:"]
+        // The method signature changed over time, try all of them to find the one for this platform
+        let selectorStrings = [
+            "_elementDidFocus:userIsInteracting:blurPreviousNode:activityStateChanges:userObject:",
+            "_elementDidFocus:userIsInteracting:blurPreviousNode:changingActivityState:userObject:",
+            "_startAssistingNode:userIsInteracting:blurPreviousNode:changingActivityState:userObject:"
+        ]
         
         #if DEBUG
         var found = false
