@@ -3,10 +3,10 @@ import WebKit
 class WKWebViewWithSettableInputViews: WKWebView {
     private var storedInputView: UIView?
     private var storedInputAccessoryView: UIView?
-    
+
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
-        setKeyboardRequiresUserInteraction(false)
+        WKWebViewWithSettableInputViews.overrideUserInteractionRequirementIfNecessary()
         overrideNestedContentViewGetters()
     }
     
@@ -94,9 +94,18 @@ class WKWebViewWithSettableInputViews: WKWebView {
 typealias OldClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Any?) -> Void
 typealias NewClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
 
-extension WKWebViewWithSettableInputViews {
+private var didSetKeyboardRequiresUserInteraction = false
 
-    func setKeyboardRequiresUserInteraction( _ value: Bool) {
+extension WKWebViewWithSettableInputViews {
+    static func overrideUserInteractionRequirementIfNecessary() {
+        assert(Thread.isMainThread)
+        guard !didSetKeyboardRequiresUserInteraction else {
+            return
+        }
+        setKeyboardRequiresUserInteraction(false)
+        didSetKeyboardRequiresUserInteraction = true
+    }
+    static func setKeyboardRequiresUserInteraction( _ value: Bool) {
         guard let WKContentView: AnyClass = NSClassFromString("WKContentView") else {
             DDLogError("keyboardDisplayRequiresUserAction extension: Cannot find the WKContentView class")
             return

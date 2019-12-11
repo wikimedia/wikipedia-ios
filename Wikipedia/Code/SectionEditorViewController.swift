@@ -6,6 +6,7 @@ protocol SectionEditorViewControllerDelegate: class {
 
 @objc(WMFSectionEditorViewController)
 class SectionEditorViewController: ViewController {
+    
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     @objc var section: MWKSection?
