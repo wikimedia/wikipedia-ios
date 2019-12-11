@@ -134,7 +134,9 @@ extension WKWebViewWithSettableInputViews {
             }
             let imp = imp_implementationWithBlock(block)
             method_setImplementation(method, imp)
+            #if DEBUG
             found = true
+            #endif
             break
         }
         #if DEBUG
