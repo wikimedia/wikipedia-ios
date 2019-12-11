@@ -3,12 +3,10 @@ let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOn
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
 let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
-let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
 let WMFMigrateToFixArticleCacheKey = "WMFMigrateToFixArticleCacheKey3"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
-let WMFDidMigrateToCoreDataFeedKey = "WMFDidMigrateToCoreDataFeedKey"
 let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
 let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
 let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
@@ -362,22 +360,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc func wmf_didMigrateToFixArticleCache() -> Bool {
         return self.bool(forKey: WMFMigrateToFixArticleCacheKey)
-    }
-    
-    @objc func wmf_setDidMigrateToSharedContainer(_ didFinish: Bool) {
-        self.set(didFinish, forKey: WMFMigrateToSharedContainerKey)
-    }
-    
-    @objc func wmf_didMigrateToSharedContainer() -> Bool {
-        return self.bool(forKey: WMFMigrateToSharedContainerKey)
-    }
-
-    @objc func wmf_setDidMigrateToNewFeed(_ didMigrate: Bool) {
-        self.set(didMigrate, forKey: WMFDidMigrateToCoreDataFeedKey)
-    }
-    
-    @objc func wmf_didMigrateToNewFeed() -> Bool {
-        return self.bool(forKey: WMFDidMigrateToCoreDataFeedKey)
     }
     
     @objc func wmf_mostRecentInTheNewsNotificationDate() -> Date? {

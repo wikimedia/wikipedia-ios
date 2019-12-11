@@ -761,111 +761,32 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self startMigrationBackgroundTask:^{
         migrationsAllowed = NO;
     }];
-    dispatch_block_t bail = ^{
-        [self endMigrationBackgroundTask];
-        self.migrationActive = NO;
-    };
+
+//    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
+//    dispatch_block_t bail = ^{
+//        [self endMigrationBackgroundTask];
+//        self.migrationActive = NO;
+//    };
+//    BOOL (^cancellationChecker)() = ^BOOL() {
+//        return migrationsAllowed;
+//    };
+
     self.migrationActive = YES;
-    [self migrateToSharedContainerIfNecessaryWithCompletion:^{
-        if (!migrationsAllowed) {
-            bail();
-            return;
-        }
-        [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            if (!migrationsAllowed) {
-                bail();
-                return;
-            }
-            [self.dataStore performCoreDataMigrations:^{
-                if (!migrationsAllowed) {
-                    bail();
-                    return;
-                }
-                [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                    if (!migrationsAllowed) {
-                        bail();
-                        return;
-                    }
-                    [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
-                        if (!migrationsAllowed) {
-                            bail();
-                            return;
-                        }
-                        [self.dataStore performLibraryUpdates:^{
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                self.migrationComplete = YES;
-                                self.migrationActive = NO;
-                                [self endMigrationBackgroundTask];
-                                [self checkRemoteAppConfigIfNecessary];
-                                [self setupControllers];
-                                if (!self.isWaitingToResumeApp) {
-                                    [self resumeApp:NULL];
-                                }
-                            });
-                        }];
-                    }];
-                }];
-            }];
-        }];
-    }];
-}
 
-- (void)migrateToSharedContainerIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if (![[NSUserDefaults wmf] wmf_didMigrateToSharedContainer]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            NSError *error = nil;
-            if (![MWKDataStore migrateToSharedContainer:&error]) {
-                DDLogError(@"Error migrating data store: %@", error);
+    [self.dataStore performLibraryUpdates:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.migrationComplete = YES;
+            self.migrationActive = NO;
+            [self endMigrationBackgroundTask];
+            [self checkRemoteAppConfigIfNecessary];
+            [self setupControllers];
+            if (!self.isWaitingToResumeApp) {
+                [self resumeApp:NULL];
             }
-            error = nil;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSUserDefaults wmf] wmf_setDidMigrateToSharedContainer:YES];
-                completion();
-            });
         });
-    } else {
-        completion();
-    }
-}
-
-- (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf] wmf_didMigrateToNewFeed]) {
-        completion();
-    } else {
-        NSError *migrationError = nil;
-        [self.dataStore migrateToCoreData:&migrationError];
-        if (migrationError) {
-            DDLogError(@"Error migrating: %@", migrationError);
-        }
-        [[NSUserDefaults wmf] wmf_setDidMigrateToNewFeed:YES];
-        completion();
-    }
-}
-
-- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError *_Nonnull error) {
-        if (error) {
-            DDLogError(@"Error during location migration: %@", error);
-        }
-        completion();
     }];
 }
 
-- (void)migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf] wmf_didMigrateToFixArticleCache]) {
-        completion();
-    } else {
-        [self.dataStore
-            removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
-                DDLogError(@"Error during article migration: %@", error);
-                completion();
-            }
-            success:^{
-                [[NSUserDefaults wmf] wmf_setDidMigrateToFixArticleCache:YES];
-                completion();
-            }];
-    }
-}
 
 #pragma mark - Start/Pause/Resume App
 

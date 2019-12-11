@@ -31,7 +31,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
-@property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
 @property (nonatomic, strong) WMFReadingListsController *readingListsController;
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
@@ -46,7 +45,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
 @property (readwrite, strong, nullable) dispatch_block_t cacheRemovalCompletion;
-@property (readwrite, nonatomic, getter=wasSitesFolderMissing) BOOL sitesFolderMissing;
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
@@ -101,9 +99,6 @@ static uint64_t bundleHash() {
         _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
-        BOOL sitesWasADirectory = false;
-        BOOL sitesExisted = [[NSFileManager defaultManager] fileExistsAtPath:[self pathForSites] isDirectory:&sitesWasADirectory];
-        self.sitesFolderMissing = !sitesExisted || !sitesWasADirectory;
         [self setupLegacyDataStore];
         NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
@@ -114,7 +109,6 @@ static uint64_t bundleHash() {
         self.feedContentController.dataStore = self;
         self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.articleLocationController = [ArticleLocationController new];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
@@ -281,52 +275,6 @@ static uint64_t bundleHash() {
     }
 }
 
-+ (NSString *)legacyYapDatabasePath {
-    NSString *databaseName = @"WikipediaYap.sqlite";
-
-    NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
-
-    NSURL *databaseURL = [baseURL URLByAppendingPathComponent:databaseName isDirectory:NO];
-
-    return databaseURL.filePathURL.path;
-}
-
-+ (BOOL)migrateToSharedContainer:(NSError **)error {
-    NSFileManager *fm = [NSFileManager defaultManager];
-
-    NSString *databaseName = @"WikipediaYap.sqlite";
-    NSURL *baseURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-                                                            inDomain:NSUserDomainMask
-                                                   appropriateForURL:nil
-                                                              create:YES
-                                                               error:NULL];
-
-    NSURL *databaseURL = [baseURL URLByAppendingPathComponent:databaseName isDirectory:NO];
-
-    NSString *appSpecificDatabasePath = databaseURL.filePathURL.path;
-    NSError *copyError = nil;
-    if (![fm copyItemAtPath:appSpecificDatabasePath toPath:[self legacyYapDatabasePath] error:&copyError]) {
-        if (copyError.code != NSFileNoSuchFileError && copyError.code != NSFileReadNoSuchFileError) {
-            if (error) {
-                *error = copyError;
-            }
-            return NO;
-        }
-    }
-
-    NSError *moveError = nil;
-    if (![fm moveItemAtPath:[MWKDataStore appSpecificMainDataStorePath] toPath:[MWKDataStore mainDataStorePath] error:&moveError]) {
-        if (moveError.code != NSFileNoSuchFileError && moveError.code != NSFileReadNoSuchFileError) {
-            if (error) {
-                *error = moveError;
-            }
-            return NO;
-        }
-    }
-
-    return YES;
-}
-
 - (void)migrateArticlePreviews:(NSDictionary<NSString *, WMFArticlePreview *> *)articlePreviews historyEntries:(NSDictionary<NSString *, MWKHistoryEntry *> *)historyEntries toManagedObjectContext:(NSManagedObjectContext *)moc {
     if (articlePreviews.count == 0 && historyEntries.count == 0) {
         return;
@@ -381,25 +329,6 @@ static uint64_t bundleHash() {
     }
 }
 
-- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion {
-    if (![self.articleLocationController needsMigrationWithManagedObjectContext:self.viewContext]) {
-        if (completion) {
-            completion(nil);
-        }
-        return;
-    }
-    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        [self.articleLocationController migrateWithManagedObjectContext:moc
-                                                             completion:^(NSError *_Nullable error) {
-                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                     if (completion) {
-                                                                         completion(error);
-                                                                     }
-                                                                 });
-                                                             }];
-    }];
-}
-
 #pragma mark - Background Contexts
 
 - (void)managedObjectContextDidSave:(NSNotification *)note {
@@ -451,19 +380,6 @@ static uint64_t bundleHash() {
 }
 
 #pragma mark - Migrations
-
-- (void)performCoreDataMigrations:(dispatch_block_t)completion {
-    if (!self.wasSitesFolderMissing) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        [self markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:moc];
-        dispatch_async(dispatch_get_main_queue(), completion);
-    }];
-}
 
 - (BOOL)migrateToReadingListsInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)migrationError {
     ReadingList *defaultReadingList = [moc wmf_fetchDefaultReadingList];
@@ -701,182 +617,6 @@ static uint64_t bundleHash() {
             return;
         }
     }
-}
-
-- (BOOL)migrateToCoreData:(NSError **)error {
-    const char *dbPath = [[MWKDataStore legacyYapDatabasePath] UTF8String];
-    sqlite3 *db;
-    if (sqlite3_open(dbPath, &db) != SQLITE_OK) {
-        DDLogError(@"Failed to open legacy db");
-        return YES;
-    }
-
-    sqlite3_stmt *statement;
-    const char *query = "SELECT * FROM database2;";
-    if (sqlite3_prepare_v2(db, query, -1, &statement, NULL) != SQLITE_OK) {
-        const char *errmsg = sqlite3_errmsg(db);
-        DDLogError(@"Failed to prepare query: %s", errmsg);
-        return YES;
-    }
-
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFContinueReadingContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFMainPageContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFRelatedPagesContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFLocationContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFPictureOfTheDayContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFRandomContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFFeaturedArticleContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFTopReadContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFNewsContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFNotificationContentGroup"];
-    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFAnnouncementContentGroup"];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
-
-    NSManagedObjectContext *moc = self.viewContext;
-
-    NSInteger batchSize = 500;
-
-    NSMutableDictionary *previews = [NSMutableDictionary dictionaryWithCapacity:250];
-    NSMutableDictionary *entries = [NSMutableDictionary dictionaryWithCapacity:250];
-
-    while (sqlite3_step(statement) == SQLITE_ROW) {
-        @autoreleasepool {
-            const unsigned char *collectionNameBytes = sqlite3_column_text(statement, 1);
-            int collectionNameBytesLength = sqlite3_column_bytes(statement, 1);
-            const unsigned char *keyBytes = sqlite3_column_text(statement, 2);
-            int keyBytesLength = sqlite3_column_bytes(statement, 2);
-            const void *objectBlob = sqlite3_column_blob(statement, 3);
-            int objectBlobLength = sqlite3_column_bytes(statement, 3);
-            const void *metadataBlob = sqlite3_column_blob(statement, 4);
-            int metadataBlobLength = sqlite3_column_bytes(statement, 4);
-
-            if (collectionNameBytesLength == 0 || keyBytesLength == 0 || objectBlobLength == 0) {
-                continue;
-            }
-
-            NSString *collectionName = [[NSString alloc] initWithBytes:collectionNameBytes length:collectionNameBytesLength encoding:NSUTF8StringEncoding];
-            NSString *key = [[NSString alloc] initWithBytes:keyBytes length:keyBytesLength encoding:NSUTF8StringEncoding];
-            NSData *objectData = [[NSData alloc] initWithBytes:objectBlob length:objectBlobLength];
-            NSData *metadataData = nil;
-            if (metadataBlobLength > 0) {
-                metadataData = [[NSData alloc] initWithBytes:metadataBlob length:metadataBlobLength];
-            }
-
-            if (!collectionName || !key || !objectData) {
-                continue;
-            }
-            @try {
-                if ([collectionName isEqualToString:@"MWKHistoryEntry"]) {
-                    MWKHistoryEntry *entry = [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
-                    entries[key] = entry;
-                } else if ([collectionName isEqualToString:@"WMFArticlePreview"]) {
-                    WMFArticlePreview *preview = [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
-                    previews[key] = preview;
-                } else if ([collectionName isEqualToString:@"WMFContentGroup"]) {
-                    WMFLegacyContentGroup *oldContentGroup = [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
-                    id metadata = nil;
-                    if (metadataData) {
-                        metadata = [NSKeyedUnarchiver unarchiveObjectWithData:metadataData];
-                    }
-                    if (!metadata) {
-                        continue;
-                    }
-
-                    WMFContentGroupKind contentGroupKind = WMFContentGroupKindUnknown;
-                    if ([key hasPrefix:@"wikipedia://content/announcements/"]) {
-                        contentGroupKind = WMFContentGroupKindAnnouncement;
-                    } else if ([key hasPrefix:@"wikipedia://content/main-page/"]) {
-                        contentGroupKind = WMFContentGroupKindMainPage;
-                    } else if ([key hasPrefix:@"wikipedia://content/continue-reading/"]) {
-                        contentGroupKind = WMFContentGroupKindContinueReading;
-                    } else if ([key hasPrefix:@"wikipedia://content/nearby/"]) {
-                        contentGroupKind = WMFContentGroupKindLocation;
-                    } else if ([key hasPrefix:@"wikipedia://content/picture-of-the-day/"]) {
-                        contentGroupKind = WMFContentGroupKindPictureOfTheDay;
-                    } else if ([key hasPrefix:@"wikipedia://content/random/"]) {
-                        contentGroupKind = WMFContentGroupKindRandom;
-                    } else if ([key hasPrefix:@"wikipedia://content/featured-article/"]) {
-                        contentGroupKind = WMFContentGroupKindFeaturedArticle;
-                    } else if ([key hasPrefix:@"wikipedia://content/notification/"]) {
-                        contentGroupKind = WMFContentGroupKindNotification;
-                    } else if ([key hasPrefix:@"wikipedia://content/news/"]) {
-                        contentGroupKind = WMFContentGroupKindNews;
-                    } else if ([key hasPrefix:@"wikipedia://content/on-this-day/"]) {
-                        contentGroupKind = WMFContentGroupKindOnThisDay;
-                    } else if ([key hasPrefix:@"wikipedia://content/top-read/"]) {
-                        contentGroupKind = WMFContentGroupKindTopRead;
-                    } else if ([key hasPrefix:@"wikipedia://content/related-pages/"]) {
-                        contentGroupKind = WMFContentGroupKindRelatedPages;
-                    } else {
-                        continue;
-                    }
-
-                    WMFContentGroup *newContentGroup = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
-                    newContentGroup.contentGroupKind = contentGroupKind;
-                    newContentGroup.date = oldContentGroup.date;
-                    newContentGroup.midnightUTCDate = oldContentGroup.date.wmf_midnightUTCDateFromUTCDate;
-                    newContentGroup.siteURL = oldContentGroup.siteURL;
-                    newContentGroup.articleURL = oldContentGroup.articleURL;
-                    newContentGroup.location = oldContentGroup.location;
-                    newContentGroup.placemark = oldContentGroup.placemark;
-                    newContentGroup.contentMidnightUTCDate = oldContentGroup.mostReadDate.wmf_midnightUTCDateFromUTCDate;
-                    newContentGroup.wasDismissed = oldContentGroup.wasDismissed;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                    newContentGroup.content = metadata;
-#pragma clang diagnostic pop
-                    [newContentGroup updateKey];
-                    [newContentGroup updateContentType];
-                    [newContentGroup updateDailySortPriorityWithSiteURLSortOrder:nil];
-                    [newContentGroup updateVisibilityForUserIsLoggedIn:NO];
-
-                    //New key differs from old key, so use the calculated key on newContentGroup rather than the old key
-                    NSFetchRequest *request = [WMFContentGroup fetchRequest];
-                    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", newContentGroup.key];
-                    NSArray *contentGroups = [moc executeFetchRequest:request error:nil];
-                    for (WMFContentGroup *group in contentGroups) {
-                        if (![group.objectID isEqual:newContentGroup.objectID]) {
-                            [moc deleteObject:group];
-                        }
-                    }
-                }
-            } @catch (NSException *exception) {
-                DDLogError(@"Exception trying to import legacy object for key: %@", key);
-            }
-
-            if (entries.count + previews.count > batchSize) {
-                [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
-                [entries removeAllObjects];
-                [previews removeAllObjects];
-                NSError *batchSaveError = nil;
-                if (![moc save:&batchSaveError]) {
-                    DDLogError(@"Migration batch error: %@", batchSaveError);
-                }
-                [moc reset];
-            }
-        }
-    }
-
-    if (previews.count + entries.count > 0) {
-        [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
-    }
-
-    NSError *saveError = nil;
-    BOOL didSave = [moc save:&saveError];
-    if (!didSave) {
-        if (error) {
-            *error = saveError;
-        }
-        DDLogError(@"Migration batch error: %@", saveError);
-    }
-    [moc reset];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
-
-    return didSave;
 }
 
 #pragma mark - Memory
