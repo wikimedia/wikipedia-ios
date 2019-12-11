@@ -1597,7 +1597,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage theme:self.theme overlayViewTopBarHidden:NO];
     if (fullscreenGallery != nil) {
-        [self presentViewControllerEmbeddedInNavigationController:fullscreenGallery style:WMFThemeableNavigationControllerStyleGallery];
+        [self presentViewController:fullscreenGallery animated:YES completion:NULL];
     }
 }
 
@@ -1875,7 +1875,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme overlayViewTopBarHidden:NO];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
-        [self presentViewControllerEmbeddedInNavigationController:fullscreenGallery style:WMFThemeableNavigationControllerStyleGallery];
+        [self presentViewController:fullscreenGallery animated:YES completion:NULL];
     }
 }
 
