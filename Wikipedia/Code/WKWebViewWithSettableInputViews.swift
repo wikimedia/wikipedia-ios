@@ -98,7 +98,7 @@ extension WKWebViewWithSettableInputViews {
 
     func setKeyboardRequiresUserInteraction( _ value: Bool) {
         guard let WKContentView: AnyClass = NSClassFromString("WKContentView") else {
-            print("keyboardDisplayRequiresUserAction extension: Cannot find the WKContentView class")
+            DDLogError("keyboardDisplayRequiresUserAction extension: Cannot find the WKContentView class")
             return
         }
         // For iOS 11.3, *
