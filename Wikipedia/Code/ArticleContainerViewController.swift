@@ -71,10 +71,15 @@ private extension ArticleContainerViewController {
         }
         
         //todo: move into configuration
-        let basePath = "https://\(language).wikipedia.org/api/rest_v1/page/mobile-html/"
+        
+        let schemeHandler = SchemeHandler.shared
+        
+        //let basePath = "https://apps.wmflabs.org/\(language).wikipedia.org/v1/page/mobile-html/"
+        let basePath = "\(schemeHandler.scheme)://apps.wmflabs.org/\(language).wikipedia.org/v1/page/mobile-html/"
+        //let basePath = "\(schemeHandler.scheme)://\(language).wikipedia.org/api/rest_v1/page/mobile-html/"
 
         if let url = URL(string: basePath + encodedTitle) {
-            let webViewController = ArticleWebViewController(url: url)
+            let webViewController = ArticleWebViewController(url: url, schemeHandler: schemeHandler)
             self.webViewController = webViewController
             addChildViewController(childViewController: webViewController, offsets: Offsets(top: 0, bottom: nil, leading: 0, trailing: 0))
         } else {

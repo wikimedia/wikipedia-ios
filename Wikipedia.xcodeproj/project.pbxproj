@@ -433,6 +433,11 @@
 		67DC5BEB23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */; };
 		67DC5BEC23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */; };
 		67DC5BED23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */; };
+		67DC5BEF23A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
+		67DC5BF023A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
+		67DC5BF123A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
+		67DC5BF223A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
+		67DC5BF323A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
 		67E069062238A396008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
 		67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
 		67E0690922399D1B008550AC /* ReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* ReadingThemesControlsViewController.swift */; };
@@ -4041,6 +4046,7 @@
 		67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebViewController.swift; sourceTree = "<group>"; };
 		67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContainerViewController.swift; sourceTree = "<group>"; };
 		67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleToolbarViewController.swift; sourceTree = "<group>"; };
+		67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandlerScript.swift; sourceTree = "<group>"; };
 		67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAndReplaceKeyboardBar.swift; sourceTree = "<group>"; };
 		67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFFindAndReplaceKeyboardBar.xib; sourceTree = "<group>"; };
 		67E06918223B32DF008550AC /* FocusNavigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FocusNavigationView.xib; sourceTree = "<group>"; };
@@ -6754,6 +6760,7 @@
 		67DC5BDB23A00DF500B03A84 /* Article */ = {
 			isa = PBXGroup;
 			children = (
+				67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */,
 				67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */,
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */,
 				67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */,
@@ -11531,6 +11538,7 @@
 				7A196F5A21BF199500D9E4B5 /* SectionEditorWebView.swift in Sources */,
 				83836ECC1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				B0C6BE4A1E42D19D0033BD6E /* WMFCaptchaViewController.swift in Sources */,
+				67DC5BEF23A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				7A6ED51220ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
 				0E281A331DC263DE00FA1AB1 /* WMFReference.swift in Sources */,
@@ -11683,6 +11691,7 @@
 				67E0690922399D1B008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				7A9A612221124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				67E069152239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
+				67DC5BF323A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D80ED2B01EE57F4800CE8C50 /* MWKTitleLanguageController.m in Sources */,
 				D80ED2B11EE57F4800CE8C50 /* UIView+WMFSnapshotting.m in Sources */,
 				678D79FA235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
@@ -12762,6 +12771,7 @@
 				D8A42B7B1E815A9C00D8E281 /* WMFArticleRevision.m in Sources */,
 				7A196F5D21BF199500D9E4B5 /* SectionEditorWebView.swift in Sources */,
 				D8A42B7C1E815A9C00D8E281 /* ArticlePlaceView.swift in Sources */,
+				67DC5BF223A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D8A42B7D1E815A9C00D8E281 /* WMFCaptchaViewController.swift in Sources */,
 				D8A42B7E1E815A9C00D8E281 /* DDLog+WMFLogger.m in Sources */,
 				67E8B092226A57EA00537BC9 /* TalkPageContainerViewController.swift in Sources */,
@@ -12922,6 +12932,7 @@
 				67E0690C22399D1D008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				7A9A611F21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				67E069132239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
+				67DC5BF023A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
 				D8CE25201E698E2400DAE2E0 /* MWKTitleLanguageController.m in Sources */,
 				678D79F7235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
@@ -13369,6 +13380,7 @@
 				67E0690B22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				D8EC3E0B1E9BDA35006712EB /* SavedArticlesFetcher.m in Sources */,
 				67E069122239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
+				67DC5BF123A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D8EC3E0C1E9BDA35006712EB /* WMFSettingsTableViewCell.m in Sources */,
 				D8EC3E0D1E9BDA35006712EB /* UIView+WMFSubviews.swift in Sources */,
 				678D79F8235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
