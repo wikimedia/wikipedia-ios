@@ -96,7 +96,7 @@ private var didSetKeyboardRequiresUserInteraction = false
 
 extension WKWebViewWithSettableInputViews {
     // Swizzle a WKWebView method to allow web elements to be focused without user interaction
-    // Replace the method with an implementation that wrapa the existing implementation and always passes true for `userIsInteracting`
+    // Replace the method with an implementation that wraps the existing implementation and always passes true for `userIsInteracting`
     // https://stackoverflow.com/questions/32449870/programmatically-focus-on-a-form-in-a-webview-wkwebview
     static func overrideUserInteractionRequirementForElementFocusIfNecessary() {
         assert(Thread.isMainThread)
