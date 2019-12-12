@@ -211,7 +211,7 @@ private extension TalkPageController {
     func fetchLatestRevisionID(endingWithRevision revisionID: Int?, urlTitle: String, completion: @escaping (Result<Int, Error>) -> Void) {
         
         guard let host = siteURL.host,
-            let revisionURL = Configuration.current.mediaWikiAPIURForHost(host, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
+            let revisionURL = Configuration.current.mediaWikiAPIURLForHost(host, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
             completion(.failure(TalkPageError.revisionUrlCreationFailure))
             return
         }
@@ -233,7 +233,7 @@ private extension TalkPageController {
         }
         
         let revisionIDNumber: NSNumber? = revisionID != nil ? NSNumber(value: revisionID!) : nil
-        let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, endingWithRevision: revisionIDNumber, failure: errorHandler, success: successIDHandler)
+        let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, startingWithRevision: nil, endingWithRevision: revisionIDNumber, failure: errorHandler, success: successIDHandler)
         
         //todo: task tracking
         revisionFetcherTask?.resume()

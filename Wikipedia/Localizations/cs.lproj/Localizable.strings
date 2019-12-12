@@ -13,6 +13,7 @@
 // Author: Ilimanaq29
 // Author: Juandev
 // Author: Korytaacheck
+// Author: Luky001
 // Author: Marek Pavlica
 // Author: Matěj Suchánek
 // Author: Meliganai
@@ -125,6 +126,7 @@
 "article-read-more-title" = "Číst dál";
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
+"article-title" = "Článek";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládací prvky pro čtení motivů";
 "article-unable-to-load-section" = "Nelze načíst tento oddíl. Zkuste aktualizovat stránku, v některých případech to může pomoci.";
 "back-button-accessibility-label" = "Zpět";
@@ -181,6 +183,16 @@
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
+"diff-compare-header-from-info-heading" = "Od:";
+"diff-compare-header-heading" = "Porovnat revize";
+"diff-compare-header-to-info-heading" = "Do:";
+"diff-compare-title" = "Porovnat revize";
+"diff-context-lines-collapsed-button-title" = "Zobrazit";
+"diff-context-lines-expanded-button-title" = "Skrýt";
+"diff-paragraph-moved" = "Odstavec přesunut";
+"diff-paragraph-moved-direction-down" = "dolů";
+"diff-paragraph-moved-direction-up" = "nahoru";
+"diff-single-header-summary-heading" = "Shrnutí editace";
 "dim-images" = "Ztmavení obrázků";
 "edit-bold-accessibility-label" = "Přidat tučné formátování";
 "edit-bold-remove-accessibility-label" = "Odebrat tučné formátování";
@@ -289,12 +301,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ve všech jazycích";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnout";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1 jazycích";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Všech %@ karet je skrytých";
 "explore-feed-preferences-global-card-footer-text" = "V této kartě nelze zvolit jazyk, vypnutím této karty bude odstraněna z vašeho kanálu Objevit.";
 "explore-feed-preferences-global-cards-description" = "Bez možnosti zvolit jazyk";
 "explore-feed-preferences-global-cards-subtitle" = "Bez možnosti zvolit jazyk";
 "explore-feed-preferences-global-cards-title" = "Globální karty";
 "explore-feed-preferences-hide-card-action-title" = "Skrýt tuto kartu";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skrýt všechny karty „%@“";
 "explore-feed-preferences-in-the-news-description" = "Články o aktuálních událostech";
 "explore-feed-preferences-languages-footer-text" = "Skrytí všech karet ve všech vybraných jazycích vypne kanál Objevit.";
@@ -499,7 +513,6 @@
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";
 "page-edit-history" = "Celá historie editací";
-"page-history-title" = "Historie článku";
 "page-issues" = "Nedostatky stránky";
 "page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";
 "page-location" = "Zobrazit na mapě";
@@ -594,7 +607,7 @@
 "reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy k přečtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
 "reading-list-sync-enable-title" = "Zapnout synchronizaci seznamů k přečtení?";
 "reading-list-sync-enabled-panel-message" = "Synchronizace seznamů k přečtení je pro tento účet zapnutá. Chcete-li synchronizaci ukončit, můžete synchronizaci vypnout pro tento účet aktualizací nastavení.";
-"reading-list-sync-enabled-panel-title" = "Synchronizace je na tomto účtu vypnuta";
+"reading-list-sync-enabled-panel-title" = "Synchronizace je na tomto účtu zapnuta";
 "reading-list-unable-to-add-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu k přečtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-create" = "Nastala neočekávaná chyba při vytváření vašeho seznamu k přečtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-delete" = "Nastala neočekávaná chyba při odstraňování vašeho seznamu k přečtení. Zkuste to prosím později znovu.";
@@ -616,6 +629,7 @@
 "reading-lists-default-list-title" = "Uloženo";
 "reading-lists-delete-reading-list-alert-message" = "Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do {{PLURAL:$1|tohoto seznamu|těchto seznamů}} nebudou nadále mezi uloženými.";
 "reading-lists-delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|seznam|seznamy}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 článků a $2 seznamů k přečtení bylo synchronizováno z vašeho účtu";
 "reading-lists-list-not-synced-limit-exceeded" = "Seznam nebyl synchronizován, limit byl překročen";
 "reading-lists-sort-saved-articles" = "Třídění uložených článků";
@@ -631,8 +645,14 @@
 "reading-themes-controls-syntax-highlighting" = "Zvýraznění syntaxe";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|1=Včera|2=Předevčírem|Před $1 dny}}";
+"relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Před $1 hodinou|Před $1 hodinami}}";
+"relative-date-hours-ago-abbreviated" = "před $1 h";
+"relative-date-minutes-abbreviated" = "$1 min";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Právě teď|Před $1 minutou|Před $1 minutami}}";
+"relative-date-minutes-ago-abbreviated" = "před $1 min";
+"relative-date-seconds-abbreviated" = "$1 s";
+"relative-date-seconds-ago-abbreviated" = "před $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Loni|2=Předloni|Před $1 lety}}";
 "replace-button-accessibility" = "Provést $1.";
 "replace-buttons-replace-accessibility" = "Nahradit v jednom případě";
@@ -779,6 +799,7 @@
 "two-factor-login-with-backup-code" = "Použít jeden z vašich záložních kódů";
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
 "unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
+"unknown-generic-text" = "Neznámé";
 "view-in-browser-footer-link" = "Zobrazit článek v prohlížeči";
 "welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";

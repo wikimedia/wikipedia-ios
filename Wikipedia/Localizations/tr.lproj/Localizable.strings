@@ -11,6 +11,7 @@
 // Author: HakanIST
 // Author: Hedda
 // Author: Incelemeelemani
+// Author: JoeWalshWMF
 // Author: Kumkumuk
 // Author: Macofe
 // Author: Mavrikant
@@ -45,7 +46,7 @@
 "about-places-maps-license-details" = "Yerler, Apple Haritalar tarafından sağlanan haritaları kullanır. $1.";
 "about-places-maps-license-details-link-text" = "Lisans detayları için lütfen buraya bakınız";
 "about-product-of" = "$1 tarafından, sizin gibi gönüllüler yardımıyla oluşturuldu";
-"about-repositories" = "Veri havuzları";
+"about-repositories" = "Depolar";
 "about-repositories-app-source-license" = "Kaynak koduna $1 altında erişilebilir.";
 "about-repositories-app-source-license-mit" = "MIT Lisansı";
 "about-send-feedback" = "Uygulama geri bildirimi gönder";
@@ -85,11 +86,13 @@
 "action-add-to" = "Ekle...";
 "action-add-to-reading-list" = "Okuma listesine ekle";
 "action-add-to-reading-list-short" = "Listeye ekle";
-"action-cancel" = "Çıkış";
+"action-cancel" = "İptal";
 "action-find-in-page" = "Sayfada bul";
 "action-language-accessibility" = "Dil değiştir";
 "action-move-to" = "Taşı...";
 "action-move-to-reading-list" = "Okuma listesine taşı";
+"action-next-revision-accessibility" = "Sonraki Revizyon";
+"action-previous-revision-accessibility" = "Önceki Revizyon";
 "action-read" = "Oku";
 "action-redo" = "Yinele";
 "action-remove" = "Kaldır";
@@ -102,8 +105,9 @@
 "action-share" = "Paylaş";
 "action-share-accessibility" = "Paylaş";
 "action-sort" = "Sınıflandır";
+"action-thank-user-accessibility" = "Kullanıcı Teşekkür Et";
 "action-undo" = "Geri al";
-"action-unsave" = "Kaydedilenlerden çıkar";
+"action-unsave" = "Kaydetme";
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
 "action-update" = "Güncelle";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
@@ -123,14 +127,15 @@
 "appearance-settings-theme-options" = "Tema seçenekleri";
 "article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
-"article-deleted-accessibility-notification" = "{{PLURAL:$1|artice|madde}} silindi";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|madde|madde}} silindi";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
-"article-read-more-title" = "Devamı";
+"article-read-more-title" = "Devamını oku";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
+"article-title" = "Makale";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "back-button-accessibility-label" = "Geri";
@@ -187,6 +192,37 @@
 "description-welcome-descriptions-title" = "Başlık tanımları";
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
+"diff-compare-header-from-info-heading" = "Gönderen:";
+"diff-compare-header-heading" = "Düzeltmeleri Karşılaştır";
+"diff-compare-header-to-info-heading" = "Alıcı:";
+"diff-compare-title" = "Düzeltmeleri Karşılaştır";
+"diff-context-lines-collapsed-button-title" = "Göster";
+"diff-context-lines-expanded-button-title" = "Gizle";
+"diff-multi-line-format" = "Çizgiler $1 - $2";
+"diff-paragraph-moved" = "Paragraf taşındı";
+"diff-paragraph-moved-direction-down" = "aşağı";
+"diff-paragraph-moved-direction-up" = "yukarı";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 çizgi|$1 çizgi}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 bölüm|$1 bölüm}}";
+"diff-paragraph-moved-format" = "Paragraf taşındı $1 $2";
+"diff-revision-error-title" = "Revizyon yüklenemedi";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 düzenleme|$1 düzenleme}}";
+"diff-single-header-editor-title" = "Editör bilgisi";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bayt eklendi|$1 bayt eklendi}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 bayt kaldırıldı|$1 bayt kaldırıldı}}";
+"diff-single-header-summary-heading" = "Özeti düzenle";
+"diff-single-intro-title" = "Giriş";
+"diff-single-line-format" = "$1 satır";
+"diff-thanks-anonymous-no-thanks" = "Anonim kullanıcılar teşekkür edilemez";
+"diff-thanks-login-subtitle" = "'Teşekkür', bir editörün Vikipedi'deki çalışmalarını takdir etmenin kolay bir yoludur. 'Teşekkür' göndermek için giriş yapmış olmanız gerekir.";
+"diff-thanks-login-title" = "'Teşekkür' göndermek için giriş yapın";
+"diff-thanks-send-button-title" = "'Teşekkür' gönder";
+"diff-thanks-send-subtitle" = "'Teşekkür', bir editörün Vikipedi'deki çalışmalarını takdir etmenin kolay bir yoludur. 'Teşekkür' geri alınamaz ve herkes tarafından görülebilir.";
+"diff-thanks-send-title" = "Herkese 'Teşekkür' gönder";
+"diff-thanks-sent" = "'Teşekkürün' $1 olarak ayarlandı";
+"diff-thanks-sent-already" = "Bu düzenleme için zaten bir 'Teşekkür' gönderdiniz";
+"diff-thanks-sent-cannot-unsend" = "Teşekkürler gönderilemez";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
 "dim-images" = "Resimleri karart";
 "edit-bold-accessibility-label" = "Kalın formatı ekle";
 "edit-bold-remove-accessibility-label" = "Kalın formatı kaldır";
@@ -255,6 +291,8 @@
 "editing-welcome-impartial-tone-title" = "Tarafsız bir bakış açısıyla yazın";
 "editing-welcome-set-knowledge-free-subtitle" = "Herkesin dünyadaki bilgiye erişimini sağlamak için en önemli olan konuları okumada, düzenlemede ve katkıda bulunmada size ihtiyacımız var.";
 "editing-welcome-set-knowledge-free-title" = "Bilgiyi özgür kıl";
+"empty-diff-compare-title" = "Düzeltmeler arasında fark yok";
+"empty-diff-single-title" = "Görüntülenebilir değişiklik yapılmadı";
 "empty-insert-media-title" = "Wikimedia Commons'tan bir dosya seç";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
@@ -295,13 +333,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hepsinde";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Açık";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1'de";
-"explore-feed-preferences-feed-cards-hidden-title" = "Tüm %@ kartlar gizlendi";
+"explore-feed-preferences-feed-cards-hidden-title" = "Tüm $1 kartlar gizlendi";
 "explore-feed-preferences-global-card-footer-text" = "Bu kart dile özgü değil, bu kartın kapatılması onu arama beslemenizden kaldırır.";
 "explore-feed-preferences-global-cards-description" = "Dile özgü olmayan kartlar";
 "explore-feed-preferences-global-cards-subtitle" = "Dile özgü değil";
 "explore-feed-preferences-global-cards-title" = "Küresel kartlar";
 "explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “%@” kartlarını gizle";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “$1” kartlarını gizle";
 "explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında makaleler";
 "explore-feed-preferences-languages-footer-text" = "Tüm Keşfet akış kartlarını tüm dillerinde gizlemek Keşfet sekmesini kapatır.";
 "explore-feed-preferences-on-this-day-description" = "Tarihte bugün gerçekleşen olaylar";
@@ -391,7 +429,7 @@
 "find-textfield-accessibility" = "Bul";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
-"forgot-password-instructions" = "Parola sıfırlama talımatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
+"forgot-password-instructions" = "Parola sıfırlama talimatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
 "forgot-password-title" = "Parolayı sıfırla";
 "forgot-password-username-or-email-title" = "Veya";
 "history-clear-all" = "Temizle";
@@ -441,7 +479,7 @@
 "insert-media-image-preview-select-image-action-title" = "Görüntüyü seç";
 "insert-media-image-size-setting-custom" = "Özel";
 "insert-media-image-size-setting-default" = "Varsayılan";
-"insert-media-image-size-settings-px-unit-name" = "px";
+"insert-media-image-size-settings-px-unit-name" = "piksel";
 "insert-media-image-size-settings-title" = "Resim boyutu";
 "insert-media-image-type-setting-basic" = "Temel";
 "insert-media-image-type-setting-frame" = "Çerçeve";
@@ -451,12 +489,17 @@
 "insert-media-media-settings-title" = "Dosya ayarları";
 "insert-media-title" = "Dosyayı ekle";
 "insert-media-uploaded-image-title" = "Yüklenen görüntü";
+"intermediate-edits-count" = "{{PLURAL:$1|$1 ara revizyonu|$1 ara revizyonu}} gösterilmemiş";
+"intermediate-edits-count-limited" = "$1+ ara revizyonlar gösterilmemiştir";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 orta revizyon|$1 orta revizyon}} tarafından {{PLURAL:$2|$2 kullanıcı |$2 kullanıcı}} gösterilmiyor";
+"intermediate-edits-editors-count-limited" = "$2+ kullanıcı tarafından yapılan $1+ revizyonlar gösterilmiyor";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 orta revizyon|$1 orta revizyon}} tarafından $2+ kullanıcı gösterilmedi";
+"intermediate-edits-limited-editors-count" = "$1+ {{PLURAL:$2|$2 kullanıcı|$2 kullanıcı}} tarafından yapılan ara revizyonlar gösterilmez";
 "languages-settings-title" = "Diller";
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
-"link-loading-title" = "Sayfa yükleniyor...";
 "logged-out-continue-without-logging-in-button-title" = "Giriş yapmadan devam et";
 "logged-out-log-back-in-button-title" = "Hesabınıza tekrar giriş yapın";
 "logged-out-subtitle" = "Hesabınızı doğrulamada bir sorun oluştu. Okuma listelerinizi senkronize etmek ve kullanıcı adınızla düzenleme yapmak için lütfen tekrar giriş yapın.";
@@ -487,7 +530,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Ön izleme";
 "nearby-distance-label-feet" = "$1 fit";
 "nearby-distance-label-km" = "$1 km";
-"nearby-distance-label-meters" = "$1 metre";
+"nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
 "new-password-title" = "Parolanızı belirleyin";
@@ -495,8 +538,8 @@
 "no-internet-connection" = "İnternet bağlantısı yok";
 "no-internet-connection-article-reload" = "Bu maddenin daha yeni bir sürümü mevcut olabilir ancak internet bağlantısı olmadan yüklenemez";
 "no-internet-connection-article-reload-button" = "En son kaydedilen sürüme dön";
-"number-billions" = "$1";
-"number-millions" = "$1M";
+"number-billions" = "$1Mr";
+"number-millions" = "$1Mn";
 "number-thousands" = "$1B";
 "on-this-day-detail-header-date-range" = "$2-$1 döneminde";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 tarihi olay|$1 tarihi olay}}";
@@ -506,7 +549,22 @@
 "on-this-day-title" = "Tarihte bugün";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
 "page-edit-history" = "Bütün düzenleme geçmişi";
-"page-history-title" = "Madde geçmişi";
+"page-history-anonymous-edits" = "anon düzenlemeleri";
+"page-history-bot-edits" = "bot düzenlemeleri";
+"page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
+"page-history-compare-title" = "Karşılaştır";
+"page-history-graph-accessibility-label" = "Zaman içindeki düzenlemelerin grafiği";
+"page-history-minor-edits" = "küçük değişiklikler";
+"page-history-revision-author-accessibility-label" = "Yazar: $1";
+"page-history-revision-comment-accessibility-label" = "$1 yorum";
+"page-history-revision-history-title" = "Değişiklik geçmişi";
+"page-history-revision-minor-edit-accessibility-label" = "Küçük düzenleme";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 bayt|$1 bayt}} eklendi";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 bayt|$1 bayt}} kaldırıldı";
+"page-history-revision-time-accessibility-label" = "$1 revizyon yapıldı";
+"page-history-revisions-comparison-warning" = "Sadece iki revizyon seçilebilir";
+"page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
+"page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";
 "page-last-edited" = "{{PLURAL:$1|0=Bugün düzenlendi|1=Dün düzenlendi|$1 gün önce düzenlendi}}";
 "page-location" = "Haritada görüntüle";
@@ -518,6 +576,8 @@
 "page-read-in-other-languages" = "{{PLURAL:$1|$1 farklı dilde|$1 farklı dilde}} mevcut";
 "page-similar-titles" = "Benzer sayfalar";
 "page-talk-page" = "Tartışma sayfasını görüntüle";
+"panel-compare-revisions-text" = "Revizyonları karşılaştırmak, bir makalenin zaman içinde nasıl değiştiğini göstermeye yardımcı olur. Bir makalenin iki revizyonunun karşılaştırılması, değiştirilen herhangi bir içeriği vurgulayarak bu revizyonlar arasındaki farkı gösterecektir.";
+"panel-compare-revisions-title" = "Düzeltmeleri karşılaştırma";
 "pictured" = "resimdeki";
 "places-accessibility-clear-saved-searches" = "Kayıtlı aramaları temizle";
 "places-accessibility-group" = "$1 madde";
@@ -560,7 +620,7 @@
 "reading-list-add-generic-hint-title" = "Bu makaleyi bir okuma listesine eklemek istediğinize emin misiniz?";
 "reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";
 "reading-list-add-saved-button-title" = "Evet, bunları okuma listeme ekleye";
-"reading-list-add-saved-subtitle" = "Wikipedia uygulamanıza kaydedilmiş makaleler var. Bunları saklamak ve hesabınıza senkronize edilen okuma listeleri ile birleştirmek ister misiniz?";
+"reading-list-add-saved-subtitle" = "Vikipedi uygulamanıza kaydedilmiş makaleler var. Bunları saklamak ve hesabınıza senkronize edilen okuma listeleri ile birleştirmek ister misiniz?";
 "reading-list-add-saved-title" = "Kaydedilen makaleler bulundu";
 "reading-list-api-error-entry-limit" = "Bu liste, bu listedeki girişlerin sayısına sınırlamış olduğunuz için senkronize edilmiyor.";
 "reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
@@ -580,7 +640,7 @@
 "reading-list-keep-subtitle" = "Vikipedi hesabınıza senkronize edilen makaleler var. Çıkış yaptıktan sonra onları bu cihazda tutmak ister misiniz?";
 "reading-list-keep-sync-disabled-additional-subtitle" = "Senkronizasyonu kapatma, bu maddeleri hesabınızdan kaldıracaktır. Bunları cihazınızdan kaldırırsanız gelecekte tekrar senkronizasyonu açarak geri getiremezsiniz.";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Hayır, maddeleri hem cihazdan hem Vikipedi hesabımdan kaldır";
-"reading-list-keep-title" = "Kaydedilen maddeleri cihazda sakla?";
+"reading-list-keep-title" = "Kaydedilen maddeleri cihazda saklasın mı?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Makaleleri sırala";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 adet sıralanmamış madde sınırı var. Sıralanmamış maddelerin senkronizasyonuna devam etmek için lütfen mevcut maddelerinizi listelere ayırın.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sıralanmamış maddeler için limit sayısı";
@@ -591,12 +651,12 @@
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
 "reading-list-login-or-create-account-title" = "Kayıtlı makaleleri senkronize etmek için giriş yapın";
 "reading-list-login-subtitle" = "Kayıtlı maddelerinizin ve okuma listelerinizin cihazlarda senkronize edilmesine ve kullanıcı tercihlerinize kaydedilmesine izin vermek için giriş yapın veya bir hesap oluşturun.";
-"reading-list-login-title" = "Kayıtlı maddeleri senkronize et?";
-"reading-list-name-user-created-annotation" = "\n_[kullanıcı oluşturuldu]";
+"reading-list-login-title" = "Kayıtlı maddeleri senkronize edilsin mi?";
+"reading-list-name-user-created-annotation" = "_[kullanıcı oluşturuldu]";
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
 "reading-list-sync-disabled-panel-message" = "Başka bir cihazda Vikipedi hesabınız için okuma listesi senkronizasyonu devre dışı bırakıldı. Ayarlarınızı güncelleyerek senkronizasyonu tekrar açabilirsiniz.";
-"reading-list-sync-disabled-panel-title" = "Sync devre dışı";
+"reading-list-sync-disabled-panel-title" = "Senkronize devre dışı";
 "reading-list-sync-enable-button-title" = "Senkronizasyonu etkinleştir";
 "reading-list-sync-enable-subtitle" = "Kayıtlı maddeleriniz ve okuma listeleriniz artık Vikipedi hesabınıza kaydedilebilir ve Vikipedi uygulamaları arasında senkronize edilebilir.";
 "reading-list-sync-enable-title" = "Okuma listesi senkronizasyonunu etkinleştirilsin mi?";
@@ -617,13 +677,13 @@
 "reading-lists-article-save-to-disk-failed" = "Cihaz limiti aşıldı, madde senkronize edilemedi";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Cihazınızda biraz yer açın ve tekrar deneyin";
 "reading-lists-articles-not-synced-limit-exceeded" = "Bazı maddeler senkronize edilmedi, limit aşıldı";
-"reading-lists-conflicting-reading-list-name-updated" = "'$1' adlı listeniz '$2' olarak değiştirdildi";
+"reading-lists-conflicting-reading-list-name-updated" = "'$1' adlı listeniz '$2' olarak değiştirildi";
 "reading-lists-count" = "{{PLURAL:$1|$1 okuma listesi|$1 okuma listesi}}";
 "reading-lists-default-list-description" = "Kaydedilen maddeleriniz için varsayılan liste";
 "reading-lists-default-list-title" = "Kaydedildi";
 "reading-lists-delete-reading-list-alert-message" = "Bu eylem geri alınamaz. {{PLURAL:$1|bu listeye|bu listelere}} kaydedilen maddeler kaydedilmez.";
-"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Listeyi|Listeleri}} sil?";
-"reading-lists-large-sync-completed" = "Hesabınızdan senkronize edilen $1 madde ve $2 okuma listesi";
+"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Listeyi|Listeleri}} silinsin mi?";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 makale|$1 makale}} ve {{PLURAL:$2|$2 okuma listesi|$2 okuma listesi}} hesabınızdan senkronize edildi";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste senkronize edilmedi, limit aşıldı";
 "reading-lists-sort-saved-articles" = "Kayıtlı maddeleri sırala";
 "reading-lists-split-notification" = "Okuma listesi başına $1 madde sınırı vardır. Bu sınırı aşan mevcut listeler birden fazla listeye ayrılmıştır.";
@@ -638,8 +698,15 @@
 "reading-themes-controls-syntax-highlighting" = "Sözdizimi Vurgulama";
 "reference-title" = "$1 referansı";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|1=Dün|$1 gün önce}}";
+"relative-date-hours-abbreviated" = "$1st";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
+"relative-date-hours-ago-abbreviated" = "$1st önce";
+"relative-date-minutes-abbreviated" = "$1dk";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
+"relative-date-minutes-ago-abbreviated" = "$1dk önce";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Bu ay|1=Geçen ay|$1 ay önce}}";
+"relative-date-seconds-abbreviated" = "$1sn";
+"relative-date-seconds-ago-abbreviated" = "$1sn önce";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|1=Geçen yıl|$1 yıl önce}}";
 "replace-button-accessibility" = "$1 gerçekleştirin.";
 "replace-buttons-replace-accessibility" = "Tek örneği değiştir";
@@ -668,7 +735,7 @@
 "saved-search-default-text" = "Kayıtlı maddeleri ara";
 "saved-title" = "Kaydedilenler";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Bu maddeyi|Bu maddeleri}} iptal etmek, ilgili tüm okuma listelerinden kaldırır";
-"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Maddeyi|Maddeleri}} iptal et?";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Maddeyi|Maddeleri}} iptal edilsin mi?";
 "search-button-accessibility-label" = "Vikipedi'de Ara";
 "search-clear-title" = "Temizle";
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
@@ -700,7 +767,7 @@
 "settings-notifications-system-turn-on" = "Bildirimleri aç";
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
 "settings-primary-language" = "Birincil";
-"settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir. Bu dili değiştirmek, Keşfet'te gösterilen günlük içeriği (Öne Çıkan İçerik gibi) değiştirecektir.";
+"settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te gösterilen günlük içerik (Seçkin Madde gibi) de değişecektir. Bu dili değiştirmek, Keşfet'te gösterilen günlük içeriği (Öne Çıkan İçerik gibi) değiştirecektir.";
 "settings-search-footer-text" = "Uygulamayı, Keşfet sekmesi yerine Arama sekmesine açılacak şekilde ayarlayın";
 "settings-search-open-app-on-search" = "Arama sekmesinde uygulamayı aç";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Giriş yaptığınızda ve senkronize ettiğinizde Vikipedi'nin kayıtlı maddelerinizi ve okuma listelerinizi kullanıcı tercihlerinize kaydetmesine izin verin.";
@@ -765,7 +832,7 @@
 "talk-page-new-topic-body-placeholder-text" = "Yeni tartışma oluştur";
 "talk-page-new-topic-success-text" = "Tartışmanız başarıyla yayımlandı";
 "talk-page-new-topic-title" = "Yeni tartışma";
-"talk-page-publish-terms-and-licenses" = "Değişiklikleri kaydederek $1Kullanım Koşullarını$2$2 kabul etmiş olursunuz ve katkılarınızı $3CC BY-SA 3.0$4 ve $5GFDL$6 lisansları altında yayımlamayı kabul edersiniz.";
+"talk-page-publish-terms-and-licenses" = "Değişiklikleri kaydederek $1Kullanım Koşullarını$2 kabul etmiş olursunuz ve katkılarınızı $3CC BY-SA 3.0$4 ve $5GFDL$6 lisansları altında yayımlamayı kabul edersiniz.";
 "talk-page-reply-title" = "Yanıtla";
 "talk-page-title-article-talk" = "madde Tartışma";
 "talk-page-title-user-talk" = "Kullanıcı mesajı";
@@ -786,6 +853,7 @@
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
 "unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
+"unknown-generic-text" = "Bilinmiyor";
 "view-in-browser-footer-link" = "Maddeyi tarayıcıda görüntüle";
 "welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
@@ -805,7 +873,7 @@
 "welcome-languages-add-or-edit-button" = "Dil tercihi ekle veya düzenle";
 "welcome-languages-description" = "Cihazınızda şu dilleri bulduk:";
 "welcome-languages-search-title" = "Yaklaşık 300 dilde ara";
-"welcome-notifications-tell-me-more-creation" = "Bildirimler, bizim (veya üçüncü tarafların) sunucuları(mız) eliyle değil, sizin cihanız üzerindeki uygulama tarafından oluşturulur ve ulaştırılır.";
+"welcome-notifications-tell-me-more-creation" = "Bildirimler, bizim (veya üçüncü tarafların) sunucuları(mız) eliyle değil, sizin cihazınız üzerindeki uygulama tarafından oluşturulur ve ulaştırılır.";
 "welcome-notifications-tell-me-more-storage" = "Bildirim tercihleri cihazda saklanır ve kişisel bilgi veya faaliyete dayalı değildir.";
 "welcome-notifications-tell-me-more-title" = "Bildirimler hakkında daha fazla bilgi";
 "welcome-send-data-helps-title" = "Uygulamayı iyileştirmeye yardım et";

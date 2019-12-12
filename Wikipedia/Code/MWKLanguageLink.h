@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// User-readable name for @c languageCode in the language specified by @c languageCode.
 @property (readonly, copy, nonatomic, nonnull) NSString *name;
 
-// Dictionary representing namespace values of language
-@property (readonly, copy, nonatomic, nullable) NSDictionary<NSString *, WMFLanguageLinkNamespace *> *namespaces;
-
 
 /**
  Flag indicating whether there are any visible customizable feed content sources in this language.
@@ -40,8 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLanguageCode:(nonnull NSString * )languageCode
                        pageTitleText:(nonnull NSString *)pageTitleText
                                 name:(nonnull NSString *)name
-                       localizedName:(nonnull NSString *)localizedName
-                       namespaces:(nullable NSDictionary<NSString *, WMFLanguageLinkNamespace *> *)namespaces NS_DESIGNATED_INITIALIZER;
+                       localizedName:(nonnull NSString *)localizedName NS_DESIGNATED_INITIALIZER;
 
 ///
 /// @name Comparison

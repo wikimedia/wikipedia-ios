@@ -258,7 +258,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 উইকিপিডিয়া থেকে $1";
 "on-this-day-title" = "আজকের এই দিনে";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
-"page-history-title" = "নিবন্ধের ইতিহাস";
+"page-history-minor-edits" = "অনুল্লেখ্য সম্পাদনা";
 "page-issues" = "পাতার সমস্যা";
 // Fuzzy
 "page-last-edited" = "$1 দিন আগে সম্পাদিত";
@@ -315,6 +315,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=আজ|গতকাল|$1 দিন আগে}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
+"relative-date-months-ago" = "{{PLURAL:$1|0=এই মাস|1=গত মাস|$1 মাস আগে}}";
 "request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
 "reverted-edit-thanks-for-editing-title" = "উইকিপিডিয়ায় সম্পাদনা করার জন্য ধন্যবাদ!";
 "saved-all-articles-title" = "সব নিবন্ধ";

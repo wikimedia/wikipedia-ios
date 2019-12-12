@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiffListChangeCell" id="XKF-ob-D61" customClass="DiffListChangeCell" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="342" height="279"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="C9r-Gi-A19">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="279"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLE-pI-J1X">
+                        <rect key="frame" x="15" y="10" width="312" height="259"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Fk-fp-646" userLabel="Heading Container View">
+                                <rect key="frame" x="0.0" y="0.0" width="312" height="40.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JR-e0-0N3">
+                                        <rect key="frame" x="7" y="10" width="298" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1JR-e0-0N3" firstAttribute="leading" secondItem="5Fk-fp-646" secondAttribute="leading" constant="7" id="62I-Nv-KBS"/>
+                                    <constraint firstItem="1JR-e0-0N3" firstAttribute="top" secondItem="5Fk-fp-646" secondAttribute="top" constant="10" id="IHj-Cp-4ze"/>
+                                    <constraint firstAttribute="bottom" secondItem="1JR-e0-0N3" secondAttribute="bottom" constant="10" id="N2y-lE-hNZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="1JR-e0-0N3" secondAttribute="trailing" constant="7" id="yQe-rU-tl5"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cgQ-ly-f1a">
+                                <rect key="frame" x="0.0" y="40.5" width="312" height="218.5"/>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="cgQ-ly-f1a" firstAttribute="leading" secondItem="OLE-pI-J1X" secondAttribute="leading" id="7gx-x2-Z89"/>
+                            <constraint firstItem="5Fk-fp-646" firstAttribute="top" secondItem="OLE-pI-J1X" secondAttribute="top" id="FnU-4Z-h8R"/>
+                            <constraint firstAttribute="trailing" secondItem="cgQ-ly-f1a" secondAttribute="trailing" id="UrC-c3-Hgc"/>
+                            <constraint firstItem="5Fk-fp-646" firstAttribute="leading" secondItem="OLE-pI-J1X" secondAttribute="leading" id="c1o-S6-cOC"/>
+                            <constraint firstItem="cgQ-ly-f1a" firstAttribute="top" secondItem="5Fk-fp-646" secondAttribute="bottom" id="cBT-nc-DO9"/>
+                            <constraint firstAttribute="trailing" secondItem="5Fk-fp-646" secondAttribute="trailing" id="ttg-fx-Qyr"/>
+                            <constraint firstAttribute="bottom" secondItem="cgQ-ly-f1a" secondAttribute="bottom" id="vFf-dW-RhI"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OLE-pI-J1X" firstAttribute="top" secondItem="C9r-Gi-A19" secondAttribute="top" constant="10" id="8zL-ha-wmM"/>
+                    <constraint firstAttribute="bottom" secondItem="OLE-pI-J1X" secondAttribute="bottom" constant="10" id="MbN-1w-lnS"/>
+                    <constraint firstAttribute="trailing" secondItem="OLE-pI-J1X" secondAttribute="trailing" constant="15" id="XRX-ne-ugt"/>
+                    <constraint firstItem="OLE-pI-J1X" firstAttribute="leading" secondItem="C9r-Gi-A19" secondAttribute="leading" constant="15" id="oC5-aU-G5R"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <gestureRecognizers/>
+            <size key="customSize" width="342" height="279"/>
+            <connections>
+                <outlet property="headingBottomConstraint" destination="N2y-lE-hNZ" id="Jdm-0w-WQQ"/>
+                <outlet property="headingContainerView" destination="5Fk-fp-646" id="ob4-Dj-5sG"/>
+                <outlet property="headingLabel" destination="1JR-e0-0N3" id="QET-Cg-o06"/>
+                <outlet property="headingLeadingConstraint" destination="62I-Nv-KBS" id="wk1-RD-PNX"/>
+                <outlet property="headingTopConstraint" destination="IHj-Cp-4ze" id="BYW-uc-2wi"/>
+                <outlet property="headingTrailingConstraint" destination="yQe-rU-tl5" id="oeP-0K-9JG"/>
+                <outlet property="innerBottomConstraint" destination="MbN-1w-lnS" id="lWF-iU-2hL"/>
+                <outlet property="innerLeadingConstraint" destination="oC5-aU-G5R" id="gQn-JR-8Ce"/>
+                <outlet property="innerTopConstraint" destination="8zL-ha-wmM" id="nuL-DX-OF8"/>
+                <outlet property="innerTrailingConstraint" destination="XRX-ne-ugt" id="ZSz-De-HeS"/>
+                <outlet property="innerView" destination="OLE-pI-J1X" id="aIz-QQ-pVc"/>
+                <outlet property="textBottomConstraint" destination="vFf-dW-RhI" id="D5c-sQ-J3T"/>
+                <outlet property="textLeadingConstraint" destination="7gx-x2-Z89" id="yYG-NG-UxN"/>
+                <outlet property="textStackView" destination="cgQ-ly-f1a" id="Omq-1P-Oro"/>
+                <outlet property="textTopConstraint" destination="cBT-nc-DO9" id="xA7-6l-Xh0"/>
+                <outlet property="textTrailingConstraint" destination="UrC-c3-Hgc" id="kBD-1d-9nK"/>
+            </connections>
+            <point key="canvasLocation" x="6" y="43"/>
+        </collectionViewCell>
+    </objects>
+</document>

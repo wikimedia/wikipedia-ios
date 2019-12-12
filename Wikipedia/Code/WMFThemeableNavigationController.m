@@ -11,19 +11,21 @@
 @implementation WMFThemeableNavigationController
 @synthesize splashView = _splashView;
 
-- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme style:(WMFThemeableNavigationControllerStyle)style {
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController theme:(WMFTheme *)theme style:(WMFThemeableNavigationControllerStyle)style {
     self = [super initWithRootViewController:rootViewController];
     if (self) {
         self.style = style;
         self.theme = theme;
         [self applyTheme:theme];
         self.modalPresentationStyle = UIModalPresentationOverFullScreen; // before removing this, ensure alert messages presented with RMessageView (or whatever replaced it) have the proper offset https://phabricator.wikimedia.org/T232604
-        [rootViewController applyTheme:theme];
+        if ([rootViewController conformsToProtocol:@protocol(WMFThemeable)]) {
+            [(id)rootViewController applyTheme:theme];
+        }
     }
     return self;
 }
 
-- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme {
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController theme:(WMFTheme *)theme {
     return [self initWithRootViewController:rootViewController theme:theme style:WMFThemeableNavigationControllerStyleDefault];
 }
 
@@ -43,6 +45,10 @@
             break;
         case WMFThemeableNavigationControllerStyleSheet:
             backgroundImage = theme.sheetNavigationBarBackgroundImage;
+            break;
+        case WMFThemeableNavigationControllerStyleGallery:
+            self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self setNavigationBarHidden:YES animated:NO];
             break;
         default:
             backgroundImage = theme.navigationBarBackgroundImage;

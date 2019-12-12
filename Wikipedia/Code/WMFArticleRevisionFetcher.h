@@ -6,7 +6,8 @@
 
 - (NSURLSessionTask *)fetchLatestRevisionsForArticleURL:(NSURL *)articleURL
                                             resultLimit:(NSUInteger)numberOfResults
-                                     endingWithRevision:(NSNumber *)revisionId
+                                startingWithRevision:(NSNumber *)startRevisionId
+                                     endingWithRevision:(NSNumber *)endRevisionId
                                                 failure:(WMFErrorHandler)failure
                                                 success:(WMFSuccessIdHandler)success;
 

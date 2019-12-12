@@ -158,7 +158,7 @@ extern NSString *const WMFEditPencil;
  **/
 - (nullable NSURL *)wmf_URLWithPath:(NSString *)path isMobile:(BOOL)isMobile;
 
-#pragma mark - URL Componenets
+#pragma mark - URL Components
 
 /**
  *  Return a URL with just the domain, language, and mobile subdomain of the reciever.
@@ -178,15 +178,11 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_titleWithUnderscores;
 
+@property (nonatomic, copy, readonly, nullable) NSURL *wmf_canonicalURL; // canonical URL
+
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for any wiki page
 
 #pragma mark - Introspection
-
-/**
- *  Return YES is a URL is a link to a Wiki resource
- *  Checks for the presence of "/wiki/" in the path
- */
-@property (nonatomic, readonly) BOOL wmf_isWikiResource;
 
 /**
  *  Return YES if the receiver has "cite_note" in the path

@@ -27,4 +27,19 @@ extension WMFArticle {
         let previewKeys: Set<String> = ["wikidataDescription", "snippet", "imageURLString", "isDownloaded", "readingLists"]
         return hasChangedValuesForCurrentEventForKeys(previewKeys)
     }
+    
+    public var namespace: PageNamespace? {
+        return url?.namespace
+    }
+    
+    public var namespaceAndTitle: (namespace: PageNamespace, title: String)? {
+        return url?.namespaceAndTitle
+    }
+    
+    @objc public var namespaceNumber: NSNumber? {
+        guard let namespace = namespace else {
+            return nil
+        }
+        return NSNumber(integerLiteral: namespace.rawValue)
+    }
 }

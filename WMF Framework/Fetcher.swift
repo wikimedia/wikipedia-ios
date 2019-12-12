@@ -68,8 +68,8 @@ open class Fetcher: NSObject {
         }
     }
     
-    @objc(performTokenizedMediaWikiAPIPOSTWithTokenType:toURL:withBodyParameters:cancellationKey:completionHandler:)
-    @discardableResult public func performTokenizedMediaWikiAPIPOST(tokenType: TokenType = .csrf, to URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> CancellationKey? {
+    @objc(performTokenizedMediaWikiAPIPOSTWithTokenType:toURL:withBodyParameters:cancellationKey:reattemptLoginOn401Response:completionHandler:)
+    @discardableResult public func performTokenizedMediaWikiAPIPOST(tokenType: TokenType = .csrf, to URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> CancellationKey? {
         let key = cancellationKey ?? UUID().uuidString
         let task = requestMediaWikiAPIAuthToken(for: URL, type: tokenType, cancellationKey: key) { (result) in
             switch result {
@@ -79,18 +79,18 @@ open class Fetcher: NSObject {
             case .success(let token):
                 var mutableBodyParameters = bodyParameters ?? [:]
                 mutableBodyParameters[tokenType.parameterName] = token.value
-                self.performMediaWikiAPIPOST(for: URL, with: mutableBodyParameters, cancellationKey: key, completionHandler: completionHandler)
+                self.performMediaWikiAPIPOST(for: URL, with: mutableBodyParameters, cancellationKey: key, reattemptLoginOn401Response: reattemptLoginOn401Response, completionHandler: completionHandler)
             }
         }
         track(task: task, for: key)
         return key
     }
     
-    @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:completionHandler:)
-    @discardableResult public func performMediaWikiAPIPOST(for URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        let components = configuration.mediaWikiAPIURForHost(URL?.host)
+    @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:reattemptLoginOn401Response:completionHandler:)
+    @discardableResult public func performMediaWikiAPIPOST(for URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: nil)
         let key = cancellationKey ?? UUID().uuidString
-        let task = session.postFormEncodedBodyParametersToURL(to: components.url, bodyParameters: bodyParameters) { (result, response, error) in
+        let task = session.postFormEncodedBodyParametersToURL(to: components.url, bodyParameters: bodyParameters, reattemptLoginOn401Response:reattemptLoginOn401Response) { (result, response, error) in
             completionHandler(result, response, error)
             self.untrack(taskFor: key)
         }
@@ -100,7 +100,7 @@ open class Fetcher: NSObject {
 
     @objc(performMediaWikiAPIGETForURL:withQueryParameters:cancellationKey:completionHandler:)
     @discardableResult public func performMediaWikiAPIGET(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey?, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        let components = configuration.mediaWikiAPIURForHost(URL?.host, with: queryParameters)
+        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.getJSONDictionary(from: components.url) { (result, response, error) in
             let returnError = error ?? WMFErrorForApiErrorObject(result?["error"] as? [AnyHashable : Any])

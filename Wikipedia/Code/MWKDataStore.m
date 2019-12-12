@@ -48,9 +48,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nullable) dispatch_block_t cacheRemovalCompletion;
 @property (readwrite, nonatomic, getter=wasSitesFolderMissing) BOOL sitesFolderMissing;
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
-@property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
-
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
@@ -66,83 +63,17 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @implementation MWKDataStore
 
-- (NSOperationQueue *)articleSaveQueue {
-    if (!_articleSaveQueue) {
-        _articleSaveQueue = [NSOperationQueue new];
-        _articleSaveQueue.qualityOfService = NSQualityOfServiceBackground;
-        _articleSaveQueue.maxConcurrentOperationCount = 1;
-    }
-    return _articleSaveQueue;
-}
-
-- (NSMutableDictionary<NSString *, NSOperation *> *)articleSaveOperations {
-    if (!_articleSaveOperations) {
-        _articleSaveOperations = [NSMutableDictionary new];
-    }
-    return _articleSaveOperations;
-}
-
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk {
-    [self asynchronouslyCacheArticle:article toDisk:toDisk completion:nil];
-}
-
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable void (^)(NSError *error))completion {
+- (void)cacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk error:(NSError **)error {
     if (!article) {
-        if (completion) {
-            completion(nil);
-        }
         return;
     }
     [self addArticleToMemoryCache:article];
     if (!toDisk) {
-        if (completion) {
-            completion(nil);
-        }
         return;
     }
-    NSOperationQueue *queue = [self articleSaveQueue];
-    NSMutableDictionary *operations = [self articleSaveOperations];
-    @synchronized(queue) {
-        NSString *key = article.url.wmf_databaseKey;
-        if (!key) {
-            return;
-        }
-
-        NSOperation *op = operations[key];
-        if (op) {
-            [op cancel];
-            [operations removeObjectForKey:key];
-        }
-
-        op = [NSBlockOperation blockOperationWithBlock:^{
-            NSError *error = nil;
-            [article save:&error];
-            @synchronized(queue) {
-                [operations removeObjectForKey:key];
-            }
-            completion(error);
-        }];
-
-        if (!op) {
-            return;
-        }
-
-        operations[key] = op;
-
-        [queue addOperation:op];
-    }
+    [article save:error];
 }
 
-- (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article {
-    NSOperationQueue *queue = [self articleSaveQueue];
-    NSMutableDictionary *operations = [self articleSaveOperations];
-    @synchronized(queue) {
-        NSString *key = article.url.wmf_databaseKey;
-        NSOperation *op = operations[key];
-        [op cancel];
-        [operations removeObjectForKey:key];
-    }
-}
 
 #pragma mark - NSObject
 
@@ -442,12 +373,10 @@ static uint64_t bundleHash() {
         updateBlock(entry, preview, article);
     }
 
-    NSEntityDescription *articleEntityDescription = [NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc];
     for (NSString *key in keysToAdd) {
         MWKHistoryEntry *entry = historyEntries[key];
         WMFArticlePreview *preview = articlePreviews[key];
-        WMFArticle *article = [[WMFArticle alloc] initWithEntity:articleEntityDescription insertIntoManagedObjectContext:moc];
-        article.key = key;
+        WMFArticle *article = [moc createArticleWithKey:key];
         updateBlock(entry, preview, article);
     }
 }
@@ -1747,8 +1676,7 @@ static uint64_t bundleHash() {
     }
     WMFArticle *article = [self fetchArticleWithKey:key inManagedObjectContext:moc];
     if (!article) {
-        article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
-        article.key = key;
+        article = [moc createArticleWithKey:key];
         article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
             [self.articlePreviewCache setObject:article forKey:key];

@@ -17,7 +17,11 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNoInternetConnection,
     WMFEmptyViewTypeNoSelectedImageToInsert,
     WMFEmptyViewTypeUnableToLoadTalkPage,
-    WMFEmptyViewTypeEmptyTalkPage
+    WMFEmptyViewTypeEmptyTalkPage,
+    WMFEmptyViewTypeDiffCompare,
+    WMFEmptyViewTypeDiffSingle,
+    WMFEmptyViewTypeDiffErrorCompare,
+    WMFEmptyViewTypeDiffErrorSingle
 };
 
 @protocol WMFEmptyViewContainer

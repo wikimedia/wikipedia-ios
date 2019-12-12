@@ -209,7 +209,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
                 }
                 maxSection = section
             }
-            guard maxSection < info.sections.count else {
+            guard maxSection > -1 && maxSection < info.sections.count else {
                 maxNewSection = -1
                 return
             }

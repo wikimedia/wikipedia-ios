@@ -276,12 +276,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ĉiuj ŝaltitaj";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ŝaltita";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Ŝaltita $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Ĉiuj %@ kartoj kaŝitaj";
 "explore-feed-preferences-global-card-footer-text" = "Ĉi tiu karto ne estas lingvospecifa, malŝaltanta ĉi tiun karton forigos ĝin de via Esplorfluo.";
 "explore-feed-preferences-global-cards-description" = "Ne lingvospecifaj kartoj";
 "explore-feed-preferences-global-cards-subtitle" = "Ne lingvospecifa";
 "explore-feed-preferences-global-cards-title" = "Tutmondaj kartoj";
 "explore-feed-preferences-hide-card-action-title" = "Kaŝi ĉi tiun karton";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Kaŝi ĉiujn kartojn de tipo “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artikoloj pri nunaj eventoj";
 "explore-feed-preferences-languages-footer-text" = "Se vi kaŝas ĉiujn kartojn sur la Esplorfluo en via lingvo, la Esplortaba folio estos malŝaltita.";
@@ -486,7 +488,6 @@
 "on-this-day-title" = "En ĉi tiu tago";
 "original-tab-button-popover-description" = "Tuŝetu sur 'W' por reveni al la taba folio de kiu vi startis";
 "page-edit-history" = "Plena redakto-historion";
-"page-history-title" = "Artikola historio";
 "page-issues" = "Problemoj pri paĝo";
 "page-last-edited" = "Redaktita {{PLURAL:$1|0=hodiaŭ|1=hieraŭ|antaŭ $1 tagoj}}";
 "page-location" = "Montri sur mapo";
@@ -603,6 +604,7 @@
 "reading-lists-default-list-title" = "Konservitaj";
 "reading-lists-delete-reading-list-alert-message" = "Ĉi tiu ago ne povas esti malfarita. Ajnaj artikoloj konservitaj nur al {{PLURAL:$1|ĉi tiu listo|ĉi tiuj listoj}} estas malkonservotaj.";
 "reading-lists-delete-reading-list-alert-title" = "Ĉu forigi la {{PLURAL:$1|liston|listojn}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikoloj kaj $2 legolistoj sinkronigitaj de via konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listo ne sinkronigita, limo preterpasita";
 "reading-lists-sort-saved-articles" = "Ordigi konservitajn artikolojn";

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiffHeaderExtendedView" customModule="Wikipedia">
+            <connections>
+                <outlet property="compareDivView" destination="uqW-gh-yjf" id="aeY-y3-MZR"/>
+                <outlet property="compareView" destination="b3T-Zw-2K1" id="qey-T3-pkJ"/>
+                <outlet property="contentView" destination="esC-iO-mp9" id="zAr-Pt-zZQ"/>
+                <outlet property="editorDivView" destination="CNr-Gq-8i7" id="DjV-yO-p6w"/>
+                <outlet property="editorView" destination="P65-Vp-V6F" id="QMb-hc-GVj"/>
+                <outlet property="stackView" destination="TY2-XA-yot" id="O1G-jA-VHI"/>
+                <outlet property="summaryDivView" destination="mT6-vc-UjY" id="2RH-Zp-reV"/>
+                <outlet property="summaryView" destination="HAT-KZ-t9R" id="7Ay-9i-LOv"/>
+                <outletCollection property="divViews" destination="CNr-Gq-8i7" collectionClass="NSMutableArray" id="Tcx-Zb-PJH"/>
+                <outletCollection property="divViews" destination="uqW-gh-yjf" collectionClass="NSMutableArray" id="C6i-Vf-IvE"/>
+                <outletCollection property="divViews" destination="bRi-I9-iMk" collectionClass="NSMutableArray" id="Gre-wo-OYU"/>
+                <outletCollection property="divViews" destination="mT6-vc-UjY" collectionClass="NSMutableArray" id="EYv-zN-m7P"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="esC-iO-mp9">
+            <rect key="frame" x="0.0" y="0.0" width="419" height="418"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TY2-XA-yot">
+                    <rect key="frame" x="0.0" y="0.0" width="419" height="418"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mT6-vc-UjY" userLabel="Div View">
+                            <rect key="frame" x="0.0" y="0.0" width="419" height="0.5"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="VJr-iD-oQF"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="419" placeholderIntrinsicHeight="82" translatesAutoresizingMaskIntoConstraints="NO" id="HAT-KZ-t9R" customClass="DiffHeaderSummaryView" customModule="Wikipedia">
+                            <rect key="frame" x="0.0" y="0.5" width="419" height="197"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNr-Gq-8i7" userLabel="Div View">
+                            <rect key="frame" x="0.0" y="197.5" width="419" height="0.5"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="M1Z-0B-8BC"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="419" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="P65-Vp-V6F" customClass="DiffHeaderEditorView" customModule="Wikipedia">
+                            <rect key="frame" x="0.0" y="198" width="419" height="75"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqW-gh-yjf" userLabel="Div View">
+                            <rect key="frame" x="0.0" y="273" width="419" height="0.5"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="3pQ-at-YqO"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="419" placeholderIntrinsicHeight="144" translatesAutoresizingMaskIntoConstraints="NO" id="b3T-Zw-2K1" customClass="DiffHeaderCompareView" customModule="Wikipedia">
+                            <rect key="frame" x="0.0" y="273.5" width="419" height="144"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRi-I9-iMk" userLabel="Div View">
+                            <rect key="frame" x="0.0" y="417.5" width="419" height="0.5"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="Kyu-Vp-6Dr"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="TY2-XA-yot" firstAttribute="leading" secondItem="esC-iO-mp9" secondAttribute="leading" id="LMS-cz-VFW"/>
+                <constraint firstItem="TY2-XA-yot" firstAttribute="top" secondItem="esC-iO-mp9" secondAttribute="top" id="mCU-4l-GZL"/>
+                <constraint firstAttribute="bottom" secondItem="TY2-XA-yot" secondAttribute="bottom" id="vCn-Sa-7VP"/>
+                <constraint firstAttribute="trailing" secondItem="TY2-XA-yot" secondAttribute="trailing" id="vj7-jt-oyq"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="3Xh-mg-2dz"/>
+            <point key="canvasLocation" x="325.36231884057975" y="-512.27678571428567"/>
+        </view>
+    </objects>
+</document>

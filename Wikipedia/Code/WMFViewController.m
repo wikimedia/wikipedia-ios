@@ -62,7 +62,7 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.showsNavigationBar = ([self.parentViewController isKindOfClass:[UITabBarController class]] || self.parentViewController == self.navigationController || [self.parentViewController isKindOfClass:[LoadingFlowController class]]) && self.navigationController.isNavigationBarHidden;
+    self.showsNavigationBar = ([self.parentViewController isKindOfClass:[UITabBarController class]] || self.parentViewController == self.navigationController) && self.navigationController.isNavigationBarHidden;
 
     if (self.showsNavigationBar) {
         if (self.navigationBar.superview == nil) {

@@ -107,6 +107,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "सबैमा खुला";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "खुला";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "खुला $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "सबै %@ लुकाइएका कार्डहरू";
 "explore-main-page-heading" = "विकिपिडियामा आज";
 "explore-most-read-footer" = "धेरै पढिएका सबै लेखहरू";
@@ -211,7 +212,6 @@
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
 "page-edit-history" = "पूर्ण सम्पादन इतिहास";
-"page-history-title" = "लेखको इतिहास";
 "page-issues" = "पृष्ठका समस्याहरू";
 // Fuzzy
 "page-last-edited" = "$1 दिन पहिले सम्पादन गरिएको";

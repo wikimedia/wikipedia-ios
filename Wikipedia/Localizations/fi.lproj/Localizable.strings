@@ -47,8 +47,7 @@
 "abuse-filter-disallow-heading" = "Et voi julkaista tätä muokkausta.";
 "abuse-filter-disallow-unconstructive" = "Automaattinen suodatin on tunnistanut tämän muokkauksen mahdollisesti haitalliseksi tai vandalismin yritykseksi.";
 "abuse-filter-warning-blanking" = "Osioiden tai kokonaisten artikkelien tyhjennystä";
-// Fuzzy
-"abuse-filter-warning-caps" = "Kirjoittamista ISOILLA KIRJAIMILLA";
+"abuse-filter-warning-caps" = "Kaikki teksti tikkukirjaimilla";
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti julkaista sen?";
 "abuse-filter-warning-irrelevant" = "Aiheeseen liittymättömiä ulkoisia linkkejä tai kuvia";
 "abuse-filter-warning-repeat" = "Toistuvia merkkejä";
@@ -175,18 +174,22 @@
 "edit-clear-formatting-accessibility-label" = "Poista muotoilu";
 "edit-comment-accessibility-label" = "Lisää kommenttisyntaksi";
 "edit-comment-remove-accessibility-label" = "Poista kommenttisyntaksi";
+"edit-decrease-indent-depth-accessibility-label" = "Vähennä sisennyksen syvyyttä";
 "edit-direction-down-accessibility-label" = "Liikuta kursoria alaspäin";
 "edit-direction-left-accessibility-label" = "Liikuta kursoria vasemmalle";
 "edit-direction-right-accessibility-label" = "Liikuta kursoria oikealle";
 "edit-direction-up-accessibility-label" = "Liikuta kursoria ylös";
+"edit-increase-indent-depth-accessibility-label" = "Lisää sisennyksen syvyyttä";
 "edit-italic-accessibility-label" = "Lisää kursivoitu muotoilu";
 "edit-italic-remove-accessibility-label" = "Poista kursivoitu muotoilu";
 "edit-link-accessibility-label" = "Lisää linkkisyntaksi";
+"edit-link-display-text-title" = "Näytä teksti";
 "edit-link-link-target-title" = "Linkin kohde";
 "edit-link-remove-accessibility-label" = "Poista linkkisyntaksi";
 "edit-link-remove-link-title" = "Poista linkki";
 "edit-link-title" = "Muokkaa linkkiä";
 "edit-menu-item" = "Muokkaa";
+"edit-minor-learn-more-text" = "Lue lisää pienistä muutoksista";
 "edit-minor-text" = "Tämä on pieni muutos";
 "edit-published" = "Muokkaus julkaistu";
 "edit-published-subtitle" = "Teit juuri Wikipediasta paremman kaikille";
@@ -246,12 +249,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Kaikilla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Käytössä";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 kielellä";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Kaikki %@ korttia piilotettu";
 "explore-feed-preferences-global-card-footer-text" = "Tämä kortti ei ole kielikohtainen, ja sen poistaminen käytöstä poistaa sen Tutki-syötteestäsi.";
 "explore-feed-preferences-global-cards-description" = "Ei-kielikohtaiset tietyt kortit";
 "explore-feed-preferences-global-cards-subtitle" = "Kielestä riippumaton";
 "explore-feed-preferences-global-cards-title" = "Globaalit kortit";
 "explore-feed-preferences-hide-card-action-title" = "Piilota tämä kortti";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Piilota kaikki ”%@”-kortit";
 "explore-feed-preferences-in-the-news-description" = "Artikkelit ajankohtaisista tapahtumista";
 "explore-feed-preferences-languages-footer-text" = "Kaikkien Tutki-syötekorttien poistaminen käytöstä kaikilla kielillä poistaa Tutki-välilehden käytöstä.";
@@ -370,6 +375,7 @@
 "info-box-title" = "Pikafaktoja";
 "insert-action-title" = "Lisää";
 "insert-link-title" = "Lisää linkki";
+"insert-media-alternative-text-placeholder" = "Kuvaile tätä kuvaa";
 "insert-media-alternative-text-title" = "Vaihtoehtoinen teksti";
 "insert-media-caption-title" = "Kuvateksti";
 "insert-media-image-position-setting-center" = "Keski";
@@ -444,7 +450,6 @@
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
 "page-edit-history" = "Täysi muokkaushistoria";
-"page-history-title" = "Artikkelin historia";
 "page-issues" = "Sivun ongelmat";
 "page-last-edited" = "{{PLURAL:$1|0=Muokattu tänään|1=Muokattu eilen|Muokattu $1 päivää sitten}}";
 "page-location" = "Näytä kartalla";
@@ -561,6 +566,7 @@
 "reading-lists-default-list-title" = "Tallennetut";
 "reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
 "reading-lists-delete-reading-list-alert-title" = "Poista {{PLURAL:$1|lista|listaa}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikkelia ja $2 lukulistaa synkronoitu tunnukseltasi";
 "reading-lists-list-not-synced-limit-exceeded" = "Luettelo ei synkronoitu, raja saavutettu";
 "reading-lists-sort-saved-articles" = "Lajittele tallennetut artikkelit";
@@ -682,6 +688,7 @@
 "talk-page-new-banner-subtitle" = "Muista, me kaikki olemme ihmisiä täällä";
 "talk-page-new-reply-body-accessibility-label" = "Kirjoita vastaus";
 "talk-page-new-reply-body-placeholder-text" = "Kirjoita vastaus";
+"talk-page-new-reply-success-text" = "Vastauksesi julkaistiin onnistuneesti";
 "talk-page-new-subject-placeholder-text" = "Aihe";
 "talk-page-new-subject-textfield-accessibility-label" = "Aihe";
 "talk-page-new-topic-title" = "Uusi keskustelu";

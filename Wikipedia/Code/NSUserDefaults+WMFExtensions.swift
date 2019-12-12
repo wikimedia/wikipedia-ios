@@ -25,6 +25,7 @@ let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 let WMFDidShowReadingListCardInFeed = "WMFDidShowReadingListCardInFeed"
 let WMFDidShowEnableReadingListSyncPanelKey = "WMFDidShowEnableReadingListSyncPanelKey"
 let WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey = "WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey"
+let WMFDidShowThankRevisionAuthorEducationPanelKey = "WMFDidShowThankRevisionAuthorEducationPanelKey"
 let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedArticlesPanel"
 let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
@@ -46,6 +47,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
+        static let shouldCheckForArticleAnnouncements = "WMFShouldCheckForArticleAnnouncements"
     }
 
     @objc static let wmf: UserDefaults = {
@@ -128,7 +130,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         guard name != nil, name != Theme.defaultThemeName else {
             return Theme.defaultAnalyticsThemeName
         }
-        return Theme.withName(name)?.displayName ?? Theme.light.displayName
+        return Theme.withName(name)?.name ?? Theme.light.name
     }
     
     @objc var themeDisplayName: String {
@@ -426,6 +428,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         return self.bool(forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
     }
 
+    @objc func wmf_setDidShowThankRevisionAuthorEducationPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowThankRevisionAuthorEducationPanelKey)
+    }
+    
+    @objc func wmf_didShowThankRevisionAuthorEducationPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowThankRevisionAuthorEducationPanelKey)
+    }
+    
     @objc func wmf_setDidShowFirstEditPublishedPanel(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowFirstEditPublishedPanelKey)
     }
@@ -522,6 +532,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
+        }
+    }
+
+    @objc var shouldCheckForArticleAnnouncements: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
         }
     }
 #if UI_TEST

@@ -1,6 +1,7 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
 // Author: Abijeet Patro
+// Author: JoeWalshWMF
 // Author: Les Meloures
 // Author: Macofe
 // Author: Nemo bis
@@ -56,6 +57,8 @@
 "action-find-in-page" = "Op der Säit sichen";
 "action-language-accessibility" = "Sprooch wiesselen";
 "action-move-to" = "Réckelen op...";
+"action-next-revision-accessibility" = "Nächst Versioun";
+"action-previous-revision-accessibility" = "Vireg Versioun";
 "action-read" = "Liesen";
 "action-remove" = "Ewechhuelen";
 "action-replace" = "Ersetzen";
@@ -66,6 +69,7 @@
 "action-share" = "Deelen";
 "action-share-accessibility" = "Deelen";
 "action-sort" = "Zortéieren";
+"action-thank-user-accessibility" = "Dem Benotzer Merci soen";
 "action-undo" = "Réckgängeg maachen";
 "action-unsave" = "Läschen";
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
@@ -84,6 +88,7 @@
 "article-read-more-title" = "Liest méi";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
+"article-title" = "Artikel";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
 "back-button-accessibility-label" = "Zréck";
 "button-next" = "Weider";
@@ -110,6 +115,15 @@
 "description-help-tips-for-example" = "Zum Beispill:";
 "description-published-button-title" = "Fäerdeg";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
+"diff-compare-header-heading" = "Versioune vergläichen";
+"diff-compare-title" = "Versioune vergläichen";
+"diff-context-lines-collapsed-button-title" = "Weisen";
+"diff-context-lines-expanded-button-title" = "Verstoppen";
+"diff-paragraph-moved" = "Abschnitt geréckelt";
+"diff-revision-error-title" = "Versioun konnt net geluede ginn";
+"diff-thanks-send-button-title" = "'Merci' schécken";
+"diff-thanks-send-title" = "'Merci' ëffentlech schécken";
+"diff-thanks-sent" = "Äre 'Merci' gouf dem $1 geschéckt";
 "dim-images" = "Biller dimmen";
 "edit-indent-accessibility-label" = "Déi Aktuell Linn eraréckelen";
 "edit-link-display-text-title" = "Text weisen";
@@ -132,6 +146,7 @@
 "edit-watch-list-learn-more-text" = "Méi iwwer Iwwerwaachungslëschte gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
+"empty-diff-compare-title" = "Keen Ënnerscheed tëscht de Versiounen";
 "empty-insert-media-title" = "E Fichier op Wikimedia Commons eraussichen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
@@ -158,6 +173,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Aus";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Un";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Op $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "All %@ Kaarte si verstoppt";
 "explore-feed-preferences-global-cards-subtitle" = "Net sproochspezifesch";
 "explore-feed-preferences-global-cards-title" = "Global Kaarten";
@@ -308,7 +324,13 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
 "page-edit-history" = "All Versioune vun der Säit";
-"page-history-title" = "Versioune vum Artikel";
+"page-history-anonymous-edits" = "anonym Ännerungen";
+"page-history-minor-edits" = "kleng Ännerungen";
+// Fuzzy
+"page-history-revision-author-accessibility-label" = "Auteur: $1";
+"page-history-revision-history-title" = "Historique vun de Versiounen";
+"page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
+"page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";
 "page-issues" = "Problemer mat der Säit";
 "page-last-edited" = "{{PLURAL:$1|0=Haut today|1=Gëschter|Viru(n) $1 Deeg}} geännert";
 "page-location" = "Op enger Kaart weisen";
@@ -388,13 +410,16 @@
 "reading-lists-default-list-description" = "Standard-Lëscht fir Är gespäichert Artikelen";
 "reading-lists-default-list-title" = "Gespäichert";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Lëscht|Lëschte}} läschen?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 Artikelen a(n) $2   Lieslëschte vun Ärem Benotzerkont synchroniséiert";
 "reading-lists-sort-saved-articles" = "Gespäichert Artikelen zortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reference-title" = "Referenz: $1";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";
+"relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Rezent|virun enger Stonn|viru(n) $1 Stonnen}}";
+"relative-date-hours-ago-abbreviated" = "viru(n) $1h";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
@@ -501,6 +526,7 @@
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
+"unknown-generic-text" = "Onbekannt";
 "view-in-browser-footer-link" = "Artikel am Browser kucken";
 "welcome-exploration-on-this-day-title" = "Op dësem Dag";
 "welcome-explore-continue-button" = "Fir unzefänken";

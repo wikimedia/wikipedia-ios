@@ -1,10 +1,17 @@
 @import UIKit;
 @import UserNotifications;
 @class WMFTheme;
+@class WMFArticleViewController;
+@class MWKDataStore;
+@class WMFTheme;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFAppViewController : UITabBarController <UNUserNotificationCenterDelegate>
+
+@property (nonatomic, readonly, nullable) UINavigationController *currentNavigationController;
+@property (nonatomic, readonly) WMFTheme *theme;
+@property (nonatomic, readonly) MWKDataStore *dataStore;
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;
 
@@ -23,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)applyTheme:(WMFTheme *)theme;
 
 - (void)showSearchInCurrentNavigationController;
+
+- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
 @end
 

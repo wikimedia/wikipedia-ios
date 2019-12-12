@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageHistoryCountsViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="countsLabel" destination="5Gq-NM-ZzR" id="thS-ed-dZj"/>
+                <outlet property="filterCountsContainerView" destination="R7q-YP-Iub" id="JkQ-UK-EIu"/>
+                <outlet property="pageTitleLabel" destination="CmX-dP-uFU" id="637-6h-5qy"/>
+                <outlet property="separator" destination="REp-2g-3HJ" id="aFr-5z-9ao"/>
+                <outlet property="sparklineView" destination="s5E-5Q-AWf" id="pA8-NK-DWn"/>
+                <outlet property="titleLabel" destination="X37-tk-I1W" id="q6T-lN-FjM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="413" height="384"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCN-kR-Ul8" userLabel="Title + Main Stats View">
+                    <rect key="frame" x="44" y="20" width="325" height="159.66666666666666"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mdn-Xi-5HV" userLabel="Title + Main Stats Stack View">
+                            <rect key="frame" x="15" y="0.0" width="172.66666666666666" height="134.66666666666666"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="REVISION HISTORY" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X37-tk-I1W">
+                                    <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="18"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Ching Shih" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmX-dP-uFU">
+                                    <rect key="frame" x="0.0" y="27.999999999999996" width="172.66666666666666" height="40.666666666666657"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IG-iH-z9d">
+                                    <rect key="frame" x="0.0" y="78.666666666666671" width="172.66666666666666" height="56.000000000000014"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gq-NM-ZzR">
+                                            <rect key="frame" x="0.0" y="8" width="172.66666666666666" height="48"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="5Gq-NM-ZzR" firstAttribute="leading" secondItem="6IG-iH-z9d" secondAttribute="leading" id="8BT-hz-NWi"/>
+                                        <constraint firstAttribute="trailing" secondItem="5Gq-NM-ZzR" secondAttribute="trailing" id="Urs-VW-4Tw"/>
+                                        <constraint firstItem="5Gq-NM-ZzR" firstAttribute="top" secondItem="6IG-iH-z9d" secondAttribute="top" constant="8" id="mGM-o5-brC"/>
+                                        <constraint firstAttribute="bottom" secondItem="5Gq-NM-ZzR" secondAttribute="bottom" id="mk9-Fp-bgf"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-5Q-AWf" userLabel="Sparkline View" customClass="WMFSparklineView" customModule="WMF">
+                            <rect key="frame" x="212.66666666666671" y="12.000000000000007" width="97.333333333333343" height="122.66666666666669"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="s5E-5Q-AWf" firstAttribute="width" secondItem="zCN-kR-Ul8" secondAttribute="width" multiplier="0.3" priority="999" id="4cT-Ne-rgB"/>
+                        <constraint firstAttribute="bottom" secondItem="Mdn-Xi-5HV" secondAttribute="bottom" constant="25" id="7hH-hJ-sgZ"/>
+                        <constraint firstItem="Mdn-Xi-5HV" firstAttribute="leading" secondItem="zCN-kR-Ul8" secondAttribute="leading" constant="15" id="EtO-Li-JZN"/>
+                        <constraint firstItem="Mdn-Xi-5HV" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" id="YiG-tC-CbG"/>
+                        <constraint firstAttribute="trailing" secondItem="s5E-5Q-AWf" secondAttribute="trailing" constant="15" id="ez5-Ne-luZ"/>
+                        <constraint firstItem="s5E-5Q-AWf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mdn-Xi-5HV" secondAttribute="trailing" constant="25" id="ifQ-10-Unx"/>
+                        <constraint firstItem="s5E-5Q-AWf" firstAttribute="leading" secondItem="Mdn-Xi-5HV" secondAttribute="trailing" constant="25" id="jTk-tD-o4g"/>
+                        <constraint firstAttribute="bottom" secondItem="s5E-5Q-AWf" secondAttribute="bottom" constant="25" id="lUt-5C-zgs"/>
+                        <constraint firstItem="s5E-5Q-AWf" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" constant="12" id="o5E-qP-kel"/>
+                    </constraints>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <exclude reference="4cT-Ne-rgB"/>
+                            <exclude reference="ifQ-10-Unx"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="constraints">
+                            <exclude reference="jTk-tD-o4g"/>
+                        </mask>
+                    </variation>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REp-2g-3HJ" userLabel="Separator View">
+                    <rect key="frame" x="0.0" y="179.66666666666666" width="413" height="0.66666666666665719"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="5kY-YE-izh"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7q-YP-Iub" userLabel="Filter Counts Container View">
+                    <rect key="frame" x="44" y="180.33333333333337" width="325" height="203.66666666666663"/>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="zCN-kR-Ul8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="6qy-O6-hgP"/>
+                <constraint firstItem="REp-2g-3HJ" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="bottom" id="Pc8-q3-ZPD"/>
+                <constraint firstItem="R7q-YP-Iub" firstAttribute="leading" secondItem="Pkx-KC-mKU" secondAttribute="leading" id="QSV-1A-Mec"/>
+                <constraint firstItem="zCN-kR-Ul8" firstAttribute="leading" secondItem="Pkx-KC-mKU" secondAttribute="leading" id="ViT-SJ-gnx">
+                    <variation key="heightClass=regular-widthClass=regular" constant="18"/>
+                </constraint>
+                <constraint firstItem="R7q-YP-Iub" firstAttribute="top" secondItem="REp-2g-3HJ" secondAttribute="bottom" id="eX1-FW-FBo"/>
+                <constraint firstItem="Pkx-KC-mKU" firstAttribute="trailing" secondItem="zCN-kR-Ul8" secondAttribute="trailing" id="gLK-Zh-rFg">
+                    <variation key="heightClass=regular-widthClass=regular" constant="18"/>
+                </constraint>
+                <constraint firstItem="REp-2g-3HJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nkr-Hc-ieO"/>
+                <constraint firstItem="R7q-YP-Iub" firstAttribute="trailing" secondItem="Pkx-KC-mKU" secondAttribute="trailing" id="tBs-5e-oJO"/>
+                <constraint firstAttribute="bottom" secondItem="R7q-YP-Iub" secondAttribute="bottom" id="wPz-zR-t9W"/>
+                <constraint firstAttribute="trailing" secondItem="REp-2g-3HJ" secondAttribute="trailing" id="wWn-3w-uBR"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Pkx-KC-mKU"/>
+            <point key="canvasLocation" x="136.95652173913044" y="-18.75"/>
+        </view>
+    </objects>
+</document>

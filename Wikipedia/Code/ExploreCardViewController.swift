@@ -553,7 +553,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
 
 extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        navigate(to: articleURL)
     }
 }
 
@@ -597,13 +597,13 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
                 let url = announcement.actionURL else {
                 return
             }
-            wmf_openExternalUrl(url)
+            navigate(to: url, useSafari: true)
             dismissAnnouncementCell(cell)
         }
     }
     
     func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL linkURL: URL) {
-        wmf_openExternalUrl(linkURL)
+        navigate(to: linkURL, useSafari: true)
     }
 }
 

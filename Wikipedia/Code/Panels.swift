@@ -1,3 +1,37 @@
+class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
+    private let announcement: WMFAnnouncement
+    private let panelWidth: CGFloat
+
+    init(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dismissHandler: ScrollableEducationPanelDismissHandler?, width: CGFloat, theme: Theme) {
+        self.announcement = announcement
+        self.panelWidth = width
+        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
+        isUrgent = announcement.type == "fundraising"
+        self.footerLinkAction = footerLinkAction
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        subheadingHTML = announcement.text
+        subheadingTextAlignment = .left
+        primaryButtonTitle = announcement.actionTitle
+        secondaryButtonTitle = announcement.negativeText
+        width = panelWidth
+        footerHTML = announcement.captionHTML
+        secondaryButtonTextStyle = .mediumFootnote
+        spacing = 20
+        buttonCornerRadius = 8
+        buttonTopSpacing = 10
+        primaryButtonTitleEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
+        primaryButtonBorderWidth = 0
+        dismissWhenTappedOutside = true
+        contentHorizontalPadding = 20
+    }
+}
 
 class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
@@ -64,7 +98,7 @@ class SyncEnabledPanelViewController: ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage(named: "reading-lists-sync-enabled-disabled")
-        heading = WMFLocalizedString("reading-list-sync-enabled-panel-title", value: "Sync is enabled on this account", comment: "Title for panel informing user that sync was disabled on their Wikipedia account on another device")
+        heading = WMFLocalizedString("reading-list-sync-enabled-panel-title", value: "Sync is enabled on this account", comment: "Title for panel informing user that sync was enabled on their Wikipedia account on another device")
         subheading = WMFLocalizedString("reading-list-sync-enabled-panel-message", value: "Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", comment: "Message for panel informing user that sync is enabled for their account.")
         primaryButtonTitle = CommonStrings.gotItButtonTitle
     }
@@ -107,7 +141,29 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
         image = UIImage(named: "reading-list-user")
         heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing saved articles.")
         subheading = CommonStrings.readingListLoginSubtitle
-        primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
+        primaryButtonTitle = CommonStrings.loginOrCreateAccountTitle
+    }
+}
+
+class LoginOrCreateAccountToToThankRevisionAuthorPanelViewController : ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "diff-smile-heart")
+        heading = WMFLocalizedString("diff-thanks-login-title", value:"Log in to send 'Thanks'", comment:"Title for thanks login panel.")
+        subheading = WMFLocalizedString("diff-thanks-login-subtitle", value:"'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. You must be logged in to send 'Thanks'.", comment:"Subtitle for thanks login panel.")
+        primaryButtonTitle = CommonStrings.loginOrCreateAccountTitle
+        secondaryButtonTitle = CommonStrings.cancelActionTitle
+    }
+}
+
+class ThankRevisionAuthorEducationPanelViewController : ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "diff-smile-heart")
+        heading = WMFLocalizedString("diff-thanks-send-title", value:"Publicly send 'Thanks'", comment:"Title for sending thanks panel.")
+        subheading = WMFLocalizedString("diff-thanks-send-subtitle", value:"'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.", comment:"Subtitle for sending thanks panel.")
+        primaryButtonTitle = WMFLocalizedString("diff-thanks-send-button-title", value:"Send 'Thanks'", comment:"Title for sending thanks button.")
+        secondaryButtonTitle = CommonStrings.cancelActionTitle
     }
 }
 
@@ -151,6 +207,16 @@ class NoInternetConnectionPanelViewController: ScrollableEducationPanelViewContr
     }
 }
 
+class DiffEducationalPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "panel-compare-revisions")
+        heading = WMFLocalizedString("panel-compare-revisions-title", value: "Comparing revisions", comment: "Title for educational panel about comparing revisions")
+        subheading = WMFLocalizedString("panel-compare-revisions-text", value: "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.", comment: "Text for educational panel about comparing revisions")
+        primaryButtonTitle = CommonStrings.gotItButtonTitle
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
@@ -168,6 +234,19 @@ extension UIViewController {
             return false
         }
         return !fetchedObjects.isEmpty
+    }
+
+    @objc func wmf_showAnnouncementPanel(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dismissHandler: ScrollableEducationPanelDismissHandler?, theme: Theme) {
+        let panel = AnnouncementPanelViewController(announcement: announcement, primaryButtonTapHandler: { (sender: Any) in
+            primaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+        }, secondaryButtonTapHandler: { (sender: Any) in
+            secondaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+        }, footerLinkAction: footerLinkAction, dismissHandler: {
+            dismissHandler?()
+        }, width: view.frame.width * 0.9, theme: theme)
+        present(panel, animated: true)
     }
         
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {
@@ -313,6 +392,31 @@ extension UIViewController {
         
         let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         
+        present(panelVC, animated: true)
+    }
+
+    @objc func wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
+
+        let loginToThankTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true, completion: {
+                self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
+            })
+        }
+        
+        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true)
+        }
+        
+        let panelVC = LoginOrCreateAccountToToThankRevisionAuthorPanelViewController(showCloseButton: false, primaryButtonTapHandler: loginToThankTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
+        
+        present(panelVC, animated: true)
+    }
+
+    func wmf_showThankRevisionAuthorEducationPanel(theme: Theme, sendThanksHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
+        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true)
+        }
+        let panelVC = ThankRevisionAuthorEducationPanelViewController(showCloseButton: false, primaryButtonTapHandler: sendThanksHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)
     }
     

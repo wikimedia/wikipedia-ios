@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiffHeaderCompareView" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="NmV-hi-3dt"/>
+                <outlet property="divView" destination="kNf-oz-9Gp" id="gNw-mR-fUz"/>
+                <outlet property="fromItemView" destination="ZYC-6N-TTD" id="UDs-Dc-FNr"/>
+                <outlet property="innerHeightConstraint" destination="wfw-la-sAz" id="Q7R-SU-Tvj"/>
+                <outlet property="stackView" destination="KF2-9l-hqU" id="wV0-Ba-fDk"/>
+                <outlet property="stackViewContainerView" destination="Y7q-o7-dgo" id="wsP-rt-h1g"/>
+                <outlet property="toItemView" destination="w9T-pW-Rt2" id="gl9-uh-bL9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Y7q-o7-dgo">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="351" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="KF2-9l-hqU">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZYC-6N-TTD" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="206.5" height="351"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
+                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9T-pW-Rt2" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="207.5" y="0.0" width="206.5" height="351"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="w9T-pW-Rt2" firstAttribute="width" secondItem="ZYC-6N-TTD" secondAttribute="width" id="cj3-MC-Jwy"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="KF2-9l-hqU" firstAttribute="top" secondItem="Y7q-o7-dgo" secondAttribute="top" id="Sto-FI-ZNA"/>
+                        <constraint firstAttribute="trailing" secondItem="KF2-9l-hqU" secondAttribute="trailing" id="Tgl-HL-MbW">
+                            <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                        </constraint>
+                        <constraint firstItem="KF2-9l-hqU" firstAttribute="leading" secondItem="Y7q-o7-dgo" secondAttribute="leading" id="fDK-5t-keh">
+                            <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                        </constraint>
+                        <constraint firstAttribute="height" constant="351" id="wfw-la-sAz"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNf-oz-9Gp" userLabel="Div View">
+                    <rect key="frame" x="206" y="0.0" width="0.5" height="351"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="0.5" id="0BY-U5-tpI"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Y7q-o7-dgo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="013-Rv-NJe"/>
+                <constraint firstItem="Y7q-o7-dgo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EvD-cu-ygo"/>
+                <constraint firstItem="kNf-oz-9Gp" firstAttribute="bottom" secondItem="Y7q-o7-dgo" secondAttribute="bottom" id="FWk-jM-6gv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Y7q-o7-dgo" secondAttribute="trailing" id="T6d-Cb-6kC"/>
+                <constraint firstItem="kNf-oz-9Gp" firstAttribute="trailing" secondItem="ZYC-6N-TTD" secondAttribute="trailing" id="hcJ-1e-1iQ"/>
+                <constraint firstItem="kNf-oz-9Gp" firstAttribute="top" secondItem="Y7q-o7-dgo" secondAttribute="top" id="oWa-v5-DbS"/>
+                <constraint firstAttribute="bottom" secondItem="Y7q-o7-dgo" secondAttribute="bottom" id="vAf-uM-kYB"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="-29.129464285714285"/>
+        </view>
+    </objects>
+</document>

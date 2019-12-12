@@ -145,34 +145,32 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   });
                                                   return;
                                               }
-                                              [self.dataStore asynchronouslyCacheArticle:mwkArticle
-                                                                                  toDisk:saveToDisk
-                                                                              completion:^(NSError *_Nonnull articleCacheError) {
-                                                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                      NSManagedObjectContext *moc = self.dataStore.viewContext;
-                                                                                      WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
-                                                                                      article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
-                                                                                      BOOL isCached = articleCacheError == nil && saveToDisk;
-                                                                                      article.isCached = isCached;
-                                                                                      if (isCached) {
-                                                                                          article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
-                                                                                      }
-                                                                                      article.wikidataID = mwkArticle.wikidataId;
-                                                                                      if (summaryResponse) {
-                                                                                          [article updateWithSummary:summaryResponse];
-                                                                                      }
-                                                                                      article.wikidataDescription = mwkArticle.entityDescription; // summary response not as up-to-date as mediawiki
-                                                                                      NSError *saveError = nil;
-                                                                                      if ([moc hasChanges] && ![moc save:&saveError]) {
-                                                                                          DDLogError(@"Error saving after updating article: %@", saveError);
-                                                                                      }
-                                                                                      if (articleCacheError) {
-                                                                                          failure(articleCacheError);
-                                                                                      } else {
-                                                                                          success(mwkArticle, updatedArticleURL);
-                                                                                      }
-                                                                                  });
-                                                                              }];
+                                              
+                                              NSError *articleCacheError = nil;
+                                              [self.dataStore cacheArticle:mwkArticle toDisk:saveToDisk error:&articleCacheError];
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  NSManagedObjectContext *moc = self.dataStore.viewContext;
+                                                  WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
+                                                  BOOL isCached = articleCacheError == nil && saveToDisk;
+                                                  article.isCached = isCached;
+                                                  if (isCached) {
+                                                      article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                  }
+                                                  article.wikidataID = mwkArticle.wikidataId;
+                                                  if (summaryResponse) {
+                                                      [article updateWithSummary:summaryResponse];
+                                                  }
+                                                  article.wikidataDescription = mwkArticle.entityDescription; // summary response not as up-to-date as mediawiki
+                                                  NSError *saveError = nil;
+                                                  if ([moc hasChanges] && ![moc save:&saveError]) {
+                                                      DDLogError(@"Error saving after updating article: %@", saveError);
+                                                  }
+                                                  if (articleCacheError) {
+                                                      failure(articleCacheError);
+                                                  } else {
+                                                      success(mwkArticle, updatedArticleURL);
+                                                  }
+                                              });
                                           } else {
                                               if (!articleError) {
                                                   articleError = WMFFetcher.unexpectedResponseError;
@@ -271,6 +269,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     } else if (checkForNewerRevision) {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                            resultLimit:1
+                                                  startingWithRevision: nil
                                                     endingWithRevision:cachedArticle.revisionId
                                                                failure:failure
                                                                success:^(id _Nonnull results) {

@@ -11,6 +11,7 @@
 // Author: Nersip
 // Author: Pofka
 // Author: Techwebpd
+// Author: Tomasdd
 // Author: Zygimantus
 
 "about-content-license" = "Turinio licencija";
@@ -30,15 +31,12 @@
 "about-translators-details" = "Išversta savanorių $1";
 "about-wikimedia-foundation" = "Vikimedijos fondas";
 "about-wikipedia" = "Vikipedija";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Jūs negalite paskelbti šio pakeitimo. Prašome grįžti ir jį pakeisti.";
+"abuse-filter-disallow-heading" = "Jūs negalite paskelbti šio pakeitimo";
 // Fuzzy
 "abuse-filter-warning-caps" = "Rašyti DIDŽIOSIOMIS RAIDĖMIS";
 "abuse-filter-warning-heading" = "Panašu, kad šis pakeitimas nekonstruktyvus. Ar tikrai norite jį paskelbti?";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Pasikaaaartojantys simboliai";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Jūsų keitimas gali turėti vieną ar daugiau iš šių:";
+"abuse-filter-warning-repeat" = "Pasikartojantys ženklai";
+"abuse-filter-warning-subheading" = "Jūsų keitimas gali turėti:";
 "account-creation-captcha-obtaining" = "Gaunamas naujas CAPTCHA...";
 "account-creation-captcha-request-account" = "Prašyti paskyros.";
 "account-creation-create-account" = "Sukurkite savo paskyrą";
@@ -48,7 +46,6 @@
 "account-creation-passwords-mismatched" = "Slaptažodžių laukai nesutampa.";
 "account-creation-saving" = "Įrašoma...";
 "account-creation-title" = "Kurti naują paskyrą";
-// Fuzzy
 "action-find-in-page" = "Rasti puslapyje";
 "action-language-accessibility" = "Keisti kalbą";
 "action-saved" = "Išsaugota";
@@ -81,16 +78,13 @@
 "explore-continue-reading-heading" = "Skaityti toliau";
 "explore-featured-article-heading" = "Rinktinis straipsnis";
 "explore-main-page-heading" = "Šiandien Vikipedijoje";
-// Fuzzy
-"explore-most-read-footer" = "Visi skaitomiausi straipsniai";
+"explore-most-read-footer" = "Visi labiausiai skaitomi straipsniai";
 "explore-most-read-generic-heading" = "Populiariausi skaitiniai";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
 "explore-nearby-heading" = "Artimos vietovės";
 "explore-nearby-placeholder-heading" = "Vietos";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedijoje";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedijoje";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Panaudota $1 Vikipedijoje";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Iš Vikipedijos";
 "explore-nearby-sub-heading-your-location" = "Jūsų vieta";
 "explore-potd-heading" = "Dienos nuotrauka";
 "explore-random-article-heading" = "Atsitiktinis straipsnis";
@@ -125,8 +119,7 @@
 "home-button-history-accessibility-label" = "Vikipedija, grįžti į Istoriją";
 "home-button-saved-accessibility-label" = "Vikipedija, grįžti į Išsaugota";
 "home-more-like-footer" = "Daugiau kaip $1";
-// Fuzzy
-"home-nearby-footer" = "Daugiau iš šalia jūsų vietovės";
+"home-nearby-footer" = "Daugiau vietų šalia jūsų vietovės";
 "home-nearby-location-footer" = "Daugiau netoliese $1";
 "home-title" = "Naršyti";
 "icon-shortcut-nearby-title" = "Netoli esančių objektų straipsniai";
@@ -172,16 +165,13 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "on-this-day-title" = "Šią dieną";
 "page-edit-history" = "Pilna keitimų istorija";
-"page-history-title" = "Straipsnio istorija";
 "page-issues" = "Puslapio klausimai";
-// Fuzzy
-"page-last-edited" = "Redaguota prieš $1 dienų";
+"page-last-edited" = "{{PLURAL:$1|0=Redaguota šiandien|1=Redaguota vakar|Redaguota prieš $1 dienas}}";
 "page-location" = "Žiūrėti žemėlapyje";
 "page-protected-autoconfirmed" = "Šis puslapis buvo pusiau apsaugotas.";
 "page-protected-can-not-edit-title" = "Šis puslapis užrakintas";
 "page-protected-sysop" = "Šis puslapis buvo pilnai užrakintas.";
-// Fuzzy
-"page-read-in-other-languages" = "Prieinama $1 kitų kalbų";
+"page-read-in-other-languages" = "Prieinama {{PLURAL:$1|$1 kita kalba|$1 kitų kalbų}}";
 "page-similar-titles" = "Panašūs puslapiai";
 "page-talk-page" = "Žiūrėti aptarimo puslapį";
 "places-accessibility-group" = "$1 straipsniai";
@@ -205,12 +195,10 @@
 "readers-accessibility-label" = "$1 skaitytojai";
 "reading-themes-controls-accessibility-black-theme-button" = "Juoda tema";
 "reference-title" = "Išnaša $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Šiandien|Vakar|Prieš $1 dienas|Prieš $1 dienų}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Šiandien|1=Vakar|Prieš $1 dienas|Prieš $1 dienų}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Neseniai|Prieš $1 valandą|Prieš $1 valandas|Prieš $1 valandų}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ką tik|Prieš $1 minutę|Prieš $1 minutes|Prieš $1 minučių}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Šiais metais|Praeitais metais|Prieš $1 metus|Prieš $1 metų}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Šiais metais|1=Praeitais metais|Prieš $1 metus|Prieš $1 metų}}";
 "saved-all-articles-title" = "Visi straipsniai";
 "saved-title" = "Išsaugota";
 "search-did-you-mean" = "Galbūt norėjote ieškoti: $1?";

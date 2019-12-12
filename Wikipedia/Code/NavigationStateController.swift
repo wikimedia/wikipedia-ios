@@ -84,9 +84,7 @@ final class NavigationStateController: NSObject {
                 }
                 savedViewController.toggleCurrentView(currentSavedViewRawValue)
             case let searchViewController as SearchViewController:
-                searchViewController.setSearchVisible(true, animated: false)
-                searchViewController.searchTerm = info.searchTerm
-                searchViewController.search()
+                searchViewController.searchAndMakeResultsVisibleForSearchTerm(info.searchTerm, animated: false)
             case let exploreViewController as ExploreViewController:
                 exploreViewController.presentedContentGroupKey = info.presentedContentGroupKey
                 exploreViewController.shouldRestoreScrollPosition = true
@@ -101,8 +99,7 @@ final class NavigationStateController: NSObject {
                 }
                 let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 randomArticleVC.calculateTableOfContentsDisplayState()
-                let loadingFlowController = LoadingFlowController(articleViewController: randomArticleVC)
-                pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
+                pushOrPresent(randomArticleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
                     return
@@ -110,8 +107,8 @@ final class NavigationStateController: NSObject {
                 let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 articleVC.shouldRequestLatestRevisionOnInitialLoad = false
                 articleVC.calculateTableOfContentsDisplayState()
-                let loadingFlowController = LoadingFlowController(articleViewController: articleVC)
-                pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
+                // never present an article modal, the nav bar disappears
+                pushOrPresent(articleVC, navigationController: navigationController, presentation: .push)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()
                 pushOrPresent(themeableNavigationController, navigationController: navigationController, presentation: viewController.presentation)
@@ -134,14 +131,13 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 
-                let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: type, fromNavigationStateRestoration: true, theme: theme)
+                let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
                 navigationController.isNavigationBarHidden = true
-                navigationController.pushViewController(loadingFlowController, animated: false)
+                navigationController.pushViewController(talkPageContainer, animated: false)
             case (.talkPageReplyList, let info?):
                 guard
                     let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
-                    let loadingFlowController = navigationController.viewControllers.last as? LoadingFlowController,
-                    let talkPageContainerVC = loadingFlowController.flowChild as? TalkPageContainerViewController
+                    let talkPageContainerVC = navigationController.viewControllers.last as? TalkPageContainerViewController
                 else {
                     return
                 }
@@ -160,6 +156,11 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 pushOrPresent(detailVC, navigationController: navigationController, presentation: viewController.presentation)
+            case (.singleWebPage, let info):
+                guard let url = info?.url else {
+                    return
+                }
+                pushOrPresent(SinglePageWebViewController(url: url, theme: theme), navigationController: navigationController, presentation: .push)
             default:
                 return
             }
@@ -220,12 +221,10 @@ final class NavigationStateController: NSObject {
             kind = .account
             info = nil
             shouldAttemptLogin = true
-        case let loadingFlowController as LoadingFlowController:
-
-            let result = determineKindInfoForArticleOrTalk(obj: loadingFlowController.flowChild)
+        case let talkPageContainerVC as TalkPageContainerViewController:
+            let result = determineKindInfoForArticleOrTalk(obj: talkPageContainerVC)
             kind = result.kind
             info = result.info
-        
         case let talkPageReplyListVC as TalkPageReplyListViewController:
             kind = .talkPageReplyList
             info = Info(contentGroupIDURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
@@ -235,6 +234,9 @@ final class NavigationStateController: NSObject {
         case let detailPresenting as DetailPresentingFromContentGroup:
             kind = .detail
             info = Info(contentGroupIDURIString: detailPresenting.contentGroupIDURIString)
+        case let singlePageWebViewController as SinglePageWebViewController:
+            kind = .singleWebPage
+            info = Info(url: singlePageWebViewController.url)
         default:
             let result = determineKindInfoForArticleOrTalk(obj: viewController)
             kind = result.kind

@@ -3,6 +3,7 @@
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Papuass
+// Author: Peridot Nation
 // Author: Silraks
 
 "about-content-license" = "Satura licence";
@@ -15,27 +16,37 @@
 "about-translators" = "Tulkotāji";
 "about-wikipedia" = "Vikipēdija";
 "account-creation-captcha-obtaining" = "Iegūst jaunu CAPTCHA...";
+"account-creation-captcha-request-account" = "Pieprasīt kontu.";
 "account-creation-captcha-title" = "CAPTCHA drošības pārbaude";
 "account-creation-create-account" = "Izveidot savu kontu";
 "account-creation-log-in" = "Pieslēgties.";
 "account-creation-logging-in" = "Pieslēdzās...";
 "account-creation-saving" = "Saglabā...";
 "account-creation-title" = "Izveidot jaunu kontu";
+"account-group-title" = "Tavs konts";
+"account-talk-page-title" = "Tava diskusiju lapa";
+"account-talk-preferences-auto-sign-discussions" = "Automātiski parakstīt diskusijas";
+"account-talk-preferences-title" = "Diskusiju lapu izvēlnes";
 "action-add-to" = "Pievienot...";
+"action-add-to-reading-list-short" = "Pievienot sarakstam";
 "action-cancel" = "Atcelt";
 // Fuzzy
 "action-find-in-page" = "Atrast lapā";
+"action-language-accessibility" = "Mainīt valodu";
 "action-move-to" = "Pārvietot uz...";
 "action-read" = "Lasīt";
 "action-remove" = "Noņemt";
+"action-replace" = "Aizvietot";
 "action-replace-all" = "Aizvietot visus";
 "action-save" = "Saglabāt";
 "action-saved" = "Saglabāts";
 "action-share" = "Dalīties";
+"action-share-accessibility" = "Dalīties";
 "action-sort" = "Kārtot";
 "action-update" = "Atjaunināt";
-// Fuzzy
-"announcements-dismiss" = "Nē, paldies";
+"announcements-dismiss" = "Paslēpt";
+"app-store-subtitle" = "Brīvā enciklopēdija";
+"appearance-settings-set-automatic-table-opening" = "Tabulu iestatījumi";
 "article-about-title" = "Par šo rakstu";
 "article-delete" = "Dzēst";
 "article-languages-filter-placeholder" = "Atrast valodu";
@@ -44,6 +55,7 @@
 "article-languages-yours" = "Tavas valodas";
 "article-read-more-title" = "Lasīt vairāk";
 "article-share" = "Dalīties";
+"article-title" = "Raksts";
 "back-button-accessibility-label" = "Atpakaļ";
 "button-next" = "Tālāk";
 "button-ok" = "Labi";
@@ -53,20 +65,28 @@
 "button-skip" = "Izlaist";
 "cancel" = "Atcelt";
 "close-button-accessibility-label" = "Aizvērt";
+"description-edit-learn-more" = "Uzzināt vairāk";
+"description-published-button-title" = "Gatavs";
+"diff-compare-header-from-info-heading" = "No:";
+"diff-compare-title" = "Salīdzināt versijas";
+"diff-single-intro-title" = "Ievads";
+"diff-thanks-send-button-title" = "Sūtīt pateicību";
 "edit-direction-left-accessibility-label" = "Pārvietot kursoru pa kreisi";
 "edit-direction-right-accessibility-label" = "Pārvietot kursoru pa labi";
+"edit-link-title" = "Labot saiti";
 "edit-menu-item" = "Labot";
 "edit-minor-text" = "Šis ir maznozīmīgs labojums";
 "edit-published" = "Labojums publicēts";
-"edit-published-button-title" = "Gatavs";
 "edit-published-subtitle" = "Tu tikko padarīji Vikipēdiju labāku visiem";
+"edit-style-table-view-title" = "Stils";
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-linked-words" = "Pievienotas saites";
 "edit-summary-learn-more-text" = "Uzzināt vairāk";
 "edit-text-clear-formatting" = "Notīrīt formatējamu";
+"edit-text-size-table-view-title" = "Teksta izmērs";
 "edit-watch-this-page-text" = "Uzraudzīt šo lapu";
-"empty-insert-media-title" = "Izvēlēties failu";
+"empty-insert-media-title" = "Izvēlēties failu no Wikimedia Commons";
 "empty-no-search-results-message" = "Nav atrasts neviens rezultāts";
 "explore-another-random" = "Vēl viens nejaušs raksts";
 "explore-continue-reading-heading" = "Turpini lasīt";
@@ -80,6 +100,7 @@
 "field-alert-captcha-invalid" = "Nederīgs CAPTCHA";
 "field-alert-token-invalid" = "Nederīgs kods";
 "field-captcha-placeholder" = "CAPTCHA teksts";
+"field-email-placeholder" = "piemers@piemers.org";
 "field-email-title" = "E-pasts";
 "field-email-title-optional" = "E-pasts (nav obligāti)";
 "field-new-password-title" = "Jaunā parole";
@@ -89,6 +110,7 @@
 "field-username-placeholder" = "ievadi lietotājvārdu";
 "field-username-title" = "Lietotājvārds";
 "find-replace-header" = "Atrast un aizvietot";
+"find-textfield-accessibility" = "Atrast";
 "forgot-password-button-title" = "Atiestatīt";
 "forgot-password-title" = "Atiestatīt paroli";
 "forgot-password-username-or-email-title" = "Vai";
@@ -96,7 +118,6 @@
 "history-clear-cancel" = "Atcelt";
 "history-clear-delete-all" = "Jā, dzēst visu";
 "history-title" = "Vēsture";
-"icon-shortcut-continue-reading-title" = "Turpināt lasīt";
 "icon-shortcut-random-title" = "Nejauša lapa";
 "icon-shortcut-search-title" = "Meklēt Vikipēdijā";
 "image-gallery-unknown-owner" = "Autors nezināms.";
@@ -106,6 +127,14 @@
 "in-the-news-title" = "Ziņās";
 "info-box-close-text" = "Aizvērt";
 "info-box-title" = "Ātrie fakti";
+"insert-action-title" = "Ievietot";
+"insert-link-title" = "Ievietot saiti";
+"insert-media-caption-title" = "Paraksts";
+"insert-media-image-position-setting-center" = "Centrā";
+"insert-media-image-position-setting-left" = "Pa kreisi";
+"insert-media-image-position-setting-right" = "Pa labi";
+"insert-media-image-position-settings-title" = "Attēla pozīcija";
+"insert-media-image-preview-more-information-action-title" = "Vairāk informācijas";
 "languages-title" = "Mainīt valodu";
 "license-footer-name" = "CC-BY-SA 3.0";
 "main-menu-about" = "Par lietotni";
@@ -115,7 +144,7 @@
 "main-menu-debug-tweaks" = "Izstrādātāja iestatījumi";
 "main-menu-heading-legal" = "Privātuma politika un nosacījumi";
 "main-menu-nearby" = "Tuvumā";
-"main-menu-privacy-policy" = "Privātuma poltika";
+"main-menu-privacy-policy" = "Privātuma politika";
 "main-menu-rate-app" = "Novērtē lietotni";
 "main-menu-terms-of-use" = "Lietošanas noteikumi";
 "main-menu-title" = "Vairāk";
@@ -129,11 +158,19 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
 "page-edit-history" = "Pilna labojumu vēsture";
-"page-history-title" = "Raksta vēsture";
+"page-history-compare-title" = "Salīdzināt";
+"page-history-revision-author-accessibility-label" = "Autors: $1";
+"page-history-revision-comment-accessibility-label" = "Komentārs $1";
+"page-history-revision-history-title" = "Versiju hronoloģija";
+"page-history-revision-minor-edit-accessibility-label" = "Maznozīmīgs labojums";
+"page-history-stats-text" = "{{PLURAL:$1|$1 labojumi|$1 labojums|$1 labojumi}} kopš $2";
 "page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
 "page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
 "page-similar-titles" = "Līdzīgas lapas";
+"page-talk-page" = "Skatīt diskusiju lapu";
+"panel-compare-revisions-title" = "Versiju salīdzināšana";
 "places-accessibility-group" = "$1 rakstu";
+"places-enable-location-action-button-title" = "Iespējot atrašanās vietu";
 "places-filter-saved-articles" = "Saglabātie raksti";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 raksti|$1 raksts|$1 raksti}}";
 // Fuzzy
@@ -141,12 +178,19 @@
 "places-search-saved-articles" = "Visi saglabātie raksti";
 "places-search-top-articles-that-match-scope" = "Tuvumā";
 "places-title" = "Vietas";
+"places-unknown-distance" = "nezināms attālums";
 "preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "readers-accessibility-label" = "$1 lasītāji";
 "reading-list-create-new-list-description" = "Apraksts";
-// Fuzzy
-"reading-lists-default-list-title" = "Grāmatzīmes";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Kārtot rakstus";
+"reading-list-sync-disabled-panel-title" = "Sinhronizācija izslēgta";
+"reading-list-sync-enable-button-title" = "Iespējot sinhronizāciju";
+"reading-lists-article-not-synced" = "Nav sinhronizēts";
+"reading-lists-default-list-title" = "Saglabāts";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Sintakses izcelšana";
+"reading-themes-controls-syntax-highlighting" = "Sintakses izcelšana";
 "reference-title" = "Atsauce $1";
+"relative-date-seconds-abbreviated" = "$1s";
 "replace-infolabel-method-replace" = "Aizvietot";
 "replace-infolabel-method-replace-all" = "Aizvietot visus";
 "replace-textfield-accessibility" = "Aizvietot";
@@ -160,12 +204,14 @@
 // Fuzzy
 "saved-search-default-text" = "Meklēt";
 "saved-title" = "Saglabāts";
+"search-button-accessibility-label" = "Meklēt Vikipēdijā";
 "search-did-you-mean" = "Vai tu domāji $1?";
 "search-field-placeholder-text" = "Meklēt Vikipēdijā";
 "search-recent-clear-cancel" = "Atcelt";
 "search-recent-clear-delete-all" = "Dzēst visu";
 "search-result-redirected-from" = "Pāradresēts no: $1";
 "search-title" = "Meklēt";
+"settings-account" = "Konts";
 "settings-clear-cache-cancel" = "Atcelt";
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
 "settings-language-bar" = "Rādīt valodas meklēšanā";
@@ -173,13 +219,16 @@
 "settings-notifications" = "Paziņojumi";
 "settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
 "settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";
+"settings-primary-language" = "Galvenā";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Dzēst";
 // Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Sinhronizēt ar serveri";
 "settings-support" = "Atbalsti Vikipēdiju";
 "settings-title" = "Iestatījumi";
 "share-custom-menu-item" = "Dalīties...";
+"share-get-directions-in-maps" = "Saņemt norādes";
 "share-menu-item" = "Dalīties...";
+"share-open-in-maps" = "Atvērt iekš Maps";
 "status-saved-for-later" = "Saglabāts vēlākam laikam";
 "status-saving-for-later" = "Saglabā vēlākam laikam...";
 "table-of-contents-button-label" = "Satura rādītājs";
@@ -187,13 +236,23 @@
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";
 "table-of-contents-heading" = "Saturs";
 "table-title-other" = "Vairāk informācijas";
+"talk-page-new-banner-title" = "Lūdzu, esi jauks";
+"talk-page-new-subject-clear-button-accessibility" = "Notīrīt tematu";
+"talk-page-new-subject-placeholder-text" = "Temats";
+"talk-page-new-subject-textfield-accessibility-label" = "Temats";
+"talk-page-new-topic-title" = "Jauna diskusija";
+"talk-page-reply-title" = "Atbildēt";
+"talk-page-title-article-talk" = "raksta diskusija";
+"talk-page-topic-title" = "Diskusija";
 "theme-default-display-name" = "Noklusējuma";
+"theme-sepia-display-name" = "Sēpija";
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
 "welcome-exploration-on-this-day-title" = "Šajā dienā";
 "welcome-explore-tell-me-more-done-button" = "Sapratu";
 "welcome-intro-free-encyclopedia-more" = "Uzzini vairāk par Vikipēdiju";
 "welcome-intro-free-encyclopedia-more-about" = "Par Vikipēdiju";
+"welcome-intro-free-encyclopedia-title" = "Brīvā enciklopēdija";
 "welcome-languages-add-button" = "Pievienot citu valodu";
 "welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
 "welcome-send-data-helps-title" = "Palīdzi uzlabot lietotni";

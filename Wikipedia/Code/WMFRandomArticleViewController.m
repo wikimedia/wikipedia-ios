@@ -140,8 +140,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
                 randomArticleVC.permaRandomMode = NO;
 #endif
                 self.secondToolbar.items = @[];
-                [self wmf_pushArticleViewController:randomArticleVC
-                                           animated:YES];
+                [self wmf_pushViewController:randomArticleVC animated:YES];
             }
         });
     }];

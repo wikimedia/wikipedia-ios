@@ -258,12 +258,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Á öllum";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Á";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Á $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Öll %@ spjöld falin";
 "explore-feed-preferences-global-card-footer-text" = "Þetta spjald tilheyrir ekki ákveðnu tungumáli, sé slökkt á spjaldinu verður það fjarlægt úr 'Uppgötva'-streyminu þínu.";
 "explore-feed-preferences-global-cards-description" = "Spjöld sem tilheyra ekki ákveðnu tungumáli";
 "explore-feed-preferences-global-cards-subtitle" = "Tilheyrir ekki ákveðnu tungumáli";
 "explore-feed-preferences-global-cards-title" = "Víðvær spjöld";
 "explore-feed-preferences-hide-card-action-title" = "Fela þetta spjald";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Fela öll \"%@\" spjöld";
 "explore-feed-preferences-in-the-news-description" = "Greinar um mál í gangi";
 "explore-feed-preferences-languages-footer-text" = "Ef öll 'Uppgötva'-spjöldin eru falin í öllum tungumálunum þínum verður slökkt á 'Uppgötva'-flipanum.";
@@ -455,7 +457,6 @@
 "on-this-day-title" = "Á þessum degi";
 "original-tab-button-popover-description" = "Ýttu á 'W'-ið til að fara til baka á flipann þar sem þú varst";
 "page-edit-history" = "Öll breytingaskráin";
-"page-history-title" = "Breytingaskrá greinar";
 "page-issues" = "Vandamál varðandi síðu";
 "page-last-edited" = "{{PLURAL:$1|0=Breytt í dag|1=Breytt í gær|Breytt fyrir $1 dögum síðan}}";
 "page-location" = "Skoða á korti";
@@ -572,6 +573,7 @@
 "reading-lists-default-list-title" = "Vistað";
 "reading-lists-delete-reading-list-alert-message" = "Þessa aðgerð er ekki hægt að afturkalla. Allar greinar sem einungis eru vistaðar í {{PLURAL:$1|þennan lista verða óvistaðar|þessa lista verða óvistaðar}}.";
 "reading-lists-delete-reading-list-alert-title" = "Eyða {{PLURAL:$1|lista|listum}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 greinar og $2 samstillt af notandaaðganginum þínum";
 "reading-lists-list-not-synced-limit-exceeded" = "Listi ekki samstilltur, yfir takmörkunum";
 "reading-lists-sort-saved-articles" = "Raða vistuðum greinum";

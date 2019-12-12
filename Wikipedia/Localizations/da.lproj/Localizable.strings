@@ -106,6 +106,7 @@
 "article-languages-yours" = "Dine sprog";
 "article-read-more-title" = "Læs mere";
 "article-share" = "Del";
+"article-title" = "Artikel";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbage";
@@ -154,6 +155,12 @@
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "description-welcome-promise-title" = "Begynder du at redigere, så lover du samtidig ikke at misbruge denne funktion";
 "description-welcome-start-editing-button" = "Start med at redigere";
+"diff-compare-header-from-info-heading" = "Fra:";
+"diff-compare-header-to-info-heading" = "Til:";
+"diff-context-lines-collapsed-button-title" = "Vis";
+"diff-context-lines-expanded-button-title" = "Skjul";
+"diff-paragraph-moved-direction-down" = "ned";
+"diff-paragraph-moved-direction-up" = "op";
 "dim-images" = "Mørklæg billeder";
 "edit-clear-formatting-accessibility-label" = "Fjern formatering";
 "edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
@@ -213,7 +220,7 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På $1";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle “%@” kort";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle “$1” kort";
 "explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle begivenheder";
 "explore-hide-card-prompt" = "Skjul dette kort";
 "explore-main-page-description" = "Hovedside for Wikimedia-projekt";
@@ -314,7 +321,6 @@
 "languages-wikipedia" = "Wikipediasprog";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
-"link-loading-title" = "Indlæser side...";
 "logged-out-continue-without-logging-in-button-title" = "Fortsæt uden at logge på";
 "logged-out-log-back-in-button-title" = "Log ind på din konto igen";
 "logged-out-subtitle" = "Et problem medførte, at du ikke længere er logget ind. Du må logge ind igen, for at kunne synkronisere læselister og redigere under dit brugernavn.";
@@ -361,7 +367,10 @@
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Tryk på «W» for at gå tilbage til fanen du startede fra";
 "page-edit-history" = "Fuld redigeringshistorik";
-"page-history-title" = "Artikelhistorik";
+"page-history-compare-title" = "Sammenlign";
+"page-history-minor-edits" = "mindre redigeringer";
+"page-history-revision-minor-edit-accessibility-label" = "Mindre ændring";
+"page-history-revision-size-diff-addition" = "Tilføjede {{PLURAL:$1|$1 byte|$1 bytes}}";
 "page-issues" = "Problemer med siden";
 "page-last-edited" = "{{PLURAL:$1|0=Redigeret i dag|1=Redigeret i går|Redigeret for $1 dage siden}}";
 "page-location" = "Vis på et kort";
@@ -583,6 +592,7 @@
 "two-factor-login-title" = "Log ind på din konto";
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
+"unknown-generic-text" = "Ukendt";
 "view-in-browser-footer-link" = "Vis artikel i browser";
 "welcome-exploration-explore-feed-description" = "Anbefalet læsning og daglige artikler fra vores fællesskab";
 "welcome-exploration-explore-feed-title" = "Udforsk nyhedskilde";

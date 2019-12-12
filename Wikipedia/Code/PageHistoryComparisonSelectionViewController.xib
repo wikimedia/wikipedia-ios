@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageHistoryComparisonSelectionViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="compareButton" destination="Yi7-HK-TVH" id="jaS-YB-MAb"/>
+                <outlet property="firstSelectionButton" destination="J8d-8G-Qbc" id="Y56-b2-WR4"/>
+                <outlet property="secondSelectionButton" destination="kcY-tW-Sxm" id="9Ph-O4-Bqj"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="468" height="84"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rf9-0H-aPL">
+                    <rect key="frame" x="0.0" y="0.0" width="468" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Zga-vY-aeI">
+                            <rect key="frame" x="20" y="12" width="200" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8d-8G-Qbc" customClass="WMFAlignedImageButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="90" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="90" id="F2t-po-d5u"/>
+                                        <constraint firstAttribute="height" constant="40" id="hkU-Ax-BxH"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcY-tW-Sxm" customClass="WMFAlignedImageButton">
+                                    <rect key="frame" x="110" y="0.0" width="90" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="GIa-4t-QGb"/>
+                                        <constraint firstAttribute="width" constant="90" id="b0m-xn-Ge5"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yi7-HK-TVH">
+                            <rect key="frame" x="402" y="26" width="46" height="12"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Yi7-HK-TVH" firstAttribute="centerY" secondItem="kcY-tW-Sxm" secondAttribute="centerY" id="0fx-g1-xNx"/>
+                        <constraint firstAttribute="trailing" secondItem="Yi7-HK-TVH" secondAttribute="trailing" constant="20" id="Bvx-mv-6uf"/>
+                        <constraint firstItem="Zga-vY-aeI" firstAttribute="leading" secondItem="rf9-0H-aPL" secondAttribute="leading" constant="20" id="OGp-x8-1Fz"/>
+                        <constraint firstAttribute="bottom" secondItem="Yi7-HK-TVH" secondAttribute="bottom" constant="12" id="cno-7r-cfM"/>
+                        <constraint firstItem="Yi7-HK-TVH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zga-vY-aeI" secondAttribute="trailing" constant="30" id="gki-Xh-QeH"/>
+                        <constraint firstItem="Zga-vY-aeI" firstAttribute="top" secondItem="rf9-0H-aPL" secondAttribute="top" constant="12" id="imo-Qy-4s3"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="rf9-0H-aPL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Cpz-gM-iwT"/>
+                <constraint firstItem="rf9-0H-aPL" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="OtU-Tf-W10"/>
+                <constraint firstItem="rf9-0H-aPL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="l8x-VE-QP8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rf9-0H-aPL" secondAttribute="bottom" id="oP9-uU-Jrp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="176.81159420289856" y="-119.19642857142857"/>
+        </view>
+    </objects>
+</document>

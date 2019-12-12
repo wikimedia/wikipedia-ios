@@ -194,12 +194,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "ပ္ဍဲ အိုတ်သီု";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "ပံက်";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "ပ္ဍဲ $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "ကာတ်သီုဖအိုတၾ  %@ ပၞုက်တုဲအိုတ်";
 "explore-feed-preferences-global-card-footer-text" = "ကာတ်ဏအ်ဂှ် ဆက်စပ်ဒၟံင် ကုအရေဝ်ဘာသာ ဟွံသေင်၊ ကၟာတ်ထောအ် ကာတ်ဏအ်မ္ဂး ဍေဟ်ကၠေအ်အာ ပ္ဍဲဒၞာဲဂၠာဲသ္ၚေဝ် မၞးရောင်၊၊";
 "explore-feed-preferences-global-cards-description" = "အရေဝ်ဘာသာလဵု ဟွံဆက်စပ် ကာတ်တအ်";
 "explore-feed-preferences-global-cards-subtitle" = "အရေဝ်ဘာသာလဵု ဟွံဆက်စပ်";
 "explore-feed-preferences-global-cards-title" = "ကာတ် အလုံလိုက်";
 "explore-feed-preferences-hide-card-action-title" = "ဗဒန် ကာတ် ဏအ်";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ပၞုက်ဗဒန် “%@” ကာတ် သီုဖအိုတ်";
 "explore-feed-preferences-in-the-news-description" = "လိက်ပရေင် ပရူ အရာမဒှ်ဒၟံင် လၟုဟ်";
 "explore-feed-preferences-languages-footer-text" = "မၞး ပၞုက်ဗဒန်ထောအ် ပ္ဍဲဒၞာဲ ဘာသာမၞးမ္ဂး ဍေဟ်ကၟာတ်အာ ပ္ဍဲဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊၊";
@@ -362,7 +364,6 @@
 "on-this-day-title" = "ပ္ဍဲ တ္ၚဲဏအ်";
 "original-tab-button-popover-description" = "ဍဵု လတူ W သွက်ဂွံ ပ္ဍဲတေပ် မၞးမစကၠုင်လဝ်";
 "page-edit-history" = "ဗဵု လၟေင် မပလေဝ်ကၠုင်လဝ်";
-"page-history-title" = "လိက်ပရေင် မဗှ်လဝ်တုဲတုဲဂမၠိုင်";
 "page-issues" = "မုက်လိက် ပတိတ်တြး";
 // Fuzzy
 "page-last-edited" = "ပလေဝ်ဒါန်လဝ် နူကဵု $1 တ္ၚဲမတုဲကၠုင်";
@@ -483,6 +484,7 @@
 "reading-lists-default-list-title" = "ဂိုင်သိပ်တုဲ";
 "reading-lists-delete-reading-list-alert-message" = "ပရေင်ချဳဓရာင်ဏအ် ပဒေါအ်ထောအ် ဟွံဂွံ၊၊ လိက်ပရေင်တအ်ဂှ်  ဂိုင်သိပ် ပ္ဍဲ {{PLURAL:$1|this list|these lists}} ဟွံဂွံ၊၊";
 "reading-lists-delete-reading-list-alert-title" = "ဇိုတ်ပလီုထောအ် {{PLURAL:$1|list|lists}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 လိက်ပရေင်တအ် ကဵု $2 စရင် လိက်ဗွဟ် ကချဳဓရာင် နူအကံက် မၞး";
 "reading-lists-list-not-synced-limit-exceeded" = "စရင်ဂှ် ဟွံကချဳဓရာင်၊ ဟိုတ်မစိုပ်အာ လၟိဟ်မပိုင်ခြာလဝ်";
 "reading-lists-sort-saved-articles" = "ပြေင်ဖျေဟ်ဒၞာဲ လိက်ပရေင် မဂိုင်သိပ်လဝ်";

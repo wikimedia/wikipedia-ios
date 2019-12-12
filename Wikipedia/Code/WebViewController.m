@@ -5,9 +5,7 @@
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "PageHistoryViewController.h"
 #import "WKWebView+ElementLocation.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WebViewController+WMFReferencePopover.h"
@@ -183,7 +181,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)handleFooterBrowserLinkClickedScriptMessage:(NSString *)messageString {
-    [self wmf_openExternalUrl:self.articleURL];
+    [self wmf_navigateToURL:self.articleURL useSafari:YES];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
@@ -241,7 +239,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    url = [NSURL URLWithString:href];
                                                    NSCAssert(url, @"Failed to from URL from link %@", href);
                                                    if (url) {
-                                                       [self wmf_openExternalUrl:url];
+                                                       [self wmf_navigateToURL:url];
                                                    }
                                                }
                                            }
@@ -288,12 +286,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleReferenceClickedScriptMessage:(NSDictionary *)messageDict {
     NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
     self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] wmf_map:^id(NSDictionary *referenceDict) {
-        CGFloat offset;
-        if (@available(iOS 12.0, *)) {
-            offset = 0;
-        } else {
-            offset = self.webView.scrollView.contentInset.top;
-        }
+        CGFloat offset = self.webView.scrollView.contentInset.top + [self.webView iOS12yOffsetHack];
         return [[WMFReference alloc] initWithScriptMessageDict:referenceDict yOffset:offset];
     }];
 
@@ -682,7 +675,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.contentWidthPercentage = 1;
 
     self.webView = [[WMFWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
-    self.webView.allowsLinkPreview = NO;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -722,11 +714,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!self.indexHTMLDocumentLoadedFired && self.article && self.articleURL) {
         [self setArticle:self.article articleURL:self.articleURL];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self updateMenuItems];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -774,7 +761,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)showLicenseButtonPressed {
-    [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
+    [self wmf_navigateToURL:WMFLicenses.CCBYSA3URL];
 }
 
 - (void)setHeaderView:(UIView *)headerView {
@@ -812,7 +799,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                                        if (completion) {
                                                                            completion();
                                                                        }
-                                                                        [self.delegate webViewController:self didScrollToAnchor:anchor];
+                                                                       [self.delegate webViewController:self didScrollToAnchor:anchor];
                                                                    }];
                                                      } else if (completion) {
                                                          completion();
@@ -897,6 +884,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [handler cacheSectionDataForArticle:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
+
+    [self updateMenuItems];
 }
 
 - (void)updateMenuItems {
@@ -939,7 +928,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                [URL.scheme isEqualToString:@"http"] ||
                                                [URL.scheme isEqualToString:@"https"] ||
                                                [URL.scheme isEqualToString:@"mailto"]) {
-                                               [self wmf_openExternalUrl:URL];
+                                               [self wmf_navigateToURL:URL];
                                            }
                                        }
                                    }];
@@ -1079,11 +1068,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
 }
 
-- (void)editHistoryButtonPushed {
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
-    [self presentViewController:nc animated:YES completion:nil];
-}
-
 - (void)setFontSizeMultiplier:(NSNumber *)fontSize {
     if (fontSize == nil) {
         fontSize = @(100);
@@ -1154,8 +1138,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.scrollViewAnimationCompletions[0]();
     [self.scrollViewAnimationCompletions removeObjectAtIndex:0];
 }
-
-#pragma mark - WKNavigationDelegate
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
     DDLogError(@"webViewContentProcessDidTerminate: %@", webView);

@@ -264,12 +264,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "ပိုတ်ႇသဵင်ႈသဵင်ႈ";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "ပိုတ်ႇ";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "ပိုတ်ႇ $1";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "ၶႅပ်း %@ တင်းသဵင်ႈ ဢၼ်သိူင်ႇဝႆႉ";
 "explore-feed-preferences-global-card-footer-text" = "ၶႅပ်းဢၼ်ၼႆႉ ဢမ်ႇမီးၽႃႇသႃႇၵႂၢမ်း ဢၼ်တႅတ်ႈၼႅတ်ႈ၊ လွင်ႈၵိုတ်းဝႆႉၶႅပ်းဢၼ်ၼႆႉ တေထွၼ်ပႅတ်ႈမၼ်း ၵႃႈတီႈ  လွင်ႈၶူၼ်ႉႁႃ ၶေႃႈမုၼ်းမႂ်ႇ ၸဝ်ႈၵဝ်ႇ";
 "explore-feed-preferences-global-cards-description" = "ၶႅပ်းၸိူဝ်း ဢၼ်ၽႃႇသႃႇၵႂၢမ်း ဢမ်ႇတႅတ်ႈၼႅတ်ႈ";
 "explore-feed-preferences-global-cards-subtitle" = "ဢမ်ႇမီးၽႃႇသႃႇၵႂၢမ်း ဢၼ်တႅတ်ႈၼႅတ်ႈ";
 "explore-feed-preferences-global-cards-title" = "ၶႅပ်းလုမ်ႈၾႃႉ";
 "explore-feed-preferences-hide-card-action-title" = "သိူင်ႇဝႆႉ ၶႅပ်းဢၼ်ၼႆႉ";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "သိူင်ႇဝႆႉ ၶႅပ်း “%@” တင်းသဵင်ႈ";
 "explore-feed-preferences-in-the-news-description" = "ပွင်ႈၵႂၢမ်း လွင်ႈ ပိူင်ပဵၼ်ယၢမ်းလဵဝ်";
 "explore-feed-preferences-languages-footer-text" = "သိူင်ႇဝႆႉၶႅပ်း ၶေႃႈမုၼ်းမႂ်ႇၶူၼ်ႉႁႃတင်းသဵင်ႈ တီႈၼႂ်း ၽႃႇသႃႇၵႂၢမ်းၸဝ်ႈၵဝ်ႇ တေဢိုတ်းဝႆႉပၼ် ထႅပ်ႉၶူၼ်ႉႁႃ";
@@ -473,7 +475,6 @@
 "on-this-day-title" = "တႃႇဝၼ်းမိူဝ်ႈၼႆႉ";
 "original-tab-button-popover-description" = "တွၼ်ႈတႃႇတွၼ်ႇပိၼ်ႇၶုၼ်းၸူး ထႅပ်ႉဢၼ်ၸဝ်ႈၵဝ်ႇတႄႇမႃးၼၼ်ႉ ၼဵၵ်းၸမ်ႈၼိူဝ် 'W'";
 "page-edit-history" = "ပိုၼ်းမႄးထတ်း တဵမ်ထူၼ်ႈ";
-"page-history-title" = "ပိုၼ်းပွင်ႈလိၵ်ႈ";
 "page-issues" = "ၶေႃႈၶၼ် ၼႃႈလိၵ်ႈ";
 "page-last-edited" = "{{PLURAL:$1|0=ဢၼ်မႄးထတ်းမႃး မိူဝ်ႈၼႆႉ|1=ဢၼ်မႄးထတ်းမႃး မိူဝ်ႈဝႃး|ဢၼ်မႄးထတ်း မိူဝ်ႈပူၼ်ႉမႃး $1 ဝၼ်း}}";
 "page-location" = "တူၺ်းၵႃႈတီႈၼိူဝ် ႁၢင်ႈၽႅၼ်ႇလိၼ်";
@@ -590,6 +591,7 @@
 "reading-lists-default-list-title" = "သိမ်းဝႆႉယဝ်ႉ";
 "reading-lists-delete-reading-list-alert-message" = "လွင်ႈႁဵတ်းသၢင်ႈၼႆႉ တေဢမ်ႇၸၢင်ႈၶိုၼ်းႁဵတ်းၶိုၼ်း။ ပွင်ႈၵႂၢမ်းၸိူဝ်းသိမ်းဝႆႉပၼ်တီႈ {{PLURAL:$1|သဵၼ်ႈမၢႆၼႆႉ|သဵၼ်ႈမၢႆၼႆႉ}}ၵူၺ်း တေဢမ်ႇသိမ်းပၼ်။";
 "reading-lists-delete-reading-list-alert-title" = "တေမွတ်ႇပႅတ်ႈ {{PLURAL:$1|သဵၼ်ႈမၢႆ|သဵၼ်ႈမၢႆ}}ၼႄ?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "ပွင်ႈၵႂၢမ်း $1 ဢၼ် လႄႈ သဵၼ်ႈမၢႆလူ $2 ဢၼ်ၼႆႉ ၶူၼ်းၽဵင်ႇမႃးတီႈ ဢၶွင်ႉၸဝ်ႈၵဝ်ႇ";
 "reading-lists-list-not-synced-limit-exceeded" = "ဢမ်ႇၶူၼ်းၽဵင်ႇပၼ်သဵၼ်မၢႆ ယွၼ်ႉပူၼ်ႉပႅၼ်လွင်ႈမၵ်းၶၢၼ်း";
 "reading-lists-sort-saved-articles" = "ၶပ်ႉၸႅၼ်ႇ ပွင်ႈၵႂၢမ်းၸိူဝ်းသိမ်းဝႆႉ";

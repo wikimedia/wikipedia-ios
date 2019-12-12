@@ -38,6 +38,27 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return shortTimeFormatter;
 }
 
++ (NSDateFormatter *)wmf_24hshortTimeFormatter {
+    NSParameterAssert([NSThread isMainThread]);
+    static NSDateFormatter *shortTimeFormatter = nil;
+    if (!shortTimeFormatter) {
+        shortTimeFormatter = [self wmf_shortTimeFormatterWithLocale:[NSLocale currentLocale]];
+    }
+    shortTimeFormatter.dateFormat = @"HH:mm";
+    return shortTimeFormatter;
+}
+
++ (NSDateFormatter *)wmf_24hshortTimeFormatterWithUTCTimeZone {
+    NSParameterAssert([NSThread isMainThread]);
+    static NSDateFormatter *shortTimeFormatter = nil;
+    if (!shortTimeFormatter) {
+        shortTimeFormatter = [self wmf_shortTimeFormatterWithLocale:[NSLocale currentLocale]];
+    }
+    shortTimeFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    shortTimeFormatter.dateFormat = @"HH:mm zzz";
+    return shortTimeFormatter;
+}
+
 + (NSDateFormatter *)wmf_shortTimeFormatterWithLocale:(NSLocale *)locale {
     NSDateFormatter *shortTimeFormatter = [NSDateFormatter new];
     shortTimeFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];

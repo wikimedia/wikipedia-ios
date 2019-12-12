@@ -6,23 +6,8 @@
 
 NSString *const WMFCommonsHost = @"upload.wikimedia.org";
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
-NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 NSString *const WMFAPIPath = @"/w/api.php";
 NSString *const WMFEditPencil = @"WMFEditPencil";
-
-@interface NSString (WMFLinkParsing)
-
-- (BOOL)wmf_isWikiResource;
-
-@end
-
-@implementation NSString (WMFLinkParsing)
-
-- (BOOL)wmf_isWikiResource {
-    return [self containsString:WMFInternalLinkPathPrefix];
-}
-
-@end
 
 @implementation NSURL (WMFLinkParsing)
 
@@ -176,10 +161,6 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 
 #pragma mark - Properties
 
-- (BOOL)wmf_isWikiResource {
-    return [WMFConfiguration.current isWikiResource:self];
-}
-
 - (BOOL)wmf_isWikiCitation {
     return [self.fragment wmf_isCitationFragment];
 }
@@ -249,7 +230,15 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     }
 }
 
-- (NSURL *)wmf_databaseKeyURL {
+- (NSURL *)wmf_canonicalURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    components.path = [components.path stringByRemovingPercentEncoding] ?: components.path;
+    components.scheme = @"https";
+    return components.URL;
+}
+
+- (NSURL *)wmf_databaseURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
     components.path = [components.path stringByRemovingPercentEncoding] ?: components.path;
@@ -260,7 +249,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 }
 
 - (NSString *)wmf_databaseKey {
-    return self.wmf_databaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
+    return self.wmf_databaseURL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
 - (NSString *)wmf_title {

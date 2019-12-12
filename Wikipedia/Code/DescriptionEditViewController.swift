@@ -166,10 +166,10 @@ import UIKit
     @IBAction func licenseTapped() {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: Licenses.localizedSaveTermsTitle, style: .default, handler: { _ in
-            self.wmf_openExternalUrl(Licenses.saveTermsURL)
+            self.navigate(to: Licenses.saveTermsURL)
         }))
         sheet.addAction(UIAlertAction(title: Licenses.localizedCCZEROTitle, style: .default, handler: { _ in
-            self.wmf_openExternalUrl(Licenses.CCZEROURL)
+            self.navigate(to: Licenses.CCZEROURL)
         }))
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
         present(sheet, animated: true, completion: nil)
@@ -292,7 +292,7 @@ private extension UITextView {
     // Text with no leading and trailing space and with repeating internal spaces reduced to single spaces
     func normalizedWhitespaceText() -> String? {
         if let text = text, let whiteSpaceNormalizationRegex = whiteSpaceNormalizationRegex {
-            return whiteSpaceNormalizationRegex.stringByReplacingMatches(in: text, options: [], range: NSMakeRange(0, text.count), withTemplate: " ").trimmingCharacters(in: .whitespacesAndNewlines)
+            return whiteSpaceNormalizationRegex.stringByReplacingMatches(in: text, options: [], range: text.fullRange, withTemplate: " ").trimmingCharacters(in: .whitespacesAndNewlines)
         }
         return text
     }

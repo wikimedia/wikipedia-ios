@@ -3,6 +3,7 @@
 // Author: Agilight
 // Author: Alexandr Efremov
 // Author: Av6
+// Author: BadDog
 // Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Dicto23456
@@ -20,6 +21,8 @@
 // Author: JoeWalshWMF
 // Author: Kaganer
 // Author: Kareyac
+// Author: Katunchik
+// Author: Kent73
 // Author: Kopcap94
 // Author: Macofe
 // Author: Mailman
@@ -141,6 +144,7 @@
 "article-read-more-title" = "Подробнее";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
+"article-title" = "Статья";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "article-unable-to-load-section" = "Не удаётся скачать этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back-button-accessibility-label" = "Назад";
@@ -197,6 +201,10 @@
 "description-welcome-descriptions-title" = "Краткие описания";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+"diff-context-lines-collapsed-button-title" = "Показать";
+"diff-context-lines-expanded-button-title" = "Скрыть";
+"diff-paragraph-moved-direction-down" = "вниз";
+"diff-paragraph-moved-direction-up" = "вверх";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
@@ -461,6 +469,7 @@
 "insert-media-media-settings-title" = "Параметры медиафайла";
 "insert-media-title" = "Вставить медиа-файл";
 "insert-media-uploaded-image-title" = "Загруженное изображение";
+"intermediate-edits-count" = "Подзаголовок для количества изменений, которые были сделаны между двумя выбранными изменениями.  $ 1 заменяется количеством промежуточных ревизий.";
 "languages-settings-title" = "Языки";
 "languages-title" = "Изменить язык";
 "languages-wikipedia" = "Языки Википедии";
@@ -515,7 +524,13 @@
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-edit-history" = "Полная история редактирования";
-"page-history-title" = "История страницы";
+"page-history-anonymous-edits" = "анонимные правки";
+"page-history-bot-edits" = "правки ботов";
+"page-history-compare-title" = "Сравнить";
+"page-history-minor-edits" = "малые правки";
+"page-history-revision-author-accessibility-label" = "Автор: $1";
+"page-history-revision-history-title" = "История изменений";
+"page-history-revision-minor-edit-accessibility-label" = "Малая правка";
 "page-issues" = "Вопросы по странице";
 "page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
 "page-location" = "Посмотреть на карте";
@@ -665,7 +680,7 @@
 "reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";
 "reverted-edit-notification-read-more-action-title" = "Подробнее";
 "reverted-edit-possible-reasons" = "- Ваш вклад не соответствует одному из руководств. $1 \n\n - Ваш вклад похож на вандальный";
-"reverted-edit-possible-reasons-subtitle" = "Мы знаем, что вы старались, но один из участников заметил что-то неправильное. \n\nВозможные причины, почему ваша правка была отменена:";
+"reverted-edit-possible-reasons-subtitle" = "Мы знаем, что вы старались, но один из участников заметил что-то некорректное. \n\nВозможные причины, почему ваша правка была отменена:";
 "reverted-edit-thanks-for-editing-title" = "Спасибо за редактирование Википедии!";
 "reverted-edit-title" = "Отменённая правка";
 "reverted-edit-view-guidelines-text" = "Просмотр руководств";

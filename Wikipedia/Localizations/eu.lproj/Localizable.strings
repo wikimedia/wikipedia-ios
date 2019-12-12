@@ -158,12 +158,14 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Denak piztuta";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Piztuta";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1(e)an";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "%@ txartel guztiak ezkutatuta";
 "explore-feed-preferences-global-card-footer-text" = "Txartela hau ez dago hizkuntza batean zehaztuta, txarlela amatatzeak Arakatze jariotik ezabatzea eragingo du.";
 "explore-feed-preferences-global-cards-description" = "Hizkuntza zehaztasun gabeko txartelak";
 "explore-feed-preferences-global-cards-subtitle" = "Hizkuntza zehaztasun gabea";
 "explore-feed-preferences-global-cards-title" = "Txartel globalak";
 "explore-feed-preferences-hide-card-action-title" = "Txartel hau ezkutatu";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "“%@” txartel guztiak ezkutatu";
 "explore-feed-preferences-in-the-news-description" = "Eguneko ekitaldiei buruzko artikuluak";
 "explore-feed-preferences-on-this-day-description" = "Gaurko eguneko historian zehar gertaturiko ekitaldiak";
@@ -307,7 +309,6 @@
 "on-this-day-title" = "Gaurkoan";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
 "page-edit-history" = "Aldaketa guztien historia";
-"page-history-title" = "Artikuluaren historia";
 "page-issues" = "Orriaren arazoak";
 // Fuzzy
 "page-last-edited" = "Orain dela $1 egun aldatu da";
@@ -428,6 +429,7 @@
 "reading-lists-default-list-title" = "Gordeta";
 "reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";
 "reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrendak}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikulu eta $2 irakurketa zerrenda sinkronizatu dira zure kontutik";
 "reading-lists-list-not-synced-limit-exceeded" = "Zerrenda ez da sinkronikaztu, muga gainditu da";
 "reading-lists-sort-saved-articles" = "Sailkatu gordetako artikuluak";

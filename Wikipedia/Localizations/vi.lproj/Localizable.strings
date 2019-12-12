@@ -167,6 +167,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Bật (tất cả)";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Bật";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Bật ($1)";
+// Fuzzy
 "explore-feed-preferences-feed-cards-hidden-title" = "Tất cả %@ phiếu đã ẩn";
 "explore-feed-preferences-global-card-footer-text" = "Phiếu này không thuộc về một ngôn ngữ nào đó. Việc tắt nó sẽ xóa nó khỏi nguồn cấp Thám hiểm.";
 "explore-feed-preferences-global-cards-description" = "Phiếu không thuộc ngôn ngữ";
@@ -335,7 +336,6 @@
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
 "page-edit-history" = "Toàn bộ lịch sử sửa đổi";
-"page-history-title" = "Lịch sử trang";
 "page-issues" = "Vấn đề trang";
 // Fuzzy
 "page-last-edited" = "Sửa đổi lần cuối $1 ngày trước";
@@ -456,6 +456,7 @@
 "reading-lists-default-list-title" = "Đã lưu";
 "reading-lists-delete-reading-list-alert-message" = "Không thể hoàn tác tác vụ này. Bài nào chỉ được lưu vào {{PLURAL:$1|danh sách|các danh sách}} này sẽ không được lưu.";
 "reading-lists-delete-reading-list-alert-title" = "Xóa {{PLURAL:$1|danh sách|các danh sách}}?";
+// Fuzzy
 "reading-lists-large-sync-completed" = "$1 bài viết và $2 danh sách đọc được đồng bộ hóa từ tài khoản của bạn";
 "reading-lists-list-not-synced-limit-exceeded" = "Danh sách không được đồng bộ hóa vì vượt quá hạn chế";
 "reading-lists-sort-saved-articles" = "Sắp xếp các bài đã lưu";
