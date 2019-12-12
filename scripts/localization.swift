@@ -155,7 +155,9 @@ extension String {
                     })
                     actualComponent = String(component.suffix(from: component.index(component.startIndex, offsetBy: match.range.length)))
                 } else {
+                    #if DEBUG
                     print("Translatewiki prefix \(numberString) not supported on iOS for this language. Ignoring \(String(describing: component))")
+                    #endif
                 }
                 
                 guard let keyToInsert = keyForComponent, let componentToInsert = actualComponent else {
@@ -264,7 +266,11 @@ extension String {
             guard let result = result else {
                 return
             }
-            let number = iOSTokenRegex.replacementString(for: result, in: self as String, offset: 0, template: "$1")
+            var number = iOSTokenRegex.replacementString(for: result, in: self as String, offset: 0, template: "$1")
+            // treat an un-numbered token as 1
+            if number == "" {
+                number = "1"
+            }
             let token = iOSTokenRegex.replacementString(for: result, in: self as String, offset: 0, template: "$2")
             if tokenDictionary[number] == nil {
                 tokenDictionary[number] = token
@@ -482,7 +488,9 @@ func importLocalizationsFromTWN(_ path: String) {
                 let nativeLocalization = twnString.iOSNativeLocalization(tokens: enTokens)
                 let nativeLocalizationTokens = nativeLocalization.iOSTokenDictionary
                 guard nativeLocalizationTokens == enTokens else {
-                    //print("Mismatched tokens in \(locale) for \(key):\n\(enDictionary[key] ?? "")\n\(nativeLocalization)")
+                    #if DEBUG
+                    print("Mismatched tokens in \(locale) for \(key):\n\(enDictionary[key] ?? "")\n\(nativeLocalization)")
+                    #endif
                     continue
                 }
                 if twnString.contains("{{PLURAL:") {
