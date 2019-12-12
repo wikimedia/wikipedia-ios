@@ -311,15 +311,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "모든 언어에";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "켬";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1개 언어에";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "모든 카드 %@개 숨겨짐";
+"explore-feed-preferences-feed-cards-hidden-title" = "모든 카드 $1개 숨겨짐";
 "explore-feed-preferences-global-card-footer-text" = "이 카드는 언어가 특정되지 않았으므로 이 카드를 끄면 탐색 피드에서 제거됩니다.";
 "explore-feed-preferences-global-cards-description" = "언어가 특정되지 않은 카드";
 "explore-feed-preferences-global-cards-subtitle" = "언어를 특정하지 않음";
 "explore-feed-preferences-global-cards-title" = "전역 카드";
 "explore-feed-preferences-hide-card-action-title" = "이 카드 숨기기";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "모든 \"%@\" 카드 숨기기";
+"explore-feed-preferences-hide-feed-cards-action-title" = "모든 \"$1\" 카드 숨기기";
 "explore-feed-preferences-in-the-news-description" = "요즘 화제에 관한 글";
 "explore-feed-preferences-languages-footer-text" = "자신의 모든 언어의 모든 탐색 피드 카드를 숨기면 탐색 탭이 꺼지게 됩니다.";
 "explore-feed-preferences-on-this-day-description" = "오늘의 역사적 사건";
