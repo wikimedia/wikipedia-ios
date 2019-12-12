@@ -4,6 +4,8 @@ import UIKit
 class DiffHeaderCompareItemView: UIView {
 
     @IBOutlet var userStackView: UIStackView!
+    @IBOutlet var headingAndTimestampStackView: UIStackView!
+    @IBOutlet var userAndSummaryStackView: UIStackView!
     @IBOutlet var containerStackView: UIStackView!
     @IBOutlet var contentView: UIView!
     @IBOutlet var headingLabel: UILabel!
@@ -22,8 +24,8 @@ class DiffHeaderCompareItemView: UIView {
     }
     private var viewModel: DiffHeaderCompareItemViewModel?
     
-    private var usernameTapGestureRecognizer: UITapGestureRecognizer?
-    private var timestampTapGestureRecognizer:  UITapGestureRecognizer?
+    private var userAndSummaryTapGestureRecognizer: UITapGestureRecognizer?
+    private var headingAndTimestampTapGestureRecognizer:  UITapGestureRecognizer?
     weak var delegate: DiffHeaderActionDelegate?
 
     override init(frame: CGRect) {
@@ -41,12 +43,12 @@ class DiffHeaderCompareItemView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        if let usernameTapGestureRecognizer = usernameTapGestureRecognizer {
-            userStackView.addGestureRecognizer(usernameTapGestureRecognizer)
+        if let userAndSummaryTapGestureRecognizer = userAndSummaryTapGestureRecognizer {
+            userAndSummaryStackView.addGestureRecognizer(userAndSummaryTapGestureRecognizer)
         }
         
-        if let timestampTapGestureRecognizer = timestampTapGestureRecognizer {
-            timestampLabel.addGestureRecognizer(timestampTapGestureRecognizer)
+        if let headingAndTimestampTapGestureRecognizer = headingAndTimestampTapGestureRecognizer {
+            headingAndTimestampStackView.addGestureRecognizer(headingAndTimestampTapGestureRecognizer)
         }
     }
     
@@ -76,6 +78,14 @@ class DiffHeaderCompareItemView: UIView {
         updateFonts(with: traitCollection)
 
         self.viewModel = viewModel
+        updateAccessibilityLabels(viewModel: viewModel)
+    }
+    
+    func updateAccessibilityLabels(viewModel: DiffHeaderCompareItemViewModel) {
+        let isMinorAccessibilityString = viewModel.isMinor ? CommonStrings.minorEditTitle : ""
+        let authorString = String.localizedStringWithFormat(CommonStrings.authorTitle, viewModel.username ?? CommonStrings.unknownTitle)
+        headingAndTimestampStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, timestampLabel.text])
+        userAndSummaryStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [authorString, isMinorAccessibilityString, summaryLabel.text])
     }
     
     func squish(by percentage: CGFloat) {
@@ -94,6 +104,10 @@ class DiffHeaderCompareItemView: UIView {
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+
         let userStackViewConvertedPoint = self.convert(point, to: userStackView)
         if userStackView.point(inside: userStackViewConvertedPoint, with: event) {
             return true
@@ -109,10 +123,10 @@ class DiffHeaderCompareItemView: UIView {
     
     @objc func tappedElementWithSender(_ sender: UITapGestureRecognizer) {
         if let username = viewModel?.username,
-            sender == usernameTapGestureRecognizer {
+            sender == userAndSummaryTapGestureRecognizer {
             delegate?.tappedUsername(username: username)
         } else if let revisionID = viewModel?.revisionID,
-            sender == timestampTapGestureRecognizer {
+            sender == headingAndTimestampTapGestureRecognizer {
             delegate?.tappedRevision(revisionID: revisionID)
         }
     }
@@ -125,8 +139,12 @@ private extension DiffHeaderCompareItemView {
             addSubview(contentView)
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        usernameTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
-        timestampTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
+        userAndSummaryTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
+        headingAndTimestampTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedElementWithSender))
+        headingAndTimestampStackView.isAccessibilityElement = true
+        userAndSummaryStackView.isAccessibilityElement = true
+        headingAndTimestampStackView.accessibilityTraits = [.link]
+        userAndSummaryStackView.accessibilityTraits = [.link]
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {

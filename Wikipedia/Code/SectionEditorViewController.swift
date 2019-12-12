@@ -5,7 +5,8 @@ protocol SectionEditorViewControllerDelegate: class {
 }
 
 @objc(WMFSectionEditorViewController)
-class SectionEditorViewController: UIViewController {
+class SectionEditorViewController: ViewController {
+    
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     @objc var section: MWKSection?
@@ -29,19 +30,13 @@ class SectionEditorViewController: UIViewController {
     }()
     private var webViewTopConstraint: NSLayoutConstraint!
     
-    private var theme = Theme.standard
-
     private var didFocusWebViewCompletion: (() -> Void)?
     
     private var needsSelectLastSelection: Bool = false
     
     @objc var editFunnel = EditFunnel.shared
     
-    var keyboardFrame: CGRect? {
-        didSet {
-            keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
-        }
-    }
+
     private var isInFindReplaceActionSheetMode = false
     
     private var wikitext: String? {
@@ -73,69 +68,34 @@ class SectionEditorViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         loadWikitext()
         
         navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         
         configureWebView()
-        apply(theme: theme)
         
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
         
         webView.scrollView.delegate = self
-        
+        scrollView = webView.scrollView
+
         setupFocusNavigationView()
+        super.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         selectLastSelectionIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
-        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         super.viewWillDisappear(animated)
     }
     
     @objc func keyboardDidHide() {
         inputViewsController.resetFormattingAndStyleSubmenus()
-    }
-    
-    @objc func keyboardWillChangeFrame(_ notification: Notification) {
-        if let window = view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-            let windowFrame = window.convert(endFrame, from: nil)
-            keyboardFrame = window.convert(windowFrame, to: view)
-        }
-    }
-    
-    private func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-
-        guard let newKeyboardFrame = newKeyboardFrame else {
-            webView.scrollView.contentInset.bottom = 0
-            return
-        }
-        
-        if let oldKeyboardFrame = oldKeyboardFrame,
-            oldKeyboardFrame.height == newKeyboardFrame.height {
-            return
-        }
-        
-        //inflate content inset if needed to get around adjustedContentInset bugs
-        if let findAndReplaceView = inputViewsController.findAndReplaceView,
-            ((findAndReplaceView.isVisible ||
-                (isInFindReplaceActionSheetMode && newKeyboardFrame.height > 0)) &&
-                webView.scrollView.contentInset.bottom != newKeyboardFrame.height) {
-            webView.scrollView.contentInset.bottom = newKeyboardFrame.height
-            isInFindReplaceActionSheetMode = false
-        } else {
-            webView.scrollView.contentInset.bottom = 0
-        }
     }
     
     private func setupFocusNavigationView() {
@@ -406,18 +366,33 @@ class SectionEditorViewController: UIViewController {
     private var editFunnelSource: EditFunnelSource {
         return selectedTextEditInfo == nil ? .pencil : .highlight
     }
-}
-
-private var previousAdjustedContentInset = UIEdgeInsets.zero
-extension SectionEditorViewController: UIScrollViewDelegate {
-    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        let newAdjustedContentInset = scrollView.adjustedContentInset
-        guard newAdjustedContentInset != previousAdjustedContentInset else {
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
             return
         }
-        previousAdjustedContentInset = newAdjustedContentInset
-        
-        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
+        view.backgroundColor = theme.colors.paperBackground
+        webView.scrollView.backgroundColor = theme.colors.paperBackground
+        webView.backgroundColor = theme.colors.paperBackground
+        messagingController.applyTheme(theme: theme)
+        inputViewsController.apply(theme: theme)
+        navigationItemController.apply(theme: theme)
+        apply(presentationTheme: theme)
+        focusNavigationView.apply(theme: theme)
+    }
+    
+    private var previousContentInset = UIEdgeInsets.zero
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        guard
+            let newContentInset = scrollView?.contentInset,
+            newContentInset != previousContentInset
+        else {
+            return
+        }
+        previousContentInset = newContentInset
+        messagingController.setAdjustedContentInset(newInset: newContentInset)
     }
 }
 
@@ -565,23 +540,6 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.editFunnelSource = editFunnelSource
         vc.loggedEditActions = loggedEditActions
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension SectionEditorViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        webView.scrollView.backgroundColor = theme.colors.paperBackground
-        webView.backgroundColor = theme.colors.paperBackground
-        messagingController.applyTheme(theme: theme)
-        inputViewsController.apply(theme: theme)
-        navigationItemController.apply(theme: theme)
-        apply(presentationTheme: theme)
-        focusNavigationView.apply(theme: theme)
     }
 }
 

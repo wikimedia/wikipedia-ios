@@ -33,19 +33,18 @@ public class Router: NSObject {
         case .userTalk:
             return .userTalk(url)
         case .special:
-            if let compareDiffMatch = mobilediffRegexCompare.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
+            if let compareDiffMatch = mobilediffRegexCompare.firstMatch(in: title),
                 let fromRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$1")),
                 let toRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$2")) {
                 
                 return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: toRevID)
             }
-            if let singleDiffMatch = mobilediffRegexSingle.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)),
-                let toRevID = Int(mobilediffRegexSingle.replacementString(for: singleDiffMatch, in: title, offset: 0, template: "$1")) {
+            if let singleDiffMatch = mobilediffRegexSingle.firstReplacementString(in: title),
+                let toRevID = Int(singleDiffMatch) {
                 return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
             }
             
-            if let historyMatch = historyRegex.firstMatch(in: title, options: [], range: NSMakeRange(0, title.count)) {
-                let articleTitle = mobilediffRegexSingle.replacementString(for: historyMatch, in: title, offset: 0, template: "$1")
+            if let articleTitle = historyRegex.firstReplacementString(in: title) {
                 return .articleHistory(url, articleTitle: articleTitle.wmf_normalizedPageTitle())
             }
             

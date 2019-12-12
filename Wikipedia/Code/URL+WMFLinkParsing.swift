@@ -112,7 +112,7 @@ extension URL {
 
 extension NSRegularExpression {
     func firstMatch(in string: String) -> NSTextCheckingResult? {
-        return firstMatch(in: string, options: [], range: NSMakeRange(0, string.count))
+        return firstMatch(in: string, options: [], range: string.fullRange)
     }
     
     func firstReplacementString(in string: String, template: String = "$1") -> String? {
@@ -154,6 +154,10 @@ extension String {
     static let wResourceRegex = try! NSRegularExpression(pattern: "^/w/(.+)$", options: .caseInsensitive)
     public var wResourcePath: String? {
         return String.wResourceRegex.firstReplacementString(in: self)
+    }
+    
+    public var fullRange: NSRange {
+        return NSRange(startIndex..<endIndex, in: self)
     }
 }
 
