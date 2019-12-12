@@ -65,6 +65,10 @@ class SinglePageWebViewController: ViewController {
     var fetched = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if navigationController?.viewControllers.first === self {
+            let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
+            navigationItem.leftBarButtonItem = closeButton
+        }
         guard !fetched else {
             return
         }
@@ -104,6 +108,10 @@ class SinglePageWebViewController: ViewController {
     
     @objc func wButtonTapped(_ sender: UIButton) {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func closeButtonTapped(_ sender: UIButton) {
+        navigationController?.dismiss(animated: true)
     }
 }
 
