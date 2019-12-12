@@ -9,22 +9,64 @@ private extension CharacterSet {
     }()
 }
 
-class ArticleContainerViewController: UIViewController {
+class ArticleContainerViewController: ViewController {
+    
+    enum ViewState {
+        case unknown
+        case loading
+        case data
+    }
+    
+    enum InitInfo {
+        case url(URL)
+        case langAndTitle(language: String, title: String)
+    }
   
     private let articleTitle: String
     private let language: String
     private var webViewController: ArticleWebViewController?
     private let toolbarViewController = ArticleToolbarViewController()
+    private let schemeHandler: SchemeHandler
     
-    init?(articleURL: URL) {
+    private var state: ViewState = .loading {
+        didSet {
+            switch state {
+            case .unknown:
+                fakeProgressController.stop()
+                webViewController?.view.isHidden = true
+            case .loading:
+                fakeProgressController.start()
+                webViewController?.view.isHidden = true
+            case .data:
+                fakeProgressController.stop()
+                webViewController?.view.isHidden = false
+            }
+        }
+    }
+    
+    lazy private var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
+    
+    init?(info: InitInfo, schemeHandler: SchemeHandler = SchemeHandler.shared) {
         
-        guard let articleTitle = articleURL.wmf_title,
-            let language = articleURL.wmf_language else {
-                return nil
+        switch info {
+        case .url(let url):
+            guard let articleTitle = url.wmf_title,
+                let language = url.wmf_language else {
+                    return nil
+            }
+            
+            self.articleTitle = articleTitle
+            self.language = language
+        case .langAndTitle(let language, let title):
+            self.articleTitle = title
+            self.language = language
         }
         
-        self.articleTitle = articleTitle
-        self.language = language
+        self.schemeHandler = schemeHandler
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,18 +80,11 @@ class ArticleContainerViewController: UIViewController {
         setup()
     }
     
-    //todo:
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        //This would be nice in setup() but since navigationBar isn't added to heirarchy until viewWillAppear we have to hook in here.
+        webViewController?.view.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
     }
 }
 
@@ -66,29 +101,48 @@ private extension ArticleContainerViewController {
     }
     
     func setupWebViewController() {
-        guard let encodedTitle = articleTitle.addingPercentEncoding(withAllowedCharacters: CharacterSet.pathComponentAllowed) else {
-            return
-        }
         
-        //todo: move into configuration
-        
-        let schemeHandler = SchemeHandler.shared
-        
-        //let basePath = "https://apps.wmflabs.org/\(language).wikipedia.org/v1/page/mobile-html/"
-        let basePath = "\(schemeHandler.scheme)://apps.wmflabs.org/\(language).wikipedia.org/v1/page/mobile-html/"
-        //let basePath = "\(schemeHandler.scheme)://\(language).wikipedia.org/api/rest_v1/page/mobile-html/"
-
-        if let url = URL(string: basePath + encodedTitle) {
-            let webViewController = ArticleWebViewController(url: url, schemeHandler: schemeHandler)
+        if let url = mobileHTMLUrl(schemeHandler: schemeHandler, articleTitle: articleTitle) {
+            
+            state = .loading
+            let webViewController = ArticleWebViewController(url: url, schemeHandler: schemeHandler, delegate: self)
             self.webViewController = webViewController
-            addChildViewController(childViewController: webViewController, offsets: Offsets(top: 0, bottom: nil, leading: 0, trailing: 0))
+            addChildViewController(childViewController: webViewController, offsets: Offsets(top: nil, bottom: nil, leading: 0, trailing: 0))
         } else {
-            //todo: error view
+            //tonitodo: error view
         }
+    }
+    
+    func mobileHTMLUrl(schemeHandler: SchemeHandler, articleTitle: String) -> URL? {
+        
+        //tonitodo: move into configuration
+        guard let encodedTitle = articleTitle.addingPercentEncoding(withAllowedCharacters: CharacterSet.pathComponentAllowed) else {
+            return nil
+        }
+        
+        let basePath = "\(schemeHandler.scheme)://apps.wmflabs.org/\(language).wikipedia.org/v1/page/mobile-html/"
+        return URL(string: basePath + encodedTitle)
     }
     
     func setupToolbarViewController() {
         addChildViewController(childViewController: toolbarViewController, offsets: Offsets(top: nil, bottom: 0, leading: 0, trailing: 0))
+    }
+}
+
+extension ArticleContainerViewController: ArticleWebMessageHandling {
+    func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
+        
+        guard let newArticleVC = ArticleContainerViewController(info: .langAndTitle(language: language, title: title), schemeHandler: schemeHandler) else {
+            assertionFailure("Failure initializing new Article VC")
+            //tonitodo: error state
+            return
+        }
+        
+        navigationController?.pushViewController(newArticleVC, animated: true)
+    }
+    
+    func didSetup(messagingController: ArticleWebMessagingController) {
+        state = .data
     }
 }
 

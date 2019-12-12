@@ -1,7 +1,7 @@
 #import <WMF/NSURL+WMFSchemeHandler.h>
 #import <WMF/NSURL+WMFQueryParameters.h>
 
-NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
+NSString *const WMFURLSchemeHandlerScheme = @"app";
 
 @implementation NSURL (WMFSchemeHandler)
 
