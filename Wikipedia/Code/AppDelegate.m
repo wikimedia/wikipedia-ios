@@ -79,7 +79,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     }
 #endif
 
-    [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
     NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume = [self shouldRestoreNavigationStackOnResumeAfterBecomingActive:[NSDate date]];
 

@@ -639,9 +639,7 @@ static uint64_t bundleHash() {
 - (void)setupHistoryAndSavedPageLists {
     WMFAssertMainThread(@"History and saved page lists must be setup on the main thread");
     self.historyList = [[MWKHistoryList alloc] initWithDataStore:self];
-    [self.historyList migrateLegacyDataIfNeeded];
     self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
-    [self.savedPageList migrateLegacyDataIfNeeded];
     self.readingListsController = [[WMFReadingListsController alloc] initWithDataStore:self];
 }
 

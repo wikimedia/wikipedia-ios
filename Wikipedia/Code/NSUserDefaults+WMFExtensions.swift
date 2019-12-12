@@ -2,11 +2,6 @@ let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
-let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
-let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
-let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
-let WMFMigrateToFixArticleCacheKey = "WMFMigrateToFixArticleCacheKey3"
-let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
 let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
 let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
@@ -59,23 +54,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         return defaults
 #endif
     }()
-    
-    @objc class func wmf_migrateToWMFGroupUserDefaultsIfNecessary() {
-        let newDefaults = self.wmf
-        let didMigrate = newDefaults.bool(forKey: WMFDidMigrateToGroupKey)
-        if (!didMigrate) {
-            let oldDefaults = UserDefaults.standard
-            let oldDefaultsDictionary = oldDefaults.dictionaryRepresentation()
-            for (key, value) in oldDefaultsDictionary {
-                let lowercaseKey = key.lowercased()
-                if lowercaseKey.hasPrefix("apple") || lowercaseKey.hasPrefix("ns") {
-                    continue
-                }
-                newDefaults.set(value, forKey: key)
-            }
-            newDefaults.set(true, forKey: WMFDidMigrateToGroupKey)
-        }
-    }
 
     @objc func wmf_dateForKey(_ key: String) -> Date? {
         return self.object(forKey: key) as? Date
@@ -328,38 +306,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc func wmf_didFinishLegacySavedArticleImageMigration() -> Bool {
         return self.bool(forKey: "DidFinishLegacySavedArticleImageMigration2")
-    }
-    
-    @objc func wmf_setDidMigrateHistoryList(_ didFinish: Bool) {
-        self.set(didFinish, forKey: WMFMigrateHistoryListKey)
-    }
-    
-    @objc func wmf_didMigrateHistoryList() -> Bool {
-        return self.bool(forKey: WMFMigrateHistoryListKey)
-    }
-
-    @objc func wmf_setDidMigrateSavedPageList(_ didFinish: Bool) {
-        self.set(didFinish, forKey: WMFMigrateSavedPageListKey)
-    }
-    
-    @objc func wmf_didMigrateSavedPageList() -> Bool {
-        return self.bool(forKey: WMFMigrateSavedPageListKey)
-    }
-
-    @objc func wmf_setDidMigrateBlackList(_ didFinish: Bool) {
-        self.set(didFinish, forKey: WMFMigrateBlackListKey)
-    }
-    
-    @objc func wmf_didMigrateBlackList() -> Bool {
-        return self.bool(forKey: WMFMigrateBlackListKey)
-    }
-    
-    @objc func wmf_setDidMigrateToFixArticleCache(_ didFinish: Bool) {
-        self.set(didFinish, forKey: WMFMigrateToFixArticleCacheKey)
-    }
-    
-    @objc func wmf_didMigrateToFixArticleCache() -> Bool {
-        return self.bool(forKey: WMFMigrateToFixArticleCacheKey)
     }
     
     @objc func wmf_mostRecentInTheNewsNotificationDate() -> Date? {
