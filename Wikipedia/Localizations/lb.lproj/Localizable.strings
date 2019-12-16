@@ -121,6 +121,7 @@
 "diff-context-lines-expanded-button-title" = "Verstoppen";
 "diff-paragraph-moved" = "Abschnitt geréckelt";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
+"diff-single-intro-title" = "Aféierung";
 "diff-thanks-send-button-title" = "'Merci' schécken";
 "diff-thanks-send-title" = "'Merci' ëffentlech schécken";
 "diff-thanks-sent" = "Äre 'Merci' gouf dem $1 geschéckt";

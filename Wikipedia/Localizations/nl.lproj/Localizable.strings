@@ -200,6 +200,7 @@
 "diff-paragraph-moved-direction-up" = "naar boven";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 regel|$1 regels}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sectie|$1 secties}}";
+"diff-revision-error-title" = "Kan versie niet laden";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 bewerking|$1 bewerkingen}}";
 "diff-single-header-editor-title" = "Gebruikersinformatie";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte toegevoegd|$1 bytes toegevoegd}}";
@@ -207,6 +208,7 @@
 "diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Regel $1";
 "diff-thanks-anonymous-no-thanks" = "Anonieme gebruikers kunnen niet worden bedankt";
+"diff-thanks-login-title" = "Meld u aan om een bedankje te versturen";
 "diff-thanks-send-button-title" = "Bedankje sturen";
 "dim-images" = "Afbeeldingen dimmen";
 "edit-bold-accessibility-label" = "Vetgedrukte opmaak toevoegen";
