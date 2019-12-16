@@ -1905,8 +1905,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (nullable UINavigationController *)currentNavigationController {
-    if ([self.presentedViewController isKindOfClass:[UINavigationController class]]) {
-        return (UINavigationController *)self.presentedViewController;
+    UIViewController *presented = self.presentedViewController;
+    while (presented.presentedViewController != nil) {
+        presented = presented.presentedViewController;
+    }
+    if ([presented isKindOfClass:[UINavigationController class]]) {
+        return (UINavigationController *)presented;
     } else {
         return self.navigationController;
     }
