@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="NewCacheGroup" representedClassName="NewCacheGroup" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <relationship name="cacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NewCacheItem" inverseName="cacheGroups" inverseEntity="NewCacheItem"/>
+    </entity>
+    <entity name="NewCacheItem" representedClassName="NewCacheItem" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NewCacheGroup" inverseName="cacheItems" inverseEntity="NewCacheGroup"/>
+    </entity>
+    <elements>
+        <element name="NewCacheGroup" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="NewCacheItem" positionX="-54" positionY="-9" width="128" height="103"/>
+    </elements>
+</model>

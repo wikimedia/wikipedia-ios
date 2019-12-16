@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
-@interface WMFArticleFetcher : WMFLegacyFetcher
+@interface WMFLegacyArticleFetcher : WMFLegacyFetcher
 
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL;
 

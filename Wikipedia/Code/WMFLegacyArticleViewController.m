@@ -14,7 +14,7 @@
 #import "ProtectedEditAttemptFunnel.h"
 
 // Networking
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 
 // View
 #import <FLAnimatedImage/FLAnimatedImageView.h>
@@ -115,7 +115,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
 
 // Fetchers
-@property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
+@property (nonatomic, strong) WMFLegacyArticleFetcher *articleFetcher;
 @property (nonatomic, strong, nullable) NSURLSessionTask *articleFetcherPromise;
 @property (nonatomic, strong, nullable) WMFReachabilityNotifier *reachabilityNotifier;
 
@@ -325,9 +325,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     return _headerImageView;
 }
 
-- (WMFArticleFetcher *)articleFetcher {
+- (WMFLegacyArticleFetcher *)articleFetcher {
     if (!_articleFetcher) {
-        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
+        _articleFetcher = [[WMFLegacyArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return _articleFetcher;
 }

@@ -19,7 +19,7 @@
 
 #import "WMFChange.h"
 
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 #import "SavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewHtmlFetcher.h"

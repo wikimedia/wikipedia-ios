@@ -207,6 +207,11 @@ import Foundation
         return task
     }
     
+    //tonitodo: utlilize Callback & addCallback/session delegate stuff instead of completionHandler
+    public func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
+        return defaultURLSession.downloadTask(with: url, completionHandler: completionHandler)
+    }
+    
     public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let url = url else {
             return nil

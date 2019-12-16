@@ -1,5 +1,5 @@
 #import <XCTest/XCTest.h>
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "MWKArticle.h"
 #import "WMFTestFixtureUtilities.h"
@@ -13,7 +13,7 @@
 @interface ArticleFetcherTests : XCTestCase
 
 @property (strong, nonatomic) MWKDataStore *tempDataStore;
-@property (strong, nonatomic) WMFArticleFetcher *articleFetcher;
+@property (strong, nonatomic) WMFLegacyArticleFetcher *articleFetcher;
 
 @end
 
@@ -23,7 +23,7 @@
     [super setUp];
     self.tempDataStore = [MWKDataStore temporaryDataStore];
 
-    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore];
+    self.articleFetcher = [[WMFLegacyArticleFetcher alloc] initWithDataStore:self.tempDataStore];
     [[LSNocilla sharedInstance] start];
 }
 
@@ -63,7 +63,7 @@
                                                     error:nil];
     stubRequest(@"GET", anySummaryRequest).andReturn(404);
 
-    WMFArticleFetcher *fetcher = self.articleFetcher;
+    WMFLegacyArticleFetcher *fetcher = self.articleFetcher;
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
 
@@ -121,7 +121,7 @@
 
     __block MWKArticle *savedArticleAfterFirstFetch;
 
-    WMFArticleFetcher *fetcher = self.articleFetcher;
+    WMFLegacyArticleFetcher *fetcher = self.articleFetcher;
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
 

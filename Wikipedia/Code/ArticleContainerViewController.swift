@@ -1,5 +1,6 @@
 
 import UIKit
+import WMF
 
 private extension CharacterSet {
     static let pathComponentAllowed: CharacterSet = {
@@ -24,9 +25,12 @@ class ArticleContainerViewController: ViewController {
   
     private let articleTitle: String
     private let language: String
+    private let siteURL: URL
     private var webViewController: ArticleWebViewController?
     private let toolbarViewController = ArticleToolbarViewController()
     private let schemeHandler: SchemeHandler
+    private let articleCacheDBWriter: ArticleCacheDBWriter
+    private let mobileHTMLURL: URL
     
     private var state: ViewState = .loading {
         didSet {
@@ -50,23 +54,44 @@ class ArticleContainerViewController: ViewController {
         return progressController
     }()
     
-    init?(info: InitInfo, schemeHandler: SchemeHandler = SchemeHandler.shared) {
+    init?(info: InitInfo, schemeHandler: SchemeHandler = SchemeHandler.shared, articleCacheDBWriter: ArticleCacheDBWriter? = ArticleCacheDBWriter.shared) {
+        
+        guard let articleCacheDBWriter = articleCacheDBWriter else {
+            return nil
+        }
         
         switch info {
         case .url(let url):
+            
             guard let articleTitle = url.wmf_title,
-                let language = url.wmf_language else {
+                let language = url.wmf_language,
+                let siteURL = url.wmf_site else {
                     return nil
             }
             
             self.articleTitle = articleTitle
             self.language = language
+            self.siteURL = siteURL
         case .langAndTitle(let language, let title):
+            
+            guard let siteURL = NSURL.wmf_URL(withDomain: "wikipedia.org", language: language) else {
+                return nil
+            }
+            
             self.articleTitle = title
             self.language = language
+            self.siteURL = siteURL
         }
         
         self.schemeHandler = schemeHandler
+        self.articleCacheDBWriter = articleCacheDBWriter
+        
+        guard let mobileHTMLURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
+            return nil
+        }
+
+        self.mobileHTMLURL = mobileHTMLURL
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -92,6 +117,7 @@ private extension ArticleContainerViewController {
     
     func setup() {
         
+        addNotificationHandlers()
         setupWebViewController()
         setupToolbarViewController()
         
@@ -100,31 +126,38 @@ private extension ArticleContainerViewController {
         }
     }
     
-    func setupWebViewController() {
+    func addNotificationHandlers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveDidDownloadNotification(_:)), name: ArticleCacheSyncer.didDownloadNotification, object: nil)
+    }
+    
+    @objc func didReceiveDidDownloadNotification(_ notification: Notification) {
         
-        if let url = mobileHTMLUrl(schemeHandler: schemeHandler, articleTitle: articleTitle) {
-            
-            state = .loading
-            let webViewController = ArticleWebViewController(url: url, schemeHandler: schemeHandler, delegate: self)
-            self.webViewController = webViewController
-            addChildViewController(childViewController: webViewController, offsets: Offsets(top: nil, bottom: nil, leading: 0, trailing: 0))
-        } else {
-            //tonitodo: error view
+        guard let dbKey = notification.userInfo?[ArticleCacheSyncer.didDownloadNotificationUserInfoKey] as? String,
+            let expectedDatabaseKey = mobileHTMLURL.wmf_databaseKey,
+        	dbKey == expectedDatabaseKey else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.toolbarViewController.setSavedState(isSaved: true)
         }
     }
     
-    func mobileHTMLUrl(schemeHandler: SchemeHandler, articleTitle: String) -> URL? {
-        
-        //tonitodo: move into configuration
-        guard let encodedTitle = articleTitle.addingPercentEncoding(withAllowedCharacters: CharacterSet.pathComponentAllowed) else {
-            return nil
-        }
-        
-        let basePath = "\(schemeHandler.scheme)://apps.wmflabs.org/\(language).wikipedia.org/v1/page/mobile-html/"
-        return URL(string: basePath + encodedTitle)
+    func setupWebViewController() {
+    
+        state = .loading
+        let webViewController = ArticleWebViewController(url: mobileHTMLURL, schemeHandler: schemeHandler, delegate: self)
+        self.webViewController = webViewController
+        addChildViewController(childViewController: webViewController, offsets: Offsets(top: nil, bottom: nil, leading: 0, trailing: 0))
     }
     
     func setupToolbarViewController() {
+        toolbarViewController.delegate = self
+        
+        if articleCacheDBWriter.isCached(mobileHTMLURL) {
+            toolbarViewController.setSavedState(isSaved: true)
+        }
+        
         addChildViewController(childViewController: toolbarViewController, offsets: Offsets(top: nil, bottom: 0, leading: 0, trailing: 0))
     }
 }
@@ -143,6 +176,12 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     
     func didSetup(messagingController: ArticleWebMessagingController) {
         state = .data
+    }
+}
+
+extension ArticleContainerViewController: ArticleToolbarHandling {
+    func toggleSave(from viewController: ArticleToolbarViewController) {
+        articleCacheDBWriter.toggleCache(for: mobileHTMLURL)
     }
 }
 

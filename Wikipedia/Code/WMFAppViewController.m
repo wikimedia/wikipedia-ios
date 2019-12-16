@@ -78,6 +78,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
+@property (nonatomic, strong) WMFArticleCacheSyncer *articleCacheSyncer;
+
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
 @property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
@@ -363,6 +365,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    [self.articleCacheSyncer setup];
     self.notificationsController.applicationActive = YES;
 }
 
@@ -1389,6 +1392,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
+}
+
+- (WMFArticleCacheSyncer *)articleCacheSyncer {
+    if (!_articleCacheSyncer) {
+        WMFArticleCacheDBWriter *articleCacheDBWriter =  [WMFArticleCacheDBWriter shared];
+        _articleCacheSyncer = [[WMFArticleCacheSyncer alloc] initWithMoc:articleCacheDBWriter.cacheBackgroundContext articleFetcher:articleCacheDBWriter.articleFetcher cacheURL:articleCacheDBWriter.cacheURL fileManager:articleCacheDBWriter.fileManager];
+    }
+    return _articleCacheSyncer;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

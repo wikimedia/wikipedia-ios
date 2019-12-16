@@ -1,6 +1,6 @@
 @import WMF;
 #import "Wikipedia-Swift.h"
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
 NSString *const WMFArticleSaveToDiskDidFailNotification = @"WMFArticleSavedToDiskWithErrorNotification";
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
-@property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
+@property (nonatomic, strong) WMFLegacyArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
 @property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
@@ -62,7 +62,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                   articleFetcher:(WMFArticleFetcher *)articleFetcher
+                   articleFetcher:(WMFLegacyArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
                  imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher {
     NSParameterAssert(dataStore);
@@ -91,7 +91,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     return [self initWithDataStore:dataStore
-                    articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
+                    articleFetcher:[[WMFLegacyArticleFetcher alloc] initWithDataStore:dataStore]
                    imageController:[WMFImageController sharedInstance]
                   imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }

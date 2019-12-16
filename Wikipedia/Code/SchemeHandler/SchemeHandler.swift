@@ -18,10 +18,8 @@ final class SchemeHandler: NSObject {
     private var activeCacheOperations: [URLRequest: Operation] = [:]
     private var activeSchemeTasks = NSMutableSet(array: [])
     
-    private let cache: SchemeHandlerCache
+    private let fileCache: SchemeHandlerCache
     private let fileHandler: FileHandler
-    private let articleSectionHandler: ArticleSectionHandler
-    private let apiHandler: APIHandler
     private let defaultHandler: DefaultHandler
     private let cacheQueue: OperationQueue = OperationQueue()
     
@@ -31,26 +29,19 @@ final class SchemeHandler: NSObject {
         self.scheme = scheme
         self.session = session
         let cache = SchemeHandlerCache()
-        self.cache = cache
+        self.fileCache = cache
         self.fileHandler = FileHandler(cacheDelegate: cache)
-        self.articleSectionHandler = ArticleSectionHandler(cacheDelegate: cache)
-        self.apiHandler = APIHandler(session: session)
         self.defaultHandler = DefaultHandler(session: session)
     }
-   
+    
     func setResponseData(data: Data?, contentType: String?, path: String, requestURL: URL) {
         var headerFields = [String: String](minimumCapacity: 1)
         if let contentType = contentType {
             headerFields["Content-Type"] = contentType
         }
         if let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
-            cache.cacheResponse(response, data: data, path: path)
+            fileCache.cacheResponse(response, data: data, path: path)
         }
-    }
-    
-    @objc(cacheSectionDataForArticle:)
-    func cacheSectionData(for article: MWKArticle) {
-        cache.cacheSectionData(for: article)
     }
 }
 
@@ -58,8 +49,6 @@ extension SchemeHandler: WKURLSchemeHandler {
     
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
         assert(Thread.isMainThread)
-        
-        print("🌹\(urlSchemeTask.request)")
         
         let request = urlSchemeTask.request
         guard let requestURL = request.url else {
@@ -114,20 +103,13 @@ extension SchemeHandler: WKURLSchemeHandler {
         }
         
         addSchemeTask(urlSchemeTask: urlSchemeTask)
-        
+
         switch baseComponent {
         case FileHandler.basePath:
             fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
-        case ArticleSectionHandler.basePath:
-            articleSectionHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
-        case APIHandler.basePath:
-            guard let apiURL = apiHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
-                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
-                removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                return
-            }
-            kickOffDataTask(handler: apiHandler, url: apiURL, urlSchemeTask: urlSchemeTask)
+            
         default:
+            
             guard let defaultURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
                 removeSchemeTask(urlSchemeTask: urlSchemeTask)
@@ -160,6 +142,7 @@ extension SchemeHandler: WKURLSchemeHandler {
             activeCacheOperations[urlSchemeTask.request] = op
             cacheQueue.addOperation(op)
         }
+        
     }
     
     func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {

@@ -191,6 +191,9 @@ extension WKWebView {
     }
     
     @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle, collapseTables: Bool, scrolledTo fragment: String?){
+        
+        //tonitodo: clean out hopefully
+        /*
         guard
             let url = article.url,
             let host = url.host,
@@ -241,5 +244,7 @@ extension WKWebView {
             }
             DDLogError("Error when evaluating javascript on fetch and transform: \(error)")
         }
+    
+         */
     }
 }

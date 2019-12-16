@@ -1,4 +1,4 @@
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 #import <WMF/WMF-Swift.h>
 
 #if WMF_TWEAKS_ENABLED
@@ -27,7 +27,7 @@ NSString *const WMFArticleFetcherErrorDomain = @"WMFArticleFetcherErrorDomain";
 
 NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFetcherErrorCachedFallbackArticleKey";
 
-@interface WMFArticleFetcher ()
+@interface WMFLegacyArticleFetcher ()
 
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
@@ -37,7 +37,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @end
 
-@implementation WMFArticleFetcher
+@implementation WMFLegacyArticleFetcher
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
