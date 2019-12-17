@@ -10,6 +10,7 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         updateFonts()
+        isAccessibilityElement = true
     }
 
     @IBOutlet private var sizingOnlyWidthConstraint: NSLayoutConstraint!
@@ -41,6 +42,11 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
         imageView.image = image
         imageLabel.text = imageText
         rightSeparator.isHidden = isRightSeparatorHidden
+        updateAccessibilityLabel()
+    }
+
+    private func updateAccessibilityLabel() {
+        accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [imageLabel.text, titleLabel.text])
     }
 }
 

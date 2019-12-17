@@ -52,6 +52,11 @@ class DiffHeaderCompareView: UIView {
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        accessibilityElements = [fromItemView, toItemView].compactMap { $0 as Any }
+    }
+    
     func configureHeight(beginSquishYOffset: CGFloat, scrollYOffset: CGFloat) {
         
         self.beginSquishYOffset = beginSquishYOffset

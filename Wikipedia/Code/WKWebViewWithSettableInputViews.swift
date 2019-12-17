@@ -3,10 +3,10 @@ import WebKit
 class WKWebViewWithSettableInputViews: WKWebView {
     private var storedInputView: UIView?
     private var storedInputAccessoryView: UIView?
-    
+
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
-        setKeyboardRequiresUserInteraction(false)
+        WKWebViewWithSettableInputViews.overrideUserInteractionRequirementForElementFocusIfNecessary()
         overrideNestedContentViewGetters()
     }
     
@@ -89,24 +89,58 @@ class WKWebViewWithSettableInputViews: WKWebView {
     }
 }
 
-private typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
-private typealias BlockType =  @convention(block) (Any, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
-private extension WKWebViewWithSettableInputViews {
-    private func setKeyboardRequiresUserInteraction(_ value: Bool) {
+
+typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
+
+private var didSetKeyboardRequiresUserInteraction = false
+
+extension WKWebViewWithSettableInputViews {
+    // Swizzle a WKWebView method to allow web elements to be focused without user interaction
+    // Replace the method with an implementation that wraps the existing implementation and always passes true for `userIsInteracting`
+    // https://stackoverflow.com/questions/32449870/programmatically-focus-on-a-form-in-a-webview-wkwebview
+    static func overrideUserInteractionRequirementForElementFocusIfNecessary() {
+        assert(Thread.isMainThread)
+        guard !didSetKeyboardRequiresUserInteraction else {
+            return
+        }
+        defer {
+            didSetKeyboardRequiresUserInteraction = true
+        }
+
         guard let WKContentView: AnyClass = NSClassFromString("WKContentView") else {
-            DDLogError("Could not get class")
+            DDLogError("keyboardDisplayRequiresUserAction extension: Cannot find the WKContentView class")
             return
         }
-        let sel = sel_getUid("_startAssistingNode:userIsInteracting:blurPreviousNode:changingActivityState:userObject:")
-        guard let method = class_getInstanceMethod(WKContentView, sel) else {
-            DDLogError("Could not get method")
-            return
+        
+        // The method signature changed over time, try all of them to find the one for this platform
+        let selectorStrings = [
+            "_elementDidFocus:userIsInteracting:blurPreviousNode:activityStateChanges:userObject:",
+            "_elementDidFocus:userIsInteracting:blurPreviousNode:changingActivityState:userObject:",
+            "_startAssistingNode:userIsInteracting:blurPreviousNode:changingActivityState:userObject:"
+        ]
+        
+        #if DEBUG
+        var found = false
+        #endif
+        for selectorString in selectorStrings {
+            let sel = sel_getUid(selectorString)
+            guard let method = class_getInstanceMethod(WKContentView, sel) else {
+                continue
+            }
+            let originalImp = method_getImplementation(method)
+            let original: ClosureType = unsafeBitCast(originalImp, to: ClosureType.self)
+            let block : @convention(block) (Any, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void = { (me, arg0, arg1, arg2, arg3, arg4) in
+                original(me, sel, arg0, true, arg2, arg3, arg4)
+            }
+            let imp = imp_implementationWithBlock(block)
+            method_setImplementation(method, imp)
+            #if DEBUG
+            found = true
+            #endif
+            break
         }
-        let originalImp = method_getImplementation(method)
-        let original = unsafeBitCast(originalImp, to: ClosureType.self)
-        let block: BlockType = { (me, arg0, arg1, arg2, arg3, arg4) in
-            original(me, sel, arg0, !value, arg2, arg3, arg4)
-        }
-        method_setImplementation(method, imp_implementationWithBlock(block))
+        #if DEBUG
+        assert(found, "Didn't find the method to swizzle. Maybe the signature changed.")
+        #endif
     }
 }

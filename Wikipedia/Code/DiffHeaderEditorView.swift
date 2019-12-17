@@ -31,6 +31,7 @@ class DiffHeaderEditorView: UIView {
         if let tapGestureRecognizer = tapGestureRecognizer {
             userStackView.addGestureRecognizer(tapGestureRecognizer)
         }
+        userStackView.accessibilityTraits = [.link]
     }
     
     func update(_ viewModel: DiffHeaderEditorViewModel) {
@@ -58,6 +59,9 @@ class DiffHeaderEditorView: UIView {
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
         let userStackViewConvertedPoint = self.convert(point, to: userStackView)
         return userStackView.point(inside: userStackViewConvertedPoint, with: event)
     }
