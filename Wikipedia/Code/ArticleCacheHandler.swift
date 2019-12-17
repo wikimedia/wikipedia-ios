@@ -22,7 +22,7 @@ public final class ArticleCacheHandler: NSObject {
             return nil
         }
         self.dbWriter = dbWriter
-        let syncer = ArticleCacheSyncer(moc: dbWriter.cacheBackgroundContext, articleFetcher: fetcher, cacheURL: dbWriter.cacheURL, fileManager: fileManager)
+        let syncer = ArticleCacheSyncer(moc: dbWriter.cacheBackgroundContext, articleFetcher: fetcher, cacheURL: dbWriter.cacheURL, fileManager: fileManager, dbDelegate: dbWriter)
         
         self.syncer = syncer
         self.cacheProvider = ArticleCacheProvider(syncer: syncer, fileManager: fileManager)

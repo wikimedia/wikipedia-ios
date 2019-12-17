@@ -10,8 +10,9 @@ extension NewCacheItem {
     }
 
     @NSManaged public var date: Date?
-    @NSManaged public var key: String?
     @NSManaged public var isDownloaded: Bool
+    @NSManaged public var key: String?
+    @NSManaged public var isPendingDelete: Bool
     @NSManaged public var cacheGroups: NSSet?
 
 }

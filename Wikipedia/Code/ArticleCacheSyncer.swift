@@ -3,6 +3,12 @@ import Foundation
 
 //Responsible for listening to new NewCacheItems added to the db, fetching those urls from the network and saving the response in FileManager.
 
+@objc public protocol ArticleCacheSyncerDBDelegate: class {
+    func downloadedCacheItemFile(cacheItem: NewCacheItem)
+    func deletedCacheItemFile(cacheItem: NewCacheItem)
+    func failureToDeleteCacheItemFile(cacheItem: NewCacheItem, error: Error)
+}
+
 @objc(WMFArticleCacheSyncer)
 final public class ArticleCacheSyncer: NSObject {
     
@@ -10,15 +16,18 @@ final public class ArticleCacheSyncer: NSObject {
     private let articleFetcher: ArticleFetcher
     private let cacheURL: URL
     private let fileManager: FileManager
+    private weak var dbDelegate: ArticleCacheSyncerDBDelegate?
     
-    public static let didDownloadNotification = NSNotification.Name("ArticleCacheSyncerDidDownloadNotification")
-    public static let didDownloadNotificationUserInfoKey = ["dbKey"]
+    public static let didChangeNotification = NSNotification.Name("ArticleCacheSyncerDidChangeNotification")
+    public static let didChangeNotificationUserInfoDBKey = ["dbKey"]
+    public static let didChangeNotificationUserInfoIsDownloadedKey = ["isDownloaded"]
     
-    @objc public init(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher, cacheURL: URL, fileManager: FileManager) {
+    @objc public init(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher, cacheURL: URL, fileManager: FileManager, dbDelegate: ArticleCacheSyncerDBDelegate?) {
         self.moc = moc
         self.articleFetcher = articleFetcher
         self.cacheURL = cacheURL
         self.fileManager = fileManager
+        self.dbDelegate = dbDelegate
     }
     
     @objc public func setup() {
@@ -34,8 +43,19 @@ final public class ArticleCacheSyncer: NSObject {
             
             for item in insertedObjects {
                 if let cacheItem = item as? NewCacheItem,
-                cacheItem.isDownloaded == false {
+                cacheItem.isDownloaded == false &&
+                cacheItem.isPendingDelete == false {
                     download(cacheItem: cacheItem)
+                }
+            }
+        }
+        
+        if let changedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>,
+            !changedObjects.isEmpty {
+            for item in changedObjects {
+                if let cacheItem = item as? NewCacheItem,
+                    cacheItem.isPendingDelete == true {
+                    delete(cacheItem: cacheItem)
                 }
             }
         }
@@ -69,15 +89,37 @@ private extension ArticleCacheSyncer {
             self.moveFile(from: temporaryFileURL, toNewFileWithKey: key, mimeType: mimeType) { (result) in
                 switch result {
                 case .success:
-                    self.moc.perform {
-                        cacheItem.isDownloaded = true
-                        NotificationCenter.default.post(name: ArticleCacheSyncer.didDownloadNotification, object: nil, userInfo: [ArticleCacheSyncer.didDownloadNotificationUserInfoKey: key])
-                        self.save(moc: self.moc)
-                    }
+                    self.dbDelegate?.downloadedCacheItemFile(cacheItem: cacheItem)
+                    NotificationCenter.default.post(name: ArticleCacheSyncer.didChangeNotification, object: nil, userInfo: [ArticleCacheSyncer.didChangeNotificationUserInfoDBKey: key,
+                    ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey: true])
                 default:
                     //tonitodo: better error handling
                     break
                 }
+            }
+        }
+    }
+    
+    func delete(cacheItem: NewCacheItem) {
+
+        guard let key = cacheItem.key else {
+            assertionFailure("cacheItem has no key")
+            return
+        }
+        
+        let pathComponent = key.sha256 ?? key
+        
+        let cachedFileURL = self.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
+        do {
+            try self.fileManager.removeItem(at: cachedFileURL)
+            dbDelegate?.deletedCacheItemFile(cacheItem: cacheItem)
+        } catch let error as NSError {
+            if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
+                dbDelegate?.deletedCacheItemFile(cacheItem: cacheItem)
+               NotificationCenter.default.post(name: ArticleCacheSyncer.didChangeNotification, object: nil, userInfo: [ArticleCacheSyncer.didChangeNotificationUserInfoDBKey: key,
+                ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey: false])
+            } else {
+                dbDelegate?.failureToDeleteCacheItemFile(cacheItem: cacheItem, error: error)
             }
         }
     }

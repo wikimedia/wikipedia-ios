@@ -253,25 +253,8 @@ private extension ArticleCacheDBWriter {
                 return
             }
             for cacheItem in cacheItems where cacheItem.cacheGroups?.count == 1 {
-                let key = cacheItem.key
-                guard let pathComponent = key?.sha256 ?? key else {
-                    assertionFailure("cacheItem has no key")
-                    continue
-                }
-                //tonitodo: instead of this filemanager piece, flag isDeleted or something and have syncer delete?
-                let cachedFileURL = self.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
-                do {
-                    try self.fileManager.removeItem(at: cachedFileURL)
-                    context.delete(cacheItem)
-                } catch let error as NSError {
-                    if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                        context.delete(cacheItem)
-                    } else {
-                        fatalError(error.localizedDescription)
-                    }
-                }
+                cacheItem.isPendingDelete = true
             }
-            context.delete(group)
             self.save(moc: context)
         }
     }
@@ -284,6 +267,33 @@ private extension ArticleCacheDBWriter {
             try moc.save()
         } catch let error {
             assertionFailure("Error saving cache moc: \(error)")
+        }
+    }
+}
+
+extension ArticleCacheDBWriter: ArticleCacheSyncerDBDelegate {
+    public func failureToDeleteCacheItemFile(cacheItem: NewCacheItem, error: Error) {
+        //tonitodo: not sure what to do in this case. maybe at least some logging?
+    }
+    
+    public func deletedCacheItemFile(cacheItem: NewCacheItem) {
+        cacheBackgroundContext.perform {
+            self.cacheBackgroundContext.delete(cacheItem)
+            
+            if let cacheGroups = cacheItem.cacheGroups,
+            cacheGroups.count == 1,
+                let cacheGroup = cacheGroups.anyObject() as? NewCacheGroup,
+                (cacheGroup.cacheItems?.count ?? 0) == 1 {
+                self.cacheBackgroundContext.delete(cacheGroup)
+            }
+            self.save(moc: self.cacheBackgroundContext)
+        }
+    }
+    
+    public func downloadedCacheItemFile(cacheItem: NewCacheItem) {
+        cacheBackgroundContext.perform {
+            cacheItem.isDownloaded = true
+            self.save(moc: self.cacheBackgroundContext)
         }
     }
 }

@@ -138,19 +138,21 @@ private extension ArticleContainerViewController {
     }
     
     func addNotificationHandlers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveDidDownloadNotification(_:)), name: ArticleCacheSyncer.didDownloadNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveChangeNotification(_:)), name: ArticleCacheSyncer.didChangeNotification, object: nil)
     }
     
-    @objc func didReceiveDidDownloadNotification(_ notification: Notification) {
+    @objc func didReceiveChangeNotification(_ notification: Notification) {
         
-        guard let dbKey = notification.userInfo?[ArticleCacheSyncer.didDownloadNotificationUserInfoKey] as? String,
+        guard let userInfo = notification.userInfo,
+            let dbKey = userInfo[ArticleCacheSyncer.didChangeNotificationUserInfoDBKey] as? String,
+            let isDownloaded = userInfo[ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey] as? Bool,
             let expectedDatabaseKey = mobileHTMLURL.wmf_databaseKey,
         	dbKey == expectedDatabaseKey else {
             return
         }
         
         DispatchQueue.main.async {
-            self.toolbarViewController.setSavedState(isSaved: true)
+            self.toolbarViewController.setSavedState(isSaved: isDownloaded)
         }
     }
     
