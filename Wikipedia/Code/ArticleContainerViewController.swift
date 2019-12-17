@@ -54,7 +54,7 @@ class ArticleContainerViewController: ViewController {
         return progressController
     }()
     
-    init?(info: InitInfo, schemeHandler: SchemeHandler = SchemeHandler.shared, articleCacheDBWriter: ArticleCacheDBWriter? = ArticleCacheDBWriter.shared) {
+    init?(info: InitInfo, schemeHandler: SchemeHandler = SchemeHandler.shared, articleCacheDBWriter: ArticleCacheDBWriter? = ArticleCacheHandler.shared?.dbWriter) {
         
         guard let articleCacheDBWriter = articleCacheDBWriter else {
             return nil

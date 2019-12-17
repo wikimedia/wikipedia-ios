@@ -365,6 +365,7 @@
 		678F514C23A822B200CE5357 /* NewCacheGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F514823A822B200CE5357 /* NewCacheGroup+CoreDataProperties.swift */; };
 		678F514D23A8251200CE5357 /* ArticleCacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511E23A4B92B00CE5357 /* ArticleCacheProvider.swift */; };
 		678F514F23A8251A00CE5357 /* ArticleCacheSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511223A4B11100CE5357 /* ArticleCacheSyncer.swift */; };
+		678F515123A8937B00CE5357 /* ArticleCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F515023A8937B00CE5357 /* ArticleCacheHandler.swift */; };
 		6790AAF322D6861500D442D6 /* TalkPageNetworkDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0AB226A6DCA00537BC9 /* TalkPageNetworkDataTests.swift */; };
 		6790AAF422D6861500D442D6 /* TalkPageFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0AD226A74C200537BC9 /* TalkPageFetcherTests.swift */; };
 		6790AAF522D6861500D442D6 /* TalkPageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734114F22700A95005B31DA /* TalkPageControllerTests.swift */; };
@@ -4042,6 +4043,7 @@
 		678F514623A822B200CE5357 /* NewCacheItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewCacheItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		678F514723A822B200CE5357 /* NewCacheGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewCacheGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		678F514823A822B200CE5357 /* NewCacheGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewCacheGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		678F515023A8937B00CE5357 /* ArticleCacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheHandler.swift; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
@@ -6775,6 +6777,7 @@
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */,
 				67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */,
 				67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */,
+				678F515023A8937B00CE5357 /* ArticleCacheHandler.swift */,
 				678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */,
 				678F511E23A4B92B00CE5357 /* ArticleCacheProvider.swift */,
 				678F511223A4B11100CE5357 /* ArticleCacheSyncer.swift */,
@@ -12084,6 +12087,7 @@
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
 				678F514B23A822B200CE5357 /* NewCacheGroup+CoreDataClass.swift in Sources */,
 				D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */,
+				678F515123A8937B00CE5357 /* ArticleCacheHandler.swift in Sources */,
 				D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */,
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,

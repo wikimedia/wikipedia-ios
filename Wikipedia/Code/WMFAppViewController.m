@@ -1396,8 +1396,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (WMFArticleCacheSyncer *)articleCacheSyncer {
     if (!_articleCacheSyncer) {
-        WMFArticleCacheDBWriter *articleCacheDBWriter =  [WMFArticleCacheDBWriter shared];
-        _articleCacheSyncer = [[WMFArticleCacheSyncer alloc] initWithMoc:articleCacheDBWriter.cacheBackgroundContext articleFetcher:articleCacheDBWriter.articleFetcher cacheURL:articleCacheDBWriter.cacheURL fileManager:articleCacheDBWriter.fileManager];
+        _articleCacheSyncer = [WMFArticleCacheHandler shared].syncer;
     }
     return _articleCacheSyncer;
 }

@@ -1,6 +1,8 @@
 
 import Foundation
 
+//Responsible for listening to new NewCacheItems added to the db, fetching those urls from the network and saving the response in FileManager.
+
 @objc(WMFArticleCacheSyncer)
 final public class ArticleCacheSyncer: NSObject {
     
@@ -12,7 +14,7 @@ final public class ArticleCacheSyncer: NSObject {
     public static let didDownloadNotification = NSNotification.Name("ArticleCacheSyncerDidDownloadNotification")
     public static let didDownloadNotificationUserInfoKey = ["dbKey"]
     
-    @objc public init(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher = ArticleFetcher(), cacheURL: URL, fileManager: FileManager) {
+    @objc public init(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher, cacheURL: URL, fileManager: FileManager) {
         self.moc = moc
         self.articleFetcher = articleFetcher
         self.cacheURL = cacheURL
@@ -39,6 +41,11 @@ final public class ArticleCacheSyncer: NSObject {
         }
         
         //tonitodo: handle changed objects and deleted objects
+    }
+    
+    func fileURL(for key: String) -> URL {
+        let pathComponent = key.sha256 ?? key
+        return cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
     }
 }
 
@@ -83,8 +90,7 @@ private extension ArticleCacheSyncer {
 
     func moveFile(from fileURL: URL, toNewFileWithKey key: String, mimeType: String?, completion: @escaping (FileMoveResult) -> Void) {
         do {
-            let pathComponent = key.sha256 ?? key
-            let newFileURL = cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
+            let newFileURL = self.fileURL(for: key)
             try self.fileManager.moveItem(at: fileURL, to: newFileURL)
             if let mimeType = mimeType {
                 fileManager.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)

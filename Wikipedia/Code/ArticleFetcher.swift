@@ -27,10 +27,12 @@ final public class ArticleFetcher: Fetcher {
     public static func getURL(siteURL: URL, articleTitle: String, endpointType: EndpointType, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
         guard let host = siteURL.host,
             let percentEncodedUrlTitle = (articleTitle as NSString)
-                .wmf_normalizedPageTitle()
+                .wmf_denormalizedPageTitle()
                 .addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
             return nil
         }
+        
+        //tonitodo: use wmf_normalizedPageTitle instead for an error-state redirect test
         
         let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
         

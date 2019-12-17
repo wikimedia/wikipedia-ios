@@ -1,19 +1,20 @@
 
 import Foundation
 
+//Responsible for writing mobile-html & shared resource urls to Core Data as NewCacheGroup & NewCacheItem.
+
 @objc(WMFArticleCacheDBWriter)
 final public class ArticleCacheDBWriter: NSObject {
     
-    @objc public let articleFetcher: ArticleFetcher
-    @objc public let fileManager = FileManager.default
-    @objc public let cacheBackgroundContext: NSManagedObjectContext
-    @objc public let cacheURL: URL
-    
-    @objc public static let shared: ArticleCacheDBWriter? = ArticleCacheDBWriter()
+    private let articleFetcher: ArticleFetcher
+    private let fileManager: FileManager
+    public let cacheBackgroundContext: NSManagedObjectContext
+    public let cacheURL: URL
 
-    @objc public init?(articleFetcher: ArticleFetcher = ArticleFetcher()) {
+    init?(articleFetcher: ArticleFetcher, fileManager: FileManager) {
         
         self.articleFetcher = articleFetcher
+        self.fileManager = fileManager
         
         //create cacheURL and directory
         guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last else {
@@ -86,11 +87,11 @@ final public class ArticleCacheDBWriter: NSObject {
         toggleCache(!isCached(articleURL), for: articleURL)
     }
    
-   func clearOnlyURLCache() {
+   func clearURLCache() {
        //maybe settings hook? clear only url cache.
    }
    
-   func clearAll() {
+   func clearCoreDataCache() {
        //todo: Settings hook, logout don't sync hook, etc.
        //clear out from core data, leave URL cache as-is.
    }
