@@ -34,21 +34,29 @@ final public class ArticleFetcher: Fetcher {
         
         //tonitodo: use wmf_normalizedPageTitle instead for an error-state redirect test
         
-        let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
+        //let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
         
-        guard let url: URL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
+        let stagingPathComponents = [host, "v1", "page", endpointType.rawValue, percentEncodedUrlTitle]
+        var stagingURLComponents = URLComponents()
+        stagingURLComponents.host = "apps.wmflabs.org"
+        stagingURLComponents.path = "/\(stagingPathComponents.joined(separator: "/"))"
+        guard let stagingUrl = stagingURLComponents.url else {
             return nil
         }
         
+//        guard let url: URL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
+//            return nil
+//        }
+        
         if let scheme = scheme {
             
-            var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            var urlComponents = URLComponents(url: stagingUrl, resolvingAgainstBaseURL: false)
             urlComponents?.scheme = scheme
             
             return urlComponents?.url
         }
         
-        return url
+        return stagingUrl
     }
     
     func fetchMobileHTML(siteURL: URL, articleTitle: String, completion: @escaping DownloadCompletion) {
@@ -76,12 +84,17 @@ final public class ArticleFetcher: Fetcher {
             return
         }
         
-        guard let taskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration) else {
-            completion(.failure(ArticleFetcherError.failureToGenerateURL))
-            return
-        }
+//        guard let taskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration) else {
+//            completion(.failure(ArticleFetcherError.failureToGenerateURL))
+//            return
+//        }
         
-        session.jsonDecodableTask(with: taskURL) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
+        guard let stagingTaskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration, scheme: "https") else {
+                    completion(.failure(ArticleFetcherError.failureToGenerateURL))
+                    return
+                }
+        
+        session.jsonDecodableTask(with: stagingTaskURL) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -99,10 +112,9 @@ final public class ArticleFetcher: Fetcher {
             }
             
             let result = urlStrings.map { (urlString) -> URL? in
-                var urlComponents = URLComponents()
-                urlComponents.path = urlString
-                urlComponents.scheme = siteURL.scheme
-                return urlComponents.url
+                let scheme = siteURL.scheme ?? "https"
+                let finalString = "\(scheme):\(urlString)"
+                return URL(string: finalString)
             }.compactMap{ $0 }
             
             completion(.success(result))

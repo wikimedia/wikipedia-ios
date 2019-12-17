@@ -30,6 +30,7 @@ class ArticleContainerViewController: ViewController {
     private let toolbarViewController = ArticleToolbarViewController()
     private let schemeHandler: SchemeHandler
     private let articleCacheDBWriter: ArticleCacheDBWriter
+    private let mobileHTMLURLCustomScheme: URL
     private let mobileHTMLURL: URL
     
     private var state: ViewState = .loading {
@@ -86,10 +87,15 @@ class ArticleContainerViewController: ViewController {
         self.schemeHandler = schemeHandler
         self.articleCacheDBWriter = articleCacheDBWriter
         
-        guard let mobileHTMLURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
+        guard let mobileHTMLURLCustomScheme = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
+            return nil
+        }
+        
+        guard let mobileHTMLURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHTML) else {
             return nil
         }
 
+        self.mobileHTMLURLCustomScheme = mobileHTMLURLCustomScheme
         self.mobileHTMLURL = mobileHTMLURL
         
         super.init(nibName: nil, bundle: nil)
@@ -146,7 +152,7 @@ private extension ArticleContainerViewController {
     func setupWebViewController() {
     
         state = .loading
-        let webViewController = ArticleWebViewController(url: mobileHTMLURL, schemeHandler: schemeHandler, delegate: self)
+        let webViewController = ArticleWebViewController(url: mobileHTMLURLCustomScheme, schemeHandler: schemeHandler, delegate: self)
         self.webViewController = webViewController
         addChildViewController(childViewController: webViewController, offsets: Offsets(top: nil, bottom: nil, leading: 0, trailing: 0))
     }

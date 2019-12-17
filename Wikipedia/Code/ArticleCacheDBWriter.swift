@@ -87,14 +87,14 @@ final public class ArticleCacheDBWriter: NSObject {
         toggleCache(!isCached(articleURL), for: articleURL)
     }
    
-   func clearURLCache() {
-       //maybe settings hook? clear only url cache.
-   }
-   
-   func clearCoreDataCache() {
-       //todo: Settings hook, logout don't sync hook, etc.
-       //clear out from core data, leave URL cache as-is.
-   }
+    func clearURLCache() {
+        //maybe settings hook? clear only url cache.
+    }
+
+    func clearCoreDataCache() {
+        //todo: Settings hook, logout don't sync hook, etc.
+        //clear out from core data, leave URL cache as-is.
+    }
 
 }
 
@@ -113,26 +113,47 @@ private extension ArticleCacheDBWriter {
             //go through items with that group key, delete the files, delete the records in CD.
         
         if cache {
-            cacheEndpoint(endpointType: .mobileHTML, mobileHTMLURL: articleURL, itemURL: nil)
-//            cacheResource(.mobileHTML, for: articleURL)
-//            cacheResource(.references, for: articleURL)
-//            cacheResource(.sections, for: articleURL)
-//            cacheMedia(for: articleURL)
-//            cacheData(for: articleURL)
+            cacheEndpoint(endpointType: .mobileHTML, mobileHTMLURL: articleURL)
+            cacheEndpoint(endpointType: .mobileHtmlOfflineResources, mobileHTMLURL: articleURL)
         } else {
             removeCachedArticle(with: articleURL)
         }
     }
     
-    func cacheEndpoint(endpointType: ArticleFetcher.EndpointType, mobileHTMLURL: URL, itemURL: URL?) {
+    func cacheEndpoint(endpointType: ArticleFetcher.EndpointType, mobileHTMLURL: URL) {
         
         switch endpointType {
         case .mobileHTML:
             cacheURL(mobileHTMLURL: mobileHTMLURL, itemURL: mobileHTMLURL)
+        case .mobileHtmlOfflineResources, .mediaList:
+            
+//            guard let siteURL = mobileHTMLURL.wmf_site else {
+//                return
+//            }
+            
+            guard let siteURL = URL(string: "https://en.wikipedia.org") else {
+                return
+            }
+            
+            let articleTitle = mobileHTMLTitle(from: mobileHTMLURL)
+            articleFetcher.fetchResourceList(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType) { (result) in
+                switch result {
+                case .success(let urls):
+                    for url in urls {
+                        self.cacheURL(mobileHTMLURL: mobileHTMLURL, itemURL: url)
+                    }
+                case .failure:
+                    break
+                }
+            }
         default:
             break
             
         }
+    }
+    
+    func mobileHTMLTitle(from mobileHTMLURL: URL) -> String {
+        return (mobileHTMLURL.lastPathComponent as NSString).wmf_normalizedPageTitle()
     }
     
     func cacheURL(mobileHTMLURL: URL, itemURL: URL) {
