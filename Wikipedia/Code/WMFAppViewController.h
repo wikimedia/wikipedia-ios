@@ -4,6 +4,7 @@
 @class WMFLegacyArticleViewController;
 @class MWKDataStore;
 @class WMFTheme;
+@class WMFArticleContainerViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,7 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showSearchInCurrentNavigationController;
 
+//tonitodo: delete old, rename new
 - (WMFLegacyArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
+
+//tonitodo: return articleVC?
+- (void)showNewArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
 @end
 

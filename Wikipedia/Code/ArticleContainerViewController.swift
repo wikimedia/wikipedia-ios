@@ -10,6 +10,7 @@ private extension CharacterSet {
     }()
 }
 
+@objc(WMFArticleContainerViewController)
 class ArticleContainerViewController: ViewController {
     
     enum ViewState {
@@ -54,6 +55,10 @@ class ArticleContainerViewController: ViewController {
         progressController.delay = 0.0
         return progressController
     }()
+    
+    @objc static func articleContainerViewController(with articleURL: URL) -> ArticleContainerViewController? {
+        return ArticleContainerViewController(info: .url(articleURL))
+    }
     
     init?(info: InitInfo, schemeHandler: SchemeHandler = SchemeHandler.shared, articleCacheDBWriter: ArticleCacheDBWriter? = ArticleCacheHandler.shared?.dbWriter) {
         

@@ -1352,6 +1352,30 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return articleVC;
 }
 
+- (void)showNewArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+    
+    if (!articleURL.wmf_title) {
+        completion();
+        return;
+    }
+    
+    //tonitodo: visibleArticleVC logic here from legacy method?
+    
+    UINavigationController *nc = [self currentNavigationController];
+    if (!nc) {
+        completion();
+        return;
+    }
+
+    if (nc.presentedViewController) {
+        [nc dismissViewControllerAnimated:NO completion:NULL];
+    }
+    
+    WMFArticleContainerViewController *articleVC = [WMFArticleContainerViewController articleContainerViewControllerWith:articleURL];
+    
+    [nc pushViewController:articleVC animated:animated];
+}
+
 - (BOOL)shouldShowExploreScreenOnLaunch {
     NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
     if (!resignActiveDate) {
