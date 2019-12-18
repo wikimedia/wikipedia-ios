@@ -43,7 +43,7 @@
 }
 
 - (NSInteger)daysFromToday {
-    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
     NSInteger days = [calendar wmf_daysFromDate:self.revisionDate toDate:[NSDate date]];
     return days;
 }
