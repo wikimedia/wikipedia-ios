@@ -254,10 +254,32 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
     }
+    
+    private func appendSections(from results: HistoryFetchResults) {
+        assert(Thread.isMainThread)
+        var items = results.items()
+        defer {
+        }
+        guard
+            let last = self.pageHistorySections.last,
+            let first = items.first,
+            first.sectionTitle == last.sectionTitle // maybe not the best metric
+        else {
+            self.pageHistorySections.append(contentsOf: items)
+            return
+        }
+        var lastItems = last.items
+        let firstItems = first.items
+        lastItems.append(contentsOf: firstItems)
+        let combinedSection = PageHistorySection(sectionTitle: first.sectionTitle, items: lastItems)
+        self.pageHistorySections.removeLast()
+        self.pageHistorySections.append(combinedSection)
+        items.removeFirst()
+        self.pageHistorySections.append(contentsOf: items)
+    }
 
     private func getPageHistory() {
         isLoadingData = true
-
         pageHistoryFetcher.fetchRevisionInfo(pageURL, requestParams: pageHistoryFetcherParams, failure: { [weak self] error in
             DispatchQueue.main.async {
                 guard let self = self else {
@@ -268,7 +290,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }) { results in
             DispatchQueue.main.async {
-                self.pageHistorySections.append(contentsOf: results.items())
+                self.appendSections(from: results)
                 self.pageHistoryFetcherParams = results.getPageHistoryRequestParameters(self.pageURL)
                 self.batchComplete = results.batchComplete()
                 self.isLoadingData = false
