@@ -230,12 +230,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             guard let self = self else {
                 return
             }
-            switch result {
-            case .failure(let error):
-                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-                self.countsViewController.timeseriesOfEditsCounts = []
-            case .success(let timeseriesOfEditCounts):
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                    self.countsViewController.timeseriesOfEditsCounts = []
+                case .success(let timeseriesOfEditCounts):
                     self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
                 }
             }
