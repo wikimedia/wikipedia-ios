@@ -180,30 +180,33 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private func getEditCounts() {
         pageHistoryFetcher.fetchFirstRevision(for: pageTitle, pageURL: pageURL) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            switch result {
-            case .failure(let error):
-                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-            case .success(let firstRevision):
-                self.firstRevision = firstRevision
-                let firstEditDate = firstRevision.revisionDate
-                
-                self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { [weak self] result in
-                    guard let self = self else {
-                        return
-                    }
-                    switch result {
-                    case .failure(let error):
-                        self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-                    case .success(let editCounts):
-                        if let totalEditResponse = editCounts[.edits] {
-                            DispatchQueue.main.async {
-                                let totalEditCount = totalEditResponse.count
-                                if let firstEditDate = firstEditDate,
-                                    totalEditResponse.limit == false {
-                                    self.countsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .failure(let error):
+                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                case .success(let firstRevision):
+                    self.firstRevision = firstRevision
+                    let firstEditDate = firstRevision.revisionDate
+                    
+                    self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { [weak self] result in
+                        DispatchQueue.main.async {
+                            guard let self = self else {
+                                return
+                            }
+                            switch result {
+                            case .failure(let error):
+                                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                            case .success(let editCounts):
+                                if let totalEditResponse = editCounts[.edits] {
+                                    let totalEditCount = totalEditResponse.count
+                                    if let firstEditDate = firstEditDate,
+                                        totalEditResponse.limit == false {
+                                        self.countsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
+                                    }
+                                    
                                 }
                             }
                         }
@@ -213,29 +216,29 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
         
         pageHistoryFetcher.fetchEditCounts(.edits, .userEdits, .anonymous, .bot, for: pageTitle, pageURL: pageURL) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            switch result {
-            case .failure(let error):
-                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-            case .success(let editCountsGroupedByType):
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .failure(let error):
+                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                case .success(let editCountsGroupedByType):
                     self.countsViewController.editCountsGroupedByType = editCountsGroupedByType
                 }
             }
         }
         
         pageHistoryFetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            switch result {
-            case .failure(let error):
-                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-                self.countsViewController.timeseriesOfEditsCounts = []
-            case .success(let timeseriesOfEditCounts):
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .failure(let error):
+                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                    self.countsViewController.timeseriesOfEditsCounts = []
+                case .success(let timeseriesOfEditCounts):
                     self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
                 }
             }
@@ -256,17 +259,19 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         isLoadingData = true
 
         pageHistoryFetcher.fetchRevisionInfo(pageURL, requestParams: pageHistoryFetcherParams, failure: { [weak self] error in
-            guard let self = self else {
-                return
-            }
-            self.isLoadingData = false
-            self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-        }) { results in
-            self.pageHistorySections.append(contentsOf: results.items())
-            self.pageHistoryFetcherParams = results.getPageHistoryRequestParameters(self.pageURL)
-            self.batchComplete = results.batchComplete()
-            self.isLoadingData = false
             DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+                self.isLoadingData = false
+                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+            }
+        }) { results in
+            DispatchQueue.main.async {
+                self.pageHistorySections.append(contentsOf: results.items())
+                self.pageHistoryFetcherParams = results.getPageHistoryRequestParameters(self.pageURL)
+                self.batchComplete = results.batchComplete()
+                self.isLoadingData = false
                 self.collectionView.reloadData()
             }
         }
