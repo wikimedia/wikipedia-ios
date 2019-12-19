@@ -205,6 +205,9 @@
 "diff-context-lines-expanded-button-title" = "Скрыть";
 "diff-paragraph-moved-direction-down" = "вниз";
 "diff-paragraph-moved-direction-up" = "вверх";
+"diff-single-header-editor-number-edits-format" = "$1 {{PLURAL:$1|правка|правки|правок}}";
+"diff-single-header-summary-heading" = "Описание изменений";
+"diff-thanks-send-button-title" = "Отправить благодарность";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
@@ -531,6 +534,7 @@
 "page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-history-title" = "История изменений";
 "page-history-revision-minor-edit-accessibility-label" = "Малая правка";
+"page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
 "page-issues" = "Вопросы по странице";
 "page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
 "page-location" = "Посмотреть на карте";

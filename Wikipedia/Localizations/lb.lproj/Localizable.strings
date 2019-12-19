@@ -329,6 +329,7 @@
 "page-history-minor-edits" = "kleng Ännerungen";
 // Fuzzy
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
+"page-history-revision-comment-accessibility-label" = "Bemierkung $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
 "page-history-revision-minor-edit-accessibility-label" = "Kleng Ännerung";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
