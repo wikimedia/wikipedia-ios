@@ -3,7 +3,7 @@ Install / build commands:
 
   cd Wikipedia/assets/
 
-  git clone https://github.com/montehurd/pcs-html-converter.git
+  git clone https://github.com/wikimedia/pcs-html-converter.git
 
   cd pcs-html-converter
 
