@@ -1,0 +1,24 @@
+
+Install / build commands:
+
+  cd Wikipedia/assets/
+
+  git clone https://github.com/montehurd/pcs-html-converter.git
+
+  cd pcs-html-converter
+
+  npm install
+
+  git submodule update --init --recursive
+
+  npm run -s build
+
+
+Then delete these since we don't need them post-build and there's no need to bundle them with assets:
+  .git
+  .gitignore
+  .gitmodules
+  *.html (except index.html - keep that one)
+  *.json
+  node_modules
+  mobileapps
