@@ -18,21 +18,13 @@ class ArticleContainerViewController: ViewController {
         case loading
         case data
     }
-    
-    enum InitInfo {
-        case url(URL)
-        case langAndTitle(language: String, title: String)
-    }
   
-    private let articleTitle: String
-    private let language: String
-    private let siteURL: URL
     private var webViewController: ArticleWebViewController?
     private let toolbarViewController = ArticleToolbarViewController()
     private let schemeHandler: SchemeHandler
     private let articleCacheDBWriter: ArticleCacheDBWriter
-    private let mobileHTMLURLCustomScheme: URL
-    private let mobileHTMLURL: URL
+    private let articleURL: URL
+    private let language: String
     
     private var state: ViewState = .loading {
         didSet {
@@ -57,51 +49,20 @@ class ArticleContainerViewController: ViewController {
     }()
     
     @objc static func articleContainerViewController(with articleURL: URL) -> ArticleContainerViewController? {
-        return ArticleContainerViewController(info: .url(articleURL))
+        return ArticleContainerViewController(articleURL: articleURL)
     }
     
-    init?(info: InitInfo, schemeHandler: SchemeHandler = SchemeHandler.shared, articleCacheDBWriter: ArticleCacheDBWriter? = ArticleCacheHandler.shared?.dbWriter) {
+    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, articleCacheDBWriter: ArticleCacheDBWriter? = ArticleCacheHandler.shared?.dbWriter) {
         
-        guard let articleCacheDBWriter = articleCacheDBWriter else {
+        guard let articleCacheDBWriter = articleCacheDBWriter,
+            let language = articleURL.wmf_language else {
             return nil
         }
         
-        switch info {
-        case .url(let url):
-            
-            guard let articleTitle = url.wmf_title,
-                let language = url.wmf_language,
-                let siteURL = url.wmf_site else {
-                    return nil
-            }
-            
-            self.articleTitle = articleTitle
-            self.language = language
-            self.siteURL = siteURL
-        case .langAndTitle(let language, let title):
-            
-            guard let siteURL = NSURL.wmf_URL(withDomain: "wikipedia.org", language: language) else {
-                return nil
-            }
-            
-            self.articleTitle = title
-            self.language = language
-            self.siteURL = siteURL
-        }
-        
+        self.articleURL = articleURL
+        self.language = language
         self.schemeHandler = schemeHandler
         self.articleCacheDBWriter = articleCacheDBWriter
-        
-        guard let mobileHTMLURLCustomScheme = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
-            return nil
-        }
-        
-        guard let mobileHTMLURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHTML) else {
-            return nil
-        }
-
-        self.mobileHTMLURLCustomScheme = mobileHTMLURLCustomScheme
-        self.mobileHTMLURL = mobileHTMLURL
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -146,8 +107,7 @@ private extension ArticleContainerViewController {
         guard let userInfo = notification.userInfo,
             let dbKey = userInfo[ArticleCacheSyncer.didChangeNotificationUserInfoDBKey] as? String,
             let isDownloaded = userInfo[ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey] as? Bool,
-            let expectedDatabaseKey = mobileHTMLURL.wmf_databaseKey,
-        	dbKey == expectedDatabaseKey else {
+            dbKey == articleURL.wmf_databaseKey else {
             return
         }
         
@@ -159,7 +119,12 @@ private extension ArticleContainerViewController {
     func setupWebViewController() {
     
         state = .loading
-        let webViewController = ArticleWebViewController(url: mobileHTMLURLCustomScheme, schemeHandler: schemeHandler, delegate: self)
+        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
+            //tonitodo: error state?
+            return
+        }
+        
+        let webViewController = ArticleWebViewController(url: mobileHTMLURL, schemeHandler: schemeHandler, delegate: self)
         self.webViewController = webViewController
         addChildViewController(childViewController: webViewController, offsets: Offsets(top: nil, bottom: nil, leading: 0, trailing: 0))
     }
@@ -167,7 +132,7 @@ private extension ArticleContainerViewController {
     func setupToolbarViewController() {
         toolbarViewController.delegate = self
         
-        if articleCacheDBWriter.isCached(mobileHTMLURL) {
+        if articleCacheDBWriter.isCached(articleURL: articleURL) {
             toolbarViewController.setSavedState(isSaved: true)
         }
         
@@ -177,8 +142,10 @@ private extension ArticleContainerViewController {
 
 extension ArticleContainerViewController: ArticleWebMessageHandling {
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
-        
-        guard let newArticleVC = ArticleContainerViewController(info: .langAndTitle(language: language, title: title), schemeHandler: schemeHandler) else {
+
+        guard let host = articleURL.host,
+            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title),
+            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, schemeHandler: schemeHandler, articleCacheDBWriter: articleCacheDBWriter) else {
             assertionFailure("Failure initializing new Article VC")
             //tonitodo: error state
             return
@@ -194,7 +161,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
     func toggleSave(from viewController: ArticleToolbarViewController) {
-        articleCacheDBWriter.toggleCache(for: mobileHTMLURL)
+        articleCacheDBWriter.toggleCache(articleURL: articleURL)
     }
 }
 

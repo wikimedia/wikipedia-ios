@@ -77,7 +77,9 @@ private extension ArticleCacheSyncer {
                 return
         }
         
-        articleFetcher.downloadData(url: url) { (error, _, temporaryFileURL, mimeType) in
+        let urlToDownload = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mobileHTML) ?? url
+        
+        articleFetcher.downloadData(url: urlToDownload) { (error, _, temporaryFileURL, mimeType) in
             if let _ = error {
                 //tonitodo: better error handling here
                 return

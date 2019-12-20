@@ -69,7 +69,7 @@ final public class ArticleCacheDBWriter: NSObject {
         cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
    }
     
-    public func isCached(_ articleURL: URL) -> Bool {
+    public func isCached(articleURL: URL) -> Bool {
         
         guard let groupKey = articleURL.wmf_databaseKey else {
             return false
@@ -82,9 +82,9 @@ final public class ArticleCacheDBWriter: NSObject {
         } ?? false
     }
    
-    public func toggleCache(for articleURL: URL) {
+    public func toggleCache(articleURL: URL) {
         assert(Thread.isMainThread)
-        toggleCache(!isCached(articleURL), for: articleURL)
+        toggleCache(!isCached(articleURL: articleURL), for: articleURL)
     }
    
     func clearURLCache() {
@@ -102,6 +102,10 @@ private extension ArticleCacheDBWriter {
     
     func toggleCache(_ cache: Bool, for articleURL: URL) {
         
+        guard let groupKey = articleURL.wmf_databaseKey else {
+            return
+        }
+        
         //todo: if not already cached...
             //1. add mobile-html key to DB, isDownloaded = false and isSaved = true, SavedArticlesSyncHandler will pick it up later.
             //2. fetch offline resources, loop through results and add key to DB, isDownloaded = false and isSaved = true, SavedArticlesSyncHandler will pick it up later. group key should be mobilehtml key
@@ -113,34 +117,70 @@ private extension ArticleCacheDBWriter {
             //go through items with that group key, delete the files, delete the records in CD.
         
         if cache {
-            cacheEndpoint(endpointType: .mobileHTML, mobileHTMLURL: articleURL)
-            cacheEndpoint(endpointType: .mobileHtmlOfflineResources, mobileHTMLURL: articleURL)
+            cacheEndpoint(articleURL: articleURL, endpointType: .mobileHTML, groupKey: groupKey)
+            cacheEndpoint(articleURL: articleURL, endpointType: .mobileHtmlOfflineResources, groupKey: groupKey)
         } else {
-            removeCachedArticle(with: articleURL)
+            removeCachedArticle(groupKey: groupKey)
+        }
+        
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 20) {
+            self.fetchAndPrintEachItem()
+            self.fetchAndPrintEachGroup()
         }
     }
     
-    func cacheEndpoint(endpointType: ArticleFetcher.EndpointType, mobileHTMLURL: URL) {
+    func fetchAndPrintEachItem() {
+        cacheBackgroundContext.perform {
+            let fetchRequest = NSFetchRequest<NewCacheItem>(entityName: "NewCacheItem")
+            do {
+                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
+                for item in fetchedResults {
+                    print("🤮itemKey: \(item.value(forKey: "key")!)")
+                }
+            } catch let error as NSError {
+                // something went wrong, print the error.
+                print(error.description)
+            }
+        }
+    }
+    
+    func fetchAndPrintEachGroup() {
+        cacheBackgroundContext.perform {
+            let fetchRequest = NSFetchRequest<NewCacheGroup>(entityName: "NewCacheGroup")
+            do {
+                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
+                for item in fetchedResults {
+                    print("🤮groupKey: \(item.value(forKey: "key")!)")
+                }
+            } catch let error as NSError {
+                // something went wrong, print the error.
+                print(error.description)
+            }
+        }
+    }
+    
+    func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String) {
         
         switch endpointType {
         case .mobileHTML:
-            cacheURL(mobileHTMLURL: mobileHTMLURL, itemURL: mobileHTMLURL)
+            cacheURL(groupKey: groupKey, itemKey: groupKey)
         case .mobileHtmlOfflineResources, .mediaList:
             
-//            guard let siteURL = mobileHTMLURL.wmf_site else {
-//                return
-//            }
-            
-            guard let siteURL = URL(string: "https://en.wikipedia.org") else {
+            guard let siteURL = articleURL.wmf_site,
+                let articleTitle = articleURL.wmf_title else {
                 return
             }
             
-            let articleTitle = mobileHTMLTitle(from: mobileHTMLURL)
             articleFetcher.fetchResourceList(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType) { (result) in
                 switch result {
                 case .success(let urls):
                     for url in urls {
-                        self.cacheURL(mobileHTMLURL: mobileHTMLURL, itemURL: url)
+                        
+                        guard let itemKey = url.wmf_databaseKey else {
+                            continue
+                        }
+                         
+                        self.cacheURL(groupKey: groupKey, itemKey: itemKey)
                     }
                 case .failure:
                     break
@@ -156,12 +196,7 @@ private extension ArticleCacheDBWriter {
         return (mobileHTMLURL.lastPathComponent as NSString).wmf_normalizedPageTitle()
     }
     
-    func cacheURL(mobileHTMLURL: URL, itemURL: URL) {
-        
-        guard let groupKey = mobileHTMLURL.wmf_databaseKey,
-            let itemKey = itemURL.wmf_databaseKey else {
-                return
-        }
+    func cacheURL(groupKey: String, itemKey: String) {
         
         let context = self.cacheBackgroundContext
         context.perform {
@@ -169,7 +204,7 @@ private extension ArticleCacheDBWriter {
             guard let group = self.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
                 return
             }
-
+            
             guard let item = self.fetchOrCreateCacheItem(with: itemKey, in: context) else {
                 return
             }
@@ -234,22 +269,18 @@ private extension ArticleCacheDBWriter {
         return item
     }
     
-    func removeCachedArticle(with articleURL: URL) {
-        
-        guard let groupKey = articleURL.wmf_databaseKey else {
-            return
-        }
+    func removeCachedArticle(groupKey: String) {
         
         let context = cacheBackgroundContext
         context.perform {
             //tonitodo: task tracking in ArticleFetcher
             //self.articleFetcher.cancelAllTasks(forGroupWithKey: key)
             guard let group = self.cacheGroup(with: groupKey, in: context) else {
-                assertionFailure("Cache group for \(articleURL) doesn't exist")
+                assertionFailure("Cache group for \(groupKey) doesn't exist")
                 return
             }
             guard let cacheItems = group.cacheItems as? Set<NewCacheItem> else {
-                assertionFailure("Cache group for \(articleURL) has no cache items")
+                assertionFailure("Cache group for \(groupKey) has no cache items")
                 return
             }
             for cacheItem in cacheItems where cacheItem.cacheGroups?.count == 1 {

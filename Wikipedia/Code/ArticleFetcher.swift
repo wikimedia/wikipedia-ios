@@ -24,44 +24,9 @@ final public class ArticleFetcher: Fetcher {
     typealias MIMEType = String
     typealias DownloadCompletion = (Error?, RequestURL?, TemporaryFileURL?, MIMEType?) -> Void
     
-    public static func getURL(siteURL: URL, articleTitle: String, endpointType: EndpointType, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
-        guard let host = siteURL.host,
-            let percentEncodedUrlTitle = (articleTitle as NSString)
-                .wmf_denormalizedPageTitle()
-                .addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
-            return nil
-        }
+    func fetchMobileHTML(articleURL: URL, completion: @escaping DownloadCompletion) {
         
-        //tonitodo: use wmf_normalizedPageTitle instead for an error-state redirect test
-        
-        //let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
-        
-        let stagingPathComponents = [host, "v1", "page", endpointType.rawValue, percentEncodedUrlTitle]
-        var stagingURLComponents = URLComponents()
-        stagingURLComponents.host = "apps.wmflabs.org"
-        stagingURLComponents.path = "/\(stagingPathComponents.joined(separator: "/"))"
-        guard let stagingUrl = stagingURLComponents.url else {
-            return nil
-        }
-        
-//        guard let url: URL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
-//            return nil
-//        }
-        
-        if let scheme = scheme {
-            
-            var urlComponents = URLComponents(url: stagingUrl, resolvingAgainstBaseURL: false)
-            urlComponents?.scheme = scheme
-            
-            return urlComponents?.url
-        }
-        
-        return stagingUrl
-    }
-    
-    func fetchMobileHTML(siteURL: URL, articleTitle: String, completion: @escaping DownloadCompletion) {
-        
-        guard let taskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHTML, configuration: configuration) else {
+        guard let taskURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, configuration: configuration) else {
             completion(ArticleFetcherError.failureToGenerateURL, nil, nil, nil)
             return
         }
@@ -89,7 +54,7 @@ final public class ArticleFetcher: Fetcher {
 //            return
 //        }
         
-        guard let stagingTaskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration, scheme: "https") else {
+        guard let stagingTaskURL = ArticleURLConverter.mobileHTMLURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration, scheme: "https") else {
                     completion(.failure(ArticleFetcherError.failureToGenerateURL))
                     return
                 }
