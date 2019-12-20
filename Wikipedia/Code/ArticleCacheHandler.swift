@@ -9,7 +9,7 @@ public final class ArticleCacheHandler: NSObject {
     public let cacheProvider: ArticleCacheProvider
     private let fetcher: ArticleFetcher
     private let fileManager: FileManager
-    @objc public let syncer: ArticleCacheSyncer
+    @objc public let fileWriter: ArticleCacheFileWriter
     
     @objc public static let shared: ArticleCacheHandler? = ArticleCacheHandler()
     
@@ -22,9 +22,9 @@ public final class ArticleCacheHandler: NSObject {
             return nil
         }
         self.dbWriter = dbWriter
-        let syncer = ArticleCacheSyncer(moc: dbWriter.cacheBackgroundContext, articleFetcher: fetcher, cacheURL: dbWriter.cacheURL, fileManager: fileManager, dbDelegate: dbWriter)
+        let fileWriter = ArticleCacheFileWriter(moc: dbWriter.cacheBackgroundContext, articleFetcher: fetcher, cacheURL: dbWriter.cacheURL, fileManager: fileManager, dbDelegate: dbWriter)
         
-        self.syncer = syncer
-        self.cacheProvider = ArticleCacheProvider(syncer: syncer, fileManager: fileManager)
+        self.fileWriter = fileWriter
+        self.cacheProvider = ArticleCacheProvider(fileWriter: fileWriter, fileManager: fileManager)
     }
 }

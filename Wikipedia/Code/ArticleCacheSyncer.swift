@@ -1,28 +1,28 @@
 
 import Foundation
 
-//Responsible for listening to new NewCacheItems added to the db, fetching those urls from the network and saving the response in FileManager.
+//Responsible for listening to new PersistentCacheItems added to the db, fetching those urls from the network and saving the response in FileManager.
 
-@objc public protocol ArticleCacheSyncerDBDelegate: class {
-    func downloadedCacheItemFile(cacheItem: NewCacheItem)
-    func deletedCacheItemFile(cacheItem: NewCacheItem)
-    func failureToDeleteCacheItemFile(cacheItem: NewCacheItem, error: Error)
+@objc public protocol ArticleCacheFileWriterDBDelegate: class {
+    func downloadedCacheItemFile(cacheItem: PersistentCacheItem)
+    func deletedCacheItemFile(cacheItem: PersistentCacheItem)
+    func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error)
 }
 
-@objc(WMFArticleCacheSyncer)
-final public class ArticleCacheSyncer: NSObject {
+@objc(WMFArticleCacheFileWriter)
+final public class ArticleCacheFileWriter: NSObject {
     
     private let moc: NSManagedObjectContext
     private let articleFetcher: ArticleFetcher
     private let cacheURL: URL
     private let fileManager: FileManager
-    private weak var dbDelegate: ArticleCacheSyncerDBDelegate?
+    private weak var dbDelegate: ArticleCacheFileWriterDBDelegate?
     
-    public static let didChangeNotification = NSNotification.Name("ArticleCacheSyncerDidChangeNotification")
+    public static let didChangeNotification = NSNotification.Name("ArticleCacheFileWriterDidChangeNotification")
     public static let didChangeNotificationUserInfoDBKey = ["dbKey"]
     public static let didChangeNotificationUserInfoIsDownloadedKey = ["isDownloaded"]
     
-    @objc public init(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher, cacheURL: URL, fileManager: FileManager, dbDelegate: ArticleCacheSyncerDBDelegate?) {
+    @objc public init(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher, cacheURL: URL, fileManager: FileManager, dbDelegate: ArticleCacheFileWriterDBDelegate?) {
         self.moc = moc
         self.articleFetcher = articleFetcher
         self.cacheURL = cacheURL
@@ -42,7 +42,7 @@ final public class ArticleCacheSyncer: NSObject {
         if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
             
             for item in insertedObjects {
-                if let cacheItem = item as? NewCacheItem,
+                if let cacheItem = item as? PersistentCacheItem,
                 cacheItem.isDownloaded == false &&
                 cacheItem.isPendingDelete == false {
                     download(cacheItem: cacheItem)
@@ -53,7 +53,7 @@ final public class ArticleCacheSyncer: NSObject {
         if let changedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>,
             !changedObjects.isEmpty {
             for item in changedObjects {
-                if let cacheItem = item as? NewCacheItem,
+                if let cacheItem = item as? PersistentCacheItem,
                     cacheItem.isPendingDelete == true {
                     delete(cacheItem: cacheItem)
                 }
@@ -69,8 +69,8 @@ final public class ArticleCacheSyncer: NSObject {
     }
 }
 
-private extension ArticleCacheSyncer {
-    func download(cacheItem: NewCacheItem) {
+private extension ArticleCacheFileWriter {
+    func download(cacheItem: PersistentCacheItem) {
         
         guard let key = cacheItem.key,
             let url = URL(string: key) else {
@@ -92,8 +92,8 @@ private extension ArticleCacheSyncer {
                 switch result {
                 case .success:
                     self.dbDelegate?.downloadedCacheItemFile(cacheItem: cacheItem)
-                    NotificationCenter.default.post(name: ArticleCacheSyncer.didChangeNotification, object: nil, userInfo: [ArticleCacheSyncer.didChangeNotificationUserInfoDBKey: key,
-                    ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey: true])
+                    NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
+                    ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: true])
                 default:
                     //tonitodo: better error handling
                     break
@@ -102,7 +102,7 @@ private extension ArticleCacheSyncer {
         }
     }
     
-    func delete(cacheItem: NewCacheItem) {
+    func delete(cacheItem: PersistentCacheItem) {
 
         guard let key = cacheItem.key else {
             assertionFailure("cacheItem has no key")

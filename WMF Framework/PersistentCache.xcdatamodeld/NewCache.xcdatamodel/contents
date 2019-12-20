@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="NewCacheGroup" representedClassName="NewCacheGroup" syncable="YES">
+    <entity name="PersistentCacheGroup" representedClassName="PersistentCacheGroup" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String"/>
-        <relationship name="cacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NewCacheItem" inverseName="cacheGroups" inverseEntity="NewCacheItem"/>
+        <relationship name="cacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheItem" inverseName="cacheGroups" inverseEntity="PersistentCacheItem"/>
     </entity>
-    <entity name="NewCacheItem" representedClassName="NewCacheItem" syncable="YES">
+    <entity name="PersistentCacheItem" representedClassName="PersistentCacheItem" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="isDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isPendingDelete" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="String"/>
-        <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NewCacheGroup" inverseName="cacheItems" inverseEntity="NewCacheGroup"/>
+        <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheGroup" inverseName="cacheItems" inverseEntity="PersistentCacheGroup"/>
     </entity>
     <elements>
-        <element name="NewCacheGroup" positionX="-63" positionY="-18" width="128" height="73"/>
-        <element name="NewCacheItem" positionX="-54" positionY="-9" width="128" height="118"/>
+        <element name="PersistentCacheGroup" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="118"/>
     </elements>
 </model>

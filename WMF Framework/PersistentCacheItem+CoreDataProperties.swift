@@ -3,28 +3,28 @@ import Foundation
 import CoreData
 
 
-extension NewCacheItem {
+extension PersistentCacheItem {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<NewCacheItem> {
-        return NSFetchRequest<NewCacheItem>(entityName: "NewCacheItem")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<PersistentCacheItem> {
+        return NSFetchRequest<PersistentCacheItem>(entityName: "PersistentCacheItem")
     }
 
     @NSManaged public var date: Date?
     @NSManaged public var isDownloaded: Bool
-    @NSManaged public var key: String?
     @NSManaged public var isPendingDelete: Bool
+    @NSManaged public var key: String?
     @NSManaged public var cacheGroups: NSSet?
 
 }
 
 // MARK: Generated accessors for cacheGroups
-extension NewCacheItem {
+extension PersistentCacheItem {
 
     @objc(addCacheGroupsObject:)
-    @NSManaged public func addToCacheGroups(_ value: NewCacheGroup)
+    @NSManaged public func addToCacheGroups(_ value: PersistentCacheGroup)
 
     @objc(removeCacheGroupsObject:)
-    @NSManaged public func removeFromCacheGroups(_ value: NewCacheGroup)
+    @NSManaged public func removeFromCacheGroups(_ value: PersistentCacheGroup)
 
     @objc(addCacheGroups:)
     @NSManaged public func addToCacheGroups(_ values: NSSet)

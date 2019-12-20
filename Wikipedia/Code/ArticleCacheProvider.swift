@@ -5,11 +5,11 @@ import Foundation
 
 final public class ArticleCacheProvider {
     
-    private let syncer: ArticleCacheSyncer
+    private let fileWriter: ArticleCacheFileWriter
     private let fileManager: FileManager
     
-    init(syncer: ArticleCacheSyncer, fileManager: FileManager) {
-        self.syncer = syncer
+    init(fileWriter: ArticleCacheFileWriter, fileManager: FileManager) {
+        self.fileWriter = fileWriter
         self.fileManager = fileManager
     }
     
@@ -26,7 +26,7 @@ final public class ArticleCacheProvider {
             return nil
         }
         
-        let cachedFilePath = syncer.fileURL(for: key).path
+        let cachedFilePath = fileWriter.fileURL(for: key).path
         if let data = fileManager.contents(atPath: cachedFilePath) {
             return savedCachedURLResponse(for: url, with: data, at: cachedFilePath)
         }

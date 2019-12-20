@@ -99,14 +99,14 @@ private extension ArticleContainerViewController {
     }
     
     func addNotificationHandlers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveChangeNotification(_:)), name: ArticleCacheSyncer.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveChangeNotification(_:)), name: ArticleCacheFileWriter.didChangeNotification, object: nil)
     }
     
     @objc func didReceiveChangeNotification(_ notification: Notification) {
         
         guard let userInfo = notification.userInfo,
-            let dbKey = userInfo[ArticleCacheSyncer.didChangeNotificationUserInfoDBKey] as? String,
-            let isDownloaded = userInfo[ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey] as? Bool,
+            let dbKey = userInfo[ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey] as? String,
+            let isDownloaded = userInfo[ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey] as? Bool,
             dbKey == articleURL.wmf_databaseKey else {
             return
         }

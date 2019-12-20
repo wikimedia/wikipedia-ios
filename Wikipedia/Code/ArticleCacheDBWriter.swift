@@ -1,7 +1,7 @@
 
 import Foundation
 
-//Responsible for writing mobile-html & shared resource urls to Core Data as NewCacheGroup & NewCacheItem.
+//Responsible for writing mobile-html & shared resource urls to Core Data as PersistentCacheGroup & PersistentCacheItem.
 
 @objc(WMFArticleCacheDBWriter)
 final public class ArticleCacheDBWriter: NSObject {
@@ -23,7 +23,7 @@ final public class ArticleCacheDBWriter: NSObject {
         }
         
         let documentsURL = URL(fileURLWithPath: documentsPath)
-        cacheURL = documentsURL.appendingPathComponent("NewArticleCache", isDirectory: true)
+        cacheURL = documentsURL.appendingPathComponent("PersistentArticleCache", isDirectory: true)
         do {
             try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
         } catch {
@@ -32,7 +32,7 @@ final public class ArticleCacheDBWriter: NSObject {
         }
 
         //create ManagedObjectModel based on Cache.momd
-        guard let modelURL = Bundle.wmf.url(forResource: "NewCache", withExtension: "momd"),
+        guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
@@ -122,11 +122,6 @@ private extension ArticleCacheDBWriter {
         } else {
             removeCachedArticle(groupKey: groupKey)
         }
-        
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
-            self.fetchAndPrintEachItem()
-            self.fetchAndPrintEachGroup()
-        }
     }
     
     func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String) {
@@ -183,16 +178,16 @@ private extension ArticleCacheDBWriter {
         }
     }
     
-    func fetchOrCreateCacheGroup(with groupKey: String, in moc: NSManagedObjectContext) -> NewCacheGroup? {
+    func fetchOrCreateCacheGroup(with groupKey: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
         return cacheGroup(with: groupKey, in: moc) ?? createCacheGroup(with: groupKey, in: moc)
     }
 
-    func fetchOrCreateCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> NewCacheItem? {
+    func fetchOrCreateCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
         return cacheItem(with: itemKey, in: moc) ?? createCacheItem(with: itemKey, in: moc)
     }
 
-    func cacheGroup(with key: String, in moc: NSManagedObjectContext) -> NewCacheGroup? {
-        let fetchRequest: NSFetchRequest<NewCacheGroup> = NewCacheGroup.fetchRequest()
+    func cacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
+        let fetchRequest: NSFetchRequest<PersistentCacheGroup> = PersistentCacheGroup.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "key == %@", key)
         fetchRequest.fetchLimit = 1
         do {
@@ -205,18 +200,18 @@ private extension ArticleCacheDBWriter {
         }
     }
     
-    func createCacheGroup(with groupKey: String, in moc: NSManagedObjectContext) -> NewCacheGroup? {
+    func createCacheGroup(with groupKey: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
         
-        guard let entity = NSEntityDescription.entity(forEntityName: "NewCacheGroup", in: moc) else {
+        guard let entity = NSEntityDescription.entity(forEntityName: "PersistentCacheGroup", in: moc) else {
             return nil
         }
-        let group = NewCacheGroup(entity: entity, insertInto: moc)
+        let group = PersistentCacheGroup(entity: entity, insertInto: moc)
         group.key = groupKey
         return group
     }
     
-    func cacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> NewCacheItem? {
-        let fetchRequest: NSFetchRequest<NewCacheItem> = NewCacheItem.fetchRequest()
+    func cacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+        let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "key == %@", itemKey)
         fetchRequest.fetchLimit = 1
         do {
@@ -229,11 +224,11 @@ private extension ArticleCacheDBWriter {
         }
     }
 
-    func createCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> NewCacheItem? {
-        guard let entity = NSEntityDescription.entity(forEntityName: "NewCacheItem", in: moc) else {
+    func createCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+        guard let entity = NSEntityDescription.entity(forEntityName: "PersistentCacheItem", in: moc) else {
             return nil
         }
-        let item = NewCacheItem(entity: entity, insertInto: moc)
+        let item = PersistentCacheItem(entity: entity, insertInto: moc)
         item.key = itemKey
         item.date = Date()
         return item
@@ -249,7 +244,7 @@ private extension ArticleCacheDBWriter {
                 assertionFailure("Cache group for \(groupKey) doesn't exist")
                 return
             }
-            guard let cacheItems = group.cacheItems as? Set<NewCacheItem> else {
+            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
                 assertionFailure("Cache group for \(groupKey) has no cache items")
                 return
             }
@@ -272,18 +267,18 @@ private extension ArticleCacheDBWriter {
     }
 }
 
-extension ArticleCacheDBWriter: ArticleCacheSyncerDBDelegate {
-    public func failureToDeleteCacheItemFile(cacheItem: NewCacheItem, error: Error) {
+extension ArticleCacheDBWriter: ArticleCacheFileWriterDBDelegate {
+    public func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error) {
         //tonitodo: not sure what to do in this case. maybe at least some logging?
     }
     
-    public func deletedCacheItemFile(cacheItem: NewCacheItem) {
+    public func deletedCacheItemFile(cacheItem: PersistentCacheItem) {
         cacheBackgroundContext.perform {
             self.cacheBackgroundContext.delete(cacheItem)
             
             if let cacheGroups = cacheItem.cacheGroups,
             cacheGroups.count == 1,
-                let cacheGroup = cacheGroups.anyObject() as? NewCacheGroup {
+                let cacheGroup = cacheGroups.anyObject() as? PersistentCacheGroup {
                 self.cacheBackgroundContext.delete(cacheGroup)
             }
             self.save(moc: self.cacheBackgroundContext)
@@ -291,12 +286,12 @@ extension ArticleCacheDBWriter: ArticleCacheSyncerDBDelegate {
         
         //tonitodo: should we wait for self.save to complete successfully?
         if let key = cacheItem.key {
-            NotificationCenter.default.post(name: ArticleCacheSyncer.didChangeNotification, object: nil, userInfo: [ArticleCacheSyncer.didChangeNotificationUserInfoDBKey: key,
-            ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey: false])
+            NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
+            ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: false])
         }
     }
     
-    public func downloadedCacheItemFile(cacheItem: NewCacheItem) {
+    public func downloadedCacheItemFile(cacheItem: PersistentCacheItem) {
         cacheBackgroundContext.perform {
             cacheItem.isDownloaded = true
             self.save(moc: self.cacheBackgroundContext)
