@@ -39,7 +39,7 @@ final public class ArticleCacheDBWriter: NSObject {
         }
         
         //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("NewCache.sqlite", isDirectory: false)
+        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("PersistentCache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
         let options = [
@@ -80,6 +80,14 @@ final public class ArticleCacheDBWriter: NSObject {
         return context.performWaitAndReturn {
             cacheGroup(with: groupKey, in: context) != nil
         } ?? false
+    }
+    
+    public func cacheMobileHtmlUrlFromMigration(articleURL: URL) { //articleURL should be desktopURL
+        guard let groupKey = articleURL.wmf_databaseKey else {
+            return
+        }
+        
+        cacheEndpoint(articleURL: articleURL, endpointType: .mobileHTML, groupKey: groupKey, fromMigration: true)
     }
    
     public func toggleCache(articleURL: URL) {
@@ -124,11 +132,11 @@ private extension ArticleCacheDBWriter {
         }
     }
     
-    func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String) {
+    func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String, fromMigration: Bool = false) {
         
         switch endpointType {
         case .mobileHTML:
-            cacheURL(groupKey: groupKey, itemKey: groupKey)
+            cacheURL(groupKey: groupKey, itemKey: groupKey, fromMigration: fromMigration)
         case .mobileHtmlOfflineResources, .mediaList:
             
             guard let siteURL = articleURL.wmf_site,
@@ -145,7 +153,7 @@ private extension ArticleCacheDBWriter {
                             continue
                         }
                          
-                        self.cacheURL(groupKey: groupKey, itemKey: itemKey)
+                        self.cacheURL(groupKey: groupKey, itemKey: itemKey, fromMigration: fromMigration)
                     }
                 case .failure:
                     break
@@ -161,7 +169,7 @@ private extension ArticleCacheDBWriter {
         return (mobileHTMLURL.lastPathComponent as NSString).wmf_normalizedPageTitle()
     }
     
-    func cacheURL(groupKey: String, itemKey: String) {
+    func cacheURL(groupKey: String, itemKey: String, fromMigration: Bool = false) {
         
         let context = self.cacheBackgroundContext
         context.perform {
@@ -173,6 +181,8 @@ private extension ArticleCacheDBWriter {
             guard let item = self.fetchOrCreateCacheItem(with: itemKey, in: context) else {
                 return
             }
+            
+            item.fromMigration = fromMigration
             group.addToCacheItems(item)
             self.save(moc: context)
         }
@@ -293,6 +303,14 @@ extension ArticleCacheDBWriter: ArticleCacheFileWriterDBDelegate {
     
     public func downloadedCacheItemFile(cacheItem: PersistentCacheItem) {
         cacheBackgroundContext.perform {
+            cacheItem.isDownloaded = true
+            self.save(moc: self.cacheBackgroundContext)
+        }
+    }
+    
+    public func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
+        cacheBackgroundContext.perform {
+            cacheItem.fromMigration = false
             cacheItem.isDownloaded = true
             self.save(moc: self.cacheBackgroundContext)
         }

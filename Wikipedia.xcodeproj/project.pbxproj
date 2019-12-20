@@ -360,7 +360,7 @@
 		678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676A8A8223A4013D0084B967 /* ArticleFetcher.swift */; };
 		678F513323A7FAB900CE5357 /* PersistentCache.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 678F512C23A7FAAE00CE5357 /* PersistentCache.xcdatamodeld */; };
 		678F514D23A8251200CE5357 /* ArticleCacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511E23A4B92B00CE5357 /* ArticleCacheProvider.swift */; };
-		678F514F23A8251A00CE5357 /* ArticleCacheSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511223A4B11100CE5357 /* ArticleCacheSyncer.swift */; };
+		678F514F23A8251A00CE5357 /* ArticleCacheFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511223A4B11100CE5357 /* ArticleCacheFileWriter.swift */; };
 		678F515123A8937B00CE5357 /* ArticleCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F515023A8937B00CE5357 /* ArticleCacheHandler.swift */; };
 		6790AAF322D6861500D442D6 /* TalkPageNetworkDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0AB226A6DCA00537BC9 /* TalkPageNetworkDataTests.swift */; };
 		6790AAF422D6861500D442D6 /* TalkPageFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0AD226A74C200537BC9 /* TalkPageFetcherTests.swift */; };
@@ -495,10 +495,10 @@
 		67F73E792267B9510079DEEF /* TalkPageTopicNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E782267B9500079DEEF /* TalkPageTopicNewViewController.swift */; };
 		67F9AE4923AD2F38003D4F5E /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */; };
 		67F9AE4B23AD4266003D4F5E /* ArticleURLConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE4A23AD4266003D4F5E /* ArticleURLConverter.swift */; };
-		67F9AE5023AD7FC3003D4F5E /* PersistentCacheItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE4C23AD7FC3003D4F5E /* PersistentCacheItem+CoreDataClass.swift */; };
-		67F9AE5123AD7FC3003D4F5E /* PersistentCacheItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE4D23AD7FC3003D4F5E /* PersistentCacheItem+CoreDataProperties.swift */; };
-		67F9AE5223AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE4E23AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataClass.swift */; };
-		67F9AE5323AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE4F23AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift */; };
+		67F9AE5923AD84DE003D4F5E /* PersistentCacheGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE5523AD84DE003D4F5E /* PersistentCacheGroup+CoreDataClass.swift */; };
+		67F9AE5A23AD84DE003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE5623AD84DE003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift */; };
+		67F9AE5B23AD84DE003D4F5E /* PersistentCacheItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE5723AD84DE003D4F5E /* PersistentCacheItem+CoreDataClass.swift */; };
+		67F9AE5C23AD84DE003D4F5E /* PersistentCacheItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F9AE5823AD84DE003D4F5E /* PersistentCacheItem+CoreDataProperties.swift */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -4038,7 +4038,7 @@
 		678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeViewModel.swift; sourceTree = "<group>"; };
 		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
-		678F511223A4B11100CE5357 /* ArticleCacheSyncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheSyncer.swift; path = ../Wikipedia/Code/ArticleCacheSyncer.swift; sourceTree = "<group>"; };
+		678F511223A4B11100CE5357 /* ArticleCacheFileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheFileWriter.swift; path = ../Wikipedia/Code/ArticleCacheFileWriter.swift; sourceTree = "<group>"; };
 		678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheDBWriter.swift; path = ../Wikipedia/Code/ArticleCacheDBWriter.swift; sourceTree = "<group>"; };
 		678F511E23A4B92B00CE5357 /* ArticleCacheProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheProvider.swift; path = ../Wikipedia/Code/ArticleCacheProvider.swift; sourceTree = "<group>"; };
 		678F512D23A7FAAE00CE5357 /* NewCache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NewCache.xcdatamodel; sourceTree = "<group>"; };
@@ -4076,10 +4076,10 @@
 		67F73E742267B9070079DEEF /* TalkPageReplyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyListViewController.swift; sourceTree = "<group>"; };
 		67F73E782267B9500079DEEF /* TalkPageTopicNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicNewViewController.swift; sourceTree = "<group>"; };
 		67F9AE4A23AD4266003D4F5E /* ArticleURLConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleURLConverter.swift; sourceTree = "<group>"; };
-		67F9AE4C23AD7FC3003D4F5E /* PersistentCacheItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheItem+CoreDataClass.swift"; sourceTree = "<group>"; };
-		67F9AE4D23AD7FC3003D4F5E /* PersistentCacheItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		67F9AE4E23AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
-		67F9AE4F23AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		67F9AE5523AD84DE003D4F5E /* PersistentCacheGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
+		67F9AE5623AD84DE003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		67F9AE5723AD84DE003D4F5E /* PersistentCacheItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		67F9AE5823AD84DE003D4F5E /* PersistentCacheItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentCacheItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatchEditToolbarViewController.xib; sourceTree = "<group>"; };
 		7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFunnel.swift; sourceTree = "<group>"; };
@@ -6853,10 +6853,11 @@
 		67F9AE5423AD7FF1003D4F5E /* MobileHTML Article */ = {
 			isa = PBXGroup;
 			children = (
+				67F9AE4A23AD4266003D4F5E /* ArticleURLConverter.swift */,
 				678F515023A8937B00CE5357 /* ArticleCacheHandler.swift */,
 				678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */,
 				678F511E23A4B92B00CE5357 /* ArticleCacheProvider.swift */,
-				678F511223A4B11100CE5357 /* ArticleCacheSyncer.swift */,
+				678F511223A4B11100CE5357 /* ArticleCacheFileWriter.swift */,
 				676A8A8223A4013D0084B967 /* ArticleFetcher.swift */,
 			);
 			name = "MobileHTML Article";
@@ -8430,7 +8431,6 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
-				67F9AE4A23AD4266003D4F5E /* ArticleURLConverter.swift */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
@@ -9133,10 +9133,10 @@
 				D8D3650E1E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift */,
 				D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */,
 				D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */,
-				67F9AE4C23AD7FC3003D4F5E /* PersistentCacheItem+CoreDataClass.swift */,
-				67F9AE4D23AD7FC3003D4F5E /* PersistentCacheItem+CoreDataProperties.swift */,
-				67F9AE4E23AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataClass.swift */,
-				67F9AE4F23AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift */,
+				67F9AE5523AD84DE003D4F5E /* PersistentCacheGroup+CoreDataClass.swift */,
+				67F9AE5623AD84DE003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift */,
+				67F9AE5723AD84DE003D4F5E /* PersistentCacheItem+CoreDataClass.swift */,
+				67F9AE5823AD84DE003D4F5E /* PersistentCacheItem+CoreDataProperties.swift */,
 				678F512C23A7FAAE00CE5357 /* PersistentCache.xcdatamodeld */,
 			);
 			name = Cache;
@@ -12111,6 +12111,7 @@
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
+				67F9AE5A23AD84DE003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift in Sources */,
 				B0016CBF2136105900FA1096 /* SetupButton.swift in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
 				0E728D431DAEEE880074EB4B /* WMFLocationManager.m in Sources */,
@@ -12152,6 +12153,7 @@
 				D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */,
 				D8EBD1BA1FBB16F700AA7DA9 /* Dictionary+JSON.swift in Sources */,
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
+				67F9AE5B23AD84DE003D4F5E /* PersistentCacheItem+CoreDataClass.swift in Sources */,
 				7A630F71217A400200FC93FC /* Array+Chunked.swift in Sources */,
 				67F9AE4923AD2F38003D4F5E /* Array+SafeIndex.swift in Sources */,
 				D826C51B217741C50012F940 /* ReachabilityNotifier.swift in Sources */,
@@ -12169,7 +12171,6 @@
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
 				D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */,
 				D8181FA52188DC1400FDEC59 /* String+Domains.swift in Sources */,
-				67F9AE5023AD7FC3003D4F5E /* PersistentCacheItem+CoreDataClass.swift in Sources */,
 				8386BDED2386C269007EE89D /* WikipediaURLTranslations.swift in Sources */,
 				7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */,
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,
@@ -12204,7 +12205,7 @@
 				7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */,
 				D84C35F41F323CD100895FA1 /* ArticleRightAlignedImageCollectionViewCell.swift in Sources */,
 				0E728D381DAEEAD60074EB4B /* WMFLocationSearchResults.m in Sources */,
-				678F514F23A8251A00CE5357 /* ArticleCacheSyncer.swift in Sources */,
+				678F514F23A8251A00CE5357 /* ArticleCacheFileWriter.swift in Sources */,
 				0E728D341DAEE8FF0074EB4B /* WMFFeedContentSource.m in Sources */,
 				D844D9A41D6CB7060042D692 /* MWKImage.m in Sources */,
 				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
@@ -12276,7 +12277,6 @@
 				D8F36F031EEEBA130087D4DD /* Licenses.swift in Sources */,
 				0E728D231DAEE2B50074EB4B /* WMFFeedNewsStory.m in Sources */,
 				D844D9981D6CB5CD0042D692 /* WikipediaAppUtils.m in Sources */,
-				67F9AE5123AD7FC3003D4F5E /* PersistentCacheItem+CoreDataProperties.swift in Sources */,
 				7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */,
 				D84C363C1F32428A00895FA1 /* CircledRankView.swift in Sources */,
 				678F512A23A7EE5100CE5357 /* ArticleCacheDBWriter.swift in Sources */,
@@ -12331,7 +12331,6 @@
 				D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */,
 				D844D9961D6CB5970042D692 /* MWKProtectionStatus.m in Sources */,
 				834400B020B3368A005F087D /* NSCharacterSet+WMFExtras.m in Sources */,
-				67F9AE5323AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift in Sources */,
 				D837B5AA1F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift in Sources */,
 				D844480F1DDA33D900425630 /* Wikipedia.xcdatamodeld in Sources */,
 				D84C35F21F323CD100895FA1 /* ArticleCollectionViewCell.swift in Sources */,
@@ -12348,8 +12347,10 @@
 				83D3FC13223A8BCD0048384B /* ArticleSummaryFetcher.swift in Sources */,
 				0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */,
 				0E728D461DAEEE880074EB4B /* NSString+WMFDistance.m in Sources */,
+				67F9AE5923AD84DE003D4F5E /* PersistentCacheGroup+CoreDataClass.swift in Sources */,
 				D844D9911D6CB5970042D692 /* MWKArticle.m in Sources */,
 				8380753720DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift in Sources */,
+				67F9AE5C23AD84DE003D4F5E /* PersistentCacheItem+CoreDataProperties.swift in Sources */,
 				D844D9A11D6CB6660042D692 /* WMFURLCache.m in Sources */,
 				D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */,
 				7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */,
@@ -12365,7 +12366,6 @@
 				D880652F218C732800BF7B91 /* WorkerController.swift in Sources */,
 				0E728D1F1DAEE2B50074EB4B /* WMFFeedArticlePreview.m in Sources */,
 				D83FA6B61D74CDE6008CAB00 /* EventLoggingFunnel.m in Sources */,
-				67F9AE5223AD7FC3003D4F5E /* PersistentCacheGroup+CoreDataClass.swift in Sources */,
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,
 				678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */,
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,

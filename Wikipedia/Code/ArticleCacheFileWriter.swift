@@ -5,6 +5,7 @@ import Foundation
 
 @objc public protocol ArticleCacheFileWriterDBDelegate: class {
     func downloadedCacheItemFile(cacheItem: PersistentCacheItem)
+    func migratedCacheItemFile(cacheItem: PersistentCacheItem)
     func deletedCacheItemFile(cacheItem: PersistentCacheItem)
     func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error)
 }
@@ -42,10 +43,14 @@ final public class ArticleCacheFileWriter: NSObject {
         if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
             
             for item in insertedObjects {
-                if let cacheItem = item as? PersistentCacheItem,
-                cacheItem.isDownloaded == false &&
-                cacheItem.isPendingDelete == false {
-                    download(cacheItem: cacheItem)
+                if let cacheItem = item as? PersistentCacheItem {
+                    
+                    if cacheItem.fromMigration == true {
+                        migrate(cacheItem: cacheItem)
+                    } else if cacheItem.isDownloaded == false &&
+                        cacheItem.isPendingDelete == false {
+                        download(cacheItem: cacheItem)
+                    }
                 }
             }
         }
@@ -70,6 +75,33 @@ final public class ArticleCacheFileWriter: NSObject {
 }
 
 private extension ArticleCacheFileWriter {
+    
+    func migrate(cacheItem: PersistentCacheItem) {
+        
+        guard cacheItem.fromMigration else {
+            return
+        }
+        
+        guard let key = cacheItem.key else {
+            return
+        }
+        
+        /*
+        //key will be desktop articleURL.wmf_databaseKey format.
+        //Monte: if your local mobile-html is in some sort of temporary file location, you can try calling this here:
+        moveFile(from fileURL: URL, toNewFileWithKey key: key, mimeType: nil, { (result) in
+            switch result {
+            case .success:
+                self.dbDelegate?.migratedCacheItemFile(cacheItem: cacheItem)
+                NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
+                ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: true])
+            default:
+                break
+            }
+        }
+        */
+    }
+    
     func download(cacheItem: PersistentCacheItem) {
         
         guard let key = cacheItem.key,

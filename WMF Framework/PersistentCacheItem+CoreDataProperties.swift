@@ -13,6 +13,7 @@ extension PersistentCacheItem {
     @NSManaged public var isDownloaded: Bool
     @NSManaged public var isPendingDelete: Bool
     @NSManaged public var key: String?
+    @NSManaged public var fromMigration: Bool
     @NSManaged public var cacheGroups: NSSet?
 
 }
