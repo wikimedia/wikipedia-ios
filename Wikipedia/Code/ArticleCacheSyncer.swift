@@ -77,7 +77,7 @@ private extension ArticleCacheSyncer {
                 return
         }
         
-        let urlToDownload = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mobileHTML) ?? url
+        let urlToDownload = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mobileHTML, scheme: Configuration.Scheme.https) ?? url
         
         articleFetcher.downloadData(url: urlToDownload) { (error, _, temporaryFileURL, mimeType) in
             if let _ = error {
@@ -118,8 +118,6 @@ private extension ArticleCacheSyncer {
         } catch let error as NSError {
             if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
                 dbDelegate?.deletedCacheItemFile(cacheItem: cacheItem)
-               NotificationCenter.default.post(name: ArticleCacheSyncer.didChangeNotification, object: nil, userInfo: [ArticleCacheSyncer.didChangeNotificationUserInfoDBKey: key,
-                ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey: false])
             } else {
                 dbDelegate?.failureToDeleteCacheItemFile(cacheItem: cacheItem, error: error)
             }

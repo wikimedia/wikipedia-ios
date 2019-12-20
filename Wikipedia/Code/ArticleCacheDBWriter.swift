@@ -123,39 +123,9 @@ private extension ArticleCacheDBWriter {
             removeCachedArticle(groupKey: groupKey)
         }
         
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 20) {
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
             self.fetchAndPrintEachItem()
             self.fetchAndPrintEachGroup()
-        }
-    }
-    
-    func fetchAndPrintEachItem() {
-        cacheBackgroundContext.perform {
-            let fetchRequest = NSFetchRequest<NewCacheItem>(entityName: "NewCacheItem")
-            do {
-                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
-                for item in fetchedResults {
-                    print("🤮itemKey: \(item.value(forKey: "key")!)")
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
-            }
-        }
-    }
-    
-    func fetchAndPrintEachGroup() {
-        cacheBackgroundContext.perform {
-            let fetchRequest = NSFetchRequest<NewCacheGroup>(entityName: "NewCacheGroup")
-            do {
-                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
-                for item in fetchedResults {
-                    print("🤮groupKey: \(item.value(forKey: "key")!)")
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
-            }
         }
     }
     
@@ -313,11 +283,16 @@ extension ArticleCacheDBWriter: ArticleCacheSyncerDBDelegate {
             
             if let cacheGroups = cacheItem.cacheGroups,
             cacheGroups.count == 1,
-                let cacheGroup = cacheGroups.anyObject() as? NewCacheGroup,
-                (cacheGroup.cacheItems?.count ?? 0) == 1 {
+                let cacheGroup = cacheGroups.anyObject() as? NewCacheGroup {
                 self.cacheBackgroundContext.delete(cacheGroup)
             }
             self.save(moc: self.cacheBackgroundContext)
+        }
+        
+        //tonitodo: should we wait for self.save to complete successfully?
+        if let key = cacheItem.key {
+            NotificationCenter.default.post(name: ArticleCacheSyncer.didChangeNotification, object: nil, userInfo: [ArticleCacheSyncer.didChangeNotificationUserInfoDBKey: key,
+            ArticleCacheSyncer.didChangeNotificationUserInfoIsDownloadedKey: false])
         }
     }
     

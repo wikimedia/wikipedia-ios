@@ -70,7 +70,7 @@ public class ArticleURLConverter {
         
         //Staging: app://apps.wmflabs.org/en.wikipedia.org/v1/page/mobile-html/Brothers_Poem
         //Prod: app://en.wikipedia.org/api/rest_v1/page/mobile-html/Dog
-        print(stagingUrl)
+        //print(stagingUrl)
         
     //        guard let url: URL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
     //            return nil

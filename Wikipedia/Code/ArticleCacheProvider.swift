@@ -21,8 +21,8 @@ final public class ArticleCacheProvider {
     
     public func savedCachedURLResponse(for url: URL) -> CachedURLResponse? {
         
-        //expecting this to be a mobileHTML url, need to convert to desktopURL.
-        guard let key = ArticleURLConverter.desktopURL(mobileHTMLURL: url)?.wmf_databaseKey else {
+        //mobile-html endpoint is saved under the desktop url. if it's mobile-html first convert to desktop before pulling the key.
+        guard let key = ArticleURLConverter.desktopURL(mobileHTMLURL: url)?.wmf_databaseKey ?? url.wmf_databaseKey else {
             return nil
         }
         
