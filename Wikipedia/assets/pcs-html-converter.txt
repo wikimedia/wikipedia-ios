@@ -1,4 +1,5 @@
 
+
 Install / build commands:
 
   cd Wikipedia/assets/
@@ -22,3 +23,27 @@ Then delete these since we don't need them post-build and there's no need to bun
   *.json
   node_modules
   mobileapps
+
+
+If needed can debug the JS by starting a web server in the "pcs-html-converter" directory via...
+  python -m SimpleHTTPServer 8383
+...then add a test html file referencing the needed JS...
+  <!DOCTYPE html>
+  <html>
+      <head>
+          <meta charset="utf-8"/>
+          <script src="build/Polyfill.js"></script>
+          <script src="build/PCSHTMLConverter.js"></script>
+      </head>
+      <body>
+          <pre id="mobileHTML"></pre>
+          <script>
+            function handleMobileHTML(mobileHTML) {
+              document.getElementById("mobileHTML").innerText = mobileHTML
+            }
+            PCSHTMLConverter.testMobileView().then(handleMobileHTML)
+          </script>
+      </body>
+  </html>
+...and load it with desktop Safari to inspect:
+  http://localhost:8383/my_test.html
