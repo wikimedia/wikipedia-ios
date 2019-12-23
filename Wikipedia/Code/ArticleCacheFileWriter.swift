@@ -23,12 +23,19 @@ final public class ArticleCacheFileWriter: NSObject {
     public static let didChangeNotificationUserInfoDBKey = ["dbKey"]
     public static let didChangeNotificationUserInfoIsDownloadedKey = ["isDownloaded"]
     
-    @objc public init(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher, cacheURL: URL, fileManager: FileManager, dbDelegate: ArticleCacheFileWriterDBDelegate?) {
+    @objc public init?(moc: NSManagedObjectContext, articleFetcher: ArticleFetcher, cacheURL: URL, fileManager: FileManager, dbDelegate: ArticleCacheFileWriterDBDelegate?) {
         self.moc = moc
         self.articleFetcher = articleFetcher
         self.cacheURL = cacheURL
         self.fileManager = fileManager
         self.dbDelegate = dbDelegate
+        
+        do {
+            try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            assertionFailure("Failure to create article cache directory")
+            return nil
+        }
     }
     
     @objc public func setup() {

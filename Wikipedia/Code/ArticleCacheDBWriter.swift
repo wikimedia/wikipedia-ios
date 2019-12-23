@@ -7,29 +7,11 @@ import Foundation
 final public class ArticleCacheDBWriter: NSObject {
     
     private let articleFetcher: ArticleFetcher
-    private let fileManager: FileManager
     public let cacheBackgroundContext: NSManagedObjectContext
-    public let cacheURL: URL
 
-    init?(articleFetcher: ArticleFetcher, fileManager: FileManager) {
+    init?(articleFetcher: ArticleFetcher, cacheURL: URL) {
         
         self.articleFetcher = articleFetcher
-        self.fileManager = fileManager
-        
-        //create cacheURL and directory
-        guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last else {
-            assertionFailure("Failure to pull documents directory")
-            return nil
-        }
-        
-        let documentsURL = URL(fileURLWithPath: documentsPath)
-        cacheURL = documentsURL.appendingPathComponent("PersistentArticleCache", isDirectory: true)
-        do {
-            try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            assertionFailure("Failure to create article cache directory")
-            return nil
-        }
 
         //create ManagedObjectModel based on Cache.momd
         guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
