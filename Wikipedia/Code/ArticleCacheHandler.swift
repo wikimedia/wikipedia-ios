@@ -19,14 +19,17 @@ public final class ArticleCacheHandler: NSObject {
         self.fetcher = fetcher
         self.fileManager = fileManager
         
-        //create cacheURL and directory
-        guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last else {
-            assertionFailure("Failure to pull documents directory")
+        var cacheURL = fileManager.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        
+        var values = URLResourceValues()
+        values.isExcludedFromBackup = true
+        do {
+            try cacheURL.setResourceValues(values)
+        } catch {
             return nil
         }
         
-        let documentsURL = URL(fileURLWithPath: documentsPath)
-        cacheURL = documentsURL.appendingPathComponent("PersistentArticleCache", isDirectory: true)
+        self.cacheURL = cacheURL
         
         guard let dbWriter = ArticleCacheDBWriter(articleFetcher: fetcher, cacheURL: cacheURL) else {
             return nil

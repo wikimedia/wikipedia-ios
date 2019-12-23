@@ -187,17 +187,6 @@ private extension ArticleCacheFileWriter {
             completion(.error(error))
         }
     }
-
-    func save(moc: NSManagedObjectContext) {
-        guard moc.hasChanges else {
-            return
-        }
-        do {
-            try moc.save()
-        } catch let error {
-            fatalError("Error saving cache moc: \(error)")
-        }
-    }
 }
 
 private extension FileManager {
