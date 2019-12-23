@@ -1543,7 +1543,7 @@ static uint64_t bundleHash() {
 
 - (void)clearCachesForUnsavedArticles {
     [[WMFImageController sharedInstance] deleteTemporaryCache];
-    [[WMFImageController sharedInstance] removeLegacyCache];
+    //[[WMFImageController sharedInstance] removeLegacyCache];
     [self
         removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
             DDLogError(@"Error removing unreferenced articles: %@", error);
