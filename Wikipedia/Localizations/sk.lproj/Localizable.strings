@@ -539,7 +539,7 @@
 "page-history-revision-history-title" = "História úprav";
 "page-history-revision-minor-edit-accessibility-label" = "Drobná úprava";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Pridaný $1 bajt|Pridané $1 bajty|Pridaných $1 bajtov}}))";
-"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Odstránený $1 bajt|Odstránené $1 bajty|Odstránených $1 bajtov}}))";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Odstránený $1 bajt|Odstránené $1 bajty|Odstránených $1 bajtov}}";
 "page-history-revision-time-accessibility-label" = "úprava vykonaná $1";
 "page-history-revisions-comparison-warning" = "Vybrané môžu byť len dve revízie";
 "page-history-stats-text" = "{{PLURAL:$1|$1 úprava|$1 úpravy|$1 úprav}} od $2";

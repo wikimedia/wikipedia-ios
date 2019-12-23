@@ -196,6 +196,9 @@
 "diff-paragraph-moved" = "Odstavec přesunut";
 "diff-paragraph-moved-direction-down" = "dolů";
 "diff-paragraph-moved-direction-up" = "nahoru";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 řádek|$1 řádky|$1 řádků}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sekce|$1 sekcí}}";
+"diff-paragraph-moved-format" = "Odstavec přesunut $1 $2";
 "diff-revision-error-title" = "Nepodařilo se načíst revizi";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 editace|$1 editací}}";
 "diff-single-header-editor-title" = "Informace o wikipedistovi";
@@ -205,6 +208,15 @@
 "diff-single-intro-title" = "Úvod";
 "diff-single-line-format" = "Řádek $1";
 "diff-thanks-anonymous-no-thanks" = "Anonymním uživatelům nelze poděkovat";
+"diff-thanks-login-subtitle" = "Poděkování jsou jednoduchým způsobem, jak wikipedistovi můžete poděkovat za práci na Wikipedii. Pro poslání poděkování musíte být přihlášeni.";
+"diff-thanks-login-title" = "Pro odeslání poděkování s přihlaste";
+"diff-thanks-send-button-title" = "Poslat poděkování";
+"diff-thanks-send-subtitle" = "Poděkování jsou jednoduchým způsobem, jak wikipedistovi můžete poděkovat za práci na Wikipedii. Poděkování se nedají vrátit a jsou veřejné.";
+"diff-thanks-send-title" = "Veřejně poslat poděkování";
+"diff-thanks-sent" = "Poděkování bylo odesláno uživateli/ce $1";
+"diff-thanks-sent-already" = "Za tuto editaci jste již poděkování poslali";
+"diff-thanks-sent-cannot-unsend" = "Poděkování nelze vrátit";
+"diff-unedited-lines-format" = "{{PLURAL:$1|Neupraven $1 řádek|Neupraveny $1 řádky|Neupraveno $1 řádků}}";
 "dim-images" = "Ztmavení obrázků";
 "edit-bold-accessibility-label" = "Přidat tučné formátování";
 "edit-bold-remove-accessibility-label" = "Odebrat tučné formátování";
@@ -273,6 +285,8 @@
 "editing-welcome-impartial-tone-title" = "Pište nestranně, nepropagujte";
 "editing-welcome-set-knowledge-free-subtitle" = "Abychom měli všichni přístup ke znalostem světa, potřebujeme, abyste se podíleli na jeho tvorbě čtením, editováním a přispěním k tématům, která jsou pro vás nejdůležitější a zajímají vás.";
 "editing-welcome-set-knowledge-free-title" = "Zdarma vytvářejte vědomosti";
+"empty-diff-compare-title" = "Žádný rozdíl mezi revizemi";
+"empty-diff-single-title" = "Žádné zobrazitelné změny";
 "empty-insert-media-title" = "Vybrat soubor z Wikimedia Commons";
 "empty-no-article-message" = "Omlouváme se, nepovedlo se načíst článek.";
 "empty-no-feed-action-message" = "Stále ještě můžete číst uložené stránky";
@@ -313,15 +327,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ve všech jazycích";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnout";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1 jazycích";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Všech %@ karet je skrytých";
+"explore-feed-preferences-feed-cards-hidden-title" = "Všech $1 karet skryto";
 "explore-feed-preferences-global-card-footer-text" = "V této kartě nelze zvolit jazyk, vypnutím této karty bude odstraněna z vašeho kanálu Objevit.";
 "explore-feed-preferences-global-cards-description" = "Bez možnosti zvolit jazyk";
 "explore-feed-preferences-global-cards-subtitle" = "Bez možnosti zvolit jazyk";
 "explore-feed-preferences-global-cards-title" = "Globální karty";
 "explore-feed-preferences-hide-card-action-title" = "Skrýt tuto kartu";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Skrýt všechny karty „%@“";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Skrýt všechny karty „$1“";
 "explore-feed-preferences-in-the-news-description" = "Články o aktuálních událostech";
 "explore-feed-preferences-languages-footer-text" = "Skrytí všech karet ve všech vybraných jazycích vypne kanál Objevit.";
 "explore-feed-preferences-on-this-day-description" = "Historické události v tento den";
@@ -471,6 +483,12 @@
 "insert-media-media-settings-title" = "Nastavení médií";
 "insert-media-title" = "Vložit soubor";
 "insert-media-uploaded-image-title" = "Nahraný obrázek";
+"intermediate-edits-count" = "{{PLURAL:$1|Jedna mezilehlá editace|$1 mezilehlé editace|$1 mezilehlých editací}} {{PLURAL:$1|není zobrazena|nejsou zobrazeny|není zobrazeno}}";
+"intermediate-edits-count-limited" = "Více než $1 mezilehlých editací není zobrazeno";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|Jedna mezilehlá editace|$1 mezilehlé editace|$1 mezilehlých editací}} od {{PLURAL:$2|jednoho uživatele|$2 uživatelů}} {{PLURAL:$1|není zobrazena|nejsou zobrazeny|není zobrazeno}}";
+"intermediate-edits-editors-count-limited" = "Více než $1 mezilehlých editací od více než $2 uživatelů není zobrazeno";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Jedna mezilehlá editace|$1 mezilehlé editace|$1 mezilehlých editací}} od více než $2 uživatelů {{PLURAL:$1|není zobrazena|nejsou zobrazeny|není zobrazeno}}";
+"intermediate-edits-limited-editors-count" = "Více než $1 mezilehlých editací od {{PLURAL:$2|$2 uživatele|$2 uživatelů}} není zobrazeno";
 "languages-settings-title" = "Jazyky";
 "languages-title" = "Změnit jazyk";
 "languages-wikipedia" = "Jazyk Wikipedie";
@@ -535,6 +553,11 @@
 "page-history-revision-comment-accessibility-label" = "Komentář $1";
 "page-history-revision-history-title" = "Historie revizí";
 "page-history-revision-minor-edit-accessibility-label" = "Malá editace";
+"page-history-revision-size-diff-addition" = "({{PLURAL:$1|Přidán $1 bajt|Přidány $1 bajty|Přidáno $1 bajtů}})";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Odebrán $1 bajt|Odebrány $1 bajty|Odebráno $1 bajtů}}";
+"page-history-revision-time-accessibility-label" = "Editoval/a $1";
+"page-history-revisions-comparison-warning" = "Můžete vybrat pouze dvě revize";
+"page-history-stats-text" = "{{PLURAL:$1|$1 editace|$1 editací}} od $2";
 "page-history-user-edits" = "editace uživatelů";
 "page-issues" = "Nedostatky stránky";
 "page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";
@@ -547,6 +570,7 @@
 "page-read-in-other-languages" = "Dostupné v {{PLURAL:$1|$1 dalším jazyce|$1 dalších jazycích}}";
 "page-similar-titles" = "Podobné stránky";
 "page-talk-page" = "Zobrazit diskusní stránku";
+"panel-compare-revisions-text" = "Porovnávání revizí zobrazuje, jak se článek měnil v průběhu času. Porovnávání dvou revizí článku zobrazí rozdíl mezi danými revizemi se zvýrazněním jakéhokoliv obsahu, který byl změněn.";
 "panel-compare-revisions-title" = "Porovnávání revizí";
 "pictured" = "na obrázku";
 "places-accessibility-clear-saved-searches" = "Vymazat uložená hledání";
@@ -653,8 +677,7 @@
 "reading-lists-default-list-title" = "Uloženo";
 "reading-lists-delete-reading-list-alert-message" = "Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do {{PLURAL:$1|tohoto seznamu|těchto seznamů}} nebudou nadále mezi uloženými.";
 "reading-lists-delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|seznam|seznamy}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 článků a $2 seznamů k přečtení bylo synchronizováno z vašeho účtu";
+"reading-lists-large-sync-completed" = "Synchronizace {{PLURAL:$1|0=0 článků|$1 článku|$1 článků}} a {{PLURAL:$2|0=0 seznamů k přečtení|$2 seznamu k přečtení|$2 seznamů k přečtení}} z vašeho účtu byla úspěšná.";
 "reading-lists-list-not-synced-limit-exceeded" = "Seznam nebyl synchronizován, limit byl překročen";
 "reading-lists-sort-saved-articles" = "Třídění uložených článků";
 "reading-lists-split-notification" = "Existuje limit $1 článků pro seznamy k přečtení. Existující seznamy, které mají více než tento počet článků, byly rozděleny do více seznamů.";
@@ -675,6 +698,7 @@
 "relative-date-minutes-abbreviated" = "$1 min";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Právě teď|Před $1 minutou|Před $1 minutami}}";
 "relative-date-minutes-ago-abbreviated" = "před $1 min";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Tento měsíc|1=Minulý měsíc|2=Předminulý měsíc|Před $1 měsíci}}";
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "před $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Loni|2=Předloni|Před $1 lety}}";

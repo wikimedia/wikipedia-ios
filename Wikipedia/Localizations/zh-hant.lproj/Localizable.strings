@@ -62,7 +62,7 @@
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
 "account-creation-captcha-request-account" = "請求帳號。";
-"account-creation-captcha-title" = "CAPTCHA 安全性檢查";
+"account-creation-captcha-title" = "驗證碼安全性檢查";
 "account-creation-create-account" = "建立您的帳號";
 "account-creation-have-account" = "已經擁有帳號？$1";
 "account-creation-log-in" = "登入。";
@@ -397,7 +397,7 @@
 "field-alert-token-invalid" = "無效代碼";
 "field-alert-username-unavailable" = "使用者名稱不可用";
 "field-backup-token-title" = "備份代碼";
-"field-captcha-placeholder" = "驗證碼";
+"field-captcha-placeholder" = "驗證碼文字";
 "field-captcha-title" = "輸入您在上方看到的文字";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "電子郵件";
@@ -722,7 +722,7 @@
 "reverted-edit-view-guidelines-text" = "檢視指引";
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
-"saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
+"saved-pages-image-download-error" = "下載此儲存頁面裡的圖片失敗。";
 "saved-pages-progress-syncing" = "條目下載進行中...";
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋已儲存條目";
