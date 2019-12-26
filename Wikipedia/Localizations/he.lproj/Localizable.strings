@@ -400,7 +400,7 @@
 "field-password-confirm-placeholder" = "נא להקליד את הססמה שוב";
 "field-password-confirm-title" = "אימות סיסמה";
 "field-password-placeholder" = "נא להזין ססמה";
-"field-password-title" = "ססמה";
+"field-password-title" = "סיסמה";
 "field-token-title" = "קוד אימות";
 "field-username-placeholder" = "נא להזין שם משתמש";
 "field-username-title" = "שם משתמש";

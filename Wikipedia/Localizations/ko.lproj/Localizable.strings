@@ -5,6 +5,7 @@
 // Author: Bluemersen
 // Author: CYAN
 // Author: Doyoon1995
+// Author: Eduardo Addad de Oliveira
 // Author: Ellif
 // Author: Garam
 // Author: HDNua
@@ -186,7 +187,9 @@
 "description-welcome-descriptions-title" = "제목 설명";
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
+"diff-compare-header-from-info-heading" = "보내는이:";
 "diff-compare-header-heading" = "판 비교";
+"diff-compare-header-to-info-heading" = "받는이:";
 "diff-compare-title" = "판 비교";
 "diff-context-lines-collapsed-button-title" = "표시";
 "diff-context-lines-expanded-button-title" = "숨기기";

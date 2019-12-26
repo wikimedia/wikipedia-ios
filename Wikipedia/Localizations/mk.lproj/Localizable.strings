@@ -243,8 +243,8 @@
 "edit-summary-placeholder-text" = "На кој начин ја подобривте статијата?";
 "edit-superscript-accessibility-label" = "Стави форматирање за горен индекс";
 "edit-superscript-remove-accessibility-label" = "Отстрани форматирање за горен индекс";
-"edit-template-accessibility-label" = "Стави синтакса за шаблон";
-"edit-template-remove-accessibility-label" = "Отстрани синтакса за шаблон";
+"edit-template-accessibility-label" = "Стави синтакса за предлошка";
+"edit-template-remove-accessibility-label" = "Отстрани синтакса за предлошка";
 "edit-text-clear-formatting" = "Отстрани форматирање";
 "edit-text-formatting-accessibility-label" = "Прикажи мени за форматирање на текстот";
 "edit-text-formatting-table-view-title" = "Форматирање на текстот";

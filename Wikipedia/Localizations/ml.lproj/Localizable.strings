@@ -9,11 +9,22 @@
 // Author: Vnrakeshpnm
 
 "about-content-license" = "ഉള്ളടക്കത്തിന്റെ അനുമതി";
+"about-content-license-details" = "മറ്റുവിധത്തിൽ കുറിച്ചിട്ടില്ലെങ്കിൽ, ഉള്ളടക്കം $1 പ്രകാരം ലഭ്യമാണ്.";
+"about-content-license-details-share-alike-license" = "ക്രിയേറ്റീവ് കോമൺസ് ആട്രിബ്യൂഷൻ-ഷെയർഎലൈക്";
 "about-contributors" = "സംഭാവകർ";
 "about-libraries" = "ഉപയോഗിച്ചിട്ടുള്ള ലൈബ്രറികൾ";
 "about-libraries-complete-list" = "പൂർണമായ പട്ടിക";
+"about-libraries-license" = "ഉപയോഗാനുമതി";
+"about-libraries-licenses-title" = "ഞങ്ങൾ ഓപ്പൺ സോഴ്സ് സോഫ്റ്റ്‌വേറിനെ സ്നേഹിക്കുന്നു $1";
+"about-repositories" = "റെപ്പോസിറ്ററീസ്";
+"about-repositories-app-source-license" = "സ്രോതസ്സ് കോഡ് $1 പ്രകാരം ലഭ്യമാണ്.";
+"about-repositories-app-source-license-mit" = "എം.ഐ.റ്റി. ഉപയോഗാനുമതി";
 "about-send-feedback" = "ആപിനെക്കുറിച്ചുള്ള അഭിപ്രായം അറിയിക്കുക";
+"about-testers" = "പരീക്ഷകർ";
+"about-testers-details" = "ഗുണമേന്മ $1 പരിശോധിച്ചു";
+"about-title" = "വിവരണം";
 "about-translators" = "വിവർത്തകർ";
+"about-translators-details" = "പരിഭാഷപ്പെടുത്തിയത് $1 സന്നന്ധപ്രവർത്തകരാണ്";
 "about-wikimedia-foundation" = "വിക്കിമീഡിയ ഫൗണ്ടേഷൻ";
 "about-wikipedia" = "വിക്കിപീഡിയ";
 "abuse-filter-disallow-heading" = "ഈ തിരുത്തൽ താങ്കൾക്ക് പ്രസിദ്ധീകരിക്കാൻ പറ്റില്ല";
@@ -35,6 +46,8 @@
 "action-find-in-page" = "താളിൽ കണ്ടെത്തുക";
 "action-language-accessibility" = "ഭാഷ മാറ്റുക";
 "action-move-to-reading-list" = "വായന പട്ടികയിലേക്ക് ചേർക്കുക";
+"action-next-revision-accessibility" = "അടുത്ത നാൾപതിപ്പ്";
+"action-previous-revision-accessibility" = "മുൻപത്തെ നാൾപ്പതിപ്പ്";
 "action-read" = "വായിക്കുക";
 "action-redo" = "വീണ്ടും ചെയ്യുക";
 "action-remove" = "നീക്കം ചെയ്യുക";
@@ -45,11 +58,13 @@
 "action-share" = "പങ്കുവയ്ക്കുക";
 "action-share-accessibility" = "പങ്കുവയ്ക്കുക";
 "action-sort" = "ക്രമീകരിക്കുക";
+"action-thank-user-accessibility" = "ഉപയോക്താവിന് നന്ദി അറിയിക്കുക";
 "action-undo" = "തിരസ്ക്കരിക്കുക";
 "action-unsaved-accessibility-notification" = "ലേഖനം സേവ് ചെയ്തിട്ടില്ല";
 "action-update" = "പുതുക്കുക";
 "add-citation-title" = "അവലംബം ചേർക്കുക";
 "announcements-dismiss" = "ഒഴിവാക്കുക";
+"app-store-subtitle" = "സ്വതന്ത്ര വിജ്ഞാനകോശം";
 "article-about-title" = "ഈ ലേഖനത്തെക്കുറിച്ച്";
 "article-delete" = "മായ്ക്കുക";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|ലേഖനം|ലേഖനങ്ങൾ}} ഒഴിവാക്കി";
@@ -60,6 +75,8 @@
 "article-read-more-title" = "കൂടുതൽ വായിക്കുക";
 "article-save-error-not-enough-space" = "ഈ ലേഖനം സേവ് ചെയ്യുവാനുള്ള സ്ഥലം താങ്കളുടെ ഉപകരണത്തിനില്ല";
 "article-share" = "പങ്കുവയ്ക്കുക";
+"article-title" = "ലേഖനം";
+"back-button-accessibility-label" = "പുറകോട്ട്";
 "back-button-popover-title" = "തിരികെ പോകാൻ ടാപ്പുചെയ്യുക";
 "button-next" = "അടുത്തത്";
 "button-ok" = "ശരി";
@@ -68,6 +85,7 @@
 "button-report-a-bug" = "ബഗ് അറിയിക്കുക";
 "button-skip" = "മറികടക്കുക";
 "cancel" = "റദ്ദാക്കുക";
+"cc-zero" = "ക്രിയേറ്റീവ് കോമൺസ് സി.സി.0";
 "clear-title-accessibility-label" = "മായ്‌ക്കുക";
 "close-button-accessibility-label" = "അടയ്ക്കുക";
 "compass-direction" = "$1 മണിക്ക്";
@@ -80,8 +98,9 @@
 "description-edit-pencil-introduction" = "ആമുഖം തിരുത്തുക";
 "description-edit-pencil-title" = "തലക്കെട്ട് വിവരണം തിരുത്തുക";
 "description-edit-placeholder-title" = "ചെറു വിവരണളാണ് നല്ലത്";
-"description-edit-publish" = "വിവവരണം പ്രസിദ്ധീകരിക്കുക";
+"description-edit-publish" = "വിവരണം പ്രസിദ്ധീകരിക്കുക";
 "description-edit-title" = "വിവരണം തിരുത്തുക";
+"description-help-about-title" = "വിവരണം";
 "description-help-about-wikidata" = "വിക്കിഡാറ്റയെ കുറിച്ച്";
 "description-help-more-info-title" = "കൂടുതൽ വിവരങ്ങൾ";
 "description-help-tips-example-title-two" = "ഭൂമിയിലെ ഏറ്റവും ഉയരം കൂടിയ മല";
@@ -92,6 +111,19 @@
 "description-published-title" = "വിവരണം പ്രസിദ്ധീകരിച്ചു!";
 "description-welcome-descriptions-title" = "തലക്കെട്ട് വിവരണങ്ങൾ";
 "description-welcome-start-editing-button" = "തിരുത്തൽ തുടങ്ങുക";
+"diff-context-lines-collapsed-button-title" = "പ്രദർശിപ്പിക്കുക";
+"diff-context-lines-expanded-button-title" = "മറയ്ക്കുക";
+"diff-paragraph-moved-direction-down" = "താഴേക്ക്";
+"diff-paragraph-moved-direction-up" = "മുകളിലേക്ക്";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|ഒരു വരി|$1 വരികൾ}}";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|ഒരു തിരുത്ത്|$1 തിരുത്തുകൾ}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|ഒരു ബൈറ്റ് ചേർത്തു|$1 ബൈറ്റുകൾ ചേർത്തു}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|ഒരു ബൈറ്റ് നീക്കംചെയ്തു|$1 ബൈറ്റുകൾ നീക്കംചെയ്തു}}";
+"diff-single-header-summary-heading" = "തിരുത്തിന്റെ ചുരുക്കം";
+"diff-single-intro-title" = "ആമുഖം";
+"diff-single-line-format" = "വരി $1";
+"diff-thanks-login-title" = "'നന്ദി' അയയ്ക്കാൻ പ്രവേശിക്കുക";
+"diff-thanks-send-button-title" = "'നന്ദി' അറിയിക്കുക";
 "edit-link-remove-link-title" = "കണ്ണി നീക്കംചെയ്യുക";
 "edit-link-title" = "കണ്ണി തിരുത്തുക";
 "edit-menu-item" = "തിരുത്തുക";
@@ -124,10 +156,10 @@
 "explore-feed-preferences-card-hidden-title" = "കാർഡ് മറച്ചിരിക്കുന്നു";
 "explore-feed-preferences-featured-article-description" = "ദിവസവും വിക്കിപീഡിയയിൽ തിരഞ്ഞെടുക്കുന്ന ലേഖനം";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1ൽ";
-"explore-feed-preferences-feed-cards-hidden-title" = "എല്ലാ %@ കാർഡുകളും മറച്ചിരിക്കുന്നു";
+"explore-feed-preferences-feed-cards-hidden-title" = "എല്ലാ $1 കാർഡുകളും മറച്ചിരിക്കുന്നു";
 "explore-feed-preferences-global-cards-title" = "ആഗോള കാർഡുകൾ";
 "explore-feed-preferences-hide-card-action-title" = "ഈ കാർഡ് മറയ്ക്കുക";
-"explore-feed-preferences-hide-feed-cards-action-title" = "എല്ലാ “%@” കാർഡുകളും മറയ്ക്കുക";
+"explore-feed-preferences-hide-feed-cards-action-title" = "എല്ലാ “$1” കാർഡുകളും മറയ്ക്കുക";
 "explore-main-page-description" = "വിക്കിമീഡിയ പദ്ധതികളുടെ പ്രധാന താൾ";
 "explore-main-page-heading" = "വിക്കിപീഡിയയിൽ ഇന്ന്";
 "explore-most-read-sub-heading-on-language-wikipedia" = "$1 വിക്കിപീഡിയയിൽ നിന്നും";
@@ -181,7 +213,8 @@
 "navbar-title-mode-edit-wikitext-preview" = "എങ്ങനെയുണ്ടെന്ന് കാണുക";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 വിക്കിപീഡിയയിൽ നിന്ന് $1 മുതൽ";
 "original-tab-button-popover-description" = "നിങ്ങൾ ആരംഭിച്ച ടാബിലേക്ക് മടങ്ങാൻ 'W' ൽ ടാപ്പുചെയ്യുക";
-"page-history-title" = "താളിന്റെ നാൾവഴി";
+"page-history-revision-author-accessibility-label" = "സ്രഷ്ടാവ്: $1";
+"page-history-revision-minor-edit-accessibility-label" = "ചെറു തിരുത്ത്";
 "saved-title" = "സേവ് ചെയ്തു";
 "search-did-you-mean" = "താങ്കൾ ഉദ്ദേശിച്ചത് $1 എന്നാണോ";
 "search-field-placeholder-text" = "വിക്കിപീഡിയയിൽ തിരയുക";
