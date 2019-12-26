@@ -66,6 +66,22 @@
 			<string>%1$d kappaletta</string>
 		</dict>
 	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d muokkaus</string>
+			<key>other</key>
+			<string>%1$d muokkausta</string>
+		</dict>
+	</dict>
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -98,6 +114,22 @@
 			<string>%1$d merkkiä poistettu</string>
 		</dict>
 	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d rivi ilman muutoksia</string>
+			<key>other</key>
+			<string>%1$d riviä ilman muutoksia</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -128,6 +160,22 @@
 			<string>%1$d historiallinen tapahtuma</string>
 			<key>other</key>
 			<string>%1$d historiallista tapahtumaa</string>
+		</dict>
+	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ vuoden %2$@ jälkeen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d muokkaus</string>
+			<key>other</key>
+			<string>%1$d muokkausta</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
