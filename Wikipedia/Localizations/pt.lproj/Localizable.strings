@@ -351,12 +351,12 @@
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar todos os cartões do feed Explorar desativa o separador Explorar e substitui-o por um de Definições";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Desativar o feed Explorar?";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Desativar Explorar";
-"explore-feed-preferences-turn-off-explore-tab-message" = "O separador 'Explorar' pode ser ativado novamente nas definições do \"feed\" de 'Explorar'";
+"explore-feed-preferences-turn-off-explore-tab-message" = "O separador Explorar pode voltar a ser ativado nas definições do feed Explorar";
 "explore-feed-preferences-turn-off-explore-tab-title" = "Desativar o separador Explorar?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Ao desativar o separador 'Explorar' irá substitui-lo com um separador 'Definições'.";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Desativar o separador Explorar substitui-o por um de Definições.";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ao escolher mostrar cartões do feed Explorar está a ativar o separador Explorar";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador 'Definições' com o separador 'Explorar'. Pode aceder às 'Definições' no topo do separador 'Explorar' tocando no ícone da roda dentada";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
@@ -430,7 +430,7 @@
 "home-news-footer" = "Mais atualidades";
 "home-reading-list-prompt" = "Os seus artigos guardados já podem ser organizados em listas de leitura e sincronizados nos dispositivos. Entre, para permitir que as suas listas de leitura sejam guardadas nas preferências de utilizador.";
 "home-themes-action-title" = "Gerir preferências";
-"home-themes-prompt" = "Ajuste as suas preferências de 'Leitura', incluindo o tamanho do texto e o tema a partir da barra de ferramentas do artigo ou nas suas definições de utilizador, para uma experiência de leitura mais confortável.";
+"home-themes-prompt" = "Ajuste as suas preferências de leitura, incluindo o tamanho do texto e o tema, a partir da barra de ferramentas do artigo ou nas suas configurações de utilizador, para uma leitura mais confortável.";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipédia, vá até o topo de Explorar";
 "icon-shortcut-nearby-title" = "Artigos das redondezas";
@@ -470,7 +470,7 @@
 "insert-media-image-type-setting-frameless" = "Sem moldura";
 "insert-media-image-type-setting-thumbnail" = "Miniatura";
 "insert-media-image-type-settings-title" = "Tipo da imagem";
-"insert-media-media-settings-title" = "Definições de multimédia";
+"insert-media-media-settings-title" = "Configurações multimédia";
 "insert-media-title" = "Inserir multimédia";
 "insert-media-uploaded-image-title" = "Imagem carregada";
 "intermediate-edits-count" = "{{PLURAL:$1|$1 revisão intermédia não mostrada|$1 revisões intermédias não mostradas}}";

@@ -270,15 +270,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Kaikilla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Käytössä";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 kielellä";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Kaikki %@ korttia piilotettu";
+"explore-feed-preferences-feed-cards-hidden-title" = "Kaikki $1 korttia piilotettu";
 "explore-feed-preferences-global-card-footer-text" = "Tämä kortti ei ole kielikohtainen, ja sen poistaminen käytöstä poistaa sen Tutki-syötteestäsi.";
 "explore-feed-preferences-global-cards-description" = "Ei-kielikohtaiset tietyt kortit";
 "explore-feed-preferences-global-cards-subtitle" = "Kielestä riippumaton";
 "explore-feed-preferences-global-cards-title" = "Globaalit kortit";
 "explore-feed-preferences-hide-card-action-title" = "Piilota tämä kortti";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Piilota kaikki ”%@”-kortit";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Piilota kaikki ”$1”-kortit";
 "explore-feed-preferences-in-the-news-description" = "Artikkelit ajankohtaisista tapahtumista";
 "explore-feed-preferences-languages-footer-text" = "Kaikkien Tutki-syötekorttien poistaminen käytöstä kaikilla kielillä poistaa Tutki-välilehden käytöstä.";
 "explore-feed-preferences-on-this-day-description" = "Tapahtumat historiassa tänä päivänä";
@@ -473,7 +471,11 @@
 "page-edit-history" = "Täysi muokkaushistoria";
 "page-history-anonymous-edits" = "tunnistautumattomilta";
 "page-history-bot-edits" = "boteilta";
+"page-history-minor-edits" = "pienet muutokset";
 "page-history-revision-history-title" = "Muutoshistoria";
+"page-history-revision-minor-edit-accessibility-label" = "Pieni muutos";
+"page-history-revision-size-diff-addition" = "Lisätty {{PLURAL:$1|$1 tavu|$1 tavua}}";
+"page-history-revision-size-diff-subtraction" = "Poistettu {{PLURAL:$1|$1 tavu|$1 tavua}}";
 "page-history-stats-text" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}} vuoden $2 jälkeen";
 "page-history-user-edits" = "käyttäjiltä";
 "page-issues" = "Sivun ongelmat";
