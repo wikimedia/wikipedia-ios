@@ -21,7 +21,7 @@ final class SchemeHandler: NSObject {
     private let fileCache: SchemeHandlerCache
     private let fileHandler: FileHandler
     private let defaultHandler: DefaultHandler
-    private let articleCacheProvider: ArticleCacheProvider?
+    private let cacheProvider: CacheProviding?
     private let cacheQueue: OperationQueue = OperationQueue()
     
     @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
@@ -33,7 +33,7 @@ final class SchemeHandler: NSObject {
         self.fileCache = cache
         self.fileHandler = FileHandler(cacheDelegate: cache)
         self.defaultHandler = DefaultHandler(session: session)
-        self.articleCacheProvider = ArticleCacheHandler.shared?.cacheProvider
+        self.cacheProvider = CacheController.sharedArticleCache?.provider
     }
     
     func setResponseData(data: Data?, contentType: String?, path: String, requestURL: URL) {
@@ -120,7 +120,7 @@ extension SchemeHandler: WKURLSchemeHandler {
             // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
             // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
             let op = BlockOperation { [weak urlSchemeTask] in
-                if let cachedResponse = self.articleCacheProvider?.recentCachedURLResponse(for: defaultURL) {
+                if let cachedResponse = self.cacheProvider?.recentCachedURLResponse(for: defaultURL) {
                     DispatchQueue.main.async {
                         guard let urlSchemeTask = urlSchemeTask else {
                             return
@@ -220,7 +220,7 @@ private extension SchemeHandler {
             }
         }) { [weak urlSchemeTask] error in
             
-            if let cachedResponse = self.articleCacheProvider?.savedCachedURLResponse(for: url) {
+            if let cachedResponse = self.cacheProvider?.persistedCachedURLResponse(for: url) {
                 DispatchQueue.main.async {
                     guard let urlSchemeTask = urlSchemeTask else {
                         return

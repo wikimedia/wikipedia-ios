@@ -78,7 +78,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
-@property (nonatomic, strong) WMFArticleCacheFileWriter *articleCacheFileWriter;
+@property (nonatomic, strong) WMFCacheController *articleCacheController;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -365,7 +365,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
-    [self.articleCacheFileWriter setup];
+    [self.articleCacheController setup];
     self.notificationsController.applicationActive = YES;
 }
 
@@ -1418,11 +1418,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return _savedArticlesFetcher;
 }
 
-- (WMFArticleCacheFileWriter *)articleCacheFileWriter {
-    if (!_articleCacheFileWriter) {
-        _articleCacheFileWriter = [WMFArticleCacheHandler shared].fileWriter;
+- (WMFCacheController *)articleCacheController {
+    if (!_articleCacheController) {
+        _articleCacheController = [WMFCacheController sharedArticleCache];
     }
-    return _articleCacheFileWriter;
+    return _articleCacheController;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

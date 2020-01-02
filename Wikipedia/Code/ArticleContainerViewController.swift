@@ -22,7 +22,7 @@ class ArticleContainerViewController: ViewController {
     private var webViewController: ArticleWebViewController?
     private let toolbarViewController = ArticleToolbarViewController()
     private let schemeHandler: SchemeHandler
-    private let articleCacheDBWriter: ArticleCacheDBWriter
+    private let dbWriter: CacheDBWriting
     private let articleURL: URL
     private let language: String
     
@@ -52,9 +52,9 @@ class ArticleContainerViewController: ViewController {
         return ArticleContainerViewController(articleURL: articleURL)
     }
     
-    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, articleCacheDBWriter: ArticleCacheDBWriter? = ArticleCacheHandler.shared?.dbWriter) {
+    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, dbWriter: CacheDBWriting? = CacheController.sharedArticleCache?.dbWriter) {
         
-        guard let articleCacheDBWriter = articleCacheDBWriter,
+        guard let dbWriter = dbWriter,
             let language = articleURL.wmf_language else {
             return nil
         }
@@ -62,7 +62,7 @@ class ArticleContainerViewController: ViewController {
         self.articleURL = articleURL
         self.language = language
         self.schemeHandler = schemeHandler
-        self.articleCacheDBWriter = articleCacheDBWriter
+        self.dbWriter = dbWriter
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -132,7 +132,7 @@ private extension ArticleContainerViewController {
     func setupToolbarViewController() {
         toolbarViewController.delegate = self
         
-        if articleCacheDBWriter.isCached(articleURL: articleURL) {
+        if dbWriter.isCached(url: articleURL) {
             toolbarViewController.setSavedState(isSaved: true)
         }
         
@@ -145,7 +145,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
         guard let host = articleURL.host,
             let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title),
-            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, schemeHandler: schemeHandler, articleCacheDBWriter: articleCacheDBWriter) else {
+            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, schemeHandler: schemeHandler, dbWriter: dbWriter) else {
             assertionFailure("Failure initializing new Article VC")
             //tonitodo: error state
             return
@@ -161,7 +161,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
     func toggleSave(from viewController: ArticleToolbarViewController) {
-        articleCacheDBWriter.toggleCache(articleURL: articleURL)
+        dbWriter.toggleCache(url: articleURL)
     }
 }
 
