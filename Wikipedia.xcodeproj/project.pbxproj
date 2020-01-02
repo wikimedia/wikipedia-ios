@@ -336,7 +336,7 @@
 		6789FA3022E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA3122E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA3222E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
-		678C7C2A23BE67F0001AC4D5 /* CacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2923BE67F0001AC4D5 /* CacheHandler.swift */; };
+		678C7C2A23BE67F0001AC4D5 /* CacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2923BE67F0001AC4D5 /* CacheController.swift */; };
 		678C7C2C23BE6E00001AC4D5 /* CacheProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2B23BE6E00001AC4D5 /* CacheProviding.swift */; };
 		678C7C2E23BE705C001AC4D5 /* CacheDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */; };
 		678C7C3023BE7319001AC4D5 /* CacheDBWriterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */; };
@@ -4041,7 +4041,7 @@
 		6782DC102346920B003FA21B /* DiffContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffContainerViewModel.swift; sourceTree = "<group>"; };
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
 		6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPage+Extensions.swift"; sourceTree = "<group>"; };
-		678C7C2923BE67F0001AC4D5 /* CacheHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheHandler.swift; sourceTree = "<group>"; };
+		678C7C2923BE67F0001AC4D5 /* CacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheController.swift; sourceTree = "<group>"; };
 		678C7C2B23BE6E00001AC4D5 /* CacheProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheProviding.swift; sourceTree = "<group>"; };
 		678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriting.swift; sourceTree = "<group>"; };
 		678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriterHelper.swift; sourceTree = "<group>"; };
@@ -6320,6 +6320,7 @@
 		0E728D151DAEE0C60074EB4B /* Base Networking */ = {
 			isa = PBXGroup;
 			children = (
+				0E87683C1DDE00DB00B8CACD /* Announcements */,
 				8359BAC621E4C9C1009B5E6C /* Fetcher.swift */,
 				8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */,
 				8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */,
@@ -6773,7 +6774,7 @@
 				67F9AE5723AD84DE003D4F5E /* PersistentCacheItem+CoreDataClass.swift */,
 				67F9AE5823AD84DE003D4F5E /* PersistentCacheItem+CoreDataProperties.swift */,
 				678F512C23A7FAAE00CE5357 /* PersistentCache.xcdatamodeld */,
-				678C7C2923BE67F0001AC4D5 /* CacheHandler.swift */,
+				678C7C2923BE67F0001AC4D5 /* CacheController.swift */,
 				678C7C2B23BE6E00001AC4D5 /* CacheProviding.swift */,
 				678C7C3723BE83EF001AC4D5 /* CacheProviderHelper.swift */,
 				678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */,
@@ -8795,7 +8796,6 @@
 				0E28C45F1D74A673000C5919 /* Legacy Models */,
 				0E28C4651D74AB54000C5919 /* Base Model Classes */,
 				0E728D151DAEE0C60074EB4B /* Base Networking */,
-				0E87683C1DDE00DB00B8CACD /* Announcements */,
 				0E728D271DAEE3200074EB4B /* Feed */,
 				0E03E27E1B82EF7600C1FBD7 /* Nearby */,
 				B0B423491EF204C200D3DC4C /* On This Day */,
@@ -12371,7 +12371,7 @@
 				D84C361A1F32403D00895FA1 /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */,
 				7AEF527120ADD74D00DDF791 /* WMFCaptcha.swift in Sources */,
-				678C7C2A23BE67F0001AC4D5 /* CacheHandler.swift in Sources */,
+				678C7C2A23BE67F0001AC4D5 /* CacheController.swift in Sources */,
 				D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */,
 				D844D9961D6CB5970042D692 /* MWKProtectionStatus.m in Sources */,
 				834400B020B3368A005F087D /* NSCharacterSet+WMFExtras.m in Sources */,

@@ -1,14 +1,13 @@
 
 import Foundation
 
-@objc(WMFCacheController)
-public final class CacheController: NSObject {
+public final class CacheController {
     
     static let cacheURL: URL = {
         return FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
     }()
     
-    @objc public static let sharedArticleCache: CacheController? = {
+    public static let sharedArticleCache: CacheController? = {
         
         let fetcher = ArticleFetcher()
         
@@ -19,9 +18,14 @@ public final class CacheController: NSObject {
         
         let provider = ArticleCacheProvider()
         
-        let dbWriter = ArticleCacheDBWriter(articleFetcher: fetcher, cacheBackgroundContext: cacheBackgroundContext, fileWriter: fileWriter)
-        fileWriter.dbWriter = dbWriter
-        return CacheController(fetcher: fetcher, dbWriter: dbWriter, fileWriter: fileWriter, provider: provider)
+        let dbWriter = ArticleCacheDBWriter(articleFetcher: fetcher, cacheBackgroundContext: cacheBackgroundContext)
+        
+        let cacheController = CacheController(fetcher: fetcher, dbWriter: dbWriter, fileWriter: fileWriter, provider: provider)
+        
+        dbWriter.delegate = cacheController
+        fileWriter.delegate = cacheController
+        
+        return cacheController
     }()
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
@@ -75,9 +79,9 @@ public final class CacheController: NSObject {
         return cacheBackgroundContext
     }()
     
-    public let provider: CacheProviding
-    public let dbWriter: CacheDBWriting
-    public let fileWriter: CacheFileWriting
+    private let provider: CacheProviding
+    private let dbWriter: CacheDBWriting
+    private let fileWriter: CacheFileWriting
     
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
@@ -88,4 +92,60 @@ public final class CacheController: NSObject {
     @objc public func setup() {
         
     }
+    
+    public func toggleCache(url: URL) {
+        dbWriter.toggleCache(url: url)
+    }
+    
+    public func isCached(url: URL) -> Bool {
+        dbWriter.isCached(url: url)
+    }
+    
+    public func recentCachedURLResponse(for url: URL) -> CachedURLResponse? {
+        return provider.recentCachedURLResponse(for: url)
+    }
+    
+    public func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
+        return provider.persistedCachedURLResponse(for: url)
+    }
+}
+
+public extension CacheController {
+    func cacheMobileHtmlUrlFromMigration(articleURL: URL) {
+        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
+            return
+        }
+        
+        articleDBWriter.cacheMobileHtmlUrlFromMigration(articleURL: articleURL)
+    }
+}
+
+extension CacheController: CacheDBWritingDelegate {
+    func dbWriterDidSave(cacheItem: PersistentCacheItem) {
+        fileWriter.download(cacheItem: cacheItem)
+    }
+    
+    func dbWriterDidDelete(cacheItem: PersistentCacheItem) {
+        fileWriter.delete(cacheItem: cacheItem)
+    }
+}
+
+extension CacheController: CacheFileWritingDelegate {
+    func fileWriterDidDownload(cacheItem: PersistentCacheItem) {
+        dbWriter.downloadedCacheItemFile(cacheItem: cacheItem)
+    }
+    
+    func fileWriterDidDelete(cacheItem: PersistentCacheItem) {
+        dbWriter.deletedCacheItemFile(cacheItem: cacheItem)
+    }
+    
+    func fileWriterDidMigrate(cacheItem: PersistentCacheItem) {
+        dbWriter.migratedCacheItemFile(cacheItem: cacheItem)
+    }
+    
+    func fileWriterDidFailToDelete(cacheItem: PersistentCacheItem, error: Error) {
+        dbWriter.failureToDeleteCacheItemFile(cacheItem: cacheItem, error: error)
+    }
+    
+    
 }

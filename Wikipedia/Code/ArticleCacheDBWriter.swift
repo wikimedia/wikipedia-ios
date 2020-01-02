@@ -1,19 +1,20 @@
 
 import Foundation
 
-final public class ArticleCacheDBWriter: NSObject, CacheDBWriting {
-    public var fileWriter: CacheFileWriting
+final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
+    
+    weak var delegate: CacheDBWritingDelegate?
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
 
-    init(articleFetcher: ArticleFetcher, cacheBackgroundContext: NSManagedObjectContext, fileWriter: CacheFileWriting) {
+    init(articleFetcher: ArticleFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheDBWritingDelegate? = nil) {
         
         self.articleFetcher = articleFetcher
         self.cacheBackgroundContext = cacheBackgroundContext
-        self.fileWriter = fileWriter
+        self.delegate = delegate
    }
     
-    public func cacheMobileHtmlUrlFromMigration(articleURL: URL) { //articleURL should be desktopURL
+    func cacheMobileHtmlUrlFromMigration(articleURL: URL) { //articleURL should be desktopURL
         guard let groupKey = articleURL.wmf_databaseKey else {
             return
         }
@@ -21,20 +22,65 @@ final public class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         cacheEndpoint(articleURL: articleURL, endpointType: .mobileHTML, groupKey: groupKey, fromMigration: true)
     }
    
-    public func toggleCache(url: URL) {
+    func toggleCache(url: URL) {
         assert(Thread.isMainThread)
         toggleCache(!isCached(url: url), for: url)
     }
    
-    public func clearURLCache() {
+    func clearURLCache() {
         //maybe settings hook? clear only url cache.
     }
 
-    public func clearCoreDataCache() {
+    func clearCoreDataCache() {
         //todo: Settings hook, logout don't sync hook, etc.
         //clear out from core data, leave URL cache as-is.
     }
+    
+//MARK: Reacting to File Writer Results
 
+    func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error) {
+        //tonitodo: not sure what to do in this case. maybe at least some logging?
+    }
+    
+    func deletedCacheItemFile(cacheItem: PersistentCacheItem) {
+        cacheBackgroundContext.perform {
+            self.cacheBackgroundContext.delete(cacheItem)
+            
+            if let cacheGroups = cacheItem.cacheGroups,
+            cacheGroups.count == 1,
+                let cacheGroup = cacheGroups.anyObject() as? PersistentCacheGroup {
+                self.cacheBackgroundContext.delete(cacheGroup)
+            }
+            self.save(moc: self.cacheBackgroundContext) { (result) in
+                
+            }
+        }
+        
+        //tonitodo: should we wait for self.save to complete successfully?
+        if let key = cacheItem.key {
+            NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
+            ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: false])
+        }
+    }
+    
+    func downloadedCacheItemFile(cacheItem: PersistentCacheItem) {
+        cacheBackgroundContext.perform {
+            cacheItem.isDownloaded = true
+            self.save(moc: self.cacheBackgroundContext) { (result) in
+                           
+            }
+        }
+    }
+    
+    func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
+        cacheBackgroundContext.perform {
+            cacheItem.fromMigration = false
+            cacheItem.isDownloaded = true
+            self.save(moc: self.cacheBackgroundContext) { (result) in
+                                      
+            }
+        }
+    }
 }
 
 private extension ArticleCacheDBWriter {
@@ -115,9 +161,15 @@ private extension ArticleCacheDBWriter {
             
             item.fromMigration = fromMigration
             group.addToCacheItems(item)
-            //tonitodo: wait for self.save?
-            self.fileWriter.download(cacheItem: item)
-            self.save(moc: context)
+            
+            self.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    self.delegate?.dbWriterDidSave(cacheItem: item)
+                case .failure:
+                    break
+                }
+            }
         }
     }
     
@@ -135,52 +187,27 @@ private extension ArticleCacheDBWriter {
                 assertionFailure("Cache group for \(groupKey) has no cache items")
                 return
             }
-            for cacheItem in cacheItems where cacheItem.cacheGroups?.count == 1 {
-                cacheItem.isPendingDelete = true
-                //tonitodo: wait for self.save?
-                self.fileWriter.delete(cacheItem: cacheItem)
-            }
-            self.save(moc: context)
-        }
-    }
-}
-
-extension ArticleCacheDBWriter {
-    public func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error) {
-        //tonitodo: not sure what to do in this case. maybe at least some logging?
-    }
-    
-    public func deletedCacheItemFile(cacheItem: PersistentCacheItem) {
-        cacheBackgroundContext.perform {
-            self.cacheBackgroundContext.delete(cacheItem)
             
-            if let cacheGroups = cacheItem.cacheGroups,
-            cacheGroups.count == 1,
-                let cacheGroup = cacheGroups.anyObject() as? PersistentCacheGroup {
-                self.cacheBackgroundContext.delete(cacheGroup)
+            let cacheItemsToDelete = cacheItems.filter({ (cacheItem) -> Bool in
+                return cacheItem.cacheGroups?.count == 1
+            })
+            
+            for cacheItem in cacheItemsToDelete {
+                cacheItem.isPendingDelete = true
             }
-            self.save(moc: self.cacheBackgroundContext)
-        }
-        
-        //tonitodo: should we wait for self.save to complete successfully?
-        if let key = cacheItem.key {
-            NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
-            ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: false])
-        }
-    }
-    
-    public func downloadedCacheItemFile(cacheItem: PersistentCacheItem) {
-        cacheBackgroundContext.perform {
-            cacheItem.isDownloaded = true
-            self.save(moc: self.cacheBackgroundContext)
-        }
-    }
-    
-    public func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
-        cacheBackgroundContext.perform {
-            cacheItem.fromMigration = false
-            cacheItem.isDownloaded = true
-            self.save(moc: self.cacheBackgroundContext)
+            
+            self.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    
+                    for cacheItem in cacheItemsToDelete {
+                        self.delegate?.dbWriterDidDelete(cacheItem: cacheItem)
+                    }
+                    
+                case .failure:
+                    break
+                }
+            }
         }
     }
 }

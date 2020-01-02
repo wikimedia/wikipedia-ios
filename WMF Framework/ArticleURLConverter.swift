@@ -25,7 +25,7 @@ public class ArticleURLConverter {
     
     public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
         
-        var components = configuration.articleURLForHost(host, appending: [title])
+        var components = configuration.articleURLForHost(host, appending: [(title as NSString).wmf_denormalizedPageTitle()])
         
         if let scheme = scheme {
             components.scheme = scheme

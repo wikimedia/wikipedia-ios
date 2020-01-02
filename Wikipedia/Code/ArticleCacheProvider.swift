@@ -1,9 +1,9 @@
 
 import Foundation
 
-final public class ArticleCacheProvider: CacheProviding {
+final class ArticleCacheProvider: CacheProviding {
     
-    public func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
+    func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
         
         //mobile-html endpoint is saved under the desktop url. if it's mobile-html first convert to desktop before pulling the key.
         guard let key = ArticleURLConverter.desktopURL(mobileHTMLURL: url)?.wmf_databaseKey ?? url.wmf_databaseKey else {

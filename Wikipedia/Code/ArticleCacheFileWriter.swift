@@ -3,7 +3,7 @@ import Foundation
 
 final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     
-    weak var dbWriter: ArticleCacheDBWriter?
+    weak var delegate: CacheFileWritingDelegate?
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
     
@@ -11,11 +11,10 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     public static let didChangeNotificationUserInfoDBKey = ["dbKey"]
     public static let didChangeNotificationUserInfoIsDownloadedKey = ["isDownloaded"]
     
-    public init?(articleFetcher: ArticleFetcher,
-                       cacheBackgroundContext: NSManagedObjectContext,
-                       dbWriter: ArticleCacheDBWriter? = nil) {
+    init?(articleFetcher: ArticleFetcher,
+                       cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
         self.articleFetcher = articleFetcher
-        self.dbWriter = dbWriter
+        self.delegate = delegate
         self.cacheBackgroundContext = cacheBackgroundContext
         
         do {
@@ -26,7 +25,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         }
     }
     
-    public func download(cacheItem: PersistentCacheItem) {
+    func download(cacheItem: PersistentCacheItem) {
         
         if cacheItem.fromMigration {
             migrate(cacheItem: cacheItem)
@@ -54,7 +53,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: key, mimeType: mimeType) { (result) in
                 switch result {
                 case .success:
-                    self.dbWriter?.downloadedCacheItemFile(cacheItem: cacheItem)
+                    self.delegate?.fileWriterDidDownload(cacheItem: cacheItem)
                     NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
                     ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: true])
                 default:
@@ -65,7 +64,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         }
     }
     
-    public func delete(cacheItem: PersistentCacheItem) {
+    func delete(cacheItem: PersistentCacheItem) {
 
         guard let key = cacheItem.key else {
             assertionFailure("cacheItem has no key")
@@ -77,12 +76,12 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
         do {
             try FileManager.default.removeItem(at: cachedFileURL)
-            dbWriter?.deletedCacheItemFile(cacheItem: cacheItem)
+            delegate?.fileWriterDidDelete(cacheItem: cacheItem)
         } catch let error as NSError {
             if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                dbWriter?.deletedCacheItemFile(cacheItem: cacheItem)
+                delegate?.fileWriterDidDelete(cacheItem: cacheItem)
             } else {
-                dbWriter?.failureToDeleteCacheItemFile(cacheItem: cacheItem, error: error)
+                delegate?.fileWriterDidFailToDelete(cacheItem: cacheItem, error: error)
             }
         }
     }
