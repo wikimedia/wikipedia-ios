@@ -31,6 +31,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 failure(RequestError.unexpectedResponse)
                 return
             }
+            results.updateFirstRevisionSize(with: requestParams.lastRevisionFromPreviousCall)
             success(results)
         }
     }
@@ -262,7 +263,7 @@ open class HistoryFetchResults: NSObject {
     fileprivate var revisionsByDay: RevisionsByDay
     
     @objc open func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
-        return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo)
+        return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
     @objc open func items() -> [PageHistorySection]  {
@@ -271,6 +272,11 @@ open class HistoryFetchResults: NSObject {
     
     @objc open func batchComplete() -> Bool {
         return self.pagingInfo.batchComplete
+    }
+    
+    fileprivate func updateFirstRevisionSize(with lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
+        guard let previouslyParsedRevision = lastRevisionFromPreviousCall, let parentSize = items().first?.items.first?.articleSizeAtRevision else { return }
+        previouslyParsedRevision.revisionSize = previouslyParsedRevision.articleSizeAtRevision - parentSize
     }
     
     fileprivate init(pagingInfo: PagingInfo, revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
@@ -282,17 +288,20 @@ open class HistoryFetchResults: NSObject {
 
 open class PageHistoryRequestParameters: NSObject {
     fileprivate let pagingInfo: PagingInfo
+    fileprivate let lastRevisionFromPreviousCall: WMFPageHistoryRevision?
     fileprivate let title: String
     
-    fileprivate init(title: String, pagingInfo: PagingInfo) {
+    fileprivate init(title: String, pagingInfo: PagingInfo, lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
         self.title = title
         self.pagingInfo = pagingInfo
+        self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
     }
     
     //TODO: get rid of this when the VC is swift and we can use default values in the other init
     @objc public init(title: String) {
         self.title = title
         pagingInfo = (nil, nil, false)
+        lastRevisionFromPreviousCall = nil
     }
 }
 

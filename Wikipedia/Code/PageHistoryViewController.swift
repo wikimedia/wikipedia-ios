@@ -275,9 +275,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         items.removeFirst()
         self.pageHistorySections.append(contentsOf: items)
     }
-
+    
     private func getPageHistory() {
         isLoadingData = true
+
         pageHistoryFetcher.fetchRevisionInfo(pageURL, requestParams: pageHistoryFetcherParams, failure: { [weak self] error in
             DispatchQueue.main.async {
                 guard let self = self else {
