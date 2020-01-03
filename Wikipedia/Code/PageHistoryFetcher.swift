@@ -313,25 +313,18 @@ extension HistoryFetchResults {
             return
         }
         
-        if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
-            let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
-            let items = existingRevisionsOnCurrentDay.items + [revision]
-            revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
-        } else {
-            if let revisionDate = revision.revisionDate {
-                var title: String?
-                let getSectionTitle = {
-                    title = DateFormatter.wmf_long().string(from: revisionDate)
-                }
-                if Thread.isMainThread {
-                    getSectionTitle()
-                } else {
-                    DispatchQueue.main.sync(execute: getSectionTitle)
-                }
-                guard let sectionTitle = title else { return }
-                let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
-                revisionsByDay[distanceToToday] = newSection
+        guard let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] else {
+            guard let revisionDate = revision.revisionDate else {
+                return
             }
+            let sectionTitle = DateFormatter.wmf_long().string(from: revisionDate)
+            let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
+            revisionsByDay[distanceToToday] = newSection
+            return
         }
+        
+        let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
+        let items = existingRevisionsOnCurrentDay.items + [revision]
+        revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
     }
 }
