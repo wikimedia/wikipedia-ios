@@ -258,8 +258,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private func appendSections(from results: HistoryFetchResults) {
         assert(Thread.isMainThread)
         var items = results.items()
-        defer {
-        }
         guard
             let last = self.pageHistorySections.last,
             let first = items.first,
