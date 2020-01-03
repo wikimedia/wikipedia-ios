@@ -195,6 +195,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte adicionado|$1 bytes adicionados}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte removido|$1 bytes removidos}}";
 "diff-single-header-summary-heading" = "Resumo da edição";
+"diff-single-intro-title" = "Introdução";
 "diff-single-line-format" = "Linha $1";
 "diff-thanks-anonymous-no-thanks" = "Os utilizadores anónimos não podem receber agradecimentos";
 "diff-thanks-login-subtitle" = "Agradecimentos são uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. Para enviar um agradecimento tem de ter uma sessão iniciada.";
@@ -202,8 +203,7 @@
 "diff-thanks-send-button-title" = "Enviar agradecimento";
 "diff-thanks-send-subtitle" = "Agradecimentos são uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. Os agradecimentos não podem ser retirados e são públicos.";
 "diff-thanks-send-title" = "Enviar um agradecimento público";
-// Fuzzy
-"diff-thanks-sent" = "Os seus 'Agradecimentos' foi definido para $1";
+"diff-thanks-sent" = "O seu agradecimento foi enviado a $1";
 "diff-thanks-sent-already" = "Já enviou um agradecimento por esta edição";
 "diff-thanks-sent-cannot-unsend" = "Os agradecimentos enviados não podem ser retirados";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
@@ -474,6 +474,11 @@
 "insert-media-title" = "Inserir multimédia";
 "insert-media-uploaded-image-title" = "Imagem carregada";
 "intermediate-edits-count" = "{{PLURAL:$1|$1 revisão intermédia não mostrada|$1 revisões intermédias não mostradas}}";
+"intermediate-edits-count-limited" = "Mais de $1 revisões intermédias não mostradas";
+"intermediate-edits-editors-count" = "$1 {{PLURAL:$1|revisão intermédia|revisões intermédias}} de $2 {{PLURAL:$2|utilizador|utilizadores}} não {{PLURAL:$1|mostrada|mostradas}}";
+"intermediate-edits-editors-count-limited" = "Mais de $1 revisões intermédias de mais de $2 utilizadores não mostradas";
+"intermediate-edits-editors-limited-count" = "$1 {{PLURAL:$1|revisão intermédia|revisões intermédias}} de mais de $2 utilizadores não {{PLURAL:$1|mostrada|mostradas}}";
+"intermediate-edits-limited-editors-count" = "Mais de $1 revisões intermédias de $2 {{PLURAL:$2|utilizador|utilizadores}} não mostradas";
 "languages-settings-title" = "Línguas";
 "languages-title" = "Alterar língua";
 "languages-wikipedia" = "Línguas da Wikipédia";
@@ -532,11 +537,15 @@
 "page-history-bot-edits" = "edições de robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões a comparar";
 "page-history-compare-title" = "Comparar";
+"page-history-graph-accessibility-label" = "Gráfico de edições ao longo do tempo";
 "page-history-minor-edits" = "edições menores";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
+"page-history-revision-comment-accessibility-label" = "Comentário $1";
 "page-history-revision-history-title" = "Histórico de revisões";
+"page-history-revision-minor-edit-accessibility-label" = "Edição menor";
 "page-history-revision-size-diff-addition" = "Adicionou {{PLURAL:$1|$1 byte|$1 bytes}}";
 "page-history-revision-size-diff-subtraction" = "Removeu {{PLURAL:$1|$1 byte|$1 bytes}}";
+"page-history-revision-time-accessibility-label" = "Revisão efetuada às $1";
 "page-history-revisions-comparison-warning" = "Só podem ser selecionadas duas revisões";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edição|$1 edições}} desde $2";
 "page-history-user-edits" = "edições dos utilizadores";
@@ -551,8 +560,7 @@
 "page-read-in-other-languages" = "Disponível {{PLURAL:$1|noutra língua|em $1 outras línguas}}";
 "page-similar-titles" = "Páginas semelhantes";
 "page-talk-page" = "Ver página de discussão";
-// Fuzzy
-"panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo foi alterado ao longo do tempo. Quando compara duas revisões de um artigo, são geradas as diferenças entre elas.";
+"panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo foi modificado ao longo do tempo. Comparar duas revisões de um artigo mostra as diferenças entre essas revisões, salientando todo o conteúdo que foi modificado.";
 "panel-compare-revisions-title" = "Comparação de revisões";
 "pictured" = "retratado";
 "places-accessibility-clear-saved-searches" = "Limpar pesquisas guardadas";

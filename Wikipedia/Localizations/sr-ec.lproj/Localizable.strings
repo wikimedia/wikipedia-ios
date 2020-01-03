@@ -362,7 +362,7 @@
 "featured-article-empty-title" = "Данас нема доступних препоручених чланака";
 "feed-news-notification-button-text" = "Укључи обавештења";
 "feed-news-notification-text" = "Омогућите обавештења да бисте сазнали када чланци постану тренутни у вестима.";
-"fetcher-error-generic" = "Нешто је кренуло наопако. Молимо покушајте касније.";
+"fetcher-error-generic" = "Нешто је кренуло наопако. Покушајте поново касније.";
 "fetcher-error-unexpected-response" = "Апликација је добила неочекиван одговор од стране сервера. Молимо покушајте касније.";
 "field-alert-captcha-invalid" = "Неважећа CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
@@ -520,7 +520,7 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Додат $1 бајт|Додата $1 бајта|Додато $1 бајтова}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Уклоњен $1 бајт|Уклоњена $1 бајта|Уклоњено $1 бајтова}}";
 "page-history-revision-time-accessibility-label" = "Измена је направљена у $1";
-"page-history-revisions-comparison-warning" = "Само две измене могу бити одабране";
+"page-history-revisions-comparison-warning" = "Могу се изабрати само две измене";
 "page-history-stats-text" = "{{PLURAL:$1|$1 измена|$1 измене}} од $2";
 "page-history-user-edits" = "измене корисника";
 "page-issues" = "Проблеми са страницом";

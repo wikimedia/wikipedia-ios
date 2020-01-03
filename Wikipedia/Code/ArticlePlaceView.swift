@@ -1,10 +1,6 @@
 import UIKit
 import WMF
-#if OSM
-import Mapbox
-#else
 import MapKit
-#endif
 
 protocol ArticlePlaceViewDelegate: NSObjectProtocol {
     func articlePlaceViewWasTapped(_ articlePlaceView: ArticlePlaceView)
@@ -385,16 +381,6 @@ class ArticlePlaceView: MapAnnotationView {
         }
     }
 
-    #if OSM
-    override var annotation: MGLAnnotation? {
-        didSet {
-            guard isSetup, let articlePlace = annotation as? ArticlePlace else {
-                return
-            }
-            update(withArticlePlace: articlePlace)
-        }
-    }
-    #else
     override var annotation: MKAnnotation? {
         didSet {
             guard isSetup, let articlePlace = annotation as? ArticlePlace else {
@@ -403,7 +389,6 @@ class ArticlePlaceView: MapAnnotationView {
             update(withArticlePlace: articlePlace)
         }
     }
-    #endif
     
     override func prepareForReuse() {
         super.prepareForReuse()

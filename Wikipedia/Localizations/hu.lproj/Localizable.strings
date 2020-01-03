@@ -404,6 +404,17 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
 "page-edit-history" = "Teljes laptörténet";
+"page-history-anonymous-edits" = "névtelen szerkesztés";
+"page-history-bot-edits" = "bot szerkesztés";
+"page-history-compare-title" = "Összehasonlít";
+"page-history-graph-accessibility-label" = "Szerkesztések grafikus ábrázolása";
+"page-history-minor-edits" = "apró módosítás";
+"page-history-revision-author-accessibility-label" = "Szerző: $1";
+"page-history-revision-comment-accessibility-label" = "Megjegyzés $1";
+"page-history-revision-history-title" = "Laptörténet";
+"page-history-revision-minor-edit-accessibility-label" = "apró szerkesztés";
+"page-history-revision-size-diff-addition" = "Hozzáadva {{PLURAL:$1|$1 bájt|$1 bájt}}";
+"page-history-revision-size-diff-subtraction" = "Eltávolítva {{PLURAL:$1|$1 bájt|$1 bájt}}";
 "page-issues" = "A lap problémái";
 "page-last-edited" = "Szerkesztve {{PLURAL:$1|0=ma|1=tegnap|$1 napja}}";
 "page-location" = "Megtekintés térképen";
@@ -454,6 +465,7 @@
 "preference-title-eventlogging-opt-in" = "Használati jelentések küldése";
 "rank-accessibility-label" = "$1.";
 "readers-accessibility-label" = "$1 olvasó";
+"reading-list-add-generic-hint-title" = "Szócikket olvasólistára?";
 "reading-list-add-hint-title" = "„$1” hozzáadása egy olvasólistához?";
 "reading-list-add-saved-button-title" = "Igen, vedd fel az olvasólistáimhoz";
 "reading-list-api-error-generic" = "Váratlan hiba történt az olvasólisták szinkronizálása során.";
