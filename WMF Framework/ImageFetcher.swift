@@ -28,7 +28,7 @@ private extension ImageFetcher {
             completion(Fetcher.unexpectedResponseError, url, nil, nil)
             return
         }
-        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+        if let httpResponse = response as? HTTPURLResponse, (httpResponse.statusCode != 200 && httpResponse.statusCode != 304) {
             completion(Fetcher.unexpectedResponseError, url, nil, nil)
             return
         }

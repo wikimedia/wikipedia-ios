@@ -119,16 +119,14 @@ private extension ArticleFetcher {
                 return
             }
             
-            let result = mediaList.items.map { (item) -> URL? in
-                let actualSizeSource = item.sources.filter { $0.scale == "1x" }.first //tonitodo: enum scales?
-                
-                if let urlString = actualSizeSource?.urlString {
-                    let scheme = siteURL.scheme ?? "https"
-                    let finalString = "\(scheme):\(urlString)"
-                    return URL(string: finalString)
-                }
-                
-                return nil
+            let sources = mediaList.items.flatMap { (item) -> [MediaListItemSource] in
+                return item.sources
+            }
+            
+            let result = sources.map { (source) -> URL? in
+                let scheme = siteURL.scheme ?? "https"
+                let finalString = "\(scheme):\(source.urlString)"
+                return URL(string: finalString)
             }.compactMap{ $0 }
             
             completion(.success(result))
