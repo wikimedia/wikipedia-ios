@@ -385,6 +385,12 @@
 		6798332C22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		6798332D22C3F2960073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
+		67A6F13623BFB72F00736539 /* ImageCacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13523BFB72F00736539 /* ImageCacheProvider.swift */; };
+		67A6F13823BFB75300736539 /* ImageCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */; };
+		67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13923BFEA0400736539 /* ImageFetcher.swift */; };
+		67A6F13C23BFED2300736539 /* ImageCacheFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13B23BFED2300736539 /* ImageCacheFileWriter.swift */; };
+		67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */; };
+		67A6F14023BFF62300736539 /* ImageCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13F23BFF62200736539 /* ImageCacheController.swift */; };
 		67ADEE9623A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9723A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9823A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
@@ -4060,6 +4066,12 @@
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
+		67A6F13523BFB72F00736539 /* ImageCacheProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheProvider.swift; sourceTree = "<group>"; };
+		67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheDBWriter.swift; sourceTree = "<group>"; };
+		67A6F13923BFEA0400736539 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		67A6F13B23BFED2300736539 /* ImageCacheFileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheFileWriter.swift; sourceTree = "<group>"; };
+		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
+		67A6F13F23BFF62200736539 /* ImageCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheController.swift; sourceTree = "<group>"; };
 		67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebMessagingController.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
@@ -6760,6 +6772,7 @@
 		678C7C2823BE6766001AC4D5 /* NewCache */ = {
 			isa = PBXGroup;
 			children = (
+				67A6F13423BFB4E700736539 /* ImageCache */,
 				67F9AE5423AD7FF1003D4F5E /* MobileHTML Article Cache */,
 				678C7C3923BE944F001AC4D5 /* BaseCache */,
 			);
@@ -6804,6 +6817,18 @@
 				6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */,
 			);
 			name = UITextView;
+			sourceTree = "<group>";
+		};
+		67A6F13423BFB4E700736539 /* ImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				67A6F13523BFB72F00736539 /* ImageCacheProvider.swift */,
+				67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */,
+				67A6F13F23BFF62200736539 /* ImageCacheController.swift */,
+				67A6F13B23BFED2300736539 /* ImageCacheFileWriter.swift */,
+				67A6F13923BFEA0400736539 /* ImageFetcher.swift */,
+			);
+			name = ImageCache;
 			sourceTree = "<group>";
 		};
 		67DB110822613EF700F789B0 /* SchemeHandler */ = {
@@ -6902,6 +6927,7 @@
 				678F511E23A4B92B00CE5357 /* ArticleCacheProvider.swift */,
 				678F511223A4B11100CE5357 /* ArticleCacheFileWriter.swift */,
 				676A8A8223A4013D0084B967 /* ArticleFetcher.swift */,
+				67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */,
 			);
 			name = "MobileHTML Article Cache";
 			sourceTree = "<group>";
@@ -9118,7 +9144,7 @@
 			isa = PBXGroup;
 			children = (
 				678C7C2823BE6766001AC4D5 /* NewCache */,
-				D8CC94D82178976C007293E7 /* Cache */,
+				D8CC94D82178976C007293E7 /* OldCache */,
 				D8CC94D721789763007293E7 /* Wikipedia */,
 				D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */,
 			);
@@ -9167,7 +9193,7 @@
 			name = Wikipedia;
 			sourceTree = "<group>";
 		};
-		D8CC94D82178976C007293E7 /* Cache */ = {
+		D8CC94D82178976C007293E7 /* OldCache */ = {
 			isa = PBXGroup;
 			children = (
 				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
@@ -9176,7 +9202,7 @@
 				D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */,
 				D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */,
 			);
-			name = Cache;
+			name = OldCache;
 			sourceTree = "<group>";
 		};
 		D8D5513E1DF1A33D00B90177 /* Third Party */ = {
@@ -12146,6 +12172,7 @@
 				8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
+				67A6F13C23BFED2300736539 /* ImageCacheFileWriter.swift in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
 				67F9AE5A23AD84DE003D4F5E /* PersistentCacheGroup+CoreDataProperties.swift in Sources */,
 				B0016CBF2136105900FA1096 /* SetupButton.swift in Sources */,
@@ -12168,6 +12195,7 @@
 				678F514D23A8251200CE5357 /* ArticleCacheProvider.swift in Sources */,
 				D84C36411F3245CD00895FA1 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D84448591DDCE49D00425630 /* WMFContentGroup+CoreDataClass.m in Sources */,
+				67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */,
 				D8CC94DA217897FB007293E7 /* NSManagedObject+Extensions.swift in Sources */,
 				D844D9931D6CB5970042D692 /* MWKSectionList.m in Sources */,
 				D844D9941D6CB5970042D692 /* MWKSectionMetaData.m in Sources */,
@@ -12220,6 +12248,7 @@
 				D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */,
 				D844D9F71D6CC05F0042D692 /* ImageDownload.swift in Sources */,
 				0E728D361DAEE8FF0074EB4B /* WMFRandomContentSource.m in Sources */,
+				67A6F13623BFB72F00736539 /* ImageCacheProvider.swift in Sources */,
 				83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */,
 				7A3AD05A20ADB1CD00C92E04 /* WMFAccountLogin.swift in Sources */,
 				D8733C921ECA16580011E379 /* UIView+SemanticContent.swift in Sources */,
@@ -12278,6 +12307,7 @@
 				D8FA18D31E1BD891009675C3 /* WMFTaskGroup.m in Sources */,
 				D801C93D1EB9404A001FA294 /* WMFLocalization.m in Sources */,
 				0E728D301DAEE8FF0074EB4B /* WMFNearbyContentSource.m in Sources */,
+				67A6F14023BFF62300736539 /* ImageCacheController.swift in Sources */,
 				D84B22501DAFD15A007C44AA /* WMFFaceDetectionCache.m in Sources */,
 				0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */,
 				D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */,
@@ -12340,6 +12370,7 @@
 				7A4941E0216FE96400038D0F /* MWKArticle+Description.swift in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
 				D84C35F11F323CCA00895FA1 /* CollectionViewCell.swift in Sources */,
+				67A6F13823BFB75300736539 /* ImageCacheDBWriter.swift in Sources */,
 				D8FA18F41E1BDA35009675C3 /* UIImage+WMFNormalization.m in Sources */,
 				D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */,
 				831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */,
@@ -12364,6 +12395,7 @@
 				D844D99D1D6CB61B0042D692 /* NSString+WMFExtras.m in Sources */,
 				D837B5B21F0D68B800DCB9CD /* URL+WMFLinkParsing.swift in Sources */,
 				D8CD976B1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift in Sources */,
+				67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */,
 				D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */,
 				D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */,
 				830177FA1FBF3E490005681C /* ReadingListsAPIController.swift in Sources */,

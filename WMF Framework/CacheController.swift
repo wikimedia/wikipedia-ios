@@ -1,31 +1,10 @@
 
 import Foundation
 
-public final class CacheController {
+public class CacheController {
     
     static let cacheURL: URL = {
         return FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
-    }()
-    
-    public static let sharedArticleCache: CacheController? = {
-        
-        let fetcher = ArticleFetcher()
-        
-        guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
-        let fileWriter = ArticleCacheFileWriter(articleFetcher: fetcher, cacheBackgroundContext: cacheBackgroundContext) else {
-            return nil
-        }
-        
-        let provider = ArticleCacheProvider()
-        
-        let dbWriter = ArticleCacheDBWriter(articleFetcher: fetcher, cacheBackgroundContext: cacheBackgroundContext)
-        
-        let cacheController = CacheController(fetcher: fetcher, dbWriter: dbWriter, fileWriter: fileWriter, provider: provider)
-        
-        dbWriter.delegate = cacheController
-        fileWriter.delegate = cacheController
-        
-        return cacheController
     }()
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
@@ -79,9 +58,9 @@ public final class CacheController {
         return cacheBackgroundContext
     }()
     
-    private let provider: CacheProviding
-    private let dbWriter: CacheDBWriting
-    private let fileWriter: CacheFileWriting
+    let provider: CacheProviding
+    let dbWriter: CacheDBWriting
+    let fileWriter: CacheFileWriting
     
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
@@ -107,16 +86,6 @@ public final class CacheController {
     
     public func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
         return provider.persistedCachedURLResponse(for: url)
-    }
-}
-
-public extension CacheController {
-    func cacheMobileHtmlUrlFromMigration(articleURL: URL) {
-        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
-            return
-        }
-        
-        articleDBWriter.cacheMobileHtmlUrlFromMigration(articleURL: articleURL)
     }
 }
 

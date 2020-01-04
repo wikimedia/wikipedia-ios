@@ -52,7 +52,7 @@ class ArticleContainerViewController: ViewController {
         return ArticleContainerViewController(articleURL: articleURL)
     }
     
-    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController? = CacheController.sharedArticleCache) {
+    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController? = ArticleCacheController.shared) {
         
         guard let cacheController = cacheController,
             let language = articleURL.wmf_language else {

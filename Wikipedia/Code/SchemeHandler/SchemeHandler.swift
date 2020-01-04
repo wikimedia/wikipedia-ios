@@ -118,7 +118,7 @@ extension SchemeHandler: WKURLSchemeHandler {
             // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
             // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
             let op = BlockOperation { [weak urlSchemeTask] in
-                if let cachedResponse = CacheController.sharedArticleCache?.recentCachedURLResponse(for: defaultURL) {
+                if let cachedResponse = ArticleCacheController.shared?.recentCachedURLResponse(for: defaultURL) {
                     DispatchQueue.main.async {
                         guard let urlSchemeTask = urlSchemeTask else {
                             return
@@ -218,7 +218,7 @@ private extension SchemeHandler {
             }
         }) { [weak urlSchemeTask] error in
             
-            if let cachedResponse = CacheController.sharedArticleCache?.persistedCachedURLResponse(for: url) {
+            if let cachedResponse = ArticleCacheController.shared?.persistedCachedURLResponse(for: url) {
                 DispatchQueue.main.async {
                     guard let urlSchemeTask = urlSchemeTask else {
                         return

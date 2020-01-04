@@ -59,7 +59,21 @@ final public class ArticleFetcher: Fetcher {
                     return
                 }
         
-        session.jsonDecodableTask(with: stagingTaskURL) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
+        switch endpointType {
+        case .mediaList:
+            fetchMediaListURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+        case .mobileHtmlOfflineResources:
+            fetchOfflineResourceURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+        default:
+            break
+        }
+    }
+}
+
+private extension ArticleFetcher {
+    
+    func fetchOfflineResourceURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) {
+        session.jsonDecodableTask(with: url) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -85,9 +99,41 @@ final public class ArticleFetcher: Fetcher {
             completion(.success(result))
         }
     }
-}
-
-private extension ArticleFetcher {
+    
+    func fetchMediaListURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) {
+        
+        session.jsonDecodableTask(with: url) { (mediaList: MediaList?, response: URLResponse?, error: Error?) in
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                statusCode == 404 {
+                completion(.failure(ArticleFetcherError.doesNotExist))
+                return
+            }
+            
+            if let error = error {
+               completion(.failure(error))
+               return
+           }
+            
+            guard let mediaList = mediaList else {
+                completion(.failure(ArticleFetcherError.missingData))
+                return
+            }
+            
+            let result = mediaList.items.map { (item) -> URL? in
+                let actualSizeSource = item.sources.filter { $0.scale == "1x" }.first //tonitodo: enum scales?
+                
+                if let urlString = actualSizeSource?.urlString {
+                    let scheme = siteURL.scheme ?? "https"
+                    let finalString = "\(scheme):\(urlString)"
+                    return URL(string: finalString)
+                }
+                
+                return nil
+            }.compactMap{ $0 }
+            
+            completion(.success(result))
+        }
+    }
     
     //tonitodo: track/untrack tasks
     func handleDownloadTaskCompletion(url: URL, fileURL: URL?, response: URLResponse?, error: Error?, completion: @escaping DownloadCompletion) {
@@ -105,4 +151,38 @@ private extension ArticleFetcher {
         }
         completion(nil, url, fileURL, response.mimeType)
     }
+}
+
+fileprivate struct MediaListItemSource: Codable {
+    let urlString: String
+    let scale: String
+    
+    enum CodingKeys: String, CodingKey {
+        case urlString = "src"
+        case scale
+    }
+}
+
+fileprivate enum MediaListItemType: String, Codable {
+    case image
+}
+
+fileprivate struct MediaListItem: Codable {
+    let title: String
+    let sectionID: Int
+    let itemType: MediaListItemType
+    let showInGallery: Bool
+    let sources: [MediaListItemSource]
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case sectionID = "section_id"
+        case itemType = "type"
+        case showInGallery
+        case sources = "srcset"
+    }
+}
+
+fileprivate struct MediaList: Codable {
+    let items: [MediaListItem]
 }

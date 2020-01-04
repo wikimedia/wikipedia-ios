@@ -6,12 +6,14 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
     weak var delegate: CacheDBWritingDelegate?
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
+    private let imageController: ImageCacheController
 
-    init(articleFetcher: ArticleFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheDBWritingDelegate? = nil) {
+    init(articleFetcher: ArticleFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheDBWritingDelegate? = nil, imageController: ImageCacheController) {
         
         self.articleFetcher = articleFetcher
         self.cacheBackgroundContext = cacheBackgroundContext
         self.delegate = delegate
+        self.imageController = imageController
    }
     
     func cacheMobileHtmlUrlFromMigration(articleURL: URL) { //articleURL should be desktopURL
@@ -52,7 +54,16 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 self.cacheBackgroundContext.delete(cacheGroup)
             }
             self.save(moc: self.cacheBackgroundContext) { (result) in
-                
+//                switch result {
+//                case .success:
+//                    if let key = cacheItem.key {
+//                        NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
+//                        ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: false])
+//                    }
+//                case .failure:
+//                    //tonitodo: log
+//                    break
+//                }
             }
         }
         
@@ -104,8 +115,44 @@ private extension ArticleCacheDBWriter {
         if cache {
             cacheEndpoint(articleURL: articleURL, endpointType: .mobileHTML, groupKey: groupKey)
             cacheEndpoint(articleURL: articleURL, endpointType: .mobileHtmlOfflineResources, groupKey: groupKey)
+            cacheEndpoint(articleURL: articleURL, endpointType: .mediaList, groupKey: groupKey)
         } else {
             removeCachedArticle(groupKey: groupKey)
+        }
+        
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 20) {
+            self.fetchAndPrintEachItem()
+            self.fetchAndPrintEachGroup()
+        }
+    }
+    
+    func fetchAndPrintEachItem() {
+        cacheBackgroundContext.perform {
+            let fetchRequest = NSFetchRequest<PersistentCacheItem>(entityName: "PersistentCacheItem")
+            do {
+                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
+                for item in fetchedResults {
+                    print("🌹itemKey: \(item.value(forKey: "key")!)")
+                }
+            } catch let error as NSError {
+                // something went wrong, print the error.
+                print(error.description)
+            }
+        }
+    }
+    
+    func fetchAndPrintEachGroup() {
+        cacheBackgroundContext.perform {
+            let fetchRequest = NSFetchRequest<PersistentCacheGroup>(entityName: "PersistentCacheGroup")
+            do {
+                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
+                for item in fetchedResults {
+                    print("🌹groupKey: \(item.value(forKey: "key")!)")
+                }
+            } catch let error as NSError {
+                // something went wrong, print the error.
+                print(error.description)
+            }
         }
     }
     
@@ -126,11 +173,17 @@ private extension ArticleCacheDBWriter {
                 case .success(let urls):
                     for url in urls {
                         
+                        if endpointType == .mediaList {
+                            self.imageController.cache(url: url, groupKey: groupKey)
+                            continue
+                        }
+                        
                         guard let itemKey = url.wmf_databaseKey else {
                             continue
                         }
-                         
+                        
                         self.cacheURL(groupKey: groupKey, itemKey: itemKey, fromMigration: fromMigration)
+                        
                     }
                 case .failure:
                     break
