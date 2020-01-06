@@ -741,14 +741,14 @@
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-reading-list-placeholder-text" = "Okuma listesinde ara";
-"search-recent-clear-cancel" = "Vazgeç";
+"search-recent-clear-cancel" = "İptal";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
 "search-recent-clear-delete-all" = "Tümünü Sil";
 "search-recent-empty" = "Henüz yeni arama yok";
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
-"search-title" = "Arama";
+"search-title" = "Ara";
 "settings-account" = "Hesap";
 "settings-appearance" = "Okuma tercihleri";
 "settings-clear-cache" = "Önbellekteki verileri temizle";

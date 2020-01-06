@@ -60,10 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls;
 
-#pragma mark - Migration
-
-- (void)migrateLegacyDataIfNeeded;
-
 @end
 
 NS_ASSUME_NONNULL_END

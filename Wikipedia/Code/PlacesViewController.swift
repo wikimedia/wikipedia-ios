@@ -1,8 +1,5 @@
 import UIKit
 import WMF
-#if OSM
-import Mapbox
-#endif
 
 import MapKit
 
@@ -156,28 +153,18 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         listViewController.didMove(toParent: self)
         
         let mapViewFrame = mapContainerView.bounds
-        #if OSM
-            let styleURL = Bundle.main.url(forResource: "mapstyle", withExtension: "json")
-            mapView = MapView(frame: mapViewFrame, styleURL: styleURL)
-            mapView.delegate = self
-            mapView.allowsRotating = false
-            mapView.allowsTilting = false
-            mapView.showsUserLocation = false
-            mapView.logoView.isHidden = true
-        #else
-            mapView = MapView(frame: mapViewFrame)
-            mapView.delegate = self
+        mapView = MapView(frame: mapViewFrame)
+        mapView.delegate = self
 
-            // Setup map view
-            mapView.mapType = .standard
-            mapView.showsBuildings = false
-            mapView.showsTraffic = false
-            mapView.showsPointsOfInterest = false
-            mapView.showsScale = false
-            mapView.showsUserLocation = true
-            mapView.isRotateEnabled = false
-            mapView.isPitchEnabled = false
-        #endif
+        // Setup map view
+        mapView.mapType = .standard
+        mapView.showsBuildings = false
+        mapView.showsTraffic = false
+        mapView.showsPointsOfInterest = false
+        mapView.showsScale = false
+        mapView.showsUserLocation = true
+        mapView.isRotateEnabled = false
+        mapView.isPitchEnabled = false
         
         mapContainerView.wmf_addSubviewWithConstraintsToEdges(mapView)
 
@@ -2330,11 +2317,7 @@ extension PlacesViewController {
         var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
         
         if placeView == nil {
-            #if OSM
-                placeView = ArticlePlaceView(reuseIdentifier: reuseIdentifier)
-            #else
-                placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
-            #endif
+            placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
         } else {
             placeView?.prepareForReuse()
             placeView?.annotation = place
@@ -2386,43 +2369,6 @@ extension PlacesViewController {
         return placeView
     }
 }
-
-#if OSM
-    
-// MARK: - MGLMapViewDelegate
-extension PlacesViewController: MGLMapViewDelegate {
-    func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
-        regionWillChange()
-    }
-    
-    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-        regionDidChange()
-    }
-    
-    func mapView(_ mapView: MGLMapView, didSelect annotationView: MGLAnnotationView) {
-        guard let place = annotationView.annotation as? ArticlePlace, let annotationView = annotationView as? MapAnnotationView else {
-            return
-        }
-        didSelect(place: place, annotationView: annotationView)
-    }
-    
-    func mapView(_ mapView: MGLMapView, didDeselect view: MGLAnnotationView) {
-        didDeselectAnnotation()
-    }
-    
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        guard let place = annotation as? ArticlePlace else {
-            return nil
-        }
-        
-        return viewFor(place: place)
-    }
-    
-    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-        
-    }
-}
-#else
     
 // MARK: - MKMapViewDelegate
 extension PlacesViewController: MKMapViewDelegate {
@@ -2462,8 +2408,6 @@ extension PlacesViewController: MKMapViewDelegate {
         return viewFor(place: place)
     }
 }
-    
-#endif
 
 // MARK: -
 

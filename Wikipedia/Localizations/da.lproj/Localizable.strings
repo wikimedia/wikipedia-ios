@@ -79,6 +79,7 @@
 "action-share" = "Del";
 "action-share-accessibility" = "Del";
 "action-sort" = "Sorter";
+"action-thank-user-accessibility" = "Tak bruger";
 // Fuzzy
 "action-undo" = "Fortryd";
 "action-unsave" = "Gem ikke";
@@ -161,6 +162,7 @@
 "diff-context-lines-expanded-button-title" = "Skjul";
 "diff-paragraph-moved-direction-down" = "ned";
 "diff-paragraph-moved-direction-up" = "op";
+"diff-thanks-sent" = "Din 'Tak' blev sendt til $1";
 "dim-images" = "Mørklæg billeder";
 "edit-clear-formatting-accessibility-label" = "Fjern formatering";
 "edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
