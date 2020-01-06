@@ -98,21 +98,17 @@ private extension ArticleCacheFileWriter {
         guard let key = cacheItem.key else {
             return
         }
-        
-        /*
+
         //key will be desktop articleURL.wmf_databaseKey format.
         //Monte: if your local mobile-html is in some sort of temporary file location, you can try calling this here:
-        CacheFileWriterHelper.moveFile(from fileURL: URL, toNewFileWithKey key: key, mimeType: nil, { (result) in
-            switch result {
-            case .success:
-                self.dbDelegate?.migratedCacheItemFile(cacheItem: cacheItem)
-                NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
-                ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: true])
-            default:
-                break
-            }
-        }
-        */
+//        CacheFileWriterHelper.moveFile(from: #temporaryFileURL#, toNewFileWithKey: key, mimeType: nil) { (result) in
+//            switch result {
+//            case .success:
+//                self.dbDelegate?.migratedCacheItemFile(cacheItem: cacheItem)
+//            default:
+//                break
+//            }
+//        }
     }
 }
 
