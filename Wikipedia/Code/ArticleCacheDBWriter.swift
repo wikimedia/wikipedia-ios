@@ -75,7 +75,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         }
     }
     
-    func migratedCacheItemFile(cacheItem: PersistentCacheItem, successCompletion: () -> Void) {
+    func migratedCacheItemFile(cacheItem: PersistentCacheItem, successCompletion: @escaping () -> Void) {
         cacheBackgroundContext.perform {
             cacheItem.fromMigration = false
             cacheItem.isDownloaded = true

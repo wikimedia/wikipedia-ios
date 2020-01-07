@@ -4,7 +4,6 @@ import Foundation
 protocol CacheFileWritingDelegate: class {
     func fileWriterDidDownload(cacheItem: PersistentCacheItem)
     func fileWriterDidDelete(cacheItem: PersistentCacheItem)
-    func fileWriterDidMigrate(cacheItem: PersistentCacheItem)
     func fileWriterDidFailToDelete(cacheItem: PersistentCacheItem, error: Error)
 }
 

@@ -108,10 +108,6 @@ extension CacheController: CacheFileWritingDelegate {
         dbWriter.deletedCacheItemFile(cacheItem: cacheItem)
     }
     
-    func fileWriterDidMigrate(cacheItem: PersistentCacheItem) {
-        dbWriter.migratedCacheItemFile(cacheItem: cacheItem)
-    }
-    
     func fileWriterDidFailToDelete(cacheItem: PersistentCacheItem, error: Error) {
         dbWriter.failureToDeleteCacheItemFile(cacheItem: cacheItem, error: error)
     }

@@ -23,7 +23,6 @@ protocol CacheDBWriting: class {
     func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error)
     func deletedCacheItemFile(cacheItem: PersistentCacheItem)
     func downloadedCacheItemFile(cacheItem: PersistentCacheItem)
-    func migratedCacheItemFile(cacheItem: PersistentCacheItem)
     
     //default implementations
     func isCached(url: URL) -> Bool
