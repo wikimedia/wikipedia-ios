@@ -33,11 +33,19 @@ public final class ArticleCacheController: CacheController {
         return cacheController
     }()
     
-    public func cacheMobileHtmlUrlFromMigration(articleURL: URL) {
-        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
+    public func cacheMobileHtmlFromMigration(articleURL: URL, content: String) { //articleURL should be desktopURL
+        
+        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter,
+        let articleFileWriter = fileWriter as? ArticleCacheFileWriter else {
             return
         }
         
-        articleDBWriter.cacheMobileHtmlUrlFromMigration(articleURL: articleURL)
+        articleDBWriter.cacheMobileHtmlFromMigration(articleURL: articleURL) { (item) in
+            articleFileWriter.migrateCachedContent(content: content, cacheItem: item) {
+                articleDBWriter.migratedCacheItemFile(cacheItem: item) {
+                    print("success")
+                }
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     func download(cacheItem: PersistentCacheItem) {
         
         if cacheItem.fromMigration {
-            migrate(cacheItem: cacheItem)
+            assertionFailure("Not expecting cache item to come through this path. ")
             return
         } else if cacheItem.isDownloaded == true {
             return
@@ -87,9 +87,11 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     }
 }
 
-private extension ArticleCacheFileWriter {
+//Migration
+
+extension ArticleCacheFileWriter {
     
-    func migrate(cacheItem: PersistentCacheItem) {
+    func migrateCachedContent(content: String, cacheItem: PersistentCacheItem, successCompletion: @escaping () -> Void) {
         
         guard cacheItem.fromMigration else {
             return
@@ -101,14 +103,14 @@ private extension ArticleCacheFileWriter {
 
         //key will be desktop articleURL.wmf_databaseKey format.
         //Monte: if your local mobile-html is in some sort of temporary file location, you can try calling this here:
-//        CacheFileWriterHelper.moveFile(from: #temporaryFileURL#, toNewFileWithKey: key, mimeType: nil) { (result) in
-//            switch result {
-//            case .success:
-//                self.dbDelegate?.migratedCacheItemFile(cacheItem: cacheItem)
-//            default:
-//                break
-//            }
-//        }
+        CacheFileWriterHelper.saveContent(content, toNewFileWithKey: key, mimeType: nil) { (result) in
+            switch result {
+            case .success:
+                successCompletion()
+            default:
+                break
+            }
+        }
     }
 }
 

@@ -15,14 +15,6 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         self.delegate = delegate
         self.imageController = imageController
    }
-    
-    func cacheMobileHtmlUrlFromMigration(articleURL: URL) { //articleURL should be desktopURL
-        guard let groupKey = articleURL.wmf_databaseKey else {
-            return
-        }
-        
-        cacheEndpoint(articleURL: articleURL, endpointType: .mobileHTML, groupKey: groupKey, fromMigration: true)
-    }
    
     func toggleCache(url: URL) {
         assert(Thread.isMainThread)
@@ -83,12 +75,42 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         }
     }
     
-    func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
+    func migratedCacheItemFile(cacheItem: PersistentCacheItem, successCompletion: () -> Void) {
         cacheBackgroundContext.perform {
             cacheItem.fromMigration = false
             cacheItem.isDownloaded = true
             self.save(moc: self.cacheBackgroundContext) { (result) in
-                                      
+                switch result {
+                case .success:
+                    successCompletion()
+                default:
+                    break
+                }
+            }
+        }
+    }
+}
+
+//Migration
+
+extension ArticleCacheDBWriter {
+    func cacheMobileHtmlFromMigration(articleURL: URL, successCompletion: @escaping (PersistentCacheItem) -> Void) { //articleURL should be desktopURL
+        guard let key = articleURL.wmf_databaseKey else {
+            return
+        }
+        
+        cacheURL(groupKey: key, itemKey: key) { (item) in
+            self.cacheBackgroundContext.perform {
+                item.fromMigration = true
+                self.save(moc: self.cacheBackgroundContext) { (result) in
+                    switch result {
+                    case .success:
+                        successCompletion(item)
+                    case .failure:
+                        break
+                        //tonitodo: error handling
+                    }
+                }
             }
         }
     }
@@ -156,11 +178,11 @@ private extension ArticleCacheDBWriter {
         }
     }
     
-    func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String, fromMigration: Bool = false) {
+    func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String) {
         
         switch endpointType {
         case .mobileHTML:
-            cacheURL(groupKey: groupKey, itemKey: groupKey, fromMigration: fromMigration)
+            cacheURL(groupKey: groupKey, itemKey: groupKey)
         case .mobileHtmlOfflineResources, .mediaList:
             
             guard let siteURL = articleURL.wmf_site,
@@ -182,7 +204,7 @@ private extension ArticleCacheDBWriter {
                             continue
                         }
                         
-                        self.cacheURL(groupKey: groupKey, itemKey: itemKey, fromMigration: fromMigration)
+                        self.cacheURL(groupKey: groupKey, itemKey: itemKey)
                         
                     }
                 case .failure:
@@ -199,7 +221,7 @@ private extension ArticleCacheDBWriter {
         return (mobileHTMLURL.lastPathComponent as NSString).wmf_normalizedPageTitle()
     }
     
-    func cacheURL(groupKey: String, itemKey: String, fromMigration: Bool = false) {
+    func cacheURL(groupKey: String, itemKey: String, successCompletion: ((PersistentCacheItem) -> Void)? = nil) {
         
         let context = self.cacheBackgroundContext
         context.perform {
@@ -212,13 +234,13 @@ private extension ArticleCacheDBWriter {
                 return
             }
             
-            item.fromMigration = fromMigration
             group.addToCacheItems(item)
             
             self.save(moc: context) { (result) in
                 switch result {
                 case .success:
                     self.delegate?.dbWriterDidSave(cacheItem: item)
+                    successCompletion?(item)
                 case .failure:
                     break
                 }
