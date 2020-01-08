@@ -91,7 +91,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
 
 extension ArticleCacheFileWriter {
     
-    func migrateCachedContent(content: String, cacheItem: PersistentCacheItem, successCompletion: @escaping () -> Void) {
+    func migrateCachedContent(content: String, cacheItem: PersistentCacheItem, mimeType: String, successCompletion: @escaping () -> Void) {
         
         guard cacheItem.fromMigration else {
             return
@@ -103,7 +103,7 @@ extension ArticleCacheFileWriter {
 
         //key will be desktop articleURL.wmf_databaseKey format.
         //Monte: if your local mobile-html is in some sort of temporary file location, you can try calling this here:
-        CacheFileWriterHelper.saveContent(content, toNewFileWithKey: key, mimeType: nil) { (result) in
+        CacheFileWriterHelper.saveContent(content, toNewFileWithKey: key, mimeType: mimeType) { (result) in
             switch result {
             case .success:
                 successCompletion()

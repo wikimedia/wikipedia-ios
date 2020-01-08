@@ -88,18 +88,25 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 }
             }
         }
+        
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
+            self.fetchAndPrintEachItem()
+            self.fetchAndPrintEachGroup()
+        }
     }
 }
 
 //Migration
 
 extension ArticleCacheDBWriter {
-    func cacheMobileHtmlFromMigration(articleURL: URL, successCompletion: @escaping (PersistentCacheItem) -> Void) { //articleURL should be desktopURL
-        guard let key = articleURL.wmf_databaseKey else {
+    func cacheMobileHtmlFromMigration(desktopArticleURL: URL, itemKey: String? = nil, successCompletion: @escaping (PersistentCacheItem) -> Void) { //articleURL should be desktopURL
+        guard let groupKey = desktopArticleURL.wmf_databaseKey else {
             return
         }
         
-        cacheURL(groupKey: key, itemKey: key) { (item) in
+        let finalItemKey = itemKey ?? groupKey
+        
+        cacheURL(groupKey: groupKey, itemKey: finalItemKey) { (item) in
             self.cacheBackgroundContext.perform {
                 item.fromMigration = true
                 self.save(moc: self.cacheBackgroundContext) { (result) in
@@ -142,7 +149,7 @@ private extension ArticleCacheDBWriter {
             removeCachedArticle(groupKey: groupKey)
         }
         
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 20) {
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
             self.fetchAndPrintEachItem()
             self.fetchAndPrintEachGroup()
         }
@@ -153,8 +160,12 @@ private extension ArticleCacheDBWriter {
             let fetchRequest = NSFetchRequest<PersistentCacheItem>(entityName: "PersistentCacheItem")
             do {
                 let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
-                for item in fetchedResults {
-                    print("🌹itemKey: \(item.value(forKey: "key")!)")
+                if fetchedResults.count == 0 {
+                     print("🌹noItems")
+                } else {
+                    for item in fetchedResults {
+                        print("🌹itemKey: \(item.value(forKey: "key")!)")
+                    }
                 }
             } catch let error as NSError {
                 // something went wrong, print the error.
@@ -168,8 +179,12 @@ private extension ArticleCacheDBWriter {
             let fetchRequest = NSFetchRequest<PersistentCacheGroup>(entityName: "PersistentCacheGroup")
             do {
                 let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
-                for item in fetchedResults {
-                    print("🌹groupKey: \(item.value(forKey: "key")!)")
+                if fetchedResults.count == 0 {
+                     print("🌹noGroups")
+                } else {
+                    for item in fetchedResults {
+                        print("🌹groupKey: \(item.value(forKey: "key")!)")
+                    }
                 }
             } catch let error as NSError {
                 // something went wrong, print the error.
