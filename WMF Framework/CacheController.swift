@@ -4,19 +4,20 @@ import Foundation
 public class CacheController {
     
     static let cacheURL: URL = {
-        return FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        var url = FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        
+        var values = URLResourceValues()
+        values.isExcludedFromBackup = true
+        do {
+            try url.setResourceValues(values)
+        } catch {
+            return url
+        }
+        
+        return url
     }()
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
-        
-        //tonitodo: taken from ImageController. Do we only want this set for images?
-//        var values = URLResourceValues()
-//        values.isExcludedFromBackup = true
-//        do {
-//            try cacheURL.setResourceValues(values)
-//        } catch {
-//            return nil
-//        }
         
         //create ManagedObjectModel based on Cache.momd
         guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
@@ -68,6 +69,12 @@ public class CacheController {
         self.fileWriter = fileWriter
     }
     
+    
+    func clearURLCache() { }//maybe settings hook? clear only url cache.
+    func clearCoreDataCache() {}
+    //todo: Settings hook, logout don't sync hook, etc.
+    //clear out from core data, leave URL cache as-is.
+    
     @objc public func setup() {
         
     }
@@ -90,26 +97,26 @@ public class CacheController {
 }
 
 extension CacheController: CacheDBWritingDelegate {
-    func dbWriterDidSave(cacheItem: PersistentCacheItem) {
-        fileWriter.download(cacheItem: cacheItem)
+    func dbWriterDidSave(groupKey: String, itemKey: String) {
+        fileWriter.download(groupKey: groupKey, itemKey: itemKey)
     }
     
-    func dbWriterDidDelete(cacheItem: PersistentCacheItem) {
-        fileWriter.delete(cacheItem: cacheItem)
+    func dbWriterDidDelete(groupKey: String, itemKey: String) {
+        fileWriter.delete(groupKey: groupKey, itemKey: itemKey)
     }
 }
 
 extension CacheController: CacheFileWritingDelegate {
-    func fileWriterDidDownload(cacheItem: PersistentCacheItem) {
-        dbWriter.downloadedCacheItemFile(cacheItem: cacheItem)
+    func fileWriterDidDownload(groupKey: String, itemKey: String) {
+        dbWriter.markDownloaded(groupKey: groupKey, itemKey: itemKey)
     }
     
-    func fileWriterDidDelete(cacheItem: PersistentCacheItem) {
-        dbWriter.deletedCacheItemFile(cacheItem: cacheItem)
+    func fileWriterDidDelete(groupKey: String, itemKey: String) {
+        dbWriter.markDeleted(groupKey: groupKey, itemKey: itemKey)
     }
     
-    func fileWriterDidFailToDelete(cacheItem: PersistentCacheItem, error: Error) {
-        dbWriter.failureToDeleteCacheItemFile(cacheItem: cacheItem, error: error)
+    func fileWriterDidFailToDelete(groupKey: String, itemKey: String) {
+        dbWriter.markDeleteFailed(groupKey: groupKey, itemKey: itemKey)
     }
     
     

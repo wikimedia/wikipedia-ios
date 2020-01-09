@@ -7,22 +7,18 @@ enum SaveResult {
 }
 
 protocol CacheDBWritingDelegate: class {
-    func dbWriterDidSave(cacheItem: PersistentCacheItem)
-    func dbWriterDidDelete(cacheItem: PersistentCacheItem)
+    func dbWriterDidSave(groupKey: String, itemKey: String)
+    func dbWriterDidDelete(groupKey: String, itemKey: String)
 }
 
 protocol CacheDBWriting: class {
     
     var delegate: CacheDBWritingDelegate? { get }
     func toggleCache(url: URL)
-    func clearURLCache() //maybe settings hook? clear only url cache.
-    func clearCoreDataCache()
-    //todo: Settings hook, logout don't sync hook, etc.
-    //clear out from core data, leave URL cache as-is.
     
-    func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error)
-    func deletedCacheItemFile(cacheItem: PersistentCacheItem)
-    func downloadedCacheItemFile(cacheItem: PersistentCacheItem)
+    func markDeleteFailed(groupKey: String, itemKey: String)
+    func markDeleted(groupKey: String, itemKey: String)
+    func markDownloaded(groupKey: String, itemKey: String)
     
     //default implementations
     func isCached(url: URL) -> Bool

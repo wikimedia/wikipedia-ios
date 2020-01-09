@@ -34,19 +34,16 @@ final class ImageCacheDBWriter: CacheDBWriting {
         toggleCache(!isCached(url: url), groupKey: key, itemKey: key)
     }
     
-    func clearURLCache() {
-        
-    }
-    
-    func clearCoreDataCache() {
-        
-    }
-    
-    func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error) {
+    func markDeleteFailed(groupKey: String, itemKey: String) {
         //tonitodo: not sure what to do in this case. maybe at least some logging?
     }
     
-    func deletedCacheItemFile(cacheItem: PersistentCacheItem) {
+    func markDeleted(groupKey: String, itemKey: String) {
+        
+        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: cacheBackgroundContext) else {
+            return
+        }
+        
         cacheBackgroundContext.perform {
             self.cacheBackgroundContext.delete(cacheItem)
             
@@ -61,7 +58,12 @@ final class ImageCacheDBWriter: CacheDBWriting {
         }
     }
     
-    func downloadedCacheItemFile(cacheItem: PersistentCacheItem) {
+    func markDownloaded(groupKey: String, itemKey: String) {
+    
+        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: cacheBackgroundContext) else {
+            return
+        }
+    
         cacheBackgroundContext.perform {
             cacheItem.isDownloaded = true
             self.save(moc: self.cacheBackgroundContext) { (result) in
@@ -81,7 +83,7 @@ private extension ImageCacheDBWriter {
         if cache {
             cacheImage(groupKey: groupKey, itemKey: itemKey)
         } else {
-            removeCachedImage(groupKey: groupKey)
+            removeCachedImage(groupKey: groupKey, itemKey: itemKey)
         }
     }
     
@@ -103,7 +105,7 @@ private extension ImageCacheDBWriter {
             self.save(moc: context) { (result) in
                 switch result {
                 case .success:
-                    self.delegate?.dbWriterDidSave(cacheItem: item)
+                    self.delegate?.dbWriterDidSave(groupKey: groupKey, itemKey: itemKey)
                 case .failure:
                     break
                 }
@@ -111,7 +113,7 @@ private extension ImageCacheDBWriter {
         }
     }
     
-    func removeCachedImage(groupKey: String) {
+    func removeCachedImage(groupKey: String, itemKey: String) {
         
         let context = cacheBackgroundContext
         context.perform {
@@ -139,7 +141,12 @@ private extension ImageCacheDBWriter {
                 case .success:
                     
                     for cacheItem in cacheItemsToDelete {
-                        self.delegate?.dbWriterDidDelete(cacheItem: cacheItem)
+                        
+                        guard let itemKey = cacheItem.key else {
+                            continue
+                        }
+                        
+                        self.delegate?.dbWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
                     }
                     
                 case .failure:

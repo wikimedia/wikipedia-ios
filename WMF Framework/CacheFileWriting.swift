@@ -2,15 +2,15 @@
 import Foundation
 
 protocol CacheFileWritingDelegate: class {
-    func fileWriterDidDownload(cacheItem: PersistentCacheItem)
-    func fileWriterDidDelete(cacheItem: PersistentCacheItem)
-    func fileWriterDidFailToDelete(cacheItem: PersistentCacheItem, error: Error)
+    func fileWriterDidDownload(groupKey: String, itemKey: String)
+    func fileWriterDidDelete(groupKey: String, itemKey: String)
+    func fileWriterDidFailToDelete(groupKey: String, itemKey: String)
 }
 
 protocol CacheFileWriting {
     
     var delegate: CacheFileWritingDelegate? { get }
-    func download(cacheItem: PersistentCacheItem)
-    func delete(cacheItem: PersistentCacheItem)
+    func download(groupKey: String, itemKey: String)
+    func delete(groupKey: String, itemKey: String)
 }
 

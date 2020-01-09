@@ -2,7 +2,7 @@
 import Foundation
 
 final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
-    
+     
     weak var delegate: CacheDBWritingDelegate?
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
@@ -20,24 +20,21 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         assert(Thread.isMainThread)
         toggleCache(!isCached(url: url), for: url)
     }
-   
-    func clearURLCache() {
-        //maybe settings hook? clear only url cache.
-    }
-
-    func clearCoreDataCache() {
-        //todo: Settings hook, logout don't sync hook, etc.
-        //clear out from core data, leave URL cache as-is.
-    }
     
 //MARK: Reacting to File Writer Results
 
-    func failureToDeleteCacheItemFile(cacheItem: PersistentCacheItem, error: Error) {
+    func markDeleteFailed(groupKey: String, itemKey: String) {
         //tonitodo: not sure what to do in this case. maybe at least some logging?
     }
     
-    func deletedCacheItemFile(cacheItem: PersistentCacheItem) {
+    func markDeleted(groupKey: String, itemKey: String) {
+        
+        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: self.cacheBackgroundContext) else {
+            return
+        }
+        
         cacheBackgroundContext.perform {
+            
             self.cacheBackgroundContext.delete(cacheItem)
             
             if let cacheGroups = cacheItem.cacheGroups,
@@ -66,7 +63,12 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         }
     }
     
-    func downloadedCacheItemFile(cacheItem: PersistentCacheItem) {
+    func markDownloaded(groupKey: String, itemKey: String) {
+        
+        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: self.cacheBackgroundContext) else {
+            return
+        }
+        
         cacheBackgroundContext.perform {
             cacheItem.isDownloaded = true
             self.save(moc: self.cacheBackgroundContext) { (result) in
@@ -254,7 +256,7 @@ private extension ArticleCacheDBWriter {
             self.save(moc: context) { (result) in
                 switch result {
                 case .success:
-                    self.delegate?.dbWriterDidSave(cacheItem: item)
+                    self.delegate?.dbWriterDidSave(groupKey: groupKey, itemKey: itemKey)
                     successCompletion?(item)
                 case .failure:
                     break
@@ -291,7 +293,11 @@ private extension ArticleCacheDBWriter {
                 case .success:
                     
                     for cacheItem in cacheItemsToDelete {
-                        self.delegate?.dbWriterDidDelete(cacheItem: cacheItem)
+                        guard let itemKey = cacheItem.key else {
+                            continue
+                        }
+                        
+                        self.delegate?.dbWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
                     }
                     
                 case .failure:

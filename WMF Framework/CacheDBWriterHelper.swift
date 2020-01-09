@@ -9,8 +9,24 @@ final class CacheDBWriterHelper {
     static func fetchOrCreateCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
         return cacheItem(with: itemKey, in: moc) ?? createCacheItem(with: itemKey, in: moc)
     }
+    
+    static func inMemoryCacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
+        for object in moc.registeredObjects where !object.isFault {
+            let predicate = NSPredicate(format: "key == %@", key)
+            guard let result = object as? PersistentCacheGroup, predicate.evaluate(with: result) else {
+                continue
+            }
+            return result
+        }
+        return nil
+    }
 
     static func cacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
+        
+        if let inMemoryGroup = inMemoryCacheGroup(with: key, in: moc) {
+            return inMemoryGroup
+        }
+        
         let fetchRequest: NSFetchRequest<PersistentCacheGroup> = PersistentCacheGroup.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "key == %@", key)
         fetchRequest.fetchLimit = 1
@@ -35,6 +51,11 @@ final class CacheDBWriterHelper {
     }
     
     static func cacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+        
+        if let inMemoryItem = inMemoryCacheItem(with: itemKey, in: moc) {
+            return inMemoryItem
+        }
+        
         let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "key == %@", itemKey)
         fetchRequest.fetchLimit = 1
@@ -46,6 +67,17 @@ final class CacheDBWriterHelper {
         } catch let error {
             fatalError(error.localizedDescription)
         }
+    }
+    
+    static func inMemoryCacheItem(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+        for object in moc.registeredObjects where !object.isFault {
+            let predicate = NSPredicate(format: "key == %@", key)
+            guard let result = object as? PersistentCacheItem, predicate.evaluate(with: result) else {
+                continue
+            }
+            return result
+        }
+        return nil
     }
 
     static func createCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {

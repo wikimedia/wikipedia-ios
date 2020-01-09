@@ -25,18 +25,10 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         }
     }
     
-    func download(cacheItem: PersistentCacheItem) {
+    func download(groupKey: String, itemKey: String) {
         
-        if cacheItem.fromMigration {
-            assertionFailure("Not expecting cache item to come through this path. ")
+        guard let url = URL(string: itemKey) else {
             return
-        } else if cacheItem.isDownloaded == true {
-            return
-        }
-        
-        guard let key = cacheItem.key,
-            let url = URL(string: key) else {
-                return
         }
         
         let urlToDownload = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mobileHTML, scheme: Configuration.Scheme.https) ?? url
@@ -50,11 +42,11 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
                 return
             }
             
-            CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: key, mimeType: mimeType) { (result) in
+            CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success:
-                    self.delegate?.fileWriterDidDownload(cacheItem: cacheItem)
-                    NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
+                    self.delegate?.fileWriterDidDownload(groupKey: groupKey, itemKey: itemKey)
+                    NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: itemKey,
                     ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: true])
                 default:
                     //tonitodo: better error handling
@@ -64,24 +56,19 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         }
     }
     
-    func delete(cacheItem: PersistentCacheItem) {
-
-        guard let key = cacheItem.key else {
-            assertionFailure("cacheItem has no key")
-            return
-        }
+    func delete(groupKey: String, itemKey: String) {
         
-        let pathComponent = key.sha256 ?? key
+        let pathComponent = itemKey.sha256 ?? itemKey
         
         let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
         do {
             try FileManager.default.removeItem(at: cachedFileURL)
-            delegate?.fileWriterDidDelete(cacheItem: cacheItem)
+            delegate?.fileWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
         } catch let error as NSError {
             if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                delegate?.fileWriterDidDelete(cacheItem: cacheItem)
+                delegate?.fileWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
             } else {
-                delegate?.fileWriterDidFailToDelete(cacheItem: cacheItem, error: error)
+                delegate?.fileWriterDidFailToDelete(groupKey: groupKey, itemKey: itemKey)
             }
         }
     }

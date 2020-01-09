@@ -19,14 +19,10 @@ final class ImageCacheFileWriter: CacheFileWriting {
         }
     }
     
-    func download(cacheItem: PersistentCacheItem) {
-        if cacheItem.isDownloaded == true {
-            return
-        }
+    func download(groupKey: String, itemKey: String) {
         
-        guard let key = cacheItem.key,
-            let url = URL(string: key) else {
-                return
+        guard let url = URL(string: itemKey) else {
+            return
         }
         
         imageFetcher.downloadData(url: url) { (error, _, temporaryFileURL, mimeType) in
@@ -38,10 +34,10 @@ final class ImageCacheFileWriter: CacheFileWriting {
                 return
             }
             
-            CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: key, mimeType: mimeType) { (result) in
+            CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success:
-                    self.delegate?.fileWriterDidDownload(cacheItem: cacheItem)
+                    self.delegate?.fileWriterDidDownload(groupKey: groupKey, itemKey: itemKey)
                 default:
                     //tonitodo: better error handling
                     break
@@ -50,23 +46,19 @@ final class ImageCacheFileWriter: CacheFileWriting {
         }
     }
     
-    func delete(cacheItem: PersistentCacheItem) {
-        guard let key = cacheItem.key else {
-            assertionFailure("cacheItem has no key")
-            return
-        }
-        
-        let pathComponent = key.sha256 ?? key
+    func delete(groupKey: String, itemKey: String) {
+
+        let pathComponent = itemKey.sha256 ?? itemKey
         
         let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
         do {
             try FileManager.default.removeItem(at: cachedFileURL)
-            delegate?.fileWriterDidDelete(cacheItem: cacheItem)
+            delegate?.fileWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
         } catch let error as NSError {
             if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                delegate?.fileWriterDidDelete(cacheItem: cacheItem)
+                delegate?.fileWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
             } else {
-                delegate?.fileWriterDidFailToDelete(cacheItem: cacheItem, error: error)
+                delegate?.fileWriterDidFailToDelete(groupKey: groupKey, itemKey: itemKey)
             }
         }
     }
