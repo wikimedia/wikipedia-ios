@@ -22,6 +22,7 @@ final class SchemeHandler: NSObject {
     private let fileHandler: FileHandler
     private let defaultHandler: DefaultHandler
     private let cacheQueue: OperationQueue = OperationQueue()
+    var articleCacheController: CacheController?
     
     @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
     
@@ -118,7 +119,7 @@ extension SchemeHandler: WKURLSchemeHandler {
             // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
             // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
             let op = BlockOperation { [weak urlSchemeTask] in
-                if let cachedResponse = ArticleCacheController.shared?.recentCachedURLResponse(for: defaultURL) {
+                if let cachedResponse = self.articleCacheController?.recentCachedURLResponse(for: defaultURL) {
                     DispatchQueue.main.async {
                         guard let urlSchemeTask = urlSchemeTask else {
                             return
@@ -218,7 +219,7 @@ private extension SchemeHandler {
             }
         }) { [weak urlSchemeTask] error in
             
-            if let cachedResponse = ArticleCacheController.shared?.persistedCachedURLResponse(for: url) {
+            if let cachedResponse = self.articleCacheController?.persistedCachedURLResponse(for: url) {
                 DispatchQueue.main.async {
                     guard let urlSchemeTask = urlSchemeTask else {
                         return

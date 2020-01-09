@@ -48,20 +48,25 @@ class ArticleContainerViewController: ViewController {
         return progressController
     }()
     
-    @objc static func articleContainerViewController(with articleURL: URL) -> ArticleContainerViewController? {
-        return ArticleContainerViewController(articleURL: articleURL)
+    @objc convenience init?(articleURL: URL, cacheControllerWrapper: CacheControllerWrapper) {
+        
+        guard let cacheController = cacheControllerWrapper.cacheController else {
+            return nil
+        }
+        
+        self.init(articleURL: articleURL, cacheController: cacheController)
     }
     
-    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController? = ArticleCacheController.shared) {
+    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController) {
         
-        guard let cacheController = cacheController,
-            let language = articleURL.wmf_language else {
+        guard let language = articleURL.wmf_language else {
             return nil
         }
         
         self.articleURL = articleURL
         self.language = language
         self.schemeHandler = schemeHandler
+        self.schemeHandler.articleCacheController = cacheController
         self.cacheController = cacheController
         
         super.init(nibName: nil, bundle: nil)

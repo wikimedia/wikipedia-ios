@@ -4,10 +4,11 @@ extension WMFContentGroup {
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
         switch detailType {
         case .page:
-            guard let articleURL = previewArticleURLForItemAtIndex(index) else {
+            guard let articleURL = previewArticleURLForItemAtIndex(index),
+                let cacheController = dataStore.articleCacheControllerWrapper.cacheController else {
                 return nil
             }
-            return ArticleContainerViewController(articleURL: articleURL)
+            return ArticleContainerViewController(articleURL: articleURL, cacheController: cacheController)
         case .pageWithRandomButton:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
                 return nil

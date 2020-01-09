@@ -1289,7 +1289,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
     
-    WMFArticleContainerViewController *articleVC = [WMFArticleContainerViewController articleContainerViewControllerWith:articleURL];
+    WMFArticleContainerViewController *articleVC = [[WMFArticleContainerViewController alloc] initWithArticleURL:articleURL cacheControllerWrapper:self.dataStore.articleCacheControllerWrapper];
     
     [nc pushViewController:articleVC animated:animated];
 }
