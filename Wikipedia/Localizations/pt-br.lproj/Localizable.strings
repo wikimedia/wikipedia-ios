@@ -138,7 +138,7 @@
 "article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
 "back-button-accessibility-label" = "Voltar";
 "back-button-popover-title" = "Tocar para voltar atrás";
-"button-next" = "Seguinte";
+"button-next" = "Próximo";
 "button-ok" = "OK";
 "button-publish" = "Publicar";
 "button-read-now" = "Ler agora";
@@ -152,7 +152,7 @@
 "clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
-"continue-reading-empty-description" = "Explore a Wikipedia para mais artigos para ler";
+"continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
 "description-add-link-title" = "Adicionar descrição do título";
 "description-add-title" = "Adicionar descrição";
@@ -261,8 +261,8 @@
 "edit-subscript-accessibility-label" = "Adicionar formatação de subscrito";
 "edit-subscript-remove-accessibility-label" = "Remover a formatação de subscrito";
 "edit-summary-add-summary-text" = "Adicionar um resumo de edição";
-"edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
-"edit-summary-choice-fixed-typos" = "Ortográfia reduzida";
+"edit-summary-choice-fixed-grammar" = "Gramática corrigida";
+"edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-learn-more-text" = "Saiba mais";
 "edit-summary-placeholder-text" = "Como foi que você melhorou o artigo?";
@@ -301,7 +301,7 @@
 "empty-no-reading-lists-title" = "Organiza os artigos salvados com as listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
 "empty-no-saved-pages-in-reading-list-title" = "Não foram salvadas páginas nesta lista";
-"empty-no-saved-pages-message" = "Guarde páginas para ler mais tarde, mesmo que seja offline";
+"empty-no-saved-pages-message" = "Salve páginas para ler mais tarde, mesmo que seja offline";
 "empty-no-saved-pages-title" = "Sem páginas salvas ainda.";
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
 "empty-talk-page-title" = "Nenhuma mensagem foi postada para este usuário ainda";
