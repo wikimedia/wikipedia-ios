@@ -71,6 +71,8 @@
 "action-language-accessibility" = "Nyelvváltás";
 "action-move-to" = "Áthelyezés ide...";
 "action-move-to-reading-list" = "Mentés olvasólistára";
+"action-next-revision-accessibility" = "Következő változat";
+"action-previous-revision-accessibility" = "Előző változat";
 "action-read" = "Olvasás";
 "action-redo" = "Újra";
 "action-remove" = "Eltávolítás";
@@ -163,6 +165,11 @@
 "description-welcome-descriptions-sub-title" = "Összefoglalja a szócikk témáját, hogy az olvasó megtudja, miről szól";
 "description-welcome-descriptions-title" = "Címleírások";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
+"diff-paragraph-moved-direction-down" = "le";
+"diff-paragraph-moved-direction-up" = "föl";
+"diff-single-header-summary-heading" = "Szerkesztési összefoglaló";
+"diff-thanks-login-title" = "Köszönet küldéséhez jelentkezz be";
+"diff-thanks-send-button-title" = "Köszönet küldése";
 "dim-images" = "Képek sötétítése";
 "edit-bold-accessibility-label" = "Félkövér formázás hozzáadása";
 "edit-bold-remove-accessibility-label" = "Félkövér formázás eltávolítása";
@@ -238,8 +245,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Nem nyelv-specifikus";
 "explore-feed-preferences-global-cards-title" = "Globális kártyák";
 "explore-feed-preferences-hide-card-action-title" = "Kártya elrejtése";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Minden „%@” kártya elrejtése";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Minden „$1” kártya elrejtése";
 "explore-feed-preferences-in-the-news-description" = "Szócikkek aktuális eseményekről";
 "explore-feed-preferences-on-this-day-description" = "Események ezen a napon";
 "explore-feed-preferences-places-description" = "Wikipédia szócikkek a közeledben";
@@ -504,8 +510,15 @@
 "reading-themes-controls-syntax-highlighting" = "Szintaxiskiemelés";
 "reference-title" = "Forráshivatkozás $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ma|1=Tegnap|$1 napja}}";
+"relative-date-hours-abbreviated" = "$1 óra";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nemrég|$1 órája|$1 órája}}";
+"relative-date-hours-ago-abbreviated" = "$1 órával ezelőtt";
+"relative-date-minutes-abbreviated" = "$1 perc";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Épp most|$1 perce|$1 perce}}";
+"relative-date-minutes-ago-abbreviated" = "$1 perccel ezelőtt";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Ebben a hónapban|1=Előző hónapban|$1 hónappal ezelőtt}}";
+"relative-date-seconds-abbreviated" = "$1 másodperc";
+"relative-date-seconds-ago-abbreviated" = "$1 másodperccel ezelőtt";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Idén|1=Tavaly|$1 évvel ezelőtt}}";
 "replace-infolabel-method-replace" = "Csere";
 "replace-infolabel-method-replace-all" = "Összes cseréje";
