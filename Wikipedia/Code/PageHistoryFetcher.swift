@@ -31,7 +31,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 failure(RequestError.unexpectedResponse)
                 return
             }
-            results.tackOn(requestParams.lastRevisionFromPreviousCall)
+            results.updateFirstRevisionSize(with: requestParams.lastRevisionFromPreviousCall)
             success(results)
         }
     }
@@ -127,7 +127,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL, from fromRevisionID: Int? = nil , to toRevisionID: Int? = nil) -> URL? {
         guard let project = pageURL.wmf_site?.host,
-        let title = pageTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+        let title = pageTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
             return nil
         }
 
@@ -209,7 +209,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], Error>) -> Void ) {
         DispatchQueue.global(qos: .userInitiated).async {
             guard
-                let title = pageTitle.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+                let title = pageTitle.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed),
                 let project = pageURL.wmf_site?.host,
                 let yearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date()),
                 let from = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: yearAgo),
@@ -274,10 +274,9 @@ open class HistoryFetchResults: NSObject {
         return self.pagingInfo.batchComplete
     }
     
-    fileprivate func tackOn(_ lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
+    fileprivate func updateFirstRevisionSize(with lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
         guard let previouslyParsedRevision = lastRevisionFromPreviousCall, let parentSize = items().first?.items.first?.articleSizeAtRevision else { return }
         previouslyParsedRevision.revisionSize = previouslyParsedRevision.articleSizeAtRevision - parentSize
-        HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: previouslyParsedRevision)
     }
     
     fileprivate init(pagingInfo: PagingInfo, revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
@@ -314,25 +313,18 @@ extension HistoryFetchResults {
             return
         }
         
-        if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
-            let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
-            let items = existingRevisionsOnCurrentDay.items + [revision]
-            revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
-        } else {
-            if let revisionDate = revision.revisionDate {
-                var title: String?
-                let getSectionTitle = {
-                    title = DateFormatter.wmf_long().string(from: revisionDate)
-                }
-                if Thread.isMainThread {
-                    getSectionTitle()
-                } else {
-                    DispatchQueue.main.sync(execute: getSectionTitle)
-                }
-                guard let sectionTitle = title else { return }
-                let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
-                revisionsByDay[distanceToToday] = newSection
+        guard let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] else {
+            guard let revisionDate = revision.revisionDate else {
+                return
             }
+            let sectionTitle = DateFormatter.wmf_long().string(from: revisionDate)
+            let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
+            revisionsByDay[distanceToToday] = newSection
+            return
         }
+        
+        let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
+        let items = existingRevisionsOnCurrentDay.items + [revision]
+        revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
     }
 }

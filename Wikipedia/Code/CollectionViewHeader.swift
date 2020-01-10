@@ -90,6 +90,11 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         button.titleLabel?.font = UIFont.wmf_font(buttonTextStyle, compatibleWithTraitCollection: traitCollection)
     }
     
+    override func layoutMarginsDidChange() {
+        super.layoutMarginsDidChange()
+        setNeedsLayout()
+    }
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let additionalMargins: UIEdgeInsets
         switch style {
