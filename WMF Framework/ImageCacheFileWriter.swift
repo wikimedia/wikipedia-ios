@@ -19,7 +19,7 @@ final class ImageCacheFileWriter: CacheFileWriting {
         }
     }
     
-    func download(groupKey: String, itemKey: String) {
+    func add(groupKey: String, itemKey: String) {
         
         guard let url = URL(string: itemKey) else {
             return
@@ -37,28 +37,27 @@ final class ImageCacheFileWriter: CacheFileWriting {
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success:
-                    self.delegate?.fileWriterDidDownload(groupKey: groupKey, itemKey: itemKey)
+                    self.delegate?.fileWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
                 default:
-                    //tonitodo: better error handling
-                    break
+                    self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 }
             }
         }
     }
     
-    func delete(groupKey: String, itemKey: String) {
+    func remove(groupKey: String, itemKey: String) {
 
         let pathComponent = itemKey.sha256 ?? itemKey
         
         let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
         do {
             try FileManager.default.removeItem(at: cachedFileURL)
-            delegate?.fileWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
+            delegate?.fileWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
         } catch let error as NSError {
             if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                delegate?.fileWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
+                delegate?.fileWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
             } else {
-                delegate?.fileWriterDidFailToDelete(groupKey: groupKey, itemKey: itemKey)
+                delegate?.fileWriterDidFailRemove(groupKey: groupKey, itemKey: itemKey)
             }
         }
     }

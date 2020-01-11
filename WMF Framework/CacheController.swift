@@ -63,24 +63,29 @@ public class CacheController {
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriting
     
+    typealias CacheControllerCompletion = (_ isAdd: Bool, _ isSuccess: Bool) -> Void
+    typealias ItemKey = String
+    
+    private var queuedCompletions: [ItemKey: [CacheControllerCompletion]] = [:]
+    
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
     }
     
-    
     func clearURLCache() { }//maybe settings hook? clear only url cache.
     func clearCoreDataCache() {}
     //todo: Settings hook, logout don't sync hook, etc.
     //clear out from core data, leave URL cache as-is.
     
-    @objc public func setup() {
-        
-    }
-    
     public func toggleCache(url: URL) {
-        dbWriter.toggleCache(url: url)
+        assertionFailure("Must subclass")
+    }
+
+    func add(url: URL, groupKey: String, itemKey: String) {
+        
+        dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey)
     }
     
     public func isCached(url: URL) -> Bool {
@@ -94,30 +99,89 @@ public class CacheController {
     public func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
         return provider.persistedCachedURLResponse(for: url)
     }
+    
+    private func finishAndRunQueue(groupKey: String, itemKey: String, isAdd: Bool, isSuccess: Bool) {
+        
+        handleFinalResult(groupKey: groupKey, itemKey: itemKey, isAdd: isAdd, isSuccess: isSuccess)
+        
+        if let queuedCompletions = queuedCompletions[itemKey] {
+            for queuedCompletion in queuedCompletions {
+                queuedCompletion(isAdd, isSuccess)
+            }
+        }
+        
+    }
+    
+    private func handleFinalResult(groupKey: String, itemKey: String, isAdd: Bool, isSuccess: Bool) {
+        switch (isAdd, isSuccess) {
+        case (true, true):
+            
+            handleAddSuccess(groupKey: groupKey, itemKey: itemKey)
+        default:
+            break
+            //tonitodo: error handling
+        }
+    }
+    
+    private func handleAddSuccess(groupKey: String, itemKey: String) {
+        
+        dbWriter.markDownloaded(itemKey: itemKey)
+        
+        if dbWriter.allDownloaded(groupKey: groupKey) {
+            
+            //fire notification here for WMFArticle.isDownloaded = yes?
+        }
+    }
 }
 
 extension CacheController: CacheDBWritingDelegate {
-    func dbWriterDidSave(groupKey: String, itemKey: String) {
-        fileWriter.download(groupKey: groupKey, itemKey: itemKey)
+    
+    func shouldQueue(groupKey: String, itemKey: String) -> Bool {
+        
+        let isEmpty = queuedCompletions[itemKey]?.isEmpty ?? true
+        return !isEmpty
     }
     
-    func dbWriterDidDelete(groupKey: String, itemKey: String) {
-        fileWriter.delete(groupKey: groupKey, itemKey: itemKey)
+    func queue(groupKey: String, itemKey: String) {
+        let queuedCompletionBlock = { (isAdd: Bool, isSuccess: Bool) in
+            self.handleFinalResult(groupKey: groupKey, itemKey: itemKey, isAdd: isAdd, isSuccess: isSuccess)
+        }
+        
+        queuedCompletions[itemKey]?.append(queuedCompletionBlock)
+    }
+    
+    func dbWriterDidAdd(groupKey: String, itemKey: String) {
+        fileWriter.add(groupKey: groupKey, itemKey: itemKey)
+    }
+    
+    func dbWriterDidRemove(groupKey: String, itemKey: String) {
+        fileWriter.remove(groupKey: groupKey, itemKey: itemKey)
+    }
+    
+    func dbWriterDidFailAdd(groupKey: String, itemKey: String) {
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: true, isSuccess: false)
+    }
+    
+    func dbWriterDidFailRemove(groupKey: String) {
+        //tonitodo: anything worth doing here / queuing since we don't have an itemKey to pull queued completions with?
     }
 }
 
 extension CacheController: CacheFileWritingDelegate {
-    func fileWriterDidDownload(groupKey: String, itemKey: String) {
-        dbWriter.markDownloaded(groupKey: groupKey, itemKey: itemKey)
+    func fileWriterDidAdd(groupKey: String, itemKey: String) {
+         
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: true, isSuccess: true)
     }
     
-    func fileWriterDidDelete(groupKey: String, itemKey: String) {
-        dbWriter.markDeleted(groupKey: groupKey, itemKey: itemKey)
+    func fileWriterDidRemove(groupKey: String, itemKey: String) {
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: false, isSuccess: true)
     }
     
-    func fileWriterDidFailToDelete(groupKey: String, itemKey: String) {
-        dbWriter.markDeleteFailed(groupKey: groupKey, itemKey: itemKey)
+    func fileWriterDidFailAdd(groupKey: String, itemKey: String) {
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: true, isSuccess: false)
     }
     
-    
+    func fileWriterDidFailRemove(groupKey: String, itemKey: String) {
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: false, isSuccess: false)
+    }
 }

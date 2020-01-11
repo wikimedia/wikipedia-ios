@@ -7,48 +7,81 @@ enum SaveResult {
 }
 
 protocol CacheDBWritingDelegate: class {
-    func dbWriterDidSave(groupKey: String, itemKey: String)
-    func dbWriterDidDelete(groupKey: String, itemKey: String)
+    func shouldQueue(groupKey: String, itemKey: String) -> Bool
+    func queue(groupKey: String, itemKey: String)
+    func dbWriterDidAdd(groupKey: String, itemKey: String)
+    func dbWriterDidRemove(groupKey: String, itemKey: String)
+    func dbWriterDidFailAdd(groupKey: String, itemKey: String)
+    func dbWriterDidFailRemove(groupKey: String)
 }
 
 protocol CacheDBWriting: class {
     
     var delegate: CacheDBWritingDelegate? { get }
-    func toggleCache(url: URL)
     
-    func markDeleteFailed(groupKey: String, itemKey: String)
-    func markDeleted(groupKey: String, itemKey: String)
-    func markDownloaded(groupKey: String, itemKey: String)
+    func add(url: URL, groupKey: String, itemKey: String?)
+    func remove(groupKey: String, itemKey: String?)
+
+    func markDownloaded(itemKey: String)
     
     //default implementations
     func isCached(url: URL) -> Bool
-    func save(moc: NSManagedObjectContext, completion: (_ result: SaveResult) -> Void)
 }
 
 extension CacheDBWriting {
     
     func isCached(url: URL) -> Bool {
         
-        guard let groupKey = url.wmf_databaseKey,
+        guard let itemKey = url.wmf_databaseKey,
         let context = CacheController.backgroundCacheContext else {
             return false
         }
         
         return context.performWaitAndReturn {
-            CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) != nil
+            let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context)
+            return cacheItem?.isDownloaded
         } ?? false
     }
     
-    func save(moc: NSManagedObjectContext, completion: (_ result: SaveResult) -> Void) {
-        guard moc.hasChanges else {
+    func allDownloaded(groupKey: String) -> Bool {
+        
+        guard let context = CacheController.backgroundCacheContext else {
+            return false
+        }
+        
+        guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
+            return false
+        }
+        guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+            return false
+        }
+        
+        return context.performWaitAndReturn {
+            for item in cacheItems {
+                if !item.isDownloaded {
+                    return false
+                }
+            }
+            
+            return true
+        } ?? false
+    }
+    
+    func markDownloaded(itemKey: String) {
+        
+        guard let context = CacheController.backgroundCacheContext else {
             return
         }
-        do {
-            try moc.save()
-            completion(.success)
-        } catch let error {
-            assertionFailure("Error saving cache moc: \(error)")
-            completion(.failure(error))
+        
+        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
+            return
+        }
+        
+        context.perform {
+            cacheItem.isDownloaded = true
+            CacheDBWriterHelper.save(moc: context) { (result) in
+                           
+            }
         }
     }
 }

@@ -3,11 +3,16 @@ import Foundation
 
 final class ImageCacheController: CacheController {
     
-    func cache(url: URL, groupKey: String) {
-        guard let imageDBWriter = dbWriter as? ImageCacheDBWriter else {
+    override public func toggleCache(url: URL) {
+        guard let key = url.wmf_databaseKey else {
             return
         }
         
-        imageDBWriter.cache(url: url, groupKey: groupKey)
+        if isCached(url: url) {
+            dbWriter.remove(groupKey: key, itemKey: key)
+        } else {
+            add(url: url, groupKey: key, itemKey: key)
+        }
     }
+    
 }

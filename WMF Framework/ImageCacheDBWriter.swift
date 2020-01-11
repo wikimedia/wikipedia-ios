@@ -11,65 +11,24 @@ final class ImageCacheDBWriter: CacheDBWriting {
         self.delegate = delegate
     }
     
-    func cache(url: URL, groupKey: String) {
-        guard let itemKey = url.wmf_databaseKey else {
-            return
-        }
+    func add(url: URL, groupKey: String, itemKey: String?) {
         
-        guard !isCached(url: url) else {
-            //tonitodo: error handling
+        guard let itemKey = itemKey else {
+            assertionFailure("Expecting itemKey")
             return
         }
         
         cacheImage(groupKey: groupKey, itemKey: itemKey)
     }
     
-    func toggleCache(url: URL) {
-        assert(Thread.isMainThread)
+    func remove(groupKey: String, itemKey: String?) {
         
-        guard let key = url.wmf_databaseKey else {
+        guard let itemKey = itemKey else {
+            assertionFailure("Expecting itemKey")
             return
         }
         
-        toggleCache(!isCached(url: url), groupKey: key, itemKey: key)
-    }
-    
-    func markDeleteFailed(groupKey: String, itemKey: String) {
-        //tonitodo: not sure what to do in this case. maybe at least some logging?
-    }
-    
-    func markDeleted(groupKey: String, itemKey: String) {
-        
-        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: cacheBackgroundContext) else {
-            return
-        }
-        
-        cacheBackgroundContext.perform {
-            self.cacheBackgroundContext.delete(cacheItem)
-            
-            if let cacheGroups = cacheItem.cacheGroups,
-            cacheGroups.count == 1,
-                let cacheGroup = cacheGroups.anyObject() as? PersistentCacheGroup {
-                self.cacheBackgroundContext.delete(cacheGroup)
-            }
-            self.save(moc: self.cacheBackgroundContext) { (result) in
-                
-            }
-        }
-    }
-    
-    func markDownloaded(groupKey: String, itemKey: String) {
-    
-        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: cacheBackgroundContext) else {
-            return
-        }
-    
-        cacheBackgroundContext.perform {
-            cacheItem.isDownloaded = true
-            self.save(moc: self.cacheBackgroundContext) { (result) in
-                           
-            }
-        }
+        removeCachedImage(groupKey: groupKey, itemKey: itemKey)
     }
     
     func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
@@ -78,14 +37,6 @@ final class ImageCacheDBWriter: CacheDBWriting {
 }
 
 private extension ImageCacheDBWriter {
-    func toggleCache(_ cache: Bool, groupKey: String, itemKey: String) {
-        
-        if cache {
-            cacheImage(groupKey: groupKey, itemKey: itemKey)
-        } else {
-            removeCachedImage(groupKey: groupKey, itemKey: itemKey)
-        }
-    }
     
     func cacheImage(groupKey: String, itemKey: String) {
         
@@ -102,12 +53,12 @@ private extension ImageCacheDBWriter {
             
             group.addToCacheItems(item)
             
-            self.save(moc: context) { (result) in
+            CacheDBWriterHelper.save(moc: context) { (result) in
                 switch result {
                 case .success:
-                    self.delegate?.dbWriterDidSave(groupKey: groupKey, itemKey: itemKey)
+                    self.delegate?.dbWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
                 case .failure:
-                    break
+                    self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 }
             }
         }
@@ -136,7 +87,7 @@ private extension ImageCacheDBWriter {
                 cacheItem.isPendingDelete = true
             }
             
-            self.save(moc: context) { (result) in
+            CacheDBWriterHelper.save(moc: context) { (result) in
                 switch result {
                 case .success:
                     
@@ -146,11 +97,11 @@ private extension ImageCacheDBWriter {
                             continue
                         }
                         
-                        self.delegate?.dbWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
+                        self.delegate?.dbWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
                     }
                     
                 case .failure:
-                    break
+                    self.delegate?.dbWriterDidFailRemove(groupKey: groupKey)
                 }
             }
         }

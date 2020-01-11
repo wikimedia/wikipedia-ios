@@ -15,81 +15,20 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         self.delegate = delegate
         self.imageController = imageController
    }
-   
-    func toggleCache(url: URL) {
-        assert(Thread.isMainThread)
-        toggleCache(!isCached(url: url), for: url)
-    }
     
-//MARK: Reacting to File Writer Results
-
-    func markDeleteFailed(groupKey: String, itemKey: String) {
-        //tonitodo: not sure what to do in this case. maybe at least some logging?
-    }
-    
-    func markDeleted(groupKey: String, itemKey: String) {
+    func add(url: URL, groupKey: String, itemKey: String?) {
+        cacheEndpoint(articleURL: url, endpointType: .mobileHTML, groupKey: groupKey)
+        cacheEndpoint(articleURL: url, endpointType: .mobileHtmlOfflineResources, groupKey: groupKey)
+        cacheEndpoint(articleURL: url, endpointType: .mediaList, groupKey: groupKey)
         
-        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: self.cacheBackgroundContext) else {
-            return
-        }
-        
-        cacheBackgroundContext.perform {
-            
-            self.cacheBackgroundContext.delete(cacheItem)
-            
-            if let cacheGroups = cacheItem.cacheGroups,
-            cacheGroups.count == 1,
-                let cacheGroup = cacheGroups.anyObject() as? PersistentCacheGroup {
-                self.cacheBackgroundContext.delete(cacheGroup)
-            }
-            self.save(moc: self.cacheBackgroundContext) { (result) in
-//                switch result {
-//                case .success:
-//                    if let key = cacheItem.key {
-//                        NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
-//                        ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: false])
-//                    }
-//                case .failure:
-//                    //tonitodo: log
-//                    break
-//                }
-            }
-        }
-        
-        //tonitodo: should we wait for self.save to complete successfully?
-        if let key = cacheItem.key {
-            NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: key,
-            ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: false])
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
+            self.fetchAndPrintEachItem()
+            self.fetchAndPrintEachGroup()
         }
     }
     
-    func markDownloaded(groupKey: String, itemKey: String) {
-        
-        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: self.cacheBackgroundContext) else {
-            return
-        }
-        
-        cacheBackgroundContext.perform {
-            cacheItem.isDownloaded = true
-            self.save(moc: self.cacheBackgroundContext) { (result) in
-                           
-            }
-        }
-    }
-    
-    func migratedCacheItemFile(cacheItem: PersistentCacheItem, successCompletion: @escaping () -> Void) {
-        cacheBackgroundContext.perform {
-            cacheItem.fromMigration = false
-            cacheItem.isDownloaded = true
-            self.save(moc: self.cacheBackgroundContext) { (result) in
-                switch result {
-                case .success:
-                    successCompletion()
-                default:
-                    break
-                }
-            }
-        }
+    func remove(groupKey: String, itemKey: String?) {
+        removeCachedArticle(groupKey: groupKey)
         
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
             self.fetchAndPrintEachItem()
@@ -111,7 +50,7 @@ extension ArticleCacheDBWriter {
         cacheURL(groupKey: groupKey, itemKey: finalItemKey) { (item) in
             self.cacheBackgroundContext.perform {
                 item.fromMigration = true
-                self.save(moc: self.cacheBackgroundContext) { (result) in
+                CacheDBWriterHelper.save(moc: self.cacheBackgroundContext) { (result) in
                     switch result {
                     case .success:
                         successCompletion(item)
@@ -123,37 +62,144 @@ extension ArticleCacheDBWriter {
             }
         }
     }
-}
-
-private extension ArticleCacheDBWriter {
     
-    func toggleCache(_ cache: Bool, for articleURL: URL) {
-        
-        guard let groupKey = articleURL.wmf_databaseKey else {
-            return
-        }
-        
-        //todo: if not already cached...
-            //1. add mobile-html key to DB, isDownloaded = false and isSaved = true, SavedArticlesSyncHandler will pick it up later.
-            //2. fetch offline resources, loop through results and add key to DB, isDownloaded = false and isSaved = true, SavedArticlesSyncHandler will pick it up later. group key should be mobilehtml key
-            //3. fetch media resources, loop through results and add key to DB, isDownloaded = false and isSaved = true, SavedArticlesSyncHandler will pick it up later. group key should be mobilehtml key
-            //4. toc?
-            //5. references?
-            //6. summary?
-        //if cached
-            //go through items with that group key, delete the files, delete the records in CD.
-        
-        if cache {
-            cacheEndpoint(articleURL: articleURL, endpointType: .mobileHTML, groupKey: groupKey)
-            cacheEndpoint(articleURL: articleURL, endpointType: .mobileHtmlOfflineResources, groupKey: groupKey)
-            cacheEndpoint(articleURL: articleURL, endpointType: .mediaList, groupKey: groupKey)
-        } else {
-            removeCachedArticle(groupKey: groupKey)
+    func migratedCacheItemFile(cacheItem: PersistentCacheItem, successCompletion: @escaping () -> Void) {
+        cacheBackgroundContext.perform {
+            cacheItem.fromMigration = false
+            cacheItem.isDownloaded = true
+            CacheDBWriterHelper.save(moc: self.cacheBackgroundContext) { (result) in
+                switch result {
+                case .success:
+                    successCompletion()
+                default:
+                    break
+                }
+            }
         }
         
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
             self.fetchAndPrintEachItem()
             self.fetchAndPrintEachGroup()
+        }
+    }
+}
+
+private extension ArticleCacheDBWriter {
+    
+    func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String) {
+        
+        switch endpointType {
+        case .mobileHTML:
+            cacheURL(groupKey: groupKey, itemKey: groupKey)
+        case .mobileHtmlOfflineResources, .mediaList:
+            
+            guard let siteURL = articleURL.wmf_site,
+                let articleTitle = articleURL.wmf_title else {
+                return
+            }
+            
+            articleFetcher.fetchResourceList(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType) { (result) in
+                switch result {
+                case .success(let urls):
+                    for url in urls {
+                        
+                        guard let itemKey = url.wmf_databaseKey else {
+                            continue
+                        }
+                        
+                        if endpointType == .mediaList {
+                            self.imageController.add(url: url, groupKey: groupKey, itemKey: itemKey)
+                            continue
+                        }
+                        
+                        self.cacheURL(groupKey: groupKey, itemKey: itemKey)
+                        
+                    }
+                case .failure:
+                    break
+                }
+            }
+        default:
+            break
+            
+        }
+    }
+    
+    func mobileHTMLTitle(from mobileHTMLURL: URL) -> String {
+        return (mobileHTMLURL.lastPathComponent as NSString).wmf_normalizedPageTitle()
+    }
+    
+    func cacheURL(groupKey: String, itemKey: String, successCompletion: ((PersistentCacheItem) -> Void)? = nil) {
+        
+        if delegate?.shouldQueue(groupKey: groupKey, itemKey: itemKey) ?? false {
+            delegate?.queue(groupKey: groupKey, itemKey: itemKey)
+            return
+        }
+        
+        let context = self.cacheBackgroundContext
+        context.perform {
+
+            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
+                return
+            }
+            
+            guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
+                return
+            }
+            
+            group.addToCacheItems(item)
+            
+            CacheDBWriterHelper.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    self.delegate?.dbWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
+                    successCompletion?(item)
+                case .failure:
+                    self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                }
+            }
+        }
+    }
+    
+    func removeCachedArticle(groupKey: String) {
+        
+        let context = cacheBackgroundContext
+        context.perform {
+            //tonitodo: task tracking in ArticleFetcher
+            //self.articleFetcher.cancelAllTasks(forGroupWithKey: key)
+            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
+                assertionFailure("Cache group for \(groupKey) doesn't exist")
+                return
+            }
+            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+                assertionFailure("Cache group for \(groupKey) has no cache items")
+                return
+            }
+            
+            let cacheItemsToDelete = cacheItems.filter({ (cacheItem) -> Bool in
+                return cacheItem.cacheGroups?.count == 1
+            })
+            
+            for cacheItem in cacheItemsToDelete {
+                cacheItem.isPendingDelete = true
+            }
+            
+            CacheDBWriterHelper.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    
+                    for cacheItem in cacheItemsToDelete {
+                        guard let itemKey = cacheItem.key else {
+                            continue
+                        }
+                        
+                        self.delegate?.dbWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
+                    }
+                    
+                case .failure:
+                    self.delegate?.dbWriterDidFailRemove(groupKey: groupKey)
+                }
+            }
         }
     }
     
@@ -191,118 +237,6 @@ private extension ArticleCacheDBWriter {
             } catch let error as NSError {
                 // something went wrong, print the error.
                 print(error.description)
-            }
-        }
-    }
-    
-    func cacheEndpoint(articleURL: URL, endpointType: ArticleFetcher.EndpointType, groupKey: String) {
-        
-        switch endpointType {
-        case .mobileHTML:
-            cacheURL(groupKey: groupKey, itemKey: groupKey)
-        case .mobileHtmlOfflineResources, .mediaList:
-            
-            guard let siteURL = articleURL.wmf_site,
-                let articleTitle = articleURL.wmf_title else {
-                return
-            }
-            
-            articleFetcher.fetchResourceList(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType) { (result) in
-                switch result {
-                case .success(let urls):
-                    for url in urls {
-                        
-                        if endpointType == .mediaList {
-                            self.imageController.cache(url: url, groupKey: groupKey)
-                            continue
-                        }
-                        
-                        guard let itemKey = url.wmf_databaseKey else {
-                            continue
-                        }
-                        
-                        self.cacheURL(groupKey: groupKey, itemKey: itemKey)
-                        
-                    }
-                case .failure:
-                    break
-                }
-            }
-        default:
-            break
-            
-        }
-    }
-    
-    func mobileHTMLTitle(from mobileHTMLURL: URL) -> String {
-        return (mobileHTMLURL.lastPathComponent as NSString).wmf_normalizedPageTitle()
-    }
-    
-    func cacheURL(groupKey: String, itemKey: String, successCompletion: ((PersistentCacheItem) -> Void)? = nil) {
-        
-        let context = self.cacheBackgroundContext
-        context.perform {
-
-            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
-                return
-            }
-            
-            guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
-                return
-            }
-            
-            group.addToCacheItems(item)
-            
-            self.save(moc: context) { (result) in
-                switch result {
-                case .success:
-                    self.delegate?.dbWriterDidSave(groupKey: groupKey, itemKey: itemKey)
-                    successCompletion?(item)
-                case .failure:
-                    break
-                }
-            }
-        }
-    }
-    
-    func removeCachedArticle(groupKey: String) {
-        
-        let context = cacheBackgroundContext
-        context.perform {
-            //tonitodo: task tracking in ArticleFetcher
-            //self.articleFetcher.cancelAllTasks(forGroupWithKey: key)
-            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-                assertionFailure("Cache group for \(groupKey) doesn't exist")
-                return
-            }
-            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
-                assertionFailure("Cache group for \(groupKey) has no cache items")
-                return
-            }
-            
-            let cacheItemsToDelete = cacheItems.filter({ (cacheItem) -> Bool in
-                return cacheItem.cacheGroups?.count == 1
-            })
-            
-            for cacheItem in cacheItemsToDelete {
-                cacheItem.isPendingDelete = true
-            }
-            
-            self.save(moc: context) { (result) in
-                switch result {
-                case .success:
-                    
-                    for cacheItem in cacheItemsToDelete {
-                        guard let itemKey = cacheItem.key else {
-                            continue
-                        }
-                        
-                        self.delegate?.dbWriterDidDelete(groupKey: groupKey, itemKey: itemKey)
-                    }
-                    
-                case .failure:
-                    break
-                }
             }
         }
     }

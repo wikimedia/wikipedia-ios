@@ -89,4 +89,29 @@ final class CacheDBWriterHelper {
         item.date = Date()
         return item
     }
+    
+    static func isCached(url: URL, in moc: NSManagedObjectContext) -> Bool {
+        
+        guard let groupKey = url.wmf_databaseKey,
+        let context = CacheController.backgroundCacheContext else {
+            return false
+        }
+        
+        return context.performWaitAndReturn {
+            CacheDBWriterHelper.cacheGroup(with: groupKey, in: moc) != nil
+        } ?? false
+    }
+    
+    static func save(moc: NSManagedObjectContext, completion: (_ result: SaveResult) -> Void) {
+        guard moc.hasChanges else {
+            return
+        }
+        do {
+            try moc.save()
+            completion(.success)
+        } catch let error {
+            assertionFailure("Error saving cache moc: \(error)")
+            completion(.failure(error))
+        }
+    }
 }
