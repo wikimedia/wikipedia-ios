@@ -2,11 +2,13 @@
 import Foundation
 
 final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
-     
+    
     weak var delegate: CacheDBWritingDelegate?
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
     private let imageController: ImageCacheController
+    
+    var groupedTasks: [String : [IdentifiedTask]] = [:]
 
     init(articleFetcher: ArticleFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheDBWritingDelegate? = nil, imageController: ImageCacheController) {
         
@@ -28,6 +30,8 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
     }
     
     func remove(groupKey: String, itemKey: String?) {
+        
+        cancelTasks(for: groupKey)
         removeCachedArticle(groupKey: groupKey)
         
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
@@ -98,7 +102,8 @@ private extension ArticleCacheDBWriter {
                 return
             }
             
-            articleFetcher.fetchResourceList(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType) { (result) in
+            let untrackKey = UUID().uuidString
+            let task = articleFetcher.fetchResourceList(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType) { (result) in
                 switch result {
                 case .success(let urls):
                     for url in urls {
@@ -118,6 +123,12 @@ private extension ArticleCacheDBWriter {
                 case .failure:
                     break
                 }
+                
+                self.untrackTask(untrackKey: untrackKey, from: groupKey)
+            }
+            
+            if let task = task {
+                trackTask(untrackKey: untrackKey, task: task, to: groupKey)
             }
         default:
             break
@@ -140,10 +151,12 @@ private extension ArticleCacheDBWriter {
         context.perform {
 
             guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
+                self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             
             guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
+                self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             
@@ -165,8 +178,7 @@ private extension ArticleCacheDBWriter {
         
         let context = cacheBackgroundContext
         context.perform {
-            //tonitodo: task tracking in ArticleFetcher
-            //self.articleFetcher.cancelAllTasks(forGroupWithKey: key)
+            
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
                 assertionFailure("Cache group for \(groupKey) doesn't exist")
                 return

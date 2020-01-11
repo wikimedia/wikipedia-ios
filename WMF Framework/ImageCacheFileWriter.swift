@@ -6,6 +6,8 @@ final class ImageCacheFileWriter: CacheFileWriting {
     private let imageFetcher: ImageFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
     
+    var groupedTasks: [String : [IdentifiedTask]] = [:]
+    
     init?(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
         self.imageFetcher = imageFetcher
         self.delegate = delegate
@@ -25,7 +27,8 @@ final class ImageCacheFileWriter: CacheFileWriting {
             return
         }
         
-        imageFetcher.downloadData(url: url) { (error, _, temporaryFileURL, mimeType) in
+        let untrackKey = UUID().uuidString
+        let task = imageFetcher.downloadData(url: url) { (error, _, temporaryFileURL, mimeType) in
             if let _ = error {
                 //tonitodo: better error handling here
                 return
@@ -42,6 +45,12 @@ final class ImageCacheFileWriter: CacheFileWriting {
                     self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 }
             }
+            
+            self.untrackTask(untrackKey: untrackKey, from: groupKey)
+        }
+        
+        if let task = task {
+            trackTask(untrackKey: untrackKey, task: task, to: groupKey)
         }
     }
     

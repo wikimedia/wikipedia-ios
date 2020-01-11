@@ -7,6 +7,8 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
     
+    var groupedTasks: [String : [IdentifiedTask]] = [:]
+    
     public static let didChangeNotification = NSNotification.Name("ArticleCacheFileWriterDidChangeNotification")
     public static let didChangeNotificationUserInfoDBKey = ["dbKey"]
     public static let didChangeNotificationUserInfoIsDownloadedKey = ["isDownloaded"]
@@ -33,7 +35,8 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         
         let urlToDownload = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mobileHTML, scheme: Configuration.Scheme.https) ?? url
         
-        articleFetcher.downloadData(url: urlToDownload) { (error, _, temporaryFileURL, mimeType) in
+        let untrackKey = UUID().uuidString
+        let task = articleFetcher.downloadData(url: urlToDownload) { (error, _, temporaryFileURL, mimeType) in
             if let _ = error {
                 //tonitodo: better error handling here
                 return
@@ -53,11 +56,18 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
                     break
                 }
             }
+            
+            self.untrackTask(untrackKey: untrackKey, from: groupKey)
+        }
+        
+        if let task = task {
+            trackTask(untrackKey: untrackKey, task: task, to: groupKey)
         }
     }
     
     func remove(groupKey: String, itemKey: String) {
         
+        cancelTasks(for: groupKey)
         let pathComponent = itemKey.sha256 ?? itemKey
         
         let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)

@@ -8,10 +8,9 @@ protocol CacheFileWritingDelegate: class {
     func fileWriterDidFailRemove(groupKey: String, itemKey: String)
 }
 
-protocol CacheFileWriting {
+protocol CacheFileWriting: CacheTaskTracking {
     
     var delegate: CacheFileWritingDelegate? { get }
     func add(groupKey: String, itemKey: String)
     func remove(groupKey: String, itemKey: String)
 }
-

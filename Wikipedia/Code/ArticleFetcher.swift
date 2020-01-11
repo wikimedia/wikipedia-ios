@@ -24,29 +24,20 @@ final public class ArticleFetcher: Fetcher {
     typealias MIMEType = String
     typealias DownloadCompletion = (Error?, RequestURL?, TemporaryFileURL?, MIMEType?) -> Void
     
-    func fetchMobileHTML(articleURL: URL, completion: @escaping DownloadCompletion) {
-        
-        guard let taskURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, configuration: configuration) else {
-            completion(ArticleFetcherError.failureToGenerateURL, nil, nil, nil)
-            return
-        }
-        
-        downloadData(url: taskURL, completion: completion)
-    }
-    
-    func downloadData(url: URL, completion: @escaping DownloadCompletion) {
+    func downloadData(url: URL, completion: @escaping DownloadCompletion) -> URLSessionTask? {
         let task = session.downloadTask(with: url) { fileURL, response, error in
             self.handleDownloadTaskCompletion(url: url, fileURL: fileURL, response: response, error: error, completion: completion)
         }
         task.resume()
+        return task
     }
     
     //tonitodo: track/untrack tasks
-    func fetchResourceList(siteURL: URL, articleTitle: String, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) {
+    func fetchResourceList(siteURL: URL, articleTitle: String, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
         
         guard endpointType == .mediaList || endpointType == .mobileHtmlOfflineResources else {
             completion(.failure(ArticleFetcherError.invalidEndpointType))
-            return
+            return nil
         }
         
 //        guard let taskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration) else {
@@ -56,24 +47,26 @@ final public class ArticleFetcher: Fetcher {
         
         guard let stagingTaskURL = ArticleURLConverter.mobileHTMLURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration, scheme: "https") else {
                     completion(.failure(ArticleFetcherError.failureToGenerateURL))
-                    return
+                    return nil
                 }
         
         switch endpointType {
         case .mediaList:
-            fetchMediaListURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+            return fetchMediaListURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
         case .mobileHtmlOfflineResources:
-            fetchOfflineResourceURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+            return fetchOfflineResourceURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
         default:
             break
         }
+        
+        return nil
     }
 }
 
 private extension ArticleFetcher {
     
-    func fetchOfflineResourceURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) {
-        session.jsonDecodableTask(with: url) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
+    func fetchOfflineResourceURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+        return session.jsonDecodableTask(with: url) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -100,9 +93,9 @@ private extension ArticleFetcher {
         }
     }
     
-    func fetchMediaListURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) {
+    func fetchMediaListURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
         
-        session.jsonDecodableTask(with: url) { (mediaList: MediaList?, response: URLResponse?, error: Error?) in
+        return session.jsonDecodableTask(with: url) { (mediaList: MediaList?, response: URLResponse?, error: Error?) in
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))

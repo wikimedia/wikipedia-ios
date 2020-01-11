@@ -6,6 +6,8 @@ final class ImageCacheDBWriter: CacheDBWriting {
     weak var delegate: CacheDBWritingDelegate?
     private let cacheBackgroundContext: NSManagedObjectContext
     
+    var groupedTasks: [String : [IdentifiedTask]] = [:]
+    
     init(cacheBackgroundContext: NSManagedObjectContext, delegate: CacheDBWritingDelegate? = nil) {
         self.cacheBackgroundContext = cacheBackgroundContext
         self.delegate = delegate
@@ -28,6 +30,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
             return
         }
         
+        cancelTasks(for: groupKey)
         removeCachedImage(groupKey: groupKey, itemKey: itemKey)
     }
     
@@ -39,6 +42,11 @@ final class ImageCacheDBWriter: CacheDBWriting {
 private extension ImageCacheDBWriter {
     
     func cacheImage(groupKey: String, itemKey: String) {
+        
+        if delegate?.shouldQueue(groupKey: groupKey, itemKey: itemKey) ?? false {
+            delegate?.queue(groupKey: groupKey, itemKey: itemKey)
+            return
+        }
         
         let context = self.cacheBackgroundContext
         context.perform {
@@ -68,8 +76,6 @@ private extension ImageCacheDBWriter {
         
         let context = cacheBackgroundContext
         context.perform {
-            //tonitodo: task tracking in ArticleFetcher
-            //self.articleFetcher.cancelAllTasks(forGroupWithKey: key)
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
                 assertionFailure("Cache group for \(groupKey) doesn't exist")
                 return

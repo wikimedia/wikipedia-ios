@@ -15,7 +15,7 @@ protocol CacheDBWritingDelegate: class {
     func dbWriterDidFailRemove(groupKey: String)
 }
 
-protocol CacheDBWriting: class {
+protocol CacheDBWriting: CacheTaskTracking {
     
     var delegate: CacheDBWritingDelegate? { get }
     

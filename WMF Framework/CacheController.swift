@@ -63,10 +63,16 @@ public class CacheController {
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriting
     
-    typealias CacheControllerCompletion = (_ isAdd: Bool, _ isSuccess: Bool) -> Void
-    typealias ItemKey = String
+    struct CompletionQueueItem {
+        let groupKey: GroupKey
+        let completion: CompletionQueueBlock
+    }
     
-    private var queuedCompletions: [ItemKey: [CacheControllerCompletion]] = [:]
+    typealias CompletionQueueBlock = (_ isAdd: Bool, _ isSuccess: Bool) -> Void
+    typealias ItemKey = String
+    typealias GroupKey = String
+    
+    private var queuedCompletionItems: [ItemKey: [CompletionQueueItem]] = [:]
     
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
@@ -88,6 +94,16 @@ public class CacheController {
         dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey)
     }
     
+    func remove(groupKey: String, itemKey: String?) {
+        
+        //remove queued completion items for groupKey
+        for (key, value) in queuedCompletionItems {
+            queuedCompletionItems[key] = value.filter { $0.groupKey == groupKey }
+        }
+        
+        dbWriter.remove(groupKey: groupKey, itemKey: itemKey)
+    }
+    
     public func isCached(url: URL) -> Bool {
         dbWriter.isCached(url: url)
     }
@@ -104,9 +120,9 @@ public class CacheController {
         
         handleFinalResult(groupKey: groupKey, itemKey: itemKey, isAdd: isAdd, isSuccess: isSuccess)
         
-        if let queuedCompletions = queuedCompletions[itemKey] {
-            for queuedCompletion in queuedCompletions {
-                queuedCompletion(isAdd, isSuccess)
+        if let queuedCompletionItems = queuedCompletionItems[itemKey] {
+            for queuedCompletionItem in queuedCompletionItems {
+                queuedCompletionItem.completion(isAdd, isSuccess)
             }
         }
         
@@ -138,7 +154,7 @@ extension CacheController: CacheDBWritingDelegate {
     
     func shouldQueue(groupKey: String, itemKey: String) -> Bool {
         
-        let isEmpty = queuedCompletions[itemKey]?.isEmpty ?? true
+        let isEmpty = queuedCompletionItems[itemKey]?.isEmpty ?? true
         return !isEmpty
     }
     
@@ -147,7 +163,8 @@ extension CacheController: CacheDBWritingDelegate {
             self.handleFinalResult(groupKey: groupKey, itemKey: itemKey, isAdd: isAdd, isSuccess: isSuccess)
         }
         
-        queuedCompletions[itemKey]?.append(queuedCompletionBlock)
+        let completionQueueItem = CompletionQueueItem(groupKey: groupKey, completion: queuedCompletionBlock)
+        queuedCompletionItems[itemKey]?.append(completionQueueItem)
     }
     
     func dbWriterDidAdd(groupKey: String, itemKey: String) {
