@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8"/>
         <script src="build/Polyfill.js"></script>
         <script src="build/PCSHTMLConverter.js"></script>
-    </head>
-    <body>
-        <pre id="mobileHTML"></pre>
         <script>
-          function handleMobileHTML(mobileHTML) {
-            document.getElementById("mobileHTML").innerText = mobileHTML
+
+          function convertMobileViewJSON(mobileViewJSON) {
+            const mw = { // temporary - currently writing method to extract most of these from mobileViewJSON
+                "pageid": 4269567,
+                "ns": 0,
+                "title": "Dog",
+                "displaytitle": "Dog",
+                "contentmodel": "wikitext",
+                "pagelanguage": "en",
+                "pagelanguagehtmlcode": "en",
+                "pagelanguagedir": "ltr",
+                "touched": "2019-12-06T03:48:17Z",
+                "lastrevid": 929485161,
+                "length": 126950,
+                "protection": [
+                    {
+                        "type": "edit",
+                        "level": "autoconfirmed",
+                        "expiry": "infinity"
+                    },
+                    {
+                        "type": "move",
+                        "level": "sysop",
+                        "expiry": "infinity"
+                    }
+                ],
+                "restrictiontypes": [
+                    "edit",
+                    "move"
+                ],
+                "description": "domestic animal",
+                "description_source": "central"
+            }
+            const meta = { // WIP - these will either be passed in or extracted as noted above
+              domain: "en.wikipedia.org",
+              baseURI: "http://localhost:6927/en.wikipedia.org/v1/",
+              mw
+            }
+            return PCSHTMLConverter.convertMobileViewJSONToMobileHTML(mobileViewJSON, meta)
           }
-          PCSHTMLConverter.testMobileView().then(handleMobileHTML)
+
         </script>
-    </body>
+    </head>
+    <body></body>
 </html>
