@@ -18,21 +18,10 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         self.imageController = imageController
    }
     
-    func add(url: URL, groupKey: String, itemKey: String?) {
+    func add(url: URL, groupKey: String, itemKey: String) {
         cacheEndpoint(articleURL: url, endpointType: .mobileHTML, groupKey: groupKey)
         cacheEndpoint(articleURL: url, endpointType: .mobileHtmlOfflineResources, groupKey: groupKey)
         cacheEndpoint(articleURL: url, endpointType: .mediaList, groupKey: groupKey)
-        
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
-            self.fetchAndPrintEachItem()
-            self.fetchAndPrintEachGroup()
-        }
-    }
-    
-    func remove(groupKey: String, itemKey: String?) {
-        
-        cancelTasks(for: groupKey)
-        removeCachedArticle(groupKey: groupKey)
         
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
             self.fetchAndPrintEachItem()
@@ -170,85 +159,6 @@ private extension ArticleCacheDBWriter {
                 case .failure:
                     self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 }
-            }
-        }
-    }
-    
-    func removeCachedArticle(groupKey: String) {
-        
-        let context = cacheBackgroundContext
-        context.perform {
-            
-            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-                assertionFailure("Cache group for \(groupKey) doesn't exist")
-                return
-            }
-            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
-                assertionFailure("Cache group for \(groupKey) has no cache items")
-                return
-            }
-            
-            let cacheItemsToDelete = cacheItems.filter({ (cacheItem) -> Bool in
-                return cacheItem.cacheGroups?.count == 1
-            })
-            
-            for cacheItem in cacheItemsToDelete {
-                cacheItem.isPendingDelete = true
-            }
-            
-            CacheDBWriterHelper.save(moc: context) { (result) in
-                switch result {
-                case .success:
-                    
-                    for cacheItem in cacheItemsToDelete {
-                        guard let itemKey = cacheItem.key else {
-                            continue
-                        }
-                        
-                        self.delegate?.dbWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
-                    }
-                    
-                case .failure:
-                    self.delegate?.dbWriterDidFailRemove(groupKey: groupKey)
-                }
-            }
-        }
-    }
-    
-    func fetchAndPrintEachItem() {
-        cacheBackgroundContext.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheItem>(entityName: "PersistentCacheItem")
-            do {
-                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     print("🌹noItems")
-                } else {
-                    for item in fetchedResults {
-                        print("🌹itemKey: \(item.value(forKey: "key")!)")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
-            }
-        }
-    }
-    
-    func fetchAndPrintEachGroup() {
-        cacheBackgroundContext.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheGroup>(entityName: "PersistentCacheGroup")
-            do {
-                let fetchedResults = try self.cacheBackgroundContext.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     print("🌹noGroups")
-                } else {
-                    for item in fetchedResults {
-                        print("🌹groupKey: \(item.value(forKey: "key")!)")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
             }
         }
     }

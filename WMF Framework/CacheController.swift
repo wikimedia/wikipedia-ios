@@ -68,7 +68,7 @@ public class CacheController {
         let completion: CompletionQueueBlock
     }
     
-    typealias CompletionQueueBlock = (_ isAdd: Bool, _ isSuccess: Bool) -> Void
+    typealias CompletionQueueBlock = (_ result: CacheResult) -> Void
     typealias ItemKey = String
     typealias GroupKey = String
     
@@ -94,14 +94,20 @@ public class CacheController {
         dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey)
     }
     
-    func remove(groupKey: String, itemKey: String?) {
+    func remove(groupKey: String, itemKey: String) {
         
         //remove queued completion items for groupKey
         for (key, value) in queuedCompletionItems {
             queuedCompletionItems[key] = value.filter { $0.groupKey == groupKey }
         }
         
-        dbWriter.remove(groupKey: groupKey, itemKey: itemKey)
+        dbWriter.cancelTasks(for: groupKey)
+        
+        let itemKeysToRemove = dbWriter.itemKeysToRemove(for: groupKey)
+        
+        for itemKey in itemKeysToRemove {
+            fileWriter.remove(groupKey: groupKey, itemKey: itemKey)
+        }
     }
     
     public func isCached(url: URL) -> Bool {
@@ -116,26 +122,36 @@ public class CacheController {
         return provider.persistedCachedURLResponse(for: url)
     }
     
-    private func finishAndRunQueue(groupKey: String, itemKey: String, isAdd: Bool, isSuccess: Bool) {
+    private func finishAndRunQueue(groupKey: String, itemKey: String, result: CacheResult) {
         
-        handleFinalResult(groupKey: groupKey, itemKey: itemKey, isAdd: isAdd, isSuccess: isSuccess)
+        handleFinalResult(groupKey: groupKey, itemKey: itemKey, result: result)
         
         if let queuedCompletionItems = queuedCompletionItems[itemKey] {
             for queuedCompletionItem in queuedCompletionItems {
-                queuedCompletionItem.completion(isAdd, isSuccess)
+                queuedCompletionItem.completion(result)
             }
         }
-        
     }
     
-    private func handleFinalResult(groupKey: String, itemKey: String, isAdd: Bool, isSuccess: Bool) {
-        switch (isAdd, isSuccess) {
-        case (true, true):
-            
+    private func handleFinalResult(groupKey: String, itemKey: String, result: CacheResult) {
+        switch (result.status, result.type) {
+        case (.succeed, .add):
             handleAddSuccess(groupKey: groupKey, itemKey: itemKey)
-        default:
+        case (.fail, .add):
+            //tonitodo: notify user that file add failed
             break
-            //tonitodo: error handling
+        case (.fail, .remove):
+            //tonitodo: notify user that file remove failed
+            break
+        case (.succeed, .remove):
+            handleRemoveSuccess(groupKey: groupKey, itemKey: itemKey)
+        }
+    }
+    
+    private func handleRemoveSuccess(groupKey: String, itemKey: String) {
+        
+        if dbWriter.allDeleted(groupKey: groupKey) {
+            //notify that article is fully deleted
         }
     }
     
@@ -145,7 +161,7 @@ public class CacheController {
         
         if dbWriter.allDownloaded(groupKey: groupKey) {
             
-            //fire notification here for WMFArticle.isDownloaded = yes?
+            //notify that article is fully downloaded
         }
     }
 }
@@ -159,8 +175,8 @@ extension CacheController: CacheDBWritingDelegate {
     }
     
     func queue(groupKey: String, itemKey: String) {
-        let queuedCompletionBlock = { (isAdd: Bool, isSuccess: Bool) in
-            self.handleFinalResult(groupKey: groupKey, itemKey: itemKey, isAdd: isAdd, isSuccess: isSuccess)
+        let queuedCompletionBlock = { (result) in
+            self.handleFinalResult(groupKey: groupKey, itemKey: itemKey, result: result)
         }
         
         let completionQueueItem = CompletionQueueItem(groupKey: groupKey, completion: queuedCompletionBlock)
@@ -172,33 +188,49 @@ extension CacheController: CacheDBWritingDelegate {
     }
     
     func dbWriterDidRemove(groupKey: String, itemKey: String) {
-        fileWriter.remove(groupKey: groupKey, itemKey: itemKey)
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .succeed, type: .remove))
     }
     
     func dbWriterDidFailAdd(groupKey: String, itemKey: String) {
-        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: true, isSuccess: false)
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .add))
     }
     
-    func dbWriterDidFailRemove(groupKey: String) {
-        //tonitodo: anything worth doing here / queuing since we don't have an itemKey to pull queued completions with?
+    func dbWriterDidFailRemove(groupKey: String, itemKey: String) {
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .remove))
     }
 }
 
 extension CacheController: CacheFileWritingDelegate {
     func fileWriterDidAdd(groupKey: String, itemKey: String) {
          
-        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: true, isSuccess: true)
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .succeed, type: .add))
     }
     
     func fileWriterDidRemove(groupKey: String, itemKey: String) {
-        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: false, isSuccess: true)
+        dbWriter.remove(groupKey: groupKey, itemKey: itemKey)
     }
     
     func fileWriterDidFailAdd(groupKey: String, itemKey: String) {
-        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: true, isSuccess: false)
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .add))
     }
     
     func fileWriterDidFailRemove(groupKey: String, itemKey: String) {
-        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, isAdd: false, isSuccess: false)
+        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .remove))
     }
+}
+
+struct CacheResult {
+    
+    enum Status {
+        case succeed
+        case fail
+    }
+
+    enum ResultType {
+        case add
+        case remove
+    }
+    
+    let status: Status
+    let type: ResultType
 }

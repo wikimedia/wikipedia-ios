@@ -4,14 +4,14 @@ import Foundation
 public final class ArticleCacheController: CacheController {
     
     override public func toggleCache(url: URL) {
-        guard let groupKey = url.wmf_databaseKey else {
+        guard let key = url.wmf_databaseKey else {
             return
         }
         
         if isCached(url: url) {
-            dbWriter.remove(groupKey: groupKey, itemKey: nil)
+            dbWriter.remove(groupKey: key, itemKey: key)
         } else {
-            dbWriter.add(url: url, groupKey: groupKey, itemKey: nil)
+            dbWriter.add(url: url, groupKey: key, itemKey: key)
         }
     }
     
