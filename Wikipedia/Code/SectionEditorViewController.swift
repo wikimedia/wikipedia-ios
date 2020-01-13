@@ -133,9 +133,7 @@ class SectionEditorViewController: ViewController {
     }
     
     private func configureWebView() {
-        guard let language = section?.article?.url.wmf_language else {
-            return
-        }
+        let language = section?.article?.url.wmf_language ?? NSLocale.current.languageCode ?? "en"
         
         let configuration = WKWebViewConfiguration()
         let schemeHandler = SchemeHandler.shared
