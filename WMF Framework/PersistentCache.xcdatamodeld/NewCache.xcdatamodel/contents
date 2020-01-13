@@ -3,6 +3,7 @@
     <entity name="PersistentCacheGroup" representedClassName="PersistentCacheGroup" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String"/>
         <relationship name="cacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheItem" inverseName="cacheGroups" inverseEntity="PersistentCacheItem"/>
+        <relationship name="mustHaveCacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheItem" inverseName="mustHaveCacheGroups" inverseEntity="PersistentCacheItem"/>
         <fetchIndex name="byKeyIndex">
             <fetchIndexElement property="key" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -12,9 +13,9 @@
         <attribute name="fromMigration" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="String"/>
-        <attribute name="mustHaveForComplete" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="variant" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheGroup" inverseName="cacheItems" inverseEntity="PersistentCacheGroup"/>
+        <relationship name="mustHaveCacheGroups" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PersistentCacheGroup" inverseName="mustHaveCacheItems" inverseEntity="PersistentCacheGroup"/>
         <fetchIndex name="byDateIndex">
             <fetchIndexElement property="date" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -24,7 +25,7 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="PersistentCacheGroup" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="PersistentCacheGroup" positionX="-63" positionY="-18" width="128" height="88"/>
         <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="148"/>
     </elements>
 </model>

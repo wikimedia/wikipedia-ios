@@ -44,7 +44,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         
         return context.performWaitAndReturn {
             for item in cacheItems {
-                if !item.isDownloaded && item.mustHaveForComplete {
+                if !item.isDownloaded && group.mustHaveCacheItems?.contains(item) ?? false {
                     return false
                 }
             }
@@ -174,7 +174,9 @@ private extension ArticleCacheDBWriter {
             }
             
             group.addToCacheItems(item)
-            item.mustHaveForComplete = mustHaveForComplete
+            if mustHaveForComplete {
+                 group.addToMustHaveCacheItems(item)
+            }
             
             CacheDBWriterHelper.save(moc: context) { (result) in
                 switch result {
