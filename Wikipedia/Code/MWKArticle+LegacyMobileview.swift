@@ -162,7 +162,7 @@ class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
 }
 
 extension MobileviewToMobileHTMLConverter {
-    func convertMobileviewSavedDataToMobileHTML(article: MWKArticle) {
+    func convertMobileviewSavedDataToMobileHTML(article: MWKArticle, articleCacheController: ArticleCacheController) {
         guard let articleURL = article.url else {
             assertionFailure("Article url not available")
             return
@@ -180,7 +180,7 @@ extension MobileviewToMobileHTMLConverter {
                 assertionFailure("mobileHTML not extracted")
                 return
             }
-            ArticleCacheController.shared?.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
+            articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
         }
     }
 }
@@ -195,9 +195,10 @@ REMAINING TODO:
  - test performance
 */
 
-/*
-EXAMPLE CONVERSION:
 
+//EXAMPLE CONVERSION:
+
+/*
     lazy var converter: MobileviewToMobileHTMLConverter = {
         MobileviewToMobileHTMLConverter.init()
     }()
@@ -205,15 +206,15 @@ EXAMPLE CONVERSION:
     override func didReceiveMemoryWarning() {
          guard
             let dataStore = SessionSingleton.sharedInstance()?.dataStore,
+            let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController,
             let articleURL = URL(string: "https://en.wikipedia.org/wiki/World_War_III")
         else {
             return
         }
-        converter.convertMobileviewSavedDataToMobileHTML(article: dataStore.article(with: articleURL))
+        converter.convertMobileviewSavedDataToMobileHTML(article: dataStore.article(with: articleURL), articleCacheController: articleCacheController)
     }
-
 */
-
+ 
 /*
 TEMP DEBUGGING UTILITY:
 

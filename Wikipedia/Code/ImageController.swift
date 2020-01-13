@@ -388,8 +388,8 @@ open class ImageController : NSObject {
         let key = cacheKeyForURL(url)
         let variant = variantForURL(url)
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
-        var mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
-        var data = fileManager.contents(atPath: fileURL.path)
+        let mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
+        let data = fileManager.contents(atPath: fileURL.path)
 //        if data == nil { // check for legacy data
 //            let legacyFileURL = legacyPermanentCacheFileURL(key: key, variant: variant)
 //           mimeType = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: legacyFileURL.path)

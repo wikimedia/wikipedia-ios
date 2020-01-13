@@ -28,6 +28,30 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             self.fetchAndPrintEachGroup()
         }
     }
+    
+    func allDownloaded(groupKey: String) -> Bool {
+        
+        guard let context = CacheController.backgroundCacheContext else {
+            return false
+        }
+        
+        guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
+            return false
+        }
+        guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+            return false
+        }
+        
+        return context.performWaitAndReturn {
+            for item in cacheItems {
+                if !item.isDownloaded && item.mustHaveForComplete {
+                    return false
+                }
+            }
+            
+            return true
+        } ?? false
+    }
 }
 
 //Migration
@@ -83,7 +107,7 @@ private extension ArticleCacheDBWriter {
         
         switch endpointType {
         case .mobileHTML:
-            cacheURL(groupKey: groupKey, itemKey: groupKey)
+            cacheURL(groupKey: groupKey, itemKey: groupKey, mustHaveForComplete: true)
         case .mobileHtmlOfflineResources, .mediaList:
             
             guard let siteURL = articleURL.wmf_site,
@@ -106,7 +130,7 @@ private extension ArticleCacheDBWriter {
                             continue
                         }
                         
-                        self.cacheURL(groupKey: groupKey, itemKey: itemKey)
+                        self.cacheURL(groupKey: groupKey, itemKey: itemKey, mustHaveForComplete: true)
                         
                     }
                 case .failure:
@@ -129,7 +153,7 @@ private extension ArticleCacheDBWriter {
         return (mobileHTMLURL.lastPathComponent as NSString).wmf_normalizedPageTitle()
     }
     
-    func cacheURL(groupKey: String, itemKey: String, successCompletion: ((PersistentCacheItem) -> Void)? = nil) {
+    func cacheURL(groupKey: String, itemKey: String, mustHaveForComplete: Bool = false, successCompletion: ((PersistentCacheItem) -> Void)? = nil) {
         
         if delegate?.shouldQueue(groupKey: groupKey, itemKey: itemKey) ?? false {
             delegate?.queue(groupKey: groupKey, itemKey: itemKey)
@@ -150,6 +174,7 @@ private extension ArticleCacheDBWriter {
             }
             
             group.addToCacheItems(item)
+            item.mustHaveForComplete = mustHaveForComplete
             
             CacheDBWriterHelper.save(moc: context) { (result) in
                 switch result {
