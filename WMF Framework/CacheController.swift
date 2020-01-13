@@ -62,17 +62,9 @@ public class CacheController {
     let provider: CacheProviding
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriting
+    let gatekeeper = CacheGatekeeper()
     
-    struct CompletionQueueItem {
-        let groupKey: GroupKey
-        let completion: CompletionQueueBlock
-    }
     
-    typealias CompletionQueueBlock = (_ result: CacheResult) -> Void
-    typealias ItemKey = String
-    typealias GroupKey = String
-    
-    private var queuedCompletionItems: [ItemKey: [CompletionQueueItem]] = [:]
     
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
@@ -96,10 +88,7 @@ public class CacheController {
     
     func remove(groupKey: String, itemKey: String) {
         
-        //remove queued completion items for groupKey
-        for (key, value) in queuedCompletionItems {
-            queuedCompletionItems[key] = value.filter { $0.groupKey == groupKey }
-        }
+        gatekeeper.removeQueuedCompletionItems(with: groupKey)
         
         dbWriter.cancelTasks(for: groupKey)
         fileWriter.cancelTasks(for: groupKey)
@@ -127,13 +116,7 @@ public class CacheController {
         
         handleFinalResult(groupKey: groupKey, itemKey: itemKey, result: result)
         
-        if let queuedCompletionItems = queuedCompletionItems[itemKey] {
-            for queuedCompletionItem in queuedCompletionItems {
-                queuedCompletionItem.completion(result)
-            }
-        }
-        
-        queuedCompletionItems[itemKey]?.removeAll()
+        gatekeeper.runAndCleanOutQueuedCompletionItems(result: result, itemKey: itemKey)
     }
     
     private func handleFinalResult(groupKey: String, itemKey: String, result: CacheResult) {
@@ -173,12 +156,11 @@ extension CacheController: CacheDBWritingDelegate {
 
     func shouldQueue(groupKey: String, itemKey: String) -> Bool {
         
-        let isEmpty = queuedCompletionItems[itemKey]?.isEmpty ?? true
-        return !isEmpty
+        return gatekeeper.shouldQueue(groupKey: groupKey, itemKey: itemKey)
     }
     
     func queue(groupKey: String, itemKey: String) {
-        let queuedCompletionBlock: CompletionQueueBlock = { [weak self] (result) in
+        return gatekeeper.queue(groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -186,9 +168,6 @@ extension CacheController: CacheDBWritingDelegate {
             
             self.handleFinalResult(groupKey: groupKey, itemKey: itemKey, result: result)
         }
-        
-        let completionQueueItem = CompletionQueueItem(groupKey: groupKey, completion: queuedCompletionBlock)
-        queuedCompletionItems[itemKey]?.append(completionQueueItem)
     }
     
     func dbWriterDidAdd(groupKey: String, itemKey: String) {
