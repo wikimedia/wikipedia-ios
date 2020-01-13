@@ -77,6 +77,8 @@
 "action-language-accessibility" = "Vaihda kieli";
 "action-move-to" = "Siirrä kohteeseen...";
 "action-move-to-reading-list" = "Siirrä lukulistaan";
+"action-next-revision-accessibility" = "Seuraava istunto";
+"action-previous-revision-accessibility" = "Edellinen versio";
 "action-read" = "Lue";
 "action-redo" = "Tee uudelleen";
 "action-remove" = "Poista";
@@ -186,7 +188,13 @@
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 merkki lisätty|$1 merkkiä lisätty}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 merkki poistettu|$1 merkkiä poistettu}}";
+"diff-single-header-summary-heading" = "Muokkausyhteenveto";
+"diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Rivi $1";
+"diff-thanks-anonymous-no-thanks" = "Anonyymeille käyttäjille ei voi lähettää kiitoksia";
+"diff-thanks-login-title" = "Kirjaudu sisään lähettääksesi kiitokset";
+"diff-thanks-send-button-title" = "Lähetä kiitokset";
+"diff-thanks-sent" = "Kiitoksesi lähetettiin käyttäjälle $1";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 rivi ilman muutoksia|$1 riviä ilman muutoksia}}";
 "dim-images" = "Himmennä kuvia";
 "edit-bold-accessibility-label" = "Lisää lihavoitu muotoilu";
@@ -471,7 +479,10 @@
 "page-edit-history" = "Täysi muokkaushistoria";
 "page-history-anonymous-edits" = "tunnistautumattomilta";
 "page-history-bot-edits" = "boteilta";
+"page-history-compare-title" = "Vertaa";
 "page-history-minor-edits" = "pienet muutokset";
+"page-history-revision-author-accessibility-label" = "Tekijä: $1";
+"page-history-revision-comment-accessibility-label" = "Kommentti $1";
 "page-history-revision-history-title" = "Muutoshistoria";
 "page-history-revision-minor-edit-accessibility-label" = "Pieni muutos";
 "page-history-revision-size-diff-addition" = "Lisätty {{PLURAL:$1|$1 tavu|$1 tavua}}";
@@ -729,6 +740,7 @@
 "talk-page-new-reply-body-accessibility-label" = "Kirjoita vastaus";
 "talk-page-new-reply-body-placeholder-text" = "Kirjoita vastaus";
 "talk-page-new-reply-success-text" = "Vastauksesi julkaistiin onnistuneesti";
+"talk-page-new-subject-clear-button-accessibility" = "Tyhjennä aihe";
 "talk-page-new-subject-placeholder-text" = "Aihe";
 "talk-page-new-subject-textfield-accessibility-label" = "Aihe";
 "talk-page-new-topic-body-placeholder-text" = "Kirjoita uusi keskusteluviesti";

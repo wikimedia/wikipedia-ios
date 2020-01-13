@@ -17,6 +17,7 @@
 // Author: Nemo bis
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
+// Author: Sonic N800
 // Author: Tarawneh
 // Author: Zpizza
 // Author: بدارين
@@ -557,7 +558,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
 "page-issues" = "مشاكل في الصفحة";
-"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|منذ $1 أيام}}";
+"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
@@ -691,13 +692,13 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=مؤخرا|قبل $1 ساعة|قبل $1 ساعات}}";
-"relative-date-hours-ago-abbreviated" = "منذ $1h";
+"relative-date-hours-ago-abbreviated" = "قبل $1h";
 "relative-date-minutes-abbreviated" = "$1m";
-"relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|منذ $1 دقيقة|منذ $1 دقائق}}";
-"relative-date-minutes-ago-abbreviated" = "منذ $1m";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|قبل $1 دقيقة|قبل $1 دقائق}}";
+"relative-date-minutes-ago-abbreviated" = "قبل $1m";
 "relative-date-months-ago" = "{{PLURAL:$1|0=هذا الشهر|1=الشهر الماضي|منذ $1 أشهر}}";
 "relative-date-seconds-abbreviated" = "$1s";
-"relative-date-seconds-ago-abbreviated" = "منذ $1s";
+"relative-date-seconds-ago-abbreviated" = "قبل $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|1=العام الماضي|منذ $1 سنوات}}";
 "replace-button-accessibility" = "أداء $1.";
 "replace-buttons-replace-accessibility" = "استبدال مثيل واحد";

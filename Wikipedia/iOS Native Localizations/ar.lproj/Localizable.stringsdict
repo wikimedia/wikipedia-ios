@@ -288,7 +288,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>منذ %1$d أيام</string>
+			<string>قبل %1$d أيام</string>
 			<key>zero</key>
 			<string>اليوم</string>
 		</dict>
@@ -493,9 +493,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>منذ %1$d دقيقة</string>
+			<string>قبل %1$d دقيقة</string>
 			<key>other</key>
-			<string>منذ %1$d دقائق</string>
+			<string>قبل %1$d دقائق</string>
 			<key>zero</key>
 			<string>الآن فقط</string>
 		</dict>

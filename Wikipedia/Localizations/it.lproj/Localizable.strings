@@ -7,6 +7,7 @@
 // Author: Beta16
 // Author: Brion
 // Author: Chris96
+// Author: Dansita
 // Author: Devid Farinelli
 // Author: Eduardo Addad de Oliveira
 // Author: F. Cosoleto
@@ -145,8 +146,8 @@
 "description-edit-placeholder-title" = "Descrizioni brevi sono le migliori";
 "description-edit-publish" = "Pubblica descrizione";
 "description-edit-title" = "Modifica descrizione";
-"description-help-about-title" = "Informazioni";
-"description-help-about-wikidata" = "Su Wikidata";
+"description-help-about-title" = "A proposito di";
+"description-help-about-wikidata" = "A proposito di Wikidata";
 "description-help-more-info-description" = "Le descrizioni sono archiviate e mantenute su Wikidata, un progetto della Fondazione Wikimedia che fornisce un database secondario, libero, collaborativo e multilingue per il supporto di Wikipedia e altri progetti.";
 "description-help-more-info-title" = "Ulteriori informazioni";
 "description-help-tips-example-description-two" = "descrizione del titolo per un articolo sul Monte Everest";
@@ -463,10 +464,10 @@
 "reading-themes-controls-syntax-highlighting" = "Evidenziazione della sintassi";
 "reference-title" = "Riferimento $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Oggi|1=Ieri|$1 giorni fa}}";
-"relative-date-hours-abbreviated" = "$1 h";
+"relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
 "relative-date-hours-ago-abbreviated" = "$1h fa";
-"relative-date-minutes-abbreviated" = "$1 m";
+"relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
 "relative-date-minutes-ago-abbreviated" = "$1m fa";
 "relative-date-months-ago" = "{{PLURAL:$1|0=Questo mese|1=Mese scorso|$1 mesi fa}}";
@@ -575,21 +576,21 @@
 "welcome-exploration-on-this-day-description" = "Viaggia indietro nel tempo per sapere cosa è successo oggi nella storia";
 "welcome-exploration-on-this-day-title" = "In questo giorno";
 "welcome-exploration-places-description" = "Scopri i punti di riferimento vicino a te o cerca posti in tutto il mondo";
-"welcome-exploration-places-title" = "Scheda luoghi";
+"welcome-exploration-places-title" = "Scheda dei luoghi";
 "welcome-explore-continue-button" = "Inizia";
 "welcome-explore-new-ways-title" = "Nuovi modi per esplorare";
 "welcome-explore-tell-me-more-done-button" = "Capito";
 "welcome-intro-free-encyclopedia-description" = "Wikipedia è scritta collaborativamente da volontari e consiste in più di 40 milioni di voci in quasi 300 lingue.";
 "welcome-intro-free-encyclopedia-more" = "Ulteriori informazioni su Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Informazioni su Wikipedia";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedia è un progetto globale per costruire enciclopedie gratuite in tutte le lingue del mondo. Praticamente chiunque abbia accesso a Internet è libero di partecipare fornendo informazioni citate e neutre.";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia è un progetto globale per costruire enciclopedie gratuite in tutte le lingue del mondo. Praticamente chiunque abbia accesso a internet è libero di partecipare fornendo informazioni neutrali e con riferimenti.";
 "welcome-intro-free-encyclopedia-title" = "L'enciclopedia libera";
 "welcome-languages-add-button" = "Aggiungi un'altra lingua";
 "welcome-languages-add-or-edit-button" = "Aggiungi o modifica lingue preferite";
 "welcome-languages-description" = "Abbiamo trovato le seguenti lingue sul tuo dispositivo:";
 "welcome-languages-search-title" = "Cerca in quasi 300 lingue";
-"welcome-notifications-tell-me-more-creation" = "Le notifiche vengono create e recapitate sul dispositivo dall'applicazione, non dai nostri server (o di terze parti).";
-"welcome-notifications-tell-me-more-storage" = "Le preferenze di notifica sono memorizzate sul dispositivo e non in base a informazioni o attività personali.";
+"welcome-notifications-tell-me-more-creation" = "Le notifiche vengono create e recapitate sul dispositivo dall'applicazione, non dai nostri server (o da quelli di terze parti).";
+"welcome-notifications-tell-me-more-storage" = "Le preferenze di notifica sono memorizzate sul dispositivo e non si basano su informazioni o attività personali.";
 "welcome-notifications-tell-me-more-title" = "Ulteriori informazioni sulle notifiche";
 "welcome-send-data-helps-title" = "Aiuta a rendere l'applicazione migliore";
 "welcome-send-data-learn-more" = "Ulteriori informazioni sui dati raccolti";

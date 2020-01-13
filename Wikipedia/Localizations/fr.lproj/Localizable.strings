@@ -334,7 +334,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Indépendant de la langue";
 "explore-feed-preferences-global-cards-title" = "Cartes globales";
 "explore-feed-preferences-hide-card-action-title" = "Masquer cette carte";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Masquer toutes les cartes « $1 »";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Masquer toutes les cartes « $1 »";
 "explore-feed-preferences-in-the-news-description" = "Articles sur les événements actuels";
 "explore-feed-preferences-languages-footer-text" = "Masquer toutes les cartes du fil d’exploration dans toutes vos langues désactivera l’onglet Explorer.";
 "explore-feed-preferences-on-this-day-description" = "Événements de ce jour dans l’historique";
@@ -649,7 +649,7 @@
 "reading-list-login-title" = "Synchroniser vos articles enregistrés ?";
 "reading-list-name-user-created-annotation" = "_[utilisateur créé]";
 "reading-list-new-list-description-placeholder" = "courte description optionnelle";
-"reading-list-new-list-name-placeholder" = "lecture du titre de la liste";
+"reading-list-new-list-name-placeholder" = "titre de la liste de lecture";
 "reading-list-sync-disabled-panel-message" = "La synchronisation des listes de lecture a été désactivée de votre compte Wikipédia sur un autre appareil. Vous pouvez la réactiver en mettant à jour vos paramètres.";
 "reading-list-sync-disabled-panel-title" = "Synchronisation désactivée";
 "reading-list-sync-enable-button-title" = "Activer la synchronisation";
