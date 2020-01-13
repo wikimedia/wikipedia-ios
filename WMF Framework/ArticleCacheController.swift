@@ -22,12 +22,20 @@ public final class ArticleCacheController: CacheController {
             return
         }
         
-        articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL) { (item) in
-            articleFileWriter.migrateCachedContent(content: content, cacheItem: item, mimeType: mimeType) {
-                articleDBWriter.migratedCacheItemFile(cacheItem: item) {
-                    print("success")
+        articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL, success: { (cacheItem) in
+            
+            articleFileWriter.migrateCachedContent(content: content, cacheItem: cacheItem, mimeType: mimeType, success: {
+                
+                articleDBWriter.migratedCacheItemFile(cacheItem: cacheItem, success: {
+                    print("successfully migrated")
+                }) { (error) in
+                    //tonitodo: broadcast migration error
                 }
+            }) { (error) in
+                //tonitodo: broadcast migration error
             }
+        }) { (error) in
+            //tonitodo: broadcast migration error
         }
     }
 }

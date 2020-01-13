@@ -32,7 +32,6 @@ final public class ArticleFetcher: Fetcher {
         return task
     }
     
-    //tonitodo: track/untrack tasks
     func fetchResourceList(siteURL: URL, articleTitle: String, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
         
         guard endpointType == .mediaList || endpointType == .mobileHtmlOfflineResources else {
@@ -126,7 +125,6 @@ private extension ArticleFetcher {
         }
     }
     
-    //tonitodo: track/untrack tasks
     func handleDownloadTaskCompletion(url: URL, fileURL: URL?, response: URLResponse?, error: Error?, completion: @escaping DownloadCompletion) {
         if let error = error {
             completion(error, url, nil, nil)

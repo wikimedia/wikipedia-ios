@@ -24,29 +24,34 @@ final class ImageCacheFileWriter: CacheFileWriting {
     func add(groupKey: String, itemKey: String) {
         
         guard let url = URL(string: itemKey) else {
+            self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
             return
         }
         
         let untrackKey = UUID().uuidString
         let task = imageFetcher.downloadData(url: url) { (error, _, temporaryFileURL, mimeType) in
+            
+            defer {
+                self.untrackTask(untrackKey: untrackKey, from: groupKey)
+            }
+            
             if let _ = error {
-                //tonitodo: better error handling here
+                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             guard let temporaryFileURL = temporaryFileURL else {
+                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
-                case .success:
+                case .success, .exists:
                     self.delegate?.fileWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
-                default:
+                case .failure:
                     self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 }
             }
-            
-            self.untrackTask(untrackKey: untrackKey, from: groupKey)
         }
         
         if let task = task {

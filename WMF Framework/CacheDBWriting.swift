@@ -9,6 +9,7 @@ enum SaveResult {
 protocol CacheDBWritingDelegate: class {
     func shouldQueue(groupKey: String, itemKey: String) -> Bool
     func queue(groupKey: String, itemKey: String)
+    func dbWriterDidOutrightFailAdd(groupKey: String)
     func dbWriterDidAdd(groupKey: String, itemKey: String)
     func dbWriterDidRemove(groupKey: String, itemKey: String)
     func dbWriterDidFailAdd(groupKey: String, itemKey: String)

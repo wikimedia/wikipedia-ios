@@ -36,10 +36,12 @@ private extension ImageCacheDBWriter {
         context.perform {
 
             guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
+                self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             
             guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
+                self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             

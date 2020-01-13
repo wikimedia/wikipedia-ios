@@ -19,10 +19,10 @@ final class CacheFileWriterHelper {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
                 completion(.exists)
             } else {
-                completion(.error(error))
+                completion(.failure(error))
             }
         } catch let error {
-            completion(.error(error))
+            completion(.failure(error))
         }
     }
     
@@ -39,10 +39,10 @@ final class CacheFileWriterHelper {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
                 completion(.exists)
             } else {
-                completion(.error(error))
+                completion(.failure(error))
             }
         } catch let error {
-            completion(.error(error))
+            completion(.failure(error))
         }
     }
 }
@@ -50,5 +50,5 @@ final class CacheFileWriterHelper {
 enum FileMoveResult {
     case exists
     case success
-    case error(Error)
+    case failure(Error)
 }

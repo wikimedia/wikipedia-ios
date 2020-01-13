@@ -102,6 +102,7 @@ public class CacheController {
         }
         
         dbWriter.cancelTasks(for: groupKey)
+        fileWriter.cancelTasks(for: groupKey)
         
         let itemKeysToRemove = dbWriter.itemKeysToRemove(for: groupKey)
         
@@ -131,6 +132,8 @@ public class CacheController {
                 queuedCompletionItem.completion(result)
             }
         }
+        
+        queuedCompletionItems[itemKey]?.removeAll()
     }
     
     private func handleFinalResult(groupKey: String, itemKey: String, result: CacheResult) {
@@ -151,7 +154,7 @@ public class CacheController {
     private func handleRemoveSuccess(groupKey: String, itemKey: String) {
         
         if dbWriter.allDeleted(groupKey: groupKey) {
-            //notify that article is fully deleted
+            //notify that group is fully deleted
         }
     }
     
@@ -161,13 +164,13 @@ public class CacheController {
         
         if dbWriter.allDownloaded(groupKey: groupKey) {
             
-            //notify that article is fully downloaded
+            //notify that item is fully downloaded
         }
     }
 }
 
 extension CacheController: CacheDBWritingDelegate {
-    
+
     func shouldQueue(groupKey: String, itemKey: String) -> Bool {
         
         let isEmpty = queuedCompletionItems[itemKey]?.isEmpty ?? true
@@ -175,7 +178,12 @@ extension CacheController: CacheDBWritingDelegate {
     }
     
     func queue(groupKey: String, itemKey: String) {
-        let queuedCompletionBlock = { (result) in
+        let queuedCompletionBlock: CompletionQueueBlock = { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.handleFinalResult(groupKey: groupKey, itemKey: itemKey, result: result)
         }
         
@@ -197,6 +205,14 @@ extension CacheController: CacheDBWritingDelegate {
     
     func dbWriterDidFailRemove(groupKey: String, itemKey: String) {
         finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .remove))
+    }
+    
+    func dbWriterDidOutrightFailAdd(groupKey: String) {
+        
+        let key = groupKey
+        remove(groupKey: key, itemKey: key)
+        
+        //tonitodo: notify failure here
     }
 }
 

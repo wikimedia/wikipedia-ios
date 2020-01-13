@@ -104,6 +104,7 @@ final class CacheDBWriterHelper {
     
     static func save(moc: NSManagedObjectContext, completion: (_ result: SaveResult) -> Void) {
         guard moc.hasChanges else {
+            completion(.success)
             return
         }
         do {

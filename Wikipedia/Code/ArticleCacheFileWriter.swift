@@ -1,6 +1,11 @@
 
 import Foundation
 
+enum ArticleCacheFileWriterError: Error {
+    case expectingCacheItemToFlagFromMigration
+    case missingItemKey
+}
+
 final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     
     weak var delegate: CacheFileWritingDelegate?
@@ -30,6 +35,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     func add(groupKey: String, itemKey: String) {
         
         guard let url = URL(string: itemKey) else {
+            self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
             return
         }
         
@@ -37,27 +43,30 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         
         let untrackKey = UUID().uuidString
         let task = articleFetcher.downloadData(url: urlToDownload) { (error, _, temporaryFileURL, mimeType) in
+            
+            defer {
+                self.untrackTask(untrackKey: untrackKey, from: groupKey)
+            }
+            
             if let _ = error {
-                //tonitodo: better error handling here
+                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             guard let temporaryFileURL = temporaryFileURL else {
+                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 return
             }
             
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
-                case .success:
+                case .success, .exists:
                     self.delegate?.fileWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
                     NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: itemKey,
                     ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: true])
-                default:
+                case .failure:
                     self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
-                    break
                 }
             }
-            
-            self.untrackTask(untrackKey: untrackKey, from: groupKey)
         }
         
         if let task = task {
@@ -88,24 +97,25 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
 
 extension ArticleCacheFileWriter {
     
-    func migrateCachedContent(content: String, cacheItem: PersistentCacheItem, mimeType: String, successCompletion: @escaping () -> Void) {
+    func migrateCachedContent(content: String, cacheItem: PersistentCacheItem, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         guard cacheItem.fromMigration else {
+            failure(ArticleCacheFileWriterError.expectingCacheItemToFlagFromMigration)
             return
         }
         
         guard let key = cacheItem.key else {
+            failure(ArticleCacheFileWriterError.missingItemKey)
             return
         }
 
-        //key will be desktop articleURL.wmf_databaseKey format.
-        //Monte: if your local mobile-html is in some sort of temporary file location, you can try calling this here:
+        //key will be desktop articleURL.wmf_databaseKey format
         CacheFileWriterHelper.saveContent(content, toNewFileWithKey: key, mimeType: mimeType) { (result) in
             switch result {
-            case .success:
-                successCompletion()
-            default:
-                break
+            case .success, .exists:
+                success()
+            case .failure(let error):
+                failure(error)
             }
         }
     }
