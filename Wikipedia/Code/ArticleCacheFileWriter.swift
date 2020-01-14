@@ -14,10 +14,6 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    public static let didChangeNotification = NSNotification.Name("ArticleCacheFileWriterDidChangeNotification")
-    public static let didChangeNotificationUserInfoDBKey = ["dbKey"]
-    public static let didChangeNotificationUserInfoIsDownloadedKey = ["isDownloaded"]
-    
     init?(articleFetcher: ArticleFetcher,
                        cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
         self.articleFetcher = articleFetcher
@@ -61,8 +57,6 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
                 switch result {
                 case .success, .exists:
                     self.delegate?.fileWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
-                    NotificationCenter.default.post(name: ArticleCacheFileWriter.didChangeNotification, object: nil, userInfo: [ArticleCacheFileWriter.didChangeNotificationUserInfoDBKey: itemKey,
-                    ArticleCacheFileWriter.didChangeNotificationUserInfoIsDownloadedKey: true])
                 case .failure:
                     self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
                 }
@@ -71,24 +65,6 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         
         if let task = task {
             trackTask(untrackKey: untrackKey, task: task, to: groupKey)
-        }
-    }
-    
-    func remove(groupKey: String, itemKey: String) {
-        
-        cancelTasks(for: groupKey)
-        let pathComponent = itemKey.sha256 ?? itemKey
-        
-        let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
-        do {
-            try FileManager.default.removeItem(at: cachedFileURL)
-            delegate?.fileWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
-        } catch let error as NSError {
-            if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                delegate?.fileWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
-            } else {
-                delegate?.fileWriterDidFailRemove(groupKey: groupKey, itemKey: itemKey)
-            }
         }
     }
 }

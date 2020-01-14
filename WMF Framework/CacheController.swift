@@ -64,8 +64,6 @@ public class CacheController {
     let fileWriter: CacheFileWriting
     let gatekeeper = CacheGatekeeper()
     
-    
-    
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
         self.dbWriter = dbWriter
@@ -98,6 +96,8 @@ public class CacheController {
         for itemKey in itemKeysToRemove {
             fileWriter.remove(groupKey: groupKey, itemKey: itemKey)
         }
+        
+        dbWriter.remove(groupKey: groupKey)
     }
     
     public func isCached(url: URL) -> Bool {
@@ -136,9 +136,11 @@ public class CacheController {
     
     private func handleRemoveSuccess(groupKey: String, itemKey: String) {
         
-        if dbWriter.allDeleted(groupKey: groupKey) {
-            //notify that group is fully deleted
-        }
+        
+    }
+    
+    private func handleRemoveSuccess(groupKey: String) {
+        notifyAllRemoved(groupKey: groupKey)
     }
     
     private func handleAddSuccess(groupKey: String, itemKey: String) {
@@ -147,8 +149,16 @@ public class CacheController {
         
         if dbWriter.allDownloaded(groupKey: groupKey) {
             
-            //notify that item is fully downloaded
+            notifyAllDownloaded(groupKey: groupKey, itemKey: itemKey)
         }
+    }
+    
+    func notifyAllDownloaded(groupKey: String, itemKey: String) {
+        assertionFailure("Must subclass")
+    }
+    
+    func notifyAllRemoved(groupKey: String) {
+        assertionFailure("Must subclass")
     }
 }
 
@@ -184,6 +194,14 @@ extension CacheController: CacheDBWritingDelegate {
     
     func dbWriterDidFailRemove(groupKey: String, itemKey: String) {
         finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .remove))
+    }
+    
+    func dbWriterDidRemove(groupKey: String) {
+        handleRemoveSuccess(groupKey: groupKey)
+    }
+    
+    func dbWriterDidFailRemove(groupKey: String) {
+        //tonitodo: how do we resolve, have one last group hanging around in DB
     }
     
     func dbWriterDidOutrightFailAdd(groupKey: String) {

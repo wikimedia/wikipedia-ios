@@ -12,8 +12,10 @@ protocol CacheDBWritingDelegate: class {
     func dbWriterDidOutrightFailAdd(groupKey: String)
     func dbWriterDidAdd(groupKey: String, itemKey: String)
     func dbWriterDidRemove(groupKey: String, itemKey: String)
+    func dbWriterDidRemove(groupKey: String)
     func dbWriterDidFailAdd(groupKey: String, itemKey: String)
     func dbWriterDidFailRemove(groupKey: String, itemKey: String)
+    func dbWriterDidFailRemove(groupKey: String)
 }
 
 protocol CacheDBWriting: CacheTaskTracking {
@@ -27,7 +29,7 @@ protocol CacheDBWriting: CacheTaskTracking {
     func isCached(url: URL) -> Bool
     func itemKeysToRemove(for groupKey: String) -> [String]
     func markDownloaded(itemKey: String)
-    func allDeleted(groupKey: String) -> Bool
+    func allDownloaded(groupKey: String) -> Bool
 }
 
 extension CacheDBWriting {
@@ -43,11 +45,6 @@ extension CacheDBWriting {
             let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context)
             return cacheItem?.isDownloaded
         } ?? false
-    }
-    
-    func allDeleted(groupKey: String) -> Bool {
-        
-        return itemKeysToRemove(for: groupKey).count > 0
     }
     
     func allDownloaded(groupKey: String) -> Bool {
@@ -100,11 +97,9 @@ extension CacheDBWriting {
        return context.performWaitAndReturn {
             
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-                assertionFailure("Cache group for \(groupKey) doesn't exist")
                 return []
             }
             guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
-                assertionFailure("Cache group for \(groupKey) has no cache items")
                 return []
             }
             
@@ -116,6 +111,30 @@ extension CacheDBWriting {
         } ?? []
     }
     
+    func remove(groupKey: String) {
+        guard let context = CacheController.backgroundCacheContext else {
+           return
+       }
+       
+       context.perform {
+           
+           guard let cacheGroup = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
+               return
+           }
+           
+           context.delete(cacheGroup)
+           
+           CacheDBWriterHelper.save(moc: context) { (result) in
+               switch result {
+               case .success:
+                   self.delegate?.dbWriterDidRemove(groupKey: groupKey)
+               case .failure:
+                   self.delegate?.dbWriterDidFailRemove(groupKey: groupKey)
+               }
+           }
+       }
+    }
+    
     func remove(groupKey: String, itemKey: String) {
         
         guard let context = CacheController.backgroundCacheContext else {
@@ -124,16 +143,18 @@ extension CacheDBWriting {
         
         context.perform {
             
-            guard let itemToDelete = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
-                assertionFailure("Cache item for \(itemKey) doesn't exist")
+            guard let cacheGroup = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
                 return
             }
             
-            context.delete(itemToDelete)
+            guard let cacheItems = cacheGroup.cacheItems as? Set<PersistentCacheItem> else {
+                return
+            }
             
-            if let groupToDelete = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) {
-                if groupToDelete.cacheItems?.count == nil {
-                    context.delete(groupToDelete)
+            for cacheItem in cacheItems where cacheItem.key == itemKey {
+                
+                if (cacheItem.cacheGroups?.count == 1) {
+                    context.delete(cacheItem)
                 }
             }
             

@@ -46,11 +46,6 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 self.delegate?.dbWriterDidOutrightFailAdd(groupKey: groupKey)
             }
         }
-        
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
-            self.fetchAndPrintEachItem()
-            self.fetchAndPrintEachGroup()
-        }
     }
     
     func allDownloaded(groupKey: String) -> Bool {
@@ -117,11 +112,6 @@ extension ArticleCacheDBWriter {
                     failure(error)
                 }
             }
-        }
-        
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
-            self.fetchAndPrintEachItem()
-            self.fetchAndPrintEachGroup()
         }
     }
 }

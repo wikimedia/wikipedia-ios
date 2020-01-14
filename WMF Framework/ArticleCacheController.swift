@@ -3,16 +3,48 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
+    public static let didChangeNotification = NSNotification.Name("ArticleCacheControllerDidChangeNotification")
+    public static let didChangeNotificationUserInfoDBKey = ["dbKey"]
+    public static let didChangeNotificationUserInfoIsDownloadedKey = ["isDownloaded"]
+    
     override public func toggleCache(url: URL) {
         guard let key = url.wmf_databaseKey else {
             return
         }
         
         if isCached(url: url) {
-            dbWriter.remove(groupKey: key, itemKey: key)
+            remove(groupKey: key, itemKey: key)
         } else {
-            dbWriter.add(url: url, groupKey: key, itemKey: key)
+            add(url: url, groupKey: key, itemKey: key)
         }
+    }
+    
+    override func add(url: URL, groupKey: String, itemKey: String) {
+        super.add(url: url, groupKey: groupKey, itemKey: itemKey)
+        
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
+            self.dbWriter.fetchAndPrintEachItem()
+            self.dbWriter.fetchAndPrintEachGroup()
+        }
+    }
+    
+    override func remove(groupKey: String, itemKey: String) {
+        super.remove(groupKey: groupKey, itemKey: itemKey)
+        
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
+            self.dbWriter.fetchAndPrintEachItem()
+            self.dbWriter.fetchAndPrintEachGroup()
+        }
+    }
+    
+    override func notifyAllDownloaded(groupKey: String, itemKey: String) {
+        NotificationCenter.default.post(name: ArticleCacheController.didChangeNotification, object: nil, userInfo: [ArticleCacheController.didChangeNotificationUserInfoDBKey: groupKey,
+        ArticleCacheController.didChangeNotificationUserInfoIsDownloadedKey: true])
+    }
+    
+    override func notifyAllRemoved(groupKey: String) {
+        NotificationCenter.default.post(name: ArticleCacheController.didChangeNotification, object: nil, userInfo: [ArticleCacheController.didChangeNotificationUserInfoDBKey: groupKey,
+        ArticleCacheController.didChangeNotificationUserInfoIsDownloadedKey: false])
     }
     
     public func cacheFromMigration(desktopArticleURL: URL, itemKey: String? = nil, content: String, mimeType: String) { //articleURL should be desktopURL
@@ -28,6 +60,12 @@ public final class ArticleCacheController: CacheController {
                 
                 articleDBWriter.migratedCacheItemFile(cacheItem: cacheItem, success: {
                     print("successfully migrated")
+                    
+                    DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
+                        self.dbWriter.fetchAndPrintEachItem()
+                        self.dbWriter.fetchAndPrintEachGroup()
+                    }
+                    
                 }) { (error) in
                     //tonitodo: broadcast migration error
                 }

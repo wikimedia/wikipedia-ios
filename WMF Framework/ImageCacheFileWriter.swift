@@ -58,23 +58,4 @@ final class ImageCacheFileWriter: CacheFileWriting {
             trackTask(untrackKey: untrackKey, task: task, to: groupKey)
         }
     }
-    
-    func remove(groupKey: String, itemKey: String) {
-
-        let pathComponent = itemKey.sha256 ?? itemKey
-        
-        let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
-        do {
-            try FileManager.default.removeItem(at: cachedFileURL)
-            delegate?.fileWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
-        } catch let error as NSError {
-            if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                delegate?.fileWriterDidRemove(groupKey: groupKey, itemKey: itemKey)
-            } else {
-                delegate?.fileWriterDidFailRemove(groupKey: groupKey, itemKey: itemKey)
-            }
-        }
-    }
-    
-    
 }

@@ -9,10 +9,18 @@ final class ImageCacheController: CacheController {
         }
         
         if isCached(url: url) {
-            dbWriter.remove(groupKey: key, itemKey: key)
+            remove(groupKey: key, itemKey: key)
         } else {
             add(url: url, groupKey: key, itemKey: key)
         }
+    }
+    
+    override func notifyAllDownloaded(groupKey: String, itemKey: String) {
+        
+    }
+    
+    override func notifyAllRemoved(groupKey: String) {
+        
     }
     
 }
