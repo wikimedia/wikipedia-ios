@@ -8,6 +8,7 @@ protocol ArticleWebMessageHandling: class {
 
 class ArticleWebMessagingController: NSObject {
     
+    private weak var webView: WKWebView?
     private weak var delegate: ArticleWebMessageHandling?
     
     private let messageHandlerName = "action"
@@ -18,15 +19,30 @@ class ArticleWebMessagingController: NSObject {
         self.delegate = delegate
     }
     
-    func setup(contentController: WKUserContentController, with parameters: PageContentServiceSetupScript.Parameters) {
+    func setup(webView: WKWebView, with parameters: PageContentService.Parameters) {
+        self.webView = webView
+        let contentController = webView.configuration.userContentController
         contentController.add(self, name: messageHandlerName)
         do {
-            let pcsSetup = try PageContentServiceSetupScript(parameters, messageHandlerName: messageHandlerName)
+            let pcsSetup = try PageContentService.SetupScript(parameters, messageHandlerName: messageHandlerName)
             contentController.removeAllUserScripts()
             contentController.addUserScript(pcsSetup)
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }
+    }
+    
+    // MARK: Adjustable state
+    
+    func updateTheme(_ theme: String) {
+        webView?.evaluateJavaScript("pcs.c1.Page.setTheme('\(theme)');")
+    }
+
+    func updateMargins(_ margins: PageContentService.Parameters.Margins) {
+        guard let marginsJSON = try? PageContentService.getJavascriptFor(margins) else {
+            return
+        }
+        webView?.evaluateJavaScript("pcs.c1.Page.setMargins(\(marginsJSON));")
     }
 }
 

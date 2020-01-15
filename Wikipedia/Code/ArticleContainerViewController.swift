@@ -35,14 +35,6 @@ class ArticleContainerViewController: ViewController {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = ArticleContainerViewController.webProcessPool
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
-        let margins = PageContentServiceSetupScript.Parameters.Margins(
-            top: "16px",
-            right: "16px",
-            bottom: "16px",
-            left: "16px"
-        )
-        let parameters  = PageContentServiceSetupScript.Parameters(theme: theme.name, leadImageHeight: "210px", margins: margins)
-        messagingController.setup(contentController: configuration.userContentController, with: parameters)
         return configuration
     }()
     
@@ -138,6 +130,14 @@ private extension ArticleContainerViewController {
     func setupWebView() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView // so that content insets are inherited
+        let margins = PageContentService.Parameters.Margins(
+            top: "16px",
+            right: "16px",
+            bottom: "16px",
+            left: "16px"
+        )
+        let parameters  = PageContentService.Parameters(theme: theme.name, leadImageHeight: "210px", margins: margins)
+        messagingController.setup(webView: webView, with: parameters)
     }
     
     func load() {
