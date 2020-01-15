@@ -80,7 +80,7 @@ private extension SavedArticlesFetcher {
     }
     
     @objc func syncDidFinish(_ note: Notification) {
-        
+        update()
     }
     
     func unobserveSavedPages() {
