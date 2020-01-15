@@ -155,16 +155,18 @@ private extension SavedArticlesFetcher {
                     print("🥶failure in itemCompletion of \(articleKey): \(error)")
                 }
             }) { (groupResult) in
-                switch groupResult {
-                case .success(let itemKeys):
-                    print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
-                    self.spotlightManager.addToIndex(url: articleURL as NSURL)
-                    self.updateFetchesInProcessCount()
-                    updateAgain()
-                case .failure(let error):
-                    print("🥶failure in groupCompletion of \(articleKey): \(error)")
-                    self.updateFetchesInProcessCount()
-                    updateAgain()
+                DispatchQueue.main.async {
+                    switch groupResult {
+                    case .success(let itemKeys):
+                        print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
+                        self.spotlightManager.addToIndex(url: articleURL as NSURL)
+                        self.updateFetchesInProcessCount()
+                        updateAgain()
+                    case .failure(let error):
+                        print("🥶failure in groupCompletion of \(articleKey): \(error)")
+                        self.updateFetchesInProcessCount()
+                        updateAgain()
+                    }
                 }
             }
         } else {
