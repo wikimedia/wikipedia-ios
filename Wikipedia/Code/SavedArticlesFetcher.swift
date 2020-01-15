@@ -232,8 +232,13 @@ private extension SavedArticlesFetcher {
     func didFailToFetchArticle(with key: String, error: Error) {
         operateOnArticles(with: key) { (article) in
             article.updatePropertiesForError(error as NSError)
-            article.isDownloaded = false
+            article.isDownloaded = !isErrorRecoverableOnRetry(error)
         }
+    }
+    
+    func isErrorRecoverableOnRetry(_ error: Error) -> Bool {
+        // TODO: handle different errors differently - set isDownloaded = true on items that need to be skipped (errors that won't recover on retry)
+        return true
     }
 
     func didRemoveArticle(with key: String) {

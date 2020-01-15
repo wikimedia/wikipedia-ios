@@ -112,7 +112,7 @@ private extension ArticleFetcher {
             }
             
             let sources = mediaList.items.flatMap { (item) -> [MediaListItemSource] in
-                return item.sources
+                return item.sources ?? []
             }
             
             let result = sources.map { (source) -> URL? in
@@ -152,23 +152,32 @@ fileprivate struct MediaListItemSource: Codable {
     }
 }
 
-fileprivate enum MediaListItemType: String, Codable {
+fileprivate enum MediaListItemType: String {
     case image
+    case audio
+    case video
 }
 
 fileprivate struct MediaListItem: Codable {
     let title: String
     let sectionID: Int
-    let itemType: MediaListItemType
+    let type: String
     let showInGallery: Bool
-    let sources: [MediaListItemSource]
-    
+    let sources: [MediaListItemSource]?
+    let audioType: String?
     enum CodingKeys: String, CodingKey {
         case title
         case sectionID = "section_id"
-        case itemType = "type"
         case showInGallery
         case sources = "srcset"
+        case type
+        case audioType
+    }
+}
+
+extension MediaListItem {
+    var itemType: MediaListItemType? {
+        return MediaListItemType(rawValue: type)
     }
 }
 
