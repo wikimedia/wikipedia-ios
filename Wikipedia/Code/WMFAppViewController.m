@@ -9,9 +9,6 @@
 #import <Tweaks/FBTweakInline.h>
 #endif
 
-// Networking
-#import "SavedArticlesFetcher.h"
-
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
@@ -75,7 +72,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
-@property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
+@property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -1325,12 +1322,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Accessors
 
-- (SavedArticlesFetcher *)savedArticlesFetcher {
+- (WMFSavedArticlesFetcher *)savedArticlesFetcher {
     if (![self uiIsLoaded]) {
         return nil;
     }
     if (!_savedArticlesFetcher) {
-        _savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+        _savedArticlesFetcher = [[WMFSavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;

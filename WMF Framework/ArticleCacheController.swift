@@ -19,8 +19,8 @@ public final class ArticleCacheController: CacheController {
         }
     }
     
-    override func add(url: URL, groupKey: String, itemKey: String) {
-        super.add(url: url, groupKey: groupKey, itemKey: itemKey)
+    override public func add(url: URL, groupKey: String, itemKey: String, completion: CompletionQueueBlock? = nil) {
+        super.add(url: url, groupKey: groupKey, itemKey: itemKey, completion: completion)
         
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
             self.dbWriter.fetchAndPrintEachItem()
@@ -28,8 +28,12 @@ public final class ArticleCacheController: CacheController {
         }
     }
     
-    override func remove(groupKey: String, itemKey: String) {
-        super.remove(groupKey: groupKey, itemKey: itemKey)
+    public func remove(key: String, completion: CompletionQueueBlock? = nil) {
+        remove(groupKey: key, itemKey: key, completion: completion)
+    }
+    
+    override public func remove(groupKey: String, itemKey: String, completion: CompletionQueueBlock? = nil) {
+        super.remove(groupKey: groupKey, itemKey: itemKey, completion: completion)
         
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
             self.dbWriter.fetchAndPrintEachItem()
@@ -38,11 +42,13 @@ public final class ArticleCacheController: CacheController {
     }
     
     override func notifyAllDownloaded(groupKey: String, itemKey: String) {
+        super.notifyAllDownloaded(groupKey: groupKey, itemKey: itemKey)
         NotificationCenter.default.post(name: ArticleCacheController.didChangeNotification, object: nil, userInfo: [ArticleCacheController.didChangeNotificationUserInfoDBKey: groupKey,
         ArticleCacheController.didChangeNotificationUserInfoIsDownloadedKey: true])
     }
     
     override func notifyAllRemoved(groupKey: String) {
+        super.notifyAllRemoved(groupKey: groupKey)
         NotificationCenter.default.post(name: ArticleCacheController.didChangeNotification, object: nil, userInfo: [ArticleCacheController.didChangeNotificationUserInfoDBKey: groupKey,
         ArticleCacheController.didChangeNotificationUserInfoIsDownloadedKey: false])
     }

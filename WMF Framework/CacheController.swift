@@ -62,7 +62,7 @@ public class CacheController {
     let provider: CacheProviding
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriting
-    let gatekeeper = CacheGatekeeper()
+    private let gatekeeper = CacheGatekeeper()
     
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
@@ -79,17 +79,24 @@ public class CacheController {
         assertionFailure("Must subclass")
     }
 
-    func add(url: URL, groupKey: String, itemKey: String) {
+    public func add(url: URL, groupKey: String, itemKey: String, completion: CompletionQueueBlock? = nil) {
+        
+        if let completion = completion {
+            gatekeeper.externalQueue(groupKey: groupKey, completionBlockToQueue: completion)
+        }
         
         dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey)
     }
     
-    func remove(groupKey: String, itemKey: String) {
+    public func remove(groupKey: String, itemKey: String, completion: CompletionQueueBlock? = nil) {
         
+        if let completion = completion {
+             gatekeeper.externalQueue(groupKey: groupKey, completionBlockToQueue: completion)
+        }
+       
         gatekeeper.removeQueuedCompletionItems(with: groupKey)
         
-        dbWriter.cancelTasks(for: groupKey)
-        fileWriter.cancelTasks(for: groupKey)
+        cancelTasks(groupKey: groupKey)
         
         let itemKeysToRemove = dbWriter.itemKeysToRemove(for: groupKey)
         
@@ -98,6 +105,11 @@ public class CacheController {
         }
         
         dbWriter.remove(groupKey: groupKey)
+    }
+    
+    public func cancelTasks(groupKey: String) {
+        dbWriter.cancelTasks(for: groupKey)
+        fileWriter.cancelTasks(for: groupKey)
     }
     
     public func isCached(url: URL) -> Bool {
@@ -136,7 +148,7 @@ public class CacheController {
     
     private func handleRemoveSuccess(groupKey: String, itemKey: String) {
         
-        
+        //called when individual items are removed, which we don't really need to handle at this point
     }
     
     private func handleRemoveSuccess(groupKey: String) {
@@ -154,11 +166,11 @@ public class CacheController {
     }
     
     func notifyAllDownloaded(groupKey: String, itemKey: String) {
-        assertionFailure("Must subclass")
+        gatekeeper.externalRunAndCleanOutQueuedCompletionBlock(groupKey: groupKey, cacheResult: CacheResult(status: .succeed, type: .add))
     }
     
     func notifyAllRemoved(groupKey: String) {
-        assertionFailure("Must subclass")
+        gatekeeper.externalRunAndCleanOutQueuedCompletionBlock(groupKey: groupKey, cacheResult: CacheResult(status: .succeed, type: .remove))
     }
 }
 
@@ -170,7 +182,7 @@ extension CacheController: CacheDBWritingDelegate {
     }
     
     func queue(groupKey: String, itemKey: String) {
-        return gatekeeper.queue(groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
+        return gatekeeper.internalQueue(groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -207,9 +219,7 @@ extension CacheController: CacheDBWritingDelegate {
     func dbWriterDidOutrightFailAdd(groupKey: String) {
         
         let key = groupKey
-        remove(groupKey: key, itemKey: key)
-        
-        //tonitodo: notify failure here
+        remove(groupKey: key, itemKey: key, completion: nil)
     }
 }
 
@@ -232,18 +242,20 @@ extension CacheController: CacheFileWritingDelegate {
     }
 }
 
-struct CacheResult {
+public struct CacheResult {
     
-    enum Status {
+    public enum Status {
         case succeed
         case fail
     }
 
-    enum ResultType {
+    public enum ResultType {
         case add
         case remove
     }
     
-    let status: Status
-    let type: ResultType
+    public let status: Status
+    public let type: ResultType
 }
+
+public typealias CompletionQueueBlock = (_ result: CacheResult) -> Void

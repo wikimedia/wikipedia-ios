@@ -154,7 +154,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   BOOL isCached = articleCacheError == nil && saveToDisk;
                                                   article.isCached = isCached;
                                                   if (isCached) {
-                                                      article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                      article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the LegacySavedArticlesFetcher
                                                   }
                                                   article.wikidataID = mwkArticle.wikidataId;
                                                   if (summaryResponse) {

@@ -20,7 +20,7 @@
 #import "WMFChange.h"
 
 #import "WMFLegacyArticleFetcher.h"
-#import "SavedArticlesFetcher.h"
+#import "LegacySavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewHtmlFetcher.h"
 #import "MWKImageInfoFetcher.h"

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface SavedArticlesFetcher ()
+@interface LegacySavedArticlesFetcher ()
 
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
@@ -51,11 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation SavedArticlesFetcher
+@implementation LegacySavedArticlesFetcher
 
 #pragma mark - NSObject
 
-static SavedArticlesFetcher *_articleFetcher = nil;
+static LegacySavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)dealloc {
     [self stop];
@@ -84,7 +84,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageController = imageController;
         self.imageInfoFetcher = imageInfoFetcher;
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
-        self.savedArticlesFetcherProgressManager = [[SavedArticlesFetcherProgressManager alloc] initWithDelegate:self];
+        //self.savedArticlesFetcherProgressManager = [[SavedArticlesFetcherProgressManager alloc] initWithDelegate:self];
     }
     return self;
 }
