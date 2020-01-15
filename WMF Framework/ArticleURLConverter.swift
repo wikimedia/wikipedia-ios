@@ -63,7 +63,7 @@ public class ArticleURLConverter {
         let stagingPathComponents = [host, "v1", "page", endpointType.rawValue, percentEncodedUrlTitle]
         var stagingURLComponents = URLComponents()
         stagingURLComponents.host = "apps.wmflabs.org"
-        stagingURLComponents.path = "/\(stagingPathComponents.joined(separator: "/"))"
+        stagingURLComponents.percentEncodedPath = "/\(stagingPathComponents.joined(separator: "/"))"
         guard let stagingUrl = stagingURLComponents.url else {
             return nil
         }
