@@ -183,9 +183,6 @@ private extension ArticleContainerViewController {
         setupWebView()
         setupToolbarViewController()
         load()
-        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
-            loadLeadImage(with: leadImageURL)
-        }
     }
     
     func addNotificationHandlers() {
@@ -228,6 +225,9 @@ private extension ArticleContainerViewController {
     
     func load() {
         state = .loading
+        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
+            loadLeadImage(with: leadImageURL)
+        }
         guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
             WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
             return
