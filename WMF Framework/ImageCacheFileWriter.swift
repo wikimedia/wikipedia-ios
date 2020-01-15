@@ -1,8 +1,12 @@
 
 import Foundation
 
+enum ImageCacheFileWriterError: Error {
+    case failureToGenerateURLFromItemKey
+    case missingTemporaryFileURL
+}
+
 final class ImageCacheFileWriter: CacheFileWriting {
-    var delegate: CacheFileWritingDelegate?
     private let imageFetcher: ImageFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
     
@@ -10,7 +14,6 @@ final class ImageCacheFileWriter: CacheFileWriting {
     
     init?(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
         self.imageFetcher = imageFetcher
-        self.delegate = delegate
         self.cacheBackgroundContext = cacheBackgroundContext
         
         do {
@@ -21,10 +24,10 @@ final class ImageCacheFileWriter: CacheFileWriting {
         }
     }
     
-    func add(groupKey: String, itemKey: String) {
+    func add(groupKey: String, itemKey: String, completion: @escaping (CacheFileWritingResult) -> Void) {
         
         guard let url = URL(string: itemKey) else {
-            self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+            completion(.failure(ImageCacheFileWriterError.failureToGenerateURLFromItemKey))
             return
         }
         
@@ -35,21 +38,21 @@ final class ImageCacheFileWriter: CacheFileWriting {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)
             }
             
-            if let _ = error {
-                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+            if let error = error {
+                completion(.failure(error))
                 return
             }
             guard let temporaryFileURL = temporaryFileURL else {
-                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                completion(.failure(ImageCacheFileWriterError.missingTemporaryFileURL))
                 return
             }
             
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success, .exists:
-                    self.delegate?.fileWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
-                case .failure:
-                    self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                    completion(.success) //tonitodo: when do we overwrite for .exists?
+                case .failure(let error):
+                    completion(.failure(error))
                 }
             }
         }

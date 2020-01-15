@@ -1,21 +1,27 @@
 
 import Foundation
 
+enum ImageCacheDBWriterError: Error {
+    case failureFetchOrCreateCacheGroup
+    case failureFetchOrCreateCacheItem
+}
+
 final class ImageCacheDBWriter: CacheDBWriting {
-    
-    weak var delegate: CacheDBWritingDelegate?
+
     private let cacheBackgroundContext: NSManagedObjectContext
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    init(cacheBackgroundContext: NSManagedObjectContext, delegate: CacheDBWritingDelegate? = nil) {
+    init(cacheBackgroundContext: NSManagedObjectContext) {
         self.cacheBackgroundContext = cacheBackgroundContext
-        self.delegate = delegate
     }
     
-    func add(url: URL, groupKey: String, itemKey: String) {
-
-        cacheImage(groupKey: groupKey, itemKey: itemKey)
+    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void) {
+        cacheImage(groupKey: groupKey, itemKey: itemKey, completion: completion)
+    }
+    
+    func add(url: URL, groupKey: CacheController.GroupKey, completion: (CacheDBWritingResult) -> Void) {
+        
     }
     
     func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
@@ -25,23 +31,18 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
 private extension ImageCacheDBWriter {
     
-    func cacheImage(groupKey: String, itemKey: String) {
-        
-        if delegate?.shouldQueue(groupKey: groupKey, itemKey: itemKey) ?? false {
-            delegate?.queue(groupKey: groupKey, itemKey: itemKey)
-            return
-        }
+    func cacheImage(groupKey: String, itemKey: String, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         let context = self.cacheBackgroundContext
         context.perform {
 
             guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
-                self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                completion(.failure(ImageCacheDBWriterError.failureFetchOrCreateCacheGroup))
                 return
             }
             
             guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
-                self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                completion(.failure(ImageCacheDBWriterError.failureFetchOrCreateCacheItem))
                 return
             }
             
@@ -50,9 +51,11 @@ private extension ImageCacheDBWriter {
             CacheDBWriterHelper.save(moc: context) { (result) in
                 switch result {
                 case .success:
-                    self.delegate?.dbWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
-                case .failure:
-                    self.delegate?.dbWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                    let result = CacheDBWritingResult.success([itemKey])
+                    completion(result)
+                case .failure(let error):
+                    let result = CacheDBWritingResult.failure(error)
+                    completion(result)
                 }
             }
         }

@@ -104,21 +104,21 @@ private extension ArticleContainerViewController {
     }
     
     func addNotificationHandlers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveChangeNotification(_:)), name: ArticleCacheController.didChangeNotification, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(didReceiveChangeNotification(_:)), name: ArticleCacheController.didChangeNotification, object: nil)
     }
     
     @objc func didReceiveChangeNotification(_ notification: Notification) {
         
-        guard let userInfo = notification.userInfo,
-            let dbKey = userInfo[ArticleCacheController.didChangeNotificationUserInfoDBKey] as? String,
-            let isDownloaded = userInfo[ArticleCacheController.didChangeNotificationUserInfoIsDownloadedKey] as? Bool,
-            dbKey == articleURL.wmf_databaseKey else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.toolbarViewController.setSavedState(isSaved: isDownloaded)
-        }
+//        guard let userInfo = notification.userInfo,
+//            let dbKey = userInfo[ArticleCacheController.didChangeNotificationUserInfoDBKey] as? String,
+//            let isDownloaded = userInfo[ArticleCacheController.didChangeNotificationUserInfoIsDownloadedKey] as? Bool,
+//            dbKey == articleURL.wmf_databaseKey else {
+//            return
+//        }
+//
+//        DispatchQueue.main.async {
+//            self.toolbarViewController.setSavedState(isSaved: isDownloaded)
+//        }
     }
     
     func setupWebViewController() {
@@ -137,9 +137,9 @@ private extension ArticleContainerViewController {
     func setupToolbarViewController() {
         toolbarViewController.delegate = self
         
-        if cacheController.isCached(url: articleURL) {
-            toolbarViewController.setSavedState(isSaved: true)
-        }
+        //if cacheController.isCached(url: articleURL) {
+            toolbarViewController.setSavedState(isSaved: false)
+        //}
         
         addChildViewController(childViewController: toolbarViewController, offsets: Offsets(top: nil, bottom: 0, leading: 0, trailing: 0))
     }
@@ -166,7 +166,26 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
     func toggleSave(from viewController: ArticleToolbarViewController) {
-        cacheController.toggleCache(url: articleURL)
+        
+        guard let groupKey = articleURL.wmf_databaseKey else {
+            return
+        }
+        
+        cacheController.add(url: articleURL, groupKey: groupKey, itemCompletion: { (itemResult) in
+            switch itemResult {
+            case .success(let itemKey):
+                print("☕️successfully added \(itemKey)")
+            case .failure(let error):
+                print("☕️failure in itemCompletion of \(groupKey): \(error)")
+            }
+        }) { (groupResult) in
+            switch groupResult {
+            case .success(let itemKeys):
+                print("☕️group completion: \(groupKey), itemKeyCount: \(itemKeys.count)")
+            case .failure(let error):
+                print("☕️failure in groupCompletion of \(groupKey): \(error)")
+            }
+        }
     }
 }
 

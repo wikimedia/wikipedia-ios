@@ -2,8 +2,8 @@
 import Foundation
 
 enum ArticleCacheFileWriterError: Error {
-    case expectingCacheItemToFlagFromMigration
-    case missingItemKey
+    case failureToGenerateURLFromItemKey
+    case missingTemporaryFileURL
 }
 
 final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
@@ -28,10 +28,10 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         }
     }
     
-    func add(groupKey: String, itemKey: String) {
+    func add(groupKey: String, itemKey: String, completion: @escaping (CacheFileWritingResult) -> Void) {
         
         guard let url = URL(string: itemKey) else {
-            self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+            completion(.failure(ArticleCacheFileWriterError.failureToGenerateURLFromItemKey))
             return
         }
         
@@ -44,21 +44,21 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)
             }
             
-            if let _ = error {
-                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+            if let error = error {
+                completion(.failure(error))
                 return
             }
             guard let temporaryFileURL = temporaryFileURL else {
-                self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                completion(.failure(ArticleCacheFileWriterError.missingTemporaryFileURL))
                 return
             }
             
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success, .exists:
-                    self.delegate?.fileWriterDidAdd(groupKey: groupKey, itemKey: itemKey)
-                case .failure:
-                    self.delegate?.fileWriterDidFailAdd(groupKey: groupKey, itemKey: itemKey)
+                    completion(.success) //tonitodo: when do we overwrite for .exists?
+                case .failure(let error):
+                    completion(.failure(error))
                 }
             }
         }
@@ -73,20 +73,10 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
 
 extension ArticleCacheFileWriter {
     
-    func migrateCachedContent(content: String, cacheItem: PersistentCacheItem, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
-        
-        guard cacheItem.fromMigration else {
-            failure(ArticleCacheFileWriterError.expectingCacheItemToFlagFromMigration)
-            return
-        }
-        
-        guard let key = cacheItem.key else {
-            failure(ArticleCacheFileWriterError.missingItemKey)
-            return
-        }
+    func migrateCachedContent(content: String, itemKey: CacheController.ItemKey, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
 
         //key will be desktop articleURL.wmf_databaseKey format
-        CacheFileWriterHelper.saveContent(content, toNewFileWithKey: key, mimeType: mimeType) { (result) in
+        CacheFileWriterHelper.saveContent(content, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
             switch result {
             case .success, .exists:
                 success()

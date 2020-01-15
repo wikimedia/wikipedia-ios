@@ -146,13 +146,23 @@ private extension SavedArticlesFetcher {
         
         if let articleURL = article?.url,
             let articleKey = articleURL.wmf_databaseKey {
-            articleCacheController.add(url: articleURL, groupKey: articleKey, itemKey: articleKey) { (result) in
-                switch (result.status, result.type) {
-                case (.succeed, .add):
+            
+            articleCacheController.add(url: articleURL, groupKey: articleKey, itemCompletion: { (itemResult) in
+                switch itemResult {
+                case .success(let itemKey):
+                    print("🥶successfully added \(itemKey)")
+                case .failure(let error):
+                    print("🥶failure in itemCompletion of \(articleKey): \(error)")
+                }
+            }) { (groupResult) in
+                switch groupResult {
+                case .success(let itemKeys):
+                    print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
                     self.spotlightManager.addToIndex(url: articleURL as NSURL)
                     self.updateFetchesInProcessCount()
                     updateAgain()
-                default:
+                case .failure(let error):
+                    print("🥶failure in groupCompletion of \(articleKey): \(error)")
                     self.updateFetchesInProcessCount()
                     updateAgain()
                 }
@@ -182,16 +192,16 @@ private extension SavedArticlesFetcher {
                     noArticleToDeleteCompletion()
                     return
                 }
-                
-                articleCacheController.remove(key: articleKey) { (result) in
-                    switch (result.status, result.type) {
-                    case (.succeed, .remove),(.fail, .remove):
-                        updateAgain()
-                        self.updateFetchesInProcessCount()
-                    default:
-                        break
-                    }
-                }
+  //tonitodo: restore when remove is in place.
+//                articleCacheController.remove(key: articleKey) { (result) in
+//                    switch (result.status, result.type) {
+//                    case (.succeed, .remove),(.fail, .remove):
+//                        updateAgain()
+//                        self.updateFetchesInProcessCount()
+//                    default:
+//                        break
+//                    }
+//                }
                 
             } else {
                 noArticleToDeleteCompletion()

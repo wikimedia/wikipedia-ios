@@ -2,123 +2,108 @@
 import Foundation
 
 final class CacheGatekeeper {
+
+    private let threadSafeItemQueue = DispatchQueue(label: "org.wikimedia.cache.itemGatekeeperQueue", attributes: .concurrent)
+    private let threadSafeGroupQueue = DispatchQueue(label: "org.wikimedia.cache.groupGatekeeperQueue", attributes: .concurrent)
     
-    struct CompletionQueueItem {
-        let groupKey: GroupKey
-        let completion: CompletionQueueBlock
-    }
-    
-    typealias ItemKey = String
-    typealias GroupKey = String
-    
-    private let internalThreadSafeCompletionItemQueue = DispatchQueue(label: "org.wikimedia.cache.internalCompletionQueue", attributes: .concurrent)
-    private let externalThreadSafeCompletionBlockQueue = DispatchQueue(label: "org.wikimedia.cache.externalCompletionQueue", attributes: .concurrent)
-    
-    private var _internalQueuedCompletionItems: [ItemKey: [CompletionQueueItem]] = [:]
-    private var internalQueuedCompletionItems: [ItemKey: [CompletionQueueItem]] {
+    private var _itemCompletions: [CacheController.ItemKey: [CacheController.ItemCompletionBlock]] = [:]
+    private var itemCompletions: [CacheController.ItemKey: [CacheController.ItemCompletionBlock]] {
         get {
-            return internalThreadSafeCompletionItemQueue.sync {
-                return _internalQueuedCompletionItems
+            return threadSafeItemQueue.sync {
+                return _itemCompletions
             }
         }
         set {
-            internalThreadSafeCompletionItemQueue.async(flags: .barrier) { [weak self] in
-                self?._internalQueuedCompletionItems = newValue
+            threadSafeItemQueue.async(flags: .barrier) { [weak self] in
+                self?._itemCompletions = newValue
             }
         }
     }
     
-    private var _externalQueuedCompletionBlocks: [GroupKey: [CompletionQueueBlock]] = [:]
-    private var externalQueuedCompletionBlocks: [GroupKey: [CompletionQueueBlock]] {
-           get {
-               return externalThreadSafeCompletionBlockQueue.sync {
-                   return _externalQueuedCompletionBlocks
-               }
-           }
-           set {
-               externalThreadSafeCompletionBlockQueue.async(flags: .barrier) { [weak self] in
-                   self?._externalQueuedCompletionBlocks = newValue
-               }
-           }
-       }
-    
-    //internal
-    func removeQueuedCompletionItems(with groupKey: String) {
-        for (key, value) in internalQueuedCompletionItems {
-            let newItems = value.filter { $0.groupKey == groupKey }
-            setQueuedCompletionItems(itemKey: key, completionItems: newItems)
+    private var _groupCompletions: [CacheController.GroupKey: [CacheController.GroupCompletionBlock]] = [:]
+    private var groupCompletions: [CacheController.ItemKey: [CacheController.GroupCompletionBlock]] {
+        get {
+            return threadSafeGroupQueue.sync {
+                return _groupCompletions
+            }
+        }
+        set {
+            threadSafeGroupQueue.async(flags: .barrier) { [weak self] in
+                self?._groupCompletions = newValue
+            }
         }
     }
     
-    func runAndCleanOutQueuedCompletionItems(result: CacheResult, itemKey: String) {
-        if let queuedCompletionItems = internalQueuedCompletionItems[itemKey] {
-            for queuedCompletionItem in queuedCompletionItems {
-                queuedCompletionItem.completion(result)
+    func numberOfQueuedGroupCompletions(for groupKey: CacheController.GroupKey) -> Int {
+        return groupCompletions[groupKey]?.count ?? 0
+    }
+    
+    func numberOfQueuedItemCompletions(for itemKey: CacheController.ItemKey) -> Int {
+        return itemCompletions[itemKey]?.count ?? 0
+    }
+    
+    func queueGroupCompletion(groupKey: CacheController.GroupKey, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
+        
+        var currentCompletions = self.groupCompletions[groupKey] ?? []
+        currentCompletions.append(groupCompletion)
+        threadSafeGroupQueue.async(flags: .barrier) { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self._groupCompletions[groupKey] = currentCompletions
+        }
+    }
+    
+    func queueItemCompletion(itemKey: CacheController.ItemKey, itemCompletion: @escaping CacheController.ItemCompletionBlock) {
+        
+        var currentCompletions = self.itemCompletions[itemKey] ?? []
+        currentCompletions.append(itemCompletion)
+        
+        threadSafeItemQueue.async(flags: .barrier) { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self._itemCompletions[itemKey] = currentCompletions
+        }
+    }
+    
+    func runAndRemoveGroupCompletions(groupKey: CacheController.GroupKey, groupResult: CacheController.FinalGroupResult) {
+        
+        if let completions = groupCompletions[groupKey] {
+            for completion in completions {
+                completion(groupResult)
             }
         }
         
-        cleanOutQueuedCompletionItems(itemKey: itemKey)
-    }
-    
-    func shouldQueue(groupKey: String, itemKey: String) -> Bool {
-        let isEmpty = internalQueuedCompletionItems[itemKey]?.isEmpty ?? true
-        return !isEmpty
-    }
-    
-    func internalQueue(groupKey: String, itemKey: String, completionBlockToQueue: @escaping CompletionQueueBlock) {
+        threadSafeGroupQueue.async(flags: .barrier) { [weak self] in
         
-        let completionQueueItem = CompletionQueueItem(groupKey: groupKey, completion: completionBlockToQueue)
-        appendCompletionItem(itemKey: itemKey, completionItem: completionQueueItem)
+            guard let self = self else {
+                return
+            }
+            
+            self._groupCompletions[groupKey]?.removeAll()
+        }
     }
     
-    //external
-    func externalQueue(groupKey: String, completionBlockToQueue: @escaping CompletionQueueBlock) {
-        appendCompletionBlock(groupKey: groupKey, completionBlock: completionBlockToQueue)
-    }
-    
-    func externalRunAndCleanOutQueuedCompletionBlock(groupKey: String, cacheResult: CacheResult) {
-        if let queuedCompletionBlocks = externalQueuedCompletionBlocks[groupKey] {
-            for queuedCompletionBlock in queuedCompletionBlocks {
-                queuedCompletionBlock(cacheResult)
+    func runAndRemoveItemCompletions(itemKey: CacheController.ItemKey, itemResult: CacheController.FinalItemResult) {
+        
+        if let completions = itemCompletions[itemKey] {
+            for completion in completions {
+                completion(itemResult)
             }
         }
         
-        removeQueuedCompletionBlock(groupKey: groupKey)
-    }
-    
-    func externalRemoveQueuedCompletionBlock(groupKey: String) {
-        removeQueuedCompletionItems(with: groupKey)
-    }
-    
-    //internal
-    private func appendCompletionItem(itemKey: String, completionItem: CompletionQueueItem) {
-        internalThreadSafeCompletionItemQueue.async(flags: .barrier) { [weak self] in
-            self?._internalQueuedCompletionItems[itemKey]?.append(completionItem)
-        }
-    }
-    
-    private func setQueuedCompletionItems(itemKey: String, completionItems: [CompletionQueueItem]) {
-        internalThreadSafeCompletionItemQueue.async(flags: .barrier) { [weak self] in
-            self?._internalQueuedCompletionItems[itemKey] = completionItems
-        }
-    }
-    
-    private func cleanOutQueuedCompletionItems(itemKey: String) {
-        internalThreadSafeCompletionItemQueue.async(flags: .barrier) { [weak self] in
-            self?._internalQueuedCompletionItems[itemKey]?.removeAll()
-        }
-    }
-    
-    //external
-    private func appendCompletionBlock(groupKey: String, completionBlock: @escaping CompletionQueueBlock) {
-        externalThreadSafeCompletionBlockQueue.async(flags: .barrier) { [weak self] in
-            self?._externalQueuedCompletionBlocks[groupKey]?.append(completionBlock)
-        }
-    }
-    
-    private func removeQueuedCompletionBlock(groupKey: String) {
-        externalThreadSafeCompletionBlockQueue.async(flags: .barrier) { [weak self] in
-            self?._externalQueuedCompletionBlocks[groupKey]?.removeAll()
+        threadSafeItemQueue.async(flags: .barrier) { [weak self] in
+        
+            guard let self = self else {
+                return
+            }
+            
+            self._itemCompletions[itemKey]?.removeAll()
         }
     }
 }
