@@ -52,10 +52,6 @@ final class CacheDBWriterHelper {
     
     static func cacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
         
-        if let inMemoryItem = inMemoryCacheItem(with: itemKey, in: moc) {
-            return inMemoryItem
-        }
-        
         let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "key == %@", itemKey)
         fetchRequest.fetchLimit = 1
@@ -67,17 +63,6 @@ final class CacheDBWriterHelper {
         } catch let error {
             fatalError(error.localizedDescription)
         }
-    }
-    
-    static func inMemoryCacheItem(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
-        for object in moc.registeredObjects where !object.isFault {
-            let predicate = NSPredicate(format: "key == %@", key)
-            guard let result = object as? PersistentCacheItem, predicate.evaluate(with: result) else {
-                continue
-            }
-            return result
-        }
-        return nil
     }
 
     static func createCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
