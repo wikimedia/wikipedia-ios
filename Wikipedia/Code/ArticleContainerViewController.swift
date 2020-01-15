@@ -80,6 +80,15 @@ class ArticleContainerViewController: ViewController {
         
     }
     
+    func loadLeadImage(with leadImageURL: URL) {
+        leadImageHeightConstraint.constant = leadImageHeight
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            DDLogError("Error loading lead image: \(error)")
+        }) {
+            self.layoutLeadImage()
+        }
+    }
+    
     lazy var leadImageHeightConstraint: NSLayoutConstraint = {
         return leadImageContainerView.heightAnchor.constraint(equalToConstant: 0)
     }()
@@ -174,6 +183,9 @@ private extension ArticleContainerViewController {
         setupWebView()
         setupToolbarViewController()
         load()
+        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
+            loadLeadImage(with: leadImageURL)
+        }
     }
     
     func addNotificationHandlers() {
@@ -255,15 +267,13 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     }
     
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {
+        guard leadImageView.image == nil && leadImageView.wmf_imageURLToFetch == nil else {
+            return
+        }
         guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {
             return
         }
-        leadImageHeightConstraint.constant = leadImageHeight
-        leadImageView.wmf_setImage(with: leadImageURLToRequest, detectFaces: true, onGPU: true, failure: { (error) in
-            DDLogError("Error loading lead image: \(error)")
-        }) {
-            self.layoutLeadImage()
-        }
+        loadLeadImage(with: leadImageURLToRequest)
     }
 }
 
