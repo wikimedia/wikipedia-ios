@@ -156,6 +156,7 @@ private extension SavedArticlesFetcher {
                 }
             }) { (groupResult) in
                 DispatchQueue.main.async {
+                    self.isUpdating = false
                     switch groupResult {
                     case .success(let itemKeys):
                         print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
