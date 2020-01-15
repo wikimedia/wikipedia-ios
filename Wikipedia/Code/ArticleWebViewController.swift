@@ -6,7 +6,8 @@ class ArticleWebViewController: UIViewController {
     private let url: URL
     
     private let webView: WKWebView
-    
+    private static let webViewProcessPool = WKProcessPool()
+
     private weak var delegate: ArticleWebMessageHandling?
     private let messagingController: ArticleWebMessagingController
     
@@ -14,6 +15,7 @@ class ArticleWebViewController: UIViewController {
         self.url = url
     
         let configuration = WKWebViewConfiguration()
+        configuration.processPool = ArticleWebViewController.webViewProcessPool
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         let webView = WKWebView(frame: .zero, configuration: configuration)
         self.webView = webView
