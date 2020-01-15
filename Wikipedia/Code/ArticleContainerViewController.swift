@@ -18,26 +18,49 @@ class ArticleContainerViewController: ViewController {
         case loading
         case data
     }
-  
-    private var webViewController: ArticleWebViewController?
+    
     private let toolbarViewController = ArticleToolbarViewController()
     private let schemeHandler: SchemeHandler
     private let cacheController: CacheController
     private let articleURL: URL
     private let language: String
     
+    // MARK: WebView
+    
+    static let webProcessPool = WKProcessPool()
+    
+    lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
+    
+    lazy var webViewConfiguration: WKWebViewConfiguration = {
+        let configuration = WKWebViewConfiguration()
+        configuration.processPool = ArticleContainerViewController.webProcessPool
+        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
+        let margins = PageContentServiceSetupScript.Parameters.Margins(
+            top: "16px",
+            right: "16px",
+            bottom: "16px",
+            left: "16px"
+        )
+        let parameters  = PageContentServiceSetupScript.Parameters(theme: theme.name, leadImageHeight: "210px", margins: margins)
+        messagingController.setup(contentController: configuration.userContentController, with: parameters)
+        return configuration
+    }()
+    
+    lazy var webView: WKWebView = {
+        return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
+    }()
+    
+    // MARK: Loading
+    
     private var state: ViewState = .loading {
         didSet {
             switch state {
             case .unknown:
                 fakeProgressController.stop()
-                webViewController?.view.isHidden = true
             case .loading:
                 fakeProgressController.start()
-                webViewController?.view.isHidden = true
             case .data:
                 fakeProgressController.stop()
-                webViewController?.view.isHidden = false
             }
         }
     }
@@ -77,30 +100,22 @@ class ArticleContainerViewController: ViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
         setup()
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //This would be nice in setup() but since navigationBar isn't added to heirarchy until viewWillAppear we have to hook in here.
-        webViewController?.view.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
     }
 }
 
 private extension ArticleContainerViewController {
     
     func setup() {
-        
         addNotificationHandlers()
-        setupWebViewController()
+        setupWebView()
         setupToolbarViewController()
-        
-        if let webViewController = webViewController {
-            webViewController.view.bottomAnchor.constraint(equalTo: toolbarViewController.view.topAnchor).isActive = true
-        }
+        load()
     }
     
     func addNotificationHandlers() {
@@ -120,18 +135,19 @@ private extension ArticleContainerViewController {
 //            self.toolbarViewController.setSavedState(isSaved: isDownloaded)
 //        }
     }
+    func setupWebView() {
+        view.wmf_addSubviewWithConstraintsToEdges(webView)
+        scrollView = webView.scrollView // so that content insets are inherited
+    }
     
-    func setupWebViewController() {
-    
+    func load() {
         state = .loading
         guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
-            //tonitodo: error state?
+            WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
             return
         }
-        
-        let webViewController = ArticleWebViewController(url: mobileHTMLURL, schemeHandler: schemeHandler, delegate: self)
-        self.webViewController = webViewController
-        addChildViewController(childViewController: webViewController, offsets: Offsets(top: nil, bottom: nil, leading: 0, trailing: 0))
+        let request = URLRequest(url: mobileHTMLURL)
+        webView.load(request)
     }
     
     func setupToolbarViewController() {

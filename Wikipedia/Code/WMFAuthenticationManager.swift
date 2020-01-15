@@ -17,7 +17,7 @@ public class WMFAuthenticationManager: Fetcher {
         public var errorDescription: String? {
             switch self {
             default:
-                return WMFLocalizedString("error-generic-description", value: "An unexpected error occurred", comment: "Generic error message for when the error isn't recoverable by the user.")
+                return CommonStrings.genericErrorDescription
             }
         }
         

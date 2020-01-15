@@ -376,10 +376,6 @@
 		67DB11202261820500F789B0 /* SchemeHandler+DefaultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DB111322613FD800F789B0 /* SchemeHandler+DefaultHandler.swift */; };
 		67DB11212261820500F789B0 /* SchemeHandlerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DB110922613F2700F789B0 /* SchemeHandlerCache.swift */; };
 		67DB11262261820500F789B0 /* SchemeHandler+DefaultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DB111322613FD800F789B0 /* SchemeHandler+DefaultHandler.swift */; };
-		67DC5BDD23A00E7400B03A84 /* ArticleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */; };
-		67DC5BDE23A00E7900B03A84 /* ArticleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */; };
-		67DC5BDF23A00E7900B03A84 /* ArticleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */; };
-		67DC5BE023A00E7A00B03A84 /* ArticleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */; };
 		67DC5BE323A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
 		67DC5BE423A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
 		67DC5BE523A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
@@ -3453,7 +3449,6 @@
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
 		67DB110922613F2700F789B0 /* SchemeHandlerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandlerCache.swift; sourceTree = "<group>"; };
 		67DB111322613FD800F789B0 /* SchemeHandler+DefaultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchemeHandler+DefaultHandler.swift"; sourceTree = "<group>"; };
-		67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebViewController.swift; sourceTree = "<group>"; };
 		67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContainerViewController.swift; sourceTree = "<group>"; };
 		67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleToolbarViewController.swift; sourceTree = "<group>"; };
 		67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandlerScript.swift; sourceTree = "<group>"; };
@@ -6190,7 +6185,6 @@
 			isa = PBXGroup;
 			children = (
 				67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */,
-				67DC5BDC23A00E7400B03A84 /* ArticleWebViewController.swift */,
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */,
 				67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */,
 				67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */,
@@ -10849,7 +10843,6 @@
 				B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */,
 				B04AE84C21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */,
-				67DC5BDD23A00E7400B03A84 /* ArticleWebViewController.swift in Sources */,
 				83927D811F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				7A82896821B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
 				B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */,
@@ -11661,7 +11654,6 @@
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
 				B04AE84F21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
-				67DC5BE023A00E7A00B03A84 /* ArticleWebViewController.swift in Sources */,
 				83927D841F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				7A82896B21B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
 				D8A42B9A1E815A9C00D8E281 /* WMFShareFunnel.m in Sources */,
@@ -11937,7 +11929,6 @@
 				D8CE259C1E698E2400DAE2E0 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */,
 				B0FFFB2B21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
-				67DC5BDE23A00E7900B03A84 /* ArticleWebViewController.swift in Sources */,
 				7A420DB522A029780005689B /* EditFunnel.swift in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				67DB110422612C3300F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */,
@@ -12385,7 +12376,6 @@
 				D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */,
 				D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0FFFB2C21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
-				67DC5BDF23A00E7900B03A84 /* ArticleWebViewController.swift in Sources */,
 				7A420DB622A029780005689B /* EditFunnel.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
 				67DB110522612C3300F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */,

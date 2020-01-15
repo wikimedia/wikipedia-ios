@@ -9,24 +9,24 @@ protocol ArticleWebMessageHandling: class {
 class ArticleWebMessagingController: NSObject {
     
     private weak var delegate: ArticleWebMessageHandling?
-    private let webView: WKWebView
     
     private let messageHandlerName = "action"
     private let bodyActionKey = "action"
     private let bodyDataKey = "data"
- 
-    init(webView: WKWebView, delegate: ArticleWebMessageHandling?) {
-        self.webView = webView
+
+    init(delegate: ArticleWebMessageHandling?) {
         self.delegate = delegate
     }
     
-    func setup() {
-        let contentController = webView.configuration.userContentController
+    func setup(contentController: WKUserContentController, with parameters: PageContentServiceSetupScript.Parameters) {
         contentController.add(self, name: messageHandlerName)
-        
-        let actionHandler = ActionHandlerScript(theme: .standard, messageHandlerName: messageHandlerName)
-        contentController.removeAllUserScripts()
-        contentController.addUserScript(actionHandler)
+        do {
+            let pcsSetup = try PageContentServiceSetupScript(parameters, messageHandlerName: messageHandlerName)
+            contentController.removeAllUserScripts()
+            contentController.addUserScript(pcsSetup)
+        } catch let error {
+            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
+        }
     }
 }
 
