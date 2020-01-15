@@ -108,13 +108,13 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         group.notify(queue: DispatchQueue.global(qos: .default)) {
             
             if let mediaListError = mediaListError {
-                let result = CacheDBWritingResult.failure(mediaListError)
+                let result = CacheDBWritingResultWithItemKeys.failure(mediaListError)
                 completion(result)
                 return
             }
             
             if let mobileHtmlOfflineResourceError = mobileHtmlOfflineResourceError {
-                let result = CacheDBWritingResult.failure(mobileHtmlOfflineResourceError)
+                let result = CacheDBWritingResultWithItemKeys.failure(mobileHtmlOfflineResourceError)
                 completion(result)
                 return
             }
@@ -124,10 +124,10 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             self.cacheURLs(groupKey: groupKey, mustHaveItemKeys: mustHaveKeys, niceToHaveItemKeys: []) { (result) in
                 switch result {
                 case .success:
-                    let result = CacheDBWritingResult.success(mustHaveKeys)
+                    let result = CacheDBWritingResultWithItemKeys.success(mustHaveKeys)
                     completion(result)
                 case .failure(let error):
-                    let result = CacheDBWritingResult.failure(error)
+                    let result = CacheDBWritingResultWithItemKeys.failure(error)
                     completion(result)
                 }
             }

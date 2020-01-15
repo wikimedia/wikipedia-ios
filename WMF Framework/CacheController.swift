@@ -130,7 +130,7 @@ public class CacheController {
         return provider.persistedCachedURLResponse(for: url)
     }
     
-    private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResult) {
+    private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {
         switch result {
             case .success(let itemKeys):
                 
@@ -206,151 +206,104 @@ public class CacheController {
                 gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
         }
     }
+    
+    public func remove(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
+
+        if gatekeeper.numberOfQueuedGroupCompletions(for: groupKey) > 0 {
+            gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
+            return
+        }
+
+        gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
+
+        cancelTasks(groupKey: groupKey)
+
+        dbWriter.fetchItemKeysToRemove(for: groupKey) { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let itemKeys):
+                
+                var successfulItemKeys: [CacheController.ItemKey] = []
+                var failedItemKeys: [CacheController.ItemKey] = []
+                
+                let group = DispatchGroup()
+                for itemKey in itemKeys {
+                    group.enter()
+                    
+                    if self.gatekeeper.numberOfQueuedItemCompletions(for: itemKey) > 0 {
+                        defer {
+                            group.leave()
+                        }
+                        self.gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                        continue
+                    }
+                    
+                    self.gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                    
+                    self.fileWriter.remove(itemKey: itemKey) { (result) in
+                        
+                        switch result {
+                        case .success:
+                            
+                            self.dbWriter.remove(itemKey: itemKey) { (result) in
+                                
+                                defer {
+                                    group.leave()
+                                }
+                                
+                                var itemResult: FinalItemResult
+                                switch result {
+                                case .success:
+                                    successfulItemKeys.append(itemKey)
+                                    itemResult = FinalItemResult.success(itemKey: itemKey)
+                                case .failure(let error):
+                                    failedItemKeys.append(itemKey)
+                                    itemResult = FinalItemResult.failure(error: error)
+                                }
+                                
+                                self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                            }
+                            
+                        case .failure(let error):
+                            failedItemKeys.append(itemKey)
+                            let itemResult = FinalItemResult.failure(error: error)
+                            self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                            group.leave()
+                        }
+                    }
+                }
+                
+                group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                    
+                    if failedItemKeys.count == 0 {
+                        
+                        self.dbWriter.remove(groupKey: groupKey, completion: { (result) in
+                            
+                            var groupResult: FinalGroupResult
+                            switch result {
+                            case .success:
+                                groupResult = FinalGroupResult.success(itemKeys: successfulItemKeys)
+                                
+                            case .failure(let error):
+                                groupResult = FinalGroupResult.failure(error: error)
+                            }
+                            
+                            self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+                        })
+                    } else {
+                        let groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter)
+                        self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+                    }
+                }
+                
+            case .failure(let error):
+                let groupResult = FinalGroupResult.failure(error: error)
+                self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+            }
+        }
+    }
 }
-//
-//    public func remove(groupKey: String, itemKey: String, completion: CompletionQueueBlock? = nil) {
-//
-//        if let completion = completion {
-//             gatekeeper.externalQueue(groupKey: groupKey, completionBlockToQueue: completion)
-//        }
-//
-//        gatekeeper.removeQueuedCompletionItems(with: groupKey)
-//
-//        cancelTasks(groupKey: groupKey)
-//
-//        let itemKeysToRemove = dbWriter.itemKeysToRemove(for: groupKey)
-//
-//        for itemKey in itemKeysToRemove {
-//            fileWriter.remove(groupKey: groupKey, itemKey: itemKey)
-//        }
-//
-//        dbWriter.remove(groupKey: groupKey)
-//    }
-//
-//    public func cancelTasks(groupKey: String) {
-//        dbWriter.cancelTasks(for: groupKey)
-//        fileWriter.cancelTasks(for: groupKey)
-//    }
-//
-//    public func isCached(url: URL) -> Bool {
-//        dbWriter.isCached(url: url)
-//    }
-//
-//
-//    private func finishAndRunQueue(groupKey: String, itemKey: String, result: CacheResult) {
-//
-//        handleFinalResult(groupKey: groupKey, itemKey: itemKey, result: result)
-//
-//        gatekeeper.runAndCleanOutQueuedCompletionItems(result: result, itemKey: itemKey)
-//    }
-//
-//    private func handleFinalResult(groupKey: String, itemKey: String, result: CacheResult) {
-//        switch (result.status, result.type) {
-//        case (.succeed, .add):
-//            handleAddSuccess(groupKey: groupKey, itemKey: itemKey)
-//        case (.fail, .add):
-//            //tonitodo: notify user that file add failed
-//            break
-//        case (.fail, .remove):
-//            //tonitodo: notify user that file remove failed
-//            break
-//        case (.succeed, .remove):
-//            handleRemoveSuccess(groupKey: groupKey, itemKey: itemKey)
-//        }
-//    }
-//
-//    private func handleRemoveSuccess(groupKey: String, itemKey: String) {
-//
-//        //called when individual items are removed, which we don't really need to handle at this point
-//    }
-//
-//    private func handleRemoveSuccess(groupKey: String) {
-//        notifyAllRemoved(groupKey: groupKey)
-//    }
-//
-//    private func handleAddSuccess(groupKey: String, itemKey: String) {
-//
-//        dbWriter.markDownloaded(itemKey: itemKey)
-//
-//        if dbWriter.allDownloaded(groupKey: groupKey) {
-//
-//            notifyAllDownloaded(groupKey: groupKey, itemKey: itemKey)
-//        }
-//    }
-//
-//    func notifyAllDownloaded(groupKey: String, itemKey: String) {
-//        gatekeeper.externalRunAndCleanOutQueuedCompletionBlock(groupKey: groupKey, cacheResult: CacheResult(status: .succeed, type: .add))
-//    }
-//
-//    func notifyAllRemoved(groupKey: String) {
-//        gatekeeper.externalRunAndCleanOutQueuedCompletionBlock(groupKey: groupKey, cacheResult: CacheResult(status: .succeed, type: .remove))
-//    }
-//}
-//
-//extension CacheController: CacheDBWritingDelegate {
-//
-//    func shouldQueue(groupKey: String, itemKey: String) -> Bool {
-//
-//        return gatekeeper.shouldQueue(groupKey: groupKey, itemKey: itemKey)
-//    }
-//
-//    func queue(groupKey: String, itemKey: String) {
-//        return gatekeeper.internalQueue(groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
-//
-//            guard let self = self else {
-//                return
-//            }
-//
-//            self.handleFinalResult(groupKey: groupKey, itemKey: itemKey, result: result)
-//        }
-//    }
-//
-//    func dbWriterDidAdd(groupKey: String, itemKey: String) {
-//        fileWriter.add(groupKey: groupKey, itemKey: itemKey)
-//    }
-//
-//    func dbWriterDidRemove(groupKey: String, itemKey: String) {
-//        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .succeed, type: .remove))
-//    }
-//
-//    func dbWriterDidFailAdd(groupKey: String, itemKey: String) {
-//        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .add))
-//    }
-//
-//    func dbWriterDidFailRemove(groupKey: String, itemKey: String) {
-//        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .remove))
-//    }
-//
-//    func dbWriterDidRemove(groupKey: String) {
-//        handleRemoveSuccess(groupKey: groupKey)
-//    }
-//
-//    func dbWriterDidFailRemove(groupKey: String) {
-//        //tonitodo: how do we resolve, have one last group hanging around in DB
-//    }
-//
-//    func dbWriterDidOutrightFailAdd(groupKey: String) {
-//
-//        let key = groupKey
-//        remove(groupKey: key, itemKey: key, completion: nil)
-//    }
-//}
-//
-//extension CacheController: CacheFileWritingDelegate {
-//    func fileWriterDidAdd(groupKey: String, itemKey: String) {
-//
-//        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .succeed, type: .add))
-//    }
-//
-//    func fileWriterDidRemove(groupKey: String, itemKey: String) {
-//        dbWriter.remove(groupKey: groupKey, itemKey: itemKey)
-//    }
-//
-//    func fileWriterDidFailAdd(groupKey: String, itemKey: String) {
-//        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .add))
-//    }
-//
-//    func fileWriterDidFailRemove(groupKey: String, itemKey: String) {
-//        finishAndRunQueue(groupKey: groupKey, itemKey: itemKey, result: CacheResult(status: .fail, type: .remove))
-//    }
-//}

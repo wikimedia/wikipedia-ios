@@ -165,27 +165,57 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 }
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
+    
+    static var tempGlobalCount: [String: Int] = [:]
     func toggleSave(from viewController: ArticleToolbarViewController) {
         
         guard let groupKey = articleURL.wmf_databaseKey else {
             return
         }
         
-        cacheController.add(url: articleURL, groupKey: groupKey, itemCompletion: { (itemResult) in
-            switch itemResult {
-            case .success(let itemKey):
-                print("☕️successfully added \(itemKey)")
-            case .failure(let error):
-                print("☕️failure in itemCompletion of \(groupKey): \(error)")
-            }
-        }) { (groupResult) in
-            switch groupResult {
-            case .success(let itemKeys):
-                print("☕️group completion: \(groupKey), itemKeyCount: \(itemKeys.count)")
-            case .failure(let error):
-                print("☕️failure in groupCompletion of \(groupKey): \(error)")
-            }
+        if ArticleContainerViewController.tempGlobalCount[groupKey] == nil {
+            ArticleContainerViewController.tempGlobalCount[groupKey] = 0
         }
+        
+        
+        
+        if ArticleContainerViewController.tempGlobalCount[groupKey]! % 2 == 0 {
+            cacheController.add(url: articleURL, groupKey: groupKey, itemCompletion: { (itemResult) in
+                switch itemResult {
+                case .success(let itemKey):
+                    print("☕️successfully added \(itemKey)")
+                case .failure(let error):
+                    print("☕️failure in itemCompletion of \(groupKey): \(error)")
+                }
+            }) { (groupResult) in
+                switch groupResult {
+                case .success(let itemKeys):
+                    print("☕️group completion: \(groupKey), itemKeyCount: \(itemKeys.count)")
+                case .failure(let error):
+                    print("☕️failure in groupCompletion of \(groupKey): \(error)")
+                }
+            }
+            ArticleContainerViewController.tempGlobalCount[groupKey] = ArticleContainerViewController.tempGlobalCount[groupKey]! + 1
+        } else {
+            cacheController.remove(groupKey: groupKey, itemCompletion: { (itemResult) in
+                switch itemResult {
+                case .success(let itemKey):
+                    print("🎢successfully removed \(itemKey)")
+                case .failure(let error):
+                    print("🎢failure in itemCompletion of \(groupKey): \(error)")
+                }
+            }) { (groupResult) in
+                switch groupResult {
+                case .success(let itemKeys):
+                    print("🎢group completion: \(groupKey), itemKeyCount: \(itemKeys.count)")
+                case .failure(let error):
+                    print("🎢failure in groupCompletion of \(groupKey): \(error)")
+                }
+            }
+            ArticleContainerViewController.tempGlobalCount[groupKey] = ArticleContainerViewController.tempGlobalCount[groupKey]! + 1
+        }
+        
+        
     }
 }
 

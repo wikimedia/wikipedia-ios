@@ -16,11 +16,11 @@ final class ImageCacheDBWriter: CacheDBWriting {
         self.cacheBackgroundContext = cacheBackgroundContext
     }
     
-    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
         cacheImage(groupKey: groupKey, itemKey: itemKey, completion: completion)
     }
     
-    func add(url: URL, groupKey: CacheController.GroupKey, completion: (CacheDBWritingResult) -> Void) {
+    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
         
     }
     
@@ -31,7 +31,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
 private extension ImageCacheDBWriter {
     
-    func cacheImage(groupKey: String, itemKey: String, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func cacheImage(groupKey: String, itemKey: String, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
         
         let context = self.cacheBackgroundContext
         context.perform {
@@ -51,10 +51,10 @@ private extension ImageCacheDBWriter {
             CacheDBWriterHelper.save(moc: context) { (result) in
                 switch result {
                 case .success:
-                    let result = CacheDBWritingResult.success([itemKey])
+                    let result = CacheDBWritingResultWithItemKeys.success([itemKey])
                     completion(result)
                 case .failure(let error):
-                    let result = CacheDBWritingResult.failure(error)
+                    let result = CacheDBWritingResultWithItemKeys.failure(error)
                     completion(result)
                 }
             }

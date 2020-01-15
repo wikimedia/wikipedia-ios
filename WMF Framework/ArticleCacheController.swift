@@ -2,6 +2,24 @@
 import Foundation
 
 public final class ArticleCacheController: CacheController {
+    
+    override public func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping CacheController.ItemCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
+        super.add(url: url, groupKey: groupKey, itemKey: itemKey, bypassGroupDeduping: bypassGroupDeduping, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            self.dbWriter.fetchAndPrintEachItem()
+            self.dbWriter.fetchAndPrintEachGroup()
+        }
+    }
+    
+    public override func remove(groupKey: CacheController.GroupKey, itemCompletion: @escaping CacheController.ItemCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
+        super.remove(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            self.dbWriter.fetchAndPrintEachItem()
+            self.dbWriter.fetchAndPrintEachGroup()
+        }
+    }
 
     public func cacheFromMigration(desktopArticleURL: URL, itemKey: String? = nil, content: String, mimeType: String) { //articleURL should be desktopURL
         
