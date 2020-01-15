@@ -4,6 +4,7 @@ import Foundation
 protocol ArticleWebMessageHandling: class {
     func didSetup(messagingController: ArticleWebMessagingController)
     func didTapLink(messagingController: ArticleWebMessagingController, title: String)
+    func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?)
 }
 
 class ArticleWebMessagingController: NSObject {
@@ -27,6 +28,8 @@ class ArticleWebMessagingController: NSObject {
             let pcsSetup = try PageContentService.SetupScript(parameters, messageHandlerName: messageHandlerName)
             contentController.removeAllUserScripts()
             contentController.addUserScript(pcsSetup)
+            let propertiesScript = PageContentService.PropertiesScript(messageHandlerName: messageHandlerName)
+            contentController.addUserScript(propertiesScript)
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }
@@ -35,14 +38,14 @@ class ArticleWebMessagingController: NSObject {
     // MARK: Adjustable state
     
     func updateTheme(_ theme: String) {
-        webView?.evaluateJavaScript("pcs.c1.Page.setTheme('\(theme)');")
+        webView?.evaluateJavaScript("pcs.c1.Page.setTheme('\(theme)')")
     }
 
     func updateMargins(_ margins: PageContentService.Parameters.Margins) {
         guard let marginsJSON = try? PageContentService.getJavascriptFor(margins) else {
             return
         }
-        webView?.evaluateJavaScript("pcs.c1.Page.setMargins(\(marginsJSON));")
+        webView?.evaluateJavaScript("pcs.c1.Page.setMargins(\(marginsJSON))")
     }
 }
 
@@ -51,6 +54,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
     enum Action: String {
         case setup
         case linkClicked = "link_clicked"
+        case properties
     }
     
     enum LinkKey: String {
@@ -81,7 +85,17 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             }
             
              delegate?.didTapLink(messagingController: self, title: title)
-            
+        case .properties:
+            guard let data = data else {
+                return
+            }
+            if
+                let leadImage = data["leadImage"] as? [String: Any],
+                let leadImageURLString = leadImage["source"] as? String {
+                let width = leadImage["width"] as? Int
+                let height = leadImage["height"] as? Int
+                delegate?.didGetLeadImage(messagingcontroller: self, source: leadImageURLString, width: width, height: height)
+            }
         default:
             break
         }

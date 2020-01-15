@@ -41,4 +41,15 @@ final class PageContentService   {
                super.init(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
         }
     }
+    
+    final class PropertiesScript: WKUserScript {
+        required init(messageHandlerName: String) {
+               let source = """
+               const leadImage = pcs.c1.Page.getLeadImage();
+               const properties = { leadImage };
+               window.webkit.messageHandlers.\(messageHandlerName).postMessage({action: 'properties', data: properties});
+               """
+               super.init(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        }
+    }
 }

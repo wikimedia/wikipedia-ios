@@ -24,6 +24,7 @@ class ArticleContainerViewController: ViewController {
     private let cacheController: CacheController
     private let articleURL: URL
     private let language: String
+    private var leadImageHeight: CGFloat = 210
     
     // MARK: WebView
     
@@ -41,6 +42,65 @@ class ArticleContainerViewController: ViewController {
     lazy var webView: WKWebView = {
         return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
+    
+    
+    // MARK: Lead Image
+    
+    @objc func userDidTapLeadImage() {
+        
+    }
+    
+    lazy var leadImageHeightConstraint: NSLayoutConstraint = {
+        return leadImageContainerView.heightAnchor.constraint(equalToConstant: 0)
+    }()
+    
+    lazy var leadImageView: UIImageView = {
+        let imageView = FLAnimatedImageView(frame: .zero)
+        imageView.isUserInteractionEnabled = true
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.accessibilityIgnoresInvertColors = true
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(userDidTapLeadImage))
+        imageView.addGestureRecognizer(tapGR)
+        return imageView
+    }()
+    
+    lazy var leadImageContainerView: UIView = {
+        let scale = UIScreen.main.scale
+        let borderHeight: CGFloat = scale > 1 ? 0.5 : 1
+        let height: CGFloat = 10
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: height))
+        containerView.clipsToBounds = true
+        
+        let borderView = UIView(frame: CGRect(x: 0, y: height - borderHeight, width: 1, height: borderHeight))
+        borderView.backgroundColor = UIColor(white: 0, alpha: 0.2)
+        borderView.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        
+        leadImageView.frame = CGRect(x: 0, y: 0, width: 1, height: height - borderHeight)
+        containerView.addSubview(leadImageView)
+        containerView.addSubview(borderView)
+        return containerView
+    }()
+    
+    func layoutLeadImage() {
+        let containerBounds = leadImageContainerView.bounds
+//        // TODO: iPad margin handling after ToC is implemented
+
+//        let imageSize = leadImageView.image?.size ?? .zero
+//        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
+        let marginWidth: CGFloat = 0
+//        if isImageNarrow { // TODO: && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
+//            marginWidth = 32
+//        }
+        leadImageView.frame = CGRect(x: marginWidth, y: 0, width: containerBounds.size.width - 2 * marginWidth, height: CGFloat(leadImageHeight))
+    }
+    
+    
+    // MARK: Layout
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutLeadImage()
+    }
     
     // MARK: Loading
     
@@ -136,8 +196,16 @@ private extension ArticleContainerViewController {
             bottom: "16px",
             left: "16px"
         )
-        let parameters  = PageContentService.Parameters(theme: theme.name, leadImageHeight: "210px", margins: margins)
+        let parameters  = PageContentService.Parameters(theme: theme.name, leadImageHeight: "\(leadImageHeight)px", margins: margins)
         messagingController.setup(webView: webView, with: parameters)
+        
+        leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
+        webView.scrollView.addSubview(leadImageContainerView)
+            
+        let leadingConstraint = webView.leadingAnchor.constraint(equalTo: leadImageContainerView.leadingAnchor)
+        let trailingConstraint = webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
+        let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
+        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint])
     }
     
     func load() {
@@ -159,6 +227,7 @@ private extension ArticleContainerViewController {
         
         addChildViewController(childViewController: toolbarViewController, offsets: Offsets(top: nil, bottom: 0, leading: 0, trailing: 0))
     }
+    
 }
 
 extension ArticleContainerViewController: ArticleWebMessageHandling {
@@ -177,6 +246,18 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     
     func didSetup(messagingController: ArticleWebMessagingController) {
         state = .data
+    }
+    
+    func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {
+        guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {
+            return
+        }
+        leadImageHeightConstraint.constant = leadImageHeight
+        leadImageView.wmf_setImage(with: leadImageURLToRequest, detectFaces: true, onGPU: true, failure: { (error) in
+            DDLogError("Error loading lead image: \(error)")
+        }) {
+            self.layoutLeadImage()
+        }
     }
 }
 
