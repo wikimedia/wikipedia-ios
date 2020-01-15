@@ -24,8 +24,11 @@ public class ArticleURLConverter {
     }
     
     public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
-        
-        var components = configuration.articleURLForHost(host, appending: [(title as NSString).wmf_denormalizedPageTitle()])
+        let denormalizedTitle = (title as NSString).wmf_denormalizedPageTitle()
+        guard let encodedTitle = denormalizedTitle?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
+            return nil
+        }
+        var components = configuration.articleURLForHost(host, appending: [encodedTitle])
         
         if let scheme = scheme {
             components.scheme = scheme
