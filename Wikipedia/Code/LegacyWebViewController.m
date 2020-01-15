@@ -398,6 +398,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self resetFindInPageWithCompletion:^{
         [[self findInPageKeyboardBar] hide];
         [self resignFirstResponder];
+        // Allows the webview to respond to keyboard events once again after the search bar has disappeared.
+        [self.webView becomeFirstResponder];
         if (completion) {
             completion();
         }
@@ -714,6 +716,14 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!self.indexHTMLDocumentLoadedFired && self.article && self.articleURL) {
         [self setArticle:self.article articleURL:self.articleURL];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    // Allows keyboard events from an external keyboard to scroll the webview without
+    // needing to first tap onto the webview.
+    [self.webView becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
