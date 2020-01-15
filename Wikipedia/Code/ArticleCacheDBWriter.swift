@@ -6,7 +6,7 @@ enum ArticleCacheDBWriterError: Error {
     case unableToDetermineSiteURLOrArticleTitle
     case unableToDetermineMediaListKey
     case invalidListEndpointType
-    case failureFetchingList(ArticleFetcher.EndpointType)
+    case failureFetchingList(ArticleFetcher.EndpointType, Error)
     case failureFetchOrCreateCacheGroup
     case failureFetchOrCreateMustHaveCacheItem
 }
@@ -220,10 +220,9 @@ private extension ArticleCacheDBWriter {
             
             switch result {
             case .success(let urls):
-                
                 completion(.success(urls))
-            case .failure:
-                completion(.failure(.failureFetchingList(endpointType)))
+            case .failure(let error):
+                completion(.failure(.failureFetchingList(endpointType, error)))
             }
         }
         
