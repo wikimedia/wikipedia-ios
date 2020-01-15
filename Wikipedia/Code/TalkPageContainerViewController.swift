@@ -81,7 +81,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var headerView: TalkPageHeaderView?
     private var addButton: UIBarButtonItem?
     
-    private let toolbar = UIToolbar()
     private var shareIcon: IconBarButtonItem?
     private var languageIcon: IconBarButtonItem?
     private var completedActivityType: UIActivity.ActivityType?
@@ -254,19 +253,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 private extension TalkPageContainerViewController {
     
     func setupToolbar() {
-        toolbar.barTintColor = theme.colors.chromeBackground
-        
-        let toolbarHeight = CGFloat(44)
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(toolbar, belowSubview: navigationBar)
-        let guide = view.safeAreaLayoutGuide
-        let heightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
-        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
-        let trailingConstraint = view.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor)
-        let bottomConstraint = guide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor)
-        
-        NSLayoutConstraint.activate([heightConstraint, leadingConstraint, trailingConstraint, bottomConstraint])
-        
         let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
         shareIcon.apply(theme: theme)
         shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
@@ -280,6 +266,8 @@ private extension TalkPageContainerViewController {
         
         self.shareIcon = shareIcon
         self.languageIcon = languageIcon
+        
+        setToolbarHidden(false, animated: false)
     }
     
     @objc func tappedLanguage(_ sender: UIButton) {

@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ViewController: PreviewingViewController, NavigationBarHiderDelegate {    
+class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -149,6 +149,8 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIWindow.keyboardDidHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIWindow.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIWindow.keyboardWillShowNotification, object: nil)
+        
+        setupToolbars()
     }
 
     var isFirstAppearance = true
@@ -223,7 +225,8 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
-        self.updateScrollViewInsets()
+        toolbarHeightConstraint.constant = toolbarHeightForCurrentSafeAreaInsets
+        updateScrollViewInsets()
     }
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
@@ -254,6 +257,10 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             let adjustedKeyboardFrame = view.convert(keyboardFrame, to: scrollView)
             let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
             bottom = max(bottom, scrollView.bounds.maxY - keyboardIntersection.minY)
+        }
+        
+        if !isToolbarHidden {
+            bottom += toolbar.frame.height
         }
         
         let scrollIndicatorInsets: UIEdgeInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
@@ -331,9 +338,129 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         navigationBar.apply(theme: theme)
         applyThemeToCloseButton()
         scrollView?.refreshControl?.tintColor = theme.colors.refreshControlTint
+        
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
+        
+        secondToolbar.setBackgroundImage(theme.clearImage, forToolbarPosition: .any, barMetrics: .default)
+        secondToolbar.setShadowImage(theme.clearImage, forToolbarPosition: .any)
+    }
+    
+    // MARK: Toolbars
+    
+    static let toolbarHeight: CGFloat = 44
+    static let constrainedToolbarHeight: CGFloat = 32
+    static let secondToolbarSpacing: CGFloat = 8
+    static let toolbarAnimationDuration: TimeInterval = 0.3
+    
+    var toolbarHeightForCurrentSafeAreaInsets: CGFloat {
+        return view.safeAreaInsets.top == 0 ? ViewController.constrainedToolbarHeight : ViewController.toolbarHeight
+    }
+
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
+    lazy var toolbarHeightConstraint: NSLayoutConstraint = {
+        return toolbar.heightAnchor.constraint(equalToConstant: toolbarHeightForCurrentSafeAreaInsets)
+    }()
+    
+    lazy var toolbarVisibleConstraint: NSLayoutConstraint = {
+        return view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor)
+    }()
+    
+    lazy var toolbarHiddenConstraint: NSLayoutConstraint = {
+        return view.bottomAnchor.constraint(equalTo: toolbar.topAnchor)
+    }()
+    
+    lazy var secondToolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
+    lazy var secondToolbarHeightConstraint: NSLayoutConstraint = {
+        return secondToolbar.heightAnchor.constraint(equalToConstant: ViewController.toolbarHeight)
+    }()
+    
+    lazy var secondToolbarVisibleConstraint: NSLayoutConstraint = {
+        return toolbar.topAnchor.constraint(equalTo: secondToolbar.bottomAnchor, constant: ViewController.secondToolbarSpacing)
+    }()
+    
+    lazy var secondToolbarHiddenConstraint: NSLayoutConstraint = {
+        return secondToolbar.topAnchor.constraint(equalTo: toolbar.topAnchor)
+    }()
+    
+    func setupToolbars() {
+        view.addSubview(toolbar)
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
+        let trailingConstraint = toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
+        view.insertSubview(secondToolbar, belowSubview: toolbar)
+        let secondLeadingConstraint = view.leadingAnchor.constraint(equalTo: secondToolbar.leadingAnchor)
+        let secondTrailingConstraint = secondToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
+        NSLayoutConstraint.activate([toolbarHeightConstraint, secondToolbarHeightConstraint, toolbarHiddenConstraint, leadingConstraint, trailingConstraint, secondToolbarHiddenConstraint, secondLeadingConstraint, secondTrailingConstraint])
+    }
+
+    var isToolbarHidden: Bool {
+        return toolbarHiddenConstraint.isActive
+    }
+    
+    func setToolbarHidden(_ hidden: Bool, animated: Bool) {
+        let animations = {
+            if hidden {
+                NSLayoutConstraint.deactivate([self.toolbarVisibleConstraint])
+                NSLayoutConstraint.activate([self.toolbarHiddenConstraint])
+            } else {
+                NSLayoutConstraint.deactivate([self.toolbarHiddenConstraint])
+                NSLayoutConstraint.activate([self.toolbarVisibleConstraint])
+            }
+            self.view.layoutIfNeeded()
+        }
+        if animated {
+            UIView.animate(withDuration: ViewController.toolbarAnimationDuration, animations: animations)
+        } else {
+            animations()
+        }
+    }
+    
+    var isSecondToolbarHidden: Bool {
+        return secondToolbarHiddenConstraint.isActive
+    }
+    
+    func setSecondToolbarHidden(_ hidden: Bool, animated: Bool) {
+        let animations = {
+            if hidden {
+                NSLayoutConstraint.deactivate([self.secondToolbarVisibleConstraint])
+                NSLayoutConstraint.activate([self.secondToolbarHiddenConstraint])
+            } else {
+                NSLayoutConstraint.deactivate([self.secondToolbarHiddenConstraint])
+                NSLayoutConstraint.activate([self.secondToolbarVisibleConstraint])
+            }
+            self.view.layoutIfNeeded()
+        }
+        if animated {
+            UIView.animate(withDuration: ViewController.toolbarAnimationDuration, animations: animations)
+        } else {
+            animations()
+        }
+    }
+    
+    func setAdditionalSecondToolbarSpacing(_ spacing: CGFloat, animated: Bool) {
+        let animations = {
+            self.secondToolbarVisibleConstraint.constant = 0 - ViewController.secondToolbarSpacing - spacing
+            self.view.layoutIfNeeded()
+        }
+        if animated {
+            UIView.animate(withDuration: ViewController.toolbarAnimationDuration, animations: animations)
+        } else {
+            animations()
+        }
     }
 }
-
 
 extension ViewController: WMFEmptyViewContainer {
     func addEmpty(_ emptyView: UIView) {

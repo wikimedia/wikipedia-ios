@@ -380,10 +380,10 @@
 		67DC5BE423A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
 		67DC5BE523A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
 		67DC5BE623A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
-		67DC5BE923A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */; };
-		67DC5BEA23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */; };
-		67DC5BEB23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */; };
-		67DC5BEC23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */; };
+		67DC5BE923A03FE700B03A84 /* ArticleToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */; };
+		67DC5BEA23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */; };
+		67DC5BEB23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */; };
+		67DC5BEC23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */; };
 		67DC5BEF23A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
 		67DC5BF023A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
 		67DC5BF123A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
@@ -3450,7 +3450,7 @@
 		67DB110922613F2700F789B0 /* SchemeHandlerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandlerCache.swift; sourceTree = "<group>"; };
 		67DB111322613FD800F789B0 /* SchemeHandler+DefaultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchemeHandler+DefaultHandler.swift"; sourceTree = "<group>"; };
 		67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContainerViewController.swift; sourceTree = "<group>"; };
-		67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleToolbarViewController.swift; sourceTree = "<group>"; };
+		67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleToolbarController.swift; sourceTree = "<group>"; };
 		67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandlerScript.swift; sourceTree = "<group>"; };
 		67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAndReplaceKeyboardBar.swift; sourceTree = "<group>"; };
 		67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFFindAndReplaceKeyboardBar.xib; sourceTree = "<group>"; };
@@ -6185,7 +6185,7 @@
 			isa = PBXGroup;
 			children = (
 				67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */,
-				67DC5BE823A03FE700B03A84 /* ArticleToolbarViewController.swift */,
+				67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */,
 				67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */,
 				67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */,
 			);
@@ -10422,7 +10422,7 @@
 				6782DB9D2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				830D71CF1F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0EFCD6D1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
-				67DC5BE923A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */,
+				67DC5BE923A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				B0CD9DD61F70997300051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0524B6F214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				67F73E752267B9070079DEEF /* TalkPageReplyListViewController.swift in Sources */,
@@ -11233,7 +11233,7 @@
 				6782DBA02343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				830D71D21F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
-				67DC5BEC23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */,
+				67DC5BEC23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				B0EFCD701EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				B0CD9DEB1F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0524B72214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -11742,7 +11742,7 @@
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				7AF8CEEE22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */,
-				67DC5BEA23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */,
+				67DC5BEA23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				D8CE25121E698E2400DAE2E0 /* WMFEmptyView.m in Sources */,
 				7AE1FE3221B4A9790068BE9F /* TextFormattingButtonView.swift in Sources */,
 				D8CE25141E698E2400DAE2E0 /* LegacySavedArticlesFetcher.m in Sources */,
@@ -12189,7 +12189,7 @@
 				D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				7AF8CEEF22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHouseKeeper.swift in Sources */,
-				67DC5BEB23A03FE700B03A84 /* ArticleToolbarViewController.swift in Sources */,
+				67DC5BEB23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				D8EC3DFE1E9BDA35006712EB /* PlaceSearch.swift in Sources */,
 				7AE1FE3321B4A9790068BE9F /* TextFormattingButtonView.swift in Sources */,
 				D8EC3DFF1E9BDA35006712EB /* NotificationSettingsViewController.swift in Sources */,

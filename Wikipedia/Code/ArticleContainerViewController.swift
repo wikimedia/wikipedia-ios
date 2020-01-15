@@ -19,7 +19,10 @@ class ArticleContainerViewController: ViewController {
         case data
     }
     
-    private let toolbarViewController = ArticleToolbarViewController()
+    private lazy var toolbarController: ArticleToolbarController = {
+        return ArticleToolbarController(toolbar: toolbar, delegate: self)
+    }()
+
     private let schemeHandler: SchemeHandler
     private let dataStore: MWKDataStore
     private let cacheController: CacheController
@@ -173,6 +176,7 @@ class ArticleContainerViewController: ViewController {
     override func viewDidLoad() {
         setup()
         super.viewDidLoad()
+        setupToolbar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -185,7 +189,6 @@ private extension ArticleContainerViewController {
     func setup() {
         addNotificationHandlers()
         setupWebView()
-        setupToolbarViewController()
         load()
     }
     
@@ -194,7 +197,7 @@ private extension ArticleContainerViewController {
     }
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
-        toolbarViewController.setSavedState(isSaved: article.isSaved)
+        toolbarController.setSavedState(isSaved: article.isSaved)
     }
     
     func setupWebView() {
@@ -231,14 +234,10 @@ private extension ArticleContainerViewController {
         webView.load(request)
     }
     
-    func setupToolbarViewController() {
-        toolbarViewController.delegate = self
-        
-        toolbarViewController.setSavedState(isSaved: article.isSaved)
-        
-        addChildViewController(childViewController: toolbarViewController, offsets: Offsets(top: nil, bottom: 0, leading: 0, trailing: 0))
+    func setupToolbar() {
+        toolbarController.setSavedState(isSaved: article.isSaved)
+        setToolbarHidden(false, animated: false)
     }
-    
 }
 
 extension ArticleContainerViewController: ArticleWebMessageHandling {
@@ -272,7 +271,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
     
-    func toggleSave(from viewController: ArticleToolbarViewController, shouldSave: Bool) {
+    func toggleSave(from viewController: ArticleToolbarController, shouldSave: Bool) {
         article.isSaved = shouldSave
         try? article.managedObjectContext?.save()
     }

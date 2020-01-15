@@ -2,14 +2,12 @@
 import UIKit
 
 protocol ArticleToolbarHandling: class {
-    func toggleSave(from viewController: ArticleToolbarViewController, shouldSave: Bool)
+    func toggleSave(from viewController: ArticleToolbarController, shouldSave: Bool)
 }
 
-class ArticleToolbarViewController: UIViewController {
-    
-    private let toolbarView = UIToolbar()
+class ArticleToolbarController {
     weak var delegate: ArticleToolbarHandling?
-    
+    let toolbar: UIToolbar
     private var isSaved: Bool = false //tonitodo: better state handling here
     
     lazy var saveButton: IconBarButtonItem = {
@@ -17,11 +15,10 @@ class ArticleToolbarViewController: UIViewController {
         return item
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
+        self.toolbar = toolbar
+        self.delegate = delegate
         setup()
-        toolbarView.backgroundColor = .green
     }
     
     @objc func toggleSave(_ sender: UIBarButtonItem) {
@@ -38,14 +35,9 @@ class ArticleToolbarViewController: UIViewController {
     }
 }
 
-private extension ArticleToolbarViewController {
+private extension ArticleToolbarController {
     
     func setup() {
-        
-        toolbarView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(toolbarView)
-        view.wmf_addConstraintsToEdgesOfView(toolbarView)
-        
-        toolbarView.items = [saveButton]
+        toolbar.items = [saveButton]
     }
 }
