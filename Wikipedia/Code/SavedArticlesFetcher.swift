@@ -76,7 +76,7 @@ private extension SavedArticlesFetcher {
     }
     
     @objc func articleWasUpdated(_ note: Notification) {
-        
+        update()
     }
     
     @objc func syncDidFinish(_ note: Notification) {
