@@ -180,7 +180,7 @@ class ArticleContainerViewController: ViewController {
     override func viewDidLoad() {
         setup()
         super.viewDidLoad()
-        setupToolbar()
+        setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -191,6 +191,8 @@ class ArticleContainerViewController: ViewController {
 private extension ArticleContainerViewController {
     
     func setup() {
+        setupWButton()
+        setupSearchButton()
         addNotificationHandlers()
         setupWebView()
         load()
@@ -202,6 +204,10 @@ private extension ArticleContainerViewController {
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
         toolbarController.setSavedState(isSaved: article.isSaved)
+    }
+    
+    func setupSearchButton() {
+        navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
     }
     
     func setupWebView() {

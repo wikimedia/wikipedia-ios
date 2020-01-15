@@ -460,6 +460,20 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             animations()
         }
     }
+    
+    // MARK: W button
+    
+    func setupWButton() {
+        let wButton = UIButton(type: .custom)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.sizeToFit()
+        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        navigationItem.titleView = wButton
+    }
+    
+    @objc func wButtonTapped(_ sender: UIButton) {
+        navigationController?.popToRootViewController(animated: true)
+    }
 }
 
 extension ViewController: WMFEmptyViewContainer {
