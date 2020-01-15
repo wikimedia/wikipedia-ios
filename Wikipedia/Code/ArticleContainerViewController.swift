@@ -21,10 +21,40 @@ class ArticleContainerViewController: ViewController {
     
     private let toolbarViewController = ArticleToolbarViewController()
     private let schemeHandler: SchemeHandler
+    private let dataStore: MWKDataStore
     private let cacheController: CacheController
     private let articleURL: URL
+    private let article: WMFArticle
     private let language: String
     private var leadImageHeight: CGFloat = 210
+    
+    @objc convenience init?(articleURL: URL, dataStore: MWKDataStore) {
+        
+        guard let cacheController = dataStore.articleCacheControllerWrapper.cacheController else {
+            return nil
+        }
+        
+        self.init(articleURL: articleURL, dataStore: dataStore, cacheController: cacheController)
+    }
+    
+    init?(articleURL: URL, dataStore: MWKDataStore, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController) {
+        guard
+            let language = articleURL.wmf_language,
+            let article = dataStore.fetchOrCreateArticle(with: articleURL)
+        else {
+            return nil
+        }
+        
+        self.articleURL = articleURL
+        self.dataStore = dataStore
+        self.article = article
+        self.language = language
+        self.schemeHandler = schemeHandler
+        self.schemeHandler.articleCacheController = cacheController
+        self.cacheController = cacheController
+        
+        super.init(nibName: nil, bundle: nil)
+    }
     
     // MARK: WebView
     
@@ -123,30 +153,6 @@ class ArticleContainerViewController: ViewController {
         return progressController
     }()
     
-    @objc convenience init?(articleURL: URL, cacheControllerWrapper: CacheControllerWrapper) {
-        
-        guard let cacheController = cacheControllerWrapper.cacheController else {
-            return nil
-        }
-        
-        self.init(articleURL: articleURL, cacheController: cacheController)
-    }
-    
-    init?(articleURL: URL, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController) {
-        
-        guard let language = articleURL.wmf_language else {
-            return nil
-        }
-        
-        self.articleURL = articleURL
-        self.language = language
-        self.schemeHandler = schemeHandler
-        self.schemeHandler.articleCacheController = cacheController
-        self.cacheController = cacheController
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -235,7 +241,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
         guard let host = articleURL.host,
             let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title),
-            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, schemeHandler: schemeHandler, cacheController: cacheController) else {
+            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, dataStore: dataStore, schemeHandler: schemeHandler, cacheController: cacheController) else {
             assertionFailure("Failure initializing new Article VC")
             //tonitodo: error state
             return
