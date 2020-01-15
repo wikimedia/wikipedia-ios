@@ -166,20 +166,13 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
     
-    static var tempGlobalCount: [String: Int] = [:]
-    func toggleSave(from viewController: ArticleToolbarViewController) {
+    func toggleSave(from viewController: ArticleToolbarViewController, shouldSave: Bool) {
         
         guard let groupKey = articleURL.wmf_databaseKey else {
             return
         }
         
-        if ArticleContainerViewController.tempGlobalCount[groupKey] == nil {
-            ArticleContainerViewController.tempGlobalCount[groupKey] = 0
-        }
-        
-        
-        
-        if ArticleContainerViewController.tempGlobalCount[groupKey]! % 2 == 0 {
+        if shouldSave {
             cacheController.add(url: articleURL, groupKey: groupKey, itemCompletion: { (itemResult) in
                 switch itemResult {
                 case .success(let itemKey):
@@ -191,11 +184,13 @@ extension ArticleContainerViewController: ArticleToolbarHandling {
                 switch groupResult {
                 case .success(let itemKeys):
                     print("☕️group completion: \(groupKey), itemKeyCount: \(itemKeys.count)")
+                    DispatchQueue.main.async {
+                        self.toolbarViewController.setSavedState(isSaved: true)
+                    }
                 case .failure(let error):
                     print("☕️failure in groupCompletion of \(groupKey): \(error)")
                 }
             }
-            ArticleContainerViewController.tempGlobalCount[groupKey] = ArticleContainerViewController.tempGlobalCount[groupKey]! + 1
         } else {
             cacheController.remove(groupKey: groupKey, itemCompletion: { (itemResult) in
                 switch itemResult {
@@ -208,14 +203,14 @@ extension ArticleContainerViewController: ArticleToolbarHandling {
                 switch groupResult {
                 case .success(let itemKeys):
                     print("🎢group completion: \(groupKey), itemKeyCount: \(itemKeys.count)")
+                    DispatchQueue.main.async {
+                        self.toolbarViewController.setSavedState(isSaved: false)
+                    }
                 case .failure(let error):
                     print("🎢failure in groupCompletion of \(groupKey): \(error)")
                 }
             }
-            ArticleContainerViewController.tempGlobalCount[groupKey] = ArticleContainerViewController.tempGlobalCount[groupKey]! + 1
         }
-        
-        
     }
 }
 

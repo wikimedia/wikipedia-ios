@@ -192,16 +192,23 @@ private extension SavedArticlesFetcher {
                     noArticleToDeleteCompletion()
                     return
                 }
-  //tonitodo: restore when remove is in place.
-//                articleCacheController.remove(key: articleKey) { (result) in
-//                    switch (result.status, result.type) {
-//                    case (.succeed, .remove),(.fail, .remove):
-//                        updateAgain()
-//                        self.updateFetchesInProcessCount()
-//                    default:
-//                        break
-//                    }
-//                }
+                
+                articleCacheController.remove(groupKey: articleKey, itemCompletion: { (itemResult) in
+                    switch itemResult {
+                    case .success(let itemKey):
+                        print("🙈successfully added \(itemKey)")
+                    case .failure(let error):
+                        print("🙈failure in itemCompletion of \(articleKey): \(error)")
+                    }
+                }) { (groupResult) in
+                    switch groupResult {
+                    case .success:
+                        updateAgain()
+                        self.updateFetchesInProcessCount()
+                    case .failure:
+                        break
+                    }
+                }
                 
             } else {
                 noArticleToDeleteCompletion()

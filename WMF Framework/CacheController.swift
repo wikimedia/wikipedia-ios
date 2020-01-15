@@ -98,6 +98,16 @@ public class CacheController {
     public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
         
         if !bypassGroupDeduping {
+            
+            if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
+                gatekeeper.queueAddCompletion(groupKey: groupKey) {
+                    self.add(url: url, groupKey: groupKey, itemKey: itemKey, bypassGroupDeduping: bypassGroupDeduping, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
+                    return
+                }
+            } else {
+                gatekeeper.addCurrentlyAddingGroupKey(groupKey)
+            }
+            
             if gatekeeper.numberOfQueuedGroupCompletions(for: groupKey) > 0 {
                 gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
                 return
@@ -131,6 +141,13 @@ public class CacheController {
     }
     
     private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {
+        
+        let groupCompleteBlock = { (groupResult: FinalGroupResult) in
+            self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+            self.gatekeeper.removeCurrentlyAddingGroupKey(groupKey)
+            self.gatekeeper.runAndRemoveQueuedRemoves(groupKey: groupKey)
+        }
+        
         switch result {
             case .success(let itemKeys):
                 
@@ -197,18 +214,27 @@ public class CacheController {
                         
                         let groupResult = failedItemKeys.count > 0 ? FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter) : FinalGroupResult.success(itemKeys: successfulItemKeys)
                         
-                        self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+                        groupCompleteBlock(groupResult)
                     }
                 }
             
             case .failure(let error):
                 let groupResult = FinalGroupResult.failure(error: error)
-                gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+                groupCompleteBlock(groupResult)
         }
     }
     
     public func remove(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
 
+        if gatekeeper.shouldQueueRemoveCompletion(groupKey: groupKey) {
+            gatekeeper.queueRemoveCompletion(groupKey: groupKey) {
+                self.remove(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
+                return
+            }
+        } else {
+            gatekeeper.addCurrentlyRemovingGroupKey(groupKey)
+        }
+        
         if gatekeeper.numberOfQueuedGroupCompletions(for: groupKey) > 0 {
             gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
             return
@@ -217,6 +243,12 @@ public class CacheController {
         gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
 
         cancelTasks(groupKey: groupKey)
+        
+        let groupCompleteBlock = { (groupResult: FinalGroupResult) in
+            self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+            self.gatekeeper.removeCurrentlyRemovingGroupKey(groupKey)
+            self.gatekeeper.runAndRemoveQueuedAdds(groupKey: groupKey)
+        }
 
         dbWriter.fetchItemKeysToRemove(for: groupKey) { [weak self] (result) in
             
@@ -292,17 +324,17 @@ public class CacheController {
                                 groupResult = FinalGroupResult.failure(error: error)
                             }
                             
-                            self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+                           groupCompleteBlock(groupResult)
                         })
                     } else {
                         let groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter)
-                        self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+                        groupCompleteBlock(groupResult)
                     }
                 }
                 
             case .failure(let error):
                 let groupResult = FinalGroupResult.failure(error: error)
-                self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
+                groupCompleteBlock(groupResult)
             }
         }
     }

@@ -2,13 +2,15 @@
 import UIKit
 
 protocol ArticleToolbarHandling: class {
-    func toggleSave(from viewController: ArticleToolbarViewController)
+    func toggleSave(from viewController: ArticleToolbarViewController, shouldSave: Bool)
 }
 
 class ArticleToolbarViewController: UIViewController {
     
     private let toolbarView = UIToolbar()
     weak var delegate: ArticleToolbarHandling?
+    
+    private var isSaved: Bool = false //tonitodo: better state handling here
     
     lazy var saveButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "save", target: self, action: #selector(toggleSave), for: .touchUpInside)
@@ -23,10 +25,11 @@ class ArticleToolbarViewController: UIViewController {
     }
     
     @objc func toggleSave(_ sender: UIBarButtonItem) {
-        delegate?.toggleSave(from: self)
+        delegate?.toggleSave(from: self, shouldSave: !isSaved)
     }
     
     func setSavedState(isSaved: Bool) {
+        self.isSaved = isSaved
         saveButton.accessibilityLabel = isSaved ? CommonStrings.accessibilitySavedTitle : CommonStrings.saveTitle
         if let innerButton = saveButton.customView as? UIButton {
             let assetName = isSaved ? "save-filled" : "save"
