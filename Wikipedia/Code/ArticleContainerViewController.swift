@@ -91,8 +91,10 @@ class ArticleContainerViewController: ViewController {
         leadImageHeightConstraint.constant = leadImageHeight
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
             DDLogError("Error loading lead image: \(error)")
+            self.showWebView()
         }) {
             self.layoutLeadImage()
+            self.showWebView()
         }
     }
     
@@ -127,6 +129,8 @@ class ArticleContainerViewController: ViewController {
         containerView.addSubview(borderView)
         return containerView
     }()
+    
+    var leadImageTransitionView: UIView?
     
     func layoutLeadImage() {
         let containerBounds = leadImageContainerView.bounds
@@ -234,6 +238,19 @@ private extension ArticleContainerViewController {
         webView.load(request)
     }
     
+    func showWebView() {
+        guard webView.alpha > 0 else {
+            return
+        }
+        let transitionView = leadImageTransitionView
+        leadImageTransitionView = nil
+        UIView.animate(withDuration: 0.2, animations: {
+            self.webView.alpha = 1
+        }) { (finished) in
+            transitionView?.removeFromSuperview()
+        }
+    }
+    
     func setupToolbar() {
         toolbarController.setSavedState(isSaved: article.isSaved)
         setToolbarHidden(false, animated: false)
@@ -256,6 +273,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     
     func didSetup(messagingController: ArticleWebMessagingController) {
         state = .data
+        showWebView()
     }
     
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {
@@ -275,6 +293,40 @@ extension ArticleContainerViewController: ArticleToolbarHandling {
         article.isSaved = shouldSave
         try? article.managedObjectContext?.save()
     }
+}
+
+extension ArticleContainerViewController: ImageScaleTransitionProviding {
+    var imageScaleTransitionView: UIImageView? {
+        return leadImageView
+    }
+    
+    func prepareViewsForIncomingImageScaleTransition(with imageView: UIImageView?) {
+        guard let imageView = imageView, let image = imageView.image else {
+            return
+        }
+        
+        let transitionView = UIImageView(frame: leadImageView.frame)
+        transitionView.translatesAutoresizingMaskIntoConstraints = false
+        transitionView.image = image
+        transitionView.layer.contentsRect = imageView.layer.contentsRect
+        transitionView.contentMode = imageView.contentMode
+        transitionView.clipsToBounds = true
+        view.insertSubview(transitionView, aboveSubview: webView)
+    
+        let top = transitionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor)
+        let leading = transitionView.leadingAnchor.constraint(equalTo: leadImageView.leadingAnchor)
+        let trailing = transitionView.trailingAnchor.constraint(equalTo: leadImageView.trailingAnchor)
+        let height = transitionView.heightAnchor.constraint(equalToConstant: WebViewControllerHeaderImageHeight)
+        NSLayoutConstraint.activate([top, leading, trailing, height])
+
+        leadImageView.image = imageView.image
+        leadImageView.layer.contentsRect = imageView.layer.contentsRect
+        
+        leadImageTransitionView = transitionView
+        
+        view.layoutIfNeeded()
+    }
+
 }
 
 private extension UIViewController {
