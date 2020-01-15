@@ -76,11 +76,11 @@ private extension SavedArticlesFetcher {
     }
     
     @objc func articleWasUpdated(_ note: Notification) {
-        
+        update()
     }
     
     @objc func syncDidFinish(_ note: Notification) {
-        
+        update()
     }
     
     func unobserveSavedPages() {
@@ -138,7 +138,7 @@ private extension SavedArticlesFetcher {
         }
         
         let updateAgain = {
-            DispatchQueue.main.asyncAfter(deadline: .now() + (0.1 * Double(NSEC_PER_SEC))) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 self.isUpdating = false
                 self.update()
             }
@@ -155,15 +155,18 @@ private extension SavedArticlesFetcher {
                     print("🥶failure in itemCompletion of \(articleKey): \(error)")
                 }
             }) { (groupResult) in
-                switch groupResult {
-                case .success(let itemKeys):
-                    print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
-                    self.spotlightManager.addToIndex(url: articleURL as NSURL)
-                    self.updateFetchesInProcessCount()
-                    updateAgain()
-                case .failure(let error):
-                    print("🥶failure in groupCompletion of \(articleKey): \(error)")
-                    self.updateFetchesInProcessCount()
+                DispatchQueue.main.async {
+                    switch groupResult {
+                    case .success(let itemKeys):
+                        print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
+                        self.didFetchArticle(with: articleKey)
+                        self.spotlightManager.addToIndex(url: articleURL as NSURL)
+                        self.updateFetchesInProcessCount()
+                    case .failure(let error):
+                        print("🥶failure in groupCompletion of \(articleKey): \(error)")
+                        self.updateFetchesInProcessCount()
+                        self.didFailToFetchArticle(with: articleKey, error: error)
+                    }
                     updateAgain()
                 }
             }
@@ -196,51 +199,61 @@ private extension SavedArticlesFetcher {
                 articleCacheController.remove(groupKey: articleKey, itemCompletion: { (itemResult) in
                     switch itemResult {
                     case .success(let itemKey):
-                        print("🙈successfully added \(itemKey)")
+                        print("🙈successfully removed \(itemKey)")
                     case .failure(let error):
                         print("🙈failure in itemCompletion of \(articleKey): \(error)")
                     }
                 }) { (groupResult) in
-                    switch groupResult {
-                    case .success:
+                    DispatchQueue.main.async {
+                        switch groupResult {
+                        case .success:
+                            print("🙈success in groupCompletion of \(articleKey)")
+                            self.didRemoveArticle(with: articleKey)
+                            self.updateFetchesInProcessCount()
+                        case .failure:
+                            print("🙈failure in groupCompletion of \(articleKey)")
+                            break
+                        }
                         updateAgain()
-                        self.updateFetchesInProcessCount()
-                    case .failure:
-                        break
                     }
                 }
-                
             } else {
                 noArticleToDeleteCompletion()
             }
         }
     }
     
-    func didFetchArticle(article: MWKArticle, url: URL, error: Error?) {
-        
-        guard let key = url.wmf_databaseKey else {
-            return
+    func didFetchArticle(with key: String) {
+        operateOnArticles(with: key) { (article) in
+            article.isDownloaded = true
         }
+    }
+    
+    func didFailToFetchArticle(with key: String, error: Error) {
         
+        operateOnArticles(with: key) { (article) in
+            article.updatePropertiesForError(error as NSError)
+            article.isDownloaded = !isErrorRecoverableOnRetry(error)
+        }
+    }
+    
+    func isErrorRecoverableOnRetry(_ error: Error) -> Bool {
+        // TODO: handle different errors differently - set isDownloaded = true on items that need to be skipped (errors that won't recover on retry)
+        return true
+    }
+
+    func didRemoveArticle(with key: String) {
+        operateOnArticles(with: key) { (article) in
+            article.isDownloaded = false
+        }
+    }
+    
+    func operateOnArticles(with key: String, articleBlock: (WMFArticle) -> Void) {
         do {
             let articles = try dataStore.viewContext.fetchArticles(withKey: key)
             for article in articles {
-                if let error = error {
-                   article.updatePropertiesForError(error as NSError)
-                    //tonitodo: more error handling. Spit this back from CacheController.
-                    //if error code is file write out of space...
-                    //self.stop()
-                    //article.isDownloaded = false
-                    //elseif error is API error & userInfo reason is "missingtitle"
-                    //article.isDownloaded = true //skip missing titles
-                    //else image error? (not sure we need this here)
-                    //article.isDownloaded = true //skip image download errors
-                    article.isDownloaded = false
-                } else {
-                    article.isDownloaded = true
-                }
+                articleBlock(article)
             }
-            
         } catch (let error) {
             DDLogError("Error fetching WMFArticles after caching: \(error)");
         }
