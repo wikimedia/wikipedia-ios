@@ -1,7 +1,6 @@
 @import UIKit;
 @import UserNotifications;
 @class WMFTheme;
-@class WMFLegacyArticleViewController;
 @class MWKDataStore;
 @class WMFTheme;
 @class WMFArticleContainerViewController;
