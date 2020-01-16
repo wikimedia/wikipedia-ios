@@ -1,47 +1,22 @@
 import Foundation
 
+
+/// Configuration handles the current environment - production, beta, staging, labs
+/// It has the functions that build URLs for the various APIs utilized by the app.
+/// It also maintains the list of relevant domains - default domain, domains that require the CentralAuth cookies to be copied, etc.
 @objc(WMFConfiguration)
 public class Configuration: NSObject {
-    struct Scheme {
-        static let http = "http"
-        static let https = "https"
-    }
-    
-    struct Domain {
-        static let wikipedia = "wikipedia.org"
-        static let wikidata = "wikidata.org"
-        static let mediaWiki = "mediawiki.org"
-        static let betaLabs = "wikipedia.beta.wmflabs.org"
-        static let mobileAppsServicesLabs = "mobileapps.wmflabs.org"
-        static let localhost = "localhost"
-        static let englishWikipedia = "en.wikipedia.org"
-        static let wikimedia = "wikimedia.org"
-        static let metaWiki = "meta.wikimedia.org"
-        static let wikimediafoundation = "wikimediafoundation.org"
-    }
-   
-    struct Path {
-        static let wikiResourceComponent = ["wiki"]
-        static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
-        static let mediaWikiAPIComponents = ["w", "api.php"]
-        static let mediaWikiRestAPIComponents = ["w", "rest.php"]
-    }
-    
-    @objc public let defaultSiteDomain: String
-    
-    public let mediaWikiCookieDomain: String
-    public let wikipediaCookieDomain: String
-    public let wikidataCookieDomain: String
-    public let wikimediaCookieDomain: String
-    public let centralAuthCookieSourceDomain: String // copy cookies from
-    public let centralAuthCookieTargetDomains: [String] // copy cookies to
-    
-    public let wikiResourceDomains: [String]
-    public let inAppLinkDomains: [String]
-
-    @objc public lazy var router: Router = {
-       return Router(configuration: self)
+    @objc public static let current: Configuration = {
+        #if WMF_LOCAL
+        return .local
+        #elseif WMF_LABS
+        return .betaLabs
+        #else
+        return .production
+        #endif
     }()
+    
+    // MARK: Configurations
     
     static let production: Configuration = {
         return Configuration(
@@ -83,14 +58,49 @@ public class Configuration: NSObject {
         )
     }()
     
-    @objc public static let current: Configuration = {
-        #if WMF_LOCAL
-        return .local
-        #elseif WMF_LABS
-        return .betaLabs
-        #else
-        return .production
-        #endif
+    // MARK: Constants
+    
+    struct Scheme {
+        static let http = "http"
+        static let https = "https"
+    }
+    
+    struct Domain {
+        static let wikipedia = "wikipedia.org"
+        static let wikidata = "wikidata.org"
+        static let mediaWiki = "mediawiki.org"
+        static let betaLabs = "wikipedia.beta.wmflabs.org"
+        static let mobileAppsServicesLabs = "mobileapps.wmflabs.org"
+        static let localhost = "localhost"
+        static let englishWikipedia = "en.wikipedia.org"
+        static let wikimedia = "wikimedia.org"
+        static let metaWiki = "meta.wikimedia.org"
+        static let wikimediafoundation = "wikimediafoundation.org"
+    }
+   
+    struct Path {
+        static let wikiResourceComponent = ["wiki"]
+        static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
+        static let mediaWikiAPIComponents = ["w", "api.php"]
+        static let mediaWikiRestAPIComponents = ["w", "rest.php"]
+    }
+    
+    // MARK: State
+    
+    @objc public let defaultSiteDomain: String
+    
+    public let mediaWikiCookieDomain: String
+    public let wikipediaCookieDomain: String
+    public let wikidataCookieDomain: String
+    public let wikimediaCookieDomain: String
+    public let centralAuthCookieSourceDomain: String // copy cookies from
+    public let centralAuthCookieTargetDomains: [String] // copy cookies to
+    
+    public let wikiResourceDomains: [String]
+    public let inAppLinkDomains: [String]
+
+    @objc public lazy var router: Router = {
+       return Router(configuration: self)
     }()
 
     required init(defaultSiteDomain: String, otherDomains: [String] = [], mobileAppsServicesAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder) {
