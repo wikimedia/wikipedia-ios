@@ -32,15 +32,25 @@ public class WMFAuthenticationManager: Fetcher {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic public private(set) var loggedInUsername: String? = nil
+    @objc dynamic public private(set) var loggedInUsername: String? = nil {
+        didSet {
+            loggedInUserCache = [:]
+            isAnonCache = [:]
+        }
+    }
     
+    private var isAnonCache: [String: Bool] = [:]
     private var loggedInUserCache: [String: WMFCurrentlyLoggedInUser] = [:]
     
     /// Returns the currently logged in user for a given site. Useful to determine the user's groups for a given wiki
-    public func getLoggedInUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentlyLoggedInUser, Error>) -> Void ) {
+    public func getLoggedInUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentlyLoggedInUser?, Error>) -> Void ) {
         assert(Thread.isMainThread)
         guard let host = siteURL.host else {
             completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        if isAnonCache[host] ?? false {
+            completion(.success(nil))
             return
         }
         if let user = loggedInUserCache[host] {
@@ -54,7 +64,12 @@ public class WMFAuthenticationManager: Fetcher {
             }
         }) { (error) in
             DispatchQueue.main.async {
-                completion(.failure(error))
+                if error as? WMFCurrentlyLoggedInUserFetcherError == WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous {
+                    self.isAnonCache[host] = true
+                    completion(.success(nil))
+                } else {
+                    completion(.failure(error))
+                }
             }
         }
     }

@@ -261,8 +261,9 @@ private extension ArticleContainerViewController {
         authManager.getLoggedInUser(for: siteURL) { (result) in
             switch result {
             case .success(let user):
-                self.setupPageContentServiceJavaScriptInterface(with: user.groups)
+                self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
             case .failure(let error):
+                self.showWebView()
                 self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
             }
         }
