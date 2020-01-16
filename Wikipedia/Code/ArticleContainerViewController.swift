@@ -25,6 +25,8 @@ class ArticleContainerViewController: ViewController {
 
     private let schemeHandler: SchemeHandler
     private let dataStore: MWKDataStore
+    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
+    private let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     private let cacheController: CacheController
     private let articleURL: URL
     private let article: WMFArticle
@@ -240,12 +242,7 @@ private extension ArticleContainerViewController {
     func setupWebView() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView // so that content insets are inherited
-        
-        let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
-        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
-        let userGroups: [String] = [] // TODO
-        messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
-        
+
         leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.addSubview(leadImageContainerView)
             
@@ -253,6 +250,28 @@ private extension ArticleContainerViewController {
         let trailingConstraint = webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint])
+        
+        guard let siteURL = articleURL.wmf_site else {
+            DDLogError("Missing site for \(articleURL)")
+            alertManager.showErrorAlert(RequestError.invalidParameters, sticky: true, dismissPreviousAlerts: true)
+            return
+        }
+        
+        // Need user groups to let the Page Content Service know if the page is editable for this user
+        authManager.getLoggedInUser(for: siteURL) { (result) in
+            switch result {
+            case .success(let user):
+                self.setupPageContentServiceJavaScriptInterface(with: user.groups)
+            case .failure(let error):
+                self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
+            }
+        }
+    }
+    
+    func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
+        let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
+        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
+        messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
     }
     
     func load() {

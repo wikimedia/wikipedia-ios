@@ -34,6 +34,31 @@ public class WMFAuthenticationManager: Fetcher {
      */
     @objc dynamic public private(set) var loggedInUsername: String? = nil
     
+    private var loggedInUserCache: [String: WMFCurrentlyLoggedInUser] = [:]
+    
+    /// Returns the currently logged in user for a given site. Useful to determine the user's groups for a given wiki
+    public func getLoggedInUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentlyLoggedInUser, Error>) -> Void ) {
+        assert(Thread.isMainThread)
+        guard let host = siteURL.host else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        if let user = loggedInUserCache[host] {
+            completion(.success(user))
+            return
+        }
+        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { (user) in
+            DispatchQueue.main.async {
+                self.loggedInUserCache[host] = user
+                completion(.success(user))
+            }
+        }) { (error) in
+            DispatchQueue.main.async {
+                completion(.failure(error))
+            }
+        }
+    }
+    
     /**
      *  Returns YES if a user is logged in, NO otherwise
      */
@@ -144,6 +169,9 @@ public class WMFAuthenticationManager: Fetcher {
         
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             DispatchQueue.main.async {
+                if let host = siteURL.host {
+                    self.loggedInUserCache[host] = result
+                }
                 self.loggedInUsername = result.name
                 completion(.alreadyLoggedIn(result))
             }
