@@ -94,11 +94,12 @@ final class NavigationStateController: NSObject {
         } else {
             switch (viewController.kind, viewController.info) {
             case (.random, let info?) :
-                guard let articleURL = articleURL(from: info) else {
+                guard
+                    let articleURL = articleURL(from: info),
+                    let randomArticleVC = RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+                else {
                     return
                 }
-                let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-                randomArticleVC.calculateTableOfContentsDisplayState()
                 pushOrPresent(randomArticleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
@@ -252,7 +253,7 @@ final class NavigationStateController: NSObject {
         let info: Info?
         switch obj {
             case let articleViewController as ArticleContainerViewController:
-                kind = obj is WMFRandomArticleViewController ? .random : .article
+                kind = obj is RandomArticleViewController ? .random : .article
                 info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
             case let talkPageContainerVC as TalkPageContainerViewController:
                 kind = .talkPage

@@ -12,7 +12,7 @@ extension WMFContentGroup {
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
                 return nil
             }
-            return WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+            return RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
         case .gallery:
             guard let date = self.date else {
                 return nil

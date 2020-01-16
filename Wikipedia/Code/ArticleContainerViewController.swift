@@ -28,9 +28,9 @@ class ArticleContainerViewController: ViewController {
     @objc public var loadCompletion: (() -> Void)?
     
     private let schemeHandler: SchemeHandler
-    private let dataStore: MWKDataStore
+    internal let dataStore: MWKDataStore
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
-    private let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
+    internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     private let cacheController: CacheController
     private let article: WMFArticle
     private let language: String
@@ -38,18 +38,14 @@ class ArticleContainerViewController: ViewController {
     private var leadImageHeight: CGFloat = 210
     
     @objc convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
-        
-        guard let cacheController = dataStore.articleCacheControllerWrapper.cacheController else {
-            return nil
-        }
-        
-        self.init(articleURL: articleURL, dataStore: dataStore, cacheController: cacheController, theme: theme)
+        self.init(articleURL: articleURL, dataStore: dataStore, schemeHandler: SchemeHandler.shared, theme: theme)
     }
     
-    init?(articleURL: URL, dataStore: MWKDataStore, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController, theme: Theme) {
+    init?(articleURL: URL, dataStore: MWKDataStore, schemeHandler: SchemeHandler, theme: Theme) {
         guard
             let language = articleURL.wmf_language,
-            let article = dataStore.fetchOrCreateArticle(with: articleURL)
+            let article = dataStore.fetchOrCreateArticle(with: articleURL),
+            let cacheController = dataStore.articleCacheControllerWrapper.cacheController
         else {
             return nil
         }
@@ -255,7 +251,7 @@ private extension ArticleContainerViewController {
     func setupWebView() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView // so that content insets are inherited
-
+        scrollView?.delegate = self
         leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.addSubview(leadImageContainerView)
             
@@ -325,7 +321,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
         guard let host = articleURL.host,
             let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title),
-            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, dataStore: dataStore, schemeHandler: schemeHandler, cacheController: cacheController, theme: theme) else {
+            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, dataStore: dataStore, schemeHandler: schemeHandler, theme: theme) else {
             assertionFailure("Failure initializing new Article VC")
             //tonitodo: error state
             return
