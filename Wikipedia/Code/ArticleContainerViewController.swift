@@ -189,6 +189,11 @@ class ArticleContainerViewController: ViewController {
         super.viewWillAppear(animated)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cancelWIconPopoverDisplay()
+    }
+    
     // MARK: Theme
     
     private lazy var themesPresenter: ReadingThemesControlsArticlePresenter = {
@@ -300,6 +305,8 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     func didSetup(messagingController: ArticleWebMessagingController) {
         state = .data
         showWebView()
+        webView.becomeFirstResponder()
+        showWIconPopoverIfNecessary()
     }
     
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {
@@ -416,3 +423,4 @@ private extension UIViewController {
         childViewController.didMove(toParent: self)
     }
 }
+
