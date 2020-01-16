@@ -8,15 +8,15 @@
 @implementation NSURL_WMFSchemeHandlerTests
 
 - (void)testImageProxyURLCreation {
-    XCTAssert([[[NSURL wmf_appSchemeURLForURLString:@"http://www.img.jpg"] absoluteString] isEqualToString:@"wmfapp://www.img.jpg"]);
+    XCTAssert([[[NSURL wmf_legacyAppSchemeURLForURLString:@"http://www.img.jpg"] absoluteString] isEqualToString:@"wmfapp://www.img.jpg"]);
 }
 
 - (void)testImageProxyURLCreationWithPath {
-    XCTAssert([[[NSURL wmf_appSchemeURLForURLString:@"http://www.img.jpg/SOMEPATH"] absoluteString] isEqualToString:@"wmfapp://www.img.jpg/SOMEPATH"]);
+    XCTAssert([[[NSURL wmf_legacyAppSchemeURLForURLString:@"http://www.img.jpg/SOMEPATH"] absoluteString] isEqualToString:@"wmfapp://www.img.jpg/SOMEPATH"]);
 }
 
 - (void)testImageProxyURLCreationWithPathAndExistingQueryParameters {
-    XCTAssert([[[NSURL wmf_appSchemeURLForURLString:@"http://www.img.jpg/SOMEPATH?haha=chacha"] absoluteString] isEqualToString:@"wmfapp://www.img.jpg/SOMEPATH?haha=chacha"]);
+    XCTAssert([[[NSURL wmf_legacyAppSchemeURLForURLString:@"http://www.img.jpg/SOMEPATH?haha=chacha"] absoluteString] isEqualToString:@"wmfapp://www.img.jpg/SOMEPATH?haha=chacha"]);
 }
 
 - (void)testImageProxyURLExtraction {
