@@ -80,6 +80,9 @@ class ArticleToolbarController: Themeable {
 private extension ArticleToolbarController {
     
     func setup() {
-        toolbar.items = [saveButton, themeButton]
+        let leadingFlex = UIBarButtonItem.flexibleSpaceToolbar()
+        let middleFlex = UIBarButtonItem.flexibleSpaceToolbar()
+        let trailingFlex = UIBarButtonItem.flexibleSpaceToolbar()
+        toolbar.items = [leadingFlex, saveButton, middleFlex, themeButton, trailingFlex]
     }
 }
