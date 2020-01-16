@@ -61,32 +61,12 @@ public class ArticleURLConverter {
         
         //tonitodo: use wmf_normalizedPageTitle instead for an error-state redirect test
         
-        //let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
-        
-        let stagingPathComponents = [host, "v1", "page", endpointType.rawValue, percentEncodedUrlTitle]
-        var stagingURLComponents = URLComponents()
-        stagingURLComponents.host = "apps.wmflabs.org"
-        stagingURLComponents.percentEncodedPath = "/\(stagingPathComponents.joined(separator: "/"))"
-        guard let stagingUrl = stagingURLComponents.url else {
-            return nil
-        }
-        
-        //Staging: app://apps.wmflabs.org/en.wikipedia.org/v1/page/mobile-html/Brothers_Poem
-        //Prod: app://en.wikipedia.org/api/rest_v1/page/mobile-html/Dog
-        //print(stagingUrl)
-        
-    //        guard let url: URL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
-    //            return nil
-    //        }
-        
+        let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
+        #warning("switch to production")
+        var components = Configuration.mobileAppsServicesLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
         if let scheme = scheme {
-            
-            var urlComponents = URLComponents(url: stagingUrl, resolvingAgainstBaseURL: false)
-            urlComponents?.scheme = scheme
-            
-            return urlComponents?.url
+            components.scheme = scheme
         }
-        
-        return stagingUrl
+        return components.url
     }
 }
