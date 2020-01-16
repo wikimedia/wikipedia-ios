@@ -104,9 +104,9 @@ final class NavigationStateController: NSObject {
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                let articleVC = WMFLegacyArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-                articleVC.shouldRequestLatestRevisionOnInitialLoad = false
-                articleVC.calculateTableOfContentsDisplayState()
+                guard let articleVC = ArticleContainerViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+                    return
+                }
                 // never present an article modal, the nav bar disappears
                 pushOrPresent(articleVC, navigationController: navigationController, presentation: .push)
             case (.themeableNavigationController, _):
@@ -251,7 +251,7 @@ final class NavigationStateController: NSObject {
         let kind: ViewController.Kind?
         let info: Info?
         switch obj {
-            case let articleViewController as WMFLegacyArticleViewController:
+            case let articleViewController as ArticleContainerViewController:
                 kind = obj is WMFRandomArticleViewController ? .random : .article
                 info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
             case let talkPageContainerVC as TalkPageContainerViewController:

@@ -76,6 +76,18 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
     }
+    
+    // MARK: ArticlePreviewingDelegate
+    
+    override func shareArticlePreviewActionSelected(with articleController: ArticleContainerViewController, shareActivityController: UIActivityViewController) {
+        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
+        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
+    }
+
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
+    }
 
     // MARK: - UIViewControllerPreviewingDelegate
 
@@ -102,9 +114,11 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
 
         previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
         let article = previews[index]
-        let articleVC = WMFLegacyArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
+        guard let articleVC = ArticleContainerViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme) else {
+            return nil
+        }
         articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
-        articleVC.articlePreviewingActionsDelegate = self
+        articleVC.articlePreviewingDelegate = self
         FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: index)
         return articleVC
     }
@@ -112,12 +126,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
-        if let articleViewController = viewControllerToCommit as? WMFLegacyArticleViewController {
-            wmf_push(articleViewController, animated: true)
-        } else {
-            wmf_push(viewControllerToCommit, animated: true)
-        }
-        
+        wmf_push(viewControllerToCommit, animated: true)
     }
 
     // MARK: - CollectionViewFooterDelegate
@@ -231,18 +240,5 @@ extension NewsViewController: EventLoggingEventValuesProviding {
     
     var eventLoggingLabel: EventLoggingLabel? {
         return .news
-    }
-}
-
-// MARK: - WMFArticlePreviewingActionsDelegate
-extension NewsViewController {
-    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController, shareActivityController: UIActivityViewController) {
-        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
-        super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
-    }
-
-    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }
 }

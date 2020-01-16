@@ -22,16 +22,19 @@ class ArticleContainerViewController: ViewController {
     private lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
-
+    
+    @objc public let articleURL: URL
+    public var visibleSectionAnchor: String? // TODO: Implement
+    @objc public var loadCompletion: (() -> Void)?
+    
     private let schemeHandler: SchemeHandler
     private let dataStore: MWKDataStore
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     private let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     private let cacheController: CacheController
-    private let articleURL: URL
     private let article: WMFArticle
     private let language: String
-    
+
     private var leadImageHeight: CGFloat = 210
     
     @objc convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
@@ -149,6 +152,10 @@ class ArticleContainerViewController: ViewController {
     }
     
     
+    // MARK: Previewing
+    
+    public var articlePreviewingDelegate: ArticlePreviewingDelegate?
+    
     // MARK: Layout
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -214,6 +221,12 @@ class ArticleContainerViewController: ViewController {
         if state == .data {
             messagingController.updateTheme(theme)
         }
+    }
+    
+    // MARK: Sharing
+    
+    @objc public func shareArticleWhenReady() {
+        // TODO: implement
     }
 }
 
@@ -326,6 +339,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
         showWebView()
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
+        loadCompletion?()
     }
     
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {

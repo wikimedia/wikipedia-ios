@@ -32,10 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showSearchInCurrentNavigationController;
 
-//tonitodo: delete old, rename new
-- (WMFLegacyArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
+- (WMFArticleContainerViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
-//tonitodo: return articleVC?
 - (void)showNewArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
 @end
