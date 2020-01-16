@@ -19,7 +19,7 @@ class ArticleContainerViewController: ViewController {
         case data
     }
     
-    private lazy var toolbarController: ArticleToolbarController = {
+    internal lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
     
@@ -37,11 +37,7 @@ class ArticleContainerViewController: ViewController {
 
     private var leadImageHeight: CGFloat = 210
     
-    @objc convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
-        self.init(articleURL: articleURL, dataStore: dataStore, schemeHandler: SchemeHandler.shared, theme: theme)
-    }
-    
-    init?(articleURL: URL, dataStore: MWKDataStore, schemeHandler: SchemeHandler, theme: Theme) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         guard
             let language = articleURL.wmf_language,
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
@@ -54,7 +50,7 @@ class ArticleContainerViewController: ViewController {
         self.dataStore = dataStore
         self.article = article
         self.language = language
-        self.schemeHandler = schemeHandler
+        self.schemeHandler = SchemeHandler.shared // TODO: DI?
         self.schemeHandler.articleCacheController = cacheController
         self.cacheController = cacheController
         
@@ -81,8 +77,7 @@ class ArticleContainerViewController: ViewController {
     lazy var webView: WKWebView = {
         return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
-    
-    
+
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
@@ -224,6 +219,18 @@ class ArticleContainerViewController: ViewController {
     @objc public func shareArticleWhenReady() {
         // TODO: implement
     }
+    
+    // MARK: Overrideable functionality
+    
+    internal func handleLink(with title: String) {
+        guard let host = articleURL.host,
+            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title) else {
+            assertionFailure("Failure initializing new Article VC")
+            //tonitodo: error state
+            return
+        }
+        navigate(to: newArticleURL)
+    }
 }
 
 private extension ArticleContainerViewController {
@@ -318,16 +325,7 @@ private extension ArticleContainerViewController {
 
 extension ArticleContainerViewController: ArticleWebMessageHandling {
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
-
-        guard let host = articleURL.host,
-            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title),
-            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, dataStore: dataStore, schemeHandler: schemeHandler, theme: theme) else {
-            assertionFailure("Failure initializing new Article VC")
-            //tonitodo: error state
-            return
-        }
-        
-        navigationController?.pushViewController(newArticleVC, animated: true)
+        handleLink(with: title)
     }
     
     func didSetup(messagingController: ArticleWebMessagingController) {
