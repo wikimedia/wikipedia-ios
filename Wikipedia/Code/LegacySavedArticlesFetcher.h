@@ -8,7 +8,7 @@ extern NSString *const WMFArticleSaveToDiskDidFailNotification;
 extern NSString *const WMFArticleSaveToDiskDidFailErrorKey;
 extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
-@interface SavedArticlesFetcher : WMFLegacyFetcher <NSProgressReporting>
+@interface LegacySavedArticlesFetcher : WMFLegacyFetcher <NSProgressReporting>
 
 @property (nonatomic, strong) NSProgress *progress;
 

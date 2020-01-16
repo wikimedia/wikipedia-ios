@@ -3,7 +3,6 @@ import Foundation
 final class SchemeHandlerCache {
     static private let cachedResponseCountLimit = UInt(6)
     let responseCache = WMFFIFOCache<NSString, CachedURLResponse>(countLimit: SchemeHandlerCache.cachedResponseCountLimit)
-    let articleCache = WMFFIFOCache<NSString, MWKArticle>(countLimit: SchemeHandlerCache.cachedResponseCountLimit)
 }
 
 extension SchemeHandlerCache: FileHandlerCacheDelegate {
@@ -18,19 +17,5 @@ extension SchemeHandlerCache: FileHandlerCacheDelegate {
         
         let cachedResponse = CachedURLResponse(response: response, data: data)
         responseCache.setObject(cachedResponse, forKey: path as NSString)
-    }
-}
-
-extension SchemeHandlerCache: ArticleSectionHandlerCacheDelegate {
-    func article(for key: String) -> MWKArticle? {
-        return articleCache.object(forKey: (key as NSString))
-    }
-    
-    func cacheSectionData(for article: MWKArticle) {
-        guard let articleKey = (article.url as NSURL).wmf_databaseKey else {
-            return
-        }
-        
-        articleCache.setObject(article, forKey: (articleKey as NSString))
     }
 }

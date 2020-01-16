@@ -1,4 +1,4 @@
-#import "WebViewController_Private.h"
+#import "LegacyWebViewController_Private.h"
 #import "WMFWebView.h"
 #import "Wikipedia-Swift.h"
 @import WebKit;
@@ -8,7 +8,7 @@
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
-#import "WebViewController+WMFReferencePopover.h"
+#import "LegacyWebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
@@ -22,7 +22,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindAndReplaceKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable, WKNavigationDelegate>
+@interface LegacyWebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindAndReplaceKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable, WKNavigationDelegate>
 
 @property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @end
 
-@implementation WebViewController
+@implementation LegacyWebViewController
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -889,9 +889,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
-
-    SchemeHandler *handler = [SchemeHandler shared];
-    [handler cacheSectionDataForArticle:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 

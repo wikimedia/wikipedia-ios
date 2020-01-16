@@ -1,4 +1,4 @@
-#import "WMFArticleViewController.h"
+#import "WMFLegacyArticleViewController.h"
 
 @class MWKDataStore;
 @class WMFTableOfContentsViewController;

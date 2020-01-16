@@ -1,10 +1,10 @@
 @import WMF;
 @class MWKDataStore;
 @class WMFShareFunnel;
-@class WMFArticleViewController;
+@class WMFLegacyArticleViewController;
 #import "WMFViewController.h"
 #import "WMFTableOfContentsDisplay.h"
-#import "WebViewController.h"
+#import "LegacyWebViewController.h"
 #import "WMFImageGalleryViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -13,21 +13,21 @@ extern NSString *const WMFEditPublishedNotification;
 
 @protocol WMFArticlePreviewingActionsDelegate <NSObject>
 
-- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)articleController;
 
-- (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL;
+- (void)saveArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL;
 
-- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController;
 
-- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)articleController;
 
 @end
 
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : WMFViewController <WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate>
+@interface WMFLegacyArticleViewController : WMFViewController <WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
@@ -73,7 +73,7 @@ extern NSString *const WMFEditPublishedNotification;
 
 @end
 
-@interface WMFArticleViewController (WMFBrowserViewControllerInterface)
+@interface WMFLegacyArticleViewController (WMFBrowserViewControllerInterface)
 
 @property (strong, nonatomic, nullable, readonly) WMFShareFunnel *shareFunnel;
 
@@ -90,7 +90,7 @@ extern NSString *const WMFEditPublishedNotification;
 
 @end
 
-@interface WMFArticleViewController (WMFSubclasses)
+@interface WMFLegacyArticleViewController (WMFSubclasses)
 
 @property (nonatomic, strong, readonly) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *languagesToolbarItem;

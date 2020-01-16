@@ -19,8 +19,8 @@
 
 #import "WMFChange.h"
 
-#import "WMFArticleFetcher.h"
-#import "SavedArticlesFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
+#import "LegacySavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewHtmlFetcher.h"
 #import "MWKImageInfoFetcher.h"
@@ -37,8 +37,8 @@
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"
-#import "WMFArticleViewController_Private.h"
-#import "WebViewController.h"
+#import "WMFLegacyArticleViewController_Private.h"
+#import "LegacyWebViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"

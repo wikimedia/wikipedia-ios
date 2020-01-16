@@ -1,11 +1,11 @@
-#import "WebViewController.h"
+#import "LegacyWebViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFReferenceLinkTappedNotification;
 @class WMFReference;
 
-@interface WebViewController (WMFReferencePopover)
+@interface LegacyWebViewController (WMFReferencePopover)
 
 - (void)wmf_presentReferencePopoverViewControllerForReference:(WMFReference *)reference
                                                         width:(CGFloat)width;

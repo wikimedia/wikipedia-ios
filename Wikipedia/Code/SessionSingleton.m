@@ -34,10 +34,10 @@
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     self = [super init];
     if (self) {
-        WMFURLCache *urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(512)
-                                                               diskCapacity:MegabytesToBytes(2048)
-                                                                   diskPath:nil];
-        [NSURLCache setSharedURLCache:urlCache];
+//        WMFURLCache *urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(512)
+//                                                               diskCapacity:MegabytesToBytes(2048)
+//                                                                   diskPath:nil];
+//        [NSURLCache setSharedURLCache:urlCache];
 
         self.dataStore = dataStore;
 

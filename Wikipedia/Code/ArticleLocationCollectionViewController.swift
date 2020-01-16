@@ -166,7 +166,7 @@ extension ArticleLocationCollectionViewController {
         }
         previewedIndexPath = indexPath
         let articleURL = self.articleURL(at: indexPath)
-        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
+        let articleViewController = WMFLegacyArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         if let context = feedFunnelContext {
@@ -180,7 +180,7 @@ extension ArticleLocationCollectionViewController {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: previewedIndexPath?.item, maxViewed: maxViewed)
         }
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        if let articleViewController = viewControllerToCommit as? WMFArticleViewController {
+        if let articleViewController = viewControllerToCommit as? WMFLegacyArticleViewController {
             wmf_push(articleViewController, animated: true)
         } else {
             wmf_push(viewControllerToCommit, animated: true)
@@ -201,7 +201,7 @@ extension ArticleLocationCollectionViewController: EventLoggingEventValuesProvid
 
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension ArticleLocationCollectionViewController {
-    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController, shareActivityController: UIActivityViewController) {
         guard let context = feedFunnelContext else {
             super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
             return
@@ -210,7 +210,7 @@ extension ArticleLocationCollectionViewController {
         FeedFunnel.shared.logFeedDetailShareTapped(for: context, index: previewedIndexPath?.item, midnightUTCDate: context.midnightUTCDate)
     }
 
-    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController) {
         guard let context = feedFunnelContext else {
             super.readMoreArticlePreviewActionSelected(withArticleController: articleController)
             return
@@ -219,7 +219,7 @@ extension ArticleLocationCollectionViewController {
         wmf_push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
     }
 
-    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController, didSave: Bool, articleURL: URL) {
         guard let context = feedFunnelContext else {
             super.saveArticlePreviewActionSelected(withArticleController: articleController, didSave: didSave, articleURL: articleURL)
             return

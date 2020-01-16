@@ -18,12 +18,11 @@ final class SchemeHandler: NSObject {
     private var activeCacheOperations: [URLRequest: Operation] = [:]
     private var activeSchemeTasks = NSMutableSet(array: [])
     
-    private let cache: SchemeHandlerCache
+    private let fileCache: SchemeHandlerCache
     private let fileHandler: FileHandler
-    private let articleSectionHandler: ArticleSectionHandler
-    private let apiHandler: APIHandler
     private let defaultHandler: DefaultHandler
     private let cacheQueue: OperationQueue = OperationQueue()
+    var articleCacheController: CacheController?
     
     @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
     
@@ -31,26 +30,19 @@ final class SchemeHandler: NSObject {
         self.scheme = scheme
         self.session = session
         let cache = SchemeHandlerCache()
-        self.cache = cache
+        self.fileCache = cache
         self.fileHandler = FileHandler(cacheDelegate: cache)
-        self.articleSectionHandler = ArticleSectionHandler(cacheDelegate: cache)
-        self.apiHandler = APIHandler(session: session)
         self.defaultHandler = DefaultHandler(session: session)
     }
-   
+    
     func setResponseData(data: Data?, contentType: String?, path: String, requestURL: URL) {
         var headerFields = [String: String](minimumCapacity: 1)
         if let contentType = contentType {
             headerFields["Content-Type"] = contentType
         }
         if let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
-            cache.cacheResponse(response, data: data, path: path)
+            fileCache.cacheResponse(response, data: data, path: path)
         }
-    }
-    
-    @objc(cacheSectionDataForArticle:)
-    func cacheSectionData(for article: MWKArticle) {
-        cache.cacheSectionData(for: article)
     }
 }
 
@@ -112,20 +104,13 @@ extension SchemeHandler: WKURLSchemeHandler {
         }
         
         addSchemeTask(urlSchemeTask: urlSchemeTask)
-        
+
         switch baseComponent {
         case FileHandler.basePath:
             fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
-        case ArticleSectionHandler.basePath:
-            articleSectionHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
-        case APIHandler.basePath:
-            guard let apiURL = apiHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
-                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
-                removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                return
-            }
-            kickOffDataTask(handler: apiHandler, url: apiURL, urlSchemeTask: urlSchemeTask)
+            
         default:
+            
             guard let defaultURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
                 removeSchemeTask(urlSchemeTask: urlSchemeTask)
@@ -134,7 +119,7 @@ extension SchemeHandler: WKURLSchemeHandler {
             // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
             // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
             let op = BlockOperation { [weak urlSchemeTask] in
-                if let cachedResponse = self.defaultHandler.cachedResponseForURL(defaultURL) {
+                if let cachedResponse = self.articleCacheController?.recentCachedURLResponse(for: defaultURL) {
                     DispatchQueue.main.async {
                         guard let urlSchemeTask = urlSchemeTask else {
                             return
@@ -158,6 +143,7 @@ extension SchemeHandler: WKURLSchemeHandler {
             activeCacheOperations[urlSchemeTask.request] = op
             cacheQueue.addOperation(op)
         }
+        
     }
     
     func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
@@ -232,7 +218,23 @@ private extension SchemeHandler {
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
             }
         }) { [weak urlSchemeTask] error in
+            
+            if let cachedResponse = self.articleCacheController?.persistedCachedURLResponse(for: url) {
+                DispatchQueue.main.async {
+                    guard let urlSchemeTask = urlSchemeTask else {
+                        return
+                    }
+                    self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
+                    urlSchemeTask.didReceive(cachedResponse.response)
+                    urlSchemeTask.didReceive(cachedResponse.data)
+                    urlSchemeTask.didFinish()
+                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                }
+                return
+            }
+            
             DispatchQueue.main.async {
+                
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }

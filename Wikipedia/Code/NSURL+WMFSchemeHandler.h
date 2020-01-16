@@ -32,6 +32,13 @@ extern NSString *const WMFURLSchemeHandlerScheme;
  **/
 + (NSURL *)wmf_appSchemeURLForURLString:(NSString *)URLString;
 
+/**
+* Changes the scheme to WMFLegacyURLSchemeHandlerScheme.
+*
+* @return  Returns app scheme url.
+**/
++ (NSURL *)wmf_legacyAppSchemeURLForURLString:(NSString *)URLString;
+
 @end
 
 NS_ASSUME_NONNULL_END

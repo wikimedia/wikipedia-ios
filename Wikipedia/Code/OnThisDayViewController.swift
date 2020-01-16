@@ -137,7 +137,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
 
         previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
         let article = previews[index]
-        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
+        let vc = WMFLegacyArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         vc.articlePreviewingActionsDelegate = self
         vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
         if let themeable = vc as Themeable? {
@@ -150,7 +150,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
-        if let articleViewController = viewControllerToCommit as? WMFArticleViewController {
+        if let articleViewController = viewControllerToCommit as? WMFLegacyArticleViewController {
             wmf_push(articleViewController, animated: true)
         } else {
             wmf_push(viewControllerToCommit, animated: true)
@@ -288,12 +288,12 @@ extension OnThisDayViewController: EventLoggingEventValuesProviding {
 
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension OnThisDayViewController {
-    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController, shareActivityController: UIActivityViewController) {
         FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
     }
 
-    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFLegacyArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }

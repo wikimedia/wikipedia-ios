@@ -12,11 +12,11 @@ class WMFArticleSectionLoadingJSPerformanceTests: XCTestCase, WKScriptMessageHan
     var firstSectionAppearedMessageReceivedExpectation: XCTestExpectation?
     var startTimeMessageReceivedExpectation: XCTestExpectation?
 
-    lazy var webVCConfiguredToEmitFirstSectionAppearanceTimingEvents: WebViewController = {
-        // WebViewController configured to emit two events when an article is loaded:
+    lazy var webVCConfiguredToEmitFirstSectionAppearanceTimingEvents: LegacyWebViewController = {
+        // LegacyWebViewController configured to emit two events when an article is loaded:
         //    - 'startTime'
         //    - 'testFirstSectionAppearance'
-        let vc = WebViewController.wmf_initialViewControllerFromClassStoryboard()!
+        let vc = LegacyWebViewController.wmf_initialViewControllerFromClassStoryboard()!
     
         // Configure the WKUserContentController used by the web view controller - easy way to attach testing JS while
         // keeping all existing JS in place.

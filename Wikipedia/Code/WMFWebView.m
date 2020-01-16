@@ -10,7 +10,7 @@
 }
 
 - (void)_share:(id)sender {
-    // no-op, handle share in WebViewController
+    // no-op, handle share in LegacyWebViewController
 }
 
 @end

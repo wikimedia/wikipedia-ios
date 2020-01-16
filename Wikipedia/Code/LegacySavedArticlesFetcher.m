@@ -1,6 +1,6 @@
 @import WMF;
 #import "Wikipedia-Swift.h"
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
 NSString *const WMFArticleSaveToDiskDidFailNotification = @"WMFArticleSavedToDiskWithErrorNotification";
@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface SavedArticlesFetcher ()
+@interface LegacySavedArticlesFetcher ()
 
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
-@property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
+@property (nonatomic, strong) WMFLegacyArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
 @property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
@@ -51,18 +51,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation SavedArticlesFetcher
+@implementation LegacySavedArticlesFetcher
 
 #pragma mark - NSObject
 
-static SavedArticlesFetcher *_articleFetcher = nil;
+static LegacySavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)dealloc {
     [self stop];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                   articleFetcher:(WMFArticleFetcher *)articleFetcher
+                   articleFetcher:(WMFLegacyArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
                  imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher {
     NSParameterAssert(dataStore);
@@ -84,14 +84,14 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageController = imageController;
         self.imageInfoFetcher = imageInfoFetcher;
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
-        self.savedArticlesFetcherProgressManager = [[SavedArticlesFetcherProgressManager alloc] initWithDelegate:self];
+        //self.savedArticlesFetcherProgressManager = [[SavedArticlesFetcherProgressManager alloc] initWithDelegate:self];
     }
     return self;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     return [self initWithDataStore:dataStore
-                    articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
+                    articleFetcher:[[WMFLegacyArticleFetcher alloc] initWithDataStore:dataStore]
                    imageController:[WMFImageController sharedInstance]
                   imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
@@ -344,27 +344,27 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 }
             }];
     };
-    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
-        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.5.0)
-            [self migrateLegacyImagesInArticle:article
-                                    completion:doneMigration];
-    } else {
+//    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
+//        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.5.0)
+//            [self migrateLegacyImagesInArticle:article
+//                                    completion:doneMigration];
+//    } else {
         doneMigration();
-    }
+    //}
 }
 
-- (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
-    WMFImageController *imageController = [WMFImageController sharedInstance];
-    NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
-    NSString *group = article.url.wmf_databaseKey;
-    if (!group || !legacyImageURLs.count) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    [imageController migrateLegacyImageURLs:legacyImageURLs intoGroup:group completion:completion];
-}
+//- (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
+//    WMFImageController *imageController = [WMFImageController sharedInstance];
+//    NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
+//    NSString *group = article.url.wmf_databaseKey;
+//    if (!group || !legacyImageURLs.count) {
+//        if (completion) {
+//            completion();
+//        }
+//        return;
+//    }
+//    [imageController migrateLegacyImageURLs:legacyImageURLs intoGroup:group completion:completion];
+//}
 
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatch_block_t doneMigration = ^{
@@ -376,13 +376,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         }
         [self cacheImagesForArticleKey:articleKey withURLsInBackground:imageURLsForSaving failure:failure success:success];
     };
-    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
-        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
-            [self migrateLegacyImagesInArticle:article
-                                    completion:doneMigration];
-    } else {
+//    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
+//        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
+//            [self migrateLegacyImagesInArticle:article
+//                                    completion:doneMigration];
+//    } else {
         doneMigration();
-    }
+    //}
 }
 
 - (void)fetchGalleryDataForArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {

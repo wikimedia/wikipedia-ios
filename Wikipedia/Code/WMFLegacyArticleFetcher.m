@@ -1,4 +1,4 @@
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 #import <WMF/WMF-Swift.h>
 
 #if WMF_TWEAKS_ENABLED
@@ -27,7 +27,7 @@ NSString *const WMFArticleFetcherErrorDomain = @"WMFArticleFetcherErrorDomain";
 
 NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFetcherErrorCachedFallbackArticleKey";
 
-@interface WMFArticleFetcher ()
+@interface WMFLegacyArticleFetcher ()
 
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
@@ -37,7 +37,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @end
 
-@implementation WMFArticleFetcher
+@implementation WMFLegacyArticleFetcher
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
@@ -154,7 +154,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   BOOL isCached = articleCacheError == nil && saveToDisk;
                                                   article.isCached = isCached;
                                                   if (isCached) {
-                                                      article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                      article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the LegacySavedArticlesFetcher
                                                   }
                                                   article.wikidataID = mwkArticle.wikidataId;
                                                   if (summaryResponse) {

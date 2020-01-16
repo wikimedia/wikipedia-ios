@@ -40,7 +40,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
     self.navigationController.toolbarHidden = NO;
 }
 
-- (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
+- (void)webViewController:(LegacyWebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
     WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
     [self.navigationController pushViewController:articleViewController animated:YES];
 }

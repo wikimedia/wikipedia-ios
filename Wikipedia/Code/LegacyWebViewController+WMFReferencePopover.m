@@ -1,4 +1,4 @@
-#import "WebViewController+WMFReferencePopover.h"
+#import "LegacyWebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "Wikipedia-Swift.h"
@@ -9,7 +9,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
 
 typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationController *presenter);
 
-@implementation WebViewController (WMFReferencePopover)
+@implementation LegacyWebViewController (WMFReferencePopover)
 
 - (void)wmf_presentReferencePopoverViewControllerForReference:(WMFReference *)reference
                                                         width:(CGFloat)width {

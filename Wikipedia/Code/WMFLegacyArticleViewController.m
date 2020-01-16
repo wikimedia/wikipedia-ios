@@ -1,4 +1,4 @@
-#import "WMFArticleViewController_Private.h"
+#import "WMFLegacyArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 @import WMF;
 @import SystemConfiguration;
@@ -14,7 +14,7 @@
 #import "ProtectedEditAttemptFunnel.h"
 
 // Networking
-#import "WMFArticleFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
 
 // View
 #import <FLAnimatedImage/FLAnimatedImageView.h>
@@ -80,7 +80,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 @end
 
-@interface WMFArticleViewController () <WMFSectionEditorViewControllerDelegate,
+@interface WMFLegacyArticleViewController () <WMFSectionEditorViewControllerDelegate,
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
@@ -99,7 +99,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 // Children
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
-@property (nonatomic, strong) WebViewController *webViewController;
+@property (nonatomic, strong) LegacyWebViewController *webViewController;
 
 @property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
 
@@ -115,7 +115,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
 
 // Fetchers
-@property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
+@property (nonatomic, strong) WMFLegacyArticleFetcher *articleFetcher;
 @property (nonatomic, strong, nullable) NSURLSessionTask *articleFetcherPromise;
 @property (nonatomic, strong, nullable) WMFReachabilityNotifier *reachabilityNotifier;
 
@@ -162,7 +162,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 @end
 
-@implementation WMFArticleViewController
+@implementation WMFLegacyArticleViewController
 @synthesize articleFetcherPromise = _articleFetcherPromise;
 @synthesize hintController;
 
@@ -325,16 +325,16 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     return _headerImageView;
 }
 
-- (WMFArticleFetcher *)articleFetcher {
+- (WMFLegacyArticleFetcher *)articleFetcher {
     if (!_articleFetcher) {
-        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
+        _articleFetcher = [[WMFLegacyArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return _articleFetcher;
 }
 
-- (WebViewController *)webViewController {
+- (LegacyWebViewController *)webViewController {
     if (!_webViewController) {
-        _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController = [LegacyWebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate = self;
         _webViewController.headerView = self.headerView;
     }
@@ -1592,7 +1592,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)webViewController:(WebViewController *)controller
+- (void)webViewController:(LegacyWebViewController *)controller
     didTapImageWithSourceURL:(nonnull NSURL *)imageSourceURL {
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage theme:self.theme overlayViewTopBarHidden:NO];
@@ -1601,7 +1601,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-- (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
+- (void)webViewController:(LegacyWebViewController *)controller didLoadArticle:(MWKArticle *)article {
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
@@ -1618,7 +1618,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-- (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
+- (void)webViewController:(LegacyWebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
     dispatch_async(dispatch_get_main_queue(), ^{
         dispatch_block_t completion = self.articleContentLoadCompletion;
         if (completion) {
@@ -1638,7 +1638,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     });
 }
 
-- (void)webViewController:(WebViewController *)controller didScrollToAnchor:(nullable NSString *)anchor {
+- (void)webViewController:(LegacyWebViewController *)controller didScrollToAnchor:(nullable NSString *)anchor {
     self.visibleSectionAnchor = anchor;
     MWKSection *section = [self.article.sections sectionWithAnchor:anchor];
     if (!section) {
@@ -1648,23 +1648,23 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self selectAndScrollToTableOfContentsItemForSection:section animated:NO];
 }
 
-- (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
+- (void)webViewController:(LegacyWebViewController *)controller didTapEditForSection:(MWKSection *)section {
     [self showEditorForSectionOrTitleDescription:section];
 }
 
-- (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
+- (void)webViewController:(LegacyWebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
     [self wmf_navigateToURL:url];
 }
 
-- (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {
+- (void)webViewController:(LegacyWebViewController *)controller didSelectText:(NSString *)text {
     [self.shareFunnel logHighlight];
 }
 
-- (void)webViewController:(WebViewController *)controller didTapShareWithSelectedText:(NSString *)text {
+- (void)webViewController:(LegacyWebViewController *)controller didTapShareWithSelectedText:(NSString *)text {
     [self shareAFactWithTextSnippet:text];
 }
 
-- (void)webViewController:(WebViewController *)controller didTapEditMenuItemInMenuController:(UIMenuController *)menuController {
+- (void)webViewController:(LegacyWebViewController *)controller didTapEditMenuItemInMenuController:(UIMenuController *)menuController {
     @weakify(self);
     [self.webViewController.webView wmf_getSelectedTextEditInfoWithCompletionHandler:^(SelectedTextEditInfo *selectedTextEditInfo, NSError *error) {
         @strongify(self);
@@ -1722,23 +1722,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.restoreScrollPosition = NO;
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void)webViewController:(LegacyWebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
     if (self.hintController) {
         [self.hintController dismissHintDueToUserInteraction];
     }
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)webViewController:(LegacyWebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:false];
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+- (void)webViewController:(LegacyWebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)webViewController:(LegacyWebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
         if (error) {
@@ -1753,23 +1753,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+- (void)webViewController:(LegacyWebViewController *)controller scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
 }
 
-- (BOOL)webViewController:(nonnull WebViewController *)controller scrollViewShouldScrollToTop:(nonnull UIScrollView *)scrollView {
+- (BOOL)webViewController:(nonnull LegacyWebViewController *)controller scrollViewShouldScrollToTop:(nonnull UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
     return YES;
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+- (void)webViewController:(LegacyWebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:true];
     [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 #pragma mark - Footer menu
 
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload {
+- (void)webViewController:(LegacyWebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload {
     switch (item) {
         case WMFArticleFooterMenuItemLanguages:
             [self showLanguages];
@@ -1792,7 +1792,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
+- (void)webViewController:(LegacyWebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
     if (didSave) {
         [[ReadingListsFunnel shared] logArticleSaveInReadMore:articleURL];
     } else {
@@ -1800,7 +1800,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article {
+- (void)webViewController:(LegacyWebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article {
     [self showTitleDescriptionEditor:EditFunnelSourceTitleDescription];
 }
 
@@ -2228,8 +2228,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         peekVC = [self viewControllerForPreviewURL:linkURL];
     }
-    if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
-        ((WMFArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
+    if ([peekVC isKindOfClass:[WMFLegacyArticleViewController class]]) {
+        ((WMFLegacyArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
     }
     if ([peekVC conformsToProtocol:@protocol(WMFThemeable)]) {
         [(id<WMFThemeable>)peekVC applyTheme:self.theme];
@@ -2268,7 +2268,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
     if (url && [url wmf_isPeekable]) {
         if ([url wmf_isWikiResource]) {
-            WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
+            WMFLegacyArticleViewController *articleViewController = [[WMFLegacyArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
             [articleViewController wmf_addPeekableChildViewControllerFor:url dataStore:self.dataStore theme:self.theme containerView:nil];
             return articleViewController;
         } else {
@@ -2279,10 +2279,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)commitViewController:(UIViewController *)viewControllerToCommit {
-    if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
+    if ([viewControllerToCommit isKindOfClass:[WMFLegacyArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
-        [self wmf_pushViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
+        [self wmf_pushViewController:(WMFLegacyArticleViewController *)viewControllerToCommit animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
@@ -2299,9 +2299,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
-                                     NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                     NSAssert([previewViewController isKindOfClass:[WMFLegacyArticleViewController class]], @"Unexpected view controller type");
 
-                                     [self.articlePreviewingActionsDelegate readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
+                                     [self.articlePreviewingActionsDelegate readMoreArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)previewViewController];
                                  }];
 
     UIPreviewAction *saveAction =
@@ -2312,11 +2312,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                      if ([self.savedPages isSaved:self.articleURL]) {
                                          [self.savedPages removeEntryWithURL:self.articleURL];
                                          UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [WMFCommonStrings accessibilityUnsavedNotification]);
-                                         [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController didSave:NO articleURL:self.articleURL];
+                                         [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)previewViewController didSave:NO articleURL:self.articleURL];
                                      } else {
                                          [self.savedPages addSavedPageWithURL:self.articleURL];
                                          UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [WMFCommonStrings accessibilitySavedNotification]);
-                                         [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController didSave:YES articleURL:self.articleURL];
+                                         [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)previewViewController didSave:YES articleURL:self.articleURL];
                                      }
                                  }];
 
@@ -2342,8 +2342,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                      UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter eventLogAction:logPreviewSaveIfNeeded]];
                                      shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                      if (shareActivityController) {
-                                         NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                         [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController
+                                         NSAssert([previewViewController isKindOfClass:[WMFLegacyArticleViewController class]], @"Unexpected view controller type");
+                                         [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)previewViewController
                                                                                                                shareActivityController:shareActivityController];
                                      }
                                  }];
@@ -2354,8 +2354,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, nil, @"View on a map", @"Label for button used to show an article on the map")
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-                                         NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                         [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
+                                         NSAssert([previewViewController isKindOfClass:[WMFLegacyArticleViewController class]], @"Unexpected view controller type");
+                                         [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)previewViewController];
                                      }];
     }
 
@@ -2372,17 +2372,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self commitViewController:articleController];
 }
 
-- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
-- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFLegacyArticleViewController *)articleController {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
     [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
 }
 
-- (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
+- (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFLegacyArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     if (didSave) {
         [[ReadingListsFunnel shared] logSaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     } else {
