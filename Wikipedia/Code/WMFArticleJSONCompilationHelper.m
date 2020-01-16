@@ -83,7 +83,7 @@
         }
         
         if (src) {
-            NSString *srcWithProxy = [NSURL wmf_appSchemeURLForURLString:src].absoluteString;
+            NSString *srcWithProxy = [NSURL wmf_legacyAppSchemeURLForURLString:src].absoluteString;
             if (srcWithProxy) {
                 NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
                 imageTag.src = newSrcAttribute;
