@@ -1,7 +1,7 @@
 import MessageUI
 
 @objc(WMFHelpViewController)
-class HelpViewController: ArticleContainerViewController {
+class HelpViewController: SinglePageWebViewController {
     static let faqURLString = "https://m.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"
     static let emailAddress = "mobile-ios-wikipedia@wikimedia.org"
     static let emailSubject = "Bug:"
@@ -10,11 +10,15 @@ class HelpViewController: ArticleContainerViewController {
         guard let faqURL = URL(string: HelpViewController.faqURLString) else {
             return nil
         }
-        super.init(articleURL: faqURL, dataStore: dataStore, theme: theme)
+        super.init(url: faqURL, theme: theme)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    required init(url: URL, theme: Theme) {
+        fatalError("init(url:theme:) has not been implemented")
     }
     
     lazy var sendEmailToolbarItem: UIBarButtonItem = {
@@ -24,7 +28,8 @@ class HelpViewController: ArticleContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = nil
-        toolbarController.override(items: [sendEmailToolbarItem, UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 8)])
+        toolbar.items = [UIBarButtonItem.flexibleSpaceToolbar(), sendEmailToolbarItem, UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 8)]
+        setToolbarHidden(false, animated: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +38,7 @@ class HelpViewController: ArticleContainerViewController {
     
     @objc func sendEmail() {
         guard MFMailComposeViewController.canSendMail() else {
-            alertManager.showErrorAlertWithMessage(WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device"), sticky: false, dismissPreviousAlerts: false)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device"), sticky: false, dismissPreviousAlerts: false)
             return
         }
         let vc = MFMailComposeViewController()
