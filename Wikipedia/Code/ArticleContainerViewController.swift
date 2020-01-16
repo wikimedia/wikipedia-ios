@@ -235,14 +235,11 @@ private extension ArticleContainerViewController {
     func setupWebView() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView // so that content insets are inherited
-        let margins = PageContentService.Parameters.Margins(
-            top: "16px",
-            right: "16px",
-            bottom: "16px",
-            left: "16px"
-        )
-        let parameters  = PageContentService.Parameters(theme: theme.webName.lowercased(), leadImageHeight: "\(leadImageHeight)px", margins: margins)
-        messagingController.setup(webView: webView, with: parameters)
+        
+        let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
+        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
+        let userGroups: [String] = [] // TODO
+        messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
         
         leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.addSubview(leadImageContainerView)
@@ -336,12 +333,12 @@ extension ArticleContainerViewController: ArticleToolbarHandling {
 }
 
 extension ArticleContainerViewController: ReadingThemesControlsResponding {
-    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        
+    func updateWebViewTextSize(textSize: Int) {
+        messagingController.updateTextSizeAdjustmentPercentage(textSize)
     }
     
-    func updateWebViewTextSize(textSize: Int) {
-        
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        // no-op here, syntax highlighting shouldnt be displayed
     }
 }
 

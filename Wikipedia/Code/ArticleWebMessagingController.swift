@@ -20,7 +20,19 @@ class ArticleWebMessagingController: NSObject {
         self.delegate = delegate
     }
     
-    func setup(webView: WKWebView, with parameters: PageContentService.Parameters) {
+    func setup(with webView: WKWebView, language: String, theme: Theme, leadImageHeight: Int, areTablesInitiallyExpanded: Bool, textSizeAdjustment: Int, userGroups: [String]) {
+        let margins = PageContentService.Parameters.Margins(
+            top: "16px",
+            right: "16px",
+            bottom: "16px",
+            left: "16px"
+        )
+        let addTitleDescription = WMFLocalizedString("description-add-link-title", language: language, value: "Add title description", comment: "Text for link for adding a title description")
+        let tableInfoboxTitle = WMFLocalizedString("info-box-title", language: language, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
+        let tableOtherTitle = WMFLocalizedString("table-title-other", language: language, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
+        let tableFooterTitle = WMFLocalizedString("info-box-close-text", language: language, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it {{Identical|Close}}")
+        let l10n = PageContentService.Parameters.L10n(addTitleDescription: addTitleDescription, tableInfobox: tableInfoboxTitle, tableOther: tableOtherTitle, tableClose: tableFooterTitle)
+        let parameters = PageContentService.Parameters(l10n: l10n, theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
         self.webView = webView
         let contentController = webView.configuration.userContentController
         contentController.add(self, name: messageHandlerName)
@@ -47,6 +59,11 @@ class ArticleWebMessagingController: NSObject {
             return
         }
         webView?.evaluateJavaScript("pcs.c1.Page.setMargins(\(marginsJSON))")
+    }
+    
+    func updateTextSizeAdjustmentPercentage(_ percentage: Int) {
+        let js = "pcs.c1.Page.setTextSizeAdjustmentPercentage('\(percentage)%')"
+        webView?.evaluateJavaScript(js)
     }
 }
 

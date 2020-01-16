@@ -7,6 +7,21 @@ import WebKit
 // https://www.mediawiki.org/wiki/Page_Content_Service
 final class PageContentService   {
     struct Parameters: Codable {
+        let platform = "ios"
+        static let clientVersion = Bundle.main.wmf_shortVersionString() // static to only pull this once
+        let clientVersion = Parameters.clientVersion
+        
+        struct L10n: Codable {
+            let addTitleDescription: String
+            let tableInfobox: String
+            let tableOther: String
+            let tableClose: String
+        }
+        let l10n: L10n
+        
+        let theme: String
+        let dimImages: Bool
+
         struct Margins: Codable {
             // these values are strings to allow for units to be included
             let top: String
@@ -14,9 +29,13 @@ final class PageContentService   {
             let bottom: String
             let left: String
         }
-        let theme: String
-        let leadImageHeight: String // units are included
         let margins: Margins
+        let leadImageHeight: String // units are included
+
+        let areTablesInitiallyExpanded: Bool
+        let textSizeAdjustmentPercentage: String // string like '125%'
+        
+        let userGroups: [String]
     }
     
     static let paramsEncoder = JSONEncoder()
