@@ -29,18 +29,19 @@ class ArticleContainerViewController: ViewController {
     private let articleURL: URL
     private let article: WMFArticle
     private let language: String
+    
     private var leadImageHeight: CGFloat = 210
     
-    @objc convenience init?(articleURL: URL, dataStore: MWKDataStore) {
+    @objc convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         
         guard let cacheController = dataStore.articleCacheControllerWrapper.cacheController else {
             return nil
         }
         
-        self.init(articleURL: articleURL, dataStore: dataStore, cacheController: cacheController)
+        self.init(articleURL: articleURL, dataStore: dataStore, cacheController: cacheController, theme: theme)
     }
     
-    init?(articleURL: URL, dataStore: MWKDataStore, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController) {
+    init?(articleURL: URL, dataStore: MWKDataStore, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController, theme: Theme) {
         guard
             let language = articleURL.wmf_language,
             let article = dataStore.fetchOrCreateArticle(with: articleURL)
@@ -56,7 +57,7 @@ class ArticleContainerViewController: ViewController {
         self.schemeHandler.articleCacheController = cacheController
         self.cacheController = cacheController
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(theme: theme)
     }
     
     deinit {
@@ -181,10 +182,31 @@ class ArticleContainerViewController: ViewController {
         setup()
         super.viewDidLoad()
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
+        apply(theme: theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    // MARK: Theme
+    
+    private lazy var themesPresenter: ReadingThemesControlsArticlePresenter = {
+        return ReadingThemesControlsArticlePresenter(readingThemesControlsViewController: themesViewController, wkWebView: webView, readingThemesControlsToolbarItem: toolbarController.themeButton)
+    }()
+    
+    private lazy var themesViewController: ReadingThemesControlsViewController = {
+        return ReadingThemesControlsViewController(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
+    }()
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        webView.backgroundColor = theme.colors.paperBackground
+        toolbarController.apply(theme: theme)
+        if state == .data {
+            messagingController.updateTheme(theme)
+        }
     }
 }
 
@@ -219,7 +241,7 @@ private extension ArticleContainerViewController {
             bottom: "16px",
             left: "16px"
         )
-        let parameters  = PageContentService.Parameters(theme: theme.name, leadImageHeight: "\(leadImageHeight)px", margins: margins)
+        let parameters  = PageContentService.Parameters(theme: theme.webName.lowercased(), leadImageHeight: "\(leadImageHeight)px", margins: margins)
         messagingController.setup(webView: webView, with: parameters)
         
         leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -258,6 +280,7 @@ private extension ArticleContainerViewController {
     }
     
     func setupToolbar() {
+        toolbarController.apply(theme: theme)
         toolbarController.setSavedState(isSaved: article.isSaved)
         setToolbarHidden(false, animated: false)
     }
@@ -268,7 +291,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
         guard let host = articleURL.host,
             let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title),
-            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, dataStore: dataStore, schemeHandler: schemeHandler, cacheController: cacheController) else {
+            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, dataStore: dataStore, schemeHandler: schemeHandler, cacheController: cacheController, theme: theme) else {
             assertionFailure("Failure initializing new Article VC")
             //tonitodo: error state
             return
@@ -298,6 +321,27 @@ extension ArticleContainerViewController: ArticleToolbarHandling {
     func toggleSave(from viewController: ArticleToolbarController, shouldSave: Bool) {
         article.isSaved = shouldSave
         try? article.managedObjectContext?.save()
+    }
+    
+    func showThemePopover(from controller: ArticleToolbarController) {
+        themesPresenter.showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
+    }
+    
+    func saveButtonWasLongPressed(from controller: ArticleToolbarController) {
+        let addArticlesToReadingListVC = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+        let nc = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListVC, theme: theme)
+        nc.setNavigationBarHidden(false, animated: false)
+        present(nc, animated: true)
+    }
+}
+
+extension ArticleContainerViewController: ReadingThemesControlsResponding {
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        
+    }
+    
+    func updateWebViewTextSize(textSize: Int) {
+        
     }
 }
 

@@ -37,8 +37,9 @@ class ArticleWebMessagingController: NSObject {
     
     // MARK: Adjustable state
     
-    func updateTheme(_ theme: String) {
-        webView?.evaluateJavaScript("pcs.c1.Page.setTheme('\(theme)')")
+    func updateTheme(_ theme: Theme) {
+        let js = "pcs.c1.Page.setTheme(pcs.c1.Themes.\(theme.webName.uppercased()))"
+        webView?.evaluateJavaScript(js)
     }
 
     func updateMargins(_ margins: PageContentService.Parameters.Margins) {

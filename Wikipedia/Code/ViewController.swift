@@ -2,6 +2,11 @@ import UIKit
 import WMF
 
 class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
+    @objc public init(theme: Theme) {
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
+    }
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
