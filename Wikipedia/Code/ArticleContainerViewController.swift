@@ -33,13 +33,11 @@ class ArticleContainerViewController: ViewController {
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     private let cacheController: CacheController
     private let article: WMFArticle
-    private let language: String
 
     private var leadImageHeight: CGFloat = 210
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         guard
-            let language = articleURL.wmf_language,
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = dataStore.articleCacheControllerWrapper.cacheController
         else {
@@ -49,7 +47,6 @@ class ArticleContainerViewController: ViewController {
         self.articleURL = articleURL
         self.dataStore = dataStore
         self.article = article
-        self.language = language
         self.schemeHandler = SchemeHandler.shared // TODO: DI?
         self.schemeHandler.articleCacheController = cacheController
         self.cacheController = cacheController
@@ -288,6 +285,7 @@ private extension ArticleContainerViewController {
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
+        let language = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
         messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
     }
     
