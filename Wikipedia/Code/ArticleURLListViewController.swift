@@ -76,6 +76,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
     
     
     override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
+        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndexPath?.item)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
     }
 
