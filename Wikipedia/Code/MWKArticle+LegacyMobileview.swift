@@ -130,7 +130,8 @@ extension MWKArticle {
 // need to change so that the html produced by the converter has <script> and <link> tags with the same urls that we'd get
 // directly calling the mobilehtml api.
 let MobileviewToMobileHTMLDomain = "en.wikipedia.org" // get this from article.url.host?
-let MobileviewToMobileHTMLBaseURI = "http://localhost:6927/en.wikipedia.org/v1/" // get same string as seen in live mobilehtml results <script> and <link> tags
+let MobileviewToMobileHTMLBaseURI = "//mobileapps.wmflabs.org/api/v1/" // get same string as seen in live mobilehtml results <script> and <link> tags
+
 
 class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
     func convertToMobileHTML(mobileViewJSON: String, completionHandler: ((Any?, Error?) -> Void)? = nil) {
