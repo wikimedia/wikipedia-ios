@@ -253,6 +253,8 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 private extension TalkPageContainerViewController {
     
     func setupToolbar() {
+        enableToolbar()
+        
         let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
         shareIcon.apply(theme: theme)
         shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle

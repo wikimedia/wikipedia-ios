@@ -302,6 +302,7 @@ private extension ArticleContainerViewController {
     }
     
     func setupToolbar() {
+        enableToolbar()
         toolbarController.apply(theme: theme)
         toolbarController.setSavedState(isSaved: article.isSaved)
         setToolbarHidden(false, animated: false)
