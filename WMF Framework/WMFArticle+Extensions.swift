@@ -42,4 +42,13 @@ extension WMFArticle {
         }
         return NSNumber(integerLiteral: namespace.rawValue)
     }
+    
+    public var isSaved: Bool {
+        get {
+            return savedDate != nil
+        }
+        set {
+            savedDate = newValue ? Date() : nil
+        }
+    }
 }

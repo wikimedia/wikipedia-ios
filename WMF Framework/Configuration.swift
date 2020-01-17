@@ -1,22 +1,64 @@
 import Foundation
 
+
+/// Configuration handles the current environment - production, beta, staging, labs
+/// It has the functions that build URLs for the various APIs utilized by the app.
+/// It also maintains the list of relevant domains - default domain, domains that require the CentralAuth cookies to be copied, etc.
 @objc(WMFConfiguration)
 public class Configuration: NSObject {
-    enum Stage {
-        case production
-        case labs
-        case local
-        
-        static let current: Stage = {
-            #if WMF_LOCAL
-            return .local
-            #elseif WMF_LABS
-            return .labs
-            #else
-            return .production
-            #endif
-        }()
-    }
+    @objc public static let current: Configuration = {
+        #if WMF_LOCAL
+        return .local
+        #elseif WMF_LABS
+        return .betaLabs
+        #else
+        return .production
+        #endif
+    }()
+    
+    // MARK: Configurations
+    
+    static let production: Configuration = {
+        return Configuration(
+            defaultSiteDomain: Domain.wikipedia,
+            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getProductionBuilderFactory(),
+            mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
+        )
+    }()
+    
+    static let local: Configuration = {
+        var mobileAppsServicesHostComponents = URLComponents()
+        mobileAppsServicesHostComponents.scheme = Scheme.http
+        mobileAppsServicesHostComponents.host = Domain.localhost
+        mobileAppsServicesHostComponents.port = 6927
+        return Configuration(
+            defaultSiteDomain: Domain.wikipedia,
+            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getStagingBuilderFactory(with: mobileAppsServicesHostComponents),
+            mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getLocalBuilderFactory()
+        )
+    }()
+    
+    static let mobileAppsServicesLabs: Configuration = {
+        var mobileAppsServicesHostComponents = URLComponents()
+        mobileAppsServicesHostComponents.scheme = Scheme.https
+        mobileAppsServicesHostComponents.host = Domain.mobileAppsServicesLabs
+        return Configuration(
+            defaultSiteDomain: Domain.wikipedia,
+            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getStagingBuilderFactory(with: mobileAppsServicesHostComponents),
+            mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
+        )
+    }()
+    
+    static let betaLabs: Configuration = {
+        return Configuration(
+            defaultSiteDomain: Domain.betaLabs,
+            otherDomains: [Domain.wikipedia],
+            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getProductionBuilderFactory(),
+            mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
+        )
+    }()
+    
+    // MARK: Constants
     
     struct Scheme {
         static let http = "http"
@@ -27,14 +69,15 @@ public class Configuration: NSObject {
         static let wikipedia = "wikipedia.org"
         static let wikidata = "wikidata.org"
         static let mediaWiki = "mediawiki.org"
-        static let wmflabs = "wikipedia.beta.wmflabs.org"
+        static let betaLabs = "wikipedia.beta.wmflabs.org"
+        static let mobileAppsServicesLabs = "mobileapps.wmflabs.org"
         static let localhost = "localhost"
         static let englishWikipedia = "en.wikipedia.org"
         static let wikimedia = "wikimedia.org"
         static let metaWiki = "meta.wikimedia.org"
         static let wikimediafoundation = "wikimediafoundation.org"
     }
-    
+   
     struct Path {
         static let wikiResourceComponent = ["wiki"]
         static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
@@ -42,20 +85,8 @@ public class Configuration: NSObject {
         static let mediaWikiRestAPIComponents = ["w", "rest.php"]
     }
     
-
-
-    public struct APIURLComponentsBuilder {
-        let hostComponents: URLComponents
-        let basePathComponents: [String]
-        
-        func components(byAppending pathComponents: [String] = [], queryParameters: [String: Any]? = nil) -> URLComponents {
-            var components = hostComponents
-            components.replacePercentEncodedPathWithPathComponents(basePathComponents + pathComponents)
-            components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
-            return components
-        }
-    }
-   
+    // MARK: State
+    
     @objc public let defaultSiteDomain: String
     
     public let mediaWikiCookieDomain: String
@@ -71,8 +102,8 @@ public class Configuration: NSObject {
     @objc public lazy var router: Router = {
        return Router(configuration: self)
     }()
-    
-    required init(defaultSiteDomain: String, otherDomains: [String] = []) {
+
+    required init(defaultSiteDomain: String, otherDomains: [String] = [], mobileAppsServicesAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder) {
         self.defaultSiteDomain = defaultSiteDomain
         self.mediaWikiCookieDomain = Domain.mediaWiki.withDotPrefix
         self.wikimediaCookieDomain = Domain.wikimedia.withDotPrefix
@@ -82,24 +113,13 @@ public class Configuration: NSObject {
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
         self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
+        self.mobileAppsServicesAPIURLComponentsBuilderFactory = mobileAppsServicesAPIURLComponentsBuilderFactory
+        self.mediaWikiRestAPIURLComponentsBuilderFactory = mediaWikiRestAPIURLComponentsBuilderFactory
     }
     
+    let mobileAppsServicesAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
     func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        switch Stage.current {
-        case .local:
-            let host = host ?? Domain.englishWikipedia
-            let baseComponents = [host, "v1"] // "" to get a leading /
-            var components = URLComponents()
-            components.scheme = Scheme.http
-            components.host = Domain.localhost
-            components.port = 6927
-            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: baseComponents)
-        default:
-            var components = URLComponents()
-            components.host = host ?? Domain.englishWikipedia
-            components.scheme = Scheme.https
-            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mobileAppsServicesAPIComponents)
-        }
+        return mobileAppsServicesAPIURLComponentsBuilderFactory(host)
     }
     
     func mediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
@@ -109,21 +129,9 @@ public class Configuration: NSObject {
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
 
+    let mediaWikiRestAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
     func mediaWikiRestAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        switch Stage.current {
-        case .local:
-            var components = URLComponents()
-            components.host = host ?? Domain.englishWikipedia
-            components.scheme = Scheme.http
-            components.host = Domain.localhost
-            components.port = 8080
-            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiRestAPIComponents)
-        default:
-            var components = URLComponents()
-            components.host = host ?? Domain.englishWikipedia
-            components.scheme = Scheme.https
-            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiRestAPIComponents)
-        }
+        return mediaWikiRestAPIURLComponentsBuilderFactory(host)
     }
     
     func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
@@ -186,18 +194,6 @@ public class Configuration: NSObject {
         let builder = mediaWikiAPIURLComponentsBuilderForHost("commons.\(Domain.wikimedia)")
         return builder.components(queryParameters: queryParameters)
     }
-
-    @objc public static let current: Configuration = {
-        switch Stage.current {
-        case .local:
-            return Configuration(defaultSiteDomain: Domain.wikipedia)
-        case .labs:
-            return Configuration(defaultSiteDomain: Domain.wmflabs, otherDomains: [Domain.wikipedia])
-        case .production:
-            return Configuration(defaultSiteDomain: Domain.wikipedia)
-
-        }
-    }()
 
     public func isWikipediaHost(_ host: String?) -> Bool {
         guard let host = host else {

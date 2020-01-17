@@ -30,11 +30,6 @@ class DescriptionHelpViewController: ViewController {
 
     @IBOutlet private var imageViews: [UIImageView]!
     @IBOutlet private var dividerViews: [UIView]!
-
-    @objc public init(theme: Theme) {
-        super.init()
-        self.theme = theme
-    }
     
     required convenience init?(coder aDecoder: NSCoder) {
         self.init(theme: Theme.standard)
