@@ -324,8 +324,8 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
     
-    func toggleSave(from viewController: ArticleToolbarController, shouldSave: Bool) {
-        article.isSaved = shouldSave
+    func toggleSave(from viewController: ArticleToolbarController) {
+        article.isSaved = !article.isSaved
         try? article.managedObjectContext?.save()
     }
     

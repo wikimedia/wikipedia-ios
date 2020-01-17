@@ -2,7 +2,7 @@
 import UIKit
 
 protocol ArticleToolbarHandling: class {
-    func toggleSave(from controller: ArticleToolbarController, shouldSave: Bool)
+    func toggleSave(from controller: ArticleToolbarController)
     func saveButtonWasLongPressed(from controller: ArticleToolbarController)
     func showThemePopover(from controller: ArticleToolbarController)
 }
@@ -11,7 +11,6 @@ class ArticleToolbarController: Themeable {
     weak var delegate: ArticleToolbarHandling?
     
     let toolbar: UIToolbar
-    private var isSaved: Bool = false //tonitodo: better state handling here
     
     lazy var saveButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "save", target: self, action: #selector(toggleSave), for: .touchUpInside)
@@ -38,7 +37,7 @@ class ArticleToolbarController: Themeable {
     // MARK: Actions
     
     @objc func toggleSave(_ sender: UIBarButtonItem) {
-        delegate?.toggleSave(from: self, shouldSave: !isSaved)
+        delegate?.toggleSave(from: self)
     }
     
     @objc func handleSaveButtonLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
@@ -55,7 +54,6 @@ class ArticleToolbarController: Themeable {
     // MARK: State
     
     func setSavedState(isSaved: Bool) {
-        self.isSaved = isSaved
         saveButton.accessibilityLabel = isSaved ? CommonStrings.accessibilitySavedTitle : CommonStrings.saveTitle
         if let innerButton = saveButton.customView as? UIButton {
             let assetName = isSaved ? "save-filled" : "save"
