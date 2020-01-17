@@ -3,13 +3,12 @@ import Foundation
 
 public protocol CacheProviding {
     
-    func recentCachedURLResponse(for url: URL) -> CachedURLResponse?
-    func persistedCachedURLResponse(for url: URL) -> CachedURLResponse?
+    func recentCachedURLResponse(for request: URLRequest) -> CachedURLResponse?
+    func persistedCachedURLResponse(for request: URLRequest) -> CachedURLResponse?
 }
 
 public extension CacheProviding {
-    func recentCachedURLResponse(for url: URL) -> CachedURLResponse? {
-        let request = URLRequest(url: url)
+    func recentCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
         let urlCache = URLCache.shared
         return urlCache.cachedResponse(for: request)
     }

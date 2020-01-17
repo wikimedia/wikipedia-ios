@@ -132,12 +132,12 @@ public class CacheController {
         fileWriter.cancelTasks(for: groupKey)
     }
     
-    public func recentCachedURLResponse(for url: URL) -> CachedURLResponse? {
-        return provider.recentCachedURLResponse(for: url)
+    public func recentCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
+        return provider.recentCachedURLResponse(for: request)
     }
 
-    public func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
-        return provider.persistedCachedURLResponse(for: url)
+    public func persistedCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
+        return provider.persistedCachedURLResponse(for: request)
     }
     
     private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {

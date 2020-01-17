@@ -51,12 +51,12 @@ extension SchemeHandler: WKURLSchemeHandler {
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
         assert(Thread.isMainThread)
         
-        let request = urlSchemeTask.request
-        guard let requestURL = request.url else {
+        let originalRequest = urlSchemeTask.request
+        guard let originalRequestURL = originalRequest.url else {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
         }
-        guard let components = NSURLComponents(url: requestURL, resolvingAgainstBaseURL: false) else {
+        guard let components = NSURLComponents(url: originalRequestURL, resolvingAgainstBaseURL: false) else {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
         }
@@ -107,19 +107,22 @@ extension SchemeHandler: WKURLSchemeHandler {
 
         switch baseComponent {
         case FileHandler.basePath:
-            fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
+            fileHandler.handle(pathComponents: pathComponents, requestURL: originalRequestURL, completion: localCompletionBlock)
             
         default:
             
-            guard let defaultURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
+            guard let requestURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: originalRequestURL) else {
                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
                 removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 return
             }
+            
+            let request = URLRequest(url: requestURL, cachePolicy: originalRequest.cachePolicy, timeoutInterval: originalRequest.timeoutInterval)
+            
             // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
             // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
             let op = BlockOperation { [weak urlSchemeTask] in
-                if let cachedResponse = self.articleCacheController?.recentCachedURLResponse(for: defaultURL) {
+                if let cachedResponse = self.articleCacheController?.recentCachedURLResponse(for: request) {
                     DispatchQueue.main.async {
                         guard let urlSchemeTask = urlSchemeTask else {
                             return
@@ -137,7 +140,7 @@ extension SchemeHandler: WKURLSchemeHandler {
                         return
                     }
                     self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
-                    self.kickOffDataTask(handler: self.defaultHandler, url: defaultURL, urlSchemeTask: urlSchemeTask)
+                    self.kickOffDataTask(handler: self.defaultHandler, request: request, urlSchemeTask: urlSchemeTask)
                 }
             }
             activeCacheOperations[urlSchemeTask.request] = op
@@ -171,7 +174,7 @@ extension SchemeHandler: WKURLSchemeHandler {
 }
 
 private extension SchemeHandler {
-    func kickOffDataTask(handler: RemoteSubHandler, url: URL, urlSchemeTask: WKURLSchemeTask) {
+    func kickOffDataTask(handler: RemoteSubHandler, request: URLRequest, urlSchemeTask: WKURLSchemeTask) {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
             return
         }
@@ -219,7 +222,7 @@ private extension SchemeHandler {
             }
         }) { [weak urlSchemeTask] error in
             
-            if let cachedResponse = self.articleCacheController?.persistedCachedURLResponse(for: url) {
+            if let cachedResponse = self.articleCacheController?.persistedCachedURLResponse(for: request) {
                 DispatchQueue.main.async {
                     guard let urlSchemeTask = urlSchemeTask else {
                         return
@@ -247,7 +250,7 @@ private extension SchemeHandler {
             }
         }
         
-        let dataTask = handler.dataTaskForURL(url, callback: callback)
+        let dataTask = handler.dataTaskForRequest(request, callback: callback)
         addSessionTask(request: urlSchemeTask.request, dataTask: dataTask)
         dataTask.resume()
     }

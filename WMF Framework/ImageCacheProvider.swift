@@ -3,10 +3,11 @@ import Foundation
 
 final class ImageCacheProvider: CacheProviding {
     
-    func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
+    func persistedCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
 
         //tonitodo: variant fallbacks here
-        guard let key = url.wmf_databaseKey else {
+        guard let url = request.url,
+            let key = url.wmf_databaseKey else {
             return nil
         }
         

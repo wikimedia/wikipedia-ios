@@ -9,9 +9,14 @@ final class ArticleCacheProvider: CacheProviding {
         self.imageController = imageController
     }
     
-    func recentCachedURLResponse(for url: URL) -> CachedURLResponse? {
+    func recentCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
+        
+        guard let url = request.url else {
+            return nil
+        }
+        
         if isMimeTypeImage(type: (url as NSURL).wmf_mimeTypeForExtension()) {
-            return imageController.recentCachedURLResponse(for: url)
+            return imageController.recentCachedURLResponse(for: request)
         }
         
         let request = URLRequest(url: url)
@@ -19,10 +24,14 @@ final class ArticleCacheProvider: CacheProviding {
         return urlCache.cachedResponse(for: request)
     }
     
-    func persistedCachedURLResponse(for url: URL) -> CachedURLResponse? {
+    func persistedCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
+        
+        guard let url = request.url else {
+            return nil
+        }
         
         if isMimeTypeImage(type: (url as NSURL).wmf_mimeTypeForExtension()) {
-            return imageController.persistedCachedURLResponse(for: url)
+            return imageController.persistedCachedURLResponse(for: request)
         }
         
         //mobile-html endpoint is saved under the desktop url. if it's mobile-html first convert to desktop before pulling the key.
