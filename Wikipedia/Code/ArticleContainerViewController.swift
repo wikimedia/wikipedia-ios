@@ -85,10 +85,8 @@ class ArticleContainerViewController: ViewController {
         leadImageHeightConstraint.constant = leadImageHeight
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
             DDLogError("Error loading lead image: \(error)")
-            self.showWebView()
         }) {
             self.layoutLeadImage()
-            self.showWebView()
         }
     }
     
@@ -123,9 +121,7 @@ class ArticleContainerViewController: ViewController {
         containerView.addSubview(borderView)
         return containerView
     }()
-    
-    var leadImageTransitionView: UIView?
-    
+        
     func layoutLeadImage() {
         let containerBounds = leadImageContainerView.bounds
 //        // TODO: iPad margin handling after ToC is implemented
@@ -276,7 +272,6 @@ private extension ArticleContainerViewController {
             case .success(let user):
                 self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
             case .failure(let error):
-                self.showWebView()
                 self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
             }
         }
@@ -302,20 +297,8 @@ private extension ArticleContainerViewController {
         webView.load(request)
     }
     
-    func showWebView() {
-        guard webView.alpha > 0 else {
-            return
-        }
-        let transitionView = leadImageTransitionView
-        leadImageTransitionView = nil
-        UIView.animate(withDuration: 0.2, animations: {
-            self.webView.alpha = 1
-        }) { (finished) in
-            transitionView?.removeFromSuperview()
-        }
-    }
-    
     func setupToolbar() {
+        enableToolbar()
         toolbarController.apply(theme: theme)
         toolbarController.setSavedState(isSaved: article.isSaved)
         setToolbarHidden(false, animated: false)
@@ -329,7 +312,6 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     
     func didSetup(messagingController: ArticleWebMessagingController) {
         state = .data
-        showWebView()
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         loadCompletion?()
@@ -348,8 +330,8 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
 
 extension ArticleContainerViewController: ArticleToolbarHandling {
     
-    func toggleSave(from viewController: ArticleToolbarController, shouldSave: Bool) {
-        article.isSaved = shouldSave
+    func toggleSave(from viewController: ArticleToolbarController) {
+        article.isSaved = !article.isSaved
         try? article.managedObjectContext?.save()
     }
     
@@ -384,26 +366,10 @@ extension ArticleContainerViewController: ImageScaleTransitionProviding {
         guard let imageView = imageView, let image = imageView.image else {
             return
         }
-        
-        let transitionView = UIImageView(frame: leadImageView.frame)
-        transitionView.translatesAutoresizingMaskIntoConstraints = false
-        transitionView.image = image
-        transitionView.layer.contentsRect = imageView.layer.contentsRect
-        transitionView.contentMode = imageView.contentMode
-        transitionView.clipsToBounds = true
-        view.insertSubview(transitionView, aboveSubview: webView)
-    
-        let top = transitionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor)
-        let leading = transitionView.leadingAnchor.constraint(equalTo: leadImageView.leadingAnchor)
-        let trailing = transitionView.trailingAnchor.constraint(equalTo: leadImageView.trailingAnchor)
-        let height = transitionView.heightAnchor.constraint(equalToConstant: WebViewControllerHeaderImageHeight)
-        NSLayoutConstraint.activate([top, leading, trailing, height])
 
-        leadImageView.image = imageView.image
+        leadImageView.image = image
         leadImageView.layer.contentsRect = imageView.layer.contentsRect
-        
-        leadImageTransitionView = transitionView
-        
+
         view.layoutIfNeeded()
     }
 
