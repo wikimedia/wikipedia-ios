@@ -58,11 +58,11 @@
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
 #import "WMFLanguageCell.h"
-#import "WMFRandomArticleViewController.h"
 #import "WMFCompassView.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
+#import "WMFRandomDiceButton.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"
@@ -73,3 +73,4 @@
 
 // Third Party
 #import "TUSafariActivity.h"
+#import "DDLog+WMFLogger.h"

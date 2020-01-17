@@ -94,19 +94,20 @@ final class NavigationStateController: NSObject {
         } else {
             switch (viewController.kind, viewController.info) {
             case (.random, let info?) :
-                guard let articleURL = articleURL(from: info) else {
+                guard
+                    let articleURL = articleURL(from: info),
+                    let randomArticleVC = RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+                else {
                     return
                 }
-                let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-                randomArticleVC.calculateTableOfContentsDisplayState()
                 pushOrPresent(randomArticleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                let articleVC = WMFLegacyArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-                articleVC.shouldRequestLatestRevisionOnInitialLoad = false
-                articleVC.calculateTableOfContentsDisplayState()
+                guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+                    return
+                }
                 // never present an article modal, the nav bar disappears
                 pushOrPresent(articleVC, navigationController: navigationController, presentation: .push)
             case (.themeableNavigationController, _):
@@ -251,8 +252,8 @@ final class NavigationStateController: NSObject {
         let kind: ViewController.Kind?
         let info: Info?
         switch obj {
-            case let articleViewController as WMFLegacyArticleViewController:
-                kind = obj is WMFRandomArticleViewController ? .random : .article
+            case let articleViewController as ArticleViewController:
+                kind = obj is RandomArticleViewController ? .random : .article
                 info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
             case let talkPageContainerVC as TalkPageContainerViewController:
                 kind = .talkPage

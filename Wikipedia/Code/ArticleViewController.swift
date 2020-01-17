@@ -10,8 +10,8 @@ private extension CharacterSet {
     }()
 }
 
-@objc(WMFArticleContainerViewController)
-class ArticleContainerViewController: ViewController {
+@objc(WMFArticleViewController)
+class ArticleViewController: ViewController {
     
     enum ViewState {
         case unknown
@@ -19,34 +19,27 @@ class ArticleContainerViewController: ViewController {
         case data
     }
     
-    private lazy var toolbarController: ArticleToolbarController = {
+    internal lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
-
-    private let schemeHandler: SchemeHandler
-    private let dataStore: MWKDataStore
-    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
-    private let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
-    private let cacheController: CacheController
-    private let articleURL: URL
-    private let article: WMFArticle
-    private let language: String
     
+    @objc public let articleURL: URL
+    public var visibleSectionAnchor: String? // TODO: Implement
+    @objc public var loadCompletion: (() -> Void)?
+    
+    private let schemeHandler: SchemeHandler
+    internal let dataStore: MWKDataStore
+    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
+    internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
+    private let cacheController: CacheController
+    private let article: WMFArticle
+
     private var leadImageHeight: CGFloat = 210
     
-    @objc convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
-        
-        guard let cacheController = dataStore.articleCacheControllerWrapper.cacheController else {
-            return nil
-        }
-        
-        self.init(articleURL: articleURL, dataStore: dataStore, cacheController: cacheController, theme: theme)
-    }
-    
-    init?(articleURL: URL, dataStore: MWKDataStore, schemeHandler: SchemeHandler = SchemeHandler.shared, cacheController: CacheController, theme: Theme) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         guard
-            let language = articleURL.wmf_language,
-            let article = dataStore.fetchOrCreateArticle(with: articleURL)
+            let article = dataStore.fetchOrCreateArticle(with: articleURL),
+            let cacheController = dataStore.articleCacheControllerWrapper.cacheController
         else {
             return nil
         }
@@ -54,8 +47,7 @@ class ArticleContainerViewController: ViewController {
         self.articleURL = articleURL
         self.dataStore = dataStore
         self.article = article
-        self.language = language
-        self.schemeHandler = schemeHandler
+        self.schemeHandler = SchemeHandler.shared // TODO: DI?
         self.schemeHandler.articleCacheController = cacheController
         self.cacheController = cacheController
         
@@ -74,7 +66,7 @@ class ArticleContainerViewController: ViewController {
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = ArticleContainerViewController.webProcessPool
+        configuration.processPool = ArticleViewController.webProcessPool
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         return configuration
     }()
@@ -82,8 +74,7 @@ class ArticleContainerViewController: ViewController {
     lazy var webView: WKWebView = {
         return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
-    
-    
+
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
@@ -144,6 +135,10 @@ class ArticleContainerViewController: ViewController {
         leadImageView.frame = CGRect(x: marginWidth, y: 0, width: containerBounds.size.width - 2 * marginWidth, height: CGFloat(leadImageHeight))
     }
     
+    
+    // MARK: Previewing
+    
+    public var articlePreviewingDelegate: ArticlePreviewingDelegate?
     
     // MARK: Layout
     override func viewDidLayoutSubviews() {
@@ -211,9 +206,27 @@ class ArticleContainerViewController: ViewController {
             messagingController.updateTheme(theme)
         }
     }
+    
+    // MARK: Sharing
+    
+    @objc public func shareArticleWhenReady() {
+        // TODO: implement
+    }
+    
+    // MARK: Overrideable functionality
+    
+    internal func handleLink(with title: String) {
+        guard let host = articleURL.host,
+            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title) else {
+            assertionFailure("Failure initializing new Article VC")
+            //tonitodo: error state
+            return
+        }
+        navigate(to: newArticleURL)
+    }
 }
 
-private extension ArticleContainerViewController {
+private extension ArticleViewController {
     
     func setup() {
         setupWButton()
@@ -238,7 +251,7 @@ private extension ArticleContainerViewController {
     func setupWebView() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView // so that content insets are inherited
-
+        scrollView?.delegate = self
         leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.addSubview(leadImageContainerView)
             
@@ -267,6 +280,7 @@ private extension ArticleContainerViewController {
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
+        let language = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
         messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
     }
     
@@ -291,24 +305,16 @@ private extension ArticleContainerViewController {
     }
 }
 
-extension ArticleContainerViewController: ArticleWebMessageHandling {
+extension ArticleViewController: ArticleWebMessageHandling {
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
-
-        guard let host = articleURL.host,
-            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title),
-            let newArticleVC = ArticleContainerViewController(articleURL: newArticleURL, dataStore: dataStore, schemeHandler: schemeHandler, cacheController: cacheController, theme: theme) else {
-            assertionFailure("Failure initializing new Article VC")
-            //tonitodo: error state
-            return
-        }
-        
-        navigationController?.pushViewController(newArticleVC, animated: true)
+        handleLink(with: title)
     }
     
     func didSetup(messagingController: ArticleWebMessagingController) {
         state = .data
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
+        loadCompletion?()
     }
     
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {
@@ -322,7 +328,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     }
 }
 
-extension ArticleContainerViewController: ArticleToolbarHandling {
+extension ArticleViewController: ArticleToolbarHandling {
     
     func toggleSave(from viewController: ArticleToolbarController) {
         article.isSaved = !article.isSaved
@@ -341,7 +347,7 @@ extension ArticleContainerViewController: ArticleToolbarHandling {
     }
 }
 
-extension ArticleContainerViewController: ReadingThemesControlsResponding {
+extension ArticleViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
         messagingController.updateTextSizeAdjustmentPercentage(textSize)
     }
@@ -351,7 +357,7 @@ extension ArticleContainerViewController: ReadingThemesControlsResponding {
     }
 }
 
-extension ArticleContainerViewController: ImageScaleTransitionProviding {
+extension ArticleViewController: ImageScaleTransitionProviding {
     var imageScaleTransitionView: UIImageView? {
         return leadImageView
     }
