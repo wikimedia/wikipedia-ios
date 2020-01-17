@@ -126,17 +126,14 @@ extension MWKArticle {
     }
 }
 
-// TODO: these two strings are used by the mobileview-to-mobilehtml converter to create <script> and <link> tags - these will
-// need to change so that the html produced by the converter has <script> and <link> tags with the same urls that we'd get
-// directly calling the mobilehtml api.
-let MobileviewToMobileHTMLDomain = "en.wikipedia.org" // get this from article.url.host?
-let MobileviewToMobileHTMLBaseURI = "//mobileapps.wmflabs.org/api/v1/" // get same string as seen in live mobilehtml results <script> and <link> tags
-
-
 class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
-    func convertToMobileHTML(mobileViewJSON: String, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+    
+    // The 'domain' and 'baseURI' parameters are used by the mobileview-to-mobilehtml converter
+    // to create <script> and <link> tags - check the converter output and ensure its <script>
+    // and <link> tags have the same urls that we'd get directly calling the mobilehtml api.
+    func convertToMobileHTML(mobileViewJSON: String, domain: String, baseURI: String, completionHandler: ((Any?, Error?) -> Void)? = nil) {
         let conversion = {
-            self.webView.evaluateJavaScript("convertMobileViewJSON(\(mobileViewJSON), `\(MobileviewToMobileHTMLDomain)`, `\(MobileviewToMobileHTMLBaseURI)`)", completionHandler: completionHandler)
+            self.webView.evaluateJavaScript("convertMobileViewJSON(\(mobileViewJSON), `\(domain)`, `\(baseURI)`)", completionHandler: completionHandler)
         }
         guard isConverterLoaded else {
             load {
@@ -178,7 +175,18 @@ extension MobileviewToMobileHTMLConverter {
             assertionFailure("Article mobileview jsonString not reconstructed")
             return
         }
-        convertToMobileHTML(mobileViewJSON: jsonString) { (result, error) in
+        guard let host = articleURL.host else {
+            assertionFailure("Article url host not available")
+            return
+        }
+// TODO: baseURI will need to change once we switch back to prod for mobilehtml!!
+        guard let mobileappsHost = Configuration.mobileAppsServicesLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).host else {
+            assertionFailure("Mobileapps url host not available")
+            return
+        }
+        let baseURI = "//\(mobileappsHost)/api/v1/"
+
+        convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI) { (result, error) in
             guard error == nil, let result = result else {
                 assertionFailure("Conversion error or no result")
                 return
@@ -191,17 +199,6 @@ extension MobileviewToMobileHTMLConverter {
         }
     }
 }
-
-/*
-REMAINING TODO:
-
- - kick off and run for each article in dataStore.savedPageList (on app being backgrounded) or inactivity
- - determine post-conversion cleanup needed so article only converted once
- - add completion handler to cacheFromMigration?
- - in JS land wire up metadata so as needed by conversion JS so things like article title aren't hard-coded to "Dog"
- - test performance
-*/
-
 
 //EXAMPLE CONVERSION:
 

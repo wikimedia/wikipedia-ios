@@ -38,7 +38,7 @@ public class Configuration: NSObject {
         )
     }()
     
-    static let mobileAppsServicesLabs: Configuration = {
+    public static let mobileAppsServicesLabs: Configuration = {
         var mobileAppsServicesHostComponents = URLComponents()
         mobileAppsServicesHostComponents.scheme = Scheme.https
         mobileAppsServicesHostComponents.host = Domain.mobileAppsServicesLabs
