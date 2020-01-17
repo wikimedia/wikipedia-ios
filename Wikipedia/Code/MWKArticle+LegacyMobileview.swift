@@ -166,7 +166,7 @@ class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
 }
 
 extension MobileviewToMobileHTMLConverter {
-    func convertMobileviewSavedDataToMobileHTML(article: MWKArticle, articleCacheController: ArticleCacheController) {
+    func convertMobileviewSavedDataToMobileHTML(article: MWKArticle, completionHandler: ((Any?, Error?) -> Void)? = nil) {
         guard let articleURL = article.url else {
             assertionFailure("Article url not available")
             return
@@ -186,35 +186,51 @@ extension MobileviewToMobileHTMLConverter {
         }
         let baseURI = "//\(mobileappsHost)/api/v1/"
 
-        convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI) { (result, error) in
-            guard error == nil, let result = result else {
-                assertionFailure("Conversion error or no result")
-                return
-            }
-            guard let mobileHTML = result as? String else {
-                assertionFailure("mobileHTML not extracted")
-                return
-            }
-            articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
-        }
+        convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI, completionHandler: completionHandler)
     }
 }
 
 //EXAMPLE CONVERSION:
 
 /*
+
     lazy var converter: MobileviewToMobileHTMLConverter = {
         MobileviewToMobileHTMLConverter.init()
     }()
     
     override func didReceiveMemoryWarning() {
-         guard
+
+        guard
             let dataStore = SessionSingleton.sharedInstance()?.dataStore,
-            let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController,
-            let articleURL = URL(string: "https://en.wikipedia.org/wiki/World_War_III")
+            let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController
         else {
             return
         }
-        converter.convertMobileviewSavedDataToMobileHTML(article: dataStore.article(with: articleURL), articleCacheController: articleCacheController)
+
+        dataStore.savedPageList.enumerateItems { (article, stop) in
+            guard let articleURL = article.url else {
+                assertionFailure("Could not get article url")
+                return
+            }
+            
+            // TODO: bail here if a flag like "article.attemptedConversionFromMobileview" is true
+            
+            self.converter.convertMobileviewSavedDataToMobileHTML(article: dataStore.article(with: articleURL)) { (result, error) in
+                guard error == nil, let result = result else {
+                    assertionFailure("Conversion error or no result")
+                    return
+                }
+                guard let mobileHTML = result as? String else {
+                    assertionFailure("mobileHTML not extracted")
+                    return
+                }
+                
+                // TODO: if conversion failed above for any reason set "article.attemptedConversionFromMobileview" to true and
+                // set "article.isDownloaded" to false so normal fetching logic picks it up
+                
+                articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
+            }
+        }
     }
+ 
 */
