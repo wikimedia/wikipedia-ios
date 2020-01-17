@@ -446,7 +446,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     var isSecondToolbarHidden: Bool {
         guard isToolbarEnabled else {
-            assert(false, "Toolbars not enabled. Call setupToolbars before this function.")
+            assert(false, "Toolbars not enabled. Call enableToolbar before this function.")
             return false
         }
         return secondToolbarHiddenConstraint.isActive
@@ -454,7 +454,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     func setSecondToolbarHidden(_ hidden: Bool, animated: Bool) {
         guard isToolbarEnabled else {
-            assert(false, "Toolbars not enabled. Call setupToolbars before this function.")
+            assert(false, "Toolbars not enabled. Call enableToolbar before this function.")
             return
         }
         let animations = {
@@ -476,7 +476,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     func setAdditionalSecondToolbarSpacing(_ spacing: CGFloat, animated: Bool) {
         guard isToolbarEnabled else {
-            assert(false, "Toolbars not enabled. Call setupToolbars before this function.")
+            assert(false, "Toolbars not enabled. Call enableToolbar before this function.")
             return
         }
         let animations = {
