@@ -32,6 +32,19 @@ extension ArticleViewController {
             }
             present(tocVC, animated: true)
         }
+        
+        toolbarController.update()
+    }
+    
+    func hideTableOfContents() {
+        tableOfContents.isVisible = false
+        switch tableOfContents.displayMode {
+        case .inline:
+            UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(false)
+            updateTableOfContentsLayout(animated: true)
+        case .modal:
+            dismiss(animated: true)
+        }
         toolbarController.update()
     }
     
@@ -127,43 +140,29 @@ extension ArticleViewController : TableOfContentsViewControllerDelegate {
     }
     
     public func tableOfContentsController(_ controller: TableOfContentsViewController, didSelectItem item: TableOfContentsItem) {
+        switch tableOfContents.displayMode {
+        case .inline:
+            scroll(to: item.anchor, animated: true)
+            dispatchOnMainQueueAfterDelayInSeconds(1) {
+                self.webView.wmf_accessibilityCursor(toFragment: item.anchor)
+            }
+        case .modal:
+            tableOfContents.isVisible = false
+            scroll(to: item.anchor, animated: true)
+            var dismissVCCompletionHandler: (() -> Void)?
+            // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
+               dismissVCCompletionHandler = {
+                   // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
+                   dispatchOnMainQueueAfterDelayInSeconds(1) {
+                    self.webView.wmf_accessibilityCursor(toFragment: item.anchor)
+                   }
+               }
 
-//        switch tableOfContentsDisplayMode {
-//        case .inline:
-//            if let section = item as? MWKSection {
-//                self.currentSection = section
-//                self.anchorToRestoreScrollOffset = section.anchor
-//                self.scroll(toAnchor: section.anchor, animated: true)
-//                dispatchOnMainQueueAfterDelayInSeconds(1) {
-//                    self.webViewController.accessibilityCursor(to: section)
-//                }
-//            } else {
-//                scrollToFooterSection(for: item)
-//            }
-//        case .modal:
-//            fallthrough
-//        default:
-//            tableOfContentsDisplayState = .modalHidden
-//            var dismissVCCompletionHandler: (() -> Void)?
-//            if let section = item as? MWKSection {
-//                self.currentSection = section
-//                // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
-//                self.scroll(toAnchor: section.anchor, animated: true)
-//                dismissVCCompletionHandler = {
-//                    // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
-//                    dispatchOnMainQueueAfterDelayInSeconds(1) {
-//                        self.webViewController.accessibilityCursor(to: section)
-//                    }
-//                }
-//            } else {
-//                scrollToFooterSection(for: item)
-//            }
-//
-//            // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
-//            dispatchOnMainQueueAfterDelayInSeconds(0.15) {
-//                self.dismiss(animated: true, completion: dismissVCCompletionHandler)
-//            }
-//        }
+            // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
+            dispatchOnMainQueueAfterDelayInSeconds(0.15) {
+                self.dismiss(animated: true, completion: dismissVCCompletionHandler)
+            }
+        }
     }
 
     private func scrollToFooterSection(for item: TableOfContentsItem) {
@@ -200,7 +199,10 @@ extension ArticleViewController : TableOfContentsViewControllerDelegate {
 extension ArticleViewController {
 
     @objc func handleTableOfContentsCloseGesture(_ swipeGestureRecoginzer: UIGestureRecognizer) {
-        
+        guard swipeGestureRecoginzer.state == .ended, tableOfContents.isVisible else {
+            return
+        }
+        hideTableOfContents()
     }
     /**
      Create ToC items.

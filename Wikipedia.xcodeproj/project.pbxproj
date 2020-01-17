@@ -1168,7 +1168,6 @@
 		83B87ECC1F71431F00F342F1 /* ArticleCollectionViewCell+ListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */; };
 		83BF87D01FA7463300EAF3DD /* WMFFIFOCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83BF87D11FA7463300EAF3DD /* WMFFIFOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BF87CF1FA7463300EAF3DD /* WMFFIFOCache.m */; };
-		83C0656623D2023D001821BC /* ArticleViewController+TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656523D2023D001821BC /* ArticleViewController+TableOfContents.swift */; };
 		83C0656723D2023D001821BC /* ArticleViewController+TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656523D2023D001821BC /* ArticleViewController+TableOfContents.swift */; };
 		83C0656823D2023D001821BC /* ArticleViewController+TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656523D2023D001821BC /* ArticleViewController+TableOfContents.swift */; };
 		83C0656923D2023D001821BC /* ArticleViewController+TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656523D2023D001821BC /* ArticleViewController+TableOfContents.swift */; };
@@ -1176,6 +1175,11 @@
 		83C0656C23D23220001821BC /* TableOfContentsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656A23D23220001821BC /* TableOfContentsItem.swift */; };
 		83C0656D23D23220001821BC /* TableOfContentsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656A23D23220001821BC /* TableOfContentsItem.swift */; };
 		83C0656E23D23220001821BC /* TableOfContentsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656A23D23220001821BC /* TableOfContentsItem.swift */; };
+		83C0656F23D25A3E001821BC /* ArticleViewController+TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656523D2023D001821BC /* ArticleViewController+TableOfContents.swift */; };
+		83C0657123D2618F001821BC /* Utilities.js in Resources */ = {isa = PBXBuildFile; fileRef = 83C0657023D2618F001821BC /* Utilities.js */; };
+		83C0657223D2618F001821BC /* Utilities.js in Resources */ = {isa = PBXBuildFile; fileRef = 83C0657023D2618F001821BC /* Utilities.js */; };
+		83C0657323D2618F001821BC /* Utilities.js in Resources */ = {isa = PBXBuildFile; fileRef = 83C0657023D2618F001821BC /* Utilities.js */; };
+		83C0657423D2618F001821BC /* Utilities.js in Resources */ = {isa = PBXBuildFile; fileRef = 83C0657023D2618F001821BC /* Utilities.js */; };
 		83C643582239508600FC16BF /* RandomArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C6435222394F0300FC16BF /* RandomArticleFetcher.swift */; };
 		83CA612A20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
@@ -3702,6 +3706,7 @@
 		83BF87CF1FA7463300EAF3DD /* WMFFIFOCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFFIFOCache.m; sourceTree = "<group>"; };
 		83C0656523D2023D001821BC /* ArticleViewController+TableOfContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+TableOfContents.swift"; sourceTree = "<group>"; };
 		83C0656A23D23220001821BC /* TableOfContentsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableOfContentsItem.swift; sourceTree = "<group>"; };
+		83C0657023D2618F001821BC /* Utilities.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Utilities.js; sourceTree = "<group>"; };
 		83C6435222394F0300FC16BF /* RandomArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleFetcher.swift; sourceTree = "<group>"; };
 		83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardViewController.swift; sourceTree = "<group>"; };
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
@@ -6176,6 +6181,7 @@
 			children = (
 				67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */,
 				67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */,
+				83C0657023D2618F001821BC /* Utilities.js */,
 				83C0656523D2023D001821BC /* ArticleViewController+TableOfContents.swift */,
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */,
 				83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */,
@@ -9498,6 +9504,7 @@
 				67CEF25F234FCA8100D5CA6C /* DiffListContextCell.xib in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
 				D8D92B601DF22E1700B95311 /* NotificationBackgroundSuccess.png in Resources */,
+				83C0657123D2618F001821BC /* Utilities.js in Resources */,
 				7A9A611821124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EB212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				7A8422582268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
@@ -9695,6 +9702,7 @@
 				7A393289236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA4524201F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				B0D3E714214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
+				83C0657423D2618F001821BC /* Utilities.js in Resources */,
 				BA45242C1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				6782DBF323453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
 				7ADF498321B45CEE009EA338 /* TextFormattingPlainToolbarView.xib in Resources */,
@@ -9819,6 +9827,7 @@
 				7A393287236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241E1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				B0D3E712214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
+				83C0657223D2618F001821BC /* Utilities.js in Resources */,
 				BA45242A1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				6782DBF123453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
 				7ADF498121B45CEE009EA338 /* TextFormattingPlainToolbarView.xib in Resources */,
@@ -9943,6 +9952,7 @@
 				7A393288236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241F1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				B0D3E713214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
+				83C0657323D2618F001821BC /* Utilities.js in Resources */,
 				BA45242B1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				6782DBF223453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
 				7ADF498221B45CEE009EA338 /* TextFormattingPlainToolbarView.xib in Resources */,
@@ -10729,7 +10739,6 @@
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
-				83C0656623D2023D001821BC /* ArticleViewController+TableOfContents.swift in Sources */,
 				8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				8386BDFB2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
@@ -10798,6 +10807,7 @@
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
 				7AB20A0C22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
+				83C0656F23D25A3E001821BC /* ArticleViewController+TableOfContents.swift in Sources */,
 				6706A21722925FD2004774E2 /* InfoBannerView.swift in Sources */,
 				B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
