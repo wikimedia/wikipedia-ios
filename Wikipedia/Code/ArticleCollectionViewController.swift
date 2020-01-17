@@ -204,7 +204,7 @@ extension ArticleCollectionViewController {
 
         previewedIndexPath = indexPath
 
-        guard let articleViewController = ArticleContainerViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
             return nil
         }
         articleViewController.articlePreviewingDelegate = self

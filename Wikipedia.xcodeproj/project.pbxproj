@@ -375,10 +375,10 @@
 		67DB11202261820500F789B0 /* SchemeHandler+DefaultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DB111322613FD800F789B0 /* SchemeHandler+DefaultHandler.swift */; };
 		67DB11212261820500F789B0 /* SchemeHandlerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DB110922613F2700F789B0 /* SchemeHandlerCache.swift */; };
 		67DB11262261820500F789B0 /* SchemeHandler+DefaultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DB111322613FD800F789B0 /* SchemeHandler+DefaultHandler.swift */; };
-		67DC5BE323A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
-		67DC5BE423A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
-		67DC5BE523A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
-		67DC5BE623A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */; };
+		67DC5BE323A017CA00B03A84 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */; };
+		67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */; };
+		67DC5BE523A017CA00B03A84 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */; };
+		67DC5BE623A017CA00B03A84 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */; };
 		67DC5BE923A03FE700B03A84 /* ArticleToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */; };
 		67DC5BEA23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */; };
 		67DC5BEB23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */; };
@@ -1199,10 +1199,10 @@
 		83EE476D20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE477020D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */; };
 		83F1095B23D07E5D003F3E9E /* APIURLComponentsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */; };
-		83F1095F23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift */; };
-		83F1096023D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift */; };
-		83F1096123D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift */; };
-		83F1096223D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift */; };
+		83F1095F23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */; };
+		83F1096023D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */; };
+		83F1096123D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */; };
+		83F1096223D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */; };
 		83F1096423D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */; };
 		83F1096523D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */; };
 		83F1096623D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */; };
@@ -3460,7 +3460,7 @@
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
 		67DB110922613F2700F789B0 /* SchemeHandlerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandlerCache.swift; sourceTree = "<group>"; };
 		67DB111322613FD800F789B0 /* SchemeHandler+DefaultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchemeHandler+DefaultHandler.swift"; sourceTree = "<group>"; };
-		67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContainerViewController.swift; sourceTree = "<group>"; };
+		67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleToolbarController.swift; sourceTree = "<group>"; };
 		67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandlerScript.swift; sourceTree = "<group>"; };
 		67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAndReplaceKeyboardBar.swift; sourceTree = "<group>"; };
@@ -3728,7 +3728,7 @@
 		83EE476920D019A100A21F34 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLComponentsBuilder.swift; sourceTree = "<group>"; };
-		83F1095E23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleContainerViewController+WIconPopover.swift"; sourceTree = "<group>"; };
+		83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+WIconPopover.swift"; sourceTree = "<group>"; };
 		83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePreviewingDelegate.swift; sourceTree = "<group>"; };
 		83F1096823D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ArticlePreviewing.swift"; sourceTree = "<group>"; };
 		83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleViewController.swift; sourceTree = "<group>"; };
@@ -6192,9 +6192,9 @@
 			children = (
 				67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */,
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */,
-				67DC5BE223A017CA00B03A84 /* ArticleContainerViewController.swift */,
+				67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */,
 				83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */,
-				83F1095E23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift */,
+				83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */,
 				67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */,
 			);
 			name = Article;
@@ -10831,7 +10831,7 @@
 				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
-				83F1095F23D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */,
+				83F1095F23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
 				6734117022773122005B31DA /* TalkPageReplyCell.swift in Sources */,
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
@@ -10842,7 +10842,7 @@
 				B09705B4236B29D7006FDB5C /* DiffThanker.swift in Sources */,
 				B09B03F51CE0FB7700009083 /* ReadingThemesControlsViewController.swift in Sources */,
 				B0E8036F1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift in Sources */,
-				67DC5BE323A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */,
+				67DC5BE323A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */,
 				B0E807111C0CEBF00065EBC0 /* LegacyWebViewController.m in Sources */,
 				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
@@ -11646,7 +11646,7 @@
 				7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A9F061C2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
-				83F1096223D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */,
+				83F1096223D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
 				7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
 				6754E44B22773588005EEAD1 /* TalkPageReplyCell.swift in Sources */,
@@ -11657,7 +11657,7 @@
 				B09705B7236B29D7006FDB5C /* DiffThanker.swift in Sources */,
 				D8A42B921E815A9C00D8E281 /* WMFLoginViewController.swift in Sources */,
 				D8A42B941E815A9C00D8E281 /* LegacyWebViewController.m in Sources */,
-				67DC5BE623A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */,
+				67DC5BE623A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				D8A42B951E815A9C00D8E281 /* MWKSection+TOCItem.swift in Sources */,
 				D8533ED81ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				7AE1D33C1FCD10B900393471 /* SavedViewController.swift in Sources */,
@@ -11901,7 +11901,7 @@
 				D8703DC01EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				B0524B2A214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				7ABE17362239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
-				67DC5BE423A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */,
+				67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
 				6782DB9E2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				D8CE25821E698E2400DAE2E0 /* WMFCompassView.m in Sources */,
@@ -12084,7 +12084,7 @@
 				B0B423691EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8CE25FE1E698E2400DAE2E0 /* WMFArticleRevision.m in Sources */,
 				6754E44A22773587005EEAD1 /* TalkPageReplyCell.swift in Sources */,
-				83F1096023D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */,
+				83F1096023D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
 				6782DBA42343B7EE003FA21B /* DiffHeaderSummaryView.swift in Sources */,
 				D8CE25FF1E698E2400DAE2E0 /* ArticlePlaceView.swift in Sources */,
 				7A70797E223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
@@ -12351,7 +12351,7 @@
 				D8EC3E711E9BDA35006712EB /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				D8EC3E741E9BDA35006712EB /* WMFImageTextActivitySource.swift in Sources */,
 				7ABE17372239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
-				67DC5BE523A017CA00B03A84 /* ArticleContainerViewController.swift in Sources */,
+				67DC5BE523A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				B0524B2B214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				6782DB9F2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				B0CD9DE71F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
@@ -12534,7 +12534,7 @@
 				D8EC3EFE1E9BDA35006712EB /* ArticlePlaceView.swift in Sources */,
 				D8EC3EFF1E9BDA35006712EB /* WMFCaptchaViewController.swift in Sources */,
 				6754E44922773587005EEAD1 /* TalkPageReplyCell.swift in Sources */,
-				83F1096123D09F80003F3E9E /* ArticleContainerViewController+WIconPopover.swift in Sources */,
+				83F1096123D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
 				6782DBA52343B7EE003FA21B /* DiffHeaderSummaryView.swift in Sources */,
 				D8EC3F001E9BDA35006712EB /* DDLog+WMFLogger.m in Sources */,
 				7A70797F223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,

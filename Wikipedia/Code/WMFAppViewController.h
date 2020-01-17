@@ -3,7 +3,7 @@
 @class WMFTheme;
 @class MWKDataStore;
 @class WMFTheme;
-@class WMFArticleContainerViewController;
+@class WMFArticleViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showSearchInCurrentNavigationController;
 
-- (WMFArticleContainerViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
+- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
 - (void)showNewArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 

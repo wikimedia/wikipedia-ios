@@ -73,6 +73,11 @@ class ArticleToolbarController: Themeable {
             item.apply(theme: theme)
         }
     }
+    
+    func override(items: [UIBarButtonItem]) {
+        // disable updating here if that's ever a thing
+        toolbar.items = items
+    }
 }
 
 private extension ArticleToolbarController {
@@ -81,10 +86,5 @@ private extension ArticleToolbarController {
         let middleFlex = UIBarButtonItem.flexibleSpaceToolbar()
         let trailingFlex = UIBarButtonItem.flexibleSpaceToolbar()
         toolbar.items = [leadingFlex, saveButton, middleFlex, themeButton, trailingFlex]
-    }
-    
-    public func override(items: [UIBarButtonItem]) {
-        // disable updating here if that's ever a thing
-        toolbar.items = items
     }
 }

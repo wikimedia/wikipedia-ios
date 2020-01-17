@@ -690,7 +690,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(true)
-            } else if let avc = viewControllerToCommit as? ArticleContainerViewController {
+            } else if let avc = viewControllerToCommit as? ArticleViewController {
                 avc.articlePreviewingDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             }
@@ -721,17 +721,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     // MARK: ArticlePreviewingDelegate
     
-    override func shareArticlePreviewActionSelected(with articleController: ArticleContainerViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
         FeedFunnel.shared.logFeedShareTapped(for: previewed.context, index: previewed.indexPath?.item)
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
     }
 
-    override func saveArticlePreviewActionSelected(with articleController: ArticleContainerViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
         if didSave {
             ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
         } else {

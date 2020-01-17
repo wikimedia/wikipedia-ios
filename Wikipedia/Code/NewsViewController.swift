@@ -79,12 +79,12 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     
     // MARK: ArticlePreviewingDelegate
     
-    override func shareArticlePreviewActionSelected(with articleController: ArticleContainerViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }
@@ -114,7 +114,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
 
         previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
         let article = previews[index]
-        guard let articleVC = ArticleContainerViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme) else {
+        guard let articleVC = ArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme) else {
             return nil
         }
         articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)

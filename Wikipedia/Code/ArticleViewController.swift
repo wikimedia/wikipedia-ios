@@ -10,8 +10,8 @@ private extension CharacterSet {
     }()
 }
 
-@objc(WMFArticleContainerViewController)
-class ArticleContainerViewController: ViewController {
+@objc(WMFArticleViewController)
+class ArticleViewController: ViewController {
     
     enum ViewState {
         case unknown
@@ -66,7 +66,7 @@ class ArticleContainerViewController: ViewController {
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = ArticleContainerViewController.webProcessPool
+        configuration.processPool = ArticleViewController.webProcessPool
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         return configuration
     }()
@@ -226,7 +226,7 @@ class ArticleContainerViewController: ViewController {
     }
 }
 
-private extension ArticleContainerViewController {
+private extension ArticleViewController {
     
     func setup() {
         setupWButton()
@@ -305,7 +305,7 @@ private extension ArticleContainerViewController {
     }
 }
 
-extension ArticleContainerViewController: ArticleWebMessageHandling {
+extension ArticleViewController: ArticleWebMessageHandling {
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
         handleLink(with: title)
     }
@@ -328,7 +328,7 @@ extension ArticleContainerViewController: ArticleWebMessageHandling {
     }
 }
 
-extension ArticleContainerViewController: ArticleToolbarHandling {
+extension ArticleViewController: ArticleToolbarHandling {
     
     func toggleSave(from viewController: ArticleToolbarController) {
         article.isSaved = !article.isSaved
@@ -347,7 +347,7 @@ extension ArticleContainerViewController: ArticleToolbarHandling {
     }
 }
 
-extension ArticleContainerViewController: ReadingThemesControlsResponding {
+extension ArticleViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
         messagingController.updateTextSizeAdjustmentPercentage(textSize)
     }
@@ -357,7 +357,7 @@ extension ArticleContainerViewController: ReadingThemesControlsResponding {
     }
 }
 
-extension ArticleContainerViewController: ImageScaleTransitionProviding {
+extension ArticleViewController: ImageScaleTransitionProviding {
     var imageScaleTransitionView: UIImageView? {
         return leadImageView
     }

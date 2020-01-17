@@ -401,7 +401,7 @@ extension ReadingListEntryCollectionViewController {
             return nil
         }
         
-        guard let articleViewController = ArticleContainerViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
             return nil
         }
         articleViewController.articlePreviewingDelegate = self

@@ -78,7 +78,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     
     // MARK: ArticlePreviewingDelegate
     
-    override func shareArticlePreviewActionSelected(with articleController: ArticleContainerViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         guard let context = feedFunnelContext else {
             super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
             return
@@ -87,7 +87,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         FeedFunnel.shared.logFeedDetailShareTapped(for: context, index: previewedIndexPath?.item, midnightUTCDate: context.midnightUTCDate)
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         guard let context = feedFunnelContext else {
             super.readMoreArticlePreviewActionSelected(with: articleController)
             return
@@ -96,7 +96,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         wmf_push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
     }
 
-    override func saveArticlePreviewActionSelected(with articleController: ArticleContainerViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
         guard let context = feedFunnelContext else {
             super.saveArticlePreviewActionSelected(with: articleController, didSave: didSave, articleURL: articleURL)
             return
@@ -198,7 +198,7 @@ extension ArticleLocationCollectionViewController {
         }
         previewedIndexPath = indexPath
         let articleURL = self.articleURL(at: indexPath)
-        guard let articleViewController = ArticleContainerViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
             return nil
         }
         articleViewController.articlePreviewingDelegate = self

@@ -1,11 +1,11 @@
 import Foundation
 extension ViewController: ArticlePreviewingDelegate {
-    @objc func readMoreArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+    @objc func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, animated: true)
     }
     
-    @objc func saveArticlePreviewActionSelected(with articleController: ArticleContainerViewController, didSave: Bool, articleURL: URL) {
+    @objc func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
         guard let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding else {
             return
         }
@@ -17,12 +17,12 @@ extension ViewController: ArticlePreviewingDelegate {
         }
     }
     
-    @objc func shareArticlePreviewActionSelected(with articleController: ArticleContainerViewController, shareActivityController: UIActivityViewController) {
+    @objc func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         present(shareActivityController, animated: true, completion: nil)
     }
     
-    @objc func viewOnMapArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+    @objc func viewOnMapArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)

@@ -1,7 +1,7 @@
 import Foundation
 
 /// W icon popover tooltip
-extension ArticleContainerViewController {
+extension ArticleViewController {
     var shouldShowWIconPopover: Bool {
         guard
             !UserDefaults.wmf.wmf_didShowWIconPopover(),

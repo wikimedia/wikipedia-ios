@@ -75,11 +75,11 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
     }
     
     
-    override func shareArticlePreviewActionSelected(with articleController: ArticleContainerViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: feedFunnelContext, index: previewedIndexPath?.item, animated: true)
     }

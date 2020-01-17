@@ -137,7 +137,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
 
         previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
         let article = previews[index]
-        guard let vc = ArticleContainerViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme) else {
+        guard let vc = ArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme) else {
             return nil
         }
         vc.articlePreviewingDelegate = self
@@ -163,12 +163,12 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     
     // MARK: ArticlePreviewingDelegate
     
-    override func shareArticlePreviewActionSelected(with articleController: ArticleContainerViewController, shareActivityController: UIActivityViewController) {
+    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleContainerViewController) {
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }

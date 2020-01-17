@@ -105,7 +105,7 @@ final class NavigationStateController: NSObject {
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                guard let articleVC = ArticleContainerViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+                guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
                     return
                 }
                 // never present an article modal, the nav bar disappears
@@ -252,7 +252,7 @@ final class NavigationStateController: NSObject {
         let kind: ViewController.Kind?
         let info: Info?
         switch obj {
-            case let articleViewController as ArticleContainerViewController:
+            case let articleViewController as ArticleViewController:
                 kind = obj is RandomArticleViewController ? .random : .article
                 info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
             case let talkPageContainerVC as TalkPageContainerViewController:

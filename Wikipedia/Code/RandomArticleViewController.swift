@@ -1,7 +1,7 @@
 import Foundation
 
 @objc (WMFRandomArticleViewController)
-class RandomArticleViewController: ArticleContainerViewController {
+class RandomArticleViewController: ArticleViewController {
     static let diceButton: WMFRandomDiceButton = {
         return WMFRandomDiceButton(frame: CGRect(x: 0, y: 0, width: 184, height: 44))
     }()

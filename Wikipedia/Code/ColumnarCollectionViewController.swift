@@ -397,7 +397,7 @@ extension ColumnarCollectionViewController {
         let isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore
         let isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore
         if isPushedFromExplore {
-            let isArticle = pushedViewController is ArticleContainerViewController
+            let isArticle = pushedViewController is ArticleViewController
             if isArticle {
                 FeedFunnel.shared.logFeedCardReadingStarted(for: context, index: index)
             } else {
