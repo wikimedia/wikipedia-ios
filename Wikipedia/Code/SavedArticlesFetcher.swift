@@ -230,7 +230,6 @@ private extension SavedArticlesFetcher {
     }
     
     func didFailToFetchArticle(with key: String, error: Error) {
-        
         operateOnArticles(with: key) { (article) in
             article.updatePropertiesForError(error as NSError)
             article.isDownloaded = !isErrorRecoverableOnRetry(error)

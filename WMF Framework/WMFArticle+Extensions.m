@@ -37,29 +37,37 @@
     return [NSURL URLWithString:thumbnailURLString];
 }
 
++ (nullable NSURL *)imageURLForTargetImageWidth:(NSInteger)width fromImageSource:(NSString *)imageSource withOriginalWidth:(NSInteger)originalWidth {
+    NSAssert(width > 0, @"Width must be > 0");
+    if (width <= 0) {
+       return nil;
+    }
+    NSString *lowercasePathExtension = [[imageSource pathExtension] lowercaseString];
+    if (width >= originalWidth && ![lowercasePathExtension isEqualToString:@"svg"] && ![lowercasePathExtension isEqualToString:@"pdf"]) {
+       return [NSURL URLWithString:imageSource];
+    }
+    return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(imageSource, width)];
+}
+
 - (nullable NSURL *)imageURLForWidth:(NSInteger)width {
     NSAssert(width > 0, @"Width must be > 0");
     if (width <= 0) {
-        return nil;
+       return nil;
     }
     NSString *imageURLString = self.imageURLString;
     NSNumber *imageWidth = self.imageWidth;
     if (!imageURLString || !imageWidth) {
-        NSString *thumbnailURLString = self.thumbnailURLString;
-        if (!thumbnailURLString) {
-            return nil;
-        }
-        NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(thumbnailURLString);
-        if (sizePrefix == NSNotFound || width >= sizePrefix) {
-            return [NSURL URLWithString:thumbnailURLString];
-        }
-        return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(thumbnailURLString, width)];
+       NSString *thumbnailURLString = self.thumbnailURLString;
+       if (!thumbnailURLString) {
+           return nil;
+       }
+       NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(thumbnailURLString);
+       if (sizePrefix == NSNotFound || width >= sizePrefix) {
+           return [NSURL URLWithString:thumbnailURLString];
+       }
+       return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(thumbnailURLString, width)];
     }
-    NSString *lowercasePathExtension = [[imageURLString pathExtension] lowercaseString];
-    if (width >= [imageWidth integerValue] && ![lowercasePathExtension isEqualToString:@"svg"] && ![lowercasePathExtension isEqualToString:@"pdf"]) {
-        return [NSURL URLWithString:imageURLString];
-    }
-    return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(imageURLString, width)];
+    return [WMFArticle imageURLForTargetImageWidth:width fromImageSource:imageURLString withOriginalWidth:[imageWidth integerValue]];
 }
 
 - (void)setThumbnailURL:(NSURL *)thumbnailURL {
