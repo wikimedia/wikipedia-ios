@@ -98,7 +98,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
 
 // Children
-@property (nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
 @property (nonatomic, strong) LegacyWebViewController *webViewController;
 
 @property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
@@ -383,20 +382,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)updateTableOfContentsInsets {
-    UIScrollView *scrollView = self.tableOfContentsViewController.tableView;
-    BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
-    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        scrollView.contentInset = self.scrollView.contentInset;
-        scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
-    } else {
-        CGFloat top = self.view.safeAreaInsets.top;
-        CGFloat bottom = self.view.safeAreaInsets.bottom;
-        scrollView.contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
-        scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
-    }
-    if (wasAtTop) {
-        scrollView.contentOffset = CGPointMake(0, 0 - scrollView.contentInset.top);
-    }
+
 }
 
 #pragma mark - Public
@@ -661,7 +647,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     BOOL includeReadMore = self.article.hasReadMore;
 
-    [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
 }
 
 #pragma mark - Progress
@@ -945,53 +930,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 #pragma mark - Layout
 
 - (void)layoutForSize:(CGSize)size {
-    BOOL isTOCVisible = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible;
-
-    CGFloat separatorWidth = WMFArticleViewControllerTableOfContentsSeparatorWidth;
-    CGFloat tocWidth = round(size.width * WMFArticleViewControllerExpandedTableOfContentsWidthPercentage);
-    CGFloat webFrameWidth = size.width - (isTOCVisible ? (separatorWidth + tocWidth) : 0);
-
-    CGFloat webFrameOriginX;
-    CGFloat tocOriginX;
-    CGFloat separatorOriginX;
-
-    switch (self.tableOfContentsDisplaySide) {
-        case WMFTableOfContentsDisplaySideRight:
-            tocOriginX = isTOCVisible ? webFrameWidth + separatorWidth : size.width + separatorWidth;
-            separatorOriginX = isTOCVisible ? webFrameWidth : size.width;
-            webFrameOriginX = 0;
-            break;
-        case WMFTableOfContentsDisplaySideLeft:
-        default:
-            tocOriginX = isTOCVisible ? 0 : 0 - tocWidth - separatorWidth;
-            separatorOriginX = isTOCVisible ? tocWidth : 0 - separatorWidth;
-            webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
-            break;
-    }
-
-    CGPoint origin = CGPointZero;
-    if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
-        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, 0, tocWidth, size.height);
-        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, 0, separatorWidth, size.height);
-        self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
-        self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
-    }
-
-    CGRect webFrame = CGRectMake(webFrameOriginX, origin.y, webFrameWidth, size.height);
-    self.webViewController.view.frame = webFrame;
-    switch (self.tableOfContentsDisplayState) {
-        case WMFTableOfContentsDisplayStateInlineHidden:
-            self.webViewController.contentWidthPercentage = 0.70;
-            break;
-        case WMFTableOfContentsDisplayStateInlineVisible:
-            self.webViewController.contentWidthPercentage = 0.90;
-            break;
-        default:
-            self.webViewController.contentWidthPercentage = 0.90;
-            break;
-    }
-
-    [self.webViewController.view layoutIfNeeded];
 
     [self layoutHeaderImageViewForSize:size];
 }
@@ -1024,42 +962,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
 
-    BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
-
-    if (isCompact) {
-        WMFTableOfContentsDisplayStyle style = [self tableOfContentsStyleTweakValue];
-        switch (style) {
-            case WMFTableOfContentsDisplayStyleOld:
-                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft;
-                break;
-            case WMFTableOfContentsDisplayStyleNext:
-                self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideCenter;
-                break;
-            case WMFTableOfContentsDisplayStyleCurrent:
-            default:
-                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-                break;
-        }
-    } else {
-        self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-    }
-
-    self.tableOfContentsDisplayMode = isCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
-    switch (self.tableOfContentsDisplayMode) {
-        case WMFTableOfContentsDisplayModeInline:
-            self.updateTableOfContentsSectionOnScrollEnabled = YES;
-            break;
-        case WMFTableOfContentsDisplayModeModal:
-        default:
-            self.updateTableOfContentsSectionOnScrollEnabled = NO;
-            break;
-    }
-
-    self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
-    self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-
-    [self updateTableOfContentsInsets];
-    [self setupTableOfContentsViewController];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -1133,134 +1035,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showTableOfContents:(id)sender {
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
-
-    if (self.tableOfContentsViewController == nil) {
-        return;
-    }
-
-    self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
-    self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-
-    switch (self.tableOfContentsDisplayMode) {
-        case WMFTableOfContentsDisplayModeInline:
-            if (sender != self) {
-                [[NSUserDefaults wmf] wmf_setTableOfContentsIsVisibleInline:YES];
-            }
-            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
-            [self updateTableOfContentsLayoutAnimated:YES];
-            break;
-        case WMFTableOfContentsDisplayModeModal:
-        default:
-            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
-            if (!self.presentedViewController) {
-                [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
-            }
-    }
-    [self updateToolbar];
-}
-
-- (void)hideTableOfContents:(id)sender {
-    switch (self.tableOfContentsDisplayMode) {
-        case WMFTableOfContentsDisplayModeInline:
-            if (sender != self) {
-                [[NSUserDefaults wmf] wmf_setTableOfContentsIsVisibleInline:NO];
-            }
-            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
-            [self updateTableOfContentsLayoutAnimated:YES];
-            break;
-        case WMFTableOfContentsDisplayModeModal:
-        default:
-            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
-            [self dismissViewControllerAnimated:YES completion:NULL];
-    }
-    [self updateToolbar];
+   
 }
 
 - (void)setupTableOfContentsViewController {
-    switch (self.tableOfContentsDisplayMode) {
-        case WMFTableOfContentsDisplayModeInline: {
-            if (self.tableOfContentsViewController.parentViewController != self) {
-                if (self.presentedViewController == self.tableOfContentsViewController) {
-                    [self.tableOfContentsViewController dismissViewControllerAnimated:NO completion:NULL];
-                }
-                self.tableOfContentsViewController = nil;
-
-                switch (self.tableOfContentsDisplayState) {
-                    case WMFTableOfContentsDisplayStateModalHidden:
-                        self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
-                        break;
-                    case WMFTableOfContentsDisplayStateModalVisible:
-                        self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
-                    default:
-                        break;
-                }
-
-                [self createTableOfContentsViewControllerIfNeeded];
-                self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
-                self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-
-                if (self.tableOfContentsViewController == nil) {
-                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
-                } else {
-                    [self addChildViewController:self.tableOfContentsViewController];
-                    [self.view insertSubview:self.tableOfContentsViewController.view aboveSubview:self.webViewController.view];
-                    [self.tableOfContentsViewController didMoveToParentViewController:self];
-
-                    [self.view insertSubview:self.tableOfContentsSeparatorView aboveSubview:self.tableOfContentsViewController.view];
-
-                    self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
-                    UISwipeGestureRecognizerDirection closeDirection;
-                    switch (self.tableOfContentsDisplaySide) {
-                        case WMFTableOfContentsDisplaySideRight:
-                            closeDirection = UISwipeGestureRecognizerDirectionRight;
-                            break;
-                        case WMFTableOfContentsDisplaySideLeft:
-                        default:
-                            closeDirection = UISwipeGestureRecognizerDirectionLeft;
-                            break;
-                    }
-                    self.tableOfContentsCloseGestureRecognizer.direction = closeDirection;
-                    [self.tableOfContentsViewController.view addGestureRecognizer:self.tableOfContentsCloseGestureRecognizer];
-                }
-            }
-        } break;
-        default:
-        case WMFTableOfContentsDisplayModeModal: {
-            if (self.tableOfContentsViewController.parentViewController == self) {
-                [self.tableOfContentsViewController willMoveToParentViewController:nil];
-                [self.tableOfContentsViewController.view removeFromSuperview];
-                [self.tableOfContentsViewController removeFromParentViewController];
-                [self.tableOfContentsSeparatorView removeFromSuperview];
-                self.tableOfContentsViewController = nil;
-            }
-            [self createTableOfContentsViewControllerIfNeeded];
-            self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
-            self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-
-            switch (self.tableOfContentsDisplayState) {
-                case WMFTableOfContentsDisplayStateInlineVisible:
-                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
-                    [self showTableOfContents:self];
-                    break;
-                case WMFTableOfContentsDisplayStateInlineHidden:
-                default:
-                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
-                    break;
-            }
-
-        } break;
-    }
-    [self updateToolbar];
-    [self updateTableOfContentsInsets];
+ 
 }
 
 - (void)handleTableOfContentsCloseGesture:(UISwipeGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        if (self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible) {
-            [self hideTableOfContents:recognizer];
-        }
-    }
+
 }
 
 #pragma mark - Save Offset
@@ -1612,9 +1395,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
-        if (!self.restoreScrollPosition) {
-            [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
-        }
     }
 }
 
@@ -1645,7 +1425,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         [self updateTOCHighlightIfNecessaryWithScrollView:controller.webView.scrollView force:true];
         return;
     }
-    [self selectAndScrollToTableOfContentsItemForSection:section animated:NO];
 }
 
 - (void)webViewController:(LegacyWebViewController *)controller didTapEditForSection:(MWKSection *)section {
@@ -1685,41 +1464,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
 
 - (void)updateTOCHighlightIfNecessaryWithScrollView:(UIScrollView *)scrollView force:(BOOL)force {
-    if (!self.tableOfContentsViewController.viewIfLoaded) {
-        return;
-    }
-    if (!self.isUpdateTableOfContentsSectionOnScrollEnabled) {
-        return;
-    }
-    if (!force) {
-        BOOL sectionUpdateScrollDistanceExceeded = ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance;
-        if (!sectionUpdateScrollDistanceExceeded) {
-            return;
-        }
-        if (!(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || self.restoreScrollPosition)) {
-            return;
-        }
-    }
-    self.anchorToRestoreScrollOffset = nil;
-    @weakify(self);
 
-    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
-        @strongify(self);
-        if (section) {
-            self.currentSection = section;
-            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-        } else {
-            [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
-                @strongify(self);
-                if (index) {
-                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
-                }
-            }];
-        }
-    }];
-
-    self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
-    self.restoreScrollPosition = NO;
 }
 
 - (void)webViewController:(LegacyWebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -2445,7 +2190,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
     }
     self.headerImageView.alpha = theme.imageOpacity;
-    [self.tableOfContentsViewController applyTheme:theme];
     [self.readingThemesControlsPresenter objCApplyPresentationThemeWithTheme:theme];
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;

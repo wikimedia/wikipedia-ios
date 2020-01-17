@@ -129,7 +129,7 @@ class ArticleViewController: ViewController {
 //        let imageSize = leadImageView.image?.size ?? .zero
 //        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
         let marginWidth: CGFloat = 0
-//        if isImageNarrow { // TODO: && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
+//        if isImageNarrow { // TODO: && self.tableOfContentsDisplayState == TableOfContentsDisplayStateInlineHidden) {
 //            marginWidth = 32
 //        }
         leadImageView.frame = CGRect(x: marginWidth, y: 0, width: containerBounds.size.width - 2 * marginWidth, height: CGFloat(leadImageHeight))
@@ -224,6 +224,17 @@ class ArticleViewController: ViewController {
         }
         navigate(to: newArticleURL)
     }
+    
+    // MARK: Table of contents
+    
+    var tableOfContentsViewController: TableOfContentsViewController?
+    var tableOfContentsDisplayMode: TableOfContentsDisplayMode = .modal
+    var tableOfContentsDisplaySide: TableOfContentsDisplaySide = .left
+    var isTableOfContentsVisible: Bool = false
+    var isUpdatingTableOfContentsSectionOnScroll: Bool = false
+    lazy var tableOfContentsSeparatorView: UIView = {
+        return UIView()
+    }()
 }
 
 private extension ArticleViewController {
@@ -416,3 +427,14 @@ private extension UIViewController {
     }
 }
 
+//WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title")
+//WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
+//WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.")
+//WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-title", nil, nil, @"Edit title description", @"Title for button used to show title description editor")
+//WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
+//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
+//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
+//WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share {{Identical|Share}}")
+//WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}")
+//WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
+//WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")

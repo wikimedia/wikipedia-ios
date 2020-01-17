@@ -1,7 +1,7 @@
 import UIKit
 
 // MARK: - Cell
-open class WMFTableOfContentsCell: UITableViewCell {
+open class TableOfContentsCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!

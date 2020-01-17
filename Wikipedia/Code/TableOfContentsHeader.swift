@@ -1,6 +1,6 @@
 import UIKit
 
-open class WMFTableOfContentsHeader: UIView {
+open class TableOfContentsHeader: UIView {
     @IBOutlet open var contentsLabel: UILabel!
     
     var url:URL!

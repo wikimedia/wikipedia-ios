@@ -12,7 +12,7 @@ open class TableOfContentsAboutThisArticleItem : NSObject, TableOfContentsFooter
     }
     
     public let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
-    public let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.aboutThisArticle
+    public let footerViewIndex: ArticleFooterViewIndex = ArticleFooterViewIndex.aboutThisArticle
 
     open override func isEqual(_ object: Any?) -> Bool {
         if let item = object as? TableOfContentsAboutThisArticleItem {

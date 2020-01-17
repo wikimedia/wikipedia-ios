@@ -1,31 +1,31 @@
 import UIKit
 import WMF
 
-public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
+public protocol TableOfContentsViewControllerDelegate : AnyObject {
 
     /**
      Notifies the delegate that the controller will display
      Use this to update the ToC if needed
      */
-    func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController)
+    func tableOfContentsControllerWillDisplay(_ controller: TableOfContentsViewController)
 
     /**
      The delegate is responsible for dismissing the view controller
      */
-    func tableOfContentsController(_ controller: WMFTableOfContentsViewController,
+    func tableOfContentsController(_ controller: TableOfContentsViewController,
                                    didSelectItem item: TableOfContentsItem)
 
     /**
      The delegate is responsible for dismissing the view controller
      */
-    func tableOfContentsControllerDidCancel(_ controller: WMFTableOfContentsViewController)
+    func tableOfContentsControllerDidCancel(_ controller: TableOfContentsViewController)
 
-    func tableOfContentsArticleLanguageURL() -> URL?
+    var tableOfContentsArticleLanguageURL: URL? { get }
     
-    func tableOfContentsDisplayModeIsModal() -> Bool;
+    var tableOfContentsDisplayModeIsModal: Bool { get }
 }
 
-open class WMFTableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WMFTableOfContentsAnimatorDelegate, Themeable {
+open class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableOfContentsAnimatorDelegate, Themeable {
     
     fileprivate var theme = Theme.standard
     
@@ -33,13 +33,13 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
 
     let semanticContentAttributeOverride: UISemanticContentAttribute
     
-    @objc var displaySide = WMFTableOfContentsDisplaySide.left {
+    var displaySide = TableOfContentsDisplaySide.left {
         didSet {
             animator?.displaySide = displaySide
         }
     }
     
-    @objc var displayMode = WMFTableOfContentsDisplayMode.modal {
+    var displayMode = TableOfContentsDisplayMode.modal {
         didSet {
             animator?.displayMode = displayMode
         }
@@ -60,14 +60,14 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
     }
     
     //optional because it requires a reference to self to inititialize
-    var animator: WMFTableOfContentsAnimator?
+    var animator: TableOfContentsAnimator?
 
-    weak var delegate: WMFTableOfContentsViewControllerDelegate?
+    weak var delegate: TableOfContentsViewControllerDelegate?
 
     // MARK: - Init
     public required init(presentingViewController: UIViewController?,
                          items: [TableOfContentsItem],
-                         delegate: WMFTableOfContentsViewControllerDelegate,
+                         delegate: TableOfContentsViewControllerDelegate,
                          semanticContentAttribute: UISemanticContentAttribute,
                          theme: Theme) {
         self.theme = theme
@@ -77,7 +77,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
         if let presentingViewController = presentingViewController {
-            animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
+            animator = TableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
             animator?.apply(theme: theme)
             animator?.delegate = self
             animator?.displaySide = displaySide
@@ -159,7 +159,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
             return
         }
         for (_, element) in visibleIndexPaths.enumerated() {
-            if let cell: WMFTableOfContentsCell = tableView.cellForRow(at: element) as? WMFTableOfContentsCell  {
+            if let cell: TableOfContentsCell = tableView.cellForRow(at: element) as? TableOfContentsCell  {
                 cell.setSectionSelected(false, animated: false)
             }
         }
@@ -171,7 +171,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
         for (_, indexPath) in visibleIndexPaths.enumerated() {
             let otherItem: TableOfContentsItem = items[indexPath.row]
-            if let cell: WMFTableOfContentsCell = tableView.cellForRow(at: indexPath) as? WMFTableOfContentsCell  {
+            if let cell: TableOfContentsCell = tableView.cellForRow(at: indexPath) as? TableOfContentsCell  {
                 cell.setSectionSelected(otherItem.shouldBeHighlightedAlongWithItem(item), animated: animated)
             }
         }
@@ -179,13 +179,13 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
 
     open func addHighlightToItem(_ item: TableOfContentsItem, animated: Bool) {
         if let indexPath = indexPathForItem(item){
-            if let cell: WMFTableOfContentsCell = tableView.cellForRow(at: indexPath) as? WMFTableOfContentsCell  {
+            if let cell: TableOfContentsCell = tableView.cellForRow(at: indexPath) as? TableOfContentsCell  {
                 cell.setSectionSelected(true, animated: animated)
             }
         }
     }
 
-    fileprivate func didRequestClose(_ controller: WMFTableOfContentsAnimator?) -> Bool {
+    fileprivate func didRequestClose(_ controller: TableOfContentsAnimator?) -> Bool {
         tableOfContentsFunnel.logClose()
         delegate?.tableOfContentsControllerDidCancel(self)
         return delegate != nil
@@ -195,15 +195,15 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(tableView.style == .grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
+        assert(tableView.style == .grouped, "Use grouped UITableView layout so our TableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our TableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use TableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
 
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundView = nil
 
-        tableView.register(WMFTableOfContentsCell.wmf_classNib(),
-                    forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
+        tableView.register(TableOfContentsCell.wmf_classNib(),
+                    forCellReuseIdentifier: TableOfContentsCell.reuseIdentifier())
         tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableView.automaticDimension
 
@@ -246,7 +246,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
     }
 
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: WMFTableOfContentsCell.reuseIdentifier(), for: indexPath) as! WMFTableOfContentsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TableOfContentsCell.reuseIdentifier(), for: indexPath) as! TableOfContentsCell
         let selectedItems: [TableOfContentsItem] = tableView.indexPathsForSelectedRows?.map() { items[$0.row] } ?? []
         let item = items[indexPath.row]
         let shouldHighlight = selectedItems.reduce(false) { shouldHighlight, selectedItem in
@@ -273,8 +273,8 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
     
     open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let delegate = delegate {
-            let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
-            header?.articleURL = delegate.tableOfContentsArticleLanguageURL()
+            let header = TableOfContentsHeader.wmf_viewFromClassNib()
+            header?.articleURL = delegate.tableOfContentsArticleLanguageURL
             header?.backgroundColor = tableView.backgroundColor
             header?.semanticContentAttribute = semanticContentAttributeOverride
             header?.contentsLabel.semanticContentAttribute = semanticContentAttributeOverride
@@ -300,7 +300,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         delegate?.tableOfContentsController(self, didSelectItem: item)
     }
 
-    open func tableOfContentsAnimatorDidTapBackground(_ controller: WMFTableOfContentsAnimator) {
+    open func tableOfContentsAnimatorDidTapBackground(_ controller: TableOfContentsAnimator) {
         _ = didRequestClose(controller)
     }
 
@@ -328,7 +328,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         guard viewIfLoaded != nil else {
             return
         }
-        if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal() {
+        if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal {
             tableView.backgroundColor = theme.colors.paperBackground
         } else {
             tableView.backgroundColor = theme.colors.midBackground

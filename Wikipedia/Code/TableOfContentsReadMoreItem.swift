@@ -1,7 +1,12 @@
 import Foundation
 
+public enum ArticleFooterViewIndex: Int {
+    case aboutThisArticle = 0
+    case readMore = 1
+}
+
 public protocol TableOfContentsFooterItem : TableOfContentsItem {
-    var footerViewIndex: WMFArticleFooterViewIndex { get }
+    var footerViewIndex: ArticleFooterViewIndex { get }
 }
 
 open class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
@@ -16,7 +21,7 @@ open class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
     }
     
     public let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
-    public let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.readMore
+    public let footerViewIndex: ArticleFooterViewIndex = ArticleFooterViewIndex.readMore
 
     open override func isEqual(_ object: Any?) -> Bool {
         if let item = object as? TableOfContentsReadMoreItem {
