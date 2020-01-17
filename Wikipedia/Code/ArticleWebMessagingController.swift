@@ -5,6 +5,7 @@ protocol ArticleWebMessageHandling: class {
     func didSetup(messagingController: ArticleWebMessagingController)
     func didTapLink(messagingController: ArticleWebMessagingController, title: String)
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?)
+    func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem])
 }
 
 class ArticleWebMessagingController: NSObject {
@@ -113,6 +114,22 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 let width = leadImage["width"] as? Int
                 let height = leadImage["height"] as? Int
                 delegate?.didGetLeadImage(messagingcontroller: self, source: leadImageURLString, width: width, height: height)
+            }
+            if
+                let tableOfContents = data["tableOfContents"] as? [[String: Any]]
+            {
+                let items = tableOfContents.compactMap { (tocJSON) -> TableOfContentsItem? in
+                    guard
+                        let id = tocJSON["id"] as? Int,
+                        let level = tocJSON["level"] as? Int,
+                        let anchor = tocJSON["anchor"] as? String,
+                        let title = tocJSON["title"] as? String
+                    else {
+                            return nil
+                    }
+                    return TableOfContentsItem(id: id, titleText: title, anchor: anchor, indentationLevel: level)
+                }
+                delegate?.didGetTableOfContents(messagingcontroller: self, items: items)
             }
         default:
             break

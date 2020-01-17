@@ -382,6 +382,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)updateTableOfContentsInsets {
+
 }
 
 #pragma mark - Public
@@ -1011,6 +1012,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showTableOfContents:(id)sender {
+
 }
 
 - (void)setupTableOfContentsViewController {

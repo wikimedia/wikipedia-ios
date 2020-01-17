@@ -8,135 +8,106 @@ enum TableOfContentsDisplaySide {
     case right
 }
 
-private extension ArticleViewController {
+extension ArticleViewController {
+    
+    func showTableOfContents() {
+        themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
+        
+        guard let tocVC = tableOfContents.viewController else {
+            return
+        }
+        
+        tocVC.displaySide = tableOfContents.displaySide
+        tocVC.displayMode = tableOfContents.displayMode
+        
+        tableOfContents.isVisible = true
+
+        switch tableOfContents.displayMode {
+        case .inline:
+            UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(true)
+            updateTableOfContentsLayout(animated: true)
+        case .modal:
+            guard presentedViewController == nil else {
+                break
+            }
+            present(tocVC, animated: true)
+        }
+        toolbarController.update()
+    }
+    
     func updateTableOfContents(with traitCollection: UITraitCollection) {
         let isCompact = traitCollection.horizontalSizeClass == .compact
-        tableOfContentsDisplaySide = traitCollection.layoutDirection == .rightToLeft ? .right : .left
-        tableOfContentsDisplayMode = isCompact ? .modal : .inline
-        isUpdatingTableOfContentsSectionOnScroll = tableOfContentsDisplayMode == .inline
+        tableOfContents.displaySide = traitCollection.layoutDirection == .rightToLeft ? .right : .left
+        tableOfContents.displayMode = isCompact ? .modal : .inline
+        tableOfContents.isUpdatingSectionOnScroll = tableOfContents.displayMode == .inline
         updateTableOfContentsInsets()
         setupTableOfContentsViewController()
     }
     
     func updateTableOfContentsInsets() {
-        
+//        UIScrollView *scrollView = self.tableOfContentsViewController.tableView;
+//        BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
+//        if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
+//            scrollView.contentInset = self.scrollView.contentInset;
+//            scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
+//        } else {
+//            CGFloat top = self.view.safeAreaInsets.top;
+//            CGFloat bottom = self.view.safeAreaInsets.bottom;
+//            scrollView.contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
+//            scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
+//        }
+//        if (wasAtTop) {
+//            scrollView.contentOffset = CGPointMake(0, 0 - scrollView.contentInset.top);
+//        }
     }
     
     func setupTableOfContentsViewController() {
-        switch tableOfContentsDisplayMode {
+        switch tableOfContents.displayMode {
         case .inline:
-            if tableOfContentsViewController?.parent != self {
-                if presentedViewController == tableOfContentsViewController {
-                    tableOfContentsViewController?.dismiss(animated: false)
+            if tableOfContents.viewController?.parent != self {
+                if presentedViewController == tableOfContents.viewController {
+                    tableOfContents.viewController?.dismiss(animated: false)
                 }
             }
-            tableOfContentsViewController = nil
+            tableOfContents.viewController = nil
             createTableOfContentsViewControllerIfNeeded()
-            tableOfContentsViewController?.displayMode = tableOfContentsDisplayMode
-            tableOfContentsViewController?.displaySide = tableOfContentsDisplaySide
-            isTableOfContentsVisible = tableOfContentsViewController == nil
-            if isTableOfContentsVisible, let tocVC = tableOfContentsViewController {
+            tableOfContents.viewController?.displayMode = tableOfContents.displayMode
+            tableOfContents.viewController?.displaySide = tableOfContents.displaySide
+            tableOfContents.isVisible = tableOfContents.viewController == nil
+            if tableOfContents.isVisible, let tocVC = tableOfContents.viewController {
                 addChild(tocVC)
                 view.insertSubview(tocVC.view, aboveSubview: webView)
-                tableOfContentsViewController?.didMove(toParent: self)
-                view.insertSubview(tableOfContentsSeparatorView, aboveSubview: tocVC.view)
+                tocVC.didMove(toParent: self)
+                view.insertSubview(tableOfContents.separatorView, aboveSubview: tocVC.view)
             }
-
+            let closeGR = UISwipeGestureRecognizer(target: self, action: #selector(handleTableOfContentsCloseGesture))
+            switch tableOfContents.displaySide {
+            case .left:
+                closeGR.direction = .left
+            case .right:
+                closeGR.direction = .right
+            }
+            tableOfContents.viewController?.view.addGestureRecognizer(closeGR)
+            tableOfContents.closeGestureRecognizer = closeGR
         case .modal:
-            break
+            if let tocVC = tableOfContents.viewController, tocVC.parent == self {
+                tocVC.willMove(toParent: nil)
+                tocVC.view.removeFromSuperview()
+                tocVC.removeFromParent()
+                tableOfContents.separatorView.removeFromSuperview()
+                tableOfContents.viewController = nil
+            }
+            createTableOfContentsViewControllerIfNeeded()
+            tableOfContents.viewController?.displayMode = tableOfContents.displayMode
+            tableOfContents.viewController?.displaySide = tableOfContents.displaySide
         }
-//        switch (self.tableOfContentsDisplayMode) {
-//]
-//                           [self addChildViewController:self.tableOfContentsViewController];
-//                           [self.view insertSubview:self.tableOfContentsViewController.view aboveSubview:self.webViewController.view];
-//                           [self.tableOfContentsViewController didMoveToParentViewController:self];
-//
-//                           [self.view insertSubview:self.tableOfContentsSeparatorView aboveSubview:self.tableOfContentsViewController.view];
-//
-//                           self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
-//                           UISwipeGestureRecognizerDirection closeDirection;
-//                           switch (self.tableOfContentsDisplaySide) {
-//                               case TableOfContentsDisplaySideRight:
-//                                   closeDirection = UISwipeGestureRecognizerDirectionRight;
-//                                   break;
-//                               case TableOfContentsDisplaySideLeft:
-//                               default:
-//                                   closeDirection = UISwipeGestureRecognizerDirectionLeft;
-//                                   break;
-//                           }
-//                           self.tableOfContentsCloseGestureRecognizer.direction = closeDirection;
-//                           [self.tableOfContentsViewController.view addGestureRecognizer:self.tableOfContentsCloseGestureRecognizer];
-//                       }
-//                   }
-//               } break;
-//               default:
-//               case TableOfContentsDisplayModeModal: {
-//                   if (self.tableOfContentsViewController.parentViewController == self) {
-//                       [self.tableOfContentsViewController willMoveToParentViewController:nil];
-//                       [self.tableOfContentsViewController.view removeFromSuperview];
-//                       [self.tableOfContentsViewController removeFromParentViewController];
-//                       [self.tableOfContentsSeparatorView removeFromSuperview];
-//                       self.tableOfContentsViewController = nil;
-//                   }
-//                   [self createTableOfContentsViewControllerIfNeeded];
-//                   self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
-//                   self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-//
-//                   switch (self.tableOfContentsDisplayState) {
-//                       case TableOfContentsDisplayStateInlineVisible:
-//                           self.tableOfContentsDisplayState = TableOfContentsDisplayStateModalVisible;
-//                           [self showTableOfContents:self];
-//                           break;
-//                       case TableOfContentsDisplayStateInlineHidden:
-//                       default:
-//                           self.tableOfContentsDisplayState = TableOfContentsDisplayStateModalHidden;
-//                           break;
-//                   }
-//
-//               } break;
-//           }
-//           [self updateToolbar];
-//           [self updateTableOfContentsInsets];
+        toolbarController.update()
+        updateTableOfContentsInsets()
     }
-//    - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
-//
-//        BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
-//
-//        if (isCompact) {
-//            TableOfContentsDisplayStyle style = [self tableOfContentsStyleTweakValue];
-//            switch (style) {
-//                case TableOfContentsDisplayStyleOld:
-//                    self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? TableOfContentsDisplaySideRight : TableOfContentsDisplaySideLeft;
-//                    break;
-//                case TableOfContentsDisplayStyleNext:
-//                    self.tableOfContentsDisplaySide = TableOfContentsDisplaySideCenter;
-//                    break;
-//                case TableOfContentsDisplayStyleCurrent:
-//                default:
-//                    self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? TableOfContentsDisplaySideLeft : TableOfContentsDisplaySideRight;
-//                    break;
-//            }
-//        } else {
-//            self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? TableOfContentsDisplaySideLeft : TableOfContentsDisplaySideRight;
-//        }
-//
-//        self.tableOfContentsDisplayMode = isCompact ? TableOfContentsDisplayModeModal : TableOfContentsDisplayModeInline;
-//        switch (self.tableOfContentsDisplayMode) {
-//            case TableOfContentsDisplayModeInline:
-//                self.updateTableOfContentsSectionOnScrollEnabled = YES;
-//                break;
-//            case TableOfContentsDisplayModeModal:
-//            default:
-//                self.updateTableOfContentsSectionOnScrollEnabled = NO;
-//                break;
-//        }
-//
-//        self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
-//        self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-//
-//        [self updateTableOfContentsInsets];
-//        [self setupTableOfContentsViewController];
-//    }
+    
+    func updateTableOfContentsLayout(animated: Bool) {
+        
+    }
 }
 
 
@@ -208,7 +179,7 @@ extension ArticleViewController : TableOfContentsViewControllerDelegate {
     }
     
     public func tableOfContentsControllerDidCancel(_ controller: TableOfContentsViewController) {
-        //dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 
     public var tableOfContentsArticleLanguageURL: URL? {
@@ -221,13 +192,16 @@ extension ArticleViewController : TableOfContentsViewControllerDelegate {
     }
     
     public var tableOfContentsDisplayModeIsModal: Bool {
-        return tableOfContentsDisplayMode == .modal
+        return tableOfContents.displayMode == .modal
     }
 }
 
 
 extension ArticleViewController {
 
+    @objc func handleTableOfContentsCloseGesture(_ swipeGestureRecoginzer: UIGestureRecognizer) {
+        
+    }
     /**
      Create ToC items.
 
@@ -246,28 +220,8 @@ extension ArticleViewController {
     Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
     */
     public func createTableOfContentsViewControllerIfNeeded() {
-//        if let items = createTableOfContentsSections() {
-//            let semanticContentAttribute:UISemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: article?.url.wmf_language)
-//            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self, semanticContentAttribute: semanticContentAttribute, theme: self.theme)
-//        }
-    }
-
-    /**
-     Append a read more section to the table of contents.
-     */
-    public func appendItemsToTableOfContentsIncludingAboutThisArticle(_ includeAbout: Bool, includeReadMore: Bool) {
-        assert(self.tableOfContentsViewController != nil, "Attempting to add read more when toc is nil")
-        guard let tvc = self.tableOfContentsViewController else { return; }
-
-        if var items = createTableOfContentsSections() {
-            if (includeAbout) {
-                items.append(TableOfContentsAboutThisArticleItem(url: self.articleURL))
-            }
-            if (includeReadMore) {
-                items.append(TableOfContentsReadMoreItem(url: self.articleURL))
-            }
-            tvc.items = items
-        }
+        let semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
+        tableOfContents.viewController = TableOfContentsViewController(presentingViewController: tableOfContents.displayMode == .modal ? self : nil, items: tableOfContents.items, delegate: self, semanticContentAttribute: semanticContentAttribute, theme: theme)
     }
     
     var backgroundView: UIVisualEffectView {
@@ -276,13 +230,5 @@ extension ArticleViewController {
         view.effect = UIBlurEffect(style: self.theme.blurEffectStyle)
         view.alpha = 0.0
         return view
-    }
-
-    public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {
-        tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
-    }
-    
-    public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
-        tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
     }
 }

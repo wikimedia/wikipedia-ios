@@ -180,6 +180,12 @@ class ArticleViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateTableOfContents(with: traitCollection)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateTableOfContents(with: traitCollection)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -189,7 +195,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Theme
     
-    private lazy var themesPresenter: ReadingThemesControlsArticlePresenter = {
+    lazy var themesPresenter: ReadingThemesControlsArticlePresenter = {
         return ReadingThemesControlsArticlePresenter(readingThemesControlsViewController: themesViewController, wkWebView: webView, readingThemesControlsToolbarItem: toolbarController.themeButton)
     }()
     
@@ -226,15 +232,19 @@ class ArticleViewController: ViewController {
     }
     
     // MARK: Table of contents
-    
-    var tableOfContentsViewController: TableOfContentsViewController?
-    var tableOfContentsDisplayMode: TableOfContentsDisplayMode = .modal
-    var tableOfContentsDisplaySide: TableOfContentsDisplaySide = .left
-    var isTableOfContentsVisible: Bool = false
-    var isUpdatingTableOfContentsSectionOnScroll: Bool = false
-    lazy var tableOfContentsSeparatorView: UIView = {
-        return UIView()
-    }()
+    struct TableOfContentsState {
+        var items: [TableOfContentsItem] = []
+        var closeGestureRecognizer: UISwipeGestureRecognizer?
+        var viewController: TableOfContentsViewController?
+        var displayMode: TableOfContentsDisplayMode = .modal
+        var displaySide: TableOfContentsDisplaySide = .left
+        var isVisible: Bool = false
+        var isUpdatingSectionOnScroll: Bool = false
+        lazy var separatorView: UIView = {
+            return UIView()
+        }()
+    }
+    var tableOfContents: TableOfContentsState = TableOfContentsState()
 }
 
 private extension ArticleViewController {
@@ -317,6 +327,10 @@ private extension ArticleViewController {
 }
 
 extension ArticleViewController: ArticleWebMessageHandling {
+    func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem]) {
+        tableOfContents.viewController?.items = items
+    }
+    
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
         handleLink(with: title)
     }
@@ -337,9 +351,22 @@ extension ArticleViewController: ArticleWebMessageHandling {
         }
         loadLeadImage(with: leadImageURLToRequest)
     }
+    
+    
 }
 
 extension ArticleViewController: ArticleToolbarHandling {
+    func showTableOfContents(from controller: ArticleToolbarController) {
+        showTableOfContents()
+    }
+    
+    func hideTableOfContents(from controller: ArticleToolbarController) {
+        
+    }
+    
+    var isTableOfContentsVisible: Bool {
+        return tableOfContents.displayMode == .inline && tableOfContents.isVisible
+    }
     
     func toggleSave(from viewController: ArticleToolbarController) {
         article.isSaved = !article.isSaved

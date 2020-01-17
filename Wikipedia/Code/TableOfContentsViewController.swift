@@ -95,7 +95,7 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
 
     // MARK: - Sections
     func indexPathForItem(_ item: TableOfContentsItem) -> IndexPath? {
-        if let row = items.firstIndex(where: { item.isEqual($0) }) {
+        if let row = items.firstIndex(where: { item == $0 }) {
             return IndexPath(row: row, section: 0)
         } else {
             return nil
@@ -111,12 +111,12 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
     }
     
     open func selectAndScrollToFooterItem(atIndex index: Int, animated: Bool) {
-        if let firstFooterIndex = items.firstIndex(where: { return $0 as? TableOfContentsFooterItem != nil }) {
-            let itemIndex = firstFooterIndex + index
-            if itemIndex < items.count {
-                selectAndScrollToItem(atIndex: itemIndex, animated: animated)
-            }
-        }
+//        if let firstFooterIndex = items.firstIndex(where: { return $0 as? TableOfContentsFooterItem != nil }) {
+//            let itemIndex = firstFooterIndex + index
+//            if itemIndex < items.count {
+//                selectAndScrollToItem(atIndex: itemIndex, animated: animated)
+//            }
+//        }
     }
 
     open func selectAndScrollToItem(_ item: TableOfContentsItem?, animated: Bool) {

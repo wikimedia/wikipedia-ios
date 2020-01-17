@@ -769,6 +769,7 @@
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents {{Identical|Content}}";
+"table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";

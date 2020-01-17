@@ -25,21 +25,21 @@ public enum TableOfContentsBorderType {
 
 // MARK: - TOC Item
 
-public protocol TableOfContentsItem : NSObjectProtocol {
-    var titleText: String { get }
-    var itemType: TableOfContentsItemType { get }
-    var indentationLevel: Int { get }
-
-    func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool
-}
-
-// MARK: - TOC Item Defaults
-
-extension TableOfContentsItem {
-    public func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool {
-        return item === self
+public struct TableOfContentsItem: Equatable {
+    let id: Int
+    let titleText: String
+    let anchor: String
+    var itemType: TableOfContentsItemType {
+        return indentationLevel < 2 ? .primary : .secondary
     }
-    
-    public var indentationLevel: Int { get { return 0 } }
+    let indentationLevel: Int
+
+    func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool {
+        return item == self
+    }
+
+    public static func == (lhs: TableOfContentsItem, rhs: TableOfContentsItem) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
