@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
-static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
+//static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
+//static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 
 static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progress = @"kvo_WMFArticleViewController_articleFetcherPromise_progress";
 
@@ -81,18 +81,18 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @end
 
 @interface WMFLegacyArticleViewController () <WMFSectionEditorViewControllerDelegate,
-                                        UIViewControllerPreviewingDelegate,
-                                        WMFLanguagesViewControllerDelegate,
-                                        UIPopoverPresentationControllerDelegate,
-                                        WKUIDelegate,
-                                        WMFArticlePreviewingActionsDelegate,
-                                        ReadingListsAlertControllerDelegate,
-                                        EventLoggingEventValuesProviding,
-                                        WMFImageScaleTransitionProviding,
-                                        UIGestureRecognizerDelegate,
-                                        EventLoggingSearchSourceProviding,
-                                        DescriptionEditViewControllerDelegate,
-                                        WMFHintPresenting>
+                                              UIViewControllerPreviewingDelegate,
+                                              WMFLanguagesViewControllerDelegate,
+                                              UIPopoverPresentationControllerDelegate,
+                                              WKUIDelegate,
+                                              WMFArticlePreviewingActionsDelegate,
+                                              ReadingListsAlertControllerDelegate,
+                                              EventLoggingEventValuesProviding,
+                                              WMFImageScaleTransitionProviding,
+                                              UIGestureRecognizerDelegate,
+                                              EventLoggingSearchSourceProviding,
+                                              DescriptionEditViewControllerDelegate,
+                                              WMFHintPresenting>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -382,7 +382,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)updateTableOfContentsInsets {
-
 }
 
 #pragma mark - Public
@@ -545,20 +544,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (IconBarButtonItem *)hideTableOfContentsToolbarItem {
-    if (!_hideTableOfContentsToolbarItem) {
-        _hideTableOfContentsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"toc" target: self action: @selector(hideTableOfContents:) for: UIControlEventTouchUpInside];
-
-        if ([_hideTableOfContentsToolbarItem.customView isKindOfClass:[UIButton class]]) {
-            UIButton *button = (UIButton *)_hideTableOfContentsToolbarItem.customView;
-            button.layer.cornerRadius = 5;
-            button.layer.masksToBounds = YES;
-        }
-
-        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}");
-
-        [_hideTableOfContentsToolbarItem applyTheme:self.theme];
-    }
-    return _hideTableOfContentsToolbarItem;
+    return nil;
 }
 
 - (IconBarButtonItem *)saveToolbarItem {
@@ -631,22 +617,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                [self wmf_navigateToURL:language.articleURL];
+                                 [self wmf_navigateToURL:language.articleURL];
                              }];
 }
 
 #pragma mark - Article Footers
 
 - (void)updateTableOfContentsForFootersIfNeeded {
-    if ([self.article.url wmf_isNonStandardURL]) {
-        return;
-    }
-    if (![self hasTableOfContents]) {
-        return;
-    }
-
-    BOOL includeReadMore = self.article.hasReadMore;
-
 }
 
 #pragma mark - Progress
@@ -961,7 +938,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
-
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -1035,15 +1011,12 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showTableOfContents:(id)sender {
-   
 }
 
 - (void)setupTableOfContentsViewController {
- 
 }
 
 - (void)handleTableOfContentsCloseGesture:(UISwipeGestureRecognizer *)recognizer {
-
 }
 
 #pragma mark - Save Offset
@@ -1461,10 +1434,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 }
 
-static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+//static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
 
 - (void)updateTOCHighlightIfNecessaryWithScrollView:(UIScrollView *)scrollView force:(BOOL)force {
-
 }
 
 - (void)webViewController:(LegacyWebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -2134,7 +2106,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [[ReadingListsFunnel shared] logUnsaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     }
 }
-
 
 #pragma mark - One-time toolbar item popover tips
 
