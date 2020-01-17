@@ -218,20 +218,3 @@ extension MobileviewToMobileHTMLConverter {
         converter.convertMobileviewSavedDataToMobileHTML(article: dataStore.article(with: articleURL), articleCacheController: articleCacheController)
     }
 */
- 
-/*
-TEMP DEBUGGING UTILITY:
-
-    extension Dictionary {
-        func printAsFormattedJSON() {
-            guard
-                let d = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]),
-                let s = String(data: d, encoding: .utf8)
-            else {
-                print("Unable to convert dict to JSON string")
-                return
-            }
-            print(s as NSString) // https://stackoverflow.com/a/46740338
-        }
-    }
-*/
