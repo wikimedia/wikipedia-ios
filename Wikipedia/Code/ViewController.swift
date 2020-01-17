@@ -416,7 +416,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
 
     var isToolbarHidden: Bool {
         guard isToolbarEnabled else {
-            assert(false, "Toolbar not enabled. Call setupToolbars before this function.")
+            assert(false, "Toolbar not enabled. Call enableToolbar before this function.")
             return false
         }
         return toolbarHiddenConstraint.isActive
@@ -424,7 +424,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     func setToolbarHidden(_ hidden: Bool, animated: Bool) {
         guard isToolbarEnabled else {
-            assert(false, "Toolbar not enabled. Call setupToolbars before this function.")
+            assert(false, "Toolbar not enabled. Call enableToolbar before this function.")
             return
         }
         let animations = {

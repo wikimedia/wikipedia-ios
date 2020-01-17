@@ -28,8 +28,7 @@ class HelpViewController: SinglePageWebViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = nil
-        toolbar.items = [UIBarButtonItem.flexibleSpaceToolbar(), sendEmailToolbarItem, UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 8)]
-        setToolbarHidden(false, animated: false)
+        setupToolbar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +49,12 @@ class HelpViewController: SinglePageWebViewController {
         }
         vc.mailComposeDelegate = self
         present(vc, animated: true)
+    }
+    
+    private func setupToolbar() {
+        enableToolbar()
+        toolbar.items = [UIBarButtonItem.flexibleSpaceToolbar(), sendEmailToolbarItem, UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 8)]
+        setToolbarHidden(false, animated: false)
     }
 }
 
