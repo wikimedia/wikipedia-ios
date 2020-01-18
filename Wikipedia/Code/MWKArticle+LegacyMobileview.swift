@@ -212,21 +212,48 @@ extension MobileviewToMobileHTMLConverter {
                 assertionFailure("Could not get article url")
                 return
             }
+            guard article.mobileviewConversionAttempted == false else {
+                // If conversion was previously attempted don't try again.
+                return
+            }
+
+            do {
+                // Since conversion isn't instantaneous set the `mobileviewConversionAttempted` flag before invoking
+                // the converter (vs only setting it in the converter's completion block)
+                article.mobileviewConversionAttempted = true
+                try dataStore.save()
+            } catch let error {
+                DDLogError("Error updating article: \(error)")
+            }
+
+            let article = dataStore.article(with: articleURL)
             
-            // TODO: bail here if a flag like "article.attemptedConversionFromMobileview" is true
-            
-            self.converter.convertMobileviewSavedDataToMobileHTML(article: dataStore.article(with: articleURL)) { (result, error) in
+            self.converter.convertMobileviewSavedDataToMobileHTML(article: article) { (result, error) in
+
+                let handleConversionFailure = {
+                    // TODO: no need to keep mobileview section html if conversion failed, so ok to remove section data
+                    // because we're setting `isDownloaded` next so saved article fetching will re-download from new
+                    // mobilehtml endpoint
+                    //
+                    // article.sections?.entries.removeAll()
+
+                    
+                    // TODO: if conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
+                    //
+                    // article.isDownloaded = false
+                }
+                
                 guard error == nil, let result = result else {
+                    handleConversionFailure()
                     assertionFailure("Conversion error or no result")
                     return
                 }
                 guard let mobileHTML = result as? String else {
+                    handleConversionFailure()
                     assertionFailure("mobileHTML not extracted")
                     return
                 }
                 
-                // TODO: if conversion failed above for any reason set "article.attemptedConversionFromMobileview" to true and
-                // set "article.isDownloaded" to false so normal fetching logic picks it up
                 
                 articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
             }
