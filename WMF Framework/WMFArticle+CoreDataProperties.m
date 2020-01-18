@@ -15,6 +15,7 @@
 @dynamic imageWidth;
 @dynamic isCached;
 @dynamic isDownloaded;
+@dynamic mobileviewConversionAttempted;
 @dynamic isExcludedFromFeed;
 @dynamic key;
 @dynamic latitude;
