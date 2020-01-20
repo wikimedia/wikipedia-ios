@@ -252,7 +252,6 @@
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin, jopa yhteydettömässä tilassa";
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
-"error-generic-description" = "Odottamaton virhe tapahtui";
 "error-generic-recovery-suggestion" = "Yritä myöhemmin uudelleen";
 "error-unknown" = "Tapahtui tuntematon virhe";
 "explore-another-random" = "Toinen satunnainen sivu";
