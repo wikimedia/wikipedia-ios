@@ -48,7 +48,7 @@ class ArticleViewController: ViewController {
         self.dataStore = dataStore
         self.article = article
         self.schemeHandler = SchemeHandler.shared // TODO: DI?
-        self.schemeHandler.articleCacheController = cacheController
+        self.schemeHandler.cacheController = cacheController
         self.cacheController = cacheController
         
         super.init(theme: theme)

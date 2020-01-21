@@ -424,6 +424,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        print("🙈url:\(response.url)")
+        print("🙈statusCode:\((response as? HTTPURLResponse)?.statusCode)")
         defer {
             completionHandler(.allow)
         }

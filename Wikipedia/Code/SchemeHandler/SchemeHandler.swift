@@ -22,7 +22,12 @@ final class SchemeHandler: NSObject {
     private let fileHandler: FileHandler
     private let defaultHandler: DefaultHandler
     private let cacheQueue: OperationQueue = OperationQueue()
-    var articleCacheController: CacheController?
+    
+    private let requestToResponseQueue = DispatchQueue(label: "com.wikimedia.schemeHandler.response")
+    private var requestToResponse: [URLRequest: URLResponse] = [:]
+    
+    var cacheController: CacheController?
+    var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalCacheData //needed so we see a 304 to act on
     
     @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
     
@@ -111,30 +116,36 @@ extension SchemeHandler: WKURLSchemeHandler {
             
         default:
             
-            guard let requestURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: originalRequestURL) else {
-                urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
-                removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                return
+            guard let requestURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: originalRequestURL),
+                let request = cacheController?.newCachePolicyRequest(from: originalRequest as NSURLRequest, newURL: requestURL, cachePolicy: cachePolicy) else {
+                    urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
+                    removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                    return
             }
-            
-            let request = URLRequest(url: requestURL, cachePolicy: originalRequest.cachePolicy, timeoutInterval: originalRequest.timeoutInterval)
             
             // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
             // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
             let op = BlockOperation { [weak urlSchemeTask] in
-                if let cachedResponse = self.articleCacheController?.recentCachedURLResponse(for: request) {
+                if self.cachePolicy == .returnCacheDataDontLoad {
                     DispatchQueue.main.async {
+                        
                         guard let urlSchemeTask = urlSchemeTask else {
                             return
                         }
+                        
                         self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
-                        urlSchemeTask.didReceive(cachedResponse.response)
-                        urlSchemeTask.didReceive(cachedResponse.data)
+                        
+                        if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
+                            urlSchemeTask.didReceive(cachedResponse.response)
+                            urlSchemeTask.didReceive(cachedResponse.data)
+                        }
+                        
                         urlSchemeTask.didFinish()
                         self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                     }
                     return
                 }
+                
                 DispatchQueue.main.async {
                     guard let urlSchemeTask = urlSchemeTask else {
                         return
@@ -189,24 +200,43 @@ private extension SchemeHandler {
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
+                
+                print("🚵🏻‍♂️\((response as? HTTPURLResponse)?.allHeaderFields)")
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                    let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
-                    self.removeSessionTask(request: urlSchemeTask.request)
-                    urlSchemeTask.didFailWithError(error)
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                    
+                    if httpResponse.statusCode == 304,
+                        let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
+                        urlSchemeTask.didReceive(response)
+                        urlSchemeTask.didReceive(cachedResponse.data)
+                    } else {
+                        let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
+                        self.removeSessionTask(request: urlSchemeTask.request)
+                        urlSchemeTask.didFailWithError(error)
+                        self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                    }
                 } else {
                     urlSchemeTask.didReceive(response)
+                    self.mapResponseToRequest(request: request, response: response)
                 }
             }
         }, data: { [weak urlSchemeTask] data in
+            
             DispatchQueue.main.async {
+                
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
+                
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
+                
                 urlSchemeTask.didReceive(data)
+                
+                if let response = self.response(for: request) {
+                    let cachedResponse = CachedURLResponse(response: response, data: data)
+                    URLCache.shared.storeCachedResponse(cachedResponse, for: request)
+                }
             }
         }, success: { [weak urlSchemeTask] in
             DispatchQueue.main.async {
@@ -219,10 +249,11 @@ private extension SchemeHandler {
                 urlSchemeTask.didFinish()
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                self.removeMapResponseToRequest(request: request)
             }
         }) { [weak urlSchemeTask] error in
             
-            if let cachedResponse = self.articleCacheController?.persistedCachedURLResponse(for: request) {
+            if let cachedResponse = self.cacheController?.cachedURLResponseUponError(for: request) {
                 DispatchQueue.main.async {
                     guard let urlSchemeTask = urlSchemeTask else {
                         return
@@ -232,6 +263,7 @@ private extension SchemeHandler {
                     urlSchemeTask.didReceive(cachedResponse.data)
                     urlSchemeTask.didFinish()
                     self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                    self.removeMapResponseToRequest(request: request)
                 }
                 return
             }
@@ -247,6 +279,7 @@ private extension SchemeHandler {
                 self.removeSessionTask(request: urlSchemeTask.request)
                 urlSchemeTask.didFailWithError(error)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                self.removeMapResponseToRequest(request: request)
             }
         }
         
@@ -278,5 +311,24 @@ private extension SchemeHandler {
     func addSessionTask(request: URLRequest, dataTask: URLSessionTask) {
         assert(Thread.isMainThread)
         activeSessionTasks[request] = dataTask
+    }
+    
+    func mapResponseToRequest(request: URLRequest, response: URLResponse) {
+        requestToResponseQueue.async { [weak self] in
+            self?.requestToResponse[request] = response
+            
+        }
+    }
+    
+    func response(for request: URLRequest) -> URLResponse? {
+        requestToResponseQueue.sync {
+            return self.requestToResponse[request]
+        }
+    }
+    
+    func removeMapResponseToRequest(request: URLRequest) {
+        requestToResponseQueue.async { [weak self] in
+            self?.requestToResponse.removeValue(forKey: request)
+        }
     }
 }

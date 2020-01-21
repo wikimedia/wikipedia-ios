@@ -132,12 +132,16 @@ public class CacheController {
         fileWriter.cancelTasks(for: groupKey)
     }
     
-    public func recentCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
-        return provider.recentCachedURLResponse(for: request)
+    public func cachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
+        return provider.cachedURLResponse(for: request)
     }
 
-    public func persistedCachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
-        return provider.persistedCachedURLResponse(for: request)
+    public func cachedURLResponseUponError(for request: URLRequest) -> CachedURLResponse? {
+        return provider.cachedURLResponseUponError(for: request)
+    }
+    
+    public func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL, cachePolicy: NSURLRequest.CachePolicy) -> URLRequest? {
+        return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL, cachePolicy: cachePolicy)
     }
     
     private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {
@@ -176,9 +180,9 @@ public class CacheController {
                         }
                         
                         switch result {
-                        case .success:
+                        case .success(let etag):
                             
-                            self.dbWriter.markDownloaded(itemKey: itemKey) { (result) in
+                            self.dbWriter.markDownloaded(itemKey: itemKey, etag: etag) { (result) in
                                 
                                 defer {
                                     group.leave()

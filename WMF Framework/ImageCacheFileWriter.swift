@@ -32,7 +32,7 @@ final class ImageCacheFileWriter: CacheFileWriting {
         }
         
         let untrackKey = UUID().uuidString
-        let task = imageFetcher.downloadData(url: url) { (error, _, temporaryFileURL, mimeType) in
+        let task = imageFetcher.downloadData(url: url) { (error, _, response, temporaryFileURL, mimeType) in
             
             defer {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)
@@ -47,10 +47,11 @@ final class ImageCacheFileWriter: CacheFileWriting {
                 return
             }
             
+            let etag = (response as? HTTPURLResponse)?.allHeaderFields["etag"] as? String
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success, .exists:
-                    completion(.success) //tonitodo: when do we overwrite for .exists?
+                    completion(.success(etag: etag)) //tonitodo: when do we overwrite for .exists?
                 case .failure(let error):
                     completion(.failure(error))
                 }

@@ -1,3 +1,11 @@
+//
+//  PersistentCacheItem+CoreDataProperties.swift
+//  WMF
+//
+//  Created by Toni Sevener on 1/21/20.
+//  Copyright © 2020 Wikimedia Foundation. All rights reserved.
+//
+//
 
 import Foundation
 import CoreData
@@ -14,6 +22,7 @@ extension PersistentCacheItem {
     @NSManaged public var isDownloaded: Bool
     @NSManaged public var key: String?
     @NSManaged public var variant: Int64
+    @NSManaged public var etag: String?
     @NSManaged public var cacheGroups: NSSet?
     @NSManaged public var mustHaveCacheGroups: PersistentCacheGroup?
 

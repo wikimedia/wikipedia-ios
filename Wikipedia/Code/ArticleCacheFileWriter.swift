@@ -38,7 +38,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         let urlToDownload = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mobileHTML, scheme: Configuration.Scheme.https) ?? url
         
         let untrackKey = UUID().uuidString
-        let task = articleFetcher.downloadData(url: urlToDownload) { (error, _, temporaryFileURL, mimeType) in
+        let task = articleFetcher.downloadData(url: urlToDownload) { (error, _, response, temporaryFileURL, mimeType) in
             
             defer {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)
@@ -53,10 +53,11 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
                 return
             }
             
+            let etag = (response as? HTTPURLResponse)?.allHeaderFields["etag"] as? String
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success, .exists:
-                    completion(.success) //tonitodo: when do we overwrite for .exists?
+                    completion(.success(etag: etag)) //tonitodo: when do we overwrite for .exists?
                 case .failure(let error):
                     completion(.failure(error))
                 }

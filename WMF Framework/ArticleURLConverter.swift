@@ -63,7 +63,7 @@ public class ArticleURLConverter {
         
         let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
         #warning("switch to Configuration.current")
-        var components = Configuration.mobileAppsServicesLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
+        var components = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
         if let scheme = scheme {
             components.scheme = scheme
         }
