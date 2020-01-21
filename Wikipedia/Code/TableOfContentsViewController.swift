@@ -1,7 +1,18 @@
 import UIKit
 import WMF
 
-public protocol TableOfContentsViewControllerDelegate : AnyObject {
+enum TableOfContentsDisplayMode {
+    case inline
+    case modal
+}
+
+enum TableOfContentsDisplaySide {
+    case left
+    case right
+}
+
+
+public protocol TableOfContentsViewControllerDelegate : UIViewController {
 
     /**
      Notifies the delegate that the controller will display
@@ -21,8 +32,9 @@ public protocol TableOfContentsViewControllerDelegate : AnyObject {
     func tableOfContentsControllerDidCancel(_ controller: TableOfContentsViewController)
 
     var tableOfContentsArticleLanguageURL: URL? { get }
-    
-    var tableOfContentsDisplayModeIsModal: Bool { get }
+        
+    var tableOfContentsSemanticContentAttribute: UISemanticContentAttribute { get }
+
 }
 
 open class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableOfContentsAnimatorDelegate, Themeable {
@@ -31,7 +43,9 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
     
     let tableOfContentsFunnel: ToCInteractionFunnel
 
-    let semanticContentAttributeOverride: UISemanticContentAttribute
+    var semanticContentAttributeOverride: UISemanticContentAttribute {
+        return delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
+    }
     
     var displaySide = TableOfContentsDisplaySide.left {
         didSet {
@@ -43,6 +57,17 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
         didSet {
             animator?.displayMode = displayMode
         }
+    }
+    
+    var isVisible: Bool = false
+    
+    var closeGestureRecognizer: UISwipeGestureRecognizer?
+    
+    @objc func handleTableOfContentsCloseGesture(_ swipeGestureRecoginzer: UIGestureRecognizer) {
+        guard swipeGestureRecoginzer.state == .ended, isVisible else {
+            return
+        }
+        delegate?.tableOfContentsControllerDidCancel(self)
     }
 
     @objc let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
@@ -60,31 +85,30 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
     }
     
     //optional because it requires a reference to self to inititialize
-    var animator: TableOfContentsAnimator?
+    lazy var animator: TableOfContentsAnimator? = {
+        guard let delegate = delegate else {
+            return nil
+        }
+        let animator = TableOfContentsAnimator(presentingViewController: delegate, presentedViewController: self)
+        animator.apply(theme: theme)
+        animator.delegate = self
+        animator.displaySide = displaySide
+        animator.displayMode = displayMode
+        return animator
+    }()
 
     weak var delegate: TableOfContentsViewControllerDelegate?
+    
 
     // MARK: - Init
-    public required init(presentingViewController: UIViewController?,
-                         items: [TableOfContentsItem],
-                         delegate: TableOfContentsViewControllerDelegate,
-                         semanticContentAttribute: UISemanticContentAttribute,
-                         theme: Theme) {
+    public required init(delegate: TableOfContentsViewControllerDelegate?, theme: Theme) {
         self.theme = theme
-        self.semanticContentAttributeOverride = semanticContentAttribute
-        self.items = items
+        self.items = []
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
-        if let presentingViewController = presentingViewController {
-            animator = TableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
-            animator?.apply(theme: theme)
-            animator?.delegate = self
-            animator?.displaySide = displaySide
-            animator?.displayMode = displayMode
-        }
         modalPresentationStyle = .custom
-        transitioningDelegate = self.animator
+        transitioningDelegate = animator
         edgesForExtendedLayout = .all
         extendedLayoutIncludesOpaqueBars = true
     }
@@ -215,10 +239,19 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
 
         tableView.contentInsetAdjustmentBehavior = .never
         
-        tableView.semanticContentAttribute = self.semanticContentAttributeOverride
+        tableView.semanticContentAttribute = delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
 
-        view.semanticContentAttribute = semanticContentAttributeOverride
+        view.semanticContentAttribute = delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
 
+        let closeGR = UISwipeGestureRecognizer(target: self, action: #selector(handleTableOfContentsCloseGesture))
+        switch displaySide {
+        case .left:
+            closeGR.direction = .left
+        case .right:
+            closeGR.direction = .right
+        }
+        view.addGestureRecognizer(closeGR)
+        closeGestureRecognizer = closeGR
         
         apply(theme: theme)
     }
@@ -328,7 +361,7 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
         guard viewIfLoaded != nil else {
             return
         }
-        if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal {
+        if displayMode == .modal {
             tableView.backgroundColor = theme.colors.paperBackground
         } else {
             tableView.backgroundColor = theme.colors.midBackground

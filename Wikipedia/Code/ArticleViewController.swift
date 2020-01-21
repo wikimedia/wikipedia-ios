@@ -86,18 +86,27 @@ class ArticleViewController: ViewController {
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
             DDLogError("Error loading lead image: \(error)")
         }) {
-            self.layoutLeadImage()
+            self.updateLeadImageMargins()
         }
     }
+    
+    lazy var leadImageLeadingMarginConstraint: NSLayoutConstraint = {
+        return leadImageView.leadingAnchor.constraint(equalTo: leadImageContainerView.leadingAnchor)
+    }()
+    
+    lazy var leadImageTrailingMarginConstraint: NSLayoutConstraint = {
+        return leadImageContainerView.trailingAnchor.constraint(equalTo: leadImageView.trailingAnchor)
+    }()
     
     lazy var leadImageHeightConstraint: NSLayoutConstraint = {
         return leadImageContainerView.heightAnchor.constraint(equalToConstant: 0)
     }()
     
     lazy var leadImageView: UIImageView = {
-        let imageView = FLAnimatedImageView(frame: .zero)
+        let imageView = NoIntrinsicContentSizeImageView(frame: .zero)
         imageView.isUserInteractionEnabled = true
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.accessibilityIgnoresInvertColors = true
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(userDidTapLeadImage))
@@ -105,45 +114,53 @@ class ArticleViewController: ViewController {
         return imageView
     }()
     
-    lazy var leadImageContainerView: UIView = {
+    lazy var leadImageBorderHeight: CGFloat = {
         let scale = UIScreen.main.scale
-        let borderHeight: CGFloat = scale > 1 ? 0.5 : 1
+        return scale > 1 ? 0.5 : 1
+    }()
+    
+    lazy var leadImageContainerView: UIView = {
+
         let height: CGFloat = 10
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: height))
         containerView.clipsToBounds = true
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        let borderView = UIView(frame: CGRect(x: 0, y: height - borderHeight, width: 1, height: borderHeight))
+        let borderView = UIView(frame: CGRect(x: 0, y: height - leadImageBorderHeight, width: 1, height: leadImageBorderHeight))
         borderView.backgroundColor = UIColor(white: 0, alpha: 0.2)
         borderView.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
         
-        leadImageView.frame = CGRect(x: 0, y: 0, width: 1, height: height - borderHeight)
+        leadImageView.frame = CGRect(x: 0, y: 0, width: 1, height: height - leadImageBorderHeight)
         containerView.addSubview(leadImageView)
         containerView.addSubview(borderView)
         return containerView
     }()
-        
-    func layoutLeadImage() {
-        let containerBounds = leadImageContainerView.bounds
-//        // TODO: iPad margin handling after ToC is implemented
-
-//        let imageSize = leadImageView.image?.size ?? .zero
-//        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
-        let marginWidth: CGFloat = 0
-//        if isImageNarrow { // TODO: && self.tableOfContentsDisplayState == TableOfContentsDisplayStateInlineHidden) {
-//            marginWidth = 32
-//        }
-        leadImageView.frame = CGRect(x: marginWidth, y: 0, width: containerBounds.size.width - 2 * marginWidth, height: CGFloat(leadImageHeight))
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        updateLeadImageMargins()
     }
     
+    func updateLeadImageMargins() {
+        let imageSize = leadImageView.image?.size ?? .zero
+        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
+        var marginWidth: CGFloat = 0
+        if isImageNarrow && tableOfContentsViewController.displayMode == .inline && !tableOfContentsViewController.isVisible {
+            marginWidth = 32
+        }
+        leadImageLeadingMarginConstraint.constant = marginWidth
+        leadImageTrailingMarginConstraint.constant = marginWidth
+    }
     
     // MARK: Previewing
     
     public var articlePreviewingDelegate: ArticlePreviewingDelegate?
     
     // MARK: Layout
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        layoutLeadImage()
+    
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        updateTableOfContentsInsets()
     }
     
     // MARK: Loading
@@ -180,12 +197,12 @@ class ArticleViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateTableOfContents(with: traitCollection)
+        tableOfContentsDisplayController.update(with: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        updateTableOfContents(with: traitCollection)
+        tableOfContentsDisplayController.update(with: traitCollection)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -232,19 +249,28 @@ class ArticleViewController: ViewController {
     }
     
     // MARK: Table of contents
-    struct TableOfContentsState {
-        var items: [TableOfContentsItem] = []
-        var closeGestureRecognizer: UISwipeGestureRecognizer?
-        var viewController: TableOfContentsViewController?
-        var displayMode: TableOfContentsDisplayMode = .modal
-        var displaySide: TableOfContentsDisplaySide = .left
-        var isVisible: Bool = false
-        var isUpdatingSectionOnScroll: Bool = false
-        lazy var separatorView: UIView = {
-            return UIView()
-        }()
+    
+    lazy var tableOfContentsViewController: TableOfContentsViewController = TableOfContentsViewController(delegate: self, theme: theme)
+    
+    lazy var tableOfContentsDisplayController: ArticleTableOfContentsDisplayController = ArticleTableOfContentsDisplayController(view: webView, viewController: tableOfContentsViewController, delegate: self)
+    
+    func updateTableOfContentsInsets() {
+        let tocScrollView = tableOfContentsViewController.tableView
+        let topOffsetY = 0 - tocScrollView.contentInset.top
+        let wasAtTop = tocScrollView.contentOffset.y <= topOffsetY
+        switch tableOfContentsViewController.displayMode {
+        case .inline:
+            tocScrollView.contentInset = webView.scrollView.contentInset
+            tocScrollView.scrollIndicatorInsets = webView.scrollView.scrollIndicatorInsets
+        case .modal:
+            tocScrollView.contentInset = UIEdgeInsets(top: view.safeAreaInsets.top, left: 0, bottom: view.safeAreaInsets.bottom, right: 0)
+            tocScrollView.scrollIndicatorInsets = tocScrollView.contentInset
+        }
+        guard wasAtTop else {
+            return
+        }
+        tocScrollView.contentOffset = CGPoint(x: 0, y: topOffsetY)
     }
-    var tableOfContents: TableOfContentsState = TableOfContentsState()
     
     // MARK: Scroll
     
@@ -328,16 +354,19 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
-        view.wmf_addSubviewWithConstraintsToEdges(webView)
+        view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsDisplayController.stackView)
+        view.widthAnchor.constraint(equalTo: tableOfContentsDisplayController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+        
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
-        leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.addSubview(leadImageContainerView)
             
-        let leadingConstraint = webView.leadingAnchor.constraint(equalTo: leadImageContainerView.leadingAnchor)
-        let trailingConstraint = webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
+        let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
-        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint])
+        let imageTopConstraint = leadImageView.topAnchor.constraint(equalTo:  leadImageContainerView.topAnchor)
+        let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
+        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
         
         guard let siteURL = articleURL.wmf_site else {
             DDLogError("Missing site for \(articleURL)")
@@ -387,7 +416,7 @@ private extension ArticleViewController {
 
 extension ArticleViewController: ArticleWebMessageHandling {
     func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem]) {
-        tableOfContents.viewController?.items = items
+        tableOfContentsViewController.items = items
     }
     
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
@@ -420,11 +449,11 @@ extension ArticleViewController: ArticleToolbarHandling {
     }
     
     func hideTableOfContents(from controller: ArticleToolbarController) {
-        
+        hideTableOfContents()
     }
     
     var isTableOfContentsVisible: Bool {
-        return tableOfContents.displayMode == .inline && tableOfContents.isVisible
+        return tableOfContentsViewController.displayMode == .inline && tableOfContentsViewController.isVisible
     }
     
     func toggleSave(from viewController: ArticleToolbarController) {
