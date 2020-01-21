@@ -225,6 +225,7 @@ class ArticleViewController: ViewController {
         view.backgroundColor = theme.colors.paperBackground
         webView.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
+        tableOfContentsDisplayController.separatorView.backgroundColor = theme.colors.baseBackground
         if state == .data {
             messagingController.updateTheme(theme)
         }
