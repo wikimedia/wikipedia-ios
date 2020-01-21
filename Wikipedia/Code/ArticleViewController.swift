@@ -299,12 +299,16 @@ class ArticleViewController: ViewController {
             completion?()
             return
         }
-        guard WMFDistanceBetweenPoints(offset, scrollView.contentOffset) >= 2 else {
+        let minY = 0 - scrollView.contentInset.top
+        let maxY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
+        let boundedY = min(maxY,  max(minY, offset.y))
+        let boundedOffset = CGPoint(x: scrollView.contentOffset.x, y: boundedY)
+        guard WMFDistanceBetweenPoints(boundedOffset, scrollView.contentOffset) >= 2 else {
             completion?()
             return
         }
         guard animated else {
-            scrollView.setContentOffset(offset, animated: false)
+            scrollView.setContentOffset(boundedOffset, animated: false)
             completion?()
             return
         }
@@ -321,7 +325,7 @@ class ArticleViewController: ViewController {
         if let completion = completion {
             scrollViewAnimationCompletions.insert(completion, at: 0)
         }
-        scrollView.setContentOffset(offset, animated: true)
+        scrollView.setContentOffset(boundedOffset, animated: true)
     }
     
     override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
