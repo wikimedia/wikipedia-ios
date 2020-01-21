@@ -38,30 +38,48 @@ class ArticleTableOfContentsDisplayController {
     }()
 
     func show(animated: Bool) {
-        viewController.isVisible = true
         switch viewController.displayMode {
         case .inline:
-            UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(true)
-            inlineContainerView.isHidden = false
-            separatorView.isHidden = false
+            showInline()
         case .modal:
-            guard delegate?.presentedViewController == nil else {
-                break
-            }
-            delegate?.present(viewController, animated: animated)
+            showModal(animated: animated)
         }
     }
     
     func hide(animated: Bool) {
-       viewController.isVisible = false
        switch viewController.displayMode {
        case .inline:
-           UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(false)
-           inlineContainerView.isHidden = true
-           separatorView.isHidden = true
+           hideInline()
        case .modal:
-            delegate?.dismiss(animated: true)
+           hideModal(animated: animated)
        }
+    }
+    
+    func showModal(animated: Bool) {
+        viewController.isVisible = true
+        guard delegate?.presentedViewController == nil else {
+            return
+        }
+        delegate?.present(viewController, animated: animated)
+    }
+    
+    func hideModal(animated: Bool) {
+        viewController.isVisible = false
+        delegate?.dismiss(animated: animated)
+    }
+    
+    func showInline() {
+        viewController.isVisible = true
+        UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(true)
+        inlineContainerView.isHidden = false
+        separatorView.isHidden = false
+    }
+    
+    func hideInline() {
+        viewController.isVisible = false
+        UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(false)
+        inlineContainerView.isHidden = true
+        separatorView.isHidden = true
     }
     
     func update(with traitCollection: UITraitCollection) {
@@ -77,12 +95,16 @@ class ArticleTableOfContentsDisplayController {
             guard viewController.parent != delegate else {
                 return
             }
-            if delegate?.presentedViewController == viewController {
-                delegate?.dismiss(animated: false)
+            let wasVisible = viewController.isVisible
+            if wasVisible {
+                hideModal(animated: false)
             }
             delegate?.addChild(viewController)
             inlineContainerView.wmf_addSubviewWithConstraintsToEdges(viewController.view)
             viewController.didMove(toParent: delegate)
+            if wasVisible {
+                showInline()
+            }
         case .modal:
             guard viewController.parent == delegate else {
                 return
@@ -90,6 +112,10 @@ class ArticleTableOfContentsDisplayController {
             viewController.willMove(toParent: nil)
             viewController.view.removeFromSuperview()
             viewController.removeFromParent()
+            if viewController.isVisible {
+                hideInline()
+                showModal(animated: false)
+            }
         }
     }
 
