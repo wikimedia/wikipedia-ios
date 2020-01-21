@@ -304,6 +304,7 @@ class ArticleViewController: ViewController {
         let boundedY = min(maxY,  max(minY, offset.y))
         let boundedOffset = CGPoint(x: scrollView.contentOffset.x, y: boundedY)
         guard WMFDistanceBetweenPoints(boundedOffset, scrollView.contentOffset) >= 2 else {
+            scrollView.flashScrollIndicators()
             completion?()
             return
         }
