@@ -182,7 +182,10 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
     }
     
     override open var frameOfPresentedViewInContainerView : CGRect {
-        var frame = self.containerView!.bounds
+        guard let containerView = containerView else {
+            return .zero
+        }
+        var frame = containerView.bounds
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
         if(tocWidth > self.maximumTableOfContentsWidth){
@@ -210,7 +213,10 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         super.viewWillTransition(to: size, with: transitionCoordinator)
 
         transitionCoordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
-            self.backgroundView.frame = self.containerView!.bounds
+            guard let containerView = self.containerView else {
+                return
+            }
+            self.backgroundView.frame = containerView.bounds
             let frame = self.frameOfPresentedViewInContainerView
             self.presentedView!.frame = frame
             self.updateStatusBarBackgroundFrame()

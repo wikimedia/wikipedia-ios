@@ -1,15 +1,40 @@
-class ArticleTableOfContentsDisplayController {
+
+// Handles hide/display of article table of contents
+// Manages a stack view and the associated constraints
+
+protocol ArticleTableOfContentsDisplayControllerDelegate : TableOfContentsViewControllerDelegate {
+    func tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
+}
+
+class ArticleTableOfContentsDisplayController: Themeable {
     
-    let viewController: TableOfContentsViewController
+    weak var delegate: ArticleTableOfContentsDisplayControllerDelegate?
     
-    weak var delegate: UIViewController?
+    lazy var viewController: TableOfContentsViewController = {
+        return recreateTableOfContentsViewController()
+    }()
     
-    init (view: UIView, viewController: TableOfContentsViewController, delegate: ViewController?) {
-        self.viewController = viewController
+    var theme: Theme = .standard
+    func apply(theme: Theme) {
+        self.theme = theme
+        separatorView.backgroundColor = theme.colors.baseBackground
+        stackView.backgroundColor = theme.colors.paperBackground
+        inlineContainerView.backgroundColor = theme.colors.midBackground
+        viewController.apply(theme: theme)
+    }
+    
+    func recreateTableOfContentsViewController() -> TableOfContentsViewController {
+        let displaySide: TableOfContentsDisplaySide = stackView.semanticContentAttribute == .forceRightToLeft ? .right : .left
+        return TableOfContentsViewController(delegate: delegate, theme: theme, displaySide: displaySide)
+    }
+    
+    init (articleView: UIView, delegate: ArticleTableOfContentsDisplayControllerDelegate, theme: Theme) {
         self.delegate = delegate
-        stackView.addArrangedSubview(view)
-        stackView.addArrangedSubview(separatorView)
+        self.theme = theme
+        stackView.semanticContentAttribute = delegate.tableOfContentsSemanticContentAttribute
         stackView.addArrangedSubview(inlineContainerView)
+        stackView.addArrangedSubview(separatorView)
+        stackView.addArrangedSubview(articleView)
         NSLayoutConstraint.activate([separatorWidthConstraint])
     }
 
@@ -84,7 +109,6 @@ class ArticleTableOfContentsDisplayController {
     
     func update(with traitCollection: UITraitCollection) {
         let isCompact = traitCollection.horizontalSizeClass == .compact
-        viewController.displaySide = traitCollection.layoutDirection == .rightToLeft ? .right : .left
         viewController.displayMode = isCompact ? .modal : .inline
         setupTableOfContentsViewController()
     }
@@ -99,23 +123,30 @@ class ArticleTableOfContentsDisplayController {
             if wasVisible {
                 hideModal(animated: false)
             }
+            viewController = recreateTableOfContentsViewController()
+            viewController.displayMode = .inline
             delegate?.addChild(viewController)
             inlineContainerView.wmf_addSubviewWithConstraintsToEdges(viewController.view)
             viewController.didMove(toParent: delegate)
             if wasVisible {
                 showInline()
             }
+            delegate?.tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
         case .modal:
             guard viewController.parent == delegate else {
                 return
             }
+            let wasVisible = viewController.isVisible
+            viewController.displayMode = .modal
             viewController.willMove(toParent: nil)
             viewController.view.removeFromSuperview()
             viewController.removeFromParent()
-            if viewController.isVisible {
+            viewController = recreateTableOfContentsViewController()
+            if wasVisible {
                 hideInline()
                 showModal(animated: false)
             }
+            delegate?.tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
         }
     }
 

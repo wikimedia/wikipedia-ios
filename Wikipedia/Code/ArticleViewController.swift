@@ -145,7 +145,7 @@ class ArticleViewController: ViewController {
         let imageSize = leadImageView.image?.size ?? .zero
         let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
         var marginWidth: CGFloat = 0
-        if isImageNarrow && tableOfContentsViewController.displayMode == .inline && !tableOfContentsViewController.isVisible {
+        if isImageNarrow && tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible {
             marginWidth = 32
         }
         leadImageLeadingMarginConstraint.constant = marginWidth
@@ -197,12 +197,14 @@ class ArticleViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableOfContentsDisplayController.update(with: traitCollection)
+        tableOfContentsController.update(with: traitCollection)
+        toolbarController.update()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        tableOfContentsDisplayController.update(with: traitCollection)
+        tableOfContentsController.update(with: traitCollection)
+        toolbarController.update()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -222,10 +224,13 @@ class ArticleViewController: ViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.paperBackground
         webView.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
-        tableOfContentsDisplayController.separatorView.backgroundColor = theme.colors.baseBackground
+        tableOfContentsController.apply(theme: theme)
         if state == .data {
             messagingController.updateTheme(theme)
         }
@@ -251,15 +256,19 @@ class ArticleViewController: ViewController {
     
     // MARK: Table of contents
     
-    lazy var tableOfContentsViewController: TableOfContentsViewController = TableOfContentsViewController(delegate: self, theme: theme)
+    lazy var tableOfContentsController: ArticleTableOfContentsDisplayController = ArticleTableOfContentsDisplayController(articleView: webView, delegate: self, theme: theme)
     
-    lazy var tableOfContentsDisplayController: ArticleTableOfContentsDisplayController = ArticleTableOfContentsDisplayController(view: webView, viewController: tableOfContentsViewController, delegate: self)
+    var tableOfContentsItems: [TableOfContentsItem] = [] {
+        didSet {
+            tableOfContentsController.viewController.reload()
+        }
+    }
     
     func updateTableOfContentsInsets() {
-        let tocScrollView = tableOfContentsViewController.tableView
+        let tocScrollView = tableOfContentsController.viewController.tableView
         let topOffsetY = 0 - tocScrollView.contentInset.top
         let wasAtTop = tocScrollView.contentOffset.y <= topOffsetY
-        switch tableOfContentsViewController.displayMode {
+        switch tableOfContentsController.viewController.displayMode {
         case .inline:
             tocScrollView.contentInset = webView.scrollView.contentInset
             tocScrollView.scrollIndicatorInsets = webView.scrollView.scrollIndicatorInsets
@@ -360,8 +369,8 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
-        view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsDisplayController.stackView)
-        view.widthAnchor.constraint(equalTo: tableOfContentsDisplayController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+        view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
+        view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
         
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
@@ -422,7 +431,7 @@ private extension ArticleViewController {
 
 extension ArticleViewController: ArticleWebMessageHandling {
     func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem]) {
-        tableOfContentsViewController.items = items
+        tableOfContentsItems = items
     }
     
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
@@ -459,7 +468,7 @@ extension ArticleViewController: ArticleToolbarHandling {
     }
     
     var isTableOfContentsVisible: Bool {
-        return tableOfContentsViewController.displayMode == .inline && tableOfContentsViewController.isVisible
+        return tableOfContentsController.viewController.displayMode == .inline && tableOfContentsController.viewController.isVisible
     }
     
     func toggleSave(from viewController: ArticleToolbarController) {

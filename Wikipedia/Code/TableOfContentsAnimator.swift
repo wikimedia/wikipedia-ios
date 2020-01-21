@@ -3,12 +3,12 @@ import UIKit
 import CocoaLumberjackSwift
 
 // MARK: - Delegate
-@objc public protocol TableOfContentsAnimatorDelegate {
+protocol TableOfContentsAnimatorDelegate: NSObjectProtocol {
     
     func tableOfContentsAnimatorDidTapBackground(_ controller: TableOfContentsAnimator)
 }
 
-open class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate, TableOfContentsPresentationControllerTapDelegate, Themeable {
+class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate, TableOfContentsPresentationControllerTapDelegate, Themeable {
     
     fileprivate var theme = Theme.standard
     public func apply(theme: Theme) {
@@ -16,11 +16,19 @@ open class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIView
         self.presentationController?.apply(theme: theme)
     }
     
-    var displaySide = TableOfContentsDisplaySide.left
-    var displayMode = TableOfContentsDisplayMode.modal
+    var displaySide = TableOfContentsDisplaySide.left {
+        didSet {
+            presentationController?.displaySide = displaySide
+        }
+    }
+    var displayMode = TableOfContentsDisplayMode.modal {
+        didSet {
+            presentationController?.displayMode = displayMode
+        }
+    }
     
     // MARK: - init
-    public required init(presentingViewController: UIViewController, presentedViewController: UIViewController) {
+    required init(presentingViewController: UIViewController, presentedViewController: UIViewController) {
         self.presentingViewController = presentingViewController
         self.presentedViewController = presentedViewController
         self.isPresenting = true

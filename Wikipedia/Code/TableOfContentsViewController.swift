@@ -12,7 +12,7 @@ enum TableOfContentsDisplaySide {
 }
 
 
-public protocol TableOfContentsViewControllerDelegate : UIViewController {
+protocol TableOfContentsViewControllerDelegate : UIViewController {
 
     /**
      Notifies the delegate that the controller will display
@@ -34,10 +34,11 @@ public protocol TableOfContentsViewControllerDelegate : UIViewController {
     var tableOfContentsArticleLanguageURL: URL? { get }
         
     var tableOfContentsSemanticContentAttribute: UISemanticContentAttribute { get }
-
+    
+    var tableOfContentsItems: [TableOfContentsItem] { get }
 }
 
-open class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableOfContentsAnimatorDelegate, Themeable {
+class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableOfContentsAnimatorDelegate, Themeable {
     
     fileprivate var theme = Theme.standard
     
@@ -47,15 +48,13 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
         return delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
     }
     
-    var displaySide = TableOfContentsDisplaySide.left {
-        didSet {
-            animator?.displaySide = displaySide
-        }
-    }
+    let displaySide: TableOfContentsDisplaySide
     
     var displayMode = TableOfContentsDisplayMode.modal {
         didSet {
             animator?.displayMode = displayMode
+            closeGestureRecognizer?.isEnabled = displayMode == .inline
+            apply(theme: theme)
         }
     }
     
@@ -71,20 +70,7 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
     }
 
     @objc let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
-
-    var items: [TableOfContentsItem] {
-        didSet{
-            if isViewLoaded {
-                let selectedIndexPathBeforeReload = tableView.indexPathForSelectedRow
-                tableView.reloadData()
-                if let indexPathToReselect = selectedIndexPathBeforeReload, indexPathToReselect.section < tableView.numberOfSections && indexPathToReselect.row < tableView.numberOfRows(inSection: indexPathToReselect.section) {
-                    tableView.selectRow(at: indexPathToReselect, animated: false, scrollPosition: .none)
-                }
-            }
-        }
-    }
     
-    //optional because it requires a reference to self to inititialize
     lazy var animator: TableOfContentsAnimator? = {
         guard let delegate = delegate else {
             return nil
@@ -99,12 +85,19 @@ open class TableOfContentsViewController: UIViewController, UITableViewDelegate,
 
     weak var delegate: TableOfContentsViewControllerDelegate?
     
+    var items: [TableOfContentsItem] {
+        return delegate?.tableOfContentsItems ?? []
+    }
+    
+    func reload() {
+        tableView.reloadData()
+    }
 
     // MARK: - Init
-    public required init(delegate: TableOfContentsViewControllerDelegate?, theme: Theme) {
+    required init(delegate: TableOfContentsViewControllerDelegate?, theme: Theme, displaySide: TableOfContentsDisplaySide) {
         self.theme = theme
-        self.items = []
         self.delegate = delegate
+        self.displaySide = displaySide
         tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .custom
