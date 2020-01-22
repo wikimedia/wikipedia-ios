@@ -29,13 +29,14 @@ public struct TableOfContentsItem: Equatable {
     let id: Int
     let titleHTML: String
     let anchor: String
+    let rootItemId: Int?
     var itemType: TableOfContentsItemType {
-        return indentationLevel < 2 ? .primary : .secondary
+        return indentationLevel < 1 ? .primary : .secondary
     }
     let indentationLevel: Int
 
     func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool {
-        return item == self
+        return item.id == rootItemId || item.rootItemId == id
     }
 
     public static func == (lhs: TableOfContentsItem, rhs: TableOfContentsItem) -> Bool {

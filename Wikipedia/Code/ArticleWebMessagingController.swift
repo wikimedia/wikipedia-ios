@@ -120,6 +120,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             if
                 let tableOfContents = data["tableOfContents"] as? [[String: Any]]
             {
+                var currentRootSectionId = -1
                 let items = tableOfContents.compactMap { (tocJSON) -> TableOfContentsItem? in
                     guard
                         let id = tocJSON["id"] as? Int,
@@ -129,7 +130,11 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                     else {
                             return nil
                     }
-                    return TableOfContentsItem(id: id, titleHTML: title, anchor: anchor, indentationLevel: level)
+                    let indentationLevel = level - 1
+                    if indentationLevel == 0 {
+                        currentRootSectionId = id
+                    }
+                    return TableOfContentsItem(id: id, titleHTML: title, anchor: anchor, rootItemId: currentRootSectionId, indentationLevel: indentationLevel)
                 }
                 delegate?.didGetTableOfContents(messagingcontroller: self, items: items)
             }

@@ -75,7 +75,7 @@ class TableOfContentsCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        indentationLevel = 0
+        indentationLevel = 1
         setSectionSelected(false, animated: false)
         setSelected(false, animated: false)
     }
