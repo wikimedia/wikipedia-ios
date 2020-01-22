@@ -197,7 +197,7 @@ class ArticleViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableOfContentsController.update(with: traitCollection)
+        tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
     }
     

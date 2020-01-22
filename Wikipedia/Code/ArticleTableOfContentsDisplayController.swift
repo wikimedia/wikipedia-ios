@@ -111,6 +111,14 @@ class ArticleTableOfContentsDisplayController: Themeable {
         separatorView.isHidden = true
     }
     
+    func setup(with traitCollection:UITraitCollection) {
+        update(with: traitCollection)
+        guard viewController.displayMode == .inline, UserDefaults.wmf.wmf_isTableOfContentsVisibleInline() else {
+            return
+        }
+        showInline()
+    }
+    
     func update(with traitCollection: UITraitCollection) {
         let isCompact = traitCollection.horizontalSizeClass == .compact
         viewController.displayMode = isCompact ? .modal : .inline
