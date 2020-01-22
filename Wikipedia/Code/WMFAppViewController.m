@@ -9,9 +9,6 @@
 #import <Tweaks/FBTweakInline.h>
 #endif
 
-// Networking
-#import "SavedArticlesFetcher.h"
-
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
@@ -19,7 +16,6 @@
 // View Controllers
 #import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
-#import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
 #import "AppDelegate.h"
@@ -75,7 +71,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
-@property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
+@property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -1265,9 +1261,33 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
 
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.session.dataStore theme:self.theme];
-    articleVC.articleLoadCompletion = completion;
+    articleVC.loadCompletion = completion;
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
+}
+
+- (void)showNewArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+    
+    if (!articleURL.wmf_title) {
+        completion();
+        return;
+    }
+    
+    //tonitodo: visibleArticleVC logic here from legacy method?
+    
+    UINavigationController *nc = [self currentNavigationController];
+    if (!nc) {
+        completion();
+        return;
+    }
+
+    if (nc.presentedViewController) {
+        [nc dismissViewControllerAnimated:NO completion:NULL];
+    }
+    
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
+    
+    [nc pushViewController:articleVC animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1301,12 +1321,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Accessors
 
-- (SavedArticlesFetcher *)savedArticlesFetcher {
+- (WMFSavedArticlesFetcher *)savedArticlesFetcher {
     if (![self uiIsLoaded]) {
         return nil;
     }
     if (!_savedArticlesFetcher) {
-        _savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+        _savedArticlesFetcher = [[WMFSavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
@@ -1559,11 +1579,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
         if (self.selectedIndex == WMFAppTabTypeMain) {
-            vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
+            vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
         } else if (self.selectedIndex == WMFAppTabTypeSaved) {
-            vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-saved-accessibility-label", nil, nil, @"Wikipedia, return to Saved", @"Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.");
+            vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-saved-accessibility-label", nil, nil, @"Wikipedia, return to Saved", @"Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.");
         } else if (self.selectedIndex == WMFAppTabTypeRecent) {
-            vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-history-accessibility-label", nil, nil, @"Wikipedia, return to History", @"Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.");
+            vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-history-accessibility-label", nil, nil, @"Wikipedia, return to History", @"Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.");
         }
     }
 }

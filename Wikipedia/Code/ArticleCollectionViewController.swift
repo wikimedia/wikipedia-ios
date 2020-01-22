@@ -204,20 +204,17 @@ extension ArticleCollectionViewController {
 
         previewedIndexPath = indexPath
 
-        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
-        articleViewController.articlePreviewingActionsDelegate = self
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
+            return nil
+        }
+        articleViewController.articlePreviewingDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleViewController
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        
-        if let articleViewController = viewControllerToCommit as? WMFArticleViewController {
-            wmf_push(articleViewController, animated: true)
-        } else {
-            wmf_push(viewControllerToCommit, animated: true)
-        }
+        wmf_push(viewControllerToCommit, animated: true)
     }
 }
 

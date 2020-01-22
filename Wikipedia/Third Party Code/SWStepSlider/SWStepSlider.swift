@@ -88,6 +88,11 @@ open class SWStepSlider: UIControl {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         self.addGestureRecognizer(tap)
         
+        // Reverse the slider if we are in RTL mode
+        if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
+            self.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
+        
         self.layer.addSublayer(self.thumbLayer)
     }
     

@@ -690,8 +690,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(true)
-            } else if let avc = viewControllerToCommit as? WMFArticleViewController {
-                avc.articlePreviewingActionsDelegate = self
+            } else if let avc = viewControllerToCommit as? ArticleViewController {
+                avc.articlePreviewingDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             }
 
@@ -711,7 +711,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             potd.setOverlayViewTopBarHidden(false)
             present(potd, animated: false)
             FeedFunnel.shared.logFeedCardOpened(for: previewed.context)
-        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+        } else if let avc = viewControllerToCommit as? WMFLegacyArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
             wmf_push(avc, context: previewed.context, index: previewed.indexPath?.item, animated: false)
         } else {
@@ -719,7 +719,25 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    // MARK:
+    // MARK: ArticlePreviewingDelegate
+    
+    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
+        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
+        FeedFunnel.shared.logFeedShareTapped(for: previewed.context, index: previewed.indexPath?.item)
+    }
+
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
+    }
+
+    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+        if didSave {
+            ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
+        } else {
+            ReadingListsFunnel.shared.logUnsaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
+        }
+    }
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
@@ -944,27 +962,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         save()
     }
     
-}
-
-// MARK: - WMFArticlePreviewingActionsDelegate
-extension ExploreViewController {
-    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
-        FeedFunnel.shared.logFeedShareTapped(for: previewed.context, index: previewed.indexPath?.item)
-    }
-
-    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
-    }
-
-    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        if didSave {
-            ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
-        } else {
-            ReadingListsFunnel.shared.logUnsaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
-        }
-    }
 }
 
 // MARK: - EventLoggingSearchSourceProviding

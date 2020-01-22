@@ -33,6 +33,7 @@ protocol ReadingThemesControlsResponding: WMFReadingThemesControlsViewController
 extension ReadingThemesControlsPresenting {
     
     func showReadingThemesControlsPopup(on viewController: UIViewController, responder: ReadingThemesControlsResponding, theme: Theme) {
+        readingThemesControlsViewController.loadViewIfNeeded()
         
         let fontSizes = fontSizeMultipliers
         let index = indexOfCurrentFontSize

@@ -6,7 +6,7 @@
 #import "WMFHTTPHangingProtocol.h"
 #import <Nocilla/Nocilla.h>
 #import <CocoaLumberjackSwift/CocoaLumberjackSwift.h>
-#import "WebViewController.h"
+#import "LegacyWebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "XCTestCase+WMFBundleConvenience.h"
 #import "NSBundle+TestAssets.h"

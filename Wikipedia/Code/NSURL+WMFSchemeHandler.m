@@ -1,7 +1,8 @@
 #import <WMF/NSURL+WMFSchemeHandler.h>
 #import <WMF/NSURL+WMFQueryParameters.h>
 
-NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
+NSString *const WMFLegacyURLSchemeHandlerScheme = @"wmfapp";
+NSString *const WMFURLSchemeHandlerScheme = @"app";
 
 @implementation NSURL (WMFSchemeHandler)
 
@@ -9,6 +10,12 @@ NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.scheme = @"https";
     return [components URL];
+}
+
++ (NSURL *)wmf_legacyAppSchemeURLForURLString:(NSString *)URLString {
+    NSURLComponents *components = [NSURLComponents componentsWithString:URLString];
+    components.scheme = WMFLegacyURLSchemeHandlerScheme;
+    return components.URL;
 }
 
 + (NSURL *)wmf_appSchemeURLForURLString:(NSString *)URLString {

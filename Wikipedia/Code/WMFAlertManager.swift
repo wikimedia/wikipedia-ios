@@ -84,10 +84,10 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
         })
     }
 
-    @objc func showErrorAlert(_ error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
+    @objc func showErrorAlert(_ error: Error, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
         
         showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            RMessage.showNotification(in: nil, title: error.alertMessage(), subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: (error as NSError).alertMessage(), subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
     

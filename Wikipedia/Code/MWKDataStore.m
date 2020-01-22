@@ -38,6 +38,9 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 
+@property (nonatomic, strong) WMFCacheControllerWrapper *imageCacheControllerWrapper;
+@property (nonatomic, strong) WMFCacheControllerWrapper *articleCacheControllerWrapper;
+
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 @property (readwrite, strong, nonatomic) NSCache *articlePreviewCache;
@@ -113,6 +116,8 @@ static uint64_t bundleHash() {
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
+        self.imageCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithType:WMFCacheControllerTypeImage];
+        self.articleCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithArticleCacheWithImageCacheControllerWrapper:self.imageCacheControllerWrapper];
     }
     return self;
 }
@@ -1281,7 +1286,7 @@ static uint64_t bundleHash() {
 
 - (void)clearCachesForUnsavedArticles {
     [[WMFImageController sharedInstance] deleteTemporaryCache];
-    [[WMFImageController sharedInstance] removeLegacyCache];
+    //[[WMFImageController sharedInstance] removeLegacyCache];
     [self
         removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
             DDLogError(@"Error removing unreferenced articles: %@", error);

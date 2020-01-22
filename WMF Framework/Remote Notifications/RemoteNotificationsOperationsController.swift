@@ -183,13 +183,3 @@ final class RemoteNotificationsOperationsDeadlineController {
         startTime = now
     }
 }
-
-private extension NSManagedObjectContext {
-    func performWaitAndReturn<T>(_ block: () -> T?) -> T? {
-        var result: T? = nil
-        performAndWait {
-            result = block()
-        }
-        return result
-    }
-}

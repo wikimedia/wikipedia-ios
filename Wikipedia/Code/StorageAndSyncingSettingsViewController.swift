@@ -202,9 +202,9 @@ extension StorageAndSyncingSettingsViewController {
             cell.selectionStyle = .none
             cell.backgroundColor = theme.colors.paperBackground
             if let eraseSavedArticlesView = eraseSavedArticlesView {
-                let temporaryCacheSize = ImageController.shared.temporaryCacheSize
+                //let temporaryCacheSize = ImageController.shared.temporaryCacheSize
                 let sitesDirectorySize = Int64(dataStore?.sitesDirectorySize() ?? 0)
-                let dataSizeString = ByteCountFormatter.string(fromByteCount: temporaryCacheSize + sitesDirectorySize, countStyle: .file)
+                let dataSizeString = ByteCountFormatter.string(fromByteCount: sitesDirectorySize, countStyle: .file)
                 let format = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device.\n\nErasing your saved articles will free up about %1$@ of space.", comment: "Footer text of the settings option that enables erasing saved articles. %1$@ will be replaced with a number and a system provided localized unit indicator for MB or KB.")
                 eraseSavedArticlesView.footerLabel.text = String.localizedStringWithFormat(format, dataSizeString)
                 eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false

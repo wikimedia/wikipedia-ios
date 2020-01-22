@@ -607,22 +607,22 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     }
 }
 
-extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
-    func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+extension ExploreCardViewController: ArticlePreviewingDelegate {
+    func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, animated: true)
     }
     
-    func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-
+    func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+        
     }
     
-    func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+    func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         present(shareActivityController, animated: true, completion: nil)
     }
     
-    func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+    func viewOnMapArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL)

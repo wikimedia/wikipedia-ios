@@ -383,35 +383,6 @@ extension ColumnarCollectionViewController: UICollectionViewDelegate {
     
 }
 
-// MARK: - WMFArticlePreviewingActionsDelegate
-extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
-    func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        if let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding {
-            if didSave {
-                ReadingListsFunnel.shared.logSave(category: eventLoggingEventValuesProviding.eventLoggingCategory, label: eventLoggingEventValuesProviding.eventLoggingLabel, articleURL: articleURL)
-            } else {
-                ReadingListsFunnel.shared.logUnsave(category: eventLoggingEventValuesProviding.eventLoggingCategory, label: eventLoggingEventValuesProviding.eventLoggingLabel, articleURL: articleURL)
-            }
-        }
-    }
-    
-    func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, animated: true)
-    }
-    
-    func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        present(shareActivityController, animated: true, completion: nil)
-    }
-    
-    func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
-        UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
-    }
-}
-
 extension ColumnarCollectionViewController {
     func wmf_push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
         logFeedEventIfNeeded(for: context, index: index, pushedViewController: viewController)
@@ -426,7 +397,7 @@ extension ColumnarCollectionViewController {
         let isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore
         let isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore
         if isPushedFromExplore {
-            let isArticle = pushedViewController is WMFArticleViewController
+            let isArticle = pushedViewController is ArticleViewController
             if isArticle {
                 FeedFunnel.shared.logFeedCardReadingStarted(for: context, index: index)
             } else {

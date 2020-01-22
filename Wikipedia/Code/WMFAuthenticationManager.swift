@@ -17,7 +17,7 @@ public class WMFAuthenticationManager: Fetcher {
         public var errorDescription: String? {
             switch self {
             default:
-                return WMFLocalizedString("error-generic-description", value: "An unexpected error occurred", comment: "Generic error message for when the error isn't recoverable by the user.")
+                return CommonStrings.genericErrorDescription
             }
         }
         
@@ -32,7 +32,47 @@ public class WMFAuthenticationManager: Fetcher {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic public private(set) var loggedInUsername: String? = nil
+    @objc dynamic public private(set) var loggedInUsername: String? = nil {
+        didSet {
+            loggedInUserCache = [:]
+            isAnonCache = [:]
+        }
+    }
+    
+    private var isAnonCache: [String: Bool] = [:]
+    private var loggedInUserCache: [String: WMFCurrentlyLoggedInUser] = [:]
+    
+    /// Returns the currently logged in user for a given site. Useful to determine the user's groups for a given wiki
+    public func getLoggedInUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentlyLoggedInUser?, Error>) -> Void ) {
+        assert(Thread.isMainThread)
+        guard let host = siteURL.host else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        if isAnonCache[host] ?? false {
+            completion(.success(nil))
+            return
+        }
+        if let user = loggedInUserCache[host] {
+            completion(.success(user))
+            return
+        }
+        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { (user) in
+            DispatchQueue.main.async {
+                self.loggedInUserCache[host] = user
+                completion(.success(user))
+            }
+        }) { (error) in
+            DispatchQueue.main.async {
+                if error as? WMFCurrentlyLoggedInUserFetcherError == WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous {
+                    self.isAnonCache[host] = true
+                    completion(.success(nil))
+                } else {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
     
     /**
      *  Returns YES if a user is logged in, NO otherwise
@@ -144,6 +184,9 @@ public class WMFAuthenticationManager: Fetcher {
         
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             DispatchQueue.main.async {
+                if let host = siteURL.host {
+                    self.loggedInUserCache[host] = result
+                }
                 self.loggedInUsername = result.name
                 completion(.alreadyLoggedIn(result))
             }

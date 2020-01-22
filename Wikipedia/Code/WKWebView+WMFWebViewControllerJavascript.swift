@@ -159,7 +159,7 @@ extension WKWebView {
     private func articleJS(for article: MWKArticle, title: String) -> String {
         let articleDisplayTitle = article.displaytitle ?? ""
         let articleEntityDescription = (article.entityDescription ?? "").wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language)
-        let addTitleDescriptionLocalizedString = WMFLocalizedString("description-add-link-title", language: (article.url as NSURL).wmf_language, value: "Add title description", comment: "Text for link for adding a title description")
+        let addTitleDescriptionLocalizedString = ""
 
         return """
         new window.wmf.sections.Article(
@@ -191,6 +191,9 @@ extension WKWebView {
     }
     
     @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle, collapseTables: Bool, scrolledTo fragment: String?){
+        
+        //tonitodo: clean out hopefully
+        /*
         guard
             let url = article.url,
             let host = url.host,
@@ -241,5 +244,7 @@ extension WKWebView {
             }
             DDLogError("Error when evaluating javascript on fetch and transform: \(error)")
         }
+    
+         */
     }
 }

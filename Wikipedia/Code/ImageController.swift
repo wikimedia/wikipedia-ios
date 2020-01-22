@@ -148,10 +148,10 @@ open class ImageController : NSObject {
         return "\(key)__\(variant)".precomposedStringWithCanonicalMapping
     }
     
-    fileprivate func legacyPermanentCacheFileURL(key: String, variant: Int64) -> URL {
-        let identifier = identifierForKey(key, variant: variant)
-        return self.permanentStorageDirectory.appendingPathComponent(identifier, isDirectory: false)
-    }
+//    fileprivate func legacyPermanentCacheFileURL(key: String, variant: Int64) -> URL {
+//        let identifier = identifierForKey(key, variant: variant)
+//        return self.permanentStorageDirectory.appendingPathComponent(identifier, isDirectory: false)
+//    }
     
     fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
         let identifier = identifierForKey(key, variant: variant)
@@ -367,12 +367,12 @@ open class ImageController : NSObject {
                 } catch let error {
                     DDLogError("Error removing from permanent cache: \(error)")
                 }
-                do {
-                    let legacyFileURL = self.legacyPermanentCacheFileURL(key: key, variant: item.variant)
-                    try fm.removeItem(at: legacyFileURL)
-                } catch let error {
-                    DDLogError("Error removing from permanent cache: \(error)")
-                }
+//                do {
+//                    let legacyFileURL = self.legacyPermanentCacheFileURL(key: key, variant: item.variant)
+//                    try fm.removeItem(at: legacyFileURL)
+//                } catch let error {
+//                    DDLogError("Error removing from permanent cache: \(error)")
+//                }
                 moc.delete(item)
             }
             moc.delete(group)
@@ -388,13 +388,13 @@ open class ImageController : NSObject {
         let key = cacheKeyForURL(url)
         let variant = variantForURL(url)
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
-        var mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
-        var data = fileManager.contents(atPath: fileURL.path)
-        if data == nil { // check for legacy data
-            let legacyFileURL = legacyPermanentCacheFileURL(key: key, variant: variant)
-           mimeType = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: legacyFileURL.path)
-            data = fileManager.contents(atPath: legacyFileURL.path)
-        }
+        let mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
+        let data = fileManager.contents(atPath: fileURL.path)
+//        if data == nil { // check for legacy data
+//            let legacyFileURL = legacyPermanentCacheFileURL(key: key, variant: variant)
+//           mimeType = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: legacyFileURL.path)
+//            data = fileManager.contents(atPath: legacyFileURL.path)
+//        }
         return TypedImageData(data: data, MIMEType: mimeType)
     }
     
@@ -598,81 +598,81 @@ open class ImageController : NSObject {
     
     // MARK: - Migration from SDWebImage
     
-    fileprivate var legacyCacheFolderURL: URL {
-        get {
-            return fileManager.wmf_containerURL().appendingPathComponent("Cache").appendingPathComponent("com.hackemist.SDWebImageCache.default")
-        }
-    }
-    
-    @objc public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
-        let legacyCacheFolderURL = self.legacyCacheFolderURL
-        let legacyCacheFolderPath = legacyCacheFolderURL.path
-        perform { (moc) in
-            let group = self.fetchOrCreateCacheGroup(key: group, moc: moc)
-            for imageURL in imageURLs {
-                let key = self.cacheKeyForURL(imageURL)
-                let variant = self.variantForURL(imageURL)
-                if let existingItem = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
-                    group?.addToCacheItems(existingItem)
-                    continue
-                }
-                guard let legacyKey = (imageURL as NSURL).wmf_schemelessURLString(),
-                    let legacyPath = WMFLegacyImageCache.cachePath(forKey: legacyKey, inPath: legacyCacheFolderPath) else {
-                        continue
-                }
-                
-                let fileURL = self.permanentCacheFileURL(key: key, variant: variant)
-                let legacyFileURL = URL(fileURLWithPath: legacyPath, isDirectory: false)
-                var createItem = false
-                do {
-                    try self.fileManager.moveItem(at: legacyFileURL, to: fileURL)
-                    createItem = true
-                } catch let error as NSError {
-                    if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
-                        createItem = true
-                    }
-                } catch let error {
-                    DDLogError("Error moving cached file: \(error)")
-                }
-                
-                if !createItem {
-                    let legacyPermanentCacheURL = self.legacyPermanentCacheFileURL(key: key, variant: variant)
-                    do {
-                        try self.fileManager.moveItem(at: legacyPermanentCacheURL, to: fileURL)
-                        createItem = true
-                    } catch let error as NSError {
-                        if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
-                            createItem = true
-                        }
-                    } catch let error {
-                        DDLogError("Error moving cached file: \(error)")
-                    }
-                }
-                
-                guard createItem else {
-                    continue
-                }
-                if let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc) {
-                    group?.addToCacheItems(item)
-                }
-            }
-            self.save(moc: moc)
-            completion()
-        }
-    }
-    
-    @objc public func removeLegacyCache() {
-        do {
-            try fileManager.removeItem(at: legacyCacheFolderURL)
-        } catch let error as NSError {
-            guard error.domain != NSCocoaErrorDomain || error.code != NSFileNoSuchFileError else {
-                return
-            }
-            DDLogError("Error removing legacy cache \(error)")
-        }
-    }
-    
-    public var temporaryCacheSize: Int64 {
-        return FileManager.default.sizeOfDirectory(at: legacyCacheFolderURL) + Int64(cache.currentDiskUsage)
-    }
+//    fileprivate var legacyCacheFolderURL: URL {
+//        get {
+//            return fileManager.wmf_containerURL().appendingPathComponent("Cache").appendingPathComponent("com.hackemist.SDWebImageCache.default")
+//        }
+//    }
+//
+//    @objc public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
+//        let legacyCacheFolderURL = self.legacyCacheFolderURL
+//        let legacyCacheFolderPath = legacyCacheFolderURL.path
+//        perform { (moc) in
+//            let group = self.fetchOrCreateCacheGroup(key: group, moc: moc)
+//            for imageURL in imageURLs {
+//                let key = self.cacheKeyForURL(imageURL)
+//                let variant = self.variantForURL(imageURL)
+//                if let existingItem = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
+//                    group?.addToCacheItems(existingItem)
+//                    continue
+//                }
+//                guard let legacyKey = (imageURL as NSURL).wmf_schemelessURLString(),
+//                    let legacyPath = WMFLegacyImageCache.cachePath(forKey: legacyKey, inPath: legacyCacheFolderPath) else {
+//                        continue
+//                }
+//
+//                let fileURL = self.permanentCacheFileURL(key: key, variant: variant)
+//                let legacyFileURL = URL(fileURLWithPath: legacyPath, isDirectory: false)
+//                var createItem = false
+//                do {
+//                    try self.fileManager.moveItem(at: legacyFileURL, to: fileURL)
+//                    createItem = true
+//                } catch let error as NSError {
+//                    if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
+//                        createItem = true
+//                    }
+//                } catch let error {
+//                    DDLogError("Error moving cached file: \(error)")
+//                }
+//
+//                if !createItem {
+//                    let legacyPermanentCacheURL = self.legacyPermanentCacheFileURL(key: key, variant: variant)
+//                    do {
+//                        try self.fileManager.moveItem(at: legacyPermanentCacheURL, to: fileURL)
+//                        createItem = true
+//                    } catch let error as NSError {
+//                        if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
+//                            createItem = true
+//                        }
+//                    } catch let error {
+//                        DDLogError("Error moving cached file: \(error)")
+//                    }
+//                }
+//
+//                guard createItem else {
+//                    continue
+//                }
+//                if let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc) {
+//                    group?.addToCacheItems(item)
+//                }
+//            }
+//            self.save(moc: moc)
+//            completion()
+//        }
+//    }
+//
+//    @objc public func removeLegacyCache() {
+//        do {
+//            try fileManager.removeItem(at: legacyCacheFolderURL)
+//        } catch let error as NSError {
+//            guard error.domain != NSCocoaErrorDomain || error.code != NSFileNoSuchFileError else {
+//                return
+//            }
+//            DDLogError("Error removing legacy cache \(error)")
+//        }
+//    }
+//
+//    public var temporaryCacheSize: Int64 {
+//        return FileManager.default.sizeOfDirectory(at: legacyCacheFolderURL) + Int64(cache.currentDiskUsage)
+//    }
 }

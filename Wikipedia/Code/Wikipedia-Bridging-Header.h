@@ -19,8 +19,8 @@
 
 #import "WMFChange.h"
 
-#import "WMFArticleFetcher.h"
-#import "SavedArticlesFetcher.h"
+#import "WMFLegacyArticleFetcher.h"
+#import "LegacySavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewHtmlFetcher.h"
 #import "MWKImageInfoFetcher.h"
@@ -37,8 +37,8 @@
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"
-#import "WMFArticleViewController_Private.h"
-#import "WebViewController.h"
+#import "WMFLegacyArticleViewController_Private.h"
+#import "LegacyWebViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"
@@ -58,11 +58,11 @@
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
 #import "WMFLanguageCell.h"
-#import "WMFRandomArticleViewController.h"
 #import "WMFCompassView.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
+#import "WMFRandomDiceButton.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"
@@ -73,3 +73,4 @@
 
 // Third Party
 #import "TUSafariActivity.h"
+#import "DDLog+WMFLogger.h"

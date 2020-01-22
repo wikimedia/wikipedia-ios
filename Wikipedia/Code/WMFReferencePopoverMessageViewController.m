@@ -1,5 +1,5 @@
 #import "WMFReferencePopoverMessageViewController.h"
-#import "WebViewController+WMFReferencePopover.h"
+#import "LegacyWebViewController+WMFReferencePopover.h"
 #import "Wikipedia-Swift.h"
 @import WMF.Swift;
 

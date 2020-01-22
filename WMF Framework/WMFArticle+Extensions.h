@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable) NSURL *thumbnailURL; // Deprecated. Use imageURLForWidth:
 
++ (nullable NSURL *)imageURLForTargetImageWidth:(NSInteger)width fromImageSource:(NSString *)imageSource withOriginalWidth:(NSInteger)originalWidth;
 - (nullable NSURL *)imageURLForWidth:(NSInteger)width;
 
 @property (nonatomic, readonly, nullable) NSArray<NSNumber *> *pageViewsSortedByDate;

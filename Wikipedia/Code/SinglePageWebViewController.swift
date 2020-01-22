@@ -48,12 +48,8 @@ class SinglePageWebViewController: ViewController {
         let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
         navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
         
-        let wButton = UIButton(type: .custom)
-        wButton.setImage(UIImage(named: "W"), for: .normal)
-        wButton.sizeToFit()
-        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
-        navigationItem.titleView = wButton
-
+        setupWButton()
+        
         super.viewDidLoad()
     }
     
@@ -104,10 +100,6 @@ class SinglePageWebViewController: ViewController {
         }
         
         present(activityViewController, animated: true)
-    }
-    
-    @objc func wButtonTapped(_ sender: UIButton) {
-        navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func closeButtonTapped(_ sender: UIButton) {

@@ -271,7 +271,6 @@
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
 "empty-talk-page-title" = "Text for placeholder label visible when talk page is empty";
-"error-generic-description" = "Generic error message for when the error isn't recoverable by the user.";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
 "error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";

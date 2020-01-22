@@ -1,6 +1,7 @@
 /*
  This class is responsible for updating SavedArticlesFetcher's 'progress' object - both setting it and updating its unit counts when appropriate. It does so while being minimally invasive to SavedArticlesFetcher, observing only the SavedArticlesFetcher's 'fetchesInProcessCount'. Remember that SavedArticlesFetcher's 'progress' object is not re-used (per Apple's NSProgress docs), so you'll need to observe it to know when it gets re-set, and you'll then have to observe any properties you are interested in of the re-set progress.
 */
+
 @objcMembers class SavedArticlesFetcherProgressManager: NSObject {
     
     private var fetchesInProcessCountObservation: NSKeyValueObservation?
