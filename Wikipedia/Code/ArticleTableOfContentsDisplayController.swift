@@ -149,5 +149,12 @@ class ArticleTableOfContentsDisplayController: Themeable {
             delegate?.tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
         }
     }
+    
+    func selectAndScroll(to sectionId: Int, animated: Bool) {
+        guard let index = delegate?.tableOfContentsItems.firstIndex(where: { $0.id == sectionId }) else {
+            return
+        }
+        viewController.selectAndScrollToItem(atIndex: index, animated: animated)
+    }
 
 }

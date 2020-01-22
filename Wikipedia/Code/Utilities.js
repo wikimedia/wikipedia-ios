@@ -9,9 +9,32 @@ const getElementRect = element => {
   }
 }
 
-
-window.wmf = {
-    elementLocation: {
-        getElementRect
+class SectionFilter {
+    acceptNode(node) {
+        return node.tagName === 'SECTION'
     }
+}
+
+const getFirstOnScreenSectionId = (insetTop) => {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, new SectionFilter())
+    let node
+    let sectionId = -1
+    while ((node = walker.nextNode())) {
+        const rect = node.getBoundingClientRect()
+        if (rect.top <= insetTop + 1) {
+            const sectionIdString = node.getAttribute('data-mw-section-id')
+            if (!sectionIdString) {
+                continue
+            }
+            sectionId = parseInt(sectionIdString)
+        } else if (sectionId !== -1) {
+            break
+        }
+    }
+    return sectionId
+}
+
+const pcsUtilities = {
+    getElementRect,
+    getFirstOnScreenSectionId
 }

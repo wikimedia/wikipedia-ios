@@ -264,6 +264,34 @@ class ArticleViewController: ViewController {
         }
     }
     
+    var isUpdatingTableOfContentsSectionOnScroll = true
+    var previousContentOffsetYForTOCUpdate: CGFloat = 0
+    
+    func updateTableOfContentsHighlightIfNecessary() {
+        guard isUpdatingTableOfContentsSectionOnScroll, tableOfContentsController.viewController.isVisible else {
+            return
+        }
+        let scrollView = webView.scrollView
+        guard abs(previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > 15 else {
+            return
+        }
+        guard scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating else {
+            return
+        }
+        updateTableOfContentsHighlight()
+    }
+    
+     func updateTableOfContentsHighlight() {
+        previousContentOffsetYForTOCUpdate = webView.scrollView.contentOffset.y
+        webView.evaluateJavaScript("pcsUtilities.getFirstOnScreenSectionId(\(navigationBar.visibleHeight))") { (result, error) in
+            guard let sectionId = result as? Int else {
+                DDLogError("Error getting first on screen section: \(String(describing: error))")
+                return
+            }
+            self.tableOfContentsController.selectAndScroll(to: sectionId, animated: true)
+        }
+    }
+    
     func updateTableOfContentsInsets() {
         let tocScrollView = tableOfContentsController.viewController.tableView
         let topOffsetY = 0 - tocScrollView.contentInset.top
@@ -343,6 +371,16 @@ class ArticleViewController: ViewController {
         super.scrollViewDidEndScrollingAnimation(scrollView)
         // call the first completion
         scrollViewAnimationCompletions.popLast()?()
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        updateTableOfContentsHighlightIfNecessary()
+    }
+    
+    override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        super.scrollViewDidScrollToTop(scrollView)
+        updateTableOfContentsHighlight()
     }
 }
 
