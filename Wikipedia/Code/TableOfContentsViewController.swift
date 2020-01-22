@@ -137,10 +137,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     open func selectAndScrollToItem(_ item: TableOfContentsItem?, animated: Bool) {
-        
-        guard isViewLoaded else {
-            return
-        }
+        loadViewIfNeeded()
         
         guard let item = item else{
             assertionFailure("Passing nil TOC item")

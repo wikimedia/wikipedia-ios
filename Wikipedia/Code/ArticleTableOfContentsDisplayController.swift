@@ -4,6 +4,7 @@
 
 protocol ArticleTableOfContentsDisplayControllerDelegate : TableOfContentsViewControllerDelegate {
     func tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
+    func getVisibleSectionId(with: @escaping (Int) -> Void)
 }
 
 class ArticleTableOfContentsDisplayController: Themeable {
@@ -81,11 +82,14 @@ class ArticleTableOfContentsDisplayController: Themeable {
     }
     
     func showModal(animated: Bool) {
-        viewController.isVisible = true
         guard delegate?.presentedViewController == nil else {
             return
         }
-        delegate?.present(viewController, animated: animated)
+        delegate?.getVisibleSectionId(with: { (sectionId) in
+            self.viewController.isVisible = true
+            self.selectAndScroll(to: sectionId, animated: false)
+            self.delegate?.present(self.viewController, animated: animated)
+        })
     }
     
     func hideModal(animated: Bool) {

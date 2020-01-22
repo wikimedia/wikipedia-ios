@@ -283,11 +283,7 @@ class ArticleViewController: ViewController {
     
      func updateTableOfContentsHighlight() {
         previousContentOffsetYForTOCUpdate = webView.scrollView.contentOffset.y
-        webView.evaluateJavaScript("pcsUtilities.getFirstOnScreenSectionId(\(navigationBar.visibleHeight))") { (result, error) in
-            guard let sectionId = result as? Int else {
-                DDLogError("Error getting first on screen section: \(String(describing: error))")
-                return
-            }
+        getVisibleSectionId { (sectionId) in
             self.tableOfContentsController.selectAndScroll(to: sectionId, animated: true)
         }
     }
