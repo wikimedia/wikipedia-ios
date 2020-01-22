@@ -129,7 +129,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                     else {
                             return nil
                     }
-                    return TableOfContentsItem(id: id, titleText: title, anchor: anchor, indentationLevel: level)
+                    return TableOfContentsItem(id: id, titleHTML: title, anchor: anchor, indentationLevel: level)
                 }
                 delegate?.didGetTableOfContents(messagingcontroller: self, items: items)
             }

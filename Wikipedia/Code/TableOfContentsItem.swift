@@ -27,7 +27,7 @@ public enum TableOfContentsBorderType {
 
 public struct TableOfContentsItem: Equatable {
     let id: Int
-    let titleText: String
+    let titleHTML: String
     let anchor: String
     var itemType: TableOfContentsItemType {
         return indentationLevel < 2 ? .primary : .secondary

@@ -1,26 +1,45 @@
 import UIKit
 
 // MARK: - Cell
-open class TableOfContentsCell: UITableViewCell {
+class TableOfContentsCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     
-    open var titleIndentationLevel: Int = 0 {
+    var titleIndentationLevel: Int = 0 {
         didSet {
             titleLabelTopConstraint.constant = titleIndentationLevel == 0 ? 19 : 11;
             indentationConstraint.constant =  indentationWidth * CGFloat(1 + titleIndentationLevel)
         }
     }
     
-    open var titleColor: UIColor = Theme.standard.colors.primaryText {
+    private var titleHTML: String = ""
+    private var titleTextStyle: DynamicTextStyle = .georgiaTitle3
+    func setTitleHTML(_ html: String, with textStyle: DynamicTextStyle, color: UIColor, selectionColor: UIColor) {
+        titleHTML = html
+        titleTextStyle = textStyle
+        titleColor = color
+        titleSelectionColor = selectionColor
+    }
+    
+    func updateTitle() {
+        let color = isTitleLabelHighlighted ? titleSelectionColor : titleColor
+        titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection, color: color)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateTitle()
+    }
+    
+    private var titleColor: UIColor = Theme.standard.colors.primaryText {
         didSet {
             titleLabel.textColor = titleColor
         }
     }
     
-    open var selectionColor: UIColor = Theme.standard.colors.link
+    private var titleSelectionColor: UIColor = Theme.standard.colors.link
     
     
     // MARK: - Init
@@ -32,7 +51,7 @@ open class TableOfContentsCell: UITableViewCell {
     
     // MARK: - UIView
 
-    open override func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         selectedSectionIndicator.alpha = 0.0
         selectionStyle = .none
@@ -40,7 +59,7 @@ open class TableOfContentsCell: UITableViewCell {
     
     // MARK: - Accessors
     
-    open func setSectionSelected(_ selected: Bool, animated: Bool) {
+    func setSectionSelected(_ selected: Bool, animated: Bool) {
         if (selected) {
             setSelectionIndicatorVisible(titleIndentationLevel == 0)
         } else {
@@ -50,18 +69,18 @@ open class TableOfContentsCell: UITableViewCell {
     
     // MARK: - UITableVIewCell
 
-    open class func reuseIdentifier() -> String{
+    class func reuseIdentifier() -> String{
         return wmf_nibName()
     }
     
-    open override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
         indentationLevel = 0
         setSectionSelected(false, animated: false)
         setSelected(false, animated: false)
     }
     
-    open override func setSelected(_ selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if(selected){
             setTitleLabelHighlighted(true)
@@ -70,17 +89,15 @@ open class TableOfContentsCell: UITableViewCell {
         }
     }
     
-    open func setTitleLabelHighlighted(_ highlighted: Bool) {
-        if highlighted {
-            titleLabel.textColor = selectionColor
-        } else {
-            titleLabel.textColor = titleColor
-        }
+    private var isTitleLabelHighlighted: Bool = false
+    func setTitleLabelHighlighted(_ highlighted: Bool) {
+        isTitleLabelHighlighted = highlighted
+        updateTitle()
     }
     
-    open func setSelectionIndicatorVisible(_ visible: Bool) {
+    func setSelectionIndicatorVisible(_ visible: Bool) {
         if (visible) {
-            selectedSectionIndicator.backgroundColor = selectionColor
+            selectedSectionIndicator.backgroundColor = titleSelectionColor
             selectedSectionIndicator.alpha = 1.0
         } else {
             selectedSectionIndicator.alpha = 0.0

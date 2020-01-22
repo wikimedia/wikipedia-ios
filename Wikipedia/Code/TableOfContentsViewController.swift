@@ -279,10 +279,9 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         cell.contentView.backgroundColor = tableView.backgroundColor
         
         cell.titleIndentationLevel = item.indentationLevel
-        cell.titleLabel.text = item.titleText
-        cell.titleLabel.font = UIFont.wmf_font(item.itemType.titleTextStyle, compatibleWithTraitCollection: self.traitCollection)
-        cell.selectionColor = theme.colors.link
-        cell.titleColor = item.itemType == .primary ? theme.colors.primaryText : theme.colors.secondaryText
+        let color = item.itemType == .primary ? theme.colors.primaryText : theme.colors.secondaryText
+        let selectionColor = theme.colors.link
+        cell.setTitleHTML(item.titleHTML, with: item.itemType.titleTextStyle, color: color, selectionColor: selectionColor)
         
         cell.setNeedsLayout()
 
