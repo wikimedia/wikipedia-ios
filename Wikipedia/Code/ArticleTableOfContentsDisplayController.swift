@@ -16,6 +16,9 @@ class ArticleTableOfContentsDisplayController: Themeable {
     }()
     
     var theme: Theme = .standard
+    let articleView: WKWebView
+    var articleViewContentSizeObservation: NSKeyValueObservation? = nil
+    
     func apply(theme: Theme) {
         self.theme = theme
         separatorView.backgroundColor = theme.colors.baseBackground
@@ -29,14 +32,22 @@ class ArticleTableOfContentsDisplayController: Themeable {
         return TableOfContentsViewController(delegate: delegate, theme: theme, displaySide: displaySide)
     }
     
-    init (articleView: UIView, delegate: ArticleTableOfContentsDisplayControllerDelegate, theme: Theme) {
+    init (articleView: WKWebView, delegate: ArticleTableOfContentsDisplayControllerDelegate, theme: Theme) {
         self.delegate = delegate
         self.theme = theme
+        self.articleView = articleView
         stackView.semanticContentAttribute = delegate.tableOfContentsSemanticContentAttribute
         stackView.addArrangedSubview(inlineContainerView)
         stackView.addArrangedSubview(separatorView)
         stackView.addArrangedSubview(articleView)
         NSLayoutConstraint.activate([separatorWidthConstraint])
+        articleViewContentSizeObservation = self.articleView.scrollView.observe(\.contentSize) { (scrollView, change) in
+            self.restoreOffsetPercentageIfNecessary()
+        }
+    }
+    
+    deinit {
+        articleViewContentSizeObservation?.invalidate()
     }
 
     lazy var stackView: UIStackView = {
@@ -97,18 +108,34 @@ class ArticleTableOfContentsDisplayController: Themeable {
         delegate?.dismiss(animated: animated)
     }
     
+    var verticalOffsetPercentageToRestore: CGFloat?
+    
+    func restoreOffsetPercentageIfNecessary() {
+        guard let verticalOffsetPercentage = verticalOffsetPercentageToRestore else {
+            return
+        }
+        verticalOffsetPercentageToRestore = nil
+        articleView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
+    }
+    
     func showInline() {
+        let scrollView = articleView.scrollView
+        let offsetPercentage = scrollView.verticalOffsetPercentage
         viewController.isVisible = true
         UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(true)
         inlineContainerView.isHidden = false
         separatorView.isHidden = false
+        verticalOffsetPercentageToRestore = offsetPercentage
     }
     
     func hideInline() {
+        let scrollView = articleView.scrollView
+        let offsetPercentage = scrollView.verticalOffsetPercentage
         viewController.isVisible = false
         UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(false)
         inlineContainerView.isHidden = true
         separatorView.isHidden = true
+        verticalOffsetPercentageToRestore = offsetPercentage
     }
     
     func setup(with traitCollection:UITraitCollection) {
