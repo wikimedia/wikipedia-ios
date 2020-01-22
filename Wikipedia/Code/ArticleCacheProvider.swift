@@ -22,7 +22,6 @@ final class ArticleCacheProvider: CacheProviding {
             return imageController.cachedURLResponse(for: request)
         }
         
-        let request = URLRequest(url: url)
         let urlCache = URLCache.shared
         
         if let response = urlCache.cachedResponse(for: request) {
@@ -60,7 +59,6 @@ final class ArticleCacheProvider: CacheProviding {
         }
         
         let itemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: newURL)?.wmf_databaseKey ?? newURL.wmf_databaseKey
-        
         return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, cachePolicy: cachePolicy, itemKey: itemKey, moc: moc)
     }
     

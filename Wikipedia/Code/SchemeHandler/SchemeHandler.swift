@@ -23,11 +23,12 @@ final class SchemeHandler: NSObject {
     private let defaultHandler: DefaultHandler
     private let cacheQueue: OperationQueue = OperationQueue()
     
-    private let requestToResponseQueue = DispatchQueue(label: "com.wikimedia.schemeHandler.response")
+    private let notModifiedQueue = DispatchQueue(label: "com.wikimedia.schemeHandler.response")
     private var requestToResponse: [URLRequest: URLResponse] = [:]
+    private var notModifiedRequests = Set<URLRequest>()
     
     var cacheController: CacheController?
-    var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalCacheData //needed so we see a 304 to act on
+    var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalCacheData //seems to be needed so we see a 304 to act on...local cache changes 304s to 200s
     
     @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
     
@@ -201,13 +202,11 @@ private extension SchemeHandler {
                     return
                 }
                 
-                print("🚵🏻‍♂️\((response as? HTTPURLResponse)?.allHeaderFields)")
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
                     
-                    if httpResponse.statusCode == 304,
-                        let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
+                    if httpResponse.statusCode == 304 {
                         urlSchemeTask.didReceive(response)
-                        urlSchemeTask.didReceive(cachedResponse.data)
+                        self.insertNotModifiedRequest(request: request)
                     } else {
                         let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
                         self.removeSessionTask(request: urlSchemeTask.request)
@@ -246,6 +245,15 @@ private extension SchemeHandler {
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
+                
+                if self.isNotModifiedRequest(request: request) {
+                    if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
+                        urlSchemeTask.didReceive(cachedResponse.data)
+                    }
+                    
+                    self.removeNotModifiedRequest(request: request)
+                }
+                
                 urlSchemeTask.didFinish()
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
@@ -314,21 +322,39 @@ private extension SchemeHandler {
     }
     
     func mapResponseToRequest(request: URLRequest, response: URLResponse) {
-        requestToResponseQueue.async { [weak self] in
+        notModifiedQueue.async { [weak self] in
             self?.requestToResponse[request] = response
             
         }
     }
     
     func response(for request: URLRequest) -> URLResponse? {
-        requestToResponseQueue.sync {
+        notModifiedQueue.sync {
             return self.requestToResponse[request]
         }
     }
     
     func removeMapResponseToRequest(request: URLRequest) {
-        requestToResponseQueue.async { [weak self] in
+        notModifiedQueue.async { [weak self] in
             self?.requestToResponse.removeValue(forKey: request)
+        }
+    }
+    
+    func removeNotModifiedRequest(request: URLRequest) {
+        notModifiedQueue.async { [weak self] in
+            self?.notModifiedRequests.remove(request)
+        }
+    }
+    
+    func insertNotModifiedRequest(request: URLRequest) {
+        notModifiedQueue.async { [weak self] in
+            self?.notModifiedRequests.insert(request)
+        }
+    }
+    
+    func isNotModifiedRequest(request: URLRequest) -> Bool {
+        notModifiedQueue.sync { [weak self] in
+            return self?.notModifiedRequests.contains(request) ?? false
         }
     }
 }

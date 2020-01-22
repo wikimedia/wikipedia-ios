@@ -1,6 +1,10 @@
 
 import Foundation
 
+extension HTTPURLResponse {
+    static let etagHeaderKey = "Etag"
+}
+
 final class CacheProviderHelper {
     
     static func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL, cachePolicy: NSURLRequest.CachePolicy, itemKey: String?, moc: NSManagedObjectContext) -> URLRequest? {
@@ -15,7 +19,7 @@ final class CacheProviderHelper {
         var etag: String?
         if let cachedResponse = URLCache.shared.cachedResponse(for: mutableRequest as URLRequest),
         let httpResponse = cachedResponse.response as? HTTPURLResponse {
-            etag = httpResponse.allHeaderFields["Etag"] as? String
+            etag = httpResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
         }
         
         if etag == nil,

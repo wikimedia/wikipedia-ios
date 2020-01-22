@@ -53,7 +53,7 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
                 return
             }
             
-            let etag = (response as? HTTPURLResponse)?.allHeaderFields["etag"] as? String
+            let etag = (response as? HTTPURLResponse)?.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success, .exists:
