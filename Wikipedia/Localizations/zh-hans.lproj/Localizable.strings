@@ -288,7 +288,6 @@
 "empty-no-saved-pages-message" = "保存页面以便日后查看，即便在离线时";
 "empty-no-saved-pages-title" = "尚无保存的页面";
 "empty-no-search-results-message" = "找不到结果";
-"error-generic-description" = "发生意外错误。";
 "error-generic-recovery-suggestion" = "请一会儿再试";
 "error-unknown" = "发生未知错误";
 "explore-another-random" = "其他随机条目";
@@ -804,6 +803,7 @@
 "wikitext-downloading" = "正在加载内容...";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
 "wikitext-preview-changes-none" = "没有可供预览的更改";
+"wikitext-preview-link-external-preview-title" = "外部链接";
 "wikitext-preview-link-preview-description" = "此链接引导至“$1”";
 "wikitext-preview-link-preview-title" = "链接预览";
 "wikitext-preview-save-changes-title" = "保存更改";
