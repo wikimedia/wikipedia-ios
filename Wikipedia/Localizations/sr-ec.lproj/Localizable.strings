@@ -3,6 +3,7 @@
 // Author: Acamicamacaraca
 // Author: Aktron
 // Author: BadDog
+// Author: Bjankuloski06
 // Author: Fendo99
 // Author: Mhurd
 // Author: Milicevic01
@@ -272,7 +273,6 @@
 "empty-no-saved-pages-message" = "Сачувајте странице да бисте их читали касније, чак и када сте офлајн";
 "empty-no-saved-pages-title" = "Још увек нема сачуваних страница";
 "empty-no-search-results-message" = "Резултати нису пронађени";
-"error-generic-description" = "Дошло је до неочекиване грешке";
 "error-generic-recovery-suggestion" = "Покушајте поново касније";
 "error-unknown" = "Дошло је до непознате грешке";
 "explore-another-random" = "Други случајни чланак";
