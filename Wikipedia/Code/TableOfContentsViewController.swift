@@ -69,7 +69,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         delegate?.tableOfContentsControllerDidCancel(self)
     }
 
-    @objc let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
+    let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
     
     lazy var animator: TableOfContentsAnimator? = {
         guard let delegate = delegate else {
@@ -111,102 +111,62 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     // MARK: - Sections
-    func indexPathForItem(_ item: TableOfContentsItem) -> IndexPath? {
-        if let row = items.firstIndex(where: { item == $0 }) {
-            return IndexPath(row: row, section: 0)
-        } else {
-            return nil
-        }
-    }
 
-    @objc open func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
+    var indexOfSelectedItem: Int = 0
+    var indiciesOfHighlightedItems: Set<Int> = [0]
+
+    func selectItem(at index: Int) {
         guard index < items.count else {
-            assertionFailure("Trying to select/scroll to an item put of range")
+            assertionFailure("Trying to select an item put of range")
             return
         }
-        selectAndScrollToItem(items[index], animated: animated)
+        
+        indexOfSelectedItem = index
+        
+        var newIndicies: Set<Int> = [index]
+        let item = items[index]
+        for (index, relatedItem) in items.enumerated() {
+            guard item.shouldBeHighlightedAlongWithItem(relatedItem) else {
+                continue
+            }
+            newIndicies.insert(index)
+        }
+        guard newIndicies != indiciesOfHighlightedItems else {
+            return
+        }
+        
+        let indiciesToReload = newIndicies.union(indiciesOfHighlightedItems)
+        let indexPathsToReload = indiciesToReload.map { IndexPath(row: $0, section: 0) }
+        indiciesOfHighlightedItems = newIndicies
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        tableView.reloadRows(at: indexPathsToReload, with: .none)
     }
     
-    open func selectAndScrollToFooterItem(atIndex index: Int, animated: Bool) {
-//        if let firstFooterIndex = items.firstIndex(where: { return $0 as? TableOfContentsFooterItem != nil }) {
-//            let itemIndex = firstFooterIndex + index
-//            if itemIndex < items.count {
-//                selectAndScrollToItem(atIndex: itemIndex, animated: animated)
-//            }
-//        }
-    }
-
-    open func selectAndScrollToItem(_ item: TableOfContentsItem?, animated: Bool) {
-        loadViewIfNeeded()
-        
-        guard let item = item else{
-            assertionFailure("Passing nil TOC item")
+    func scrollToItem(at index: Int) {
+        guard index < items.count else {
+            assertionFailure("Trying to scroll to an item put of range")
             return
         }
-        guard let indexPath = indexPathForItem(item) else {
-            assertionFailure("No indexPath known for TOC item \(item)")
+        guard viewIfLoaded != nil, index < tableView.numberOfRows(inSection: 0) else {
             return
         }
-
-        guard indexPath.section < tableView.numberOfSections && indexPath.row < tableView.numberOfRows(inSection: indexPath.section) else {
-            assertionFailure("Attempted to select out of range item \(item)")
-            return
-        }
-        
-        if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            if selectedIndexPath != indexPath {
-                deselectAllRows()
-            }
-        }
-        
-        var scrollPosition = UITableView.ScrollPosition.top
-        if let indexPaths = tableView.indexPathsForVisibleRows, indexPaths.contains(indexPath) {
-            scrollPosition = .none
-        }
-        tableView.selectRow(at: indexPath, animated: animated, scrollPosition: scrollPosition)
-        addHighlightOfItemsRelatedTo(item, animated: false)
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
     // MARK: - Selection
-    func deselectAllRows() {
-        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
-            return
-        }
-        for (_, element) in visibleIndexPaths.enumerated() {
-            if let cell: TableOfContentsCell = tableView.cellForRow(at: element) as? TableOfContentsCell  {
-                cell.setSectionSelected(false, animated: false)
-            }
-        }
-    }
-
-    open func addHighlightOfItemsRelatedTo(_ item: TableOfContentsItem, animated: Bool) {
-        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
-            return
-        }
-        for (_, indexPath) in visibleIndexPaths.enumerated() {
-            let otherItem: TableOfContentsItem = items[indexPath.row]
-            if let cell: TableOfContentsCell = tableView.cellForRow(at: indexPath) as? TableOfContentsCell  {
-                cell.setSectionSelected(otherItem.shouldBeHighlightedAlongWithItem(item), animated: animated)
-            }
-        }
-    }
-
-    open func addHighlightToItem(_ item: TableOfContentsItem, animated: Bool) {
-        if let indexPath = indexPathForItem(item){
-            if let cell: TableOfContentsCell = tableView.cellForRow(at: indexPath) as? TableOfContentsCell  {
-                cell.setSectionSelected(true, animated: animated)
-            }
-        }
-    }
-
-    fileprivate func didRequestClose(_ controller: TableOfContentsAnimator?) -> Bool {
+    
+    private func didRequestClose(_ controller: TableOfContentsAnimator?) -> Bool {
         tableOfContentsFunnel.logClose()
         delegate?.tableOfContentsControllerDidCancel(self)
         return delegate != nil
     }
 
     // MARK: - UIViewController
-    open override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         assert(tableView.style == .grouped, "Use grouped UITableView layout so our TableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our TableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use TableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
@@ -228,7 +188,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
 
         tableView.contentInsetAdjustmentBehavior = .never
-        
+        tableView.allowsMultipleSelection = false
         tableView.semanticContentAttribute = delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
 
         view.semanticContentAttribute = delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
@@ -246,42 +206,39 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         apply(theme: theme)
     }
 
-    open override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        deselectAllRows()
-    }
-    
     
     // MARK: - UITableViewDataSource
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         tableView.reloadData()
     }
-
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableOfContentsCell.reuseIdentifier(), for: indexPath) as! TableOfContentsCell
-        let selectedItems: [TableOfContentsItem] = tableView.indexPathsForSelectedRows?.map() { items[$0.row] } ?? []
-        let item = items[indexPath.row]
-        let shouldHighlight = selectedItems.reduce(false) { shouldHighlight, selectedItem in
-            shouldHighlight || item.shouldBeHighlightedAlongWithItem(selectedItem)
-        }
+
+        let index = indexPath.row
+        
+        let item = items[index]
+        
+        let shouldHighlight = indiciesOfHighlightedItems.contains(index)
+        
         cell.backgroundColor = tableView.backgroundColor
         cell.contentView.backgroundColor = tableView.backgroundColor
         
         cell.titleIndentationLevel = item.indentationLevel
         let color = item.itemType == .primary ? theme.colors.primaryText : theme.colors.secondaryText
         let selectionColor = theme.colors.link
-        cell.setTitleHTML(item.titleHTML, with: item.itemType.titleTextStyle, color: color, selectionColor: selectionColor)
+        cell.setTitleHTML(item.titleHTML, with: item.itemType.titleTextStyle, highlighted: index == indexOfSelectedItem, color: color, selectionColor: selectionColor)
         
         cell.setNeedsLayout()
 
@@ -293,7 +250,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         return cell
     }
     
-    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let delegate = delegate {
             let header = TableOfContentsHeader.wmf_viewFromClassNib()
             header?.articleURL = delegate.tableOfContentsArticleLanguageURL
@@ -308,39 +265,26 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     // MARK: - UITableViewDelegate
-
-    open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        let item = items[indexPath.row]
-        addHighlightToItem(item, animated: true)
-        return true
-    }
     
-    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = items[indexPath.row]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         tableOfContentsFunnel.logClick()
-        addHighlightOfItemsRelatedTo(item, animated: true)
-        delegate?.tableOfContentsController(self, didSelectItem: item)
+        let index = indexPath.row
+        selectItem(at: index)
+        delegate?.tableOfContentsController(self, didSelectItem: items[index])
     }
 
-    open func tableOfContentsAnimatorDidTapBackground(_ controller: TableOfContentsAnimator) {
+    func tableOfContentsAnimatorDidTapBackground(_ controller: TableOfContentsAnimator) {
         _ = didRequestClose(controller)
     }
 
-    // MARK: - UIScrollViewDelegate
-    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if let indexPath = self.tableView.indexPathForSelectedRow {
-            let item = items[indexPath.row]
-            addHighlightOfItemsRelatedTo(item, animated: true)
-        }
-    }
-
     // MARK: - UIAccessibilityAction
-    open override func accessibilityPerformEscape() -> Bool {
+    override func accessibilityPerformEscape() -> Bool {
         return didRequestClose(nil)
     }
     
     // MARK: - UIAccessibilityAction
-    open override func accessibilityPerformMagicTap() -> Bool {
+    override func accessibilityPerformMagicTap() -> Bool {
         return didRequestClose(nil)
     }
     

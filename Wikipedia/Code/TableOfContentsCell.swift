@@ -16,11 +16,14 @@ class TableOfContentsCell: UITableViewCell {
     
     private var titleHTML: String = ""
     private var titleTextStyle: DynamicTextStyle = .georgiaTitle3
-    func setTitleHTML(_ html: String, with textStyle: DynamicTextStyle, color: UIColor, selectionColor: UIColor) {
+    private var isTitleLabelHighlighted: Bool = false
+    func setTitleHTML(_ html: String, with textStyle: DynamicTextStyle, highlighted: Bool, color: UIColor, selectionColor: UIColor) {
+        isTitleLabelHighlighted = highlighted
         titleHTML = html
         titleTextStyle = textStyle
         titleColor = color
         titleSelectionColor = selectionColor
+        updateTitle()
     }
     
     func updateTitle() {
@@ -77,23 +80,9 @@ class TableOfContentsCell: UITableViewCell {
         super.prepareForReuse()
         indentationLevel = 1
         setSectionSelected(false, animated: false)
-        setSelected(false, animated: false)
+        isTitleLabelHighlighted = false
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        if(selected){
-            setTitleLabelHighlighted(true)
-        } else {
-            setTitleLabelHighlighted(false)
-        }
-    }
-    
-    private var isTitleLabelHighlighted: Bool = false
-    func setTitleLabelHighlighted(_ highlighted: Bool) {
-        isTitleLabelHighlighted = highlighted
-        updateTitle()
-    }
     
     func setSelectionIndicatorVisible(_ visible: Bool) {
         if (visible) {

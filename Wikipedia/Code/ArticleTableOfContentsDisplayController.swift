@@ -158,7 +158,8 @@ class ArticleTableOfContentsDisplayController: Themeable {
         guard let index = delegate?.tableOfContentsItems.firstIndex(where: { $0.id == sectionId }) else {
             return
         }
-        viewController.selectAndScrollToItem(atIndex: index, animated: animated)
+        viewController.selectItem(at: index)
+        viewController.scrollToItem(at: index)
     }
 
 }
