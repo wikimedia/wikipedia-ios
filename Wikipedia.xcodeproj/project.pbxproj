@@ -1035,6 +1035,10 @@
 		830C0DD623D9AFBE006471C4 /* UIViewController+Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */; };
 		830C0DD723D9AFBE006471C4 /* UIViewController+Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */; };
 		830C0DD823D9AFBE006471C4 /* UIViewController+Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */; };
+		830C0DDA23D9C218006471C4 /* Properties.js in Resources */ = {isa = PBXBuildFile; fileRef = 830C0DD923D9C218006471C4 /* Properties.js */; };
+		830C0DDB23D9C218006471C4 /* Properties.js in Resources */ = {isa = PBXBuildFile; fileRef = 830C0DD923D9C218006471C4 /* Properties.js */; };
+		830C0DDC23D9C218006471C4 /* Properties.js in Resources */ = {isa = PBXBuildFile; fileRef = 830C0DD923D9C218006471C4 /* Properties.js */; };
+		830C0DDD23D9C218006471C4 /* Properties.js in Resources */ = {isa = PBXBuildFile; fileRef = 830C0DD923D9C218006471C4 /* Properties.js */; };
 		830D71C31F703C980080078B /* ArticleURLListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C21F703C980080078B /* ArticleURLListViewController.swift */; };
 		830D71C41F703C980080078B /* ArticleURLListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C21F703C980080078B /* ArticleURLListViewController.swift */; };
 		830D71C51F703C980080078B /* ArticleURLListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C21F703C980080078B /* ArticleURLListViewController.swift */; };
@@ -3631,6 +3635,7 @@
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
 		830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Push.swift"; sourceTree = "<group>"; };
+		830C0DD923D9C218006471C4 /* Properties.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Properties.js; sourceTree = "<group>"; };
 		830D71C21F703C980080078B /* ArticleURLListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleURLListViewController.swift; sourceTree = "<group>"; };
 		830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleFetchedResultsViewController.swift; sourceTree = "<group>"; };
 		830ECACE1FBDD8C00080B1EF /* ReadingListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsViewController.swift; sourceTree = "<group>"; };
@@ -6126,6 +6131,7 @@
 				67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */,
 				D8A47C8E23D7338C002AA823 /* ArticleViewController+TableOfContents.swift */,
 				D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */,
+				830C0DD923D9C218006471C4 /* Properties.js */,
 				83C0657023D2618F001821BC /* Utilities.js */,
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */,
 				D8A47C8923D728A4002AA823 /* ArticleTableOfContentsDisplayController.swift */,
@@ -9472,6 +9478,7 @@
 				B0D3E711214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D8D92B661DF22E1700B95311 /* NotificationBackgroundWarningIcon.png in Resources */,
 				7ADF498021B45CEE009EA338 /* TextFormattingPlainToolbarView.xib in Resources */,
+				830C0DDA23D9C218006471C4 /* Properties.js in Resources */,
 				67CEF2612350C29D00D5CA6C /* DiffListUneditedCell.xib in Resources */,
 				B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */,
 				B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */,
@@ -9707,6 +9714,7 @@
 				D8A42C161E815A9C00D8E281 /* Images.xcassets in Resources */,
 				D8A42C171E815A9C00D8E281 /* ReadingThemesControlsViewController.xib in Resources */,
 				B0F4762321F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
+				830C0DDD23D9C218006471C4 /* Properties.js in Resources */,
 				D8A42C181E815A9C00D8E281 /* NotificationButtonBackground@2x.png in Resources */,
 				7AEC9861219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
 				6724289423612AF700490629 /* DiffListUneditedCell.xib in Resources */,
@@ -9831,6 +9839,7 @@
 				D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */,
 				D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */,
 				B0F4762121F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
+				830C0DDB23D9C218006471C4 /* Properties.js in Resources */,
 				D8CE269F1E698E2400DAE2E0 /* NotificationButtonBackground@2x.png in Resources */,
 				7AEC985F219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
 				6724289223612AF500490629 /* DiffListUneditedCell.xib in Resources */,
@@ -9955,6 +9964,7 @@
 				D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */,
 				D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */,
 				B0F4762221F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
+				830C0DDC23D9C218006471C4 /* Properties.js in Resources */,
 				D8EC3F9F1E9BDA35006712EB /* NotificationButtonBackground@2x.png in Resources */,
 				7AEC9860219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
 				6724289323612AF600490629 /* DiffListUneditedCell.xib in Resources */,

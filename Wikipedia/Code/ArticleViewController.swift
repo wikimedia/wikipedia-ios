@@ -463,25 +463,36 @@ private extension ArticleViewController {
 }
 
 extension ArticleViewController: ArticleWebMessageHandling {
-    func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem]) {
+    func didRecieve(action: ArticleWebMessagingController.Action) {
+        switch action {
+        case .setup:
+            handlePCSDidFinishSetup()
+        case .link(let title):
+            handleLink(with: title)
+        case .leadImage(let source, let width, let height):
+            handleLeadImage(source: source, width: width, height: height)
+        case .tableOfContents(items: let items):
+            handleTableOfContents(items: items)
+        default:
+            break
+        }
+    }
+    
+    func handleTableOfContents(items: [TableOfContentsItem]) {
         let titleItem = TableOfContentsItem(id: -1, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: -1, indentationLevel: 0)
         var allItems: [TableOfContentsItem] = [titleItem]
         allItems.append(contentsOf: items)
         tableOfContentsItems = allItems
     }
     
-    func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
-        handleLink(with: title)
-    }
-    
-    func didSetup(messagingController: ArticleWebMessagingController) {
+    func handlePCSDidFinishSetup() {
         state = .data
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         loadCompletion?()
     }
     
-    func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {
+    func handleLeadImage(source: String, width: Int?, height: Int?) {
         guard leadImageView.image == nil && leadImageView.wmf_imageURLToFetch == nil else {
             return
         }

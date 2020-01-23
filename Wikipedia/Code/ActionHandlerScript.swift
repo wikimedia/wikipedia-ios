@@ -39,6 +39,7 @@ final class PageContentService   {
     }
     
     static let paramsEncoder = JSONEncoder()
+    static let messageHandlerName = "pcs"
     
     class func getJavascriptFor<T>(_ encodable: T) throws -> String where T: Encodable {
         let data = try PageContentService.paramsEncoder.encode(encodable)
@@ -49,11 +50,11 @@ final class PageContentService   {
     }
     
     final class SetupScript: WKUserScript {
-        required init(_ parameters: Parameters, messageHandlerName: String) throws {
+        required init(_ parameters: Parameters) throws {
 
                let source = """
                document.pcsActionHandler = (action) => {
-                 window.webkit.messageHandlers.\(messageHandlerName).postMessage(action)
+                window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage(action)
                };
                document.pcsSetupSettings = \(try PageContentService.getJavascriptFor(parameters));
                """
@@ -62,14 +63,18 @@ final class PageContentService   {
     }
     
     final class PropertiesScript: WKUserScript {
-        required init(messageHandlerName: String) {
-               let source = """
-               const leadImage = pcs.c1.Page.getLeadImage();
-               const tableOfContents = pcs.c1.Page.getTableOfContents();
-               const properties = { leadImage, tableOfContents };
-               window.webkit.messageHandlers.\(messageHandlerName).postMessage({action: 'properties', data: properties});
-               """
-               super.init(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        static let source: String = {
+            guard
+                let fileURL = Bundle.main.url(forResource: "Properties", withExtension: "js"),
+                let data = try? Data(contentsOf: fileURL),
+                let jsString = String(data: data, encoding: .utf8)?.replacingOccurrences(of: "{{messageHandlerName}}", with: PageContentService.messageHandlerName)
+            else {
+                return ""
+            }
+            return jsString
+        }()
+        required override init() {
+            super.init(source: PropertiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
     

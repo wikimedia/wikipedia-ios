@@ -2,10 +2,7 @@
 import Foundation
 
 protocol ArticleWebMessageHandling: class {
-    func didSetup(messagingController: ArticleWebMessagingController)
-    func didTapLink(messagingController: ArticleWebMessagingController, title: String)
-    func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?)
-    func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem])
+    func didRecieve(action: ArticleWebMessagingController.Action)
 }
 
 class ArticleWebMessagingController: NSObject {
@@ -13,7 +10,6 @@ class ArticleWebMessagingController: NSObject {
     private weak var webView: WKWebView?
     private weak var delegate: ArticleWebMessageHandling?
     
-    private let messageHandlerName = "action"
     private let bodyActionKey = "action"
     private let bodyDataKey = "data"
 
@@ -36,12 +32,12 @@ class ArticleWebMessagingController: NSObject {
         let parameters = PageContentService.Parameters(l10n: l10n, theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
         self.webView = webView
         let contentController = webView.configuration.userContentController
-        contentController.add(self, name: messageHandlerName)
+        contentController.add(self, name: PageContentService.messageHandlerName)
         do {
-            let pcsSetup = try PageContentService.SetupScript(parameters, messageHandlerName: messageHandlerName)
+            let pcsSetup = try PageContentService.SetupScript(parameters)
             contentController.removeAllUserScripts()
             contentController.addUserScript(pcsSetup)
-            let propertiesScript = PageContentService.PropertiesScript(messageHandlerName: messageHandlerName)
+            let propertiesScript = PageContentService.PropertiesScript()
             contentController.addUserScript(propertiesScript)
             let utilitiesScript = PageContentService.UtilitiesScript()
             contentController.addUserScript(utilitiesScript)
@@ -71,12 +67,129 @@ class ArticleWebMessagingController: NSObject {
 }
 
 extension ArticleWebMessagingController: WKScriptMessageHandler {
-    
-    enum Action: String {
+    /// Actions represent events from the web page
+    enum Action {
         case setup
-        case linkClicked = "link_clicked"
+        case finalSetup
+        case image
+        case link(title: String)
+        case reference
+        case pronunciation
         case properties
+        case edit(sectionID: Int, descriptionSource: String?)
+        case addTitleDescription
+        case footerItemSelected
+        case readMoreTitlesRetrieved
+        case viewLicense
+        case viewInBrowser
+        case leadImage(source: String, width: Int?, height: Int?)
+        case tableOfContents(items: [TableOfContentsItem])
     }
+    
+    /// PCSActions are receieved from the JS bridge and converted into actions
+    // Handle both _clicked and non-clicked variants in case the names change
+    private enum PCSAction: String {
+        case setup
+        case finalSetup = "final_setup"
+        case image
+        case link
+        case reference
+        case pronunciation
+        case edit = "edit_section"
+        case addTitleDescription = "add_title_description"
+        case footerItemSelected = "footer_item_selected"
+        case readMoreTitlesRetrieved = "read_more_titles_retrieved"
+        case viewLicense = "view_license"
+        case viewInBrowser = "view_in_browser"
+        case leadImage
+        case tableOfContents
+        init?(pcsActionString: String) {
+            let cleaned = pcsActionString.replacingOccurrences(of: "_clicked", with: "")
+            self.init(rawValue: cleaned)
+        }
+        func getAction(with data: [String: Any]?) -> Action? {
+            switch self {
+            case .setup:
+                return .setup
+            case .finalSetup:
+                return .finalSetup
+            case .image:
+                return .image
+            case .reference:
+                return .reference
+            case .pronunciation:
+                return .pronunciation
+            case .edit:
+                return getEditAction(with: data)
+            case .addTitleDescription:
+                return .addTitleDescription
+            case .footerItemSelected:
+                return .footerItemSelected
+            case .readMoreTitlesRetrieved:
+                return .readMoreTitlesRetrieved
+            case .viewLicense:
+                return .viewLicense
+            case .viewInBrowser:
+                return .viewInBrowser
+            case .link:
+                return getLinkAction(with: data)
+            case .leadImage:
+                return getLeadImageAction(with: data)
+            case .tableOfContents:
+                return getTableOfContentsAction(with: data)
+            }
+        }
+        func getLeadImageAction(with data: [String: Any]?) -> Action? {
+            guard
+               let leadImage = data?["leadImage"] as? [String: Any],
+               let source = leadImage["source"] as? String else {
+                return nil
+            }
+            let width = leadImage["width"] as? Int
+            let height = leadImage["height"] as? Int
+            return Action.leadImage(source: source, width: width, height: height)
+        }
+        
+        func getTableOfContentsAction(with data: [String: Any]?) -> Action? {
+            guard let tableOfContents = data?["tableOfContents"] as? [[String: Any]] else {
+                return nil
+            }
+            var currentRootSectionId = -1
+            let items = tableOfContents.compactMap { (tocJSON) -> TableOfContentsItem? in
+                guard
+                    let id = tocJSON["id"] as? Int,
+                    let level = tocJSON["level"] as? Int,
+                    let anchor = tocJSON["anchor"] as? String,
+                    let title = tocJSON["title"] as? String
+                else {
+                        return nil
+                }
+                let indentationLevel = level - 1
+                if indentationLevel == 0 {
+                    currentRootSectionId = id
+                }
+                return TableOfContentsItem(id: id, titleHTML: title, anchor: anchor, rootItemId: currentRootSectionId, indentationLevel: indentationLevel)
+            }
+            return Action.tableOfContents(items: items)
+        }
+        
+        func getLinkAction(with data: [String: Any]?) -> Action? {
+            guard let title = data?[LinkKey.title.rawValue] as? String else {
+                assertionFailure("Missing title data in link")
+                return nil
+            }
+            return .link(title: title)
+        }
+        func getEditAction(with data: [String: Any]?) -> Action? {
+            guard let sectionID = data?["sectionId"] as? Int else {
+                assertionFailure("Missing title data in link")
+                return nil
+            }
+            return .edit(sectionID: sectionID, descriptionSource: data?["descriptionSource"] as? String)
+        }
+    }
+    
+
     
     enum LinkKey: String {
         case href
@@ -88,58 +201,13 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         guard let body = message.body as? [String: Any] else {
             return
         }
-        guard let action = body[bodyActionKey] as? String else {
+        guard let actionString = body[bodyActionKey] as? String else {
             return
         }
         let data = body[bodyDataKey] as? [String: Any]
-        print(body)
-        
-        switch Action(rawValue: action) {
-        case .setup:
-            delegate?.didSetup(messagingController: self)
-        case .linkClicked:
-            
-            guard let title = data?[LinkKey.title.rawValue] as? String else {
-                assertionFailure("Missing title data in link")
-                //tonitodo: pass back error for error state?
-                return
-            }
-            
-             delegate?.didTapLink(messagingController: self, title: title)
-        case .properties:
-            guard let data = data else {
-                return
-            }
-            if
-                let leadImage = data["leadImage"] as? [String: Any],
-                let leadImageURLString = leadImage["source"] as? String {
-                let width = leadImage["width"] as? Int
-                let height = leadImage["height"] as? Int
-                delegate?.didGetLeadImage(messagingcontroller: self, source: leadImageURLString, width: width, height: height)
-            }
-            if
-                let tableOfContents = data["tableOfContents"] as? [[String: Any]]
-            {
-                var currentRootSectionId = -1
-                let items = tableOfContents.compactMap { (tocJSON) -> TableOfContentsItem? in
-                    guard
-                        let id = tocJSON["id"] as? Int,
-                        let level = tocJSON["level"] as? Int,
-                        let anchor = tocJSON["anchor"] as? String,
-                        let title = tocJSON["title"] as? String
-                    else {
-                            return nil
-                    }
-                    let indentationLevel = level - 1
-                    if indentationLevel == 0 {
-                        currentRootSectionId = id
-                    }
-                    return TableOfContentsItem(id: id, titleHTML: title, anchor: anchor, rootItemId: currentRootSectionId, indentationLevel: indentationLevel)
-                }
-                delegate?.didGetTableOfContents(messagingcontroller: self, items: items)
-            }
-        default:
-            break
+        guard let action = PCSAction(pcsActionString: actionString)?.getAction(with: data) else {
+            return
         }
+        delegate?.didRecieve(action: action)
     }
 }
