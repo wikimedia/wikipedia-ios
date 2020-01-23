@@ -1,30 +1,17 @@
 #import "WMFSettingsTableViewCell.h"
+@import WMF;
 #import "Wikipedia-Swift.h"
-#import <WMF/NSUserActivity+WMFExtensions.h>
 
-// View Controllers
 #import "WMFSettingsViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
-
-// Models
-#import <WMF/MWKLanguageLink.h>
-
-// Frameworks
-#if WMF_TWEAKS_ENABLED
-#import <Tweaks/FBTweakViewController.h>
-#import <Tweaks/FBTweakStore.h>
-#endif
-
-// Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import <WMF/UIView+WMFDefaultNib.h>
-#import <WMF/SessionSingleton.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import <WMF/MWKLanguageLinkController.h>
 #import "WMFDailyStatsLoggingFunnel.h"
-#import <WMF/NSBundle+WMFInfoUtils.h>
-#import "Wikipedia-Swift.h"
+
+#if WMF_TWEAKS_ENABLED
+@import Tweaks;
+#endif
 
 #pragma mark - Static URLs
 
