@@ -43,27 +43,12 @@ final class CacheProviderHelper {
     
     static func persistedCacheResponse(url: URL, itemKey: String) -> CachedURLResponse? {
         
-        var etag: String?
-        if let moc = CacheController.backgroundCacheContext,
-            let item = CacheDBWriterHelper.cacheItem(with: itemKey, in: moc) {
-            moc.performAndWait {
-                if let itemEtag = item.etag {
-                    etag = itemEtag
-                }
-            }
-        }
-        
-        
         let cachedFilePath = CacheFileWriterHelper.fileURL(for: itemKey).path
         if let data = FileManager.default.contents(atPath: cachedFilePath) {
             
-            var headerFields: [String: String] = [:]
-            if let etag = etag {
-                headerFields[HTTPURLResponse.etagHeaderKey] = etag
-            }
-            if let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
-                return CachedURLResponse(response: response, data: data)
-            }
+            let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: cachedFilePath)
+            let response = URLResponse(url: url, mimeType: mimeType, expectedContentLength: data.count, textEncodingName: nil)
+            return CachedURLResponse(response: response, data: data)
         }
         
         return nil
