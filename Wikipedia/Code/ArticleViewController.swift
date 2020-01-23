@@ -11,8 +11,7 @@ private extension CharacterSet {
 }
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController {
-    
+class ArticleViewController: ViewController {    
     enum ViewState {
         case unknown
         case loading

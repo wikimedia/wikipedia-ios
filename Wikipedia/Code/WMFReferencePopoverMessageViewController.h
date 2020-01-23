@@ -3,6 +3,8 @@
 
 @class WMFReference;
 
+extern NSString *const WMFReferenceLinkTappedNotification;
+
 @interface WMFReferencePopoverMessageViewController : UIViewController <UIPopoverPresentationControllerDelegate, WMFThemeable>
 
 @property (nonatomic) CGFloat width;

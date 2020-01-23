@@ -38,10 +38,7 @@
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"
-#import "WMFLegacyArticleViewController_Private.h"
-#import "LegacyWebViewController.h"
 #import "WMFLanguagesViewController.h"
-#import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
@@ -50,6 +47,7 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
 #import "WMFFirstRandomViewController.h"
+#import "WMFImageGalleryViewController.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"

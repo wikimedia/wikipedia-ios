@@ -6,7 +6,8 @@ protocol SectionEditorViewControllerDelegate: class {
 
 @objc(WMFSectionEditorViewController)
 class SectionEditorViewController: ViewController {
-    
+    @objc public static let editWasPublished = NSNotification.Name(rawValue: "EditWasPublished")
+
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     @objc var section: MWKSection?
