@@ -135,10 +135,6 @@ public class CacheController {
     public func cachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
         return provider.cachedURLResponse(for: request)
     }
-
-    public func cachedURLResponseUponError(for request: URLRequest) -> CachedURLResponse? {
-        return provider.cachedURLResponseUponError(for: request)
-    }
     
     public func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
         return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL)

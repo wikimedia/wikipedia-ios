@@ -35,23 +35,6 @@ final class ArticleCacheProvider: CacheProviding {
         return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey)
     }
     
-    func cachedURLResponseUponError(for request: URLRequest) -> CachedURLResponse? {
-        
-        guard let url = request.url else {
-            return nil
-        }
-        
-        if isMimeTypeImage(type: (url as NSURL).wmf_mimeTypeForExtension()) {
-            return imageController.cachedURLResponseUponError(for: request)
-        }
-        
-        guard let itemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: url)?.wmf_databaseKey ?? url.wmf_databaseKey else {
-            return nil
-        }
-        
-        return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey)
-    }
-    
     func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
         
         if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {

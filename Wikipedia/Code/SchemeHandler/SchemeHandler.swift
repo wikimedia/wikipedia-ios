@@ -213,9 +213,7 @@ private extension SchemeHandler {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
-                
-                //print("😁\(request.allHTTPHeaderFields)")
-                //print("🥶\(urlSchemeTask.request.allHTTPHeaderFields)")
+
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
