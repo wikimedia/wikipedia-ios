@@ -41,8 +41,8 @@ class ArticleTableOfContentsDisplayController: Themeable {
         stackView.addArrangedSubview(separatorView)
         stackView.addArrangedSubview(articleView)
         NSLayoutConstraint.activate([separatorWidthConstraint])
-        articleViewContentSizeObservation = self.articleView.scrollView.observe(\.contentSize) { (scrollView, change) in
-            self.restoreOffsetPercentageIfNecessary()
+        articleViewContentSizeObservation = self.articleView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
+            self?.restoreOffsetPercentageIfNecessary()
         }
     }
     

@@ -13,9 +13,10 @@ private extension CharacterSet {
 @objc(WMFArticleViewController)
 class ArticleViewController: ViewController {    
     enum ViewState {
-        case unknown
+        case initial
         case loading
-        case data
+        case loaded
+        case error
     }
     
     internal lazy var toolbarController: ArticleToolbarController = {
@@ -165,14 +166,16 @@ class ArticleViewController: ViewController {
     
     // MARK: Loading
     
-    private var state: ViewState = .loading {
+    private var state: ViewState = .initial {
         didSet {
             switch state {
-            case .unknown:
-                fakeProgressController.stop()
+            case .initial:
+                break
             case .loading:
                 fakeProgressController.start()
-            case .data:
+            case .loaded:
+                fakeProgressController.stop()
+            case .error:
                 fakeProgressController.stop()
             }
         }
@@ -199,6 +202,8 @@ class ArticleViewController: ViewController {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
+        loadIfNecessary()
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -210,6 +215,7 @@ class ArticleViewController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
+        saveArticleScrollPosition()
     }
     
     // MARK: Theme
@@ -231,7 +237,7 @@ class ArticleViewController: ViewController {
         webView.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
-        if state == .data {
+        if state == .loaded {
             messagingController.updateTheme(theme)
         }
     }
@@ -382,6 +388,14 @@ class ArticleViewController: ViewController {
     // MARK: Article load
     let footerLoadGroup: DispatchGroup = DispatchGroup()
     var languageCount: Int = 0
+    
+    func loadIfNecessary() {
+        guard state == .initial else {
+            return
+        }
+        load()
+    }
+    
     func load() {
         state = .loading
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
@@ -415,6 +429,25 @@ class ArticleViewController: ViewController {
             self.footerLoadGroup.leave()
         }
     }
+    
+    func markArticleAsViewed() {
+        article.viewedDate = Date()
+        try? article.managedObjectContext?.save()
+    }
+    
+    func saveArticleScrollPosition() {
+        getVisibleSectionId { (sectionId) in
+            guard let item = self.tableOfContentsItems.first(where: { $0.id == sectionId }) else {
+                return
+            }
+            assert(Thread.isMainThread)
+            self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
+            self.article.viewedFragment = item.anchor
+            try? self.article.managedObjectContext?.save()
+
+        }
+    }
+    
 }
 
 private extension ArticleViewController {
@@ -424,15 +457,19 @@ private extension ArticleViewController {
         setupSearchButton()
         addNotificationHandlers()
         setupWebView()
-        load()
     }
     
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
         toolbarController.setSavedState(isSaved: article.isSaved)
+    }
+    
+    @objc func applicationWillResignActive(_ notification: Notification) {
+        saveArticleScrollPosition()
     }
     
     func setupSearchButton() {
@@ -514,7 +551,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handlePCSDidFinishInitialSetup() {
-        state = .data
+        state = .loaded
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         loadCompletion?()
@@ -522,6 +559,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup.leave()
+        markArticleAsViewed()
     }
     
     func handleLeadImage(source: String, width: Int?, height: Int?) {
