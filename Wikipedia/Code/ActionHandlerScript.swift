@@ -43,47 +43,48 @@ final class PageContentService   {
     }
     
     struct Footer {
+        struct Menu: Codable {
+            enum Item: String, Codable {
+                case languages
+                case lastEdited
+                case pageIssues
+                case disambiguation
+                case coordinate
+                case talkPage
+                case referenceList
+            }
+            let items: [Item]
+            let fragment: String
+        }
+        
+        struct ReadMore: Codable {
+            let itemCount: Int
+            let baseURL: String
+            let fragment: String
+        }
+        
+        struct L10n: Codable {
+            let readMoreHeading: String
+            let menuDisambiguationTitle: String
+            let menuLanguagesTitle: String
+            let menuHeading: String
+            let menuLastEditedSubtitle: String
+            let menuLastEditedTitle: String
+            let licenseString: String
+            let menuTalkPageTitle: String
+            let menuPageIssuesTitle: String
+            let viewInBrowserString: String
+            let licenseSubstitutionString: String
+            let menuCoordinateTitle: String
+            let menuReferenceListTitle: String
+        }
+        
         struct Parameters: Codable {
             let platform = Setup.Parameters.platform
             let clientVersion = Setup.Parameters.clientVersion
             let title: String
-            struct Menu: Codable {
-                enum Item: Int, Codable {
-                    case languages = 1
-                    case lastEdited = 2
-                    case pageIssues = 3
-                    case disambiguation = 4
-                    case coordinate = 5
-                    case talkPage = 6
-                    case referenceList = 7
-                }
-                let items: [Item]
-                let fragment: String
-            }
             let menu: Menu
-            
-            struct ReadMore: Codable {
-                let itemCount: Int
-                let baseURL: String
-                let fragment: String
-            }
             let readMore: ReadMore
-            
-            struct L10n: Codable {
-                let readMoreHeading: String
-                let menuDisambiguationTitle: String
-                let menuLanguagesTitle: String
-                let menuHeading: String
-                let menuLastEditedSubtitle: String
-                let menuLastEditedTitle: String
-                let licenseString: String
-                let menuTalkPageTitle: String
-                let menuPageIssuesTitle: String
-                let viewInBrowserString: String
-                let licenseSubstitutionString: String
-                let menuCoordinateTitle: String
-                let menuReferenceListTitle: String
-            }
             let l10n: L10n
         }
     }

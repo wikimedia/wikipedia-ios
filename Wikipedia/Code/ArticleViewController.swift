@@ -386,7 +386,7 @@ class ArticleViewController: ViewController {
     }
     
     // MARK: Article load
-    let footerLoadGroup: DispatchGroup = DispatchGroup()
+    var footerLoadGroup: DispatchGroup?
     var languageCount: Int = 0
     
     func loadIfNecessary() {
@@ -406,9 +406,11 @@ class ArticleViewController: ViewController {
             return
         }
         
-        footerLoadGroup.enter() // will leave on setup complete
-        footerLoadGroup.notify(queue: DispatchQueue.main) { [weak self] in
+        footerLoadGroup = DispatchGroup()
+        footerLoadGroup?.enter() // will leave on setup complete
+        footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
             self?.setupFooter()
+            self?.footerLoadGroup = nil
         }
         
         let request = URLRequest(url: mobileHTMLURL)
@@ -417,16 +419,16 @@ class ArticleViewController: ViewController {
         guard let key = article.key else {
             return
         }
-        footerLoadGroup.enter()
+        footerLoadGroup?.enter()
         dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
-            self.footerLoadGroup.leave()
+            self.footerLoadGroup?.leave()
         }
-        footerLoadGroup.enter()
+        footerLoadGroup?.enter()
         languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
             self.languageCount = links.count
-            self.footerLoadGroup.leave()
+            self.footerLoadGroup?.leave()
         }) { (error) in
-            self.footerLoadGroup.leave()
+            self.footerLoadGroup?.leave()
         }
     }
     
@@ -538,6 +540,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleLeadImage(source: source, width: width, height: height)
         case .tableOfContents(items: let items):
             handleTableOfContents(items: items)
+        case .footerItem(let type):
+            handleFooterItem(type: type)
         default:
             break
         }
@@ -558,8 +562,17 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handlePCSDidFinishFinalSetup() {
-        footerLoadGroup.leave()
+        footerLoadGroup?.leave()
         markArticleAsViewed()
+    }
+    
+    func handleFooterItem(type: PageContentService.Footer.Menu.Item) {
+        switch type {
+        case .talkPage:
+            break
+        default:
+            break
+        }
     }
     
     func handleLeadImage(source: String, width: Int?, height: Int?) {
@@ -577,7 +590,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
             return
         }
-        var menuItems: [PageContentService.Footer.Parameters.Menu.Item] = [.talkPage, .referenceList, .lastEdited]
+        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .referenceList, .lastEdited]
         if languageCount > 0 {
             menuItems.append(.languages)
         }

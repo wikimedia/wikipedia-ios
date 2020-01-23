@@ -57,7 +57,6 @@ class ArticleToolbarController: Themeable {
         return item
     }()
 
-
     init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
         self.toolbar = toolbar
         self.delegate = delegate

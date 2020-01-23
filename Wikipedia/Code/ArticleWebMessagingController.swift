@@ -46,7 +46,7 @@ class ArticleWebMessagingController: NSObject {
         }
     }
     
-    func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Parameters.Menu.Item], languageCount: Int, lastModified: Date?) {
+    func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], languageCount: Int, lastModified: Date?) {
         guard
             let language = articleURL.wmf_language,
             let title = articleURL.wmf_title
@@ -70,9 +70,9 @@ class ArticleWebMessagingController: NSObject {
         let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
         let menuCoordinateTitle = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
         let menuReferenceListTitle = WMFLocalizedString("article-reference-title", value: "View references", comment: "Label for button linking out to an article's references")
-        let l10n = PageContentService.Footer.Parameters.L10n(readMoreHeading: readMoreHeading, menuDisambiguationTitle: menuDisambiguationTitle, menuLanguagesTitle: menuLanguagesTitle, menuHeading: menuHeading, menuLastEditedSubtitle: menuLastEditedSubtitle, menuLastEditedTitle: menuLastEditedTitle, licenseString: licenseString, menuTalkPageTitle: menuTalkPageTitle, menuPageIssuesTitle: menuPageIssuesTitle, viewInBrowserString: viewInBrowserString, licenseSubstitutionString: licenseSubstitutionString, menuCoordinateTitle: menuCoordinateTitle, menuReferenceListTitle: menuReferenceListTitle)
-        let menu = PageContentService.Footer.Parameters.Menu(items: menuItems, fragment: "pcs-menu")
-        let readMore = PageContentService.Footer.Parameters.ReadMore(itemCount: 3, baseURL: restAPIBaseURL.absoluteString, fragment: "pcs-read-more")
+        let l10n = PageContentService.Footer.L10n(readMoreHeading: readMoreHeading, menuDisambiguationTitle: menuDisambiguationTitle, menuLanguagesTitle: menuLanguagesTitle, menuHeading: menuHeading, menuLastEditedSubtitle: menuLastEditedSubtitle, menuLastEditedTitle: menuLastEditedTitle, licenseString: licenseString, menuTalkPageTitle: menuTalkPageTitle, menuPageIssuesTitle: menuPageIssuesTitle, viewInBrowserString: viewInBrowserString, licenseSubstitutionString: licenseSubstitutionString, menuCoordinateTitle: menuCoordinateTitle, menuReferenceListTitle: menuReferenceListTitle)
+        let menu = PageContentService.Footer.Menu(items: menuItems, fragment: "pcs-menu")
+        let readMore = PageContentService.Footer.ReadMore(itemCount: 3, baseURL: restAPIBaseURL.absoluteString, fragment: "pcs-read-more")
         let parameters = PageContentService.Footer.Parameters(title: title, menu: menu, readMore: readMore, l10n: l10n)
         guard let parametersJS = try? PageContentService.getJavascriptFor(parameters) else {
             return
@@ -114,7 +114,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case properties
         case edit(sectionID: Int, descriptionSource: String?)
         case addTitleDescription
-        case footerItemSelected
+        case footerItem(type: PageContentService.Footer.Menu.Item)
         case readMoreTitlesRetrieved
         case viewLicense
         case viewInBrowser
@@ -159,7 +159,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case pronunciation
         case edit = "edit_section"
         case addTitleDescription = "add_title_description"
-        case footerItemSelected = "footer_item_selected"
+        case footerItem = "footer_item"
         case readMoreTitlesRetrieved = "read_more_titles_retrieved"
         case viewLicense = "view_license"
         case viewInBrowser = "view_in_browser"
@@ -185,8 +185,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getEditAction(with: data)
             case .addTitleDescription:
                 return .addTitleDescription
-            case .footerItemSelected:
-                return .footerItemSelected
+            case .footerItem:
+                return getFooterItemAction(with: data)
             case .readMoreTitlesRetrieved:
                 return .readMoreTitlesRetrieved
             case .viewLicense:
@@ -271,6 +271,13 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return nil
             }
             return .pronunciation(url: url)
+        }
+        
+        func getFooterItemAction(with data: [String: Any]?) -> Action? {
+            guard let itemTypeString = data?["itemType"] as? String, let menuItemType = PageContentService.Footer.Menu.Item(rawValue: itemTypeString) else {
+                return nil
+            }
+            return .footerItem(type: menuItemType)
         }
     }
     
