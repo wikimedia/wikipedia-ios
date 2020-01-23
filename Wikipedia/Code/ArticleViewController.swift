@@ -32,7 +32,8 @@ class ArticleViewController: ViewController {
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     private let cacheController: CacheController
     private let article: WMFArticle
-
+    private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
+    
     private var leadImageHeight: CGFloat = 210
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
@@ -377,6 +378,43 @@ class ArticleViewController: ViewController {
         super.scrollViewDidScrollToTop(scrollView)
         updateTableOfContentsHighlight()
     }
+    
+    // MARK: Article load
+    let footerLoadGroup: DispatchGroup = DispatchGroup()
+    var languageCount: Int = 0
+    func load() {
+        state = .loading
+        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
+            loadLeadImage(with: leadImageURL)
+        }
+        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
+            WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
+            return
+        }
+        
+        footerLoadGroup.enter() // will leave on setup complete
+        footerLoadGroup.notify(queue: DispatchQueue.main) { [weak self] in
+            self?.setupFooter()
+        }
+        
+        let request = URLRequest(url: mobileHTMLURL)
+        webView.load(request)
+        
+        guard let key = article.key else {
+            return
+        }
+        footerLoadGroup.enter()
+        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            self.footerLoadGroup.leave()
+        }
+        footerLoadGroup.enter()
+        languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
+            self.languageCount = links.count
+            self.footerLoadGroup.leave()
+        }) { (error) in
+            self.footerLoadGroup.leave()
+        }
+    }
 }
 
 private extension ArticleViewController {
@@ -441,19 +479,6 @@ private extension ArticleViewController {
         messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
     }
     
-    func load() {
-        state = .loading
-        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
-            loadLeadImage(with: leadImageURL)
-        }
-        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
-            WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
-            return
-        }
-        let request = URLRequest(url: mobileHTMLURL)
-        webView.load(request)
-    }
-    
     func setupToolbar() {
         enableToolbar()
         toolbarController.apply(theme: theme)
@@ -496,11 +521,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handlePCSDidFinishFinalSetup() {
-        // Always use Configuration.production for related articles
-        guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
-            return
-        }
-        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: [.talkPage, .referenceList, .lastEdited], languageCount: 0, lastModified: nil)
+        footerLoadGroup.leave()
     }
     
     func handleLeadImage(source: String, width: Int?, height: Int?) {
@@ -511,6 +532,21 @@ extension ArticleViewController: ArticleWebMessageHandling {
             return
         }
         loadLeadImage(with: leadImageURLToRequest)
+    }
+    
+    func setupFooter() {
+        // Always use Configuration.production for related articles
+        guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
+            return
+        }
+        var menuItems: [PageContentService.Footer.Parameters.Menu.Item] = [.talkPage, .referenceList, .lastEdited]
+        if languageCount > 0 {
+            menuItems.append(.languages)
+        }
+        if article.coordinate != nil {
+            menuItems.append(.coordinate)
+        }
+        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, languageCount:languageCount, lastModified: nil)
     }
 }
 

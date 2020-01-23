@@ -32,6 +32,7 @@
 #import "WMFArticleRevisionFetcher.h"
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"
+#import "MWKLanguageLinkFetcher.h"
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"
