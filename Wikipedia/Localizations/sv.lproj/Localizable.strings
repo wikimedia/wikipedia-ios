@@ -310,7 +310,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Ytterligare språk kan läggas till i inställningen \"Mina språk\".";
 "explore-feed-preferences-card-hidden-title" = "Kortet doldes";
 "explore-feed-preferences-continue-reading-description" = "Snabblänk tillbaka för att läsa en öppen artikel";
-"explore-feed-preferences-customize-explore-feed" = "Anpassa utforskarflöde";
+"explore-feed-preferences-customize-explore-feed" = "Anpassa utforskarflödet";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Anpassa utforskarflödet";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "När en korttyp döljs kommer den sluta dyka upp i utforskarflödet.";
 "explore-feed-preferences-explore-tab" = "Utforskarflik";
@@ -358,7 +358,7 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "När utforskarfliken inaktiveras kommer den ersättas med en inställningsflik.";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "Genom att välja att visa korten i utforskarflödet aktiverar du utforskarfliken";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Aktivera utforska";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Detta kommer att ersätta inställningsfliken med utforskarfliken, du kan komma åt inställningarna längst upp i utforskarfliken genom att trycka på kugghjulsikonen";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Detta kommer att ersätta inställningsfliken med utforskarfliken. Du kan komma åt inställningarna längst upp i utforskarfliken genom att trycka på kugghjulsikonen";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Aktivera utforskarfliken?";
 "explore-hide-card-prompt" = "Dölj detta kort";
 "explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
