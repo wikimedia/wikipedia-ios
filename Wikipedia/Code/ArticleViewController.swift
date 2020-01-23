@@ -616,6 +616,30 @@ extension ArticleViewController: ArticleToolbarHandling {
         nc.setNavigationBarHidden(false, animated: false)
         present(nc, animated: true)
     }
+    
+    func showLanguagePicker(from controller: ArticleToolbarController) {
+        guard let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL) else {
+            return
+        }
+        themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
+        languagesVC.delegate = self
+        presentEmbedded(languagesVC, style: .sheet)
+    }
+}
+
+extension ArticleViewController: WMFLanguagesViewControllerDelegate {
+    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
+        dismiss(animated: true) {
+            self.navigate(to: language.articleURL())
+        }
+    }
+}
+
+extension ArticleViewController {
+    func presentEmbedded(_ viewController: UIViewController, style: WMFThemeableNavigationControllerStyle) {
+        let nc = WMFThemeableNavigationController(rootViewController: viewController, theme: theme, style: style)
+        present(nc, animated: true)
+    }
 }
 
 extension ArticleViewController: ReadingThemesControlsResponding {

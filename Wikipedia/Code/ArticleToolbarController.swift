@@ -7,6 +7,7 @@ protocol ArticleToolbarHandling: class {
     func showThemePopover(from controller: ArticleToolbarController)
     func showTableOfContents(from controller: ArticleToolbarController)
     func hideTableOfContents(from controller: ArticleToolbarController)
+    func showLanguagePicker(from controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -48,6 +49,14 @@ class ArticleToolbarController: Themeable {
         item.apply(theme: theme)
         return item
     }()
+    
+    lazy var languagesButton: IconBarButtonItem = {
+        let item = IconBarButtonItem(iconName: "language", target: self, action: #selector(showLanguagePicker), for: .touchUpInside)
+        item.accessibilityLabel = CommonStrings.accessibilityLanguagesTitle
+        item.apply(theme: theme)
+        return item
+    }()
+
 
     init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
         self.toolbar = toolbar
@@ -78,6 +87,10 @@ class ArticleToolbarController: Themeable {
     
     @objc func hideTableOfContents() {
         delegate?.hideTableOfContents(from: self)
+    }
+    
+    @objc func showLanguagePicker() {
+        delegate?.showLanguagePicker(from: self)
     }
     
     // MARK: State
@@ -114,6 +127,8 @@ class ArticleToolbarController: Themeable {
         toolbar.items = [
             UIBarButtonItem.flexibleSpaceToolbar(),
             tocItem,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            languagesButton,
             UIBarButtonItem.flexibleSpaceToolbar(),
             saveButton,
             UIBarButtonItem.flexibleSpaceToolbar(),
