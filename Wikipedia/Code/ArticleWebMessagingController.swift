@@ -71,10 +71,10 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
     enum Action {
         case setup
         case finalSetup
-        case image
+        case image(src: String, href: String, width: Int?, height: Int?)
         case link(title: String)
-        case reference
-        case pronunciation
+        case reference(selectedIndex: Int, group: [Reference])
+        case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: String?)
         case addTitleDescription
@@ -84,6 +84,32 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case viewInBrowser
         case leadImage(source: String, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
+    }
+    
+    /// Reference represents a reference passed across the page content service js bridge
+    /// Tried to make this work with codable but since it's already decoded into a [String: Any] it seemed difficult to write that to JSON and read it again. Maybe there's a DictionaryDecoder that exists or could be written
+    struct Reference {
+        let id: String
+        let href: String
+        let html: String
+        let text: String
+        let rect: CGRect
+        static func from(data: [String: Any]) -> Reference? {
+            guard
+                let html = data["html"] as? String,
+                let id = data["id"] as? String,
+                let href = data["href"] as? String,
+                let text = data["text"] as? String,
+                let rectDict = data["rect"] as? [String: Double],
+                let x = rectDict["x"],
+                let y = rectDict["y"],
+                let width = rectDict["width"],
+                let height = rectDict["height"]
+            else {
+                return nil
+            }
+            return Reference(id: id, href: href, html: html, text: text, rect: CGRect(x: x, y: y, width: width, height: height))
+        }
     }
     
     /// PCSActions are receieved from the JS bridge and converted into actions
@@ -114,11 +140,11 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             case .finalSetup:
                 return .finalSetup
             case .image:
-                return .image
+                return getImageAction(with: data)
             case .reference:
-                return .reference
+                return getReferenceAction(with: data)
             case .pronunciation:
-                return .pronunciation
+                return getPronunciationAction(with: data)
             case .edit:
                 return getEditAction(with: data)
             case .addTitleDescription:
@@ -175,17 +201,40 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         
         func getLinkAction(with data: [String: Any]?) -> Action? {
             guard let title = data?[LinkKey.title.rawValue] as? String else {
-                assertionFailure("Missing title data in link")
                 return nil
             }
             return .link(title: title)
         }
+        
         func getEditAction(with data: [String: Any]?) -> Action? {
-            guard let sectionID = data?["sectionId"] as? Int else {
-                assertionFailure("Missing title data in link")
+            guard let sectionIDString = data?["sectionId"] as? String, let sectionID = Int(sectionIDString) else {
                 return nil
             }
             return .edit(sectionID: sectionID, descriptionSource: data?["descriptionSource"] as? String)
+        }
+        
+        func getImageAction(with data: [String: Any]?) -> Action? {
+            guard let src = data?["src"] as? String, let href = data?["href"] as? String else {
+                return nil
+            }
+            let width = data?["data-file-width"] as? Int
+            let height = data?["data-file-height"] as? Int
+            return .image(src: src, href: href, width: width, height: height)
+        }
+        
+        func getReferenceAction(with data: [String: Any]?) -> Action? {
+            guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
+                return nil
+            }
+            let group = groupArray.compactMap { Reference.from(data: $0) }
+            return .reference(selectedIndex: selectedIndex, group: group)
+        }
+        
+        func getPronunciationAction(with data: [String: Any]?) -> Action? {
+            guard let urlString = data?["url"] as? String, let url = URL(string: urlString) else {
+                return nil
+            }
+            return .pronunciation(url: url)
         }
     }
     
