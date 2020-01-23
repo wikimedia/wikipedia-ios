@@ -32,7 +32,7 @@ class ArticleViewController: ViewController {
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     private let cacheController: CacheController
-    private let article: WMFArticle
+    internal let article: WMFArticle
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
     
     private var leadImageHeight: CGFloat = 210
@@ -166,7 +166,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Loading
     
-    private var state: ViewState = .initial {
+    internal var state: ViewState = .initial {
         didSet {
             switch state {
             case .initial:
@@ -527,127 +527,6 @@ private extension ArticleViewController {
             
 }
 
-extension ArticleViewController: ArticleWebMessageHandling {
-    func didRecieve(action: ArticleWebMessagingController.Action) {
-        switch action {
-        case .setup:
-            handlePCSDidFinishInitialSetup()
-        case .finalSetup:
-            handlePCSDidFinishFinalSetup()
-        case .link(let title):
-            handleLink(with: title)
-        case .leadImage(let source, let width, let height):
-            handleLeadImage(source: source, width: width, height: height)
-        case .tableOfContents(items: let items):
-            handleTableOfContents(items: items)
-        case .footerItem(let type):
-            handleFooterItem(type: type)
-        default:
-            break
-        }
-    }
-    
-    func handleTableOfContents(items: [TableOfContentsItem]) {
-        let titleItem = TableOfContentsItem(id: -1, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: -1, indentationLevel: 0)
-        var allItems: [TableOfContentsItem] = [titleItem]
-        allItems.append(contentsOf: items)
-        tableOfContentsItems = allItems
-    }
-    
-    func handlePCSDidFinishInitialSetup() {
-        state = .loaded
-        webView.becomeFirstResponder()
-        showWIconPopoverIfNecessary()
-        loadCompletion?()
-    }
-    
-    func handlePCSDidFinishFinalSetup() {
-        footerLoadGroup?.leave()
-        markArticleAsViewed()
-    }
-    
-    func handleFooterItem(type: PageContentService.Footer.Menu.Item) {
-        switch type {
-        case .talkPage:
-            break
-        default:
-            break
-        }
-    }
-    
-    func handleLeadImage(source: String, width: Int?, height: Int?) {
-        guard leadImageView.image == nil && leadImageView.wmf_imageURLToFetch == nil else {
-            return
-        }
-        guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {
-            return
-        }
-        loadLeadImage(with: leadImageURLToRequest)
-    }
-    
-    func setupFooter() {
-        // Always use Configuration.production for related articles
-        guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
-            return
-        }
-        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .referenceList, .lastEdited]
-        if languageCount > 0 {
-            menuItems.append(.languages)
-        }
-        if article.coordinate != nil {
-            menuItems.append(.coordinate)
-        }
-        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, languageCount:languageCount, lastModified: nil)
-    }
-}
-
-extension ArticleViewController: ArticleToolbarHandling {
-    func showTableOfContents(from controller: ArticleToolbarController) {
-        showTableOfContents()
-    }
-    
-    func hideTableOfContents(from controller: ArticleToolbarController) {
-        hideTableOfContents()
-    }
-    
-    var isTableOfContentsVisible: Bool {
-        return tableOfContentsController.viewController.displayMode == .inline && tableOfContentsController.viewController.isVisible
-    }
-    
-    func toggleSave(from viewController: ArticleToolbarController) {
-        article.isSaved = !article.isSaved
-        try? article.managedObjectContext?.save()
-    }
-    
-    func showThemePopover(from controller: ArticleToolbarController) {
-        themesPresenter.showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
-    }
-    
-    func saveButtonWasLongPressed(from controller: ArticleToolbarController) {
-        let addArticlesToReadingListVC = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
-        let nc = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListVC, theme: theme)
-        nc.setNavigationBarHidden(false, animated: false)
-        present(nc, animated: true)
-    }
-    
-    func showLanguagePicker(from controller: ArticleToolbarController) {
-        guard let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL) else {
-            return
-        }
-        themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
-        languagesVC.delegate = self
-        presentEmbedded(languagesVC, style: .sheet)
-    }
-}
-
-extension ArticleViewController: WMFLanguagesViewControllerDelegate {
-    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
-        dismiss(animated: true) {
-            self.navigate(to: language.articleURL())
-        }
-    }
-}
-
 extension ArticleViewController {
     func presentEmbedded(_ viewController: UIViewController, style: WMFThemeableNavigationControllerStyle) {
         let nc = WMFThemeableNavigationController(rootViewController: viewController, theme: theme, style: style)
@@ -681,47 +560,6 @@ extension ArticleViewController: ImageScaleTransitionProviding {
         view.layoutIfNeeded()
     }
 
-}
-
-private extension UIViewController {
-    
-    struct Offsets {
-        let top: CGFloat?
-        let bottom: CGFloat?
-        let leading: CGFloat?
-        let trailing: CGFloat?
-    }
-    
-    func addChildViewController(childViewController: UIViewController, offsets: Offsets) {
-        addChild(childViewController)
-        childViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(childViewController.view)
-        
-        var constraintsToActivate: [NSLayoutConstraint] = []
-        if let top = offsets.top {
-            let topConstraint = childViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: top)
-            constraintsToActivate.append(topConstraint)
-        }
-        
-        if let bottom = offsets.bottom {
-            let bottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: bottom)
-            constraintsToActivate.append(bottomConstraint)
-        }
-        
-        if let leading = offsets.leading {
-            let leadingConstraint = childViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leading)
-            constraintsToActivate.append(leadingConstraint)
-        }
-        
-        if let trailing = offsets.trailing {
-            let trailingConstraint = childViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: trailing)
-            constraintsToActivate.append(trailingConstraint)
-        }
-        
-        NSLayoutConstraint.activate(constraintsToActivate)
-        
-        childViewController.didMove(toParent: self)
-    }
 }
 
 //WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title")
