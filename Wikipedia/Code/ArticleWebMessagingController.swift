@@ -18,7 +18,7 @@ class ArticleWebMessagingController: NSObject {
     }
     
     func setup(with webView: WKWebView, language: String, theme: Theme, leadImageHeight: Int, areTablesInitiallyExpanded: Bool, textSizeAdjustment: Int, userGroups: [String]) {
-        let margins = PageContentService.Parameters.Margins(
+        let margins = PageContentService.Setup.Parameters.Margins(
             top: "16px",
             right: "16px",
             bottom: "16px",
@@ -28,8 +28,8 @@ class ArticleWebMessagingController: NSObject {
         let tableInfoboxTitle = WMFLocalizedString("info-box-title", language: language, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
         let tableOtherTitle = WMFLocalizedString("table-title-other", language: language, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
         let tableFooterTitle = WMFLocalizedString("info-box-close-text", language: language, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it {{Identical|Close}}")
-        let l10n = PageContentService.Parameters.L10n(addTitleDescription: addTitleDescription, tableInfobox: tableInfoboxTitle, tableOther: tableOtherTitle, tableClose: tableFooterTitle)
-        let parameters = PageContentService.Parameters(l10n: l10n, theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
+        let l10n = PageContentService.Setup.Parameters.L10n(addTitleDescription: addTitleDescription, tableInfobox: tableInfoboxTitle, tableOther: tableOtherTitle, tableClose: tableFooterTitle)
+        let parameters = PageContentService.Setup.Parameters(l10n: l10n, theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
         self.webView = webView
         let contentController = webView.configuration.userContentController
         contentController.add(self, name: PageContentService.messageHandlerName)
@@ -46,6 +46,42 @@ class ArticleWebMessagingController: NSObject {
         }
     }
     
+    func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Parameters.Menu.Item], languageCount: Int, lastModified: Date?) {
+        guard
+            let language = articleURL.wmf_language,
+            let title = articleURL.wmf_title
+        else {
+            return
+        }
+        
+        let locale = Locale(identifier: language)
+        let readMoreHeading = WMFLocalizedString("article-read-more-title", language: language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}").uppercased(with: locale)
+        let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: language, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1")
+        let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: language, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0 {{Identical|CC BY-SA}}")
+        let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: language, value: "View article in browser", comment: "Link to view article in browser")
+        let menuHeading = WMFLocalizedString("article-about-title", language: language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").uppercased(with: locale)
+        let menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in {{PLURAL:%1$d|%1$d other language|%1$d other languages}}", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), languageCount)
+        let lastModified = lastModified ?? Date()
+        let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
+        let menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: language, value: "{{PLURAL:%1$d|0=Edited today|1=Edited yesterday|Edited %1$d days ago}}", comment: "Relative days since an article was last edited. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago."), days)
+        let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history")
+        let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
+        let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
+        let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
+        let menuCoordinateTitle = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
+        let menuReferenceListTitle = WMFLocalizedString("article-reference-title", value: "View references", comment: "Label for button linking out to an article's references")
+        let l10n = PageContentService.Footer.Parameters.L10n(readMoreHeading: readMoreHeading, menuDisambiguationTitle: menuDisambiguationTitle, menuLanguagesTitle: menuLanguagesTitle, menuHeading: menuHeading, menuLastEditedSubtitle: menuLastEditedSubtitle, menuLastEditedTitle: menuLastEditedTitle, licenseString: licenseString, menuTalkPageTitle: menuTalkPageTitle, menuPageIssuesTitle: menuPageIssuesTitle, viewInBrowserString: viewInBrowserString, licenseSubstitutionString: licenseSubstitutionString, menuCoordinateTitle: menuCoordinateTitle, menuReferenceListTitle: menuReferenceListTitle)
+        let menu = PageContentService.Footer.Parameters.Menu(items: menuItems, fragment: "pcs-menu")
+        let readMore = PageContentService.Footer.Parameters.ReadMore(itemCount: 3, baseURL: restAPIBaseURL.absoluteString, fragment: "pcs-read-more")
+        let parameters = PageContentService.Footer.Parameters(title: title, menu: menu, readMore: readMore, l10n: l10n)
+        guard let parametersJS = try? PageContentService.getJavascriptFor(parameters) else {
+            return
+        }
+        webView?.evaluateJavaScript("pcs.c1.Footer.add(\(parametersJS))", completionHandler: { (result, error) in
+            
+        })
+    }
+    
     // MARK: Adjustable state
     
     func updateTheme(_ theme: Theme) {
@@ -53,7 +89,7 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript(js)
     }
 
-    func updateMargins(_ margins: PageContentService.Parameters.Margins) {
+    func updateMargins(_ margins: PageContentService.Setup.Parameters.Margins) {
         guard let marginsJSON = try? PageContentService.getJavascriptFor(margins) else {
             return
         }

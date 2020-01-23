@@ -6,41 +6,93 @@ import WebKit
 // Passes setup parameters to the webpage (theme, margins, etc) and sets up a listener to recieve events (link tapped, image tapped, etc) through the messaging bridge
 // https://www.mediawiki.org/wiki/Page_Content_Service
 final class PageContentService   {
-    struct Parameters: Codable {
-        let platform = "ios"
-        static let clientVersion = Bundle.main.wmf_shortVersionString() // static to only pull this once
-        let clientVersion = Parameters.clientVersion
+    struct Setup {
+        struct Parameters: Codable {
+            static let platform = "ios"
+            static let clientVersion = Bundle.main.wmf_shortVersionString() // static to only pull this once
         
-        struct L10n: Codable {
-            let addTitleDescription: String
-            let tableInfobox: String
-            let tableOther: String
-            let tableClose: String
-        }
-        let l10n: L10n
-        
-        let theme: String
-        let dimImages: Bool
+            let platform = Parameters.platform
+            let clientVersion = Parameters.clientVersion
+            
+            struct L10n: Codable {
+                let addTitleDescription: String
+                let tableInfobox: String
+                let tableOther: String
+                let tableClose: String
+            }
+            let l10n: L10n
+            
+            let theme: String
+            let dimImages: Bool
 
-        struct Margins: Codable {
-            // these values are strings to allow for units to be included
-            let top: String
-            let right: String
-            let bottom: String
-            let left: String
-        }
-        let margins: Margins
-        let leadImageHeight: String // units are included
+            struct Margins: Codable {
+                // these values are strings to allow for units to be included
+                let top: String
+                let right: String
+                let bottom: String
+                let left: String
+            }
+            let margins: Margins
+            let leadImageHeight: String // units are included
 
-        let areTablesInitiallyExpanded: Bool
-        let textSizeAdjustmentPercentage: String // string like '125%'
-        
-        let userGroups: [String]
+            let areTablesInitiallyExpanded: Bool
+            let textSizeAdjustmentPercentage: String // string like '125%'
+            
+            let userGroups: [String]
+        }
+    }
+    
+    struct Footer {
+        struct Parameters: Codable {
+            let platform = Setup.Parameters.platform
+            let clientVersion = Setup.Parameters.clientVersion
+            let title: String
+            struct Menu: Codable {
+                enum Item: Int, Codable {
+                    case languages = 1
+                    case lastEdited = 2
+                    case pageIssues = 3
+                    case disambiguation = 4
+                    case coordinate = 5
+                    case talkPage = 6
+                    case referenceList = 7
+                }
+                let items: [Item]
+                let fragment: String
+            }
+            let menu: Menu
+            
+            struct ReadMore: Codable {
+                let itemCount: Int
+                let baseURL: String
+                let fragment: String
+            }
+            let readMore: ReadMore
+            
+            struct L10n: Codable {
+                let readMoreHeading: String
+                let menuDisambiguationTitle: String
+                let menuLanguagesTitle: String
+                let menuHeading: String
+                let menuLastEditedSubtitle: String
+                let menuLastEditedTitle: String
+                let licenseString: String
+                let menuTalkPageTitle: String
+                let menuPageIssuesTitle: String
+                let viewInBrowserString: String
+                let licenseSubstitutionString: String
+                let menuCoordinateTitle: String
+                let menuReferenceListTitle: String
+            }
+            let l10n: L10n
+        }
     }
     
     static let paramsEncoder = JSONEncoder()
     static let messageHandlerName = "pcs"
     
+    /// - Parameter encodable: the object to encode
+    /// - Returns: a JavaScript string that will call JSON.parse on the JSON representation of the encodable
     class func getJavascriptFor<T>(_ encodable: T) throws -> String where T: Encodable {
         let data = try PageContentService.paramsEncoder.encode(encodable)
         guard let string = String(data: data, encoding: .utf8) else {
@@ -50,7 +102,7 @@ final class PageContentService   {
     }
     
     final class SetupScript: WKUserScript {
-        required init(_ parameters: Parameters) throws {
+        required init(_ parameters: Setup.Parameters) throws {
 
                let source = """
                document.pcsActionHandler = (action) => {

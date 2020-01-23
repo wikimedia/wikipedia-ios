@@ -123,14 +123,13 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)viewDidLoad {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    SchemeHandler *schemeHandler = [SchemeHandler shared];
-    [config setURLSchemeHandler:schemeHandler forURLScheme:schemeHandler.scheme];
     WKWebView *wv = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     [super viewDidLoad];
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;
-    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:@"#top"];
+    // TODO: ?
+    //[wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:@"#top"];
     self.webView = wv;
 
     self.webView.opaque = NO;
@@ -152,8 +151,9 @@ static NSString *const kWMFContributorsKey = @"contributors";
 }
 
 - (void)leftButtonPressed {
-    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
-                      scrolledToFragment:nil];
+        // TODO: ?
+//    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
+//                      scrolledToFragment:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {

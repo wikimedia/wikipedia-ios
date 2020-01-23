@@ -184,18 +184,18 @@ class SectionEditorViewController: ViewController {
         let bottomConstraint = view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
+        let hostedFolderPath = WikipediaAppUtils.assetsPath()
+        let folderURL = URL(fileURLWithPath: hostedFolderPath)
+        let fullPath = (hostedFolderPath as NSString).appendingPathComponent("codemirror/codemirror-index.html")
+        let fileURL = URL(fileURLWithPath: fullPath)
+        webView.loadFileURL(fileURL, allowingReadAccessTo: folderURL)
         
-        if let url = SchemeHandler.FileHandler.appSchemeURL(for: "codemirror/codemirror-index.html", fragment: "top") {
-            let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
-            webView.load(request)
-            
-            messagingController.webView = webView
-            
-            menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
-            menuItemsController.delegate = self
-            webView.menuItemsDataSource = menuItemsController
-            webView.menuItemsDelegate = menuItemsController
-        }
+        messagingController.webView = webView
+        
+        menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
+        menuItemsController.delegate = self
+        webView.menuItemsDataSource = menuItemsController
+        webView.menuItemsDelegate = menuItemsController
     }
 
     @objc var shouldFocusWebView = true {

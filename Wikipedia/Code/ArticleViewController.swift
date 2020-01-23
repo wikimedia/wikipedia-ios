@@ -413,6 +413,7 @@ private extension ArticleViewController {
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
         let imageTopConstraint = leadImageView.topAnchor.constraint(equalTo:  leadImageContainerView.topAnchor)
+        imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
         
@@ -445,7 +446,7 @@ private extension ArticleViewController {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
-        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
+        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
             WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
             return
         }
@@ -466,7 +467,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func didRecieve(action: ArticleWebMessagingController.Action) {
         switch action {
         case .setup:
-            handlePCSDidFinishSetup()
+            handlePCSDidFinishInitialSetup()
+        case .finalSetup:
+            handlePCSDidFinishFinalSetup()
         case .link(let title):
             handleLink(with: title)
         case .leadImage(let source, let width, let height):
@@ -485,11 +488,19 @@ extension ArticleViewController: ArticleWebMessageHandling {
         tableOfContentsItems = allItems
     }
     
-    func handlePCSDidFinishSetup() {
+    func handlePCSDidFinishInitialSetup() {
         state = .data
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         loadCompletion?()
+    }
+    
+    func handlePCSDidFinishFinalSetup() {
+        // Always use Configuration.production for related articles
+        guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
+            return
+        }
+        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: [.talkPage, .referenceList, .lastEdited], languageCount: 0, lastModified: nil)
     }
     
     func handleLeadImage(source: String, width: Int?, height: Int?) {
@@ -501,8 +512,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
         }
         loadLeadImage(with: leadImageURLToRequest)
     }
-    
-    
 }
 
 extension ArticleViewController: ArticleToolbarHandling {
