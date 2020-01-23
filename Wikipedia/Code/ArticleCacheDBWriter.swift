@@ -113,13 +113,13 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 return
             }
             
-            if let mobileHtmlOfflineResourceError = mobileHtmlOfflineResourceError {
-                let result = CacheDBWritingResultWithItemKeys.failure(mobileHtmlOfflineResourceError)
-                completion(result)
-                return
-            }
+//            if let mobileHtmlOfflineResourceError = mobileHtmlOfflineResourceError {
+//                let result = CacheDBWritingResultWithItemKeys.failure(mobileHtmlOfflineResourceError)
+//                completion(result)
+//                return
+//            }
             
-            let mustHaveKeys = [[mobileHtmlItemKey], [mediaListItemKey], mobileHtmlOfflineResourceItemKeys].flatMap { $0 }
+            let mustHaveKeys = [[mobileHtmlItemKey], [mediaListItemKey]].flatMap { $0 }
             
             self.cacheURLs(groupKey: groupKey, mustHaveItemKeys: mustHaveKeys, niceToHaveItemKeys: []) { (result) in
                 switch result {

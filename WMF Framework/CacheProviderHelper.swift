@@ -1,20 +1,20 @@
 
 import Foundation
 
-extension HTTPURLResponse {
+public extension HTTPURLResponse {
     static let etagHeaderKey = "Etag"
+    static let ifNoneMatchHeaderKey = "If-None-Match"
 }
 
 final class CacheProviderHelper {
     
-    static func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL, cachePolicy: NSURLRequest.CachePolicy, itemKey: String?, moc: NSManagedObjectContext) -> URLRequest? {
+    static func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL, itemKey: String?, moc: NSManagedObjectContext) -> URLRequest? {
         
         guard let mutableRequest = (originalRequest as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
             return nil
         }
         
         mutableRequest.url = newURL
-        mutableRequest.cachePolicy = cachePolicy
         
         var etag: String?
         if let cachedResponse = URLCache.shared.cachedResponse(for: mutableRequest as URLRequest),
@@ -35,7 +35,7 @@ final class CacheProviderHelper {
 
         //TODO: do we need "Last-Modified" & "If-Modified-Since" respectively?
         if let etag = etag {
-             mutableRequest.setValue(etag, forHTTPHeaderField: "If-None-Match")
+            mutableRequest.setValue(etag, forHTTPHeaderField: HTTPURLResponse.ifNoneMatchHeaderKey)
         }
         
         return mutableRequest.copy() as? URLRequest
@@ -43,12 +43,27 @@ final class CacheProviderHelper {
     
     static func persistedCacheResponse(url: URL, itemKey: String) -> CachedURLResponse? {
         
+        var etag: String?
+        if let moc = CacheController.backgroundCacheContext,
+            let item = CacheDBWriterHelper.cacheItem(with: itemKey, in: moc) {
+            moc.performAndWait {
+                if let itemEtag = item.etag {
+                    etag = itemEtag
+                }
+            }
+        }
+        
+        
         let cachedFilePath = CacheFileWriterHelper.fileURL(for: itemKey).path
         if let data = FileManager.default.contents(atPath: cachedFilePath) {
             
-            let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: cachedFilePath)
-            let response = URLResponse(url: url, mimeType: mimeType, expectedContentLength: data.count, textEncodingName: nil)
-            return CachedURLResponse(response: response, data: data)
+            var headerFields: [String: String] = [:]
+            if let etag = etag {
+                headerFields[HTTPURLResponse.etagHeaderKey] = etag
+            }
+            if let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
+                return CachedURLResponse(response: response, data: data)
+            }
         }
         
         return nil

@@ -23,12 +23,11 @@ final class SchemeHandler: NSObject {
     private let defaultHandler: DefaultHandler
     private let cacheQueue: OperationQueue = OperationQueue()
     
-    private let notModifiedQueue = DispatchQueue(label: "com.wikimedia.schemeHandler.response")
-    private var requestToResponse: [URLRequest: URLResponse] = [:]
+    private let notModifiedQueue = DispatchQueue(label: "org.wikimedia.schemeHandler.notModified")
     private var notModifiedRequests = Set<URLRequest>()
     
     var cacheController: CacheController?
-    var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalCacheData //seems to be needed so we see a 304 to act on...local cache changes 304s to 200s
+    var forceCache: Bool = false
     
     @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
     
@@ -118,7 +117,7 @@ extension SchemeHandler: WKURLSchemeHandler {
         default:
             
             guard let requestURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: originalRequestURL),
-                let request = cacheController?.newCachePolicyRequest(from: originalRequest as NSURLRequest, newURL: requestURL, cachePolicy: cachePolicy) else {
+                let request = cacheController?.newCachePolicyRequest(from: originalRequest as NSURLRequest, newURL: requestURL) else {
                     urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
                     removeSchemeTask(urlSchemeTask: urlSchemeTask)
                     return
@@ -127,7 +126,9 @@ extension SchemeHandler: WKURLSchemeHandler {
             // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
             // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
             let op = BlockOperation { [weak urlSchemeTask] in
-                if self.cachePolicy == .returnCacheDataDontLoad {
+                
+                //forceCache will be true for ArticleViewControllers when coming from Navigation State Controller. In this case stale data is fine.
+                if self.forceCache {
                     DispatchQueue.main.async {
                         
                         guard let urlSchemeTask = urlSchemeTask else {
@@ -190,7 +191,21 @@ private extension SchemeHandler {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
             return
         }
-       
+  
+        //tonitodo: delete if we stop seeming to need it.
+//        let isReally304Response = {(request: URLRequest, response: HTTPURLResponse) -> Bool in
+//
+//            let emptyURLCache = URLCache.shared.cachedResponse(for: request) == nil
+//            if let responseEtag = (response as HTTPURLResponse).allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String,
+//            let requestIfNoneMatch = request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey],
+//            responseEtag == requestIfNoneMatch,
+//                emptyURLCache == true {
+//                return true
+//            }
+//
+//            return false
+//        }
+        
         // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by the callback blocks.
         // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
         let callback = Session.Callback(response: {  [weak urlSchemeTask] response in
@@ -198,24 +213,42 @@ private extension SchemeHandler {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
+                
+                //print("😁\(request.allHTTPHeaderFields)")
+                //print("🥶\(urlSchemeTask.request.allHTTPHeaderFields)")
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
                 
-                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                if let httpResponse = response as? HTTPURLResponse {
                     
-                    if httpResponse.statusCode == 304 {
-                        urlSchemeTask.didReceive(response)
-                        self.insertNotModifiedRequest(request: request)
+                    if httpResponse.statusCode != 200 {
+                        
+                        if httpResponse.statusCode == 304 {
+                            urlSchemeTask.didReceive(response)
+                            self.addNotModifiedRequest(request: request)
+                        } else {
+                            let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
+                            urlSchemeTask.didFailWithError(error)
+                            self.removeSessionTask(request: urlSchemeTask.request)
+                            self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                        }
+                        
                     } else {
-                        let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
-                        self.removeSessionTask(request: urlSchemeTask.request)
-                        urlSchemeTask.didFailWithError(error)
-                        self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                        
+                        urlSchemeTask.didReceive(response)
+                        
+                        //Session sometimes change 304 statuses to 200, handling that case here
+                        //tonitodo: delete if we don't seem to need
+//                        if isReally304Response(request, httpResponse) {
+//                            self.addNotModifiedRequest(request: request)
+//                        }
+//
                     }
+                    
                 } else {
+                    
                     urlSchemeTask.didReceive(response)
-                    self.mapResponseToRequest(request: request, response: response)
                 }
             }
         }, data: { [weak urlSchemeTask] data in
@@ -231,14 +264,10 @@ private extension SchemeHandler {
                 }
                 
                 urlSchemeTask.didReceive(data)
-                
-                if let response = self.response(for: request) {
-                    let cachedResponse = CachedURLResponse(response: response, data: data)
-                    URLCache.shared.storeCachedResponse(cachedResponse, for: request)
-                }
             }
         }, success: { [weak urlSchemeTask] in
             DispatchQueue.main.async {
+            
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
@@ -246,36 +275,18 @@ private extension SchemeHandler {
                     return
                 }
                 
-                if self.isNotModifiedRequest(request: request) {
+                if self.isNotModified(request: request) {
                     if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
                         urlSchemeTask.didReceive(cachedResponse.data)
                     }
-                    
                     self.removeNotModifiedRequest(request: request)
                 }
                 
                 urlSchemeTask.didFinish()
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                self.removeMapResponseToRequest(request: request)
             }
         }) { [weak urlSchemeTask] error in
-            
-            if let cachedResponse = self.cacheController?.cachedURLResponseUponError(for: request) {
-                DispatchQueue.main.async {
-                    guard let urlSchemeTask = urlSchemeTask else {
-                        return
-                    }
-                    self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
-                    urlSchemeTask.didReceive(cachedResponse.response)
-                    urlSchemeTask.didReceive(cachedResponse.data)
-                    urlSchemeTask.didFinish()
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                    self.removeMapResponseToRequest(request: request)
-                }
-                return
-            }
-            
             DispatchQueue.main.async {
                 
                 guard let urlSchemeTask = urlSchemeTask else {
@@ -284,10 +295,19 @@ private extension SchemeHandler {
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
+                    
+                if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
+                
+                    urlSchemeTask.didReceive(cachedResponse.response)
+                    urlSchemeTask.didReceive(cachedResponse.data)
+                    
+                    urlSchemeTask.didFinish()
+                } else {
+                    urlSchemeTask.didFailWithError(error)
+                }
+            
                 self.removeSessionTask(request: urlSchemeTask.request)
-                urlSchemeTask.didFailWithError(error)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                self.removeMapResponseToRequest(request: request)
             }
         }
         
@@ -321,40 +341,32 @@ private extension SchemeHandler {
         activeSessionTasks[request] = dataTask
     }
     
-    func mapResponseToRequest(request: URLRequest, response: URLResponse) {
+    func addNotModifiedRequest(request: URLRequest) {
         notModifiedQueue.async { [weak self] in
-            self?.requestToResponse[request] = response
             
-        }
-    }
-    
-    func response(for request: URLRequest) -> URLResponse? {
-        notModifiedQueue.sync {
-            return self.requestToResponse[request]
-        }
-    }
-    
-    func removeMapResponseToRequest(request: URLRequest) {
-        notModifiedQueue.async { [weak self] in
-            self?.requestToResponse.removeValue(forKey: request)
+            guard let self = self else {
+                return
+            }
+            
+            self.notModifiedRequests.insert(request)
         }
     }
     
     func removeNotModifiedRequest(request: URLRequest) {
         notModifiedQueue.async { [weak self] in
-            self?.notModifiedRequests.remove(request)
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.notModifiedRequests.remove(request)
         }
     }
     
-    func insertNotModifiedRequest(request: URLRequest) {
-        notModifiedQueue.async { [weak self] in
-            self?.notModifiedRequests.insert(request)
-        }
-    }
-    
-    func isNotModifiedRequest(request: URLRequest) -> Bool {
-        notModifiedQueue.sync { [weak self] in
-            return self?.notModifiedRequests.contains(request) ?? false
+    func isNotModified(request: URLRequest) -> Bool {
+        notModifiedQueue.sync {
+            
+            return notModifiedRequests.contains(request)
         }
     }
 }

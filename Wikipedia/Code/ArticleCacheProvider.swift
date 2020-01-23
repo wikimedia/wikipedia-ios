@@ -52,14 +52,14 @@ final class ArticleCacheProvider: CacheProviding {
         return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey)
     }
     
-    func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL, cachePolicy: NSURLRequest.CachePolicy) -> URLRequest? {
+    func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
         
         if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
-            return imageController.newCachePolicyRequest(from: originalRequest, newURL: newURL, cachePolicy: cachePolicy)
+            return imageController.newCachePolicyRequest(from: originalRequest, newURL: newURL)
         }
         
         let itemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: newURL)?.wmf_databaseKey ?? newURL.wmf_databaseKey
-        return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, cachePolicy: cachePolicy, itemKey: itemKey, moc: moc)
+        return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
     }
     
     private func isMimeTypeImage(type: String) -> Bool {

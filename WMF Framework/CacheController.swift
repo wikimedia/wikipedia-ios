@@ -140,8 +140,8 @@ public class CacheController {
         return provider.cachedURLResponseUponError(for: request)
     }
     
-    public func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL, cachePolicy: NSURLRequest.CachePolicy) -> URLRequest? {
-        return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL, cachePolicy: cachePolicy)
+    public func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
+        return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL)
     }
     
     private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {

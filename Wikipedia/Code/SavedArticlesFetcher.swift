@@ -164,8 +164,9 @@ private extension SavedArticlesFetcher {
                         self.updateFetchesInProcessCount()
                     case .failure(let error):
                         print("🥶failure in groupCompletion of \(articleKey): \(error)")
+                        self.didFetchArticle(with: articleKey)
                         self.updateFetchesInProcessCount()
-                        self.didFailToFetchArticle(with: articleKey, error: error)
+                        //self.didFailToFetchArticle(with: articleKey, error: error)
                     }
                     updateAgain()
                 }
