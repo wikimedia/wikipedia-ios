@@ -1,3 +1,5 @@
+#import <WMF/WMF.h>
+
 #import "WMFAppViewController.h"
 
 #import "RMessage.h"
@@ -5,7 +7,6 @@
 
 #import "NSString+FormattedAttributedString.h"
 #import "WMFPageHistoryRevision.h"
-#import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFGradientView.h"
 

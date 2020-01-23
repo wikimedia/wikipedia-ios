@@ -16,7 +16,6 @@
 // View Controllers
 #import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
-#import "UIViewController+WMFArticlePresentation.h"
 
 #import "AppDelegate.h"
 

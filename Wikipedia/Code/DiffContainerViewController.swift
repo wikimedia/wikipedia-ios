@@ -1039,7 +1039,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         }
         
         let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision)
-        wmf_push(singleDiffVC, animated: true)
+        push(singleDiffVC, animated: true)
     }
 }
 

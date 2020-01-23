@@ -610,7 +610,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
 extension ExploreCardViewController: ArticlePreviewingDelegate {
     func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, animated: true)
+        push(articleController, animated: true)
     }
     
     func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {

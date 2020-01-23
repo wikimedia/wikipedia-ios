@@ -7,7 +7,6 @@
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 //Funnel
 #import "WMFShareFunnel.h"
