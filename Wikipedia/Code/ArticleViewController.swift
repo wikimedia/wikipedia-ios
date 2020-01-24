@@ -201,7 +201,6 @@ class ArticleViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        webView.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
         if state == .data {
             messagingController.updateTheme(theme)
@@ -250,6 +249,11 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        // Prevent flash of white in dark mode
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        webView.scrollView.backgroundColor = .clear
+        
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
