@@ -22,6 +22,12 @@ module.exports = function (grunt) {
           '!preview-main.js'
         ],
         dest: `${distFolder}index.js`
+      },
+      distAbout: {
+        src: [
+          'about-main.js'
+        ],
+        dest: `${distFolder}about.js`
       }
     },
 
