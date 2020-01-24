@@ -249,6 +249,11 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        // Prevent flash of white in dark mode
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        webView.scrollView.backgroundColor = .clear
+        
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
