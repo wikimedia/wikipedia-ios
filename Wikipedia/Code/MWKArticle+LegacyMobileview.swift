@@ -200,15 +200,23 @@ extension MobileviewToMobileHTMLConverter {
     }()
     
     override func didReceiveMemoryWarning() {
-
         guard
             let dataStore = SessionSingleton.sharedInstance()?.dataStore,
             let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController
         else {
             return
         }
-
         dataStore.savedPageList.enumerateItems { (article, stop) in
+                        
+
+// TODO:
+//            - pull this out to func (migrateFromMobileviewSavedDataIfNecessary) with completion
+//              block so can be used for if loading articles not yet converted
+//              (cacheFromMigration will need completion block)
+//            - rename mobileviewConversionAttempted to isConversionFromMobileviewNeeded and do one
+//              time update to set all existing to true, new ones would need to be false
+
+            
             guard let articleURL = article.url else {
                 assertionFailure("Could not get article url")
                 return
@@ -217,7 +225,7 @@ extension MobileviewToMobileHTMLConverter {
                 // If conversion was previously attempted don't try again.
                 return
             }
-
+            
             do {
                 // Since conversion isn't instantaneous set the `mobileviewConversionAttempted` flag before invoking
                 // the converter (vs only setting it in the converter's completion block)
@@ -226,22 +234,33 @@ extension MobileviewToMobileHTMLConverter {
             } catch let error {
                 DDLogError("Error updating article: \(error)")
             }
-
-            let article = dataStore.article(with: articleURL)
             
-            self.converter.convertMobileviewSavedDataToMobileHTML(article: article) { (result, error) in
+            let mwkArticle = dataStore.article(with: articleURL)
 
+            self.converter.convertMobileviewSavedDataToMobileHTML(article: mwkArticle) { (result, error) in
+                
+                let blastMobileviewSavedDataFolder = {
+                    // Remove old mobileview saved data folder for this article
+                    do {
+                        try FileManager.default.removeItem(atPath: dataStore.path(forArticleURL: articleURL))
+                    } catch {
+                        DDLogError("Could not remove mobileview folder for articleURL: \(articleURL)")
+                    }
+                }
+                
                 let handleConversionFailure = {
-                    // TODO: no need to keep mobileview section html if conversion failed, so ok to remove section data
-                    // because we're setting `isDownloaded` next so saved article fetching will re-download from new
-                    // mobilehtml endpoint
-                    //
-                    // article.sections?.entries.removeAll()
+                    // No need to keep mobileview section html if conversion failed, so ok to remove section data
+                    // because we're setting `isDownloaded` next so saved article fetching will re-download from
+                    // new mobilehtml endpoint.
+                    blastMobileviewSavedDataFolder()
 
-                    
-                    // TODO: if conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
-                    //
-                    // article.isDownloaded = false
+                    // If conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
+                    do {
+                        article.isDownloaded = false
+                        try dataStore.save()
+                    } catch let error {
+                        DDLogError("Error updating article: \(error)")
+                    }
                 }
                 
                 guard error == nil, let result = result else {
@@ -254,11 +273,14 @@ extension MobileviewToMobileHTMLConverter {
                     assertionFailure("mobileHTML not extracted")
                     return
                 }
-                
-                
+
                 articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
+
+                // Conversion succeeded so can safely blast old mobileview folder.
+                blastMobileviewSavedDataFolder()
             }
         }
     }
+
  
 */
