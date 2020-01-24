@@ -17,9 +17,8 @@ extension SchemeHandler {
             return (requestURL as NSURL).wmf_originalURLFromAppScheme()
         }
         
-        func dataTaskForURL(_ url: URL, callback: Session.Callback) -> URLSessionTask {
-            let request = URLRequest(url: url)
-            let task = session.dataTask(with: request as URLRequest, callback: callback)
+        func dataTaskForRequest(_ request: URLRequest, callback: Session.Callback) -> URLSessionTask {
+            let task = session.dataTask(with: request, callback: callback)
             return task
         }
     }
