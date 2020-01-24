@@ -128,7 +128,8 @@ extension SchemeHandler: WKURLSchemeHandler {
             let op = BlockOperation { [weak urlSchemeTask] in
                 
                 //forceCache will be true for ArticleViewControllers when coming from Navigation State Controller. In this case stale data is fine.
-                if self.forceCache {
+                if self.forceCache,
+                    let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
                     DispatchQueue.main.async {
                         
                         guard let urlSchemeTask = urlSchemeTask else {
@@ -137,10 +138,8 @@ extension SchemeHandler: WKURLSchemeHandler {
                         
                         self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
                         
-                        if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                            urlSchemeTask.didReceive(cachedResponse.response)
-                            urlSchemeTask.didReceive(cachedResponse.data)
-                        }
+                        urlSchemeTask.didReceive(cachedResponse.response)
+                        urlSchemeTask.didReceive(cachedResponse.data)
                         
                         urlSchemeTask.didFinish()
                         self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
