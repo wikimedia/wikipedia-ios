@@ -35,6 +35,14 @@ extension ArticleViewController: ArticleToolbarHandling {
         languagesVC.delegate = self
         presentEmbedded(languagesVC, style: .sheet)
     }
+    
+    func share(from controller: ArticleToolbarController) {
+        shareArticle()
+    }
+    
+    func showFindInPage(from controller: ArticleToolbarController) {
+        showFindInPage()
+    }
 }
 
 extension ArticleViewController: WMFLanguagesViewControllerDelegate {

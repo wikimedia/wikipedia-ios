@@ -27,8 +27,8 @@ class ArticleViewController: ViewController {
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
-    internal let editFunnel: EditFunnel = EditFunnel.shared
-    
+  
+
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     private let cacheController: CacheController
     
@@ -452,6 +452,11 @@ class ArticleViewController: ViewController {
         }
     }
     
+    // MARK: Analytics
+    
+    internal lazy var editFunnel: EditFunnel = EditFunnel.shared
+    internal lazy var shareFunnel: WMFShareFunnel? = WMFShareFunnel(article: article)
+    internal lazy var readingListsFunnel = ReadingListsFunnel.shared
 }
 
 private extension ArticleViewController {

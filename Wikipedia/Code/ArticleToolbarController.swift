@@ -8,6 +8,8 @@ protocol ArticleToolbarHandling: class {
     func showTableOfContents(from controller: ArticleToolbarController)
     func hideTableOfContents(from controller: ArticleToolbarController)
     func showLanguagePicker(from controller: ArticleToolbarController)
+    func showFindInPage(from controller: ArticleToolbarController)
+    func share(from controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -35,6 +37,20 @@ class ArticleToolbarController: Themeable {
     lazy var showTableOfContentsButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "toc", target: self, action: #selector(showTableOfContents), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("table-of-contents-button-label", value: "Table of contents", comment: "Accessibility label for the Table of Contents button {{Identical|Table of contents}}")
+        item.apply(theme: theme)
+        return item
+    }()
+    
+    lazy var shareButton: IconBarButtonItem = {
+        let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(share), for: .touchUpInside)
+        item.accessibilityLabel = CommonStrings.accessibilityShareTitle
+        item.apply(theme: theme)
+        return item
+    }()
+    
+    lazy var findInPageButton: IconBarButtonItem = {
+        let item = IconBarButtonItem(iconName: "find-in-page", target: self, action: #selector(findInPage), for: .touchUpInside)
+        item.accessibilityLabel = CommonStrings.findInPage
         item.apply(theme: theme)
         return item
     }()
@@ -92,6 +108,14 @@ class ArticleToolbarController: Themeable {
         delegate?.showLanguagePicker(from: self)
     }
     
+    @objc func share() {
+        delegate?.share(from: self)
+    }
+    
+    @objc func findInPage() {
+        delegate?.showFindInPage(from: self)
+    }
+    
     // MARK: State
     
     func setSavedState(isSaved: Bool) {
@@ -131,7 +155,11 @@ class ArticleToolbarController: Themeable {
             UIBarButtonItem.flexibleSpaceToolbar(),
             saveButton,
             UIBarButtonItem.flexibleSpaceToolbar(),
+            shareButton,
+            UIBarButtonItem.flexibleSpaceToolbar(),
             themeButton,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            findInPageButton,
             UIBarButtonItem.flexibleSpaceToolbar()
         ]
     }

@@ -43,7 +43,7 @@ public class ArticleSummary: NSObject, Codable {
             return NSNumber(value: id)
         }
     }
-    let id: Int?
+    let id: Int64?
     let revision: String?
     let index: Int?
     @objc let namespace: Namespace?

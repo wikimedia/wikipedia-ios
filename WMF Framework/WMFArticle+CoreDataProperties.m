@@ -37,5 +37,6 @@
 @dynamic previewReadingLists;
 @dynamic errorCodeNumber;
 @dynamic ns;
+@dynamic pageID;
 
 @end

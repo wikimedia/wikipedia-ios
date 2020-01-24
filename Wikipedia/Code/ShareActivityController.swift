@@ -157,7 +157,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
-    @objc init(customActivity: UIActivity, article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
+    @objc init(customActivity: UIActivity, article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
         items.append(textActivitySource)
         
@@ -173,7 +173,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
-    @objc init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
+    @objc init(article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
         items.append(textActivitySource)
         
@@ -188,7 +188,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
-    @objc init(article: MWKArticle, image: UIImage?, title: String) {
+    @objc init(article: WMFArticle, image: UIImage?, title: String) {
         var items = [Any]()
         
         items.append(title)

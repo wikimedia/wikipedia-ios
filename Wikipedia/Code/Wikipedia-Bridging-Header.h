@@ -24,6 +24,7 @@
 #import "MWKImageInfoFetcher.h"
 
 #import "WikiTextSectionUploader.h"
+#import "WMFShareFunnel.h"
 
 // Model
 #import "MWKLicense.h"

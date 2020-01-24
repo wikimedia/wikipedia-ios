@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *snippet;            // TODO: consider making naming consistent (probably use 'extract' instead of 'snippet' here and 'summary' elsewhere)
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
 @property (nullable, nonatomic, copy) NSString *wikidataID;
+@property (nullable, nonatomic, copy) NSNumber *pageID; // The pageID from MediaWiki
 
 #pragma mark - Coordinates and Geography
 @property (nullable, nonatomic, copy) NSNumber *signedQuadKey; // representation of the latitude and longitude of the article. Use the `coordinate` extension to access this value

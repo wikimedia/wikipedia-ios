@@ -71,6 +71,11 @@ extension WMFArticle {
         } else {
             coordinate = nil
         }
+        if let id = summary.id {
+            pageID = NSNumber(value: id)
+        } else {
+            pageID = nil
+        }
     }
 }
 
