@@ -35,6 +35,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup?.leave()
         markArticleAsViewed()
+        schemeHandler.forceCache = false
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item) {

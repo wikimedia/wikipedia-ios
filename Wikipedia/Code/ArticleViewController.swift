@@ -27,7 +27,7 @@ class ArticleViewController: ViewController {
     public var visibleSectionAnchor: String? // TODO: Implement
     @objc public var loadCompletion: (() -> Void)?
     
-    private let schemeHandler: SchemeHandler
+    internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
@@ -37,7 +37,7 @@ class ArticleViewController: ViewController {
     
     private var leadImageHeight: CGFloat = 210
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = dataStore.articleCacheControllerWrapper.cacheController
@@ -49,7 +49,8 @@ class ArticleViewController: ViewController {
         self.dataStore = dataStore
         self.article = article
         self.schemeHandler = SchemeHandler.shared // TODO: DI?
-        self.schemeHandler.articleCacheController = cacheController
+        self.schemeHandler.forceCache = forceCache
+        self.schemeHandler.cacheController = cacheController
         self.cacheController = cacheController
         
         super.init(theme: theme)
