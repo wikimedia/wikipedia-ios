@@ -36,7 +36,7 @@ class ArticleViewController: ViewController {
 
     private var leadImageHeight: CGFloat = 210
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = dataStore.articleCacheControllerWrapper.cacheController
@@ -48,7 +48,8 @@ class ArticleViewController: ViewController {
         self.dataStore = dataStore
         self.article = article
         self.schemeHandler = SchemeHandler.shared // TODO: DI?
-        self.schemeHandler.articleCacheController = cacheController
+        self.schemeHandler.forceCache = forceCache
+        self.schemeHandler.cacheController = cacheController
         self.cacheController = cacheController
         
         super.init(theme: theme)
@@ -315,6 +316,10 @@ extension ArticleViewController: ArticleWebMessageHandling {
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         loadCompletion?()
+    }
+    
+    func didFinalSetup(messagingController: ArticleWebMessagingController) {
+        schemeHandler.forceCache = false
     }
     
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {

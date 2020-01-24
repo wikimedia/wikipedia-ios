@@ -32,7 +32,7 @@ public final class CacheControllerWrapper: NSObject {
                     return
             }
 
-            let imageProvider = ImageCacheProvider()
+            let imageProvider = ImageCacheProvider(moc: cacheBackgroundContext)
             let imageDBWriter = ImageCacheDBWriter(cacheBackgroundContext: cacheBackgroundContext)
 
             self.cacheController = ImageCacheController(fetcher: imageFetcher, dbWriter: imageDBWriter, fileWriter: imageFileWriter, provider: imageProvider)
@@ -56,7 +56,7 @@ public final class CacheControllerWrapper: NSObject {
             return nil
         }
         
-        let articleProvider = ArticleCacheProvider(imageController: imageCacheController)
+        let articleProvider = ArticleCacheProvider(imageController: imageCacheController, moc: cacheBackgroundContext)
         
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController)
         

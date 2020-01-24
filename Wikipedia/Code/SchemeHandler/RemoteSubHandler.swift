@@ -1,5 +1,5 @@
 import Foundation
 
 protocol RemoteSubHandler {
-    func dataTaskForURL(_ url: URL, callback: Session.Callback) -> URLSessionTask
+    func dataTaskForRequest(_ request: URLRequest, callback: Session.Callback) -> URLSessionTask
 }
