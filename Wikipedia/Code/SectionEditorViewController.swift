@@ -138,8 +138,6 @@ class SectionEditorViewController: ViewController {
     
     private func configureWebView() {
         let configuration = WKWebViewConfiguration()
-        let schemeHandler = SchemeHandler.shared
-        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
