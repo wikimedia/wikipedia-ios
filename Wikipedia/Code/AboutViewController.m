@@ -128,10 +128,11 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;
-    // TODO: ?
-    //[wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:@"#top"];
-    self.webView = wv;
 
+    self.webView = wv;
+    
+    [self loadAboutHTML];
+    
     self.webView.opaque = NO;
     [self applyTheme:self.theme];
 
@@ -145,15 +146,18 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self updateNavigationBar];
 }
 
+- (void)loadAboutHTML {
+    NSURL *assetsFolderURL = [[NSBundle wmf] wmf_assetsFolderURL];
+    NSURL *aboutFileURL = [assetsFolderURL URLByAppendingPathComponent:@"about.html" isDirectory:NO];
+    [self.webView loadFileURL:aboutFileURL allowingReadAccessToURL:assetsFolderURL];
+}
 - (void)closeButtonPressed {
     [self.presentingViewController dismissViewControllerAnimated:YES
                                                       completion:nil];
 }
 
 - (void)leftButtonPressed {
-        // TODO: ?
-//    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
-//                      scrolledToFragment:nil];
+    [self loadAboutHTML];
 }
 
 - (BOOL)prefersStatusBarHidden {

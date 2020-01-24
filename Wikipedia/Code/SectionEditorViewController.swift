@@ -186,10 +186,8 @@ class SectionEditorViewController: ViewController {
         let bottomConstraint = view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
-        let hostedFolderPath = WikipediaAppUtils.assetsPath()
-        let folderURL = URL(fileURLWithPath: hostedFolderPath)
-        let fullPath = (hostedFolderPath as NSString).appendingPathComponent("codemirror/codemirror-index.html")
-        let fileURL = URL(fileURLWithPath: fullPath)
+        let folderURL = Bundle.wmf.assetsFolderURL
+        let fileURL = folderURL.appendingPathComponent("codemirror/codemirror-index.html")
         webView.loadFileURL(fileURL, allowingReadAccessTo: folderURL)
         
         messagingController.webView = webView
