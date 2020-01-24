@@ -204,12 +204,16 @@
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 bewerking|$1 bewerkingen}}";
 "diff-single-header-editor-title" = "Gebruikersinformatie";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte toegevoegd|$1 bytes toegevoegd}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte verwijderd|$1 bytes verwijderd}}";
 "diff-single-header-summary-heading" = "Bewerkingssamenvatting";
 "diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Regel $1";
 "diff-thanks-anonymous-no-thanks" = "Anonieme gebruikers kunnen niet worden bedankt";
 "diff-thanks-login-title" = "Meld u aan om een bedankje te versturen";
 "diff-thanks-send-button-title" = "Bedankje sturen";
+"diff-thanks-sent-already" = "U hebt al een bedankje voor deze bewerking verstuurd";
+"diff-thanks-sent-cannot-unsend" = "Het versturen van een bedankje kan niet ongedaan worden gemaakt";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 niet bewerkte regel|$1 niet bewerkte regels}}";
 "dim-images" = "Afbeeldingen dimmen";
 "edit-bold-accessibility-label" = "Vetgedrukte opmaak toevoegen";
 "edit-bold-remove-accessibility-label" = "Vetgedrukte opmaak verwijderen";
@@ -502,6 +506,7 @@
 "page-history-revision-history-title" = "Bewerkingsoverzicht";
 "page-history-revision-minor-edit-accessibility-label" = "Kleine bewerking";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|1 byte|$1 bytes}} toegevoegd";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|1 byte|$1 bytes}} verwijdered";
 "page-history-stats-text" = "{{PLURAL:$1|1 bewerking|$1 bewerkingen}} sinds $1";
 "page-history-user-edits" = "gebruikersbewerkingen";
 "page-issues" = "Paginaproblemen";
@@ -620,8 +625,7 @@
 "reading-lists-default-list-title" = "Opgeslagen";
 "reading-lists-delete-reading-list-alert-message" = "Deze actie kan niet ongedaan gemaakt worden. Alle artikelen die alleen zijn opgeslagen in {{PLURAL:$1|deze lijst|deze lijsten}} zijn niet opgeslagen.";
 "reading-lists-delete-reading-list-alert-title" = "Deze {{PLURAL:$1|lijst|lijsten}} verwijderen?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artikelen en $2 leeslijsten gesynchroniseerd van uw account";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} en {{PLURAL:$2|$2 leeslijst|$2 leeslijsten}} gesynchroniseerd van uw account";
 "reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-lists-sort-saved-articles" = "Opgeslagen pagina's sorteren";
 "reading-lists-split-notification" = "Er is een limiet van $1 artikelen per leeslijst. Bestaande lijsten met meer artikelen dan deze limiet zijn opgesplitst in meerdere lijsten.";

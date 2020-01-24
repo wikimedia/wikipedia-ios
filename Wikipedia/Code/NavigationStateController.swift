@@ -105,7 +105,7 @@ final class NavigationStateController: NSObject {
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+                guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, forceCache: true) else {
                     return
                 }
                 // never present an article modal, the nav bar disappears
