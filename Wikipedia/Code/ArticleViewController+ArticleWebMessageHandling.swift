@@ -14,7 +14,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .footerItem(let type):
             handleFooterItem(type: type)
         case .edit(let sectionID, let descriptionSource):
-            showEditorForSection(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
+            showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
         default:
             break
         }

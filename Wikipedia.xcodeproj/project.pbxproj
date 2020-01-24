@@ -570,7 +570,6 @@
 		7A48EA0F21B5C9B20083F3DC /* EditToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48EA0D21B5C9B20083F3DC /* EditToolbarView.swift */; };
 		7A48EA1021B5C9B20083F3DC /* EditToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48EA0D21B5C9B20083F3DC /* EditToolbarView.swift */; };
 		7A48EA1121B5C9B20083F3DC /* EditToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48EA0D21B5C9B20083F3DC /* EditToolbarView.swift */; };
-		7A4941E0216FE96400038D0F /* MWKArticle+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4941DF216FE96400038D0F /* MWKArticle+Description.swift */; };
 		7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
 		7A49A20221231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
 		7A49A20321231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
@@ -1165,6 +1164,10 @@
 		83B01F8223DB1235001185F4 /* SectionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* SectionFetcher.swift */; };
 		83B01F8323DB1235001185F4 /* SectionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* SectionFetcher.swift */; };
 		83B01F8423DB1235001185F4 /* SectionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* SectionFetcher.swift */; };
+		83B01F8B23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */; };
+		83B01F8C23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */; };
+		83B01F8D23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */; };
+		83B01F8E23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */; };
 		83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
@@ -1521,10 +1524,6 @@
 		B0D3E70D214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
 		B0D3E70E214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
 		B0D3E70F214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
-		B0D3E711214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
-		B0D3E712214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
-		B0D3E713214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
-		B0D3E714214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
 		B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
 		B0D4917021F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
 		B0D4917121F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
@@ -3486,7 +3485,6 @@
 		7A420DB322A029780005689B /* EditFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFunnel.swift; sourceTree = "<group>"; };
 		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
 		7A48EA0D21B5C9B20083F3DC /* EditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbarView.swift; sourceTree = "<group>"; };
-		7A4941DF216FE96400038D0F /* MWKArticle+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKArticle+Description.swift"; sourceTree = "<group>"; };
 		7A49A20021231510005C574C /* CollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFooter.swift; sourceTree = "<group>"; };
 		7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryFunnel.swift; sourceTree = "<group>"; };
 		7A4B333B2136EDED00C6C820 /* UnderlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineButton.swift; sourceTree = "<group>"; };
@@ -3667,6 +3665,7 @@
 		83B01F7623DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleToolbarHandling.swift"; sourceTree = "<group>"; };
 		83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Editing.swift"; sourceTree = "<group>"; };
 		83B01F8023DB1235001185F4 /* SectionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionFetcher.swift; sourceTree = "<group>"; };
+		83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DescriptionEditViewController.storyboard; sourceTree = "<group>"; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFFIFOCache.h; sourceTree = "<group>"; };
@@ -3846,7 +3845,6 @@
 		B0C7A0841F710EB0008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeAnalyticsAnimationBackgroundView.swift; sourceTree = "<group>"; };
 		B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDynamicTypeExtentions.swift; path = Wikipedia/Code/WMFDynamicTypeExtentions.swift; sourceTree = SOURCE_ROOT; };
 		B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionEditViewController.swift; sourceTree = "<group>"; };
-		B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DescriptionEditViewController.storyboard; sourceTree = "<group>"; };
 		B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSaveViewController.swift; sourceTree = "<group>"; };
 		B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeFileLocationTests.m; sourceTree = "<group>"; };
 		B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
@@ -5453,7 +5451,6 @@
 			children = (
 				B0E807B91C0CF04A0065EBC0 /* MWKArticle.h */,
 				B0E807BA1C0CF04A0065EBC0 /* MWKArticle.m */,
-				7A4941DF216FE96400038D0F /* MWKArticle+Description.swift */,
 				B0E807CD1C0CF04A0065EBC0 /* MWKSectionList.h */,
 				B0E807CE1C0CF04A0065EBC0 /* MWKSectionList.m */,
 				B0E807CF1C0CF04A0065EBC0 /* MWKSectionMetaData.h */,
@@ -6738,7 +6735,7 @@
 		B0D3E709214AF54F007578BA /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */,
+				83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */,
 				B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */,
 			);
 			name = Form;
@@ -9417,6 +9414,7 @@
 				6780D5C0237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */,
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
+				83B01F8B23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				7AFA21C020110D7900E957E7 /* HintViewController.xib in Resources */,
 				7A71567322697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */,
 				B0524B0321484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
@@ -9434,7 +9432,6 @@
 				0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */,
 				D8D92B5F1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png in Resources */,
 				6782DC0523453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
-				B0D3E711214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D8D92B661DF22E1700B95311 /* NotificationBackgroundWarningIcon.png in Resources */,
 				7ADF498021B45CEE009EA338 /* TextFormattingPlainToolbarView.xib in Resources */,
 				830C0DDA23D9C218006471C4 /* Properties.js in Resources */,
@@ -9600,7 +9597,6 @@
 				D8A42BD81E815A9C00D8E281 /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393289236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA4524201F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
-				B0D3E714214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				83C0657423D2618F001821BC /* Utilities.js in Resources */,
 				BA45242C1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				6782DBF323453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
@@ -9611,6 +9607,7 @@
 				D8A42BDC1E815A9C00D8E281 /* WMFWelcome.storyboard in Resources */,
 				6780D5C3237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172C2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
+				83B01F8E23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8A42BE41E815A9C00D8E281 /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -9725,7 +9722,6 @@
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393287236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241E1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
-				B0D3E712214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				83C0657223D2618F001821BC /* Utilities.js in Resources */,
 				BA45242A1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				6782DBF123453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
@@ -9736,6 +9732,7 @@
 				D8CE26631E698E2400DAE2E0 /* WMFWelcome.storyboard in Resources */,
 				6780D5C1237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
+				83B01F8C23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8CE266B1E698E2400DAE2E0 /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -9850,7 +9847,6 @@
 				D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393288236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241F1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
-				B0D3E713214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				83C0657323D2618F001821BC /* Utilities.js in Resources */,
 				BA45242B1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				6782DBF223453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
@@ -9861,6 +9857,7 @@
 				D8EC3F631E9BDA35006712EB /* WMFWelcome.storyboard in Resources */,
 				6780D5C2237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
+				83B01F8D23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8EC3F6B1E9BDA35006712EB /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -10950,7 +10947,6 @@
 				D82C3A99213451100073EEAC /* DeviceInfo.swift in Sources */,
 				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
 				D8FA18F21E1BDA35009675C3 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
-				7A4941E0216FE96400038D0F /* MWKArticle+Description.swift in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
 				83F1095B23D07E5D003F3E9E /* APIURLComponentsBuilder.swift in Sources */,
 				D84C35F11F323CCA00895FA1 /* CollectionViewCell.swift in Sources */,

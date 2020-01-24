@@ -112,7 +112,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case reference(selectedIndex: Int, group: [Reference])
         case pronunciation(url: URL)
         case properties
-        case edit(sectionID: Int, descriptionSource: String?)
+        case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
         case addTitleDescription
         case footerItem(type: PageContentService.Footer.Menu.Item)
         case readMoreTitlesRetrieved
@@ -246,7 +246,13 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             guard let sectionIDString = data?["sectionId"] as? String, let sectionID = Int(sectionIDString) else {
                 return nil
             }
-            return .edit(sectionID: sectionID, descriptionSource: data?["descriptionSource"] as? String)
+            let source: ArticleDescriptionSource?
+            if let sourceString = data?["descriptionSource"] as? String {
+                source = ArticleDescriptionSource.from(string: sourceString)
+            } else {
+                source = nil
+            }
+            return .edit(sectionID: sectionID, descriptionSource: source)
         }
         
         func getImageAction(with data: [String: Any]?) -> Action? {
