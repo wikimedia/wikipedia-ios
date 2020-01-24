@@ -191,20 +191,6 @@ private extension SchemeHandler {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
             return
         }
-  
-        //tonitodo: delete if we stop seeming to need it.
-//        let isReally304Response = {(request: URLRequest, response: HTTPURLResponse) -> Bool in
-//
-//            let emptyURLCache = URLCache.shared.cachedResponse(for: request) == nil
-//            if let responseEtag = (response as HTTPURLResponse).allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String,
-//            let requestIfNoneMatch = request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey],
-//            responseEtag == requestIfNoneMatch,
-//                emptyURLCache == true {
-//                return true
-//            }
-//
-//            return false
-//        }
         
         // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by the callback blocks.
         // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
@@ -219,9 +205,7 @@ private extension SchemeHandler {
                 }
                 
                 if let httpResponse = response as? HTTPURLResponse {
-                    
                     if httpResponse.statusCode != 200 {
-                        
                         if httpResponse.statusCode == 304 {
                             urlSchemeTask.didReceive(response)
                             self.addNotModifiedRequest(request: request)
@@ -231,36 +215,22 @@ private extension SchemeHandler {
                             self.removeSessionTask(request: urlSchemeTask.request)
                             self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                         }
-                        
                     } else {
-                        
                         urlSchemeTask.didReceive(response)
-                        
-                        //Session sometimes change 304 statuses to 200, handling that case here
-                        //tonitodo: delete if we don't seem to need
-//                        if isReally304Response(request, httpResponse) {
-//                            self.addNotModifiedRequest(request: request)
-//                        }
-//
                     }
-                    
                 } else {
-                    
                     urlSchemeTask.didReceive(response)
                 }
             }
         }, data: { [weak urlSchemeTask] data in
             
             DispatchQueue.main.async {
-                
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
-                
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                
                 urlSchemeTask.didReceive(data)
             }
         }, success: { [weak urlSchemeTask] in

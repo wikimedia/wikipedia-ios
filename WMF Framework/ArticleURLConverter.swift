@@ -16,12 +16,11 @@ public class ArticleURLConverter {
         }
         
         guard let stagingHost = pathComponents[safeIndex: 1],
-            let prodHost = mobileHTMLURL.host,
             let title = pathComponents.last else {
             return nil
         }
         
-        return desktopURL(host: prodHost, title: title, configuration: configuration, scheme: scheme)
+        return desktopURL(host: stagingHost, title: title, configuration: configuration, scheme: scheme)
     }
     
     public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
@@ -64,7 +63,7 @@ public class ArticleURLConverter {
         
         let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
         #warning("switch to Configuration.current")
-        var components = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
+        var components = Configuration.mobileAppsServicesLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
         if let scheme = scheme {
             components.scheme = scheme
         }

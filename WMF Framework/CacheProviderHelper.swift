@@ -33,7 +33,6 @@ final class CacheProviderHelper {
             }
         }
 
-        //TODO: do we need "Last-Modified" & "If-Modified-Since" respectively?
         if let etag = etag {
             mutableRequest.setValue(etag, forHTTPHeaderField: HTTPURLResponse.ifNoneMatchHeaderKey)
         }

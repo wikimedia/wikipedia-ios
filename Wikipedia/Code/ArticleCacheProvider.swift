@@ -28,6 +28,7 @@ final class ArticleCacheProvider: CacheProviding {
             return response
         }
         
+        //mobile-html endpoint is saved under the desktop url. if it's mobile-html first convert to desktop before pulling the key.
         guard let itemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: url)?.wmf_databaseKey ?? url.wmf_databaseKey else {
             return nil
         }
