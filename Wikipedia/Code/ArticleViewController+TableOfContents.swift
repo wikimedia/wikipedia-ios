@@ -1,6 +1,6 @@
 extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegate {
     func getVisibleSectionId(with completion: @escaping (Int) -> Void) {
-        webView.evaluateJavaScript("pcsUtilities.getFirstOnScreenSectionId(\(navigationBar.visibleHeight))") { (result, error) in
+        webView.evaluateJavaScript("window.wmf.elementLocation.getFirstOnScreenSectionId(\(navigationBar.visibleHeight))") { (result, error) in
             guard let sectionId = result as? Int else {
                 DDLogError("Error getting first on screen section: \(String(describing: error))")
                 completion(-1)

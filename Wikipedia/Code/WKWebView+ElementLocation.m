@@ -4,7 +4,7 @@
 @implementation WKWebView (ElementLocation)
 
 - (void)getScreenRectForHtmlElementWithId:(NSString *)elementId completion:(void (^)(CGRect rect))completion {
-    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"pcsUtilities.getElementRect(document.getElementById('%@'));", [elementId wmf_stringBySanitizingForJavaScript]]
+    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"window.wmf.elementLocation.getElementRect(document.getElementById('%@'));", [elementId wmf_stringBySanitizingForJavaScript]]
                                                completion:completion];
 }
 

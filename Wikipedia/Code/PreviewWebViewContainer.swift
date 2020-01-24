@@ -14,20 +14,11 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
     var theme: Theme = .standard
     @IBOutlet weak var previewSectionLanguageInfoDelegate: WMFPreviewSectionLanguageInfoDelegate!
     @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!
-    
-    private func earlyJSTransformsString(for langInfo: MWLanguageInfo, isRTL: Bool) -> String {
-        return "window.wmf.utilities.setLanguage('\(langInfo.code)', '\(langInfo.dir)', '\(isRTL ? "rtl" : "ltr")')"
-    }
 
     lazy var webView: WKWebView = {
         let controller = WKUserContentController()
         var earlyJSTransforms = ""
-        if let langInfo = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo() {
-            earlyJSTransforms = earlyJSTransformsString(for: langInfo, isRTL: UIApplication.shared.wmf_isRTL)
-        }
-        controller.addUserScript(WKUserScript(source: earlyJSTransforms, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        controller.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        
+
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = controller
         configuration.applicationNameForUserAgent = "WikipediaApp"

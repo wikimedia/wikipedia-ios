@@ -134,7 +134,7 @@ final class PageContentService   {
     final class UtilitiesScript: WKUserScript {
         static let source: String = {
             guard
-                let fileURL = Bundle.main.url(forResource: "Utilities", withExtension: "js"),
+                let fileURL = Bundle.wmf.url(forResource: "index", withExtension: "js", subdirectory: "assets"),
                 let data = try? Data(contentsOf: fileURL),
                 let jsString = String(data: data, encoding: .utf8)
             else {

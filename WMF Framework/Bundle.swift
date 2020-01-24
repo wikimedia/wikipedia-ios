@@ -1,5 +1,5 @@
 import Foundation
 
 extension Bundle {
-    @objc static let wmf: Bundle = Bundle(identifier: "org.wikimedia.WMF")!
+    @objc public static let wmf: Bundle = Bundle(identifier: "org.wikimedia.WMF")!
 }
