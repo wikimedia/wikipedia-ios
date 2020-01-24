@@ -201,7 +201,6 @@ class ArticleViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        webView.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
         if state == .data {
             messagingController.updateTheme(theme)
