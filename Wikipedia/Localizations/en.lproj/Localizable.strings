@@ -844,7 +844,6 @@
 "welcome-send-data-learn-more" = "Learn more about data collected";
 "welcome-send-data-sub-title" = "Help improve the app by letting the Wikimedia Foundation know how you use it. Data collected is anonymous.";
 "welcome-volunteer-send-usage-reports" = "Send usage reports";
-"wikitext-download-failed" = "Unable to obtain latest revision.";
 "wikitext-downloading" = "Loading content...";
 "wikitext-preview-changes" = "Retrieving preview of your changes...";
 "wikitext-preview-changes-none" = "No changes were made to be previewed.";

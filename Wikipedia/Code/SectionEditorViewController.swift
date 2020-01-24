@@ -10,12 +10,15 @@ class SectionEditorViewController: ViewController {
 
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
-    @objc var section: MWKSection?
-    @objc var selectedTextEditInfo: SelectedTextEditInfo?
-    @objc var dataStore: MWKDataStore?
+    private let sectionID: Int
+    private let articleURL: URL
+    private let language: String
+    
+    private var selectedTextEditInfo: SelectedTextEditInfo?
+    private var dataStore: MWKDataStore?
 
     private var webView: SectionEditorWebView!
-    private let sectionFetcher = WikiTextSectionFetcher()
+    private let sectionFetcher = SectionFetcher()
     
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
@@ -54,14 +57,11 @@ class SectionEditorViewController: ViewController {
     
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.messagingController  = SectionEditorWebViewMessagingController()
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    init(messagingController: SectionEditorWebViewMessagingController = SectionEditorWebViewMessagingController()) {
-        self.messagingController = messagingController
-        super.init(nibName: nil, bundle: nil)
+    init(articleURL: URL, sectionID: Int, theme: Theme) {
+        self.articleURL = articleURL
+        self.sectionID = sectionID
+        language = articleURL.wmf_language ?? NSLocale.current.languageCode ?? "en"
+        super.init(theme: theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -134,8 +134,6 @@ class SectionEditorViewController: ViewController {
     }
     
     private func configureWebView() {
-        let language = section?.article?.url.wmf_language ?? NSLocale.current.languageCode ?? "en"
-        
         let configuration = WKWebViewConfiguration()
         let schemeHandler = SchemeHandler.shared
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
@@ -233,7 +231,7 @@ class SectionEditorViewController: ViewController {
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
-        editFunnel.logSectionHighlightToEditError(language: section?.articleLanguage)
+        editFunnel.logSectionHighlightToEditError(language: language)
         let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
         let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
@@ -286,53 +284,42 @@ class SectionEditorViewController: ViewController {
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
-    
+
     private func loadWikitext() {
-        guard let section = section else {
-            assertionFailure("Section should be set by now")
-            return
-        }
         if shouldFocusWebView {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
         }
-        sectionFetcher.fetch(section) { (result, error) in
+        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
             DispatchQueue.main.async {
-                if let error = error {
+                switch result {
+                case .failure(let error):
                     self.didFocusWebViewCompletion = {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
                     }
-                    return
+                case .success(let response):
+                    self.wikitext = response.wikitext
+                    self.handle(protection: response.protection)
                 }
-                guard
-                    let results = result as? [String: Any],
-                    let revision = results["revision"] as? String
-                    else {
-                        return
-                }
-
-                if let protectionStatus = section.article?.protection,
-                    let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
-                    !allowedGroups.isEmpty {
-                    let message: String
-                    if allowedGroups.contains("autoconfirmed") {
-                        message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
-                    } else if allowedGroups.contains("sysop") {
-                        message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
-                    } else {
-                        message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
-                    }
-                    self.didFocusWebViewCompletion = {
-                        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
-                    }
-                } else {
-                    self.didFocusWebViewCompletion = {
-                        WMFAlertManager.sharedInstance.dismissAlert()
-                    }
-                }
-                
-                self.wikitext = revision
             }
+        }
+    }
+    
+    private func handle(protection: [SectionFetcher.Protection]) {
+        let allowedGroups = protection.map { $0.level }
+        guard !allowedGroups.isEmpty else {
+            return
+        }
+        let message: String
+        if allowedGroups.contains("autoconfirmed") {
+            message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
+        } else if allowedGroups.contains("sysop") {
+            message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
+        } else {
+            message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
+        }
+        self.didFocusWebViewCompletion = {
+            WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
     }
     
@@ -358,7 +345,7 @@ class SectionEditorViewController: ViewController {
         guard !loggedEditActions.contains(EditFunnel.Action.ready) else {
             return
         }
-        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: section?.articleLanguage)
+        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: language)
         loggedEditActions.add(EditFunnel.Action.ready)
     }
 
@@ -410,7 +397,9 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     self.inputViewsController.resetFormattingAndStyleSubmenus()
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
-                    vc.section = self.section
+                    vc.articleURL = self.articleURL
+                    vc.sectionID = self.sectionID
+                    vc.language = self.language
                     vc.wikitext = wikitext
                     vc.delegate = self
                     vc.editFunnel = self.editFunnel
@@ -531,7 +520,9 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return
         }
-        vc.section = self.section
+        vc.articleURL = self.articleURL
+        vc.sectionID = self.sectionID
+        vc.language = self.language
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
@@ -601,7 +592,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle?.wmf_stringByRemovingHTML(), siteURL: section?.article?.url.wmf_site)
+        let insertMediaViewController = InsertMediaViewController(articleTitle: articleURL.wmf_title, siteURL: articleURL.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
         let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
@@ -618,7 +609,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 assertionFailure("Link button should be disabled")
                 return
             }
-            let siteURL = self.section?.article?.url.wmf_site
+            let siteURL = self.articleURL.wmf_site
             if link.exists {
                 guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore) else {
                     return

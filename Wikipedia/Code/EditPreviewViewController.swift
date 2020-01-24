@@ -6,7 +6,9 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 }
 
 class EditPreviewViewController: UIViewController, Themeable, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
-    var section: MWKSection?
+    var sectionID: Int?
+    var articleURL: URL?
+    var language: String?
     var wikitext = ""
     var editFunnel: EditFunnel?
     var loggedEditActions: NSMutableSet?
@@ -35,7 +37,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFPreviewSectionL
         } else {
             guard
                 let dataStore = SessionSingleton.sharedInstance()?.dataStore,
-                let language = section?.articleLanguage,
+                let language = language,
                 var components = URLComponents(url: url, resolvingAgainstBaseURL: false),
                 let host = components.host
             else {
@@ -83,7 +85,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFPreviewSectionL
 
         if let loggedEditActions = loggedEditActions,
             !loggedEditActions.contains(EditFunnel.Action.preview) {
-            editFunnel?.logEditPreviewForArticle(from: editFunnelSource, language: section?.articleLanguage)
+            editFunnel?.logEditPreviewForArticle(from: editFunnelSource, language: language)
             loggedEditActions.add(EditFunnel.Action.preview)
         }
         
@@ -98,7 +100,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFPreviewSectionL
     }
     
     func wmf_editedSectionLanguageInfo() -> MWLanguageInfo? {
-        guard let lang = section?.url?.wmf_language else {
+        guard let lang = language else {
             return nil
         }
         return MWLanguageInfo(forCode: lang)
@@ -107,7 +109,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFPreviewSectionL
     private func preview() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        fetcher.fetchHTML(forWikiText: wikitext, articleURL: section?.url) { (previewHTML, error) in
+        fetcher.fetchHTML(forWikiText: wikitext, articleURL: articleURL) { (previewHTML, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)

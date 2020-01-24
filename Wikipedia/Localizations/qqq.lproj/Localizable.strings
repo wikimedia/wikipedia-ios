@@ -844,7 +844,6 @@
 "welcome-send-data-learn-more" = "Text for link for learning more about opting-in to anonymous data collection";
 "welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
 "welcome-volunteer-send-usage-reports" = "Text for switch allowing user to choose whether to send usage reports";
-"wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-changes-none" = "Alert text shown if no changes were made to be previewed.";
