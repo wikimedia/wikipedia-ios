@@ -10,6 +10,7 @@
     </entity>
     <entity name="PersistentCacheItem" representedClassName="PersistentCacheItem" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="etag" optional="YES" attributeType="String"/>
         <attribute name="fromMigration" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="String"/>
@@ -26,6 +27,6 @@
     </entity>
     <elements>
         <element name="PersistentCacheGroup" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="148"/>
+        <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="163"/>
     </elements>
 </model>

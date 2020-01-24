@@ -3,6 +3,7 @@ import Foundation
 
 protocol ArticleWebMessageHandling: class {
     func didSetup(messagingController: ArticleWebMessagingController)
+    func didFinalSetup(messagingController: ArticleWebMessagingController)
     func didTapLink(messagingController: ArticleWebMessagingController, title: String)
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?)
     func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem])
@@ -74,6 +75,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
     
     enum Action: String {
         case setup
+        case finalSetup = "final_setup"
         case linkClicked = "link_clicked"
         case properties
     }
@@ -97,6 +99,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         switch Action(rawValue: action) {
         case .setup:
             delegate?.didSetup(messagingController: self)
+        case .finalSetup:
+            delegate?.didFinalSetup(messagingController: self)
         case .linkClicked:
             
             guard let title = data?[LinkKey.title.rawValue] as? String else {

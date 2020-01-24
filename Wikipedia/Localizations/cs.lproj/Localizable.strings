@@ -29,7 +29,7 @@
 // Author: Zbyso23
 
 "about-content-license" = "Licence obsahu";
-"about-content-license-details" = "Pokud není uvedeno jinak, obsah je k dispozici pod licencí $1.";
+"about-content-license-details" = "Pokud není uvedeno jinak, obsah je k dispozici pod $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Uveďte autora-Zachovejte licenci";
 "about-contributors" = "Přispěvatelé";
 "about-libraries" = "Použité knihovny";
