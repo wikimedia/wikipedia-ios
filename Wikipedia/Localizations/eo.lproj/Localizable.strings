@@ -363,7 +363,7 @@
 "field-password-title" = "Pasvorto";
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
-"field-username-title" = "Salutnomo";
+"field-username-title" = "Uzantnomo";
 "find-clear-button-accessibility" = "Viŝi serĉan kampon";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "Sekva trovito";
