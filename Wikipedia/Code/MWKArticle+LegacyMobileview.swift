@@ -127,6 +127,8 @@ extension MWKArticle {
 }
 
 class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
+    private var isConverterLoaded = false
+    lazy private var conversionBuffer: [() -> Void] = []
     
     // The 'domain' and 'baseURI' parameters are used by the mobileview-to-mobilehtml converter
     // to create <script> and <link> tags - check the converter output and ensure its <script>
@@ -136,18 +138,14 @@ class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
             self.webView.evaluateJavaScript("convertMobileViewJSON(\(mobileViewJSON), `\(domain)`, `\(baseURI)`)", completionHandler: completionHandler)
         }
         guard isConverterLoaded else {
-            load {
-                conversion()
+            conversionBuffer.append(conversion)
+            guard webView.url == nil else {
+                return
             }
+            webView.loadFileURL(bundledConverterFileURL, allowingReadAccessTo: bundledConverterFileURL.deletingLastPathComponent())
             return
         }
         conversion()
-    }
-    private var isConverterLoaded = false
-    private var loadCompletionHandler: (() -> Void) = {}
-    private func load(completionHandler: @escaping (() -> Void)) {
-        loadCompletionHandler = completionHandler
-        webView.loadFileURL(bundledConverterFileURL, allowingReadAccessTo: bundledConverterFileURL.deletingLastPathComponent())
     }
     lazy private var webView: WKWebView = {
         let wv = WKWebView(frame: .zero)
@@ -161,7 +159,10 @@ class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
     }()
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         isConverterLoaded = true
-        loadCompletionHandler()
+        conversionBuffer.forEach {thisConversion in
+            thisConversion()
+        }
+        conversionBuffer.removeAll()
     }
 }
 
