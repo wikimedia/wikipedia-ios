@@ -23,16 +23,24 @@ class ArticleViewController: ViewController {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
     
+    /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
+    internal let article: WMFArticle
+    
+    /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
     @objc public let articleURL: URL
+    let articleLanguage: String
+
     public var visibleSectionAnchor: String? // TODO: Implement
     @objc public var loadCompletion: (() -> Void)?
     
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
-    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
+    internal let editFunnel: EditFunnel = EditFunnel.shared
+    
+    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     private let cacheController: CacheController
-    internal let article: WMFArticle
+    
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
     
     private var leadImageHeight: CGFloat = 210
@@ -46,8 +54,10 @@ class ArticleViewController: ViewController {
         }
         
         self.articleURL = articleURL
-        self.dataStore = dataStore
+        self.articleLanguage = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
         self.article = article
+
+        self.dataStore = dataStore
         self.schemeHandler = SchemeHandler.shared // TODO: DI?
         self.schemeHandler.forceCache = forceCache
         self.schemeHandler.cacheController = cacheController
@@ -515,8 +525,7 @@ private extension ArticleViewController {
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
-        let language = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
-        messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
+        messagingController.setup(with: webView, language: articleLanguage, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
     }
     
     func setupToolbar() {

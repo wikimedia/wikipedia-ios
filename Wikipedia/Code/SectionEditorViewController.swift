@@ -15,7 +15,7 @@ class SectionEditorViewController: ViewController {
     private let language: String
     
     private var selectedTextEditInfo: SelectedTextEditInfo?
-    private var dataStore: MWKDataStore?
+    private var dataStore: MWKDataStore
 
     private var webView: SectionEditorWebView!
     private let sectionFetcher = SectionFetcher()
@@ -57,9 +57,12 @@ class SectionEditorViewController: ViewController {
     
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
-    init(articleURL: URL, sectionID: Int, theme: Theme) {
+    init(articleURL: URL, sectionID: Int, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo?, theme: Theme) {
         self.articleURL = articleURL
         self.sectionID = sectionID
+        self.dataStore = dataStore
+        self.selectedTextEditInfo = selectedTextEditInfo
+        self.messagingController = SectionEditorWebViewMessagingController()
         language = articleURL.wmf_language ?? NSLocale.current.languageCode ?? "en"
         super.init(theme: theme)
     }
@@ -137,6 +140,7 @@ class SectionEditorViewController: ViewController {
         let configuration = WKWebViewConfiguration()
         let schemeHandler = SchemeHandler.shared
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
+        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
 
@@ -501,7 +505,8 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
 // MARK: - WKNavigationDelegate
 
 extension SectionEditorViewController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        DDLogError("Section editor did fail navigation with error: \(error)")
     }
 }
 
@@ -601,9 +606,6 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
     }
 
     func showLinkWizard() {
-        guard let dataStore = dataStore else {
-            return
-        }
         messagingController.getLink { link in
             guard let link = link else {
                 assertionFailure("Link button should be disabled")
@@ -611,7 +613,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
             }
             let siteURL = self.articleURL.wmf_site
             if link.exists {
-                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore) else {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL, dataStore: self.dataStore) else {
                     return
                 }
                 editLinkViewController.delegate = self
@@ -619,7 +621,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 navigationController.isNavigationBarHidden = true
                 self.present(navigationController, animated: true)
             } else {
-                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: self.dataStore)
                 insertLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
                 self.present(navigationController, animated: true)

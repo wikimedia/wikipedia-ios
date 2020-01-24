@@ -13,6 +13,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleTableOfContents(items: items)
         case .footerItem(let type):
             handleFooterItem(type: type)
+        case .edit(let sectionID, let descriptionSource):
+            showEditorForSection(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
         default:
             break
         }
