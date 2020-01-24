@@ -118,7 +118,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
         case addTitleDescription
-        case footerItem(type: PageContentService.Footer.Menu.Item)
+        case footerItem(type: PageContentService.Footer.Menu.Item, payload: Any?)
         case readMoreTitlesRetrieved
         case viewLicense
         case viewInBrowser
@@ -287,7 +287,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             guard let itemTypeString = data?["itemType"] as? String, let menuItemType = PageContentService.Footer.Menu.Item(rawValue: itemTypeString) else {
                 return nil
             }
-            return .footerItem(type: menuItemType)
+            return .footerItem(type: menuItemType, payload: data?["payload"])
         }
     }
     

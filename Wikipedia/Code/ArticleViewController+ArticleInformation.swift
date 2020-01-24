@@ -9,7 +9,19 @@ extension ArticleViewController {
         presentEmbedded(languagesVC, style: .sheet)
     }
     
-    func showDisambiguation(with pageURLs: [URL]) {
+    func showDisambiguation(with payload: Any?) {
+        guard let payload = payload as? [[String: Any]] else {
+            showGenericError()
+            return
+        }
+        var pageURLs: [URL] = []
+        for info in payload {
+            guard let links = info["links"] as? [String] else {
+                continue
+            }
+            let linkURLs = links.compactMap { URL(string: $0) }
+            pageURLs.append(contentsOf: linkURLs)
+        }
         let listVC = DisambiguationPagesViewController(with: pageURLs, siteURL: articleURL, dataStore: dataStore, theme: theme)
         push(listVC)
     }
@@ -33,11 +45,19 @@ extension ArticleViewController {
     }
     
     func showCoordinate() {
-        
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleURL)
+        UIApplication.shared.open(placesURL)
     }
     
-    func showPageIssues() {
-        
+    func showPageIssues(with payload: Any?) {
+        guard let payload = payload as? [[String: Any]] else {
+            showGenericError()
+            return
+        }
+        let issues = payload.compactMap { ($0["html"] as? String)?.removingHTML }
+        let issuesVC = PageIssuesTableViewController(style: .grouped)
+        issuesVC.issues = issues
+        presentEmbedded(issuesVC, style: .sheet)
     }
     
     func showReferences() {

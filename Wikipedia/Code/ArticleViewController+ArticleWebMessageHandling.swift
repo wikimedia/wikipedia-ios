@@ -11,8 +11,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleLeadImage(source: source, width: width, height: height)
         case .tableOfContents(items: let items):
             handleTableOfContents(items: items)
-        case .footerItem(let type):
-            handleFooterItem(type: type)
+        case .footerItem(let type, let payload):
+            handleFooterItem(type: type, payload: payload)
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
         default:
@@ -46,20 +46,20 @@ extension ArticleViewController: ArticleWebMessageHandling {
         schemeHandler.forceCache = false
     }
     
-    func handleFooterItem(type: PageContentService.Footer.Menu.Item) {
+    func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {
         switch type {
         case .talkPage:
             showTalkPage()
         case .coordinate:
             showCoordinate()
         case .disambiguation:
-            showDisambiguation(with: [])
+            showDisambiguation(with: payload)
         case .languages:
             showLanguages()
         case .lastEdited:
             showEditHistory()
         case .pageIssues:
-            showPageIssues()
+            showPageIssues(with: payload)
         case .referenceList:
             showReferences()
         }
@@ -80,7 +80,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
             return
         }
-        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .referenceList, .lastEdited]
+        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .referenceList, .lastEdited, .pageIssues, .disambiguation]
         if languageCount > 0 {
             menuItems.append(.languages)
         }
