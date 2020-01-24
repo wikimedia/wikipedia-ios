@@ -57,12 +57,12 @@ class SectionEditorViewController: ViewController {
     
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
-    init(articleURL: URL, sectionID: Int, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo?, theme: Theme) {
+    init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
         self.articleURL = articleURL
         self.sectionID = sectionID
         self.dataStore = dataStore
         self.selectedTextEditInfo = selectedTextEditInfo
-        self.messagingController = SectionEditorWebViewMessagingController()
+        self.messagingController = messagingController ?? SectionEditorWebViewMessagingController()
         language = articleURL.wmf_language ?? NSLocale.current.languageCode ?? "en"
         super.init(theme: theme)
     }
