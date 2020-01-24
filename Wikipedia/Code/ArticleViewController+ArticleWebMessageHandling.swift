@@ -5,7 +5,15 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handlePCSDidFinishInitialSetup()
         case .finalSetup:
             handlePCSDidFinishFinalSetup()
-        case .link(let title):
+        case .link(let href, _, let title):
+            guard let title = title else {
+                guard let href = href else {
+                    showGenericError()
+                    break
+                }
+                navigate(to: URL(string: href))
+                break
+            }
             handleLink(with: title)
         case .leadImage(let source, let width, let height):
             handleLeadImage(source: source, width: width, height: height)

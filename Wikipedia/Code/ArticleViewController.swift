@@ -523,8 +523,7 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
-        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
-        messagingController.setup(with: webView, language: articleLanguage, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
+        messagingController.setup(with: webView, language: articleLanguage, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
     func setupToolbar() {

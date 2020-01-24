@@ -20,7 +20,6 @@
 
 #import "WMFChange.h"
 
-#import "PreviewHtmlFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
 #import "WikiTextSectionUploader.h"

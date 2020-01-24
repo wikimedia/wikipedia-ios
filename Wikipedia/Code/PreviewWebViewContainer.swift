@@ -7,7 +7,7 @@ import WMF
 }
 
 @objc protocol WMFPreviewAnchorTapAlertDelegate: class {
-    func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL, exists: Bool, isExternal: Bool)
+    func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL)
 }
 
 class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
@@ -22,8 +22,7 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = controller
         configuration.applicationNameForUserAgent = "WikipediaApp"
-        let schemeHandler = SchemeHandler.shared
-        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
+        
 
         let newWebView = WKWebView(frame: CGRect.zero, configuration: configuration)
         newWebView.isOpaque = false
@@ -38,14 +37,7 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
             decisionHandler(WKNavigationActionPolicy.allow)
             return
         }
-        let exists: Bool
-        if let query = url.query {
-            exists = !query.contains("redlink=1")
-        } else {
-            exists = true
-        }
-        let isExternal = url.host != "wikipedia.org"
-        previewAnchorTapAlertDelegate.previewWebViewContainer(self, didTapLink: url, exists: exists, isExternal: isExternal)
+        previewAnchorTapAlertDelegate.previewWebViewContainer(self, didTapLink: url)
         decisionHandler(WKNavigationActionPolicy.cancel)
     }
 

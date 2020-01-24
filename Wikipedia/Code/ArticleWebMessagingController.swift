@@ -17,7 +17,7 @@ class ArticleWebMessagingController: NSObject {
         self.delegate = delegate
     }
     
-    func setup(with webView: WKWebView, language: String, theme: Theme, leadImageHeight: Int, areTablesInitiallyExpanded: Bool, textSizeAdjustment: Int, userGroups: [String]) {
+    func setup(with webView: WKWebView, language: String, theme: Theme, leadImageHeight: Int = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = PageContentService.Setup.Parameters.Margins(
             top: "16px",
             right: "16px",
@@ -29,6 +29,7 @@ class ArticleWebMessagingController: NSObject {
         let tableOtherTitle = WMFLocalizedString("table-title-other", language: language, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
         let tableFooterTitle = WMFLocalizedString("info-box-close-text", language: language, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it {{Identical|Close}}")
         let l10n = PageContentService.Setup.Parameters.L10n(addTitleDescription: addTitleDescription, tableInfobox: tableInfoboxTitle, tableOther: tableOtherTitle, tableClose: tableFooterTitle)
+        let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
         let parameters = PageContentService.Setup.Parameters(l10n: l10n, theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
         self.webView = webView
         let contentController = webView.configuration.userContentController
@@ -112,7 +113,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case setup
         case finalSetup
         case image(src: String, href: String, width: Int?, height: Int?)
-        case link(title: String)
+        case link(href: String?, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [Reference])
         case pronunciation(url: URL)
         case properties
@@ -240,10 +241,10 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getLinkAction(with data: [String: Any]?) -> Action? {
-            guard let title = data?[LinkKey.title.rawValue] as? String else {
-                return nil
-            }
-            return .link(title: title)
+            let title = data?["title"] as? String
+            let text = data?["text"] as? String
+            let href = data?["href"] as? String
+            return .link(href: href, text: text, title: title)
         }
         
         func getEditAction(with data: [String: Any]?) -> Action? {
@@ -289,14 +290,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             }
             return .footerItem(type: menuItemType, payload: data?["payload"])
         }
-    }
-    
-
-    
-    enum LinkKey: String {
-        case href
-        case text
-        case title
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

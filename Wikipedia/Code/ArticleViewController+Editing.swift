@@ -15,7 +15,7 @@ extension ArticleViewController {
         sectionEditVC.editFunnel = editFunnel
         let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
+        let needsIntro = !UserDefaults.wmf.didShowEditingOnboarding
         if needsIntro {
             navigationController.view.alpha = 0
         }
@@ -40,7 +40,6 @@ extension ArticleViewController {
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
-
         editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
         let editVC = DescriptionEditViewController.with(articleURL: articleURL, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
         editVC.delegate = self
@@ -76,7 +75,7 @@ extension ArticleViewController {
     }
     
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit title description", comment: "Title for button used to show title description editor")
         let editTitleDescriptionAction = UIAlertAction(title: editTitleDescriptionTitle, style: .default) { (action) in
@@ -89,6 +88,9 @@ extension ArticleViewController {
             self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         }
         sheet.addAction(editLeadSectionAction)
+        
+        
+        sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
 
         present(sheet, animated: true)
     }

@@ -68,7 +68,7 @@ public class Configuration: NSObject {
         static let https = "https"
     }
     
-    struct Domain {
+    public struct Domain {
         static let wikipedia = "wikipedia.org"
         static let wikidata = "wikidata.org"
         static let mediaWiki = "mediawiki.org"
