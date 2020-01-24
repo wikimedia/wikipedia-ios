@@ -235,7 +235,6 @@ class ArticleViewController: ViewController {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        webView.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
         if state == .loaded {
@@ -487,7 +486,12 @@ private extension ArticleViewController {
     func setupWebView() {
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-        
+
+        // Prevent flash of white in dark mode
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        webView.scrollView.backgroundColor = .clear
+
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
         webView.scrollView.addSubview(leadImageContainerView)
