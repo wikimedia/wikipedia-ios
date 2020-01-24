@@ -100,7 +100,6 @@
 "article-reference-title" = "Label for button linking out to an article's references";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
-"article-title" = "Generic article title";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
@@ -751,7 +750,6 @@
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";
-"share-custom-menu-item" = "Button label for text selection Share {{Identical|Share}}";
 "share-default-format" = "Default share format string. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-email-format" = "Share format string for email. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-get-directions-in-maps" = "Button to get directions to the current article's location in the Maps app.";

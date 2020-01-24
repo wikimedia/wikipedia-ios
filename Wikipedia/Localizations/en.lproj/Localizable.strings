@@ -100,7 +100,6 @@
 "article-reference-title" = "View references";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
-"article-title" = "Article";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "back-button-accessibility-label" = "Back";
 "back-button-popover-title" = "Tap to go back";
@@ -419,7 +418,7 @@
 "in-the-news-currently-trending" = "Currently trending";
 "in-the-news-notification-read-now-action-title" = "Read Now";
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
-"in-the-news-notification-share-action-title" = "Share...";
+"in-the-news-notification-share-action-title" = "Share…";
 "in-the-news-sub-title-from-language-wikipedia" = "From $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "From Wikipedia";
 "in-the-news-title" = "In the news";
@@ -751,7 +750,6 @@
 "share-a-fact-made-with" = "Made with the Wikipedia app";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
 "share-building" = "Building Share-a-fact card…";
-"share-custom-menu-item" = "Share...";
 "share-default-format" = "“$1” from “$2”: $3";
 "share-email-format" = "“$1”\n\nfrom “$2”\n\n$3";
 "share-get-directions-in-maps" = "Get Directions";
