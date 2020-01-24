@@ -45,6 +45,7 @@ public class ArticleSummary: NSObject, Codable {
     }
     let id: Int64?
     let revision: String?
+    let timestamp: String?
     let index: Int?
     @objc let namespace: Namespace?
     let title: String?
@@ -62,6 +63,7 @@ public class ArticleSummary: NSObject, Codable {
         case index
         case namespace
         case title
+        case timestamp
         case displayTitle = "displaytitle"
         case articleDescription = "description"
         case extract

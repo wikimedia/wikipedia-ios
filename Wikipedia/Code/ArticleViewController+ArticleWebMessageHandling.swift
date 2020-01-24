@@ -24,6 +24,12 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let titleItem = TableOfContentsItem(id: -1, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: -1, indentationLevel: 0)
         var allItems: [TableOfContentsItem] = [titleItem]
         allItems.append(contentsOf: items)
+        let aboutThisArticleTitle = CommonStrings.aboutThisArticleTitle(with: articleLanguage)
+        let readMoreTitle = CommonStrings.readMoreTitle(with: articleLanguage)
+        let aboutThisArticleItem = TableOfContentsItem(id: -2, titleHTML: aboutThisArticleTitle, anchor: PageContentService.Footer.Menu.fragment, rootItemId: -2, indentationLevel: 0)
+        allItems.append(aboutThisArticleItem)
+        let readMoreItem = TableOfContentsItem(id: -3, titleHTML: readMoreTitle, anchor: PageContentService.Footer.ReadMore.fragment, rootItemId: -3, indentationLevel: 0)
+        allItems.append(readMoreItem)
         tableOfContentsItems = allItems
     }
     
@@ -43,9 +49,19 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handleFooterItem(type: PageContentService.Footer.Menu.Item) {
         switch type {
         case .talkPage:
-            break
-        default:
-            break
+            showTalkPage()
+        case .coordinate:
+            showCoordinate()
+        case .disambiguation:
+            showDisambiguation(with: [])
+        case .languages:
+            showLanguages()
+        case .lastEdited:
+            showEditHistory()
+        case .pageIssues:
+            showPageIssues()
+        case .referenceList:
+            showReferences()
         }
     }
     
@@ -71,6 +87,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
         if article.coordinate != nil {
             menuItems.append(.coordinate)
         }
-        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, languageCount:languageCount, lastModified: nil)
+        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, languageCount:languageCount, lastModified: article.lastModifiedDate)
     }
 }

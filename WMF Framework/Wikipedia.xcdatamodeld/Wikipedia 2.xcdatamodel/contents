@@ -115,6 +115,7 @@
         <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="key" attributeType="String"/>
+        <attribute name="lastModifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -229,7 +230,7 @@
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
         <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="523"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="538"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="358"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>

@@ -1176,6 +1176,10 @@
 		83B01F9623DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */; };
 		83B01F9723DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */; };
 		83B01F9823DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */; };
+		83B01F9A23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */; };
+		83B01F9B23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */; };
+		83B01F9C23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */; };
+		83B01F9D23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */; };
 		83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
@@ -3676,6 +3680,7 @@
 		83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DescriptionEditViewController.storyboard; sourceTree = "<group>"; };
 		83B01F8F23DB41BE001185F4 /* ArticleViewController+Sharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Sharing.swift"; sourceTree = "<group>"; };
 		83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+FindInPage.swift"; sourceTree = "<group>"; };
+		83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleInformation.swift"; sourceTree = "<group>"; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFFIFOCache.h; sourceTree = "<group>"; };
@@ -6107,6 +6112,7 @@
 				83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */,
 				83B01F8F23DB41BE001185F4 /* ArticleViewController+Sharing.swift */,
 				83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */,
+				83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */,
 				D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */,
 				830C0DD923D9C218006471C4 /* Properties.js */,
 				83C0657023D2618F001821BC /* Utilities.js */,
@@ -10730,6 +10736,7 @@
 				67DC5BE323A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */,
 				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
+				83B01F9A23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				B0CD9DD71F70997300051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
@@ -11536,6 +11543,7 @@
 				D8533ED81ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				7AE1D33C1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				B0CD9DEC1F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				83B01F9D23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				7A203F0E1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */,
 				7ABE171B2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
@@ -11930,6 +11938,7 @@
 				D8CE25F11E698E2400DAE2E0 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				D8CE25F31E698E2400DAE2E0 /* NSAttributedString+WMFModify.m in Sources */,
 				D8CE25F41E698E2400DAE2E0 /* WMFSettingsViewController.m in Sources */,
+				83B01F9B23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				D8A47C8623D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8CE25F61E698E2400DAE2E0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
@@ -12372,6 +12381,7 @@
 				D8EC3EF01E9BDA35006712EB /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				83FBE9771F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				83836ECE1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
+				83B01F9C23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				D8A47C8723D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8EC3EF21E9BDA35006712EB /* NSAttributedString+WMFModify.m in Sources */,
 				D8EC3EF31E9BDA35006712EB /* WMFSettingsViewController.m in Sources */,

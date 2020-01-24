@@ -44,6 +44,7 @@ final class PageContentService   {
     
     struct Footer {
         struct Menu: Codable {
+            static let fragment = "pcs-footer-container-menu"
             enum Item: String, Codable {
                 case languages
                 case lastEdited
@@ -54,13 +55,12 @@ final class PageContentService   {
                 case referenceList
             }
             let items: [Item]
-            let fragment: String
         }
         
         struct ReadMore: Codable {
+            static let fragment = "pcs-footer-container-readmore"
             let itemCount: Int
             let baseURL: String
-            let fragment: String
         }
         
         struct L10n: Codable {

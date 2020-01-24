@@ -26,7 +26,6 @@ class ArticleViewController: ViewController {
     
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
-    internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
   
 
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
@@ -503,7 +502,7 @@ private extension ArticleViewController {
         
         guard let siteURL = articleURL.wmf_site else {
             DDLogError("Missing site for \(articleURL)")
-            alertManager.showErrorAlert(RequestError.invalidParameters, sticky: true, dismissPreviousAlerts: true)
+            showGenericError()
             return
         }
         

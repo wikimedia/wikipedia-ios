@@ -209,4 +209,11 @@ public class CommonStrings: NSObject {
     @objc public static let authorTitle = WMFLocalizedString("page-history-revision-author-accessibility-label", value: "Author: %@", comment: "Accessibility label text telling the user who authored a revision. %@ is replaced with the author.")
     
     @objc public static let unknownTitle = WMFLocalizedString("unknown-generic-text", value: "Unknown", comment: "Default text used in places where no contextual information is provided")
+    
+    public static func aboutThisArticleTitle(with language: String) -> String {
+        return WMFLocalizedString("article-about-title", language: language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article")
+    }
+    public static func readMoreTitle(with language: String) -> String {
+        return WMFLocalizedString("article-read-more-title", language: language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}")
+    }
 }

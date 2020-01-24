@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Viewing
 @property (nullable, nonatomic, copy) NSDate *viewedDate; // The date the user viewed the article in the article view or nil if the article was never viewed by the user
 @property (nullable, nonatomic, copy) NSDate *viewedDateWithoutTime; // Viewed date without time for grouping by day in history
+@property (nullable, nonatomic, copy) NSDate *lastModifiedDate; // Last date the article was modified
+
 @property (nullable, nonatomic, copy) NSString *viewedFragment; // Last section fragment viewed by the user
 @property (nonatomic) double viewedScrollPosition; // Last scroll position viewed by the user
 @property (nonatomic) BOOL wasSignificantlyViewed; // Was viewed for a significant amount of time by the user

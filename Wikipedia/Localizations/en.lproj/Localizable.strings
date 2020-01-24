@@ -529,6 +529,7 @@
 "page-history-user-edits" = "user edits";
 "page-issues" = "Page issues";
 "page-last-edited" = "{{PLURAL:$1|0=Edited today|1=Edited yesterday|Edited $1 days ago}}";
+"page-last-edited-unknown" = "Edited some time ago";
 "page-location" = "View on a map";
 "page-protected-autoconfirmed" = "This page has been semi-protected.";
 "page-protected-can-not-edit" = "You do not have the rights to edit this page";

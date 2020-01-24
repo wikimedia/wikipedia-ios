@@ -28,12 +28,7 @@ extension ArticleViewController: ArticleToolbarHandling {
     }
     
     func showLanguagePicker(from controller: ArticleToolbarController) {
-        guard let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL) else {
-            return
-        }
-        themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
-        languagesVC.delegate = self
-        presentEmbedded(languagesVC, style: .sheet)
+        showLanguages()
     }
     
     func share(from controller: ArticleToolbarController) {
@@ -42,13 +37,5 @@ extension ArticleViewController: ArticleToolbarHandling {
     
     func showFindInPage(from controller: ArticleToolbarController) {
         showFindInPage()
-    }
-}
-
-extension ArticleViewController: WMFLanguagesViewControllerDelegate {
-    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
-        dismiss(animated: true) {
-            self.navigate(to: language.articleURL())
-        }
     }
 }

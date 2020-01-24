@@ -107,6 +107,16 @@ extension URL {
         }
         return wikiResourcePath?.namespaceAndTitleOfWikiResourcePath(with: language)
     }
+    
+    public var articleTalkPage: URL? {
+        guard
+            let namespaceAndTitle = namespaceAndTitle,
+            namespaceAndTitle.namespace == .main
+        else {
+            return nil
+        }
+        return wmf_URL(withTitle: "Talk:\(namespaceAndTitle.title)")
+    }
 }
 
 extension String {

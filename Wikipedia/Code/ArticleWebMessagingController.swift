@@ -55,15 +55,19 @@ class ArticleWebMessagingController: NSObject {
         }
         
         let locale = Locale(identifier: language)
-        let readMoreHeading = WMFLocalizedString("article-read-more-title", language: language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}").uppercased(with: locale)
+        let readMoreHeading = CommonStrings.readMoreTitle(with: language).uppercased(with: locale)
         let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: language, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1")
         let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: language, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0 {{Identical|CC BY-SA}}")
         let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: language, value: "View article in browser", comment: "Link to view article in browser")
-        let menuHeading = WMFLocalizedString("article-about-title", language: language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").uppercased(with: locale)
+        let menuHeading = CommonStrings.aboutThisArticleTitle(with: language).uppercased(with: locale)
         let menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in {{PLURAL:%1$d|%1$d other language|%1$d other languages}}", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), languageCount)
-        let lastModified = lastModified ?? Date()
-        let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
-        let menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: language, value: "{{PLURAL:%1$d|0=Edited today|1=Edited yesterday|Edited %1$d days ago}}", comment: "Relative days since an article was last edited. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago."), days)
+        let menuLastEditedTitle: String
+        if let lastModified = lastModified {
+            let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
+            menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: language, value: "{{PLURAL:%1$d|0=Edited today|1=Edited yesterday|Edited %1$d days ago}}", comment: "Relative days since an article was last edited. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago."), days)
+        } else {
+            menuLastEditedTitle = WMFLocalizedString("page-last-edited-unknown",  language: language, value: "Edited some time ago", comment: "Shown on the item for showing the article history when it's unclear how many days ago the article was edited.")
+        }
         let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history")
         let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
         let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
@@ -71,8 +75,8 @@ class ArticleWebMessagingController: NSObject {
         let menuCoordinateTitle = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
         let menuReferenceListTitle = WMFLocalizedString("article-reference-title", value: "View references", comment: "Label for button linking out to an article's references")
         let l10n = PageContentService.Footer.L10n(readMoreHeading: readMoreHeading, menuDisambiguationTitle: menuDisambiguationTitle, menuLanguagesTitle: menuLanguagesTitle, menuHeading: menuHeading, menuLastEditedSubtitle: menuLastEditedSubtitle, menuLastEditedTitle: menuLastEditedTitle, licenseString: licenseString, menuTalkPageTitle: menuTalkPageTitle, menuPageIssuesTitle: menuPageIssuesTitle, viewInBrowserString: viewInBrowserString, licenseSubstitutionString: licenseSubstitutionString, menuCoordinateTitle: menuCoordinateTitle, menuReferenceListTitle: menuReferenceListTitle)
-        let menu = PageContentService.Footer.Menu(items: menuItems, fragment: "pcs-menu")
-        let readMore = PageContentService.Footer.ReadMore(itemCount: 3, baseURL: restAPIBaseURL.absoluteString, fragment: "pcs-read-more")
+        let menu = PageContentService.Footer.Menu(items: menuItems)
+        let readMore = PageContentService.Footer.ReadMore(itemCount: 3, baseURL: restAPIBaseURL.absoluteString)
         let parameters = PageContentService.Footer.Parameters(title: title, menu: menu, readMore: readMore, l10n: l10n)
         guard let parametersJS = try? PageContentService.getJavascriptFor(parameters) else {
             return
