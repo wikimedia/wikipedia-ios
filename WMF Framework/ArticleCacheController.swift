@@ -21,10 +21,15 @@ public final class ArticleCacheController: CacheController {
         }
     }
 
-    public func cacheFromMigration(desktopArticleURL: URL, itemKey: String? = nil, content: String, mimeType: String) { //articleURL should be desktopURL
+    enum CacheFromMigrationError: Error {
+        case noArticleFileWriter
+    }
+    
+    public func cacheFromMigration(desktopArticleURL: URL, itemKey: String? = nil, content: String, mimeType: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter,
         let articleFileWriter = fileWriter as? ArticleCacheFileWriter else {
+            completionHandler(CacheFromMigrationError.noArticleFileWriter)
             return
         }
         
@@ -34,19 +39,23 @@ public final class ArticleCacheController: CacheController {
                 
                 articleDBWriter.migratedCacheItemFile(itemKey: itemKey, success: {
                     print("successfully migrated")
-                    
+                    completionHandler(nil)
+
                     DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
                         self.dbWriter.fetchAndPrintEachItem()
                         self.dbWriter.fetchAndPrintEachGroup()
                     }
                     
                 }) { (error) in
+                    completionHandler(error)
                     //tonitodo: broadcast migration error
                 }
             }) { (error) in
+                completionHandler(error)
                 //tonitodo: broadcast migration error
             }
         }) { (error) in
+            completionHandler(error)
             //tonitodo: broadcast migration error
         }
     }
