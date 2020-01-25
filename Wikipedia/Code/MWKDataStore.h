@@ -17,6 +17,7 @@
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
 @class WMFCacheControllerWrapper;
+@class MobileviewToMobileHTMLConverter;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -80,6 +81,8 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 @property (readonly, strong, nonatomic) WMFCacheControllerWrapper *imageCacheControllerWrapper;
 @property (readonly, strong, nonatomic) WMFCacheControllerWrapper *articleCacheControllerWrapper;
+
+@property (readonly, strong, nonatomic) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock;
 

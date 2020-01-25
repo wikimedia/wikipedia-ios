@@ -1,3 +1,4 @@
+import WebKit
 
 fileprivate extension MWKSection {
     func mobileViewDict() -> [String: Any?] {
@@ -126,7 +127,7 @@ extension MWKArticle {
     }
 }
 
-class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
+@objc public class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
     private var isConverterLoaded = false
     lazy private var conversionBuffer: [() -> Void] = []
     
@@ -157,7 +158,7 @@ class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
             .appendingPathComponent("pcs-html-converter", isDirectory: true)
             .appendingPathComponent("index.html", isDirectory: false)
     }()
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         isConverterLoaded = true
         conversionBuffer.forEach {thisConversion in
             thisConversion()
@@ -166,7 +167,7 @@ class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
     }
 }
 
-extension MobileviewToMobileHTMLConverter {
+@objc public extension MobileviewToMobileHTMLConverter {
     func convertMobileviewSavedDataToMobileHTML(article: MWKArticle, completionHandler: ((Any?, Error?) -> Void)? = nil) {
         guard let articleURL = article.url else {
             assertionFailure("Article url not available")
@@ -195,92 +196,19 @@ extension MobileviewToMobileHTMLConverter {
 
 /*
 
-    lazy var converter: MobileviewToMobileHTMLConverter = {
-        MobileviewToMobileHTMLConverter.init()
-    }()
-    
     override func didReceiveMemoryWarning() {
-        guard
-            let dataStore = SessionSingleton.sharedInstance()?.dataStore,
-            let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController
-        else {
+        guard let dataStore = SessionSingleton.sharedInstance()?.dataStore else {
             return
         }
         dataStore.savedPageList.enumerateItems { (article, stop) in
-                        
-
-// TODO:
-//            - pull this out to func (migrateFromMobileviewSavedDataIfNecessary) with completion
-//              block so can be used for if loading articles not yet converted
-//              (cacheFromMigration will need completion block)
-//            - rename mobileviewConversionAttempted to isConversionFromMobileviewNeeded and do one
-//              time update to set all existing to true, new ones would need to be false
-
-            
-            guard let articleURL = article.url else {
-                assertionFailure("Could not get article url")
-                return
-            }
-            guard article.isConversionFromMobileviewNeeded == true else {
-                // If conversion was previously attempted don't try again.
-                return
-            }
-            
-            do {
-                // Since conversion isn't instantaneous set the `isConversionFromMobileviewNeeded` flag before invoking
-                // the converter (vs only setting it in the converter's completion block)
-                article.isConversionFromMobileviewNeeded = false
-                try dataStore.save()
-            } catch let error {
-                DDLogError("Error updating article: \(error)")
-            }
-            
-            let mwkArticle = dataStore.article(with: articleURL)
-
-            self.converter.convertMobileviewSavedDataToMobileHTML(article: mwkArticle) { (result, error) in
-                
-                let blastMobileviewSavedDataFolder = {
-                    // Remove old mobileview saved data folder for this article
-                    do {
-                        try FileManager.default.removeItem(atPath: dataStore.path(forArticleURL: articleURL))
-                    } catch {
-                        DDLogError("Could not remove mobileview folder for articleURL: \(articleURL)")
-                    }
-                }
-                
-                let handleConversionFailure = {
-                    // No need to keep mobileview section html if conversion failed, so ok to remove section data
-                    // because we're setting `isDownloaded` next so saved article fetching will re-download from
-                    // new mobilehtml endpoint.
-                    blastMobileviewSavedDataFolder()
-
-                    // If conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
-                    do {
-                        article.isDownloaded = false
-                        try dataStore.save()
-                    } catch let error {
-                        DDLogError("Error updating article: \(error)")
-                    }
-                }
-                
-                guard error == nil, let result = result else {
-                    handleConversionFailure()
-                    assertionFailure("Conversion error or no result")
+            article.migrateMobileviewToMobileHTMLIfNecessary(dataStore: dataStore) { (error) in
+                guard error == nil else {
+                    print("Conversion failed")
                     return
                 }
-                guard let mobileHTML = result as? String else {
-                    handleConversionFailure()
-                    assertionFailure("mobileHTML not extracted")
-                    return
-                }
-
-                articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
-
-                // Conversion succeeded so can safely blast old mobileview folder.
-                blastMobileviewSavedDataFolder()
+                print("Conversion succeeded or not needed")
             }
         }
     }
-
  
 */

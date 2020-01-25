@@ -41,6 +41,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) WMFCacheControllerWrapper *imageCacheControllerWrapper;
 @property (nonatomic, strong) WMFCacheControllerWrapper *articleCacheControllerWrapper;
 
+@property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
+
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 @property (readwrite, strong, nonatomic) NSCache *articlePreviewCache;
@@ -118,6 +120,7 @@ static uint64_t bundleHash() {
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
         self.imageCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithType:WMFCacheControllerTypeImage];
         self.articleCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithArticleCacheWithImageCacheControllerWrapper:self.imageCacheControllerWrapper];
+        self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
 }
