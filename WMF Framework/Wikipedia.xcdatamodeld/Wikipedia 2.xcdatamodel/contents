@@ -112,12 +112,12 @@
         <attribute name="imageURLString" optional="YES" attributeType="String"/>
         <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="isCached" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isConversionFromMobileviewNeeded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="key" attributeType="String"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mobileviewConversionAttempted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="ns" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary"/>

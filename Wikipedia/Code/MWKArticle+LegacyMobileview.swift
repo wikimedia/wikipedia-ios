@@ -221,15 +221,15 @@ extension MobileviewToMobileHTMLConverter {
                 assertionFailure("Could not get article url")
                 return
             }
-            guard article.mobileviewConversionAttempted == false else {
+            guard article.isConversionFromMobileviewNeeded == true else {
                 // If conversion was previously attempted don't try again.
                 return
             }
             
             do {
-                // Since conversion isn't instantaneous set the `mobileviewConversionAttempted` flag before invoking
+                // Since conversion isn't instantaneous set the `isConversionFromMobileviewNeeded` flag before invoking
                 // the converter (vs only setting it in the converter's completion block)
-                article.mobileviewConversionAttempted = true
+                article.isConversionFromMobileviewNeeded = false
                 try dataStore.save()
             } catch let error {
                 DDLogError("Error updating article: \(error)")
