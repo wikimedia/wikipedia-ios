@@ -525,6 +525,30 @@ static uint64_t bundleHash() {
     }];
 }
 
+- (void)markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:(NSManagedObjectContext *)moc {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    request.propertiesToFetch = @[];
+    NSError *fetchError = nil;
+    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+        return;
+    }
+    for (WMFArticle *article in downloadedArticles) {
+        article.isConversionFromMobileviewNeeded = YES;
+    }
+    if ([moc hasChanges]) {
+        NSError *saveError = nil;
+        [moc save:&saveError];
+        if (saveError) {
+            DDLogError(@"Error saving downloaded articles: %@", fetchError);
+            return;
+        }
+        [moc reset];
+    }
+}
+
 - (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
     NSFetchRequest *request = [WMFContentGroup fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"content != NULL"];
