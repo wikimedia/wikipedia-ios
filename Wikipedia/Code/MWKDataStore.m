@@ -494,7 +494,6 @@ static uint64_t bundleHash() {
         }
     }
     
-    
     if (currentLibraryVersion < 8) {
         NSUserDefaults *ud = [NSUserDefaults wmf];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
@@ -502,10 +501,15 @@ static uint64_t bundleHash() {
         [ud synchronize];
         [moc wmf_setValue:@(8) forKey:WMFLibraryVersionKey];
     }
+    
+    if (currentLibraryVersion < 9) {
+        [self markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:moc];
+        [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
+    }
 }
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
-    static const NSInteger libraryVersion = 7;
+    static const NSInteger libraryVersion = 8;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
