@@ -5,7 +5,9 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
     case noMobileHTML
 }
 
-extension WMFArticle {
+@objc extension WMFArticle {
+    
+    // TODO: use this method's completion block when loading articles (in case a mobileview conversion hasn't happened yet for that article's saved data for any reason)
     func migrateMobileviewToMobileHTMLIfNecessary(dataStore: MWKDataStore, completionHandler: @escaping ((Error?) -> Void)) {
         guard self.isConversionFromMobileviewNeeded == true else {
             // If conversion was previously attempted don't try again.
