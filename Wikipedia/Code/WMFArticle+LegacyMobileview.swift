@@ -22,17 +22,6 @@ extension WMFArticle {
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noArticleCacheController)
             return
         }
-
-        do {
-            // Since conversion isn't instantaneous set the `isConversionFromMobileviewNeeded` flag before invoking
-            // the converter (vs only setting it in the converter's completion block)
-            self.isConversionFromMobileviewNeeded = false
-            try dataStore.save()
-        } catch let error {
-            completionHandler(error)
-            DDLogError("Error updating article: \(error)")
-            return
-        }
         
         let mwkArticle = dataStore.article(with: articleURL)
 
@@ -77,6 +66,16 @@ extension WMFArticle {
             articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html"){ error in
                 // Conversion succeeded so can safely blast old mobileview folder.
                 blastMobileviewSavedDataFolder()
+                
+                do {
+                    self.isConversionFromMobileviewNeeded = false
+                    try dataStore.save()
+                } catch let error {
+                    completionHandler(error)
+                    DDLogError("Error updating article: \(error)")
+                    return
+                }
+                
                 completionHandler(nil)
             }
         }
