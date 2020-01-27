@@ -325,7 +325,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Inte språkspecifikt";
 "explore-feed-preferences-global-cards-title" = "Globala kort";
 "explore-feed-preferences-hide-card-action-title" = "Dölj detta kort";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla kort av typen “$1”";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla \"$1\"-kort";
 "explore-feed-preferences-in-the-news-description" = "Artiklar om nuvarande händelser";
 "explore-feed-preferences-languages-footer-text" = "När alla kort i utforskarflödet på alla dina språk döljs kommer utforskarfliken inaktiveras.";
 "explore-feed-preferences-on-this-day-description" = "Händelser i historien på denna dag";
