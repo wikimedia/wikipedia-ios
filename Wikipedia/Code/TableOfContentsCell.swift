@@ -72,7 +72,7 @@ class TableOfContentsCell: UITableViewCell {
     
     // MARK: - UITableVIewCell
 
-    class func reuseIdentifier() -> String{
+    class func reuseIdentifier() -> String {
         return wmf_nibName()
     }
     
