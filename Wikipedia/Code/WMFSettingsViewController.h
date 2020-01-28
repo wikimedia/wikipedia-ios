@@ -1,9 +1,9 @@
+#import "WMFViewController.h"
 @class MWKDataStore;
-@class WMFThemeable;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSettingsViewController : WMFViewController <WMFThemeable>
+@interface WMFSettingsViewController : WMFViewController
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 

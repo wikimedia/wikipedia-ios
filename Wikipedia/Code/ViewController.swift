@@ -262,7 +262,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             bottom = max(bottom, scrollView.bounds.maxY - keyboardIntersection.minY)
         }
         
-        if isToolbarEnabled && !isToolbarHidden {
+        if !isToolbarHidden {
             bottom += toolbar.frame.height
         }
         
@@ -416,8 +416,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
 
     var isToolbarHidden: Bool {
         guard isToolbarEnabled else {
-            assert(false, "Toolbar not enabled. Call enableToolbar before this function.")
-            return false
+            return true
         }
         return toolbarHiddenConstraint.isActive
     }
@@ -446,8 +445,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     var isSecondToolbarHidden: Bool {
         guard isToolbarEnabled else {
-            assert(false, "Toolbars not enabled. Call enableToolbar before this function.")
-            return false
+            return true
         }
         return secondToolbarHiddenConstraint.isActive
     }

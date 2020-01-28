@@ -6,6 +6,7 @@ protocol ArticleWebMessageHandling: class {
     func didFinalSetup(messagingController: ArticleWebMessagingController)
     func didTapLink(messagingController: ArticleWebMessagingController, title: String)
     func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?)
+    func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem])
 }
 
 class ArticleWebMessagingController: NSObject {
@@ -43,6 +44,8 @@ class ArticleWebMessagingController: NSObject {
             contentController.addUserScript(pcsSetup)
             let propertiesScript = PageContentService.PropertiesScript(messageHandlerName: messageHandlerName)
             contentController.addUserScript(propertiesScript)
+            let utilitiesScript = PageContentService.UtilitiesScript()
+            contentController.addUserScript(utilitiesScript)
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }
@@ -117,6 +120,27 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 let width = leadImage["width"] as? Int
                 let height = leadImage["height"] as? Int
                 delegate?.didGetLeadImage(messagingcontroller: self, source: leadImageURLString, width: width, height: height)
+            }
+            if
+                let tableOfContents = data["tableOfContents"] as? [[String: Any]]
+            {
+                var currentRootSectionId = -1
+                let items = tableOfContents.compactMap { (tocJSON) -> TableOfContentsItem? in
+                    guard
+                        let id = tocJSON["id"] as? Int,
+                        let level = tocJSON["level"] as? Int,
+                        let anchor = tocJSON["anchor"] as? String,
+                        let title = tocJSON["title"] as? String
+                    else {
+                            return nil
+                    }
+                    let indentationLevel = level - 1
+                    if indentationLevel == 0 {
+                        currentRootSectionId = id
+                    }
+                    return TableOfContentsItem(id: id, titleHTML: title, anchor: anchor, rootItemId: currentRootSectionId, indentationLevel: indentationLevel)
+                }
+                delegate?.didGetTableOfContents(messagingcontroller: self, items: items)
             }
         default:
             break

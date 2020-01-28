@@ -769,6 +769,7 @@
 "table-of-contents-close-accessibility-hint" = "Close";
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
+"table-of-contents-hide-button-label" = "Hide table of contents";
 "table-title-other" = "More information";
 "talk-page-add-discussion-accessibility-label" = "Add discussion";
 "talk-page-discussion-accessibility-hint" = "Double tap to open discussion thread";

@@ -79,7 +79,7 @@ class HintController: NSObject {
 
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
-        if let wmfVCPresenter = presenter as? WMFViewController { // not ideal, violates encapsulation
+        if let wmfVCPresenter = presenter as? ViewController { // not ideal, violates encapsulation
             wmfVCPresenter.view.insertSubview(containerView, belowSubview: wmfVCPresenter.toolbar)
             additionalBottomSpacing = wmfVCPresenter.toolbar.frame.size.height
         } else if let subview = subview {
@@ -183,7 +183,7 @@ class HintController: NSObject {
 
     private func adjustSpacingIfPresenterHasSecondToolbar(hintHidden: Bool) {
         guard
-            let viewController = presenter as? WMFViewController,
+            let viewController = presenter as? ViewController,
             !viewController.isSecondToolbarHidden
         else {
             return
