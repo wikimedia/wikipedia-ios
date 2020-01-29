@@ -127,7 +127,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL, from fromRevisionID: Int? = nil , to toRevisionID: Int? = nil) -> URL? {
         guard let project = pageURL.wmf_site?.host,
-        let title = pageTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
+        let title = pageTitle.percentEncodedPageTitleForPathComponents else {
             return nil
         }
 
@@ -209,7 +209,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], Error>) -> Void ) {
         DispatchQueue.global(qos: .userInitiated).async {
             guard
-                let title = pageTitle.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed),
+                let title = pageTitle.percentEncodedPageTitleForPathComponents,
                 let project = pageURL.wmf_site?.host,
                 let yearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date()),
                 let from = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: yearAgo),
