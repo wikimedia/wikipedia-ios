@@ -792,6 +792,7 @@
 "table-of-contents-close-accessibility-hint" = "Stäng";
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
+"table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
 "table-title-other" = "Mer information";
 "talk-page-add-discussion-accessibility-label" = "Lägg till diskussion";
 "talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";

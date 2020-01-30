@@ -343,7 +343,7 @@
 "explore-feed-preferences-show-news-title" = "새로 들어온 소식 카드 표시";
 "explore-feed-preferences-show-on-this-day-footer-text" = "오늘의 역사 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
 "explore-feed-preferences-show-on-this-day-title" = "오늘의 역사 카드 표시";
-"explore-feed-preferences-show-picture-of-the-day-title" = "오늘의 사진 카드 표시";
+"explore-feed-preferences-show-picture-of-the-day-title" = "오늘의 이미지 카드 표시";
 "explore-feed-preferences-show-places-footer-text" = "장소 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
 "explore-feed-preferences-show-places-title" = "장소 카드 표시";
 "explore-feed-preferences-show-randomizer-footer-text" = "임의 문서 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
@@ -377,7 +377,7 @@
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "위키백과에서";
 "explore-nearby-sub-heading-your-location" = "내 위치";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 위키백과에서의 내 위치";
-"explore-potd-heading" = "오늘의 그림";
+"explore-potd-heading" = "오늘의 이미지";
 "explore-potd-sub-heading" = "위키미디어 공용에서";
 "explore-random-article-heading" = "임의 문서";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
