@@ -44,11 +44,13 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
                 blastMobileviewSavedDataFolder()
 
                 // If conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
-                do {
-                    self.isDownloaded = false
-                    try dataStore.save()
-                } catch let error {
-                    DDLogError("Error updating article: \(error)")
+                DispatchQueue.main.async {
+                    do {
+                        self.isDownloaded = false
+                        try dataStore.save()
+                    } catch let error {
+                        DDLogError("Error updating article: \(error)")
+                    }
                 }
             }
             
@@ -68,17 +70,18 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
             articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html"){ error in
                 // Conversion succeeded so can safely blast old mobileview folder.
                 blastMobileviewSavedDataFolder()
-                
-                do {
-                    self.isConversionFromMobileviewNeeded = false
-                    try dataStore.save()
-                } catch let error {
-                    completionHandler(error)
-                    DDLogError("Error updating article: \(error)")
-                    return
+                DispatchQueue.main.async {
+                    do {
+                        self.isConversionFromMobileviewNeeded = false
+                        try dataStore.save()
+                    } catch let error {
+                        completionHandler(error)
+                        DDLogError("Error updating article: \(error)")
+                        return
+                    }
+                    
+                    completionHandler(nil)
                 }
-                
-                completionHandler(nil)
             }
         }
     }
