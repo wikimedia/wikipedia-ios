@@ -72,4 +72,21 @@ final class PageContentService   {
                super.init(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
+    
+    final class UtilitiesScript: WKUserScript {
+        static let source: String = {
+            guard
+                let fileURL = Bundle.main.url(forResource: "Utilities", withExtension: "js"),
+                let data = try? Data(contentsOf: fileURL),
+                let jsString = String(data: data, encoding: .utf8)
+            else {
+                return ""
+            }
+            return jsString
+        }()
+        
+        required override init() {
+            super.init(source: UtilitiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        }
+    }
 }

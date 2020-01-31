@@ -87,18 +87,27 @@ class ArticleViewController: ViewController {
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
             DDLogError("Error loading lead image: \(error)")
         }) {
-            self.layoutLeadImage()
+            self.updateLeadImageMargins()
         }
     }
+    
+    lazy var leadImageLeadingMarginConstraint: NSLayoutConstraint = {
+        return leadImageView.leadingAnchor.constraint(equalTo: leadImageContainerView.leadingAnchor)
+    }()
+    
+    lazy var leadImageTrailingMarginConstraint: NSLayoutConstraint = {
+        return leadImageContainerView.trailingAnchor.constraint(equalTo: leadImageView.trailingAnchor)
+    }()
     
     lazy var leadImageHeightConstraint: NSLayoutConstraint = {
         return leadImageContainerView.heightAnchor.constraint(equalToConstant: 0)
     }()
     
     lazy var leadImageView: UIImageView = {
-        let imageView = FLAnimatedImageView(frame: .zero)
+        let imageView = NoIntrinsicContentSizeImageView(frame: .zero)
         imageView.isUserInteractionEnabled = true
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.accessibilityIgnoresInvertColors = true
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(userDidTapLeadImage))
@@ -106,45 +115,53 @@ class ArticleViewController: ViewController {
         return imageView
     }()
     
-    lazy var leadImageContainerView: UIView = {
+    lazy var leadImageBorderHeight: CGFloat = {
         let scale = UIScreen.main.scale
-        let borderHeight: CGFloat = scale > 1 ? 0.5 : 1
+        return scale > 1 ? 0.5 : 1
+    }()
+    
+    lazy var leadImageContainerView: UIView = {
+
         let height: CGFloat = 10
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: height))
         containerView.clipsToBounds = true
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        let borderView = UIView(frame: CGRect(x: 0, y: height - borderHeight, width: 1, height: borderHeight))
+        let borderView = UIView(frame: CGRect(x: 0, y: height - leadImageBorderHeight, width: 1, height: leadImageBorderHeight))
         borderView.backgroundColor = UIColor(white: 0, alpha: 0.2)
         borderView.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
         
-        leadImageView.frame = CGRect(x: 0, y: 0, width: 1, height: height - borderHeight)
+        leadImageView.frame = CGRect(x: 0, y: 0, width: 1, height: height - leadImageBorderHeight)
         containerView.addSubview(leadImageView)
         containerView.addSubview(borderView)
         return containerView
     }()
-        
-    func layoutLeadImage() {
-        let containerBounds = leadImageContainerView.bounds
-//        // TODO: iPad margin handling after ToC is implemented
-
-//        let imageSize = leadImageView.image?.size ?? .zero
-//        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
-        let marginWidth: CGFloat = 0
-//        if isImageNarrow { // TODO: && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
-//            marginWidth = 32
-//        }
-        leadImageView.frame = CGRect(x: marginWidth, y: 0, width: containerBounds.size.width - 2 * marginWidth, height: CGFloat(leadImageHeight))
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        updateLeadImageMargins()
     }
     
+    func updateLeadImageMargins() {
+        let imageSize = leadImageView.image?.size ?? .zero
+        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
+        var marginWidth: CGFloat = 0
+        if isImageNarrow && tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible {
+            marginWidth = 32
+        }
+        leadImageLeadingMarginConstraint.constant = marginWidth
+        leadImageTrailingMarginConstraint.constant = marginWidth
+    }
     
     // MARK: Previewing
     
     public var articlePreviewingDelegate: ArticlePreviewingDelegate?
     
     // MARK: Layout
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        layoutLeadImage()
+    
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        updateTableOfContentsInsets()
     }
     
     // MARK: Loading
@@ -181,6 +198,14 @@ class ArticleViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableOfContentsController.setup(with: traitCollection)
+        toolbarController.update()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        tableOfContentsController.update(with: traitCollection)
+        toolbarController.update()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -190,7 +215,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Theme
     
-    private lazy var themesPresenter: ReadingThemesControlsArticlePresenter = {
+    lazy var themesPresenter: ReadingThemesControlsArticlePresenter = {
         return ReadingThemesControlsArticlePresenter(readingThemesControlsViewController: themesViewController, wkWebView: webView, readingThemesControlsToolbarItem: toolbarController.themeButton)
     }()
     
@@ -200,8 +225,12 @@ class ArticleViewController: ViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
+        tableOfContentsController.apply(theme: theme)
         if state == .data {
             messagingController.updateTheme(theme)
         }
@@ -218,11 +247,136 @@ class ArticleViewController: ViewController {
     internal func handleLink(with title: String) {
         guard let host = articleURL.host,
             let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title) else {
-            assertionFailure("Failure initializing new Article VC")
-            //tonitodo: error state
-            return
+                assertionFailure("Failure initializing new Article VC")
+                //tonitodo: error state
+                return
         }
         navigate(to: newArticleURL)
+    }
+    
+    // MARK: Table of contents
+    
+    lazy var tableOfContentsController: ArticleTableOfContentsDisplayController = ArticleTableOfContentsDisplayController(articleView: webView, delegate: self, theme: theme)
+    
+    var tableOfContentsItems: [TableOfContentsItem] = [] {
+        didSet {
+            tableOfContentsController.viewController.reload()
+        }
+    }
+    
+    var isUpdatingTableOfContentsSectionOnScroll = true
+    var previousContentOffsetYForTOCUpdate: CGFloat = 0
+    
+    func updateTableOfContentsHighlightIfNecessary() {
+        guard isUpdatingTableOfContentsSectionOnScroll, tableOfContentsController.viewController.isVisible else {
+            return
+        }
+        let scrollView = webView.scrollView
+        guard abs(previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > 15 else {
+            return
+        }
+        guard scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating else {
+            return
+        }
+        updateTableOfContentsHighlight()
+    }
+    
+     func updateTableOfContentsHighlight() {
+        previousContentOffsetYForTOCUpdate = webView.scrollView.contentOffset.y
+        getVisibleSectionId { (sectionId) in
+            self.tableOfContentsController.selectAndScroll(to: sectionId, animated: true)
+        }
+    }
+    
+    func updateTableOfContentsInsets() {
+        let tocScrollView = tableOfContentsController.viewController.tableView
+        let topOffsetY = 0 - tocScrollView.contentInset.top
+        let wasAtTop = tocScrollView.contentOffset.y <= topOffsetY
+        switch tableOfContentsController.viewController.displayMode {
+        case .inline:
+            tocScrollView.contentInset = webView.scrollView.contentInset
+            tocScrollView.scrollIndicatorInsets = webView.scrollView.scrollIndicatorInsets
+        case .modal:
+            tocScrollView.contentInset = UIEdgeInsets(top: view.safeAreaInsets.top, left: 0, bottom: view.safeAreaInsets.bottom, right: 0)
+            tocScrollView.scrollIndicatorInsets = tocScrollView.contentInset
+        }
+        guard wasAtTop else {
+            return
+        }
+        tocScrollView.contentOffset = CGPoint(x: 0, y: topOffsetY)
+    }
+    
+    // MARK: Scroll
+    
+    func scroll(to anchor: String, animated: Bool, completion: (() -> Void)? = nil) {
+        guard !anchor.isEmpty else {
+            webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
+            completion?()
+            return
+        }
+        webView.getScrollRectForHtmlElement(withId: anchor) { (rect) in
+            assert(Thread.isMainThread)
+            guard !rect.isNull else {
+                completion?()
+                return
+            }
+            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight)
+            self.scroll(to: point, animated: animated, completion: completion)
+        }
+    }
+    
+    var scrollViewAnimationCompletions: [() -> Void] = []
+    func scroll(to offset: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
+        assert(Thread.isMainThread)
+        let scrollView = webView.scrollView
+        guard !offset.x.isNaN && !offset.x.isInfinite && !offset.y.isNaN && !offset.y.isInfinite else {
+            completion?()
+            return
+        }
+        let minY = 0 - scrollView.contentInset.top
+        let maxY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
+        let boundedY = min(maxY,  max(minY, offset.y))
+        let boundedOffset = CGPoint(x: scrollView.contentOffset.x, y: boundedY)
+        guard WMFDistanceBetweenPoints(boundedOffset, scrollView.contentOffset) >= 2 else {
+            scrollView.flashScrollIndicators()
+            completion?()
+            return
+        }
+        guard animated else {
+            scrollView.setContentOffset(boundedOffset, animated: false)
+            completion?()
+            return
+        }
+        /*
+         Setting scrollView.contentOffset inside of an animation block
+         results in a broken animation https://phabricator.wikimedia.org/T232689
+         Calling [scrollView setContentOffset:offset animated:YES] inside
+         of an animation block fixes the animation but doesn't guarantee
+         the content offset will be updated when the animation's completion
+         block is called.
+         It appears the only reliable way to get a callback after the default
+         animation is to use scrollViewDidEndScrollingAnimation
+         */
+        if let completion = completion {
+            scrollViewAnimationCompletions.insert(completion, at: 0)
+        }
+        scrollView.setContentOffset(boundedOffset, animated: true)
+    }
+    
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndScrollingAnimation(scrollView)
+        // call the first completion
+        scrollViewAnimationCompletions.popLast()?()
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        updateTableOfContentsHighlightIfNecessary()
+    }
+    
+    override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        super.scrollViewDidScrollToTop(scrollView)
+        updateTableOfContentsHighlight()
     }
 }
 
@@ -249,21 +403,24 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
+        view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
-        
-        view.wmf_addSubviewWithConstraintsToEdges(webView)
+
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
-        leadImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.addSubview(leadImageContainerView)
             
-        let leadingConstraint = webView.leadingAnchor.constraint(equalTo: leadImageContainerView.leadingAnchor)
-        let trailingConstraint = webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
+        let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
-        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint])
+        let imageTopConstraint = leadImageView.topAnchor.constraint(equalTo:  leadImageContainerView.topAnchor)
+        let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
+        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
         
         guard let siteURL = articleURL.wmf_site else {
             DDLogError("Missing site for \(articleURL)")
@@ -308,9 +465,17 @@ private extension ArticleViewController {
         toolbarController.setSavedState(isSaved: article.isSaved)
         setToolbarHidden(false, animated: false)
     }
+            
 }
 
 extension ArticleViewController: ArticleWebMessageHandling {
+    func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem]) {
+        let titleItem = TableOfContentsItem(id: -1, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: -1, indentationLevel: 0)
+        var allItems: [TableOfContentsItem] = [titleItem]
+        allItems.append(contentsOf: items)
+        tableOfContentsItems = allItems
+    }
+    
     func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
         handleLink(with: title)
     }
@@ -335,9 +500,22 @@ extension ArticleViewController: ArticleWebMessageHandling {
         }
         loadLeadImage(with: leadImageURLToRequest)
     }
+    
+    
 }
 
 extension ArticleViewController: ArticleToolbarHandling {
+    func showTableOfContents(from controller: ArticleToolbarController) {
+        showTableOfContents()
+    }
+    
+    func hideTableOfContents(from controller: ArticleToolbarController) {
+        hideTableOfContents()
+    }
+    
+    var isTableOfContentsVisible: Bool {
+        return tableOfContentsController.viewController.displayMode == .inline && tableOfContentsController.viewController.isVisible
+    }
     
     func toggleSave(from viewController: ArticleToolbarController) {
         article.isSaved = !article.isSaved
@@ -425,3 +603,14 @@ private extension UIViewController {
     }
 }
 
+//WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title")
+//WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
+//WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.")
+//WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-title", nil, nil, @"Edit title description", @"Title for button used to show title description editor")
+//WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
+//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
+//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
+//WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share {{Identical|Share}}")
+//WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}")
+//WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
+//WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")

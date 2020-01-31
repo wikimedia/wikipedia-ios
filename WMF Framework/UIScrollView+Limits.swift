@@ -24,6 +24,20 @@ extension UIScrollView {
     private var isAtBottom: Bool {
         return contentOffset.y >= bottomOffsetY
     }
+    
+    public var verticalOffsetPercentage: CGFloat {
+        get {
+            let height = contentSize.height
+            guard height > 0 else {
+                return 0
+            }
+            return contentOffset.y / height
+        }
+        set {
+            let newOffsetY = contentSize.height * newValue
+            setContentOffset(CGPoint(x: contentOffset.x, y: newOffsetY), animated: false)
+        }
+    }
 
     @objc(wmf_setContentInset:scrollIndicatorInsets:preserveContentOffset:preserveAnimation:)
     public func setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true, preserveAnimation: Bool = false) -> Bool {

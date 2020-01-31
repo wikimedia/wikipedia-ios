@@ -1,24 +1,24 @@
 import UIKit
 
 // MARK: - Delegate
-@objc public protocol WMFTableOfContentsPresentationControllerTapDelegate {
+@objc public protocol TableOfContentsPresentationControllerTapDelegate {
     
-    func tableOfContentsPresentationControllerDidTapBackground(_ controller: WMFTableOfContentsPresentationController)
+    func tableOfContentsPresentationControllerDidTapBackground(_ controller: TableOfContentsPresentationController)
 }
 
-open class WMFTableOfContentsPresentationController: UIPresentationController, Themeable {
+open class TableOfContentsPresentationController: UIPresentationController, Themeable {
     var theme = Theme.standard
     
-    var displaySide = WMFTableOfContentsDisplaySide.left
-    var displayMode = WMFTableOfContentsDisplayMode.modal
+    var displaySide = TableOfContentsDisplaySide.left
+    var displayMode = TableOfContentsDisplayMode.modal
     
     // MARK: - init
-    public required init(presentedViewController: UIViewController, presentingViewController: UIViewController?, tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate) {
+    public required init(presentedViewController: UIViewController, presentingViewController: UIViewController?, tapDelegate: TableOfContentsPresentationControllerTapDelegate) {
         self.tapDelegate = tapDelegate
         super.init(presentedViewController: presentedViewController, presenting: presentedViewController)
     }
 
-    weak open var tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate?
+    weak open var tapDelegate: TableOfContentsPresentationControllerTapDelegate?
 
     open var minimumVisibleBackgroundWidth: CGFloat = 60.0
     open var maximumTableOfContentsWidth: CGFloat = 300.0
@@ -43,7 +43,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         let button = UIButton(frame: CGRect.zero)
         
         button.setImage(UIImage(named: "close"), for: .normal)
-        button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(TableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
         button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents {{Identical|Close}}")
         button.accessibilityLabel = WMFLocalizedString("table-of-contents-close-accessibility-label", value:"Close Table of contents", comment:"Accessibility label for closing table of contents")
@@ -64,7 +64,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         view.effect = UIBlurEffect(style: .light)
         view.alpha = 0.0
         let tap = UITapGestureRecognizer.init()
-        tap.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)))
+        tap.addTarget(self, action: #selector(TableOfContentsPresentationController.didTap(_:)))
         view.addGestureRecognizer(tap)
         view.contentView.addSubview(self.statusBarBackground)
 
@@ -104,13 +104,6 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             closeButtonTrailingConstraint?.isActive = true
             closeButtonTopConstraint?.isActive = true
             break
-        case .center:
-            fallthrough
-        default:
-            closeButtonTrailingConstraint?.isActive = false
-            closeButtonTopConstraint?.isActive = false
-            closeButtonLeadingConstraint?.isActive = true
-            closeButtonBottomConstraint?.isActive = true
         }
         return ()
     }
@@ -189,7 +182,10 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
     }
     
     override open var frameOfPresentedViewInContainerView : CGRect {
-        var frame = self.containerView!.bounds
+        guard let containerView = containerView else {
+            return .zero
+        }
+        var frame = containerView.bounds
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
         if(tocWidth > self.maximumTableOfContentsWidth){
@@ -201,11 +197,6 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         frame.size.height -= frame.origin.y
         
         switch displaySide {
-        case .center:
-            frame.origin.y += 10
-            frame.origin.x += 0.5*bgWidth
-            frame.size.height -= 80
-            break
         case .right:
             frame.origin.x += bgWidth
             break
@@ -222,7 +213,10 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         super.viewWillTransition(to: size, with: transitionCoordinator)
 
         transitionCoordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
-            self.backgroundView.frame = self.containerView!.bounds
+            guard let containerView = self.containerView else {
+                return
+            }
+            self.backgroundView.frame = containerView.bounds
             let frame = self.frameOfPresentedViewInContainerView
             self.presentedView!.frame = frame
             self.updateStatusBarBackgroundFrame()
@@ -236,25 +230,13 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             return
         }
         
-        switch displaySide {
-        case .center:
-            self.presentedView?.layer.cornerRadius = 10
-            self.presentedView?.clipsToBounds = true
-            self.presentedView?.layer.borderColor = theme.colors.border.cgColor
-            self.presentedView?.layer.borderWidth = 1.0
-            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: .normal)
-            self.closeButton.tintColor = theme.colors.link
-            self.statusBarBackground.isHidden = true
-            break
-        default:
-            //Add shadow to the presented view
-            self.presentedView?.layer.shadowOpacity = 0.8
-            self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
-            self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
-            self.presentedView?.clipsToBounds = false
-            self.closeButton.setImage(UIImage(named: "close"), for: .normal)
-            self.statusBarBackground.isHidden = false
-        }
+        //Add shadow to the presented view
+        self.presentedView?.layer.shadowOpacity = 0.8
+        self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
+        self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
+        self.presentedView?.clipsToBounds = false
+        self.closeButton.setImage(UIImage(named: "close"), for: .normal)
+        self.statusBarBackground.isHidden = false
         
         self.backgroundView.effect = UIBlurEffect(style: theme.blurEffectStyle)
         
