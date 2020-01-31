@@ -191,24 +191,3 @@ extension MWKArticle {
         convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI, completionHandler: completionHandler)
     }
 }
-
-//EXAMPLE CONVERSION:
-
-/*
-
-    override func didReceiveMemoryWarning() {
-        guard let dataStore = SessionSingleton.sharedInstance()?.dataStore else {
-            return
-        }
-        dataStore.savedPageList.enumerateItems { (article, stop) in
-            article.migrateMobileviewToMobileHTMLIfNecessary(dataStore: dataStore) { (error) in
-                guard error == nil else {
-                    print("Conversion failed")
-                    return
-                }
-                print("Conversion succeeded or not needed")
-            }
-        }
-    }
- 
-*/
