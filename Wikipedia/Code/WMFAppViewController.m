@@ -993,7 +993,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [self.dataStore removeArticlesWithURLsFromCache:articleURLsToRemoveFromDisk];
     }
 
-    // TODO: instead of checking `savedPageList` just query the data store for articles with the isConversionFromMobileviewNeeded flag true?
+    // TODO: instead of checking `savedPageList` just query the data store for articles with the isConversionFromMobileViewNeeded flag true?
     [self.dataStore.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull article, BOOL *_Nonnull stop) {
         [article migrateMobileviewToMobileHTMLIfNecessaryWithDataStore:self.dataStore
                                                      completionHandler:^(NSError *_Nullable error) {

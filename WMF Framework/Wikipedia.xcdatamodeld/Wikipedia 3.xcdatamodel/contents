@@ -112,6 +112,7 @@
         <attribute name="imageURLString" optional="YES" attributeType="String"/>
         <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="isCached" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isConversionFromMobileViewNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="key" attributeType="String"/>
@@ -230,7 +231,7 @@
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
         <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="538"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="553"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="358"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>

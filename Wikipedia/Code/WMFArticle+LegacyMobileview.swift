@@ -9,7 +9,7 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
     
     // TODO: use this method's completion block when loading articles (in case a mobileview conversion hasn't happened yet for that article's saved data for any reason)
     func migrateMobileviewToMobileHTMLIfNecessary(dataStore: MWKDataStore, completionHandler: @escaping ((Error?) -> Void)) {
-        guard self.isConversionFromMobileviewNeeded == true else {
+        guard self.isConversionFromMobileViewNeeded == true else {
             // If conversion was previously attempted don't try again.
             completionHandler(nil)
             return
@@ -72,7 +72,7 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
                 blastMobileviewSavedDataFolder()
                 DispatchQueue.main.async {
                     do {
-                        self.isConversionFromMobileviewNeeded = false
+                        self.isConversionFromMobileViewNeeded = false
                         try dataStore.save()
                     } catch let error {
                         completionHandler(error)

@@ -553,7 +553,7 @@ static uint64_t bundleHash() {
         return;
     }
     for (WMFArticle *article in downloadedArticles) {
-        article.isConversionFromMobileviewNeeded = YES;
+        article.isConversionFromMobileViewNeeded = YES;
     }
     if ([moc hasChanges]) {
         NSError *saveError = nil;
