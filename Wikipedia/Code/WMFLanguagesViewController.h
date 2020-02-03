@@ -2,17 +2,7 @@
 @import WMF.Swift;
 @class MWKLanguageLink;
 @class WMFLanguagesViewController;
-
-/*
- * Protocol for notifying languageSelectionDelegate that selection was made.
- * It is the receiver's responsibility to perform the appropriate action and dismiss the sender.
- */
-@protocol WMFLanguagesViewControllerDelegate <NSObject>
-
-@optional
-- (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language;
-
-@end
+@protocol WMFLanguagesViewControllerDelegate;
 
 @interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFThemeable>
 
