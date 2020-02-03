@@ -15,6 +15,7 @@
 // Author: JO777
 // Author: Javiersanp
 // Author: Jduranboger
+// Author: Joanmp17
 // Author: Josecurioso
 // Author: Juan Cuartas
 // Author: Koavf
@@ -579,8 +580,7 @@
 "page-read-in-other-languages" = "\nDisponible en {{PLURAL:$1|$1 idioma más|otros $1 idiomas}}";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discusión";
-// Fuzzy
-"panel-compare-revisions-text" = "Comprar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Cuando compara dos revisiones de un artículo, se muestran las diferencia entre ambas.";
+"panel-compare-revisions-text" = "Comparar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Comparar dos revisiones de un artículo mostrará la diferencia entre esas revisiones al resaltar cualquier contenido que fue cambiado.";
 "panel-compare-revisions-title" = "Comparando revisiones";
 "pictured" = "retratado";
 "places-accessibility-clear-saved-searches" = "Borrar búsquedas guardadas";

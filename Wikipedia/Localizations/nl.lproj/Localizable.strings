@@ -444,6 +444,12 @@
 "insert-media-media-settings-title" = "Mediainstellingen";
 "insert-media-title" = "Media invoegen";
 "insert-media-uploaded-image-title" = "Geplaatste afbeelding";
+"intermediate-edits-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} niet weergegeven";
+"intermediate-edits-count-limited" = "$1+ tussenliggende versies niet weergegeven";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} door {{PLURAL:$2|$2 gebruiker|$2 gebruikers}} niet weergegeven";
+"intermediate-edits-editors-count-limited" = "$1+ tussenliggende versies door $2+ gebruikers niet weergegeven";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} door $2+ gebruikers niet weergegeven";
+"intermediate-edits-limited-editors-count" = "$1+ tussenliggende versies door {{PLURAL:$2|$2 gebruiker|$2 gebruikers}} niet weergegeven";
 "languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
 "languages-wikipedia" = "Wikipedia-talen";

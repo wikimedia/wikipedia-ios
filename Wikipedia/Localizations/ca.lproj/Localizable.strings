@@ -790,6 +790,7 @@
 "table-of-contents-close-accessibility-hint" = "Tanca";
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
+"table-of-contents-hide-button-label" = "Amaga la taula de continguts";
 "table-title-other" = "Més informació";
 "talk-page-add-discussion-accessibility-label" = "Afegeix una discussió";
 "talk-page-discussion-accessibility-hint" = "Feu un toc doble per obrir el fil de discussió";

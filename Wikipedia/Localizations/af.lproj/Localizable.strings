@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arnobarnard
 // Author: Fwolff
+// Author: Joris Darlington Quarshie
 // Author: Naudefj
 // Author: Nemo bis
 // Author: Puvircho
@@ -257,6 +258,7 @@
 "table-of-contents-close-accessibility-hint" = "Sluit";
 "table-of-contents-close-accessibility-label" = "Sluit Inhoudsopgawe";
 "table-of-contents-heading" = "Inhoud";
+"table-of-contents-hide-button-label" = "Steek die inhoudsopgawe";
 "table-title-other" = "Meer inligting";
 "theme-black-display-name" = "Swart";
 "theme-dark-display-name" = "Donker";

@@ -803,6 +803,7 @@
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
+"table-of-contents-hide-button-label" = "Ocultar sumário";
 "table-title-other" = "Mais informações";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Toque duas vezes para abrir o tópico de discussão";
