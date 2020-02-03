@@ -1,3 +1,5 @@
+#import <WMF/WMF.h> // without this, compilation fails with Abort trap: 6
+
 #import "WMFAppViewController.h"
 
 #import "RMessage.h"
@@ -5,7 +7,6 @@
 
 #import "NSString+FormattedAttributedString.h"
 #import "WMFPageHistoryRevision.h"
-#import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFGradientView.h"
 
@@ -19,14 +20,11 @@
 
 #import "WMFChange.h"
 
-#import "WMFLegacyArticleFetcher.h"
-#import "LegacySavedArticlesFetcher.h"
-#import "WikiTextSectionFetcher.h"
-#import "PreviewHtmlFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
 #import "WikiTextSectionUploader.h"
-#import "WMFArticleJSONCompilationHelper.h"
+#import "WMFShareFunnel.h"
+#import "WMFLanguagesViewControllerDelegate.h"
 
 // Model
 #import "MWKLicense.h"
@@ -34,13 +32,11 @@
 #import "WMFArticleRevisionFetcher.h"
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"
+#import "MWKLanguageLinkFetcher.h"
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"
-#import "WMFLegacyArticleViewController_Private.h"
-#import "LegacyWebViewController.h"
 #import "WMFLanguagesViewController.h"
-#import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
@@ -49,6 +45,7 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
 #import "WMFFirstRandomViewController.h"
+#import "WMFImageGalleryViewController.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"

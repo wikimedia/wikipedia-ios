@@ -264,7 +264,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         
         let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore)
         readingListDetailViewController.apply(theme: theme)
-        wmf_push(readingListDetailViewController, animated: true)
+        push(readingListDetailViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

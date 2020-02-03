@@ -3,7 +3,6 @@
 #import <WMF/MWKDataStore.h>
 #import <WMF/SessionSingleton.h>
 #import <WMF/MWKSearchResult.h>
-#import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/WMF-Swift.h>
 
 @interface WMFFirstRandomViewController ()

@@ -23,34 +23,11 @@ module.exports = function (grunt) {
         ],
         dest: `${distFolder}index.js`
       },
-      distPreview: {
-        src: [
-          'preview-main.js',
-          'js/utilities.js'
-        ],
-        dest: `${distFolder}preview.js`
-      },
       distAbout: {
         src: [
           'about-main.js'
         ],
         dest: `${distFolder}about.js`
-      }
-    },
-
-    less: {
-      all: {
-        options: {
-          compress: true,
-          yuicompress: true,
-          optimization: 2
-        },
-        files: [
-          {
-            src: 'less/**/*.less',
-            dest: `${distFolder}styleoverrides.css`
-          }
-        ]
       }
     },
 
@@ -80,14 +57,6 @@ module.exports = function (grunt) {
             dest: distFolder
           },
           {
-            src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css',
-            dest: `${distFolder}wikimedia-page-library-transform.css`
-          },
-          {
-            src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css.map',
-            dest: `${distFolder}wikimedia-page-library-transform.css.map`
-          },
-          {
             expand: true,
             cwd: '../Carthage/Checkouts/wikipedia-ios-codemirror/resources/',
             src: ['**'],
@@ -107,7 +76,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'eslint',
     'browserify',
-    'less',
     'copy'
   ])
 }

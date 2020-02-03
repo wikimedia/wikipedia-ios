@@ -1,7 +1,8 @@
 #import "WMFReferencePopoverMessageViewController.h"
-#import "LegacyWebViewController+WMFReferencePopover.h"
 #import "Wikipedia-Swift.h"
 @import WMF.Swift;
+
+NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNotification";
 
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
 

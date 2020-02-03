@@ -1,8 +1,12 @@
 
 import Foundation
 
+//WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
+
 @objc(WMFSavedArticlesFetcher)
 final class SavedArticlesFetcher: NSObject {
+    @objc static let saveToDiskDidFail = NSNotification.Name("SaveToDiskDidFail")
+    @objc static let saveToDiskDidFailErrorKey = "error"
     
     @objc var progress: Progress?
     var fetchesInProcessCount: NSNumber = 0

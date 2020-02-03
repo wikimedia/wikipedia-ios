@@ -107,20 +107,15 @@ extension URL {
         }
         return wikiResourcePath?.namespaceAndTitleOfWikiResourcePath(with: language)
     }
-}
-
-
-extension NSRegularExpression {
-    func firstMatch(in string: String) -> NSTextCheckingResult? {
-        return firstMatch(in: string, options: [], range: string.fullRange)
-    }
     
-    func firstReplacementString(in string: String, template: String = "$1") -> String? {
-        guard let result = firstMatch(in: string)
+    public var articleTalkPage: URL? {
+        guard
+            let namespaceAndTitle = namespaceAndTitle,
+            namespaceAndTitle.namespace == .main
         else {
             return nil
         }
-        return replacementString(for: result, in: string, offset: 0, template: template)
+        return wmf_URL(withTitle: "Talk:\(namespaceAndTitle.title)")
     }
 }
 

@@ -449,7 +449,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         presentedContentGroupKey = group.key
 
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
-            wmf_push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
+            push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
             return
         }
         
@@ -458,7 +458,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 present(vc, animated: true)
                 FeedFunnel.shared.logFeedCardOpened(for: FeedFunnelContext(group))
             } else {
-                wmf_push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
+                push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
             }
             return
         }
@@ -600,7 +600,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             present(vc, animated: true)
             FeedFunnel.shared.logFeedCardOpened(for: context)
         default:
-            wmf_push(vc, context: context, index: indexPath.item, animated: true)
+            push(vc, context: context, index: indexPath.item, animated: true)
         }
     }
     
@@ -713,9 +713,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             FeedFunnel.shared.logFeedCardOpened(for: previewed.context)
         } else if let avc = viewControllerToCommit as? ArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
-            wmf_push(avc, context: previewed.context, index: previewed.indexPath?.item, animated: false)
+            push(avc, context: previewed.context, index: previewed.indexPath?.item, animated: false)
         } else {
-            wmf_push(viewControllerToCommit, context: previewed.context, index: previewed.indexPath?.item, animated: true)
+            push(viewControllerToCommit, context: previewed.context, index: previewed.indexPath?.item, animated: true)
         }
     }
 
@@ -728,7 +728,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
+        push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
     }
 
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {

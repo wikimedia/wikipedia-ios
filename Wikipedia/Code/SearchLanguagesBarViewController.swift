@@ -166,7 +166,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         present(WMFThemeableNavigationController(rootViewController: languagesVC!, theme: self.theme), animated: true, completion: nil)
     }
     
-    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
+    func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
         // If the selected language will not be displayed because we only display max 3 languages, move it to index 2
         if(languageBarLanguages().firstIndex(of: language) == nil){
             MWKLanguageLinkController.sharedInstance().reorderPreferredLanguage(language, to: 2)

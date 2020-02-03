@@ -1,5 +1,5 @@
-
 import UIKit
+import WMF
 
 @objc protocol DescriptionEditViewControllerDelegate: NSObjectProtocol {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController)
@@ -21,7 +21,6 @@ import UIKit
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
 
-    @objc var article: MWKArticle? = nil
     private let showWarningIfDescriptionLongerThanCount = 90
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
@@ -29,10 +28,24 @@ import UIKit
     // MARK: Event logging
     @objc var editFunnel: EditFunnel?
     @objc var editFunnelSource: EditFunnelSource = .unknown
-    private var isAddingNewTitleDescription: Bool {
-        return article?.entityDescription == nil
+    
+    // These would be better as let's and a required initializer but it's not an opportune time to ditch the storyboard
+    // Convert these to non-force unwrapped if there's some way to ditch the storyboard or provide an initializer with the storyboard
+    var article: WMFArticle!
+    var articleURL: URL!
+    var descriptionSource: ArticleDescriptionSource!
+    var isAddingNewTitleDescription: Bool!
+    var dataStore: MWKDataStore!
+    static func with(articleURL: URL, article: WMFArticle, descriptionSource: ArticleDescriptionSource, dataStore: MWKDataStore, theme: Theme) -> DescriptionEditViewController {
+        let vc = wmf_initialViewControllerFromClassStoryboard()!
+        vc.articleURL = articleURL
+        vc.article = article
+        vc.descriptionSource = descriptionSource
+        vc.isAddingNewTitleDescription = descriptionSource == .none
+        vc.dataStore = dataStore
+        return vc
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +62,7 @@ import UIKit
         view.wmf_configureSubviewsForDynamicType()
         apply(theme: theme)
         
-        if let existingDescription = article?.entityDescription {
+        if let existingDescription = article.wikidataDescription {
             descriptionTextView.text = existingDescription
             title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
         } else {
@@ -120,7 +133,7 @@ import UIKit
 
     private var subTitleLabelAttributedString: NSAttributedString {
         let formatString = WMFLocalizedString("description-edit-for-article", value: "Title description for %1$@", comment: "String describing which article title description is being edited. %1$@ is replaced with the article title")
-        return String.localizedStringWithFormat(formatString, article?.displaytitle ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
+        return String.localizedStringWithFormat(formatString, article.displayTitle ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
     }
     
     private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
@@ -180,7 +193,7 @@ import UIKit
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: isAddingNewTitleDescription, language: article?.url.wmf_language)
+        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: isAddingNewTitleDescription, language: articleURL.wmf_language)
         save()
     }
 
@@ -197,10 +210,8 @@ import UIKit
         wmf_hideKeyboard()
         
         guard
-            let article = article,
-            let dataStore = article.dataStore,
-            let wikidataID = article.wikidataId,
-            let language = article.url.wmf_language
+            let wikidataID = article.wikidataID,
+            let language = articleURL.wmf_language
         else {
             enableProgressiveButton(true)
             assertionFailure("Expected article, datastore or article url not found")
@@ -217,17 +228,17 @@ import UIKit
                 return
         }
         
-        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, forWikidataID: wikidataID, language: language) { error in
+        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: descriptionSource, forWikidataID: wikidataID, language: language) { error in
             DispatchQueue.main.async {
                 let presentingVC = self.presentingViewController
                 self.enableProgressiveButton(true)
                 if let error = error {
                     let apiErrorCode = (error as? WikidataAPIResult.APIError)?.code
                     let errorText = apiErrorCode ?? "\((error as NSError).domain)-\((error as NSError).code)"
-                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: article.url.wmf_language, errorText: errorText)
+                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleURL.wmf_language, errorText: errorText)
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 } else {
-                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: article.url.wmf_language)
+                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleURL.wmf_language)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)

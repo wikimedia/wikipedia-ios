@@ -9,6 +9,8 @@ public class Configuration: NSObject {
     @objc public static let current: Configuration = {
         #if WMF_LOCAL
         return .local
+        #elseif WMF_APPS_LABS
+        return .appsLabs
         #elseif WMF_LABS
         return .betaLabs
         #else
@@ -18,7 +20,7 @@ public class Configuration: NSObject {
     
     // MARK: Configurations
     
-    static let production: Configuration = {
+    public static let production: Configuration = {
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
             mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getProductionBuilderFactory(),
@@ -30,7 +32,7 @@ public class Configuration: NSObject {
         var mobileAppsServicesHostComponents = URLComponents()
         mobileAppsServicesHostComponents.scheme = Scheme.http
         mobileAppsServicesHostComponents.host = Domain.localhost
-        mobileAppsServicesHostComponents.port = 6927
+        mobileAppsServicesHostComponents.port = 8888
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
             mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getStagingBuilderFactory(with: mobileAppsServicesHostComponents),
@@ -38,13 +40,14 @@ public class Configuration: NSObject {
         )
     }()
     
-    static let mobileAppsServicesLabs: Configuration = {
-        var mobileAppsServicesHostComponents = URLComponents()
-        mobileAppsServicesHostComponents.scheme = Scheme.https
-        mobileAppsServicesHostComponents.host = Domain.mobileAppsServicesLabs
+    static let appsLabs: Configuration = {
+        var appsLabsHostComponents = URLComponents()
+        appsLabsHostComponents.scheme = Scheme.https
+        appsLabsHostComponents.host = Domain.appsLabs
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
-            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getStagingBuilderFactory(with: mobileAppsServicesHostComponents),
+            otherDomains: [Domain.wikipedia],
+            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getStagingBuilderFactory(with: appsLabsHostComponents),
             mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
         )
     }()
@@ -65,12 +68,13 @@ public class Configuration: NSObject {
         static let https = "https"
     }
     
-    struct Domain {
+    public struct Domain {
         static let wikipedia = "wikipedia.org"
         static let wikidata = "wikidata.org"
         static let mediaWiki = "mediawiki.org"
         static let betaLabs = "wikipedia.beta.wmflabs.org"
-        static let mobileAppsServicesLabs = "mobileapps.wmflabs.org"
+        static let appsLabs = "apps.wmflabs.org" // Apps team's labs instance
+        static let mobileAppsServicesLabs = "mobileapps.wmflabs.org" // Product Infrastructure team's labs instance
         static let localhost = "localhost"
         static let englishWikipedia = "en.wikipedia.org"
         static let wikimedia = "wikimedia.org"

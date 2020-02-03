@@ -1,39 +1,38 @@
-
 import UIKit
 import WMF
 
-private extension CharacterSet {
-    static let pathComponentAllowed: CharacterSet = {
-        var allowed = CharacterSet.urlPathAllowed
-        allowed.remove(charactersIn: "/.")
-        return allowed
-    }()
-}
-
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController {
-    
+class ArticleViewController: ViewController {    
     enum ViewState {
-        case unknown
+        case initial
         case loading
-        case data
+        case loaded
+        case error
     }
     
     internal lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
     
+    /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
+    internal let article: WMFArticle
+    
+    /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
     @objc public let articleURL: URL
+    let articleLanguage: String
+
     public var visibleSectionAnchor: String? // TODO: Implement
     @objc public var loadCompletion: (() -> Void)?
     
-    private let schemeHandler: SchemeHandler
+    internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
-    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
-    internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
-    private let cacheController: CacheController
-    private let article: WMFArticle
+  
 
+    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
+    private let cacheController: CacheController
+    
+    private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
+    
     private var leadImageHeight: CGFloat = 210
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
@@ -45,8 +44,10 @@ class ArticleViewController: ViewController {
         }
         
         self.articleURL = articleURL
-        self.dataStore = dataStore
+        self.articleLanguage = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
         self.article = article
+
+        self.dataStore = dataStore
         self.schemeHandler = SchemeHandler.shared // TODO: DI?
         self.schemeHandler.forceCache = forceCache
         self.schemeHandler.cacheController = cacheController
@@ -166,14 +167,16 @@ class ArticleViewController: ViewController {
     
     // MARK: Loading
     
-    private var state: ViewState = .loading {
+    internal var state: ViewState = .initial {
         didSet {
             switch state {
-            case .unknown:
-                fakeProgressController.stop()
+            case .initial:
+                break
             case .loading:
                 fakeProgressController.start()
-            case .data:
+            case .loaded:
+                fakeProgressController.stop()
+            case .error:
                 fakeProgressController.stop()
             }
         }
@@ -200,6 +203,8 @@ class ArticleViewController: ViewController {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
+        loadIfNecessary()
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -211,6 +216,7 @@ class ArticleViewController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
+        saveArticleScrollPosition()
     }
     
     // MARK: Theme
@@ -231,7 +237,7 @@ class ArticleViewController: ViewController {
         view.backgroundColor = theme.colors.paperBackground
         toolbarController.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
-        if state == .data {
+        if state == .loaded {
             messagingController.updateTheme(theme)
         }
     }
@@ -378,6 +384,77 @@ class ArticleViewController: ViewController {
         super.scrollViewDidScrollToTop(scrollView)
         updateTableOfContentsHighlight()
     }
+    
+    // MARK: Article load
+    var footerLoadGroup: DispatchGroup?
+    var languageCount: Int = 0
+    
+    func loadIfNecessary() {
+        guard state == .initial else {
+            return
+        }
+        load()
+    }
+    
+    func load() {
+        state = .loading
+        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
+            loadLeadImage(with: leadImageURL)
+        }
+        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
+            WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
+            return
+        }
+        
+        footerLoadGroup = DispatchGroup()
+        footerLoadGroup?.enter() // will leave on setup complete
+        footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
+            self?.setupFooter()
+            self?.footerLoadGroup = nil
+        }
+        
+        let request = URLRequest(url: mobileHTMLURL)
+        webView.load(request)
+        
+        guard let key = article.key else {
+            return
+        }
+        footerLoadGroup?.enter()
+        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            self.footerLoadGroup?.leave()
+        }
+        footerLoadGroup?.enter()
+        languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
+            self.languageCount = links.count
+            self.footerLoadGroup?.leave()
+        }) { (error) in
+            self.footerLoadGroup?.leave()
+        }
+    }
+    
+    func markArticleAsViewed() {
+        article.viewedDate = Date()
+        try? article.managedObjectContext?.save()
+    }
+    
+    func saveArticleScrollPosition() {
+        getVisibleSectionId { (sectionId) in
+            guard let item = self.tableOfContentsItems.first(where: { $0.id == sectionId }) else {
+                return
+            }
+            assert(Thread.isMainThread)
+            self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
+            self.article.viewedFragment = item.anchor
+            try? self.article.managedObjectContext?.save()
+
+        }
+    }
+    
+    // MARK: Analytics
+    
+    internal lazy var editFunnel: EditFunnel = EditFunnel.shared
+    internal lazy var shareFunnel: WMFShareFunnel? = WMFShareFunnel(article: article)
+    internal lazy var readingListsFunnel = ReadingListsFunnel.shared
 }
 
 private extension ArticleViewController {
@@ -387,15 +464,19 @@ private extension ArticleViewController {
         setupSearchButton()
         addNotificationHandlers()
         setupWebView()
-        load()
     }
     
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
         toolbarController.setSavedState(isSaved: article.isSaved)
+    }
+    
+    @objc func applicationWillResignActive(_ notification: Notification) {
+        saveArticleScrollPosition()
     }
     
     func setupSearchButton() {
@@ -419,12 +500,13 @@ private extension ArticleViewController {
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
         let imageTopConstraint = leadImageView.topAnchor.constraint(equalTo:  leadImageContainerView.topAnchor)
+        imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
         
         guard let siteURL = articleURL.wmf_site else {
             DDLogError("Missing site for \(articleURL)")
-            alertManager.showErrorAlert(RequestError.invalidParameters, sticky: true, dismissPreviousAlerts: true)
+            showGenericError()
             return
         }
         
@@ -441,22 +523,7 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
-        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
-        let language = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
-        messagingController.setup(with: webView, language: language, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustment: textSizeAdjustment, userGroups: userGroups)
-    }
-    
-    func load() {
-        state = .loading
-        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
-            loadLeadImage(with: leadImageURL)
-        }
-        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: WMFURLSchemeHandlerScheme) else {
-            WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
-            return
-        }
-        let request = URLRequest(url: mobileHTMLURL)
-        webView.load(request)
+        messagingController.setup(with: webView, language: articleLanguage, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
     func setupToolbar() {
@@ -468,68 +535,9 @@ private extension ArticleViewController {
             
 }
 
-extension ArticleViewController: ArticleWebMessageHandling {
-    func didGetTableOfContents(messagingcontroller: ArticleWebMessagingController, items: [TableOfContentsItem]) {
-        let titleItem = TableOfContentsItem(id: -1, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: -1, indentationLevel: 0)
-        var allItems: [TableOfContentsItem] = [titleItem]
-        allItems.append(contentsOf: items)
-        tableOfContentsItems = allItems
-    }
-    
-    func didTapLink(messagingController: ArticleWebMessagingController, title: String) {
-        handleLink(with: title)
-    }
-    
-    func didSetup(messagingController: ArticleWebMessagingController) {
-        state = .data
-        webView.becomeFirstResponder()
-        showWIconPopoverIfNecessary()
-        loadCompletion?()
-    }
-    
-    func didFinalSetup(messagingController: ArticleWebMessagingController) {
-        schemeHandler.forceCache = false
-    }
-    
-    func didGetLeadImage(messagingcontroller: ArticleWebMessagingController, source: String, width: Int?, height: Int?) {
-        guard leadImageView.image == nil && leadImageView.wmf_imageURLToFetch == nil else {
-            return
-        }
-        guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {
-            return
-        }
-        loadLeadImage(with: leadImageURLToRequest)
-    }
-    
-    
-}
-
-extension ArticleViewController: ArticleToolbarHandling {
-    func showTableOfContents(from controller: ArticleToolbarController) {
-        showTableOfContents()
-    }
-    
-    func hideTableOfContents(from controller: ArticleToolbarController) {
-        hideTableOfContents()
-    }
-    
-    var isTableOfContentsVisible: Bool {
-        return tableOfContentsController.viewController.displayMode == .inline && tableOfContentsController.viewController.isVisible
-    }
-    
-    func toggleSave(from viewController: ArticleToolbarController) {
-        article.isSaved = !article.isSaved
-        try? article.managedObjectContext?.save()
-    }
-    
-    func showThemePopover(from controller: ArticleToolbarController) {
-        themesPresenter.showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
-    }
-    
-    func saveButtonWasLongPressed(from controller: ArticleToolbarController) {
-        let addArticlesToReadingListVC = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
-        let nc = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListVC, theme: theme)
-        nc.setNavigationBarHidden(false, animated: false)
+extension ArticleViewController {
+    func presentEmbedded(_ viewController: UIViewController, style: WMFThemeableNavigationControllerStyle) {
+        let nc = WMFThemeableNavigationController(rootViewController: viewController, theme: theme, style: style)
         present(nc, animated: true)
     }
 }
@@ -562,55 +570,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 
 }
 
-private extension UIViewController {
-    
-    struct Offsets {
-        let top: CGFloat?
-        let bottom: CGFloat?
-        let leading: CGFloat?
-        let trailing: CGFloat?
-    }
-    
-    func addChildViewController(childViewController: UIViewController, offsets: Offsets) {
-        addChild(childViewController)
-        childViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(childViewController.view)
-        
-        var constraintsToActivate: [NSLayoutConstraint] = []
-        if let top = offsets.top {
-            let topConstraint = childViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: top)
-            constraintsToActivate.append(topConstraint)
-        }
-        
-        if let bottom = offsets.bottom {
-            let bottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: bottom)
-            constraintsToActivate.append(bottomConstraint)
-        }
-        
-        if let leading = offsets.leading {
-            let leadingConstraint = childViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leading)
-            constraintsToActivate.append(leadingConstraint)
-        }
-        
-        if let trailing = offsets.trailing {
-            let trailingConstraint = childViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: trailing)
-            constraintsToActivate.append(trailingConstraint)
-        }
-        
-        NSLayoutConstraint.activate(constraintsToActivate)
-        
-        childViewController.didMove(toParent: self)
-    }
-}
-
-//WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title")
 //WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
 //WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-title", nil, nil, @"Edit title description", @"Title for button used to show title description editor")
-//WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
-//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
-//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
-//WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share {{Identical|Share}}")
-//WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}")
 //WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
 //WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")

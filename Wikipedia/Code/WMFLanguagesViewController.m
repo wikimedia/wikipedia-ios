@@ -6,6 +6,7 @@
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import "WMFArticleLanguagesSectionFooter.h"
+#import "WMFLanguagesViewControllerDelegate.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;
@@ -324,7 +325,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKLanguageLink *selectedLanguage = [self languageAtIndexPath:indexPath];
-    if ([self.delegate respondsToSelector:@selector(languagesController:didSelectLanguage:)]) {
+    if ([self.delegate respondsToSelector:@selector(languagesController:didSelectLanguage:)] && selectedLanguage) {
         [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
     } else if (self.showExploreFeedCustomizationSettings && [self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
         self.title = nil;
