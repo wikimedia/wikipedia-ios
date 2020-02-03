@@ -384,9 +384,9 @@ extension ColumnarCollectionViewController: UICollectionViewDelegate {
 }
 
 extension ColumnarCollectionViewController {
-    func wmf_push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
+    func push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
         logFeedEventIfNeeded(for: context, index: index, pushedViewController: viewController)
-        wmf_push(viewController, animated: animated)
+        push(viewController, animated: animated)
     }
 
     func logFeedEventIfNeeded(for context: FeedFunnelContext?, index: Int?, pushedViewController: UIViewController) {

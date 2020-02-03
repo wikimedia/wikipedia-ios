@@ -2,7 +2,7 @@ import Foundation
 extension ViewController: ArticlePreviewingDelegate {
     @objc func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, animated: true)
+        push(articleController, animated: true)
     }
     
     @objc func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {

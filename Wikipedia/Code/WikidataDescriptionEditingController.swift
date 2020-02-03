@@ -33,6 +33,23 @@ enum WikidataPublishingError: LocalizedError {
     case unknown
 }
 
+public enum ArticleDescriptionSource: String {
+    case none
+    case unknown
+    case central
+    case local
+    
+    public static func from(string: String?) -> ArticleDescriptionSource {
+        guard let sourceString = string else {
+            return .none
+        }
+        guard let source = ArticleDescriptionSource(rawValue: sourceString) else {
+            return .unknown
+        }
+        return source
+    }
+}
+
 @objc public final class WikidataDescriptionEditingController: Fetcher {
     static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
     /// Publish new wikidata description.
@@ -95,11 +112,5 @@ enum WikidataPublishingError: LocalizedError {
                 }
             }
         }
-    }
-}
-
-public extension MWKArticle {
-    @objc var isWikidataDescriptionEditable: Bool {
-        return wikidataId != nil && descriptionSource != .local
     }
 }

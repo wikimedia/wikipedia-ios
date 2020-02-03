@@ -40,15 +40,7 @@ fileprivate extension MWKArticle {
         ]
     }
     func mobileViewDescriptionSource() -> String? {
-        switch descriptionSource {
-        case .local:
-            return "local"
-        case .central:
-            return "central"
-        default:
-            // should default use "local" too?
-            return nil
-        }
+        return descriptionSource
     }
     func mobileViewImage(size: CGSize) -> [String: Any]? {
         guard let imgName = image?.canonicalFilename() else {

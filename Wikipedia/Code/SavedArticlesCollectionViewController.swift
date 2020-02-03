@@ -89,6 +89,6 @@ extension SavedArticlesCollectionViewController: SavedArticlesCollectionViewCell
         }
         let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: article.sortedNonDefaultReadingLists) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
-        wmf_push(viewController, animated: true)
+        push(viewController, animated: true)
     }
 }

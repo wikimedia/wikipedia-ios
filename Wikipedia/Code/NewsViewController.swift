@@ -86,7 +86,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
+        push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }
 
     // MARK: - UIViewControllerPreviewingDelegate
@@ -126,7 +126,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
-        wmf_push(viewControllerToCommit, animated: true)
+        push(viewControllerToCommit, animated: true)
     }
 
     // MARK: - CollectionViewFooterDelegate

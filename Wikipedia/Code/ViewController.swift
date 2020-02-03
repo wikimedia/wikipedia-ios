@@ -501,6 +501,15 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     @objc func wButtonTapped(_ sender: UIButton) {
         navigationController?.popToRootViewController(animated: true)
     }
+    
+    // MARK: Errors
+    
+    internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
+    
+    func showGenericError() {
+        alertManager.showErrorAlert(RequestError.unexpectedResponse, sticky: false, dismissPreviousAlerts: false)
+    }
+    
 }
 
 extension ViewController: WMFEmptyViewContainer {
