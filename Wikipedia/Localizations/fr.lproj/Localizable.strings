@@ -800,6 +800,7 @@
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";
 "table-of-contents-heading" = "Contenus";
+"table-of-contents-hide-button-label" = "Masquer la table des matières";
 "table-title-other" = "Plus d’informations";
 "talk-page-add-discussion-accessibility-label" = "Ajouter une discussion";
 "talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";

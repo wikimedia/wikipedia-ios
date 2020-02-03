@@ -24,6 +24,7 @@
 
 #import "WikiTextSectionUploader.h"
 #import "WMFShareFunnel.h"
+#import "WMFLanguagesViewControllerDelegate.h"
 
 // Model
 #import "MWKLicense.h"

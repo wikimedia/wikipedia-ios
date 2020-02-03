@@ -751,7 +751,7 @@ extension TalkPageContainerViewController: EmptyViewControllerDelegate {
 //MARK: WMFPreferredLanguagesViewControllerDelegate
 
 extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDelegate {
-    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
+    func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
         let newSiteURL = language.siteURL()
         if siteURL != newSiteURL {
                 siteURL = newSiteURL
