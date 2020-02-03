@@ -32,7 +32,9 @@ class ArticleViewController: ViewController {
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-    
+    private lazy var referenceFetcher: ArticleReferencesFetcher = ArticleReferencesFetcher()
+    private var references: References?
+
     private var leadImageHeight: CGFloat = 210
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
@@ -428,6 +430,16 @@ class ArticleViewController: ViewController {
             self.languageCount = links.count
             self.footerLoadGroup?.leave()
         }) { (error) in
+            self.footerLoadGroup?.leave()
+        }
+        footerLoadGroup?.enter()
+        referenceFetcher.fetchReferences(for: articleURL) { (result) in
+            switch result {
+            case .success(let references):
+                self.references = references
+            case .failure(let error):
+                DDLogError("Error fetching references for \(self.articleURL): \(error)")
+            }
             self.footerLoadGroup?.leave()
         }
     }
