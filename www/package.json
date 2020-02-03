@@ -3,9 +3,6 @@
   "description": "JS files required for the Wikipedia app",
   "repository": "https://gerrit.wikimedia.org/r/apps/ios/wikipedia",
   "version": "0.1.0",
-  "dependencies": {
-    "wikimedia-page-library": "6.5.0"
-  },
   "devDependencies": {
     "grunt": "1.0.4",
     "grunt-browserify": "5.3.0",

@@ -1,6 +1,29 @@
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 
-const stringEndsWith = (str, suffix) => str.indexOf(suffix, str.length - suffix.length) !== -1
+class SectionFilter {
+  acceptNode(node) {
+      return node.tagName === 'SECTION'
+  }
+}
+
+exports.getFirstOnScreenSectionId = (insetTop) => {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, new SectionFilter())
+  let node
+  let sectionId = -1
+  while ((node = walker.nextNode())) {
+      const rect = node.getBoundingClientRect()
+      if (rect.top <= insetTop + 1) {
+          const sectionIdString = node.getAttribute('data-mw-section-id')
+          if (!sectionIdString) {
+              continue
+          }
+          sectionId = parseInt(sectionIdString)
+      } else if (sectionId !== -1) {
+          break
+      }
+  }
+  return sectionId
+}
 
 exports.getImageWithSrc = src => document.querySelector(`img[src$="${src}"]`)
 

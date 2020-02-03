@@ -97,7 +97,7 @@ class RandomArticleViewController: ArticleViewController {
                     return
                 }
                 self.secondToolbar.items = []
-                self.wmf_push(randomVC, animated: true)
+                self.push(randomVC, animated: true)
             }
         }
     }

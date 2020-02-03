@@ -71,6 +71,16 @@ extension WMFArticle {
         } else {
             coordinate = nil
         }
+        if let id = summary.id {
+            pageID = NSNumber(value: id)
+        } else {
+            pageID = nil
+        }
+        if let timestamp = summary.timestamp {
+            lastModifiedDate = DateFormatter.wmf_iso8601()?.date(from: timestamp)
+        } else {
+            lastModifiedDate = nil
+        }
     }
 }
 

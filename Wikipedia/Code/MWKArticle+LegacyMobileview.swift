@@ -41,15 +41,7 @@ fileprivate extension MWKArticle {
         ]
     }
     func mobileViewDescriptionSource() -> String? {
-        switch descriptionSource {
-        case .local:
-            return "local"
-        case .central:
-            return "central"
-        default:
-            // should default use "local" too?
-            return nil
-        }
+        return descriptionSource
     }
     func mobileViewImage(size: CGSize) -> [String: Any]? {
         guard let imgName = image?.canonicalFilename() else {
@@ -182,7 +174,7 @@ extension MWKArticle {
             return
         }
 // TODO: baseURI will need to change once we switch back to prod for mobilehtml!!
-        guard let mobileappsHost = Configuration.mobileAppsServicesLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).host else {
+        guard let mobileappsHost = Configuration.appsLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).host else {
             assertionFailure("Mobileapps url host not available")
             return
         }

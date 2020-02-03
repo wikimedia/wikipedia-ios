@@ -12,15 +12,12 @@ enum SchemeHandlerError: Error {
 }
 
 final class SchemeHandler: NSObject {
-    @objc let scheme: String
+    let scheme: String
     private let session: Session
     private var activeSessionTasks: [URLRequest: URLSessionTask] = [:]
     private var activeCacheOperations: [URLRequest: Operation] = [:]
     private var activeSchemeTasks = NSMutableSet(array: [])
     
-    private let fileCache: SchemeHandlerCache
-    private let fileHandler: FileHandler
-    private let defaultHandler: DefaultHandler
     private let cacheQueue: OperationQueue = OperationQueue()
     
     private let notModifiedQueue = DispatchQueue(label: "org.wikimedia.schemeHandler.notModified")
@@ -29,25 +26,11 @@ final class SchemeHandler: NSObject {
     var cacheController: CacheController?
     var forceCache: Bool = false
     
-    @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
+    @objc public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
     
     required init(scheme: String, session: Session) {
         self.scheme = scheme
         self.session = session
-        let cache = SchemeHandlerCache()
-        self.fileCache = cache
-        self.fileHandler = FileHandler(cacheDelegate: cache)
-        self.defaultHandler = DefaultHandler(session: session)
-    }
-    
-    func setResponseData(data: Data?, contentType: String?, path: String, requestURL: URL) {
-        var headerFields = [String: String](minimumCapacity: 1)
-        if let contentType = contentType {
-            headerFields["Content-Type"] = contentType
-        }
-        if let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
-            fileCache.cacheResponse(response, data: data, path: path)
-        }
     }
 }
 
@@ -65,99 +48,51 @@ extension SchemeHandler: WKURLSchemeHandler {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
         }
+        
         #if WMF_LOCAL
         components.scheme = components.host == "localhost" ? "http" : "https"
         #else
         components.scheme =  "https"
         #endif
-        guard let pathComponents = (components.path as NSString?)?.pathComponents,
-            pathComponents.count >= 2 else {
+        
+        guard
+            let requestURL = components.url,
+            let request = cacheController?.newCachePolicyRequest(from: originalRequest as NSURLRequest, newURL: requestURL)
+        else {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
         }
         
-        let baseComponent = pathComponents[1]
-        
-        let localCompletionBlock: (URLResponse?, Data?, Error?) -> Void = { (response, data, error) in
-            DispatchQueue.main.async {
-                guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                    return
-                }
-                
-                if response == nil && error == nil {
-                    urlSchemeTask.didFailWithError(SchemeHandlerError.unexpectedResponse)
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                    return
-                }
-                
-                if let error = error {
-                    urlSchemeTask.didFailWithError(error)
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                    return
-                }
-            
-                if let response = response {
-                    urlSchemeTask.didReceive(response)
-                }
-                
-                if let data = data {
-                    urlSchemeTask.didReceive(data)
-                }
-                urlSchemeTask.didFinish()
-                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-            }
-        }
-        
         addSchemeTask(urlSchemeTask: urlSchemeTask)
 
-        switch baseComponent {
-        case FileHandler.basePath:
-            fileHandler.handle(pathComponents: pathComponents, requestURL: originalRequestURL, completion: localCompletionBlock)
-            
-        default:
-            
-            guard let requestURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: originalRequestURL),
-                let request = cacheController?.newCachePolicyRequest(from: originalRequest as NSURLRequest, newURL: requestURL) else {
-                    urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
-                    removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                    return
-            }
-            
-            // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
-            // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
-            let op = BlockOperation { [weak urlSchemeTask] in
-                
-                //forceCache will be true for ArticleViewControllers when coming from Navigation State Controller. In this case stale data is fine.
-                if self.forceCache,
-                    let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                    DispatchQueue.main.async {
-                        
-                        guard let urlSchemeTask = urlSchemeTask else {
-                            return
-                        }
-                        
-                        self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
-                        
-                        urlSchemeTask.didReceive(cachedResponse.response)
-                        urlSchemeTask.didReceive(cachedResponse.data)
-                        
-                        urlSchemeTask.didFinish()
-                        self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                    }
-                    return
-                }
-                
+        // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
+        // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
+        let op = BlockOperation { [weak urlSchemeTask] in
+            //forceCache will be true for ArticleViewControllers when coming from Navigation State Controller. In this case stale data is fine.
+            if self.forceCache,
+                let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
                 DispatchQueue.main.async {
                     guard let urlSchemeTask = urlSchemeTask else {
                         return
                     }
                     self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
-                    self.kickOffDataTask(handler: self.defaultHandler, request: request, urlSchemeTask: urlSchemeTask)
+                    urlSchemeTask.didReceive(cachedResponse.response)
+                    urlSchemeTask.didReceive(cachedResponse.data)
+                    urlSchemeTask.didFinish()
+                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 }
+                return
             }
-            activeCacheOperations[urlSchemeTask.request] = op
-            cacheQueue.addOperation(op)
+            DispatchQueue.main.async {
+                guard let urlSchemeTask = urlSchemeTask else {
+                    return
+                }
+                self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
+                self.kickOffDataTask(request: request, urlSchemeTask: urlSchemeTask)
+            }
         }
+        activeCacheOperations[urlSchemeTask.request] = op
+        cacheQueue.addOperation(op)
         
     }
     
@@ -186,7 +121,7 @@ extension SchemeHandler: WKURLSchemeHandler {
 }
 
 private extension SchemeHandler {
-    func kickOffDataTask(handler: RemoteSubHandler, request: URLRequest, urlSchemeTask: WKURLSchemeTask) {
+    func kickOffDataTask(request: URLRequest, urlSchemeTask: WKURLSchemeTask) {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
             return
         }
@@ -278,8 +213,8 @@ private extension SchemeHandler {
             }
         }
         
-        let dataTask = handler.dataTaskForRequest(request, callback: callback)
-        addSessionTask(request: urlSchemeTask.request, dataTask: dataTask)
+        let dataTask = session.dataTask(with: request, callback: callback)
+        addSessionTask(request: request, dataTask: dataTask)
         dataTask.resume()
     }
     

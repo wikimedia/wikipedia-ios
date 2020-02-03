@@ -16,7 +16,6 @@
 // View Controllers
 #import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
-#import "UIViewController+WMFArticlePresentation.h"
 
 #import "AppDelegate.h"
 
@@ -199,7 +198,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleSaveToDiskDidFail:)
-                                                 name:WMFArticleSaveToDiskDidFailNotification
+                                                 name:[WMFSavedArticlesFetcher saveToDiskDidFail]
                                                object:nil];
 
     [[NSUserDefaults wmf] addObserver:self
@@ -224,7 +223,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editWasPublished:)
-                                                 name:WMFEditPublishedNotification
+                                                 name:[WMFSectionEditorViewController editWasPublished]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1904,7 +1903,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Article save to disk did fail
 
 - (void)articleSaveToDiskDidFail:(NSNotification *)note {
-    NSError *error = (NSError *)note.userInfo[WMFArticleSaveToDiskDidFailErrorKey];
+    NSError *error = (NSError *)note.userInfo[[WMFSavedArticlesFetcher saveToDiskDidFailErrorKey]];
     if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
         [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
                                                              sticky:YES

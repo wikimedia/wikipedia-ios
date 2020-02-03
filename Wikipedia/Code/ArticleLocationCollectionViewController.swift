@@ -93,7 +93,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
             return
         }
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
+        push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
     }
 
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
@@ -214,7 +214,7 @@ extension ArticleLocationCollectionViewController {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: previewedIndexPath?.item, maxViewed: maxViewed)
         }
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        wmf_push(viewControllerToCommit, animated: true)
+        push(viewControllerToCommit, animated: true)
     }
 }
 
