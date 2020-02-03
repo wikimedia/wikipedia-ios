@@ -1,9 +1,7 @@
-#import <UIKit/UIKit.h>
-@import WMF;
+@import UIKit;
+@import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class WMFNavigationBar;
 
 /*!
  @class        WMFViewController

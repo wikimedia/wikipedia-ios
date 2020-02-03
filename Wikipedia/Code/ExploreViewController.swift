@@ -711,7 +711,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             potd.setOverlayViewTopBarHidden(false)
             present(potd, animated: false)
             FeedFunnel.shared.logFeedCardOpened(for: previewed.context)
-        } else if let avc = viewControllerToCommit as? WMFLegacyArticleViewController {
+        } else if let avc = viewControllerToCommit as? ArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
             wmf_push(avc, context: previewed.context, index: previewed.indexPath?.item, animated: false)
         } else {

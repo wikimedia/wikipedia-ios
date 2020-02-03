@@ -5,6 +5,9 @@ protocol ArticleToolbarHandling: class {
     func toggleSave(from controller: ArticleToolbarController)
     func saveButtonWasLongPressed(from controller: ArticleToolbarController)
     func showThemePopover(from controller: ArticleToolbarController)
+    func showTableOfContents(from controller: ArticleToolbarController)
+    func hideTableOfContents(from controller: ArticleToolbarController)
+    var isTableOfContentsVisible: Bool { get }
 }
 
 class ArticleToolbarController: Themeable {
@@ -27,11 +30,29 @@ class ArticleToolbarController: Themeable {
         item.apply(theme: theme)
         return item
     }()
+    
+    lazy var showTableOfContentsButton: IconBarButtonItem = {
+        let item = IconBarButtonItem(iconName: "toc", target: self, action: #selector(showTableOfContents), for: .touchUpInside)
+        item.accessibilityLabel = WMFLocalizedString("table-of-contents-button-label", value: "Table of contents", comment: "Accessibility label for the Table of Contents button {{Identical|Table of contents}}")
+        item.apply(theme: theme)
+        return item
+    }()
+    
+    lazy var hideTableOfContentsButton: IconBarButtonItem = {
+        let item = IconBarButtonItem(iconName: "toc", target: self, action: #selector(hideTableOfContents), for: .touchUpInside)
+        if let button = item.customView as? UIButton {
+            button.layer.cornerRadius = 5
+            button.layer.masksToBounds = true
+        }
+        item.accessibilityLabel = WMFLocalizedString("table-of-contents-hide-button-label", value: "Hide table of contents", comment: "Accessibility label for the hide Table of Contents button")
+        item.apply(theme: theme)
+        return item
+    }()
 
     init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
         self.toolbar = toolbar
         self.delegate = delegate
-        setup()
+        update()
     }
     
     // MARK: Actions
@@ -49,6 +70,14 @@ class ArticleToolbarController: Themeable {
     
     @objc func showThemes() {
         delegate?.showThemePopover(from: self)
+    }
+    
+    @objc func showTableOfContents() {
+        delegate?.showTableOfContents(from: self)
+    }
+    
+    @objc func hideTableOfContents() {
+        delegate?.hideTableOfContents(from: self)
     }
     
     // MARK: State
@@ -72,19 +101,24 @@ class ArticleToolbarController: Themeable {
             }
             item.apply(theme: theme)
         }
+        hideTableOfContentsButton.customView?.backgroundColor = theme.colors.midBackground
     }
     
     func override(items: [UIBarButtonItem]) {
         // disable updating here if that's ever a thing
         toolbar.items = items
     }
-}
-
-private extension ArticleToolbarController {
-    func setup() {
-        let leadingFlex = UIBarButtonItem.flexibleSpaceToolbar()
-        let middleFlex = UIBarButtonItem.flexibleSpaceToolbar()
-        let trailingFlex = UIBarButtonItem.flexibleSpaceToolbar()
-        toolbar.items = [leadingFlex, saveButton, middleFlex, themeButton, trailingFlex]
+    
+    func update() {
+        let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
+        toolbar.items = [
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            tocItem,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            saveButton,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            themeButton,
+            UIBarButtonItem.flexibleSpaceToolbar()
+        ]
     }
 }
