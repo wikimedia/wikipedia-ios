@@ -34,6 +34,22 @@
 			<string>ခု</string>
 		</dict>
 	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d တည်းဖြတ်မှု</string>
+			<key>other</key>
+			<string>%1$d တည်းဖြတ်မှုများ</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -64,6 +80,22 @@
 			<string>%1$d သမိုင်းဝင်ဖြစ်ရပ်</string>
 			<key>other</key>
 			<string>%1$d သမိုင်းဝင်ဖြစ်ရပ်များ</string>
+		</dict>
+	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%2$@ ကတည်းက %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d တည်းဖြတ်မှု</string>
+			<key>other</key>
+			<string>%1$d တည်းဖြတ်မှုများ</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -212,6 +244,22 @@
 			<string>%1$d မိနစ်အကြာက</string>
 			<key>zero</key>
 			<string>ယခုလေးတင်</string>
+		</dict>
+	</dict>
+	<key>relative-date-months-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d လအကြာက</string>
+			<key>zero</key>
+			<string>ဤလ</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
