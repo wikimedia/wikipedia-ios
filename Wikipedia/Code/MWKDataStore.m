@@ -15,6 +15,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
+static const NSInteger WMFCurrentLibraryVersion = 9;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -76,7 +77,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }
     [article save:error];
 }
-
 
 #pragma mark - NSObject
 
@@ -496,7 +496,7 @@ static uint64_t bundleHash() {
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 8) {
         NSUserDefaults *ud = [NSUserDefaults wmf];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
@@ -504,18 +504,30 @@ static uint64_t bundleHash() {
         [ud synchronize];
         [moc wmf_setValue:@(8) forKey:WMFLibraryVersionKey];
     }
-    
+
     if (currentLibraryVersion < 9) {
         [self markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:moc];
         [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
     }
+
+    // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
+/// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
+/// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
-    static const NSInteger libraryVersion = 8;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
-    NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
-    if (currentLibraryVersion >= libraryVersion) {
+    // If the library value doesn't exist, it's a new library and can be set to the latest version
+    if (!libraryVersionNumber) {
+        [self.viewContext wmf_setValue:@(WMFCurrentLibraryVersion) forKey:WMFLibraryVersionKey];
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
+    // If the library version is >= the current version, we can skip the migration
+    if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
         if (completion) {
             completion();
         }
@@ -525,9 +537,7 @@ static uint64_t bundleHash() {
         dispatch_block_t done = ^{
             dispatch_async(dispatch_get_main_queue(), completion);
         };
-        if (currentLibraryVersion < libraryVersion) {
-            [self performUpdatesFromLibraryVersion:currentLibraryVersion inManagedObjectContext:moc];
-        }
+        [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
         done();
     }];
 }
