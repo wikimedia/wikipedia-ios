@@ -65,7 +65,7 @@ extension ArticleViewController {
             showGenericError()
             return
         }
-        let referencesVC = ReferencesViewController(references: references, theme: theme, delegate: self)
+        let referencesVC = ReferencesViewController(articleURL: articleURL, references: references, theme: theme, delegate: self)
         presentEmbedded(referencesVC, style: .sheet)
     }
 }
@@ -82,33 +82,18 @@ extension ArticleViewController: WMFLanguagesViewControllerDelegate {
 
 
 extension ArticleViewController: ReferencesViewControllerDelegate {
+    func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapAnchor anchor: String) {
+        dismiss(animated: true)
+        scroll(to: anchor, animated: true)
+    }
+    
     func referencesViewControllerUserDidTapClose(_ referencesViewController: ReferencesViewController) {
         dismiss(animated: true)
     }
     
     func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapLinkWithURL url: URL) {
-        dismiss(animated: true) {
-            self.handleLinkFromReferences(with: url)
-        }
+        dismiss(animated: true)
+        navigate(to: url)
     }
     
-    func handleLinkFromReferences(with url: URL) {
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        // Resolve relative URLs
-        guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
-            navigate(to: url)
-            return
-        }
-        // Check if this is the same article by comparing database keys
-        guard resolvedURL.wmf_databaseKey == articleURL.wmf_databaseKey else {
-            navigate(to: resolvedURL)
-            return
-        }
-        // Check for a fragment - if this is the same article and there's no fragment scroll to top?
-        guard let anchor = resolvedURL.fragment else {
-            scrollToTop()
-            return
-        }
-        scroll(to: anchor, animated: true)
-    }
 }
