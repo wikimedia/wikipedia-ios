@@ -95,7 +95,7 @@ public class CacheController {
     //todo: Settings hook, logout don't sync hook, etc.
     //clear out from core data, leave URL cache as-is.
 
-    public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
+    public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, variantId: String? = nil, variantGroupKey: String? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
         
         if !bypassGroupDeduping {
             
@@ -116,14 +116,8 @@ public class CacheController {
         
         gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
         
-        if let itemKey = itemKey {
-            dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
-                self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
-            }
-        } else {
-            dbWriter.add(url: url, groupKey: groupKey) { [weak self] (result) in
-                self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
-            }
+        dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey, variantId: variantId, variantGroupKey: variantGroupKey) { [weak self] (result) in
+            self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
         }
     }
     
