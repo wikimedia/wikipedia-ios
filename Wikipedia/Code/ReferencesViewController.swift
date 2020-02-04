@@ -166,14 +166,18 @@ extension ReferencesViewController: HTMLCollectionViewCellDelegate {
         }
         
         var maybeFoundIndexPath: IndexPath?
-        for (sectionIndex, list) in references.referenceLists.enumerated() {
-            guard let itemIndex = list.order.firstIndex(of: anchor) else {
-                continue
+        // If this is a link to another reference on this page
+        if references.referencesByID[anchor] != nil {
+            // Search for it in all the reference lists so we can scroll to it
+            for (sectionIndex, list) in references.referenceLists.enumerated() {
+                guard let itemIndex = list.order.firstIndex(of: anchor) else {
+                    continue
+                }
+                maybeFoundIndexPath = IndexPath(item: itemIndex, section: sectionIndex)
+                break
             }
-            maybeFoundIndexPath = IndexPath(item: itemIndex, section: sectionIndex)
-            break
         }
-        
+
         guard let foundIndexPath = maybeFoundIndexPath else {
             delegate?.referencesViewController(self, userDidTapAnchor: anchor)
             return
