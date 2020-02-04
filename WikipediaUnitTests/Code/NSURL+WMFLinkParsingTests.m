@@ -1,6 +1,5 @@
 #import <XCTest/XCTest.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import "NSString+WMFPageUtilities.h"
 
 @interface NSURL_WMFLinkParsingTests : XCTestCase
 
@@ -9,7 +8,7 @@
 @implementation NSURL_WMFLinkParsingTests
 
 - (void)testCitationURL {
-    XCTAssertTrue(([[NSURL URLWithString:[NSString stringWithFormat:@"#%@-0", WMFCitationFragmentSubstring]] wmf_isWikiCitation]));
+    XCTAssertTrue(([[NSURL URLWithString:@"#cite_note-0"] wmf_isWikiCitation]));
 }
 
 - (void)testURLWithoutFragmentIsNotCitation {
@@ -57,7 +56,7 @@
     NSString *urlString = @"https://en.wikipedia.org/api/rest_v1/page/talk/Username";
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSString *talkPageDatabaseKey = [url wmf_databaseKey];
-    XCTAssertTrue([talkPageDatabaseKey isEqualToString: urlString]);
+    XCTAssertTrue([talkPageDatabaseKey isEqualToString:urlString]);
     //todo: flesh this out. how do we handle sub paths after username/, query items after that, underscores for spaces, url percent encoding, etc.
 }
 
@@ -65,7 +64,7 @@
     NSString *urlString = @"https://es.wikipedia.org/api/rest_v1/page/talk/Username";
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSString *talkPageDatabaseKey = [url wmf_databaseKey];
-    XCTAssertTrue([talkPageDatabaseKey isEqualToString: urlString]);
+    XCTAssertTrue([talkPageDatabaseKey isEqualToString:urlString]);
 }
 
 @end

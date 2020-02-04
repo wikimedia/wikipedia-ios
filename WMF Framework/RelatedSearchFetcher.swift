@@ -9,7 +9,7 @@ final class RelatedSearchFetcher: Fetcher {
     @objc func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [String: ArticleSummary]?) -> Void) {
         guard
             let articleURL = articleURL,
-            let articleTitle = articleURL.wmf_titleWithUnderscores?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed)
+            let articleTitle = articleURL.percentEncodedPageTitleForPathComponents
         else {
             completion(Fetcher.invalidParametersError, nil)
             return

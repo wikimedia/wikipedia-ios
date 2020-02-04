@@ -110,7 +110,7 @@ public class ArticleSummaryFetcher: Fetcher {
     @discardableResult public func fetchSummaryForArticle(with articleKey: String, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> CancellationKey? {
         guard
             let articleURL = URL(string: articleKey),
-            let title = articleURL.wmf_percentEscapedTitle
+            let title = articleURL.percentEncodedPageTitleForPathComponents
         else {
             completion(nil, nil, Fetcher.invalidParametersError)
             return nil
