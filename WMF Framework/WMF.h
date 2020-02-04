@@ -40,7 +40,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import <WMF/NSDictionary+WMFPageViewsSortedByDate.h>
-#import <WMF/NSString+WMFPageUtilities.h>
 #import <WMF/MWKLicense.h>
 #import <WMF/NSString+SHA256.h>
 

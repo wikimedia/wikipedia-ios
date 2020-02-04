@@ -1,8 +1,8 @@
 #import <WMF/MWKTitle.h>
-#import <WMF/NSString+WMFPageUtilities.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMFComparison.h>
 #import <WMF/WMFHashing.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
