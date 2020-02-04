@@ -1,5 +1,6 @@
 extension ArticleViewController: ArticleWebMessageHandling {
     func didRecieve(action: ArticleWebMessagingController.Action) {
+        dismissReferencesPopover()
         switch action {
         case .setup:
             handlePCSDidFinishInitialSetup()
@@ -23,6 +24,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleFooterItem(type: type, payload: payload)
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
+        case .reference(let index, let group):
+            showReferences(group, selectedIndex: index)
         default:
             break
         }
@@ -69,7 +72,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .pageIssues:
             showPageIssues(with: payload)
         case .referenceList:
-            showReferences()
+            showReferencesList()
         }
     }
     

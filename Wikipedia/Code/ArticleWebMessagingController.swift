@@ -114,7 +114,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case finalSetup
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String?, text: String?, title: String?)
-        case reference(selectedIndex: Int, group: [Reference])
+        case reference(selectedIndex: Int, group: [WMFReference])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -125,32 +125,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case viewInBrowser
         case leadImage(source: String, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
-    }
-    
-    /// Reference represents a reference passed across the page content service js bridge
-    /// Tried to make this work with codable but since it's already decoded into a [String: Any] it seemed difficult to write that to JSON and read it again. Maybe there's a DictionaryDecoder that exists or could be written
-    struct Reference {
-        let id: String
-        let href: String
-        let html: String
-        let text: String
-        let rect: CGRect
-        static func from(data: [String: Any]) -> Reference? {
-            guard
-                let html = data["html"] as? String,
-                let id = data["id"] as? String,
-                let href = data["href"] as? String,
-                let text = data["text"] as? String,
-                let rectDict = data["rect"] as? [String: Double],
-                let x = rectDict["x"],
-                let y = rectDict["y"],
-                let width = rectDict["width"],
-                let height = rectDict["height"]
-            else {
-                return nil
-            }
-            return Reference(id: id, href: href, html: html, text: text, rect: CGRect(x: x, y: y, width: width, height: height))
-        }
     }
     
     /// PCSActions are receieved from the JS bridge and converted into actions
@@ -273,7 +247,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
                 return nil
             }
-            let group = groupArray.compactMap { Reference.from(data: $0) }
+            let group = groupArray.compactMap { WMFReference(scriptMessageDict: $0) }
             return .reference(selectedIndex: selectedIndex, group: group)
         }
         

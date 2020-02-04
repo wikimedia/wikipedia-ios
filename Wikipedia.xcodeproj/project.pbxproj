@@ -1062,6 +1062,10 @@
 		832A7A4D23E99C9500D0A750 /* ReferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4A23E99C9500D0A750 /* ReferencesViewController.swift */; };
 		832A7A4E23E99C9500D0A750 /* ReferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4A23E99C9500D0A750 /* ReferencesViewController.swift */; };
 		832A7A5423E9AE4000D0A750 /* HTMLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4F23E9A21900D0A750 /* HTMLCollectionViewCell.swift */; };
+		832A7A5B23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
+		832A7A5C23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
+		832A7A5D23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
+		832A7A5E23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832B2B8423D9F9420087EB5F /* NSRegularExpression+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832B2B8323D9F9420087EB5F /* NSRegularExpression+Utilities.swift */; };
 		8336F1432119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */; };
 		8338AF8D21F7B33E000C4055 /* WMFLegacyFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3642,6 +3646,7 @@
 		832A7A4523E8AB7500D0A750 /* References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = References.swift; sourceTree = "<group>"; };
 		832A7A4A23E99C9500D0A750 /* ReferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencesViewController.swift; sourceTree = "<group>"; };
 		832A7A4F23E9A21900D0A750 /* HTMLCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLCollectionViewCell.swift; sourceTree = "<group>"; };
+		832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+References.swift"; sourceTree = "<group>"; };
 		832B2B8323D9F9420087EB5F /* NSRegularExpression+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRegularExpression+Utilities.swift"; sourceTree = "<group>"; };
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
 		8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLegacyFetcher.h; sourceTree = "<group>"; };
@@ -6115,6 +6120,7 @@
 				83B01F8F23DB41BE001185F4 /* ArticleViewController+Sharing.swift */,
 				83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */,
 				83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */,
+				832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */,
 				D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */,
 				830C0DD923D9C218006471C4 /* Properties.js */,
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */,
@@ -10460,6 +10466,7 @@
 				7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8B3D7661EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				7ABE17002239B346006BA309 /* WelcomeViewController.swift in Sources */,
+				832A7A5B23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */,
 				B0524B65214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				7ABE170C2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
@@ -11270,6 +11277,7 @@
 				D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */,
 				B0524B68214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				7ABE17032239B346006BA309 /* WelcomeViewController.swift in Sources */,
+				832A7A5E23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */,
 				D8A42AC01E815A9C00D8E281 /* PageHistorySection.swift in Sources */,
 				7ABE170F2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299E1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
@@ -11789,6 +11797,7 @@
 				6707C033237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
+				832A7A5C23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */,
 				7A49A20221231510005C574C /* CollectionViewFooter.swift in Sources */,
 				7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				8304D7C11F60131900A0CDD6 /* WMFWebView.m in Sources */,
@@ -12233,6 +12242,7 @@
 				6707C034237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */,
+				832A7A5D23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */,
 				7A49A20321231510005C574C /* CollectionViewFooter.swift in Sources */,
 				7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				D8EC3E7E1E9BDA35006712EB /* WMFCompassView.m in Sources */,

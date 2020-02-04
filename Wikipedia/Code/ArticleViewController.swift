@@ -397,6 +397,11 @@ class ArticleViewController: ViewController {
         updateTableOfContentsHighlight()
     }
     
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        dismissReferencesPopover()
+    }
+    
     // MARK: Article load
     var footerLoadGroup: DispatchGroup?
     var languageCount: Int = 0

@@ -59,15 +59,6 @@ extension ArticleViewController {
         issuesVC.issues = issues
         presentEmbedded(issuesVC, style: .sheet)
     }
-    
-    func showReferences() {
-        guard let references = references else {
-            showGenericError()
-            return
-        }
-        let referencesVC = ReferencesViewController(articleURL: articleURL, references: references, theme: theme, delegate: self)
-        presentEmbedded(referencesVC, style: .sheet)
-    }
 }
 
 
