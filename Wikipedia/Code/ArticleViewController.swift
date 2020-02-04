@@ -33,7 +33,7 @@ class ArticleViewController: ViewController {
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
     private lazy var referenceFetcher: ArticleReferencesFetcher = ArticleReferencesFetcher()
-    private var references: References?
+    internal var references: References?
 
     private var leadImageHeight: CGFloat = 210
     
