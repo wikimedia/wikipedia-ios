@@ -89,6 +89,7 @@ class ArticleViewController: ViewController {
             DDLogError("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
+            self.updateArticleMargins()
         }
     }
     
@@ -165,6 +166,15 @@ class ArticleViewController: ViewController {
         updateTableOfContentsInsets()
     }
     
+    override func viewLayoutMarginsDidChange() {
+        super.viewLayoutMarginsDidChange()
+        updateArticleMargins()
+    }
+    
+    private func updateArticleMargins() {
+        messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+    }
+    
     // MARK: Loading
     
     internal var state: ViewState = .initial {
@@ -204,7 +214,6 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
-
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -235,6 +244,7 @@ class ArticleViewController: ViewController {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
+        webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
         if state == .loaded {
@@ -398,11 +408,18 @@ class ArticleViewController: ViewController {
     
     func load() {
         state = .loading
+        setupPageContentServiceJavaScriptInterface {
+            self.loadPage()
+        }
+    }
+    
+    func loadPage() {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
         guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
-            WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
+            showGenericError()
+            state = .error
             return
         }
         
@@ -417,6 +434,8 @@ class ArticleViewController: ViewController {
         webView.load(request)
         
         guard let key = article.key else {
+            showGenericError()
+            state = .error
             return
         }
         footerLoadGroup?.enter()
@@ -503,7 +522,9 @@ private extension ArticleViewController {
         imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
-        
+    }
+    
+    func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
         guard let siteURL = articleURL.wmf_site else {
             DDLogError("Missing site for \(articleURL)")
             showGenericError()
@@ -512,18 +533,20 @@ private extension ArticleViewController {
         
         // Need user groups to let the Page Content Service know if the page is editable for this user
         authManager.getLoggedInUser(for: siteURL) { (result) in
+            assert(Thread.isMainThread)
             switch result {
             case .success(let user):
                 self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
             case .failure(let error):
                 self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
             }
+            completion()
         }
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
-        messagingController.setup(with: webView, language: articleLanguage, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
+        messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
     func setupToolbar() {
@@ -568,6 +591,16 @@ extension ArticleViewController: ImageScaleTransitionProviding {
         view.layoutIfNeeded()
     }
 
+}
+
+extension ViewController {
+    /// Allows for re-use by edit preview VC
+    var articleMargins: UIEdgeInsets {
+        var margins = navigationController?.view.layoutMargins ?? view.layoutMargins // view.layoutMargins is zero here so check nav controller first
+        margins.top = 8
+        margins.bottom = 0
+        return margins
+    }
 }
 
 //WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
