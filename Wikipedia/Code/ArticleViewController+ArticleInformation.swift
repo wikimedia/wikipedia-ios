@@ -90,10 +90,4 @@ extension ArticleViewController: ReferencesViewControllerDelegate {
     func referencesViewControllerUserDidTapClose(_ referencesViewController: ReferencesViewController) {
         dismiss(animated: true)
     }
-    
-    func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapLinkWithURL url: URL) {
-        dismiss(animated: true)
-        navigate(to: url)
-    }
-    
 }

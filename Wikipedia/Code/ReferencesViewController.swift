@@ -4,7 +4,6 @@ import WMF.Swift
 protocol ReferencesViewControllerDelegate: AnyObject {
     func referencesViewControllerUserDidTapClose(_ referencesViewController: ReferencesViewController)
     func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapAnchor anchor: String)
-    func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapLinkWithURL url: URL)
 }
 
 class ReferencesViewController: ColumnarCollectionViewController {
@@ -152,12 +151,12 @@ extension ReferencesViewController: HTMLCollectionViewCellDelegate {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         // Resolve relative URLs
         guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
-            delegate?.referencesViewController(self, userDidTapLinkWithURL: url)
+            navigate(to: url)
             return
         }
         // Check if this is the same article by comparing database keys
         guard resolvedURL.wmf_databaseKey == articleURL.wmf_databaseKey else {
-            delegate?.referencesViewController(self, userDidTapLinkWithURL: url)
+            navigate(to: resolvedURL)
             return
         }
         // Check for a fragment - if this is the same article and there's no fragment just close?
