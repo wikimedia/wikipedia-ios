@@ -17,13 +17,8 @@ class ArticleWebMessagingController: NSObject {
         self.delegate = delegate
     }
     
-    func setup(with webView: WKWebView, language: String, theme: Theme, leadImageHeight: Int = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
-        let margins = PageContentService.Setup.Parameters.Margins(
-            top: "16px",
-            right: "16px",
-            bottom: "16px",
-            left: "16px"
-        )
+    func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
+        let margins = getPageContentServiceMargins(from: layoutMargins)
         let addTitleDescription = WMFLocalizedString("description-add-link-title", language: language, value: "Add title description", comment: "Text for link for adding a title description")
         let tableInfoboxTitle = WMFLocalizedString("info-box-title", language: language, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
         let tableOtherTitle = WMFLocalizedString("table-title-other", language: language, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
@@ -94,7 +89,12 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript(js)
     }
 
-    func updateMargins(_ margins: PageContentService.Setup.Parameters.Margins) {
+    func getPageContentServiceMargins(from insets: UIEdgeInsets, leadImageHeight: CGFloat = 0) -> PageContentService.Setup.Parameters.Margins {
+        return PageContentService.Setup.Parameters.Margins(top: "\(insets.top + leadImageHeight)px", right: "\(insets.right)px", bottom: "\(insets.bottom)px", left: "\(insets.left)px")
+    }
+    
+    func updateMargins(with layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat) {
+        let margins = getPageContentServiceMargins(from: layoutMargins, leadImageHeight: leadImageHeight)
         guard let marginsJSON = try? PageContentService.getJavascriptFor(margins) else {
             return
         }

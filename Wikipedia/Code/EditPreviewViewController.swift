@@ -83,7 +83,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     @objc func goForward() {
         delegate?.editPreviewViewControllerDidTapNext(self)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -99,12 +99,12 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             editFunnel?.logEditPreviewForArticle(from: editFunnelSource, language: language)
             loggedEditActions.add(EditFunnel.Action.preview)
         }
-        
-        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, areTablesInitiallyExpanded: true)
-        
-        preview()
-        
         apply(theme: theme)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadPreviewIfNecessary()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -118,12 +118,19 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         }
         return MWLanguageInfo(forCode: lang)
     }
+    
+    private var hasPreviewed = false
 
-    private func preview() {
+    private func loadPreviewIfNecessary() {
+        guard !hasPreviewed else {
+            return
+        }
+        hasPreviewed = true
         guard let articleURL = articleURL else {
             showGenericError()
             return
         }
+        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
             let request = try ArticleURLConverter.mobileHTMLPreviewRequest(desktopURL: articleURL, wikitext: wikitext)
