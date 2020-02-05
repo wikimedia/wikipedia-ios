@@ -1,10 +1,8 @@
 import WebKit
 
-
-
-// Handles interaction with the Page Content Service JavaScript interface
-// Passes setup parameters to the webpage (theme, margins, etc) and sets up a listener to recieve events (link tapped, image tapped, etc) through the messaging bridge
-// https://www.mediawiki.org/wiki/Page_Content_Service
+/// Handles interaction with the Page Content Service JavaScript interface
+/// Passes setup parameters to the webpage (theme, margins, etc) and sets up a listener to recieve events (link tapped, image tapped, etc) through the messaging bridge
+/// https://www.mediawiki.org/wiki/Page_Content_Service
 final class PageContentService   {
     struct Setup {
         struct Parameters: Codable {

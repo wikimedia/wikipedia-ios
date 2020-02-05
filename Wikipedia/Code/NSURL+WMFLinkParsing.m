@@ -1,5 +1,4 @@
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/NSString+WMFPageUtilities.h>
 #import <WMF/NSURLComponents+WMFLinkParsing.h>
 #import <WMF/NSURL+WMFExtras.h>
 #import <WMF/WMF-Swift.h>
