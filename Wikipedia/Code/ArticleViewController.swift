@@ -326,7 +326,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Scroll
     
-    func scroll(to anchor: String, animated: Bool, completion: (() -> Void)? = nil) {
+    func scroll(to anchor: String, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
             completion?()
@@ -338,7 +338,16 @@ class ArticleViewController: ViewController {
                 completion?()
                 return
             }
-            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight)
+            let overlayTop = self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight
+            let adjustmentY: CGFloat
+            if centered {
+                let overlayBottom = self.webView.scrollView.contentInset.bottom
+                let height = self.webView.scrollView.bounds.height
+                adjustmentY = -0.5 * (height - overlayTop - overlayBottom)
+            } else {
+                adjustmentY = overlayTop
+            }
+            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + adjustmentY)
             self.scroll(to: point, animated: animated, completion: completion)
         }
     }

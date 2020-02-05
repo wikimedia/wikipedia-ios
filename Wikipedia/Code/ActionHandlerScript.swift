@@ -152,7 +152,7 @@ final class PageContentService   {
             guard
                 let fileURL = Bundle.wmf.url(forResource: "styleoverrides", withExtension: "css", subdirectory: "assets"),
                 let data = try? Data(contentsOf: fileURL),
-                let cssString = String(data: data, encoding: .utf8)?.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+                let cssString = String(data: data, encoding: .utf8)?.sanitizedForJavaScriptTemplateLiterals
             else {
                 return ""
             }

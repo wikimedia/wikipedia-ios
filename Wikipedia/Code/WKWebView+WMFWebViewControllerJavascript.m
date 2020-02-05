@@ -26,12 +26,12 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (void)wmf_highlightLinkID:(NSString *)linkID {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').classList.add('reference_highlight');", linkID]
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').classList.add('reference-highlight');", linkID]
            completionHandler:NULL];
 }
 
 - (void)wmf_unHighlightLinkID:(NSString *)linkID {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').classList.remove('reference_highlight');", linkID]
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').classList.remove('reference-highlight');", linkID]
            completionHandler:NULL];
 }
 

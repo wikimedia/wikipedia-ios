@@ -164,7 +164,13 @@ extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
 extension ArticleViewController: ReferencesViewControllerDelegate {
     func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapAnchor anchor: String) {
         dismiss(animated: true)
-        scroll(to: anchor, animated: true)
+        scroll(to: anchor, centered: true, animated: true) {
+            self.messagingController.addSearchTermHighlightToElement(with: anchor)
+            dispatchOnMainQueueAfterDelayInSeconds(0.5) {
+                self.messagingController.removeSearchTermHighlights()
+            }
+        }
+
     }
     
     func referencesViewControllerUserDidTapClose(_ referencesViewController: ReferencesViewController) {

@@ -84,7 +84,9 @@ class ArticleWebMessagingController: NSObject {
         })
     }
     
-    // MARK: Adjustable state
+    // MARK: - Adjustable state
+    
+    // MARK: PCS
     
     func updateTheme(_ theme: Theme) {
         let js = "pcs.c1.Page.setTheme(pcs.c1.Themes.\(theme.webName.uppercased()))"
@@ -105,6 +107,20 @@ class ArticleWebMessagingController: NSObject {
     
     func updateTextSizeAdjustmentPercentage(_ percentage: Int) {
         let js = "pcs.c1.Page.setTextSizeAdjustmentPercentage('\(percentage)%')"
+        webView?.evaluateJavaScript(js)
+    }
+    
+    
+    // MARK: iOS App Specific overrides (code in www/, built products in assets/)
+    
+    func addSearchTermHighlightToElement(with id: String) {
+        let sanitizedId = id.sanitizedForJavaScriptTemplateLiterals
+        let js = "window.wmf.findInPage.addSearchTermHighlightToElementWithId(`\(sanitizedId)`)"
+        webView?.evaluateJavaScript(js)
+    }
+    
+    func removeSearchTermHighlights() {
+        let js = "window.wmf.findInPage.removeSearchTermHighlights()"
         webView?.evaluateJavaScript(js)
     }
 }
