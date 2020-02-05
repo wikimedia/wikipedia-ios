@@ -10,9 +10,8 @@ public class ArticleSummaryController: NSObject {
         self.fetcher = fetcher
     }
     
-    @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: String, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> String? {
-        
-        let cancellationKey = fetcher.fetchSummaryForArticle(with: articleKey) { [weak self] (articleSummary, urlResponse, error) in
+    @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: String, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> URLSessionTask? {
+        return fetcher.fetchSummaryForArticle(with: articleKey) { [weak self] (articleSummary, urlResponse, error) in
             DispatchQueue.main.async {
                 guard let articleSummary = articleSummary,
                     error == nil else {
@@ -24,10 +23,9 @@ public class ArticleSummaryController: NSObject {
                 }
             }
         }
-        return cancellationKey
     }
     
-    @discardableResult public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [String], completion: (([String: WMFArticle], Error?) -> Void)? = nil) -> [String] {
+    @discardableResult public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [String], completion: (([String: WMFArticle], Error?) -> Void)? = nil) -> [URLSessionTask] {
 
         return fetcher.fetchArticleSummaryResponsesForArticles(withKeys: articleKeys) { [weak self] (summaryResponses) in
             DispatchQueue.main.async {

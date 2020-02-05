@@ -1,8 +1,8 @@
-struct References: Codable {
-    let revision: String
-    let tid: String
-    let referenceLists: [ReferenceList]
-    let referencesByID: [String: Reference]
+public struct References: Codable {
+    public let revision: String
+    public let tid: String
+    public let referenceLists: [ReferenceList]
+    public let referencesByID: [String: Reference]
     enum CodingKeys: String, CodingKey {
         case revision
         case tid
@@ -11,31 +11,31 @@ struct References: Codable {
     }
 }
 
-struct Reference: Codable {
-    struct BackLink: Codable {
-        let href: String
-        let text: String
+public struct Reference: Codable {
+    public struct BackLink: Codable {
+        public let href: String
+        public let text: String
     }
-    struct Content: Codable {
-        let html: String
-        let type: String?
+    public struct Content: Codable {
+        public let html: String
+        public let type: String?
     }
-    let backLinks: [BackLink]
-    let content: Content
+    public let backLinks: [BackLink]
+    public let content: Content
     enum CodingKeys: String, CodingKey {
         case backLinks = "back_links"
         case content
     }
 }
 
-struct ReferenceList: Codable {
-    struct Heading: Codable {
-        let id: String
-        let html: String
+public struct ReferenceList: Codable {
+    public struct Heading: Codable {
+        public let id: String
+        public let html: String
     }
-    let id: String
-    let heading: Heading
-    let order: [String]
+    public let id: String
+    public let heading: Heading
+    public let order: [String]
     enum CodingKeys: String, CodingKey {
         case id
         case order
