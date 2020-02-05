@@ -2,7 +2,6 @@
 import Foundation
 
 enum ImageCacheDBWriterError: Error {
-    case missingItemKey
     case failureFetchOrCreateCacheGroup
     case failureFetchOrCreateCacheItem
 }
@@ -17,15 +16,12 @@ final class ImageCacheDBWriter: CacheDBWriting {
         self.cacheBackgroundContext = cacheBackgroundContext
     }
     
-    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey?, variantId: String?, variantGroupKey: String? = nil, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
+    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
+        cacheImage(groupKey: groupKey, itemKey: itemKey, completion: completion)
+    }
+    
+    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
         
-        guard let itemKey = itemKey else {
-            assertionFailure("ImageCacheDBWriter missing itemKey.")
-            completion(.failure(ImageCacheDBWriterError.missingItemKey))
-            return
-        }
-        
-        cacheImage(groupKey: groupKey, itemKey: itemKey, variantId: variantId, variantGroupKey: variantGroupKey, completion: completion)
     }
     
     func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
@@ -35,7 +31,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
 private extension ImageCacheDBWriter {
     
-    func cacheImage(groupKey: String, itemKey: String, variantId: String?, variantGroupKey: String?, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
+    func cacheImage(groupKey: String, itemKey: String, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
         
         let context = self.cacheBackgroundContext
         context.perform {
@@ -48,12 +44,6 @@ private extension ImageCacheDBWriter {
             guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
                 completion(.failure(ImageCacheDBWriterError.failureFetchOrCreateCacheItem))
                 return
-            }
-            
-            if let variantGroupKey = variantGroupKey,
-                let variantGroup = CacheDBWriterHelper.fetchOrCreateVariantCacheGroup(with: variantGroupKey, in: context) {
-                item.variantId = variantId
-                variantGroup.addToCacheItems(item)
             }
             
             group.addToCacheItems(item)

@@ -10,11 +10,22 @@ final class CacheDBWriterHelper {
         return cacheItem(with: itemKey, in: moc) ?? createCacheItem(with: itemKey, in: moc)
     }
     
-    static func fetchOrCreateVariantCacheGroup(with variantGroupKey: String, in moc: NSManagedObjectContext) -> PersistentCacheVariantGroup? {
-        return cacheVariantGroup(with: variantGroupKey, in: moc) ?? createCacheVariantGroup(with: variantGroupKey, in: moc)
+    static func inMemoryCacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
+        for object in moc.registeredObjects where !object.isFault {
+            let predicate = NSPredicate(format: "key == %@", key)
+            guard let result = object as? PersistentCacheGroup, predicate.evaluate(with: result) else {
+                continue
+            }
+            return result
+        }
+        return nil
     }
 
     static func cacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
+        
+        if let inMemoryGroup = inMemoryCacheGroup(with: key, in: moc) {
+            return inMemoryGroup
+        }
         
         let fetchRequest: NSFetchRequest<PersistentCacheGroup> = PersistentCacheGroup.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "key == %@", key)
@@ -62,30 +73,6 @@ final class CacheDBWriterHelper {
         item.key = itemKey
         item.date = Date()
         return item
-    }
-    
-    static func cacheVariantGroup(with variantGroupKey: String, in moc: NSManagedObjectContext) -> PersistentCacheVariantGroup? {
-        
-        let fetchRequest: NSFetchRequest<PersistentCacheVariantGroup> = PersistentCacheVariantGroup.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "key == %@", variantGroupKey)
-        fetchRequest.fetchLimit = 1
-        do {
-            guard let item = try moc.fetch(fetchRequest).first else {
-                return nil
-            }
-            return item
-        } catch let error {
-            fatalError(error.localizedDescription)
-        }
-    }
-
-    static func createCacheVariantGroup(with variantGroupKey: String, in moc: NSManagedObjectContext) -> PersistentCacheVariantGroup? {
-        guard let entity = NSEntityDescription.entity(forEntityName: "PersistentCacheVariantGroup", in: moc) else {
-            return nil
-        }
-        let group = PersistentCacheVariantGroup(entity: entity, insertInto: moc)
-        group.key = variantGroupKey
-        return group
     }
     
     static func isCached(url: URL, in moc: NSManagedObjectContext) -> Bool {

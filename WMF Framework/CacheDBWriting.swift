@@ -30,8 +30,9 @@ enum CacheDBWritingRemoveError: Error {
 protocol CacheDBWriting: CacheTaskTracking {
     
     typealias CacheDBWritingCompletion = (CacheDBWritingResultWithItemKeys) -> Void
-
-    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey?, variantId: String?, variantGroupKey: String?, completion: @escaping CacheDBWritingCompletion)
+    
+    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletion)
+    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping CacheDBWritingCompletion)
 
     //default implementations
     func remove(itemKey: String, completion: @escaping (CacheDBWritingResult) -> Void)

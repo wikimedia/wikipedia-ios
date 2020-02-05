@@ -19,31 +19,6 @@ final public class ArticleFetcher: Fetcher {
         case references = "references"
     }
     
-    enum ImageScale: String {
-        case x1 = "1x"
-        case x1_5 = "1.5x"
-        case x2 = "2x"
-        
-        init(with screenScale: CGFloat) {
-            switch screenScale {
-            case 3.0:
-                self = .x2
-            case 2.0:
-                self = .x1_5
-            default:
-                self = .x1
-            }
-        }
-        
-        //let scaledSources = sources.filter { $0.scale == Scale.init(with: UIScreen.main.scale).rawValue }
-    }
-    
-    struct ImageResult {
-        let url: URL
-        let variantId: String
-        let variantGroupKey: String
-    }
-    
     typealias RequestURL = URL
     typealias TemporaryFileURL = URL
     typealias MIMEType = String
@@ -57,14 +32,40 @@ final public class ArticleFetcher: Fetcher {
         return task
     }
     
-    func fetchOfflineResourceURLs(siteURL: URL, articleTitle: String, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+    func fetchResourceList(siteURL: URL, articleTitle: String, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
         
-        guard let stagingTaskURL = ArticleURLConverter.mobileHTMLURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mobileHtmlOfflineResources, configuration: configuration, scheme: "https") else {
+        guard endpointType == .mediaList || endpointType == .mobileHtmlOfflineResources else {
+            completion(.failure(ArticleFetcherError.invalidEndpointType))
+            return nil
+        }
+        
+//        guard let taskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration) else {
+//            completion(.failure(ArticleFetcherError.failureToGenerateURL))
+//            return
+//        }
+        
+        guard let stagingTaskURL = ArticleURLConverter.mobileHTMLURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration, scheme: "https") else {
                     completion(.failure(ArticleFetcherError.failureToGenerateURL))
                     return nil
                 }
         
-        return session.jsonDecodableTask(with: stagingTaskURL) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
+        switch endpointType {
+        case .mediaList:
+            return fetchMediaListURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+        case .mobileHtmlOfflineResources:
+            return fetchOfflineResourceURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+        default:
+            break
+        }
+        
+        return nil
+    }
+}
+
+private extension ArticleFetcher {
+    
+    func fetchOfflineResourceURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+        return session.jsonDecodableTask(with: url) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -91,14 +92,9 @@ final public class ArticleFetcher: Fetcher {
         }
     }
     
-    func fetchMediaListURLs(siteURL: URL, articleTitle: String, completion: @escaping (Result<[ImageResult], Error>) -> Void) -> URLSessionTask? {
+    func fetchMediaListURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
         
-        guard let stagingTaskURL = ArticleURLConverter.mobileHTMLURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: .mediaList, configuration: configuration, scheme: "https") else {
-                    completion(.failure(ArticleFetcherError.failureToGenerateURL))
-                    return nil
-                }
-        
-        return session.jsonDecodableTask(with: stagingTaskURL) { (mediaList: MediaList?, response: URLResponse?, error: Error?) in
+        return session.jsonDecodableTask(with: url) { (mediaList: MediaList?, response: URLResponse?, error: Error?) in
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -115,34 +111,19 @@ final public class ArticleFetcher: Fetcher {
                 return
             }
             
-            var results: [ImageResult] = []
-            for item in mediaList.items {
-                let title = item.title
-                
-                guard let sources = item.sources else {
-                    break
-                }
-                
-                let innerResults = sources.map { (source) -> ImageResult? in
-                    let scheme = siteURL.scheme ?? "https"
-                    let finalString = "\(scheme):\(source.urlString)"
-                    
-                    if let url = URL(string: finalString) {
-                        return ImageResult(url: url, variantId: source.scale, variantGroupKey: title)
-                    }
-                    
-                    return nil
-                }.compactMap { $0 }
-                
-                results.append(contentsOf: innerResults)
+            let sources = mediaList.items.flatMap { (item) -> [MediaListItemSource] in
+                return item.sources ?? []
             }
             
-            completion(.success(results))
+            let result = sources.map { (source) -> URL? in
+                let scheme = siteURL.scheme ?? "https"
+                let finalString = "\(scheme):\(source.urlString)"
+                return URL(string: finalString)
+            }.compactMap{ $0 }
+            
+            completion(.success(result))
         }
     }
-}
-
-private extension ArticleFetcher {
     
     func handleDownloadTaskCompletion(url: URL, fileURL: URL?, response: URLResponse?, error: Error?, completion: @escaping DownloadCompletion) {
         if let error = error {
