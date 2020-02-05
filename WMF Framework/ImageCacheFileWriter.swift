@@ -12,7 +12,7 @@ final class ImageCacheFileWriter: CacheFileWriting {
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    init?(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
+    init?(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext) {
         self.imageFetcher = imageFetcher
         self.cacheBackgroundContext = cacheBackgroundContext
         

@@ -10,11 +10,12 @@ extension PersistentCacheItem {
     }
 
     @NSManaged public var date: Date?
+    @NSManaged public var etag: String?
     @NSManaged public var fromMigration: Bool
     @NSManaged public var isDownloaded: Bool
     @NSManaged public var key: String?
-    @NSManaged public var variant: Int64
-    @NSManaged public var etag: String?
+    @NSManaged public var variant: String?
+    @NSManaged public var variantGroupKey: String?
     @NSManaged public var cacheGroups: NSSet?
     @NSManaged public var mustHaveCacheGroups: PersistentCacheGroup?
 

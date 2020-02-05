@@ -8,16 +8,14 @@ enum ArticleCacheFileWriterError: Error {
 
 final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     
-    weak var delegate: CacheFileWritingDelegate?
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
     init?(articleFetcher: ArticleFetcher,
-                       cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
+                       cacheBackgroundContext: NSManagedObjectContext) {
         self.articleFetcher = articleFetcher
-        self.delegate = delegate
         self.cacheBackgroundContext = cacheBackgroundContext
         
         do {

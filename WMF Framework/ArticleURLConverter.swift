@@ -85,3 +85,20 @@ public class ArticleURLConverter {
         return request
     }
 }
+
+extension String {
+    func appendingLanguageVariantIfNecessary(host: String?) -> String {
+        
+        guard let host = host else {
+            return self
+        }
+        
+        //tonitodo: flesh out
+        if let preferredLanguageCode = NSLocale.wmf_preferredLanguageCodes.first,
+            preferredLanguageCode == "zh-hans" || preferredLanguageCode == "zh-hant" && host == "zh.wikipedia.org" {
+            return self.appending(preferredLanguageCode)
+        }
+        
+        return self
+    }
+}

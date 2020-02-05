@@ -38,9 +38,9 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 return
         }
         
-        let mobileHtmlItemKey = groupKey
+        let mobileHtmlItemKey = groupKey.appendingLanguageVariantIfNecessary(host: url.host)
         
-        guard let mediaListItemKey = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mediaList)?.wmf_databaseKey else {
+        guard let mediaListItemKey = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mediaList)?.wmf_databaseKey?.appendingLanguageVariantIfNecessary(host: url.host) else {
             completion(.failure(ArticleCacheDBWriterError.unableToDetermineMediaListKey))
             return
         }
@@ -119,6 +119,9 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 return
             }
             
+            //append language variant to relevant item keys here
+            
+            
             let mustHaveKeys = [[mobileHtmlItemKey], [mediaListItemKey], mobileHtmlOfflineResourceItemKeys].flatMap { $0 }
             
             self.cacheURLs(groupKey: groupKey, mustHaveItemKeys: mustHaveKeys, niceToHaveItemKeys: []) { (result) in
@@ -156,6 +159,11 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             
             return true
         } ?? false
+    }
+    
+    func shouldDownloadVariant(itemKey: CacheController.ItemKey) -> Bool {
+        //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
+        return true
     }
 }
 
