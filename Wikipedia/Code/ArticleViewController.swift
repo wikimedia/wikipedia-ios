@@ -298,7 +298,7 @@ class ArticleViewController: ViewController {
         updateTableOfContentsHighlight()
     }
     
-     func updateTableOfContentsHighlight() {
+    func updateTableOfContentsHighlight() {
         previousContentOffsetYForTOCUpdate = webView.scrollView.contentOffset.y
         getVisibleSectionId { (sectionId) in
             self.tableOfContentsController.selectAndScroll(to: sectionId, animated: true)
