@@ -282,11 +282,10 @@ class ArticleViewController: ViewController {
         }
     }
     
-    var isUpdatingTableOfContentsSectionOnScroll = true
     var previousContentOffsetYForTOCUpdate: CGFloat = 0
     
     func updateTableOfContentsHighlightIfNecessary() {
-        guard isUpdatingTableOfContentsSectionOnScroll, tableOfContentsController.viewController.isVisible else {
+        guard tableOfContentsController.viewController.displayMode == .inline, tableOfContentsController.viewController.isVisible else {
             return
         }
         let scrollView = webView.scrollView
