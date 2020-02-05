@@ -37,6 +37,8 @@ class ArticleWebMessagingController: NSObject {
             contentController.addUserScript(propertiesScript)
             let utilitiesScript = PageContentService.UtilitiesScript()
             contentController.addUserScript(utilitiesScript)
+            let styleScript = PageContentService.StyleScript()
+            contentController.addUserScript(styleScript)
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }

@@ -90,17 +90,17 @@ extension ArticleViewController {
         guard
             !windowCoordsRefGroupRect.isEmpty,
             let firstPanel = viewController.firstPanelView()
-        else {
-            return
+            else {
+                return
         }
         let panelRectInWindowCoords = firstPanel.convert(firstPanel.bounds, to: nil)
         let refGroupRectInWindowCoords = viewController.backgroundView.convert(windowCoordsRefGroupRect, to: nil)
-
+        
         guard windowCoordsRefGroupRect.intersects(panelRectInWindowCoords) else {
             viewController.backgroundView.clearRect = windowCoordsRefGroupRect
             return
         }
-            
+        
         let refGroupScrollOffsetY = webView.scrollView.contentOffset.y + refGroupRectInWindowCoords.minY
         var newOffsetY: CGFloat = refGroupScrollOffsetY - 0.5 * panelRectInWindowCoords.minY + 0.5 * refGroupRectInWindowCoords.height - 0.5 * navigationBar.visibleHeight
         let contentInsetTop = webView.scrollView.contentInset.top
@@ -126,17 +126,48 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: UIPageViewControllerDelegate {
-    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard
+            let firstRefVC = pageViewController.viewControllers?.first as? WMFReferencePanelViewController,
+            let refId = firstRefVC.reference?.refId
+            else {
+                return
+        }
+        webView.wmf_highlightLinkID(refId)
+    }
 }
 
 extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
     func referencePageViewControllerWillAppear(_ referencePageViewController: WMFReferencePageViewController) {
-        
+        guard
+            let firstRefVC = referencePageViewController.pageViewController.viewControllers?.first as? WMFReferencePanelViewController,
+            let refId = firstRefVC.reference?.refId
+            else {
+                return
+        }
+        webView.wmf_highlightLinkID(refId)
     }
     
     func referencePageViewControllerWillDisappear(_ referencePageViewController: WMFReferencePageViewController) {
-        
+        for vc in referencePageViewController.pageViewController.viewControllers ?? [] {
+            guard
+                let panel = vc as? WMFReferencePanelViewController,
+                let refId = panel.reference?.refId
+                else {
+                    continue
+            }
+            webView.wmf_unHighlightLinkID(refId)
+        }
+    }
+}
+
+extension ArticleViewController: ReferencesViewControllerDelegate {
+    func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapAnchor anchor: String) {
+        dismiss(animated: true)
+        scroll(to: anchor, animated: true)
     }
     
-    
+    func referencesViewControllerUserDidTapClose(_ referencesViewController: ReferencesViewController) {
+        dismiss(animated: true)
+    }
 }

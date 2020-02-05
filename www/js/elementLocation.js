@@ -2,25 +2,25 @@
 
 class SectionFilter {
   acceptNode(node) {
-      return node.tagName === 'SECTION'
+    return node.tagName === 'SECTION'
   }
 }
 
-exports.getFirstOnScreenSectionId = (insetTop) => {
+exports.getFirstOnScreenSectionId = insetTop => {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, new SectionFilter())
   let node
   let sectionId = -1
-  while ((node = walker.nextNode())) {
-      const rect = node.getBoundingClientRect()
-      if (rect.top <= insetTop + 1) {
-          const sectionIdString = node.getAttribute('data-mw-section-id')
-          if (!sectionIdString) {
-              continue
-          }
-          sectionId = parseInt(sectionIdString)
-      } else if (sectionId !== -1) {
-          break
+  while (node = walker.nextNode()) {
+    const rect = node.getBoundingClientRect()
+    if (rect.top <= insetTop + 1) {
+      const sectionIdString = node.getAttribute('data-mw-section-id')
+      if (!sectionIdString) {
+        continue
       }
+      sectionId = parseInt(sectionIdString)
+    } else if (sectionId !== -1) {
+      break
+    }
   }
   return sectionId
 }
@@ -45,7 +45,7 @@ exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount, insetTop)
       continue
     }
     const rect = this.getElementRect(div)
-    if (rect.Y > (insetTop + 1) || (rect.Y + rect.Height) > (insetTop + 1)) {
+    if (rect.Y > insetTop + 1 || rect.Y + rect.Height > insetTop + 1) {
       return i
     }
   }

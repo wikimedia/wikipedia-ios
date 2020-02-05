@@ -145,4 +145,22 @@ final class PageContentService   {
             super.init(source: UtilitiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
+    
+    
+    final class StyleScript: WKUserScript {
+        static let source: String = {
+            guard
+                let fileURL = Bundle.wmf.url(forResource: "styleoverrides", withExtension: "css", subdirectory: "assets"),
+                let data = try? Data(contentsOf: fileURL),
+                let cssString = String(data: data, encoding: .utf8)?.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+            else {
+                return ""
+            }
+            return "const style = document.createElement('style'); style.innerHTML = `\(cssString)`; document.head.appendChild(style);"
+        }()
+        
+        required override init() {
+            super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        }
+    }
 }

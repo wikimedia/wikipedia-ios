@@ -70,15 +70,3 @@ extension ArticleViewController: WMFLanguagesViewControllerDelegate {
         }
     }
 }
-
-
-extension ArticleViewController: ReferencesViewControllerDelegate {
-    func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapAnchor anchor: String) {
-        dismiss(animated: true)
-        scroll(to: anchor, animated: true)
-    }
-    
-    func referencesViewControllerUserDidTapClose(_ referencesViewController: ReferencesViewController) {
-        dismiss(animated: true)
-    }
-}
