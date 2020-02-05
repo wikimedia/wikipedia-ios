@@ -503,11 +503,19 @@ static uint64_t bundleHash() {
         [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
         [ud synchronize];
         [moc wmf_setValue:@(8) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
     }
 
     if (currentLibraryVersion < 9) {
         [self markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:moc];
         [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
     }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
