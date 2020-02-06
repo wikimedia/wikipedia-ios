@@ -48,6 +48,7 @@ final class SearchSettingsViewController: SubSettingsViewController {
         }
         view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
+        tableView.reloadData()
     }
 }
 
