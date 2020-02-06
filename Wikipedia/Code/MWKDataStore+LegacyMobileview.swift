@@ -5,33 +5,32 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
     case noMobileHTML
 }
 
-@objc extension WMFArticle {
-    
+extension MWKDataStore {
     // TODO: use this method's completion block when loading articles (in case a mobileview conversion hasn't happened yet for that article's saved data for any reason)
-    func migrateMobileviewToMobileHTMLIfNecessary(dataStore: MWKDataStore, completionHandler: @escaping ((Error?) -> Void)) {
-        guard self.isConversionFromMobileViewNeeded == true else {
+    func migrateMobileviewToMobileHTMLIfNecessary(article: WMFArticle, completionHandler: @escaping ((Error?) -> Void)) {
+        guard article.isConversionFromMobileViewNeeded == true else {
             // If conversion was previously attempted don't try again.
             completionHandler(nil)
             return
         }
-        guard let articleURL = self.url else {
+        guard let articleURL = article.url else {
             assertionFailure("Could not get article url")
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noArticleURL)
             return
         }
 
-        guard let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController else {
+        guard let articleCacheController = articleCacheControllerWrapper.cacheController as? ArticleCacheController else {
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noArticleCacheController)
             return
         }
         
-        let mwkArticle = dataStore.article(with: articleURL)
+        let mwkArticle = self.article(with: articleURL)
 
-        dataStore.mobileviewConverter.convertMobileviewSavedDataToMobileHTML(article: mwkArticle) { (result, error) in
+        mobileviewConverter.convertMobileviewSavedDataToMobileHTML(article: mwkArticle) { (result, error) in
             let blastMobileviewSavedDataFolder = {
                 // Remove old mobileview saved data folder for this article
                 do {
-                    try FileManager.default.removeItem(atPath: dataStore.path(forArticleURL: articleURL))
+                    try FileManager.default.removeItem(atPath: self.path(forArticleURL: articleURL))
                 } catch {
                     DDLogError("Could not remove mobileview folder for articleURL: \(articleURL)")
                 }
@@ -46,8 +45,8 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
                 // If conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
                 DispatchQueue.main.async {
                     do {
-                        self.isDownloaded = false
-                        try dataStore.save()
+                        article.isDownloaded = false
+                        try self.save()
                     } catch let error {
                         DDLogError("Error updating article: \(error)")
                     }
@@ -72,8 +71,8 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
                 blastMobileviewSavedDataFolder()
                 DispatchQueue.main.async {
                     do {
-                        self.isConversionFromMobileViewNeeded = false
-                        try dataStore.save()
+                        article.isConversionFromMobileViewNeeded = false
+                        try self.save()
                     } catch let error {
                         completionHandler(error)
                         DDLogError("Error updating article: \(error)")
