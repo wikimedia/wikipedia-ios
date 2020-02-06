@@ -351,6 +351,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
         return;
     }
     self.view.backgroundColor = theme.colors.paperBackground;
+    [self.webView wmf_setTextFontColor:theme];
+    [self.webView wmf_setLogoStyleWithTheme:theme];
 }
 
 @end
