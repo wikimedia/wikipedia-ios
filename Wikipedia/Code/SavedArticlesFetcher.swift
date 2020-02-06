@@ -300,7 +300,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         return "isConversionFromMobileViewNeeded == TRUE"
     }()
     
-    private lazy var isAnyConversionNeededFetchRequest: NSFetchRequest<WMFArticle> = {
+    private lazy var conversionsNeededCountFetchRequest: NSFetchRequest<WMFArticle> = {
         let request = WMFArticle.fetchRequest()
         request.includesSubentities = false
         request.predicate = NSPredicate(format: isConversionFromMobileViewNeededPredicateString)
@@ -339,7 +339,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
             }
             // print("Conversion succeeded or not needed")
             do {
-                guard try moc.count(for: self.isAnyConversionNeededFetchRequest) > 0 else {
+                guard try moc.count(for: self.conversionsNeededCountFetchRequest) > 0 else {
                     self.stop()
                     return
                 }
