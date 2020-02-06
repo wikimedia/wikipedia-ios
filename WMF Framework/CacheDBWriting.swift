@@ -173,7 +173,7 @@ extension CacheDBWriting {
                      print("🌹noItems")
                 } else {
                     for item in fetchedResults {
-                        print("🌹itemKey: \(item.value(forKey: "key")!), isDownloaded: \(item.isDownloaded), variantGroupKey: \(item.variantGroupKey)")
+                        print("🌹itemKey: \(item.value(forKey: "key")!), isDownloaded: \(item.isDownloaded), variantGroupKey: \(item.value(forKey: "variantGroupKey") ?? "nil"), url: \(item.value(forKey: "url") ?? "nil")")
                     }
                 }
             } catch let error as NSError {

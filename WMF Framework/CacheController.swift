@@ -82,7 +82,7 @@ public class CacheController {
     let provider: CacheProviding
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriting
-    let gatekeeper = CacheGatekeeper()
+    private let gatekeeper = CacheGatekeeper()
     
     init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
