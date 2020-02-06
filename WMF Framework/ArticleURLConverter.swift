@@ -23,6 +23,18 @@ public class ArticleURLConverter {
         return desktopURL(host: stagingHost, title: title, configuration: configuration, scheme: scheme)
     }
     
+    public static func urlIsMediaList(url: URL) -> Bool {
+        let pathComponents = url.pathComponents
+        
+        //validation - confirm 2nd to last component containts 'media-list'
+        guard let mediaListPathComponent = pathComponents[safeIndex: pathComponents.count - 2],
+            mediaListPathComponent == ArticleFetcher.EndpointType.mediaList.rawValue else {
+                return false
+        }
+        
+        return true
+    }
+    
     public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
         let denormalizedTitle = (title as NSString).wmf_denormalizedPageTitle()
         guard let encodedTitle = denormalizedTitle?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
@@ -96,7 +108,7 @@ extension String {
         //tonitodo: flesh out
         if let preferredLanguageCode = NSLocale.wmf_preferredLanguageCodes.first,
             preferredLanguageCode == "zh-hans" || preferredLanguageCode == "zh-hant" && host == "zh.wikipedia.org" {
-            return self.appending(preferredLanguageCode)
+            return self.appending("__\(preferredLanguageCode)")
         }
         
         return self

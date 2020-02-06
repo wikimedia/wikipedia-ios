@@ -31,7 +31,7 @@ final class ImageCacheProvider: CacheProviding {
             }
             
             //fallback to variant that isDownloaded here, reassign preferredItemKey
-            var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(for: preferredItemKey, in: moc)
+            var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: preferredItemKey, in: moc)
             
             allVariantItems.sort { (lhs, rhs) -> Bool in
                 

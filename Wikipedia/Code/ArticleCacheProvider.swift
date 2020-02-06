@@ -28,8 +28,20 @@ final class ArticleCacheProvider: CacheProviding {
             return response
         }
         
-        //mobile-html endpoint is saved under the desktop url. if it's mobile-html first convert to desktop before pulling the key.
-        guard var preferredItemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: url)?.wmf_databaseKey ?? url.wmf_databaseKey else {
+        var maybePreferredItemKey: CacheController.ItemKey?
+        var nonVariantKey: String?
+        if let articleDesktopURL = ArticleURLConverter.desktopURL(mobileHTMLURL: url) {
+            nonVariantKey = articleDesktopURL.wmf_databaseKey
+            maybePreferredItemKey = nonVariantKey?.appendingLanguageVariantIfNecessary(host: articleDesktopURL.host)
+        } else if ArticleURLConverter.urlIsMediaList(url: url) {
+            nonVariantKey = url.wmf_databaseKey
+            maybePreferredItemKey = nonVariantKey?.appendingLanguageVariantIfNecessary(host: url.host)
+        } else {
+            nonVariantKey = url.wmf_databaseKey
+            maybePreferredItemKey = nonVariantKey
+        }
+        
+        guard var preferredItemKey = maybePreferredItemKey else {
             return nil
         }
         
@@ -40,8 +52,12 @@ final class ArticleCacheProvider: CacheProviding {
                 return
             }
             
+            guard let nonVariantKey = nonVariantKey else {
+                return
+            }
+            
             //fallback to variant that isDownloaded here, reassign preferredItemKey
-            let allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(for: preferredItemKey, in: moc)
+            let allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(variantGroupKey: nonVariantKey, in: moc)
             
             //tonitodo: maybe sort allVariantItems based on NSLocale language preferences (i.e. more than 2)
             
@@ -59,8 +75,20 @@ final class ArticleCacheProvider: CacheProviding {
             return imageController.newCachePolicyRequest(from: originalRequest, newURL: newURL)
         }
         
-        let itemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: newURL)?.wmf_databaseKey?.appendingLanguageVariantIfNecessary(host: newURL.host) ?? newURL.wmf_databaseKey
-        return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
+        var itemKey: CacheController.ItemKey?
+        if let articleDesktopURL = ArticleURLConverter.desktopURL(mobileHTMLURL: newURL) {
+            itemKey = articleDesktopURL.wmf_databaseKey?.appendingLanguageVariantIfNecessary(host: articleDesktopURL.host)
+        } else if ArticleURLConverter.urlIsMediaList(url: newURL) {
+            itemKey = newURL.wmf_databaseKey?.appendingLanguageVariantIfNecessary(host: newURL.host)
+        } else {
+            itemKey = newURL.wmf_databaseKey
+        }
+        
+        if let itemKey = itemKey {
+            return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
+        }
+        
+        return nil
     }
     
     private func isMimeTypeImage(type: String) -> Bool {
