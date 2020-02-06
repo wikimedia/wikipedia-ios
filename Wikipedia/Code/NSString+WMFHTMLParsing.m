@@ -5,6 +5,7 @@
 #import <WMF/WMFComparison.h>
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
+#import <WMF/NSCharacterSet+WMFLinkParsing.h>
 #import "WMF/WMFHTMLElement.h"
 @import CoreText;
 
@@ -401,6 +402,9 @@
                                               range:NSMakeRange(0, HTMLTagAttributes.length)
                                          usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
                                              NSString *URLString = [hrefRegex replacementStringForResult:result inString:HTMLTagAttributes offset:0 template:@"$1"];
+                                            if ([URLString hasPrefix:@"."] || [URLString hasPrefix:@"/"]) {
+                                                URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_relativePathAndFragmentAllowedCharacterSet]];
+                                            }
                                              NSURL *linkURL = [NSURL URLWithString:URLString];
                                              if (linkURL) {
                                                  [currentLinks addObject:linkURL];

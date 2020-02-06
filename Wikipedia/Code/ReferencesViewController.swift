@@ -53,8 +53,7 @@ class ReferencesViewController: ColumnarCollectionViewController {
     class func transformReferenceForView(_ reference: Reference) -> Reference {
         var html = "<sup>"
         for (index, backLink) in reference.backLinks.enumerated() {
-            let encodedHref = backLink.href.addingPercentEncoding(withAllowedCharacters: .pathAndFragmentAllowed) ?? backLink.href
-            html += "<a href='\(encodedHref)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
+            html += "<a href='\(backLink.href)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
         }
         html += "</sup>" + reference.content.html
         let content = Reference.Content(html: html, type: reference.content.type)
@@ -180,7 +179,7 @@ extension ReferencesViewController: ReferenceCollectionViewCellDelegate {
             return
         }
         // Check for a fragment - if this is the same article and there's no fragment just close?
-        guard let anchor = resolvedURL.fragment else {
+        guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
             delegate?.referencesViewControllerUserDidTapClose(self)
             return
         }
