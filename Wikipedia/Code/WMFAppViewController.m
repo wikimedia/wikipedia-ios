@@ -71,6 +71,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
+
+@property (nonatomic, strong) WMFMobileViewToMobileHTMLMigrationController *mobileViewToMobileHTMLMigrationController;
+
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -358,6 +361,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    [self.mobileViewToMobileHTMLMigrationController start];
     self.notificationsController.applicationActive = YES;
 }
 
@@ -993,18 +997,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [self.dataStore removeArticlesWithURLsFromCache:articleURLsToRemoveFromDisk];
     }
 
-    // TODO: instead of checking `savedPageList` just query the data store for articles with the isConversionFromMobileViewNeeded flag true?
-    [self.dataStore.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull article, BOOL *_Nonnull stop) {
-        [article migrateMobileviewToMobileHTMLIfNecessaryWithDataStore:self.dataStore
-                                                     completionHandler:^(NSError *_Nullable error) {
-                                                         if (error != nil) {
-                                                             NSLog(@"Conversion failed");
-                                                             return;
-                                                         }
-                                                         NSLog(@"Conversion succeeded or not needed");
-                                                     }];
-    }];
-
     if (self.backgroundTaskGroup) {
         return;
     }
@@ -1341,6 +1333,16 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
+}
+
+- (WMFMobileViewToMobileHTMLMigrationController *)mobileViewToMobileHTMLMigrationController {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
+    if (!_mobileViewToMobileHTMLMigrationController) {
+        _mobileViewToMobileHTMLMigrationController = [[WMFMobileViewToMobileHTMLMigrationController alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+    }
+    return _mobileViewToMobileHTMLMigrationController;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
