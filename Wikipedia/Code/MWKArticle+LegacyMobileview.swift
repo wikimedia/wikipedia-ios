@@ -159,23 +159,42 @@ extension MWKArticle {
     }
 }
 
+enum MobileviewToMobileHTMLConverterError: Error {
+    case noArticleURL
+    case noMobileViewJSONString
+    case noArticleURLHost
+    case noMobileAppsHost
+}
+
 @objc public extension MobileviewToMobileHTMLConverter {
     func convertMobileviewSavedDataToMobileHTML(article: MWKArticle, completionHandler: ((Any?, Error?) -> Void)? = nil) {
         guard let articleURL = article.url else {
             assertionFailure("Article url not available")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noArticleURL)
+            }
             return
         }
         guard let jsonString = article.reconstructedMobileViewJSONString(imageSize: CGSize(width: 320, height: 320)) else {
             assertionFailure("Article mobileview jsonString not reconstructed")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileViewJSONString)
+            }
             return
         }
         guard let host = articleURL.host else {
             assertionFailure("Article url host not available")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noArticleURLHost)
+            }
             return
         }
 // TODO: baseURI will need to change once we switch back to prod for mobilehtml!!
         guard let mobileappsHost = Configuration.appsLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).host else {
             assertionFailure("Mobileapps url host not available")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileAppsHost)
+            }
             return
         }
         let baseURI = "//\(mobileappsHost)/api/v1/"
