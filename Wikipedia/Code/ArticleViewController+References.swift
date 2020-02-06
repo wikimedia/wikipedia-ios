@@ -210,6 +210,8 @@ extension ArticleViewController: ReferencesViewControllerDelegate {
                 self.showGenericError()
                 return
             }
+            self.scroll(to: rect.center, centered: true, animated: false)
+            /// Convert for WMFLegacyReference
             let offset = self.webView.scrollView.contentOffset
             let convertedOrigin = CGPoint(x: rect.origin.x - offset.x, y: rect.origin.y - offset.y)
             let convertedRect = CGRect(origin: convertedOrigin, size: rect.size)
