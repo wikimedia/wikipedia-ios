@@ -53,7 +53,7 @@ class ReferencesViewController: ColumnarCollectionViewController {
     class func transformReferenceForView(_ reference: Reference) -> Reference {
         var html = "<sup>"
         for (index, backLink) in reference.backLinks.enumerated() {
-            let encodedHref = backLink.href.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? backLink.href
+            let encodedHref = backLink.href.addingPercentEncoding(withAllowedCharacters: .pathAndFragmentAllowed) ?? backLink.href
             html += "<a href='\(encodedHref)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
         }
         html += "</sup>" + reference.content.html

@@ -8,4 +8,10 @@ extension CharacterSet {
         characterSet.remove(charactersIn: "+&=")
         return characterSet
     }()
+    
+    public static let pathAndFragmentAllowed: CharacterSet = {
+        var characterSet = CharacterSet.urlPathAllowed
+        characterSet.insert(charactersIn: "#")
+        return characterSet
+    }()
 }
