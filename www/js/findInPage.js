@@ -38,15 +38,6 @@ const addSearchTermHighlight = (idx, textNode, searchTerm) => {
   return newTextNode
 }
 
-const addSearchTermHighlightToElementWithId = id => {
-  const element = document.getElementById(id)
-  if (!element) {
-    return
-  }
-  element.classList.add('findInPageMatch_Focus')
-  PreviousFocusMatchSpanId = id
-}
-
 const addSearchTermHighlights = (textNode, searchTerm) => {
   let idx = -1, currentTextNode = textNode
   while ((idx = searchTermIndex(currentTextNode, searchTerm)) > -1) {
@@ -131,4 +122,3 @@ const useFocusStyleForHighlightedSearchTermWithId = id => {
 exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 exports.removeSearchTermHighlights = removeSearchTermHighlights
-exports.addSearchTermHighlightToElementWithId = addSearchTermHighlightToElementWithId

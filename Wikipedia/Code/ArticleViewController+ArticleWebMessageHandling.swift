@@ -25,7 +25,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
         case .reference(let index, let group):
-            showReferences(group, selectedIndex: index)
+            showReferences(group, selectedIndex: index, animated: true)
         default:
             break
         }

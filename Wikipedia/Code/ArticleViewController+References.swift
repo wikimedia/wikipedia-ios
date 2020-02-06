@@ -13,28 +13,37 @@ extension ArticleViewController {
     }
     
     /// Show references that were tapped in the article
-    func showReferences(_ references: [WMFReference], selectedIndex: Int) {
-        guard selectedIndex < references.count else {
+    /// For now, we're keeping WMFReference to bridge with Objective-C but it should be merged with Reference in the future
+    func showReferences(_ scriptMessageReferences: [WMFLegacyReference], remoteReferences maybeRemoteReferences: [Reference]? = nil, selectedIndex: Int, animated: Bool) {
+        guard selectedIndex < scriptMessageReferences.count else {
             showGenericError()
             return
         }
+        
+        let remoteReferences: [Reference]
+        if let refs = maybeRemoteReferences {
+            remoteReferences = refs
+        } else {
+            remoteReferences = scriptMessageReferences.compactMap { getRemoteReferenceAndID(with: $0.refId)?.reference }
+        }
+        
+        guard remoteReferences.count == scriptMessageReferences.count else {
+            return
+        }
         // Read the reference HTML from the full references fetched from the server
-        for reference in references {
-            guard let remoteReference = self.references?.referencesByID[reference.anchor] else {
-                continue
-            }
-            reference.html = remoteReference.content.html
+        for (i, reference) in scriptMessageReferences.enumerated() {
+            reference.html = remoteReferences[i].content.html
         }
         
         if traitCollection.verticalSizeClass == .compact || traitCollection.horizontalSizeClass == .compact {
-            showReferencesPanel(with: references, selectedIndex: selectedIndex)
+            showReferencesPanel(with: scriptMessageReferences, selectedIndex: selectedIndex, animated: animated)
         } else {
-            showReferencesPopover(with: references[selectedIndex])
+            showReferencesPopover(with: scriptMessageReferences[selectedIndex], animated: animated)
         }
     }
     
     /// Show references that were tapped in the article as a panel
-    func showReferencesPanel(with references: [WMFReference], selectedIndex: Int) {
+    func showReferencesPanel(with references: [WMFLegacyReference], selectedIndex: Int, animated: Bool) {
         let vc = WMFReferencePageViewController.wmf_viewControllerFromReferencePanelsStoryboard()
         vc.pageViewController.delegate = self
         vc.appearanceDelegate = self
@@ -43,13 +52,13 @@ extension ArticleViewController {
         vc.modalTransitionStyle = .crossDissolve
         vc.lastClickedReferencesIndex = selectedIndex
         vc.lastClickedReferencesGroup = references
-        present(vc, animated: false) {
-            self.scrollReferencesToVisible(references, viewController: vc)
+        present(vc, animated: false) { // should be false even if animated is true
+            self.scrollReferencesToVisible(references, viewController: vc, animated: animated)
         }
     }
     
     /// Show references that were tapped in the article as a popover
-    func showReferencesPopover(with reference: WMFReference) {
+    func showReferencesPopover(with reference: WMFLegacyReference, animated: Bool) {
         let width = min(min(view.frame.size.width, view.frame.size.height) - 20, 355);
         guard let popoverVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard() else {
             showGenericError()
@@ -70,7 +79,7 @@ extension ArticleViewController {
         presenter?.sourceView = webView
         presenter?.sourceRect = reference.rect
         
-        present(popoverVC, animated: true) {
+        present(popoverVC, animated: animated) {
             // Reminder: The textView's scrollEnabled needs to remain "NO" until after the popover is
             // presented. (When scrollEnabled is NO the popover can better determine the textView's
             // full content height.) See the third reference "[3]" on "enwiki > Pythagoras".
@@ -84,10 +93,11 @@ extension ArticleViewController {
         }
         dismiss(animated: true)
     }
-    
+}
+
+private extension ArticleViewController {
     // MARK: - Utilities
-    
-    private func windowCoordinatesRect(for references: [WMFReference]) -> CGRect {
+    func windowCoordinatesRect(for references: [WMFLegacyReference]) -> CGRect {
         guard var rect = references.first?.rect else {
             return .zero
         }
@@ -99,8 +109,8 @@ extension ArticleViewController {
         rect = rect.insetBy(dx: -1, dy: -3)
         return rect
     }
-    
-    private func scrollReferencesToVisible(_ references: [WMFReference], viewController: WMFReferencePageViewController) {
+
+    func scrollReferencesToVisible(_ references: [WMFLegacyReference], viewController: WMFReferencePageViewController, animated: Bool) {
         let windowCoordsRefGroupRect = windowCoordinatesRect(for: references)
         guard
             !windowCoordsRefGroupRect.isEmpty,
@@ -111,7 +121,7 @@ extension ArticleViewController {
         let panelRectInWindowCoords = firstPanel.convert(firstPanel.bounds, to: nil)
         let refGroupRectInWindowCoords = viewController.backgroundView.convert(windowCoordsRefGroupRect, to: nil)
         
-        guard windowCoordsRefGroupRect.intersects(panelRectInWindowCoords) else {
+        guard !windowCoordsRefGroupRect.intersects(view.bounds) || windowCoordsRefGroupRect.intersects(panelRectInWindowCoords) else {
             viewController.backgroundView.clearRect = windowCoordsRefGroupRect
             return
         }
@@ -121,16 +131,31 @@ extension ArticleViewController {
         let contentInsetTop = webView.scrollView.contentInset.top
         if newOffsetY <= 0 - contentInsetTop {
             newOffsetY = 0 - contentInsetTop
-            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, shadowAlpha: 1, animated: true, additionalAnimations: nil)
+            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, shadowAlpha: 1, animated: animated, additionalAnimations: nil)
         }
         let delta = webView.scrollView.contentOffset.y - newOffsetY
         let centeredOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: newOffsetY)
-        scroll(to: centeredOffset, animated: true) {
+        scroll(to: centeredOffset, animated: animated) {
             viewController.backgroundView.clearRect = windowCoordsRefGroupRect.offsetBy(dx: 0, dy: delta)
         }
     }
-    
 
+
+    func getRemoteReferenceAndID(with anchor: String) -> (id: String, reference: Reference)? {
+        guard let referencesByID = references?.referencesByID  else {
+            return nil
+        }
+        // There should be a better way to do this...
+        for (id, reference) in referencesByID {
+            for backLink in reference.backLinks {
+                guard backLink.href.contains("#" + anchor) else {
+                    continue
+                }
+                return (id, reference)
+            }
+        }
+        return nil
+    }
 }
 
 extension ArticleViewController: UIPageViewControllerDelegate {
@@ -171,12 +196,26 @@ extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
 
 extension ArticleViewController: ReferencesViewControllerDelegate {
     func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapAnchor anchor: String) {
-        dismiss(animated: true)
-        scroll(to: anchor, centered: true, animated: true) {
-            self.messagingController.addSearchTermHighlightToElement(with: anchor)
-            dispatchOnMainQueueAfterDelayInSeconds(0.5) {
-                self.messagingController.removeSearchTermHighlights()
+        guard let remoteReferenceAndID = getRemoteReferenceAndID(with: anchor) else {
+            dismiss(animated: true)
+            showGenericError()
+            return
+        }
+        let remoteReference = remoteReferenceAndID.reference
+        let remoteReferenceID = remoteReferenceAndID.id
+        
+        webView.getScrollRectForHtmlElement(withId: anchor) { (rect) in
+            guard !rect.isNull else {
+                self.dismiss(animated: true)
+                self.showGenericError()
+                return
             }
+            let offset = self.webView.scrollView.contentOffset
+            let convertedOrigin = CGPoint(x: rect.origin.x - offset.x, y: rect.origin.y - offset.y)
+            let convertedRect = CGRect(origin: convertedOrigin, size: rect.size)
+            let scriptMessageReference = WMFLegacyReference(html: remoteReference.content.html, refId: remoteReferenceID, anchor: anchor, rect: convertedRect, text: "")
+            self.dismiss(animated: true)
+            self.showReferences([scriptMessageReference], remoteReferences: [remoteReference], selectedIndex: 0, animated: false)
         }
 
     }
