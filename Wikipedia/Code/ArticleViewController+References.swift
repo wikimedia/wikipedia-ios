@@ -1,7 +1,18 @@
 import Foundation
 
 extension ArticleViewController {
+    // MARK: - Actions
+    /// Show the entire references list modally
+    func showReferencesList() {
+        guard let references = references else {
+            showGenericError()
+            return
+        }
+        let referencesVC = ReferencesViewController(articleURL: articleURL, references: references, theme: theme, delegate: self)
+        presentEmbedded(referencesVC, style: .sheet)
+    }
     
+    /// Show references that were tapped in the article
     func showReferences(_ references: [WMFReference], selectedIndex: Int) {
         guard selectedIndex < references.count else {
             showGenericError()
@@ -22,6 +33,7 @@ extension ArticleViewController {
         }
     }
     
+    /// Show references that were tapped in the article as a panel
     func showReferencesPanel(with references: [WMFReference], selectedIndex: Int) {
         let vc = WMFReferencePageViewController.wmf_viewControllerFromReferencePanelsStoryboard()
         vc.pageViewController.delegate = self
@@ -36,6 +48,7 @@ extension ArticleViewController {
         }
     }
     
+    /// Show references that were tapped in the article as a popover
     func showReferencesPopover(with reference: WMFReference) {
         let width = min(min(view.frame.size.width, view.frame.size.height) - 20, 355);
         guard let popoverVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard() else {
@@ -72,7 +85,9 @@ extension ArticleViewController {
         dismiss(animated: true)
     }
     
-    func windowCoordinatesRect(for references: [WMFReference]) -> CGRect {
+    // MARK: - Utilities
+    
+    private func windowCoordinatesRect(for references: [WMFReference]) -> CGRect {
         guard var rect = references.first?.rect else {
             return .zero
         }
@@ -85,7 +100,7 @@ extension ArticleViewController {
         return rect
     }
     
-    func scrollReferencesToVisible(_ references: [WMFReference], viewController: WMFReferencePageViewController) {
+    private func scrollReferencesToVisible(_ references: [WMFReference], viewController: WMFReferencePageViewController) {
         let windowCoordsRefGroupRect = windowCoordinatesRect(for: references)
         guard
             !windowCoordsRefGroupRect.isEmpty,
@@ -115,14 +130,7 @@ extension ArticleViewController {
         }
     }
     
-    func showReferencesList() {
-        guard let references = references else {
-            showGenericError()
-            return
-        }
-        let referencesVC = ReferencesViewController(articleURL: articleURL, references: references, theme: theme, delegate: self)
-        presentEmbedded(referencesVC, style: .sheet)
-    }
+
 }
 
 extension ArticleViewController: UIPageViewControllerDelegate {
