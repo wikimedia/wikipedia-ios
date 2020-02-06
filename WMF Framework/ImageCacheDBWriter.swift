@@ -2,8 +2,7 @@
 import Foundation
 
 enum ImageCacheDBWriterError: Error {
-    case failureFetchOrCreateCacheGroup
-    case failureFetchOrCreateCacheItem
+    case batchURLInsertFailure
 }
 
 final class ImageCacheDBWriter: CacheDBWriting {
@@ -16,22 +15,23 @@ final class ImageCacheDBWriter: CacheDBWriting {
         self.cacheBackgroundContext = cacheBackgroundContext
     }
     
-    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
-        assertionFailure("ImageCacheDBWriter determines it's own itemKey (with variants) internally, do not pass one in.")
+    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping CacheDBWritingCompletionWithItems) {
+        assertionFailure("ImageCacheDBWriter determines it's own itemKeys (with variants) internally, do not pass one in.")
     }
     
-    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
-        
-        let itemKey = ImageCacheDBWriter.identifierForURL(url)
-        let variant = String(ImageCacheDBWriter.variantForURL(url))
-        let variantGroupKey = ImageCacheDBWriter.cacheKeyForURL(url)
-        cacheImage(groupKey: groupKey, itemKey: itemKey, variant: variant, variantGroupKey: variantGroupKey, completion: completion)
+    func add(urls: [URL], groupKey: String, completion: @escaping CacheDBWritingCompletionWithItems) {
+        cacheImages(urls: urls, groupKey: groupKey, completion: completion)
+    }
+    
+    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItems) {
+
+        cacheImages(urls: [url], groupKey: groupKey, completion: completion)
     }
     
     func shouldDownloadVariant(itemKey: CacheController.ItemKey) -> Bool {
         let context = self.cacheBackgroundContext
         
-        var result: Bool = true
+        var result: Bool = false
         context.performAndWait {
             
             var allVariantItems = CacheDBWriterHelper.allVariantItems(for: itemKey, in: context)
@@ -56,7 +56,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
                 }
                 result = itemKey == firstKey
             case (2.0, _):
-                guard let secondKey = allVariantItems[safeIndex: 2]?.key else {
+                guard let secondKey = allVariantItems[safeIndex: 1]?.key else {
                     result = true
                     return
                 }
@@ -68,7 +68,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
                 }
                 result = itemKey == lastKey
             default:
-                result = true
+                result = false
             }
         }
         
@@ -104,35 +104,69 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
 private extension ImageCacheDBWriter {
     
-    func cacheImage(groupKey: String, itemKey: String, variant: String, variantGroupKey: String, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
+    func cacheImages(urls: [URL], groupKey: String, completion: @escaping (CacheDBWritingResultWithItems) -> Void) {
+        
         
         let context = self.cacheBackgroundContext
         context.perform {
-
-            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
-                completion(.failure(ImageCacheDBWriterError.failureFetchOrCreateCacheGroup))
-                return
-            }
             
-            guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
-                completion(.failure(ImageCacheDBWriterError.failureFetchOrCreateCacheItem))
-                return
-            }
+            let dispatchGroup = DispatchGroup()
             
-            item.variant = variant
-            item.variantGroupKey = variantGroupKey
+            var successItems: [CacheDBWritingResultItem] = []
+            var errorURLs: [URL] = []
             
-            group.addToCacheItems(item)
-            
-            CacheDBWriterHelper.save(moc: context) { (result) in
-                switch result {
-                case .success:
-                    let result = CacheDBWritingResultWithItemKeys.success([itemKey])
-                    completion(result)
-                case .failure(let error):
-                    let result = CacheDBWritingResultWithItemKeys.failure(error)
-                    completion(result)
+            for url in urls {
+                
+                dispatchGroup.enter()
+                
+                let itemKey = ImageCacheDBWriter.identifierForURL(url)
+                let variant = String(ImageCacheDBWriter.variantForURL(url))
+                let variantGroupKey = ImageCacheDBWriter.cacheKeyForURL(url)
+                
+                guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
+                    
+                    errorURLs.append(url)
+                    dispatchGroup.leave()
+                    return
                 }
+                
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: context) else {
+                    
+                    errorURLs.append(url)
+                    dispatchGroup.leave()
+                    return
+                }
+                
+                item.url = url
+                item.variant = variant
+                item.variantGroupKey = variantGroupKey
+                
+                group.addToCacheItems(item)
+                
+                CacheDBWriterHelper.save(moc: context) { (result) in
+                    
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    switch result {
+                    case .success:
+                        let resultItem = CacheDBWritingResultItem(itemKey: itemKey, url: url)
+                        successItems.append(resultItem)
+                    case .failure:
+                        errorURLs.append(url)
+                    }
+                }
+            }
+            
+            dispatchGroup.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                
+                if errorURLs.count > 0 && successItems.count == 0 {
+                    completion(.failure(ImageCacheDBWriterError.batchURLInsertFailure))
+                    return
+                }
+                
+                completion(.success(successItems))
             }
         }
     }

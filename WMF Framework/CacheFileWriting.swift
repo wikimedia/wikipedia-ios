@@ -8,7 +8,7 @@ enum CacheFileWritingResult {
 
 protocol CacheFileWriting: CacheTaskTracking {
     
-    func add(groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheFileWritingResult) -> Void)
+    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheFileWritingResult) -> Void)
     
     //default extension
     func remove(itemKey: CacheController.ItemKey, completion: @escaping (CacheFileWritingResult) -> Void)

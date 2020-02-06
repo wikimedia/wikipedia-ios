@@ -16,6 +16,7 @@ extension PersistentCacheItem {
     @NSManaged public var key: String?
     @NSManaged public var variant: String?
     @NSManaged public var variantGroupKey: String?
+    @NSManaged public var url: URL?
     @NSManaged public var cacheGroups: NSSet?
     @NSManaged public var mustHaveCacheGroups: PersistentCacheGroup?
 
