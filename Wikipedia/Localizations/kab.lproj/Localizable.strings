@@ -80,7 +80,6 @@
 "article-read-more-title" = "Ɣer ugar";
 "article-share" = "Bḍu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Asenqed n isental n tɣuri";
-"article-unable-to-load-section" = "Ur izmir ara ad d-isali tigezmi-agi. Ɛreḍ asmiren n umagrad akken ad twaliḍ ma yefra wugur.";
 "back-button-accessibility-label" = "Uɣal";
 "button-next" = "Ar zdat";
 "button-ok" = "IH";
@@ -182,6 +181,7 @@
 "in-the-news-currently-trending" = "D atrar tura";
 "in-the-news-notification-read-now-action-title" = "Ɣeṛ tura";
 "in-the-news-notification-save-for-later-action-title" = "Sekles i ticki";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Bḍu...";
 "in-the-news-title" = "Deg isallen";
 "info-box-close-text" = "Mdel";
@@ -323,7 +323,6 @@
 "share-a-fact-made-with" = "Yettwag s usnas Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" di @Wikipedia:";
 "share-building" = "Rnu takarḍa Bḍu-tigawt...";
-"share-custom-menu-item" = "Bḍu...";
 "share-default-format" = "“$1” si “$2”: $3";
 "share-email-format" = "“$1”\n\nsi “$2”\n\n$3";
 "share-get-directions-in-maps" = "Awi iwellihen";
@@ -377,7 +376,6 @@
 "welcome-send-data-learn-more" = "Issin ugar ɣef isefka yettwaleqḍen";
 "welcome-send-data-sub-title" = "Mudd afus i tesbeddit Wikimedia akken ad tesnerni asnas ma temliḍ-aɣ-d amek i t-teseqdaceḍ. Isefka yettwaleqḍen d udrigen.";
 "welcome-volunteer-send-usage-reports" = "Azen ineqqisen n useqdec";
-"wikitext-download-failed" = "Ur izmir ara ad d-yawi lqem aneggaru.";
 "wikitext-downloading" = "Asali n ugbur...";
 "wikitext-preview-changes" = "Awway n teskant n usnifel-ik...";
 "wikitext-preview-changes-none" = "Ulac taẓrigt ittwasxedmen ara twaliḍ.";

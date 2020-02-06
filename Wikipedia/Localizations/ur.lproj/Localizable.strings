@@ -96,7 +96,6 @@
 "article-read-more-title" = "مزید پڑھیں";
 "article-save-error-not-enough-space" = "آپ کے ڈیوائس میں اس مضمون کو محفوظ کرنے کی جگہ نہیں ہے۔";
 "article-share" = "دوسروں کو بھیجیں";
-"article-unable-to-load-section" = "اس قطعے کو لوڈ نہیں کیا جا سکا۔ مضمون تازہ لوڈ کرکے دیکھیے کہ کیا اس مسئلے کا حل ممکن ہوچکا ہے۔";
 "back-button-accessibility-label" = "واپس";
 "back-button-popover-title" = "واپس جانے کے لیے طک کریں";
 "button-next" = "اگلا";
@@ -232,6 +231,7 @@
 "in-the-news-currently-trending" = "حالیہ رجحان";
 "in-the-news-notification-read-now-action-title" = "ابھی پڑھیں";
 "in-the-news-notification-save-for-later-action-title" = "بعد کے لیے محفوظ کریں";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "شیئر۔۔۔";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "in-the-news-sub-title-from-wikipedia" = "ویکیپیڈیا سے";
@@ -353,7 +353,6 @@
 "share-a-fact-made-with" = "وکیپیڈیا ایپ کے ساتھ تشکیل دے دیا گیا";
 "share-article-name-on-wikipedia" = "@Wikipedia پر \"$1\":";
 "share-building" = "اشتراک-حقائق کارڈ زیر تخلیق…";
-"share-custom-menu-item" = "بانٹیں";
 "share-email-format" = "«$1»\n\nاز «$2»\n\n$3";
 "share-menu-item" = "شیئر…";
 "share-message-format" = "«$1» $2";
@@ -385,7 +384,6 @@
 "welcome-notifications-tell-me-more-title" = "اطلاع ناموں کے متعلق مزید معلومات";
 "welcome-send-data-helps-title" = "اطلاقیہ کو مزید بہتر بنانے میں مدد کریں";
 "welcome-volunteer-send-usage-reports" = "استعمال کی رپورٹ بھیجیے";
-"wikitext-download-failed" = "تازہ ترین نظرثانی حاصل نہیں کی جاسکی ہے۔";
 "wikitext-downloading" = "مواد کو لوڈ کیا جارہا ہے...";
 "wikitext-preview-changes" = "آپ کی تبدیلیوں کی نمائش دوبارہ حاصل کی جارہی ہے...";
 "wikitext-preview-changes-none" = "کوئی تبدیلی نہیں کی گئی ہے جس کی نمائش کی جا سکے۔";

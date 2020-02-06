@@ -84,7 +84,6 @@
 "article-read-more-title" = "Baca leuwih jero";
 "article-share" = "Bagikeun";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Téma Bacaan";
-"article-unable-to-load-section" = "Teu bisa muat ieu bagéan. Coba segerkeun deui artikel pikein nempoan mun éta tarékah bisa menerkeun masalah.";
 "back-button-accessibility-label" = "Balik deui";
 "button-next" = "Saterusna";
 "button-ok" = "Heug";
@@ -190,6 +189,7 @@
 "in-the-news-currently-trending" = "Kiwari ngetrén";
 "in-the-news-notification-read-now-action-title" = "Baca ayeuna";
 "in-the-news-notification-save-for-later-action-title" = "Simpen jang engké";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Bagikeun...";
 "in-the-news-title" = "Dina warta";
 "info-box-close-text" = "Tutup";
@@ -339,7 +339,6 @@
 "share-a-fact-made-with" = "Dijieun maké aplikasi Wikipédia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "Ngawangun kartu Bagikeun-fakta...";
-"share-custom-menu-item" = "Bagikeun...";
 "share-default-format" = "“$1” ti “$2”: $3";
 "share-email-format" = "“$1”\n\nti “$2”\n\n$3";
 "share-get-directions-in-maps" = "Beunangkeun pituduh arah";
@@ -395,7 +394,6 @@
 "welcome-send-data-learn-more" = "Teuleuman ngeunaan data nu dikumpulkeun";
 "welcome-send-data-sub-title" = "Bantu ngaropéa aplikasi ku cara méré nyaho Wikimedia Foundation kumaha cara anjeun dina maké aplikasi. Data nu dikumpulkeun miwatek anonim";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan pamakéan";
-"wikitext-download-failed" = "Teu bisa nampa révisi panganyarna.";
 "wikitext-downloading" = "Muatkeun kontén...";
 "wikitext-preview-changes" = "Nganteur pramidang tina parobahan ajeun...";
 "wikitext-preview-changes-none" = "Taya parobahan nu dijieun pikeun némbongan pramidang.";

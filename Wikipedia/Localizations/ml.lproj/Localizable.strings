@@ -75,7 +75,6 @@
 "article-read-more-title" = "കൂടുതൽ വായിക്കുക";
 "article-save-error-not-enough-space" = "ഈ ലേഖനം സേവ് ചെയ്യുവാനുള്ള സ്ഥലം താങ്കളുടെ ഉപകരണത്തിനില്ല";
 "article-share" = "പങ്കുവയ്ക്കുക";
-"article-title" = "ലേഖനം";
 "back-button-accessibility-label" = "പുറകോട്ട്";
 "back-button-popover-title" = "തിരികെ പോകാൻ ടാപ്പുചെയ്യുക";
 "button-next" = "അടുത്തത്";
@@ -231,7 +230,6 @@
 "settings-support" = "വിക്കിമീഡിയയ്ക്ക് പിന്തുണയേകുക";
 "settings-title" = "സജ്ജീകരണങ്ങൾ";
 "table-title-other" = "കൂടുതൽ വിവരങ്ങൾ";
-"wikitext-download-failed" = "ഏറ്റവും പുതിയ നാൾപ്പതിപ്പ് എടുക്കാനാവുന്നില്ല.";
 "wikitext-downloading" = "ഉള്ളടക്കം ശേഖരിക്കുന്നു...";
 "wikitext-preview-changes" = "താങ്കൾ വരുത്തിയ മാറ്റങ്ങളുടെ പ്രിവ്യൂ എടുക്കുന്നു...";
 "wikitext-preview-changes-none" = "എങ്ങനെയുണ്ടെന്ന് കാണാൻ മാറ്റങ്ങളൊന്നും വരുത്തിയിട്ടില്ല.";

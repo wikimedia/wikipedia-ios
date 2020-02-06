@@ -128,11 +128,10 @@
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
 "article-read-more-title" = "En savoir plus";
+"article-reference-title" = "Voir les références";
 "article-save-error-not-enough-space" = "Vous n’avez pas assez d’espace disponible sur votre appareil pour enregistrer cet article";
 "article-share" = "Partager";
-"article-title" = "Article";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Contrôles des thèmes de lecture";
-"article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "back-button-accessibility-label" = "Retour";
 "back-button-popover-title" = "Taper pour revenir en arrière";
 "button-next" = "Suivant";
@@ -561,6 +560,7 @@
 "page-history-user-edits" = "modifications par un utilisateur";
 "page-issues" = "Problèmes de page";
 "page-last-edited" = "Modifié {{PLURAL:$1|0=aujourd’hui|1=hier|il y a $1 jours}}";
+"page-last-edited-unknown" = "Modifié il y a quelque temps";
 "page-location" = "Afficher sur une carte";
 "page-protected-autoconfirmed" = "Cette page a été semi-protégée.";
 "page-protected-can-not-edit" = "Vous n’avez pas le droit de modifier cette page.";
@@ -782,7 +782,6 @@
 "share-a-fact-made-with" = "Fait avec l’application Wikipédia";
 "share-article-name-on-wikipedia" = "« $1 » sur @Wikipedia :";
 "share-building" = "Création d’une carte « Partager un fait »...";
-"share-custom-menu-item" = "Partager...";
 "share-default-format" = "« $1 » de « $2 » : $3";
 "share-email-format" = "« $1 »\n\nde « $2 »\n\n$3";
 "share-get-directions-in-maps" = "Obtenir les directions";
@@ -875,7 +874,6 @@
 "welcome-send-data-learn-more" = "En savoir plus sur les données collectées";
 "welcome-send-data-sub-title" = "Aider à améliorer l’application en indiquant à la Fondation Wikimedia la manière dont vous l’utilisez. Les données collectées sont anonymes.";
 "welcome-volunteer-send-usage-reports" = "Envoyer les rapports d’utilisation";
-"wikitext-download-failed" = "Impossible d’obtenir la dernière version.";
 "wikitext-downloading" = "Chargement du contenu...";
 "wikitext-preview-changes" = "Récupération de l’aperçu de vos modifications...";
 "wikitext-preview-changes-none" = "Aucune modification faite pour l’aperçu.";

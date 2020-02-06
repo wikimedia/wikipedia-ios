@@ -87,7 +87,6 @@
 "article-read-more-title" = "زیاتر بخوێنەوە";
 "article-share" = "ھاوبەشکردن";
 "article-toolbar-reading-themes-controls-toolbar-item" = "کۆنترۆڵەکانی بەرگەکانی خوێندنەوە";
-"article-unable-to-load-section" = "ناتواندرێت ئەم بەشە بیشان بدرێت. ھەوڵ بدە کە وتارەکە دووبارە بکەیتەوە.";
 "back-button-accessibility-label" = "گەڕانەوە";
 "button-next" = "دواتر";
 "button-ok" = "باشە";
@@ -191,6 +190,7 @@
 "in-the-news-currently-trending" = "بەناوبانگ لە ئێستادا";
 "in-the-news-notification-read-now-action-title" = "ئێستە بیخوێنەوە";
 "in-the-news-notification-save-for-later-action-title" = "خەزێنەکردن بۆ دواتر";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "ھاوبەشکردن";
 "in-the-news-title" = "لە ھەواڵەکاندا";
 "info-box-close-text" = "دایخە";
@@ -335,7 +335,6 @@
 "share-a-fact-made-with" = "بە بەرنامەی ویکیپیدیا دروستکراوە";
 "share-article-name-on-wikipedia" = "«$1» لەسەر @Wikipedia:";
 "share-building" = "کارتێکی ڕاستییەک-ھاوبەش-بکە دروست دەکرێت...";
-"share-custom-menu-item" = "ھاوبەشکردن...";
 "share-default-format" = "«$1» لە «$2»: $3";
 "share-email-format" = "«$1»\n\nلە «$2»\n\n$3";
 "share-get-directions-in-maps" = "وەرگرتنی ئاڕاستەکان";
@@ -390,7 +389,6 @@
 "welcome-send-data-learn-more" = "زیاتر فێرببە دەربارەی زانیارییە کۆکراوەکان";
 "welcome-send-data-sub-title" = "یارمەتی ویکیپیدیا بدە لە باشترکردنی بەرنامەکە بە ناردنی زانیاریی بەکارھێنان تا چۆنییەتی بەکارھێنانی بەرنامەکە لەلایەن بەکارھێنەرانەوە بزانین. ئەو زانیارییانەی کۆدەکرێنەوە کەسایەتیت دەرناخات.";
 "welcome-volunteer-send-usage-reports" = "ڕاپۆرتی بەکارھێنان بنێرە";
-"wikitext-download-failed" = "نەتواندرا دوایین پێداچوونەوە بەدەست بھێندرێت.";
 "wikitext-downloading" = "ناوەڕۆک دەھێندرێت...";
 "wikitext-preview-changes" = "گۆڕانکارییەکانت بیشان دەدرێن...";
 "wikitext-preview-changes-none" = "ھیچ گۆڕانکارییەک نەکراوە تا نیشان بدرێت.";

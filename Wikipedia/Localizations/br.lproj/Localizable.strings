@@ -90,7 +90,6 @@
 "article-languages-yours" = "Ho yezhoù";
 "article-read-more-title" = "Lenn muioc'h";
 "article-share" = "Rannañ";
-"article-unable-to-load-section" = "Ne c'haller ket kargañ ar rannskrid-se. Klaskit freskaat ar pennad evit gwelet hag-eñ e vo reizhet ar gudenn.";
 "back-button-accessibility-label" = "Distreiñ";
 "button-next" = "War-lerc'h";
 "button-ok" = "Mat eo";
@@ -231,6 +230,7 @@
 "in-the-news-currently-trending" = "Diouzh ar c'hiz bremañ";
 "in-the-news-notification-read-now-action-title" = "Lenn bremañ";
 "in-the-news-notification-save-for-later-action-title" = "Enrollañ evit diwezhatoc'h";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Rannañ...";
 "in-the-news-sub-title-from-language-wikipedia" = "Eus $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Eus Wikipedia";
@@ -385,7 +385,6 @@
 "settings-support" = "Skoazellañ Wikimedia";
 "settings-title" = "Arventennoù";
 "share-article-name-on-wikipedia" = "\"$1\" war @Wikipedia:";
-"share-custom-menu-item" = "Rannañ...";
 "share-get-directions-in-maps" = "Kaout an tuioù";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Digor e Kartennoù";
@@ -415,7 +414,6 @@
 // Fuzzy
 "welcome-send-data-sub-title" = "Skoazellit Diazezadur Wikipedia da wellaat an arload en ur lezel ac'hanomp da c'houzout penaos ec'h embregit anezhañ. Dizanv e chom an roadennoù dastumet.";
 "welcome-volunteer-send-usage-reports" = "Kas danevelloù implij";
-"wikitext-download-failed" = "N'haller ket kaout an azgweladenn ziwezhañ";
 "wikitext-downloading" = "O kargañ un endalc'had...";
 "wikitext-preview-changes" = "Adtapout an alberz eus ho kemmoù";
 "wikitext-preview-changes-none" = "N'eus bet graet kemm ebet evit an alberz.";

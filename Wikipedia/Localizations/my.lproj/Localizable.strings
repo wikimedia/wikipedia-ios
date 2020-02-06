@@ -7,6 +7,7 @@
 // Author: NayiMuu
 // Author: Nemo bis
 // Author: Ninjastrikers
+// Author: Teitei
 
 "about-content-license" = "အကြောင်းအရာလိုင်စင်";
 "about-content-license-details" = "အခြား ဖော်ပြချက်မရှိပါက၊ အကြောင်းအရာသည် $1 ဖြင့် ရရှိနိုင်သည်။";
@@ -95,8 +96,6 @@
 "article-read-more-title" = "ဆက်ဖတ်ပါ";
 "article-save-error-not-enough-space" = "ဤဆောင်းပါးကို သိမ်းဆည်းရန် သင်၏စက်ပစ္စည်းတွင် သိုလှောင်လက်ကျန် မလုံလောက်ပါ";
 "article-share" = "မျှဝေ";
-"article-title" = "ဆောင်းပါး";
-"article-unable-to-load-section" = "ဤအပိုင်းအား မရယူနိုင်ပါ။ ဆောင်းပါးအား ပြန်လည်ရှင်းသန့်ခြင်းဖြင့် ဤပြဿနာအား ပြင်ဆင်ရန် ကြိုးပမ်းကြည့်ပါ။";
 "back-button-accessibility-label" = "နောက်သို့";
 "back-button-popover-title" = "နောက်သို့ပြန်သွားရန်";
 "button-next" = "ရှေ့";
@@ -313,7 +312,7 @@
 "in-the-news-currently-trending" = "လက်ရှိ ရေပန်းစားမှု";
 "in-the-news-notification-read-now-action-title" = "ယခုဖတ်ရန်။";
 "in-the-news-notification-save-for-later-action-title" = "နောင်အတွက် သိမ်းဆည်းရန်";
-"in-the-news-notification-share-action-title" = "မျှဝေ...";
+"in-the-news-notification-share-action-title" = "မျှဝေပါ...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "in-the-news-sub-title-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "in-the-news-title" = "သတင်းထဲတွင်";
@@ -398,6 +397,7 @@
 "page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-last-edited" = "{{PLURAL:$1|0=ယနေ့တည်းဖြတ်ခဲ့သည်|1=မနေ့ကတည်းဖြတ်ခဲ့သည်|$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်}}";
+"page-last-edited-unknown" = "အချို့သောအချိန်တုန်းက တည်းဖြတ်ပြီး";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
@@ -556,7 +556,6 @@
 "settings-title" = "အပြင်အဆင်များ";
 "share-a-fact-made-with" = "ဝီကီပီးဒီးယား app ဖြင့် ပြုလုပ်သည်";
 "share-article-name-on-wikipedia" = "@Wikipedia မှ \"$1\":";
-"share-custom-menu-item" = "မျှဝေ...";
 "share-default-format" = "“$2” မှ “$1”: $3";
 "share-email-format" = "“$2”\n\nမှ “$1”\n\n$3";
 "share-get-directions-in-maps" = "လမ်းညွှန်များ ရယူရန်";
@@ -628,7 +627,6 @@
 "welcome-send-data-learn-more" = "ဒေတာစုဆောင်းမှုအကြောင်း ပိုမိုလေ့လာရန်";
 "welcome-send-data-sub-title" = "သင် မည်ကဲ့သို့အသုံးချခဲ့သည်ကို ဝီကီမီဒီယာ ဖောင်ဒေးရှင်းအားအသိပေး၍ ဤဆော့ဝဲလ်အား ပိုကောင်းလာစေရန် ကူညီပေးပါ။ ဒေတာစုဆောင်းခြင်းမှာ အမည်မသိစနစ်ဖြစ်ပါသည်။";
 "welcome-volunteer-send-usage-reports" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
-"wikitext-download-failed" = "နောက်ဆုံးမူအား မရယူနိုင်ပါ။";
 "wikitext-downloading" = "အကြောင်းအရာများ ရယူနေသည်...";
 "wikitext-preview-changes" = "သင့်ပြောင်းလဲမှုများ၏ နမူနာကို ရယူနေသည်...";
 "wikitext-preview-changes-none" = "နမူနာပြရန် ပြောင်းလဲမှု ပြုလုပ်ထားခြင်း မရှိပါ။";

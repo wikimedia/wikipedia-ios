@@ -106,11 +106,10 @@
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
 "article-read-more-title" = "Прочитајте повеќе";
+"article-reference-title" = "Погл. наводи";
 "article-save-error-not-enough-space" = "Немате доволно простор на уредот за да ја зачувате статијава";
 "article-share" = "Сподели";
-"article-title" = "Статија";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Контроли за изгледите за читање";
-"article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Допрете за да се вратите";
 "button-next" = "Следно";
@@ -539,6 +538,7 @@
 "page-history-user-edits" = "кориснички уредувања";
 "page-issues" = "Проблеми со страницата";
 "page-last-edited" = "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}";
+"page-last-edited-unknown" = "Уредено пред некое време";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
@@ -760,7 +760,6 @@
 "share-a-fact-made-with" = "Направено до прилогот на Википедија";
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
 "share-building" = "Создавам карта за споделување факт...";
-"share-custom-menu-item" = "Сподели...";
 "share-default-format" = "„$1“ од „$2“: $3";
 "share-email-format" = "„$1“\n\nод „$2“\n\n$3";
 "share-get-directions-in-maps" = "Дај насоки";
@@ -853,7 +852,6 @@
 "welcome-send-data-learn-more" = "Дознајте повеќе за податоците што се собираат";
 "welcome-send-data-sub-title" = "Помогнете ни да го подобриме прилогот со тоа што ќе ни овозможите да собираме податоци за тоа како го користите. Податоците се собираат анонимно.";
 "welcome-volunteer-send-usage-reports" = "Испраќај извештаи за употребата";
-"wikitext-download-failed" = "Не можам да ја добијам најновата преработка.";
 "wikitext-downloading" = "Ги вчитувам содржините...";
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-changes-none" = "Не направивте промени.";

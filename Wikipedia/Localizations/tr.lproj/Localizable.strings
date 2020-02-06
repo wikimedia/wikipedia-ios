@@ -104,7 +104,7 @@
 "action-saved-accessibility-notification" = "Madde, sonrası için kaydedildi";
 "action-share" = "Paylaş";
 "action-share-accessibility" = "Paylaş";
-"action-sort" = "Sınıflandır";
+"action-sort" = "Sırala";
 "action-thank-user-accessibility" = "Kullanıcı Teşekkür Et";
 "action-undo" = "Geri al";
 "action-unsave" = "Kaydetme";
@@ -133,11 +133,10 @@
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamını oku";
+"article-reference-title" = "Kaynakları görüntüle";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
-"article-title" = "Makale";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
-"article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "back-button-accessibility-label" = "Geri";
 "back-button-popover-title" = "Geri dönmek için dokunun";
 "button-next" = "Sonraki";
@@ -455,7 +454,7 @@
 "in-the-news-currently-trending" = "Şu anki trendler";
 "in-the-news-notification-read-now-action-title" = "Şimdi Oku";
 "in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
-"in-the-news-notification-share-action-title" = "Paylaş...";
+"in-the-news-notification-share-action-title" = "Paylaş…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Vikipedi'den";
 "in-the-news-sub-title-from-wikipedia" = "Vikipedi'den";
 "in-the-news-title" = "Haberlerde";
@@ -566,6 +565,7 @@
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";
 "page-last-edited" = "{{PLURAL:$1|0=Bugün düzenlendi|1=Dün düzenlendi|$1 gün önce düzenlendi}}";
+"page-last-edited-unknown" = "Bir süre önce düzenlendi";
 "page-location" = "Haritada görüntüle";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
@@ -787,7 +787,6 @@
 "share-a-fact-made-with" = "Vikipedi uygulamasıyla hazırlandı";
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
 "share-building" = "Bir bilgi kartı paylaşımı oluşturun...";
-"share-custom-menu-item" = "Paylaş...";
 "share-default-format" = "$3 sayfasındaki $2 maddesinden $1";
 "share-email-format" = "“$1”\n\n“$2” maddesinden\n\n$3";
 "share-get-directions-in-maps" = "Yol tarifi al";
@@ -880,7 +879,6 @@
 "welcome-send-data-learn-more" = "Toplanan veriler hakkında daha fazla bilgi edin";
 "welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı Wikimedia Vakfı'na bildirerek uygulamanın geliştirilmesine katkı sağlayın. Veriler anonim olarak toplanır.";
 "welcome-volunteer-send-usage-reports" = "Kullanım raporlarını gönder";
-"wikitext-download-failed" = "En son sürüm getirilemiyor.";
 "wikitext-downloading" = "İçerik yükleniyor...";
 "wikitext-preview-changes" = "Değişikliklerinizin ön izlemesi getiriliyor...";
 "wikitext-preview-changes-none" = "Ön izlemesi yapılacak bir değişiklik yok.";

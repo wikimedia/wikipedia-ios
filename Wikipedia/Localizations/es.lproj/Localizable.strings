@@ -10,6 +10,7 @@
 // Author: Elisardojm
 // Author: Fitoschido
 // Author: Hasley
+// Author: Ihojose
 // Author: Indiralena
 // Author: Irus
 // Author: JO777
@@ -140,11 +141,10 @@
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Seguir leyendo";
+"article-reference-title" = "Ver referencia";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
-"article-title" = "Artículo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
-"article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
 "button-next" = "Siguiente";
@@ -462,7 +462,7 @@
 "in-the-news-currently-trending" = "En tendencia";
 "in-the-news-notification-read-now-action-title" = "Leer ahora";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
-"in-the-news-notification-share-action-title" = "Compartir...";
+"in-the-news-notification-share-action-title" = "Compartir…";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
@@ -792,7 +792,6 @@
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
 "share-building" = "Construyendo una tarjeta comparte-un-hecho…";
-"share-custom-menu-item" = "Compartir...";
 "share-default-format" = "«$1» de «$2»: $3";
 "share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Obtener indicaciones";
@@ -810,6 +809,7 @@
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
 "table-of-contents-heading" = "Sumario";
+"table-of-contents-hide-button-label" = "Ocultar sumario";
 "table-title-other" = "Más información";
 "talk-page-add-discussion-accessibility-label" = "Añadir discusión";
 "talk-page-discussion-accessibility-hint" = "Toca dos veces para abrir el hilo de discusión";
@@ -882,7 +882,6 @@
 "welcome-send-data-learn-more" = "Más información sobre los datos recopilados";
 "welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación al decirnos cómo la usas. Los datos recolectados son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
-"wikitext-download-failed" = "No se puede obtener la versión más reciente.";
 "wikitext-downloading" = "Cargando el contenido…";
 "wikitext-preview-changes" = "Generando previsualización de tus cambios…";
 "wikitext-preview-changes-none" = "No se realizaron cambios que revisar.";
