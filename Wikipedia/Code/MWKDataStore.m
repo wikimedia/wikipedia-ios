@@ -552,7 +552,8 @@ static uint64_t bundleHash() {
 
 - (void)markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:(NSManagedObjectContext *)moc {
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES && isConversionFromMobileViewNeeded == NO"];
+    request.fetchLimit = 500;
     request.propertiesToFetch = @[];
     NSError *fetchError = nil;
     NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
@@ -560,17 +561,26 @@ static uint64_t bundleHash() {
         DDLogError(@"Error fetching downloaded articles: %@", fetchError);
         return;
     }
-    for (WMFArticle *article in downloadedArticles) {
-        article.isConversionFromMobileViewNeeded = YES;
-    }
-    if ([moc hasChanges]) {
-        NSError *saveError = nil;
-        [moc save:&saveError];
-        if (saveError) {
-            DDLogError(@"Error saving downloaded articles: %@", fetchError);
+    while (downloadedArticles.count > 0) {
+        @autoreleasepool {
+            for (WMFArticle *article in downloadedArticles) {
+                article.isConversionFromMobileViewNeeded = YES;
+            }
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    return;
+                }
+                [moc reset];
+            }
+        }
+        downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
             return;
         }
-        [moc reset];
     }
 }
 
