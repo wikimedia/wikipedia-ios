@@ -14,7 +14,7 @@ class ReferencesViewController: ColumnarCollectionViewController {
     
     required init(articleURL: URL, references: References, theme: Theme, delegate: ReferencesViewControllerDelegate?) {
         self.articleURL = articleURL
-        self.references = references
+        self.references = ReferencesViewController.transformReferencesForView(references)
         self.delegate = delegate
         super.init(theme: theme)
     }
@@ -38,6 +38,29 @@ class ReferencesViewController: ColumnarCollectionViewController {
     @objc func closeButtonPressed() {
         delegate?.referencesViewControllerUserDidTapClose(self)
     }
+    
+    // MARK: - Transformers
+    
+    class func transformReferencesForView(_ references: References) -> References {
+        var transformedReferencesByID = [String: Reference]()
+        for (id, reference) in references.referencesByID {
+            transformedReferencesByID[id] = transformReferenceForView(reference)
+        }
+        return References(revision: references.revision, tid: references.tid, referenceLists: references.referenceLists, referencesByID: transformedReferencesByID)
+    }
+    
+    /// Transform an individual reference for view. We convert the backlinks into additional HTML for display.
+    class func transformReferenceForView(_ reference: Reference) -> Reference {
+        var html = "<sup>"
+        for (index, backLink) in reference.backLinks.enumerated() {
+            let encodedHref = backLink.href.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? backLink.href
+            html += "<a href='\(encodedHref)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
+        }
+        html += "</sup>" + reference.content.html
+        let content = Reference.Content(html: html, type: reference.content.type)
+        return Reference(backLinks: reference.backLinks, content: content)
+    }
+
     
     // MARK: - Data Source
     
@@ -75,13 +98,7 @@ class ReferencesViewController: ColumnarCollectionViewController {
             return
         }
         cell.index = indexPath.item
-        var html = "<sup>"
-        for (index, backLink) in reference.backLinks.enumerated() {
-            let encodedHref = backLink.href.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? backLink.href
-            html += "<a href='\(encodedHref)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
-        }
-        html += "</sup>" + reference.content.html
-        cell.html = html
+        cell.html = reference.content.html
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
