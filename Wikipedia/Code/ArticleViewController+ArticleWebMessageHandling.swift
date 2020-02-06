@@ -7,12 +7,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .finalSetup:
             handlePCSDidFinishFinalSetup()
         case .link(let href, _, let title):
-            guard let title = title else {
-                guard let href = href else {
-                    showGenericError()
-                    break
-                }
-                navigate(to: URL(string: href))
+            guard let title = title, !title.isEmpty else {
+                navigate(to: href)
                 break
             }
             handleLink(with: title)
