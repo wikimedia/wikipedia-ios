@@ -77,7 +77,8 @@ class ReferencesViewController: ColumnarCollectionViewController {
         cell.index = indexPath.item
         var html = "<sup>"
         for (index, backLink) in reference.backLinks.enumerated() {
-            html += "<a href='\(backLink.href)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
+            let encodedHref = backLink.href.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? backLink.href
+            html += "<a href='\(encodedHref)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
         }
         html += "</sup>" + reference.content.html
         cell.html = html
