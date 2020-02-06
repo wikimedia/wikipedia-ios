@@ -28,7 +28,7 @@ class ReferencesViewController: ColumnarCollectionViewController {
         
         title = WMFLocalizedString("references-title", value: "References", comment: "Title for the view that shows page references.")
         
-        layoutManager.register(HTMLCollectionViewCell.self, forCellWithReuseIdentifier: ReferencesViewController.cellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(ReferenceCollectionViewCell.self, forCellWithReuseIdentifier: ReferencesViewController.cellReuseIdentifier, addPlaceholder: true)
         
         let xButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonPressed))
         navigationItem.leftBarButtonItem = xButton
@@ -67,23 +67,25 @@ class ReferencesViewController: ColumnarCollectionViewController {
 
     // MARK: - Collection View Data Source
 
-    private func configure(cell: HTMLCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    private func configure(cell: ReferenceCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.apply(theme: theme)
         cell.layoutMargins = layout.itemLayoutMargins
         guard let reference = reference(at: indexPath) else {
             cell.html = nil
             return
         }
-        var html = reference.content.html
-        for backLink in reference.backLinks {
-            html += " <a href='./\(backLink.href)'>\(backLink.text)</a>"
+        cell.index = indexPath.item
+        var html = "<sup>"
+        for (index, backLink) in reference.backLinks.enumerated() {
+            html += "<a href='\(backLink.href)'>\(reference.backLinks.count == 1 && index == 0 ? "^" : "\(index + 1)")</a> "
         }
+        html += "</sup>" + reference.content.html
         cell.html = html
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let maybeCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReferencesViewController.cellReuseIdentifier, for: indexPath)
-        guard let cell = maybeCell as? HTMLCollectionViewCell else {
+        guard let cell = maybeCell as? ReferenceCollectionViewCell else {
             return maybeCell
         }
         configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
@@ -118,7 +120,7 @@ class ReferencesViewController: ColumnarCollectionViewController {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
         guard
             let referenceKey = referenceKey(at: indexPath),
-            let placeholder = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? HTMLCollectionViewCell
+            let placeholder = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReferenceCollectionViewCell
         else {
             return estimate
         }
@@ -146,8 +148,8 @@ class ReferencesViewController: ColumnarCollectionViewController {
 }
 
 
-extension ReferencesViewController: HTMLCollectionViewCellDelegate {
-    func collectionViewCell(_ HTMLCollectionViewCell: HTMLCollectionViewCell, didTapLinkWith url: URL) {
+extension ReferencesViewController: ReferenceCollectionViewCellDelegate {
+    func collectionViewCell(_ cell: ReferenceCollectionViewCell, didTapLinkWith url: URL) {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         // Resolve relative URLs
         guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {

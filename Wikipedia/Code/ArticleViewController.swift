@@ -466,13 +466,15 @@ class ArticleViewController: ViewController {
         }
         footerLoadGroup?.enter()
         referenceFetcher.fetchReferences(for: articleURL) { (result) in
-            switch result {
-            case .success(let references):
-                self.references = references
-            case .failure(let error):
-                DDLogError("Error fetching references for \(self.articleURL): \(error)")
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let references):
+                    self.references = references
+                case .failure(let error):
+                    DDLogError("Error fetching references for \(self.articleURL): \(error)")
+                }
+                self.footerLoadGroup?.leave()
             }
-            self.footerLoadGroup?.leave()
         }
     }
     

@@ -1061,7 +1061,7 @@
 		832A7A4C23E99C9500D0A750 /* ReferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4A23E99C9500D0A750 /* ReferencesViewController.swift */; };
 		832A7A4D23E99C9500D0A750 /* ReferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4A23E99C9500D0A750 /* ReferencesViewController.swift */; };
 		832A7A4E23E99C9500D0A750 /* ReferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4A23E99C9500D0A750 /* ReferencesViewController.swift */; };
-		832A7A5423E9AE4000D0A750 /* HTMLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4F23E9A21900D0A750 /* HTMLCollectionViewCell.swift */; };
+		832A7A5423E9AE4000D0A750 /* ReferenceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A4F23E9A21900D0A750 /* ReferenceCollectionViewCell.swift */; };
 		832A7A5B23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832A7A5C23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832A7A5D23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
@@ -3646,7 +3646,7 @@
 		832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeThatFitsReusableView.swift; sourceTree = "<group>"; };
 		832A7A4523E8AB7500D0A750 /* References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = References.swift; sourceTree = "<group>"; };
 		832A7A4A23E99C9500D0A750 /* ReferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencesViewController.swift; sourceTree = "<group>"; };
-		832A7A4F23E9A21900D0A750 /* HTMLCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLCollectionViewCell.swift; sourceTree = "<group>"; };
+		832A7A4F23E9A21900D0A750 /* ReferenceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceCollectionViewCell.swift; sourceTree = "<group>"; };
 		832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+References.swift"; sourceTree = "<group>"; };
 		832A7A5F23EAE03200D0A750 /* String+JavaScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JavaScript.swift"; sourceTree = "<group>"; };
 		832B2B8323D9F9420087EB5F /* NSRegularExpression+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRegularExpression+Utilities.swift"; sourceTree = "<group>"; };
@@ -8192,7 +8192,7 @@
 			children = (
 				D8733C951ECA48490011E379 /* CollectionViewCell.swift */,
 				83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */,
-				832A7A4F23E9A21900D0A750 /* HTMLCollectionViewCell.swift */,
+				832A7A4F23E9A21900D0A750 /* ReferenceCollectionViewCell.swift */,
 				D8497F631EE09BE600100CBD /* CircledRankView.swift */,
 				7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */,
 				BA7FF0B31F6188C70054CF02 /* CollectionViewCellActionsView.swift */,
@@ -10774,7 +10774,7 @@
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
 				8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
-				832A7A5423E9AE4000D0A750 /* HTMLCollectionViewCell.swift in Sources */,
+				832A7A5423E9AE4000D0A750 /* ReferenceCollectionViewCell.swift in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				67A6F13C23BFED2300736539 /* ImageCacheFileWriter.swift in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
