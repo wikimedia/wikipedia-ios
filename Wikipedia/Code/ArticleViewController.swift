@@ -263,7 +263,13 @@ class ArticleViewController: ViewController {
     // MARK: Overrideable functionality
     
     internal func handleLink(with href: String) {
-        let components = URLComponents(string: href)
+        let urlComponentsString: String
+        if href.hasPrefix(".") || href.hasPrefix("/") {
+            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
+        } else {
+            urlComponentsString = href
+        }
+        let components = URLComponents(string: urlComponentsString)
         // Resolve relative URLs
         guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
             showGenericError()
