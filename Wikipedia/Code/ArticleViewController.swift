@@ -33,7 +33,6 @@ class ArticleViewController: ViewController {
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
     private lazy var fetcher: ArticleFetcher = ArticleFetcher()
-    internal var references: References?
 
     private var leadImageHeight: CGFloat = 210
     
@@ -474,19 +473,6 @@ class ArticleViewController: ViewController {
             self.footerLoadGroup?.leave()
         }) { (error) in
             self.footerLoadGroup?.leave()
-        }
-        
-        footerLoadGroup?.enter()
-        fetcher.fetchReferences(with: articleURL) { (result, _) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let references):
-                    self.references = references
-                case .failure(let error):
-                    DDLogError("Error fetching references for \(self.articleURL): \(error)")
-                }
-                self.footerLoadGroup?.leave()
-            }
         }
     }
     

@@ -67,8 +67,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showEditHistory()
         case .pageIssues:
             showPageIssues(with: payload)
-        case .referenceList:
-            showReferencesList()
         }
     }
     
@@ -87,7 +85,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
             return
         }
-        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .referenceList, .lastEdited, .pageIssues, .disambiguation]
+        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
         if languageCount > 0 {
             menuItems.append(.languages)
         }
