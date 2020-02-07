@@ -141,7 +141,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         assert(Thread.isMainThread)
-        let escapedWikitext = wikitext.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        let escapedWikitext = wikitext.sanitizedForJavaScriptTemplateLiterals
         completions[.wikitext] = completionHandler
         webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`, () => {  window.webkit.messageHandlers.didSetWikitextMessage.postMessage({}); });") { (_, error) in
             guard let error = error, let completionHandler = completionHandler else {
@@ -155,9 +155,9 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func highlightAndScrollToText(for selectedTextEditInfo: SelectedTextEditInfo, completionHandler: ((Error?) -> Void)? = nil) {
         let selectedAndAdjacentText = selectedTextEditInfo.selectedAndAdjacentText
-        let escapedSelectedText = selectedAndAdjacentText.selectedText.wmf_stringBySanitizingForBacktickDelimitedJavascript()
-        let escapedTextBeforeSelectedText = selectedAndAdjacentText.textBeforeSelectedText.wmf_stringBySanitizingForBacktickDelimitedJavascript()
-        let escapedTextAfterSelectedText = selectedAndAdjacentText.textAfterSelectedText.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        let escapedSelectedText = selectedAndAdjacentText.selectedText.sanitizedForJavaScriptTemplateLiterals
+        let escapedTextBeforeSelectedText = selectedAndAdjacentText.textBeforeSelectedText.sanitizedForJavaScriptTemplateLiterals
+        let escapedTextAfterSelectedText = selectedAndAdjacentText.textAfterSelectedText.sanitizedForJavaScriptTemplateLiterals
         webView.evaluateJavaScript("""
             window.wmf.highlightAndScrollToWikitextForSelectedAndAdjacentText(`\(escapedSelectedText)`, `\(escapedTextBeforeSelectedText)`, `\(escapedTextAfterSelectedText)`);
         """) { (_, error) in
@@ -303,7 +303,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func insertOrEditLink(page: String, label: String?) {
         let labelOrNull = label.flatMap { "\"\($0)\"" } ?? "null"
-        let argument = "\"\(page)\", \(labelOrNull)".wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        let argument = "\"\(page)\", \(labelOrNull)".sanitizedForJavaScriptTemplateLiterals
         execCommand(for: .insertOrEditLink, argument: argument)
     }
 
@@ -429,7 +429,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     }
 
     func find(text: String) {
-        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        let escapedText = text.sanitizedForJavaScriptTemplateLiterals
         execCommand(for: .find, argument: "`\(escapedText)`")
     }
 
@@ -450,12 +450,12 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     }
     
     func replaceAll(text: String) {
-        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        let escapedText = text.sanitizedForJavaScriptTemplateLiterals
         execCommand(for: .replaceAll, argument: "`\(escapedText)`")
     }
     
     func replaceSingle(text: String) {
-        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        let escapedText = text.sanitizedForJavaScriptTemplateLiterals
         execCommand(for: .replaceSingle, argument: "`\(escapedText)`")
     }
     
@@ -464,7 +464,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     }
 
     func replaceSelection(text: String) {
-        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        let escapedText = text.sanitizedForJavaScriptTemplateLiterals
         execCommand(for: .replaceSelection, argument: "`\(escapedText)`")
     }
 

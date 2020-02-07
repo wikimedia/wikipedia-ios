@@ -32,7 +32,9 @@ class ArticleViewController: ViewController {
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-    
+    private lazy var fetcher: ArticleFetcher = ArticleFetcher()
+    internal var references: References?
+
     private var leadImageHeight: CGFloat = 210
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
@@ -89,6 +91,7 @@ class ArticleViewController: ViewController {
             DDLogError("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
+            self.updateArticleMargins()
         }
     }
     
@@ -165,6 +168,15 @@ class ArticleViewController: ViewController {
         updateTableOfContentsInsets()
     }
     
+    override func viewLayoutMarginsDidChange() {
+        super.viewLayoutMarginsDidChange()
+        updateArticleMargins()
+    }
+    
+    private func updateArticleMargins() {
+        messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+    }
+    
     // MARK: Loading
     
     internal var state: ViewState = .initial {
@@ -204,7 +216,7 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
-
+        setupGestureRecognizerDependencies()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -235,6 +247,7 @@ class ArticleViewController: ViewController {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
+        webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
         if state == .loaded {
@@ -270,11 +283,10 @@ class ArticleViewController: ViewController {
         }
     }
     
-    var isUpdatingTableOfContentsSectionOnScroll = true
     var previousContentOffsetYForTOCUpdate: CGFloat = 0
     
     func updateTableOfContentsHighlightIfNecessary() {
-        guard isUpdatingTableOfContentsSectionOnScroll, tableOfContentsController.viewController.isVisible else {
+        guard tableOfContentsController.viewController.displayMode == .inline, tableOfContentsController.viewController.isVisible else {
             return
         }
         let scrollView = webView.scrollView
@@ -287,7 +299,7 @@ class ArticleViewController: ViewController {
         updateTableOfContentsHighlight()
     }
     
-     func updateTableOfContentsHighlight() {
+    func updateTableOfContentsHighlight() {
         previousContentOffsetYForTOCUpdate = webView.scrollView.contentOffset.y
         getVisibleSectionId { (sectionId) in
             self.tableOfContentsController.selectAndScroll(to: sectionId, animated: true)
@@ -314,7 +326,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Scroll
     
-    func scroll(to anchor: String, animated: Bool, completion: (() -> Void)? = nil) {
+    func scroll(to anchor: String, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
             completion?()
@@ -326,22 +338,31 @@ class ArticleViewController: ViewController {
                 completion?()
                 return
             }
-            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight)
+            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
             self.scroll(to: point, animated: animated, completion: completion)
         }
     }
     
     var scrollViewAnimationCompletions: [() -> Void] = []
-    func scroll(to offset: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
+    func scroll(to offset: CGPoint, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         assert(Thread.isMainThread)
         let scrollView = webView.scrollView
         guard !offset.x.isNaN && !offset.x.isInfinite && !offset.y.isNaN && !offset.y.isInfinite else {
             completion?()
             return
         }
+        let overlayTop = self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight
+        let adjustmentY: CGFloat
+        if centered {
+            let overlayBottom = self.webView.scrollView.contentInset.bottom
+            let height = self.webView.scrollView.bounds.height
+            adjustmentY = -0.5 * (height - overlayTop - overlayBottom)
+        } else {
+            adjustmentY = overlayTop
+        }
         let minY = 0 - scrollView.contentInset.top
         let maxY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
-        let boundedY = min(maxY,  max(minY, offset.y))
+        let boundedY = min(maxY,  max(minY, offset.y + adjustmentY))
         let boundedOffset = CGPoint(x: scrollView.contentOffset.x, y: boundedY)
         guard WMFDistanceBetweenPoints(boundedOffset, scrollView.contentOffset) >= 2 else {
             scrollView.flashScrollIndicators()
@@ -385,7 +406,13 @@ class ArticleViewController: ViewController {
         updateTableOfContentsHighlight()
     }
     
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        dismissReferencesPopover()
+    }
+    
     // MARK: Article load
+    
     var footerLoadGroup: DispatchGroup?
     var languageCount: Int = 0
     
@@ -398,11 +425,18 @@ class ArticleViewController: ViewController {
     
     func load() {
         state = .loading
+        setupPageContentServiceJavaScriptInterface {
+            self.loadPage()
+        }
+    }
+    
+    func loadPage() {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
         guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
-            WMFAlertManager.sharedInstance.showErrorAlert(RequestError.invalidParameters as NSError, sticky: true, dismissPreviousAlerts: true)
+            showGenericError()
+            state = .error
             return
         }
         
@@ -417,6 +451,8 @@ class ArticleViewController: ViewController {
         webView.load(request)
         
         guard let key = article.key else {
+            showGenericError()
+            state = .error
             return
         }
         footerLoadGroup?.enter()
@@ -429,6 +465,19 @@ class ArticleViewController: ViewController {
             self.footerLoadGroup?.leave()
         }) { (error) in
             self.footerLoadGroup?.leave()
+        }
+        
+        footerLoadGroup?.enter()
+        fetcher.fetchReferences(with: articleURL) { (result, _) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let references):
+                    self.references = references
+                case .failure(let error):
+                    DDLogError("Error fetching references for \(self.articleURL): \(error)")
+                }
+                self.footerLoadGroup?.leave()
+            }
         }
     }
     
@@ -448,6 +497,15 @@ class ArticleViewController: ViewController {
             try? self.article.managedObjectContext?.save()
 
         }
+    }
+    
+    // MARK: Gestures
+    
+    func setupGestureRecognizerDependencies() {
+        guard let popGR = navigationController?.interactivePopGestureRecognizer else {
+            return
+        }
+        webView.scrollView.panGestureRecognizer.require(toFail: popGR)
     }
     
     // MARK: Analytics
@@ -503,7 +561,9 @@ private extension ArticleViewController {
         imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
-        
+    }
+    
+    func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
         guard let siteURL = articleURL.wmf_site else {
             DDLogError("Missing site for \(articleURL)")
             showGenericError()
@@ -512,18 +572,20 @@ private extension ArticleViewController {
         
         // Need user groups to let the Page Content Service know if the page is editable for this user
         authManager.getLoggedInUser(for: siteURL) { (result) in
+            assert(Thread.isMainThread)
             switch result {
             case .success(let user):
                 self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
             case .failure(let error):
                 self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
             }
+            completion()
         }
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
-        messagingController.setup(with: webView, language: articleLanguage, theme: theme, leadImageHeight: Int(leadImageHeight), areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
+        messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
     func setupToolbar() {
@@ -568,6 +630,16 @@ extension ArticleViewController: ImageScaleTransitionProviding {
         view.layoutIfNeeded()
     }
 
+}
+
+extension ViewController {
+    /// Allows for re-use by edit preview VC
+    var articleMargins: UIEdgeInsets {
+        var margins = navigationController?.view.layoutMargins ?? view.layoutMargins // view.layoutMargins is zero here so check nav controller first
+        margins.top = 8
+        margins.bottom = 0
+        return margins
+    }
 }
 
 //WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")

@@ -31,13 +31,29 @@ module.exports = function (grunt) {
       }
     },
 
+    less: {
+      all: {
+        options: {
+          compress: true,
+          yuicompress: true,
+          optimization: 2
+        },
+        files: [
+          {
+            src: 'less/**/*.less',
+            dest: `${distFolder}styleoverrides.css`
+          }
+        ]
+      }
+    },
+
     eslint: {
       src: [
         '*.js',
         allJSFilesInJSFolder
       ],
       options: {
-        fix: false
+        fix: true
       }
     },
 
@@ -76,6 +92,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'eslint',
     'browserify',
+    'less',
     'copy'
   ])
 }

@@ -1,26 +1,18 @@
-/* Use spaces to increase reference anchor touch targets. Don't use non-breaking spaces here - we want consecutive spaces to collapse. i.e. we want the trailing space on a reference and the leading space on an adjacent reference to collapse: we wan't " [1] [2] [3] " instead of " [1]  [2]  [3] " */
-.content sup.reference a::before {
- content: " " !important;
-}
-
-.content sup.reference a::after {
- content: " " !important;
-}
-
-.content .reference_highlight a {
+.reference-highlight a {
  color: #000000 !important;
 }
 
-.pagelib_theme_dark .content .reference_highlight a,
-.pagelib_theme_black .content .reference_highlight a {
+.pcs-theme-dark .reference-highlight a,
+.pcs-theme-black .reference-highlight a {
  color: #ffffff !important;
 }
 
-#pagelib_edit_section_title_description{
-    font-size: 0.825em;
-     line-height: 1.57;
+
+.reference-highlight a {
+ color: #000000 !important;
 }
-#pagelib_edit_section_add_title_description{
-    font-size: 0.825em;
-    line-height: 1.95;
+
+.pcs-theme-dark .reference-highlight a,
+.pcs-theme-black .reference-highlight a {
+ color: #ffffff !important;
 }

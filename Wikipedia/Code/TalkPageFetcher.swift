@@ -84,7 +84,7 @@ enum TalkPageType: Int {
     
     func urlTitle(for title: String) -> String? {
         assert(title.contains(":"), "Title must already be prefixed with namespace.")
-        return title.wmf_denormalizedPageTitle()
+        return title.denormalizedPageTitle
     }
 }
 
@@ -198,7 +198,7 @@ private extension TalkPageFetcher {
         assert(urlTitle.contains(":"), "Title must already be prefixed with namespace.")
         
         guard let host = siteURL.host,
-        let percentEncodedUrlTitle = urlTitle.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
+            let percentEncodedUrlTitle = urlTitle.percentEncodedPageTitleForPathComponents else {
             return nil
         }
         

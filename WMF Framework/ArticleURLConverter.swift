@@ -24,8 +24,7 @@ public class ArticleURLConverter {
     }
     
     public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
-        let denormalizedTitle = (title as NSString).wmf_denormalizedPageTitle()
-        guard let encodedTitle = denormalizedTitle?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
+        guard let encodedTitle = title.percentEncodedPageTitleForPathComponents else {
             return nil
         }
         var components = configuration.articleURLForHost(host, appending: [encodedTitle])
@@ -53,15 +52,14 @@ public class ArticleURLConverter {
 
     public static func mobileHTMLURL(siteURL: URL, articleTitle: String, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
         guard let host = siteURL.host,
-            let percentEncodedUrlTitle = (articleTitle as NSString)
-                .wmf_denormalizedPageTitle()
-                .addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
+            let percentEncodedUrlTitle = articleTitle.percentEncodedPageTitleForPathComponents
+        else {
             return nil
         }
         
         //tonitodo: use wmf_normalizedPageTitle instead for an error-state redirect test
         let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
-        var components = Configuration.appsLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
+        var components = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
         if let scheme = scheme {
             components.scheme = scheme
         }
@@ -71,7 +69,7 @@ public class ArticleURLConverter {
     public static func mobileHTMLPreviewRequest(desktopURL:  URL, wikitext: String) throws -> URLRequest {
         guard
             let articleTitle = desktopURL.wmf_title,
-            let percentEncodedTitle = articleTitle.wmf_denormalizedPageTitle().addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed),
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
             let url = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(desktopURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters

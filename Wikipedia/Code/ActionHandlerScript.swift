@@ -1,10 +1,8 @@
 import WebKit
 
-
-
-// Handles interaction with the Page Content Service JavaScript interface
-// Passes setup parameters to the webpage (theme, margins, etc) and sets up a listener to recieve events (link tapped, image tapped, etc) through the messaging bridge
-// https://www.mediawiki.org/wiki/Page_Content_Service
+/// Handles interaction with the Page Content Service JavaScript interface
+/// Passes setup parameters to the webpage (theme, margins, etc) and sets up a listener to recieve events (link tapped, image tapped, etc) through the messaging bridge
+/// https://www.mediawiki.org/wiki/Page_Content_Service
 final class PageContentService   {
     struct Setup {
         struct Parameters: Codable {
@@ -145,6 +143,24 @@ final class PageContentService   {
         
         required override init() {
             super.init(source: UtilitiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        }
+    }
+    
+    
+    final class StyleScript: WKUserScript {
+        static let source: String = {
+            guard
+                let fileURL = Bundle.wmf.url(forResource: "styleoverrides", withExtension: "css", subdirectory: "assets"),
+                let data = try? Data(contentsOf: fileURL),
+                let cssString = String(data: data, encoding: .utf8)?.sanitizedForJavaScriptTemplateLiterals
+            else {
+                return ""
+            }
+            return "const style = document.createElement('style'); style.innerHTML = `\(cssString)`; document.head.appendChild(style);"
+        }()
+        
+        required override init() {
+            super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
 }
