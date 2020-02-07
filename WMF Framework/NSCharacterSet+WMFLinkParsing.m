@@ -13,4 +13,15 @@
     return wmf_URLArticleTitleAllowedCharacterSet;
 }
 
++ (NSCharacterSet *)wmf_relativePathAndFragmentAllowedCharacterSet {
+    static dispatch_once_t onceToken;
+    static NSCharacterSet *wmf_relativePathAndFragmentAllowedCharacterSet;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet *pathAllowedCharacterSet = [[NSCharacterSet URLPathAllowedCharacterSet] mutableCopy];
+        [pathAllowedCharacterSet addCharactersInString:@"#"];
+        wmf_relativePathAndFragmentAllowedCharacterSet = [pathAllowedCharacterSet copy];
+    });
+    return wmf_relativePathAndFragmentAllowedCharacterSet;
+}
+
 @end

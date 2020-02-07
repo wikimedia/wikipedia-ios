@@ -59,10 +59,6 @@ extension ArticleViewController {
         issuesVC.issues = issues
         presentEmbedded(issuesVC, style: .sheet)
     }
-    
-    func showReferences() {
-        
-    }
 }
 
 

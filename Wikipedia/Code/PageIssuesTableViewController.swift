@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFPageIssuesTableViewController)
 class PageIssuesTableViewController: UITableViewController {
     static let defaultViewCellReuseIdentifier = "org.wikimedia.default"
 
@@ -43,7 +42,7 @@ class PageIssuesTableViewController: UITableViewController {
         cell.selectedBackgroundView = UIView()
         cell.selectedBackgroundView?.backgroundColor = self.theme.colors.midBackground
         cell.textLabel?.textColor = self.theme.colors.primaryText
-
+        
         return cell
     }
     
