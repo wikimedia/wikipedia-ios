@@ -6,12 +6,12 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handlePCSDidFinishInitialSetup()
         case .finalSetup:
             handlePCSDidFinishFinalSetup()
-        case .link(let href, _, let title):
-            guard let title = title, !title.isEmpty else {
-                navigate(to: href)
-                break
+        case .link(let href, _, _):
+            guard let href = href else {
+                showGenericError()
+                return
             }
-            handleLink(with: title)
+            handleLink(with: href)
         case .leadImage(let source, let width, let height):
             handleLeadImage(source: source, width: width, height: height)
         case .tableOfContents(items: let items):

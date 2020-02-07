@@ -263,14 +263,23 @@ class ArticleViewController: ViewController {
     
     // MARK: Overrideable functionality
     
-    internal func handleLink(with title: String) {
-        guard let host = articleURL.host,
-            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title) else {
-                assertionFailure("Failure initializing new Article VC")
-                //tonitodo: error state
-                return
+    internal func handleLink(with href: String) {
+        let components = URLComponents(string: href)
+        // Resolve relative URLs
+        guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
+            showGenericError()
+            return
         }
-        navigate(to: newArticleURL)
+        // Check if this is the same article by comparing database keys
+        guard resolvedURL.wmf_databaseKey == articleURL.wmf_databaseKey else {
+            navigate(to: resolvedURL)
+            return
+        }
+        // Check for a fragment - if this is the same article and there's no fragment just do nothing?
+        guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
+            return
+        }
+        scroll(to: anchor, animated: true)
     }
     
     // MARK: Table of contents
