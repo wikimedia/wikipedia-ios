@@ -7,12 +7,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .finalSetup:
             handlePCSDidFinishFinalSetup()
         case .link(let href, _, let title):
-            guard let title = title else {
-                guard let href = href else {
-                    showGenericError()
-                    break
-                }
-                navigate(to: URL(string: href))
+            guard let title = title, !title.isEmpty else {
+                navigate(to: href)
                 break
             }
             handleLink(with: title)
@@ -25,7 +21,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
         case .reference(let index, let group):
-            showReferences(group, selectedIndex: index)
+            showReferences(group, selectedIndex: index, animated: true)
         default:
             break
         }

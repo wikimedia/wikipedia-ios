@@ -3,4 +3,8 @@ extension CGRect {
     public func layoutHeight(with spacing: CGFloat) -> CGFloat {
         return height > 0 ? height + spacing : 0
     }
+    
+    public var center: CGPoint {
+        return CGPoint(x: midX, y: midY)
+    }
 }

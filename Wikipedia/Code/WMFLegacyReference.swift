@@ -1,6 +1,6 @@
 /// Legacy reference class for handling references passed across the JavaScript Bridge
 /// Ideally this would be merged with the Reference struct in References.swift
-@objc class WMFReference: NSObject {
+@objc class WMFLegacyReference: NSObject {
     
     @objc var html: String
     let anchor: String

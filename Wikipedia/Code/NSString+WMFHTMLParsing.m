@@ -5,6 +5,7 @@
 #import <WMF/WMFComparison.h>
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
+#import <WMF/NSCharacterSet+WMFLinkParsing.h>
 #import "WMF/WMFHTMLElement.h"
 @import CoreText;
 
@@ -255,15 +256,47 @@
     return mutableSelf;
 }
 
-- (nonnull NSString *)wmf_stringByRemovingHTMLWithParsingBlock:(nullable void (^)(NSString *lowercasedHTMLTagName, NSString *HTMLTagAttributes, NSInteger offset, NSInteger currentLocation))parsingBlock {
+- (nonnull NSString *)wmf_stringByRemovingHTMLWithParsingBlock:(nullable void (^)(NSString *lowercasedHTMLTagName, BOOL isEndTag, NSString *HTMLTagAttributes, NSInteger offset, NSInteger currentLocation))parsingBlock {
     __block NSInteger offset = 0;
 
     NSMutableString *cleanedString = [self mutableCopy];
 
     __block NSInteger plainTextStartLocation = 0;
+    __block NSInteger tagToRemoveStartLocation = NSNotFound;
+
+    static NSSet<NSString *> *tagsToRemove;
+    static dispatch_once_t tagsToRemoveOnceToken;
+    dispatch_once(&tagsToRemoveOnceToken, ^{
+        tagsToRemove = [NSSet setWithObjects:@"script", @"style", nil];
+    });
 
     [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
         HTMLTagName = [HTMLTagName lowercaseString];
+        BOOL isInTagToRemove = tagToRemoveStartLocation != NSNotFound;
+        BOOL isEnd = false;
+        if ([HTMLTagName hasPrefix:@"/"]) {
+            isEnd = true;
+            HTMLTagName = [HTMLTagName substringFromIndex:1];
+        }
+        if ([tagsToRemove containsObject:HTMLTagName]) {
+            if (isEnd) {
+                if (isInTagToRemove) {
+                    NSInteger length = range.location + range.length - tagToRemoveStartLocation;
+                    [cleanedString replaceCharactersInRange:NSMakeRange(tagToRemoveStartLocation + offset, length) withString:@""];
+                    offset -= length;
+                    tagToRemoveStartLocation = NSNotFound;
+                    return;
+                }
+                return;
+            } else {
+                isInTagToRemove = true;
+                tagToRemoveStartLocation = range.location;
+                return;
+            }
+        }
+        if (isInTagToRemove) {
+            return;
+        }
         NSString *replacement = [HTMLTagName isEqualToString:@"br"] || [HTMLTagName isEqualToString:@"br/"] ? @"\n" : @"";
         [cleanedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:replacement];
         offset -= (range.length - replacement.length);
@@ -282,7 +315,7 @@
         }
 
         if (parsingBlock) {
-            parsingBlock(HTMLTagName, HTMLTagAttributes, offset, currentLocation);
+            parsingBlock(HTMLTagName, isEnd, HTMLTagAttributes, offset, currentLocation);
         }
     }];
 
@@ -324,7 +357,7 @@
 
     NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
     __block NSInteger startLocation = NSNotFound;
-    NSString *cleanedString = [self wmf_stringByRemovingHTMLWithParsingBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSInteger offset, NSInteger currentLocation) {
+    NSString *cleanedString = [self wmf_stringByRemovingHTMLWithParsingBlock:^(NSString *HTMLTagName, BOOL isEndTag, NSString *HTMLTagAttributes, NSInteger offset, NSInteger currentLocation) {
         NSString *mapping = tagMapping[HTMLTagName];
         if (mapping) {
             HTMLTagName = mapping;
@@ -334,16 +367,15 @@
             [tags addObject:[currentTags copy]];
             [links addObject:[currentLinks copy]];
         }
-        if ([HTMLTagName hasPrefix:@"/"]) {
-            NSString *closeTagName = [HTMLTagName substringFromIndex:1];
-            if ([closeTagName isEqualToString:@"a"]) {
+        if (isEndTag) {
+            if ([HTMLTagName isEqualToString:@"a"]) {
                 [currentLinks removeAllObjects];
-            } else if (handlingLists && ([closeTagName isEqualToString:@"ul"] || [closeTagName isEqualToString:@"ol"] || [closeTagName isEqualToString:@"li"])) {
+            } else if (handlingLists && ([HTMLTagName isEqualToString:@"ul"] || [HTMLTagName isEqualToString:@"ol"] || [HTMLTagName isEqualToString:@"li"])) {
                 WMFHTMLElement *lastUnclosedListElement = nil;
                 NSInteger index = unclosedListElements.count;
                 for (WMFHTMLElement *unclosedListElement in [unclosedListElements reverseObjectEnumerator]) {
                     index -= 1;
-                    if ([unclosedListElement.tagName isEqualToString:closeTagName]) {
+                    if ([unclosedListElement.tagName isEqualToString:HTMLTagName]) {
                         lastUnclosedListElement = unclosedListElement;
                         break;
                     }
@@ -355,7 +387,7 @@
                     assert(false);
                 }
             }
-            [currentTags removeObject:closeTagName];
+            [currentTags removeObject:HTMLTagName];
             if ([currentTags count] > 0) {
                 startLocation = currentLocation;
             } else {
@@ -370,6 +402,9 @@
                                               range:NSMakeRange(0, HTMLTagAttributes.length)
                                          usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
                                              NSString *URLString = [hrefRegex replacementStringForResult:result inString:HTMLTagAttributes offset:0 template:@"$1"];
+                                            if ([URLString hasPrefix:@"."] || [URLString hasPrefix:@"/"]) {
+                                                URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_relativePathAndFragmentAllowedCharacterSet]];
+                                            }
                                              NSURL *linkURL = [NSURL URLWithString:URLString];
                                              if (linkURL) {
                                                  [currentLinks addObject:linkURL];

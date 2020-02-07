@@ -1,7 +1,7 @@
 @import UIKit;
 @import WMF.Swift;
 
-@class WMFReference;
+@class WMFLegacyReference;
 
 extern NSString *const WMFReferenceLinkTappedNotification;
 
@@ -10,7 +10,7 @@ extern NSString *const WMFReferenceLinkTappedNotification;
 @property (nonatomic) CGFloat width;
 @property (nonatomic) BOOL scrollEnabled;
 
-@property (strong, nonatomic) WMFReference *reference;
+@property (strong, nonatomic) WMFLegacyReference *reference;
 
 - (void)scrollToTop;
 

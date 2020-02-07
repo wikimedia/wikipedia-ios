@@ -216,6 +216,7 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
+        setupGestureRecognizerDependencies()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -337,31 +338,31 @@ class ArticleViewController: ViewController {
                 completion?()
                 return
             }
-            let overlayTop = self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight
-            let adjustmentY: CGFloat
-            if centered {
-                let overlayBottom = self.webView.scrollView.contentInset.bottom
-                let height = self.webView.scrollView.bounds.height
-                adjustmentY = -0.5 * (height - overlayTop - overlayBottom)
-            } else {
-                adjustmentY = overlayTop
-            }
-            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + adjustmentY)
+            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
             self.scroll(to: point, animated: animated, completion: completion)
         }
     }
     
     var scrollViewAnimationCompletions: [() -> Void] = []
-    func scroll(to offset: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
+    func scroll(to offset: CGPoint, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         assert(Thread.isMainThread)
         let scrollView = webView.scrollView
         guard !offset.x.isNaN && !offset.x.isInfinite && !offset.y.isNaN && !offset.y.isInfinite else {
             completion?()
             return
         }
+        let overlayTop = self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight
+        let adjustmentY: CGFloat
+        if centered {
+            let overlayBottom = self.webView.scrollView.contentInset.bottom
+            let height = self.webView.scrollView.bounds.height
+            adjustmentY = -0.5 * (height - overlayTop - overlayBottom)
+        } else {
+            adjustmentY = overlayTop
+        }
         let minY = 0 - scrollView.contentInset.top
         let maxY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
-        let boundedY = min(maxY,  max(minY, offset.y))
+        let boundedY = min(maxY,  max(minY, offset.y + adjustmentY))
         let boundedOffset = CGPoint(x: scrollView.contentOffset.x, y: boundedY)
         guard WMFDistanceBetweenPoints(boundedOffset, scrollView.contentOffset) >= 2 else {
             scrollView.flashScrollIndicators()
@@ -411,6 +412,7 @@ class ArticleViewController: ViewController {
     }
     
     // MARK: Article load
+    
     var footerLoadGroup: DispatchGroup?
     var languageCount: Int = 0
     
@@ -464,15 +466,18 @@ class ArticleViewController: ViewController {
         }) { (error) in
             self.footerLoadGroup?.leave()
         }
+        
         footerLoadGroup?.enter()
         fetcher.fetchReferences(with: articleURL) { (result, _) in
-            switch result {
-            case .success(let references):
-                self.references = references
-            case .failure(let error):
-                DDLogError("Error fetching references for \(self.articleURL): \(error)")
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let references):
+                    self.references = references
+                case .failure(let error):
+                    DDLogError("Error fetching references for \(self.articleURL): \(error)")
+                }
+                self.footerLoadGroup?.leave()
             }
-            self.footerLoadGroup?.leave()
         }
     }
     
@@ -492,6 +497,15 @@ class ArticleViewController: ViewController {
             try? self.article.managedObjectContext?.save()
 
         }
+    }
+    
+    // MARK: Gestures
+    
+    func setupGestureRecognizerDependencies() {
+        guard let popGR = navigationController?.interactivePopGestureRecognizer else {
+            return
+        }
+        webView.scrollView.panGestureRecognizer.require(toFail: popGR)
     }
     
     // MARK: Analytics

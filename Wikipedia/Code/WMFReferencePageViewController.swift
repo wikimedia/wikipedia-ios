@@ -14,7 +14,7 @@ extension UIViewController {
 
 class WMFReferencePageViewController: UIViewController, UIPageViewControllerDataSource, Themeable {
     @objc var lastClickedReferencesIndex:Int = 0
-    @objc var lastClickedReferencesGroup = [WMFReference]()
+    @objc var lastClickedReferencesGroup = [WMFLegacyReference]()
     
     @objc weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     

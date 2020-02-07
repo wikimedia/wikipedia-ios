@@ -113,12 +113,6 @@ class ArticleWebMessagingController: NSObject {
     
     // MARK: iOS App Specific overrides (code in www/, built products in assets/)
     
-    func addSearchTermHighlightToElement(with id: String) {
-        let sanitizedId = id.sanitizedForJavaScriptTemplateLiterals
-        let js = "window.wmf.findInPage.addSearchTermHighlightToElementWithId(`\(sanitizedId)`)"
-        webView?.evaluateJavaScript(js)
-    }
-    
     func removeSearchTermHighlights() {
         let js = "window.wmf.findInPage.removeSearchTermHighlights()"
         webView?.evaluateJavaScript(js)
@@ -132,7 +126,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case finalSetup
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String?, text: String?, title: String?)
-        case reference(selectedIndex: Int, group: [WMFReference])
+        case reference(selectedIndex: Int, group: [WMFLegacyReference])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -265,7 +259,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
                 return nil
             }
-            let group = groupArray.compactMap { WMFReference(scriptMessageDict: $0) }
+            let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
             return .reference(selectedIndex: selectedIndex, group: group)
         }
         
