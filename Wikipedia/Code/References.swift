@@ -9,6 +9,13 @@ public struct References: Codable {
         case referenceLists = "reference_lists"
         case referencesByID = "references_by_id"
     }
+    
+    public init(revision: String, tid: String, referenceLists: [ReferenceList], referencesByID: [String: Reference]) {
+        self.revision = revision
+        self.tid = tid
+        self.referenceLists = referenceLists
+        self.referencesByID = referencesByID
+    }
 }
 
 public struct Reference: Codable {
@@ -19,12 +26,22 @@ public struct Reference: Codable {
     public struct Content: Codable {
         public let html: String
         public let type: String?
+        
+        public init(html: String, type: String?) {
+            self.html = html
+            self.type = type
+        }
     }
     public let backLinks: [BackLink]
     public let content: Content
     enum CodingKeys: String, CodingKey {
         case backLinks = "back_links"
         case content
+    }
+    
+    public init(backLinks: [BackLink], content: Content) {
+        self.backLinks = backLinks
+        self.content = content
     }
 }
 
