@@ -32,96 +32,101 @@ final public class ArticleFetcher: Fetcher {
         return task
     }
     
-    func fetchResourceList(siteURL: URL, articleTitle: String, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+    @discardableResult func fetchResourceList(with articleURL: URL, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
         
         guard endpointType == .mediaList || endpointType == .mobileHtmlOfflineResources else {
             completion(.failure(ArticleFetcherError.invalidEndpointType))
             return nil
         }
         
-//        guard let taskURL = ArticleFetcher.getURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration) else {
-//            completion(.failure(ArticleFetcherError.failureToGenerateURL))
-//            return
-//        }
-        
-        guard let stagingTaskURL = ArticleURLConverter.mobileHTMLURL(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType, configuration: configuration, scheme: "https") else {
-                    completion(.failure(ArticleFetcherError.failureToGenerateURL))
-                    return nil
-                }
-        
         switch endpointType {
         case .mediaList:
-            return fetchMediaListURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+            return fetchMediaListURLs(with: articleURL, completion: completion)
         case .mobileHtmlOfflineResources:
-            return fetchOfflineResourceURLs(with: stagingTaskURL, siteURL: siteURL, completion: completion)
+            return fetchOfflineResourceURLs(with: articleURL, completion: completion)
         default:
             break
         }
         
         return nil
     }
+    
+    @discardableResult public func fetchMediaList(with articleURL: URL, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
+        return performPageContentServiceGET(with: articleURL, endpointType: .mediaList, completion: completion)
+    }
+
+    @discardableResult public func fetchReferences(with articleURL: URL, completion: @escaping (Result<References, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
+        return performPageContentServiceGET(with: articleURL, endpointType: .references, completion: completion)
+    }
 }
 
 private extension ArticleFetcher {
     
-    func fetchOfflineResourceURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        return session.jsonDecodableTask(with: url) { (urlStrings: [String]?, response: URLResponse?, error: Error?) in
-            if let statusCode = (response as? HTTPURLResponse)?.statusCode,
+    func fetchOfflineResourceURLs(with articleURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+        return performPageContentServiceGET(with: articleURL, endpointType: .mobileHtmlOfflineResources, completion: { (result: Result<[String], Error>, response) in
+            if let statusCode = response?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
                 return
             }
             
-            if let error = error {
-               completion(.failure(error))
-               return
-           }
-            
-            guard let urlStrings = urlStrings else {
-                completion(.failure(ArticleFetcherError.missingData))
-                return
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let urlStrings):
+                let result = urlStrings.map { (urlString) -> URL? in
+                    let scheme = articleURL.scheme ?? "https"
+                    let finalString = "\(scheme):\(urlString)"
+                    return URL(string: finalString)
+                }.compactMap{ $0 }
+                
+                completion(.success(result))
             }
             
-            let result = urlStrings.map { (urlString) -> URL? in
-                let scheme = siteURL.scheme ?? "https"
-                let finalString = "\(scheme):\(urlString)"
-                return URL(string: finalString)
-            }.compactMap{ $0 }
-            
-            completion(.success(result))
+        })
+    }
+    
+    
+    @discardableResult func performPageContentServiceGET<T: Decodable>(with articleURL: URL, endpointType: EndpointType, completion: @escaping (Result<T, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
+        guard let title = articleURL.percentEncodedPageTitleForPathComponents else {
+            completion(.failure(RequestError.invalidParameters), nil)
+            return nil
+        }
+        let components = ["page", endpointType.rawValue, title]
+        return performMobileAppsServicesGET(for: articleURL, pathComponents: components) { (result: T?, response, error) in
+            guard let result = result else {
+                completion(.failure(error ?? RequestError.unexpectedResponse), response as? HTTPURLResponse)
+                return
+            }
+            completion(.success(result), response as? HTTPURLResponse)
         }
     }
     
-    func fetchMediaListURLs(with url: URL, siteURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        
-        return session.jsonDecodableTask(with: url) { (mediaList: MediaList?, response: URLResponse?, error: Error?) in
-            if let statusCode = (response as? HTTPURLResponse)?.statusCode,
-                statusCode == 404 {
-                completion(.failure(ArticleFetcherError.doesNotExist))
-                return
-            }
-            
-            if let error = error {
-               completion(.failure(error))
+    @discardableResult func fetchMediaListURLs(with articleURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+        return fetchMediaList(with: articleURL) { (result, response) in
+            if let statusCode = response?.statusCode,
+               statusCode == 404 {
+               completion(.failure(ArticleFetcherError.doesNotExist))
                return
-           }
-            
-            guard let mediaList = mediaList else {
-                completion(.failure(ArticleFetcherError.missingData))
-                return
             }
             
-            let sources = mediaList.items.flatMap { (item) -> [MediaListItemSource] in
-                return item.sources ?? []
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let mediaList):
+                let sources = mediaList.items.flatMap { (item) -> [MediaListItemSource] in
+                    return item.sources ?? []
+                }
+                
+                let result = sources.map { (source) -> URL? in
+                    let scheme = articleURL.scheme ?? "https"
+                    let finalString = "\(scheme):\(source.urlString)"
+                    return URL(string: finalString)
+                }.compactMap{ $0 }
+                
+                completion(.success(result))
             }
-            
-            let result = sources.map { (source) -> URL? in
-                let scheme = siteURL.scheme ?? "https"
-                let finalString = "\(scheme):\(source.urlString)"
-                return URL(string: finalString)
-            }.compactMap{ $0 }
-            
-            completion(.success(result))
+           
         }
     }
     
@@ -140,47 +145,4 @@ private extension ArticleFetcher {
         }
         completion(nil, url, response, fileURL, unwrappedResponse.mimeType)
     }
-}
-
-fileprivate struct MediaListItemSource: Codable {
-    let urlString: String
-    let scale: String
-    
-    enum CodingKeys: String, CodingKey {
-        case urlString = "src"
-        case scale
-    }
-}
-
-fileprivate enum MediaListItemType: String {
-    case image
-    case audio
-    case video
-}
-
-fileprivate struct MediaListItem: Codable {
-    let title: String
-    let sectionID: Int
-    let type: String
-    let showInGallery: Bool
-    let sources: [MediaListItemSource]?
-    let audioType: String?
-    enum CodingKeys: String, CodingKey {
-        case title
-        case sectionID = "section_id"
-        case showInGallery
-        case sources = "srcset"
-        case type
-        case audioType
-    }
-}
-
-extension MediaListItem {
-    var itemType: MediaListItemType? {
-        return MediaListItemType(rawValue: type)
-    }
-}
-
-fileprivate struct MediaList: Codable {
-    let items: [MediaListItem]
 }
