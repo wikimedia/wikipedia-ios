@@ -59,7 +59,7 @@ public class ArticleURLConverter {
         
         //tonitodo: use wmf_normalizedPageTitle instead for an error-state redirect test
         let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
-        var components = Configuration.appsLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
+        var components = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
         if let scheme = scheme {
             components.scheme = scheme
         }
