@@ -2,8 +2,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MWKArticle;
-
 @class MWKDataStore;
 
 @interface XCTestCase (MWKFixtures)

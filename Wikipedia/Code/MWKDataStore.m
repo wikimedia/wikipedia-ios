@@ -1,7 +1,5 @@
 #import <WMF/WMF-Swift.h>
 #include <notify.h>
-#import <sqlite3.h>
-#import "WMFArticlePreview.h"
 #import "WMFAnnouncement.h"
 
 @import CoreData;
@@ -22,8 +20,6 @@ NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
 }
-
-static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @interface MWKDataStore () {
     dispatch_semaphore_t _handleCrossProcessChangesSemaphore;
@@ -46,11 +42,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
-@property (readwrite, strong, nonatomic) NSCache *articlePreviewCache;
-
-@property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
-@property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
-@property (readwrite, strong, nullable) dispatch_block_t cacheRemovalCompletion;
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
@@ -67,15 +58,13 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @implementation MWKDataStore
 
-- (void)cacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk error:(NSError **)error {
-    if (!article) {
-        return;
-    }
-    [self addArticleToMemoryCache:article];
-    if (!toDisk) {
-        return;
-    }
-    [article save:error];
++ (MWKDataStore *)shared {
+    static dispatch_once_t onceToken;
+    static MWKDataStore *sharedInstance;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [self new];
+    });
+    return sharedInstance;
 }
 
 #pragma mark - NSObject
@@ -272,7 +261,7 @@ static uint64_t bundleHash() {
                 if (!articleKey || !articleURL) {
                     continue;
                 }
-                [self.articlePreviewCache removeObjectForKey:articleKey];
+                [self.articleCache removeObjectForKey:articleKey];
                 if ([key isEqualToString:NSDeletedObjectsKey]) { // Could change WMFArticleUpdatedNotification to use UserInfo for consistency but want to keep change set minimal at this point
                     [nc postNotificationName:WMFArticleDeletedNotification object:[note object] userInfo:@{WMFArticleDeletedNotificationUserInfoArticleKeyKey: articleKey}];
                 } else {
@@ -280,60 +269,6 @@ static uint64_t bundleHash() {
                 }
             }
         }
-    }
-}
-
-- (void)migrateArticlePreviews:(NSDictionary<NSString *, WMFArticlePreview *> *)articlePreviews historyEntries:(NSDictionary<NSString *, MWKHistoryEntry *> *)historyEntries toManagedObjectContext:(NSManagedObjectContext *)moc {
-    if (articlePreviews.count == 0 && historyEntries.count == 0) {
-        return;
-    }
-
-    NSMutableSet *keysToAdd = [NSMutableSet setWithArray:articlePreviews.allKeys];
-    [keysToAdd unionSet:[NSSet setWithArray:historyEntries.allKeys]];
-
-    NSFetchRequest *existingObjectFetchRequest = [WMFArticle fetchRequest];
-    existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", keysToAdd];
-    NSArray<WMFArticle *> *allExistingObjects = [moc executeFetchRequest:existingObjectFetchRequest error:nil];
-
-    void (^updateBlock)(MWKHistoryEntry *, WMFArticlePreview *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticlePreview *preview, WMFArticle *article) {
-        if (entry) {
-            article.viewedDate = entry.dateViewed;
-            [article updateViewedDateWithoutTime];
-            article.viewedFragment = entry.fragment;
-            article.viewedScrollPosition = entry.scrollPosition;
-            article.savedDate = entry.dateSaved;
-            article.isExcludedFromFeed = entry.blackListed;
-            article.wasSignificantlyViewed = entry.titleWasSignificantlyViewed;
-            article.newsNotificationDate = entry.inTheNewsNotificationDate;
-            article.viewedScrollPosition = entry.scrollPosition;
-        }
-        if (preview) {
-            article.displayTitleHTML = preview.displayTitle;
-            article.wikidataDescription = preview.wikidataDescription;
-            article.snippet = preview.snippet;
-            article.thumbnailURL = preview.thumbnailURL;
-            article.location = preview.location;
-            article.pageViews = preview.pageViews;
-        }
-    };
-
-    for (WMFArticle *article in allExistingObjects) {
-        NSString *key = article.key;
-        if (!key) {
-            [moc deleteObject:article];
-            continue;
-        }
-        MWKHistoryEntry *entry = historyEntries[key];
-        WMFArticlePreview *preview = articlePreviews[key];
-        [keysToAdd removeObject:key];
-        updateBlock(entry, preview, article);
-    }
-
-    for (NSString *key in keysToAdd) {
-        MWKHistoryEntry *entry = historyEntries[key];
-        WMFArticlePreview *preview = articlePreviews[key];
-        WMFArticle *article = [moc createArticleWithKey:key];
-        updateBlock(entry, preview, article);
     }
 }
 
@@ -732,12 +667,7 @@ static uint64_t bundleHash() {
         DDLogError(@"Error excluding MWKDataStore path from backup: %@", excludeBackupError);
     }
     self.articleCache = [[NSCache alloc] init];
-    self.articleCache.countLimit = 50;
-
-    self.articlePreviewCache = [[NSCache alloc] init];
-    self.articlePreviewCache.countLimit = 1000;
-
-    self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
+    self.articleCache.countLimit = 1000;
 }
 
 #pragma mark - path methods
@@ -768,72 +698,12 @@ static uint64_t bundleHash() {
     return [articlesPath stringByAppendingPathComponent:encTitle];
 }
 
-- (NSString *)pathForArticle:(MWKArticle *)article {
-    return [self pathForArticleURL:article.url];
-}
-
-- (NSString *)pathForSectionsInArticleWithURL:(NSURL *)url {
-    NSString *articlePath = [self pathForArticleURL:url];
-    return [articlePath stringByAppendingPathComponent:@"sections"];
-}
-
-- (NSString *)pathForSectionId:(NSUInteger)sectionId inArticleWithURL:(NSURL *)url {
-    NSString *sectionsPath = [self pathForSectionsInArticleWithURL:url];
-    NSString *sectionName = [NSString stringWithFormat:@"%d", (int)sectionId];
-    return [sectionsPath stringByAppendingPathComponent:sectionName];
-}
-
-- (NSString *)pathForSection:(MWKSection *)section {
-    return [self pathForSectionId:section.sectionId inArticleWithURL:section.url];
-}
-
-- (NSString *)pathForImagesWithArticleURL:(NSURL *)url {
-    NSString *articlePath = [self pathForArticleURL:url];
-    return [articlePath stringByAppendingPathComponent:@"Images"];
-}
-
-- (NSString *)pathForImageURL:(NSString *)imageURL forArticleURL:(NSURL *)articleURL {
-    NSString *imagesPath = [self pathForImagesWithArticleURL:articleURL];
-    NSString *encURL = [self safeFilenameWithImageURL:imageURL];
-    return encURL ? [imagesPath stringByAppendingPathComponent:encURL] : nil;
-}
-
-- (NSString *)pathForImage:(MWKImage *)image {
-    return [self pathForImageURL:image.sourceURLString forArticleURL:image.article.url];
-}
-
-- (NSString *)pathForImageInfoForArticleWithURL:(NSURL *)url {
-    return [[self pathForArticleURL:url] stringByAppendingPathComponent:MWKImageInfoFilename];
-}
-
 - (NSString *)safeFilenameWithString:(NSString *)str {
     // Escape only % and / with percent style for readability
     NSString *encodedStr = [str stringByReplacingOccurrencesOfString:@"%" withString:@"%25"];
     encodedStr = [encodedStr stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
 
     return encodedStr;
-}
-
-- (NSString *)stringWithSafeFilename:(NSString *)str {
-    return [str stringByRemovingPercentEncoding];
-}
-
-- (NSString *)safeFilenameWithImageURL:(NSString *)str {
-    str = [str wmf_schemelessURL];
-
-    if (![str hasPrefix:MWKDataStoreValidImageSitePrefix]) {
-        return nil;
-    }
-
-    NSString *suffix = [str substringFromIndex:[MWKDataStoreValidImageSitePrefix length]];
-    NSString *fileName = [suffix lastPathComponent];
-
-    // Image URLs are already percent-encoded, so don't double-encode em.
-    // In fact, we want to decode them...
-    // If we don't, long Unicode filenames may not fit in the filesystem.
-    NSString *decodedFileName = [fileName stringByRemovingPercentEncoding];
-
-    return decodedFileName;
 }
 
 #pragma mark - save methods
@@ -883,151 +753,10 @@ static uint64_t bundleHash() {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (BOOL)saveArticle:(MWKArticle *)article error:(NSError **)outError {
-    if (article.url.wmf_title == nil) {
-        return YES; // OK to fail without error
-    }
-
-    if (article.url.wmf_isNonStandardURL) {
-        return YES; // OK to fail without error
-    }
-    [self addArticleToMemoryCache:article];
-    NSString *path = [self pathForArticle:article];
-    NSDictionary *export = [article dataExport];
-    return [self saveDictionary:export path:path name:@"Article.plist" error:outError];
-}
-
-- (BOOL)saveSection:(MWKSection *)section error:(NSError **)outError {
-    NSString *path = [self pathForSection:section];
-    NSDictionary *export = [section dataExport];
-    return [self saveDictionary:export path:path name:@"Section.plist" error:outError];
-}
-
-- (BOOL)saveSectionText:(NSString *)html section:(MWKSection *)section error:(NSError **)outError {
-    NSString *path = [self pathForSection:section];
-    return [self saveString:html path:path name:@"Section.html" error:outError];
-}
-
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
     NSString *path = self.basePath;
     NSDictionary *export = @{@"entries": [list dataExport]};
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
-}
-
-- (void)saveImageInfo:(NSArray *)imageInfo forArticleURL:(NSURL *)url {
-    NSArray *export = [imageInfo wmf_map:^id(MWKImageInfo *obj) {
-        return [obj dataExport];
-    }];
-
-    [self saveArray:export
-               path:[self pathForArticleURL:url]
-               name:MWKImageInfoFilename];
-}
-
-- (void)addArticleToMemoryCache:(MWKArticle *)article forKey:(NSString *)key {
-    if (!key || !article) {
-        return;
-    }
-    @synchronized(self.articleCache) {
-        [self.articleCache setObject:article forKey:key];
-    }
-}
-
-- (void)addArticleToMemoryCache:(MWKArticle *)article {
-    [self addArticleToMemoryCache:article forKey:article.url.wmf_databaseKey];
-}
-
-#pragma mark - load methods
-
-- (MWKArticle *)memoryCachedArticleWithKey:(NSString *)key {
-    return [self.articleCache objectForKey:key];
-}
-
-- (MWKArticle *)memoryCachedArticleWithURL:(NSURL *)url {
-    return [self memoryCachedArticleWithKey:url.wmf_databaseKey];
-}
-
-- (nullable MWKArticle *)existingArticleWithURL:(NSURL *)url {
-    NSString *key = [url wmf_databaseKey];
-    MWKArticle *existingArticle =
-        [self memoryCachedArticleWithKey:key] ?: [self articleFromDiskWithURL:url];
-    if (existingArticle) {
-        [self addArticleToMemoryCache:existingArticle forKey:key];
-    }
-    return existingArticle;
-}
-
-- (MWKArticle *)articleFromDiskWithURL:(NSURL *)url {
-    NSString *path = [self pathForArticleURL:url];
-    NSString *filePath = [path stringByAppendingPathComponent:@"Article.plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (!dict) {
-        return nil;
-    }
-    return [[MWKArticle alloc] initWithURL:url dataStore:self dict:dict];
-}
-
-- (MWKArticle *)articleWithURL:(NSURL *)url {
-    MWKArticle *article = [self existingArticleWithURL:url];
-    if (!article) {
-        article = [[MWKArticle alloc] initWithURL:url dataStore:self];
-    }
-    return article;
-}
-
-- (MWKSection *)sectionWithId:(NSUInteger)sectionId article:(MWKArticle *)article {
-    NSString *path = [self pathForSectionId:sectionId inArticleWithURL:article.url];
-    NSString *filePath = [path stringByAppendingPathComponent:@"Section.plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    return [[MWKSection alloc] initWithArticle:article dict:dict];
-}
-
-- (NSString *)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle *)article {
-    NSString *path = [self pathForSectionId:sectionId inArticleWithURL:article.url];
-    NSString *filePath = [path stringByAppendingPathComponent:@"Section.html"];
-
-    NSError *err;
-    NSString *html = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&err];
-    if (err) {
-        return nil;
-    }
-
-    return html;
-}
-
-- (BOOL)hasHTMLFileForSection:(MWKSection *)section {
-    NSString *path = [self pathForSectionId:section.sectionId inArticleWithURL:section.article.url];
-    NSString *filePath = [path stringByAppendingPathComponent:@"Section.html"];
-    return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-}
-
-- (nullable MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article {
-    if (url == nil) {
-        return nil;
-    }
-    NSString *path = [self pathForImageURL:url forArticleURL:article.url];
-    NSString *filePath = [path stringByAppendingPathComponent:@"Image.plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict) {
-        return [[MWKImage alloc] initWithArticle:article dict:dict];
-    } else {
-        // Not 100% sure if we should return an object here or not,
-        // but it seems useful to do so.
-        return [[MWKImage alloc] initWithArticle:article sourceURLString:url];
-    }
-}
-
-- (NSArray *)historyListData {
-    NSString *path = self.basePath;
-    NSString *filePath = [path stringByAppendingPathComponent:@"History.plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    return dict[@"entries"];
-}
-
-- (NSDictionary *)savedPageListData {
-    NSString *path = self.basePath;
-    NSString *filePath = [path stringByAppendingPathComponent:@"SavedPages.plist"];
-    return [NSDictionary dictionaryWithContentsOfFile:filePath];
 }
 
 - (NSArray *)recentSearchListData {
@@ -1058,226 +787,11 @@ static uint64_t bundleHash() {
     return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
 }
 
-- (NSArray *)imageInfoForArticleWithURL:(NSURL *)url {
-    MWKArticle *article = [self articleWithURL:url];
-    NSArray *infos = [article imageInfosForGallery];
-    if (infos) {
-        return infos;
-    }
-    return [[NSArray arrayWithContentsOfFile:[self pathForImageInfoForArticleWithURL:url]] wmf_mapAndRejectNil:^MWKImageInfo *(id obj) {
-        return [MWKImageInfo imageInfoWithExportedData:obj];
-    }];
-}
-
 #pragma mark - helper methods
 
 - (NSInteger)sitesDirectorySize {
     NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
     return (NSInteger)[[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
-}
-
-- (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        NSFetchRequest *articlesWithHTMLInTitlesFetchRequest = [WMFArticle fetchRequest];
-        articlesWithHTMLInTitlesFetchRequest.predicate = [NSPredicate predicateWithFormat:@"displayTitle CONTAINS '<' || wikidataDescription CONTAINS '<'"];
-        NSError *htmlFetchError = nil;
-        NSArray *articlesWithHTMLInTheTitle = [moc executeFetchRequest:articlesWithHTMLInTitlesFetchRequest error:&htmlFetchError];
-        if (htmlFetchError) {
-            DDLogError(@"Error fetching articles with HTML in the title: %@", htmlFetchError);
-        }
-
-        for (WMFArticle *article in articlesWithHTMLInTheTitle) {
-            article.wikidataDescription = [article.wikidataDescription wmf_stringByRemovingHTML];
-        }
-
-        NSError *saveError = nil;
-        [moc save:&saveError];
-        if (saveError) {
-            DDLogError(@"Error saving after fixing articles with HTML in the title: %@", saveError);
-        }
-
-        NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
-        allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
-        allValidArticleKeysFetchRequest.resultType = NSDictionaryResultType;
-        allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
-
-        NSError *fetchError = nil;
-        NSArray *arrayOfAllValidArticleDictionaries = [moc executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
-
-        if (fetchError) {
-            failure(fetchError);
-            return;
-        }
-
-        dispatch_block_t deleteEverythingAndSucceed = ^{
-            dispatch_async(self.cacheRemovalQueue, ^{
-                [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
-                dispatch_async(dispatch_get_main_queue(), success);
-            });
-        };
-
-        if (arrayOfAllValidArticleDictionaries.count == 0) {
-            deleteEverythingAndSucceed();
-            return;
-        }
-
-        NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticleDictionaries.count];
-        for (NSDictionary *article in arrayOfAllValidArticleDictionaries) {
-            NSString *key = article[@"key"];
-            if (!key) {
-                continue;
-            }
-            [allValidArticleKeys addObject:key];
-        }
-
-        if (allValidArticleKeys.count == 0) {
-            deleteEverythingAndSucceed();
-            return;
-        }
-
-        dispatch_async(self.cacheRemovalQueue, ^{
-            NSMutableArray<NSURL *> *articleURLsToRemove = [NSMutableArray arrayWithCapacity:10];
-            [self iterateOverArticleURLs:^(NSURL *articleURL) {
-                NSString *key = articleURL.wmf_databaseKey;
-                if (!key) {
-                    return;
-                }
-                if ([allValidArticleKeys containsObject:key]) {
-                    return;
-                }
-
-                [articleURLsToRemove addObject:articleURL];
-            }];
-            [self removeArticlesWithURLsFromCache:articleURLsToRemove];
-            dispatch_async(dispatch_get_main_queue(), success);
-        });
-    }];
-}
-
-- (void)iterateOverArticleURLs:(void (^)(NSURL *))block {
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSString *articlePath = [self pathForSites];
-    for (NSString *path in [fm enumeratorAtPath:articlePath]) {
-        NSArray *components = [path pathComponents];
-
-        //HAX: We make assumptions about the length of paths below.
-        //This is due to our title handling assumptions
-        WMF_TECH_DEBT_TODO(We should remove this when we move to a DB)
-        if ([components count] < 5) {
-            continue;
-        }
-
-        NSUInteger count = [components count];
-        NSString *filename = components[count - 1];
-        if ([filename isEqualToString:@"Article.plist"]) {
-            NSString *dirname = components[count - 2];
-            NSString *titleText = [self stringWithSafeFilename:dirname];
-
-            NSString *language = components[count - 4];
-            NSString *domain = components[count - 5];
-
-            NSURL *url = [NSURL wmf_URLWithDomain:domain language:language title:titleText fragment:nil];
-            block(url);
-        }
-    }
-}
-
-- (void)startCacheRemoval:(dispatch_block_t)completion {
-    dispatch_async(self.cacheRemovalQueue, ^{
-        if (!self.isCacheRemovalActive) {
-            self.cacheRemovalActive = true;
-            self.cacheRemovalCompletion = completion;
-            [self removeNextArticleFromCacheRemovalList];
-        } else {
-            dispatch_block_t existingCompletion = self.cacheRemovalCompletion;
-            self.cacheRemovalCompletion = ^{
-                if (existingCompletion) {
-                    existingCompletion();
-                }
-                if (completion) {
-                    completion();
-                }
-            };
-        }
-    });
-}
-
-- (void)_stopCacheRemoval {
-    dispatch_block_t completion = self.cacheRemovalCompletion;
-    if (completion) {
-        completion();
-    }
-    self.cacheRemovalActive = false;
-    self.cacheRemovalCompletion = nil;
-}
-
-- (void)stopCacheRemoval {
-    dispatch_sync(self.cacheRemovalQueue, ^{
-        [self _stopCacheRemoval];
-    });
-}
-
-- (void)removeNextArticleFromCacheRemovalList {
-    if (!self.cacheRemovalActive) {
-        return;
-    }
-    NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-    if (urlsOfArticlesToRemove.count == 0) {
-        [self _stopCacheRemoval];
-        return;
-    }
-    NSURL *urlToRemove = urlsOfArticlesToRemove[0];
-    [self removeArticleWithURL:urlToRemove
-        fromDiskWithCompletion:^{
-            dispatch_async(self.cacheRemovalQueue, ^{
-                [urlsOfArticlesToRemove removeObjectAtIndex:0];
-                NSError *error = nil;
-                if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
-                    dispatch_async(self.cacheRemovalQueue, ^{
-                        [self removeNextArticleFromCacheRemovalList];
-                    });
-                } else {
-                    DDLogError(@"Error saving cache removal list: %@", error);
-                }
-            });
-        }];
-}
-
-- (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)urlsToRemove {
-    if (urlsToRemove.count == 0) {
-        return;
-    }
-    dispatch_async(self.cacheRemovalQueue, ^{
-        NSMutableArray<NSURL *> *allURLsToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-        if (allURLsToRemove == nil) {
-            allURLsToRemove = [NSMutableArray arrayWithArray:urlsToRemove];
-        } else {
-            [allURLsToRemove addObjectsFromArray:urlsToRemove];
-        }
-        NSError *error = nil;
-        if (![self saveCacheRemovalListToDisk:allURLsToRemove error:&error]) {
-            DDLogError(@"Error saving cache removal list to disk: %@", error);
-        }
-    });
-}
-
-- (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article {
-    NSString *path = [self pathForArticle:article];
-    NSDictionary *legacyImageDictionary = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:@"Images.plist"]];
-    if ([legacyImageDictionary isKindOfClass:[NSDictionary class]]) {
-        NSArray *legacyImageURLStrings = [legacyImageDictionary objectForKey:@"entries"];
-        if ([legacyImageURLStrings isKindOfClass:[NSArray class]]) {
-            NSArray *legacyImageURLs = [legacyImageURLStrings wmf_mapAndRejectNil:^id(id obj) {
-                if ([obj isKindOfClass:[NSString class]]) {
-                    return [NSURL URLWithString:obj];
-                } else {
-                    return nil;
-                }
-            }];
-            return legacyImageURLs;
-        }
-    }
-    return @[];
 }
 
 #pragma mark - Deletion
@@ -1286,38 +800,6 @@ static uint64_t bundleHash() {
     NSError *err;
     [[NSFileManager defaultManager] removeItemAtPath:self.basePath error:&err];
     return err;
-}
-
-- (void)removeArticleWithURL:(NSURL *)articleURL fromDiskWithCompletion:(dispatch_block_t)completion {
-    if (!articleURL) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    dispatch_async(self.cacheRemovalQueue, ^{
-        NSString *path = [self pathForArticleURL:articleURL];
-        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-        dispatch_block_t combinedCompletion = ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                WMFArticle *article = [self fetchArticleWithURL:articleURL];
-                article.isDownloaded = NO;
-                NSError *saveError = nil;
-                if (![self save:&saveError]) {
-                    DDLogError(@"Error saving after cache removal: %@", saveError);
-                }
-                if (completion) {
-                    completion();
-                }
-            });
-        };
-        NSString *groupKey = articleURL.wmf_databaseKey;
-        if (groupKey) {
-            [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey completion:combinedCompletion];
-        } else {
-            combinedCompletion();
-        }
-    });
 }
 
 #pragma mark - Cache
@@ -1332,7 +814,7 @@ static uint64_t bundleHash() {
         if (!key) {
             continue;
         }
-        [self.articlePreviewCache setObject:article forKey:key];
+        [self.articleCache setObject:article forKey:key];
     }
 }
 
@@ -1340,19 +822,6 @@ static uint64_t bundleHash() {
     @synchronized(self.articleCache) {
         [self.articleCache removeAllObjects];
     }
-    [self.articlePreviewCache removeAllObjects];
-}
-
-- (void)clearCachesForUnsavedArticles {
-    [[WMFImageController sharedInstance] deleteTemporaryCache];
-    //[[WMFImageController sharedInstance] removeLegacyCache];
-    [self
-        removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
-            DDLogError(@"Error removing unreferenced articles: %@", error);
-        }
-        success:^{
-            DDLogDebug(@"Successfully removed unreferenced articles");
-        }];
 }
 
 #pragma mark - Remote Configuration
@@ -1453,14 +922,14 @@ static uint64_t bundleHash() {
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     WMFArticle *article = nil;
     if (moc == _viewContext) { // use ivar to avoid main thread check
-        article = [self.articlePreviewCache objectForKey:key];
+        article = [self.articleCache objectForKey:key];
         if (article) {
             return article;
         }
     }
     article = [moc fetchArticleWithKey:key];
     if (article && moc == _viewContext) { // use ivar to avoid main thread check
-        [self.articlePreviewCache setObject:article forKey:key];
+        [self.articleCache setObject:article forKey:key];
     }
     return article;
 }
@@ -1481,7 +950,7 @@ static uint64_t bundleHash() {
         article = [moc createArticleWithKey:key];
         article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
-            [self.articlePreviewCache setObject:article forKey:key];
+            [self.articleCache setObject:article forKey:key];
         }
     }
     return article;

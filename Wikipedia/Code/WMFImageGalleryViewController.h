@@ -1,7 +1,5 @@
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
-#import "WMFImageInfoController.h"
-
-@class MWKArticle;
+@class MWKImageInfo;
 @import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -55,19 +53,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleImageGalleryViewController : WMFImageGalleryViewController <WMFImageInfoControllerDelegate>
-
-- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden;
-
-- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden NS_DESIGNATED_INITIALIZER;
-
-- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
-
-- (MWKImage *)currentImage;
-
-- (MWKImageInfo *)currentImageInfo;
-
-@end
+//@interface WMFArticleImageGalleryViewController : WMFImageGalleryViewController <WMFImageInfoControllerDelegate>
+//
+//- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden;
+//
+//- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden NS_DESIGNATED_INITIALIZER;
+//
+//- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
+//
+//- (MWKImage *)currentImage;
+//
+//- (MWKImageInfo *)currentImageInfo;
+//
+//@end
 
 @interface WMFPOTDImageGalleryViewController : WMFImageGalleryViewController
 

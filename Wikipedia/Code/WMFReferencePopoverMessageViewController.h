@@ -11,6 +11,7 @@ extern NSString *const WMFReferenceLinkTappedNotification;
 @property (nonatomic) BOOL scrollEnabled;
 
 @property (strong, nonatomic) WMFLegacyReference *reference;
+@property (strong, nonatomic) NSURL *articleURL;
 
 - (void)scrollToTop;
 

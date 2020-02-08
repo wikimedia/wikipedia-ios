@@ -1,7 +1,5 @@
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/MWKDataStore.h>
-#import <WMF/MWKHistoryEntry.h>
-#import <WMF/MWKArticle.h>
 #import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN

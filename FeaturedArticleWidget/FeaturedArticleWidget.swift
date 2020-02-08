@@ -69,7 +69,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
     }
     
     var dataStore: MWKDataStore? {
-        return SessionSingleton.sharedInstance()?.dataStore
+        return MWKDataStore.shared()
     }
     
     var article: WMFArticle? {

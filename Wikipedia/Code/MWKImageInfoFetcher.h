@@ -1,7 +1,6 @@
 @import WMF.WMFBlockDefinitions;
 @import WMF.WMFLegacyFetcher;
 
-@class MWKArticle;
 @class NSURLSessionDataTask;
 
 @protocol MWKImageInfoRequest <NSObject>

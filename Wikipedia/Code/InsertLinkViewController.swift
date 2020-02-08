@@ -37,7 +37,7 @@ class InsertLinkViewController: UIViewController {
         searchViewController.searchTerm = link.page
         searchViewController.areRecentSearchesEnabled = false
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
+        searchViewController.dataStore = MWKDataStore.shared()
         searchViewController.shouldShowCancelButton = false
         searchViewController.delegate = self
         searchViewController.delegatesSelection = true

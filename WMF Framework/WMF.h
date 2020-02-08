@@ -51,10 +51,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKDataObject.h>
 #import <WMF/MWKSiteDataObject.h>
 
-#import <WMF/MWKArticle.h>
-#import <WMF/MWKSection.h>
-#import <WMF/MWKSectionList.h>
-#import <WMF/MWKImage.h>
 #import <WMF/MWKUser.h>
 
 #import <WMF/MWKHistoryList.h>
@@ -69,8 +65,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFImageTagList.h>
 #import <WMF/WMFImageTagList+ImageURLs.h>
 
-#import <WMF/MWKProtectionStatus.h>
-
 #import <WMF/MWLanguageInfo.h>
 
 #import <WMF/MWKImageInfo.h>
@@ -79,17 +73,11 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/WMFURLCache.h>
 
-#import <WMF/MWKArticle+WMFSharing.h>
-#import <WMF/MWKImage+CanonicalFilenames.h>
-#import <WMF/MWKImageInfo+MWKImageComparison.h>
-#import <WMF/MWKSavedPageEntry+ImageMigration.h>
-#import <WMF/MWKSavedPageListDataExportConstants.h>
 #import <WMF/WikipediaAppUtils.h>
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/WMFHTMLElement.h>
 #import <WMF/WMFImageURLParsing.h>
-#import <WMF/MWKSectionMetaData.h>
 #import <WMF/MWKLanguageLink.h>
 
 #import <WMF/MWKLanguageLinkController.h>
@@ -163,11 +151,8 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFLegacySerializer.h>
 
 //Deprecated
-#import <WMF/MWKHistoryEntry.h>
 #import <WMF/MWKList.h>
 #import <WMF/MWKList+Subclass.h>
 #import <WMF/MWKSite.h>
 #import <WMF/MWKTitle.h>
-#import <WMF/SessionSingleton.h>
-#import <WMF/MWKSavedPageEntry.h>
 #import <WMF/WMFLegacyImageCache.h>

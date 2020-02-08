@@ -1,6 +1,5 @@
 @import Foundation;
 NS_ASSUME_NONNULL_BEGIN
-@class MWKArticle;
 
 typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeExplore,
@@ -30,8 +29,6 @@ extern NSString *const WMFNavigateToActivityNotification;
 
 + (instancetype)wmf_searchViewActivity;
 + (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL *)url searchTerm:(NSString *)searchTerm;
-
-+ (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle *)article;
 
 + (instancetype)wmf_settingsViewActivity;
 + (instancetype)wmf_appearanceSettingsActivity;

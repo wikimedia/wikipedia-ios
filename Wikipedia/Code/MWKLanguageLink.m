@@ -2,7 +2,6 @@
 #import <WMF/WMFComparison.h>
 #import <WMF/WMFHashing.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/SessionSingleton.h>
 #import <WMF/MWKDataStore.h>
 #import <WMF/WMFExploreFeedContentController.h>
 
@@ -74,7 +73,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 #pragma Explore feed preferences
 
 - (WMFExploreFeedContentController *)feedContentController {
-    return [SessionSingleton sharedInstance].dataStore.feedContentController;
+    return MWKDataStore.shared.feedContentController;
 }
 
 - (BOOL)isInFeed {
