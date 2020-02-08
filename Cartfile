@@ -4,8 +4,6 @@ github "wikimedia/NYTPhotoViewer" "wmf"
 github "wikimedia/hpple" "master"
 github "wikimedia/Tweaks" "master"
 
-github "jonreid/OCMockito" ~> 4.0
-github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
 github "uber/ios-snapshot-test-case" ~> 6.1.0
 

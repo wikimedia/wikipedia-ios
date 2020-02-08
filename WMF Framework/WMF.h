@@ -16,7 +16,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFDeprecationMacros.h>
 #import <WMF/NSProcessInfo+WMFOperatingSystemVersionChecks.h>
 #import <WMF/NSArray+WMFMapping.h>
-#import <WMF/NSDictionary+WMFExtensions.h>
 #import <WMF/NSURL+WMFExtras.h>
 #import <WMF/WMFGCDHelpers.h>
 #import <WMF/WMFLogging.h>
@@ -27,7 +26,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFOutParamUtils.h>
 #import <WMF/WMFRangeUtils.h>
 #import <WMF/NSIndexSet+BKReduce.h>
-#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
 #import <WMF/WMFGeometry.h>
 #import <WMF/NSURL+WMFQueryParameters.h>
 #import <WMF/NSFileManager+WMFExtendedFileAttributes.h>

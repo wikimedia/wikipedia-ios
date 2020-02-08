@@ -1,5 +1,4 @@
 #import <WMF/MWKLicense.h>
-#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
 
 static NSString *const MWKLicenseCodeKey = @"code";
 static NSString *const MWKLicenseShortDescKey = @"shortDescription";
@@ -38,9 +37,9 @@ static NSString *const MWKLicenseURLKey = @"URL";
 
 - (id)dataExport {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:3];
-    [dict wmf_maybeSetObject:self.code forKey:MWKLicenseCodeKey];
-    [dict wmf_maybeSetObject:self.shortDescription forKey:MWKLicenseShortDescKey];
-    [dict wmf_maybeSetObject:self.URL.absoluteString forKey:MWKLicenseURLKey];
+    [dict setValue:self.code forKey:MWKLicenseCodeKey];
+    [dict setValue:self.shortDescription forKey:MWKLicenseShortDescKey];
+    [dict setValue:self.URL.absoluteString forKey:MWKLicenseURLKey];
     return dict;
 }
 
