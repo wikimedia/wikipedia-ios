@@ -5,7 +5,7 @@ import Foundation
 
 public class ArticleURLConverter {
     
-    public static func desktopURL(mobileHTMLURL: URL, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
+    public static func desktopURL(mobileHTMLURL: URL, configuration: Configuration = Configuration.appsLabs, scheme: String? = nil) -> URL? {
             
         let pathComponents = mobileHTMLURL.pathComponents
         
@@ -23,7 +23,7 @@ public class ArticleURLConverter {
         return desktopURL(host: stagingHost, title: title, configuration: configuration, scheme: scheme)
     }
     
-    public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
+    public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.appsLabs, scheme: String? = nil) -> URL? {
         guard let encodedTitle = title.percentEncodedPageTitleForPathComponents else {
             return nil
         }
@@ -36,7 +36,7 @@ public class ArticleURLConverter {
         return components.url
     }
 
-    public static func mobileHTMLURL(desktopURL:  URL, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
+    public static func mobileHTMLURL(desktopURL:  URL, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.appsLabs, scheme: String? = nil) -> URL? {
         
         guard (desktopURL as NSURL).wmf_isWikiResource else {
             return nil
@@ -50,7 +50,7 @@ public class ArticleURLConverter {
         return mobileHTMLURL(siteURL: siteURL, articleTitle: title, endpointType: endpointType, configuration: configuration, scheme: scheme)
     }
 
-    public static func mobileHTMLURL(siteURL: URL, articleTitle: String, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
+    public static func mobileHTMLURL(siteURL: URL, articleTitle: String, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.appsLabs, scheme: String? = nil) -> URL? {
         guard let host = siteURL.host,
             let percentEncodedUrlTitle = articleTitle.percentEncodedPageTitleForPathComponents
         else {
@@ -70,7 +70,7 @@ public class ArticleURLConverter {
         guard
             let articleTitle = desktopURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(desktopURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
+            let url = Configuration.appsLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(desktopURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }
