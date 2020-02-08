@@ -81,7 +81,7 @@ class ArticleViewController: ViewController {
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
-        
+        showLeadImage()
     }
     
     func loadLeadImage(with leadImageURL: URL) {

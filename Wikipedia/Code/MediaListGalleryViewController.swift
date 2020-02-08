@@ -5,9 +5,13 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     required init(articleURL: URL, mediaList: MediaList, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
         self.articleURL = articleURL
         let photos = mediaList.items.compactMap { MediaListItemNYTPhotoWrapper($0) }
-        let initialPhoto = photos.first { $0.mediaListItem.title == initialItem?.title }
+        let initialPhoto: WMFPhoto?
+        if let initialItem = initialItem {
+            initialPhoto = photos.first { $0.mediaListItem.title == initialItem.title }
+        } else {
+            initialPhoto = photos.first
+        }
         super.init(photos: photos, initialPhoto: initialPhoto, delegate: nil, theme: theme, overlayViewTopBarHidden:overlayViewTopBarHidden)
-        
         fetchImageForPhoto(initialPhoto)
     }
     
@@ -54,8 +58,10 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     }
     
     func fetchImageForPhoto(_ photo: MediaListItemNYTPhotoWrapper, imageInfo: MWKImageInfo) {
-        photo.imageInfo = imageInfo
-        updateOverlayInformation()
+        if (photo.imageInfo == nil) {
+            photo.imageInfo = imageInfo
+            updateOverlayInformation()
+        }
         let width = traitCollection.wmf_galleryImageWidth
         guard let imageURL = imageInfo.imageURL(forTargetWidth: width) else {
             return
