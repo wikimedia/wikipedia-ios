@@ -33,7 +33,6 @@ class ArticleViewController: ViewController {
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
     private lazy var fetcher: ArticleFetcher = ArticleFetcher()
-    internal var references: References?
 
     private var leadImageHeight: CGFloat = 210
     
@@ -263,14 +262,29 @@ class ArticleViewController: ViewController {
     
     // MARK: Overrideable functionality
     
-    internal func handleLink(with title: String) {
-        guard let host = articleURL.host,
-            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title) else {
-                assertionFailure("Failure initializing new Article VC")
-                //tonitodo: error state
-                return
+    internal func handleLink(with href: String) {
+        let urlComponentsString: String
+        if href.hasPrefix(".") || href.hasPrefix("/") {
+            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
+        } else {
+            urlComponentsString = href
         }
-        navigate(to: newArticleURL)
+        let components = URLComponents(string: urlComponentsString)
+        // Resolve relative URLs
+        guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
+            showGenericError()
+            return
+        }
+        // Check if this is the same article by comparing database keys
+        guard resolvedURL.wmf_databaseKey == articleURL.wmf_databaseKey else {
+            navigate(to: resolvedURL)
+            return
+        }
+        // Check for a fragment - if this is the same article and there's no fragment just do nothing?
+        guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
+            return
+        }
+        scroll(to: anchor, animated: true)
     }
     
     // MARK: Table of contents
@@ -465,19 +479,6 @@ class ArticleViewController: ViewController {
             self.footerLoadGroup?.leave()
         }) { (error) in
             self.footerLoadGroup?.leave()
-        }
-        
-        footerLoadGroup?.enter()
-        fetcher.fetchReferences(with: articleURL) { (result, _) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let references):
-                    self.references = references
-                case .failure(let error):
-                    DDLogError("Error fetching references for \(self.articleURL): \(error)")
-                }
-                self.footerLoadGroup?.leave()
-            }
         }
     }
     
