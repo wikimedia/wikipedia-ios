@@ -150,11 +150,9 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
 extension EditPreviewViewController: ArticleWebMessageHandling {
     func didRecieve(action: ArticleWebMessagingController.Action) {
         switch action {
+        case .unknown(let href):
+            showExternalLinkInAlert(link: href)
         case .link(let href, _, let title):
-            guard let href = href else {
-                showGenericError()
-                break
-            }
             if let title = title {
                 guard
                     let host = articleURL?.host,

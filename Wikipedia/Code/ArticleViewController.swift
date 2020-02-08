@@ -16,6 +16,7 @@ class ArticleViewController: ViewController {
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
     internal let article: WMFArticle
+    internal var mediaList: MediaList?
     
     /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
     @objc public let articleURL: URL
@@ -26,13 +27,12 @@ class ArticleViewController: ViewController {
     
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
-  
 
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-    private lazy var fetcher: ArticleFetcher = ArticleFetcher()
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
 
     private var leadImageHeight: CGFloat = 210
     

@@ -1057,6 +1057,14 @@
 		8330531F23EF051900123141 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 8330531D23EF051900123141 /* NSArray+WMFMapping.m */; };
 		8330532023EF051900123141 /* NSArray+WMFMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 8330531E23EF051900123141 /* NSArray+WMFMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8330532223EF05D000123141 /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532123EF05D000123141 /* WMFBlocksKit.swift */; };
+		8330532923EF0B4200123141 /* ArticleViewController+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532823EF0B4200123141 /* ArticleViewController+Media.swift */; };
+		8330532A23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532823EF0B4200123141 /* ArticleViewController+Media.swift */; };
+		8330532B23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532823EF0B4200123141 /* ArticleViewController+Media.swift */; };
+		8330532C23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532823EF0B4200123141 /* ArticleViewController+Media.swift */; };
+		8330532E23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
+		8330532F23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
+		8330533023EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
+		8330533123EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
 		8336F1432119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */; };
 		8338AF8D21F7B33E000C4055 /* WMFLegacyFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8338AF8E21F7B33E000C4055 /* WMFLegacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */; };
@@ -3547,6 +3555,8 @@
 		8330531D23EF051900123141 /* NSArray+WMFMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+WMFMapping.m"; sourceTree = "<group>"; };
 		8330531E23EF051900123141 /* NSArray+WMFMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+WMFMapping.h"; sourceTree = "<group>"; };
 		8330532123EF05D000123141 /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBlocksKit.swift; sourceTree = "<group>"; };
+		8330532823EF0B4200123141 /* ArticleViewController+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Media.swift"; sourceTree = "<group>"; };
+		8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListGalleryViewController.swift; sourceTree = "<group>"; };
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
 		8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLegacyFetcher.h; sourceTree = "<group>"; };
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
@@ -5902,6 +5912,7 @@
 				83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */,
 				83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */,
 				832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */,
+				8330532823EF0B4200123141 /* ArticleViewController+Media.swift */,
 				D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */,
 				830C0DD923D9C218006471C4 /* Properties.js */,
 				67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */,
@@ -7196,6 +7207,7 @@
 			children = (
 				0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewController.h */,
 				0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewController.m */,
+				8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */,
 				0E9B9E341CBF3262001E4C3C /* Overlay View */,
 			);
 			name = Gallery;
@@ -10101,6 +10113,7 @@
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				B0524B1F214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D80BF0A32347735E00B3B522 /* AppSearchButton.swift in Sources */,
+				8330532E23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				D87914DD1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				67E0691B223B32F1008550AC /* FocusNavigationView.swift in Sources */,
 				7A4FE53F1FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
@@ -10330,6 +10343,7 @@
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
 				B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
+				8330532923EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
 				B09705B4236B29D7006FDB5C /* DiffThanker.swift in Sources */,
 				B09B03F51CE0FB7700009083 /* ReadingThemesControlsViewController.swift in Sources */,
 				B0E8036F1C0CD99A0065EBC0 /* TableOfContentsPresentationController.swift in Sources */,
@@ -10893,6 +10907,7 @@
 				B0524B22214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D8A42ADD1E815A9C00D8E281 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				8382F8DC20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
+				8330533123EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				D80BF0A62347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				D8A42ADF1E815A9C00D8E281 /* AboutViewController.m in Sources */,
 				7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
@@ -11122,6 +11137,7 @@
 				7A2432C11FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				D8A42B8F1E815A9C00D8E281 /* TableOfContentsPresentationController.swift in Sources */,
+				8330532C23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
 				B09705B7236B29D7006FDB5C /* DiffThanker.swift in Sources */,
 				D8A42B921E815A9C00D8E281 /* WMFLoginViewController.swift in Sources */,
 				67DC5BE623A017CA00B03A84 /* ArticleViewController.swift in Sources */,
@@ -11576,7 +11592,9 @@
 				D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
+				8330532A23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
 				7A0161E11FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
+				8330532F23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				D837CC38231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				7AEBAD462102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				D8CE26191E698E2400DAE2E0 /* PageHistoryFetcher.swift in Sources */,
@@ -12015,7 +12033,9 @@
 				D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
+				8330532B23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
 				D837CC39231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
+				8330533023EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				7A0161E21FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				D8EC3F181E9BDA35006712EB /* PageHistoryFetcher.swift in Sources */,
 				D87B13A71F276B1000B27227 /* ShareActivityController.swift in Sources */,

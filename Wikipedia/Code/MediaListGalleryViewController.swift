@@ -1,0 +1,102 @@
+class MediaListGalleryViewController: WMFImageGalleryViewController {
+    let imageController: ImageController = ImageController.shared
+    let imageInfoFetcher = MWKImageInfoFetcher()
+    let articleURL: URL
+    required init(articleURL: URL, mediaList: MediaList, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
+        self.articleURL = articleURL
+        let photos = mediaList.items.compactMap { MediaListItemNYTPhotoWrapper($0) }
+        let initialPhoto = photos.first { $0.mediaListItem.title == initialItem?.title }
+        super.init(photos: photos, initialPhoto: initialPhoto, delegate: nil, theme: theme, overlayViewTopBarHidden:overlayViewTopBarHidden)
+        
+        fetchImageForPhoto(initialPhoto)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var imageInfos: [String: MWKImageInfo] = [:]
+    func fetchImageInfoForTitle(_ title: String, completion: @escaping (Result<MWKImageInfo, Error>) -> Void) {
+        assert(Thread.isMainThread, "Protect accesss to imageInfos")
+        if let info = imageInfos[title] {
+            completion(.success(info))
+            return
+        }
+        imageInfoFetcher.fetchGalleryInfo(forImageFiles: [title], fromSiteURL: articleURL, success: { (info) in
+            DispatchQueue.main.async {
+                guard let info = info?.first as? MWKImageInfo else {
+                    completion(.failure(RequestError.unexpectedResponse))
+                    return
+                }
+                self.imageInfos[title] = info
+                completion(.success(info))
+            }
+        }) { (error) in
+            DispatchQueue.main.async {
+                completion(.failure(error ?? RequestError.unexpectedResponse))
+            }
+        }
+    }
+    
+    func fetchImageForPhoto(_ photo: NYTPhoto?) {
+        guard let photo = photo as? MediaListItemNYTPhotoWrapper else {
+            return
+        }
+        let title = photo.mediaListItem.title
+        fetchImageInfoForTitle(title) { (result) in
+            switch result {
+            case .failure(let error):
+                self.wmf_showAlertWithError(error as NSError)
+            case .success(let imageInfo):
+                self.fetchImageForPhoto(photo, imageInfo: imageInfo)
+            }
+        }
+    }
+    
+    func fetchImageForPhoto(_ photo: MediaListItemNYTPhotoWrapper, imageInfo: MWKImageInfo) {
+        photo.imageInfo = imageInfo
+        updateOverlayInformation()
+        let width = traitCollection.wmf_galleryImageWidth
+        guard let imageURL = imageInfo.imageURL(forTargetWidth: width) else {
+            return
+        }
+        imageController.fetchImage(withURL: imageURL, failure: { (error) in
+            self.wmf_showAlertWithError(error as NSError)
+        }) { [weak self] (download) in
+            photo.image = download.image.staticImage
+            self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
+        }
+    }
+    
+    override func photosViewController(_ photosViewController: NYTPhotosViewController, didNavigateTo photo: NYTPhoto, at photoIndex: UInt) {
+        fetchImageForPhoto(photo)
+    }
+}
+
+class MediaListItemNYTPhotoWrapper: NSObject, WMFPhoto {
+    func bestImageURL() -> URL? {
+        return nil
+    }
+    
+    func bestImageInfo() -> MWKImageInfo? {
+        return imageInfo
+    }
+    
+    var image: UIImage?
+    var imageData: Data?
+    var imageDataUTType: String?
+    var placeholderImage: UIImage?
+    var attributedCaptionTitle: NSAttributedString?
+    var attributedCaptionSummary: NSAttributedString?
+    var attributedCaptionCredit: NSAttributedString?
+    
+    let mediaListItem: MediaListItem
+    var imageInfo: MWKImageInfo?
+    
+    init?(_ mediaListItem: MediaListItem?) {
+        guard let mediaListItem = mediaListItem, mediaListItem.type == "image" else {
+            return nil
+        }
+        self.mediaListItem = mediaListItem
+    }
+}

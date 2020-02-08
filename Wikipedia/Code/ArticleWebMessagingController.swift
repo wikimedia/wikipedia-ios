@@ -125,7 +125,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case setup
         case finalSetup
         case image(src: String, href: String, width: Int?, height: Int?)
-        case link(href: String?, text: String?, title: String?)
+        case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
         case pronunciation(url: URL)
         case properties
@@ -137,6 +137,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case viewInBrowser
         case leadImage(source: String, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
+        case unknown(href: String)
     }
     
     /// PCSActions are receieved from the JS bridge and converted into actions
@@ -227,9 +228,11 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getLinkAction(with data: [String: Any]?) -> Action? {
+            guard let href = data?["href"] as? String else {
+                return nil
+            }
             let title = data?["title"] as? String
             let text = data?["text"] as? String
-            let href = data?["href"] as? String
             return .link(href: href, text: text, title: title)
         }
         
@@ -287,6 +290,11 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         let data = body[bodyDataKey] as? [String: Any]
         guard let action = PCSAction(pcsActionString: actionString)?.getAction(with: data) else {
+            // Fallback on href for future unknown event types
+            if let href = data?["href"] as? String {
+                let action = ArticleWebMessagingController.Action.unknown(href: href)
+                delegate?.didRecieve(action: action)
+            }
             return
         }
         delegate?.didRecieve(action: action)
