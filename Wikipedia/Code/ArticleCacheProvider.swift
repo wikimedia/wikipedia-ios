@@ -28,12 +28,45 @@ final class ArticleCacheProvider: CacheProviding {
             return response
         }
         
-        // Use the cache key to check for the response
-        guard let itemKey = request.value(forHTTPHeaderField: Session.Header.persistentCacheKey) else {
+        var maybePreferredItemKey: CacheController.ItemKey?
+        var nonVariantKey: String?
+        if let articleDesktopURL = ArticleURLConverter.desktopURL(mobileHTMLURL: url) {
+            nonVariantKey = articleDesktopURL.wmf_databaseKey
+            maybePreferredItemKey = nonVariantKey?.appendingLanguageVariantIfNecessary(host: articleDesktopURL.host)
+        } else if ArticleURLConverter.urlIsMediaList(url: url) {
+            nonVariantKey = url.wmf_databaseKey
+            maybePreferredItemKey = nonVariantKey?.appendingLanguageVariantIfNecessary(host: url.host)
+        } else {
+            nonVariantKey = url.wmf_databaseKey
+            maybePreferredItemKey = nonVariantKey
+        }
+        
+        guard var preferredItemKey = maybePreferredItemKey else {
             return nil
         }
         
-        return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey)
+        moc.performAndWait {
+            
+            if let cacheItem = CacheDBWriterHelper.cacheItem(with: preferredItemKey, in: moc),
+                cacheItem.isDownloaded {
+                return
+            }
+            
+            guard let nonVariantKey = nonVariantKey else {
+                return
+            }
+            
+            //fallback to variant that isDownloaded here, reassign preferredItemKey
+            let allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(variantGroupKey: nonVariantKey, in: moc)
+            
+            //tonitodo: maybe sort allVariantItems based on NSLocale language preferences (i.e. more than 2)
+            
+            if let fallbackItemKey = allVariantItems.first?.key {
+                preferredItemKey = fallbackItemKey
+            }
+        }
+        
+        return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: preferredItemKey)
     }
     
     func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
@@ -42,8 +75,20 @@ final class ArticleCacheProvider: CacheProviding {
             return imageController.newCachePolicyRequest(from: originalRequest, newURL: newURL)
         }
         
-        let itemKey = originalRequest.value(forHTTPHeaderField: Session.Header.persistentCacheKey) ?? newURL.wmf_databaseKey
-        return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
+        var itemKey: CacheController.ItemKey?
+        if let articleDesktopURL = ArticleURLConverter.desktopURL(mobileHTMLURL: newURL) {
+            itemKey = articleDesktopURL.wmf_databaseKey?.appendingLanguageVariantIfNecessary(host: articleDesktopURL.host)
+        } else if ArticleURLConverter.urlIsMediaList(url: newURL) {
+            itemKey = newURL.wmf_databaseKey?.appendingLanguageVariantIfNecessary(host: newURL.host)
+        } else {
+            itemKey = newURL.wmf_databaseKey
+        }
+        
+        if let itemKey = itemKey {
+            return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
+        }
+        
+        return nil
     }
     
     private func isMimeTypeImage(type: String) -> Bool {

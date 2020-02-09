@@ -1,13 +1,6 @@
 
 import Foundation
 
-protocol CacheFileWritingDelegate: class {
-    func fileWriterDidAdd(groupKey: String, itemKey: String)
-    func fileWriterDidRemove(groupKey: String, itemKey: String)
-    func fileWriterDidFailAdd(groupKey: String, itemKey: String)
-    func fileWriterDidFailRemove(groupKey: String, itemKey: String)
-}
-
 enum CacheFileWritingResult {
     case success(etag: String?)
     case failure(Error)
@@ -15,7 +8,7 @@ enum CacheFileWritingResult {
 
 protocol CacheFileWriting: CacheTaskTracking {
     
-    func add(groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheFileWritingResult) -> Void)
+    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping (CacheFileWritingResult) -> Void)
     
     //default extension
     func remove(itemKey: CacheController.ItemKey, completion: @escaping (CacheFileWritingResult) -> Void)

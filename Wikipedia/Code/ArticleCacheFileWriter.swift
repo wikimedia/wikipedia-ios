@@ -8,16 +8,14 @@ enum ArticleCacheFileWriterError: Error {
 
 final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
     
-    weak var delegate: CacheFileWritingDelegate?
     private let articleFetcher: ArticleFetcher
     private let cacheBackgroundContext: NSManagedObjectContext
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
     init?(articleFetcher: ArticleFetcher,
-                       cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
+                       cacheBackgroundContext: NSManagedObjectContext) {
         self.articleFetcher = articleFetcher
-        self.delegate = delegate
         self.cacheBackgroundContext = cacheBackgroundContext
         
         do {
@@ -28,17 +26,10 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
         }
     }
     
-    func add(groupKey: String, itemKey: String, completion: @escaping (CacheFileWritingResult) -> Void) {
-        
-        guard let url = URL(string: itemKey) else {
-            completion(.failure(ArticleCacheFileWriterError.failureToGenerateURLFromItemKey))
-            return
-        }
-        
-        let urlToDownload = ArticleURLConverter.mobileHTMLURL(desktopURL: url, endpointType: .mobileHTML, scheme: Configuration.Scheme.https) ?? url
+    func add(url: URL, groupKey: String, itemKey: String, completion: @escaping (CacheFileWritingResult) -> Void) {
         
         let untrackKey = UUID().uuidString
-        let task = articleFetcher.downloadData(url: urlToDownload) { (error, _, response, temporaryFileURL, mimeType) in
+        let task = articleFetcher.downloadData(url: url) { (error, _, response, temporaryFileURL, mimeType) in
             
             defer {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)

@@ -16,17 +16,46 @@ final class ImageCacheProvider: CacheProviding {
             return response
         }
         
-        guard let url = request.url,
-            let itemKey = url.wmf_databaseKey else {
+        
+        guard let url = request.url else {
             return nil
         }
         
-        return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey)
+        var preferredItemKey = ImageCacheDBWriter.identifierForURL(url)
+        
+        moc.performAndWait {
+            
+            if let cacheItem = CacheDBWriterHelper.cacheItem(with: preferredItemKey, in: moc),
+                cacheItem.isDownloaded {
+                return
+            }
+            
+            //fallback to variant that isDownloaded here, reassign preferredItemKey
+            var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: preferredItemKey, in: moc)
+            
+            allVariantItems.sort { (lhs, rhs) -> Bool in
+                
+                guard let lhsVariant = lhs.variant,
+                    let lhsSize = Int64(lhsVariant),
+                    let rhsVariant = rhs.variant,
+                    let rhsSize = Int64(rhsVariant) else {
+                        return true
+                }
+                
+                return lhsSize < rhsSize
+            }
+            
+            if let fallbackItemKey = allVariantItems.first?.key {
+                preferredItemKey = fallbackItemKey
+            }
+        }
+        
+        return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: preferredItemKey)
     }
     
     func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
         
-        let itemKey = newURL.wmf_databaseKey
+        let itemKey = ImageCacheDBWriter.identifierForURL(newURL)
             
         return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
     }

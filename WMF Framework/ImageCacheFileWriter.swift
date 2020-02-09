@@ -12,7 +12,7 @@ final class ImageCacheFileWriter: CacheFileWriting {
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    init?(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext, delegate: CacheFileWritingDelegate? = nil) {
+    init?(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext) {
         self.imageFetcher = imageFetcher
         self.cacheBackgroundContext = cacheBackgroundContext
         
@@ -24,12 +24,7 @@ final class ImageCacheFileWriter: CacheFileWriting {
         }
     }
     
-    func add(groupKey: String, itemKey: String, completion: @escaping (CacheFileWritingResult) -> Void) {
-        
-        guard let url = URL(string: itemKey) else {
-            completion(.failure(ImageCacheFileWriterError.failureToGenerateURLFromItemKey))
-            return
-        }
+    func add(url: URL, groupKey: String, itemKey: String, completion: @escaping (CacheFileWritingResult) -> Void) {
         
         let untrackKey = UUID().uuidString
         let task = imageFetcher.downloadData(url: url) { (error, _, response, temporaryFileURL, mimeType) in

@@ -50,6 +50,55 @@ final class CacheDBWriterHelper {
         return group
     }
     
+    static func allVariantItems(for itemKey: CacheController.ItemKey, in moc: NSManagedObjectContext) -> [PersistentCacheItem] {
+        
+        guard let item = cacheItem(with: itemKey, in: moc) else {
+            return []
+        }
+        
+        guard let variantGroupKey = item.variantGroupKey else {
+            return [item]
+        }
+        
+        let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "variantGroupKey == %@", variantGroupKey)
+        do {
+            return try moc.fetch(fetchRequest)
+        } catch {
+            return [item]
+        }
+    }
+    
+    static func allDownloadedVariantItems(itemKey: CacheController.ItemKey, in moc: NSManagedObjectContext) -> [PersistentCacheItem] {
+        
+        guard let item = cacheItem(with: itemKey, in: moc) else {
+            return []
+        }
+        
+        guard let variantGroupKey = item.variantGroupKey else {
+            return [item]
+        }
+        
+        let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "variantGroupKey == %@ && isDownloaded == YES", variantGroupKey)
+        do {
+            return try moc.fetch(fetchRequest)
+        } catch {
+            return [item]
+        }
+    }
+    
+    static func allDownloadedVariantItems(variantGroupKey: String, in moc: NSManagedObjectContext) -> [PersistentCacheItem] {
+
+        let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "variantGroupKey == %@ && isDownloaded == YES", variantGroupKey)
+        do {
+            return try moc.fetch(fetchRequest)
+        } catch {
+            return []
+        }
+    }
+    
     static func cacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
         
         let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()

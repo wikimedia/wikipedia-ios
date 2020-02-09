@@ -95,23 +95,22 @@ public class CacheController {
     //todo: Settings hook, logout don't sync hook, etc.
     //clear out from core data, leave URL cache as-is.
 
-    public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
+    public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
         
-        if !bypassGroupDeduping {
-            
-            if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
-                gatekeeper.queueAddCompletion(groupKey: groupKey) {
-                    self.add(url: url, groupKey: groupKey, itemKey: itemKey, bypassGroupDeduping: bypassGroupDeduping, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
-                    return
-                }
-            } else {
-                gatekeeper.addCurrentlyAddingGroupKey(groupKey)
+        //queue add if groupKey is currently removing
+        if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
+            gatekeeper.queueAddCompletion(groupKey: groupKey) {
+                self.add(url: url, groupKey: groupKey, itemKey: itemKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
             }
-            
-            if gatekeeper.numberOfQueuedGroupCompletions(for: groupKey) > 0 {
-                gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
-                return
-            }
+            return
+        } else {
+            gatekeeper.addCurrentlyAddingGroupKey(groupKey)
+        }
+        
+        //queue add completion if groupKey is currently adding
+        if gatekeeper.numberOfQueuedGroupCompletions(for: groupKey) > 0 {
+            gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
+            return
         }
         
         gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
@@ -140,7 +139,7 @@ public class CacheController {
         return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL)
     }
     
-    private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {
+    func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItems) {
         
         let groupCompleteBlock = { (groupResult: FinalGroupResult) in
             self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
@@ -149,27 +148,32 @@ public class CacheController {
         }
         
         switch result {
-            case .success(let itemKeys):
+            case .success(let items):
                 
                 var successfulItemKeys: [CacheController.ItemKey] = []
                 var failedItemKeys: [CacheController.ItemKey] = []
                 
                 let group = DispatchGroup()
-                for itemKey in itemKeys {
+                for item in items {
                     
                     group.enter()
                     
-                    if gatekeeper.numberOfQueuedItemCompletions(for: itemKey) > 0 {
+                    if gatekeeper.numberOfQueuedItemCompletions(for: item.itemKey) > 0 {
                         defer {
                             group.leave()
                         }
-                        gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                        gatekeeper.queueItemCompletion(itemKey: item.itemKey, itemCompletion: itemCompletion)
                         continue
                     }
                     
-                    gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                    gatekeeper.queueItemCompletion(itemKey: item.itemKey, itemCompletion: itemCompletion)
                     
-                    fileWriter.add(groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
+                    guard dbWriter.shouldDownloadVariant(itemKey: item.itemKey) else {
+                        group.leave()
+                        continue
+                    }
+                    
+                    fileWriter.add(url: item.url, groupKey: groupKey, itemKey: item.itemKey) { [weak self] (result) in
                         
                         guard let self = self else {
                             return
@@ -178,7 +182,7 @@ public class CacheController {
                         switch result {
                         case .success(let etag):
                             
-                            self.dbWriter.markDownloaded(itemKey: itemKey, etag: etag) { (result) in
+                            self.dbWriter.markDownloaded(itemKey: item.itemKey, etag: etag) { (result) in
                                 
                                 defer {
                                     group.leave()
@@ -187,15 +191,15 @@ public class CacheController {
                                 var itemResult: FinalItemResult
                                 switch result {
                                 case .success:
-                                    successfulItemKeys.append(itemKey)
-                                    itemResult = FinalItemResult.success(itemKey: itemKey)
+                                    successfulItemKeys.append(item.itemKey)
+                                    itemResult = FinalItemResult.success(itemKey: item.itemKey)
                                     
                                 case .failure(let error):
-                                    failedItemKeys.append(itemKey)
+                                    failedItemKeys.append(item.itemKey)
                                     itemResult = FinalItemResult.failure(error: error)
                                 }
                                 
-                                self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                                self.gatekeeper.runAndRemoveItemCompletions(itemKey: item.itemKey, itemResult: itemResult)
                             }
                             
                         case .failure(let error):
@@ -204,9 +208,9 @@ public class CacheController {
                                 group.leave()
                             }
                             
-                            failedItemKeys.append(itemKey)
+                            failedItemKeys.append(item.itemKey)
                             let itemResult = FinalItemResult.failure(error: error)
-                            self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                            self.gatekeeper.runAndRemoveItemCompletions(itemKey: item.itemKey, itemResult: itemResult)
                         }
                     }
                     
