@@ -82,23 +82,6 @@ public class ArticleURLConverter {
         }
         return components.url
     }
-    
-    public static func mobileHTMLPreviewRequest(desktopURL:  URL, wikitext: String) throws -> URLRequest {
-        guard
-            let articleTitle = desktopURL.wmf_title,
-            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(desktopURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
-        else {
-            throw RequestError.invalidParameters
-        }
-        let params: [String: String] = ["wikitext": wikitext]
-        let paramsJSON = try JSONEncoder().encode(params)
-        var request = URLRequest(url: url)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = paramsJSON
-        request.httpMethod = "POST"
-        return request
-    }
 }
 
 extension String {

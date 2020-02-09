@@ -448,7 +448,7 @@ class ArticleViewController: ViewController {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
-        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
             return
@@ -461,8 +461,6 @@ class ArticleViewController: ViewController {
             self?.footerLoadGroup = nil
         }
         
-        var request = URLRequest(url: mobileHTMLURL)
-        request.setValue(articleURL.wmf_databaseKey, forHTTPHeaderField: Session.Header.persistentCacheKey)
         webView.load(request)
         
         guard let key = article.key else {

@@ -54,6 +54,32 @@ final public class ArticleFetcher: Fetcher {
     @discardableResult public func fetchMediaList(with articleURL: URL, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
         return performPageContentServiceGET(with: articleURL, endpointType: .mediaList, completion: completion)
     }
+    
+    public func mobileHTMLPreviewRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
+        else {
+            throw RequestError.invalidParameters
+        }
+        let params: [String: String] = ["wikitext": wikitext]
+        let paramsJSON = try JSONEncoder().encode(params)
+        var request = URLRequest(url: url)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = paramsJSON
+        request.httpMethod = "POST"
+        return request
+    }
+    
+    public func mobileHTMLRequest(articleURL: URL) throws -> URLRequest {
+        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML) else {
+            throw RequestError.invalidParameters
+        }
+        var request = URLRequest(url: mobileHTMLURL)
+        request.setValue(articleURL.wmf_databaseKey, forHTTPHeaderField: Session.Header.persistentCacheKey)
+        return request
+    }
 }
 
 private extension ArticleFetcher {

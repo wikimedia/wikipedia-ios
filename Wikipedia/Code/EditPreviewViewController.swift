@@ -18,6 +18,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     weak var delegate: EditPreviewViewControllerDelegate?
     
     lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
+    lazy var fetcher = ArticleFetcher(session: Session.shared, configuration: Configuration.current)
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
 
@@ -130,7 +131,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
-            let request = try ArticleURLConverter.mobileHTMLPreviewRequest(desktopURL: articleURL, wikitext: wikitext)
+            let request = try fetcher.mobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
             previewWebViewContainer.webView.load(request)
         } catch {
             showGenericError()
