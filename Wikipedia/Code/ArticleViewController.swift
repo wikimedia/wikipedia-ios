@@ -461,7 +461,8 @@ class ArticleViewController: ViewController {
             self?.footerLoadGroup = nil
         }
         
-        let request = URLRequest(url: mobileHTMLURL)
+        var request = URLRequest(url: mobileHTMLURL)
+        request.setValue(articleURL.wmf_databaseKey, forHTTPHeaderField: Session.Header.persistentCacheKey)
         webView.load(request)
         
         guard let key = article.key else {

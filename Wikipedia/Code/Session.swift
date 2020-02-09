@@ -1,6 +1,9 @@
 import Foundation
 
 @objc(WMFSession) public class Session: NSObject {
+    public struct Header {
+        public static let persistentCacheKey = "Persistent-Cache-Key"
+    }
     public struct Request {
         public enum Method {
             case get
