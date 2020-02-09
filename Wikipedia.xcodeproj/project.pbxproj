@@ -1065,6 +1065,7 @@
 		8330532F23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
 		8330533023EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
 		8330533123EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
+		8330533323F0388E00123141 /* DataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330533223F0388E00123141 /* DataStoreTests.swift */; };
 		8336F1432119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */; };
 		8338AF8D21F7B33E000C4055 /* WMFLegacyFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8338AF8E21F7B33E000C4055 /* WMFLegacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */; };
@@ -3557,6 +3558,7 @@
 		8330532123EF05D000123141 /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBlocksKit.swift; sourceTree = "<group>"; };
 		8330532823EF0B4200123141 /* ArticleViewController+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Media.swift"; sourceTree = "<group>"; };
 		8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListGalleryViewController.swift; sourceTree = "<group>"; };
+		8330533223F0388E00123141 /* DataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreTests.swift; sourceTree = "<group>"; };
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
 		8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLegacyFetcher.h; sourceTree = "<group>"; };
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
@@ -7329,6 +7331,7 @@
 			children = (
 				67E8B0AA226A6DB000537BC9 /* TalkPageTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
+				8330533223F0388E00123141 /* DataStoreTests.swift */,
 				D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */,
 				D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */,
 				B39427411E71F79700D3146D /* NSDictionaryBlocksKitTest.m */,
@@ -9883,6 +9886,7 @@
 				D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */,
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */,
+				8330533323F0388E00123141 /* DataStoreTests.swift in Sources */,
 				B09AD9CB1FE071F60034DA09 /* WMFArticleElementTests.swift in Sources */,
 				B0E8088F1C0D16140065EBC0 /* WMFAsyncTestCase.m in Sources */,
 				B0E8087D1C0D15760065EBC0 /* WMFRandomFileUtilities.m in Sources */,
