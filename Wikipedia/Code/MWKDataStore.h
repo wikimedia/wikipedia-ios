@@ -127,8 +127,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 // Storage helper methods
 
-- (NSInteger)sitesDirectorySize;
-
 - (NSError *)removeFolderAtBasePath;
 
 - (void)clearMemoryCache;
