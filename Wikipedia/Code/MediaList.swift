@@ -38,5 +38,5 @@ extension MediaListItem {
 }
 
 public struct MediaList: Codable {
-    let items: [MediaListItem]
+    public let items: [MediaListItem]
 }

@@ -325,7 +325,7 @@ static uint64_t bundleHash() {
 #pragma mark - Migrations
 
 - (BOOL)migrateToReadingListsInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)migrationError {
-    ReadingList *defaultReadingList = [moc wmf_fetchDefaultReadingList];
+    ReadingList *defaultReadingList = [moc wmf_fetchOrCreateDefaultReadingList];
     if (!defaultReadingList) {
         defaultReadingList = [[ReadingList alloc] initWithContext:moc];
         defaultReadingList.canonicalName = [ReadingList defaultListCanonicalName];
@@ -365,7 +365,7 @@ static uint64_t bundleHash() {
             return NO;
         }
         [moc reset];
-        defaultReadingList = [moc wmf_fetchDefaultReadingList]; // needs to re-fetch after reset
+        defaultReadingList = [moc wmf_fetchOrCreateDefaultReadingList]; // needs to re-fetch after reset
         results = [moc executeFetchRequest:request error:migrationError];
         if (!defaultReadingList || !results) {
             return NO;
@@ -462,7 +462,7 @@ static uint64_t bundleHash() {
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     // If the library value doesn't exist, it's a new library and can be set to the latest version
     if (!libraryVersionNumber) {
-        [self.viewContext wmf_setValue:@(WMFCurrentLibraryVersion) forKey:WMFLibraryVersionKey];
+        [self performInitialLibrarySetup];
         if (completion) {
             completion();
         }
@@ -483,6 +483,15 @@ static uint64_t bundleHash() {
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
         done();
     }];
+}
+
+- (void)performInitialLibrarySetup {
+    [self.viewContext wmf_fetchOrCreateDefaultReadingList];
+    [self.viewContext wmf_setValue:@(WMFCurrentLibraryVersion) forKey:WMFLibraryVersionKey];
+    NSError *setupError = nil;
+    if (![self.viewContext save:&setupError]) {
+        DDLogError(@"Error performing initial library setup: %@", setupError);
+    }
 }
 
 - (void)markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:(NSManagedObjectContext *)moc {

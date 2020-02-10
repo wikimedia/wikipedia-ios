@@ -16,6 +16,7 @@ class ArticleViewController: ViewController {
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
     internal let article: WMFArticle
+    internal var mediaList: MediaList?
     
     /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
     @objc public let articleURL: URL
@@ -26,13 +27,12 @@ class ArticleViewController: ViewController {
     
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
-  
 
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-    private lazy var fetcher: ArticleFetcher = ArticleFetcher()
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
 
     private var leadImageHeight: CGFloat = 210
     
@@ -81,7 +81,7 @@ class ArticleViewController: ViewController {
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
-        
+        showLeadImage()
     }
     
     func loadLeadImage(with leadImageURL: URL) {
@@ -215,7 +215,6 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
-        setupGestureRecognizerDependencies()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -448,7 +447,7 @@ class ArticleViewController: ViewController {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
-        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
             return
@@ -461,7 +460,6 @@ class ArticleViewController: ViewController {
             self?.footerLoadGroup = nil
         }
         
-        let request = URLRequest(url: mobileHTMLURL)
         webView.load(request)
         
         guard let key = article.key else {
@@ -498,15 +496,6 @@ class ArticleViewController: ViewController {
             try? self.article.managedObjectContext?.save()
 
         }
-    }
-    
-    // MARK: Gestures
-    
-    func setupGestureRecognizerDependencies() {
-        guard let popGR = navigationController?.interactivePopGestureRecognizer else {
-            return
-        }
-        webView.scrollView.panGestureRecognizer.require(toFail: popGR)
     }
     
     // MARK: Analytics

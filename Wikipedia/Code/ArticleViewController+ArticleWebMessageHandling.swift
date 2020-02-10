@@ -6,11 +6,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handlePCSDidFinishInitialSetup()
         case .finalSetup:
             handlePCSDidFinishFinalSetup()
+        case .unknown(let href):
+            fallthrough
         case .link(let href, _, _):
-            guard let href = href else {
-                showGenericError()
-                return
-            }
             handleLink(with: href)
         case .leadImage(let source, let width, let height):
             handleLeadImage(source: source, width: width, height: height)
@@ -22,6 +20,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
         case .reference(let index, let group):
             showReferences(group, selectedIndex: index, animated: true)
+        case .image(let src, let href, let width, let height):
+            showImage(src: src, href: href, width: width, height: height)
         default:
             break
         }

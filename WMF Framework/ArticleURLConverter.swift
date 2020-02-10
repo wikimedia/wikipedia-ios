@@ -5,24 +5,6 @@ import Foundation
 
 public class ArticleURLConverter {
     
-    public static func desktopURL(mobileHTMLURL: URL, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
-            
-        let pathComponents = mobileHTMLURL.pathComponents
-        
-        //validation - confirm 2nd to last component containts 'mobile-html'
-        guard let mobileHTMLPathComponent = pathComponents[safeIndex: pathComponents.count - 2],
-            mobileHTMLPathComponent == ArticleFetcher.EndpointType.mobileHTML.rawValue else {
-                return nil
-        }
-        
-        guard let stagingHost = pathComponents[safeIndex: 1],
-            let title = pathComponents.last else {
-            return nil
-        }
-        
-        return desktopURL(host: stagingHost, title: title, configuration: configuration, scheme: scheme)
-    }
-    
     public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
         guard let encodedTitle = title.percentEncodedPageTitleForPathComponents else {
             return nil
@@ -64,22 +46,5 @@ public class ArticleURLConverter {
             components.scheme = scheme
         }
         return components.url
-    }
-    
-    public static func mobileHTMLPreviewRequest(desktopURL:  URL, wikitext: String) throws -> URLRequest {
-        guard
-            let articleTitle = desktopURL.wmf_title,
-            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(desktopURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
-        else {
-            throw RequestError.invalidParameters
-        }
-        let params: [String: String] = ["wikitext": wikitext]
-        let paramsJSON = try JSONEncoder().encode(params)
-        var request = URLRequest(url: url)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = paramsJSON
-        request.httpMethod = "POST"
-        return request
     }
 }
