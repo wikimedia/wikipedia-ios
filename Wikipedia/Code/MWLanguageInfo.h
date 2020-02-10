@@ -1,6 +1,5 @@
 @import UIKit;
 #import <WMF/WMFDeprecationMacros.h>
-@class MWKArticle;
 
 WMF_TECH_DEBT_DEPRECATED
 NS_ASSUME_NONNULL_BEGIN

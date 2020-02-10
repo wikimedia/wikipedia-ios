@@ -1,5 +1,4 @@
 #import "WMFSettingsMenuItem.h"
-#import <WMF/SessionSingleton.h>
 #import "Wikipedia-Swift.h"
 #import <WMF/MWKLanguageLinkController.h>
 

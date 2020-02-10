@@ -71,7 +71,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
-@property (nonatomic, strong, readonly) SessionSingleton *session;
+
+@property (nonatomic, strong) WMFMobileViewToMobileHTMLMigrationController *mobileViewToMobileHTMLMigrationController;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -94,8 +95,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, getter=isCheckingRemoteConfig) BOOL checkingRemoteConfig;
 
 @property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
-
-@property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
 
 @property (nonatomic, strong) WMFTheme *theme;
 
@@ -358,6 +357,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    [self.mobileViewToMobileHTMLMigrationController start];
     self.notificationsController.applicationActive = YES;
 }
 
@@ -668,7 +668,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return;
     }
     self.housekeepingBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self.dataStore stopCacheRemoval];
         [self endHousekeepingBackgroundTask];
     }];
 }
@@ -974,42 +973,18 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
-    NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
 
-    if (deletedArticleURLs.count > 0) {
-        [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
-    }
-
-    NSArray<NSURL *> *articleURLsToRemoveFromDisk = [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on remove from disk fetch: %@", housekeepingError);
     }
 
-    if (articleURLsToRemoveFromDisk.count > 0) {
-        [self.dataStore removeArticlesWithURLsFromCache:articleURLsToRemoveFromDisk];
-    }
-
-    if (self.backgroundTaskGroup) {
-        return;
-    }
-
-    WMFTaskGroup *taskGroup = [WMFTaskGroup new];
-    self.backgroundTaskGroup = taskGroup;
-
-    [taskGroup enter];
-    [self.dataStore startCacheRemoval:^{
-        [taskGroup leave];
-    }];
-
-    [taskGroup waitInBackgroundWithCompletion:^{
-        WMFAssertMainThread(@"Completion assumed to be called on the main queue.");
-        self.backgroundTaskGroup = nil;
-        [self endHousekeepingBackgroundTask];
-    }];
+    [self endHousekeepingBackgroundTask];
 }
 
 #pragma mark - Memory Warning
@@ -1259,7 +1234,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.session.dataStore theme:self.theme forceCache: NO];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme forceCache: NO];
     articleVC.loadCompletion = completion;
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
@@ -1325,10 +1300,20 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return nil;
     }
     if (!_savedArticlesFetcher) {
-        _savedArticlesFetcher = [[WMFSavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+        _savedArticlesFetcher = [[WMFSavedArticlesFetcher alloc] initWithDataStore:self.dataStore];
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
+}
+
+- (WMFMobileViewToMobileHTMLMigrationController *)mobileViewToMobileHTMLMigrationController {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
+    if (!_mobileViewToMobileHTMLMigrationController) {
+        _mobileViewToMobileHTMLMigrationController = [[WMFMobileViewToMobileHTMLMigrationController alloc] initWithDataStore:self.dataStore];
+    }
+    return _mobileViewToMobileHTMLMigrationController;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -1347,12 +1332,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return controller;
 }
 
-- (SessionSingleton *)session {
-    return [SessionSingleton sharedInstance];
-}
-
 - (MWKDataStore *)dataStore {
-    return self.session.dataStore;
+    return MWKDataStore.shared;
 }
 
 - (WMFNavigationStateController *)navigationStateController {

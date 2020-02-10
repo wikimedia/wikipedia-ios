@@ -40,7 +40,7 @@ public class Configuration: NSObject {
         )
     }()
     
-    static let appsLabs: Configuration = {
+    public static let appsLabs: Configuration = {
         var appsLabsHostComponents = URLComponents()
         appsLabsHostComponents.scheme = Scheme.https
         appsLabsHostComponents.host = Domain.appsLabs
@@ -92,6 +92,7 @@ public class Configuration: NSObject {
     // MARK: State
     
     @objc public let defaultSiteDomain: String
+    public let defaultSiteURL: URL
     
     public let mediaWikiCookieDomain: String
     public let wikipediaCookieDomain: String
@@ -109,6 +110,10 @@ public class Configuration: NSObject {
 
     required init(defaultSiteDomain: String, otherDomains: [String] = [], mobileAppsServicesAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder) {
         self.defaultSiteDomain = defaultSiteDomain
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = defaultSiteDomain
+        self.defaultSiteURL = components.url!
         self.mediaWikiCookieDomain = Domain.mediaWiki.withDotPrefix
         self.wikimediaCookieDomain = Domain.wikimedia.withDotPrefix
         self.wikipediaCookieDomain = Domain.wikipedia.withDotPrefix

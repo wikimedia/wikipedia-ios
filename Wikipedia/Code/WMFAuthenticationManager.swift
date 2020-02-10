@@ -3,6 +3,8 @@
  *  This class provides a simple interface for performing authentication tasks.
  */
 public class WMFAuthenticationManager: Fetcher {
+    let dataStore: MWKDataStore = MWKDataStore.shared()
+    
     public enum AuthenticationResult {
         case success(_: WMFAccountLoginResult)
         case alreadyLoggedIn(_: WMFCurrentlyLoggedInUser)
@@ -150,7 +152,7 @@ public class WMFAuthenticationManager: Fetcher {
                 KeychainCredentialsManager.shared.username = normalizedUserName
                 KeychainCredentialsManager.shared.password = password
                 self.session.cloneCentralAuthCookies()
-                SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+                self.dataStore.clearMemoryCache()
                 completion(.success(result))
             }
         }, failure: { (error) in
@@ -229,9 +231,9 @@ public class WMFAuthenticationManager: Fetcher {
 
         session.removeAllCookies()
         
-        SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+        dataStore.clearMemoryCache()
         
-        SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+        dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
         
         // Reset so can show for next logged in user.
         UserDefaults.wmf.wmf_setDidShowEnableReadingListSyncPanel(false)

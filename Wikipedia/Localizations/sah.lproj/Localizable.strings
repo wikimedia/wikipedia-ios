@@ -99,8 +99,6 @@
 "article-languages-yours" = "Эн тылларыҥ";
 "article-read-more-title" = "Бу туһунан сиһилии";
 "article-share" = "Тарҕат";
-"article-title" = "Ыстатыйа";
-"article-unable-to-load-section" = "Бу салааны көрдөрөр табыллыбата. Ыстатыйаны саҥаттан арыйан көр, баҕар оччоҕо сатаныа.";
 "back-button-accessibility-label" = "Төнүн";
 "back-button-popover-title" = "Баттаан төнүн";
 "button-next" = "Аныгыскы";
@@ -225,6 +223,7 @@
 "in-the-news-currently-trending" = "Билигин ордук сэргэнэр";
 "in-the-news-notification-read-now-action-title" = "Билигин ааҕыам";
 "in-the-news-notification-save-for-later-action-title" = "Кэлин бигэргэтиэм";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Тарҕат...";
 "in-the-news-title" = "Сонуннарга ахтыллар";
 "info-box-close-text" = "Сап";
@@ -362,7 +361,6 @@
 "settings-support" = "Бикипиэдьийэни өйөө";
 "settings-title" = "Туруоруулар";
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia:";
-"share-custom-menu-item" = "Тарҕат...";
 "share-get-directions-in-maps" = "Суолу салҕаа";
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
 "share-open-in-maps" = "Каартаҕа арый";
@@ -389,7 +387,6 @@
 // Fuzzy
 "welcome-send-data-sub-title" = "Бикимиэдьийэ тэрилин хайдах туһанаргын биллэҕинэ тупсарар кыахтаныа. Хомуллубут көрдөрүүлэрин аатыҥ киирбэт.";
 "welcome-volunteer-send-usage-reports" = "Туһаныы отчуотун ыытар буол";
-"wikitext-download-failed" = "Тиһэх барылын ылар табыллыбата.";
 "wikitext-downloading" = "Иһинээҕитин хачайдааһын...";
 "wikitext-preview-changes" = "Оҥорбут уларытыыны эрдэ көрүүнү ылыы...";
 "wikitext-preview-changes-none" = "Саҥа уларытыы оҥоһуллубатах эбит.";

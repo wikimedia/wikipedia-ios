@@ -348,7 +348,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     func captchaSiteURL() -> URL {
-        return SessionSingleton.sharedInstance().currentArticleSiteURL
+        return articleURL?.wmf_site ?? Configuration.current.defaultSiteURL
     }
 
     func captchaReloadPushed(_ sender: AnyObject) {

@@ -41,10 +41,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             showRedLinkInAlert()
             return
         }
-        guard let dataStore = SessionSingleton.sharedInstance()?.dataStore else {
-            showInternalLinkInAlert(link: url.absoluteString)
-            return
-        }
+        let dataStore = MWKDataStore.shared()
         let internalLinkViewController = EditPreviewInternalLinkViewController(articleURL: url, dataStore: dataStore)
         internalLinkViewController.modalPresentationStyle = .overCurrentContext
         internalLinkViewController.modalTransitionStyle = .crossDissolve

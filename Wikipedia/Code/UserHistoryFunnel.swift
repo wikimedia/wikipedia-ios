@@ -9,7 +9,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         "NZ", "AE", "FI", "IL", "TH", "AR", "VN", "TW", "RO", "PH", "MY", "ID", "CL", "CO", "ZA",
         "PT", "HU", "GR", "EG"
     )
-    @objc public static let shared = UserHistoryFunnel()
+    @objc public static let shared = UserHistoryFunnel(dataStore: MWKDataStore.shared())
     
     private var isTarget: Bool {
         guard let countryCode = Locale.current.regionCode?.uppercased() else {
@@ -18,7 +18,9 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         return targetCountries.contains(countryCode)
     }
     
-    private override init() {
+    let dataStore: MWKDataStore
+    required init(dataStore: MWKDataStore) {
+        self.dataStore = dataStore
         super.init(schema: "MobileWikiAppiOSUserHistory", version: 19074748)
     }
     
@@ -32,10 +34,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
 
         var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled, "search_tab": appOpensOnSearchTab]
-
-        guard let dataStore = SessionSingleton.sharedInstance().dataStore else {
-            return event
-        }
         
         let savedArticlesCount = dataStore.savedPageList.numberOfItems()
         event["measure_readinglist_itemcount"] = savedArticlesCount

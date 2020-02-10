@@ -3,11 +3,10 @@
 #import "WMFSearchResults_Internal.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
-
+#import "MWKSite+Random.h"
 #import "LSStubResponseDSL+WithJSON.h"
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
+#import "XCTestCase+WMFBundleConvenience.h"
+#import "NSBundle+TestAssets.h"
 
 @interface WMFSearchFetcherTests : XCTestCase
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;
@@ -44,7 +43,7 @@
             [expectation fulfill];
         }
         success:^(WMFSearchResults *result) {
-            assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
+            XCTAssertEqual(result.results.count, [[json valueForKeyPath:@"query.pages"] count]);
             [expectation fulfill];
         }];
 
@@ -72,8 +71,8 @@
             [expectation fulfill];
         }
         success:^(WMFSearchResults *result) {
-            assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
-            assertThat(result.results, isEmpty());
+            XCTAssertEqual(result.searchSuggestion, [json valueForKeyPath:@"query.searchinfo.suggestion"]);
+            XCTAssert(result.results.count == 0);
             [expectation fulfill];
         }];
 

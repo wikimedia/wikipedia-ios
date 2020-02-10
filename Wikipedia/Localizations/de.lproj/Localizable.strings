@@ -107,7 +107,6 @@
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
-"article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "back-button-accessibility-label" = "Zurück";
 "back-button-popover-title" = "Zum Zurückgehen tippen";
 "button-next" = "Nächste";
@@ -395,6 +394,7 @@
 "in-the-news-currently-trending" = "Aktuell beliebt";
 "in-the-news-notification-read-now-action-title" = "Jetzt lesen";
 "in-the-news-notification-save-for-later-action-title" = "Für später speichern";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";
@@ -716,7 +716,6 @@
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-building" = "Erstelle Teile-einen-Fakt-Karte …";
-"share-custom-menu-item" = "Teilen …";
 "share-default-format" = "„$1“ von „$2“: $3";
 "share-email-format" = "„$1“\n\nvon „$2“\n\n$3";
 "share-get-directions-in-maps" = "Richtungen abrufen";
@@ -791,7 +790,6 @@
 "welcome-send-data-learn-more" = "Mehr darüber erfahren, wie Daten gesammelt werden.";
 "welcome-send-data-sub-title" = "Hilf bei der Verbesserung der App, indem du der Wikimedia Foundation wissen lässt, wie du sie nutzt. Die gesammelten Daten sind anonym.";
 "welcome-volunteer-send-usage-reports" = "Nutzungsberichte senden";
-"wikitext-download-failed" = "Die aktuellste Version konnte nicht abgerufen werden.";
 "wikitext-downloading" = "Lade Inhalt …";
 "wikitext-preview-changes" = "Rufe Vorschau deiner Änderungen ab …";
 "wikitext-preview-changes-none" = "Es wurden keine Änderungen zur Anzeige einer Vorschau durchgeführt.";

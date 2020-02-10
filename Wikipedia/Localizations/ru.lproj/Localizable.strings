@@ -144,9 +144,7 @@
 "article-read-more-title" = "Подробнее";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
-"article-title" = "Статья";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
-"article-unable-to-load-section" = "Не удаётся скачать этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Нажмите, чтоб вернуться назад";
 "button-next" = "Далее";
@@ -438,6 +436,7 @@
 "in-the-news-currently-trending" = "В настоящее время популярные";
 "in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Поделиться...";
 "in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
@@ -748,7 +747,6 @@
 "share-a-fact-made-with" = "Создано с помощью Википедии";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-building" = "Сформировать карточку \"Поделись фактом\"...";
-"share-custom-menu-item" = "Поделиться...";
 "share-default-format" = "«$1» из «$2»: $3";
 "share-email-format" = "«$1»\n\nиз «$2»\n\n$3";
 "share-get-directions-in-maps" = "Получить направления";
@@ -839,7 +837,6 @@
 "welcome-send-data-learn-more" = "Узнать подробнее о сборе данных";
 "welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете его. Собранные данные являются анонимными.";
 "welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
-"wikitext-download-failed" = "Не удаётся получить последнюю версию.";
 "wikitext-downloading" = "Загрузка содержимого…";
 "wikitext-preview-changes" = "Получение предварительного просмотра внесённых изменений…";
 "wikitext-preview-changes-none" = "Не было внесено никаких изменений, которые можно было бы просмотреть.";

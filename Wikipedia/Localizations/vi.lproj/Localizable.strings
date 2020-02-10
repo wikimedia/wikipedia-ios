@@ -110,7 +110,6 @@
 "article-save-error-not-enough-space" = "Bạn không có đủ dung lượng trống trên bộ nhớ để lưu bài viết này";
 "article-share" = "Chia sẻ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
-"article-unable-to-load-section" = "Không thể tải lên phần này. Hãy thử tải lại bài để xem lỗi có được khắc phục hay không.";
 "back-button-accessibility-label" = "Quay lại";
 "back-button-popover-title" = "Chạm để quay lại";
 "button-next" = "Tiếp";
@@ -283,6 +282,7 @@
 "in-the-news-currently-trending" = "Đang thịnh hành";
 "in-the-news-notification-read-now-action-title" = "Đọc ngay";
 "in-the-news-notification-save-for-later-action-title" = "Lưu để đọc sau";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Chia sẻ…";
 "in-the-news-sub-title-from-language-wikipedia" = "Từ Wikipedia tiếng $1";
 "in-the-news-sub-title-from-wikipedia" = "Từ Wikipedia";
@@ -537,7 +537,6 @@
 "share-a-fact-made-with" = "Tạo bằng ứng dụng Wikipedia";
 "share-article-name-on-wikipedia" = "“$1” trên @Wikipedia:";
 "share-building" = "Đang tạo phiếu chia sẻ sự thật…";
-"share-custom-menu-item" = "Chia sẻ…";
 "share-default-format" = "“$1” từ “$2”: $3";
 "share-email-format" = "“$1”\n\ntừ “$2”\n\n$3";
 "share-get-directions-in-maps" = "Chỉ đường";
@@ -594,7 +593,6 @@
 "welcome-send-data-learn-more" = "Tìm hiểu thêm về dữ liệu được thu thập";
 "welcome-send-data-sub-title" = "Giúp cải thiện ứng dụng này bằng cách cho Quỹ Wikimedia biết bạn sử dụng ứng dụng như thế nào. Các dữ liệu được tập hợp là vô danh.";
 "welcome-volunteer-send-usage-reports" = "Gửi báo cáo sử dụng";
-"wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
 "wikitext-downloading" = "Đang tải nội dung…";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";
 "wikitext-preview-changes-none" = "Không có thay đổi để xem trước.";

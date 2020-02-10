@@ -2,9 +2,6 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import "XCTestCase+WMFLocaleTesting.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface WMFDateFormatterTests : XCTestCase
 
 @end
@@ -14,8 +11,8 @@
 - (void)testIso8601Example {
     NSString *testTimestamp = @"2015-02-10T10:31:27Z";
     NSDate *decodedDate = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
-    assertThat(decodedDate, is(notNilValue()));
-    assertThat([[NSDateFormatter wmf_iso8601Formatter] stringFromDate:decodedDate], is(equalTo(testTimestamp)));
+    XCTAssertNotNil(decodedDate);
+    XCTAssertEqualObjects([[NSDateFormatter wmf_iso8601Formatter] stringFromDate:decodedDate], testTimestamp);
 }
 
 - (void)testShortTimeFormatterIsValidForAllLocales {
@@ -27,12 +24,7 @@
                                         NSParameterAssert(decodedDate);
 
                                         // TODO: check for "AM" for corresponding time locales
-                                        assertThat([[NSDateFormatter wmf_shortTimeFormatterWithLocale:locale] stringFromDate:decodedDate],
-                                                   describedAs(@"expected non-nil for locale: %0 from timestamp %1",
-                                                               notNilValue(),
-                                                               locale.localeIdentifier,
-                                                               testTimestamp,
-                                                               nil));
+                                        XCTAssertNotNil([[NSDateFormatter wmf_shortTimeFormatterWithLocale:locale] stringFromDate:decodedDate]);
                                         [e fulfill];
                                     }];
 }
@@ -48,9 +40,8 @@
     NSDateFormatter *gbFormatter =
         [NSDateFormatter wmf_shortTimeFormatterWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]];
 
-    assertThat([usFormatter stringFromDate:decodedDate], is(equalTo(@"2:31 PM")));
-
-    assertThat([gbFormatter stringFromDate:decodedDate], is(equalTo(@"14:31")));
+    XCTAssertEqualObjects([usFormatter stringFromDate:decodedDate], @"2:31 PM");
+    XCTAssertEqualObjects([gbFormatter stringFromDate:decodedDate], @"14:31");
 }
 
 @end

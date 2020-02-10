@@ -120,11 +120,10 @@
 "article-languages-others" = "Andra språk";
 "article-languages-yours" = "Dina språk";
 "article-read-more-title" = "Läs mer";
+"article-reference-title" = "Visa referenser";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
-"article-title" = "Artikel";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
-"article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "back-button-accessibility-label" = "Tillbaka";
 "back-button-popover-title" = "Tryck för att gå tillbaka";
 "button-next" = "Nästa";
@@ -319,7 +318,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "På för alla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "På";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På för $1";
-"explore-feed-preferences-feed-cards-hidden-title" = "Alla kort av typen $1 doldes";
+"explore-feed-preferences-feed-cards-hidden-title" = "Dolde alla \"$1\"-kort";
 "explore-feed-preferences-global-card-footer-text" = "Detta kort är inte språkspecifikt, kortet kommer att tas bort från ditt utforskarflöde om du inaktiverar det.";
 "explore-feed-preferences-global-cards-description" = "Kort som inte är språkspecifika";
 "explore-feed-preferences-global-cards-subtitle" = "Inte språkspecifikt";
@@ -442,7 +441,7 @@
 "in-the-news-currently-trending" = "Populärt just nu";
 "in-the-news-notification-read-now-action-title" = "Läs nu";
 "in-the-news-notification-save-for-later-action-title" = "Spara till senare";
-"in-the-news-notification-share-action-title" = "Dela...";
+"in-the-news-notification-share-action-title" = "Dela…";
 "in-the-news-sub-title-from-language-wikipedia" = "Från Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Från Wikipedia";
 "in-the-news-title" = "Aktuella händelser";
@@ -553,6 +552,7 @@
 "page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
 "page-last-edited" = "Redigerades {{PLURAL:$1|0=idag|1=igår|för $1 dygn sedan}}";
+"page-last-edited-unknown" = "Redigerades för ett tid sedan";
 "page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
@@ -774,7 +774,6 @@
 "share-a-fact-made-with" = "Skapad med Wikipedia-appen";
 "share-article-name-on-wikipedia" = "\"$1\" på @Wikipedia:";
 "share-building" = "Bygger Dela-ett-faktum-kort…";
-"share-custom-menu-item" = "Dela...";
 "share-default-format" = "“$1” från “$2”: $3";
 "share-email-format" = "“$1”\n\nfrån “$2”\n\n$3";
 "share-get-directions-in-maps" = "Få vägbeskrivningar";
@@ -867,7 +866,6 @@
 "welcome-send-data-learn-more" = "Läs mer om data som samlas in";
 "welcome-send-data-sub-title" = "Hjälp till att göra appen bättre genom att låta Wikimedia Foundation veta hur du använder den. All data som samlas in är anonym.";
 "welcome-volunteer-send-usage-reports" = "Skicka användningsrapporter";
-"wikitext-download-failed" = "Det gick inte att hämta den senaste versionen.";
 "wikitext-downloading" = "Laddar innehåll...";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";

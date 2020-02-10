@@ -54,8 +54,8 @@
 "article-languages-others" = "Citas valodas";
 "article-languages-yours" = "Tavas valodas";
 "article-read-more-title" = "Lasīt vairāk";
+"article-reference-title" = "Skatīt atsauces";
 "article-share" = "Dalīties";
-"article-title" = "Raksts";
 "back-button-accessibility-label" = "Atpakaļ";
 "button-next" = "Tālāk";
 "button-ok" = "Labi";
@@ -123,7 +123,7 @@
 "image-gallery-unknown-owner" = "Autors nezināms.";
 "in-the-news-notification-read-now-action-title" = "Lasīt tagad";
 "in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
-"in-the-news-notification-share-action-title" = "Dalīties...";
+"in-the-news-notification-share-action-title" = "Dalīties…";
 "in-the-news-title" = "Ziņās";
 "info-box-close-text" = "Aizvērt";
 "info-box-title" = "Ātrie fakti";
@@ -225,7 +225,6 @@
 "settings-storage-and-syncing-server-sync-title" = "Sinhronizēt ar serveri";
 "settings-support" = "Atbalsti Vikipēdiju";
 "settings-title" = "Iestatījumi";
-"share-custom-menu-item" = "Dalīties...";
 "share-get-directions-in-maps" = "Saņemt norādes";
 "share-menu-item" = "Dalīties...";
 "share-open-in-maps" = "Atvērt iekš Maps";

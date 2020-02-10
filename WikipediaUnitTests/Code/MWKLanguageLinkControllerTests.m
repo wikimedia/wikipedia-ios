@@ -1,7 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "MWKLanguageLinkController_Private.h"
 #import "MWKLanguageLink.h"
-#import <OCHamcrest/OCHamcrest.h>
 #import "NSString+WMFExtras.h"
 #import "NSUserDefaults+WMFReset.h"
 
@@ -39,7 +38,7 @@
        since we've asserted above that "en" or "en-US" is one of the OS preferred languages, we can assert that our
        controller contains a language link for "en"
      */
-    assertThat([self preferredLanguageCodes], hasItem(@"en"));
+    XCTAssert([[self preferredLanguageCodes] containsObject:@"en"]);
     [self verifyAllLanguageArrayProperties];
 }
 
@@ -50,7 +49,7 @@
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
     [self.controller addPreferredLanguage:link];
 
-    assertThat([self preferredLanguageCodes], hasItem(@"test"));
+    XCTAssert([[self preferredLanguageCodes] containsObject:@"test"]);
     [self verifyAllLanguageArrayProperties];
 }
 
@@ -62,7 +61,7 @@
     [self.controller appendPreferredLanguage:link];
     NSArray *secondAppend = [self.controller.preferredLanguages copy];
 
-    assertThat(firstAppend, is(equalTo(secondAppend)));
+    XCTAssertEqualObjects(firstAppend, secondAppend);
 
     [self verifyAllLanguageArrayProperties];
 }
@@ -77,17 +76,16 @@
 
 - (void)testBasicFiltering {
     self.filter.languageFilter = @"en";
-    assertThat([self.filter.filteredLanguages wmf_reject:^BOOL(MWKLanguageLink *langLink) {
+    
+    XCTAssert([self.filter.filteredLanguages wmf_reject:^BOOL(MWKLanguageLink *langLink) {
                    return [langLink.name wmf_caseInsensitiveContainsString:@"en"] || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
-               }],
-               describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",
-                           isEmpty(), nil));
+               }].count == 0, @"All filtered languages have a name or localized name containing filter ignoring case");
     [self verifyAllLanguageArrayProperties];
 }
 
 - (void)testEmptyAfterFiltering {
     self.filter.languageFilter = @"$";
-    assertThat(self.filter.filteredLanguages, isEmpty());
+    XCTAssert(self.filter.filteredLanguages.count == 0);
 }
 
 #pragma mark - Utils
@@ -110,10 +108,9 @@
                                         [self.controller.preferredLanguages
                                             arrayByAddingObjectsFromArray:self.controller.otherLanguages]];
 
-    assertThat(joinedLanguages,
-               hasCountOf(self.controller.otherLanguages.count + self.controller.preferredLanguages.count));
+    XCTAssert(joinedLanguages.count ==  self.controller.otherLanguages.count + self.controller.preferredLanguages.count);
 
-    assertThat([NSSet setWithArray:self.controller.allLanguages], is(equalTo(joinedLanguages)));
+    XCTAssertEqualObjects([NSSet setWithArray:self.controller.allLanguages], joinedLanguages);
 }
 
 - (NSArray<NSString *> *)preferredLanguageCodes {

@@ -3,9 +3,6 @@
 #import <hpple/TFHpple.h>
 #import "WMFTestFixtureUtilities.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface NSString_WMFHTMLParsingTests : XCTestCase
 
 @end
@@ -13,8 +10,7 @@
 @implementation NSString_WMFHTMLParsingTests
 
 - (void)testSnippetFromTextWithCitaiton {
-    assertThat([@"March 2011.[9][10] It was the first spacecraft to orbit Mercury.[7]" wmf_shareSnippetFromText],
-               is(@"March 2011. It was the first spacecraft to orbit Mercury."));
+    XCTAssertEqualObjects([@"March 2011.[9][10] It was the first spacecraft to orbit Mercury.[7]" wmf_shareSnippetFromText], @"March 2011. It was the first spacecraft to orbit Mercury.");
 }
 
 - (void)testConsecutiveNewlinesCollapsing {

@@ -164,6 +164,7 @@
 "in-the-news-currently-trending" = "हाल रूचीमा रहेको";
 "in-the-news-notification-read-now-action-title" = "अहिले पढ्नुहोस्";
 "in-the-news-notification-save-for-later-action-title" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "साझेदारी गर्नुहोस्...";
 "in-the-news-sub-title-from-wikipedia" = "विकिपिडियाबाट";
 "in-the-news-title" = "समाचारमा";
@@ -278,7 +279,6 @@
 "settings-support" = "विकिपिडियालाई समर्थन गर्नुहोस्";
 "settings-title" = "सेटिङ्हरू";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
-"share-custom-menu-item" = "साझेदारी गर्नुहोस्...";
 "share-get-directions-in-maps" = "दिशा पत्ता लगाउनुहोस्";
 "share-open-in-maps" = "नक्सामा खोल्नुहोस्";
 "sort-by-recently-added-action" = "भर्खरै थपिएका";

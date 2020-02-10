@@ -252,6 +252,7 @@
 "in-the-news-currently-trending" = "Ag treochtáil faoi láthair";
 "in-the-news-notification-read-now-action-title" = "Léigh Anois";
 "in-the-news-notification-save-for-later-action-title" = "Sábháil le léamh níos déanaí";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Comhroinn...";
 "in-the-news-sub-title-from-language-wikipedia" = "Ó Vicipéid ($1)";
 "in-the-news-sub-title-from-wikipedia" = "Ón Vicipéid";
@@ -437,7 +438,6 @@
 "settings-title" = "Socruithe";
 "share-a-fact-made-with" = "Arna dhéanamh leis an aip Vicipéide";
 "share-article-name-on-wikipedia" = "\"$1\" ar @Wikipedia:";
-"share-custom-menu-item" = "Comhroinn...";
 "share-default-format" = "“$1” ó “$2”: $3";
 "share-email-format" = "“$1”\n\nó “$2”\n\n$3";
 "share-get-directions-in-maps" = "Faigh Treoracha";

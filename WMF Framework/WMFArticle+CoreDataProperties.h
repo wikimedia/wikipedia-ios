@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSNumber *errorCodeNumber; // error with article download - use error extension
 @property (nonatomic) BOOL isDownloaded; // is fully downloaded for offline viewing
 @property (nonatomic) BOOL isCached; // is cached for quick re-viewing
+@property (nonatomic) BOOL isConversionFromMobileViewNeeded;
 #pragma mark Viewing
 @property (nullable, nonatomic, copy) NSDate *viewedDate; // The date the user viewed the article in the article view or nil if the article was never viewed by the user
 @property (nullable, nonatomic, copy) NSDate *viewedDateWithoutTime; // Viewed date without time for grouping by day in history

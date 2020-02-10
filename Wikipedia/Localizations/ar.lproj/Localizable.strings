@@ -127,9 +127,7 @@
 "article-read-more-title" = "قراءة المزيد";
 "article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
-"article-title" = "المقالة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
-"article-unable-to-load-section" = "تعذر تحميل هذه الفقرة. حاول تحديث عرض المقالة كي ترى إن أدى ذلك إلى التغلب على هذه المشكلة.";
 "back-button-accessibility-label" = "ارجع";
 "back-button-popover-title" = "اضغط للعودة";
 "button-next" = "التالي";
@@ -447,6 +445,7 @@
 "in-the-news-currently-trending" = "الأكثر زيارة حاليا";
 "in-the-news-notification-read-now-action-title" = "اقرأ الآن";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "شارك...";
 "in-the-news-sub-title-from-language-wikipedia" = "من ويكيبيديا $1";
 "in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
@@ -779,7 +778,6 @@
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
 "share-building" = "جارٍ بناء بطاقة مشاركة حقيقة...";
-"share-custom-menu-item" = "شارك...";
 "share-default-format" = "“$1” من “$2”: $3";
 "share-email-format" = "“$1”\n\nمن “$2”\n\n$3";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
@@ -871,7 +869,6 @@
 "welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
 "welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
-"wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-preview-changes" = "جار جلب عرض التغييرات التي قمت بها...";
 "wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";

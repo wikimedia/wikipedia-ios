@@ -1,9 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "NSURL+WMFExtras.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 static NSURL *dummyURLWithExtension(NSString *extension) {
     return [NSURL URLWithString:[@"http://foo.org/bar." stringByAppendingString:extension]];
 }
@@ -26,7 +23,9 @@ static NSURL *dummyURLWithExtension(NSString *extension) {
     NSArray *testURLMimeTypes =
         [@[dummyURLWithExtension(@"png"),
            dummyURLWithExtension(@"PNG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
-    assertThat(testURLMimeTypes, everyItem(is(@"image/png")));
+    for (NSString *mimeType in testURLMimeTypes){
+        XCTAssertEqualObjects(mimeType, @"image/png");
+    }
 }
 
 - (void)testMimeTypeWithJPEGExtension {
@@ -35,19 +34,22 @@ static NSURL *dummyURLWithExtension(NSString *extension) {
            dummyURLWithExtension(@"jpeg"),
            dummyURLWithExtension(@"JPG"),
            dummyURLWithExtension(@"JPEG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
-    assertThat(testURLMimeTypes, everyItem(is(@"image/jpeg")));
+    for (NSString *mimeType in testURLMimeTypes){
+        XCTAssertEqualObjects(mimeType, @"image/jpeg");
+    }
 }
 
 - (void)testMimeTypeWithGIFExtension {
     NSArray *testURLMimeTypes =
         [@[dummyURLWithExtension(@"gif"),
            dummyURLWithExtension(@"GIF")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
-    assertThat(testURLMimeTypes, everyItem(is(@"image/gif")));
+    for (NSString *mimeType in testURLMimeTypes){
+        XCTAssertEqualObjects(mimeType, @"image/gif");
+    }
 }
 
 - (void)testPrependSchemeAddHTTPSToSchemelessURL {
-    assertThat([[NSURL URLWithString:@"//foo.org/bar.jpg"] wmf_urlByPrependingSchemeIfSchemeless],
-               is([NSURL URLWithString:@"https://foo.org/bar.jpg"]));
+    XCTAssertEqualObjects([[NSURL URLWithString:@"//foo.org/bar.jpg"] wmf_urlByPrependingSchemeIfSchemeless], [NSURL URLWithString:@"https://foo.org/bar.jpg"]);
 }
 
 - (void)testPrependSchemeReturnsOriginalURLWithScheme {
@@ -58,12 +60,12 @@ static NSURL *dummyURLWithExtension(NSString *extension) {
 
 - (void)testSchemelessURLStringPreservesEverythingExceptSchemeAndColon {
     NSURL *urlWithScheme = [NSURL URLWithString:@"https://foo.org/bar"];
-    assertThat([urlWithScheme wmf_schemelessURLString], is(@"//foo.org/bar"));
+    XCTAssertEqualObjects([urlWithScheme wmf_schemelessURLString], @"//foo.org/bar");
 }
 
 - (void)testSchemelessURLIsEqualToAbsoluteStringOfURLWithoutScheme {
     NSURL *urlWithoutScheme = [NSURL URLWithString:@"//foo.org/bar"];
-    assertThat([urlWithoutScheme wmf_schemelessURLString], is(urlWithoutScheme.absoluteString));
+    XCTAssertEqualObjects([urlWithoutScheme wmf_schemelessURLString], urlWithoutScheme.absoluteString);
 }
 
 @end

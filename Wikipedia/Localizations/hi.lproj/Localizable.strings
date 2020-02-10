@@ -96,7 +96,6 @@
 "article-read-more-title" = "और पढ़ें";
 "article-share" = "साझा करें";
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
-"article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
 "back-button-accessibility-label" = "पीछे";
 "button-next" = "अगला";
 "button-ok" = "ठीक है";
@@ -210,6 +209,7 @@
 "in-the-news-currently-trending" = "वर्तमान में रुझानों में";
 "in-the-news-notification-read-now-action-title" = "अभी पढ़ें";
 "in-the-news-notification-save-for-later-action-title" = "बाद के लिए सहेजें";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "साझा करें...";
 "in-the-news-title" = "समाचारों में";
 "info-box-close-text" = "बंद करें";
@@ -367,7 +367,6 @@
 "share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
 "share-building" = "तथ्य को साझा कर कार्ड को बनायें";
-"share-custom-menu-item" = "साझा करें...";
 "share-default-format" = "\"$1\" से \"$2\": $3";
 "share-email-format" = "\"$1\"\n\n\"$2\" से\n\n$3";
 "share-get-directions-in-maps" = "दिशानिर्देश पाएं";
@@ -424,7 +423,6 @@
 "welcome-send-data-learn-more" = "एकत्रित डेटा के बारे में अधिक जानें";
 "welcome-send-data-sub-title" = "विकिमीडिया फाउंडेशन को यह जानने की आज्ञा देकर कि आप एप को किस प्रकार प्रयोग करते हैं, एप बेहतर बनाने में सहायता करें। एकत्रित डेटा एनोनिमस है।";
 "welcome-volunteer-send-usage-reports" = "उपयोग रिपोर्ट भेजें";
-"wikitext-download-failed" = "हाल के परिवर्तन को प्राप्त करने में असफल।";
 "wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
 "wikitext-preview-changes-none" = "प्रीव्यू के लिए कोई बदलाव नहीं हैं।";

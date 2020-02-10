@@ -72,8 +72,8 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
     dict[kShareSessionTokenKey] = self.sessionToken;
     dict[kPageIdKey] = self.articleId;
     dict[kArticleKey] = self.articleTitle;
-    [dict wmf_maybeSetObject:self.selection forKey:kTextKey];
-    [dict wmf_maybeSetObject:self.shareMode forKey:kShareModeKey];
+    [dict setValue:self.selection forKey:kTextKey];
+    [dict setValue:self.shareMode forKey:kShareModeKey];
     dict[kTimestampKey] = [self timestamp];
     
     // TODO: refactor MWKArticle (and ArticleFetcher - the prop would be 'revision')

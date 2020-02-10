@@ -1,6 +1,6 @@
 @import WebKit;
 
-@class MWKArticle, MWLanguageInfo;
+@class MWLanguageInfo;
 
 @interface WKWebView (WMFWebViewControllerJavascript)
 
