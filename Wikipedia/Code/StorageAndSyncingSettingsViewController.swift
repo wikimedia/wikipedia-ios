@@ -148,6 +148,7 @@ class StorageAndSyncingSettingsViewController: SubSettingsViewController {
                 assertionFailure("dataStore is nil")
                 return
             }
+            
             dataStore.readingListsController.eraseAllSavedArticlesAndReadingLists()
             self.tableView.reloadData()
         }

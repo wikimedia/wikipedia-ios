@@ -106,6 +106,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (void)clearMemoryCache;
 
+/// Clears both the memory cache and the URLSession cache
+- (void)clearTemporaryCache;
+
 #pragma mark - Legacy Datastore methods
 
 @property (readonly, copy, nonatomic) NSString *basePath;

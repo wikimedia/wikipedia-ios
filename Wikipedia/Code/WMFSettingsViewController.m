@@ -329,8 +329,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, nil, @"Clear cache", @"Confirm action to clear cached data")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.dataStore clearMemoryCache];
-                                                [[NSURLCache sharedURLCache] removeAllCachedResponses];
+                                                [self.dataStore clearTemporaryCache];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data {{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
