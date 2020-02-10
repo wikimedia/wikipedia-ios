@@ -6,12 +6,12 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handlePCSDidFinishInitialSetup()
         case .finalSetup:
             handlePCSDidFinishFinalSetup()
-        case .link(let href, _, let title):
-            guard let title = title, !title.isEmpty else {
-                navigate(to: href)
-                break
+        case .link(let href, _, _):
+            guard let href = href else {
+                showGenericError()
+                return
             }
-            handleLink(with: title)
+            handleLink(with: href)
         case .leadImage(let source, let width, let height):
             handleLeadImage(source: source, width: width, height: height)
         case .tableOfContents(items: let items):
@@ -67,8 +67,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showEditHistory()
         case .pageIssues:
             showPageIssues(with: payload)
-        case .referenceList:
-            showReferencesList()
         }
     }
     
@@ -87,7 +85,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
             return
         }
-        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .referenceList, .lastEdited, .pageIssues, .disambiguation]
+        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
         if languageCount > 0 {
             menuItems.append(.languages)
         }

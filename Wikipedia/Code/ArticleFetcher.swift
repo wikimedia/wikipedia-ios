@@ -54,10 +54,6 @@ final public class ArticleFetcher: Fetcher {
     @discardableResult public func fetchMediaList(with articleURL: URL, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
         return performPageContentServiceGET(with: articleURL, endpointType: .mediaList, completion: completion)
     }
-
-    @discardableResult public func fetchReferences(with articleURL: URL, completion: @escaping (Result<References, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
-        return performPageContentServiceGET(with: articleURL, endpointType: .references, completion: completion)
-    }
 }
 
 private extension ArticleFetcher {
