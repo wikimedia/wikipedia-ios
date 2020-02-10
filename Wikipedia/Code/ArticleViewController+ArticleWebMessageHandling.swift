@@ -21,7 +21,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .reference(let index, let group):
             showReferences(group, selectedIndex: index, animated: true)
         case .image(let src, let href, let width, let height):
-            handleImage(src: src, href: href, width: width, height: height)
+            showImage(src: src, href: href, width: width, height: height)
         default:
             break
         }

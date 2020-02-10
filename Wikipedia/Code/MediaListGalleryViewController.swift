@@ -22,10 +22,12 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     var imageInfos: [String: MWKImageInfo] = [:]
     func fetchImageInfoForTitle(_ title: String, completion: @escaping (Result<MWKImageInfo, Error>) -> Void) {
         assert(Thread.isMainThread, "Protect accesss to imageInfos")
+        // If we have the cached version, return it
         if let info = imageInfos[title] {
             completion(.success(info))
             return
         }
+        // Otherwise fetch it and cache it
         imageInfoFetcher.fetchGalleryInfo(forImageFiles: [title], fromSiteURL: articleURL, success: { (info) in
             DispatchQueue.main.async {
                 guard let info = info?.first as? MWKImageInfo else {
@@ -59,18 +61,26 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     
     func fetchImageForPhoto(_ photo: MediaListItemNYTPhotoWrapper, imageInfo: MWKImageInfo) {
         if (photo.imageInfo == nil) {
+            // Set the image info on the photo object
+            // And update the overlay info so the caption is shown
             photo.imageInfo = imageInfo
             updateOverlayInformation()
         }
+        // Gallery image width is based on the trait collection
         let width = traitCollection.wmf_galleryImageWidth
         guard let imageURL = imageInfo.imageURL(forTargetWidth: width) else {
+            self.wmf_showAlertWithError(RequestError.unexpectedResponse as NSError)
             return
         }
         imageController.fetchImage(withURL: imageURL, failure: { (error) in
-            self.wmf_showAlertWithError(error as NSError)
+            DispatchQueue.main.async {
+                self.wmf_showAlertWithError(error as NSError)
+            }
         }) { [weak self] (download) in
-            photo.image = download.image.staticImage
-            self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
+            DispatchQueue.main.async {
+                photo.image = download.image.staticImage
+                self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
+            }
         }
     }
     
@@ -79,6 +89,8 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     }
 }
 
+// Model object for the NYTGalleryViewController
+// Holds state for the gallery view
 class MediaListItemNYTPhotoWrapper: NSObject, WMFPhoto {
     func bestImageURL() -> URL? {
         return nil

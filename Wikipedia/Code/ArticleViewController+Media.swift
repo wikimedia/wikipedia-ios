@@ -19,7 +19,7 @@ extension ArticleViewController {
         }
     }
     
-    func handleImage(src: String, href: String, width: Int?, height: Int?) {
+    func showImage(src: String, href: String, width: Int?, height: Int?) {
         getMediaList { (result) in
             switch result {
             case .failure(let error):

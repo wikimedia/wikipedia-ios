@@ -511,7 +511,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     }
     
     func showGenericError() {
-        showError(RequestError.unexpectedResponse)
+        showError(RequestError.unknown)
     }
     
     // MARK: Gestures

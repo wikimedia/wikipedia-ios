@@ -73,7 +73,11 @@ final public class ArticleFetcher: Fetcher {
     }
     
     public func mobileHTMLRequest(articleURL: URL) throws -> URLRequest {
-        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML) else {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            let mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
+        else {
             throw RequestError.invalidParameters
         }
         var request = URLRequest(url: mobileHTMLURL)
@@ -107,7 +111,6 @@ private extension ArticleFetcher {
             
         })
     }
-    
     
     @discardableResult func performPageContentServiceGET<T: Decodable>(with articleURL: URL, endpointType: EndpointType, completion: @escaping (Result<T, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
         guard let title = articleURL.percentEncodedPageTitleForPathComponents else {
