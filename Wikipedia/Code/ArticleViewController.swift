@@ -215,7 +215,6 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
-        setupGestureRecognizerDependencies()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -497,15 +496,6 @@ class ArticleViewController: ViewController {
             try? self.article.managedObjectContext?.save()
 
         }
-    }
-    
-    // MARK: Gestures
-    
-    func setupGestureRecognizerDependencies() {
-        guard let popGR = navigationController?.interactivePopGestureRecognizer else {
-            return
-        }
-        webView.scrollView.panGestureRecognizer.require(toFail: popGR)
     }
     
     // MARK: Analytics

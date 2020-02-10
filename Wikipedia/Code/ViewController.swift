@@ -160,7 +160,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        setupGestureRecognizerDependencies()
         guard navigationMode == .bar else {
             if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
                 var updatedElements: [Any] = [closeButton]
@@ -512,6 +512,16 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     func showGenericError() {
         showError(RequestError.unexpectedResponse)
+    }
+    
+    // MARK: Gestures
+    
+    func setupGestureRecognizerDependencies() {
+        // Prevent the scroll view from scrolling while interactively dismissing
+        guard let popGR = navigationController?.interactivePopGestureRecognizer else {
+            return
+        }
+        scrollView?.panGestureRecognizer.require(toFail: popGR)
     }
 }
 
