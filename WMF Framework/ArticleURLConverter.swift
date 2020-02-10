@@ -4,41 +4,6 @@
 import Foundation
 
 public class ArticleURLConverter {
-
-    public static func desktopURL(mobileHTMLURL: URL, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
-            
-        let pathComponents = mobileHTMLURL.pathComponents
-        
-        //validation - confirm 2nd to last component containts 'mobile-html'
-        guard let mobileHTMLPathComponent = pathComponents[safeIndex: pathComponents.count - 2],
-            mobileHTMLPathComponent == ArticleFetcher.EndpointType.mobileHTML.rawValue else {
-                return nil
-        }
-        
-        guard var stagingHost = pathComponents[safeIndex: 1],
-            let title = pathComponents.last else {
-            return nil
-        }
-        
-        // TODO: Temporary workaround - re-think whether we need URL conversion
-        if stagingHost == "api" {
-            stagingHost = mobileHTMLURL.host ?? configuration.defaultSiteDomain
-        }
-        
-        return desktopURL(host: stagingHost, title: title, configuration: configuration, scheme: scheme)
-    }
-    
-    public static func urlIsMediaList(url: URL) -> Bool {
-        let pathComponents = url.pathComponents
-        
-        //validation - confirm 2nd to last component containts 'media-list'
-        guard let mediaListPathComponent = pathComponents[safeIndex: pathComponents.count - 2],
-            mediaListPathComponent == ArticleFetcher.EndpointType.mediaList.rawValue else {
-                return false
-        }
-        
-        return true
-    }
     
     public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
         guard let encodedTitle = title.percentEncodedPageTitleForPathComponents else {
@@ -81,22 +46,5 @@ public class ArticleURLConverter {
             components.scheme = scheme
         }
         return components.url
-    }
-}
-
-extension String {
-    func appendingLanguageVariantIfNecessary(host: String?) -> String {
-        
-        guard let host = host else {
-            return self
-        }
-        
-        //tonitodo: flesh out
-        if let preferredLanguageCode = NSLocale.wmf_preferredLanguageCodes.first,
-            preferredLanguageCode == "zh-hans" || preferredLanguageCode == "zh-hant" && host == "zh.wikipedia.org" {
-            return self.appending("__\(preferredLanguageCode)")
-        }
-        
-        return self
     }
 }
