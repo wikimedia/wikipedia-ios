@@ -1,3 +1,4 @@
+import WebKit
 
 fileprivate extension MWKSection {
     func mobileViewDict() -> [String: Any?] {
@@ -118,30 +119,26 @@ extension MWKArticle {
     }
 }
 
-// TODO: these two strings are used by the mobileview-to-mobilehtml converter to create <script> and <link> tags - these will
-// need to change so that the html produced by the converter has <script> and <link> tags with the same urls that we'd get
-// directly calling the mobilehtml api.
-let MobileviewToMobileHTMLDomain = "en.wikipedia.org" // get this from article.url.host?
-let MobileviewToMobileHTMLBaseURI = "http://localhost:6927/en.wikipedia.org/v1/" // get same string as seen in live mobilehtml results <script> and <link> tags
-
-class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
-    func convertToMobileHTML(mobileViewJSON: String, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+@objc public class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
+    private var isConverterLoaded = false
+    lazy private var conversionBuffer: [() -> Void] = []
+    
+    // The 'domain' and 'baseURI' parameters are used by the mobileview-to-mobilehtml converter
+    // to create <script> and <link> tags - check the converter output and ensure its <script>
+    // and <link> tags have the same urls that we'd get directly calling the mobilehtml api.
+    func convertToMobileHTML(mobileViewJSON: String, domain: String, baseURI: String, completionHandler: ((Any?, Error?) -> Void)? = nil) {
         let conversion = {
-            self.webView.evaluateJavaScript("convertMobileViewJSON(\(mobileViewJSON), `\(MobileviewToMobileHTMLDomain)`, `\(MobileviewToMobileHTMLBaseURI)`)", completionHandler: completionHandler)
+            self.webView.evaluateJavaScript("convertMobileViewJSON(\(mobileViewJSON), `\(domain)`, `\(baseURI)`)", completionHandler: completionHandler)
         }
         guard isConverterLoaded else {
-            load {
-                conversion()
+            conversionBuffer.append(conversion)
+            guard webView.url == nil else {
+                return
             }
+            webView.loadFileURL(bundledConverterFileURL, allowingReadAccessTo: bundledConverterFileURL.deletingLastPathComponent())
             return
         }
         conversion()
-    }
-    private var isConverterLoaded = false
-    private var loadCompletionHandler: (() -> Void) = {}
-    private func load(completionHandler: @escaping (() -> Void)) {
-        loadCompletionHandler = completionHandler
-        webView.loadFileURL(bundledConverterFileURL, allowingReadAccessTo: bundledConverterFileURL.deletingLastPathComponent())
     }
     lazy private var webView: WKWebView = {
         let wv = WKWebView(frame: .zero)
@@ -153,79 +150,55 @@ class MobileviewToMobileHTMLConverter : NSObject, WKNavigationDelegate {
             .appendingPathComponent("pcs-html-converter", isDirectory: true)
             .appendingPathComponent("index.html", isDirectory: false)
     }()
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         isConverterLoaded = true
-        loadCompletionHandler()
+        conversionBuffer.forEach {thisConversion in
+            thisConversion()
+        }
+        conversionBuffer.removeAll()
     }
 }
 
-extension MobileviewToMobileHTMLConverter {
-    func convertMobileviewSavedDataToMobileHTML(article: MWKArticle, articleCacheController: ArticleCacheController) {
+enum MobileviewToMobileHTMLConverterError: Error {
+    case noArticleURL
+    case noMobileViewJSONString
+    case noArticleURLHost
+    case noMobileAppsHost
+}
+
+@objc public extension MobileviewToMobileHTMLConverter {
+    func convertMobileviewSavedDataToMobileHTML(article: MWKArticle, completionHandler: ((Any?, Error?) -> Void)? = nil) {
         guard let articleURL = article.url else {
             assertionFailure("Article url not available")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noArticleURL)
+            }
             return
         }
         guard let jsonString = article.reconstructedMobileViewJSONString(imageSize: CGSize(width: 320, height: 320)) else {
             assertionFailure("Article mobileview jsonString not reconstructed")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileViewJSONString)
+            }
             return
         }
-        convertToMobileHTML(mobileViewJSON: jsonString) { (result, error) in
-            guard error == nil, let result = result else {
-                assertionFailure("Conversion error or no result")
-                return
+        guard let host = articleURL.host else {
+            assertionFailure("Article url host not available")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noArticleURLHost)
             }
-            guard let mobileHTML = result as? String else {
-                assertionFailure("mobileHTML not extracted")
-                return
-            }
-            articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html")
+            return
         }
+// TODO: baseURI will need to change once we switch back to prod for mobilehtml!!
+        guard let mobileappsHost = Configuration.appsLabs.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).host else {
+            assertionFailure("Mobileapps url host not available")
+            if let completionHandler = completionHandler {
+                completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileAppsHost)
+            }
+            return
+        }
+        let baseURI = "//\(mobileappsHost)/api/v1/"
+
+        convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI, completionHandler: completionHandler)
     }
 }
-
-/*
-REMAINING TODO:
-
- - kick off and run for each article in dataStore.savedPageList (on app being backgrounded) or inactivity
- - determine post-conversion cleanup needed so article only converted once
- - add completion handler to cacheFromMigration?
- - in JS land wire up metadata so as needed by conversion JS so things like article title aren't hard-coded to "Dog"
- - test performance
-*/
-
-
-//EXAMPLE CONVERSION:
-
-/*
-    lazy var converter: MobileviewToMobileHTMLConverter = {
-        MobileviewToMobileHTMLConverter.init()
-    }()
-    
-    override func didReceiveMemoryWarning() {
-         guard
-            let dataStore = SessionSingleton.sharedInstance()?.dataStore,
-            let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController,
-            let articleURL = URL(string: "https://en.wikipedia.org/wiki/World_War_III")
-        else {
-            return
-        }
-        converter.convertMobileviewSavedDataToMobileHTML(article: dataStore.article(with: articleURL), articleCacheController: articleCacheController)
-    }
-*/
- 
-/*
-TEMP DEBUGGING UTILITY:
-
-    extension Dictionary {
-        func printAsFormattedJSON() {
-            guard
-                let d = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]),
-                let s = String(data: d, encoding: .utf8)
-            else {
-                print("Unable to convert dict to JSON string")
-                return
-            }
-            print(s as NSString) // https://stackoverflow.com/a/46740338
-        }
-    }
-*/

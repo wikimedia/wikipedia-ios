@@ -40,7 +40,7 @@ public class Configuration: NSObject {
         )
     }()
     
-    static let appsLabs: Configuration = {
+    public static let appsLabs: Configuration = {
         var appsLabsHostComponents = URLComponents()
         appsLabsHostComponents.scheme = Scheme.https
         appsLabsHostComponents.host = Domain.appsLabs
