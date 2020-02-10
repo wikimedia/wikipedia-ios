@@ -91,7 +91,6 @@
 "article-read-more-title" = "Waca candhaké";
 "article-share" = "Dum";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Cakrik Wacan";
-"article-unable-to-load-section" = "Ora bisa ngamot pérangan iki. Jajal mot manèh kacané saperlu niliki yèn masalahé wis didandani apa durung.";
 "back-button-accessibility-label" = "Bali";
 "button-next" = "Sabanjuré";
 "button-ok" = "YA";
@@ -243,6 +242,7 @@
 "in-the-news-currently-trending" = "Lagi mumbul";
 "in-the-news-notification-read-now-action-title" = "Waca Saiki";
 "in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Ngedum...";
 "in-the-news-sub-title-from-language-wikipedia" = "Saka Wikipédia $1";
 "in-the-news-sub-title-from-wikipedia" = "Saka Wikipédia";
@@ -393,7 +393,6 @@
 "settings-title" = "Setèlan";
 "share-a-fact-made-with" = "Digawé nganggo aplikasi Wikipédia";
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
-"share-custom-menu-item" = "Ngedum...";
 "share-default-format" = "“$1” saka “$2”: $3";
 "share-email-format" = "“$1”\n\nsaka “$2”\n\n$3";
 "share-get-directions-in-maps" = "Golèk Lor-Kidul";
@@ -446,7 +445,6 @@
 "welcome-send-data-helps-title" = "Éwangi supaya aplikasiné dadi luwih becik";
 "welcome-send-data-sub-title" = "Éwangi ngapiki aplikasiné kanthi ngolèhaké Yeyasan Wikimedia ngertèni olèhé panjenengan nganggo aplikasiné. Dhata sing kalumpukaké bakal anonim.";
 "welcome-volunteer-send-usage-reports" = "Kirim lapuraning panganggo";
-"wikitext-download-failed" = "Ora bisa njupuk révisi kang anyar dhéwé.";
 "wikitext-downloading" = "Ngamot isi...";
 "wikitext-preview-changes" = "Njupuk pratuduh owah-owahanmu ...";
 "wikitext-preview-changes-none" = "Ora ana owah-owahan kang kagawé saperlu kapratuduhaké.";

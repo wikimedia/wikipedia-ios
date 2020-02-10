@@ -116,8 +116,6 @@
 "article-languages-yours" = "Le tue lingue";
 "article-read-more-title" = "Leggi altro";
 "article-share" = "Condividi";
-"article-title" = "Voce";
-"article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "back-button-accessibility-label" = "Indietro";
 "button-next" = "Successivo";
 "button-ok" = "OK";
@@ -301,7 +299,7 @@
 "in-the-news-currently-trending" = "Attualmente popolare";
 "in-the-news-notification-read-now-action-title" = "Leggi ora";
 "in-the-news-notification-save-for-later-action-title" = "Salva per dopo";
-"in-the-news-notification-share-action-title" = "Condividi...";
+"in-the-news-notification-share-action-title" = "Condividi…";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia in $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipedia";
 "in-the-news-title" = "Novità";
@@ -399,6 +397,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";
 "page-issues" = "Problemi alla pagina";
 "page-last-edited" = "Modificata {{PLURAL:$1|0=oggi|1=ieri|$1 giorni fa}}";
+"page-last-edited-unknown" = "Modificato un po' di tempo fa";
 "page-location" = "Visualizza sulla mappa";
 "page-protected-autoconfirmed" = "Questa pagina è stata semi-protetta.";
 "page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";
@@ -523,7 +522,6 @@
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
-"share-custom-menu-item" = "Condividi...";
 "share-default-format" = "“$1” da “$2”: $3";
 "share-email-format" = "“$1”\n\nda “$2”\n\n$3";
 "share-get-directions-in-maps" = "Ottieni indicazioni";
@@ -595,7 +593,6 @@
 "welcome-send-data-learn-more" = "Ulteriori informazioni sui dati raccolti";
 "welcome-send-data-sub-title" = "Aiuta a migliorare l'applicazione facendo conoscere alla Fondazione Wikimedia come la utilizzi. I dati raccolti sono anonimi.";
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
-"wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";

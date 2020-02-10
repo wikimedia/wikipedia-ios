@@ -128,6 +128,7 @@
 "icon-shortcut-search-title" = "Ieškoti Vikipedijoje";
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
 "in-the-news-currently-trending" = "Šiuo metu populiaru";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Dalintis...";
 "in-the-news-title" = "Naujienos";
 "info-box-close-text" = "Uždaryti";
@@ -222,7 +223,6 @@
 "settings-primary-language" = "Pagrindinis";
 "settings-support" = "Paremti Vikipediją";
 "settings-title" = "Nustatymai";
-"share-custom-menu-item" = "Dalintis...";
 "share-get-directions-in-maps" = "Gauti Nuorodas";
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-open-in-maps" = "Atidaryti Žemėlapiuose";
@@ -263,7 +263,6 @@
 "welcome-send-data-helps-title" = "Padėkite patobulinti programėlę";
 "welcome-send-data-learn-more" = "Sužinoti daugiau apie duomenų rinkimą";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
-"wikitext-download-failed" = "Nepavyko gauti naujausios versijos.";
 "wikitext-downloading" = "Įkeliamas turinys...";
 "wikitext-upload-captcha-error" = "Saugos kodo tikrinimo klaida.";
 "wikitext-upload-captcha-needed" = "Reikia patikrinimo saugos kodu.";

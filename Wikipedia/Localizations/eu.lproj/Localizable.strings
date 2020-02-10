@@ -102,7 +102,6 @@
 "article-save-error-not-enough-space" = "Ez duzu espazio nahikorik gailuan artikulu hau gordetzeko";
 "article-share" = "Partekatu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Gaiak Irakurtzen";
-"article-unable-to-load-section" = "Sekzio hau ezin da kargatu. Saia zaitez artikulua freskatzen ikusteko arazoa konpontzen den.";
 "back-button-accessibility-label" = "Atzera";
 "back-button-popover-title" = "Eman atzera joateko";
 "button-next" = "Hurrengoa";
@@ -256,6 +255,7 @@
 "in-the-news-currently-trending" = "Modan dagoena";
 "in-the-news-notification-read-now-action-title" = "Irakurri orain";
 "in-the-news-notification-save-for-later-action-title" = "Gorde gerorako";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Partekatu...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Wikipediatik";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediatik";
@@ -507,7 +507,6 @@
 "share-a-fact-made-with" = "Wikipedia aplikazioarekin eginda";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedian:";
 "share-building" = "Gertakaria-Partekatu txartela sortzen...";
-"share-custom-menu-item" = "Partekatu...";
 "share-default-format" = "“$2” “$1”(r)engandik: $3";
 "share-email-format" = "“$2” \n\n“$1”(r)engandik\n\n$3";
 "share-get-directions-in-maps" = "Helbidea lortu";
@@ -564,7 +563,6 @@
 "welcome-send-data-learn-more" = "Bildutako datari buruz gehiago ikasi";
 "welcome-send-data-sub-title" = "Lagun iezaiozu Wikimedia Fundazioari aplikazioa hobetzen hau bera nola erabiltzen duzun jakinaraziz. Bildutako datuak anonimoak dira.";
 "welcome-volunteer-send-usage-reports" = "Bidali erabilpen iruzkina";
-"wikitext-download-failed" = "Ezin izan da azkeneko berrikusketa jaso.";
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-preview-changes" = "Zure aldaketen aurrebista eskuratzen...";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";

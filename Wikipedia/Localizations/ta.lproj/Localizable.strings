@@ -153,6 +153,7 @@
 "image-gallery-unknown-owner" = "அறயப்படாத ஆசிரியர்.";
 "in-the-news-notification-read-now-action-title" = "இப்போது படிக்கவும்";
 "in-the-news-notification-save-for-later-action-title" = "பிற்காலத்திற்கு சேமி";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "பகிர்க...";
 "in-the-news-title" = "செய்திகளில்";
 "info-box-close-text" = "மூடு";
@@ -261,7 +262,6 @@
 "settings-support" = "விக்கிமீடியாவை ஆதரிக்கவும்";
 "settings-title" = "அமைப்புகள்";
 "share-a-fact-made-with" = "விக்கிப்பீடியா செயலி மூலம் உருவாக்கப்பட்டது";
-"share-custom-menu-item" = "பகிர்க...";
 "share-menu-item" = "பகிர்க...";
 "share-message-format" = "“$1” $2";
 "share-open-in-maps" = "நிலப்படத்தில் திறக்கவும்";

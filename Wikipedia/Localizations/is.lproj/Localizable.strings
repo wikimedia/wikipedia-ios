@@ -100,7 +100,6 @@
 "article-save-error-not-enough-space" = "Þú hefur ekki nægt pláss á tækinu þínu til að vista þessa grein";
 "article-share" = "Deila";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Stýringar lestrarþemu";
-"article-unable-to-load-section" = "Gat ekki hlaðið þessum hluta inn. Reyndu að endurhlaða inn greininni til að sjá hvort það lagi vandamálið.";
 "back-button-accessibility-label" = "Til baka";
 "back-button-popover-title" = "Banka til að fara til baka";
 "button-next" = "Áfram";
@@ -381,6 +380,7 @@
 "in-the-news-currently-trending" = "Núna í umræðunni";
 "in-the-news-notification-read-now-action-title" = "Lesa núna";
 "in-the-news-notification-save-for-later-action-title" = "Vista til síðari tíma";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Deila...";
 "in-the-news-sub-title-from-language-wikipedia" = "Af $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Af Wikipedia";
@@ -671,7 +671,6 @@
 "share-a-fact-made-with" = "Gert með Wikipedia-forritinu";
 "share-article-name-on-wikipedia" = "„$1“ á @Wikipedia:";
 "share-building" = "Útbý 'Deila-staðreynd' spjald...";
-"share-custom-menu-item" = "Deila...";
 "share-default-format" = "“$1” frá “$2”: $3";
 "share-email-format" = "“$1”\n\nfrá “$2”\n\n$3";
 "share-get-directions-in-maps" = "Fá leiðsögn";
@@ -732,7 +731,6 @@
 "welcome-send-data-learn-more" = "Vita meira um gagnasöfnunina";
 "welcome-send-data-sub-title" = "Hjálpaðu okkur að bæta forritið með því að leyfa okkur að sjá hvernig þú notar það. Gögnum er safnað án persónuauðkenna.";
 "welcome-volunteer-send-usage-reports" = "Senda notkunarskýrslur";
-"wikitext-download-failed" = "Tókst ekki að ná í seinustu útgáfu.";
 "wikitext-downloading" = "Hleður efni...";
 "wikitext-preview-changes" = "Sækir forskoðun á breytingum þínum...";
 "wikitext-preview-changes-none" = "Engar breytingar voru gerðar sem geta verið forskoðaðar.";

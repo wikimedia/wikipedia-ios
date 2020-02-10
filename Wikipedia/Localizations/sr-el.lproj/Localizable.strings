@@ -105,9 +105,7 @@
 "article-read-more-title" = "Pročitajte više";
 "article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali ovaj članak";
 "article-share" = "Deli";
-"article-title" = "Članak";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Podešavanja tema za čitanje";
-"article-unable-to-load-section" = "Nije moguće učitati ovaj odeljak. Proverite da li će ponovno učitavanje članka rešiti problem.";
 "back-button-accessibility-label" = "Nazad";
 "back-button-popover-title" = "Dodirnite da biste se vratili";
 "button-next" = "Sledeće";
@@ -409,6 +407,7 @@
 "in-the-news-currently-trending" = "Najčitanije";
 "in-the-news-notification-read-now-action-title" = "Pročitaj odmah";
 "in-the-news-notification-save-for-later-action-title" = "Sačuvaj za kasnije";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Deli…";
 "in-the-news-sub-title-from-language-wikipedia" = "Jezik Vikipedije: $1";
 "in-the-news-sub-title-from-wikipedia" = "Sa Vikipedije";
@@ -732,7 +731,6 @@
 "share-a-fact-made-with" = "Napravljeno pomoću aplikacije Vikipedija";
 "share-article-name-on-wikipedia" = "„$1” na @Wikipedia:";
 "share-building" = "Pravljenje kartice za deljenje činjenice…";
-"share-custom-menu-item" = "Deli…";
 "share-default-format" = "„$1” sa „$2”: $3";
 "share-email-format" = "„$1”\n\nsa „$2”\n\n$3";
 "share-get-directions-in-maps" = "Preuzmi putanju";
@@ -821,7 +819,6 @@
 "welcome-send-data-learn-more" = "Saznajte više o prikupljanju podataka";
 "welcome-send-data-sub-title" = "Pomozite Zadužbini Vikimedija da poboljša aplikaciju slanjem informacija o upotrebi. Prikupljeni podaci su anonimni.";
 "welcome-volunteer-send-usage-reports" = "Šalji izveštaje o upotrebi";
-"wikitext-download-failed" = "Nije moguće dobaviti najnoviju izmenu.";
 "wikitext-downloading" = "Učitavam sadržaj…";
 "wikitext-preview-changes" = "Preuzimanje pregleda vaših promena…";
 "wikitext-preview-changes-none" = "Nema promena za pregled.";

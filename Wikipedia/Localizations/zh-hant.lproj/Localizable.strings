@@ -126,11 +126,10 @@
 "article-languages-others" = "其他語言";
 "article-languages-yours" = "您的語言";
 "article-read-more-title" = "延伸閱讀";
+"article-reference-title" = "檢視參考資料";
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
-"article-title" = "條目";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
-"article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back-button-accessibility-label" = "返回";
 "back-button-popover-title" = "輕觸返回";
 "button-next" = "下一步";
@@ -448,7 +447,7 @@
 "in-the-news-currently-trending" = "最新動態";
 "in-the-news-notification-read-now-action-title" = "立刻讀取";
 "in-the-news-notification-save-for-later-action-title" = "儲存以供日後使用";
-"in-the-news-notification-share-action-title" = "分享...";
+"in-the-news-notification-share-action-title" = "分享…";
 "in-the-news-sub-title-from-language-wikipedia" = "來自$1維基百科";
 "in-the-news-sub-title-from-wikipedia" = "來自維基百科";
 "in-the-news-title" = "新聞動態";
@@ -559,6 +558,7 @@
 "page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
 "page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
+"page-last-edited-unknown" = "在之前編輯過";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
@@ -780,7 +780,6 @@
 "share-a-fact-made-with" = "用維基百科應用程式製作";
 "share-article-name-on-wikipedia" = "\"$1\"在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
-"share-custom-menu-item" = "分享...";
 "share-default-format" = "「$1」來自於「$2」：$3";
 "share-email-format" = "「$1」\n\n來自於「$2」\n\n$3";
 "share-get-directions-in-maps" = "取得路線";
@@ -873,7 +872,6 @@
 "welcome-send-data-learn-more" = "了解更多關於資料採集";
 "welcome-send-data-sub-title" = "透過讓我們了解您是如何使用，來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
 "welcome-volunteer-send-usage-reports" = "傳送使用情況報告";
-"wikitext-download-failed" = "無法取得最新的修訂。";
 "wikitext-downloading" = "載入內容中…";
 "wikitext-preview-changes" = "取得您的變更預覽中...";
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";

@@ -234,6 +234,7 @@
 "in-the-news-currently-trending" = "Τρέχουσες τάσεις";
 "in-the-news-notification-read-now-action-title" = "Ανάγνωση τώρα";
 "in-the-news-notification-save-for-later-action-title" = "Αποθήκευση για αργότερα";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Κοινοποίηση...";
 "in-the-news-sub-title-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "in-the-news-sub-title-from-wikipedia" = "Από την Βικιπαίδεια";
@@ -420,7 +421,6 @@
 "share-a-fact-made-with" = "Δημιουργήθηκε με την εφαρμογή Βικιπαίδεια";
 "share-article-name-on-wikipedia" = "«$1» στη @Wikipedia:";
 "share-building" = "Χτίζοντας μια κάρτα κοινοποίησης ενός γεγονότος...";
-"share-custom-menu-item" = "Κοινοποίηση...";
 "share-default-format" = "“$1” από “$2”: $3";
 "share-email-format" = "“$1”\n\nαπό “$2”\n\n$3";
 "share-get-directions-in-maps" = "Λάβετε κατευθύνσεις";
@@ -471,7 +471,6 @@
 "welcome-send-data-learn-more" = "Μάθετε περισσότερα για την συλλογή των δεδομένων";
 "welcome-send-data-sub-title" = "Βοηθήστε στη βελτίωση της εφαρμογής αφήνοντας το Ίδρυμα Wikimedia να ξέρει πως το χρησιμοποιείτε. Τα δεδομένα που συλλέγονται είναι ανώνυμα.";
 "welcome-volunteer-send-usage-reports" = "Στείλτε αναφορές χρήσης";
-"wikitext-download-failed" = "Αποτυχία στην ανάκτηση της τελευταίας αναθεώρησης.";
 "wikitext-downloading" = "Γίνεται φόρτωση περιεχομένου...";
 "wikitext-preview-changes" = "Ανάκτηση προεπισκόπησης των αλλαγών σας σε εξέλιξη...";
 "wikitext-preview-changes-none" = "Δεν έγιναν αλλαγές για προεπισκόπηση.";

@@ -121,9 +121,7 @@
 "article-read-more-title" = "Lue lisää";
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
-"article-title" = "Artikkeli";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
-"article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back-button-accessibility-label" = "Takaisin";
 "back-button-popover-title" = "Napauta palataksesi";
 "button-next" = "Seuraava";
@@ -393,6 +391,7 @@
 "in-the-news-currently-trending" = "Tällä hetkellä suosittuja";
 "in-the-news-notification-read-now-action-title" = "Lue nyt";
 "in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Jaa...";
 "in-the-news-sub-title-from-language-wikipedia" = "Wikipedian kieliversiossa $1";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediasta";
@@ -709,7 +708,6 @@
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
 "share-building" = "Luodaan Share-a-fact korttia...";
-"share-custom-menu-item" = "Jaa...";
 "share-default-format" = "“$1” artikkelista “$2”: $3";
 "share-email-format" = "“$1”\n\nartikkelista “$2”\n\n$3";
 "share-get-directions-in-maps" = "Hae reittiohjeet";
@@ -791,7 +789,6 @@
 "welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
 "welcome-send-data-sub-title" = "Auta tekemään sovelluksesta parempi kertomalla Wikimedia Foundationille kuinka käytät sitä. Kerätyt tiedot ovat anonyymejä.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
-"wikitext-download-failed" = "Uusimman version hakeminen ei onnistu.";
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";

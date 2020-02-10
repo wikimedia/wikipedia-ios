@@ -117,11 +117,10 @@
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
 "article-read-more-title" = "לקרוא עוד";
+"article-reference-title" = "הצגת הערות שוליים";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
-"article-title" = "ערך";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";
-"article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "back-button-accessibility-label" = "חזרה";
 "back-button-popover-title" = "יש ללחוץ כדי לחזור";
 "button-next" = "הבא";
@@ -550,6 +549,7 @@
 "page-history-user-edits" = "עריכות משתמש";
 "page-issues" = "בעיות בדף";
 "page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
+"page-last-edited-unknown" = "נערך לפני זמן־מה";
 "page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
 "page-protected-can-not-edit" = "אין לך הרשאה לערוך את הדף הזה";
@@ -771,7 +771,6 @@
 "share-a-fact-made-with" = "נוצר עם יישום ויקיפדיה";
 "share-article-name-on-wikipedia" = "\"$1\" באתר @wikipedia:";
 "share-building" = "בניית כרטיס שיתוף עובדה...";
-"share-custom-menu-item" = "שיתוף...";
 "share-default-format" = "\"$1\" מהערך \"$2\": $3";
 "share-email-format" = "$1\n\nמהערך \"$2\"\n\n$3";
 "share-get-directions-in-maps" = "קבלת כיוונים";
@@ -864,7 +863,6 @@
 "welcome-send-data-learn-more" = "מידע נוסף על הנתונים הנאספים";
 "welcome-send-data-sub-title" = "עזרו לשפר את היישום על־ידי זה שתספרו לנו איך אתם משתמשים בו. המידע שנאסף אינו מכיל פרטים מזהים.";
 "welcome-volunteer-send-usage-reports" = "לשלוח דיווחי שימוש";
-"wikitext-download-failed" = "לא ניתן לאחזר את הגרסה החדשה ביותר.";
 "wikitext-downloading" = "טעינת תוכן...";
 "wikitext-preview-changes" = "אחזור תצוגה מקדימה של השינויים שלך...";
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";

@@ -99,7 +99,6 @@
 "article-save-error-not-enough-space" = "Anda tidak mempunyai ruang yang cukup pada peranti anda untuk menyimpan rencana ini";
 "article-share" = "Kongsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kawalan Tema Bacaan";
-"article-unable-to-load-section" = "Bahagian ini tidak dapat dimuatkan. Cuba muatkan semula (refresh) rencana ini untuk betulkan masalah ini.";
 "back-button-accessibility-label" = "Kembali";
 "back-button-popover-title" = "Ketik untuk kembali";
 "button-next" = "Seterusnya";
@@ -359,6 +358,7 @@
 "in-the-news-currently-trending" = "Semasa ini ngetren";
 "in-the-news-notification-read-now-action-title" = "Baca Sekarang";
 "in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Sebarkan...";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
@@ -621,7 +621,6 @@
 "share-a-fact-made-with" = "Dibuat dengan aplikasi Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" di @Wikipedia:";
 "share-building" = "Membina kad Kongsi-fakta...";
-"share-custom-menu-item" = "Sebarkan...";
 "share-default-format" = "“$1” dari “$2”: $3";
 "share-email-format" = "“$1”\n\ndari “$2”\n\n$3";
 "share-get-directions-in-maps" = "Dapatkan Arah";
@@ -679,7 +678,6 @@
 "welcome-send-data-learn-more" = "Ketahui lebih lanjut mengenai data yang dikumpul";
 "welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui cara anda menggunakannya. Data yang dikumpul tidak dikenali.";
 "welcome-volunteer-send-usage-reports" = "Hantar laporan penggunaan";
-"wikitext-download-failed" = "Semakan terkini tidak dapat diperoleh.";
 "wikitext-downloading" = "Memuat kandungan...";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";

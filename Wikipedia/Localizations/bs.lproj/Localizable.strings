@@ -69,7 +69,6 @@
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Također pogledajte";
 "article-share" = "Podijeli";
-"article-unable-to-load-section" = "Ne mogu učitati ovaj odlomak. Vidite hoće li se problem riješiti ako osvježite stranicu.";
 "back-button-accessibility-label" = "Nazad";
 "button-next" = "Sljedeće";
 "button-ok" = "U redu";
@@ -170,6 +169,7 @@
 "in-the-news-currently-trending" = "Aktualno";
 "in-the-news-notification-read-now-action-title" = "Čitaj sada";
 "in-the-news-notification-save-for-later-action-title" = "Sačuvaj za kasnije";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Podijeli...";
 "in-the-news-title" = "Vijesti";
 "info-box-close-text" = "Zatvori";
@@ -307,7 +307,6 @@
 "settings-title" = "Postavke";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
 "share-building" = "Stvaram karticu za dijeljenje činjenica…";
-"share-custom-menu-item" = "Podijeli...";
 "share-get-directions-in-maps" = "Dobij uputstva";
 "share-menu-item" = "Podijeli…";
 "share-message-format" = "“$1” $2";
@@ -344,7 +343,6 @@
 // Fuzzy
 "welcome-send-data-sub-title" = "Pomozite Zadužbini Wikimedia da poboljša aplikaciju tako što ćete nam poslati podatke o tom kako je koristite. Prikupljeni podaci su anonimni.";
 "welcome-volunteer-send-usage-reports" = "Šalji izvještaje o korištenju";
-"wikitext-download-failed" = "Ne mogu dobiti najnoviju izmjenu.";
 "wikitext-downloading" = "Učitavam sadržaj...";
 "wikitext-preview-changes" = "Ispisujem pregled izmjena koje ste napravili...";
 "wikitext-preview-changes-none" = "Nema izmjena za pregled.";

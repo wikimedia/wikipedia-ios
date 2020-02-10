@@ -113,9 +113,7 @@
 "article-read-more-title" = "Ler máis";
 "article-save-error-not-enough-space" = "Non ten espazo abondo no seu dispositivo para gardar este artigo";
 "article-share" = "Compartir";
-"article-title" = "Artigo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controis dos temas de lectura";
-"article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque para volver atrás";
 "button-next" = "Seguinte";
@@ -407,6 +405,7 @@
 "in-the-news-currently-trending" = "Popular actualmente";
 "in-the-news-notification-read-now-action-title" = "Ler agora";
 "in-the-news-notification-save-for-later-action-title" = "Gardar para máis tarde";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipedia";
@@ -716,7 +715,6 @@
 "share-a-fact-made-with" = "Feito coa aplicación de Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
 "share-building" = "Creando unha tarxeta comparte-un-feito...";
-"share-custom-menu-item" = "Compartir...";
 "share-default-format" = "“$1” de “$2”: $3";
 "share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter as direccións";
@@ -808,7 +806,6 @@
 "welcome-send-data-learn-more" = "Saber máis sobre os datos recollidos";
 "welcome-send-data-sub-title" = "Axude a mellorar esta aplicación indicando á Fundación Wikimedia a maneira en como a utiliza. Os datos recollidos son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
-"wikitext-download-failed" = "Non se pode obter a versión máis recente.";
 "wikitext-downloading" = "Cargando o contido...";
 "wikitext-preview-changes" = "Xenerando previsualización dos teus cambios…";
 "wikitext-preview-changes-none" = "Non se fixeron cambios que revisar.";
