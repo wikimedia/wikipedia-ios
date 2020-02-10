@@ -104,21 +104,16 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (BOOL)save:(NSError **)error;
 
+- (void)clearMemoryCache;
+
 #pragma mark - Legacy Datastore methods
 
 @property (readonly, copy, nonatomic) NSString *basePath;
 
-/**
- *  Path for the default main data store.
- *  Use this to intitialize a data store with the default path
- *
- *  @return The path
- */
-+ (NSString *)mainDataStorePath;
-+ (NSString *)appSpecificMainDataStorePath; // deprecated, use mainDataStorePath
+/// Deprecated: Use dependency injection
 + (MWKDataStore *)shared;
 
-// Path methods
+/// Deprecated: Used only for mobile-html conversion
 - (NSString *)pathForArticleURL:(NSURL *)url;
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
@@ -128,8 +123,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 // Storage helper methods
 
 - (NSError *)removeFolderAtBasePath;
-
-- (void)clearMemoryCache;
 
 @end
 
