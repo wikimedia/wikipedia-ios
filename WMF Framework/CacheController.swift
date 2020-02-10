@@ -22,6 +22,11 @@ public class CacheController {
         return url
     }()
     
+    //todo: Settings hook, logout don't sync hook, etc.
+    public static var totalCacheSizeInBytes: Int64 {
+        return FileManager.default.sizeOfDirectory(at: cacheURL)
+    }
+    
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
         //create ManagedObjectModel based on Cache.momd
@@ -89,11 +94,6 @@ public class CacheController {
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
     }
-    
-    func clearURLCache() { }//maybe settings hook? clear only url cache.
-    func clearCoreDataCache() {}
-    //todo: Settings hook, logout don't sync hook, etc.
-    //clear out from core data, leave URL cache as-is.
 
     public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
         

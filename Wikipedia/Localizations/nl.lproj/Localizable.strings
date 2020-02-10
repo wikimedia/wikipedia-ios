@@ -131,9 +131,7 @@
 "article-read-more-title" = "Meer lezen";
 "article-save-error-not-enough-space" = "U hebt onvoldoende ruimte op uw apparaat om dit artikel op te slaan";
 "article-share" = "Deel";
-"article-title" = "Pagina";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Thema's bekijken";
-"article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
 "button-next" = "Volgende";
@@ -414,6 +412,7 @@
 "in-the-news-currently-trending" = "Nu populair";
 "in-the-news-notification-read-now-action-title" = "Nu lezen";
 "in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Delen...";
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
@@ -728,7 +727,6 @@
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-building" = "Deel-een-feit-kaart aan het maken…";
-"share-custom-menu-item" = "Delen...";
 "share-default-format" = "“$1” uit “$2”: $3";
 "share-email-format" = "“$1”\n\nuit “$2”\n\n$3";
 "share-get-directions-in-maps" = "Routebeschrijving";
@@ -808,7 +806,6 @@
 "welcome-send-data-learn-more" = "Leer meer over de verzamelde data";
 "welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
-"wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";

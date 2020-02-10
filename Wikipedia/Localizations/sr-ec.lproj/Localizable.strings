@@ -117,9 +117,7 @@
 "article-read-more-title" = "Прочитајте више";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
-"article-title" = "Чланак";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
-"article-unable-to-load-section" = "Није могуће учитати овај одељак. Проверите да ли ће поновно учитавање чланка решити проблем.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Додирните да бисте се вратили";
 "button-next" = "Следеће";
@@ -743,7 +741,6 @@
 "share-a-fact-made-with" = "Направљено помоћу апликације Википедија";
 "share-article-name-on-wikipedia" = "„$1” на @Wikipedia:";
 "share-building" = "Прављење картице за дељење чињенице…";
-"share-custom-menu-item" = "Дели…";
 "share-default-format" = "„$1” са „$2”: $3";
 "share-email-format" = "„$1”\n\nса „$2”\n\n$3";
 "share-get-directions-in-maps" = "Преузми путању";
@@ -832,7 +829,6 @@
 "welcome-send-data-learn-more" = "Сазнајте више о прикупљању података";
 "welcome-send-data-sub-title" = "Помозите Задужбини Викимедија да побољша апликацију слањем информација о употреби. Прикупљени подаци су анонимни.";
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";
-"wikitext-download-failed" = "Није могуће добавити најновију измену.";
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-preview-changes" = "Преузимање прегледа ваших промена…";
 "wikitext-preview-changes-none" = "Нема промена за преглед.";

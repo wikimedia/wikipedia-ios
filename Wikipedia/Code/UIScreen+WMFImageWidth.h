@@ -1,5 +1,31 @@
 @import UIKit;
 
+/**
+ *  Image width buckets used to ensure image sizes don't vary too wildly.
+ *
+ *  This prevents us from fragmenting the image thumbnail caches on the back-end.
+ */
+typedef NS_ENUM(NSInteger, WMFImageWidth) {
+    /**
+     *  The smallest image width we will show, e.g. in search cell thumbnails.
+     *
+     *  There's no guarantee about image aspect ratio, so we fetch a little more and use aspect fill.
+     */
+    WMFImageWidthExtraSmall = 60,
+    /**
+     *  The next-smallest thumbnail we'll show, e.g. in nearby cell thumbnails.
+     */
+    WMFImageWidthSmall = 120,
+    /**
+     *  A medium width, e.g. POTD & lead images.
+     */
+    WMFImageWidthMedium = 320,
+    /**
+     *  A slightly larger width, e.g. modal gallery.
+     */
+    WMFImageWidthLarge = 640
+};
+
 @interface UIScreen (WMFImageWidth)
 
 /**

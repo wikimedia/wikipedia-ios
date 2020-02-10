@@ -113,9 +113,7 @@
 "article-read-more-title" = "További információ";
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
-"article-title" = "Szócikk";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
-"article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
 "back-button-accessibility-label" = "Vissza";
 "back-button-popover-title" = "A visszalépéshez koppints ide";
 "button-next" = "Következő";
@@ -330,6 +328,7 @@
 "in-the-news-currently-trending" = "Jelenleg felkapott";
 "in-the-news-notification-read-now-action-title" = "Olvasás most";
 "in-the-news-notification-save-for-later-action-title" = "Elmentés későbbre";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Megosztás…";
 "in-the-news-sub-title-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "in-the-news-sub-title-from-wikipedia" = "A Wikipédiáról";
@@ -570,7 +569,6 @@
 "settings-title" = "Beállítások";
 "share-a-fact-made-with" = "A Wikipédia appal készült";
 "share-article-name-on-wikipedia" = "„$1” a @Wikipedia szabad enciklopédiában:";
-"share-custom-menu-item" = "Megosztás…";
 "share-get-directions-in-maps" = "Útvonalterv";
 "share-menu-item" = "Megosztás";
 "share-on-twitter-sign-off" = "a @Wikipedia szabad enciklopédián keresztül";
@@ -624,7 +622,6 @@
 "welcome-send-data-learn-more" = "Tudj meg többet a gyűjtött adatokról";
 "welcome-send-data-sub-title" = "Segíts az alkalmazás jobbá tételében azzal, hogy megosztod a Wikimédia Alapítvánnyal, hogyan használod azt. A gyűjtött adatok névtelenek.";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
-"wikitext-download-failed" = "A legfrissebb változat lekérése sikertelen.";
 "wikitext-downloading" = "Tartalom betöltése…";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
 "wikitext-preview-changes-none" = "Nem történt megjeleníthető változtatás.";

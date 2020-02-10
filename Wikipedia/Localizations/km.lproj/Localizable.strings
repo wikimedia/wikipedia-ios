@@ -93,7 +93,6 @@
 "article-read-more-title" = "អានបន្ថែម";
 "article-share" = "ចែកចាយ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "ការកំណត់រចនាបថអំណាន";
-"article-unable-to-load-section" = "មិនអាចផ្ទុកផ្នែកអត្ថបទនេះទេ។ សូមសាកល្បងផ្ទុកអត្ថបទម្ដងទៀតក្រែងលោបញ្ហាដោះស្រាយហើយ។";
 "back-button-accessibility-label" = "ត្រឡប់ក្រោយ";
 "back-button-popover-title" = "ចុចដើម្បីត្រឡប់ក្រោយ";
 "button-next" = "បន្ទាប់";
@@ -204,6 +203,7 @@
 "in-the-news-currently-trending" = "កំពុងពេញនិយម";
 "in-the-news-notification-read-now-action-title" = "អានឥឡូវ";
 "in-the-news-notification-save-for-later-action-title" = "រក្សាទុកសម្រាប់អានពេលក្រោយ";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "ចែកចាយ...";
 "in-the-news-title" = "នៅក្នុងសារព័ត៌មាន";
 "info-box-close-text" = "បិទ";
@@ -338,7 +338,6 @@
 "share-a-fact-made-with" = "បង្កើតឡើងដោយប្រើកម្មវិធីវិគីភីឌា";
 "share-article-name-on-wikipedia" = "\"$1\" នៅលើ @Wikipedia៖";
 "share-building" = "ធ្វើកាតចែកចាយព័ត៌មាន...";
-"share-custom-menu-item" = "ចែកចាយ...";
 "share-default-format" = "“$1” ពី “$2”: $3";
 "share-email-format" = "“$1”\n\nពី “$2”\n\n$3";
 "share-get-directions-in-maps" = "ស្វែងរកផ្លូវ";

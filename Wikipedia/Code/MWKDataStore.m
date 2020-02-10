@@ -833,6 +833,11 @@ static uint64_t bundleHash() {
     }
 }
 
+- (void)clearTemporaryCache {
+    [self clearMemoryCache];
+    [WMFSession clearTemporaryCache];
+}
+
 #pragma mark - Remote Configuration
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion {

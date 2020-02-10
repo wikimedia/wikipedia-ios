@@ -99,7 +99,6 @@
 "article-save-error-not-enough-space" = "ပ္ဍဲ device မ္ဂးဂှ် ဒၞာဲမရုံဂပ် ဟွံမွဲ သွက်ဂွံ ဂိုင်သိပ် လိက်ပရေင် ဏအ်၊၊";
 "article-share" = "ပါ်ပရအ်";
 "article-toolbar-reading-themes-controls-toolbar-item" = "မထိင်ဒဝ် ပရူပရာ သွက်ဂွံဗှ်";
-"article-unable-to-load-section" = "ကဏ္ဍဏအ် ထ္ၜး ဟွံဂွံ၊၊ ကလေင်မ္ၚုဟ်ထောအ် လိက်ပရေင်ဏအ် သွက်ဂွံ ဗှ်ညာတ်၊ ယဝ်ရ အခက်အခုဲနွံဒၟံင်မ္ဂး၊၊";
 "back-button-accessibility-label" = "ကလေင်";
 "back-button-popover-title" = "ကလေင်အာ လပါ်လက္ကရဴ";
 "button-next" = "ဂတ";
@@ -311,6 +310,7 @@
 "in-the-news-currently-trending" = "အဃော မပလေဝ်ပလေတ်ဒၟံင်";
 "in-the-news-notification-read-now-action-title" = "ဗှ် လၟုဟ်";
 "in-the-news-notification-save-for-later-action-title" = "ဂိုင်သိပ် သွက် လက္ကရဴ";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "ပါ်ပရအ်...";
 "in-the-news-sub-title-from-language-wikipedia" = "နူ $1 ဝဳကဳဒဳပဳယာ";
 "in-the-news-sub-title-from-wikipedia" = "နူ ဝဳကဳဒဳပဳယာ";
@@ -565,7 +565,6 @@
 "share-a-fact-made-with" = "ကၠောန် နကဵု Wikipedia app";
 "share-article-name-on-wikipedia" = "\"$1\" ပ္ဍဲ @Wikipedia:";
 "share-building" = "သြိုင်ကၠောန် Share-a-fact card…";
-"share-custom-menu-item" = "ပါ်ပရအ်...";
 "share-default-format" = "“$1” နူ “$2”: $3";
 "share-email-format" = "“$1”\n\nနူ “$2”\n\n$3";
 "share-get-directions-in-maps" = "ကေတ် directions";
@@ -622,7 +621,6 @@
 "welcome-send-data-learn-more" = "ဆက်လ္ၚတ် ပရူ မပကောံပကေဝ် တင်ဂၞင်ဒါတာ";
 "welcome-send-data-sub-title" = "မရီုဗင်ဂှ် ပခိုဟ်ပတိုန် app နကဵု the Wikimedia Foundation ဂွံတီကေတ် ဗီုလဵု မၞးမစကာဍေဟ်ရ၊၊ မပကောံတင်ဂၞင်ဒါတာဂှ် ဓလုလဝ် ယၟုရ၊၊";
 "welcome-volunteer-send-usage-reports" = "ပလံင် လိက်ဒုင်စဳရေင် ညးမသုင်စောဲ";
-"wikitext-download-failed" = "မူတၟိ လက္ကရဴအိုတ်ဂှ် ကလိဂွံ ဟွံသၟဟ်အစောံ";
 "wikitext-downloading" = "လိက်ဂှ် အဃောမပံက်ဒၟံင်...";
 "wikitext-preview-changes" = "ကလေင်ကေတ်ဒၟံင် နမူနာ အရာမၞးမပလေဝ်လဝ် ...";
 "wikitext-preview-changes-none" = "သွက်ဂွံထ္ၜး နမူနာဂှ် အရာမကၠောန်လဝ် ပရေင်ပြံင်လှာဲ ဟွံမဲ";
