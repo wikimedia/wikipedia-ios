@@ -35,7 +35,7 @@ public extension WMFArticle {
 
         searchableItem.subject = wikidataDescription
         searchableItem.contentDescription = snippet
-        if let imageURL = imageURL(forWidth: 320) {
+        if let imageURL = imageURL(forWidth: WMFImageWidth.medium.rawValue) {
             searchableItem.thumbnailData = ImageController.shared.permanentlyCachedTypedDiskDataForImage(withURL: imageURL).data
         }
         return searchableItem
