@@ -660,6 +660,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
 "reading-themes-controls-syntax-highlighting" = "Syntax Highlighting";
 "reference-title" = "Reference $1";
+"references-title" = "References";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|1=Yesterday|$1 days ago}}";
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";

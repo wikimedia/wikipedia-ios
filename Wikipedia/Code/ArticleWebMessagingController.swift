@@ -17,13 +17,8 @@ class ArticleWebMessagingController: NSObject {
         self.delegate = delegate
     }
     
-    func setup(with webView: WKWebView, language: String, theme: Theme, leadImageHeight: Int = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
-        let margins = PageContentService.Setup.Parameters.Margins(
-            top: "16px",
-            right: "16px",
-            bottom: "16px",
-            left: "16px"
-        )
+    func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
+        let margins = getPageContentServiceMargins(from: layoutMargins)
         let addTitleDescription = WMFLocalizedString("description-add-link-title", language: language, value: "Add title description", comment: "Text for link for adding a title description")
         let tableInfoboxTitle = WMFLocalizedString("info-box-title", language: language, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
         let tableOtherTitle = WMFLocalizedString("table-title-other", language: language, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
@@ -42,6 +37,8 @@ class ArticleWebMessagingController: NSObject {
             contentController.addUserScript(propertiesScript)
             let utilitiesScript = PageContentService.UtilitiesScript()
             contentController.addUserScript(utilitiesScript)
+            let styleScript = PageContentService.StyleScript()
+            contentController.addUserScript(styleScript)
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }
@@ -87,14 +84,21 @@ class ArticleWebMessagingController: NSObject {
         })
     }
     
-    // MARK: Adjustable state
+    // MARK: - Adjustable state
+    
+    // MARK: PCS
     
     func updateTheme(_ theme: Theme) {
         let js = "pcs.c1.Page.setTheme(pcs.c1.Themes.\(theme.webName.uppercased()))"
         webView?.evaluateJavaScript(js)
     }
 
-    func updateMargins(_ margins: PageContentService.Setup.Parameters.Margins) {
+    func getPageContentServiceMargins(from insets: UIEdgeInsets, leadImageHeight: CGFloat = 0) -> PageContentService.Setup.Parameters.Margins {
+        return PageContentService.Setup.Parameters.Margins(top: "\(insets.top + leadImageHeight)px", right: "\(insets.right)px", bottom: "\(insets.bottom)px", left: "\(insets.left)px")
+    }
+    
+    func updateMargins(with layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat) {
+        let margins = getPageContentServiceMargins(from: layoutMargins, leadImageHeight: leadImageHeight)
         guard let marginsJSON = try? PageContentService.getJavascriptFor(margins) else {
             return
         }
@@ -103,6 +107,14 @@ class ArticleWebMessagingController: NSObject {
     
     func updateTextSizeAdjustmentPercentage(_ percentage: Int) {
         let js = "pcs.c1.Page.setTextSizeAdjustmentPercentage('\(percentage)%')"
+        webView?.evaluateJavaScript(js)
+    }
+    
+    
+    // MARK: iOS App Specific overrides (code in www/, built products in assets/)
+    
+    func removeSearchTermHighlights() {
+        let js = "window.wmf.findInPage.removeSearchTermHighlights()"
         webView?.evaluateJavaScript(js)
     }
 }
@@ -114,7 +126,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case finalSetup
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String?, text: String?, title: String?)
-        case reference(selectedIndex: Int, group: [Reference])
+        case reference(selectedIndex: Int, group: [WMFLegacyReference])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -125,32 +137,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case viewInBrowser
         case leadImage(source: String, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
-    }
-    
-    /// Reference represents a reference passed across the page content service js bridge
-    /// Tried to make this work with codable but since it's already decoded into a [String: Any] it seemed difficult to write that to JSON and read it again. Maybe there's a DictionaryDecoder that exists or could be written
-    struct Reference {
-        let id: String
-        let href: String
-        let html: String
-        let text: String
-        let rect: CGRect
-        static func from(data: [String: Any]) -> Reference? {
-            guard
-                let html = data["html"] as? String,
-                let id = data["id"] as? String,
-                let href = data["href"] as? String,
-                let text = data["text"] as? String,
-                let rectDict = data["rect"] as? [String: Double],
-                let x = rectDict["x"],
-                let y = rectDict["y"],
-                let width = rectDict["width"],
-                let height = rectDict["height"]
-            else {
-                return nil
-            }
-            return Reference(id: id, href: href, html: html, text: text, rect: CGRect(x: x, y: y, width: width, height: height))
-        }
     }
     
     /// PCSActions are receieved from the JS bridge and converted into actions
@@ -273,7 +259,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
                 return nil
             }
-            let group = groupArray.compactMap { Reference.from(data: $0) }
+            let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
             return .reference(selectedIndex: selectedIndex, group: group)
         }
         

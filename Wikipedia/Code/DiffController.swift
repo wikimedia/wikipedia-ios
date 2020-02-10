@@ -59,7 +59,7 @@ class DiffController {
     
     func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
 
-        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+        guard let articleTitle = articleTitle.normalizedPageTitle else {
             completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
             return
         }
@@ -101,7 +101,7 @@ class DiffController {
     }
     
     private func populateModelsFromDeepLink(fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String, completion: @escaping ((Result<DeepLinkModelsResponse, Error>) -> Void)) {
-        guard let articleTitle = (articleTitle as NSString).wmf_normalizedPageTitle() else {
+        guard let articleTitle = articleTitle.normalizedPageTitle else {
             completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
             return
         }

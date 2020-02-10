@@ -62,7 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @param boldFont       Bold font for the returned attribued string
  * @param italicFont     Italic font for the returned attributed string
  * @param boldItalicFont Bold & italic font for the returned attributed string
- * @param stringToBold   String to match for additional bolding
+ * @param color Text color
+ * @param linkColor Link color
+ * @param linkBaseURL Base URL for parsed links
+ * @param handlingLists Whether or not list tags should be parsed
+ * @param handlingSuperSubscripts whether or not super and subscript should be parsed
+ * @param withAdditionalBoldingForMatchingSubstring   String to match for additional bolding
  * @param tagMapping     Lowercase string tag name to another lowercase string tag name - converts tags, for example, @{@"a":@"b"} will turn <a></a> tags to <b></b> tags
  * @param additionalTagAttributes Additional text attributes for given tags - lowercase tag name to attribute key/value pairs
  * @return attributed string
@@ -73,8 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                      boldItalicFont:(nullable UIFont *)boldItalicFont
                                                               color:(nullable UIColor *)color
                                                           linkColor:(nullable UIColor *)color
-                                                        handlingLists:(BOOL)handlingLists
-                                                        handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
+                                                      handlingLists:(BOOL)handlingLists
+                                            handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
                           withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold
                                                          tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
                                             additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
@@ -82,8 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Convienence method for the method above.
  */
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *) color linkColor:(nullable UIColor *) linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
-
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
 
 @end
 

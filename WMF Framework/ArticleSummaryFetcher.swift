@@ -91,37 +91,35 @@ public class ArticleSummary: NSObject, Codable {
 
 @objc(WMFArticleSummaryFetcher)
 public class ArticleSummaryFetcher: Fetcher {
-    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) -> [String] {
+    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) -> [URLSessionTask] {
         
-        var cancellationKeys: [String] = []
+        var tasks: [URLSessionTask] = []
         articleKeys.asyncMapToDictionary(block: { (articleKey, asyncMapCompletion) in
-            let key = fetchSummaryForArticle(with: articleKey, priority: priority, completion: { (responseObject, response, error) in
+            let task = fetchSummaryForArticle(with: articleKey, priority: priority, completion: { (responseObject, response, error) in
                 asyncMapCompletion(articleKey, responseObject)
             })
-            if let key = key {
-                cancellationKeys.append(key)
+            if let task = task {
+                tasks.append(task)
             }
         }, completion: completion)
         
-        return cancellationKeys
+        return tasks
     }
     
     @objc(fetchSummaryForArticleWithKey:priority:completion:)
-    @discardableResult public func fetchSummaryForArticle(with articleKey: String, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> CancellationKey? {
+    @discardableResult public func fetchSummaryForArticle(with articleKey: String, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard
             let articleURL = URL(string: articleKey),
-            let title = articleURL.wmf_percentEscapedTitle
+            let title = articleURL.percentEncodedPageTitleForPathComponents
         else {
             completion(nil, nil, Fetcher.invalidParametersError)
             return nil
         }
         
         let pathComponents = ["page", "summary", title]
-        let key = performMobileAppsServicesGET(for: articleURL, pathComponents: pathComponents, priority: priority, cancellationKey: articleKey) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
+        return performMobileAppsServicesGET(for: articleURL, pathComponents: pathComponents, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
             completion(summary, response, error)
         }
-        
-        return key
     }
 }
 

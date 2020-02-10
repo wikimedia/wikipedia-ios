@@ -69,7 +69,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         let group = DispatchGroup()
         
         group.enter()
-        fetchURLsFromListEndpoint(siteURL: siteURL, articleTitle: articleTitle, groupKey: groupKey, endpointType: .mobileHtmlOfflineResources) { (result) in
+        fetchURLsFromListEndpoint(with: url, groupKey: groupKey, endpointType: .mobileHtmlOfflineResources) { (result) in
             
             defer {
                 group.leave()
@@ -94,7 +94,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         }
         
         group.enter()
-        fetchURLsFromListEndpoint(siteURL: siteURL, articleTitle: articleTitle, groupKey: groupKey, endpointType: .mediaList) { (result) in
+        fetchURLsFromListEndpoint(with: url, groupKey: groupKey, endpointType: .mediaList) { (result) in
             
             defer {
                 group.leave()
@@ -224,7 +224,7 @@ extension ArticleCacheDBWriter {
 
 private extension ArticleCacheDBWriter {
     
-    func fetchURLsFromListEndpoint(siteURL: URL, articleTitle: String, groupKey: String, endpointType: ArticleFetcher.EndpointType, completion: @escaping (Result<[URL], ArticleCacheDBWriterError>) -> Void) {
+    func fetchURLsFromListEndpoint(with articleURL: URL, groupKey: String, endpointType: ArticleFetcher.EndpointType, completion: @escaping (Result<[URL], ArticleCacheDBWriterError>) -> Void) {
         
         guard endpointType == .mediaList ||
             endpointType == .mobileHtmlOfflineResources else {
@@ -233,7 +233,7 @@ private extension ArticleCacheDBWriter {
         }
         
         let untrackKey = UUID().uuidString
-        let task = articleFetcher.fetchResourceList(siteURL: siteURL, articleTitle: articleTitle, endpointType: endpointType) { [weak self] (result) in
+        let task = articleFetcher.fetchResourceList(with: articleURL, endpointType: endpointType) { [weak self] (result) in
             
             defer {
                 self?.untrackTask(untrackKey: untrackKey, from: groupKey)
