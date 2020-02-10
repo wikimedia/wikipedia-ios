@@ -118,6 +118,7 @@
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
+"article-reference-title" = "Mostra les referències";
 "article-save-error-not-enough-space" = "No teniu prou espai al dispositiu per desar l'article.";
 "article-share" = "Comparteix";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
@@ -438,8 +439,7 @@
 "in-the-news-currently-trending" = "En tendència";
 "in-the-news-notification-read-now-action-title" = "Llegeix-ho ara";
 "in-the-news-notification-save-for-later-action-title" = "Desa-ho per a més tard";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Comparteix...";
+"in-the-news-notification-share-action-title" = "Comparteix…";
 "in-the-news-sub-title-from-language-wikipedia" = "De la Viquipèdia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De la Viquipèdia";
 "in-the-news-title" = "Actualitat";
@@ -550,6 +550,7 @@
 "page-history-user-edits" = "edicions d'usuaris";
 "page-issues" = "Problemes de la pàgina";
 "page-last-edited" = "{{PLURAL:$1|0=S'ha modificat avui|1=S'ha modificat ahir|S'ha modificat fa $1 dies}}";
+"page-last-edited-unknown" = "S'ha modificat fa un temps";
 "page-location" = "Mostra en un mapa";
 "page-protected-autoconfirmed" = "La pàgina ha estat semiprotegida.";
 "page-protected-can-not-edit" = "No teniu permisos per modificar la pàgina";
@@ -680,6 +681,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
 "reading-themes-controls-syntax-highlighting" = "Ressaltat de la sintaxi";
 "reference-title" = "Referència $1";
+"references-title" = "Referències";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|1=Ahir|Fa $1 dies}}";
 "relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";

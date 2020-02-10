@@ -115,6 +115,7 @@
 "article-languages-others" = "Други језици";
 "article-languages-yours" = "Ваши језици";
 "article-read-more-title" = "Прочитајте више";
+"article-reference-title" = "Прикажи референце";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
@@ -523,6 +524,7 @@
 "page-history-user-edits" = "измене корисника";
 "page-issues" = "Проблеми са страницом";
 "page-last-edited" = "{{PLURAL:$1|0=Уређено данас|1=Уређено јуче|Уређено пре $1 дана}}";
+"page-last-edited-unknown" = "Уређено пре неког времена";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
@@ -653,6 +655,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Клизач за величину текста";
 "reading-themes-controls-syntax-highlighting" = "Истицање синтаксе";
 "reference-title" = "Референца $1";
+"references-title" = "Референце";
 "relative-date-days-ago" = "{{PLURAL:$1|0=данас|1=јуче|пре $1 дана}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=недавно|пре $1 сат|пре $1 сата|пре $1 сати}}";
 "relative-date-hours-ago-abbreviated" = "пре $1 ч.";
@@ -758,6 +761,7 @@
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-heading" = "Садржај";
+"table-of-contents-hide-button-label" = "Сакриј садржај";
 "table-title-other" = "Више информација";
 "talk-page-add-discussion-accessibility-label" = "Додај дискусију";
 "talk-page-discussion-accessibility-hint" = "Притисните два пута да бисте отворили низ дискусије";

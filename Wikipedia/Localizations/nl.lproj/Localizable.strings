@@ -7,6 +7,7 @@
 // Author: Festina90
 // Author: Hex
 // Author: JurgenNL
+// Author: Klaas van Buiten
 // Author: KlaasZ4usV
 // Author: Macofe
 // Author: Mainframe98
@@ -380,6 +381,8 @@
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
 "find-infolabel-number-matches" = "$1 van $2";
+"find-next-button-accessibility" = "Volgende zoekresultaat";
+"find-previous-button-accessibility" = "Vorige zoekresultaat";
 "find-replace-header" = "Zoeken en vervangen";
 "find-replace-header-close-accessibility" = "Zoeken en vervangen sluiten";
 "find-textfield-accessibility" = "Zoeken";
@@ -412,14 +415,14 @@
 "in-the-news-currently-trending" = "Nu populair";
 "in-the-news-notification-read-now-action-title" = "Nu lezen";
 "in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Delen...";
+"in-the-news-notification-share-action-title" = "Delen…";
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
 "info-box-close-text" = "Sluiten";
 "info-box-title" = "Snelle feiten";
 "insert-action-title" = "Invoegen";
+"insert-link-title" = "Koppeling invoegen";
 "insert-media-alternative-text-description" = "Beschrijving voor lezers die de afbeelding niet kunnen bekijken";
 "insert-media-alternative-text-placeholder" = "Beschrijf deze afbeelding";
 "insert-media-alternative-text-title" = "Alternatieve tekst";
@@ -512,10 +515,12 @@
 "page-history-revision-minor-edit-accessibility-label" = "Kleine bewerking";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|1 byte|$1 bytes}} toegevoegd";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|1 byte|$1 bytes}} verwijdered";
+"page-history-revisions-comparison-warning" = "Slechts twee versies kunnen worden geselecteerd";
 "page-history-stats-text" = "{{PLURAL:$1|1 bewerking|$1 bewerkingen}} sinds $1";
 "page-history-user-edits" = "gebruikersbewerkingen";
 "page-issues" = "Paginaproblemen";
 "page-last-edited" = "{{PLURAL:$1|0=Vandaag bewerkt|1=Gisteren bewerkt|$1 dagen geleden bewerkt}}";
+"page-last-edited-unknown" = "Enige tijd geleden bewerkt";
 "page-location" = "Op een kaart bekijken";
 "page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
@@ -525,6 +530,7 @@
 "page-read-in-other-languages" = "Beschikbaar in {{PLURAL:$1|$1 andere taal|$1 andere talen}}";
 "page-similar-titles" = "Vergelijkbare pagina's";
 "page-talk-page" = "Overlegpagina bekijken";
+"panel-compare-revisions-title" = "Versies vergelijken";
 "pictured" = "afgebeeld";
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
 "places-accessibility-group" = "$1 pagina's";
@@ -643,6 +649,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaxis Uitlichten";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstgrootteschuiver";
 "reference-title" = "Referentie $1";
+"references-title" = "Referenties";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|1=Gisteren|$1 dagen gelden}}";
 "relative-date-hours-abbreviated" = "$1u";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
@@ -744,6 +751,7 @@
 "table-of-contents-close-accessibility-hint" = "Sluiten";
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
+"table-of-contents-hide-button-label" = "Inhoudsopgave verbergen";
 "table-title-other" = "Meer informatie";
 "talk-page-add-discussion-accessibility-label" = "Onderwerp toevoegen";
 "talk-page-discussion-read-accessibility-label" = "Lezen";
@@ -768,6 +776,7 @@
 "theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
+"theme-default-explanation" = "Is gelijk aan het thema van het systeem";
 "theme-light-display-name" = "Licht";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";

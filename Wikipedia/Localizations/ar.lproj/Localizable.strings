@@ -687,6 +687,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "شريط تمرير حجم النص";
 "reading-themes-controls-syntax-highlighting" = "تسليط الضوء على التركيب";
 "reference-title" = "$1 مرجع";
+"references-title" = "المراجع";
 "relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=مؤخرا|قبل $1 ساعة|قبل $1 ساعات}}";

@@ -112,6 +112,7 @@
 "article-languages-others" = "Ostatné jazyky";
 "article-languages-yours" = "Vaše jazyky";
 "article-read-more-title" = "Ďalšie informácie";
+"article-reference-title" = "Zobraziť referencie";
 "article-save-error-not-enough-space" = "Na vašom zariadení nemáte dostatok miesta na uloženie tohto článku";
 "article-share" = "Zdieľať";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládače čítacích tém";
@@ -432,8 +433,7 @@
 "in-the-news-currently-trending" = "Aktuálne trendy";
 "in-the-news-notification-read-now-action-title" = "Čítať";
 "in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Zdieľať...";
+"in-the-news-notification-share-action-title" = "Zdielať…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
 "in-the-news-title" = "Správy";
@@ -544,6 +544,7 @@
 "page-history-user-edits" = "úpravy používateľa";
 "page-issues" = "Problémy stránky";
 "page-last-edited" = "{{PLURAL:$1|0=Upravené dnes|1=Upravené včera|2=Upravené predvčerom|Upravené pred $1 dňami}}";
+"page-last-edited-unknown" = "Upravené pred nejakým časom";
 "page-location" = "Zobraziť na mape";
 "page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
 "page-protected-can-not-edit" = "Nemáte právo upraviť túto stránku";
@@ -674,6 +675,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Posuvník veľkosti textu";
 "reading-themes-controls-syntax-highlighting" = "Zvýraznenie syntaxe";
 "reference-title" = "Referencia $1";
+"references-title" = "Referencie";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|1=Včera|2=Predvčerom|Pred $1 dňami}}";
 "relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Pred $1 hodinou|Pred $1 hodinami}}";
@@ -782,6 +784,7 @@
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
 "table-of-contents-heading" = "Obsah";
+"table-of-contents-hide-button-label" = "Skryť tabuľku s obsahom";
 "table-title-other" = "Viac informácií";
 "talk-page-add-discussion-accessibility-label" = "Pridať diskusiu";
 "talk-page-discussion-accessibility-hint" = "Ťuknite dvakrát pre založenie nového vlákna";

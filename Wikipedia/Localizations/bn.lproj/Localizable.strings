@@ -310,6 +310,7 @@
 "reading-themes-controls-accessibility-light-theme-button" = "অল্পোজ্জ্বল থিম";
 "reading-themes-controls-accessibility-sepia-theme-button" = "কালচে-বাদামি থিম";
 "reference-title" = "তথ্যসূত্র $1";
+"references-title" = "তথ্যসূত্র";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=আজ|গতকাল|$1 দিন আগে}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";

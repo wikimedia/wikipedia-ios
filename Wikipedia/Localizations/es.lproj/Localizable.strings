@@ -141,7 +141,7 @@
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Seguir leyendo";
-"article-reference-title" = "Ver referencia";
+"article-reference-title" = "Ver referencias";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
@@ -701,6 +701,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Control de tamaño de texto";
 "reading-themes-controls-syntax-highlighting" = "Resaltado de sintaxis";
 "reference-title" = "Referencia $1";
+"references-title" = "Referencias";
 "relative-date-days-ago" = "\n{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
 "relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";

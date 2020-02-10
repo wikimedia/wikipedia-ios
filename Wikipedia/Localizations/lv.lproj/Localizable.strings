@@ -190,6 +190,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Sintakses izcelšana";
 "reading-themes-controls-syntax-highlighting" = "Sintakses izcelšana";
 "reference-title" = "Atsauce $1";
+"references-title" = "Atsauces";
 "relative-date-seconds-abbreviated" = "$1s";
 "replace-infolabel-method-replace" = "Aizvietot";
 "replace-infolabel-method-replace-all" = "Aizvietot visus";

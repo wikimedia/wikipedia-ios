@@ -4,6 +4,7 @@
 // Author: Ans
 // Author: B20180
 // Author: CodeNameBOSS
+// Author: Geonuch
 // Author: Horus
 // Author: Karit
 // Author: Nemo bis
@@ -374,7 +375,6 @@
 "in-the-news-currently-trending" = "มาแรงในตอนนี้";
 "in-the-news-notification-read-now-action-title" = "อ่านตอนนี้";
 "in-the-news-notification-save-for-later-action-title" = "บันทึกไว้อ่านในภายหลัง";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "แบ่งปัน...";
 "in-the-news-sub-title-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "in-the-news-sub-title-from-wikipedia" = "จากวิกิพีเดีย";
@@ -552,6 +552,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "ตัวเลื่อนปรับขนาดข้อความ";
 "reading-themes-controls-syntax-highlighting" = "การเน้นไวยากรณ์";
 "reference-title" = "แหล่งอ้างอิง $1";
+"references-title" = "การอ้างอิง";
 "relative-date-days-ago" = "{{PLURAL:$1|0=วันนี้|1=เมื่อวาน|$1 วันที่ผ่านมา}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=เมื่อสักครู่|$1 ชั่วโมงที่ผ่านมา|$1 ชั่วโมงที่ผ่านมา}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=เมื่อสักครู่|$1 นาทีที่ผ่านมา|$1 นาทีที่ผ่านมา}}";

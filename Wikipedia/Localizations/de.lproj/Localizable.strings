@@ -1,5 +1,6 @@
 // Messages for German (Deutsch)
 // Exported from translatewiki.net
+// Author: 1233qwer1234qwer4
 // Author: BodminPill
 // Author: Envlh
 // Author: Fitoschido
@@ -7,6 +8,7 @@
 // Author: Hwboehm
 // Author: JanRei
 // Author: Kghbln
+// Author: Killarnee
 // Author: Lucas Werkmeister
 // Author: Metalhead64
 // Author: Mhurd
@@ -394,7 +396,6 @@
 "in-the-news-currently-trending" = "Aktuell beliebt";
 "in-the-news-notification-read-now-action-title" = "Jetzt lesen";
 "in-the-news-notification-save-for-later-action-title" = "Für später speichern";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";
@@ -628,6 +629,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Textgrößenschieber";
 "reading-themes-controls-syntax-highlighting" = "Syntaxhervorhebung";
 "reference-title" = "Einzelnachweis $1";
+"references-title" = "Einzelnachweise";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-hours-ago-abbreviated" = "Vor $1 Stunden";
@@ -733,6 +735,7 @@
 "table-of-contents-close-accessibility-hint" = "Schließen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-heading" = "Inhalte";
+"table-of-contents-hide-button-label" = "Inhaltsverzeichnis ausblenden";
 "table-title-other" = "Weitere Informationen";
 "talk-page-add-discussion-accessibility-label" = "Diskussion hinzufügen";
 "talk-page-discussion-read-accessibility-label" = "Gelesen";

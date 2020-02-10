@@ -696,6 +696,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Metin boyutu kaydırıcısı";
 "reading-themes-controls-syntax-highlighting" = "Sözdizimi Vurgulama";
 "reference-title" = "$1 referansı";
+"references-title" = "Kaynaklar";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|1=Dün|$1 gün önce}}";
 "relative-date-hours-abbreviated" = "$1st";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
