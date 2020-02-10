@@ -329,6 +329,8 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
 
         guard let nonNilArticle = article else {
+            // No more articles to convert, ensure the legacy folder is deleted
+            dataStore.removeAllLegacyArticleData()
             return
         }
         
