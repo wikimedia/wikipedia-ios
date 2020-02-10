@@ -72,7 +72,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
     
         siteURL = appLanguage.siteURL()
-        userStore = SessionSingleton.sharedInstance().dataStore
+        userStore = MWKDataStore.shared()
         contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore, notificationsController: nil)
 
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))

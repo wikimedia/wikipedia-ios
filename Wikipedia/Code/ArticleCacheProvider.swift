@@ -28,8 +28,8 @@ final class ArticleCacheProvider: CacheProviding {
             return response
         }
         
-        //mobile-html endpoint is saved under the desktop url. if it's mobile-html first convert to desktop before pulling the key.
-        guard let itemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: url)?.wmf_databaseKey ?? url.wmf_databaseKey else {
+        // Use the cache key to check for the response
+        guard let itemKey = request.value(forHTTPHeaderField: Session.Header.persistentCacheKey) else {
             return nil
         }
         
@@ -42,7 +42,7 @@ final class ArticleCacheProvider: CacheProviding {
             return imageController.newCachePolicyRequest(from: originalRequest, newURL: newURL)
         }
         
-        let itemKey = ArticleURLConverter.desktopURL(mobileHTMLURL: newURL)?.wmf_databaseKey ?? newURL.wmf_databaseKey
+        let itemKey = originalRequest.value(forHTTPHeaderField: Session.Header.persistentCacheKey) ?? newURL.wmf_databaseKey
         return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
     }
     

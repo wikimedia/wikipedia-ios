@@ -1,6 +1,10 @@
 import Foundation
 
 @objc(WMFSession) public class Session: NSObject {
+    public struct Header {
+        public static let persistentCacheKey = "Persistent-Cache-Key"
+        public static let persistentCacheVariant = "Persistent-Cache-Variant"
+    }
     public struct Request {
         public enum Method {
             case get
@@ -83,6 +87,10 @@ import Foundation
     @objc public static let urlSession: URLSession = {
         return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
     }()
+    
+    @objc public static func clearTemporaryCache() {
+        urlSession.configuration.urlCache?.removeAllCachedResponses()
+    }
     
     private static let sessionDelegate: SessionDelegate = {
         return SessionDelegate()

@@ -2,37 +2,13 @@ import Foundation
 
 extension ArticleViewController {
     // MARK: - Actions
-    /// Show the entire references list modally
-    func showReferencesList() {
-        guard let references = references else {
-            showGenericError()
-            return
-        }
-        let referencesVC = ReferencesViewController(articleURL: articleURL, references: references, theme: theme, delegate: self)
-        presentEmbedded(referencesVC, style: .sheet)
-    }
     
     /// Show references that were tapped in the article
     /// For now, we're keeping WMFReference to bridge with Objective-C but it should be merged with Reference in the future
-    func showReferences(_ scriptMessageReferences: [WMFLegacyReference], remoteReferences maybeRemoteReferences: [Reference]? = nil, selectedIndex: Int, animated: Bool) {
+    func showReferences(_ scriptMessageReferences: [WMFLegacyReference], selectedIndex: Int, animated: Bool) {
         guard selectedIndex < scriptMessageReferences.count else {
             showGenericError()
             return
-        }
-        
-        let remoteReferences: [Reference]
-        if let refs = maybeRemoteReferences {
-            remoteReferences = refs
-        } else {
-            remoteReferences = scriptMessageReferences.compactMap { getRemoteReferenceAndID(with: $0.refId)?.reference }
-        }
-        
-        guard remoteReferences.count == scriptMessageReferences.count else {
-            return
-        }
-        // Read the reference HTML from the full references fetched from the server
-        for (i, reference) in scriptMessageReferences.enumerated() {
-            reference.html = remoteReferences[i].content.html
         }
         
         if traitCollection.verticalSizeClass == .compact || traitCollection.horizontalSizeClass == .compact {
@@ -64,7 +40,7 @@ extension ArticleViewController {
             showGenericError()
             return
         }
-        
+        popoverVC.articleURL = articleURL
         (popoverVC as Themeable).apply(theme: theme)
         popoverVC.modalPresentationStyle = .popover
         popoverVC.reference = reference
@@ -139,23 +115,6 @@ private extension ArticleViewController {
             viewController.backgroundView.clearRect = windowCoordsRefGroupRect.offsetBy(dx: 0, dy: delta)
         }
     }
-
-
-    func getRemoteReferenceAndID(with anchor: String) -> (id: String, reference: Reference)? {
-        guard let referencesByID = references?.referencesByID  else {
-            return nil
-        }
-        // There should be a better way to do this...
-        for (id, reference) in referencesByID {
-            for backLink in reference.backLinks {
-                guard backLink.href.contains("#" + anchor) else {
-                    continue
-                }
-                return (id, reference)
-            }
-        }
-        return nil
-    }
 }
 
 extension ArticleViewController: UIPageViewControllerDelegate {
@@ -191,38 +150,5 @@ extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
             }
             webView.wmf_unHighlightLinkID(refId)
         }
-    }
-}
-
-extension ArticleViewController: ReferencesViewControllerDelegate {
-    func referencesViewController(_ referencesViewController: ReferencesViewController, userDidTapAnchor anchor: String) {
-        guard let remoteReferenceAndID = getRemoteReferenceAndID(with: anchor) else {
-            dismiss(animated: true)
-            showGenericError()
-            return
-        }
-        let remoteReference = remoteReferenceAndID.reference
-        let remoteReferenceID = remoteReferenceAndID.id
-        
-        webView.getScrollRectForHtmlElement(withId: anchor) { (rect) in
-            guard !rect.isNull else {
-                self.dismiss(animated: true)
-                self.showGenericError()
-                return
-            }
-            self.scroll(to: rect.center, centered: true, animated: false)
-            /// Convert for WMFLegacyReference
-            let offset = self.webView.scrollView.contentOffset
-            let convertedOrigin = CGPoint(x: rect.origin.x - offset.x, y: rect.origin.y - offset.y)
-            let convertedRect = CGRect(origin: convertedOrigin, size: rect.size)
-            let scriptMessageReference = WMFLegacyReference(html: remoteReference.content.html, refId: remoteReferenceID, anchor: anchor, rect: convertedRect, text: "")
-            self.dismiss(animated: true)
-            self.showReferences([scriptMessageReference], remoteReferences: [remoteReference], selectedIndex: 0, animated: false)
-        }
-
-    }
-    
-    func referencesViewControllerUserDidTapClose(_ referencesViewController: ReferencesViewController) {
-        dismiss(animated: true)
     }
 }

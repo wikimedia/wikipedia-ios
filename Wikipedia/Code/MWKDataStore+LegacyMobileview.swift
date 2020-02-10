@@ -2,6 +2,7 @@
 enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
     case noArticleURL
     case noArticleCacheController
+    case noLegacyArticleData
     case noMobileHTML
 }
 
@@ -23,10 +24,14 @@ extension MWKDataStore {
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noArticleCacheController)
             return
         }
-        
-        let mwkArticle = self.article(with: articleURL)
 
-        mobileviewConverter.convertMobileviewSavedDataToMobileHTML(article: mwkArticle) { (result, error) in
+        let articleFolderURL = URL(fileURLWithPath: path(forArticleURL: articleURL))
+        guard let legacyArticle = LegacyArticle(articleFolderURL: articleFolderURL) else {
+            completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noLegacyArticleData)
+            return
+        }
+
+        mobileviewConverter.convertMobileviewSavedDataToMobileHTML(articleURL: articleURL, article: legacyArticle) { (result, error) in
             let blastMobileviewSavedDataFolder = {
                 // Remove old mobileview saved data folder for this article
                 do {
@@ -46,6 +51,7 @@ extension MWKDataStore {
                 DispatchQueue.main.async {
                     do {
                         article.isDownloaded = false
+                        article.isConversionFromMobileViewNeeded = false
                         try self.save()
                     } catch let error {
                         DDLogError("Error updating article: \(error)")

@@ -396,7 +396,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
                         let articles = Array(articlesByKey.values)
                         try readingListsController.add(articles: articles, to: list, in: moc)
-                        if let defaultReadingList = moc.wmf_fetchDefaultReadingList() {
+                        if let defaultReadingList = moc.defaultReadingList {
                             try readingListsController.add(articles: articles, to: defaultReadingList, in: moc)
                         }
                         try moc.save()
@@ -868,7 +868,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         if let remoteDefaultReadingList = remoteDefaultReadingList {
-            let defaultReadingList = moc.wmf_fetchDefaultReadingList()
+            let defaultReadingList = moc.defaultReadingList
             defaultReadingList?.readingListID = NSNumber(value: remoteDefaultReadingList.id)
         }
         

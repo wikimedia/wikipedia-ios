@@ -6,12 +6,10 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handlePCSDidFinishInitialSetup()
         case .finalSetup:
             handlePCSDidFinishFinalSetup()
-        case .link(let href, _, let title):
-            guard let title = title, !title.isEmpty else {
-                navigate(to: href)
-                break
-            }
-            handleLink(with: title)
+        case .unknown(let href):
+            fallthrough
+        case .link(let href, _, _):
+            handleLink(with: href)
         case .leadImage(let source, let width, let height):
             handleLeadImage(source: source, width: width, height: height)
         case .tableOfContents(items: let items):
@@ -22,6 +20,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
         case .reference(let index, let group):
             showReferences(group, selectedIndex: index, animated: true)
+        case .image(let src, let href, let width, let height):
+            showImage(src: src, href: href, width: width, height: height)
         default:
             break
         }
@@ -67,8 +67,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showEditHistory()
         case .pageIssues:
             showPageIssues(with: payload)
-        case .referenceList:
-            showReferencesList()
         }
     }
     
@@ -87,7 +85,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
             return
         }
-        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .referenceList, .lastEdited, .pageIssues, .disambiguation]
+        var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
         if languageCount > 0 {
             menuItems.append(.languages)
         }

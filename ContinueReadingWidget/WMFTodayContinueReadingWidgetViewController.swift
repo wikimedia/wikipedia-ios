@@ -91,15 +91,13 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
     }
     
     func updateView() -> Bool {
-        guard let session = SessionSingleton.sharedInstance() else {
-            return false
-        }
+        let dataStore = MWKDataStore.shared()
         
         let article: WMFArticle
         
-        if let openArticleURL = session.dataStore.viewContext.openArticleURL, let openArticle = session.dataStore.historyList.entry(for: openArticleURL) {
+        if let openArticleURL = dataStore.viewContext.openArticleURL, let openArticle = dataStore.historyList.entry(for: openArticleURL) {
             article = openArticle
-        } else if let mostRecentHistoryEntry = session.dataStore.historyList.mostRecentEntry() {
+        } else if let mostRecentHistoryEntry = dataStore.historyList.mostRecentEntry() {
             article = mostRecentHistoryEntry
         } else {
             return false

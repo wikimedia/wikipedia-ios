@@ -695,7 +695,7 @@ extension WMFArticle {
             return
         }
         
-        guard let defaultReadingList = moc.wmf_fetchDefaultReadingList() else {
+        guard let defaultReadingList = moc.defaultReadingList else {
             return
         }
         
@@ -746,13 +746,23 @@ extension WMFArticle {
 
 public extension NSManagedObjectContext {
     // use with caution, fetching is expensive
-    @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
-        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+    @objc(wmf_fetchOrCreateDefaultReadingList)
+    @discardableResult func fetchOrCreateDefaultReadingList() -> ReadingList? {
+        var defaultList = defaultReadingList
         if defaultList == nil { // failsafe
             defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
             defaultList?.isDefault = true
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error creating default reading list: \(error)")
+            }
         }
         return defaultList
+    }
+    
+    var defaultReadingList: ReadingList? {
+        return wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
     }
     
     // is sync available or is it shut down server-side

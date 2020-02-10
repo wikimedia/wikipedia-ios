@@ -50,7 +50,6 @@ final class PageContentService   {
                 case disambiguation
                 case coordinate
                 case talkPage
-                case referenceList
             }
             let items: [Item]
         }

@@ -9,13 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol WMFPhoto <NYTPhoto>
 
-- (nullable NSURL *)bestImageURL;
-
-- (nullable MWKImageInfo *)bestImageInfo;
-
-@end
 
 @protocol WMFExposedDataSource <NYTPhotosViewControllerDataSource>
 
@@ -37,13 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFImageGalleryViewController () <NYTPhotosViewControllerDelegate>
+@interface WMFImageGalleryViewController ()
 
 @property (nonatomic, strong, readonly) NSArray<id<NYTPhoto>> *photos;
 
 @property (nonatomic, readonly) id<WMFExposedDataSource> dataSource;
-
-- (void)updateOverlayInformation;
 
 - (NYTPhotoViewController *)currentPhotoViewController;
 
@@ -66,15 +58,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticlePhoto : WMFBasePhoto <WMFPhoto>
-
-//set to display a thumbnail during download
-@property (nonatomic, strong, nullable) MWKImage *thumbnailImageObject;
-
-//used to fetch the full size image
-@property (nonatomic, strong, nullable) MWKImage *imageObject;
-
-@end
+//@interface WMFArticlePhoto : WMFBasePhoto <WMFPhoto>
+//
+////set to display a thumbnail during download
+//@property (nonatomic, strong, nullable) NSURL *thumbnailImageURL;
+//
+////used to fetch the full size image
+//@property (nonatomic, strong, nullable) NSURL *imageURL;
+//
+//@end
 
 @implementation WMFBasePhoto
 
@@ -100,109 +92,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSString *)imageDataUTType {
     return self.isGIF ? (NSString *)kUTTypeGIF : nil;
-}
-
-@end
-
-@implementation WMFArticlePhoto
-
-+ (NSArray<WMFArticlePhoto *> *)photosWithThumbnailImageObjects:(NSArray<MWKImage *> *)imageObjects {
-    return [imageObjects wmf_map:^id(MWKImage *obj) {
-        return [[WMFArticlePhoto alloc] initWithThumbnailImage:obj];
-    }];
-}
-
-- (instancetype)initWithImage:(MWKImage *)imageObject {
-    self = [super init];
-    if (self) {
-        self.imageObject = imageObject;
-    }
-    return self;
-}
-
-- (instancetype)initWithThumbnailImage:(MWKImage *)imageObject {
-    self = [super init];
-    if (self) {
-        self.thumbnailImageObject = imageObject;
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-}
-
-- (nullable MWKImage *)bestImageObject {
-    return self.imageObject ?: self.thumbnailImageObject;
-}
-
-- (nullable NSURL *)bestImageURL {
-    if (self.imageObject) {
-        return self.imageObject.sourceURL;
-    } else if (self.imageInfo) {
-        return self.imageInfo.imageThumbURL;
-    } else if (self.thumbnailImageObject) {
-        return self.thumbnailImageObject.sourceURL;
-    } else {
-        return nil;
-    }
-}
-
-- (nullable MWKImageInfo *)bestImageInfo {
-    return self.imageInfo;
-}
-
-- (nullable UIImage *)placeholderImage {
-    NSURL *url = [self thumbnailImageURL];
-    if (url) {
-        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
-    } else {
-        return nil;
-    }
-}
-
-- (nullable NSURL *)thumbnailImageURL {
-    return self.thumbnailImageObject.sourceURL ?: self.imageInfo.imageThumbURL;
-}
-
-- (nullable UIImage *)image {
-    NSURL *url = [self imageURL];
-    if (url) {
-        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
-    } else {
-        return nil;
-    }
-}
-
-- (nullable UIImage *)memoryCachedImage {
-    NSURL *url = [self imageURL];
-    if (url) {
-        return [[[WMFImageController sharedInstance] sessionCachedImageWithURL:url] staticImage];
-    } else {
-        return nil;
-    }
-}
-
-- (nullable NSURL *)imageURL {
-    if (self.imageObject) {
-        return self.imageObject.sourceURL;
-    } else if (self.imageInfo) {
-        return [self.imageInfo imageURLForTargetWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]];
-    } else {
-        return nil;
-    }
-}
-
-- (nullable NSAttributedString *)attributedCaptionTitle {
-    return nil;
-}
-
-- (nullable NSAttributedString *)attributedCaptionSummary {
-    return nil;
-}
-
-- (nullable NSAttributedString *)attributedCaptionCredit {
-    return nil;
 }
 
 @end
@@ -436,202 +325,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma clang diagnostic pop
-
-@interface WMFArticleImageGalleryViewController ()
-
-@property (nonatomic, strong) WMFImageInfoController *infoController;
-@property (nonatomic, getter=areDownloadErrorAlertsDisabled) BOOL downloadErrorAlertsDisabled;
-@end
-
-@implementation WMFArticleImageGalleryViewController
-
-- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
-    return [self initWithArticle:article selectedImage:nil theme:theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden];
-}
-
-- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
-    NSParameterAssert(article);
-    NSParameterAssert(article.dataStore);
-
-    NSArray *items = [article imagesForGallery];
-
-    if ([items count] == 0) {
-        return nil;
-    }
-
-    NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
-
-    id<NYTPhoto> selected = nil;
-    if (image) {
-        selected = [[self class] photoWithImage:image inPhotos:photos];
-    }
-
-    self = [super initWithPhotos:photos initialPhoto:selected delegate:nil theme:theme overlayViewTopBarHidden:overlayViewTopBarHidden];
-    if (self) {
-        self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
-        [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
-        [self.photos enumerateObjectsUsingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            obj.imageInfo = [self.infoController infoForImage:[obj bestImageObject]];
-        }];
-        self.infoController.delegate = self;
-    }
-
-    return self;
-}
-
-- (MWKImage *)imageForPhoto:(id<NYTPhoto>)photo {
-    return [(WMFArticlePhoto *)photo bestImageObject];
-}
-
-- (MWKImage *)currentImage {
-    return [self imageForPhoto:[self photoAtIndex:[self indexOfCurrentImage]]];
-}
-
-- (MWKImageInfo *)currentImageInfo {
-    return [self imageInfoForPhoto:[self photoAtIndex:[self indexOfCurrentImage]]];
-}
-
-+ (nullable id<NYTPhoto>)photoWithImage:(MWKImage *)image inPhotos:(NSArray<id<NYTPhoto>> *)photos {
-    NSUInteger index = [self indexOfImage:image inPhotos:photos];
-    if (index > photos.count) {
-        return nil;
-    }
-    return photos[index];
-}
-
-+ (NSUInteger)indexOfImage:(MWKImage *)image inPhotos:(NSArray<id<NYTPhoto>> *)photos {
-    return [photos
-        indexOfObjectPassingTest:^BOOL(WMFArticlePhoto *anImage, NSUInteger _, BOOL *stop) {
-            if ([anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
-                *stop = YES;
-                return YES;
-            }
-            return NO;
-        }];
-}
-
-- (NSUInteger)indexOfImage:(MWKImage *)image {
-    return [[self class] indexOfImage:image inPhotos:self.photos];
-}
-
-#pragma mark - UIViewController
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if (self.currentlyDisplayedPhoto) {
-        [self fetchCurrentImageInfo];
-        [self fetchCurrentImage];
-    }
-}
-
-#pragma mark - Fetch
-
-- (void)fetchCurrentImageInfo {
-    [self fetchImageInfoForPhoto:(WMFArticlePhoto *)self.currentlyDisplayedPhoto];
-}
-
-- (void)fetchImageInfoForPhoto:(WMFArticlePhoto *)galleryImage {
-    [self.infoController fetchBatchContainingIndex:[self indexOfPhoto:galleryImage]];
-}
-
-- (void)fetchCurrentImage {
-    [self fetchImageForPhoto:(WMFArticlePhoto *)self.currentlyDisplayedPhoto];
-}
-
-- (void)fetchImageForPhoto:(WMFArticlePhoto *)galleryImage {
-    UIImage *memoryCachedImage = [galleryImage memoryCachedImage];
-    if (memoryCachedImage == nil) {
-        @weakify(self);
-        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL]
-            failure:^(NSError *_Nonnull error) {
-                //show error
-            }
-            success:^(WMFImageDownload *_Nonnull download) {
-                @strongify(self);
-                [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
-            }];
-    } else {
-        [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
-    }
-}
-
-#pragma mark NYTPhotosViewControllerDelegate
-
-- (void)photosViewController:(NYTPhotosViewController *)photosViewController didNavigateToPhoto:(id<NYTPhoto>)photo atIndex:(NSUInteger)photoIndex {
-    WMFArticlePhoto *galleryImage = (WMFArticlePhoto *)photo;
-    [self fetchImageInfoForPhoto:galleryImage];
-    [self fetchImageForPhoto:galleryImage];
-}
-
-#pragma mark - WMFImageInfoControllerDelegate
-
-- (void)imageInfoController:(WMFImageInfoController *)controller didFetchBatch:(NSRange)range {
-    NSIndexSet *fetchedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
-
-    [self.photos enumerateObjectsAtIndexes:fetchedIndexes
-                                   options:0
-                                usingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                    MWKImageInfo *info = [controller infoForImage:[obj imageObject]];
-                                    if (!info) {
-                                        info = [controller infoForImage:[obj thumbnailImageObject]];
-                                    }
-                                    NSParameterAssert(info);
-                                    obj.imageInfo = info;
-                                    if ([self.currentlyDisplayedPhoto isEqual:obj]) {
-                                        [self fetchImageForPhoto:obj];
-                                    }
-                                }];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateOverlayInformation];
-    });
-}
-
-- (void)imageInfoController:(WMFImageInfoController *)controller
-         failedToFetchBatch:(NSRange)range
-                      error:(NSError *)error {
-    if (self.areDownloadErrorAlertsDisabled) {
-        return;
-    }
-    self.downloadErrorAlertsDisabled = YES; //only show one alert per gallery session
-    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    //display error image?
-}
-
-#pragma mark - Accessibility
-
-- (BOOL)accessibilityPerformEscape {
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    return YES;
-}
-
-#pragma mark - Peek & Pop
-
-- (NSArray *)previewActionItems {
-    UIPreviewAction *share = [UIPreviewAction actionWithTitle:[WMFCommonStrings shareActionTitle]
-                                                        style:UIPreviewActionStyleDefault
-                                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-                                                          id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
-                                                          MWKImageInfo *info = [photo bestImageInfo];
-                                                          NSURL *url = [photo bestImageURL];
-
-                                                          @weakify(self);
-                                                          [[WMFImageController sharedInstance] fetchImageWithURL:url
-                                                              failure:^(NSError *_Nonnull error) {
-                                                                  [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-                                                              }
-                                                              success:^(WMFImageDownload *_Nonnull download) {
-                                                                  @strongify(self);
-
-                                                                  UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
-                                                                  vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
-
-                                                                  [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
-                                                              }];
-                                                      }];
-    return @[share];
-}
-
-@end
 
 @interface WMFPOTDPhoto : WMFBasePhoto <WMFPhoto>
 

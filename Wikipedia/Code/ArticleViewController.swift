@@ -16,6 +16,7 @@ class ArticleViewController: ViewController {
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
     internal let article: WMFArticle
+    internal var mediaList: MediaList?
     
     /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
     @objc public let articleURL: URL
@@ -26,14 +27,12 @@ class ArticleViewController: ViewController {
     
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
-  
 
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-    private lazy var fetcher: ArticleFetcher = ArticleFetcher()
-    internal var references: References?
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
 
     private var leadImageHeight: CGFloat = 210
     
@@ -82,7 +81,7 @@ class ArticleViewController: ViewController {
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
-        
+        showLeadImage()
     }
     
     func loadLeadImage(with leadImageURL: URL) {
@@ -216,7 +215,6 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
-        setupGestureRecognizerDependencies()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -263,14 +261,29 @@ class ArticleViewController: ViewController {
     
     // MARK: Overrideable functionality
     
-    internal func handleLink(with title: String) {
-        guard let host = articleURL.host,
-            let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title) else {
-                assertionFailure("Failure initializing new Article VC")
-                //tonitodo: error state
-                return
+    internal func handleLink(with href: String) {
+        let urlComponentsString: String
+        if href.hasPrefix(".") || href.hasPrefix("/") {
+            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
+        } else {
+            urlComponentsString = href
         }
-        navigate(to: newArticleURL)
+        let components = URLComponents(string: urlComponentsString)
+        // Resolve relative URLs
+        guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
+            showGenericError()
+            return
+        }
+        // Check if this is the same article by comparing database keys
+        guard resolvedURL.wmf_databaseKey == articleURL.wmf_databaseKey else {
+            navigate(to: resolvedURL)
+            return
+        }
+        // Check for a fragment - if this is the same article and there's no fragment just do nothing?
+        guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
+            return
+        }
+        scroll(to: anchor, animated: true)
     }
     
     // MARK: Table of contents
@@ -434,7 +447,7 @@ class ArticleViewController: ViewController {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
-        guard let mobileHTMLURL = ArticleURLConverter.mobileHTMLURL(desktopURL: articleURL, endpointType: .mobileHTML, scheme: schemeHandler.scheme) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
             return
@@ -447,7 +460,6 @@ class ArticleViewController: ViewController {
             self?.footerLoadGroup = nil
         }
         
-        let request = URLRequest(url: mobileHTMLURL)
         webView.load(request)
         
         guard let key = article.key else {
@@ -465,19 +477,6 @@ class ArticleViewController: ViewController {
             self.footerLoadGroup?.leave()
         }) { (error) in
             self.footerLoadGroup?.leave()
-        }
-        
-        footerLoadGroup?.enter()
-        fetcher.fetchReferences(with: articleURL) { (result, _) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let references):
-                    self.references = references
-                case .failure(let error):
-                    DDLogError("Error fetching references for \(self.articleURL): \(error)")
-                }
-                self.footerLoadGroup?.leave()
-            }
         }
     }
     
@@ -497,15 +496,6 @@ class ArticleViewController: ViewController {
             try? self.article.managedObjectContext?.save()
 
         }
-    }
-    
-    // MARK: Gestures
-    
-    func setupGestureRecognizerDependencies() {
-        guard let popGR = navigationController?.interactivePopGestureRecognizer else {
-            return
-        }
-        webView.scrollView.panGestureRecognizer.require(toFail: popGR)
     }
     
     // MARK: Analytics

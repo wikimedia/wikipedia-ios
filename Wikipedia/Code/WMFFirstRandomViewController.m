@@ -1,7 +1,6 @@
 #import "WMFFirstRandomViewController.h"
 #import "Wikipedia-Swift.h"
 #import <WMF/MWKDataStore.h>
-#import <WMF/SessionSingleton.h>
 #import <WMF/MWKSearchResult.h>
 #import <WMF/WMF-Swift.h>
 

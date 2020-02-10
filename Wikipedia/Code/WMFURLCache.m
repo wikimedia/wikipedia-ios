@@ -1,7 +1,4 @@
 #import <WMF/WMFURLCache.h>
-#import <WMF/SessionSingleton.h>
-#import <WMF/MWKArticle.h>
-#import <WMF/MWKImage.h>
 #import <WMF/WMF-Swift.h>
 
 static NSString *const WMFURLCacheWikipediaHost = @".wikipedia.org";
