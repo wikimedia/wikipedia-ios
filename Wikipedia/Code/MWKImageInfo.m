@@ -1,6 +1,5 @@
 #import <WMF/MWKImageInfo.h>
 #import <WMF/WMFImageURLParsing.h>
-#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
 #import <WMF/MWKLicense.h>
 @import UIKit;
 #import <WMF/WMFComparison.h>
@@ -98,14 +97,14 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
 
     dict[mWKImageInfoModelVersionKey] = @(MWKImageInfoModelVersion_1);
 
-    [dict wmf_maybeSetObject:self.canonicalPageTitle forKey:MWKImageInfoCanonicalPageTitleKey];
-    [dict wmf_maybeSetObject:self.canonicalFileURL.absoluteString forKey:MWKImageInfoCanonicalFileURLKey];
-    [dict wmf_maybeSetObject:self.imageDescription forKey:MWKImageInfoImageDescriptionKey];
-    [dict wmf_maybeSetObject:self.filePageURL.absoluteString forKey:MWKImageInfoFilePageURLKey];
-    [dict wmf_maybeSetObject:self.imageThumbURL.absoluteString forKey:MWKImageInfoImageThumbURLKey];
-    [dict wmf_maybeSetObject:self.owner forKey:MWKImageInfoOwnerKey];
+    [dict setValue:self.canonicalPageTitle forKey:MWKImageInfoCanonicalPageTitleKey];
+    [dict setValue:self.canonicalFileURL.absoluteString forKey:MWKImageInfoCanonicalFileURLKey];
+    [dict setValue:self.imageDescription forKey:MWKImageInfoImageDescriptionKey];
+    [dict setValue:self.filePageURL.absoluteString forKey:MWKImageInfoFilePageURLKey];
+    [dict setValue:self.imageThumbURL.absoluteString forKey:MWKImageInfoImageThumbURLKey];
+    [dict setValue:self.owner forKey:MWKImageInfoOwnerKey];
 
-    [dict wmf_maybeSetObject:[self.license dataExport] forKey:MWKImageInfoLicenseKey];
+    [dict setValue:[self.license dataExport] forKey:MWKImageInfoLicenseKey];
 
     dict[MWKImageInfoImageSize] = NSStringFromCGSize(self.imageSize);
     dict[MWKImageInfoThumbSize] = NSStringFromCGSize(self.thumbSize);

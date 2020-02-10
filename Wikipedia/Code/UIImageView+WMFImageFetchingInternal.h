@@ -40,16 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable, setter=wmf_setImageTokenToCancel:) NSString *wmf_imageTokenToCancel;
 
 /**
- *  The metadata associated with the receiver.
- *
- *  This is preferred over @c wmf_imageURL since it allows for normalized face detection data to be read from and written
- *  to disk.
- *
- *  @see wmf_imageURL
- */
-@property (nonatomic, strong, nullable, setter=wmf_setImageMetadata:) MWKImage *wmf_imageMetadata;
-
-/**
  *  The image controller used to fetch image data.
  *
  *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [WMFImageController sharedInstance].

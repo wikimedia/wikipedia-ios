@@ -3,7 +3,7 @@ import Foundation
 @objc class WMFDatabaseHouseKeeper : NSObject {
     
     // Returns deleted URLs
-    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+    @discardableResult @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
         let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
 
@@ -13,7 +13,7 @@ import Foundation
     }
 
     // Returns articles to remove from disk
-    @objc func articleURLsToRemoveFromDiskInManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+    @discardableResult @objc func articleURLsToRemoveFromDiskInManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         guard let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) else {
             return []
         }

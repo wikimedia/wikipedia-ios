@@ -1,12 +1,6 @@
 #import <WMF/MWKSavedPageList.h>
 #import <WMF/WMF-Swift.h>
 
-//Legacy
-#import <WMF/MWKSavedPageListDataExportConstants.h>
-#import <WMF/MWKSavedPageEntry.h>
-NSString *const MWKSavedPageExportedEntriesKey = @"entries";
-NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
-
 @interface MWKSavedPageList () <NSFetchedResultsControllerDelegate>
 
 @property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
@@ -143,26 +137,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 - (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls {
     [self.dataStore.readingListsController removeArticlesWithURLsFromDefaultReadingList:urls];
-}
-
-#pragma mark - Legacy Schema Migration
-
-+ (NSArray<NSDictionary *> *)savedEntryDataFromExportedData:(NSDictionary *)savedPageListData {
-    NSNumber *schemaVersionValue = savedPageListData[MWKSavedPageExportedSchemaVersionKey];
-    MWKSavedPageListSchemaVersion schemaVersion = MWKSavedPageListSchemaVersionUnknown;
-    if (schemaVersionValue) {
-        schemaVersion = schemaVersionValue.unsignedIntegerValue;
-    }
-    switch (schemaVersion) {
-        case MWKSavedPageListSchemaVersionCurrent:
-            return savedPageListData[MWKSavedPageExportedEntriesKey];
-        case MWKSavedPageListSchemaVersionUnknown:
-            return [MWKSavedPageList savedEntryDataFromListWithUnknownSchema:savedPageListData];
-    }
-}
-
-+ (NSArray<NSDictionary *> *)savedEntryDataFromListWithUnknownSchema:(NSDictionary *)data {
-    return data[MWKSavedPageExportedEntriesKey];
 }
 
 @end

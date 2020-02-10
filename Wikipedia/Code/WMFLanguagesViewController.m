@@ -330,7 +330,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     } else if (self.showExploreFeedCustomizationSettings && [self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
         self.title = nil;
         WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] init];
-        feedSettingsVC.dataStore = SessionSingleton.sharedInstance.dataStore;
+        feedSettingsVC.dataStore = MWKDataStore.shared;
         [feedSettingsVC applyTheme:self.theme];
         [self.navigationController pushViewController:feedSettingsVC animated:YES];
     }

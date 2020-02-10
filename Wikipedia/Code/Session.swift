@@ -84,6 +84,10 @@ import Foundation
         return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
     }()
     
+    @objc public static func clearTemporaryCache() {
+        urlSession.configuration.urlCache?.removeAllCachedResponses()
+    }
+    
     private static let sessionDelegate: SessionDelegate = {
         return SessionDelegate()
     }()

@@ -64,7 +64,7 @@ extension ArticleViewController {
             showGenericError()
             return
         }
-        
+        popoverVC.articleURL = articleURL
         (popoverVC as Themeable).apply(theme: theme)
         popoverVC.modalPresentationStyle = .popover
         popoverVC.reference = reference
