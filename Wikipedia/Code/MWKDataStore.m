@@ -15,6 +15,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
+static const NSInteger WMFCurrentLibraryVersion = 9;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -40,6 +41,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) WMFCacheControllerWrapper *imageCacheControllerWrapper;
 @property (nonatomic, strong) WMFCacheControllerWrapper *articleCacheControllerWrapper;
+
+@property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -74,7 +77,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }
     [article save:error];
 }
-
 
 #pragma mark - NSObject
 
@@ -118,6 +120,7 @@ static uint64_t bundleHash() {
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
         self.imageCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithType:WMFCacheControllerTypeImage];
         self.articleCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithArticleCacheWithImageCacheControllerWrapper:self.imageCacheControllerWrapper];
+        self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
 }
@@ -493,22 +496,46 @@ static uint64_t bundleHash() {
             return;
         }
     }
-    
-    
+
     if (currentLibraryVersion < 8) {
         NSUserDefaults *ud = [NSUserDefaults wmf];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
         [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
         [ud synchronize];
         [moc wmf_setValue:@(8) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
     }
+
+    if (currentLibraryVersion < 9) {
+        [self markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:moc];
+        [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
+/// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
+/// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
-    static const NSInteger libraryVersion = 7;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
-    NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
-    if (currentLibraryVersion >= libraryVersion) {
+    // If the library value doesn't exist, it's a new library and can be set to the latest version
+    if (!libraryVersionNumber) {
+        [self.viewContext wmf_setValue:@(WMFCurrentLibraryVersion) forKey:WMFLibraryVersionKey];
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
+    // If the library version is >= the current version, we can skip the migration
+    if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
         if (completion) {
             completion();
         }
@@ -518,11 +545,43 @@ static uint64_t bundleHash() {
         dispatch_block_t done = ^{
             dispatch_async(dispatch_get_main_queue(), completion);
         };
-        if (currentLibraryVersion < libraryVersion) {
-            [self performUpdatesFromLibraryVersion:currentLibraryVersion inManagedObjectContext:moc];
-        }
+        [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
         done();
     }];
+}
+
+- (void)markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:(NSManagedObjectContext *)moc {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES && isConversionFromMobileViewNeeded == NO"];
+    request.fetchLimit = 500;
+    request.propertiesToFetch = @[];
+    NSError *fetchError = nil;
+    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+        return;
+    }
+    while (downloadedArticles.count > 0) {
+        @autoreleasepool {
+            for (WMFArticle *article in downloadedArticles) {
+                article.isConversionFromMobileViewNeeded = YES;
+            }
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    return;
+                }
+                [moc reset];
+            }
+        }
+        downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+            return;
+        }
+    }
 }
 
 - (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
