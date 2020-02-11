@@ -12858,7 +12858,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -12894,7 +12893,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -12929,7 +12927,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -13404,7 +13401,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -13440,7 +13436,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -13475,7 +13470,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -13980,7 +13974,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -14016,7 +14009,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -14051,7 +14043,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -16249,7 +16240,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -16285,7 +16275,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -16320,7 +16309,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -18038,7 +18026,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -18074,7 +18061,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -18109,7 +18095,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -18543,7 +18528,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -18858,7 +18842,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -19075,7 +19058,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -19110,7 +19092,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -19145,7 +19126,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -19180,7 +19160,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -19223,7 +19202,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -19258,7 +19236,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -19293,7 +19270,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -19328,7 +19304,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -19363,7 +19338,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -19511,7 +19485,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -19546,7 +19519,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -19858,7 +19830,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -19893,7 +19864,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -20491,7 +20461,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -20527,7 +20496,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -20563,7 +20531,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -20607,7 +20574,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -20643,7 +20609,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -20679,7 +20644,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -20827,7 +20791,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -21032,7 +20995,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -21068,7 +21030,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -21104,7 +21065,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -21140,7 +21100,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -21176,7 +21135,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -21220,7 +21178,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -21256,7 +21213,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -21292,7 +21248,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -21328,7 +21283,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -21364,7 +21318,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -21400,7 +21353,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
