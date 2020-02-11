@@ -11,24 +11,24 @@ extension ArticleViewController {
             return
         }
         
-        let referenceRectInWindowCoordinates = getBoundingClientRect(for: scriptMessageReferences)
+        let referencesBoundingClientRect = getBoundingClientRect(for: scriptMessageReferences)
+        let referenceRectInScrollCoordinates = webView.scrollView.convert(referencesBoundingClientRect, from: webView)
         if traitCollection.verticalSizeClass == .compact || self.traitCollection.horizontalSizeClass == .compact {
-            showReferencesPanel(with: scriptMessageReferences, referenceRectInWindowCoordinates: referenceRectInWindowCoordinates, selectedIndex: selectedIndex, animated: animated)
+            showReferencesPanel(with: scriptMessageReferences, referencesBoundingClientRect: referencesBoundingClientRect, referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, selectedIndex: selectedIndex, animated: animated)
         } else {
-            if !isWindowCoordinatesRectVisible(referenceRectInWindowCoordinates) {
-                let referenceRectInScrollCoordinates = webView.scrollView.convert(referenceRectInWindowCoordinates, from: nil)
+            if !isBoundingClientRectVisible(referencesBoundingClientRect) {
                 let center = referenceRectInScrollCoordinates.center
                 scroll(to: center, centered: true, animated: true) {
-                    self.showReferencesPopover(with: scriptMessageReferences[selectedIndex], animated: animated)
+                    self.showReferencesPopover(with: scriptMessageReferences[selectedIndex], referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, animated: animated)
                 }
             } else {
-                showReferencesPopover(with: scriptMessageReferences[selectedIndex], animated: animated)
+                showReferencesPopover(with: scriptMessageReferences[selectedIndex], referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, animated: animated)
             }
         }
     }
     
     /// Show references that were tapped in the article as a panel
-    func showReferencesPanel(with references: [WMFLegacyReference], referenceRectInWindowCoordinates: CGRect, selectedIndex: Int, animated: Bool) {
+    func showReferencesPanel(with references: [WMFLegacyReference], referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, selectedIndex: Int, animated: Bool) {
         let vc = WMFReferencePageViewController.wmf_viewControllerFromReferencePanelsStoryboard()
         vc.pageViewController.delegate = self
         vc.appearanceDelegate = self
@@ -38,12 +38,12 @@ extension ArticleViewController {
         vc.lastClickedReferencesIndex = selectedIndex
         vc.lastClickedReferencesGroup = references
         present(vc, animated: false) { // should be false even if animated is true
-            self.adjustScrollForReferencePageViewController(referenceRectInWindowCoordinates, viewController: vc, animated: animated)
+            self.adjustScrollForReferencePageViewController(referencesBoundingClientRect, referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, viewController: vc, animated: animated)
         }
     }
     
     /// Show references that were tapped in the article as a popover
-    func showReferencesPopover(with reference: WMFLegacyReference, animated: Bool) {
+    func showReferencesPopover(with reference: WMFLegacyReference, referenceRectInScrollCoordinates: CGRect, animated: Bool) {
         let width = min(min(view.frame.size.width, view.frame.size.height) - 20, 355);
         guard let popoverVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard() else {
             showGenericError()
@@ -61,8 +61,8 @@ extension ArticleViewController {
         presenter?.delegate = popoverVC
         presenter?.permittedArrowDirections = [.up, .down]
         presenter?.backgroundColor = theme.colors.paperBackground;
-        presenter?.sourceView = webView
-        presenter?.sourceRect = reference.rect
+        presenter?.sourceView = view
+        presenter?.sourceRect = view.convert(referenceRectInScrollCoordinates, from: webView.scrollView)
         
         present(popoverVC, animated: animated) {
             // Reminder: The textView's scrollEnabled needs to remain "NO" until after the popover is
@@ -94,8 +94,8 @@ private extension ArticleViewController {
         return rect
     }
 
-    func adjustScrollForReferencePageViewController(_ referenceRectInWindowCoordinates: CGRect, viewController: WMFReferencePageViewController, animated: Bool) {
-        let referenceRectInScrollCoordinates = webView.scrollView.convert(referenceRectInWindowCoordinates, from: nil)
+    func adjustScrollForReferencePageViewController(_ referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, viewController: WMFReferencePageViewController, animated: Bool) {
+        let referenceRectInWindowCoordinates = webView.scrollView.convert(referenceRectInScrollCoordinates, to: nil)
         guard
             !referenceRectInWindowCoordinates.isEmpty,
             let firstPanel = viewController.firstPanelView()
@@ -103,7 +103,7 @@ private extension ArticleViewController {
                 return
         }
         let panelRectInWindowCoordinates = firstPanel.convert(firstPanel.bounds, to: nil)
-        guard !isWindowCoordinatesRectVisible(referenceRectInWindowCoordinates) || referenceRectInWindowCoordinates.intersects(panelRectInWindowCoordinates) else {
+        guard !isBoundingClientRectVisible(referencesBoundingClientRect) || referenceRectInWindowCoordinates.intersects(panelRectInWindowCoordinates) else {
             viewController.backgroundView.clearRect = referenceRectInWindowCoordinates
             return
         }

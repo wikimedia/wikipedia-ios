@@ -339,7 +339,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Scroll
     
-    func isWindowCoordinatesRectVisible(_ rect: CGRect) -> Bool {
+    func isBoundingClientRectVisible(_ rect: CGRect) -> Bool {
         let scrollView = webView.scrollView
         return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
     }
