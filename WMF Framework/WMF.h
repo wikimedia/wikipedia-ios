@@ -69,8 +69,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
 
-#import <WMF/WMFURLCache.h>
-
 #import <WMF/WikipediaAppUtils.h>
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSString+WMFHTMLParsing.h>
