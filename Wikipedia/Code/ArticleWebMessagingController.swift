@@ -127,6 +127,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
+        case backLink(selectedIndex: Int, group: [WMFLegacyReference])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -148,6 +149,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case image
         case link
         case reference
+        case backLink = "back_link"
         case pronunciation
         case edit = "edit_section"
         case addTitleDescription = "add_title_description"
@@ -171,6 +173,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getImageAction(with: data)
             case .reference:
                 return getReferenceAction(with: data)
+            case .backLink:
+                return getBackLinkAction(with: data)
             case .pronunciation:
                 return getPronunciationAction(with: data)
             case .edit:
@@ -264,6 +268,14 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             }
             let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
             return .reference(selectedIndex: selectedIndex, group: group)
+        }
+        
+        func getBackLinkAction(with data: [String: Any]?) -> Action? {
+            guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
+                return nil
+            }
+            let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
+            return .backLink(selectedIndex: selectedIndex, group: group)
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {

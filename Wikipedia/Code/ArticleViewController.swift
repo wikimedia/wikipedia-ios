@@ -339,6 +339,11 @@ class ArticleViewController: ViewController {
     
     // MARK: Scroll
     
+    func isWindowCoordinatesRectVisible(_ rect: CGRect) -> Bool {
+        let scrollView = webView.scrollView
+        return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
+    }
+    
     func scroll(to anchor: String, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)

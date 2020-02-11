@@ -18,6 +18,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleFooterItem(type: type, payload: payload)
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
+        case .backLink(let index, let group):
+            fallthrough
         case .reference(let index, let group):
             showReferences(group, selectedIndex: index, animated: true)
         case .image(let src, let href, let width, let height):

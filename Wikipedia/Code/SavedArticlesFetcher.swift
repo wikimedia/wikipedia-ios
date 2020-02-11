@@ -333,11 +333,6 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
         
         dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: nonNilArticle) { error in
-            guard error == nil else {
-                assertionFailure("Article migration failed")
-                return
-            }
-            // print("Conversion succeeded or not needed")
             do {
                 guard try moc.count(for: self.conversionsNeededCountFetchRequest) > 0 else {
                     self.stop()
@@ -346,6 +341,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
                 self.convertOneArticleIfNecessaryAgain()
             } catch(let error) {
                 DDLogError("Error counting number of article to be converted: \(error)")
+                self.stop()
             }
         }
     }

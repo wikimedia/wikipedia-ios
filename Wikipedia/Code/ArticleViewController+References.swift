@@ -11,15 +11,24 @@ extension ArticleViewController {
             return
         }
         
-        if traitCollection.verticalSizeClass == .compact || traitCollection.horizontalSizeClass == .compact {
-            showReferencesPanel(with: scriptMessageReferences, selectedIndex: selectedIndex, animated: animated)
+        let referenceRectInWindowCoordinates = getBoundingClientRect(for: scriptMessageReferences)
+        if traitCollection.verticalSizeClass == .compact || self.traitCollection.horizontalSizeClass == .compact {
+            showReferencesPanel(with: scriptMessageReferences, referenceRectInWindowCoordinates: referenceRectInWindowCoordinates, selectedIndex: selectedIndex, animated: animated)
         } else {
-            showReferencesPopover(with: scriptMessageReferences[selectedIndex], animated: animated)
+            if !isWindowCoordinatesRectVisible(referenceRectInWindowCoordinates) {
+                let referenceRectInScrollCoordinates = webView.scrollView.convert(referenceRectInWindowCoordinates, from: nil)
+                let center = referenceRectInScrollCoordinates.center
+                scroll(to: center, centered: true, animated: true) {
+                    self.showReferencesPopover(with: scriptMessageReferences[selectedIndex], animated: animated)
+                }
+            } else {
+                showReferencesPopover(with: scriptMessageReferences[selectedIndex], animated: animated)
+            }
         }
     }
     
     /// Show references that were tapped in the article as a panel
-    func showReferencesPanel(with references: [WMFLegacyReference], selectedIndex: Int, animated: Bool) {
+    func showReferencesPanel(with references: [WMFLegacyReference], referenceRectInWindowCoordinates: CGRect, selectedIndex: Int, animated: Bool) {
         let vc = WMFReferencePageViewController.wmf_viewControllerFromReferencePanelsStoryboard()
         vc.pageViewController.delegate = self
         vc.appearanceDelegate = self
@@ -29,7 +38,7 @@ extension ArticleViewController {
         vc.lastClickedReferencesIndex = selectedIndex
         vc.lastClickedReferencesGroup = references
         present(vc, animated: false) { // should be false even if animated is true
-            self.scrollReferencesToVisible(references, viewController: vc, animated: animated)
+            self.adjustScrollForReferencePageViewController(referenceRectInWindowCoordinates, viewController: vc, animated: animated)
         }
     }
     
@@ -73,46 +82,38 @@ extension ArticleViewController {
 
 private extension ArticleViewController {
     // MARK: - Utilities
-    func windowCoordinatesRect(for references: [WMFLegacyReference]) -> CGRect {
+    func getBoundingClientRect(for references: [WMFLegacyReference]) -> CGRect {
         guard var rect = references.first?.rect else {
             return .zero
         }
         for reference in references {
             rect = rect.union(reference.rect)
         }
-        rect = webView.convert(rect, to: nil)
         rect = rect.offsetBy(dx: 0, dy: 1)
         rect = rect.insetBy(dx: -1, dy: -3)
         return rect
     }
 
-    func scrollReferencesToVisible(_ references: [WMFLegacyReference], viewController: WMFReferencePageViewController, animated: Bool) {
-        let windowCoordsRefGroupRect = windowCoordinatesRect(for: references)
+    func adjustScrollForReferencePageViewController(_ referenceRectInWindowCoordinates: CGRect, viewController: WMFReferencePageViewController, animated: Bool) {
+        let referenceRectInScrollCoordinates = webView.scrollView.convert(referenceRectInWindowCoordinates, from: nil)
         guard
-            !windowCoordsRefGroupRect.isEmpty,
+            !referenceRectInWindowCoordinates.isEmpty,
             let firstPanel = viewController.firstPanelView()
-            else {
+        else {
                 return
         }
-        let panelRectInWindowCoords = firstPanel.convert(firstPanel.bounds, to: nil)
-        let refGroupRectInWindowCoords = viewController.backgroundView.convert(windowCoordsRefGroupRect, to: nil)
-        
-        guard !windowCoordsRefGroupRect.intersects(view.bounds) || windowCoordsRefGroupRect.intersects(panelRectInWindowCoords) else {
-            viewController.backgroundView.clearRect = windowCoordsRefGroupRect
+        let panelRectInWindowCoordinates = firstPanel.convert(firstPanel.bounds, to: nil)
+        guard !isWindowCoordinatesRectVisible(referenceRectInWindowCoordinates) || referenceRectInWindowCoordinates.intersects(panelRectInWindowCoordinates) else {
+            viewController.backgroundView.clearRect = referenceRectInWindowCoordinates
             return
         }
         
-        let refGroupScrollOffsetY = webView.scrollView.contentOffset.y + refGroupRectInWindowCoords.minY
-        var newOffsetY: CGFloat = refGroupScrollOffsetY - 0.5 * panelRectInWindowCoords.minY + 0.5 * refGroupRectInWindowCoords.height - 0.5 * navigationBar.visibleHeight
-        let contentInsetTop = webView.scrollView.contentInset.top
-        if newOffsetY <= 0 - contentInsetTop {
-            newOffsetY = 0 - contentInsetTop
-            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, shadowAlpha: 1, animated: animated, additionalAnimations: nil)
-        }
-        let delta = webView.scrollView.contentOffset.y - newOffsetY
-        let centeredOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: newOffsetY)
-        scroll(to: centeredOffset, animated: animated) {
-            viewController.backgroundView.clearRect = windowCoordsRefGroupRect.offsetBy(dx: 0, dy: delta)
+        let oldY = webView.scrollView.contentOffset.y
+        let scrollPoint = referenceRectInScrollCoordinates.offsetBy(dx: 0, dy: 0.5 * panelRectInWindowCoordinates.height).center
+        scroll(to: scrollPoint, centered: true, animated: animated) {
+            let newY = self.webView.scrollView.contentOffset.y
+            let delta = newY - oldY
+            viewController.backgroundView.clearRect = referenceRectInWindowCoordinates.offsetBy(dx: 0, dy: 0 - delta)
         }
     }
 }
