@@ -65,6 +65,7 @@ platform :ios do
 
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
+    read_xcversion
     xcodebuild(
       project: "Wikipedia.xcodeproj",
       scheme: "Wikipedia",
@@ -87,16 +88,17 @@ platform :ios do
 
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do |options|
-    if options[:beta]
-      xcode_select("/Applications/Xcode-beta.app")
-    else
-      xcode_select("/Applications/Xcode.app")
-    end
     verify({configurations: configurations_to_test_on_pull})
+  end
+
+  desc "Reads Xcode version from the .xcversion file and sets it using xcversion()"
+  lane :read_xcversion do |options|
+    xcversion(version: `cat ../.xcversion`)
   end
 
   desc "Runs unit tests, generates JUnit reports."
   lane :verify do |options|
+    read_xcversion
     reset_simulator_contents
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
@@ -118,6 +120,7 @@ platform :ios do
   
   desc "Records visual tests."
   lane :record_visual_tests do |options|
+    read_xcversion
     clean_out_reference_images
     options[:configurations] ||= configurations_to_test 
     devices_by_scheme = get_devices_by_scheme_from_options(options)
@@ -209,6 +212,8 @@ platform :ios do
     app_see_api_key = ENV['WMF_APP_SEE_API_KEY'] || ''
     version = options[:version] || ''
     number = options[:number] || ''
+    
+    read_xcversion
     
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -allowProvisioningUpdates WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
     sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode

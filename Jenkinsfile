@@ -8,9 +8,6 @@ pipeline {
   }
   stages {
     stage('Test') {
-      environment {
-         IS_BETA = "${env.CHANGE_ID && pullRequest.labels.contains('Beta') ? true : false}"
-      }
       steps {
         sh '''rm -rf build/reports
         export LANG=en_US.UTF-8
@@ -18,7 +15,7 @@ pipeline {
         export LC_ALL=en_US.UTF-8
         eval "$(rbenv init -)"
         bundle install
-        bundle exec fastlane verify_pull_request beta:${IS_BETA}
+        bundle exec fastlane verify_pull_request
         '''
       }
       post {
