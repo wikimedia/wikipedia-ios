@@ -4,8 +4,8 @@
 import Foundation
 
 public class ArticleURLConverter {
-    
-    public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
+
+    public static func desktopURL(host: String, title: String, configuration: Configuration = Configuration.appsLabs, scheme: String? = nil) -> URL? {
         guard let encodedTitle = title.percentEncodedPageTitleForPathComponents else {
             return nil
         }
@@ -18,7 +18,7 @@ public class ArticleURLConverter {
         return components.url
     }
 
-    public static func mobileHTMLURL(desktopURL:  URL, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
+    public static func mobileHTMLURL(desktopURL:  URL, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.appsLabs, scheme: String? = nil) -> URL? {
         
         guard (desktopURL as NSURL).wmf_isWikiResource else {
             return nil
@@ -32,7 +32,7 @@ public class ArticleURLConverter {
         return mobileHTMLURL(siteURL: siteURL, articleTitle: title, endpointType: endpointType, configuration: configuration, scheme: scheme)
     }
 
-    public static func mobileHTMLURL(siteURL: URL, articleTitle: String, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.current, scheme: String? = nil) -> URL? {
+    public static func mobileHTMLURL(siteURL: URL, articleTitle: String, endpointType: ArticleFetcher.EndpointType, configuration: Configuration = Configuration.appsLabs, scheme: String? = nil) -> URL? {
         guard let host = siteURL.host,
             let percentEncodedUrlTitle = articleTitle.percentEncodedPageTitleForPathComponents
         else {
