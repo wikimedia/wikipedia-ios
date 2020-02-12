@@ -33,9 +33,11 @@ public final class CacheControllerWrapper: NSObject {
             }
 
             let imageProvider = ImageCacheProvider(moc: cacheBackgroundContext)
-            let imageDBWriter = ImageCacheDBWriter(cacheBackgroundContext: cacheBackgroundContext)
 
-            self.cacheController = ImageCacheController(fetcher: imageFetcher, dbWriter: imageDBWriter, fileWriter: imageFileWriter, provider: imageProvider)
+            let imageDBWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext)
+            let imageHeaderProvider = ImageCacheHeaderProvider()
+
+            self.cacheController = ImageCacheController(fetcher: imageFetcher, dbWriter: imageDBWriter, fileWriter: imageFileWriter, provider: imageProvider, headerProvider: imageHeaderProvider)
         case .article:
             assertionFailure("Must init from initArticleCacheWithImageCacheControllerWrapper for this type.")
             return nil
@@ -59,8 +61,9 @@ public final class CacheControllerWrapper: NSObject {
         let articleProvider = ArticleCacheProvider(imageController: imageCacheController, moc: cacheBackgroundContext)
         
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController)
+        let headerProvider = ArticleCacheHeaderProvider()
         
-        self.cacheController = ArticleCacheController(fetcher: articleFetcher, dbWriter: articleDBWriter, fileWriter: articleFileWriter, provider: articleProvider)
+        self.cacheController = ArticleCacheController(fetcher: articleFetcher, dbWriter: articleDBWriter, fileWriter: articleFileWriter, provider: articleProvider, headerProvider: headerProvider)
         
         super.init()
     }

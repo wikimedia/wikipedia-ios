@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PersistentCacheGroup" representedClassName="PersistentCacheGroup" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String"/>
         <relationship name="cacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheItem" inverseName="cacheGroups" inverseEntity="PersistentCacheItem"/>
@@ -11,10 +11,9 @@
     <entity name="PersistentCacheItem" representedClassName="PersistentCacheItem" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="etag" optional="YES" attributeType="String"/>
-        <attribute name="fromMigration" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="String"/>
-        <attribute name="variant" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="variant" optional="YES" attributeType="String"/>
         <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheGroup" inverseName="cacheItems" inverseEntity="PersistentCacheGroup"/>
         <relationship name="mustHaveCacheGroups" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PersistentCacheGroup" inverseName="mustHaveCacheItems" inverseEntity="PersistentCacheGroup"/>
         <fetchIndex name="byDateIndex">
@@ -27,6 +26,6 @@
     </entity>
     <elements>
         <element name="PersistentCacheGroup" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="163"/>
+        <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="148"/>
     </elements>
 </model>

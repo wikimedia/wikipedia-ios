@@ -87,12 +87,14 @@ public class CacheController {
     let provider: CacheProviding
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriting
+    let headerProvider: CacheHeaderProviding
     private let gatekeeper = CacheGatekeeper()
     
-    init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
+    init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding, headerProvider: CacheHeaderProviding) {
         self.provider = provider
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
+        self.headerProvider = headerProvider
     }
 
     public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -116,14 +118,8 @@ public class CacheController {
         
         gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
         
-        if let itemKey = itemKey {
-            dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
-                self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
-            }
-        } else {
-            dbWriter.add(url: url, groupKey: groupKey) { [weak self] (result) in
-                self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
-            }
+        dbWriter.add(url: url, groupKey: groupKey) { [weak self] (result) in
+            self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
         }
     }
     
@@ -140,7 +136,7 @@ public class CacheController {
         return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL)
     }
     
-    private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {
+    private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithURLRequests) {
         
         let groupCompleteBlock = { (groupResult: FinalGroupResult) in
             self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
@@ -149,13 +145,18 @@ public class CacheController {
         }
         
         switch result {
-            case .success(let itemKeys):
+            case .success(let urlRequests):
                 
                 var successfulItemKeys: [CacheController.ItemKey] = []
                 var failedItemKeys: [CacheController.ItemKey] = []
                 
                 let group = DispatchGroup()
-                for itemKey in itemKeys {
+                for urlRequest in urlRequests {
+                    
+                     guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey],
+                        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant] else {
+                            continue
+                    }
                     
                     group.enter()
                     

@@ -33,11 +33,11 @@ public final class ArticleCacheController: CacheController {
             return
         }
         
-        articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL, success: { itemKey in
+        articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL, success: { urlRequest in
             
-            articleFileWriter.migrateCachedContent(content: content, itemKey: itemKey, mimeType: mimeType, success: {
+            articleFileWriter.migrateCachedContent(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
                 
-                articleDBWriter.migratedCacheItemFile(itemKey: itemKey, success: {
+                articleDBWriter.migratedCacheItemFile(urlRequest: urlRequest, success: {
                     print("successfully migrated")
                     completionHandler(nil)
 

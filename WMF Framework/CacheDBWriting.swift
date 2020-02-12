@@ -6,6 +6,11 @@ enum SaveResult {
     case failure(Error)
 }
 
+enum CacheDBWritingResultWithURLRequests {
+    case success([URLRequest])
+    case failure(Error)
+}
+
 enum CacheDBWritingResultWithItemKeys {
     case success([CacheController.ItemKey])
     case failure(Error)
@@ -29,15 +34,15 @@ enum CacheDBWritingRemoveError: Error {
 
 protocol CacheDBWriting: CacheTaskTracking {
     
-    typealias CacheDBWritingCompletion = (CacheDBWritingResultWithItemKeys) -> Void
+    typealias CacheDBWritingCompletionWithURLRequests = (CacheDBWritingResultWithURLRequests) -> Void
+    typealias CacheDBWritingCompletionWithItemKeys = (CacheDBWritingResultWithItemKeys) -> Void
     
-    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletion)
-    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping CacheDBWritingCompletion)
+    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
 
     //default implementations
     func remove(itemKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
     func remove(groupKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
-    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void)
+    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemKeys)
     func markDownloaded(itemKey: CacheController.ItemKey, etag: String?, completion: @escaping (CacheDBWritingResult) -> Void)
 }
 
@@ -69,7 +74,7 @@ extension CacheDBWriting {
         }
     }
     
-    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
+    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemKeys) {
         guard let context = CacheController.backgroundCacheContext else {
             completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
             return

@@ -29,7 +29,7 @@ final class ArticleCacheProvider: CacheProviding {
         }
         
         // Use the cache key to check for the response
-        guard let itemKey = request.value(forHTTPHeaderField: Session.Header.persistentCacheKey) else {
+        guard let itemKey = request.value(forHTTPHeaderField: Session.Header.persistentCacheItemKey) else {
             return nil
         }
         
@@ -42,7 +42,7 @@ final class ArticleCacheProvider: CacheProviding {
             return imageController.newCachePolicyRequest(from: originalRequest, newURL: newURL)
         }
         
-        let itemKey = originalRequest.value(forHTTPHeaderField: Session.Header.persistentCacheKey) ?? newURL.wmf_databaseKey
+        let itemKey = originalRequest.value(forHTTPHeaderField: Session.Header.persistentCacheItemKey) ?? newURL.wmf_databaseKey
         return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
     }
     

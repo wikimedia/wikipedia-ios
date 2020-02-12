@@ -2,8 +2,10 @@ import Foundation
 
 @objc(WMFSession) public class Session: NSObject {
     public struct Header {
-        public static let persistentCacheKey = "Persistent-Cache-Key"
-        public static let persistentCacheVariant = "Persistent-Cache-Variant"
+        public static let persistentCacheItemKey = "Persistent-Cache-Item-Key"
+        public static let persistentCacheItemVariant = "Persistent-Cache-Item-Variant"
+        public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
+        public static let persistentCacheForceCache = "Persistent-Cache-Force-Cache"
     }
     public struct Request {
         public enum Method {
@@ -215,6 +217,11 @@ import Foundation
         return task
     }
     
+    public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        let task = defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
+        return task
+    }
+    
     //tonitodo: utlilize Callback & addCallback/session delegate stuff instead of completionHandler
     public func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         return defaultURLSession.downloadTask(with: url, completionHandler: completionHandler)
@@ -351,6 +358,34 @@ import Foundation
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
+        task.resume()
+        return task
+    }
+    
+    @discardableResult public func jsonDecodableTask<T: Decodable>(with urlRequest: URLRequest, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+        
+        guard let task = dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+            self.handleResponse(response)
+            guard let data = data else {
+                completionHandler(nil, response, error)
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                completionHandler(nil, response, nil)
+                return
+            }
+            do {
+                let result: T = try self.jsonDecodeData(data: data)
+                completionHandler(result, response, error)
+            } catch let resultParsingError {
+                DDLogError("Error parsing codable response: \(resultParsingError)")
+                completionHandler(nil, response, resultParsingError)
+            }
+        }) else {
+            completionHandler(nil, nil, RequestError.invalidParameters)
+            return nil
+        }
+        
         task.resume()
         return task
     }

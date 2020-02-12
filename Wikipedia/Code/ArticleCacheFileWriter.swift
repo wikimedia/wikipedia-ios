@@ -4,6 +4,7 @@ import Foundation
 enum ArticleCacheFileWriterError: Error {
     case failureToGenerateURLFromItemKey
     case missingTemporaryFileURL
+    case missingExpectedItemsOutOfRequestHeader
 }
 
 final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
@@ -74,7 +75,13 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
 
 extension ArticleCacheFileWriter {
     
-    func migrateCachedContent(content: String, itemKey: CacheController.ItemKey, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func migrateCachedContent(content: String, urlRequest: URLRequest, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        
+        guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey],
+            let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant] else {
+                failure(ArticleCacheDBWriterError.missingExpectedItemsOutOfRequestHeader)
+                return
+        }
 
         //key will be desktop articleURL.wmf_databaseKey format
         CacheFileWriterHelper.saveContent(content, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
