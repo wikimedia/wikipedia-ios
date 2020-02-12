@@ -18,7 +18,7 @@ class ArticleCacheHeaderProvider: CacheHeaderProviding {
             header[Session.Header.persistentCacheItemVariant] = variant
         }
         
-        //tonitodo: here we can pull previously saved URLResponse header and populate things like If-None-Match (etag) and Accept-Language.
+        //tonitodo: here we can pull previously saved URLResponse header and populate things like If-None-Match (etag) and Accept-Language (vary).
         
         //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
         header["Accept"] = "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\""

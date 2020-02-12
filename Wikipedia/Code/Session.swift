@@ -212,6 +212,8 @@ import Foundation
     }
     
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask {
+        
+        //tonitodo: may try a wrapper method here of some sort for SchemeHandler, if request header forceCache is true, return from cache and avoid urlsession task resume altogether. else kickoff the session task.
         let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task
@@ -467,6 +469,10 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        
+        //tonitodo: if response is not modified (304) and urlRequest header indicates there's a persistentCacheItemKey associated, pull from cache (try URLCache first, then PersistentCache) here and callback with that data.
+        //if cached data not there, check header Persistent-Cache-Fallback-Type. if image use variant image fallback logic and return that cached response. otherwise use standard fallback logic which is look up any other item response with the same item key but different variant.
+
         defer {
             completionHandler(.allow)
         }
@@ -477,6 +483,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        
         guard let callback = callbacks[dataTask.taskIdentifier]?.data else {
             return
         }
@@ -484,6 +491,9 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        
+        //tonitodo: if error and urlRequest header indicates there's a persistentCacheItemKey associated, pull from cache (try URLCache first, then PersistentCache) here and callback with that data.
+        //if cached data not there, check header Persistent-Cache-Fallback-Type. if image use variant image fallback logic and return that cached response. otherwise use standard fallback logic which is look up any other item response with the same item key but different variant.
         guard let callback = callbacks[task.taskIdentifier] else {
             return
         }

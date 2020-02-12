@@ -130,10 +130,6 @@ public class CacheController {
         return provider.cachedURLResponse(for: request)
     }
     
-    public func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
-        return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL)
-    }
-    
     private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithURLRequests) {
         
         let groupCompleteBlock = { (groupResult: FinalGroupResult) in
@@ -168,6 +164,9 @@ public class CacheController {
                     
                     gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
                     
+                    //tonitodo: now that we have urlRequests fileWriter should be able to be simplified. I don't see the need for a separate image file writer and article file writer. FileWriter simply takes the urlRequest, fetches via a fetcher, saves response and response header in file system under a itemKey__variant unique file name. Header is to be referenced when constructing the urlRequest in ArticleCacheHeaderProvider requestHeader method (etag becomes If-None-Match, vary becomes Accept-Languages, etc).
+                    //etag will no longer be in PersistentCacheItem and will instead live in the saved response header file.
+                    
                     fileWriter.add(groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
                         
                         guard let self = self else {
@@ -177,6 +176,7 @@ public class CacheController {
                         switch result {
                         case .success(let etag):
                             
+                            //tonitodo: etag will go away here
                             self.dbWriter.markDownloaded(itemKey: itemKey, etag: etag) { (result) in
                                 
                                 defer {

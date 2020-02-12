@@ -36,16 +36,6 @@ final class ArticleCacheProvider: CacheProviding {
         return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey)
     }
     
-    func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
-        
-        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
-            return imageController.newCachePolicyRequest(from: originalRequest, newURL: newURL)
-        }
-        
-        let itemKey = originalRequest.value(forHTTPHeaderField: Session.Header.persistentCacheItemKey) ?? newURL.wmf_databaseKey
-        return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
-    }
-    
     private func isMimeTypeImage(type: String) -> Bool {
         return type.hasPrefix("image")
     }

@@ -20,9 +20,6 @@ final class SchemeHandler: NSObject {
     
     private let cacheQueue: OperationQueue = OperationQueue()
     
-    private let notModifiedQueue = DispatchQueue(label: "org.wikimedia.schemeHandler.notModified")
-    private var notModifiedRequests = Set<URLRequest>()
-    
     var cacheController: CacheController?
     
     @objc public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
@@ -118,8 +115,8 @@ private extension SchemeHandler {
     
     func kickOffDataTask(request: URLRequest, urlSchemeTask: WKURLSchemeTask) {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-            return
-        }
+             return
+         }
         
         // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by the callback blocks.
         // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
@@ -128,25 +125,14 @@ private extension SchemeHandler {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
-
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode != 200 {
-                        if httpResponse.statusCode == 304 {
-                            urlSchemeTask.didReceive(response)
-                            self.addNotModifiedRequest(request: request)
-                        } else {
-                            let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
-                            urlSchemeTask.didFailWithError(error)
-                            self.removeSessionTask(request: urlSchemeTask.request)
-                            self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                        }
-                    } else {
-                        urlSchemeTask.didReceive(response)
-                    }
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
+                    self.removeSessionTask(request: urlSchemeTask.request)
+                    urlSchemeTask.didFailWithError(error)
+                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 } else {
                     urlSchemeTask.didReceive(response)
                 }
@@ -164,21 +150,12 @@ private extension SchemeHandler {
             }
         }, success: { [weak urlSchemeTask] in
             DispatchQueue.main.async {
-            
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                
-                if self.isNotModified(request: request) {
-                    if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                        urlSchemeTask.didReceive(cachedResponse.data)
-                    }
-                    self.removeNotModifiedRequest(request: request)
-                }
-                
                 urlSchemeTask.didFinish()
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
@@ -192,18 +169,8 @@ private extension SchemeHandler {
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                    
-                if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                
-                    urlSchemeTask.didReceive(cachedResponse.response)
-                    urlSchemeTask.didReceive(cachedResponse.data)
-                    
-                    urlSchemeTask.didFinish()
-                } else {
-                    urlSchemeTask.didFailWithError(error)
-                }
-            
                 self.removeSessionTask(request: urlSchemeTask.request)
+                urlSchemeTask.didFailWithError(error)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
             }
         }
@@ -236,34 +203,5 @@ private extension SchemeHandler {
     func addSessionTask(request: URLRequest, dataTask: URLSessionTask) {
         assert(Thread.isMainThread)
         activeSessionTasks[request] = dataTask
-    }
-    
-    func addNotModifiedRequest(request: URLRequest) {
-        notModifiedQueue.async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            self.notModifiedRequests.insert(request)
-        }
-    }
-    
-    func removeNotModifiedRequest(request: URLRequest) {
-        notModifiedQueue.async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            self.notModifiedRequests.remove(request)
-        }
-    }
-    
-    func isNotModified(request: URLRequest) -> Bool {
-        notModifiedQueue.sync {
-            
-            return notModifiedRequests.contains(request)
-        }
     }
 }

@@ -23,11 +23,4 @@ final class ImageCacheProvider: CacheProviding {
         
         return CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey)
     }
-    
-    func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
-        
-        let itemKey = newURL.wmf_databaseKey
-            
-        return CacheProviderHelper.newCachePolicyRequest(from: originalRequest, newURL: newURL, itemKey: itemKey, moc: moc)
-    }
 }

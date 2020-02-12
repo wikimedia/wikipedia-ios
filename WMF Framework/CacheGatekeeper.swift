@@ -17,6 +17,7 @@ final class CacheGatekeeper {
     private var currentlyAdding: [CacheController.GroupKey] = []
     private var currentlyRemoving: [CacheController.GroupKey] = []
     
+    //tonitodo: since itemkeys are no longer unique, will need to change this to use itemKey__variant unique combo. This is so deduping logic still works (otherwise if you cache 2 different variants at the same time, weirdness will happen)
     func numberOfQueuedGroupCompletions(for groupKey: CacheController.GroupKey) -> Int {
         
         queue.sync {
