@@ -799,27 +799,6 @@ static uint64_t bundleHash() {
     return dict[@"entries"];
 }
 
-- (NSArray<NSURL *> *)cacheRemovalListFromDisk {
-    NSString *path = self.basePath;
-    NSString *filePath = [path stringByAppendingPathComponent:@"TitlesToRemove.plist"];
-    NSArray *URLStrings = [NSArray arrayWithContentsOfFile:filePath];
-    NSArray<NSURL *> *urls = [URLStrings wmf_mapAndRejectNil:^NSURL *(id obj) {
-        if (obj && [obj isKindOfClass:[NSString class]]) {
-            return [NSURL URLWithString:obj];
-        } else {
-            return nil;
-        }
-    }];
-    return urls;
-}
-
-- (BOOL)saveCacheRemovalListToDisk:(NSArray<NSURL *> *)cacheRemovalList error:(NSError **)error {
-    NSArray *URLStrings = [cacheRemovalList wmf_map:^id(NSURL *obj) {
-        return [obj absoluteString];
-    }];
-    return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
-}
-
 #pragma mark - helper methods
 
 - (NSInteger)sitesDirectorySize {

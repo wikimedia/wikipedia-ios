@@ -978,12 +978,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
-
-    [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
-    if (housekeepingError) {
-        DDLogError(@"Error on remove from disk fetch: %@", housekeepingError);
-    }
-
+    
     [self endHousekeepingBackgroundTask];
 }
 

@@ -88,4 +88,13 @@ extension MWKDataStore {
             }
         }
     }
+    
+    func removeAllLegacyArticleData() {
+        let fileURL = URL(fileURLWithPath: basePath)
+        let titlesToRemoveFileURL = fileURL.appendingPathComponent("TitlesToRemove.plist")
+        let sitesFolderURL = fileURL.appendingPathComponent("sites")
+        let fm = FileManager.default
+        try? fm.removeItem(at: titlesToRemoveFileURL)
+        try? fm.removeItem(at: sitesFolderURL)
+    }
 }

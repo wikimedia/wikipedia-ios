@@ -13,7 +13,6 @@
 @dynamic imageHeight;
 @dynamic imageURLString;
 @dynamic imageWidth;
-@dynamic isCached;
 @dynamic isDownloaded;
 @dynamic isConversionFromMobileViewNeeded;
 @dynamic isExcludedFromFeed;
