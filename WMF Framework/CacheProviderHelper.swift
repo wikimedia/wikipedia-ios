@@ -24,8 +24,8 @@ final class CacheProviderHelper {
         
         if etag == nil,
             let itemKey = itemKey {
-            if let item = CacheDBWriterHelper.cacheItem(with: itemKey, in: moc) {
-                moc.performAndWait {
+            moc.performAndWait {
+                if let item = CacheDBWriterHelper.cacheItem(with: itemKey, in: moc) {
                     if let itemEtag = item.etag {
                         etag = itemEtag
                     }
