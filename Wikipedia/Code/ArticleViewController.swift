@@ -38,12 +38,9 @@ class ArticleViewController: ViewController {
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-    
-    #if WMF_APPS_LABS_MOBILE_HTML
-    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: Session.shared, configuration: Configuration.appsLabs)
-    #else
+
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
-    #endif
+
     private var leadImageHeight: CGFloat = 210
     private var contentSizeObservation: NSKeyValueObservation? = nil
     lazy var refreshControl: UIRefreshControl = {
