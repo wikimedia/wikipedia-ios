@@ -8,8 +8,12 @@ final class SavedArticlesFetcher: NSObject {
     @objc static let saveToDiskDidFail = NSNotification.Name("SaveToDiskDidFail")
     @objc static let saveToDiskDidFailErrorKey = "error"
     
-    @objc var progress: Progress?
-    var fetchesInProcessCount: NSNumber = 0
+    @objc var progress: Progress = Progress()
+    private var countOfFetchesInProcess: Int64 = 0 {
+        didSet {
+            updateProgress(with: countOfFetchesInProcess, oldValue: oldValue)
+        }
+    }
     
     private let dataStore: MWKDataStore
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
@@ -34,7 +38,9 @@ final class SavedArticlesFetcher: NSObject {
         spotlightManager = WMFSavedPageSpotlightManager(dataStore: dataStore)
         
         super.init()
-        updateFetchesInProcessCount()
+        
+        resetProgress()
+        updateCountOfFetchesInProcess()
     }
     
     @objc func start() {
@@ -49,14 +55,38 @@ final class SavedArticlesFetcher: NSObject {
 }
 
 private extension SavedArticlesFetcher {
-    func updateFetchesInProcessCount() {
-        if let count = calculateTotalArticlesToFetchCount() {
-            fetchesInProcessCount = NSNumber(value: count)
+    func updateCountOfFetchesInProcess() {
+        guard let count = calculateCountOfArticlesToFetch() else {
+            return
         }
-        
+        countOfFetchesInProcess = count
     }
     
-    func calculateTotalArticlesToFetchCount() -> UInt? {
+    func updateProgress(with newValue: Int64, oldValue: Int64) {
+        // Advance totalUnitCount if new units were added
+        let deltaValue = newValue - oldValue
+        let wereNewUnitsAdded = deltaValue > 0
+        if wereNewUnitsAdded {
+            progress.totalUnitCount = progress.totalUnitCount + deltaValue
+        }
+        
+        // Update completedUnitCount
+        let unitsRemaining = progress.totalUnitCount - newValue
+        progress.completedUnitCount = unitsRemaining
+        
+        // Reset on finish
+        let wereAllUnitsCompleted = newValue == 0 && oldValue > 0
+        if wereAllUnitsCompleted {
+            // "NSProgress objects cannot be reused. Once they’re done, they’re done. Once they’re cancelled, they’re cancelled. If you need to reuse an NSProgress, instead make a new instance and provide a mechanism so the client of your progress knows that the object has been replaced, like a notification." ( Source: https://developer.apple.com/videos/play/wwdc2015/232/ by way of https://stinkykitten.com/index.php/2017/08/13/nsprogress/ )
+            resetProgress()
+        }
+    }
+    
+    func resetProgress() {
+        progress = Progress.discreteProgress(totalUnitCount: -1)
+    }
+    
+    func calculateCountOfArticlesToFetch() -> Int64? {
         assert(Thread.isMainThread)
         
         let moc = dataStore.viewContext
@@ -66,7 +96,7 @@ private extension SavedArticlesFetcher {
         
         do {
             let count = try moc.count(for: request)
-            return (count >= 0) ? UInt(count) : nil
+            return (count >= 0) ? Int64(count) : nil
         } catch(let error) {
             DDLogError("Error counting number of article to be downloaded: \(error)")
             return nil
@@ -105,7 +135,7 @@ private extension SavedArticlesFetcher {
     
     @objc func _update() {
         if isUpdating || !isRunning {
-            updateFetchesInProcessCount()
+            updateCountOfFetchesInProcess()
             return
         }
         
@@ -165,10 +195,10 @@ private extension SavedArticlesFetcher {
                         print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
                         self.didFetchArticle(with: articleKey)
                         self.spotlightManager.addToIndex(url: articleURL as NSURL)
-                        self.updateFetchesInProcessCount()
+                        self.updateCountOfFetchesInProcess()
                     case .failure(let error):
                         print("🥶failure in groupCompletion of \(articleKey): \(error)")
-                        self.updateFetchesInProcessCount()
+                        self.updateCountOfFetchesInProcess()
                         self.didFailToFetchArticle(with: articleKey, error: error)
                     }
                     updateAgain()
@@ -189,7 +219,7 @@ private extension SavedArticlesFetcher {
             
             let noArticleToDeleteCompletion = {
                 self.isUpdating = false
-                self.updateFetchesInProcessCount()
+                self.updateCountOfFetchesInProcess()
                 endBackgroundTask()
             }
             
@@ -213,7 +243,7 @@ private extension SavedArticlesFetcher {
                         case .success:
                             print("🙈success in groupCompletion of \(articleKey)")
                             self.didRemoveArticle(with: articleKey)
-                            self.updateFetchesInProcessCount()
+                            self.updateCountOfFetchesInProcess()
                         case .failure:
                             print("🙈failure in groupCompletion of \(articleKey)")
                             break
