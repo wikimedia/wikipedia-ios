@@ -1436,7 +1436,6 @@
 		B09705B5236B29D7006FDB5C /* DiffThanker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09705B3236B29D7006FDB5C /* DiffThanker.swift */; };
 		B09705B6236B29D7006FDB5C /* DiffThanker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09705B3236B29D7006FDB5C /* DiffThanker.swift */; };
 		B09705B7236B29D7006FDB5C /* DiffThanker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09705B3236B29D7006FDB5C /* DiffThanker.swift */; };
-		B09AD9CB1FE071F60034DA09 /* WMFArticleElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AD9C91FE071E90034DA09 /* WMFArticleElementTests.swift */; };
 		B09B03EB1CE0FB2600009083 /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */; };
 		B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */; };
@@ -3729,7 +3728,6 @@
 		B08E7E991C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFEmptyView.h"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.h"; sourceTree = SOURCE_ROOT; };
 		B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFEmptyView.m"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.m"; sourceTree = SOURCE_ROOT; };
 		B09705B3236B29D7006FDB5C /* DiffThanker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiffThanker.swift; sourceTree = "<group>"; };
-		B09AD9C91FE071E90034DA09 /* WMFArticleElementTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFArticleElementTests.swift; sourceTree = "<group>"; };
 		B09B03E91CE0FB2600009083 /* WMFPageHistoryRevision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageHistoryRevision.h; path = Wikipedia/Code/WMFPageHistoryRevision.h; sourceTree = SOURCE_ROOT; };
 		B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageHistoryRevision.m; path = Wikipedia/Code/WMFPageHistoryRevision.m; sourceTree = SOURCE_ROOT; };
 		B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageHistorySection.swift; path = Wikipedia/Code/PageHistorySection.swift; sourceTree = SOURCE_ROOT; };
@@ -3739,7 +3737,6 @@
 		B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFStoryboardUtilities.swift"; path = "Wikipedia/Code/UIViewController+WMFStoryboardUtilities.swift"; sourceTree = SOURCE_ROOT; };
 		B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFWelcomeStoryboard.swift"; path = "Wikipedia/Code/UIViewController+WMFWelcomeStoryboard.swift"; sourceTree = SOURCE_ROOT; };
 		B09BE6A01FB3DA45007F52E3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFArticleSectionLoadingJSPerformanceTests.swift; sourceTree = "<group>"; };
 		B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKWebView+EditSelectionJavascript.swift"; sourceTree = "<group>"; };
 		B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryDescriptionTextView.swift; sourceTree = "<group>"; };
 		B0B0CAD71D2345CB009CE8ED /* WMFImageTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTagList.h; path = Wikipedia/Code/WMFImageTagList.h; sourceTree = SOURCE_ROOT; };
@@ -7372,8 +7369,6 @@
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
-				B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */,
-				B09AD9C91FE071E90034DA09 /* WMFArticleElementTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 				670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */,
 				D8B9DB022271E4A300B51F14 /* SecurityTests.swift */,
@@ -9887,7 +9882,6 @@
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */,
 				8330533323F0388E00123141 /* DataStoreTests.swift in Sources */,
-				B09AD9CB1FE071F60034DA09 /* WMFArticleElementTests.swift in Sources */,
 				B0E8088F1C0D16140065EBC0 /* WMFAsyncTestCase.m in Sources */,
 				B0E8087D1C0D15760065EBC0 /* WMFRandomFileUtilities.m in Sources */,
 				BC90DE791C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m in Sources */,
