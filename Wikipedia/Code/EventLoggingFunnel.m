@@ -124,10 +124,10 @@ EventLoggingLabel const EventLoggingLabelPictureOfTheDay = @"picture_of_the_day"
  *  @return integer sampling id
  */
 - (NSInteger)getEventLogSamplingID {
-    NSNumber *samplingId = [[NSUserDefaults wmf] objectForKey:@"EventLogSamplingID"];
+    NSNumber *samplingId = [[NSUserDefaults standardUserDefaults] objectForKey:@"EventLogSamplingID"];
     if (!samplingId) {
         NSInteger intId = arc4random_uniform(UINT32_MAX);
-        [[NSUserDefaults wmf] setInteger:intId forKey:@"EventLogSamplingID"];
+        [[NSUserDefaults standardUserDefaults] setInteger:intId forKey:@"EventLogSamplingID"];
         return intId;
     } else {
         return samplingId.integerValue;

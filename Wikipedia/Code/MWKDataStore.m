@@ -13,7 +13,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 9;
+static const NSInteger WMFCurrentLibraryVersion = 10;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -433,7 +433,7 @@ static uint64_t bundleHash() {
     }
 
     if (currentLibraryVersion < 8) {
-        NSUserDefaults *ud = [NSUserDefaults wmf];
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
         [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
         [ud synchronize];
@@ -447,6 +447,15 @@ static uint64_t bundleHash() {
     if (currentLibraryVersion < 9) {
         [self markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:moc];
         [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 10) {
+        [self migrateToStandardUserDefaults];
+        [moc wmf_setValue:@(10) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
@@ -525,6 +534,21 @@ static uint64_t bundleHash() {
             DDLogError(@"Error fetching downloaded articles: %@", fetchError);
             return;
         }
+    }
+}
+
+- (void)migrateToStandardUserDefaults {
+    NSUserDefaults *wmfDefaults = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
+    if (!wmfDefaults) {
+        return;
+    }
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary<NSString *, id> *wmfDefaultsDictionary = [wmfDefaults dictionaryRepresentation];
+    NSArray *keys = [wmfDefaultsDictionary allKeys];
+    for (NSString *key in keys) {
+        id value = [wmfDefaultsDictionary objectForKey:key];
+        [userDefaults setObject:value forKey:key];
+        [wmfDefaults removeObjectForKey:value];
     }
 }
 
