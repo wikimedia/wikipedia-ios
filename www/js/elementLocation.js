@@ -6,23 +6,32 @@ class SectionFilter {
   }
 }
 
-exports.getFirstOnScreenSectionId = insetTop => {
+exports.getFirstOnScreenSection = insetTop => {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, new SectionFilter())
   let node
-  let sectionId = -1
+  let id = -1
+  let anchor = ''
   while (node = walker.nextNode()) {
     const rect = node.getBoundingClientRect()
-    if (rect.top <= insetTop + 1) {
-      const sectionIdString = node.getAttribute('data-mw-section-id')
-      if (!sectionIdString) {
+    if (rect.top > insetTop + 1) {
+      continue
+    }
+    const sectionIdString = node.getAttribute('data-mw-section-id')
+    if (!sectionIdString) {
+      continue
+    }
+    id = parseInt(sectionIdString)
+    const sectionWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT)
+    while (node = sectionWalker.nextNode()) {
+      if (!node.id) {
         continue
       }
-      sectionId = parseInt(sectionIdString)
-    } else if (sectionId !== -1) {
+      anchor = node.id
       break
     }
+    break
   }
-  return sectionId
+  return {id, anchor}
 }
 
 exports.getImageWithSrc = src => document.querySelector(`img[src$="${src}"]`)

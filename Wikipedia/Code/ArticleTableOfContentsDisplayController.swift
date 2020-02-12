@@ -4,7 +4,7 @@
 
 protocol ArticleTableOfContentsDisplayControllerDelegate : TableOfContentsViewControllerDelegate {
     func tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
-    func getVisibleSectionId(with: @escaping (Int) -> Void)
+    func getVisibleSection(with: @escaping (Int, String) -> Void)
 }
 
 class ArticleTableOfContentsDisplayController: Themeable {
@@ -96,7 +96,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
         guard delegate?.presentedViewController == nil else {
             return
         }
-        delegate?.getVisibleSectionId(with: { (sectionId) in
+        delegate?.getVisibleSection(with: { (sectionId, _) in
             self.viewController.isVisible = true
             self.selectAndScroll(to: sectionId, animated: false)
             self.delegate?.present(self.viewController, animated: animated)

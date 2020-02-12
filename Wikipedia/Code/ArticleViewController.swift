@@ -21,8 +21,12 @@ class ArticleViewController: ViewController {
     /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
     @objc public let articleURL: URL
     let articleLanguage: String
-
-    public var visibleSectionAnchor: String? // TODO: Implement
+    
+    /// Set by the state restoration system
+    /// Scroll to the last viewed scroll position in this case
+    var isRestoringState: Bool = false
+    
+    /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
     
     internal let schemeHandler: SchemeHandler
@@ -32,8 +36,12 @@ class ArticleViewController: ViewController {
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
+    
+    #if WMF_APPS_LABS_MOBILE_HTML
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: Session.shared, configuration: Configuration.appsLabs)
+    #else
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
-
+    #endif
     private var leadImageHeight: CGFloat = 210
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
@@ -314,7 +322,7 @@ class ArticleViewController: ViewController {
     
     func updateTableOfContentsHighlight() {
         previousContentOffsetYForTOCUpdate = webView.scrollView.contentOffset.y
-        getVisibleSectionId { (sectionId) in
+        getVisibleSection { (sectionId, _) in
             self.tableOfContentsController.selectAndScroll(to: sectionId, animated: true)
         }
     }
@@ -449,6 +457,9 @@ class ArticleViewController: ViewController {
     }
     
     func loadPage() {
+        defer {
+            callLoadCompletionIfNecessary()
+        }
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
@@ -462,6 +473,7 @@ class ArticleViewController: ViewController {
         footerLoadGroup?.enter() // will leave on setup complete
         footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
             self?.setupFooter()
+            self?.restoreStateIfNecessary()
             self?.footerLoadGroup = nil
         }
         
@@ -491,16 +503,31 @@ class ArticleViewController: ViewController {
     }
     
     func saveArticleScrollPosition() {
-        getVisibleSectionId { (sectionId) in
-            guard let item = self.tableOfContentsItems.first(where: { $0.id == sectionId }) else {
-                return
-            }
+        getVisibleSection { (sectionId, anchor) in
             assert(Thread.isMainThread)
             self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
-            self.article.viewedFragment = item.anchor
+            self.article.viewedFragment = anchor
             try? self.article.managedObjectContext?.save()
 
         }
+    }
+    
+    func restoreStateIfNecessary() {
+        guard isRestoringState else {
+            return
+        }
+        isRestoringState = false
+        let scrollPosition = CGFloat(article.viewedScrollPosition)
+        if scrollPosition > 0 && scrollPosition < webView.scrollView.bottomOffsetY {
+            scroll(to: CGPoint(x: 0, y: scrollPosition), animated: false)
+        } else if let anchor = article.viewedFragment {
+            scroll(to: anchor, animated: false)
+        }
+    }
+    
+    func callLoadCompletionIfNecessary() {
+        loadCompletion?()
+        loadCompletion = nil
     }
     
     // MARK: Analytics

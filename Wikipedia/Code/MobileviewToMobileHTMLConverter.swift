@@ -74,7 +74,12 @@ extension MobileviewToMobileHTMLConverter {
             return
         }
 
-        let mobileAppsComponents = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [])
+        #if WMF_APPS_LABS_MOBILE_HTML
+        let configuration = Configuration.appsLabs
+        #else
+        let configuratiojn = Configuration.current
+        #endif
+        let mobileAppsComponents = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [])
         guard let baseURI = mobileAppsComponents.url?.absoluteString else {
             if let completionHandler = completionHandler {
                 completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileAppsHost)
