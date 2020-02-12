@@ -25,6 +25,8 @@ class ArticleViewController: ViewController {
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
     var isRestoringState: Bool = false
+    /// Set internally to wait for content size changes to chill before restoring the scroll offset
+    var isRestoringStateOnNextContentSizeChange: Bool = false
     
     /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
@@ -43,7 +45,8 @@ class ArticleViewController: ViewController {
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
     #endif
     private var leadImageHeight: CGFloat = 210
-    
+    private var contentSizeObservation: NSKeyValueObservation? = nil
+
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
@@ -67,6 +70,7 @@ class ArticleViewController: ViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        contentSizeObservation?.invalidate()
     }
     
     // MARK: WebView
@@ -473,7 +477,6 @@ class ArticleViewController: ViewController {
         footerLoadGroup?.enter() // will leave on setup complete
         footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
             self?.setupFooter()
-            self?.restoreStateIfNecessary()
             self?.footerLoadGroup = nil
         }
         
@@ -517,6 +520,24 @@ class ArticleViewController: ViewController {
             return
         }
         isRestoringState = false
+        isRestoringStateOnNextContentSizeChange = true
+        perform(#selector(restoreState), with: nil, afterDelay: 0.5) // failsafe, attempt to restore state after half a second regardless
+    }
+    
+    func restoreStateIfNecessaryOnContentSizeChange() {
+        guard isRestoringStateOnNextContentSizeChange else {
+            return
+        }
+        let scrollPosition = CGFloat(article.viewedScrollPosition)
+        guard scrollPosition < webView.scrollView.bottomOffsetY else {
+            return
+        }
+        isRestoringStateOnNextContentSizeChange = false
+        restoreState()
+    }
+    
+    @objc func restoreState() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restoreState), object: nil)
         let scrollPosition = CGFloat(article.viewedScrollPosition)
         if scrollPosition > 0 && scrollPosition < webView.scrollView.bottomOffsetY {
             scroll(to: CGPoint(x: 0, y: scrollPosition), animated: false)
@@ -549,6 +570,20 @@ private extension ArticleViewController {
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
+            self?.contentSizeDidChange()
+        }
+    }
+    
+    func contentSizeDidChange() {
+        tableOfContentsController.restoreOffsetPercentageIfNecessary()
+        // debounce
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedContentSizeDidChange), object: nil)
+        perform(#selector(debouncedContentSizeDidChange), with: nil, afterDelay: 0.1)
+    }
+    
+    @objc func debouncedContentSizeDidChange() {
+        restoreStateIfNecessaryOnContentSizeChange()
     }
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {

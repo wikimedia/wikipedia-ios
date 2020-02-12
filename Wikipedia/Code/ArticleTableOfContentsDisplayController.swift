@@ -17,8 +17,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
     
     var theme: Theme = .standard
     let articleView: WKWebView
-    var articleViewContentSizeObservation: NSKeyValueObservation? = nil
-    
+
     func apply(theme: Theme) {
         self.theme = theme
         separatorView.backgroundColor = theme.colors.baseBackground
@@ -41,13 +40,6 @@ class ArticleTableOfContentsDisplayController: Themeable {
         stackView.addArrangedSubview(separatorView)
         stackView.addArrangedSubview(articleView)
         NSLayoutConstraint.activate([separatorWidthConstraint])
-        articleViewContentSizeObservation = self.articleView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
-            self?.restoreOffsetPercentageIfNecessary()
-        }
-    }
-    
-    deinit {
-        articleViewContentSizeObservation?.invalidate()
     }
 
     lazy var stackView: UIStackView = {
