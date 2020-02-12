@@ -60,6 +60,9 @@ bundle install
 
 Verify fastlane was installed by running `bundle exec fastlane lanes` and verifying it shows a list of lanes defined by this project.
 
+## Xcode version
+You can set the Xcode version used by fastlane by editing the `.xcversion` file in the root directory of the repo. This is helpful when a branch uses a new Xcode beta and you'd like to be able to utilize different Xcode versions for building each branch.
+
 ## Tests
 Tests are run on [Jenkins](https://jenkins.io) on the `appsci` server in response to pull requests. You can run the same tests that are run on a pr locally by running `bundle exec fastlane verify_pull_request`.
 
