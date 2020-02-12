@@ -77,7 +77,7 @@ extension MobileviewToMobileHTMLConverter {
         #if WMF_APPS_LABS_MOBILE_HTML
         let configuration = Configuration.appsLabs
         #else
-        let configuratiojn = Configuration.current
+        let configuration = Configuration.current
         #endif
         let mobileAppsComponents = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [])
         guard let baseURI = mobileAppsComponents.url?.absoluteString else {
