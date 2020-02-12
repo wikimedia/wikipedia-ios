@@ -35,6 +35,7 @@ class ArticleViewController: ViewController {
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
 
     private var leadImageHeight: CGFloat = 210
+    internal var forceCache: Bool = false
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
@@ -50,7 +51,7 @@ class ArticleViewController: ViewController {
 
         self.dataStore = dataStore
         self.schemeHandler = SchemeHandler.shared // TODO: DI?
-        self.schemeHandler.forceCache = forceCache
+        self.forceCache = forceCache
         self.schemeHandler.cacheController = cacheController
         self.cacheController = cacheController
         
@@ -447,7 +448,7 @@ class ArticleViewController: ViewController {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: forceCache, scheme: schemeHandler.scheme) else {
             showGenericError()
             state = .error
             return

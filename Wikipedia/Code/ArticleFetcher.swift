@@ -11,16 +11,7 @@ enum ArticleFetcherError: Error {
 @objc(WMFArticleFetcher)
 final public class ArticleFetcher: Fetcher {
     
-    private let cacheHeaderProvider: CacheHeaderProviding
-
-    init(session: Session = Session.shared, configuration: Configuration = Configuration.current, cacheController: CacheController) {
-        self.cacheHeaderProvider = cacheController.headerProvider
-        super.init(session: session, configuration: configuration)
-    }
-    
-    @objc required public init(session: Session, configuration: Configuration) {
-        fatalError("init(session:configuration:) has not been implemented")
-    }
+    private let cacheHeaderProvider: CacheHeaderProviding = ArticleCacheHeaderProvider()
     
     public enum EndpointType: String {
         case summary
@@ -138,14 +129,21 @@ final public class ArticleFetcher: Fetcher {
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
+    public func mobileHTMLRequest(articleURL: URL, forceCache: Bool = false, scheme: String? = nil) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
+            var mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }
+        
+        if let scheme = scheme {
+            var urlComponents = URLComponents(url: mobileHTMLURL, resolvingAgainstBaseURL: false)
+            urlComponents?.scheme = scheme
+            mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
+        }
+        
         var request = URLRequest(url: mobileHTMLURL)
         let header = cacheHeaderProvider.requestHeader(url: mobileHTMLURL, forceCache: forceCache)
         

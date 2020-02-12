@@ -87,14 +87,12 @@ public class CacheController {
     let provider: CacheProviding
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriting
-    let headerProvider: CacheHeaderProviding
     private let gatekeeper = CacheGatekeeper()
     
-    init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding, headerProvider: CacheHeaderProviding) {
+    init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
         self.provider = provider
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
-        self.headerProvider = headerProvider
     }
 
     public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {

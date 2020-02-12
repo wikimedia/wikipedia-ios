@@ -50,7 +50,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup?.leave()
         markArticleAsViewed()
-        schemeHandler.forceCache = false
+        forceCache = false
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {

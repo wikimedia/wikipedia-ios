@@ -8,16 +8,7 @@ final class ImageFetcher: Fetcher {
     typealias MIMEType = String
     typealias DownloadCompletion = (Error?, RequestURL?, URLResponse?, TemporaryFileURL?, MIMEType?) -> Void
     
-    private let cacheHeaderProvider: CacheHeaderProviding
-    
-    init(session: Session = Session.shared, configuration: Configuration = Configuration.current, cacheController: CacheController) {
-        self.cacheHeaderProvider = cacheController.headerProvider
-        super.init(session: session, configuration: configuration)
-    }
-    
-    @objc required public init(session: Session, configuration: Configuration) {
-        fatalError("init(session:configuration:) has not been implemented")
-    }
+    private let cacheHeaderProvider: CacheHeaderProviding = ImageCacheHeaderProvider()
     
     func downloadData(url: URL, completion: @escaping DownloadCompletion) -> URLSessionTask? {
         let task = session.downloadTask(with: url) { fileURL, response, error in

@@ -24,7 +24,6 @@ final class SchemeHandler: NSObject {
     private var notModifiedRequests = Set<URLRequest>()
     
     var cacheController: CacheController?
-    var forceCache: Bool = false
     
     @objc public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
     
@@ -57,7 +56,7 @@ extension SchemeHandler: WKURLSchemeHandler {
         
         guard
             let requestURL = components.url,
-            let request = cacheController?.newCachePolicyRequest(from: originalRequest as NSURLRequest, newURL: requestURL)
+            let request = urlRequestWithoutCustomScheme(from: originalRequest, newURL: requestURL)
         else {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
@@ -69,20 +68,6 @@ extension SchemeHandler: WKURLSchemeHandler {
         // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
         let op = BlockOperation { [weak urlSchemeTask] in
             //forceCache will be true for ArticleViewControllers when coming from Navigation State Controller. In this case stale data is fine.
-            if self.forceCache,
-                let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                DispatchQueue.main.async {
-                    guard let urlSchemeTask = urlSchemeTask else {
-                        return
-                    }
-                    self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
-                    urlSchemeTask.didReceive(cachedResponse.response)
-                    urlSchemeTask.didReceive(cachedResponse.data)
-                    urlSchemeTask.didFinish()
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                }
-                return
-            }
             DispatchQueue.main.async {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
@@ -121,6 +106,16 @@ extension SchemeHandler: WKURLSchemeHandler {
 }
 
 private extension SchemeHandler {
+    
+    func urlRequestWithoutCustomScheme(from originalRequest: URLRequest, newURL: URL) -> URLRequest? {
+        guard let mutableRequest = (originalRequest as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
+            return nil
+        }
+        
+        mutableRequest.url = newURL
+        return mutableRequest.copy() as? URLRequest
+    }
+    
     func kickOffDataTask(request: URLRequest, urlSchemeTask: WKURLSchemeTask) {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
             return
