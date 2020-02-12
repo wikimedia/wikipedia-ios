@@ -452,7 +452,7 @@ static uint64_t bundleHash() {
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 10) {
         [self migrateToStandardUserDefaults];
         [moc wmf_setValue:@(10) forKey:WMFLibraryVersionKey];
@@ -544,7 +544,12 @@ static uint64_t bundleHash() {
     }
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary<NSString *, id> *wmfDefaultsDictionary = [wmfDefaults dictionaryRepresentation];
-    [userDefaults registerDefaults:wmfDefaultsDictionary];
+    NSArray *keys = [wmfDefaultsDictionary allKeys];
+    for (NSString *key in keys) {
+        id value = [wmfDefaultsDictionary objectForKey:key];
+        [userDefaults setObject:value forKey:key];
+        [wmfDefaults removeObjectForKey:value];
+    }
 }
 
 - (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
