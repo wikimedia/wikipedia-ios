@@ -123,16 +123,16 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)viewDidLoad {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    SchemeHandler *schemeHandler = [SchemeHandler shared];
-    [config setURLSchemeHandler:schemeHandler forURLScheme:schemeHandler.scheme];
     WKWebView *wv = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     [super viewDidLoad];
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;
-    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:@"#top"];
-    self.webView = wv;
 
+    self.webView = wv;
+    
+    [self loadAboutHTML];
+    
     self.webView.opaque = NO;
     [self applyTheme:self.theme];
 
@@ -146,14 +146,18 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self updateNavigationBar];
 }
 
+- (void)loadAboutHTML {
+    NSURL *assetsFolderURL = [[NSBundle wmf] wmf_assetsFolderURL];
+    NSURL *aboutFileURL = [assetsFolderURL URLByAppendingPathComponent:@"about.html" isDirectory:NO];
+    [self.webView loadFileURL:aboutFileURL allowingReadAccessToURL:assetsFolderURL];
+}
 - (void)closeButtonPressed {
     [self.presentingViewController dismissViewControllerAnimated:YES
                                                       completion:nil];
 }
 
 - (void)leftButtonPressed {
-    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
-                      scrolledToFragment:nil];
+    [self loadAboutHTML];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -347,6 +351,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
         return;
     }
     self.view.backgroundColor = theme.colors.paperBackground;
+    [self.webView wmf_setTextFontColor:theme];
+    [self.webView wmf_setLogoStyleWithTheme:theme];
 }
 
 @end

@@ -9,9 +9,6 @@
 #import <Tweaks/FBTweakInline.h>
 #endif
 
-// Networking
-#import "SavedArticlesFetcher.h"
-
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
@@ -19,8 +16,6 @@
 // View Controllers
 #import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
-#import "WMFRandomArticleViewController.h"
-#import "UIViewController+WMFArticlePresentation.h"
 
 #import "AppDelegate.h"
 
@@ -75,8 +70,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
-@property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
-@property (nonatomic, strong, readonly) SessionSingleton *session;
+@property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
+
+@property (nonatomic, strong) WMFMobileViewToMobileHTMLMigrationController *mobileViewToMobileHTMLMigrationController;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -99,8 +95,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, getter=isCheckingRemoteConfig) BOOL checkingRemoteConfig;
 
 @property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
-
-@property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
 
 @property (nonatomic, strong) WMFTheme *theme;
 
@@ -203,7 +197,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleSaveToDiskDidFail:)
-                                                 name:WMFArticleSaveToDiskDidFailNotification
+                                                 name:[WMFSavedArticlesFetcher saveToDiskDidFail]
                                                object:nil];
 
     [[NSUserDefaults wmf] addObserver:self
@@ -228,7 +222,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editWasPublished:)
-                                                 name:WMFEditPublishedNotification
+                                                 name:[WMFSectionEditorViewController editWasPublished]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -363,6 +357,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    [self.mobileViewToMobileHTMLMigrationController start];
     self.notificationsController.applicationActive = YES;
 }
 
@@ -673,7 +668,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return;
     }
     self.housekeepingBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self.dataStore stopCacheRemoval];
         [self endHousekeepingBackgroundTask];
     }];
 }
@@ -761,111 +755,32 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self startMigrationBackgroundTask:^{
         migrationsAllowed = NO;
     }];
-    dispatch_block_t bail = ^{
-        [self endMigrationBackgroundTask];
-        self.migrationActive = NO;
-    };
+
+//    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
+//    dispatch_block_t bail = ^{
+//        [self endMigrationBackgroundTask];
+//        self.migrationActive = NO;
+//    };
+//    BOOL (^cancellationChecker)() = ^BOOL() {
+//        return migrationsAllowed;
+//    };
+
     self.migrationActive = YES;
-    [self migrateToSharedContainerIfNecessaryWithCompletion:^{
-        if (!migrationsAllowed) {
-            bail();
-            return;
-        }
-        [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            if (!migrationsAllowed) {
-                bail();
-                return;
-            }
-            [self.dataStore performCoreDataMigrations:^{
-                if (!migrationsAllowed) {
-                    bail();
-                    return;
-                }
-                [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                    if (!migrationsAllowed) {
-                        bail();
-                        return;
-                    }
-                    [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
-                        if (!migrationsAllowed) {
-                            bail();
-                            return;
-                        }
-                        [self.dataStore performLibraryUpdates:^{
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                self.migrationComplete = YES;
-                                self.migrationActive = NO;
-                                [self endMigrationBackgroundTask];
-                                [self checkRemoteAppConfigIfNecessary];
-                                [self setupControllers];
-                                if (!self.isWaitingToResumeApp) {
-                                    [self resumeApp:NULL];
-                                }
-                            });
-                        }];
-                    }];
-                }];
-            }];
-        }];
-    }];
-}
 
-- (void)migrateToSharedContainerIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if (![[NSUserDefaults wmf] wmf_didMigrateToSharedContainer]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            NSError *error = nil;
-            if (![MWKDataStore migrateToSharedContainer:&error]) {
-                DDLogError(@"Error migrating data store: %@", error);
+    [self.dataStore performLibraryUpdates:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.migrationComplete = YES;
+            self.migrationActive = NO;
+            [self endMigrationBackgroundTask];
+            [self checkRemoteAppConfigIfNecessary];
+            [self setupControllers];
+            if (!self.isWaitingToResumeApp) {
+                [self resumeApp:NULL];
             }
-            error = nil;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSUserDefaults wmf] wmf_setDidMigrateToSharedContainer:YES];
-                completion();
-            });
         });
-    } else {
-        completion();
-    }
-}
-
-- (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf] wmf_didMigrateToNewFeed]) {
-        completion();
-    } else {
-        NSError *migrationError = nil;
-        [self.dataStore migrateToCoreData:&migrationError];
-        if (migrationError) {
-            DDLogError(@"Error migrating: %@", migrationError);
-        }
-        [[NSUserDefaults wmf] wmf_setDidMigrateToNewFeed:YES];
-        completion();
-    }
-}
-
-- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError *_Nonnull error) {
-        if (error) {
-            DDLogError(@"Error during location migration: %@", error);
-        }
-        completion();
     }];
 }
 
-- (void)migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf] wmf_didMigrateToFixArticleCache]) {
-        completion();
-    } else {
-        [self.dataStore
-            removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
-                DDLogError(@"Error during article migration: %@", error);
-                completion();
-            }
-            success:^{
-                [[NSUserDefaults wmf] wmf_setDidMigrateToFixArticleCache:YES];
-                completion();
-            }];
-    }
-}
 
 #pragma mark - Start/Pause/Resume App
 
@@ -1058,42 +973,18 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
-    NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
 
-    if (deletedArticleURLs.count > 0) {
-        [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
-    }
-
-    NSArray<NSURL *> *articleURLsToRemoveFromDisk = [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on remove from disk fetch: %@", housekeepingError);
     }
 
-    if (articleURLsToRemoveFromDisk.count > 0) {
-        [self.dataStore removeArticlesWithURLsFromCache:articleURLsToRemoveFromDisk];
-    }
-
-    if (self.backgroundTaskGroup) {
-        return;
-    }
-
-    WMFTaskGroup *taskGroup = [WMFTaskGroup new];
-    self.backgroundTaskGroup = taskGroup;
-
-    [taskGroup enter];
-    [self.dataStore startCacheRemoval:^{
-        [taskGroup leave];
-    }];
-
-    [taskGroup waitInBackgroundWithCompletion:^{
-        WMFAssertMainThread(@"Completion assumed to be called on the main queue.");
-        self.backgroundTaskGroup = nil;
-        [self endHousekeepingBackgroundTask];
-    }];
+    [self endHousekeepingBackgroundTask];
 }
 
 #pragma mark - Memory Warning
@@ -1343,10 +1234,34 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.session.dataStore theme:self.theme];
-    articleVC.articleLoadCompletion = completion;
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme forceCache: NO];
+    articleVC.loadCompletion = completion;
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
+}
+
+- (void)showNewArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+    
+    if (!articleURL.wmf_title) {
+        completion();
+        return;
+    }
+    
+    //tonitodo: visibleArticleVC logic here from legacy method?
+    
+    UINavigationController *nc = [self currentNavigationController];
+    if (!nc) {
+        completion();
+        return;
+    }
+
+    if (nc.presentedViewController) {
+        [nc dismissViewControllerAnimated:NO completion:NULL];
+    }
+    
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme forceCache: NO];
+    
+    [nc pushViewController:articleVC animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1380,15 +1295,25 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Accessors
 
-- (SavedArticlesFetcher *)savedArticlesFetcher {
+- (WMFSavedArticlesFetcher *)savedArticlesFetcher {
     if (![self uiIsLoaded]) {
         return nil;
     }
     if (!_savedArticlesFetcher) {
-        _savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+        _savedArticlesFetcher = [[WMFSavedArticlesFetcher alloc] initWithDataStore:self.dataStore];
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
+}
+
+- (WMFMobileViewToMobileHTMLMigrationController *)mobileViewToMobileHTMLMigrationController {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
+    if (!_mobileViewToMobileHTMLMigrationController) {
+        _mobileViewToMobileHTMLMigrationController = [[WMFMobileViewToMobileHTMLMigrationController alloc] initWithDataStore:self.dataStore];
+    }
+    return _mobileViewToMobileHTMLMigrationController;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -1407,12 +1332,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return controller;
 }
 
-- (SessionSingleton *)session {
-    return [SessionSingleton sharedInstance];
-}
-
 - (MWKDataStore *)dataStore {
-    return self.session.dataStore;
+    return MWKDataStore.shared;
 }
 
 - (WMFNavigationStateController *)navigationStateController {
@@ -1638,11 +1559,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
         if (self.selectedIndex == WMFAppTabTypeMain) {
-            vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
+            vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
         } else if (self.selectedIndex == WMFAppTabTypeSaved) {
-            vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-saved-accessibility-label", nil, nil, @"Wikipedia, return to Saved", @"Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.");
+            vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-saved-accessibility-label", nil, nil, @"Wikipedia, return to Saved", @"Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.");
         } else if (self.selectedIndex == WMFAppTabTypeRecent) {
-            vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-history-accessibility-label", nil, nil, @"Wikipedia, return to History", @"Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.");
+            vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-history-accessibility-label", nil, nil, @"Wikipedia, return to History", @"Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.");
         }
     }
 }
@@ -1951,7 +1872,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Article save to disk did fail
 
 - (void)articleSaveToDiskDidFail:(NSNotification *)note {
-    NSError *error = (NSError *)note.userInfo[WMFArticleSaveToDiskDidFailErrorKey];
+    NSError *error = (NSError *)note.userInfo[[WMFSavedArticlesFetcher saveToDiskDidFailErrorKey]];
     if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
         [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
                                                              sticky:YES

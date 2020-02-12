@@ -86,10 +86,9 @@
 "article-languages-others" = "Aner Sproochen";
 "article-languages-yours" = "Är Sprooch";
 "article-read-more-title" = "Liest méi";
+"article-reference-title" = "Referenze weisen";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
-"article-title" = "Artikel";
-"article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
 "back-button-accessibility-label" = "Zréck";
 "button-next" = "Weider";
 "button-ok" = "OK";
@@ -121,6 +120,7 @@
 "diff-context-lines-expanded-button-title" = "Verstoppen";
 "diff-paragraph-moved" = "Abschnitt geréckelt";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
+"diff-single-intro-title" = "Aféierung";
 "diff-thanks-send-button-title" = "'Merci' schécken";
 "diff-thanks-send-title" = "'Merci' ëffentlech schécken";
 "diff-thanks-sent" = "Äre 'Merci' gouf dem $1 geschéckt";
@@ -158,7 +158,6 @@
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
-"error-generic-description" = "En onerwaarte Feeler ass geschitt";
 "error-generic-recovery-suggestion" = "Probéiert w.e.g. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
@@ -328,6 +327,7 @@
 "page-history-minor-edits" = "kleng Ännerungen";
 // Fuzzy
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
+"page-history-revision-comment-accessibility-label" = "Bemierkung $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
 "page-history-revision-minor-edit-accessibility-label" = "Kleng Ännerung";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
@@ -480,7 +480,6 @@
 "settings-title" = "Astellungen";
 "share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
-"share-custom-menu-item" = "Deelen...";
 "share-default-format" = "\"$1\" vu(n) \"$2\": $3";
 "share-email-format" = "\"$1\"\n\nvu(n) \"$2\"\n\n$3";
 "share-get-directions-in-maps" = "Richtunge kréien";
@@ -547,7 +546,6 @@
 "welcome-send-data-learn-more" = "Méi iwwer déi gesammelt Donnéeë gewuer ginn";
 "welcome-send-data-sub-title" = "Hëlleft d'App besser ze maachen andeem Dir d'Wikimedia Foundation wësse loosst wéi Dir d'App benotzt. Déi gesammelt Date sinn anonym.";
 "welcome-volunteer-send-usage-reports" = "Rapporten iwwer d'Benotze schécken";
-"wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-downloading" = "Inhalt gëtt gelueden...";
 "wikitext-preview-changes" = "Kucken ouni ze späichere vun Ären Ännerunge gëtt preparéiert...";
 "wikitext-preview-changes-none" = "Et goufe keng Ännerunge gemaach fir ze weisen.";

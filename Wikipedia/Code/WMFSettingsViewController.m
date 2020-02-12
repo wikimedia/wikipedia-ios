@@ -1,31 +1,17 @@
 #import "WMFSettingsTableViewCell.h"
+@import WMF;
 #import "Wikipedia-Swift.h"
-#import <WMF/NSUserActivity+WMFExtensions.h>
 
-// View Controllers
 #import "WMFSettingsViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
-#import "WMFHelpViewController.h"
-
-// Models
-#import <WMF/MWKLanguageLink.h>
-
-// Frameworks
-#if WMF_TWEAKS_ENABLED
-#import <Tweaks/FBTweakViewController.h>
-#import <Tweaks/FBTweakStore.h>
-#endif
-
-// Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import <WMF/UIView+WMFDefaultNib.h>
-#import <WMF/SessionSingleton.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import <WMF/MWKLanguageLinkController.h>
 #import "WMFDailyStatsLoggingFunnel.h"
-#import <WMF/NSBundle+WMFInfoUtils.h>
-#import "Wikipedia-Swift.h"
+
+#if WMF_TWEAKS_ENABLED
+@import Tweaks;
+#endif
 
 #pragma mark - Static URLs
 
@@ -257,8 +243,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self wmf_navigateToURL:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_SendFeedback: {
-            WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
-            [vc applyTheme:self.theme];
+            WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
         case WMFSettingsMenuItemType_About: {
@@ -344,7 +329,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, nil, @"Clear cache", @"Confirm action to clear cached data")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.dataStore clearCachesForUnsavedArticles];
+                                                [self.dataStore clearTemporaryCache];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data {{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 

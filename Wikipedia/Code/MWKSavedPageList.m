@@ -1,12 +1,6 @@
 #import <WMF/MWKSavedPageList.h>
 #import <WMF/WMF-Swift.h>
 
-//Legacy
-#import <WMF/MWKSavedPageListDataExportConstants.h>
-#import <WMF/MWKSavedPageEntry.h>
-NSString *const MWKSavedPageExportedEntriesKey = @"entries";
-NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
-
 @interface MWKSavedPageList () <NSFetchedResultsControllerDelegate>
 
 @property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
@@ -30,49 +24,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         self.dataStore = dataStore;
     }
     return self;
-}
-
-#pragma mark - Legacy Migration
-
-- (void)migrateLegacyDataIfNeeded {
-    NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
-
-    if ([[NSUserDefaults wmf] wmf_didMigrateSavedPageList]) {
-        return;
-    }
-
-    NSArray<MWKSavedPageEntry *> *entries =
-        [[MWKSavedPageList savedEntryDataFromExportedData:[self.dataStore savedPageListData]] wmf_mapAndRejectNil:^id(id obj) {
-            @try {
-                return [[MWKSavedPageEntry alloc] initWithDict:obj];
-            } @catch (NSException *e) {
-                return nil;
-            }
-        }];
-
-    if ([entries count] == 0) {
-        [[NSUserDefaults wmf] wmf_setDidMigrateSavedPageList:YES];
-        return;
-    }
-
-    [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if (obj.url.wmf_title.length == 0) {
-            //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
-            return;
-        }
-
-        WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:obj.url];
-        // Don't add to the defaut list here, that is handled by a later migration
-        article.savedDate = obj.date;
-    }];
-
-    NSError *migrationError = nil;
-    if (![self.dataStore save:&migrationError]) {
-        DDLogError(@"Error migrating legacy saved pages: %@", migrationError);
-        return;
-    }
-
-    [[NSUserDefaults wmf] wmf_setDidMigrateSavedPageList:YES];
 }
 
 #pragma mark - Convienence Methods
@@ -186,26 +137,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 - (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls {
     [self.dataStore.readingListsController removeArticlesWithURLsFromDefaultReadingList:urls];
-}
-
-#pragma mark - Legacy Schema Migration
-
-+ (NSArray<NSDictionary *> *)savedEntryDataFromExportedData:(NSDictionary *)savedPageListData {
-    NSNumber *schemaVersionValue = savedPageListData[MWKSavedPageExportedSchemaVersionKey];
-    MWKSavedPageListSchemaVersion schemaVersion = MWKSavedPageListSchemaVersionUnknown;
-    if (schemaVersionValue) {
-        schemaVersion = schemaVersionValue.unsignedIntegerValue;
-    }
-    switch (schemaVersion) {
-        case MWKSavedPageListSchemaVersionCurrent:
-            return savedPageListData[MWKSavedPageExportedEntriesKey];
-        case MWKSavedPageListSchemaVersionUnknown:
-            return [MWKSavedPageList savedEntryDataFromListWithUnknownSchema:savedPageListData];
-    }
-}
-
-+ (NSArray<NSDictionary *> *)savedEntryDataFromListWithUnknownSchema:(NSDictionary *)data {
-    return data[MWKSavedPageExportedEntriesKey];
 }
 
 @end

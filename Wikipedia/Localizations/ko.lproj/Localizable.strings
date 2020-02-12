@@ -5,12 +5,14 @@
 // Author: Bluemersen
 // Author: CYAN
 // Author: Doyoon1995
+// Author: Eduardo Addad de Oliveira
 // Author: Ellif
 // Author: Garam
 // Author: HDNua
 // Author: Hwangjy9
 // Author: Idh0854
 // Author: Jerrykim306
+// Author: JoeWalshWMF
 // Author: Macofe
 // Author: Namoroka
 // Author: Nemo bis
@@ -128,9 +130,7 @@
 "article-read-more-title" = "더 읽어보기";
 "article-save-error-not-enough-space" = "장치에 이 문서를 저장할 공간이 충분하지 않습니다";
 "article-share" = "공유";
-"article-title" = "문서";
 "article-toolbar-reading-themes-controls-toolbar-item" = "읽기 테마 제어";
-"article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
 "back-button-accessibility-label" = "뒤로 가기";
 "back-button-popover-title" = "뒤로 돌아가려면 탭하세요";
 "button-next" = "다음";
@@ -185,23 +185,32 @@
 "description-welcome-descriptions-title" = "제목 설명";
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
+"diff-compare-header-from-info-heading" = "보내는이:";
 "diff-compare-header-heading" = "판 비교";
+"diff-compare-header-to-info-heading" = "받는이:";
 "diff-compare-title" = "판 비교";
 "diff-context-lines-collapsed-button-title" = "표시";
 "diff-context-lines-expanded-button-title" = "숨기기";
 "diff-multi-line-format" = "줄 $1 - $2";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|줄 $1개}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1개 문단}}";
 "diff-revision-error-title" = "판을 불러올 수 없습니다";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|편집 $1개|편집 $1}}";
+"diff-single-header-editor-title" = "편집자 정보";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1바이트 추가됨}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1바이트 제거됨}}";
 "diff-single-header-summary-heading" = "편집 요약";
 "diff-single-line-format" = "$1번째 줄";
 "diff-thanks-anonymous-no-thanks" = "익명 사용자는 감사 표현을 받을 수 없습니다";
+"diff-thanks-login-subtitle" = "'감사 표현'은 위키백과에서 편집자의 기여에 감사를 표하는 쉬운 방법입니다. '감사 표현'을 보내려면 로그인해야 합니다.";
 "diff-thanks-login-title" = "감사를 표하기 위해 로그인";
 "diff-thanks-send-button-title" = "감사 표현하기";
+"diff-thanks-send-subtitle" = "'감사 표현'은 위키백과에서 편집자의 기여에 감사를 표하는 쉬운 방법입니다. '감사 표현'은 취소할 수 없으며 공개되지 않습니다.";
 "diff-thanks-send-title" = "공개적으로 감사 표하기";
 "diff-thanks-sent" = "$1님에게 감사를 표했습니다";
 "diff-thanks-sent-already" = "이 편집에 이미 감사를 표했습니다";
 "diff-thanks-sent-cannot-unsend" = "감사 표현은 취소할 수 없습니다";
+"diff-unedited-lines-format" = "{{PLURAL:$1|편집되지 않은 줄 $1개}}";
 "dim-images" = "이미지를 어둡게";
 "edit-bold-accessibility-label" = "굵은 서식 추가";
 "edit-bold-remove-accessibility-label" = "굵은 서식 제거";
@@ -271,6 +280,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "모든 사람이 세상의 지식에 접근할 수 있게 하려면 당신에게 가장 관련이 있는 주제에 대해 읽고 편집하고 기여함으로써 그 지식을 만들어나가는 일에 참여하는 것이 필요합니다.";
 "editing-welcome-set-knowledge-free-title" = "지식을 자유롭게";
 "empty-diff-compare-title" = "판 사이에 차이가 없음";
+"empty-diff-single-title" = "볼 수 있는 변경 사항 없음";
 "empty-insert-media-title" = "위키미디어 공용의 파일 선택";
 "empty-no-article-message" = "죄송합니다, 문서를 불러올 수 없습니다";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
@@ -285,7 +295,6 @@
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
 "empty-no-search-results-message" = "결과가 없습니다.";
 "empty-talk-page-title" = "이 사용자에 대해 게시된 메시지가 아직 없습니다";
-"error-generic-description" = "예기치 않은 오류가 발생했습니다";
 "error-generic-recovery-suggestion" = "나중에 다시 시도해 주십시오";
 "error-unknown" = "알 수 없는 오류가 발생했습니다";
 "explore-another-random" = "다른 임의 문서";
@@ -332,7 +341,7 @@
 "explore-feed-preferences-show-news-title" = "새로 들어온 소식 카드 표시";
 "explore-feed-preferences-show-on-this-day-footer-text" = "오늘의 역사 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
 "explore-feed-preferences-show-on-this-day-title" = "오늘의 역사 카드 표시";
-"explore-feed-preferences-show-picture-of-the-day-title" = "오늘의 사진 카드 표시";
+"explore-feed-preferences-show-picture-of-the-day-title" = "오늘의 이미지 카드 표시";
 "explore-feed-preferences-show-places-footer-text" = "장소 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
 "explore-feed-preferences-show-places-title" = "장소 카드 표시";
 "explore-feed-preferences-show-randomizer-footer-text" = "임의 문서 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
@@ -366,7 +375,7 @@
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "위키백과에서";
 "explore-nearby-sub-heading-your-location" = "내 위치";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 위키백과에서의 내 위치";
-"explore-potd-heading" = "오늘의 그림";
+"explore-potd-heading" = "오늘의 이미지";
 "explore-potd-sub-heading" = "위키미디어 공용에서";
 "explore-random-article-heading" = "임의 문서";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
@@ -434,6 +443,7 @@
 "in-the-news-currently-trending" = "지금의 화제";
 "in-the-news-notification-read-now-action-title" = "지금 읽기";
 "in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "공유...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 위키백과에서";
 "in-the-news-sub-title-from-wikipedia" = "위키백과에서";
@@ -533,6 +543,7 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1바이트}} 추가됨";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1바이트}} 제거됨";
 "page-history-revisions-comparison-warning" = "판 2개만 선택할 수 있습니다";
+"page-history-stats-text" = "$2 이후 {{PLURAL:$1|편집 $1회}}";
 "page-history-user-edits" = "사용자 편집";
 "page-issues" = "문서 이슈";
 "page-last-edited" = "{{PLURAL:$1|0=오늘 마지막으로 편집|1=어제 마지막으로 편집|$1일 전에 마지막으로 편집}}";
@@ -673,6 +684,7 @@
 "relative-date-minutes-abbreviated" = "$1분";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "relative-date-minutes-ago-abbreviated" = "$1분 전";
+"relative-date-months-ago" = "{{PLURAL:$1|0=이번 달|1=지난 달|$1개월 전}}";
 "relative-date-seconds-abbreviated" = "$1초";
 "relative-date-seconds-ago-abbreviated" = "$1초 전";
 "relative-date-years-ago" = "{{PLURAL:$1|0=올해|1=지난해|$1년 전}}";
@@ -756,7 +768,6 @@
 "share-a-fact-made-with" = "위키백과 앱으로 작성함";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
 "share-building" = "사실을 공유 카드를 만드는 중...";
-"share-custom-menu-item" = "공유...";
 "share-default-format" = "\"$2\" 중의 \"$1\": $3";
 "share-email-format" = "\"$2\" 중의\n\n\"$1\"\n\n$3";
 "share-get-directions-in-maps" = "위치 찾기";
@@ -846,7 +857,6 @@
 "welcome-send-data-learn-more" = "수집된 데이터에 대해 더 알아보기";
 "welcome-send-data-sub-title" = "위키미디어 재단의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다.";
 "welcome-volunteer-send-usage-reports" = "사용 보고서 보내기";
-"wikitext-download-failed" = "최신 판을 가져올 수 없습니다.";
 "wikitext-downloading" = "내용을 불러오는 중...";
 "wikitext-preview-changes" = "바뀐 내용의 미리 보기를 가져오는 중...";
 "wikitext-preview-changes-none" = "미리 보기에 바뀐 내용이 없습니다.";

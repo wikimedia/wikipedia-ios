@@ -1,10 +1,10 @@
 @import WMF.EventLoggingFunnel;
 
-@class MWKArticle;
+@class WMFArticle;
 
 @interface WMFShareFunnel : EventLoggingFunnel
 
-- (id)initWithArticle:(MWKArticle *)article;
+- (id)initWithArticle:(WMFArticle *)article;
 
 - (void)logHighlight;
 - (void)logShareButtonTappedResultingInSelection:(NSString *)selection;

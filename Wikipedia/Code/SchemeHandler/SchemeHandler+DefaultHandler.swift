@@ -17,15 +17,8 @@ extension SchemeHandler {
             return (requestURL as NSURL).wmf_originalURLFromAppScheme()
         }
         
-        func cachedResponseForURL(_ url: URL) -> CachedURLResponse? {
-            let request = NSURLRequest(url: url)
-            let urlCache = URLCache.shared
-            return urlCache.cachedResponse(for: request as URLRequest)
-        }
-        
-        func dataTaskForURL(_ url: URL, callback: Session.Callback) -> URLSessionTask {
-            let request = URLRequest(url: url)
-            let task = session.dataTask(with: request as URLRequest, callback: callback)
+        func dataTaskForRequest(_ request: URLRequest, callback: Session.Callback) -> URLSessionTask {
+            let task = session.dataTask(with: request, callback: callback)
             return task
         }
     }

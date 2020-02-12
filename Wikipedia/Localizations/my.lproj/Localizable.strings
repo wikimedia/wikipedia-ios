@@ -7,6 +7,7 @@
 // Author: NayiMuu
 // Author: Nemo bis
 // Author: Ninjastrikers
+// Author: Teitei
 
 "about-content-license" = "အကြောင်းအရာလိုင်စင်";
 "about-content-license-details" = "အခြား ဖော်ပြချက်မရှိပါက၊ အကြောင်းအရာသည် $1 ဖြင့် ရရှိနိုင်သည်။";
@@ -95,7 +96,6 @@
 "article-read-more-title" = "ဆက်ဖတ်ပါ";
 "article-save-error-not-enough-space" = "ဤဆောင်းပါးကို သိမ်းဆည်းရန် သင်၏စက်ပစ္စည်းတွင် သိုလှောင်လက်ကျန် မလုံလောက်ပါ";
 "article-share" = "မျှဝေ";
-"article-unable-to-load-section" = "ဤအပိုင်းအား မရယူနိုင်ပါ။ ဆောင်းပါးအား ပြန်လည်ရှင်းသန့်ခြင်းဖြင့် ဤပြဿနာအား ပြင်ဆင်ရန် ကြိုးပမ်းကြည့်ပါ။";
 "back-button-accessibility-label" = "နောက်သို့";
 "back-button-popover-title" = "နောက်သို့ပြန်သွားရန်";
 "button-next" = "ရှေ့";
@@ -147,6 +147,19 @@
 "description-welcome-descriptions-title" = "ခေါင်းစဉ် ဖော်ပြချက်များ";
 "description-welcome-promise-title" = "စတင်ခြင်းဖြင့် ဤသွင်ပြင်လက္ခဏာကို အလွဲသုံးစားမလုပ်ပါကြောင်း ကတိပြုပါသည်";
 "description-welcome-start-editing-button" = "စတင် တည်းဖြတ်ခြင်း";
+"diff-compare-header-from-info-heading" = "မှ -";
+"diff-compare-header-to-info-heading" = "သို့ -";
+"diff-context-lines-collapsed-button-title" = "ပြသရန်";
+"diff-context-lines-expanded-button-title" = "ဝှက်ရန်";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
+"diff-single-header-editor-title" = "တည်းဖြတ်သူ အချက်အလက်";
+"diff-single-header-summary-heading" = "အကျဉ်းချုပ်ကို တည်းဖြတ်ရန်";
+"diff-single-intro-title" = "မိတ်ဆက်";
+"diff-thanks-login-title" = "'ကျေးဇူးတင်မှု' ပို့ရန် လော့ဂ်အင်ဝင်ပါ";
+"diff-thanks-send-button-title" = "'ကျေးဇူးတင်မှု' ပို့ရန်";
+"diff-thanks-send-title" = "လူသိရှင်ကြား 'ကျေးဇူးတင်မှု' ပို့ရန်";
+"diff-thanks-sent" = "သင်၏ 'ကျေးဇူးတင်မှု' $1 သို့ ပို့လိုက်ပါပြီ";
+"diff-thanks-sent-already" = "ဤတည်းဖြတ်မှုအတွက် 'ကျေးဇူးတင်မှု' ပို့ပြီးသားဖြစ်သည်";
 "dim-images" = "ရုပ်ပုံများကို မှိန်ထားရန်";
 "edit-direction-down-accessibility-label" = "ကာဆာကို အောက်သို့ရွေ့ရန်";
 "edit-direction-left-accessibility-label" = "ကာဆာကို ဘယ်သို့ရွေ့ရန်";
@@ -186,7 +199,6 @@
 "empty-no-saved-pages-title" = "စာမျက်နှာများကို မသိမ်းရသေးပါ";
 "empty-no-search-results-message" = "မည်သည့်ရလဒ်မျှ မရပါ";
 "empty-talk-page-title" = "ဤအသုံးပြုသူအတွက် စာတိုများ မတင်ရသေးပါ";
-"error-generic-description" = "မမျော်လင့်သော အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါသည်";
 "error-generic-recovery-suggestion" = "နောက်တခါ ထပ်မံကြိုးစားကြည့်ပါ";
 "error-unknown" = "အကြောင်းရင်းမသိရှိရသော အမှားတစ်ခု ဖြစ်ပေါ်ခဲ့သည်။";
 "explore-another-random" = "အခြားသော ကျပန်းဆောင်းပါး";
@@ -300,7 +312,7 @@
 "in-the-news-currently-trending" = "လက်ရှိ ရေပန်းစားမှု";
 "in-the-news-notification-read-now-action-title" = "ယခုဖတ်ရန်။";
 "in-the-news-notification-save-for-later-action-title" = "နောင်အတွက် သိမ်းဆည်းရန်";
-"in-the-news-notification-share-action-title" = "မျှဝေ...";
+"in-the-news-notification-share-action-title" = "မျှဝေပါ...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "in-the-news-sub-title-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "in-the-news-title" = "သတင်းထဲတွင်";
@@ -374,8 +386,18 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
 "page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
+"page-history-anonymous-edits" = "အမည်မသိ တည်းဖြတ်မှုများ";
+"page-history-bot-edits" = "ဘော တည်းဖြတ်မှုများ";
+"page-history-compare-title" = "နှိုင်းယှဉ်ရန်";
+"page-history-minor-edits" = "အရေးမကြီးသော ပြင်ဆင်မှုများ";
+"page-history-revision-comment-accessibility-label" = "မှတ်ချက် $1";
+"page-history-revision-history-title" = "မူရာဇဝင်မှတ်တမ်း";
+"page-history-revision-minor-edit-accessibility-label" = "အရေးမကြီးသည့် တည်းဖြတ်မှု";
+"page-history-stats-text" = "$2 ကတည်းက {{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
+"page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-last-edited" = "{{PLURAL:$1|0=ယနေ့တည်းဖြတ်ခဲ့သည်|1=မနေ့ကတည်းဖြတ်ခဲ့သည်|$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်}}";
+"page-last-edited-unknown" = "အချို့သောအချိန်တုန်းက တည်းဖြတ်ပြီး";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
@@ -474,6 +496,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=ယနေ့|1=မနေ့က|$1 ရက်အကြာက}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=မကြာသေးခင်|$1 နာရီအကြာက|$1 နာရီအကြာက}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယခုလေးတင်|$1 မိနစ်အကြာက|$1 မိနစ်အကြာက}}";
+"relative-date-months-ago" = "{{PLURAL:$1|0=ဤလ|1=ယခင်လ|$1 လအကြာက}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|1=ယခင်နှစ်|$1 နှစ်အကြာက}}";
 "replace-button-accessibility" = "$ ဆောင်ရွက်ပါ";
 "replace-buttons-replace-accessibility" = "တစ်ခါတည်းချက်ချင်း အစားထိုးပါ";
@@ -533,7 +556,6 @@
 "settings-title" = "အပြင်အဆင်များ";
 "share-a-fact-made-with" = "ဝီကီပီးဒီးယား app ဖြင့် ပြုလုပ်သည်";
 "share-article-name-on-wikipedia" = "@Wikipedia မှ \"$1\":";
-"share-custom-menu-item" = "မျှဝေ...";
 "share-default-format" = "“$2” မှ “$1”: $3";
 "share-email-format" = "“$2”\n\nမှ “$1”\n\n$3";
 "share-get-directions-in-maps" = "လမ်းညွှန်များ ရယူရန်";
@@ -551,6 +573,7 @@
 "table-of-contents-close-accessibility-hint" = "ပိတ်ရန်";
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";
 "table-of-contents-heading" = "မာတိကာ";
+"table-of-contents-hide-button-label" = "မာတိကာ ဝှက်ရန်";
 "table-title-other" = "နောက်ထပ် အချက်အလက်များ";
 "talk-page-add-discussion-accessibility-label" = "ဆွေးနွေးချက် ပေါင်းထည့်ရန်";
 "talk-page-discussion-read-accessibility-label" = "ဖတ်ရန်";
@@ -604,7 +627,6 @@
 "welcome-send-data-learn-more" = "ဒေတာစုဆောင်းမှုအကြောင်း ပိုမိုလေ့လာရန်";
 "welcome-send-data-sub-title" = "သင် မည်ကဲ့သို့အသုံးချခဲ့သည်ကို ဝီကီမီဒီယာ ဖောင်ဒေးရှင်းအားအသိပေး၍ ဤဆော့ဝဲလ်အား ပိုကောင်းလာစေရန် ကူညီပေးပါ။ ဒေတာစုဆောင်းခြင်းမှာ အမည်မသိစနစ်ဖြစ်ပါသည်။";
 "welcome-volunteer-send-usage-reports" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
-"wikitext-download-failed" = "နောက်ဆုံးမူအား မရယူနိုင်ပါ။";
 "wikitext-downloading" = "အကြောင်းအရာများ ရယူနေသည်...";
 "wikitext-preview-changes" = "သင့်ပြောင်းလဲမှုများ၏ နမူနာကို ရယူနေသည်...";
 "wikitext-preview-changes-none" = "နမူနာပြရန် ပြောင်းလဲမှု ပြုလုပ်ထားခြင်း မရှိပါ။";

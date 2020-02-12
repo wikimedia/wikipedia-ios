@@ -120,9 +120,7 @@
 "article-read-more-title" = "Més informació";
 "article-save-error-not-enough-space" = "No teniu prou espai al dispositiu per desar l'article.";
 "article-share" = "Comparteix";
-"article-title" = "Article";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
-"article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back-button-accessibility-label" = "Enrere";
 "back-button-popover-title" = "Feu un toc per anar enrere";
 "button-next" = "Següent";
@@ -292,7 +290,6 @@
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-search-results-message" = "No s'han trobat resultats";
 "empty-talk-page-title" = "Aquest usuari encara no ha enviat cap missatge.";
-"error-generic-description" = "S'ha produït un error inesperat";
 "error-generic-recovery-suggestion" = "Torneu-ho a provar més tard";
 "error-unknown" = "S'ha produït un error desconegut";
 "explore-another-random" = "Un altre article a l'atzar";
@@ -441,6 +438,7 @@
 "in-the-news-currently-trending" = "En tendència";
 "in-the-news-notification-read-now-action-title" = "Llegeix-ho ara";
 "in-the-news-notification-save-for-later-action-title" = "Desa-ho per a més tard";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Comparteix...";
 "in-the-news-sub-title-from-language-wikipedia" = "De la Viquipèdia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De la Viquipèdia";
@@ -773,7 +771,6 @@
 "share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-building" = "S'està creant una targeta de Comparteix-un-fet…";
-"share-custom-menu-item" = "Comparteix...";
 "share-default-format" = "«$1» de «$2»: $3";
 "share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Aconsegueix direccions";
@@ -791,6 +788,7 @@
 "table-of-contents-close-accessibility-hint" = "Tanca";
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
+"table-of-contents-hide-button-label" = "Amaga la taula de continguts";
 "table-title-other" = "Més informació";
 "talk-page-add-discussion-accessibility-label" = "Afegeix una discussió";
 "talk-page-discussion-accessibility-hint" = "Feu un toc doble per obrir el fil de discussió";
@@ -865,7 +863,6 @@
 "welcome-send-data-learn-more" = "Més informació de les dades recopilades";
 "welcome-send-data-sub-title" = "Ajudeu a millorar l'aplicació fent saber a la Fundació Wikimedia com la feu servir. Les dades que es recullen són anònimes.";
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
-"wikitext-download-failed" = "No s'ha pogut obtenir la darrera revisió.";
 "wikitext-downloading" = "S'està carregant el contingut...";
 "wikitext-preview-changes" = "S'està recuperant una vista prèvia dels canvis...";
 "wikitext-preview-changes-none" = "No s'ha fet cap canvi per previsualitzar.";

@@ -1,6 +1,5 @@
 #import <WMF/NSString+WMFExtras.h>
 #import <CommonCrypto/CommonDigest.h>
-#import <WMF/SessionSingleton.h>
 #import <WMF/MWLanguageInfo.h>
 @import MobileCoreServices;
 #import <WMF/NSDateFormatter+WMFExtensions.h>
@@ -88,10 +87,6 @@
                              offset += 1;
                          }];
     return mutableSelf;
-}
-
-- (NSString *)wmf_stringBySanitizingForBacktickDelimitedJavascript {
-    return [self stringByReplacingOccurrencesOfString:@"([\\\\{}\\`])" withString:@"\\\\$1" options:NSRegularExpressionSearch range:NSMakeRange(0, self.length)];
 }
 
 - (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:(nullable NSString *)wikipediaLanguage {

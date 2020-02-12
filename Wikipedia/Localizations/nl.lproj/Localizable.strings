@@ -131,9 +131,7 @@
 "article-read-more-title" = "Meer lezen";
 "article-save-error-not-enough-space" = "U hebt onvoldoende ruimte op uw apparaat om dit artikel op te slaan";
 "article-share" = "Deel";
-"article-title" = "Pagina";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Thema's bekijken";
-"article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
 "button-next" = "Volgende";
@@ -200,14 +198,20 @@
 "diff-paragraph-moved-direction-up" = "naar boven";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 regel|$1 regels}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sectie|$1 secties}}";
+"diff-revision-error-title" = "Kan versie niet laden";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 bewerking|$1 bewerkingen}}";
 "diff-single-header-editor-title" = "Gebruikersinformatie";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte toegevoegd|$1 bytes toegevoegd}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte verwijderd|$1 bytes verwijderd}}";
 "diff-single-header-summary-heading" = "Bewerkingssamenvatting";
 "diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Regel $1";
 "diff-thanks-anonymous-no-thanks" = "Anonieme gebruikers kunnen niet worden bedankt";
+"diff-thanks-login-title" = "Meld u aan om een bedankje te versturen";
 "diff-thanks-send-button-title" = "Bedankje sturen";
+"diff-thanks-sent-already" = "U hebt al een bedankje voor deze bewerking verstuurd";
+"diff-thanks-sent-cannot-unsend" = "Het versturen van een bedankje kan niet ongedaan worden gemaakt";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 niet bewerkte regel|$1 niet bewerkte regels}}";
 "dim-images" = "Afbeeldingen dimmen";
 "edit-bold-accessibility-label" = "Vetgedrukte opmaak toevoegen";
 "edit-bold-remove-accessibility-label" = "Vetgedrukte opmaak verwijderen";
@@ -264,7 +268,6 @@
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
 "empty-talk-page-title" = "Er zijn nog geen berichten geplaatst voor deze gebruiker";
-"error-generic-description" = "Een onverwachte fout is opgetreden";
 "error-generic-recovery-suggestion" = "Probeer later opnieuw";
 "error-unknown" = "Er is een onbekende fout opgetreden";
 "explore-another-random" = "Andere willekeurig pagina";
@@ -409,6 +412,7 @@
 "in-the-news-currently-trending" = "Nu populair";
 "in-the-news-notification-read-now-action-title" = "Nu lezen";
 "in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Delen...";
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
@@ -439,6 +443,12 @@
 "insert-media-media-settings-title" = "Mediainstellingen";
 "insert-media-title" = "Media invoegen";
 "insert-media-uploaded-image-title" = "Geplaatste afbeelding";
+"intermediate-edits-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} niet weergegeven";
+"intermediate-edits-count-limited" = "$1+ tussenliggende versies niet weergegeven";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} door {{PLURAL:$2|$2 gebruiker|$2 gebruikers}} niet weergegeven";
+"intermediate-edits-editors-count-limited" = "$1+ tussenliggende versies door $2+ gebruikers niet weergegeven";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} door $2+ gebruikers niet weergegeven";
+"intermediate-edits-limited-editors-count" = "$1+ tussenliggende versies door {{PLURAL:$2|$2 gebruiker|$2 gebruikers}} niet weergegeven";
 "languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
 "languages-wikipedia" = "Wikipedia-talen";
@@ -501,6 +511,7 @@
 "page-history-revision-history-title" = "Bewerkingsoverzicht";
 "page-history-revision-minor-edit-accessibility-label" = "Kleine bewerking";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|1 byte|$1 bytes}} toegevoegd";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|1 byte|$1 bytes}} verwijdered";
 "page-history-stats-text" = "{{PLURAL:$1|1 bewerking|$1 bewerkingen}} sinds $1";
 "page-history-user-edits" = "gebruikersbewerkingen";
 "page-issues" = "Paginaproblemen";
@@ -619,8 +630,7 @@
 "reading-lists-default-list-title" = "Opgeslagen";
 "reading-lists-delete-reading-list-alert-message" = "Deze actie kan niet ongedaan gemaakt worden. Alle artikelen die alleen zijn opgeslagen in {{PLURAL:$1|deze lijst|deze lijsten}} zijn niet opgeslagen.";
 "reading-lists-delete-reading-list-alert-title" = "Deze {{PLURAL:$1|lijst|lijsten}} verwijderen?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artikelen en $2 leeslijsten gesynchroniseerd van uw account";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} en {{PLURAL:$2|$2 leeslijst|$2 leeslijsten}} gesynchroniseerd van uw account";
 "reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-lists-sort-saved-articles" = "Opgeslagen pagina's sorteren";
 "reading-lists-split-notification" = "Er is een limiet van $1 artikelen per leeslijst. Bestaande lijsten met meer artikelen dan deze limiet zijn opgesplitst in meerdere lijsten.";
@@ -717,7 +727,6 @@
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-building" = "Deel-een-feit-kaart aan het maken…";
-"share-custom-menu-item" = "Delen...";
 "share-default-format" = "“$1” uit “$2”: $3";
 "share-email-format" = "“$1”\n\nuit “$2”\n\n$3";
 "share-get-directions-in-maps" = "Routebeschrijving";
@@ -797,7 +806,6 @@
 "welcome-send-data-learn-more" = "Leer meer over de verzamelde data";
 "welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
-"wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";

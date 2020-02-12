@@ -31,22 +31,23 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
 @interface WMFShareFunnel ()
 @property NSString *sessionToken;
 @property NSString *articleTitle;
-@property int articleId;
+@property NSNumber *articleId;
 @property NSString *selection;
 @property NSString *shareMode;
 @end
 
 @implementation WMFShareFunnel
 
-- (id)initWithArticle:(MWKArticle *)article {
-    NSParameterAssert(article.url.wmf_title);
-    NSString *title = [[article url] wmf_title];
+- (id)initWithArticle:(WMFArticle *)article {
+    NSParameterAssert(article.URL.wmf_title);
+    NSString *title = [[article URL] wmf_title];
+    NSNumber *pageID = [article pageID];
     // ...implicitly, the articleId is okay if the title is okay.
     // But in case the title is broken (and, implicitly, articleId is, too)
-    if (!title) {
+    if (!title || !pageID) {
         NSAssert(false, @"%@ : %@",
                  kInitWithArticleAssertVerbiage,
-                 [article url]);
+                 [article URL]);
         return nil;
     }
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppShareAFact
@@ -54,7 +55,7 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
     if (self) {
         _sessionToken = [self singleUseUUID];
         _articleTitle = [title wmf_safeSubstringToIndex:WMFEventLoggingMaxStringLength_General];
-        _articleId = [article articleId];
+        _articleId = pageID;
     }
     return self;
 }
@@ -69,10 +70,10 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[kAppInstallIdKey] = self.appInstallID;
     dict[kShareSessionTokenKey] = self.sessionToken;
-    dict[kPageIdKey] = @(self.articleId);
+    dict[kPageIdKey] = self.articleId;
     dict[kArticleKey] = self.articleTitle;
-    [dict wmf_maybeSetObject:self.selection forKey:kTextKey];
-    [dict wmf_maybeSetObject:self.shareMode forKey:kShareModeKey];
+    [dict setValue:self.selection forKey:kTextKey];
+    [dict setValue:self.shareMode forKey:kShareModeKey];
     dict[kTimestampKey] = [self timestamp];
     
     // TODO: refactor MWKArticle (and ArticleFetcher - the prop would be 'revision')

@@ -131,14 +131,13 @@
 "article-languages-others" = "Outros idiomas";
 "article-languages-yours" = "Seu idioma:";
 "article-read-more-title" = "Leia mais";
+"article-reference-title" = "Ver referências";
 "article-save-error-not-enough-space" = "Não tem espaço suficiente no seu dispositivo para salvar este artigo";
 "article-share" = "Compartilhar";
-"article-title" = "Artigo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de leitura de temas";
-"article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
 "back-button-accessibility-label" = "Voltar";
 "back-button-popover-title" = "Tocar para voltar atrás";
-"button-next" = "Seguinte";
+"button-next" = "Próximo";
 "button-ok" = "OK";
 "button-publish" = "Publicar";
 "button-read-now" = "Ler agora";
@@ -152,7 +151,7 @@
 "clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
-"continue-reading-empty-description" = "Explore a Wikipedia para mais artigos para ler";
+"continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
 "description-add-link-title" = "Adicionar descrição do título";
 "description-add-title" = "Adicionar descrição";
@@ -261,8 +260,8 @@
 "edit-subscript-accessibility-label" = "Adicionar formatação de subscrito";
 "edit-subscript-remove-accessibility-label" = "Remover a formatação de subscrito";
 "edit-summary-add-summary-text" = "Adicionar um resumo de edição";
-"edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
-"edit-summary-choice-fixed-typos" = "Ortográfia reduzida";
+"edit-summary-choice-fixed-grammar" = "Gramática corrigida";
+"edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-learn-more-text" = "Saiba mais";
 "edit-summary-placeholder-text" = "Como foi que você melhorou o artigo?";
@@ -301,11 +300,10 @@
 "empty-no-reading-lists-title" = "Organiza os artigos salvados com as listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
 "empty-no-saved-pages-in-reading-list-title" = "Não foram salvadas páginas nesta lista";
-"empty-no-saved-pages-message" = "Guarde páginas para ler mais tarde, mesmo que seja offline";
+"empty-no-saved-pages-message" = "Salve páginas para ler mais tarde, mesmo que seja offline";
 "empty-no-saved-pages-title" = "Sem páginas salvas ainda.";
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
 "empty-talk-page-title" = "Nenhuma mensagem foi postada para este usuário ainda";
-"error-generic-description" = "Um erro inesperado ocorreu";
 "error-generic-recovery-suggestion" = "Por favor, tente novamente mais tarde";
 "error-unknown" = "Ocorreu um erro desconhecido";
 "explore-another-random" = "Outro artigo aleatório";
@@ -565,6 +563,7 @@
 "page-history-user-edits" = "edições de usuário";
 "page-issues" = "Problemas da página";
 "page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado $1 dia atrás}}";
+"page-last-edited-unknown" = "Editado há algum tempo";
 "page-location" = "Ver no mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Você não tem permissão para editar esta página";
@@ -786,7 +785,6 @@
 "share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "Construindo um cartão de compartilhamento...";
-"share-custom-menu-item" = "Compartilhar...";
 "share-default-format" = "“$1” de “$2”: $3";
 "share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter direções";
@@ -804,6 +802,7 @@
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
+"table-of-contents-hide-button-label" = "Ocultar sumário";
 "table-title-other" = "Mais informações";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Toque duas vezes para abrir o tópico de discussão";
@@ -878,7 +877,6 @@
 "welcome-send-data-learn-more" = "Saiba mais sobre dados coletados";
 "welcome-send-data-sub-title" = "Ajude a melhorar o aplicativo, permitindo que a Wikimedia Foundation saiba como você o usa. Os dados coletados são anônimos";
 "welcome-volunteer-send-usage-reports" = "Enviar relatório de uso";
-"wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-preview-changes" = "Recuperando uma pré-visualização de suas mudanças...";
 "wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";

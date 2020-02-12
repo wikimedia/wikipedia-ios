@@ -50,11 +50,11 @@
 "about-translators-details" = "由 $1 的志工們翻譯";
 "about-wikimedia-foundation" = "維基媒體基金會";
 "about-wikipedia" = "維基百科";
-"abuse-filter-disallow-heading" = "您不能發佈此編輯";
+"abuse-filter-disallow-heading" = "您不能發布此編輯";
 "abuse-filter-disallow-unconstructive" = "自動過濾器已確定此編輯可能不具建設性或是具有破壞企圖。請返回並更改您的編輯。";
 "abuse-filter-warning-blanking" = "刪除段落或是整個條目";
 "abuse-filter-warning-caps" = "所有大寫文字";
-"abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要發佈它？";
+"abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要發布它？";
 "abuse-filter-warning-irrelevant" = "不相關的外部連結或圖片";
 "abuse-filter-warning-repeat" = "重複字元";
 "abuse-filter-warning-spam" = "添加垃圾訊息在條目裡";
@@ -62,7 +62,7 @@
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
 "account-creation-captcha-request-account" = "請求帳號。";
-"account-creation-captcha-title" = "CAPTCHA 安全性檢查";
+"account-creation-captcha-title" = "驗證碼安全性檢查";
 "account-creation-create-account" = "建立您的帳號";
 "account-creation-have-account" = "已經擁有帳號？$1";
 "account-creation-log-in" = "登入。";
@@ -126,16 +126,15 @@
 "article-languages-others" = "其他語言";
 "article-languages-yours" = "您的語言";
 "article-read-more-title" = "延伸閱讀";
+"article-reference-title" = "檢視參考資料";
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
-"article-title" = "條目";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
-"article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back-button-accessibility-label" = "返回";
 "back-button-popover-title" = "輕觸返回";
 "button-next" = "下一步";
 "button-ok" = "確定";
-"button-publish" = "發佈";
+"button-publish" = "發布";
 "button-read-now" = "立刻讀取";
 "button-report-a-bug" = "回報程式錯誤";
 "button-save-for-later" = "儲存以供日後使用";
@@ -158,7 +157,7 @@
 "description-edit-pencil-introduction" = "編輯簡介";
 "description-edit-pencil-title" = "編輯標題描述";
 "description-edit-placeholder-title" = "簡短的描述是最好的";
-"description-edit-publish" = "發佈描述";
+"description-edit-publish" = "發布描述";
 "description-edit-title" = "編輯描述";
 "description-edit-warning" = "嘗試讓描述保持簡短，以讓使用者能立即了解條目的主題";
 "description-help-about-description" = "標題描述能概括條目，以幫助讀者快速了解內容。";
@@ -178,7 +177,7 @@
 "description-published-button-title" = "完成";
 "description-published-footer" = "您也可以以此應用程式編輯條目。下次可嘗試透過點選鉛筆圖示來修復錯別字與短句";
 "description-published-subtitle" = "謝謝您！您剛剛已令維基百科變得更完善，所有人都會受惠";
-"description-published-title" = "已發佈描述！";
+"description-published-title" = "已發布描述！";
 "description-welcome-concise-sub-title" = "原則上為一行，介於 2 至 12 個字之間";
 "description-welcome-concise-title" = "保持簡短";
 "description-welcome-descriptions-sub-title" = "將條目概括來幫助讀者快速了解內容。";
@@ -244,7 +243,7 @@
 "edit-minor-text" = "這是一個小修改";
 "edit-ordered-list-accessibility-label" = "建立目前列的有序清單";
 "edit-ordered-list-remove-accessibility-label" = "從目前列來移除有序清單";
-"edit-published" = "已發佈編輯";
+"edit-published" = "已發布編輯";
 "edit-published-subtitle" = "謝謝您！您剛剛已令維基百科變得更完善，所有人都會受惠";
 "edit-reference-accessibility-label" = "添加參考資料語法";
 "edit-reference-remove-accessibility-label" = "移除參考資料語法";
@@ -300,7 +299,6 @@
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
 "empty-talk-page-title" = "尚未對此使用者發佈過訊息";
-"error-generic-description" = "發生意外錯誤";
 "error-generic-recovery-suggestion" = "請稍後重試";
 "error-unknown" = "發生不明錯誤";
 "explore-another-random" = "另一個隨機條目";
@@ -397,7 +395,7 @@
 "field-alert-token-invalid" = "無效代碼";
 "field-alert-username-unavailable" = "使用者名稱不可用";
 "field-backup-token-title" = "備份代碼";
-"field-captcha-placeholder" = "驗證碼";
+"field-captcha-placeholder" = "驗證碼文字";
 "field-captcha-title" = "輸入您在上方看到的文字";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "電子郵件";
@@ -449,7 +447,7 @@
 "in-the-news-currently-trending" = "最新動態";
 "in-the-news-notification-read-now-action-title" = "立刻讀取";
 "in-the-news-notification-save-for-later-action-title" = "儲存以供日後使用";
-"in-the-news-notification-share-action-title" = "分享...";
+"in-the-news-notification-share-action-title" = "分享…";
 "in-the-news-sub-title-from-language-wikipedia" = "來自$1維基百科";
 "in-the-news-sub-title-from-wikipedia" = "來自維基百科";
 "in-the-news-title" = "新聞動態";
@@ -560,6 +558,7 @@
 "page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
 "page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
+"page-last-edited-unknown" = "在之前編輯過";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
@@ -722,7 +721,7 @@
 "reverted-edit-view-guidelines-text" = "檢視指引";
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
-"saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
+"saved-pages-image-download-error" = "下載此儲存頁面裡的圖片失敗。";
 "saved-pages-progress-syncing" = "條目下載進行中...";
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋已儲存條目";
@@ -781,7 +780,6 @@
 "share-a-fact-made-with" = "用維基百科應用程式製作";
 "share-article-name-on-wikipedia" = "\"$1\"在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
-"share-custom-menu-item" = "分享...";
 "share-default-format" = "「$1」來自於「$2」：$3";
 "share-email-format" = "「$1」\n\n來自於「$2」\n\n$3";
 "share-get-directions-in-maps" = "取得路線";
@@ -799,6 +797,7 @@
 "table-of-contents-close-accessibility-hint" = "關閉";
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
+"table-of-contents-hide-button-label" = "隱藏目錄";
 "table-title-other" = "更多資訊";
 "talk-page-add-discussion-accessibility-label" = "新增討論";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
@@ -818,12 +817,12 @@
 "talk-page-new-body-textfield-accessibility-label" = "討論正文";
 "talk-page-new-reply-body-accessibility-label" = "撰寫回覆";
 "talk-page-new-reply-body-placeholder-text" = "撰寫回覆";
-"talk-page-new-reply-success-text" = "您的回覆已成功發佈";
+"talk-page-new-reply-success-text" = "您的回覆已成功發布";
 "talk-page-new-subject-clear-button-accessibility" = "清除主題";
 "talk-page-new-subject-placeholder-text" = "主題";
 "talk-page-new-subject-textfield-accessibility-label" = "主題";
 "talk-page-new-topic-body-placeholder-text" = "撰寫新的討論";
-"talk-page-new-topic-success-text" = "您的討論已成功發佈";
+"talk-page-new-topic-success-text" = "您的討論已成功發布";
 "talk-page-new-topic-title" = "新討論";
 "talk-page-publish-terms-and-licenses" = "儲存更改後，表示您同意$1使用條款$2，並同意依據$3CC BY-SA 3.0$4以及$5GFDL$6授權發佈您的貢獻。";
 "talk-page-reply-title" = "回覆";
@@ -873,7 +872,6 @@
 "welcome-send-data-learn-more" = "了解更多關於資料採集";
 "welcome-send-data-sub-title" = "透過讓我們了解您是如何使用，來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
 "welcome-volunteer-send-usage-reports" = "傳送使用情況報告";
-"wikitext-download-failed" = "無法取得最新的修訂。";
 "wikitext-downloading" = "載入內容中…";
 "wikitext-preview-changes" = "取得您的變更預覽中...";
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";
@@ -887,9 +885,9 @@
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";
 "wikitext-upload-result-unknown" = "無法確定 wiki 語法上傳結果。";
-"wikitext-upload-save" = "發佈中...";
+"wikitext-upload-save" = "發布中…";
 "wikitext-upload-save-anonymously-or-login" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1登入$2，您將擁有更多隱私。";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1，您將擁有更多隱私。";
 "wikitext-upload-save-sign-in" = "登入";
-"wikitext-upload-save-terms-and-licenses" = "依據發佈變更，代表著您同意$1使用條款$2，以及確定不撤銷依照與$3CC BY-SA 3.0$4授權條款以及$5GNU自由文檔許可證$6來釋出您的貢獻。您同意超連結或是 URL 有充分依據創用 CC 授權歸屬。";
+"wikitext-upload-save-terms-and-licenses" = "依據發布變更，代表著您同意$1使用條款$2，以及確定不撤銷依照與$3CC BY-SA 3.0$4授權條款以及$5GNU自由文檔許可證$6來釋出您的貢獻。您同意超連結或是 URL 有充分依據創用 CC 授權歸屬。";
 "wikitext-upload-save-terms-name" = "使用條款";

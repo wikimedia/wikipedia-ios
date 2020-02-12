@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewController {
     
@@ -7,20 +8,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
     //class
     
     init?(with dataStore: MWKDataStore) {
-        func fetchDefaultReadingListWithSortOrder() -> ReadingList? {
-            let fetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-            fetchRequest.fetchLimit = 1
-            fetchRequest.propertiesToFetch = ["sortOrder"]
-            fetchRequest.predicate = NSPredicate(format: "isDefault == YES")
-            
-            guard let readingLists = try? dataStore.viewContext.fetch(fetchRequest),
-                let defaultReadingList = readingLists.first else {
-                assertionFailure("Failed to fetch default reading list with sort order")
-                return nil
-            }
-            return defaultReadingList
-        }
-        guard let readingList = fetchDefaultReadingListWithSortOrder() else {
+        guard let readingList = dataStore.viewContext.defaultReadingList else {
             return nil
         }
         
@@ -89,6 +77,6 @@ extension SavedArticlesCollectionViewController: SavedArticlesCollectionViewCell
         }
         let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: article.sortedNonDefaultReadingLists) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
-        wmf_push(viewController, animated: true)
+        push(viewController, animated: true)
     }
 }

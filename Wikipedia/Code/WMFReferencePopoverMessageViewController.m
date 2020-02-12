@@ -1,7 +1,8 @@
 #import "WMFReferencePopoverMessageViewController.h"
-#import "WebViewController+WMFReferencePopover.h"
 #import "Wikipedia-Swift.h"
 @import WMF.Swift;
+
+NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNotification";
 
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
 
@@ -50,9 +51,8 @@
 - (NSString *)referenceHTMLWithSurroundingHTML {
     NSNumber *fontSize = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
 
-    NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
-    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
-    NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
+    NSString *baseUrl = [self.articleURL absoluteString];
+    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:self.articleURL.wmf_language];
 
     return
         [NSString stringWithFormat:@""

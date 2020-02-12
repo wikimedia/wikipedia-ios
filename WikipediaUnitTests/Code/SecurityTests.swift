@@ -3,7 +3,7 @@ import XCTest
 class SecurityTests: XCTestCase {
     
     func testFileProtection() {
-        let fileURL: URL = SessionSingleton.sharedInstance().dataStore.containerURL
+        let fileURL: URL = MWKDataStore.shared().containerURL
         let fm = FileManager.default
         guard let enumerator = fm.enumerator(at: fileURL, includingPropertiesForKeys: [URLResourceKey.fileProtectionKey], options: [], errorHandler: { url, error in
             XCTAssert(false, "Enumerator error")

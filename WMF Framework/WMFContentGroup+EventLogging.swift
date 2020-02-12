@@ -1,3 +1,5 @@
+import Foundation
+
 @objc public extension WMFContentGroup {
     var eventLoggingLabel: EventLoggingLabel? {
         switch contentGroupKind {

@@ -112,7 +112,6 @@
 "article-save-error-not-enough-space" = "Anda tidak memiliki cukup ruang di perangkat Anda untuk menyimpan artikel ini";
 "article-share" = "Bagikan";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Tema Bacaan";
-"article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "back-button-accessibility-label" = "Kembali";
 "back-button-popover-title" = "Ketuk untuk kembali";
 "button-next" = "Lanjut";
@@ -229,7 +228,6 @@
 "empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
 "empty-no-search-results-message" = "Tidak ada hasil yang ditemukan";
-"error-generic-description" = "Terjadi kesalahan yang tidak terduga";
 "error-generic-recovery-suggestion" = "Silakan coba lagi nanti";
 "error-unknown" = "Terjadi sebuah kesalahan yang tidak diketahui";
 "explore-another-random" = "Artikel sembarang lainnya";
@@ -373,6 +371,7 @@
 "in-the-news-currently-trending" = "Saat ini ngetren";
 "in-the-news-notification-read-now-action-title" = "Baca Sekarang";
 "in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Bagikan...";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
@@ -635,7 +634,6 @@
 "share-a-fact-made-with" = "Dibuat dengan aplikasi Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
 "share-building" = "Membangun kartu Bagikan-fakta...";
-"share-custom-menu-item" = "Bagikan...";
 "share-default-format" = "“$1” dari “$2”: $3";
 "share-email-format" = "“$1”\n\ndari “$2”\n\n$3";
 "share-get-directions-in-maps" = "Dapatkan Petunjuk Arah";
@@ -695,7 +693,6 @@
 "welcome-send-data-learn-more" = "Pelajari lebih lanjut tentang data yang dikumpulkan";
 "welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui bagaimana Anda menggunakannya. Data yang dikumpulkan bersifat anonim.";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan penggunaan";
-"wikitext-download-failed" = "Tidak dapat memperoleh revisi terbaru.";
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";

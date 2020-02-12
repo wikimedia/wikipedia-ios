@@ -1,7 +1,12 @@
 import UIKit
 import WMF
 
-class ViewController: PreviewingViewController, NavigationBarHiderDelegate {    
+class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
+    @objc public init(theme: Theme) {
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
+    }
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -24,13 +29,13 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         return NavigationBarHider()
     }()
 
-    var keyboardFrame: CGRect? {
+    private var keyboardFrame: CGRect? {
         didSet {
             keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
         }
     }
-    open var showsNavigationBar: Bool = false
-    var ownsNavigationBar: Bool = true
+    private var showsNavigationBar: Bool = false
+    private var ownsNavigationBar: Bool = true
     
     public enum NavigationMode {
         case bar
@@ -150,12 +155,12 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIWindow.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIWindow.keyboardWillShowNotification, object: nil)
     }
-
+    
     var isFirstAppearance = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        setupGestureRecognizerDependencies()
         guard navigationMode == .bar else {
             if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
                 var updatedElements: [Any] = [closeButton]
@@ -223,7 +228,8 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
-        self.updateScrollViewInsets()
+        toolbarHeightConstraint.constant = toolbarHeightForCurrentSafeAreaInsets
+        updateScrollViewInsets()
     }
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
@@ -254,6 +260,10 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             let adjustedKeyboardFrame = view.convert(keyboardFrame, to: scrollView)
             let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
             bottom = max(bottom, scrollView.bounds.maxY - keyboardIntersection.minY)
+        }
+        
+        if !isToolbarHidden {
+            bottom += toolbar.frame.height
         }
         
         let scrollIndicatorInsets: UIEdgeInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
@@ -331,9 +341,189 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         navigationBar.apply(theme: theme)
         applyThemeToCloseButton()
         scrollView?.refreshControl?.tintColor = theme.colors.refreshControlTint
+        
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
+        
+        secondToolbar.setBackgroundImage(theme.clearImage, forToolbarPosition: .any, barMetrics: .default)
+        secondToolbar.setShadowImage(theme.clearImage, forToolbarPosition: .any)
+    }
+    
+    // MARK: Toolbars
+    
+    static let toolbarHeight: CGFloat = 44
+    static let constrainedToolbarHeight: CGFloat = 32
+    static let secondToolbarSpacing: CGFloat = 8
+    static let toolbarAnimationDuration: TimeInterval = 0.3
+    
+    var toolbarHeightForCurrentSafeAreaInsets: CGFloat {
+        return view.safeAreaInsets.top == 0 ? ViewController.constrainedToolbarHeight : ViewController.toolbarHeight
+    }
+
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
+    lazy var toolbarHeightConstraint: NSLayoutConstraint = {
+        return toolbar.heightAnchor.constraint(equalToConstant: toolbarHeightForCurrentSafeAreaInsets)
+    }()
+    
+    lazy var toolbarVisibleConstraint: NSLayoutConstraint = {
+        return view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor)
+    }()
+    
+    lazy var toolbarHiddenConstraint: NSLayoutConstraint = {
+        return view.bottomAnchor.constraint(equalTo: toolbar.topAnchor)
+    }()
+    
+    lazy var secondToolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
+    lazy var secondToolbarHeightConstraint: NSLayoutConstraint = {
+        return secondToolbar.heightAnchor.constraint(equalToConstant: ViewController.toolbarHeight)
+    }()
+    
+    lazy var secondToolbarVisibleConstraint: NSLayoutConstraint = {
+        return toolbar.topAnchor.constraint(equalTo: secondToolbar.bottomAnchor, constant: ViewController.secondToolbarSpacing)
+    }()
+    
+    lazy var secondToolbarHiddenConstraint: NSLayoutConstraint = {
+        return secondToolbar.topAnchor.constraint(equalTo: toolbar.topAnchor)
+    }()
+    
+    /// Setup toolbars for use
+    private var isToolbarEnabled: Bool = false
+    func enableToolbar() {
+        guard !isToolbarEnabled else {
+            return
+        }
+        isToolbarEnabled = true
+        view.addSubview(toolbar)
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
+        let trailingConstraint = toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
+        view.insertSubview(secondToolbar, belowSubview: toolbar)
+        let secondLeadingConstraint = view.leadingAnchor.constraint(equalTo: secondToolbar.leadingAnchor)
+        let secondTrailingConstraint = secondToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
+        NSLayoutConstraint.activate([toolbarHeightConstraint, secondToolbarHeightConstraint, toolbarHiddenConstraint, leadingConstraint, trailingConstraint, secondToolbarHiddenConstraint, secondLeadingConstraint, secondTrailingConstraint])
+    }
+
+    var isToolbarHidden: Bool {
+        guard isToolbarEnabled else {
+            return true
+        }
+        return toolbarHiddenConstraint.isActive
+    }
+    
+    func setToolbarHidden(_ hidden: Bool, animated: Bool) {
+        guard isToolbarEnabled else {
+            assert(false, "Toolbar not enabled. Call enableToolbar before this function.")
+            return
+        }
+        let animations = {
+            if hidden {
+                NSLayoutConstraint.deactivate([self.toolbarVisibleConstraint])
+                NSLayoutConstraint.activate([self.toolbarHiddenConstraint])
+            } else {
+                NSLayoutConstraint.deactivate([self.toolbarHiddenConstraint])
+                NSLayoutConstraint.activate([self.toolbarVisibleConstraint])
+            }
+            self.view.layoutIfNeeded()
+        }
+        if animated {
+            UIView.animate(withDuration: ViewController.toolbarAnimationDuration, animations: animations)
+        } else {
+            animations()
+        }
+    }
+    
+    var isSecondToolbarHidden: Bool {
+        guard isToolbarEnabled else {
+            return true
+        }
+        return secondToolbarHiddenConstraint.isActive
+    }
+    
+    func setSecondToolbarHidden(_ hidden: Bool, animated: Bool) {
+        guard isToolbarEnabled else {
+            assert(false, "Toolbars not enabled. Call enableToolbar before this function.")
+            return
+        }
+        let animations = {
+            if hidden {
+                NSLayoutConstraint.deactivate([self.secondToolbarVisibleConstraint])
+                NSLayoutConstraint.activate([self.secondToolbarHiddenConstraint])
+            } else {
+                NSLayoutConstraint.deactivate([self.secondToolbarHiddenConstraint])
+                NSLayoutConstraint.activate([self.secondToolbarVisibleConstraint])
+            }
+            self.view.layoutIfNeeded()
+        }
+        if animated {
+            UIView.animate(withDuration: ViewController.toolbarAnimationDuration, animations: animations)
+        } else {
+            animations()
+        }
+    }
+    
+    func setAdditionalSecondToolbarSpacing(_ spacing: CGFloat, animated: Bool) {
+        guard isToolbarEnabled else {
+            assert(false, "Toolbars not enabled. Call enableToolbar before this function.")
+            return
+        }
+        let animations = {
+            self.secondToolbarVisibleConstraint.constant = 0 - ViewController.secondToolbarSpacing - spacing
+            self.view.layoutIfNeeded()
+        }
+        if animated {
+            UIView.animate(withDuration: ViewController.toolbarAnimationDuration, animations: animations)
+        } else {
+            animations()
+        }
+    }
+    
+    // MARK: W button
+    
+    func setupWButton() {
+        let wButton = UIButton(type: .custom)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.sizeToFit()
+        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        navigationItem.titleView = wButton
+    }
+    
+    @objc func wButtonTapped(_ sender: UIButton) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    // MARK: Errors
+    
+    internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
+    
+    func showError(_ error: Error) {
+        alertManager.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
+    }
+    
+    func showGenericError() {
+        showError(RequestError.unknown)
+    }
+    
+    // MARK: Gestures
+    
+    func setupGestureRecognizerDependencies() {
+        // Prevent the scroll view from scrolling while interactively dismissing
+        guard let popGR = navigationController?.interactivePopGestureRecognizer else {
+            return
+        }
+        scrollView?.panGestureRecognizer.require(toFail: popGR)
     }
 }
-
 
 extension ViewController: WMFEmptyViewContainer {
     func addEmpty(_ emptyView: UIView) {

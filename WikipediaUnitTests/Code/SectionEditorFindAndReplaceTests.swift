@@ -75,14 +75,13 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             return
         }
         
+        let articleURL = siteUrl.appendingPathComponent("/wiki/Barack_Obama")
+        
         mockMessagingController = MockSectionEditorWebViewMessagingController()
-        sectionEditorViewController = SectionEditorViewController(messagingController: mockMessagingController)
+        sectionEditorViewController = SectionEditorViewController(articleURL: articleURL, sectionID: 1, messagingController: mockMessagingController, dataStore: MWKDataStore.temporary())
         
         focusedSectionEditorExpectation = expectation(description: "Waiting for sectionEditorDidFinishLoadingWikitext callback")
-        
-        let article = MWKArticle(url: siteUrl.appendingPathComponent("/wiki/Barack_Obama"), dataStore: MWKDataStore.temporary())
-        let section = MWKSection(article: article, dict: ["id" : 1])
-        sectionEditorViewController.section = section
+
         sectionEditorViewController.delegate = self
         
         UIApplication.shared.keyWindow?.rootViewController = sectionEditorViewController

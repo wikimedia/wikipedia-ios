@@ -44,8 +44,8 @@ public class Router: NSObject {
                 return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
             }
             
-            if let articleTitle = historyRegex.firstReplacementString(in: title) {
-                return .articleHistory(url, articleTitle: articleTitle.wmf_normalizedPageTitle())
+            if let articleTitle = historyRegex.firstReplacementString(in: title)?.normalizedPageTitle {
+                return .articleHistory(url, articleTitle: articleTitle)
             }
             
             return inAppLinkDestination

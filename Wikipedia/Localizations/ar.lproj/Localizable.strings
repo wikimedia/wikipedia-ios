@@ -17,6 +17,7 @@
 // Author: Nemo bis
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
+// Author: Sonic N800
 // Author: Tarawneh
 // Author: Zpizza
 // Author: بدارين
@@ -126,9 +127,7 @@
 "article-read-more-title" = "قراءة المزيد";
 "article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
-"article-title" = "المقالة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
-"article-unable-to-load-section" = "تعذر تحميل هذه الفقرة. حاول تحديث عرض المقالة كي ترى إن أدى ذلك إلى التغلب على هذه المشكلة.";
 "back-button-accessibility-label" = "ارجع";
 "back-button-popover-title" = "اضغط للعودة";
 "button-next" = "التالي";
@@ -298,7 +297,6 @@
 "empty-no-saved-pages-title" = "لا صفحات محفوظة بعد";
 "empty-no-search-results-message" = "لا توجد نتائج";
 "empty-talk-page-title" = "لم يتم نشر رسائل لهذا المستخدم بعد";
-"error-generic-description" = "حدث خطأ غير متوقع";
 "error-generic-recovery-suggestion" = "من فضلك حاول مرة أخرى لاحقا";
 "error-unknown" = "حدث خطأ غير معروف";
 "explore-another-random" = "مقالة عشوائية أخرى";
@@ -447,6 +445,7 @@
 "in-the-news-currently-trending" = "الأكثر زيارة حاليا";
 "in-the-news-notification-read-now-action-title" = "اقرأ الآن";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "شارك...";
 "in-the-news-sub-title-from-language-wikipedia" = "من ويكيبيديا $1";
 "in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
@@ -557,7 +556,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
 "page-issues" = "مشاكل في الصفحة";
-"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|منذ $1 أيام}}";
+"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
@@ -691,13 +690,13 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=مؤخرا|قبل $1 ساعة|قبل $1 ساعات}}";
-"relative-date-hours-ago-abbreviated" = "منذ $1h";
+"relative-date-hours-ago-abbreviated" = "قبل $1h";
 "relative-date-minutes-abbreviated" = "$1m";
-"relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|منذ $1 دقيقة|منذ $1 دقائق}}";
-"relative-date-minutes-ago-abbreviated" = "منذ $1m";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|قبل $1 دقيقة|قبل $1 دقائق}}";
+"relative-date-minutes-ago-abbreviated" = "قبل $1m";
 "relative-date-months-ago" = "{{PLURAL:$1|0=هذا الشهر|1=الشهر الماضي|منذ $1 أشهر}}";
 "relative-date-seconds-abbreviated" = "$1s";
-"relative-date-seconds-ago-abbreviated" = "منذ $1s";
+"relative-date-seconds-ago-abbreviated" = "قبل $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|1=العام الماضي|منذ $1 سنوات}}";
 "replace-button-accessibility" = "أداء $1.";
 "replace-buttons-replace-accessibility" = "استبدال مثيل واحد";
@@ -779,7 +778,6 @@
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
 "share-building" = "جارٍ بناء بطاقة مشاركة حقيقة...";
-"share-custom-menu-item" = "شارك...";
 "share-default-format" = "“$1” من “$2”: $3";
 "share-email-format" = "“$1”\n\nمن “$2”\n\n$3";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
@@ -871,7 +869,6 @@
 "welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
 "welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
-"wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-preview-changes" = "جار جلب عرض التغييرات التي قمت بها...";
 "wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";

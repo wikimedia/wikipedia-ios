@@ -108,9 +108,7 @@
 "article-read-more-title" = "وڌيڪ پڙهو";
 "article-save-error-not-enough-space" = "توھان کي پنھنجي آلي تي ايتري جڳھ ناھي جو ھي مضمون سانڍي سگھجي";
 "article-share" = "ونڊيو";
-"article-title" = "مضمون";
 "article-toolbar-reading-themes-controls-toolbar-item" = "پڙھڻ جي نظارن جا ضابطا";
-"article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
 "back-button-accessibility-label" = "واپس";
 "back-button-popover-title" = "واپس وڃڻ لاءِ ڇھو";
 "button-next" = "اڳيون";
@@ -257,7 +255,6 @@
 "empty-no-saved-pages-title" = "اڃان ڪي بہ صفحا سانڍيل نہ آهن";
 "empty-no-search-results-message" = "ڪي بہ نتيجا نہ لڌا";
 "empty-talk-page-title" = "ھن واپرائيندڙ لاءِ اڃا ڪي بہ پيغام ناھن لکيا ويا";
-"error-generic-description" = "ڪا اڻ-متوقع چُڪَ پيش آئي";
 "error-generic-recovery-suggestion" = "مھرباني ڪري ٻيھر ڪوشش ڪريو";
 "error-unknown" = "اڻڄاتل خرابي پيش آئي";
 "explore-another-random" = "ھڪ ٻيو بلاترتيب مضمون";
@@ -403,6 +400,7 @@
 "in-the-news-currently-trending" = "ھاڻوڪا رجحان";
 "in-the-news-notification-read-now-action-title" = "ھاڻي پڙھو";
 "in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "ونڊيو...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وڪيپيڊيا مان";
 "in-the-news-sub-title-from-wikipedia" = "وڪيپيڊيا تان";
@@ -677,7 +675,6 @@
 "share-a-fact-made-with" = "وڪيپيڊيا ايپ سان ٺھيل";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
 "share-building" = "ھڪ-نقطو-ونڊيو ڪارڊ اڏيندي...";
-"share-custom-menu-item" = "ونڊيو...";
 "share-default-format" = "”$1“ کان ”$2“: $3";
 "share-email-format" = "”$1“\n\nکان ”$2“\n\n$3";
 "share-get-directions-in-maps" = "هدايتون وٺو";
@@ -768,7 +765,6 @@
 "welcome-send-data-learn-more" = "ميڙيل ڊيٽا بابت وڌيڪ ڄاڻو";
 "welcome-send-data-sub-title" = "ايپ کي بھتر بڻائڻ ۾ مدد ڪريو ان جي استعمال بابت وڪيميڊيا فائونڊيشن کي ڄاڻائي ڪري. حاصل ڪيل ڊيٽا گنمام آھي.";
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
-"wikitext-download-failed" = "تازو ترين ورزن حاصل ڪرڻ ۾ نالائق.";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
 "wikitext-preview-changes" = "توهان جي تبديلين جي پيش-نگاھ آڻيندي...";
 "wikitext-preview-changes-none" = "ڪي بہ تبديليون نہ ڪيون ويون ھيون جون پيش-نگاھ ڪجي.";

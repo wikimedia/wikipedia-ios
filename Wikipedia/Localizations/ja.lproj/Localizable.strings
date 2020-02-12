@@ -135,9 +135,7 @@
 "article-read-more-title" = "さらに読む";
 "article-save-error-not-enough-space" = "デバイスの空き容量不足でこの記事を保存できません";
 "article-share" = "共有";
-"article-title" = "記事";
 "article-toolbar-reading-themes-controls-toolbar-item" = "テーマのコントロールを読み込む";
-"article-unable-to-load-section" = "この節を読み込むことができません。記事を更新してみて、問題が解決するかどうか確かめてみてください。";
 "back-button-accessibility-label" = "戻る";
 "back-button-popover-title" = "ここをタップすると戻ります";
 "button-next" = "次へ";
@@ -286,7 +284,6 @@
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
 "empty-talk-page-title" = "このユーザーにはまだメッセージが投稿されていません";
-"error-generic-description" = "予期しないエラーが発生しました。";
 "error-generic-recovery-suggestion" = "しばらくしてから再度、操作をしてください";
 "error-unknown" = "不明なエラーが発生しました";
 "explore-another-random" = "おまかせで別の記事";
@@ -437,6 +434,7 @@
 "in-the-news-currently-trending" = "現在のトレンド";
 "in-the-news-notification-read-now-action-title" = "すぐ読む";
 "in-the-news-notification-save-for-later-action-title" = "保存してあとで読む";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "共有...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1版ウィキペディアより";
 "in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
@@ -741,7 +739,6 @@
 "share-a-fact-made-with" = "ウィキペディアアプリで作成";
 "share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で読む";
 "share-building" = "シェア・ア・ファクトカードの構築";
-"share-custom-menu-item" = "共有...";
 "share-default-format" = "“$1” から “$2”: $3";
 "share-email-format" = "“$1”\n\nから “$2”\n\n$3";
 "share-get-directions-in-maps" = "道順を取得する";
@@ -832,7 +829,6 @@
 "welcome-send-data-learn-more" = "収集されたデータの詳細";
 "welcome-send-data-sub-title" = "アプリケーション改善に役立てるため、ウィキメディア財団にあなたの使用状況を送信します。収集されるデータは匿名です。";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
-"wikitext-download-failed" = "最新の版を取得できません。";
 "wikitext-downloading" = "本文を読み込み中...";
 "wikitext-preview-changes" = "編集のプレビューを取得中...";
 "wikitext-preview-changes-none" = "プレビューが必要な変更はありません。";

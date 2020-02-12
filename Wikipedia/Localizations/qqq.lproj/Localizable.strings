@@ -97,11 +97,10 @@
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
+"article-reference-title" = "Label for button linking out to an article's references";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
-"article-title" = "Generic article title";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
-"article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
 "button-next" = "Button text for next button used in various places. {{Identical|Next}}";
@@ -271,7 +270,6 @@
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
 "empty-talk-page-title" = "Text for placeholder label visible when talk page is empty";
-"error-generic-description" = "Generic error message for when the error isn't recoverable by the user.";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
 "error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
@@ -531,6 +529,7 @@
 "page-history-user-edits" = "Text for view that shows many edits were made by logged-in users";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}";
 "page-last-edited" = "Relative days since an article was last edited. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
+"page-last-edited-unknown" = "Shown on the item for showing the article history when it's unclear how many days ago the article was edited.";
 "page-location" = "Label for button used to show an article on the map";
 "page-protected-autoconfirmed" = "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.";
 "page-protected-can-not-edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
@@ -752,7 +751,6 @@
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";
-"share-custom-menu-item" = "Button label for text selection Share {{Identical|Share}}";
 "share-default-format" = "Default share format string. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-email-format" = "Share format string for email. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-get-directions-in-maps" = "Button to get directions to the current article's location in the Maps app.";
@@ -770,6 +768,7 @@
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents {{Identical|Content}}";
+"table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
@@ -844,7 +843,6 @@
 "welcome-send-data-learn-more" = "Text for link for learning more about opting-in to anonymous data collection";
 "welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
 "welcome-volunteer-send-usage-reports" = "Text for switch allowing user to choose whether to send usage reports";
-"wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-changes-none" = "Alert text shown if no changes were made to be previewed.";

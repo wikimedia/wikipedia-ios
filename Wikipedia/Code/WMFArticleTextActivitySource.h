@@ -1,12 +1,12 @@
 @import UIKit;
 
-@class MWKArticle;
+@class WMFArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleTextActivitySource : NSObject <UIActivityItemSource>
 
-- (instancetype)initWithArticle:(MWKArticle *)article shareText:(nullable NSString *)text;
+- (instancetype)initWithArticle:(WMFArticle *)article shareText:(nullable NSString *)text;
 
 @end
 

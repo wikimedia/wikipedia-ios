@@ -1,5 +1,4 @@
 #import <WMF/EventLoggingFunnel.h>
-#import <WMF/SessionSingleton.h>
 #import <WMF/WMF-Swift.h>
 
 EventLoggingCategory const EventLoggingCategoryFeed = @"feed";

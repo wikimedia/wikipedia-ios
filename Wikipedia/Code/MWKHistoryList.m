@@ -26,45 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-#pragma mark - Legacy Migration
-
-- (void)migrateLegacyDataIfNeeded {
-    NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
-
-    if ([[NSUserDefaults wmf] wmf_didMigrateHistoryList]) {
-        return;
-    }
-
-    NSArray<MWKHistoryEntry *> *entries = [[self.dataStore historyListData] wmf_mapAndRejectNil:^id(id obj) {
-        @try {
-            return [[MWKHistoryEntry alloc] initWithDict:obj];
-        } @catch (NSException *exception) {
-            return nil;
-        }
-    }];
-
-    if ([entries count] == 0) {
-        [[NSUserDefaults wmf] wmf_setDidMigrateHistoryList:YES];
-        return;
-    }
-
-    [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:obj.url];
-        article.viewedDate = obj.dateViewed;
-        [article updateViewedDateWithoutTime];
-        article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
-        article.isExcludedFromFeed = obj.isBlackListed;
-    }];
-
-    NSError *migrationError = nil;
-    if (![self.dataStore save:&migrationError]) {
-        DDLogError(@"Error migrating legacy history list: %@", migrationError);
-        return;
-    }
-
-    [[NSUserDefaults wmf] wmf_setDidMigrateHistoryList:YES];
-}
-
 #pragma mark - Convienence Methods
 
 - (NSFetchRequest *)historyListFetchRequest {

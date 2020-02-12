@@ -104,7 +104,7 @@
 "action-saved-accessibility-notification" = "Madde, sonrası için kaydedildi";
 "action-share" = "Paylaş";
 "action-share-accessibility" = "Paylaş";
-"action-sort" = "Sınıflandır";
+"action-sort" = "Sırala";
 "action-thank-user-accessibility" = "Kullanıcı Teşekkür Et";
 "action-undo" = "Geri al";
 "action-unsave" = "Kaydetme";
@@ -133,11 +133,10 @@
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamını oku";
+"article-reference-title" = "Kaynakları görüntüle";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
-"article-title" = "Makale";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
-"article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "back-button-accessibility-label" = "Geri";
 "back-button-popover-title" = "Geri dönmek için dokunun";
 "button-next" = "Sonraki";
@@ -307,7 +306,6 @@
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
 "empty-talk-page-title" = "Bu kullanıcı için henüz hiç mesaj gönderilmedi";
-"error-generic-description" = "Beklenmedik bir sorun oluştu";
 "error-generic-recovery-suggestion" = "Lütfen tekrar deneyin";
 "error-unknown" = "Bilinmeyen bir hata oluştu";
 "explore-another-random" = "Rastgele başka bir madde";
@@ -456,7 +454,7 @@
 "in-the-news-currently-trending" = "Şu anki trendler";
 "in-the-news-notification-read-now-action-title" = "Şimdi Oku";
 "in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
-"in-the-news-notification-share-action-title" = "Paylaş...";
+"in-the-news-notification-share-action-title" = "Paylaş…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Vikipedi'den";
 "in-the-news-sub-title-from-wikipedia" = "Vikipedi'den";
 "in-the-news-title" = "Haberlerde";
@@ -521,7 +519,7 @@
 "main-menu-privacy-policy" = "Gizlilik politikası";
 "main-menu-rate-app" = "Uygulamayı puanla";
 "main-menu-terms-of-use" = "Kullanım Koşulları";
-"main-menu-title" = "Diğer";
+"main-menu-title" = "Daha fazla";
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
 "menu-cancel-accessibility-label" = "İptal";
 "more-languages-tooltip-description" = "Yaklaşık 300 dilde ara";
@@ -567,6 +565,7 @@
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";
 "page-last-edited" = "{{PLURAL:$1|0=Bugün düzenlendi|1=Dün düzenlendi|$1 gün önce düzenlendi}}";
+"page-last-edited-unknown" = "Bir süre önce düzenlendi";
 "page-location" = "Haritada görüntüle";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
@@ -741,14 +740,14 @@
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-reading-list-placeholder-text" = "Okuma listesinde ara";
-"search-recent-clear-cancel" = "Vazgeç";
+"search-recent-clear-cancel" = "İptal";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
 "search-recent-clear-delete-all" = "Tümünü Sil";
 "search-recent-empty" = "Henüz yeni arama yok";
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
-"search-title" = "Arama";
+"search-title" = "Ara";
 "settings-account" = "Hesap";
 "settings-appearance" = "Okuma tercihleri";
 "settings-clear-cache" = "Önbellekteki verileri temizle";
@@ -788,7 +787,6 @@
 "share-a-fact-made-with" = "Vikipedi uygulamasıyla hazırlandı";
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
 "share-building" = "Bir bilgi kartı paylaşımı oluşturun...";
-"share-custom-menu-item" = "Paylaş...";
 "share-default-format" = "$3 sayfasındaki $2 maddesinden $1";
 "share-email-format" = "“$1”\n\n“$2” maddesinden\n\n$3";
 "share-get-directions-in-maps" = "Yol tarifi al";
@@ -806,6 +804,7 @@
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
+"table-of-contents-hide-button-label" = "İçindekiler tablosunu gizle";
 "table-title-other" = "Daha fazla bilgi";
 "talk-page-add-discussion-accessibility-label" = "Tartışma ekle";
 "talk-page-discussion-accessibility-hint" = "Tartışma başlığını açmak için iki kez hafifçe vurun";
@@ -880,7 +879,6 @@
 "welcome-send-data-learn-more" = "Toplanan veriler hakkında daha fazla bilgi edin";
 "welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı Wikimedia Vakfı'na bildirerek uygulamanın geliştirilmesine katkı sağlayın. Veriler anonim olarak toplanır.";
 "welcome-volunteer-send-usage-reports" = "Kullanım raporlarını gönder";
-"wikitext-download-failed" = "En son sürüm getirilemiyor.";
 "wikitext-downloading" = "İçerik yükleniyor...";
 "wikitext-preview-changes" = "Değişikliklerinizin ön izlemesi getiriliyor...";
 "wikitext-preview-changes-none" = "Ön izlemesi yapılacak bir değişiklik yok.";

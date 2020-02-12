@@ -128,7 +128,6 @@
 "article-save-error-not-enough-space" = "حافظه کافی برای ذخیره این مقاله دارید؟";
 "article-share" = "به اشتراک گذاشتن";
 "article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوستهٔ خواندن";
-"article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "back-button-accessibility-label" = "بازگشت";
 "back-button-popover-title" = "برای بازگشت کلیک کنید";
 "button-next" = "بعدی";
@@ -248,7 +247,6 @@
 "empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
 "empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده‌است";
 "empty-no-search-results-message" = "نتیجه‌ای یافت نشد";
-"error-generic-description" = "یک خطای غیرمنتظره رخ داد";
 "error-generic-recovery-suggestion" = "لطفاً بعداً امتحان کنید";
 "error-unknown" = "خطای ناشناخته رخ داده‌است";
 "explore-another-random" = "مقاله تصادفی دیگر";
@@ -355,6 +353,7 @@
 "in-the-news-currently-trending" = "رتبهٔ کنونی";
 "in-the-news-notification-read-now-action-title" = "الان بخوانید";
 "in-the-news-notification-save-for-later-action-title" = "ذخیره برای بعد";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "به اشتراک گذاشتن...";
 "in-the-news-sub-title-from-language-wikipedia" = "از $1 ویکی پدیا";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
@@ -609,7 +608,6 @@
 "share-a-fact-made-with" = "ساخته شده توسط اپلیکیشن ویکی‌پدیا";
 "share-article-name-on-wikipedia" = "\"$1\" در @ویکی‌پدیا:";
 "share-building" = "ساخت کارت اشتراک-مطلب...";
-"share-custom-menu-item" = "به اشتراک گذاشتن...";
 "share-default-format" = "«$1» از «$2»: $3";
 "share-email-format" = "«$1»\n\nاز «$2»\n\n$3";
 "share-get-directions-in-maps" = "دریافت مسیر";
@@ -678,7 +676,6 @@
 "welcome-send-data-learn-more" = "اطلاعات بیشتر در مورد جمع‌آوری داده";
 "welcome-send-data-sub-title" = "به بنیاد ویکی‌مدیا کمک کنید که اپلیکیشنش را بهبود و ارتقاء دهد. اطلاعات به صورت ناشناس جمع‌آوری می‌شوند.";
 "welcome-volunteer-send-usage-reports" = "ارسال گزارش نحوهٔ استفاده";
-"wikitext-download-failed" = "ناتوانی در اخذ آخرین تجدید نظر.";
 "wikitext-downloading" = "بارگیری متن...";
 "wikitext-preview-changes" = "بازیابی پیش نمایش تغییرات شما...";
 "wikitext-preview-changes-none" = "تغییری برای پیش نمایش وجود ندارد.";

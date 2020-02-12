@@ -15,6 +15,7 @@
 @dynamic imageWidth;
 @dynamic isCached;
 @dynamic isDownloaded;
+@dynamic isConversionFromMobileViewNeeded;
 @dynamic isExcludedFromFeed;
 @dynamic key;
 @dynamic latitude;
@@ -37,5 +38,7 @@
 @dynamic previewReadingLists;
 @dynamic errorCodeNumber;
 @dynamic ns;
+@dynamic pageID;
+@dynamic lastModifiedDate;
 
 @end

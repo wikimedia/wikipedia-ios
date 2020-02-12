@@ -145,17 +145,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return [self wmf_articleViewActivityWithURL:wikipediaURL];
 }
 
-+ (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle *)article {
-    NSParameterAssert(article.url.wmf_title);
-    NSParameterAssert(article.displaytitle);
-
-    NSUserActivity *activity = [self wmf_articleViewActivityWithURL:article.url];
-
-    activity.contentAttributeSet = article.searchableItemAttributes;
-
-    return activity;
-}
-
 + (instancetype)wmf_articleViewActivityWithURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
 
@@ -167,7 +156,7 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     [set addObjectsFromArray:[url.wmf_title componentsSeparatedByString:@" "]];
     activity.keywords = set;
     activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
-    activity.contentAttributeSet = url.searchableItemAttributes;
+    activity.contentAttributeSet = url.wmf_searchableItemAttributes;
 
     return activity;
 }

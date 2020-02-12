@@ -107,9 +107,7 @@
 "article-languages-yours" = "Dine sprog";
 "article-read-more-title" = "Læs mere";
 "article-share" = "Del";
-"article-title" = "Artikel";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
-"article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbage";
 "back-button-popover-title" = "Tryk for at gå tilbage";
 "button-next" = "Næste";
@@ -204,7 +202,6 @@
 "empty-no-saved-pages-message" = "Gem sider for at læse dem senere, selv offline";
 "empty-no-saved-pages-title" = "Ingen gemte sider endnu";
 "empty-no-search-results-message" = "Ingen resultater fundet";
-"error-generic-description" = "Der opstod en uventet fejl";
 "error-generic-recovery-suggestion" = "Prøv venligst igen senere";
 "error-unknown" = "Der opstod en ukendt fejl";
 "explore-another-random" = "En anden tilfældig artikel";
@@ -300,6 +297,7 @@
 "in-the-news-currently-trending" = "Populært nu";
 "in-the-news-notification-read-now-action-title" = "Læs nu";
 "in-the-news-notification-save-for-later-action-title" = "Gem til senere";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Del...";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
@@ -559,7 +557,6 @@
 "share-a-fact-made-with" = "Lavet med Wikipediaprogrammet";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
 "share-building" = "Bygger Del-et-fakt-kort …";
-"share-custom-menu-item" = "Del...";
 "share-default-format" = "»$1« fra »$2«: $3";
 "share-email-format" = "»$1«\n\nfra »$2«\n\n$3";
 "share-get-directions-in-maps" = "Få Rutevejledning";
@@ -621,7 +618,6 @@
 "welcome-send-data-learn-more" = "Lær mere om de data som indsamles";
 "welcome-send-data-sub-title" = "Hjælp Wikipedia Foundation med at gøre programmet bedre ved at oplyse os om, hvordan du bruger den. Data indsamles anonymt.";
 "welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
-"wikitext-download-failed" = "Ude af stand til at hente seneste version.";
 "wikitext-downloading" = "Henter indhold...";
 "wikitext-preview-changes" = "Henter forhåndsvisning af dine ændringer…";
 "wikitext-preview-changes-none" = "Ingen ændringer blev foretaget som kan forhåndsvises.";

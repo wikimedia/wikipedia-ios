@@ -132,13 +132,13 @@ class ExploreFeedSettingsGlobalCards: ExploreFeedSettingsItem {
     let title: String = WMFLocalizedString("explore-feed-preferences-global-cards-title", value: "Global cards", comment: "Title for the setting that allows users to toggle non-language specific feed cards")
     let subtitle: String? = WMFLocalizedString("explore-feed-preferences-global-cards-description", value: "Non-language specific cards", comment: "Description of global feed cards")
     let controlTag: Int = -2
-    var isOn: Bool = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
+    var isOn: Bool = MWKDataStore.shared().feedContentController.areGlobalContentGroupKindsInFeed
 
     func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .singleLanguage || displayType == .multipleLanguages else {
             return
         }
-        isOn = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
+        isOn = MWKDataStore.shared().feedContentController.areGlobalContentGroupKindsInFeed
     }
 }
 
@@ -253,6 +253,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         }
         view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
+        tableView.reloadData()
     }
 
 }

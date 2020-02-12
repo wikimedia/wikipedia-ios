@@ -1,10 +1,7 @@
 #import "WMFFirstRandomViewController.h"
 #import "Wikipedia-Swift.h"
 #import <WMF/MWKDataStore.h>
-#import <WMF/SessionSingleton.h>
 #import <WMF/MWKSearchResult.h>
-#import "WMFRandomArticleViewController.h"
-#import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/WMF-Swift.h>
 
 @interface WMFFirstRandomViewController ()
@@ -45,7 +42,7 @@
                 [[WMFAlertManager sharedInstance] showErrorAlert:error ?: [WMFFetcher unexpectedResponseError] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
                 return;
             }
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme forceCache: NO];
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = NO; // self.isPermaRandomMode to turn on
 #endif

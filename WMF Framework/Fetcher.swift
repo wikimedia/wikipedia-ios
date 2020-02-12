@@ -111,18 +111,34 @@ open class Fetcher: NSObject {
         return task
     }
     
-    @discardableResult public func performMobileAppsServicesGET<T: Decodable>(for URL: URL?, pathComponents: [String], priority: Float = URLSessionTask.defaultPriority, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> CancellationKey? {
+    @discardableResult public func performDecodableMediaWikiAPIGET<T: Decodable>(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (Result<T, Error>) -> Swift.Void) -> CancellationKey? {
+        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: queryParameters)
+        let key = cancellationKey ?? UUID().uuidString
+        let task = session.jsonDecodableTask(with: components.url) { (result: T?, response: URLResponse?, error: Error?) in
+            guard let result = result else {
+                let error = error ?? RequestError.unexpectedResponse
+                completionHandler(.failure(error))
+                return
+            }
+            completionHandler(.success(result))
+            self.untrack(taskFor: key)
+        }
+        track(task: task, for: key)
+        return key
+    }
+    
+    @discardableResult public func performMobileAppsServicesGET<T: Decodable>(for URL: URL?, pathComponents: [String], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
         
         //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
         let headers = ["Accept": "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\""]
         let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
-        let key = cancellationKey ?? UUID().uuidString
+        let key = UUID().uuidString
         let task = session.jsonDecodableTask(with: taskURL, headers: headers, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
             completionHandler(result, response, error)
             self.untrack(taskFor: key)
         }
         track(task: task, for: key)
-        return key
+        return task
     }
     
     @objc(trackTask:forKey:)

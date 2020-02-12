@@ -1,6 +1,10 @@
 import Foundation
 
 @objc(WMFSession) public class Session: NSObject {
+    public struct Header {
+        public static let persistentCacheKey = "Persistent-Cache-Key"
+        public static let persistentCacheVariant = "Persistent-Cache-Variant"
+    }
     public struct Request {
         public enum Method {
             case get
@@ -83,6 +87,10 @@ import Foundation
     @objc public static let urlSession: URLSession = {
         return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
     }()
+    
+    @objc public static func clearTemporaryCache() {
+        urlSession.configuration.urlCache?.removeAllCachedResponses()
+    }
     
     private static let sessionDelegate: SessionDelegate = {
         return SessionDelegate()
@@ -205,6 +213,11 @@ import Foundation
         let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task
+    }
+    
+    //tonitodo: utlilize Callback & addCallback/session delegate stuff instead of completionHandler
+    public func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
+        return defaultURLSession.downloadTask(with: url, completionHandler: completionHandler)
     }
     
     public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {

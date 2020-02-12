@@ -13,9 +13,7 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Th
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let moc = SessionSingleton.sharedInstance().dataStore?.viewContext else {
-            return
-        }
+        let moc = MWKDataStore.shared().viewContext
         entryLimitTextField.returnKeyType = .done
         listLimitTextField.returnKeyType = .done
         entryLimitTextField.delegate = self
@@ -32,10 +30,8 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Th
     }
     
     @IBAction func doit(_ sender: UIButton?) {
-        let dataStore = SessionSingleton.sharedInstance().dataStore
-        guard let readingListsController = dataStore?.readingListsController else {
-            return
-        }
+        let dataStore = MWKDataStore.shared()
+        let readingListsController = dataStore.readingListsController
         
         let listLimit = Int64(listLimitTextField.text ?? "10") ?? 10
         let entryLimit = Int64(entryLimitTextField.text  ?? "100") ?? 100

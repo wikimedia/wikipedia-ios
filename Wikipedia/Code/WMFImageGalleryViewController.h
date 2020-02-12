@@ -1,8 +1,14 @@
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
-#import "WMFImageInfoController.h"
-
-@class MWKArticle;
+@class MWKImageInfo;
 @import WMF.Swift;
+
+@protocol WMFPhoto <NYTPhoto>
+
+- (nullable NSURL *)bestImageURL;
+
+- (nullable MWKImageInfo *)bestImageInfo;
+
+@end
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,10 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  This is an abstract base class do not use it directly.
  *  Instead use either the concrete article or POTD version below.
  */
-@interface WMFImageGalleryViewController : NYTPhotosViewController <WMFThemeable>
+@interface WMFImageGalleryViewController : NYTPhotosViewController <WMFThemeable, NYTPhotosViewControllerDelegate>
 
 @property (nonatomic, weak) id<WMFImageGalleryViewControllerReferenceViewDelegate> referenceViewDelegate;
 
+- (instancetype)initWithPhotos:(nullable NSArray<id<WMFPhoto>> *)photos initialPhoto:(nullable id<WMFPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden;
 /**
  *  Do not use the deelgate from NYTPhotosViewController
  *  Instead use the referenceViewDelegate above.
@@ -51,21 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setOverlayViewTopBarHidden:(BOOL)hidden;
 
+- (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo;
+
+- (void)updateOverlayInformation;
+
 @property (weak, nonatomic, nullable) id<WMFImagePreviewingActionsDelegate> imagePreviewingActionsDelegate;
-
-@end
-
-@interface WMFArticleImageGalleryViewController : WMFImageGalleryViewController <WMFImageInfoControllerDelegate>
-
-- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden;
-
-- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden NS_DESIGNATED_INITIALIZER;
-
-- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
-
-- (MWKImage *)currentImage;
-
-- (MWKImageInfo *)currentImageInfo;
 
 @end
 

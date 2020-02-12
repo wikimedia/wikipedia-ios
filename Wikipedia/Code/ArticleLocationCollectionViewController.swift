@@ -75,6 +75,38 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
         navigationController?.popViewController(animated: true)
     }
+    
+    // MARK: ArticlePreviewingDelegate
+    
+    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
+        guard let context = feedFunnelContext else {
+            super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
+            return
+        }
+        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
+        FeedFunnel.shared.logFeedDetailShareTapped(for: context, index: previewedIndexPath?.item, midnightUTCDate: context.midnightUTCDate)
+    }
+
+    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
+        guard let context = feedFunnelContext else {
+            super.readMoreArticlePreviewActionSelected(with: articleController)
+            return
+        }
+        articleController.wmf_removePeekableChildViewControllers()
+        push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
+    }
+
+    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+        guard let context = feedFunnelContext else {
+            super.saveArticlePreviewActionSelected(with: articleController, didSave: didSave, articleURL: articleURL)
+            return
+        }
+        if didSave {
+            ReadingListsFunnel.shared.logSaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
+        } else {
+            ReadingListsFunnel.shared.logUnsaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -166,8 +198,10 @@ extension ArticleLocationCollectionViewController {
         }
         previewedIndexPath = indexPath
         let articleURL = self.articleURL(at: indexPath)
-        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
-        articleViewController.articlePreviewingActionsDelegate = self
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
+            return nil
+        }
+        articleViewController.articlePreviewingDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         if let context = feedFunnelContext {
             FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: context, index: indexPath.item)
@@ -180,11 +214,7 @@ extension ArticleLocationCollectionViewController {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: previewedIndexPath?.item, maxViewed: maxViewed)
         }
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        if let articleViewController = viewControllerToCommit as? WMFArticleViewController {
-            wmf_push(articleViewController, animated: true)
-        } else {
-            wmf_push(viewControllerToCommit, animated: true)
-        }
+        push(viewControllerToCommit, animated: true)
     }
 }
 
@@ -196,38 +226,5 @@ extension ArticleLocationCollectionViewController: EventLoggingEventValuesProvid
     
     var eventLoggingLabel: EventLoggingLabel? {
         return nil
-    }
-}
-
-// MARK: - WMFArticlePreviewingActionsDelegate
-extension ArticleLocationCollectionViewController {
-    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        guard let context = feedFunnelContext else {
-            super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
-            return
-        }
-        super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
-        FeedFunnel.shared.logFeedDetailShareTapped(for: context, index: previewedIndexPath?.item, midnightUTCDate: context.midnightUTCDate)
-    }
-
-    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        guard let context = feedFunnelContext else {
-            super.readMoreArticlePreviewActionSelected(withArticleController: articleController)
-            return
-        }
-        articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
-    }
-
-    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        guard let context = feedFunnelContext else {
-            super.saveArticlePreviewActionSelected(withArticleController: articleController, didSave: didSave, articleURL: articleURL)
-            return
-        }
-        if didSave {
-            ReadingListsFunnel.shared.logSaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
-        } else {
-            ReadingListsFunnel.shared.logUnsaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
-        }
     }
 }

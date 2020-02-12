@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arnobarnard
 // Author: Fwolff
+// Author: Joris Darlington Quarshie
 // Author: Naudefj
 // Author: Nemo bis
 // Author: Puvircho
@@ -71,7 +72,6 @@
 "article-languages-yours" = "U tale";
 "article-read-more-title" = "Lees meer";
 "article-share" = "Deel";
-"article-unable-to-load-section" = "Kon nie hierdie seksie laai nie. Probeer die artikel herlaai om te sien of dit die probleem oplos.";
 "back-button-accessibility-label" = "Terug";
 "button-next" = "Volgende";
 "button-ok" = "Goed";
@@ -145,6 +145,7 @@
 "image-gallery-unknown-owner" = "Oplaaier onbekend.";
 "in-the-news-notification-read-now-action-title" = "Lees Nou";
 "in-the-news-notification-save-for-later-action-title" = "Bewaar vir later";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Deel…";
 "in-the-news-sub-title-from-language-wikipedia" = "Uit Wikipedia in $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
@@ -241,7 +242,6 @@
 "settings-support" = "Ondersteun Wikipedia";
 "settings-title" = "Voorkeure";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
-"share-custom-menu-item" = "Deel…";
 "share-default-format" = "“$1” uit “$2”: $3";
 "share-email-format" = "“$1”\n\nuit “$2”\n\n$3";
 "share-get-directions-in-maps" = "Kry Aanwysings";
@@ -257,6 +257,7 @@
 "table-of-contents-close-accessibility-hint" = "Sluit";
 "table-of-contents-close-accessibility-label" = "Sluit Inhoudsopgawe";
 "table-of-contents-heading" = "Inhoud";
+"table-of-contents-hide-button-label" = "Steek die inhoudsopgawe";
 "table-title-other" = "Meer inligting";
 "theme-black-display-name" = "Swart";
 "theme-dark-display-name" = "Donker";
@@ -275,7 +276,6 @@
 "welcome-languages-add-or-edit-button" = "Voeg voorkeurtale by of redigeer hulle";
 "welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
 "welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
-"wikitext-download-failed" = "Kon nie nuutste weergawe bekom nie.";
 "wikitext-downloading" = "Laai inhoud...";
 "wikitext-preview-changes" = "Verkry voorskou van u wysigings...";
 "wikitext-preview-changes-none" = "Geen wysigings gemaak om voor te skou.";

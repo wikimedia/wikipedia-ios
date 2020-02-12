@@ -19,6 +19,6 @@ extension WMFContentGroupKind {
     }
 
     private var feedContentController: WMFExploreFeedContentController {
-        return SessionSingleton.sharedInstance().dataStore.feedContentController
+        return MWKDataStore.shared().feedContentController
     }
 }

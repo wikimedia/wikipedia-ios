@@ -3,6 +3,7 @@
 // Author: BodminPill
 // Author: Envlh
 // Author: Fitoschido
+// Author: Hikemaniac
 // Author: Hwboehm
 // Author: JanRei
 // Author: Kghbln
@@ -106,7 +107,6 @@
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
-"article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "back-button-accessibility-label" = "Zurück";
 "back-button-popover-title" = "Zum Zurückgehen tippen";
 "button-next" = "Nächste";
@@ -229,6 +229,8 @@
 "editing-welcome-impartial-tone-title" = "In einem neutralen Ton schreiben";
 "editing-welcome-set-knowledge-free-subtitle" = "Um jedem den Zugang auf das Wissen der Welt zu geben, brauchen wir deine Teilnahme an seiner Erstellung durch Lesen, Bearbeiten und Beitragen an den Themen, die dir am Wichtigsten sind.";
 "editing-welcome-set-knowledge-free-title" = "Wissen frei aufsetzen";
+"empty-diff-compare-title" = "Keine Unterschiede zwischen Versionen";
+"empty-diff-single-title" = "Keine sichtbaren Änderungen gemacht";
 // Fuzzy
 "empty-insert-media-title" = "Eine Datei auswählen";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
@@ -243,7 +245,6 @@
 "empty-no-saved-pages-message" = "Seiten zum späteren Betrachten speichern, auch offline";
 "empty-no-saved-pages-title" = "Noch keine gespeicherten Seiten";
 "empty-no-search-results-message" = "Keine Ergebnisse gefunden";
-"error-generic-description" = "Es ist ein unerwarteter Fehler aufgetreten";
 "error-generic-recovery-suggestion" = "Bitte später erneut versuchen";
 "error-unknown" = "Es ist ein unbekannter Fehler aufgetreten";
 "explore-another-random" = "Ein anderer zufälliger Artikel";
@@ -393,6 +394,7 @@
 "in-the-news-currently-trending" = "Aktuell beliebt";
 "in-the-news-notification-read-now-action-title" = "Jetzt lesen";
 "in-the-news-notification-save-for-later-action-title" = "Für später speichern";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";
@@ -480,6 +482,20 @@
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
 "page-edit-history" = "Vollständige Versionsgeschichte";
+"page-history-anonymous-edits" = "Anonyme Bearbeitungen";
+"page-history-bot-edits" = "Botbearbeitungen";
+"page-history-compare-accessibility-hint" = "Tippe, um zwei Versionen auszuwählen, um sie zu vergleichen";
+"page-history-compare-title" = "Vergleichen";
+"page-history-minor-edits" = "Kleine Änderungen";
+"page-history-revision-author-accessibility-label" = "Autor: $1";
+"page-history-revision-comment-accessibility-label" = "Kommentar $1";
+"page-history-revision-history-title" = "Versionsgeschichte";
+"page-history-revision-minor-edit-accessibility-label" = "Kleine Änderung";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 Byte|$1 Bytes}} hinzugefügt";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 Byte|$1 Bytes}} entfernt";
+"page-history-revisions-comparison-warning" = "Nur zwei Versionen können angezeigt werden";
+"page-history-stats-text" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}} seit $2";
+"page-history-user-edits" = "Benutzerbearbeitungen";
 "page-issues" = "Seitenprobleme";
 "page-last-edited" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}} bearbeitet";
 "page-location" = "Auf einer Karte ansehen";
@@ -491,6 +507,7 @@
 "page-read-in-other-languages" = "In {{PLURAL:$1|einer weiteren Sprache|$1 weiteren Sprachen}} verfügbar";
 "page-similar-titles" = "Ähnliche Seiten";
 "page-talk-page" = "Diskussionsseite ansehen";
+"panel-compare-revisions-title" = "Versionen vergleichen";
 "pictured" = "Bild";
 "places-accessibility-clear-saved-searches" = "Gespeicherte Suchanfragen löschen";
 "places-accessibility-group" = "$1 Artikel";
@@ -613,7 +630,11 @@
 "reference-title" = "Einzelnachweis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
+"relative-date-hours-ago-abbreviated" = "Vor $1 Stunden";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
+"relative-date-minutes-ago-abbreviated" = "Vor $1 Minuten";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Diesen Monat|1=Letzten Monat|Vor $1 Monaten}}";
+"relative-date-seconds-ago-abbreviated" = "Vor $1 Sekunden";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|1=Letztes Jahr|Vor $1 Jahren}}";
 "replace-button-accessibility" = "$1 ausführen.";
 "replace-buttons-replace-accessibility" = "Einzelne Instanz ersetzen";
@@ -656,6 +677,7 @@
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "search-title" = "Suchen";
+"settings-account" = "Benutzerkonto";
 "settings-appearance" = "Leseeinstellungen";
 "settings-clear-cache" = "Gecachte Daten löschen";
 "settings-clear-cache-are-you-sure-message" = "Das Löschen gecachter Daten kann bis zu $1 Speicherplatz freigeben. Es löscht nicht deine gespeicherten Seiten.";
@@ -694,7 +716,6 @@
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-building" = "Erstelle Teile-einen-Fakt-Karte …";
-"share-custom-menu-item" = "Teilen …";
 "share-default-format" = "„$1“ von „$2“: $3";
 "share-email-format" = "„$1“\n\nvon „$2“\n\n$3";
 "share-get-directions-in-maps" = "Richtungen abrufen";
@@ -713,6 +734,24 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-heading" = "Inhalte";
 "table-title-other" = "Weitere Informationen";
+"talk-page-add-discussion-accessibility-label" = "Diskussion hinzufügen";
+"talk-page-discussion-read-accessibility-label" = "Gelesen";
+"talk-page-discussion-unread-accessibility-label" = "Ungelesen";
+"talk-page-error-unable-to-post-reply" = "Keine Internetverbindung. Antwort konnte nicht gesendet werden.";
+"talk-page-error-unable-to-post-topic" = "Keine Internetverbindung. Diskussion konnte nicht gesendet werden.";
+"talk-page-link-user-action-sheet-app" = "Öffne Benutzerdiskussionsseite in App";
+"talk-page-link-user-action-sheet-safari" = "Öffne Benutzerseite in Safari";
+"talk-page-link-user-action-sheet-title" = "Benutzerseiten";
+"talk-page-new-banner-title" = "Bitte sei freundlich";
+"talk-page-new-reply-success-text" = "Deine Antwort wurde erfolgreich veröffentlicht";
+"talk-page-new-subject-clear-button-accessibility" = "Betreff löschen";
+"talk-page-new-subject-placeholder-text" = "Betreff";
+"talk-page-new-subject-textfield-accessibility-label" = "Betreff";
+"talk-page-new-topic-success-text" = "Deine Diskussion wurde erfolgreich veröffentlicht";
+"talk-page-new-topic-title" = "Neue Diskussion";
+"talk-page-reply-title" = "Antworten";
+"talk-page-topic-title" = "Diskussion";
+"talk-pages-reply-button-title" = "Auf diese Diskussion antworten";
 "theme-black-display-name" = "Schwarz";
 "theme-dark-display-name" = "Dunkel";
 "theme-default-display-name" = "Standard";
@@ -751,7 +790,6 @@
 "welcome-send-data-learn-more" = "Mehr darüber erfahren, wie Daten gesammelt werden.";
 "welcome-send-data-sub-title" = "Hilf bei der Verbesserung der App, indem du der Wikimedia Foundation wissen lässt, wie du sie nutzt. Die gesammelten Daten sind anonym.";
 "welcome-volunteer-send-usage-reports" = "Nutzungsberichte senden";
-"wikitext-download-failed" = "Die aktuellste Version konnte nicht abgerufen werden.";
 "wikitext-downloading" = "Lade Inhalt …";
 "wikitext-preview-changes" = "Rufe Vorschau deiner Änderungen ab …";
 "wikitext-preview-changes-none" = "Es wurden keine Änderungen zur Anzeige einer Vorschau durchgeführt.";

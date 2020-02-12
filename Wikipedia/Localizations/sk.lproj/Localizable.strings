@@ -114,9 +114,7 @@
 "article-read-more-title" = "Ďalšie informácie";
 "article-save-error-not-enough-space" = "Na vašom zariadení nemáte dostatok miesta na uloženie tohto článku";
 "article-share" = "Zdieľať";
-"article-title" = "Článok";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládače čítacích tém";
-"article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
 "back-button-accessibility-label" = "Späť";
 "back-button-popover-title" = "Ťuknite pre návrat";
 "button-next" = "Ďalej";
@@ -286,7 +284,6 @@
 "empty-no-saved-pages-title" = "Žiadne uložené stránky.";
 "empty-no-search-results-message" = "Neboli nájdené žiadne výsledky vyhľadávania";
 "empty-talk-page-title" = "Tomuto používateľovi zatiaľ neboli odoslané žiadne správy";
-"error-generic-description" = "Nastala neočakávaná chyba";
 "error-generic-recovery-suggestion" = "Prosím, skúste to znova neskôr";
 "error-unknown" = "Vyskytla sa neznáma chyba";
 "explore-another-random" = "Ďalší náhodný článok";
@@ -435,6 +432,7 @@
 "in-the-news-currently-trending" = "Aktuálne trendy";
 "in-the-news-notification-read-now-action-title" = "Čítať";
 "in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Zdieľať...";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
@@ -444,7 +442,7 @@
 "insert-action-title" = "Vložiť";
 "insert-link-title" = "Vložiť odkaz";
 "insert-media-alternative-text-description" = "Popis, ktorý sa zobrazí čitateľom, ktorí neuvidia obrázok";
-"insert-media-alternative-text-placeholder" = "Popísať obrázok";
+"insert-media-alternative-text-placeholder" = "Opísať obrázok";
 "insert-media-alternative-text-title" = "Alternatívny text";
 "insert-media-caption-caption-placeholder" = "Ako sa obrázok týka článku?";
 "insert-media-caption-description" = "Popisok, ktorý sa zobrazí vedľa položky všetkým čitateľom";
@@ -539,7 +537,7 @@
 "page-history-revision-history-title" = "História úprav";
 "page-history-revision-minor-edit-accessibility-label" = "Drobná úprava";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Pridaný $1 bajt|Pridané $1 bajty|Pridaných $1 bajtov}}))";
-"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Odstránený $1 bajt|Odstránené $1 bajty|Odstránených $1 bajtov}}))";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Odstránený $1 bajt|Odstránené $1 bajty|Odstránených $1 bajtov}}";
 "page-history-revision-time-accessibility-label" = "úprava vykonaná $1";
 "page-history-revisions-comparison-warning" = "Vybrané môžu byť len dve revízie";
 "page-history-stats-text" = "{{PLURAL:$1|$1 úprava|$1 úpravy|$1 úprav}} od $2";
@@ -767,7 +765,6 @@
 "share-a-fact-made-with" = "Vytvorené s aplikácie Wikipédie";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
 "share-building" = "Vytváranie Zdieľanie faktu...";
-"share-custom-menu-item" = "Zdieľať...";
 "share-default-format" = "„$1” z „$1”: $3";
 "share-email-format" = "„$1”\n\nz „$2”\n\n$3";
 "share-get-directions-in-maps" = "Nájsť trasu";
@@ -857,7 +854,6 @@
 "welcome-send-data-learn-more" = "Ďalšie informácie o zbieraných údajoch";
 "welcome-send-data-sub-title" = "Pomôžte Nadácii Wikimedia vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
 "welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";
-"wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
 "wikitext-downloading" = "Načítavam obsah...";
 "wikitext-preview-changes" = "Načítava sa ukážka vykonaných zmien...";
 "wikitext-preview-changes-none" = "Neboli vykonané žiadne zmeny.";

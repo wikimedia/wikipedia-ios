@@ -108,7 +108,6 @@
 "article-save-error-not-enough-space" = "Du har ikke nok plass ledig på enheten din for å lagre denne artikkelen";
 "article-share" = "Del";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring av lesedrakter";
-"article-unable-to-load-section" = "Kunne ikke laste dette avsnittet. Prøv å oppdatere artikkelen for å se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbake";
 "back-button-popover-title" = "Trykk for å gå tilbake";
 "button-next" = "Neste";
@@ -238,7 +237,6 @@
 "empty-no-saved-pages-message" = "Lagre sider for senere visning, også offline.";
 "empty-no-saved-pages-title" = "Ingen sider lagret enda";
 "empty-no-search-results-message" = "Ingen resultater ble funnet";
-"error-generic-description" = "Det oppsto en uventet feil";
 "error-generic-recovery-suggestion" = "Prøv igjen senere";
 "error-unknown" = "En ukjent feil oppsto";
 "explore-another-random" = "En annen tilfeldig artikkel";
@@ -388,6 +386,7 @@
 "in-the-news-currently-trending" = "Populært nå";
 "in-the-news-notification-read-now-action-title" = "Les nå";
 "in-the-news-notification-save-for-later-action-title" = "Lagre til senere";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Del...";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
@@ -662,7 +661,6 @@
 "share-a-fact-made-with" = "Laget med Wikipedia-appen";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
 "share-building" = "Bygger faktadelingskort …";
-"share-custom-menu-item" = "Del ...";
 "share-default-format" = "«$1» fra «$2»: $3";
 "share-email-format" = "«$1»\n\nfra «$2»\n\n$3";
 "share-get-directions-in-maps" = "Veibeskrivelse";
@@ -721,7 +719,6 @@
 "welcome-send-data-learn-more" = "Lær mer om innsamling av data";
 "welcome-send-data-sub-title" = "Hjelp til med å gjøre appen bedre ved å la Wikipedia Foundation få vite hvordan du bruker den. Data samles inn anonymt.";
 "welcome-volunteer-send-usage-reports" = "Send bruksrapporter";
-"wikitext-download-failed" = "Klarte ikke hente siste revisjon.";
 "wikitext-downloading" = "Laster innhold ...";
 "wikitext-preview-changes" = "Laster forhåndsvisning av endringene dine…";
 "wikitext-preview-changes-none" = "Ingen endringer ble gjort som kunne forhåndsvises.";

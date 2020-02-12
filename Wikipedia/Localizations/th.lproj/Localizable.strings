@@ -107,7 +107,6 @@
 "article-save-error-not-enough-space" = "คุณมีพื้นที่บนอุปกรณ์ของคุณไม่เพียงพอที่จะบันทึกบทความนี้";
 "article-share" = "แชร์";
 "article-toolbar-reading-themes-controls-toolbar-item" = "กำลังอ่านการควบคุมธีม";
-"article-unable-to-load-section" = "ไม่สามารถโหลดส่วนนี้ได้ ลองรีเฟรชบทความเพื่อดูว่าปัญหาถูกแก้ไขหรือยัง";
 "back-button-accessibility-label" = "ย้อนกลับ";
 "back-button-popover-title" = "แตะเพื่อย้อนกลับ";
 "button-next" = "ถัดไป";
@@ -225,7 +224,6 @@
 "empty-no-saved-pages-title" = "ยังไม่มีหน้าที่บันทึก";
 "empty-no-search-results-message" = "ไม่พบผลลัพธ์";
 "empty-talk-page-title" = "ผู้ใช้นี้ยังไม่ได้โพสต์ข้อความใด";
-"error-generic-description" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "error-generic-recovery-suggestion" = "โปรดลองอีกครั้งในภายหลัง";
 "error-unknown" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "explore-another-random" = "บทความสุ่มอื่น";
@@ -376,6 +374,7 @@
 "in-the-news-currently-trending" = "มาแรงในตอนนี้";
 "in-the-news-notification-read-now-action-title" = "อ่านตอนนี้";
 "in-the-news-notification-save-for-later-action-title" = "บันทึกไว้อ่านในภายหลัง";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "แบ่งปัน...";
 "in-the-news-sub-title-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "in-the-news-sub-title-from-wikipedia" = "จากวิกิพีเดีย";
@@ -614,7 +613,6 @@
 "settings-storage-and-syncing-server-sync-title" = "อัปเดตรายการอ่านที่ซิงค์";
 "settings-support" = "สนับสนุนวิกิพีเดีย";
 "settings-title" = "การตั้งค่า";
-"share-custom-menu-item" = "แบ่งปัน...";
 "share-get-directions-in-maps" = "ขอเส้นทาง";
 "share-menu-item" = "แบ่งปัน";
 "sort-by-title-action" = "ชื่อเรื่อง";
@@ -664,7 +662,6 @@
 "welcome-send-data-learn-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับข้อมูลที่รวบรวมมา";
 "welcome-send-data-sub-title" = "ช่วยปรับปรุงแอปให้ดียิ่งขึ้นโดยบอกให้ทางมูลนิธิวิกิมีเดียทราบว่าคุณใช้แอปอย่างไร โดยข้อมูลที่รวบรวมจะไม่มีการระบุตัวตนใดๆ";
 "welcome-volunteer-send-usage-reports" = "ส่งรายงานการใช้งาน";
-"wikitext-download-failed" = "ไม่สามารถดึงรุ่นล่าสุดได้";
 "wikitext-downloading" = "กำลังโหลดเนื้อหา...";
 "wikitext-preview-changes" = "กำลังดึงตัวอย่างการเปลี่ยนแปลงของคุณ...";
 "wikitext-preview-changes-none" = "ไม่มีการเปลี่ยนแปลงใดที่ต้องมีตัวอย่าง";

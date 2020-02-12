@@ -23,13 +23,6 @@ module.exports = function (grunt) {
         ],
         dest: `${distFolder}index.js`
       },
-      distPreview: {
-        src: [
-          'preview-main.js',
-          'js/utilities.js'
-        ],
-        dest: `${distFolder}preview.js`
-      },
       distAbout: {
         src: [
           'about-main.js'
@@ -60,7 +53,7 @@ module.exports = function (grunt) {
         allJSFilesInJSFolder
       ],
       options: {
-        fix: false
+        fix: true
       }
     },
 
@@ -78,14 +71,6 @@ module.exports = function (grunt) {
               '*.pdf'
             ],
             dest: distFolder
-          },
-          {
-            src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css',
-            dest: `${distFolder}wikimedia-page-library-transform.css`
-          },
-          {
-            src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css.map',
-            dest: `${distFolder}wikimedia-page-library-transform.css.map`
           },
           {
             expand: true,
