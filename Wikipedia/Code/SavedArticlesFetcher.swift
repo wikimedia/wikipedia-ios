@@ -8,7 +8,7 @@ final class SavedArticlesFetcher: NSObject {
     @objc static let saveToDiskDidFail = NSNotification.Name("SaveToDiskDidFail")
     @objc static let saveToDiskDidFailErrorKey = "error"
     
-    @objc var progress: Progress = Progress()
+    @objc dynamic var progress: Progress = Progress()
     private var countOfFetchesInProcess: Int64 = 0 {
         didSet {
             updateProgress(with: countOfFetchesInProcess, oldValue: oldValue)
@@ -63,23 +63,13 @@ private extension SavedArticlesFetcher {
     }
     
     func updateProgress(with newValue: Int64, oldValue: Int64) {
-        // Advance totalUnitCount if new units were added
-        let deltaValue = newValue - oldValue
-        let wereNewUnitsAdded = deltaValue > 0
-        if wereNewUnitsAdded {
-            progress.totalUnitCount = progress.totalUnitCount + deltaValue
+        progress.totalUnitCount = max(progress.totalUnitCount, newValue)
+        let completedUnits = progress.totalUnitCount - newValue
+        progress.completedUnitCount = completedUnits
+        guard newValue == 0 else {
+            return
         }
-        
-        // Update completedUnitCount
-        let unitsRemaining = progress.totalUnitCount - newValue
-        progress.completedUnitCount = unitsRemaining
-        
-        // Reset on finish
-        let wereAllUnitsCompleted = newValue == 0 && oldValue > 0
-        if wereAllUnitsCompleted {
-            // "NSProgress objects cannot be reused. Once they’re done, they’re done. Once they’re cancelled, they’re cancelled. If you need to reuse an NSProgress, instead make a new instance and provide a mechanism so the client of your progress knows that the object has been replaced, like a notification." ( Source: https://developer.apple.com/videos/play/wwdc2015/232/ by way of https://stinkykitten.com/index.php/2017/08/13/nsprogress/ )
-            resetProgress()
-        }
+        resetProgress()
     }
     
     func resetProgress() {
