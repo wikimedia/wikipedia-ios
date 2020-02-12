@@ -46,6 +46,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         state = .loaded
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
+        refreshControl.endRefreshing()
     }
     
     func handlePCSDidFinishFinalSetup() {

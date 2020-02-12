@@ -46,7 +46,7 @@ class ArticleViewController: ViewController {
     #endif
     private var leadImageHeight: CGFloat = 210
     private var contentSizeObservation: NSKeyValueObservation? = nil
-    private lazy var refreshControl: UIRefreshControl = {
+    lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
