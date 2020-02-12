@@ -329,6 +329,10 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
 
         guard let nonNilArticle = article else {
+            // No more articles to convert, ensure the legacy folder is deleted
+            DispatchQueue.global(qos: .background).async {
+                self.dataStore.removeAllLegacyArticleData()
+            }
             return
         }
         
@@ -340,6 +344,10 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
             // print("Conversion succeeded or not needed")
             do {
                 guard try moc.count(for: self.conversionsNeededCountFetchRequest) > 0 else {
+                    // No more articles to convert, ensure the legacy folder is deleted
+                    DispatchQueue.global(qos: .background).async {
+                        self.dataStore.removeAllLegacyArticleData()
+                    }
                     self.stop()
                     return
                 }
@@ -351,7 +359,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
     }
 
     private func convertOneArticleIfNecessaryAgain() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.convertOneArticleIfNecessary()
         }
     }
