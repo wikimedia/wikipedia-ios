@@ -34,7 +34,7 @@ class ArticleViewController: ViewController {
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
 
-    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
+    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
@@ -46,6 +46,11 @@ class ArticleViewController: ViewController {
     #endif
     private var leadImageHeight: CGFloat = 210
     private var contentSizeObservation: NSKeyValueObservation? = nil
+    private lazy var refreshControl: UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return rc
+    }()
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
@@ -60,7 +65,7 @@ class ArticleViewController: ViewController {
         self.article = article
 
         self.dataStore = dataStore
-        self.schemeHandler = SchemeHandler.shared // TODO: DI?
+        self.schemeHandler = SchemeHandler.shared
         self.schemeHandler.forceCache = forceCache
         self.schemeHandler.cacheController = cacheController
         self.cacheController = cacheController
@@ -269,6 +274,12 @@ class ArticleViewController: ViewController {
     
     @objc public func shareArticleWhenReady() {
         // TODO: implement
+    }
+    
+    // MARK: Refresh
+    
+    @objc public func refresh() {
+        webView.reload()
     }
     
     // MARK: Overrideable functionality
@@ -602,6 +613,8 @@ private extension ArticleViewController {
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
 
+        webView.scrollView.refreshControl = refreshControl
+        
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
