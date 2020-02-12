@@ -363,11 +363,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 return
             }
             
-            if let legacyValue = UserDefaults.wmf.object(forKey: key) as? NSCoding {
+            if let legacyValue = UserDefaults.standard.object(forKey: key) as? NSCoding {
                 value = legacyValue
                 libraryValueCache[key] = legacyValue
                 managedObjectContext.wmf_setValue(legacyValue, forKey: key)
-                UserDefaults.wmf.removeObject(forKey: key)
+                UserDefaults.standard.removeObject(forKey: key)
                 save(moc)
             }
         }

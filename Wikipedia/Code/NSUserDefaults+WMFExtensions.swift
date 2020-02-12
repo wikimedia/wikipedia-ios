@@ -43,18 +43,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         static let shouldCheckForArticleAnnouncements = "WMFShouldCheckForArticleAnnouncements"
     }
 
-    @objc static let wmf: UserDefaults = {
-#if WMF_NO_APP_GROUP
-        return UserDefaults.standard
-#else
-        guard let defaults = UserDefaults(suiteName: WMFApplicationGroupIdentifier) else {
-            assertionFailure("Defaults not found!")
-            return UserDefaults.standard
-        }
-        return defaults
-#endif
-    }()
-
     @objc func wmf_dateForKey(_ key: String) -> Date? {
         return self.object(forKey: key) as? Date
     }

@@ -114,7 +114,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
         let scrollView = articleView.scrollView
         let offsetPercentage = scrollView.verticalOffsetPercentage
         viewController.isVisible = true
-        UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(true)
+        UserDefaults.standard.wmf_setTableOfContentsIsVisibleInline(true)
         inlineContainerView.isHidden = false
         separatorView.isHidden = false
         verticalOffsetPercentageToRestore = offsetPercentage
@@ -124,7 +124,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
         let scrollView = articleView.scrollView
         let offsetPercentage = scrollView.verticalOffsetPercentage
         viewController.isVisible = false
-        UserDefaults.wmf.wmf_setTableOfContentsIsVisibleInline(false)
+        UserDefaults.standard.wmf_setTableOfContentsIsVisibleInline(false)
         inlineContainerView.isHidden = true
         separatorView.isHidden = true
         verticalOffsetPercentageToRestore = offsetPercentage
@@ -132,7 +132,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
     
     func setup(with traitCollection:UITraitCollection) {
         update(with: traitCollection)
-        guard viewController.displayMode == .inline, UserDefaults.wmf.wmf_isTableOfContentsVisibleInline() else {
+        guard viewController.displayMode == .inline, UserDefaults.standard.wmf_isTableOfContentsVisibleInline() else {
             return
         }
         showInline()

@@ -41,7 +41,7 @@
 #if WMF_ANNOUNCEMENT_DATE_IGNORE
     // for testing, don't require the app to exit once before loading announcements
 #else
-    if ([[NSUserDefaults wmf] wmf_appResignActiveDate] == nil) {
+    if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         [moc performBlock:^{
             [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
             if (completion) {
@@ -91,7 +91,7 @@
                                                     group.contentPreview = obj;
                                                     group.placement = obj.placement;
                                                     if ([obj.placement isEqualToString:@"article"]) {
-                                                        NSUserDefaults.wmf.shouldCheckForArticleAnnouncements = YES;
+                                                        NSUserDefaults.standardUserDefaults.shouldCheckForArticleAnnouncements = YES;
                                                     }
                                                 }];
             [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
@@ -104,7 +104,7 @@
 }
 
 - (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 #if WMF_ANNOUNCEMENT_DATE_IGNORE
     // for testing, don't require the app to exit once before loading announcements
 #else
@@ -117,10 +117,10 @@
 
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTheme];
 
-    if (moc.wmf_isSyncRemotelyEnabled && !userDefaults.wmf_didShowReadingListCardInFeed && !WMFSession.shared.isAuthenticated) {
+    if (moc.wmf_isSyncRemotelyEnabled && !NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed && !WMFSession.shared.isAuthenticated) {
         NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
         [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
-        userDefaults.wmf_didShowReadingListCardInFeed = YES;
+        NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed = YES;
     } else {
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
@@ -134,7 +134,7 @@
 #else
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
-    if ([[NSUserDefaults wmf] wmf_appResignActiveDate] == nil) {
+    if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         return;
     }
 #endif

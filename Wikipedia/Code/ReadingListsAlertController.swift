@@ -93,7 +93,7 @@ public class ReadingListsAlertController: NSObject {
         guard Thread.isMainThread else {
             return
         }
-        guard !UserDefaults.wmf.wmf_didShowLimitHitForUnsortedArticlesPanel() else {
+        guard !UserDefaults.standard.wmf_didShowLimitHitForUnsortedArticlesPanel() else {
             return
         }
         guard readingList.isDefault else {
@@ -107,7 +107,7 @@ public class ReadingListsAlertController: NSObject {
             presenter.present(navigationController, animated: true)
         }
         presenter.wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: theme, primaryButtonTapHandler: primaryButtonHandler) {
-            UserDefaults.wmf.wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
+            UserDefaults.standard.wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
         }
     }
 }

@@ -139,7 +139,7 @@ class SectionEditorViewController: ViewController {
     private func configureWebView() {
         let configuration = WKWebViewConfiguration()
         configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
+        let textSizeAdjustment = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
 
         messagingController.textSelectionDelegate = self
@@ -147,7 +147,7 @@ class SectionEditorViewController: ViewController {
         messagingController.alertDelegate = self
         messagingController.scrollDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
-        let isSyntaxHighlighted = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
+        let isSyntaxHighlighted = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
             self?.isCodemirrorReady = true
         }

@@ -132,7 +132,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[NSUserDefaults wmf] removeObserver:self forKeyPath:[WMFUserDefaultsKey defaultTabType]];
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:[WMFUserDefaultsKey defaultTabType]];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
@@ -147,7 +147,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.theme = [[NSUserDefaults wmf] themeCompatibleWith:self.traitCollection];
+    self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -200,7 +200,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:[WMFSavedArticlesFetcher saveToDiskDidFail]
                                                object:nil];
 
-    [[NSUserDefaults wmf] addObserver:self
+    [[NSUserDefaults standardUserDefaults] addObserver:self
                            forKeyPath:[WMFUserDefaultsKey defaultTabType]
                               options:NSKeyValueObservingOptionNew
                               context:&kvo_NSUserDefaults_defaultTabType];
@@ -306,7 +306,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     UIViewController *mainViewController = nil;
 
-    switch ([NSUserDefaults wmf].defaultTabType) {
+    switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             mainViewController = self.settingsViewController;
             break;
@@ -319,7 +319,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [self setViewControllers:viewControllers animated:NO];
 
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf].wmf_openAppOnSearchTab;
+    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
     } else if (self.selectedIndex != WMFAppTabTypeMain) {
@@ -525,14 +525,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)editWasPublished:(NSNotification *)note {
-    if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
+    if (![NSUserDefaults.standardUserDefaults wmf_didShowFirstEditPublishedPanel]) {
         return;
     }
     [self toggleHint:self.editHintController context:nil];
 }
 
 - (void)descriptionEditWasPublished:(NSNotification *)note {
-    if (![NSUserDefaults.wmf didShowDescriptionPublishedPanel]) {
+    if (![NSUserDefaults.standardUserDefaults didShowDescriptionPublishedPanel]) {
         return;
     }
     [self toggleHint:self.editHintController context:nil];
@@ -823,7 +823,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                            completion:^(BOOL didProcess) {
                                done();
                            }];
-        } else if (NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
+        } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
             [self.navigationStateController restoreNavigationStateFor:self.navigationController
                                                                    in:self.dataStore.viewContext
                                                                  with:self.theme
@@ -872,7 +872,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [self.dataStore.feedContentController startContentSources];
 
-    NSUserDefaults *defaults = [NSUserDefaults wmf];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
 
@@ -887,7 +887,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self.dataStore.feedContentController updateContentSource:[WMFNearbyContentSource class] force:NO completion:NULL];
         }
         // TODO: If full navigation stack is not restored (so we're past the cutoff date), should we still force Continue reading card to appear?
-        if (!NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
+        if (!NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
     }
@@ -947,7 +947,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return;
     }
 
-    [[NSUserDefaults wmf] wmf_setDidShowSyncDisabledPanel:NO];
+    [[NSUserDefaults standardUserDefaults] wmf_setDidShowSyncDisabledPanel:NO];
 
     self.notificationsController.applicationActive = NO;
     [self.reachabilityNotifier stop];
@@ -1245,7 +1245,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
-    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
+    NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;
     }
@@ -1392,12 +1392,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 #endif
 
-    NSNumber *didShow = [[NSUserDefaults wmf] objectForKey:WMFDidShowOnboarding];
+    NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
 
 - (void)setDidShowOnboarding {
-    [[NSUserDefaults wmf] setObject:@YES forKey:WMFDidShowOnboarding];
+    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
 }
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
@@ -1787,7 +1787,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)updateAppThemeIfNecessary {
     // self.navigationController is the App's root view controller so rely on its trait collection
-    WMFTheme *theme = [NSUserDefaults.wmf themeCompatibleWith:self.navigationController.traitCollection];
+    WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:self.navigationController.traitCollection];
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
@@ -1798,16 +1798,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *themeName = (NSString *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey];
     NSNumber *isImageDimmingEnabledNumber = (NSNumber *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey];
     if (isImageDimmingEnabledNumber) {
-        [NSUserDefaults.wmf setWmf_isImageDimmingEnabled:isImageDimmingEnabledNumber.boolValue];
+        [NSUserDefaults.standardUserDefaults setWmf_isImageDimmingEnabled:isImageDimmingEnabledNumber.boolValue];
     }
-    [NSUserDefaults.wmf setThemeName:themeName];
+    [NSUserDefaults.standardUserDefaults setThemeName:themeName];
     [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:self.navigationController];
     [self updateAppThemeIfNecessary];
 }
 
 - (void)updateUserInterfaceStyleOfViewControllerForCurrentTheme:(UIViewController *)viewController {
     if (@available(iOS 13.0, *)) {
-        NSString *themeName = [NSUserDefaults.wmf themeName];
+        NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
         if ([WMFTheme isDefaultThemeName:themeName]) {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
         } else if ([WMFTheme isDarkThemeName:themeName]) {
@@ -1865,7 +1865,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)articleFontSizeWasUpdated:(NSNotification *)note {
     NSNumber *multiplier = (NSNumber *)note.userInfo[WMFFontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
-    [[NSUserDefaults wmf] wmf_setArticleFontSizeMultiplier:multiplier];
+    [[NSUserDefaults standardUserDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
 #pragma mark - Search
@@ -1969,7 +1969,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.settingsNavigationController pushViewController:subViewController animated:NO];
     }
 
-    switch ([NSUserDefaults wmf].defaultTabType) {
+    switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             [self setSelectedIndex:WMFAppTabTypeMain];
             if (subViewController) {

@@ -190,7 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
         // don't do this elsewhere
         // self.theme needs to be set before the [super init] call
         // this is easiest way to do it for now
-        self.theme = [NSUserDefaults.wmf themeCompatibleWith:self.traitCollection];
+        self.theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:self.traitCollection];
     }
     vc.scalingImageView.imageView.alpha = self.theme.imageOpacity;
     return vc;

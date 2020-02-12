@@ -590,7 +590,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
                     self.wmf_showAlertWithError(error as NSError)
                 }
             }
-            UserDefaults.wmf.wmf_setInTheNewsNotificationsEnabled(true)
+            UserDefaults.standard.wmf_setInTheNewsNotificationsEnabled(true)
             dismissAnnouncementCell(cell)
         default:
             guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
@@ -631,7 +631,7 @@ extension ExploreCardViewController: ArticlePreviewingDelegate {
 
 extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewCellDelegate {
     func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell) {
-        UserDefaults.wmf.wmf_setExploreDidPromptForLocationAuthorization(true)
+        UserDefaults.standard.wmf_setExploreDidPromptForLocationAuthorization(true)
         if WMFLocationManager.isAuthorizationNotDetermined() {
             locationManager.startMonitoringLocation()
             return
@@ -661,7 +661,7 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        UserDefaults.wmf.wmf_setLocationAuthorized(enabled)
+        UserDefaults.standard.wmf_setLocationAuthorized(enabled)
         for cell in collectionView.visibleCells {
             guard let cell = cell as? ArticleLocationAuthorizationCollectionViewCell else {
                 return

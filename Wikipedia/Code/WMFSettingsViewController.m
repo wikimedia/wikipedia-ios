@@ -358,9 +358,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)languagesController:(WMFPreferredLanguagesViewController *)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink *> *)languages {
     if ([languages count] > 1) {
-        [[NSUserDefaults wmf] wmf_setShowSearchLanguageBar:YES];
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
     } else {
-        [[NSUserDefaults wmf] wmf_setShowSearchLanguageBar:NO];
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:NO];
     }
 
     [self loadSections];
