@@ -36,21 +36,19 @@
     [super viewDidAppear:animated];
     NSURL *siteURL = self.siteURL;
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-    [fetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, WMFArticleSummary * _Nullable summary) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (error || !articleURL) {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error ?: [WMFFetcher unexpectedResponseError] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-                return;
-            }
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme forceCache: NO];
-#if WMF_TWEAKS_ENABLED
-            randomArticleVC.permaRandomMode = NO; // self.isPermaRandomMode to turn on
-#endif
-            NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
-            [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
-            [self.navigationController setViewControllers:viewControllers];
-        });
-    }];
+    [fetcher fetchRandomArticleWithSiteURL:siteURL
+                                completion:^(NSError *_Nullable error, NSURL *_Nullable articleURL, WMFArticleSummary *_Nullable summary) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        if (error || !articleURL) {
+                                            [[WMFAlertManager sharedInstance] showErrorAlert:error ?: [WMFFetcher unexpectedResponseError] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+                                            return;
+                                        }
+                                        WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme forceCache:NO];
+                                        NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
+                                        [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
+                                        [self.navigationController setViewControllers:viewControllers];
+                                    });
+                                }];
 }
 
 - (void)applyTheme:(WMFTheme *)theme {

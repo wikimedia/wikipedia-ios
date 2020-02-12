@@ -73,15 +73,19 @@ extension MobileviewToMobileHTMLConverter {
             }
             return
         }
-// TODO: baseURI will need to change once we switch back to prod for mobilehtml!!
-        guard let mobileappsHost = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).host else {
-            assertionFailure("Mobileapps url host not available")
+
+        #if WMF_APPS_LABS_MOBILE_HTML
+        let configuration = Configuration.appsLabs
+        #else
+        let configuration = Configuration.current
+        #endif
+        let mobileAppsComponents = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [])
+        guard let baseURI = mobileAppsComponents.url?.absoluteString else {
             if let completionHandler = completionHandler {
                 completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileAppsHost)
             }
             return
         }
-        let baseURI = "//\(mobileappsHost)/api/v1/"
 
         convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI, completionHandler: completionHandler)
     }

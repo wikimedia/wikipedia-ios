@@ -91,6 +91,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     
     func reload() {
         tableView.reloadData()
+        selectInitialItemIfNecessary()
     }
 
     // MARK: - Init
@@ -112,12 +113,23 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
 
     // MARK: - Sections
 
-    var indexOfSelectedItem: Int = 0
-    var indiciesOfHighlightedItems: Set<Int> = [0]
+    var indexOfSelectedItem: Int = -1
+    var indiciesOfHighlightedItems: Set<Int> = []
 
+    func selectInitialItemIfNecessary() {
+        guard indexOfSelectedItem == -1, !items.isEmpty else {
+            return
+        }
+        selectItem(at: 0)
+    }
+    
     func selectItem(at index: Int) {
         guard index < items.count else {
-            assertionFailure("Trying to select an item put of range")
+            assertionFailure("Trying to select an item out of range")
+            return
+        }
+        
+        guard indexOfSelectedItem != index else {
             return
         }
         
@@ -154,6 +166,9 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
             return
         }
         let indexPath = IndexPath(row: index, section: 0)
+        guard !(tableView.indexPathsForVisibleRows?.contains(indexPath) ?? true) else {
+            return
+        }
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
@@ -211,7 +226,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
     }
-    
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

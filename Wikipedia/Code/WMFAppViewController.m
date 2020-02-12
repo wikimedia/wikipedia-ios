@@ -1199,14 +1199,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Utilities
 
-- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
-    return [self showArticleForURL:articleURL
+- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated {
+    return [self showArticleWithURL:articleURL
                           animated:animated
                         completion:^{
                         }];
 }
 
-- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
     if (!articleURL.wmf_title) {
         completion();
         return nil;
@@ -1235,28 +1235,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return articleVC;
 }
 
-- (void)showNewArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
-    
-    if (!articleURL.wmf_title) {
-        completion();
-        return;
-    }
-    
-    //tonitodo: visibleArticleVC logic here from legacy method?
-    
-    UINavigationController *nc = [self currentNavigationController];
-    if (!nc) {
-        completion();
-        return;
-    }
-
-    if (nc.presentedViewController) {
-        [nc dismissViewControllerAnimated:NO completion:NULL];
-    }
-    
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme forceCache: NO];
-    
-    [nc pushViewController:articleVC animated:animated];
+- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+    [self showArticleWithURL:articleURL animated:animated completion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1459,7 +1439,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
     NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
-    [self showArticleForURL:lastRead animated:animated];
+    [self showArticleWithURL:lastRead animated:animated];
 }
 
 #pragma mark - Show Search
@@ -1635,7 +1615,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
         NSURL *articleURL = [NSURL URLWithString:articleURLString];
         if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
-            WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
+            WMFArticleViewController *articleVC = [self showArticleWithURL:articleURL animated:NO];
             [articleVC shareArticleWhenReady];
         } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
             [self showInTheNewsForNotificationInfo:info];
@@ -1675,7 +1655,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary error:&JSONError];
     if (!feedNewsStory || JSONError) {
         DDLogError(@"Error parsing feed news story: %@", JSONError);
-        [self showArticleForURL:articleURL animated:NO];
+        [self showArticleWithURL:articleURL animated:NO];
         return;
     }
     [self dismissPresentedViewControllers];
@@ -2064,7 +2044,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(nonnull NSURL *)articleURL {
-    [self showArticleForURL:articleURL animated:YES];
+    [self showArticleWithURL:articleURL animated:YES];
 }
 
 #pragma mark - User was logged out
