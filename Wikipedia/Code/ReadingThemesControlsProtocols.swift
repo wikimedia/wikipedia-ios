@@ -13,7 +13,7 @@ fileprivate var fontSizeMultipliers: [Int] {
 
 fileprivate var indexOfCurrentFontSize: Int {
     get {
-        let fontSize = UserDefaults.wmf.wmf_articleFontSizeMultiplier()
+        let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier()
         let index = fontSizeMultipliers.firstIndex(of: fontSize.intValue) ?? fontSizeMultipliers.count / 2
         return index
     }
@@ -86,7 +86,7 @@ extension WMFReadingThemesControlsViewControllerDelegate where Self: ReadingThem
         
         let multiplier = fontSizeMultipliers[value]
         let nsNumber = NSNumber(value: multiplier)
-        UserDefaults.wmf.wmf_setArticleFontSizeMultiplier(nsNumber)
+        UserDefaults.standard.wmf_setArticleFontSizeMultiplier(nsNumber)
         
         updateWebViewTextSize(textSize: multiplier)
     }

@@ -4,7 +4,7 @@ import Foundation
 extension ArticleViewController {
     var shouldShowWIconPopover: Bool {
         guard
-            !UserDefaults.wmf.wmf_didShowWIconPopover(),
+            !UserDefaults.standard.wmf_didShowWIconPopover(),
             presentedViewController == nil,
             navigationController != nil,
             navigationBar.navigationBarPercentHidden < 0.1
@@ -36,6 +36,6 @@ extension ArticleViewController {
         let title = WMFLocalizedString("back-button-popover-title", value: "Tap to go back", comment: "Title for popover explaining the 'W' icon may be tapped to go back.")
         let message = WMFLocalizedString("original-tab-button-popover-description", value: "Tap on the 'W' to return to the tab you started from", comment: "Description for popover explaining the 'W' icon may be tapped to return to the original tab.")
         wmf_presentDynamicHeightPopoverViewController(forSourceRect: sourceRect, withTitle: title, message: message, width: 230, duration: 3)
-        UserDefaults.wmf.wmf_setDidShowWIconPopover(true)
+        UserDefaults.standard.wmf_setDidShowWIconPopover(true)
     }
 }

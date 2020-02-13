@@ -33,7 +33,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
-            if let siteURL = UserDefaults.wmf.wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
+            if let siteURL = UserDefaults.standard.wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
                 return selectedLanguage
             } else {
                 
@@ -47,7 +47,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             }
         }
         set {
-            UserDefaults.wmf.wmf_setCurrentSearchLanguageDomain(newValue?.siteURL())
+            UserDefaults.standard.wmf_setCurrentSearchLanguageDomain(newValue?.siteURL())
             delegate?.searchLanguagesBarViewController(self, didChangeCurrentlySelectedSearchLanguage: newValue!)
             updateLanguageBarLanguageButtons()
         }

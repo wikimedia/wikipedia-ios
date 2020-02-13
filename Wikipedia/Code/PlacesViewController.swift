@@ -225,7 +225,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
         constrainButtonsToNavigationBar()
         
-        let defaults = UserDefaults.wmf
+        let defaults = UserDefaults.standard
         if !defaults.wmf_placesHasAppeared() {
             defaults.wmf_setPlacesHasAppeared(true)
         }

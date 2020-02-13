@@ -299,14 +299,14 @@ extension ExploreFeedSettingsViewController {
             if sender.isOn {
                 present(turnOnExploreAlertController(turnedOn: {
                     self.dataStore?.feedContentController.toggleAllContentGroupKinds(true, updateFeed: false)
-                    UserDefaults.wmf.defaultTabType = .explore
+                    UserDefaults.standard.defaultTabType = .explore
                 }, cancelled: {
                     sender.setOn(false, animated: true)
                 }), animated: true)
             } else {
                 present(turnOffExploreAlertController(turnedOff: {
                     self.dataStore?.feedContentController.toggleAllContentGroupKinds(false, updateFeed: false)
-                    UserDefaults.wmf.defaultTabType = .settings
+                    UserDefaults.standard.defaultTabType = .settings
                 }, cancelled: {
                     sender.setOn(true, animated: true)
                 }), animated: true)

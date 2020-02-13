@@ -953,14 +953,14 @@ private extension DiffContainerViewController {
     
     func showDiffPanelOnce() {
         let key = "didShowDiffPanel"
-        if (UserDefaults.wmf.bool(forKey: key)) {
+        if (UserDefaults.standard.bool(forKey: key)) {
             return
         }
         let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] (action) in
             self?.presentedViewController?.dismiss(animated: true)
         }, secondaryButtonTapHandler: nil, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)
-        UserDefaults.wmf.set(true, forKey: key)
+        UserDefaults.standard.set(true, forKey: key)
     }
     
     func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
@@ -1175,7 +1175,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
 
-        guard !UserDefaults.wmf.wmf_didShowThankRevisionAuthorEducationPanel() else {
+        guard !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() else {
             thankRevisionAuthor { (error) in
                 if error == nil {
                     self.diffToolbarView?.isThankSelected = true
@@ -1185,7 +1185,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
 
         wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
-            UserDefaults.wmf.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
+            UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
             self.dismiss(animated: true, completion: {
                 self.thankRevisionAuthor { (error) in
                     if error == nil {
