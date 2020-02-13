@@ -1,8 +1,0 @@
-section0.json:
-http://en.m.wikipedia.org/w/api.php?action=mobileview&page=San%20Francisco&prop=sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle&sectionprop=toclevel|line|anchor|level|number|fromtitle|index&noheadings=true&format=json&sections=0
-
-section1-end.json:
-http://en.m.wikipedia.org/w/api.php?action=mobileview&page=San%20Francisco&prop=sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle&sectionprop=toclevel|line|anchor|level|number|fromtitle|index&noheadings=true&format=json&sections=1-&onlyrequestedsections=1
-
-organization-anon.json
-http://en.m.wikipedia.org/w/api.php?action=mobileview&page=Organization&prop=sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle&sectionprop=toclevel|line|anchor|level|number|fromtitle|index&noheadings=true&format=json&sections=all
