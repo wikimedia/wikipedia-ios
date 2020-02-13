@@ -121,7 +121,7 @@ class TalkPageController {
     }
 
     private var signatureIfAutoSignEnabled: String {
-        return UserDefaults.wmf.autoSignTalkPageDiscussions ? " ~~~~" : ""
+        return UserDefaults.standard.autoSignTalkPageDiscussions ? " ~~~~" : ""
     }
     
     func addTopic(toTalkPageWith talkPageObjectID: NSManagedObjectID, title: String, siteURL: URL, subject: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {

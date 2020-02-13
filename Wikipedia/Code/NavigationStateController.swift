@@ -108,6 +108,7 @@ final class NavigationStateController: NSObject {
                 guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, forceCache: true) else {
                     return
                 }
+                articleVC.isRestoringState = true
                 // never present an article modal, the nav bar disappears
                 pushOrPresent(articleVC, navigationController: navigationController, presentation: .push)
             case (.themeableNavigationController, _):
@@ -254,7 +255,7 @@ final class NavigationStateController: NSObject {
         switch obj {
             case let articleViewController as ArticleViewController:
                 kind = obj is RandomArticleViewController ? .random : .article
-                info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
+                info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
             case let talkPageContainerVC as TalkPageContainerViewController:
                 kind = .talkPage
                 info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)

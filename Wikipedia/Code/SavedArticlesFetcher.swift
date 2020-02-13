@@ -8,8 +8,12 @@ final class SavedArticlesFetcher: NSObject {
     @objc static let saveToDiskDidFail = NSNotification.Name("SaveToDiskDidFail")
     @objc static let saveToDiskDidFailErrorKey = "error"
     
-    @objc var progress: Progress?
-    var fetchesInProcessCount: NSNumber = 0
+    @objc dynamic var progress: Progress = Progress()
+    private var countOfFetchesInProcess: Int64 = 0 {
+        didSet {
+            updateProgress(with: countOfFetchesInProcess, oldValue: oldValue)
+        }
+    }
     
     private let dataStore: MWKDataStore
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
@@ -34,7 +38,9 @@ final class SavedArticlesFetcher: NSObject {
         spotlightManager = WMFSavedPageSpotlightManager(dataStore: dataStore)
         
         super.init()
-        updateFetchesInProcessCount()
+        
+        resetProgress()
+        updateCountOfFetchesInProcess()
     }
     
     @objc func start() {
@@ -49,14 +55,28 @@ final class SavedArticlesFetcher: NSObject {
 }
 
 private extension SavedArticlesFetcher {
-    func updateFetchesInProcessCount() {
-        if let count = calculateTotalArticlesToFetchCount() {
-            fetchesInProcessCount = NSNumber(value: count)
+    func updateCountOfFetchesInProcess() {
+        guard let count = calculateCountOfArticlesToFetch() else {
+            return
         }
-        
+        countOfFetchesInProcess = count
     }
     
-    func calculateTotalArticlesToFetchCount() -> UInt? {
+    func updateProgress(with newValue: Int64, oldValue: Int64) {
+        progress.totalUnitCount = max(progress.totalUnitCount, newValue)
+        let completedUnits = progress.totalUnitCount - newValue
+        progress.completedUnitCount = completedUnits
+        guard newValue == 0 else {
+            return
+        }
+        resetProgress()
+    }
+    
+    func resetProgress() {
+        progress = Progress.discreteProgress(totalUnitCount: -1)
+    }
+    
+    func calculateCountOfArticlesToFetch() -> Int64? {
         assert(Thread.isMainThread)
         
         let moc = dataStore.viewContext
@@ -66,7 +86,7 @@ private extension SavedArticlesFetcher {
         
         do {
             let count = try moc.count(for: request)
-            return (count >= 0) ? UInt(count) : nil
+            return (count >= 0) ? Int64(count) : nil
         } catch(let error) {
             DDLogError("Error counting number of article to be downloaded: \(error)")
             return nil
@@ -105,7 +125,7 @@ private extension SavedArticlesFetcher {
     
     @objc func _update() {
         if isUpdating || !isRunning {
-            updateFetchesInProcessCount()
+            updateCountOfFetchesInProcess()
             return
         }
         
@@ -165,10 +185,10 @@ private extension SavedArticlesFetcher {
                         print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
                         self.didFetchArticle(with: articleKey)
                         self.spotlightManager.addToIndex(url: articleURL as NSURL)
-                        self.updateFetchesInProcessCount()
+                        self.updateCountOfFetchesInProcess()
                     case .failure(let error):
                         print("🥶failure in groupCompletion of \(articleKey): \(error)")
-                        self.updateFetchesInProcessCount()
+                        self.updateCountOfFetchesInProcess()
                         self.didFailToFetchArticle(with: articleKey, error: error)
                     }
                     updateAgain()
@@ -189,7 +209,7 @@ private extension SavedArticlesFetcher {
             
             let noArticleToDeleteCompletion = {
                 self.isUpdating = false
-                self.updateFetchesInProcessCount()
+                self.updateCountOfFetchesInProcess()
                 endBackgroundTask()
             }
             
@@ -213,7 +233,7 @@ private extension SavedArticlesFetcher {
                         case .success:
                             print("🙈success in groupCompletion of \(articleKey)")
                             self.didRemoveArticle(with: articleKey)
-                            self.updateFetchesInProcessCount()
+                            self.updateCountOfFetchesInProcess()
                         case .failure:
                             print("🙈failure in groupCompletion of \(articleKey)")
                             break
@@ -337,11 +357,6 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
         
         dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: nonNilArticle) { error in
-            guard error == nil else {
-                assertionFailure("Article migration failed")
-                return
-            }
-            // print("Conversion succeeded or not needed")
             do {
                 guard try moc.count(for: self.conversionsNeededCountFetchRequest) > 0 else {
                     // No more articles to convert, ensure the legacy folder is deleted
@@ -354,6 +369,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
                 self.convertOneArticleIfNecessaryAgain()
             } catch(let error) {
                 DDLogError("Error counting number of article to be converted: \(error)")
+                self.stop()
             }
         }
     }

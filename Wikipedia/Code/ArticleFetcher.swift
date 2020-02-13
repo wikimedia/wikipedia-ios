@@ -9,7 +9,14 @@ enum ArticleFetcherError: Error {
 }
 
 @objc(WMFArticleFetcher)
-final public class ArticleFetcher: Fetcher {
+final public class ArticleFetcher: Fetcher {    
+    @objc required public init(session: Session, configuration: Configuration) {
+        #if WMF_APPS_LABS_MOBILE_HTML
+        super.init(session: Session.shared, configuration: Configuration.appsLabs)
+        #else
+        super.init(session: session, configuration: configuration)
+        #endif
+    }
     
     private let cacheHeaderProvider: CacheHeaderProviding = ArticleCacheHeaderProvider()
     

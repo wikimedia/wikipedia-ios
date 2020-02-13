@@ -129,19 +129,17 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
     }
     
     func allDownloaded(groupKey: String) -> Bool {
-        
         guard let context = CacheController.backgroundCacheContext else {
             return false
         }
         
-        guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-            return false
-        }
-        guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
-            return false
-        }
-        
         return context.performWaitAndReturn {
+            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
+                return false
+            }
+            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+                return false
+            }
             for item in cacheItems {
                 if !item.isDownloaded && group.mustHaveCacheItems?.contains(item) ?? false {
                     return false
@@ -191,12 +189,11 @@ extension ArticleCacheDBWriter {
                 return
         }
         
-        guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: cacheBackgroundContext) else {
-            failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem)
-            return
-        }
-        
         cacheBackgroundContext.perform {
+            guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: self.cacheBackgroundContext) else {
+                failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem)
+                return
+            }
             item.isDownloaded = true
             CacheDBWriterHelper.save(moc: self.cacheBackgroundContext) { (result) in
                 switch result {

@@ -54,13 +54,12 @@ extension CacheDBWriting {
             completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
             return
         }
-        
-        guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
-            return
-        }
-        
+    
         context.perform {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
+                return
+            }
             cacheItem.isDownloaded = true
             cacheItem.etag = etag
             CacheDBWriterHelper.save(moc: context) { (result) in
@@ -79,18 +78,16 @@ extension CacheDBWriting {
             completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
             return
         }
-        
-        guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheGroup))
-            return
-        }
-        guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
-            return
-        }
-        
         context.perform {
-
+            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheGroup))
+                return
+            }
+            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
+                return
+            }
+            
             let cacheItemsToRemove = cacheItems.filter({ (cacheItem) -> Bool in
                 return cacheItem.cacheGroups?.count == 1
             })

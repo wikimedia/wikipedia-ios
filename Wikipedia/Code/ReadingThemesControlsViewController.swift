@@ -151,7 +151,7 @@ class ReadingThemesControlsViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
-        let currentTheme = UserDefaults.wmf.theme(compatibleWith: traitCollection)
+        let currentTheme = UserDefaults.standard.theme(compatibleWith: traitCollection)
         apply(theme: currentTheme)
     }
     
@@ -186,7 +186,7 @@ class ReadingThemesControlsViewController: UIViewController {
     }
     
     fileprivate func evaluateSyntaxHighlightingSelectedState() {
-        syntaxHighlightingSwitch.isOn = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
+        syntaxHighlightingSwitch.isOn = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
     }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
@@ -214,15 +214,15 @@ class ReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
+        userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.standard.wmf_isImageDimmingEnabled))
     }
 
     @IBAction func blackThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
+        userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.standard.wmf_isImageDimmingEnabled))
     }
     @IBAction func syntaxHighlightingSwitched(_ sender: UISwitch) {
         delegate?.toggleSyntaxHighlighting(self)
-        UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled = sender.isOn
+        UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled = sender.isOn
     }
 }
 

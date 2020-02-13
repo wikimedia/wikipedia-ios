@@ -6,23 +6,51 @@ class SectionFilter {
   }
 }
 
-exports.getFirstOnScreenSectionId = insetTop => {
+const headerTagRegex = /^H[0-9]$/
+
+class HeaderFilter {
+  acceptNode(node) {
+    return node.tagName && headerTagRegex.test(node.tagName)
+  }
+}
+
+const getAnchorForSection = section => {
+  let node
+  let anchor = ''
+  const sectionWalker = document.createTreeWalker(section, NodeFilter.SHOW_ELEMENT, new HeaderFilter())
+  while (node = sectionWalker.nextNode()) {
+    if (!node.id) {
+      continue
+    }
+    anchor = node.id
+    break
+  }
+  return anchor
+}
+
+exports.getFirstOnScreenSection = insetTop => {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, new SectionFilter())
   let node
-  let sectionId = -1
+  let id = -1
+  let anchor = ''
+  let section
   while (node = walker.nextNode()) {
     const rect = node.getBoundingClientRect()
-    if (rect.top <= insetTop + 1) {
-      const sectionIdString = node.getAttribute('data-mw-section-id')
-      if (!sectionIdString) {
+    if (rect.top > insetTop + 1) {
+      if (!section) {
         continue
       }
-      sectionId = parseInt(sectionIdString)
-    } else if (sectionId !== -1) {
+      anchor = getAnchorForSection(section)
       break
     }
+    const sectionIdString = node.getAttribute('data-mw-section-id')
+    if (!sectionIdString) {
+      continue
+    }
+    id = parseInt(sectionIdString)
+    section = node
   }
-  return sectionId
+  return {id, anchor}
 }
 
 exports.getImageWithSrc = src => document.querySelector(`img[src$="${src}"]`)

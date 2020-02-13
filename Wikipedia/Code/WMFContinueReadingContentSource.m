@@ -39,7 +39,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
+    NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
 
     BOOL shouldShowContinueReading = fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle || force;
 
