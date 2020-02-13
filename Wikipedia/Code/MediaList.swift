@@ -15,7 +15,7 @@ public enum MediaListItemType: String {
 }
 
 public struct MediaListItem: Codable {
-    public let title: String
+    public let title: String?
     public let sectionID: Int
     public let type: String
     public let showInGallery: Bool

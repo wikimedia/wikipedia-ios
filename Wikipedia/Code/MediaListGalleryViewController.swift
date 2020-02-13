@@ -45,10 +45,13 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     }
     
     func fetchImageForPhoto(_ photo: NYTPhoto?) {
-        guard let photo = photo as? MediaListItemNYTPhotoWrapper else {
+        guard
+            let photo = photo as? MediaListItemNYTPhotoWrapper,
+            let title = photo.mediaListItem.title
+        else {
             return
         }
-        let title = photo.mediaListItem.title
+        
         fetchImageInfoForTitle(title) { (result) in
             switch result {
             case .failure(let error):
