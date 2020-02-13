@@ -34,7 +34,7 @@ class ViewControllerRouter: NSObject {
             let destination = try router.destination(for: url)
             switch destination {
             case .article(let articleURL):
-                appViewController.showNewArticle(for: articleURL, animated: true, completion: completion)
+                appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
                 return true
             case .externalLink(let linkURL):
                 appViewController.navigate(to: linkURL, useSafari: true)

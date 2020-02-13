@@ -4,7 +4,7 @@
 
 protocol ArticleTableOfContentsDisplayControllerDelegate : TableOfContentsViewControllerDelegate {
     func tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
-    func getVisibleSectionId(with: @escaping (Int) -> Void)
+    func getVisibleSection(with: @escaping (Int, String) -> Void)
 }
 
 class ArticleTableOfContentsDisplayController: Themeable {
@@ -17,8 +17,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
     
     var theme: Theme = .standard
     let articleView: WKWebView
-    var articleViewContentSizeObservation: NSKeyValueObservation? = nil
-    
+
     func apply(theme: Theme) {
         self.theme = theme
         separatorView.backgroundColor = theme.colors.baseBackground
@@ -41,13 +40,6 @@ class ArticleTableOfContentsDisplayController: Themeable {
         stackView.addArrangedSubview(separatorView)
         stackView.addArrangedSubview(articleView)
         NSLayoutConstraint.activate([separatorWidthConstraint])
-        articleViewContentSizeObservation = self.articleView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
-            self?.restoreOffsetPercentageIfNecessary()
-        }
-    }
-    
-    deinit {
-        articleViewContentSizeObservation?.invalidate()
     }
 
     lazy var stackView: UIStackView = {
@@ -96,7 +88,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
         guard delegate?.presentedViewController == nil else {
             return
         }
-        delegate?.getVisibleSectionId(with: { (sectionId) in
+        delegate?.getVisibleSection(with: { (sectionId, _) in
             self.viewController.isVisible = true
             self.selectAndScroll(to: sectionId, animated: false)
             self.delegate?.present(self.viewController, animated: animated)

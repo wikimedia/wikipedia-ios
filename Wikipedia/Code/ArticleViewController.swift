@@ -21,35 +21,48 @@ class ArticleViewController: ViewController {
     /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
     @objc public let articleURL: URL
     let articleLanguage: String
-
-    public var visibleSectionAnchor: String? // TODO: Implement
+    
+    /// Set by the state restoration system
+    /// Scroll to the last viewed scroll position in this case
+    var isRestoringState: Bool = false
+    /// Set internally to wait for content size changes to chill before restoring the scroll offset
+    var isRestoringStateOnNextContentSizeChange: Bool = false
+    
+    /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
     
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
-
-    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance // TODO: DI?
+    
+    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: CacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
+
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
 
     private var leadImageHeight: CGFloat = 210
+    private var contentSizeObservation: NSKeyValueObservation? = nil
+    lazy var refreshControl: UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return rc
+    }()
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = dataStore.articleCacheControllerWrapper.cacheController
-        else {
-            return nil
+            else {
+                return nil
         }
         
         self.articleURL = articleURL
         self.articleLanguage = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
         self.article = article
-
+        
         self.dataStore = dataStore
-        self.schemeHandler = SchemeHandler.shared // TODO: DI?
+        self.schemeHandler = SchemeHandler.shared
         self.schemeHandler.forceCache = forceCache
         self.schemeHandler.cacheController = cacheController
         self.cacheController = cacheController
@@ -59,6 +72,7 @@ class ArticleViewController: ViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        contentSizeObservation?.invalidate()
     }
     
     // MARK: WebView
@@ -77,7 +91,7 @@ class ArticleViewController: ViewController {
     lazy var webView: WKWebView = {
         return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
-
+    
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
@@ -124,7 +138,7 @@ class ArticleViewController: ViewController {
     }()
     
     lazy var leadImageContainerView: UIView = {
-
+        
         let height: CGFloat = 10
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: height))
         containerView.clipsToBounds = true
@@ -229,6 +243,119 @@ class ArticleViewController: ViewController {
         saveArticleScrollPosition()
     }
     
+    // MARK: Article load
+    
+    var footerLoadGroup: DispatchGroup?
+    var languageCount: Int = 0
+    
+    func loadIfNecessary() {
+        guard state == .initial else {
+            return
+        }
+        load()
+    }
+    
+    func load() {
+        state = .loading
+        setupPageContentServiceJavaScriptInterface {
+            self.loadPage()
+        }
+    }
+    
+    func loadPage() {
+        defer {
+            callLoadCompletionIfNecessary()
+        }
+        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
+            loadLeadImage(with: leadImageURL)
+        }
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
+            showGenericError()
+            state = .error
+            return
+        }
+        
+        footerLoadGroup = DispatchGroup()
+        footerLoadGroup?.enter() // will leave on setup complete
+        footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
+            self?.setupFooter()
+            self?.shareIfNecessary()
+            self?.footerLoadGroup = nil
+        }
+        
+        webView.load(request)
+        
+        guard let key = article.key else {
+            showGenericError()
+            state = .error
+            return
+        }
+        footerLoadGroup?.enter()
+        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            self.footerLoadGroup?.leave()
+        }
+        footerLoadGroup?.enter()
+        languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
+            self.languageCount = links.count
+            self.footerLoadGroup?.leave()
+        }) { (error) in
+            self.footerLoadGroup?.leave()
+        }
+    }
+    
+    // MARK: State Restoration
+    
+    func markArticleAsViewed() {
+        article.viewedDate = Date()
+        try? article.managedObjectContext?.save()
+    }
+    
+    func saveArticleScrollPosition() {
+        getVisibleSection { (sectionId, anchor) in
+            assert(Thread.isMainThread)
+            self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
+            self.article.viewedFragment = anchor
+            try? self.article.managedObjectContext?.save()
+            
+        }
+    }
+    
+    func restoreStateIfNecessary() {
+        guard isRestoringState else {
+            return
+        }
+        isRestoringState = false
+        isRestoringStateOnNextContentSizeChange = true
+        perform(#selector(restoreState), with: nil, afterDelay: 0.5) // failsafe, attempt to restore state after half a second regardless
+    }
+    
+    func restoreStateIfNecessaryOnContentSizeChange() {
+        guard isRestoringStateOnNextContentSizeChange else {
+            return
+        }
+        let scrollPosition = CGFloat(article.viewedScrollPosition)
+        guard scrollPosition < webView.scrollView.bottomOffsetY else {
+            return
+        }
+        isRestoringStateOnNextContentSizeChange = false
+        restoreState()
+    }
+    
+    @objc func restoreState() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restoreState), object: nil)
+        let scrollPosition = CGFloat(article.viewedScrollPosition)
+        if scrollPosition > 0 && scrollPosition < webView.scrollView.bottomOffsetY {
+            scroll(to: CGPoint(x: 0, y: scrollPosition), animated: false)
+        } else if let anchor = article.viewedFragment {
+            scroll(to: anchor, animated: false)
+        }
+    }
+    
+    func callLoadCompletionIfNecessary() {
+        loadCompletion?()
+        loadCompletion = nil
+    }
+    
     // MARK: Theme
     
     lazy var themesPresenter: ReadingThemesControlsArticlePresenter = {
@@ -255,8 +382,24 @@ class ArticleViewController: ViewController {
     
     // MARK: Sharing
     
+    private var isSharingWhenReady = false
+    
     @objc public func shareArticleWhenReady() {
-        // TODO: implement
+        isSharingWhenReady = true
+    }
+    
+    func shareIfNecessary() {
+        guard isSharingWhenReady else {
+            return
+        }
+        isSharingWhenReady = false
+        shareArticle()
+    }
+    
+    // MARK: Refresh
+    
+    @objc public func refresh() {
+        webView.reload()
     }
     
     // MARK: Overrideable functionality
@@ -314,7 +457,7 @@ class ArticleViewController: ViewController {
     
     func updateTableOfContentsHighlight() {
         previousContentOffsetYForTOCUpdate = webView.scrollView.contentOffset.y
-        getVisibleSectionId { (sectionId) in
+        getVisibleSection { (sectionId, _) in
             self.tableOfContentsController.selectAndScroll(to: sectionId, animated: true)
         }
     }
@@ -338,6 +481,11 @@ class ArticleViewController: ViewController {
     }
     
     // MARK: Scroll
+    
+    func isBoundingClientRectVisible(_ rect: CGRect) -> Bool {
+        let scrollView = webView.scrollView
+        return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
+    }
     
     func scroll(to anchor: String, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
@@ -424,79 +572,6 @@ class ArticleViewController: ViewController {
         dismissReferencesPopover()
     }
     
-    // MARK: Article load
-    
-    var footerLoadGroup: DispatchGroup?
-    var languageCount: Int = 0
-    
-    func loadIfNecessary() {
-        guard state == .initial else {
-            return
-        }
-        load()
-    }
-    
-    func load() {
-        state = .loading
-        setupPageContentServiceJavaScriptInterface {
-            self.loadPage()
-        }
-    }
-    
-    func loadPage() {
-        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
-            loadLeadImage(with: leadImageURL)
-        }
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
-            showGenericError()
-            state = .error
-            return
-        }
-        
-        footerLoadGroup = DispatchGroup()
-        footerLoadGroup?.enter() // will leave on setup complete
-        footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
-            self?.setupFooter()
-            self?.footerLoadGroup = nil
-        }
-        
-        webView.load(request)
-        
-        guard let key = article.key else {
-            showGenericError()
-            state = .error
-            return
-        }
-        footerLoadGroup?.enter()
-        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
-            self.footerLoadGroup?.leave()
-        }
-        footerLoadGroup?.enter()
-        languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
-            self.languageCount = links.count
-            self.footerLoadGroup?.leave()
-        }) { (error) in
-            self.footerLoadGroup?.leave()
-        }
-    }
-    
-    func markArticleAsViewed() {
-        article.viewedDate = Date()
-        try? article.managedObjectContext?.save()
-    }
-    
-    func saveArticleScrollPosition() {
-        getVisibleSectionId { (sectionId) in
-            guard let item = self.tableOfContentsItems.first(where: { $0.id == sectionId }) else {
-                return
-            }
-            assert(Thread.isMainThread)
-            self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
-            self.article.viewedFragment = item.anchor
-            try? self.article.managedObjectContext?.save()
-
-        }
-    }
     
     // MARK: Analytics
     
@@ -517,6 +592,20 @@ private extension ArticleViewController {
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
+            self?.contentSizeDidChange()
+        }
+    }
+    
+    func contentSizeDidChange() {
+        tableOfContentsController.restoreOffsetPercentageIfNecessary()
+        // debounce
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedContentSizeDidChange), object: nil)
+        perform(#selector(debouncedContentSizeDidChange), with: nil, afterDelay: 0.1)
+    }
+    
+    @objc func debouncedContentSizeDidChange() {
+        restoreStateIfNecessaryOnContentSizeChange()
     }
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
@@ -534,16 +623,18 @@ private extension ArticleViewController {
     func setupWebView() {
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-
+        
+        webView.scrollView.refreshControl = refreshControl
+        
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
-
+        
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
         webView.scrollView.addSubview(leadImageContainerView)
-            
+        
         let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
@@ -584,7 +675,7 @@ private extension ArticleViewController {
         toolbarController.setSavedState(isSaved: article.isSaved)
         setToolbarHidden(false, animated: false)
     }
-            
+    
 }
 
 extension ArticleViewController {
@@ -613,13 +704,13 @@ extension ArticleViewController: ImageScaleTransitionProviding {
         guard let imageView = imageView, let image = imageView.image else {
             return
         }
-
+        
         leadImageView.image = image
         leadImageView.layer.contentsRect = imageView.layer.contentsRect
-
+        
         view.layoutIfNeeded()
     }
-
+    
 }
 
 extension ViewController {

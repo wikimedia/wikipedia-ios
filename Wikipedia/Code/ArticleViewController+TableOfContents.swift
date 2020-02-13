@@ -1,12 +1,16 @@
 extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegate {
-    func getVisibleSectionId(with completion: @escaping (Int) -> Void) {
-        webView.evaluateJavaScript("window.wmf.elementLocation.getFirstOnScreenSectionId(\(navigationBar.visibleHeight))") { (result, error) in
-            guard let sectionId = result as? Int else {
+    func getVisibleSection(with completion: @escaping (_ sectionID: Int, _ anchor: String) -> Void) {
+        webView.evaluateJavaScript("window.wmf.elementLocation.getFirstOnScreenSection(\(navigationBar.visibleHeight))") { (result, error) in
+            guard
+                let info = result as? [String: Any],
+                let sectionId = info["id"] as? Int,
+                let anchor = info["anchor"] as? String
+            else {
                 DDLogError("Error getting first on screen section: \(String(describing: error))")
-                completion(-1)
+                completion(-1, "")
                 return
             }
-            completion(sectionId)
+            completion(sectionId, anchor)
         }
     }
     
