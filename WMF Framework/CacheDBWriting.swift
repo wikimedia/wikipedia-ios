@@ -43,12 +43,12 @@ protocol CacheDBWriting: CacheTaskTracking {
     func remove(itemKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
     func remove(groupKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
     func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemKeys)
-    func markDownloaded(itemKey: CacheController.ItemKey, etag: String?, completion: @escaping (CacheDBWritingResult) -> Void)
+    func markDownloaded(itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void)
 }
 
 extension CacheDBWriting {
     
-    func markDownloaded(itemKey: CacheController.ItemKey, etag: String?, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func markDownloaded(itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         guard let context = CacheController.backgroundCacheContext else {
             completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
@@ -61,7 +61,6 @@ extension CacheDBWriting {
                 return
             }
             cacheItem.isDownloaded = true
-            cacheItem.etag = etag
             CacheDBWriterHelper.save(moc: context) { (result) in
                 switch result {
                 case .success:

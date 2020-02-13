@@ -9,7 +9,7 @@ protocol CacheFileWritingDelegate: class {
 }
 
 enum CacheFileWritingResult {
-    case success(etag: String?)
+    case success
     case failure(Error)
 }
 
@@ -29,10 +29,10 @@ extension CacheFileWriting {
         let cachedFileURL = CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
         do {
             try FileManager.default.removeItem(at: cachedFileURL)
-            completion(.success(etag: nil))
+            completion(.success)
         } catch let error as NSError {
             if error.code == NSURLErrorFileDoesNotExist || error.code == NSFileNoSuchFileError {
-                completion(.success(etag: nil))
+                completion(.success)
             } else {
                 completion(.failure(error))
             }

@@ -54,11 +54,10 @@ final public class ArticleCacheFileWriter: NSObject, CacheFileWriting {
                 return
             }
             
-            let etag = (response as? HTTPURLResponse)?.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
             CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: itemKey, mimeType: mimeType) { (result) in
                 switch result {
                 case .success, .exists:
-                    completion(.success(etag: etag)) //tonitodo: when do we overwrite for .exists?
+                    completion(.success) //tonitodo: when do we overwrite for .exists?
                 case .failure(let error):
                     completion(.failure(error))
                 }

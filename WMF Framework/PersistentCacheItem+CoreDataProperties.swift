@@ -10,7 +10,6 @@ extension PersistentCacheItem {
     }
 
     @NSManaged public var date: Date?
-    @NSManaged public var etag: String?
     @NSManaged public var isDownloaded: Bool
     @NSManaged public var key: String?
     @NSManaged public var variant: String?
