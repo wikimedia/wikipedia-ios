@@ -236,8 +236,8 @@ public class WMFAuthenticationManager: Fetcher {
         dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
         
         // Reset so can show for next logged in user.
-        UserDefaults.wmf.wmf_setDidShowEnableReadingListSyncPanel(false)
-        UserDefaults.wmf.wmf_setDidShowSyncEnabledPanel(false)
+        UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)
+        UserDefaults.standard.wmf_setDidShowSyncEnabledPanel(false)
     }
     
     /**
@@ -299,10 +299,10 @@ extension WMFAuthenticationManager {
 
     @objc public var isUserUnawareOfLogout: Bool {
         get {
-            return UserDefaults.wmf.isUserUnawareOfLogout
+            return UserDefaults.standard.isUserUnawareOfLogout
         }
         set {
-            UserDefaults.wmf.isUserUnawareOfLogout = newValue
+            UserDefaults.standard.isUserUnawareOfLogout = newValue
         }
     }
 }

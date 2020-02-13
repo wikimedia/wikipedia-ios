@@ -13,7 +13,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 9;
+static const NSInteger WMFCurrentLibraryVersion = 10;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -433,7 +433,7 @@ static uint64_t bundleHash() {
     }
 
     if (currentLibraryVersion < 8) {
-        NSUserDefaults *ud = [NSUserDefaults wmf];
+        NSUserDefaults *ud = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
         [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
         [ud synchronize];
@@ -447,6 +447,15 @@ static uint64_t bundleHash() {
     if (currentLibraryVersion < 9) {
         [self markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:moc];
         [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 10) {
+        [self migrateToStandardUserDefaults];
+        [moc wmf_setValue:@(10) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
@@ -525,6 +534,21 @@ static uint64_t bundleHash() {
             DDLogError(@"Error fetching downloaded articles: %@", fetchError);
             return;
         }
+    }
+}
+
+- (void)migrateToStandardUserDefaults {
+    NSUserDefaults *wmfDefaults = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
+    if (!wmfDefaults) {
+        return;
+    }
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary<NSString *, id> *wmfDefaultsDictionary = [wmfDefaults dictionaryRepresentation];
+    NSArray *keys = [wmfDefaultsDictionary allKeys];
+    for (NSString *key in keys) {
+        id value = [wmfDefaultsDictionary objectForKey:key];
+        [userDefaults setObject:value forKey:key];
+        [wmfDefaults removeObjectForKey:value];
     }
 }
 
@@ -773,27 +797,6 @@ static uint64_t bundleHash() {
     NSString *filePath = [path stringByAppendingPathComponent:@"RecentSearches.plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     return dict[@"entries"];
-}
-
-- (NSArray<NSURL *> *)cacheRemovalListFromDisk {
-    NSString *path = self.basePath;
-    NSString *filePath = [path stringByAppendingPathComponent:@"TitlesToRemove.plist"];
-    NSArray *URLStrings = [NSArray arrayWithContentsOfFile:filePath];
-    NSArray<NSURL *> *urls = [URLStrings wmf_mapAndRejectNil:^NSURL *(id obj) {
-        if (obj && [obj isKindOfClass:[NSString class]]) {
-            return [NSURL URLWithString:obj];
-        } else {
-            return nil;
-        }
-    }];
-    return urls;
-}
-
-- (BOOL)saveCacheRemovalListToDisk:(NSArray<NSURL *> *)cacheRemovalList error:(NSError **)error {
-    NSArray *URLStrings = [cacheRemovalList wmf_map:^id(NSURL *obj) {
-        return [obj absoluteString];
-    }];
-    return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
 }
 
 #pragma mark - helper methods

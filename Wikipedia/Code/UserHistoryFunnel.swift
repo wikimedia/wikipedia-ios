@@ -25,13 +25,13 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     private func event() -> Dictionary<String, Any> {
-        let userDefaults = UserDefaults.wmf
+        let userDefaults = UserDefaults.standard
         
-        let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
+        let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
-        let isNewsNotificationEnabled = userDefaults.wmf_inTheNewsNotificationsEnabled()
-        let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
+        let isNewsNotificationEnabled = UserDefaults.standard.wmf_inTheNewsNotificationsEnabled()
+        let appOpensOnSearchTab = UserDefaults.standard.wmf_openAppOnSearchTab
 
         var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled, "search_tab": appOpensOnSearchTab]
         
@@ -80,7 +80,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         EventLoggingService.shared?.lastLoggedSnapshot = eventData as NSCoding
-        UserDefaults.wmf.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
+        UserDefaults.standard.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
     }
     
     private var latestSnapshot: Dictionary<String, Any>? {
@@ -96,7 +96,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         
-        guard let lastAppVersion = UserDefaults.wmf.wmf_lastAppVersion else {
+        guard let lastAppVersion = UserDefaults.standard.wmf_lastAppVersion else {
             log(event())
             return
         }

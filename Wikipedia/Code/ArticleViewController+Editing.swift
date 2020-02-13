@@ -15,7 +15,7 @@ extension ArticleViewController {
         sectionEditVC.editFunnel = editFunnel
         let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        let needsIntro = !UserDefaults.wmf.didShowEditingOnboarding
+        let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
         if needsIntro {
             navigationController.view.alpha = 0
         }
@@ -28,7 +28,7 @@ extension ArticleViewController {
             }
             editingWelcomeViewController.apply(theme: self.theme)
             navigationController.present(editingWelcomeViewController, animated: true) {
-                UserDefaults.wmf.didShowEditingOnboarding = true
+                UserDefaults.standard.didShowEditingOnboarding = true
                 navigationController.view.alpha = 1
             }
         }
@@ -49,7 +49,7 @@ extension ArticleViewController {
         navigationController.modalPresentationStyle = .overCurrentContext
         navigationController.view.isOpaque = false
         navigationController.view.backgroundColor = .clear
-       let needsIntro = !UserDefaults.wmf.wmf_didShowTitleDescriptionEditingIntro()
+       let needsIntro = !UserDefaults.standard.wmf_didShowTitleDescriptionEditingIntro()
        if needsIntro {
            navigationController.view.alpha = 0
        }
@@ -61,7 +61,7 @@ extension ArticleViewController {
             }
             welcomeVC.apply(theme: self.theme)
             navigationController.present(welcomeVC, animated: true) {
-                UserDefaults.wmf.wmf_setDidShowTitleDescriptionEditingIntro(true)
+                UserDefaults.standard.wmf_setDidShowTitleDescriptionEditingIntro(true)
                 navigationController.view.alpha = 1
             }
         }

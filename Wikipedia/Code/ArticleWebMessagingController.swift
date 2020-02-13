@@ -24,7 +24,7 @@ class ArticleWebMessagingController: NSObject {
         let tableOtherTitle = WMFLocalizedString("table-title-other", language: language, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
         let tableFooterTitle = WMFLocalizedString("info-box-close-text", language: language, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it {{Identical|Close}}")
         let l10n = PageContentService.Setup.Parameters.L10n(addTitleDescription: addTitleDescription, tableInfobox: tableInfoboxTitle, tableOther: tableOtherTitle, tableClose: tableFooterTitle)
-        let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int ?? 100
+        let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.standard.wmf_articleFontSizeMultiplier() as? Int ?? 100
         let parameters = PageContentService.Setup.Parameters(l10n: l10n, theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
         self.webView = webView
         let contentController = webView.configuration.userContentController
@@ -127,6 +127,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
+        case backLink(selectedIndex: Int, group: [WMFLegacyReference])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -148,6 +149,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case image
         case link
         case reference
+        case backLink = "back_link"
         case pronunciation
         case edit = "edit_section"
         case addTitleDescription = "add_title_description"
@@ -171,6 +173,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getImageAction(with: data)
             case .reference:
                 return getReferenceAction(with: data)
+            case .backLink:
+                return getBackLinkAction(with: data)
             case .pronunciation:
                 return getPronunciationAction(with: data)
             case .edit:
@@ -264,6 +268,14 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             }
             let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
             return .reference(selectedIndex: selectedIndex, group: group)
+        }
+        
+        func getBackLinkAction(with data: [String: Any]?) -> Action? {
+            guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
+                return nil
+            }
+            let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
+            return .backLink(selectedIndex: selectedIndex, group: group)
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {

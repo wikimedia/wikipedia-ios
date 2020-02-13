@@ -73,7 +73,7 @@
                                                  iconName:@"settings-explore"
                                                 iconColor:[UIColor wmf_colorWithHex:0x5ac8fa]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[NSUserDefaults wmf].defaultTabType != WMFAppDefaultTabTypeExplore ? @"Off" : @"On"
+                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? @"Off" : @"On"
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {

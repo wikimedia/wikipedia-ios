@@ -62,13 +62,11 @@ extension MWKDataStore {
             guard error == nil, let result = result else {
                 handleConversionFailure()
                 completionHandler(error)
-                assertionFailure("Conversion error or no result")
                 return
             }
             guard let mobileHTML = result as? String else {
                 handleConversionFailure()
                 completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noMobileHTML)
-                assertionFailure("mobileHTML not extracted")
                 return
             }
 
@@ -89,5 +87,14 @@ extension MWKDataStore {
                 }
             }
         }
+    }
+    
+    func removeAllLegacyArticleData() {
+        let fileURL = URL(fileURLWithPath: basePath)
+        let titlesToRemoveFileURL = fileURL.appendingPathComponent("TitlesToRemove.plist")
+        let sitesFolderURL = fileURL.appendingPathComponent("sites")
+        let fm = FileManager.default
+        try? fm.removeItem(at: titlesToRemoveFileURL)
+        try? fm.removeItem(at: sitesFolderURL)
     }
 }

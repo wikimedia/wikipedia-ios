@@ -5,7 +5,7 @@ extension UIScrollView {
         return 0 - adjustedContentInset.top
     }
 
-    private var bottomOffsetY: CGFloat {
+    public var bottomOffsetY: CGFloat {
         return contentSize.height - bounds.size.height + adjustedContentInset.bottom
     }
 
