@@ -433,7 +433,7 @@ static uint64_t bundleHash() {
     }
 
     if (currentLibraryVersion < 8) {
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *ud = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
         [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
         [ud synchronize];
