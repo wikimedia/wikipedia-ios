@@ -17,6 +17,58 @@ let wmf_mediaWikiCodeLookupGlobal: [String: [String: [String: String]]] = {
     return mapping
 }()
 
+extension Locale {
+    /// - Parameter url: The URL to check
+    /// - Parameter preferredLanguages: The list of preferred languages to check. Defaults to a list of the user's preferred Wikipedia languages that support variants.
+    /// - Returns: The first preferred language variant for a given URL, or nil if the URL is for a Wikipedia with a language that doesn't support variants
+    public static func preferredWikipediaLanguageVariant(for url: URL, preferredLanguages: [String] = preferredWikipediaLanguagesWithVariants) -> String? {
+        guard let language = url.wmf_language else {
+            return nil
+        }
+        for languageCode in preferredLanguages {
+            guard languageCode.hasPrefix(language + "-") else {
+                continue
+            }
+            return languageCode
+        }
+        return nil
+    }
+    
+    /// List of Wikipedia languages with variants in the order that the user preferrs them. Currently only supports zh and sr.
+    public static let preferredWikipediaLanguagesWithVariants: [String] = uniqueWikipediaLanguages(with: preferredLanguages, includingLanguagesWithoutVariants: false)
+    
+    /// - Parameter languageIdentifiers: List of `Locale` language identifers
+    /// - Parameter includingLanguagesWithoutVariants: Pass true to include Wikipedias without variants, passing false will only return languages with variants (currently only supporting zh and sr)
+    /// - Returns: An array of preferred Wikipedia languages based on the provided array of language identifiers
+    static func uniqueWikipediaLanguages(with languageIdentifiers: [String], includingLanguagesWithoutVariants: Bool = true) -> [String] {
+        var uniqueLanguageCodes = [String]()
+        for languageIdentifier in languageIdentifiers {
+            let locale = Locale(identifier: languageIdentifier)
+            if let languageCode = locale.languageCode?.lowercased() {
+                if let scriptLookup = wmf_mediaWikiCodeLookupGlobal[languageCode] {
+                    let scriptCode = locale.scriptCode?.lowercased() ?? wmf_mediaWikiCodeLookupDefaultKeyGlobal
+                    if let regionLookup = scriptLookup[scriptCode] ?? scriptLookup[wmf_mediaWikiCodeLookupDefaultKeyGlobal] {
+                        let regionCode = locale.regionCode?.lowercased() ?? wmf_mediaWikiCodeLookupDefaultKeyGlobal
+                        if let mediaWikiCode = regionLookup[regionCode] ?? regionLookup[wmf_mediaWikiCodeLookupDefaultKeyGlobal] {
+                            if !uniqueLanguageCodes.contains(mediaWikiCode) {
+                                uniqueLanguageCodes.append(mediaWikiCode)
+                            }
+                            continue
+                        }
+                    }
+                }
+                if includingLanguagesWithoutVariants {
+                    let lowercased = languageIdentifier.lowercased()
+                    if !uniqueLanguageCodes.contains(lowercased) {
+                        uniqueLanguageCodes.append(lowercased)
+                    }
+                }
+            }
+        }
+        return uniqueLanguageCodes
+    }
+}
+
 extension NSLocale {
     
     fileprivate static var localeCache: [String: Locale] = [:]
@@ -56,39 +108,13 @@ extension NSLocale {
     @objc public func wmf_localizedLanguageNameForCode(_ code: String) -> String? {
         return (self as NSLocale).displayName(forKey: NSLocale.Key.languageCode, value: code)
     }
-    
+
     
     @objc public static func wmf_uniqueLanguageCodesForLanguages(_ languages: [String]) -> [String] {
-        var uniqueLanguageCodes = [String]()
-        for preferredLanguage in languages {
-            let locale = Locale(identifier: preferredLanguage)
-            if let languageCode = locale.languageCode?.lowercased() {
-                if let scriptLookup = wmf_mediaWikiCodeLookupGlobal[languageCode] {
-                    let scriptCode = locale.scriptCode?.lowercased() ?? wmf_mediaWikiCodeLookupDefaultKeyGlobal
-                    if let regionLookup = scriptLookup[scriptCode] ?? scriptLookup[wmf_mediaWikiCodeLookupDefaultKeyGlobal] {
-                        let regionCode = locale.regionCode?.lowercased() ?? wmf_mediaWikiCodeLookupDefaultKeyGlobal
-                        if let mediaWikiCode = regionLookup[regionCode] ?? regionLookup[wmf_mediaWikiCodeLookupDefaultKeyGlobal] {
-                            if !uniqueLanguageCodes.contains(mediaWikiCode) {
-                                uniqueLanguageCodes.append(mediaWikiCode)
-                            }
-                            continue
-                        }
-                    }
-                }
-                let lowercased = preferredLanguage.lowercased()
-                if !uniqueLanguageCodes.contains(lowercased) {
-                    uniqueLanguageCodes.append(lowercased)
-                }
-            }
-        }
-        return uniqueLanguageCodes
+        return Locale.uniqueWikipediaLanguages(with: languages)
     }
     
-    @objc public static var wmf_preferredLanguageCodes: [String] {
-        get {
-            return wmf_uniqueLanguageCodesForLanguages(preferredLanguages)
-        }
-    }
+    @objc public static let wmf_preferredLanguageCodes: [String] = wmf_uniqueLanguageCodesForLanguages(preferredLanguages)
     
     @objc public static func wmf_acceptLanguageHeaderForLanguageCodes(_ languageCodes: [String]) -> String {
         let count: Double = Double(languageCodes.count)

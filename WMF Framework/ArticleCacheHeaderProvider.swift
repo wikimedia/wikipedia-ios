@@ -46,30 +46,6 @@ private extension ArticleCacheHeaderProvider {
     }
     
     func variantForURL(_ url: URL) -> String? {
-        
-        guard let language = url.wmf_language else {
-            return nil
-        }
-        
-        //if any wmf_preferredLanguageCodes have the same language code as url.wmf_language, return preferred variant
-               
-               //tonitodo: seems fragile, look for cleaner way to glean from NSLocale+WMFExtras
-        
-        for languageCode in NSLocale.wmf_preferredLanguageCodes {
-            
-            if let range = languageCode.range(of: "-") {
-                let firstPart = languageCode[languageCode.startIndex..<range.lowerBound]
-                
-                if firstPart == language {
-                    
-                    //return entire variant
-                    return languageCode
-                }
-            }
-        }
-        
-        //maybe tonitodo? default variant here. If url.wmf_language supports variants (not sure if we want to hardcode variant-able languages or not but if so use that, could also try pulling a previous cached urlresponse header and check Vary value.
-        
-        return nil
+        return Locale.preferredWikipediaLanguageVariant(for: url)
     }
 }
