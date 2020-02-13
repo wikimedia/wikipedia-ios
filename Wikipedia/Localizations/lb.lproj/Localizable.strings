@@ -416,7 +416,6 @@
 "reading-lists-sort-saved-articles" = "Gespäichert Artikelen zortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reference-title" = "Referenz: $1";
-"references-title" = "Referenzen";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";
 "relative-date-hours-abbreviated" = "$1 h";

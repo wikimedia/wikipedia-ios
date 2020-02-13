@@ -675,7 +675,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Posuvník veľkosti textu";
 "reading-themes-controls-syntax-highlighting" = "Zvýraznenie syntaxe";
 "reference-title" = "Referencia $1";
-"references-title" = "Referencie";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|1=Včera|2=Predvčerom|Pred $1 dňami}}";
 "relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Pred $1 hodinou|Pred $1 hodinami}}";

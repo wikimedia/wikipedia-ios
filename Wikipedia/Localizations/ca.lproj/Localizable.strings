@@ -681,7 +681,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
 "reading-themes-controls-syntax-highlighting" = "Ressaltat de la sintaxi";
 "reference-title" = "Referència $1";
-"references-title" = "Referències";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|1=Ahir|Fa $1 dies}}";
 "relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";

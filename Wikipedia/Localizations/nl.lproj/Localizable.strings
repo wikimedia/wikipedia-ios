@@ -649,7 +649,6 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaxis Uitlichten";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstgrootteschuiver";
 "reference-title" = "Referentie $1";
-"references-title" = "Referenties";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|1=Gisteren|$1 dagen gelden}}";
 "relative-date-hours-abbreviated" = "$1u";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";

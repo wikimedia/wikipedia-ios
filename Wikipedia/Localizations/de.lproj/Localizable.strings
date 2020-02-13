@@ -629,7 +629,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Textgrößenschieber";
 "reading-themes-controls-syntax-highlighting" = "Syntaxhervorhebung";
 "reference-title" = "Einzelnachweis $1";
-"references-title" = "Einzelnachweise";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-hours-ago-abbreviated" = "Vor $1 Stunden";

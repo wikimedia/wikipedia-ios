@@ -15,6 +15,7 @@
 // Author: Strayblues
 // Author: YaronSh
 // Author: איתן96
+// Author: דגש חזק
 // Author: נדב ס
 // Author: שמזן
 
@@ -680,7 +681,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
 "reading-themes-controls-syntax-highlighting" = "הדגשת תחביר";
 "reference-title" = "הערה $1";
-"references-title" = "הערות שוליים";
 "relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|לפני $1 ימים}}";
 "relative-date-hours-abbreviated" = "$1 שע׳";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
@@ -704,10 +704,10 @@
 "replace-textfield-placeholder" = "החלפה ב…";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
-"reverted-edit-notification-body" = "העריכה שעשית לערך $1 שוחזרה על־ידי $2";
+"reverted-edit-notification-body" = "העריכה שעשית בערך $1 בוטלה על־ידי $2";
 "reverted-edit-notification-read-more-action-title" = "לקרוא עוד";
 "reverted-edit-possible-reasons" = "- התרומה שלך לא מקיימת אחת מההנחיות שלנו. $1.\n\n- העריכה שלך נראית כמו ניסוי או השחתה";
-"reverted-edit-possible-reasons-subtitle" = "אנחנו יודעים שניסית לעשות משהו טוב, אבל לאחד מהסוקרים שלנו היה חשד.\n\nסיבות אפשריות לכך שהעריכה שלך שוחזרה כוללות:";
+"reverted-edit-possible-reasons-subtitle" = "אנחנו יודעים שניסית לעשות משהו טוב, אבל לאחד מהסוקרים שלנו היה חשד.\n\nסיבות אפשריות לכך שהעריכה שלך בוטלה כוללות:";
 "reverted-edit-thanks-for-editing-title" = "תודה שערכת את ויקיפדיה!";
 "reverted-edit-title" = "עריכה ששוחזרה";
 "reverted-edit-view-guidelines-text" = "הצגת ההנחיות";

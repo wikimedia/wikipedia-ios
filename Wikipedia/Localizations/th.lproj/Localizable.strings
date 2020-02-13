@@ -552,7 +552,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "ตัวเลื่อนปรับขนาดข้อความ";
 "reading-themes-controls-syntax-highlighting" = "การเน้นไวยากรณ์";
 "reference-title" = "แหล่งอ้างอิง $1";
-"references-title" = "การอ้างอิง";
 "relative-date-days-ago" = "{{PLURAL:$1|0=วันนี้|1=เมื่อวาน|$1 วันที่ผ่านมา}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=เมื่อสักครู่|$1 ชั่วโมงที่ผ่านมา|$1 ชั่วโมงที่ผ่านมา}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=เมื่อสักครู่|$1 นาทีที่ผ่านมา|$1 นาทีที่ผ่านมา}}";

@@ -496,7 +496,6 @@
 "reading-lists-split-notification" = "စာဖတ်စာရင်းတစ်ခုလျင် $1 ဆောင်းပါးနှုန်းဖြင့် ကန့်သတ်ချက်တစ်ခု ရှိနေပါသည်။ ဤကန့်သတ်ချက်ထက် ကျော်လွန်သည့် ရှိနှင့်ပြီးသားစာရင်းများသည် ၂ ခုထက်ပိုသောစာရင်းများအဖြစ် ကွဲထွက်သွားပါသည်။";
 "reading-themes-controls-accessibility-text-size-slider" = "စာသားအရွယ်အစား ချိန်ညှိခလုတ်";
 "reference-title" = "ရည်ညွှန်း $1";
-"references-title" = "ကိုးကားချက်များ";
 "relative-date-days-ago" = "{{PLURAL:$1|0=ယနေ့|1=မနေ့က|$1 ရက်အကြာက}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=မကြာသေးခင်|$1 နာရီအကြာက|$1 နာရီအကြာက}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယခုလေးတင်|$1 မိနစ်အကြာက|$1 မိနစ်အကြာက}}";

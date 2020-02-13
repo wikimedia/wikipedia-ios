@@ -655,7 +655,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Клизач за величину текста";
 "reading-themes-controls-syntax-highlighting" = "Истицање синтаксе";
 "reference-title" = "Референца $1";
-"references-title" = "Референце";
 "relative-date-days-ago" = "{{PLURAL:$1|0=данас|1=јуче|пре $1 дана}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=недавно|пре $1 сат|пре $1 сата|пре $1 сати}}";
 "relative-date-hours-ago-abbreviated" = "пре $1 ч.";

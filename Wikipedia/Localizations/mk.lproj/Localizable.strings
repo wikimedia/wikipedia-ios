@@ -670,7 +670,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
 "reading-themes-controls-syntax-highlighting" = "Истакнување на синтакса";
 "reference-title" = "Навод $1";
-"references-title" = "Наводи";
 "relative-date-days-ago" = "{{PLURAL:$1|0=денес|1=вчера|пред $1 дена}}";
 "relative-date-hours-abbreviated" = "$1 ч.";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";

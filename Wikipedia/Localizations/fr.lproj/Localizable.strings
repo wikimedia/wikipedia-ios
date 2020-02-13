@@ -691,7 +691,6 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Curseur de la taille du texte";
 "reading-themes-controls-syntax-highlighting" = "Mise en évidence de la syntaxe";
 "reference-title" = "Référence $1";
-"references-title" = "Références";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd’hui|1=Hier|Il y a $1 jours}}";
 "relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";
