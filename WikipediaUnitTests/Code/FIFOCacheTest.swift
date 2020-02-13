@@ -1,89 +1,82 @@
 import XCTest
+@testable import Wikipedia
 
 final class FIFOCacheTest: XCTestCase {
 
     func testCacheValue() {
-        let stringCache = WMFFIFOCache<NSString, NSString>()
+        var stringCache = FIFOCache<String>()
         // Cache values
-        stringCache.setObject(.testValue, forKey: .key1)
-        stringCache.setObject(.testValue2, forKey: .key2)
+        stringCache[.key1] = String.testValue
+        stringCache[.key2] = Int.testValue
         // Load values
-        XCTAssertEqual(stringCache.object(forKey: .key1), .testValue)
-        XCTAssertEqual(stringCache.object(forKey: .key2), .testValue2)
+        XCTAssertEqual(stringCache[.key1], String.testValue)
+        XCTAssertEqual(stringCache[.key2], Int.testValue)
 
-        let numberCache = WMFFIFOCache<NSNumber, NSNumber>()
+        var intCache = FIFOCache<Int>()
         // Cache values
-        numberCache.setObject(.testValue, forKey: .key)
+        intCache[1] = String.testValue
+        intCache[2] = Int.testValue
         // Load values
-        XCTAssertEqual(numberCache.object(forKey: .key), .testValue)
+        XCTAssertEqual(intCache[1], String.testValue)
+        XCTAssertEqual(intCache[2], Int.testValue)
     }
 
     func testRemoveCacheValue() {
-        let cache = WMFFIFOCache<NSString, NSString>()
-        // Cache values
-        cache.setObject(.testValue, forKey: .key1)
-        cache.setObject(.testValue2, forKey: .key2)
+        var cache = FIFOCache<String>()
+        cache[.key] = String.testValue
+        cache[.key2] = Int.testValue
+        XCTAssertEqual(cache[.key], String.testValue)
+        XCTAssertEqual(cache[.key2], Int.testValue)
 
-        XCTAssertEqual(cache.object(forKey: .key1), .testValue)
-        XCTAssertEqual(cache.object(forKey: .key2), .testValue2)
-        // Remove object form cache
-        cache.removeObject(forKey: .key1)
-        XCTAssertNil(cache.object(forKey: .key1))
-        XCTAssertEqual(cache.object(forKey: .key2), .testValue2)
+        cache[.key] = String.nil
+
+        XCTAssertNil(cache[.key] as String?)
+        XCTAssertEqual(cache[.key2], Int.testValue)
     }
 
     func testClearCache() {
-        let cache = WMFFIFOCache<NSString, NSString>()
-        // Cache values
-        cache.setObject(.testValue, forKey: .key1)
-        cache.setObject(.testValue2, forKey: .key2)
+        var cache = FIFOCache<String>()
+        cache[.key] = 1
+        XCTAssertEqual(cache[.key], 1)
 
-        XCTAssertEqual(cache.object(forKey: .key1), .testValue)
-        XCTAssertEqual(cache.object(forKey: .key2), .testValue2)
-
-        cache.removeAllObjects()
-        XCTAssertNil(cache.object(forKey: .key1))
-        XCTAssertNil(cache.object(forKey: .key2))
+        cache.clear()
+        XCTAssertNil(cache[.key] as Int?)
     }
 
     func testCacheLimit() {
-        let cache = WMFFIFOCache<NSNumber, NSNumber>()
-        let limit: UInt = 10
-        cache.countLimit = limit / 2
+        var cache = FIFOCache<Int>()
+        let limit = 10
+        cache.limit = limit / 2
 
         // Set value to cache
         for number in 0 ..< limit {
-            let keyAndValue = NSNumber(value: number)
-            cache.setObject(keyAndValue, forKey: keyAndValue)
+            cache[number] = number
         }
 
         // Test value out of cache limit
-        for number in 0 ..< (limit - cache.countLimit) {
-            XCTAssertNil(cache.object(forKey: NSNumber(value: number)))
+        for number in 0 ..< (limit - cache.limit) {
+            XCTAssertNil(cache[number] as Int?)
         }
 
         // Test values in cache limit
-        for number in (limit - cache.countLimit) ..< limit {
-            let keyAndValue = NSNumber(value: number)
-            XCTAssertEqual(cache.object(forKey: keyAndValue), keyAndValue)
+        for number in (limit - cache.limit) ..< limit {
+            XCTAssertEqual(cache[number], number)
         }
     }
 }
 
 // MARK: - Test values
 
-private extension NSString {
-    static let key: NSString = "key"
-    static let key1: NSString = "key1"
-    static let key2: NSString = "key2"
+private extension String {
+    static let key = "key"
+    static let key1 = "key1"
+    static let key2 = "key2"
 
-    static let testValue: NSString = "value"
-    static let testValue2: NSString = "value2 "
-    static let `nil`: NSString? = nil
+    static let testValue = "value"
+    static let `nil`: String? = nil
 }
 
-private extension NSNumber {
-    static let key: NSNumber = NSNumber(integerLiteral: 1)
-    static let testValue: NSNumber = NSNumber(integerLiteral: 2)
-    static let `nil`: NSNumber? = nil
+private extension Int {
+    static let testValue = 123
+    static let `nil`: Int? = nil
 }

@@ -134,8 +134,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
-#import <WMF/WMFFIFOCache.h>
-
 //UI
 #import <WMF/UIImageView+WMFImageFetching.h>
 #import <WMF/UIColor+WMFStyle.h>
