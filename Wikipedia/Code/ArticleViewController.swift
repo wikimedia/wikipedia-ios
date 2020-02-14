@@ -396,6 +396,14 @@ class ArticleViewController: ViewController {
         shareArticle()
     }
     
+    // MARK: Navigation
+    
+    @objc(showAnchor:)
+    func show(anchor: String) {
+        dismiss(animated: false)
+        scroll(to: anchor, animated: true)
+    }
+    
     // MARK: Refresh
     
     @objc public func refresh() {
