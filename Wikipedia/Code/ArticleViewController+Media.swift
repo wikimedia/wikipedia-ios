@@ -1,4 +1,5 @@
 import Foundation
+import AVKit
 
 extension ArticleViewController {
     func getMediaList(_ completion: @escaping (Result<MediaList, Error>) -> Void) {
@@ -28,6 +29,13 @@ extension ArticleViewController {
                 self.showImage(in: mediaList, src: src, href: href, width: width, height: height)
             }
         }
+    }
+    
+    func showAudio(with url: URL) {
+        let vc = AVPlayerViewController()
+        let player = AVPlayer(url: url)
+        vc.player = player
+        present(vc, animated: true)
     }
     
     func showLeadImage() {

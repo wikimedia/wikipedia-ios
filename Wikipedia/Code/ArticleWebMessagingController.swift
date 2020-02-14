@@ -279,7 +279,13 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {
-            guard let urlString = data?["url"] as? String, let url = URL(string: urlString) else {
+            guard var urlString = data?["url"] as? String else {
+                return nil
+            }
+            if urlString.hasPrefix("//") {
+                urlString = "https:" + urlString
+            }
+            guard let url = NSURL(string: urlString)?.wmf_URLByMakingiOSCompatibilityAdjustments else {
                 return nil
             }
             return .pronunciation(url: url)

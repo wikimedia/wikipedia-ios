@@ -26,6 +26,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showImage(src: src, href: href, width: width, height: height)
         case .addTitleDescription:
             showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
+        case .pronunciation(let url):
+            showAudio(with: url)
         default:
             break
         }
