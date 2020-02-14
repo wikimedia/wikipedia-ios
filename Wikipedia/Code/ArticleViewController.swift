@@ -521,7 +521,7 @@ class ArticleViewController: ViewController {
                 return
             }
             let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
-            self.scroll(to: point, animated: animated, completion: completion)
+            self.scroll(to: point, centered: centered, animated: animated, completion: completion)
         }
     }
     
