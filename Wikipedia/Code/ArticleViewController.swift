@@ -92,6 +92,20 @@ class ArticleViewController: ViewController {
         return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
     
+    // MARK: Find In Page
+    
+    var findInPage = ArticleFindInPageState()
+    
+    // MARK: Responder chain
+    
+    override var canBecomeFirstResponder: Bool {
+        return findInPage.view != nil
+    }
+    
+    override var inputAccessoryView: UIView? {
+        return findInPage.view
+    }
+    
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
@@ -373,6 +387,7 @@ class ArticleViewController: ViewController {
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
+        findInPage.view?.apply(theme: theme)
         if state == .loaded {
             messagingController.updateTheme(theme)
         }
@@ -641,6 +656,8 @@ private extension ArticleViewController {
         scrollView?.delegate = self
         webView.scrollView.addSubview(leadImageContainerView)
         
+        webView.scrollView.keyboardDismissMode = .interactive
+
         let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
