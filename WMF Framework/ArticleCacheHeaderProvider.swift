@@ -2,50 +2,57 @@
 import Foundation
 
 class ArticleCacheHeaderProvider: CacheHeaderProviding {
-    func requestHeader(url: URL, forceCache: Bool = false) -> [String: String] {
+    
+    private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
+    
+    func requestHeader(urlRequest: URLRequest) -> [String: String] {
         
         var header: [String: String] = [:]
         
-        guard let itemKey = itemKeyForURL(url) else {
+        guard let url = urlRequest.url,
+            let itemKey = cacheKeyGenerator.itemKeyForURL(url) else {
             return header
         }
         
+        let variant = cacheKeyGenerator.variantForURL(url)
+        
         header[Session.Header.persistentCacheItemKey] = itemKey
         
-        header[Session.Header.persistentCacheForceCache] = String(forceCache)
-        
-        if let variant = variantForURL(url) {
+        if let variant = variant {
             header[Session.Header.persistentCacheItemVariant] = variant
         }
         
-        //tonitodo: here we can pull previously saved URLResponse header and populate things like If-None-Match (etag) and Accept-Language (vary).
+        //pull response header from cache
+        let urlCache = URLCache.shared
+        var cachedUrlResponse: HTTPURLResponse?
         
-        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
-        header["Accept"] = "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\""
+        if let response = urlCache.cachedResponse(for: urlRequest)?.response as? HTTPURLResponse {
+            cachedUrlResponse = response
+        } else {
+            
+            let responseFileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
+            let responseHeaderFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+            cachedUrlResponse = CacheProviderHelper.persistedCacheResponse(url: url, responseFileName: responseFileName, responseHeaderFileName: responseHeaderFileName)?.response as? HTTPURLResponse
+        }
+        
+        //convert cached url response headers to applicable request headers.
+        
+        //tonitodo: Accept-Language?
+        if let cachedUrlResponse = cachedUrlResponse {
+            
+            for (key, value) in cachedUrlResponse.allHeaderFields {
+                if let keyString = key as? String,
+                    keyString == HTTPURLResponse.etagHeaderKey {
+                    header[HTTPURLResponse.ifNoneMatchHeaderKey] = value as? String
+                } else if let keyString = key as? String,
+                    let valueString = value as? String {
+                    header[keyString] = valueString
+                }
+            }
+        }
         
         return header
         
     }
     
-}
-
-private extension ArticleCacheHeaderProvider {
-    
-    func uniqueFileNameForURL(_ url: URL) -> String? {
-        
-        guard let itemKey = itemKeyForURL(url),
-            let variant = variantForURL(url) else {
-                return nil
-        }
-        
-        return "\(itemKey)__\(variant)".precomposedStringWithCanonicalMapping
-    }
-    
-    func itemKeyForURL(_ url: URL) -> String? {
-        return url.wmf_databaseKey
-    }
-    
-    func variantForURL(_ url: URL) -> String? {
-        return Locale.preferredWikipediaLanguageVariant(for: url)
-    }
 }

@@ -5,8 +5,8 @@ final class CacheGatekeeper {
 
     private let queue = DispatchQueue(label: "org.wikimedia.cache.gatekeeper")
     
-    //Used when adding or removing the same itemKey rapidly. Individual item completion block is queued here until item is determined complete in CacheController. Note this complete can come from another groupKey. Queued completions are then called and cleaned out.
-    private var itemCompletions: [CacheController.ItemKey: [CacheController.ItemCompletionBlock]] = [:]
+    //Used when adding or removing the same uniqueKey rapidly. Individual completion block is queued here until uniqueKey is determined complete in CacheController. Note this complete can come from another groupKey. Queued completions are then called and cleaned out.
+    private var individualCompletions: [CacheController.UniqueKey: [CacheController.IndividualCompletionBlock]] = [:]
     
     //Used when adding or removing the same groupKey rapidly. Completion block is queued here until group is determined complete in CacheController. Queued completions are then called and cleaned out.
     private var groupCompletions: [CacheController.GroupKey: [CacheController.GroupCompletionBlock]] = [:]
@@ -17,7 +17,6 @@ final class CacheGatekeeper {
     private var currentlyAdding: [CacheController.GroupKey] = []
     private var currentlyRemoving: [CacheController.GroupKey] = []
     
-    //tonitodo: since itemkeys are no longer unique, will need to change this to use itemKey__variant unique combo. This is so deduping logic still works (otherwise if you cache 2 different variants at the same time, weirdness will happen)
     func numberOfQueuedGroupCompletions(for groupKey: CacheController.GroupKey) -> Int {
         
         queue.sync {
@@ -25,10 +24,10 @@ final class CacheGatekeeper {
         }
     }
     
-    func numberOfQueuedItemCompletions(for itemKey: CacheController.ItemKey) -> Int {
+    func numberOfQueuedIndividualCompletions(for uniqueKey: CacheController.UniqueKey) -> Int {
         
         queue.sync {
-            return itemCompletions[itemKey]?.count ?? 0
+            return individualCompletions[uniqueKey]?.count ?? 0
         }
         
     }
@@ -48,7 +47,7 @@ final class CacheGatekeeper {
         }
     }
     
-    func queueItemCompletion(itemKey: CacheController.ItemKey, itemCompletion: @escaping CacheController.ItemCompletionBlock) {
+    func queueIndividualCompletion(uniqueKey: CacheController.UniqueKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock) {
         
         queue.async { [weak self] in
             
@@ -56,10 +55,10 @@ final class CacheGatekeeper {
                 return
             }
         
-            var currentCompletions = self.itemCompletions[itemKey] ?? []
-            currentCompletions.append(itemCompletion)
+            var currentCompletions = self.individualCompletions[uniqueKey] ?? []
+            currentCompletions.append(individualCompletion)
             
-            self.itemCompletions[itemKey] = currentCompletions
+            self.individualCompletions[uniqueKey] = currentCompletions
         }
     }
     
@@ -81,7 +80,7 @@ final class CacheGatekeeper {
         }
     }
     
-    func runAndRemoveItemCompletions(itemKey: CacheController.ItemKey, itemResult: CacheController.FinalItemResult) {
+    func runAndRemoveIndividualCompletions(uniqueKey: CacheController.UniqueKey, individualResult: CacheController.FinalIndividualResult) {
         
         queue.async { [weak self] in
             
@@ -89,13 +88,13 @@ final class CacheGatekeeper {
                 return
             }
             
-            if let completions = self.itemCompletions[itemKey] {
+            if let completions = self.individualCompletions[uniqueKey] {
                 for completion in completions {
-                    completion(itemResult)
+                    completion(individualResult)
                 }
             }
             
-            self.itemCompletions[itemKey]?.removeAll()
+            self.individualCompletions[uniqueKey]?.removeAll()
         }
     }
     

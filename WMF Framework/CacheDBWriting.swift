@@ -11,8 +11,8 @@ enum CacheDBWritingResultWithURLRequests {
     case failure(Error)
 }
 
-enum CacheDBWritingResultWithItemKeys {
-    case success([CacheController.ItemKey])
+enum CacheDBWritingResultWithItemAndVariantKeys {
+    case success([CacheController.ItemKeyAndVariant])
     case failure(Error)
 }
 
@@ -25,6 +25,7 @@ enum CacheDBWritingMarkDownloadedError: Error {
     case invalidContext
     case cannotFindCacheGroup
     case cannotFindCacheItem
+    case missingExpectedItemsOutOfRequestHeader
 }
 
 enum CacheDBWritingRemoveError: Error {
@@ -35,28 +36,35 @@ enum CacheDBWritingRemoveError: Error {
 protocol CacheDBWriting: CacheTaskTracking {
     
     typealias CacheDBWritingCompletionWithURLRequests = (CacheDBWritingResultWithURLRequests) -> Void
-    typealias CacheDBWritingCompletionWithItemKeys = (CacheDBWritingResultWithItemKeys) -> Void
+    typealias CacheDBWritingCompletionWithItemAndVariantKeys = (CacheDBWritingResultWithItemAndVariantKeys) -> Void
     
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
 
     //default implementations
-    func remove(itemKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
+    func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void)
     func remove(groupKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
-    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemKeys)
-    func markDownloaded(itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void)
+    func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys)
+    func markDownloaded(urlRequest: URLRequest, completion: @escaping (CacheDBWritingResult) -> Void)
 }
 
 extension CacheDBWriting {
     
-    func markDownloaded(itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func markDownloaded(urlRequest: URLRequest, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         guard let context = CacheController.backgroundCacheContext else {
             completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
             return
         }
+        
+        guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.missingExpectedItemsOutOfRequestHeader))
+                return
+        }
+        
+        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
     
         context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: context) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
                 return
             }
@@ -72,7 +80,7 @@ extension CacheDBWriting {
         }
     }
     
-    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemKeys) {
+    func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys) {
         guard let context = CacheController.backgroundCacheContext else {
             completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
             return
@@ -91,11 +99,11 @@ extension CacheDBWriting {
                 return cacheItem.cacheGroups?.count == 1
             })
 
-            completion(.success(cacheItemsToRemove.compactMap { $0.key }))
+            completion(.success(cacheItemsToRemove.compactMap { CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }))
         }
     }
     
-    func remove(itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void) {
 
         guard let context = CacheController.backgroundCacheContext else {
             completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
@@ -103,7 +111,7 @@ extension CacheDBWriting {
         }
         
         context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemAndVariantKey.itemKey, variant: itemAndVariantKey.variant, in: context) else {
                 completion(.failure(CacheDBWritingRemoveError.cannotFindCacheItem))
                 return
             }

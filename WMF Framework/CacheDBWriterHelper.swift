@@ -6,8 +6,8 @@ final class CacheDBWriterHelper {
         return cacheGroup(with: groupKey, in: moc) ?? createCacheGroup(with: groupKey, in: moc)
     }
 
-    static func fetchOrCreateCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
-        return cacheItem(with: itemKey, in: moc) ?? createCacheItem(with: itemKey, in: moc)
+    static func fetchOrCreateCacheItem(with itemKey: String, variant: String?, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+        return cacheItem(with: itemKey, variant: variant, in: moc) ?? createCacheItem(with: itemKey, variant: variant, in: moc)
     }
     
     static func inMemoryCacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
@@ -50,10 +50,17 @@ final class CacheDBWriterHelper {
         return group
     }
     
-    static func cacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+    static func cacheItem(with itemKey: String, variant: String?, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+        
+        let predicate: NSPredicate
+        if let variant = variant {
+            predicate = NSPredicate(format: "key == %@ && variant == %@", itemKey, variant)
+        } else {
+            predicate = NSPredicate(format: "key == %@", itemKey)
+        }
         
         let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "key == %@", itemKey)
+        fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
         do {
             guard let item = try moc.fetch(fetchRequest).first else {
@@ -65,12 +72,13 @@ final class CacheDBWriterHelper {
         }
     }
 
-    static func createCacheItem(with itemKey: String, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+    static func createCacheItem(with itemKey: String, variant: String?, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
         guard let entity = NSEntityDescription.entity(forEntityName: "PersistentCacheItem", in: moc) else {
             return nil
         }
         let item = PersistentCacheItem(entity: entity, insertInto: moc)
         item.key = itemKey
+        item.variant = variant
         item.date = Date()
         return item
     }

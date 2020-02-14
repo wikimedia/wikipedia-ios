@@ -9,7 +9,7 @@ enum ArticleFetcherError: Error {
 }
 
 @objc(WMFArticleFetcher)
-final public class ArticleFetcher: Fetcher {    
+final public class ArticleFetcher: Fetcher, CacheFetching {    
     @objc required public init(session: Session, configuration: Configuration) {
         #if WMF_APPS_LABS_MOBILE_HTML
         super.init(session: Session.shared, configuration: Configuration.appsLabs)
@@ -26,19 +26,6 @@ final public class ArticleFetcher: Fetcher {
         case mobileHtmlOfflineResources = "mobile-html-offline-resources"
         case mobileHTML = "mobile-html"
         case references = "references"
-    }
-    
-    typealias RequestURL = URL
-    typealias TemporaryFileURL = URL
-    typealias MIMEType = String
-    typealias DownloadCompletion = (Error?, RequestURL?, URLResponse?, TemporaryFileURL?, MIMEType?) -> Void
-    
-    func downloadData(url: URL, completion: @escaping DownloadCompletion) -> URLSessionTask? {
-        let task = session.downloadTask(with: url) { fileURL, response, error in
-            self.handleDownloadTaskCompletion(url: url, fileURL: fileURL, response: response, error: error, completion: completion)
-        }
-        task.resume()
-        return task
     }
     
     @discardableResult func fetchResourceList(with request: URLRequest, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
@@ -103,10 +90,14 @@ final public class ArticleFetcher: Fetcher {
             throw RequestError.invalidParameters
         }
         var request = URLRequest(url: url)
-        let header = cacheHeaderProvider.requestHeader(url: url, forceCache: forceCache)
+        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
         
         for (key, value) in header {
             request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if forceCache {
+            request.cachePolicy = .returnCacheDataElseLoad
         }
         
         return request
@@ -127,10 +118,14 @@ final public class ArticleFetcher: Fetcher {
     public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest {
         
         var request = URLRequest(url: url)
-        let header = cacheHeaderProvider.requestHeader(url: url, forceCache: forceCache)
+        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
         
         for (key, value) in header {
             request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if forceCache {
+            request.cachePolicy = .returnCacheDataElseLoad
         }
         
         return request
@@ -152,10 +147,14 @@ final public class ArticleFetcher: Fetcher {
         }
         
         var request = URLRequest(url: mobileHTMLURL)
-        let header = cacheHeaderProvider.requestHeader(url: mobileHTMLURL, forceCache: forceCache)
+        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
         
         for (key, value) in header {
             request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if forceCache {
+            request.cachePolicy = .returnCacheDataElseLoad
         }
         
         return request
@@ -230,21 +229,5 @@ private extension ArticleFetcher {
                 completion(.success(result))
             }
         }
-    }
-    
-    func handleDownloadTaskCompletion(url: URL, fileURL: URL?, response: URLResponse?, error: Error?, completion: @escaping DownloadCompletion) {
-        if let error = error {
-            completion(error, url, response, nil, nil)
-            return
-        }
-        guard let fileURL = fileURL, let unwrappedResponse = response else {
-            completion(Fetcher.unexpectedResponseError, url, response, nil, nil)
-            return
-        }
-        if let httpResponse = unwrappedResponse as? HTTPURLResponse, httpResponse.statusCode != 200 {
-            completion(Fetcher.unexpectedResponseError, url, response, nil, nil)
-            return
-        }
-        completion(nil, url, response, fileURL, unwrappedResponse.mimeType)
     }
 }

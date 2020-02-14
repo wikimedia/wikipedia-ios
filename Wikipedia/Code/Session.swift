@@ -5,7 +5,6 @@ import Foundation
         public static let persistentCacheItemKey = "Persistent-Cache-Item-Key"
         public static let persistentCacheItemVariant = "Persistent-Cache-Item-Variant"
         public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
-        public static let persistentCacheForceCache = "Persistent-Cache-Force-Cache"
     }
     public struct Request {
         public enum Method {
@@ -212,8 +211,9 @@ import Foundation
     }
     
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask {
+
+        //tonitodo: if request.cachePolicy == returnCacheDataElseLoad, try pulling cached response and calling callback immediately with results with URLCache.shared then CacheProviderHelper.persistedCacheResponse
         
-        //tonitodo: may try a wrapper method here of some sort for SchemeHandler, if request header forceCache is true, return from cache and avoid urlsession task resume altogether. else kickoff the session task.
         let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task
@@ -227,6 +227,12 @@ import Foundation
     //tonitodo: utlilize Callback & addCallback/session delegate stuff instead of completionHandler
     public func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         return defaultURLSession.downloadTask(with: url, completionHandler: completionHandler)
+    }
+
+    public func downloadTask(with urlRequest: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
+        
+        //tonitodo: if request.cachePolicy == returnCacheDataElseLoad, try pulling cached response and calling callback immediately with results with URLCache.shared then CacheProviderHelper.persistedCacheResponse
+        return defaultURLSession.downloadTask(with: urlRequest)
     }
     
     public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {

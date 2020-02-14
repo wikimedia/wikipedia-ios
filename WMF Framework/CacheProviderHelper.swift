@@ -8,14 +8,26 @@ public extension HTTPURLResponse {
 
 final class CacheProviderHelper {
     
-    static func persistedCacheResponse(url: URL, itemKey: String) -> CachedURLResponse? {
+    static func persistedCacheResponse(url: URL, responseFileName: String, responseHeaderFileName: String) -> CachedURLResponse? {
         
-        let cachedFilePath = CacheFileWriterHelper.fileURL(for: itemKey).path
-        if let data = FileManager.default.contents(atPath: cachedFilePath) {
+        guard let responseData = FileManager.default.contents(atPath: responseFileName),
+            let responseHeaderData = FileManager.default.contents(atPath: responseHeaderFileName) else {
+            return nil
+        }
+        
+        //let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: responseFileName)
+    
+        var responseHeaders: [String: String]?
+        do {
+            if let unarchivedHeaders = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(responseHeaderData) as? [String: String] {
+                responseHeaders = unarchivedHeaders
+            }
+        } catch {
             
-            let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: cachedFilePath)
-            let response = URLResponse(url: url, mimeType: mimeType, expectedContentLength: data.count, textEncodingName: nil)
-            return CachedURLResponse(response: response, data: data)
+        }
+        
+        if let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: responseHeaders) {
+            return CachedURLResponse(response: httpResponse, data: responseData)
         }
         
         return nil

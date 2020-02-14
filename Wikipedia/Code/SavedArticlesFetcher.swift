@@ -171,7 +171,7 @@ private extension SavedArticlesFetcher {
         if let articleURL = article?.url,
             let articleKey = articleURL.wmf_databaseKey {
             
-            articleCacheController.add(url: articleURL, groupKey: articleKey, itemCompletion: { (itemResult) in
+            articleCacheController.add(url: articleURL, groupKey: articleKey, individualCompletion: { (itemResult) in
                 switch itemResult {
                 case .success(let itemKey):
                     print("🥶successfully added \(itemKey)")
@@ -220,7 +220,7 @@ private extension SavedArticlesFetcher {
                     return
                 }
                 
-                articleCacheController.remove(groupKey: articleKey, itemCompletion: { (itemResult) in
+                articleCacheController.remove(groupKey: articleKey, individualCompletion: { (itemResult) in
                     switch itemResult {
                     case .success(let itemKey):
                         print("🙈successfully removed \(itemKey)")

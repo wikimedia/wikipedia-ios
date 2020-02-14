@@ -25,18 +25,17 @@ public final class CacheControllerWrapper: NSObject {
         super.init()
         switch type {
         case .image:
+            
             let imageFetcher = ImageFetcher()
-
+            
             guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
-                let imageFileWriter = ImageCacheFileWriter(imageFetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext) else {
+                let imageFileWriter = CacheFileWriter(fetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: ImageCacheKeyGenerator.self) else {
                     return
             }
 
-            let imageProvider = ImageCacheProvider(moc: cacheBackgroundContext)
-
             let imageDBWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext)
 
-            self.cacheController = ImageCacheController(fetcher: imageFetcher, dbWriter: imageDBWriter, fileWriter: imageFileWriter, provider: imageProvider)
+            self.cacheController = ImageCacheController(dbWriter: imageDBWriter, fileWriter: imageFileWriter)
         case .article:
             assertionFailure("Must init from initArticleCacheWithImageCacheControllerWrapper for this type.")
             return nil
@@ -53,15 +52,13 @@ public final class CacheControllerWrapper: NSObject {
         let articleFetcher = ArticleFetcher()
         
         guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
-            let articleFileWriter = ArticleCacheFileWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext) else {
+            let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: ArticleCacheKeyGenerator.self) else {
             return nil
         }
         
-        let articleProvider = ArticleCacheProvider(imageController: imageCacheController, moc: cacheBackgroundContext)
-        
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController)
         
-        self.cacheController = ArticleCacheController(fetcher: articleFetcher, dbWriter: articleDBWriter, fileWriter: articleFileWriter, provider: articleProvider)
+        self.cacheController = ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
         
         super.init()
     }
