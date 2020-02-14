@@ -24,6 +24,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showReferences(group, selectedIndex: index, animated: true)
         case .image(let src, let href, let width, let height):
             showImage(src: src, href: href, width: width, height: height)
+        case .addTitleDescription:
+            showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
         default:
             break
         }
