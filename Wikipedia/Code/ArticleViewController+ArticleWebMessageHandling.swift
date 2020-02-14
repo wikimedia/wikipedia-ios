@@ -74,9 +74,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handleLeadImage(source: String, width: Int?, height: Int?) {
-        guard leadImageView.image == nil && leadImageView.wmf_imageURLToFetch == nil else {
-            return
-        }
         guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {
             return
         }

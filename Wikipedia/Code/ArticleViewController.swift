@@ -266,9 +266,7 @@ class ArticleViewController: ViewController {
         defer {
             callLoadCompletionIfNecessary()
         }
-        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
-            loadLeadImage(with: leadImageURL)
-        }
+
         guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
@@ -713,6 +711,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
             return
         }
         
+        leadImageHeightConstraint.constant = leadImageHeight
         leadImageView.image = image
         leadImageView.layer.contentsRect = imageView.layer.contentsRect
         
