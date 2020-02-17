@@ -34,6 +34,7 @@
 // Author: Nitch
 // Author: Oashnic
 // Author: Okras
+// Author: Pacha Tchernof
 // Author: Ping08
 // Author: Redredsonia
 // Author: Saimongoltinio
@@ -535,6 +536,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
 "page-issues" = "Вопросы по странице";
 "page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
+"page-last-edited-unknown" = "Отредактировано какое-то время назад";
 "page-location" = "Посмотреть на карте";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";

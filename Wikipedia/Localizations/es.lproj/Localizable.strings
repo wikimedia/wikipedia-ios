@@ -562,15 +562,18 @@
 "page-history-graph-accessibility-label" = "Gráfico de ediciones en el tiempo";
 "page-history-minor-edits" = "ediciones menores";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
+"page-history-revision-comment-accessibility-label" = "Comentario $1";
 "page-history-revision-history-title" = "Historial de revisiones";
 "page-history-revision-minor-edit-accessibility-label" = "Edición menor";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Añadido $1 byte|Añadidos $1 bytes}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Quitado $1 byte|Quitados $1 bytes}}";
+"page-history-revision-time-accessibility-label" = "Revisión hecha a la(s) $1";
 "page-history-revisions-comparison-warning" = "Solo puede seleccionar dos revisiones";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edición|$1 ediciones}} desde $2";
 "page-history-user-edits" = "ediciones del usuario";
 "page-issues" = "Problemas de la página";
 "page-last-edited" = "\n\n{{PLURAL:$1|0=Editado hoy|1=Editado ayer|Editado hace $1 días}}";
+"page-last-edited-unknown" = "Editado hace algún tiempo";
 "page-location" = "Ver en mapa";
 "page-protected-autoconfirmed" = "Esta página está semiprotegida.";
 "page-protected-can-not-edit" = "No tienes permisos para editar esta página";
