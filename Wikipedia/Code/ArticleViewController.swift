@@ -266,9 +266,7 @@ class ArticleViewController: ViewController {
         defer {
             callLoadCompletionIfNecessary()
         }
-        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
-            loadLeadImage(with: leadImageURL)
-        }
+
         guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
@@ -394,6 +392,14 @@ class ArticleViewController: ViewController {
         }
         isSharingWhenReady = false
         shareArticle()
+    }
+    
+    // MARK: Navigation
+    
+    @objc(showAnchor:)
+    func show(anchor: String) {
+        dismiss(animated: false)
+        scroll(to: anchor, animated: true)
     }
     
     // MARK: Refresh
@@ -705,6 +711,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
             return
         }
         
+        leadImageHeightConstraint.constant = leadImageHeight
         leadImageView.image = image
         leadImageView.layer.contentsRect = imageView.layer.contentsRect
         
