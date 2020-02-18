@@ -317,11 +317,6 @@ class ArticleViewController: ViewController {
     
     // MARK: State Restoration
     
-    func markArticleAsViewed() {
-        article.viewedDate = Date()
-        try? article.managedObjectContext?.save()
-    }
-    
     func saveArticleScrollPosition() {
         getVisibleSection { (sectionId, anchor) in
             assert(Thread.isMainThread)

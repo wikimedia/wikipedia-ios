@@ -52,7 +52,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup?.leave()
         restoreStateIfNecessary()
-        markArticleAsViewed()
+        article.markViewed()
         schemeHandler.forceCache = false
     }
     

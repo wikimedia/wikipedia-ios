@@ -51,4 +51,14 @@ extension WMFArticle {
             savedDate = newValue ? Date() : nil
         }
     }
+    
+    public func markViewed() {
+        viewedDate = Date()
+        updateViewedDateWithoutTime()
+        do {
+            try managedObjectContext?.save()
+        } catch let error {
+            DDLogError("Error marking article as viewed: \(error)")
+        }
+    }
 }
