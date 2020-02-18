@@ -13,17 +13,4 @@ class ImageCacheKeyGenerator: CacheKeyGenerating {
         let sizePrefix = WMFParseSizePrefixFromSourceURL(url)
         return sizePrefix == NSNotFound ? nil : String(sizePrefix)
     }
-
-    static func uniqueFileNameForURL(_ url: URL) -> String? {
-        
-        guard let itemKey = itemKeyForURL(url) else {
-            return nil
-        }
-        
-        guard let variant = variantForURL(url) else {
-            return itemKey.precomposedStringWithCanonicalMapping
-        }
-        
-        return "\(itemKey)__\(variant)".precomposedStringWithCanonicalMapping
-    }
 }

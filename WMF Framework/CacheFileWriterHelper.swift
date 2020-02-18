@@ -3,12 +3,7 @@ import Foundation
 
 final class CacheFileWriterHelper {
     static func fileURL(for key: String) -> URL {
-        let pathComponent = key.sha256 ?? key
-        return CacheController.cacheURL.appendingPathComponent(pathComponent, isDirectory: false)
-    }
-    
-    static func fileName(for key: String) -> String {
-        return fileURL(for: key).absoluteString
+        return CacheController.cacheURL.appendingPathComponent(key, isDirectory: false)
     }
     
     static func moveFile(from fileURL: URL, toNewFileWithKey key: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {

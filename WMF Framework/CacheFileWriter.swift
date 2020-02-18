@@ -3,7 +3,7 @@ import Foundation
 
 enum CacheFileWriterError: Error {
     case missingTemporaryFileURL
-    case unableToGenerateUniqueFileName
+    case missingHeaderItemKey
     case missingHTTPResponse
 }
 
@@ -38,11 +38,14 @@ final class CacheFileWriter: CacheTaskTracking {
     func add(groupKey: String, urlRequest: URLRequest, completion: @escaping (CacheFileWriterResult) -> Void) {
         
         guard let url = urlRequest.url,
-            let fileName = cacheKeyGenerator.uniqueFileNameForURL(url),
-            let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForURL(url) else {
-            completion(.failure(CacheFileWriterError.unableToGenerateUniqueFileName))
+            let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+            completion(.failure(CacheFileWriterError.missingHeaderItemKey))
             return
         }
+        
+        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+        let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
+        let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
         
         let untrackKey = UUID().uuidString
         let task = fetcher.downloadData(urlRequest: urlRequest) { (error, _, response, temporaryFileURL, mimeType) in
@@ -169,11 +172,13 @@ extension CacheFileWriter {
     
     func migrateCachedContent(content: String, urlRequest: URLRequest, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
-        guard let url = urlRequest.url,
-            let fileName = cacheKeyGenerator.uniqueFileNameForURL(url) else {
-                failure(CacheFileWriterError.unableToGenerateUniqueFileName)
+        guard let itemKey =  urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+                failure(CacheFileWriterError.missingHeaderItemKey)
                 return
         }
+        
+        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+        let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
 
         CacheFileWriterHelper.saveContent(content, toNewFileName: fileName, mimeType: mimeType) { (result) in
             switch result {
