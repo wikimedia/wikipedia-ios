@@ -94,6 +94,7 @@
 "article-languages-others" = "အခြားဘာသာစကားများ";
 "article-languages-yours" = "သင့်ဘာသာစကားများ";
 "article-read-more-title" = "ဆက်ဖတ်ပါ";
+"article-reference-title" = "ကိုးကားချက်များ ကြည့်ရှုရန်";
 "article-save-error-not-enough-space" = "ဤဆောင်းပါးကို သိမ်းဆည်းရန် သင်၏စက်ပစ္စည်းတွင် သိုလှောင်လက်ကျန် မလုံလောက်ပါ";
 "article-share" = "မျှဝေ";
 "back-button-accessibility-label" = "နောက်သို့";
@@ -155,6 +156,7 @@
 "diff-single-header-editor-title" = "တည်းဖြတ်သူ အချက်အလက်";
 "diff-single-header-summary-heading" = "အကျဉ်းချုပ်ကို တည်းဖြတ်ရန်";
 "diff-single-intro-title" = "မိတ်ဆက်";
+"diff-thanks-anonymous-no-thanks" = "အမည်မသိအသုံးပြုသူများ ကျေးဇူးတင်စကား လက်မခံနိုင်ပါ";
 "diff-thanks-login-title" = "'ကျေးဇူးတင်မှု' ပို့ရန် လော့ဂ်အင်ဝင်ပါ";
 "diff-thanks-send-button-title" = "'ကျေးဇူးတင်မှု' ပို့ရန်";
 "diff-thanks-send-title" = "လူသိရှင်ကြား 'ကျေးဇူးတင်မှု' ပို့ရန်";
@@ -334,6 +336,7 @@
 "insert-media-image-preview-select-image-action-title" = "ရုပ်ပုံ ရွေးချယ်ရန်";
 "insert-media-image-size-setting-custom" = "စိတ်ကြိုက်";
 "insert-media-image-size-setting-default" = "နဂိုအတိုင်း";
+"insert-media-image-type-setting-thumbnail" = "နမူနာပုံငယ်";
 "insert-media-image-type-settings-title" = "ပုံအမျိုးအစား";
 "insert-media-media-settings-title" = "မီဒီယာ အပြင်အဆင်များ";
 "insert-media-title" = "မီဒီယာ ထည့်သွင်းရန်";
@@ -397,7 +400,7 @@
 "page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-last-edited" = "{{PLURAL:$1|0=ယနေ့တည်းဖြတ်ခဲ့သည်|1=မနေ့ကတည်းဖြတ်ခဲ့သည်|$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်}}";
-"page-last-edited-unknown" = "အချို့သောအချိန်တုန်းက တည်းဖြတ်ပြီး";
+"page-last-edited-unknown" = "အချို့သောအချိန်တုန်းက တည်းဖြတ်ခဲ့သည်";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
