@@ -52,13 +52,13 @@
 "about-wikimedia-foundation" = "nadace Wikimedia";
 "about-wikipedia" = "Wikipedie";
 "abuse-filter-disallow-heading" = "Tuto editaci nemůžete zveřejnit.";
-"abuse-filter-disallow-unconstructive" = "Automatický filtr označil tuto editaci jako potenciálně nesprávnou nebo jako pokus o vandalismus. Prosím vraťte se zpět a změňte vaší editaci.";
+"abuse-filter-disallow-unconstructive" = "Automatický filtr označil tuto editaci jako potenciálně nesprávnou nebo jako pokus o vandalismus. Prosím vraťte se zpět a změňte svoji editaci.";
 "abuse-filter-warning-blanking" = "Odstraňování sekcí nebo celých článků";
-"abuse-filter-warning-caps" = "Píšete velkými písmeny";
+"abuse-filter-warning-caps" = "Text velkými písmeny";
 "abuse-filter-warning-heading" = "Může se jednat o nesprávnou editaci. Jste si jisti, že ji chcete zveřejnit?";
 "abuse-filter-warning-irrelevant" = "Nerelevantní externí odkazy nebo obrázky";
 "abuse-filter-warning-repeat" = "Opakující se znaky";
-"abuse-filter-warning-spam" = "Přidávání nevyžadaného obsahu do článlů";
+"abuse-filter-warning-spam" = "Přidávání nevyžadaného obsahu do článků";
 "abuse-filter-warning-subheading" = "Vaše editace možná obsahuje:";
 "account-creation-captcha-cannot-see-image" = "Nemůžete přečíst obrázek? $1";
 "account-creation-captcha-obtaining" = "Příprava nového obrázku CAPTCHA…";
@@ -107,7 +107,7 @@
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "add-citation-title" = "Přidat citaci";
 "announcements-dismiss" = "Zrušit";
-"app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informování, objevování, učení";
+"app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informace, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
 "app-store-short-description" = "Stáhněte si aplikaci Wikipedie pro objevování míst poblíž vás, ke stažení článků do vašeho zařízení a přizpůsobení čtení článků.";
 "app-store-subtitle" = "Otevřená encyklopedie";
@@ -145,7 +145,7 @@
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Vymazat";
 "close-button-accessibility-label" = "Zavřít";
-"compass-direction" = "ve $1 hodiny";
+"compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
 "description-add-link-title" = "Přidat popis článku";
@@ -163,7 +163,7 @@
 "description-help-about-description" = "Popis shrnuje základní informace o tématu článku, aby čtenáři ihned pochopili, o čem článek pojednává.";
 "description-help-about-title" = "O aplikaci";
 "description-help-about-wikidata" = "O Wikidatech";
-"description-help-more-info-description" = "Popisy jsou uloženy a spravovány na Wikidatech, projektu nadace Wikimedia, která poskytuje bezplatnou, kolaborativní a mnohojazyčnou databázi podporující Wikipedii a další projekty";
+"description-help-more-info-description" = "Popisy jsou uloženy a spravovány na Wikidatech, projektu nadace Wikimedia, která poskytují bezplatnou, kolaborativní a mnohojazyčnou databázi podporující Wikipedii a další projekty";
 "description-help-more-info-title" = "Více informací";
 "description-help-tips-description" = "Ideální popis se vejde na jeden řádek a je 2 až 12 slov dlouhý. Nezačíná velkým písmenem, tím začíná, jen pokud je prvním slovem popisu vlastní podstatné jméno.";
 "description-help-tips-example-description-one" = "popis článku o Mona Lise";
@@ -173,10 +173,10 @@
 "description-help-tips-for-example" = "Například:";
 "description-help-tips-title" = "Tipy pro vytváření popisů";
 "description-help-title" = "Nápověda pro popisy článků";
-"description-help-wikidata-guide" = "Průvodce pro psaní popisů na Wikidata";
+"description-help-wikidata-guide" = "Průvodce pro psaní popisů na Wikidatech";
 "description-published-button-title" = "Hotovo";
 "description-published-footer" = "V této aplikaci také můžete editovat články. Zkuste opravit překlepy a krátké věty klepnutím na ikonu tužky";
-"description-published-subtitle" = "Právě jste vylepšili Wikipedii, encyklopedii pro každého";
+"description-published-subtitle" = "Právě jste pro všechny vylepšili Wikipedii";
 "description-published-title" = "Popis byl zveřejněn!";
 "description-welcome-concise-sub-title" = "V ideálním případě jeden řádek, mezi dvěma až dvanácti slovy";
 "description-welcome-concise-title" = "Kratší je lepší";
@@ -195,10 +195,10 @@
 "diff-paragraph-moved-direction-down" = "dolů";
 "diff-paragraph-moved-direction-up" = "nahoru";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 řádek|$1 řádky|$1 řádků}}";
-"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sekce|$1 sekcí}}";
-"diff-paragraph-moved-format" = "Odstavec přesunut $1 $2";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sekce|$1 sekce|$1 sekcí}}";
+"diff-paragraph-moved-format" = "Odstavec přesunut $2 $1";
 "diff-revision-error-title" = "Nepodařilo se načíst revizi";
-"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 editace|$1 editací}}";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 editace|$1 editace|$1 editací}}";
 "diff-single-header-editor-title" = "Informace o wikipedistovi";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|Přidán $1 bajt|Přidány $1 bajty|Přidáno $1 bajtů}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|Odstraněn $1 bajt|Odstraněny $1 bajty|Odstraněno $1 bajtů}}";
@@ -207,9 +207,9 @@
 "diff-single-line-format" = "Řádek $1";
 "diff-thanks-anonymous-no-thanks" = "Anonymním uživatelům nelze poděkovat";
 "diff-thanks-login-subtitle" = "Poděkování jsou jednoduchým způsobem, jak wikipedistovi můžete poděkovat za práci na Wikipedii. Pro poslání poděkování musíte být přihlášeni.";
-"diff-thanks-login-title" = "Pro odeslání poděkování s přihlaste";
+"diff-thanks-login-title" = "Pro odeslání poděkování se přihlaste";
 "diff-thanks-send-button-title" = "Poslat poděkování";
-"diff-thanks-send-subtitle" = "Poděkování jsou jednoduchým způsobem, jak wikipedistovi můžete poděkovat za práci na Wikipedii. Poděkování se nedají vrátit a jsou veřejné.";
+"diff-thanks-send-subtitle" = "Poděkování jsou jednoduchým způsobem, jak wikipedistovi můžete poděkovat za práci na Wikipedii. Nelze je vzít zpět a jsou veřejná.";
 "diff-thanks-send-title" = "Veřejně poslat poděkování";
 "diff-thanks-sent" = "Poděkování bylo odesláno uživateli/ce $1";
 "diff-thanks-sent-already" = "Za tuto editaci jste již poděkování poslali";
@@ -244,7 +244,7 @@
 "edit-ordered-list-accessibility-label" = "Změnit aktuální řádek na číslovaný seznam";
 "edit-ordered-list-remove-accessibility-label" = "Odebrat číslovaný seznam z aktuálního řádku";
 "edit-published" = "Editace zveřejněna";
-"edit-published-subtitle" = "Právě jste vylepšili Wikipedii, encyklopedii pro každého";
+"edit-published-subtitle" = "Právě jste pro všechny vylepšili Wikipedii";
 "edit-reference-accessibility-label" = "Přidat syntaxi reference";
 "edit-reference-remove-accessibility-label" = "Odebrat syntaxi reference";
 "edit-signature-accessibility-label" = "Přidat syntaxi podpis";
@@ -277,7 +277,7 @@
 "edit-watch-this-page-text" = "Sledovat tuto stránku";
 "editing-welcome-be-bold-subtitle" = "Buďte smělí, ale ne bezohlední při aktualizaci článků. Nedělejte si starosti s menšími chybami: každá předchozí verze stránky je uložena, takže chyby mohou být snadno napraveny naší komunitou.";
 "editing-welcome-be-bold-title" = "Váš hlas je důležitý";
-"editing-welcome-citations-subtitle" = "Veškerý obsah musí být ověřitelný. Při přidávání nových informací do článku by měli wikipedisté poskytnout citaci na spolehlivý zdroj.";
+"editing-welcome-citations-subtitle" = "Veškerý obsah musí být ověřitelný. Při přidávání nových informací do článku by měli wikipedisté poskytnout citaci spolehlivého zdroje.";
 "editing-welcome-citations-title" = "Citujte ověřitelné zdroje";
 "editing-welcome-impartial-tone-subtitle" = "Usilujeme o to, aby byly články psány nestranně. Při editacích si klademe za cíl vytvořit spravedlivou reprezentaci světa, jak jej popisují spolehlivé zdroje.";
 "editing-welcome-impartial-tone-title" = "Pište nestranně, nepropagujte";
@@ -288,7 +288,7 @@
 "empty-insert-media-title" = "Vybrat soubor z Wikimedia Commons";
 "empty-no-article-message" = "Omlouváme se, nepovedlo se načíst článek.";
 "empty-no-feed-action-message" = "Stále ještě můžete číst uložené stránky";
-"empty-no-feed-message" = "Když jste připojeni k internetu, tak můžete číst doporučené články.";
+"empty-no-feed-message" = "Doporučené články si můžete přečíst, když jste připojeni k internetu";
 "empty-no-history-message" = "Mějte přehled o tom, co jste zde četli";
 "empty-no-history-title" = "Žádná historie k zobrazení";
 "empty-no-reading-lists-message" = "Vytvořte seznamy míst, kam cestovat, oblíbených témat a mnoho dalšího";
@@ -520,7 +520,7 @@
 "more-languages-tooltip-title" = "Přidat jazyky";
 "move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
-"nearby-distance-label-feet" = "$1 stopy";
+"nearby-distance-label-feet" = "$1 stop(y)";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 míle";
@@ -555,7 +555,7 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Odebrán $1 bajt|Odebrány $1 bajty|Odebráno $1 bajtů}}";
 "page-history-revision-time-accessibility-label" = "Editoval/a $1";
 "page-history-revisions-comparison-warning" = "Můžete vybrat pouze dvě revize";
-"page-history-stats-text" = "{{PLURAL:$1|$1 editace|$1 editací}} od $2";
+"page-history-stats-text" = "{{PLURAL:$1|$1 editace|$1 editace|$1 editací}} od $2";
 "page-history-user-edits" = "editace uživatelů";
 "page-issues" = "Nedostatky stránky";
 "page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";

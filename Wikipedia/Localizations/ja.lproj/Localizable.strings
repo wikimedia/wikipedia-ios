@@ -31,6 +31,7 @@
 // Author: WwLMvmT
 // Author: Yusuke1109
 // Author: おはぐろ蜻蛉
+// Author: きこねす
 // Author: ネイ
 // Author: 아라
 
@@ -196,6 +197,7 @@
 "diff-context-lines-expanded-button-title" = "隠す";
 "diff-paragraph-moved-direction-down" = "下へ";
 "diff-paragraph-moved-direction-up" = "上へ";
+"diff-single-header-summary-heading" = "編集の要約";
 "diff-single-line-format" = "$1行目:";
 "diff-thanks-anonymous-no-thanks" = "匿名利用者に感謝することはできません";
 "diff-thanks-login-title" = "ログインして感謝を送信";
@@ -434,7 +436,6 @@
 "in-the-news-currently-trending" = "現在のトレンド";
 "in-the-news-notification-read-now-action-title" = "すぐ読む";
 "in-the-news-notification-save-for-later-action-title" = "保存してあとで読む";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "共有...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1版ウィキペディアより";
 "in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
@@ -524,6 +525,9 @@
 "page-edit-history" = "すべての編集履歴";
 "page-history-anonymous-edits" = "匿名編集";
 "page-history-bot-edits" = "ボット編集";
+"page-history-minor-edits" = "細部の編集";
+"page-history-revision-author-accessibility-label" = "作者: $1";
+"page-history-revision-minor-edit-accessibility-label" = "細部の編集";
 "page-issues" = "ページの問題点";
 "page-last-edited" = "{{PLURAL:$1|0=今日編集|1=昨日編集|$1日前に編集}}";
 "page-location" = "地図で見る";
