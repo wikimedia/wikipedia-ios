@@ -15,11 +15,11 @@ class ArticleViewController: ViewController {
     }()
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
-    internal let article: WMFArticle
+    internal var article: WMFArticle
     internal var mediaList: MediaList?
     
     /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
-    @objc public let articleURL: URL
+    @objc public var articleURL: URL
     let articleLanguage: String
     
     /// Set by the state restoration system
@@ -304,7 +304,16 @@ class ArticleViewController: ViewController {
         }
         footerLoadGroup?.enter()
         dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
-            self.footerLoadGroup?.leave()
+            defer {
+                self.footerLoadGroup?.leave()
+            }
+            // Handle redirects
+            guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
+                return
+            }
+            self.article = article
+            self.articleURL = newURL
+            try? self.article.addToReadHistory()
         }
         footerLoadGroup?.enter()
         languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
