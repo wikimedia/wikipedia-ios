@@ -15,11 +15,11 @@ class ArticleViewController: ViewController {
     }()
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
-    internal let article: WMFArticle
+    internal var article: WMFArticle
     internal var mediaList: MediaList?
     
     /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
-    @objc public let articleURL: URL
+    @objc public var articleURL: URL
     let articleLanguage: String
     
     /// Set by the state restoration system
@@ -91,6 +91,20 @@ class ArticleViewController: ViewController {
     lazy var webView: WKWebView = {
         return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
+    
+    // MARK: Find In Page
+    
+    var findInPage = ArticleFindInPageState()
+    
+    // MARK: Responder chain
+    
+    override var canBecomeFirstResponder: Bool {
+        return findInPage.view != nil
+    }
+    
+    override var inputAccessoryView: UIView? {
+        return findInPage.view
+    }
     
     // MARK: Lead Image
     
@@ -266,9 +280,7 @@ class ArticleViewController: ViewController {
         defer {
             callLoadCompletionIfNecessary()
         }
-        if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
-            loadLeadImage(with: leadImageURL)
-        }
+
         guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
@@ -292,7 +304,16 @@ class ArticleViewController: ViewController {
         }
         footerLoadGroup?.enter()
         dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
-            self.footerLoadGroup?.leave()
+            defer {
+                self.footerLoadGroup?.leave()
+            }
+            // Handle redirects
+            guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
+                return
+            }
+            self.article = article
+            self.articleURL = newURL
+            try? self.article.addToReadHistory()
         }
         footerLoadGroup?.enter()
         languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
@@ -304,11 +325,6 @@ class ArticleViewController: ViewController {
     }
     
     // MARK: State Restoration
-    
-    func markArticleAsViewed() {
-        article.viewedDate = Date()
-        try? article.managedObjectContext?.save()
-    }
     
     func saveArticleScrollPosition() {
         getVisibleSection { (sectionId, anchor) in
@@ -375,6 +391,7 @@ class ArticleViewController: ViewController {
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
+        findInPage.view?.apply(theme: theme)
         if state == .loaded {
             messagingController.updateTheme(theme)
         }
@@ -394,6 +411,14 @@ class ArticleViewController: ViewController {
         }
         isSharingWhenReady = false
         shareArticle()
+    }
+    
+    // MARK: Navigation
+    
+    @objc(showAnchor:)
+    func show(anchor: String) {
+        dismiss(animated: false)
+        scroll(to: anchor, animated: true)
     }
     
     // MARK: Refresh
@@ -500,7 +525,7 @@ class ArticleViewController: ViewController {
                 return
             }
             let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
-            self.scroll(to: point, animated: animated, completion: completion)
+            self.scroll(to: point, centered: centered, animated: animated, completion: completion)
         }
     }
     
@@ -635,6 +660,8 @@ private extension ArticleViewController {
         scrollView?.delegate = self
         webView.scrollView.addSubview(leadImageContainerView)
         
+        webView.scrollView.keyboardDismissMode = .interactive
+
         let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
         let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
@@ -705,6 +732,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
             return
         }
         
+        leadImageHeightConstraint.constant = leadImageHeight
         leadImageView.image = image
         leadImageView.layer.contentsRect = imageView.layer.contentsRect
         

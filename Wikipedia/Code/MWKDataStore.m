@@ -25,7 +25,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     dispatch_semaphore_t _handleCrossProcessChangesSemaphore;
 }
 
-@property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 
@@ -670,7 +669,6 @@ static uint64_t bundleHash() {
 
 - (void)setupHistoryAndSavedPageLists {
     WMFAssertMainThread(@"History and saved page lists must be setup on the main thread");
-    self.historyList = [[MWKHistoryList alloc] initWithDataStore:self];
     self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
     self.readingListsController = [[WMFReadingListsController alloc] initWithDataStore:self];
 }

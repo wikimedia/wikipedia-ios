@@ -136,7 +136,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case readMoreTitlesRetrieved
         case viewLicense
         case viewInBrowser
-        case leadImage(source: String, width: Int?, height: Int?)
+        case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
         case unknown(href: String)
     }
@@ -198,13 +198,11 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             }
         }
         func getLeadImageAction(with data: [String: Any]?) -> Action? {
-            guard
-               let leadImage = data?["leadImage"] as? [String: Any],
-               let source = leadImage["source"] as? String else {
-                return nil
-            }
-            let width = leadImage["width"] as? Int
-            let height = leadImage["height"] as? Int
+            // Send back a lead image event even if it's empty - we need to handle this case
+            let leadImage = data?["leadImage"] as? [String: Any]
+            let source = leadImage?["source"] as? String
+            let width = leadImage?["width"] as? Int
+            let height = leadImage?["height"] as? Int
             return Action.leadImage(source: source, width: width, height: height)
         }
         

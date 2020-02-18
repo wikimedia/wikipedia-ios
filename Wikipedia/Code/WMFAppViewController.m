@@ -232,6 +232,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageReplyWasPublished:) name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageTopicWasPublished:) name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referenceLinkTapped:) name:WMFReferenceLinkTappedNotification object:nil];
 
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
@@ -544,6 +546,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)talkPageTopicWasPublished:(NSNotification *)note {
     [self toggleHint:self.talkPageTopicHintController context:nil];
+}
+
+- (void)referenceLinkTapped:(NSNotification *)note {
+    id maybeURL = [note object];
+    if (![maybeURL isKindOfClass:[NSURL class]]) {
+        return;
+    }
+    [self wmf_navigateToURL:maybeURL];
 }
 
 - (void)toggleHint:(HintController *)hintController context:(nullable NSDictionary<NSString *, id> *)context {
@@ -1215,6 +1225,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSString *visibleKey = visibleArticleViewController.articleURL.wmf_databaseKey;
     NSString *articleKey = articleURL.wmf_databaseKey;
     if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
+        if (articleURL.fragment) {
+            [visibleArticleViewController showAnchor:articleURL.fragment];
+        }
         completion();
         return visibleArticleViewController;
     }

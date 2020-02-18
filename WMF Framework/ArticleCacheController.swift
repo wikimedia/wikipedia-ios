@@ -3,6 +3,7 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
+    #if DEBUG
     override public func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping CacheController.ItemCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
         super.add(url: url, groupKey: groupKey, itemKey: itemKey, bypassGroupDeduping: bypassGroupDeduping, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
         
@@ -20,6 +21,7 @@ public final class ArticleCacheController: CacheController {
             self.dbWriter.fetchAndPrintEachGroup()
         }
     }
+    #endif
 
     enum CacheFromMigrationError: Error {
         case noArticleFileWriter
@@ -38,7 +40,7 @@ public final class ArticleCacheController: CacheController {
             articleFileWriter.migrateCachedContent(content: content, itemKey: itemKey, mimeType: mimeType, success: {
                 
                 articleDBWriter.migratedCacheItemFile(itemKey: itemKey, success: {
-                    print("successfully migrated")
+                    DDLogDebug("successfully migrated")
                     completionHandler(nil)
 
                     DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {

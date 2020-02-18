@@ -203,7 +203,8 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         guard let talkPageURL = talkPageURL else {
             return
         }
-        dataStore.historyList.addPageToHistory(with: talkPageURL)
+        let article = dataStore.fetchOrCreateArticle(with: talkPageURL)
+        try? article?.addToReadHistory()
     }
     
     @objc private func didBecomeActive() {

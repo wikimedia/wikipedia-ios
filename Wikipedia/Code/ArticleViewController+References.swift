@@ -37,6 +37,7 @@ extension ArticleViewController {
         vc.modalTransitionStyle = .crossDissolve
         vc.lastClickedReferencesIndex = selectedIndex
         vc.lastClickedReferencesGroup = references
+        vc.articleURL = articleURL
         present(vc, animated: false) { // should be false even if animated is true
             self.adjustScrollForReferencePageViewController(referencesBoundingClientRect, referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, viewController: vc, animated: animated)
         }

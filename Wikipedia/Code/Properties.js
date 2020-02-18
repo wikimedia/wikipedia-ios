@@ -1,7 +1,5 @@
 const leadImage = pcs.c1.Page.getLeadImage();
-if (leadImage) {
-    window.webkit.messageHandlers.{{messageHandlerName}}.postMessage({action: 'leadImage', data: {leadImage}});
-}
+window.webkit.messageHandlers.{{messageHandlerName}}.postMessage({action: 'leadImage', data: {leadImage}});
 const tableOfContents = pcs.c1.Page.getTableOfContents();
 if (tableOfContents) {
     window.webkit.messageHandlers.{{messageHandlerName}}.postMessage({action: 'tableOfContents', data: {tableOfContents}});

@@ -1,7 +1,6 @@
 @import Foundation;
 #import <WMF/WMFBlockDefinitions.h>
 
-@class MWKHistoryList;
 @class MWKSavedPageList;
 @class MWKRecentSearchList;
 @class WMFArticle;
@@ -60,7 +59,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
 @property (readonly, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
-@property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;

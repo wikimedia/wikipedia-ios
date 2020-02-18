@@ -56,7 +56,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup?.leave()
         restoreStateIfNecessary()
-        markArticleAsViewed()
+        try? article.addToReadHistory()
         schemeHandler.forceCache = false
     }
     
@@ -77,8 +77,10 @@ extension ArticleViewController: ArticleWebMessageHandling {
         }
     }
     
-    func handleLeadImage(source: String, width: Int?, height: Int?) {
-        guard leadImageView.image == nil && leadImageView.wmf_imageURLToFetch == nil else {
+    func handleLeadImage(source: String?, width: Int?, height: Int?) {
+        assert(Thread.isMainThread)
+        guard let source = source else {
+            leadImageHeightConstraint.constant = 0
             return
         }
         guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {

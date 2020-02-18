@@ -44,7 +44,11 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     }
     
     override func deleteAll() {
-        dataStore.historyList.removeAllEntries()
+        do {
+            try dataStore.viewContext.clearReadHistory()
+        } catch let error {
+            showError(error)
+        }
     }
     
     override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
