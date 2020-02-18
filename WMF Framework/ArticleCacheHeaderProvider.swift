@@ -29,10 +29,7 @@ class ArticleCacheHeaderProvider: CacheHeaderProviding {
         if let response = urlCache.cachedResponse(for: urlRequest)?.response as? HTTPURLResponse {
             cachedUrlResponse = response
         } else {
-            
-            let responseFileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
-            let responseHeaderFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-            cachedUrlResponse = CacheProviderHelper.persistedCacheResponse(url: url, responseFileName: responseFileName, responseHeaderFileName: responseHeaderFileName)?.response as? HTTPURLResponse
+            cachedUrlResponse = CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: cacheKeyGenerator)?.response as? HTTPURLResponse
         }
         
         //convert cached url response headers to applicable request headers.
@@ -50,6 +47,8 @@ class ArticleCacheHeaderProvider: CacheHeaderProviding {
                 }
             }
         }
+        
+        header[Session.Header.persistentCacheItemType] = Session.Header.ItemType.article.rawValue
         
         return header
         

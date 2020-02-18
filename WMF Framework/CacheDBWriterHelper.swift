@@ -6,27 +6,12 @@ final class CacheDBWriterHelper {
         return cacheGroup(with: groupKey, in: moc) ?? createCacheGroup(with: groupKey, in: moc)
     }
 
-    static func fetchOrCreateCacheItem(with itemKey: String, variant: String?, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
-        return cacheItem(with: itemKey, variant: variant, in: moc) ?? createCacheItem(with: itemKey, variant: variant, in: moc)
-    }
-    
-    static func inMemoryCacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
-        for object in moc.registeredObjects where !object.isFault {
-            let predicate = NSPredicate(format: "key == %@", key)
-            guard let result = object as? PersistentCacheGroup, predicate.evaluate(with: result) else {
-                continue
-            }
-            return result
-        }
-        return nil
+    static func fetchOrCreateCacheItem(with url: URL, itemKey: String, variant: String?, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+        return cacheItem(with: itemKey, variant: variant, in: moc) ?? createCacheItem(with: url, itemKey: itemKey, variant: variant, in: moc)
     }
 
     static func cacheGroup(with key: String, in moc: NSManagedObjectContext) -> PersistentCacheGroup? {
-        
-        if let inMemoryGroup = inMemoryCacheGroup(with: key, in: moc) {
-            return inMemoryGroup
-        }
-        
+
         let fetchRequest: NSFetchRequest<PersistentCacheGroup> = PersistentCacheGroup.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "key == %@", key)
         fetchRequest.fetchLimit = 1
@@ -72,13 +57,14 @@ final class CacheDBWriterHelper {
         }
     }
 
-    static func createCacheItem(with itemKey: String, variant: String?, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
+    static func createCacheItem(with url: URL, itemKey: String, variant: String?, in moc: NSManagedObjectContext) -> PersistentCacheItem? {
         guard let entity = NSEntityDescription.entity(forEntityName: "PersistentCacheItem", in: moc) else {
             return nil
         }
         let item = PersistentCacheItem(entity: entity, insertInto: moc)
         item.key = itemKey
         item.variant = variant
+        item.url = url
         item.date = Date()
         return item
     }
@@ -93,6 +79,17 @@ final class CacheDBWriterHelper {
         return context.performWaitAndReturn {
             CacheDBWriterHelper.cacheGroup(with: groupKey, in: moc) != nil
         } ?? false
+    }
+    
+    static func allDownloadedVariantItems(itemKey: CacheController.ItemKey, in moc: NSManagedObjectContext) -> [PersistentCacheItem] {
+
+        let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "key == %@ && isDownloaded == YES", itemKey)
+        do {
+            return try moc.fetch(fetchRequest)
+        } catch {
+            return []
+        }
     }
     
     static func save(moc: NSManagedObjectContext, completion: (_ result: SaveResult) -> Void) {

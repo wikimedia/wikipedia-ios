@@ -35,7 +35,8 @@ final class ImageCacheDBWriter: CacheDBWriting {
 private extension ImageCacheDBWriter {
     func cacheImage(groupKey: String, urlRequest: URLRequest, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+        guard let url = urlRequest.url,
+            let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
                 completion(.failure(ImageCacheDBWriterError.missingExpectedItemsOutOfRequestHeader))
                 return
         }
@@ -50,7 +51,7 @@ private extension ImageCacheDBWriter {
                 return
             }
             
-            guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, variant: variant, in: context) else {
+            guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
                 completion(.failure(ImageCacheDBWriterError.failureFetchOrCreateCacheItem))
                 return
             }

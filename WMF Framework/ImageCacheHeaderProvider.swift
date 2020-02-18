@@ -19,7 +19,7 @@ class ImageCacheHeaderProvider: CacheHeaderProviding {
             header[Session.Header.persistentCacheItemVariant] = variant
         }
         
-        header[Session.Header.persistentCacheItemType] = "Image" //tonitodo: enum?
+        header[Session.Header.persistentCacheItemType] = Session.Header.ItemType.image.rawValue
         
         return header
     }

@@ -175,9 +175,10 @@ private extension SchemeHandler {
             }
         }
         
-        let dataTask = session.dataTask(with: request, callback: callback)
-        addSessionTask(request: request, dataTask: dataTask)
-        dataTask.resume()
+        if let dataTask = session.dataTask(with: request, callback: callback) {
+            addSessionTask(request: request, dataTask: dataTask)
+            dataTask.resume()
+        }
     }
     
     func schemeTaskIsActive(urlSchemeTask: WKURLSchemeTask) -> Bool {

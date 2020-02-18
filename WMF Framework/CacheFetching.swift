@@ -14,7 +14,7 @@ extension CacheFetching where Self:Fetcher {
         let task = session.downloadTask(with: urlRequest) { fileURL, response, error in
             self.handleDownloadTaskCompletion(urlRequest: urlRequest, fileURL: fileURL, response: response, error: error, completion: completion)
         }
-        task.resume()
+        task?.resume()
         return task
     }
     
@@ -24,7 +24,7 @@ extension CacheFetching where Self:Fetcher {
             completion(error, urlRequest, response, nil, nil)
             return
         }
-        guard let fileURL = fileURL, let unwrappedResponse = response else {
+        guard let unwrappedResponse = response else {
             completion(Fetcher.unexpectedResponseError, urlRequest, response, nil, nil)
             return
         }

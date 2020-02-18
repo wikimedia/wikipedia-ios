@@ -5,6 +5,11 @@ import Foundation
         public static let persistentCacheItemKey = "Persistent-Cache-Item-Key"
         public static let persistentCacheItemVariant = "Persistent-Cache-Item-Variant"
         public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
+        
+        public enum ItemType: String {
+            case image = "Image"
+            case article = "Article"
+        }
     }
     public struct Request {
         public enum Method {
@@ -210,10 +215,16 @@ import Foundation
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
-    public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask {
-
-        //tonitodo: if request.cachePolicy == returnCacheDataElseLoad, try pulling cached response and calling callback immediately with results with URLCache.shared then CacheProviderHelper.persistedCacheResponse
+    public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
         
+        if request.cachePolicy == .returnCacheDataElseLoad,
+            let cachedResponse = sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+            callback.response?(cachedResponse.response)
+            callback.data?(cachedResponse.data)
+            callback.success()
+            return nil
+        }
+
         let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task
@@ -229,9 +240,14 @@ import Foundation
         return defaultURLSession.downloadTask(with: url, completionHandler: completionHandler)
     }
 
-    public func downloadTask(with urlRequest: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
+    public func downloadTask(with urlRequest: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask? {
         
-        //tonitodo: if request.cachePolicy == returnCacheDataElseLoad, try pulling cached response and calling callback immediately with results with URLCache.shared then CacheProviderHelper.persistedCacheResponse
+        if urlRequest.cachePolicy == .returnCacheDataElseLoad,
+            let cachedResponse = sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: urlRequest) {
+            completionHandler(nil, cachedResponse.response, nil)
+            return nil
+        }
+        
         return defaultURLSession.downloadTask(with: urlRequest)
     }
     
@@ -462,6 +478,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [], autoreleaseFrequency: .workItem, target: nil) // needs to be serial according the docs for NSURLSession
     let delegateQueue: OperationQueue
     var callbacks: [Int: Session.Callback] = [:]
+    private let cacheManagedObjectContext = CacheController.backgroundCacheContext //tonitodo: This is not very flexible
     
     override init() {
         delegateQueue = OperationQueue()
@@ -476,8 +493,19 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
-        //tonitodo: if response is not modified (304) and urlRequest header indicates there's a persistentCacheItemKey associated, pull from cache (try URLCache first, then PersistentCache) here and callback with that data.
-        //if cached data not there, check header Persistent-Cache-Fallback-Type. if image use variant image fallback logic and return that cached response. otherwise use standard fallback logic which is look up any other item response with the same item key but different variant.
+        if let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode != 200 { //catches errors and 304 Not Modified
+            
+            let taskIdentifier = dataTask.taskIdentifier
+            if let callback = callbacks[taskIdentifier],
+                let request = dataTask.originalRequest,
+                let cachedResponse = responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                callback.response?(cachedResponse.response)
+                callback.data?(cachedResponse.data)
+                callback.success()
+                callbacks.removeValue(forKey: taskIdentifier)
+            }
+        }
 
         defer {
             completionHandler(.allow)
@@ -498,8 +526,6 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         
-        //tonitodo: if error and urlRequest header indicates there's a persistentCacheItemKey associated, pull from cache (try URLCache first, then PersistentCache) here and callback with that data.
-        //if cached data not there, check header Persistent-Cache-Fallback-Type. if image use variant image fallback logic and return that cached response. otherwise use standard fallback logic which is look up any other item response with the same item key but different variant.
         guard let callback = callbacks[task.taskIdentifier] else {
             return
         }
@@ -516,5 +542,43 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         }
         
         callback.success()
+    }
+}
+
+extension SessionDelegate {
+    func responseFromPersistentCacheOrFallbackIfNeeded(request: URLRequest) -> CachedURLResponse? {
+        
+        //1. first try pulling from URLCache
+        if let response = URLCache.shared.cachedResponse(for: request) {
+            return response
+        }
+        
+        guard let url = request.url,
+            let itemKey = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+            return nil
+        }
+        
+        let variant = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+        let itemTypeRaw = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemType] ?? Session.Header.ItemType.article.rawValue
+        let itemType = Session.Header.ItemType(rawValue: itemTypeRaw) ?? Session.Header.ItemType.article
+        
+        let cacheKeyGenerator: CacheKeyGenerating.Type
+        switch itemType {
+            case Session.Header.ItemType.image:
+                cacheKeyGenerator = ImageCacheKeyGenerator.self
+            case Session.Header.ItemType.article:
+                cacheKeyGenerator = ArticleCacheKeyGenerator.self
+        }
+        
+        //2. else try pulling from Persistent Cache
+        if let persistedCachedResponse = CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: cacheKeyGenerator) {
+            return persistedCachedResponse
+        //3. else try pulling a fallback from Persistent Cache
+        } else if let moc = cacheManagedObjectContext,
+            let fallbackCachedResponse = CacheProviderHelper.fallbackCacheResponse(url: url, itemKey: itemKey, variant: variant, itemType: itemType, cacheKeyGenerator: cacheKeyGenerator, moc: moc) {
+            return fallbackCachedResponse
+        }
+        
+        return nil
     }
 }

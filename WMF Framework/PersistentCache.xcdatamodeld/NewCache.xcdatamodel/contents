@@ -12,6 +12,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="isDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="url" attributeType="URI"/>
         <attribute name="variant" optional="YES" attributeType="String"/>
         <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PersistentCacheGroup" inverseName="cacheItems" inverseEntity="PersistentCacheGroup"/>
         <relationship name="mustHaveCacheGroups" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PersistentCacheGroup" inverseName="mustHaveCacheItems" inverseEntity="PersistentCacheGroup"/>
@@ -25,6 +26,6 @@
     </entity>
     <elements>
         <element name="PersistentCacheGroup" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="133"/>
+        <element name="PersistentCacheItem" positionX="-54" positionY="-9" width="128" height="148"/>
     </elements>
 </model>

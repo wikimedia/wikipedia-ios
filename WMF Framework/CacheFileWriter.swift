@@ -55,10 +55,6 @@ final class CacheFileWriter: CacheTaskTracking {
                 completion(.failure(error))
                 return
             }
-            guard let temporaryFileURL = temporaryFileURL else {
-                completion(.failure(CacheFileWriterError.missingTemporaryFileURL))
-                return
-            }
             
             guard let responseHeader = response as? HTTPURLResponse else {
                 completion(.failure(CacheFileWriterError.missingHTTPResponse))
@@ -85,17 +81,21 @@ final class CacheFileWriter: CacheTaskTracking {
                 }
             }
             
-            CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: fileName, mimeType: mimeType) { (result) in
-                
-                defer {
-                    dispatchGroup.leave()
-                }
-                
-                switch result {
-                case .success, .exists:
-                    break
-                case .failure(let error):
-                    responseSaveError = error
+            if let temporaryFileURL = temporaryFileURL {
+                //file needs to be moved
+                dispatchGroup.enter()
+                CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: fileName, mimeType: mimeType) { (result) in
+                    
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    switch result {
+                    case .success, .exists:
+                        break
+                    case .failure(let error):
+                        responseSaveError = error
+                    }
                 }
             }
             
