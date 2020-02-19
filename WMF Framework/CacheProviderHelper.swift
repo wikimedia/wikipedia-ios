@@ -13,10 +13,12 @@ final class CacheProviderHelper {
         let responseFileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
         let responseHeaderFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
         
-        guard let responseData = FileManager.default.contents(atPath: responseFileName),
-            let responseHeaderData = FileManager.default.contents(atPath: responseHeaderFileName) else {
+        guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path),
+            let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
             return nil
         }
+        
+        print("😈returning itemKey:\(itemKey)")
         
         //let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: responseFileName)
     

@@ -85,7 +85,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html-media-list", percentEncodedTitle]).url
+            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "media-list", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }

@@ -41,10 +41,12 @@ class ArticleCacheHeaderProvider: CacheHeaderProviding {
                 if let keyString = key as? String,
                     keyString == HTTPURLResponse.etagHeaderKey {
                     header[HTTPURLResponse.ifNoneMatchHeaderKey] = value as? String
-                } else if let keyString = key as? String,
-                    let valueString = value as? String {
-                    header[keyString] = valueString
                 }
+                
+//                } else if let keyString = key as? String,
+//                    let valueString = value as? String {
+//                    header[keyString] = valueString
+//                }
             }
         }
         

@@ -248,7 +248,7 @@ import Foundation
             return nil
         }
         
-        return defaultURLSession.downloadTask(with: urlRequest)
+        return defaultURLSession.downloadTask(with: urlRequest, completionHandler: completionHandler)
     }
     
     public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
@@ -494,7 +494,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
         if let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode != 200 { //catches errors and 304 Not Modified
+            httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
             
             let taskIdentifier = dataTask.taskIdentifier
             if let callback = callbacks[taskIdentifier],
@@ -536,7 +536,16 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         
         if let error = error as NSError? {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
-                callback.failure(error)
+                
+                if let request = task.currentRequest,
+                let cachedResponse = responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                    callback.response?(cachedResponse.response)
+                    callback.data?(cachedResponse.data)
+                    callback.success()
+                    return
+                } else {
+                    callback.failure(error)
+                }
             }
             return
         }

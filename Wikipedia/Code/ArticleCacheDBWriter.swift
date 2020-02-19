@@ -71,31 +71,31 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             }
         }
         
-        group.enter()
-        fetchURLsFromListEndpoint(request: mobileHTMLMediaListRequest, groupKey: groupKey, endpointType: .mediaList) { (result) in
-            
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let urls):
-                
-                for url in urls {
-
-                    //image controller's responsibility to take it from here and cache
-                    self.imageController.add(url: url, groupKey: groupKey, individualCompletion: { (result) in
-                        //tonitodo: don't think we need this. if not make it optional
-                    }) { (result) in
-                        //tonitodo: don't think we need this. if not make it optional
-                    }
-                }
-                
-                
-            case .failure(let error):
-                mediaListError = error
-            }
-        }
+//        group.enter()
+//        fetchURLsFromListEndpoint(request: mobileHTMLMediaListRequest, groupKey: groupKey, endpointType: .mediaList) { (result) in
+//            
+//            defer {
+//                group.leave()
+//            }
+//            
+//            switch result {
+//            case .success(let urls):
+//                
+//                for url in urls {
+//
+//                    //image controller's responsibility to take it from here and cache
+//                    self.imageController.add(url: url, groupKey: groupKey, individualCompletion: { (result) in
+//                        //tonitodo: don't think we need this. if not make it optional
+//                    }) { (result) in
+//                        //tonitodo: don't think we need this. if not make it optional
+//                    }
+//                }
+//                
+//                
+//            case .failure(let error):
+//                mediaListError = error
+//            }
+//        }
         
         group.notify(queue: DispatchQueue.global(qos: .default)) {
             
