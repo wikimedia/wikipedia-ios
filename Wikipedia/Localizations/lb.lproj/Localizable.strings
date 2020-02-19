@@ -334,6 +334,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";
 "page-issues" = "Problemer mat der Säit";
 "page-last-edited" = "{{PLURAL:$1|0=Haut today|1=Gëschter|Viru(n) $1 Deeg}} geännert";
+"page-last-edited-unknown" = "Virun enger gewësser Zäit geännert";
 "page-location" = "Op enger Kaart weisen";
 "page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
 "page-protected-can-not-edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
