@@ -15,12 +15,13 @@ extension UIViewController {
 class WMFReferencePageViewController: UIViewController, UIPageViewControllerDataSource, Themeable {
     @objc var lastClickedReferencesIndex:Int = 0
     @objc var lastClickedReferencesGroup = [WMFLegacyReference]()
-    
     @objc weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     
     @objc public var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     @IBOutlet fileprivate var containerView: UIView!
     
+    var articleURL: URL?
+
     var theme = Theme.standard
     
     func apply(theme: Theme) {
@@ -36,6 +37,7 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
         
         for reference in self.lastClickedReferencesGroup {
             let panel = WMFReferencePanelViewController.wmf_viewControllerFromReferencePanelsStoryboard()
+            panel.articleURL = articleURL
             panel.apply(theme: self.theme)
             panel.reference = reference
             controllers.append(panel)
