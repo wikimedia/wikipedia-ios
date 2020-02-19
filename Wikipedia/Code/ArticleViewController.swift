@@ -243,6 +243,7 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
+        startSignificantlyViewedTimer()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -255,6 +256,7 @@ class ArticleViewController: ViewController {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
+        stopSignificantlyViewedTimer()
     }
     
     // MARK: Article load
@@ -313,7 +315,7 @@ class ArticleViewController: ViewController {
             }
             self.article = article
             self.articleURL = newURL
-            try? self.article.addToReadHistory()
+            self.addToHistory()
         }
         footerLoadGroup?.enter()
         languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
@@ -322,6 +324,29 @@ class ArticleViewController: ViewController {
         }) { (error) in
             self.footerLoadGroup?.leave()
         }
+    }
+    
+    // MARK: History
+
+    func addToHistory() {
+        try? article.addToReadHistory()
+    }
+    
+    var significantlyViewedTimer: Timer?
+    
+    func startSignificantlyViewedTimer() {
+        guard significantlyViewedTimer == nil, !article.wasSignificantlyViewed else {
+            return
+        }
+        significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in
+            self?.article.wasSignificantlyViewed = true
+            self?.stopSignificantlyViewedTimer()
+        })
+    }
+    
+    func stopSignificantlyViewedTimer() {
+        significantlyViewedTimer?.invalidate()
+        significantlyViewedTimer = nil
     }
     
     // MARK: State Restoration
@@ -614,9 +639,12 @@ private extension ArticleViewController {
         setupWebView()
     }
     
+    // MARK: Notifications
+    
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
             self?.contentSizeDidChange()
         }
@@ -639,6 +667,11 @@ private extension ArticleViewController {
     
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
+        stopSignificantlyViewedTimer()
+    }
+    
+    @objc func applicationDidBecomeActive(_ notification: Notification) {
+        startSignificantlyViewedTimer()
     }
     
     func setupSearchButton() {
