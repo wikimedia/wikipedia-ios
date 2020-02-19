@@ -20,8 +20,6 @@ final class SchemeHandler: NSObject {
     
     private let cacheQueue: OperationQueue = OperationQueue()
     
-    var cacheController: CacheController?
-    
     @objc public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
     
     required init(scheme: String, session: Session) {
@@ -110,7 +108,37 @@ private extension SchemeHandler {
         }
         
         mutableRequest.url = newURL
-        return mutableRequest.copy() as? URLRequest
+        
+        let maybeRequest = mutableRequest.copy() as? URLRequest
+        
+        //set persistent cache headers if they don't already exist
+        guard mutableRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] == nil else {
+            return maybeRequest
+        }
+
+        let headerProvider: CacheHeaderProviding
+        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+            headerProvider = ImageCacheHeaderProvider()
+        } else {
+            headerProvider = ArticleCacheHeaderProvider()
+        }
+        
+        if var request = maybeRequest {
+            
+            let header = headerProvider.requestHeader(urlRequest: request)
+            
+            for (key, value) in header {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+            
+            return request
+        }
+        
+        return maybeRequest
+    }
+    
+    func isMimeTypeImage(type: String) -> Bool {
+        return type.hasPrefix("image")
     }
     
     func kickOffDataTask(request: URLRequest, urlSchemeTask: WKURLSchemeTask) {

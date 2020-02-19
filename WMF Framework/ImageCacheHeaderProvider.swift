@@ -1,11 +1,15 @@
 
 import Foundation
 
-class ImageCacheHeaderProvider: CacheHeaderProviding {
+public class ImageCacheHeaderProvider: CacheHeaderProviding {
     
     private let cacheKeyGenerator: CacheKeyGenerating.Type = ImageCacheKeyGenerator.self
     
-    func requestHeader(urlRequest: URLRequest) -> [String: String] {
+    public init() {
+        
+    }
+    
+    public func requestHeader(urlRequest: URLRequest) -> [String: String] {
         var header: [String: String] = [:]
         
         guard let url = urlRequest.url,

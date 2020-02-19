@@ -1,11 +1,15 @@
 
 import Foundation
 
-class ArticleCacheHeaderProvider: CacheHeaderProviding {
+public class ArticleCacheHeaderProvider: CacheHeaderProviding {
     
     private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
     
-    func requestHeader(urlRequest: URLRequest) -> [String: String] {
+    public init() {
+        
+    }
+    
+    public func requestHeader(urlRequest: URLRequest) -> [String: String] {
         
         var header: [String: String] = [:]
         
@@ -42,7 +46,7 @@ class ArticleCacheHeaderProvider: CacheHeaderProviding {
                     keyString == HTTPURLResponse.etagHeaderKey {
                     header[HTTPURLResponse.ifNoneMatchHeaderKey] = value as? String
                 }
-                
+                //tonitodo: might need to restore some of this later for variant corruption, but commenting for now. this caused urlSession errors in one of the resources requests.
 //                } else if let keyString = key as? String,
 //                    let valueString = value as? String {
 //                    header[keyString] = valueString
