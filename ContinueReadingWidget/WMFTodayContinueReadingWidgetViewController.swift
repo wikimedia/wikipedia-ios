@@ -95,9 +95,9 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         
         let article: WMFArticle
         
-        if let openArticleURL = dataStore.viewContext.openArticleURL, let openArticle = dataStore.historyList.entry(for: openArticleURL) {
+        if let openArticleURL = dataStore.viewContext.openArticleURL, let openArticle = dataStore.fetchArticle(with: openArticleURL) {
             article = openArticle
-        } else if let mostRecentHistoryEntry = dataStore.historyList.mostRecentEntry() {
+        } else if let mostRecentHistoryEntry = dataStore.viewContext.mostRecentlyReadArticle {
             article = mostRecentHistoryEntry
         } else {
             return false

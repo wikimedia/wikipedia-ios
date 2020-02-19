@@ -149,6 +149,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     NSURL *url = [self.configuration mediaWikiAPIURLComponentsForHost:@"commons.wikimedia.org" withQueryParameters:nil].URL;
     if (!url) {
         failure(WMFFetcher.invalidParametersError);
+        return;
     }
     if (resultLimit > WMFMaxSearchResultLimit) {
         DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
