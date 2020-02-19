@@ -43,6 +43,7 @@ extension WMFArticle {
     
     fileprivate func removeFromReadHistoryWithoutSaving() {
         viewedDate = nil
+        wasSignificantlyViewed = false
         updateViewedDateWithoutTime()
     }
     
