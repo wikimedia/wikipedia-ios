@@ -51,7 +51,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/MWKUser.h>
 
-#import <WMF/MWKHistoryList.h>
 #import <WMF/MWKSavedPageList.h>
 
 #import <WMF/MWKRecentSearchEntry.h>
