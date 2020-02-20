@@ -275,7 +275,7 @@ class ArticleViewController: ViewController {
         if let leadImageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             loadLeadImage(with: leadImageURL)
         }
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: forceCache, scheme: schemeHandler.scheme) else {
             showGenericError()
             state = .error
             return
