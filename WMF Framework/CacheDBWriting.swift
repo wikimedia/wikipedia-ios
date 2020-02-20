@@ -168,10 +168,10 @@ extension CacheDBWriting {
             do {
                 let fetchedResults = try context.fetch(fetchRequest)
                 if fetchedResults.count == 0 {
-                     print("🌹noItems")
+                     DDLogDebug("🌹noItems")
                 } else {
                     for item in fetchedResults {
-                        print("🌹itemKey: \(item.value(forKey: "key")!), variant:  \(item.value(forKey: "variant") ?? "nil"), itemURL: \(item.value(forKey: "url")!)")
+                        DDLogDebug("🌹itemKey: \(item.value(forKey: "key")!), variant:  \(item.value(forKey: "variant") ?? "nil"), itemURL: \(item.value(forKey: "url")!)")
                     }
                 }
             } catch let error as NSError {
@@ -192,15 +192,15 @@ extension CacheDBWriting {
             do {
                 let fetchedResults = try context.fetch(fetchRequest)
                 if fetchedResults.count == 0 {
-                     print("🌹noGroups")
+                     DDLogDebug("🌹noGroups")
                 } else {
                     for item in fetchedResults {
-                        print("🌹groupKey: \(item.value(forKey: "key")!)")
+                        DDLogDebug("🌹groupKey: \(item.value(forKey: "key")!)")
                     }
                 }
             } catch let error as NSError {
                 // something went wrong, print the error.
-                print(error.description)
+                DDLogDebug(error.description)
             }
         }
     }

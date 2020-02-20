@@ -18,8 +18,6 @@ final class CacheProviderHelper {
             return nil
         }
         
-        print("😈returning itemKey:\(itemKey)")
-        
         //let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: responseFileName)
     
         var responseHeaders: [String: String]?

@@ -37,7 +37,7 @@ public final class ArticleCacheController: CacheController {
             self.fileWriter.migrateCachedContent(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
                 
                 articleDBWriter.migratedCacheItemFile(urlRequest: urlRequest, success: {
-                    print("successfully migrated")
+                    DDLogDebug("successfully migrated")
                     completionHandler(nil)
 
                     DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
