@@ -724,6 +724,7 @@ private extension ArticleViewController {
             case .success(let user):
                 self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
             case .failure(let error):
+                self.setupPageContentServiceJavaScriptInterface(with: [])
                 self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
             }
             completion()

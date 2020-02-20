@@ -232,7 +232,31 @@ import Foundation
     }
     
     public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        let task = defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
+        
+        let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
+            
+            if let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
+                
+                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                    completionHandler(cachedResponse.data, cachedResponse.response, nil)
+                    return
+                }
+            }
+            
+            if let _ = error {
+                
+                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                    completionHandler(cachedResponse.data, cachedResponse.response, nil)
+                    return
+                }
+            }
+            
+            completionHandler(data, response, error)
+            
+        }
+        
+        let task = defaultURLSession.dataTask(with: request, completionHandler: cachedCompletion)
         return task
     }
     
