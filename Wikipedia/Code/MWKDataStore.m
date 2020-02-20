@@ -837,6 +837,8 @@ static uint64_t bundleHash() {
 - (void)clearTemporaryCache {
     [self clearMemoryCache];
     [WMFSession clearTemporaryCache];
+    NSSet<NSString *> *typesToClear = [NSSet setWithObjects:WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache, nil];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:typesToClear modifiedSince:[NSDate distantPast] completionHandler:^{}];
 }
 
 #pragma mark - Remote Configuration
