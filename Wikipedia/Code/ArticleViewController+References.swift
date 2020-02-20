@@ -79,6 +79,13 @@ extension ArticleViewController {
         }
         dismiss(animated: true)
     }
+    
+    func showReferenceBackLinks(_ backLinks: [ReferenceBackLink], referenceId: String) {
+        let vc = ReferenceBackLinksViewController(backLinks: backLinks, delegate: self, theme: theme)
+        addChild(vc)
+        view.wmf_addSubviewWithConstraintsToEdges(vc.view)
+        vc.didMove(toParent: self)
+    }
 }
 
 private extension ArticleViewController {
@@ -152,5 +159,19 @@ extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
             }
             webView.wmf_unHighlightLinkID(refId)
         }
+    }
+}
+
+
+extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
+    func referenceBackLinksViewControllerUserDidTapClose(_ referenceBackLinksViewController: ReferenceBackLinksViewController) {
+        let vc = children.first { $0 is ReferenceBackLinksViewController }
+        vc?.willMove(toParent: nil)
+        vc?.view.removeFromSuperview()
+        vc?.removeFromParent()
+    }
+    
+    func referenceBackLinksViewControllerUserDidInteractWithHref(_ href: String, referenceBackLinksViewController: ReferenceBackLinksViewController) {
+        handleLink(with: href)
     }
 }

@@ -119,6 +119,25 @@ class ArticleWebMessagingController: NSObject {
     }
 }
 
+struct ReferenceBackLink {
+    let id: String
+    let html: String
+    let sectionId: Int?
+    let sectionTitleHTML: String?
+    init?(scriptMessageDict: [String: Any]) {
+        guard
+            let html = scriptMessageDict["html"] as? String,
+            let id = scriptMessageDict["id"] as? String
+        else {
+            return nil
+        }
+        self.html = html
+        self.id = id
+        self.sectionId = scriptMessageDict["sectionId"] as? Int
+        self.sectionTitleHTML = scriptMessageDict["sectionTitleHTML"] as? String
+    }
+}
+
 extension ArticleWebMessagingController: WKScriptMessageHandler {
     /// Actions represent events from the web page
     enum Action {
@@ -127,7 +146,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
-        case backLink(selectedIndex: Int, group: [WMFLegacyReference])
+        case backLink(referenceId: String, backLinks: [ReferenceBackLink])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -269,11 +288,11 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getBackLinkAction(with data: [String: Any]?) -> Action? {
-            guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
+            guard let referenceId = data?["referenceId"] as? String, let backLinkDictionaries = data?["backLinks"] as? [[String: Any]]  else {
                 return nil
             }
-            let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
-            return .backLink(selectedIndex: selectedIndex, group: group)
+            let backLinks = backLinkDictionaries.compactMap { ReferenceBackLink(scriptMessageDict: $0) }
+            return .backLink(referenceId: referenceId, backLinks: backLinks)
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {

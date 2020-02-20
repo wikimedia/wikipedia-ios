@@ -40,11 +40,15 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     public enum NavigationMode {
         case bar
         case detail
+        case forceBar
     }
     
     var navigationMode: NavigationMode = .bar {
         didSet {
             switch navigationMode {
+            case .forceBar:
+                showsNavigationBar = true
+                ownsNavigationBar = true
             case .detail:
                 showsNavigationBar = false
                 ownsNavigationBar = false
@@ -161,7 +165,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupGestureRecognizerDependencies()
-        guard navigationMode == .bar else {
+        guard navigationMode == .bar || navigationMode == .forceBar else {
             if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
                 var updatedElements: [Any] = [closeButton]
                 let existingElements: [Any] = view.accessibilityElements ?? view.subviews
@@ -176,7 +180,11 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             return
         }
         
-        if let parentVC = parent as? ViewController {
+        if navigationMode == .forceBar {
+            ownsNavigationBar = true
+            showsNavigationBar = true
+            navigationBar.updateNavigationItems()
+        } else if let parentVC = parent as? ViewController {
             showsNavigationBar = true
             ownsNavigationBar = false
             navigationBar = parentVC.navigationBar
