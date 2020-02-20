@@ -18,15 +18,18 @@ final class SearchSettingsViewController: SubSettingsViewController {
         super.viewDidLoad()
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         title = CommonStrings.searchTitle
+        reloadSectionData()
     }
 
-    private lazy var sections: [Section] = {
+    private lazy var sections: [Section] = []
+
+    private func reloadSectionData() {
         let showLanguagesOnSearch = Item(title: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"), isOn: UserDefaults.standard.wmf_showSearchLanguageBar(), controlTag: 1)
         let openAppOnSearchTab = Item(title: WMFLocalizedString("settings-search-open-app-on-search", value: "Open app on Search tab", comment: "Title for setting that allows users to open app on Search tab"), isOn: UserDefaults.standard.wmf_openAppOnSearchTab, controlTag: 2)
         let items = [showLanguagesOnSearch, openAppOnSearchTab]
         let sections = [Section(items: items, footerTitle: WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings"))]
-        return sections
-    }()
+        self.sections = sections
+    }
 
     private func getSection(at index: Int) -> Section {
         assert(sections.indices.contains(index), "Section at index \(index) doesn't exist")
@@ -95,5 +98,6 @@ extension SearchSettingsViewController: WMFSettingsTableViewCellDelegate {
         default:
             break
         }
+        reloadSectionData()
     }
 }
