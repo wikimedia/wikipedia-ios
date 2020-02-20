@@ -92,6 +92,17 @@ final class CacheDBWriterHelper {
         }
     }
     
+    static func allVariantItems(itemKey: CacheController.ItemKey, in moc: NSManagedObjectContext) -> [PersistentCacheItem] {
+
+        let fetchRequest: NSFetchRequest<PersistentCacheItem> = PersistentCacheItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "key == %@", itemKey)
+        do {
+            return try moc.fetch(fetchRequest)
+        } catch {
+            return []
+        }
+    }
+    
     static func save(moc: NSManagedObjectContext, completion: (_ result: SaveResult) -> Void) {
         guard moc.hasChanges else {
             completion(.success)

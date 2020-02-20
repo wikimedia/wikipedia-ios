@@ -109,7 +109,15 @@ private extension SchemeHandler {
         
         mutableRequest.url = newURL
         
-        let maybeRequest = mutableRequest.copy() as? URLRequest
+        var maybeRequest = mutableRequest.copy() as? URLRequest
+        
+        //reassign If-None-Match if needed. It seems like If-None-Match header gets lost between ArticleFetcher URLRequest creation and SchemeHandler.
+        if var request = maybeRequest,
+            let eTag = request.allHTTPHeaderFields?[Session.Header.persistentCacheETag],
+            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] == nil {
+            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] = eTag
+            maybeRequest = request
+        }
         
         //set persistent cache headers if they don't already exist
         guard mutableRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] == nil else {

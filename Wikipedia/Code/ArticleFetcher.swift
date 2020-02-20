@@ -89,18 +89,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         else {
             throw RequestError.invalidParameters
         }
-        var request = URLRequest(url: url)
-        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
         
-        for (key, value) in header {
-            request.setValue(value, forHTTPHeaderField: key)
-        }
-        
-        if forceCache {
-            request.cachePolicy = .returnCacheDataElseLoad
-        }
-        
-        return request
+        return urlRequest(from: url, forceCache: forceCache)
     }
     
     public func mobileHTMLOfflineResourcesRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
@@ -146,18 +136,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
         }
         
-        var request = URLRequest(url: mobileHTMLURL)
-        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
-        
-        for (key, value) in header {
-            request.setValue(value, forHTTPHeaderField: key)
-        }
-        
-        if forceCache {
-            request.cachePolicy = .returnCacheDataElseLoad
-        }
-        
-        return request
+        return urlRequest(from: mobileHTMLURL, forceCache: forceCache)
     }
 }
 

@@ -175,6 +175,11 @@ public class CacheController {
                     
                     gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
                     
+                    guard dbWriter.shouldDownloadVariant(itemKey: itemKey, variant: variant) else {
+                        group.leave()
+                        continue
+                    }
+                    
                     fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
                         
                         guard let self = self else {

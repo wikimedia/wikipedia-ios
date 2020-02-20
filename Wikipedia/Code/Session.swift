@@ -5,6 +5,7 @@ import Foundation
         public static let persistentCacheItemKey = "Persistent-Cache-Item-Key"
         public static let persistentCacheItemVariant = "Persistent-Cache-Item-Variant"
         public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
+        public static let persistentCacheETag = "Persistent-Cache-ETag"
         
         public enum ItemType: String {
             case image = "Image"

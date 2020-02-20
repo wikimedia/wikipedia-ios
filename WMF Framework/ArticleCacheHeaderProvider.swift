@@ -45,6 +45,7 @@ public class ArticleCacheHeaderProvider: CacheHeaderProviding {
                 if let keyString = key as? String,
                     keyString == HTTPURLResponse.etagHeaderKey {
                     header[HTTPURLResponse.ifNoneMatchHeaderKey] = value as? String
+                    header[Session.Header.persistentCacheETag] = value as? String //fallback bucket, .ifNoneMatchHeaderKey seems to get reassigned through SchemeHandler
                 }
                 //tonitodo: might need to restore some of this later for variant corruption, but commenting for now. this caused urlSession errors in one of the resources requests.
 //                } else if let keyString = key as? String,

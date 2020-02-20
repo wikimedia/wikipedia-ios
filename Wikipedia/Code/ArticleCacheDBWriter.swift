@@ -28,6 +28,10 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
         self.imageController = imageController
    }
     
+    func add(urls: [URL], groupKey: String, completion: CacheDBWritingCompletionWithURLRequests) {
+        assertionFailure("ArticleCacheDBWriter not setup for batch url inserts.")
+    }
+    
     //note, this comes in as desktopArticleURL via WMFArticle's key
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests) {
 
@@ -81,16 +85,11 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             switch result {
             case .success(let urls):
                 
-                for url in urls {
-
-                    //image controller's responsibility to take it from here and cache
-                    self.imageController.add(url: url, groupKey: groupKey, individualCompletion: { (result) in
-                        //tonitodo: don't think we need this. if not make it optional
-                    }) { (result) in
-                        //tonitodo: don't think we need this. if not make it optional
-                    }
+                self.imageController.add(urls: urls, groupKey: groupKey, individualCompletion: { (result) in
+                    //tonitodo: don't think we need this. if not make it optional
+                }) { (result) in
+                    //tonitodo: don't think we need this. if not make it optional
                 }
-                
                 
             case .failure(let error):
                 mediaListError = error
@@ -146,6 +145,11 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             
             return true
         } ?? false
+    }
+    
+    func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
+        //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
+        return true
     }
 }
 
