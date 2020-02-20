@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noSearchResultsEmptyView;
 + (instancetype)noSavedPagesEmptyView;
 + (instancetype)noSavedPagesInReadingListEmptyView;
-+ (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nonnull SEL)action;
++ (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action;
 + (instancetype)noHistoryEmptyView;
 + (instancetype)noInternetConnectionEmptyView;
 + (instancetype)noSelectedImageToInsertEmptyView;

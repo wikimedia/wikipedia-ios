@@ -4,6 +4,7 @@
 // Author: Arifin.wijaya
 // Author: Aviator
 // Author: Jeluang Terluang
+// Author: Joseagush
 // Author: Kurniasan
 // Author: Macofe
 // Author: Nemo bis
@@ -294,7 +295,7 @@
 "explore-nearby-heading" = "Tempat berdekatan";
 "explore-nearby-placeholder-heading" = "Tempat";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Dari Wikipedia $1";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Dari Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Saking Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Lokasi anda";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Lokasi anda dari Wikipedia $1";
 "explore-potd-heading" = "Gambar pilihan";

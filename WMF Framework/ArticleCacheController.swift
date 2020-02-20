@@ -2,7 +2,8 @@
 import Foundation
 
 public final class ArticleCacheController: CacheController {
-    
+
+#if DEBUG
     override public func add(url: URL, groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
         super.add(url: url, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
         
@@ -20,6 +21,7 @@ public final class ArticleCacheController: CacheController {
             self.dbWriter.fetchAndPrintEachGroup()
         }
     }
+#endif
 
     enum CacheFromMigrationError: Error {
         case invalidDBWriterType
@@ -35,8 +37,9 @@ public final class ArticleCacheController: CacheController {
         articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL, success: { urlRequest in
             
             self.fileWriter.migrateCachedContent(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
-                
+
                 articleDBWriter.migratedCacheItemFile(urlRequest: urlRequest, success: {
+
                     DDLogDebug("successfully migrated")
                     completionHandler(nil)
 

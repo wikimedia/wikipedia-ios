@@ -32,7 +32,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    NSURL *lastRead = [moc wmf_openArticleURL] ?: [self.userDataStore.historyList mostRecentEntryInManagedObjectContext:moc].URL;
+    NSURL *lastRead = [moc wmf_openArticleURL] ?: moc.mostRecentlyReadArticle.URL;
 
     if (!lastRead) {
         completion();

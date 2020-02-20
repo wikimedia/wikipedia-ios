@@ -272,7 +272,6 @@
 
     [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
         HTMLTagName = [HTMLTagName lowercaseString];
-        BOOL isInTagToRemove = tagToRemoveStartLocation != NSNotFound;
         BOOL isEnd = false;
         if ([HTMLTagName hasPrefix:@"/"]) {
             isEnd = true;
@@ -280,7 +279,7 @@
         }
         if ([tagsToRemove containsObject:HTMLTagName]) {
             if (isEnd) {
-                if (isInTagToRemove) {
+                if (tagToRemoveStartLocation != NSNotFound) {
                     NSInteger length = range.location + range.length - tagToRemoveStartLocation;
                     [cleanedString replaceCharactersInRange:NSMakeRange(tagToRemoveStartLocation + offset, length) withString:@""];
                     offset -= length;
@@ -289,12 +288,11 @@
                 }
                 return;
             } else {
-                isInTagToRemove = true;
                 tagToRemoveStartLocation = range.location;
                 return;
             }
         }
-        if (isInTagToRemove) {
+        if (tagToRemoveStartLocation != NSNotFound) {
             return;
         }
         NSString *replacement = [HTMLTagName isEqualToString:@"br"] || [HTMLTagName isEqualToString:@"br/"] ? @"\n" : @"";
@@ -402,9 +400,9 @@
                                               range:NSMakeRange(0, HTMLTagAttributes.length)
                                          usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
                                              NSString *URLString = [hrefRegex replacementStringForResult:result inString:HTMLTagAttributes offset:0 template:@"$1"];
-                                            if ([URLString hasPrefix:@"."] || [URLString hasPrefix:@"/"]) {
-                                                URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_relativePathAndFragmentAllowedCharacterSet]];
-                                            }
+                                             if ([URLString hasPrefix:@"."] || [URLString hasPrefix:@"/"]) {
+                                                 URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_relativePathAndFragmentAllowedCharacterSet]];
+                                             }
                                              NSURL *linkURL = [NSURL URLWithString:URLString];
                                              if (linkURL) {
                                                  [currentLinks addObject:linkURL];
@@ -518,7 +516,7 @@
         }
     }];
 
-    NSDictionary *listAttributes = @{NSFontAttributeName: font};
+    NSDictionary *listAttributes = font != nil ? @{NSFontAttributeName: font} : @{};
     __block NSInteger offset = 0;
     [lists enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull list, NSUInteger idx, BOOL *_Nonnull stop) {
         offset += [attributedString performReplacementsForListElement:list currentList:list withAttributes:listAttributes listIndex:0 replacementOffset:offset];

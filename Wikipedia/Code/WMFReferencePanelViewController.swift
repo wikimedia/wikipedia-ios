@@ -2,6 +2,7 @@ import WMF
 
 class WMFReferencePanelViewController: UIViewController, Themeable {
     var theme = Theme.standard
+    var articleURL: URL?
     
     @objc(applyTheme:)
     func apply(theme: Theme) {
@@ -47,6 +48,7 @@ class WMFReferencePanelViewController: UIViewController, Themeable {
     
     fileprivate lazy var containerController: WMFReferencePopoverMessageViewController = {
         let referenceVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard()
+        referenceVC?.articleURL = articleURL
         if let trc = referenceVC as Themeable? {
             trc.apply(theme: self.theme)
         }

@@ -73,8 +73,7 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   removeSearchTermHighlights()
   searchTerm = searchTerm.trim()
   if (searchTerm.length === 0) {
-    window.webkit.messageHandlers.findInPageMatchesFound.postMessage([])
-    return
+    return []
   }
 
   // const startTime = new Date()
@@ -83,7 +82,7 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   walkBackwards(document.body, NodeFilter.SHOW_TEXT, matchFilter, matchMarker)
 
   const orderedMatchIDsToReport = [...document.querySelectorAll('span.findInPageMatch')].map(element => element.id)
-  window.webkit.messageHandlers.findInPageMatchesFound.postMessage(orderedMatchIDsToReport)
+  return orderedMatchIDsToReport
   // printTimeElapsedDebugMessage('SET', startTime)
 }
 

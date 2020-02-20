@@ -133,7 +133,7 @@
     return view;
 }
 
-+ (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nonnull SEL)action {
++ (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"reading-lists-empty-state"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"Organize saved articles with reading lists", @"Title of a blank screen shown when a user has no reading lists");
@@ -249,7 +249,7 @@
     return view;
 }
 
-- (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nonnull SEL)action {
+- (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nullable SEL)action {
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];
     [self.button setHorizontalSpacing:7];
