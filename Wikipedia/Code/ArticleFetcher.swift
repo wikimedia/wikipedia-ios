@@ -9,7 +9,7 @@ enum ArticleFetcherError: Error {
 }
 
 @objc(WMFArticleFetcher)
-final public class ArticleFetcher: Fetcher {    
+final public class ArticleFetcher: Fetcher, CacheFetching {    
     @objc required public init(session: Session, configuration: Configuration) {
         #if WMF_APPS_LABS_MOBILE_HTML
         super.init(session: Session.shared, configuration: Configuration.appsLabs)
@@ -17,6 +17,8 @@ final public class ArticleFetcher: Fetcher {
         super.init(session: session, configuration: configuration)
         #endif
     }
+    
+    private let cacheHeaderProvider: CacheHeaderProviding = ArticleCacheHeaderProvider()
     
     public enum EndpointType: String {
         case summary
@@ -26,20 +28,7 @@ final public class ArticleFetcher: Fetcher {
         case references = "references"
     }
     
-    typealias RequestURL = URL
-    typealias TemporaryFileURL = URL
-    typealias MIMEType = String
-    typealias DownloadCompletion = (Error?, RequestURL?, URLResponse?, TemporaryFileURL?, MIMEType?) -> Void
-    
-    func downloadData(url: URL, completion: @escaping DownloadCompletion) -> URLSessionTask? {
-        let task = session.downloadTask(with: url) { fileURL, response, error in
-            self.handleDownloadTaskCompletion(url: url, fileURL: fileURL, response: response, error: error, completion: completion)
-        }
-        task.resume()
-        return task
-    }
-    
-    @discardableResult func fetchResourceList(with articleURL: URL, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+    @discardableResult func fetchResourceList(with request: URLRequest, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
         
         guard endpointType == .mediaList || endpointType == .mobileHtmlOfflineResources else {
             completion(.failure(ArticleFetcherError.invalidEndpointType))
@@ -48,9 +37,9 @@ final public class ArticleFetcher: Fetcher {
         
         switch endpointType {
         case .mediaList:
-            return fetchMediaListURLs(with: articleURL, completion: completion)
+            return fetchMediaListURLs(with: request, completion: completion)
         case .mobileHtmlOfflineResources:
-            return fetchOfflineResourceURLs(with: articleURL, completion: completion)
+            return fetchOfflineResourceURLs(with: request, completion: completion)
         default:
             break
         }
@@ -58,8 +47,21 @@ final public class ArticleFetcher: Fetcher {
         return nil
     }
     
-    @discardableResult public func fetchMediaList(with articleURL: URL, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
-        return performPageContentServiceGET(with: articleURL, endpointType: .mediaList, completion: completion)
+    @discardableResult public func fetchMediaList(with request: URLRequest, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
+        return performPageContentServiceGET(with: request, endpointType: .mediaList, completion: { (result: Result<MediaList?, Error>, response) in
+            switch result {
+            case .success(let result):
+                guard let mediaList = result else {
+                    completion(.failure(ArticleFetcherError.missingData), response)
+                    return
+                }
+                
+                completion(.success(mediaList), response)
+                
+            case .failure(let error):
+                completion(.failure(error), response)
+            }
+        })
     }
     
     public func mobileHTMLPreviewRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
@@ -79,24 +81,69 @@ final public class ArticleFetcher: Fetcher {
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL) throws -> URLRequest {
+    public func mobileHTMLMediaListRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
+            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "media-list", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }
-        var request = URLRequest(url: mobileHTMLURL)
-        request.setValue(articleURL.wmf_databaseKey, forHTTPHeaderField: Session.Header.persistentCacheKey)
+        
+        return urlRequest(from: url, forceCache: forceCache)
+    }
+    
+    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html-offline-resources", percentEncodedTitle]).url
+        else {
+            throw RequestError.invalidParameters
+        }
+        
+        return urlRequest(from: url, forceCache: forceCache)
+    }
+    
+    public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest {
+        
+        var request = URLRequest(url: url)
+        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
+        
+        for (key, value) in header {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if forceCache {
+            request.cachePolicy = .returnCacheDataElseLoad
+        }
+        
         return request
+    }
+    
+    public func mobileHTMLRequest(articleURL: URL, forceCache: Bool = false, scheme: String? = nil) throws -> URLRequest {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            var mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
+        else {
+            throw RequestError.invalidParameters
+        }
+        
+        if let scheme = scheme {
+            var urlComponents = URLComponents(url: mobileHTMLURL, resolvingAgainstBaseURL: false)
+            urlComponents?.scheme = scheme
+            mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
+        }
+        
+        return urlRequest(from: mobileHTMLURL, forceCache: forceCache)
     }
 }
 
 private extension ArticleFetcher {
     
-    func fetchOfflineResourceURLs(with articleURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        return performPageContentServiceGET(with: articleURL, endpointType: .mobileHtmlOfflineResources, completion: { (result: Result<[String], Error>, response) in
+    func fetchOfflineResourceURLs(with request: URLRequest, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+        return performPageContentServiceGET(with: request, endpointType: .mobileHtmlOfflineResources, completion: { (result: Result<[String]?, Error>, response) in
             if let statusCode = response?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -107,8 +154,14 @@ private extension ArticleFetcher {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let urlStrings):
+                
+                guard let urlStrings = urlStrings else {
+                    completion(.failure(ArticleFetcherError.missingData))
+                    return
+                }
+                
                 let result = urlStrings.map { (urlString) -> URL? in
-                    let scheme = articleURL.scheme ?? "https"
+                    let scheme = request.url?.scheme ?? "https"
                     let finalString = "\(scheme):\(urlString)"
                     return URL(string: finalString)
                 }.compactMap{ $0 }
@@ -119,13 +172,9 @@ private extension ArticleFetcher {
         })
     }
     
-    @discardableResult func performPageContentServiceGET<T: Decodable>(with articleURL: URL, endpointType: EndpointType, completion: @escaping (Result<T, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
-        guard let title = articleURL.percentEncodedPageTitleForPathComponents else {
-            completion(.failure(RequestError.invalidParameters), nil)
-            return nil
-        }
-        let components = ["page", endpointType.rawValue, title]
-        return performMobileAppsServicesGET(for: articleURL, pathComponents: components) { (result: T?, response, error) in
+    @discardableResult func performPageContentServiceGET<T: Decodable>(with request: URLRequest, endpointType: EndpointType, completion: @escaping (Result<T, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
+        
+        return performMobileAppsServicesGET(for: request) { (result: T?, response, error) in
             guard let result = result else {
                 completion(.failure(error ?? RequestError.unexpectedResponse), response as? HTTPURLResponse)
                 return
@@ -134,8 +183,8 @@ private extension ArticleFetcher {
         }
     }
     
-    @discardableResult func fetchMediaListURLs(with articleURL: URL, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        return fetchMediaList(with: articleURL) { (result, response) in
+    @discardableResult func fetchMediaListURLs(with request: URLRequest, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+        return fetchMediaList(with: request) { (result, response) in
             if let statusCode = response?.statusCode,
                statusCode == 404 {
                completion(.failure(ArticleFetcherError.doesNotExist))
@@ -151,30 +200,13 @@ private extension ArticleFetcher {
                 }
                 
                 let result = sources.map { (source) -> URL? in
-                    let scheme = articleURL.scheme ?? "https"
+                    let scheme = request.url?.scheme ?? "https"
                     let finalString = "\(scheme):\(source.urlString)"
                     return URL(string: finalString)
                 }.compactMap{ $0 }
                 
                 completion(.success(result))
             }
-           
         }
-    }
-    
-    func handleDownloadTaskCompletion(url: URL, fileURL: URL?, response: URLResponse?, error: Error?, completion: @escaping DownloadCompletion) {
-        if let error = error {
-            completion(error, url, response, nil, nil)
-            return
-        }
-        guard let fileURL = fileURL, let unwrappedResponse = response else {
-            completion(Fetcher.unexpectedResponseError, url, response, nil, nil)
-            return
-        }
-        if let httpResponse = unwrappedResponse as? HTTPURLResponse, httpResponse.statusCode != 200 {
-            completion(Fetcher.unexpectedResponseError, url, response, nil, nil)
-            return
-        }
-        completion(nil, url, response, fileURL, unwrappedResponse.mimeType)
     }
 }

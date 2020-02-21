@@ -57,7 +57,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         footerLoadGroup?.leave()
         restoreStateIfNecessary()
         try? article.addToReadHistory()
-        schemeHandler.forceCache = false
+        forceCache = false
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {

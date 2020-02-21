@@ -171,23 +171,23 @@ private extension SavedArticlesFetcher {
         if let articleURL = article?.url,
             let articleKey = articleURL.wmf_databaseKey {
             
-            articleCacheController.add(url: articleURL, groupKey: articleKey, itemCompletion: { (itemResult) in
+            articleCacheController.add(url: articleURL, groupKey: articleKey, individualCompletion: { (itemResult) in
                 switch itemResult {
                 case .success(let itemKey):
-                    print("🥶successfully added \(itemKey)")
+                    DDLogDebug("🥶successfully added \(itemKey)")
                 case .failure(let error):
-                    print("🥶failure in itemCompletion of \(articleKey): \(error)")
+                    DDLogDebug("🥶failure in itemCompletion of \(articleKey): \(error)")
                 }
             }) { (groupResult) in
                 DispatchQueue.main.async {
                     switch groupResult {
                     case .success(let itemKeys):
-                        print("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
+                        DDLogDebug("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
                         self.didFetchArticle(with: articleKey)
                         self.spotlightManager.addToIndex(url: articleURL as NSURL)
                         self.updateCountOfFetchesInProcess()
                     case .failure(let error):
-                        print("🥶failure in groupCompletion of \(articleKey): \(error)")
+                        DDLogDebug("🥶failure in groupCompletion of \(articleKey): \(error)")
                         self.updateCountOfFetchesInProcess()
                         self.didFailToFetchArticle(with: articleKey, error: error)
                     }
@@ -220,22 +220,22 @@ private extension SavedArticlesFetcher {
                     return
                 }
                 
-                articleCacheController.remove(groupKey: articleKey, itemCompletion: { (itemResult) in
+                articleCacheController.remove(groupKey: articleKey, individualCompletion: { (itemResult) in
                     switch itemResult {
                     case .success(let itemKey):
-                        print("🙈successfully removed \(itemKey)")
+                        DDLogDebug("🙈successfully removed \(itemKey)")
                     case .failure(let error):
-                        print("🙈failure in itemCompletion of \(articleKey): \(error)")
+                        DDLogDebug("🙈failure in itemCompletion of \(articleKey): \(error)")
                     }
                 }) { (groupResult) in
                     DispatchQueue.main.async {
                         switch groupResult {
                         case .success:
-                            print("🙈success in groupCompletion of \(articleKey)")
+                            DDLogDebug("🙈success in groupCompletion of \(articleKey)")
                             self.didRemoveArticle(with: articleKey)
                             self.updateCountOfFetchesInProcess()
                         case .failure:
-                            print("🙈failure in groupCompletion of \(articleKey)")
+                            DDLogDebug("🙈failure in groupCompletion of \(articleKey)")
                             break
                         }
                         updateAgain()
