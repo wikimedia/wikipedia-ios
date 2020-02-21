@@ -141,6 +141,17 @@ open class Fetcher: NSObject {
         return task
     }
     
+    @discardableResult public func performMobileAppsServicesGET<T: Decodable>(for urlRequest: URLRequest, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
+        
+        let key = UUID().uuidString
+        let task = session.jsonDecodableTask(with: urlRequest) { (result: T?, response: URLResponse?, error: Error?) in
+            completionHandler(result, response, error)
+            self.untrack(taskFor: key)
+        }
+        track(task: task, for: key)
+        return task
+    }
+    
     @objc(trackTask:forKey:)
     public func track(task: URLSessionTask?, for key: String) {
         guard let task = task else {

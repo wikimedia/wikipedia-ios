@@ -7,7 +7,16 @@ extension ArticleViewController {
         if let mediaList = mediaList {
             completion(.success(mediaList))
         }
-        fetcher.fetchMediaList(with: articleURL) { [weak self] (result, _) in
+        
+        let request: URLRequest
+        do {
+            request = try fetcher.mobileHTMLMediaListRequest(articleURL: articleURL)
+        } catch (let error) {
+            completion(.failure(error))
+            return
+        }
+        
+        fetcher.fetchMediaList(with: request) { [weak self] (result, _) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let mediaList):
