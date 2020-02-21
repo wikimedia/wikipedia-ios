@@ -127,6 +127,7 @@
 "article-languages-others" = "Jiné jazyky";
 "article-languages-yours" = "Vaše jazyky";
 "article-read-more-title" = "Číst dál";
+"article-reference-title" = "Zobrazit reference";
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládací prvky pro čtení motivů";
@@ -447,7 +448,6 @@
 "in-the-news-currently-trending" = "Aktuální trendy";
 "in-the-news-notification-read-now-action-title" = "Přečíst";
 "in-the-news-notification-save-for-later-action-title" = "Uložit na později";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "Sdílet…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedie";
@@ -559,6 +559,7 @@
 "page-history-user-edits" = "editace uživatelů";
 "page-issues" = "Nedostatky stránky";
 "page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";
+"page-last-edited-unknown" = "Editováno před nějakou dobou";
 "page-location" = "Zobrazit na mapě";
 "page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
@@ -797,6 +798,7 @@
 "table-of-contents-close-accessibility-hint" = "Zavřít";
 "table-of-contents-close-accessibility-label" = "Schovat obsah";
 "table-of-contents-heading" = "Obsah";
+"table-of-contents-hide-button-label" = "Skrýt tabulku s obsahem";
 "table-title-other" = "Další informace";
 "talk-page-add-discussion-accessibility-label" = "Přidat diskusi";
 "talk-page-discussion-accessibility-hint" = "Dvakrát poklepejte pro založení nového vlákna";

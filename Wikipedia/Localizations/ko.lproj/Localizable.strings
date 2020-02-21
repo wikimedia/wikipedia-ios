@@ -481,6 +481,12 @@
 "insert-media-media-settings-title" = "미디어 설정";
 "insert-media-title" = "미디어 추가";
 "insert-media-uploaded-image-title" = "업로드한 이미지";
+"intermediate-edits-count" = "{{PLURAL:$1|중간 판 $1개}}는 보이지 않습니다";
+"intermediate-edits-count-limited" = "$1개 이상의 중간 판은 보이지 않습니다";
+"intermediate-edits-editors-count" = "{{PLURAL:$2|$2명의}} {{PLURAL:$1|중간 판 $1개}}는 보이지 않습니다";
+"intermediate-edits-editors-count-limited" = "$2명 이상의 중간 판 $1개 이상은 보이지 않습니다";
+"intermediate-edits-editors-limited-count" = "$2명 이상의 {{PLURAL:$1|중간 판 $1개 이상}}은 보이지 않습니다";
+"intermediate-edits-limited-editors-count" = "{{PLURAL:$2|$2명}}의 중간 판 $1개는 보이지 않습니다";
 "languages-settings-title" = "언어";
 "languages-title" = "언어 변경";
 "languages-wikipedia" = "위키백과 언어";
