@@ -2,10 +2,10 @@
 import Foundation
 
 public final class ArticleCacheController: CacheController {
-    
-    #if DEBUG
-    override public func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping CacheController.ItemCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
-        super.add(url: url, groupKey: groupKey, itemKey: itemKey, bypassGroupDeduping: bypassGroupDeduping, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
+
+#if DEBUG
+    override public func add(url: URL, groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
+        super.add(url: url, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             self.dbWriter.fetchAndPrintEachItem()
@@ -13,33 +13,33 @@ public final class ArticleCacheController: CacheController {
         }
     }
     
-    public override func remove(groupKey: CacheController.GroupKey, itemCompletion: @escaping CacheController.ItemCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
-        super.remove(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
+    public override func remove(groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
+        super.remove(groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             self.dbWriter.fetchAndPrintEachItem()
             self.dbWriter.fetchAndPrintEachGroup()
         }
     }
-    #endif
+#endif
 
     enum CacheFromMigrationError: Error {
-        case noArticleFileWriter
+        case invalidDBWriterType
     }
     
     public func cacheFromMigration(desktopArticleURL: URL, itemKey: String? = nil, content: String, mimeType: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
         
-        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter,
-        let articleFileWriter = fileWriter as? ArticleCacheFileWriter else {
-            completionHandler(CacheFromMigrationError.noArticleFileWriter)
+        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
+            completionHandler(CacheFromMigrationError.invalidDBWriterType)
             return
         }
         
-        articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL, success: { itemKey in
+        articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL, success: { urlRequest in
             
-            articleFileWriter.migrateCachedContent(content: content, itemKey: itemKey, mimeType: mimeType, success: {
-                
-                articleDBWriter.migratedCacheItemFile(itemKey: itemKey, success: {
+            self.fileWriter.migrateCachedContent(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
+
+                articleDBWriter.migratedCacheItemFile(urlRequest: urlRequest, success: {
+
                     DDLogDebug("successfully migrated")
                     completionHandler(nil)
 

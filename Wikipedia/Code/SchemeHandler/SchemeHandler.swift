@@ -20,12 +20,6 @@ final class SchemeHandler: NSObject {
     
     private let cacheQueue: OperationQueue = OperationQueue()
     
-    private let notModifiedQueue = DispatchQueue(label: "org.wikimedia.schemeHandler.notModified")
-    private var notModifiedRequests = Set<URLRequest>()
-    
-    var cacheController: CacheController?
-    var forceCache: Bool = false
-    
     @objc public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
     
     required init(scheme: String, session: Session) {
@@ -57,7 +51,7 @@ extension SchemeHandler: WKURLSchemeHandler {
         
         guard
             let requestURL = components.url,
-            let request = cacheController?.newCachePolicyRequest(from: originalRequest as NSURLRequest, newURL: requestURL)
+            let request = urlRequestWithoutCustomScheme(from: originalRequest, newURL: requestURL)
         else {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
@@ -68,21 +62,6 @@ extension SchemeHandler: WKURLSchemeHandler {
         // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
         // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
         let op = BlockOperation { [weak urlSchemeTask] in
-            //forceCache will be true for ArticleViewControllers when coming from Navigation State Controller. In this case stale data is fine.
-            if self.forceCache,
-                let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                DispatchQueue.main.async {
-                    guard let urlSchemeTask = urlSchemeTask else {
-                        return
-                    }
-                    self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
-                    urlSchemeTask.didReceive(cachedResponse.response)
-                    urlSchemeTask.didReceive(cachedResponse.data)
-                    urlSchemeTask.didFinish()
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                }
-                return
-            }
             DispatchQueue.main.async {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
@@ -121,10 +100,58 @@ extension SchemeHandler: WKURLSchemeHandler {
 }
 
 private extension SchemeHandler {
+    
+    func urlRequestWithoutCustomScheme(from originalRequest: URLRequest, newURL: URL) -> URLRequest? {
+        guard let mutableRequest = (originalRequest as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
+            return nil
+        }
+        
+        mutableRequest.url = newURL
+        
+        var maybeRequest = mutableRequest.copy() as? URLRequest
+        
+        //reassign If-None-Match if needed. It seems like If-None-Match header gets lost between ArticleFetcher URLRequest creation and SchemeHandler.
+        if var request = maybeRequest,
+            let eTag = request.allHTTPHeaderFields?[Session.Header.persistentCacheETag],
+            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] == nil {
+            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] = eTag
+            maybeRequest = request
+        }
+        
+        //set persistent cache headers if they don't already exist
+        guard mutableRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] == nil else {
+            return maybeRequest
+        }
+
+        let headerProvider: CacheHeaderProviding
+        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+            headerProvider = ImageCacheHeaderProvider()
+        } else {
+            headerProvider = ArticleCacheHeaderProvider()
+        }
+        
+        if var request = maybeRequest {
+            
+            let header = headerProvider.requestHeader(urlRequest: request)
+            
+            for (key, value) in header {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+            
+            return request
+        }
+        
+        return maybeRequest
+    }
+    
+    func isMimeTypeImage(type: String) -> Bool {
+        return type.hasPrefix("image")
+    }
+    
     func kickOffDataTask(request: URLRequest, urlSchemeTask: WKURLSchemeTask) {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-            return
-        }
+             return
+         }
         
         // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by the callback blocks.
         // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
@@ -133,25 +160,14 @@ private extension SchemeHandler {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
-
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode != 200 {
-                        if httpResponse.statusCode == 304 {
-                            urlSchemeTask.didReceive(response)
-                            self.addNotModifiedRequest(request: request)
-                        } else {
-                            let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
-                            urlSchemeTask.didFailWithError(error)
-                            self.removeSessionTask(request: urlSchemeTask.request)
-                            self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                        }
-                    } else {
-                        urlSchemeTask.didReceive(response)
-                    }
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
+                    self.removeSessionTask(request: urlSchemeTask.request)
+                    urlSchemeTask.didFailWithError(error)
+                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 } else {
                     urlSchemeTask.didReceive(response)
                 }
@@ -169,21 +185,12 @@ private extension SchemeHandler {
             }
         }, success: { [weak urlSchemeTask] in
             DispatchQueue.main.async {
-            
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
                 }
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                
-                if self.isNotModified(request: request) {
-                    if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                        urlSchemeTask.didReceive(cachedResponse.data)
-                    }
-                    self.removeNotModifiedRequest(request: request)
-                }
-                
                 urlSchemeTask.didFinish()
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
@@ -197,25 +204,16 @@ private extension SchemeHandler {
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                    
-                if let cachedResponse = self.cacheController?.cachedURLResponse(for: request) {
-                
-                    urlSchemeTask.didReceive(cachedResponse.response)
-                    urlSchemeTask.didReceive(cachedResponse.data)
-                    
-                    urlSchemeTask.didFinish()
-                } else {
-                    urlSchemeTask.didFailWithError(error)
-                }
-            
                 self.removeSessionTask(request: urlSchemeTask.request)
+                urlSchemeTask.didFailWithError(error)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
             }
         }
         
-        let dataTask = session.dataTask(with: request, callback: callback)
-        addSessionTask(request: request, dataTask: dataTask)
-        dataTask.resume()
+        if let dataTask = session.dataTask(with: request, callback: callback) {
+            addSessionTask(request: request, dataTask: dataTask)
+            dataTask.resume()
+        }
     }
     
     func schemeTaskIsActive(urlSchemeTask: WKURLSchemeTask) -> Bool {
@@ -241,34 +239,5 @@ private extension SchemeHandler {
     func addSessionTask(request: URLRequest, dataTask: URLSessionTask) {
         assert(Thread.isMainThread)
         activeSessionTasks[request] = dataTask
-    }
-    
-    func addNotModifiedRequest(request: URLRequest) {
-        notModifiedQueue.async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            self.notModifiedRequests.insert(request)
-        }
-    }
-    
-    func removeNotModifiedRequest(request: URLRequest) {
-        notModifiedQueue.async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            self.notModifiedRequests.remove(request)
-        }
-    }
-    
-    func isNotModified(request: URLRequest) -> Bool {
-        notModifiedQueue.sync {
-            
-            return notModifiedRequests.contains(request)
-        }
     }
 }

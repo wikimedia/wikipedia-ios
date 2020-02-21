@@ -42,12 +42,16 @@ class ArticleViewController: ViewController {
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
 
     private var leadImageHeight: CGFloat = 210
+
+    internal var forceCache: Bool = false
+
     private var contentSizeObservation: NSKeyValueObservation? = nil
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
     }()
+
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
@@ -62,9 +66,11 @@ class ArticleViewController: ViewController {
         self.article = article
         
         self.dataStore = dataStore
+
         self.schemeHandler = SchemeHandler.shared
-        self.schemeHandler.forceCache = forceCache
-        self.schemeHandler.cacheController = cacheController
+        
+        self.forceCache = forceCache
+
         self.cacheController = cacheController
         
         super.init(theme: theme)
@@ -282,8 +288,9 @@ class ArticleViewController: ViewController {
         defer {
             callLoadCompletionIfNecessary()
         }
+        
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: forceCache, scheme: schemeHandler.scheme) else {
 
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
             return
@@ -622,7 +629,6 @@ class ArticleViewController: ViewController {
         dismissReferencesPopover()
     }
     
-    
     // MARK: Analytics
     
     internal lazy var editFunnel: EditFunnel = EditFunnel.shared
@@ -718,6 +724,7 @@ private extension ArticleViewController {
             case .success(let user):
                 self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
             case .failure(let error):
+                self.setupPageContentServiceJavaScriptInterface(with: [])
                 self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
             }
             completion()
