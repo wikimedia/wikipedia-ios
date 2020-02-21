@@ -81,10 +81,21 @@ extension ArticleViewController {
     }
     
     func showReferenceBackLinks(_ backLinks: [ReferenceBackLink], referenceId: String) {
-        let vc = ReferenceBackLinksViewController(backLinks: backLinks, delegate: self, theme: theme)
+        guard let vc = ReferenceBackLinksViewController(referenceId: referenceId, backLinks: backLinks, delegate: self, theme: theme) else {
+            showGenericError()
+            return
+        }
         addChild(vc)
         view.wmf_addSubviewWithConstraintsToEdges(vc.view)
         vc.didMove(toParent: self)
+    }
+    
+    func dismissReferenceBackLinksViewController() {
+        let vc = children.first { $0 is ReferenceBackLinksViewController }
+       vc?.willMove(toParent: nil)
+       vc?.view.removeFromSuperview()
+       vc?.removeFromParent()
+       messagingController.removeElementHighlights()
     }
 }
 
@@ -103,7 +114,8 @@ private extension ArticleViewController {
     }
 
     func adjustScrollForReferencePageViewController(_ referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, viewController: WMFReferencePageViewController, animated: Bool) {
-        let referenceRectInWindowCoordinates = webView.scrollView.convert(referenceRectInScrollCoordinates, to: nil)
+        let deltaY = webView.scrollView.contentOffset.y < 0 ? 0 - webView.scrollView.contentOffset.y : 0
+        let referenceRectInWindowCoordinates = webView.scrollView.convert(referenceRectInScrollCoordinates, to: nil).offsetBy(dx: 0, dy: deltaY)
         guard
             !referenceRectInWindowCoordinates.isEmpty,
             let firstPanel = viewController.firstPanelView()
@@ -112,8 +124,7 @@ private extension ArticleViewController {
         }
         let panelRectInWindowCoordinates = firstPanel.convert(firstPanel.bounds, to: nil)
         guard !isBoundingClientRectVisible(referencesBoundingClientRect) || referenceRectInWindowCoordinates.intersects(panelRectInWindowCoordinates) else {
-            let deltaY = webView.scrollView.contentOffset.y < 0 ? 0 - webView.scrollView.contentOffset.y : 0
-            viewController.backgroundView.clearRect = referenceRectInWindowCoordinates.offsetBy(dx: 0, dy: deltaY)
+            viewController.backgroundView.clearRect = referenceRectInWindowCoordinates
             return
         }
         
@@ -166,13 +177,15 @@ extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
 
 extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
     func referenceBackLinksViewControllerUserDidTapClose(_ referenceBackLinksViewController: ReferenceBackLinksViewController) {
-        let vc = children.first { $0 is ReferenceBackLinksViewController }
-        vc?.willMove(toParent: nil)
-        vc?.view.removeFromSuperview()
-        vc?.removeFromParent()
+       dismissReferenceBackLinksViewController()
     }
     
-    func referenceBackLinksViewControllerUserDidInteractWithHref(_ href: String, referenceBackLinksViewController: ReferenceBackLinksViewController) {
-        handleLink(with: href)
+    func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController) {
+        scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true)
+    }
+    
+    func referenceBackLinksViewControllerUserDidNavigateBackToReference(_ referenceBackLinksViewController: ReferenceBackLinksViewController) {
+        dismissReferenceBackLinksViewController()
+        scroll(to: referenceBackLinksViewController.referenceId, animated: true)
     }
 }

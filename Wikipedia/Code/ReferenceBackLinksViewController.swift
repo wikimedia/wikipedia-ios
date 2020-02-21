@@ -1,14 +1,21 @@
 protocol ReferenceBackLinksViewControllerDelegate: class {
     func referenceBackLinksViewControllerUserDidTapClose(_ referenceBackLinksViewController: ReferenceBackLinksViewController)
-    func referenceBackLinksViewControllerUserDidInteractWithHref(_ href: String, referenceBackLinksViewController: ReferenceBackLinksViewController)
+    func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController)
+    func referenceBackLinksViewControllerUserDidNavigateBackToReference(_ referenceBackLinksViewController: ReferenceBackLinksViewController)
 }
 
-class ReferenceBackLinksViewController: ColumnarCollectionViewController {
-    private static let cellReuseIdentifier = "org.wikimedia.references"
+class ReferenceBackLinksViewController: ViewController {
     weak var delegate: ReferenceBackLinksViewControllerDelegate?
     
+    var index = 0
     let backLinks: [ReferenceBackLink]
-    init(backLinks: [ReferenceBackLink], delegate: ReferenceBackLinksViewControllerDelegate?, theme: Theme) {
+    let referenceId: String
+    
+    init?(referenceId: String, backLinks: [ReferenceBackLink], delegate: ReferenceBackLinksViewControllerDelegate?, theme: Theme) {
+        guard backLinks.count > 0 else {
+            return nil
+        }
+        self.referenceId = referenceId
         self.backLinks = backLinks
         self.delegate = delegate
         super.init(theme: theme)
@@ -19,92 +26,130 @@ class ReferenceBackLinksViewController: ColumnarCollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        layoutManager.register(HTMLCollectionViewCell.self, forCellWithReuseIdentifier: ReferenceBackLinksViewController.cellReuseIdentifier, addPlaceholder: true)
-        
+    // MARK: Setup
+    
+    var referenceLinkTitle: String {
+        guard let referenceNumberString = referenceId.split(separator: "-").last else {
+            return ""
+        }
+       return "[" + referenceNumberString + "]"
+    }
+    
+    lazy var nextButton = UIBarButtonItem(image:UIImage(named: "directionDown"), style: .plain, target: self, action: #selector(goToNextReference))
+    lazy var previousButton = UIBarButtonItem(image:UIImage(named: "directionUp"), style: .plain, target: self, action: #selector(goToPreviousReference))
+    lazy var countLabel = UILabel()
+    lazy var countContainer: UIView = {
+        let view = UIView()
+        view.wmf_addSubviewWithConstraintsToEdges(countLabel)
+        return view
+    }()
+    lazy var countItem = UIBarButtonItem(customView: countContainer)
+    lazy var backToReferenceButton = UIBarButtonItem(title: WMFLocalizedString("reference-back-links-back-to-reference", value: "Back to reference", comment: "Takes the user back to the reference"), style: .plain, target: self, action: #selector(goBackToReference))
+    
+    func setupToolbar() {
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        var items = [backToReferenceButton, flexibleSpace, countItem]
+        if backLinks.count > 1 {
+            let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            fixedSpace.width = 16
+            items.append(contentsOf: [fixedSpace, previousButton, nextButton])
+        }
+        toolbar.items = items
+        enableToolbar()
+        setToolbarHidden(false, animated: false)
+    }
+    
+    func setupNavbar() {
+        navigationItem.title = referenceLinkTitle
         let xButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonPressed))
         navigationItem.leftBarButtonItem = xButton
         apply(theme: self.theme)
+    }
+    
+    func setupTapGestureRecognizer() {
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(closeButtonPressed))
+        view.addGestureRecognizer(tapGR)
+    }
+    
+    let topGradientView = WMFGradientView()
+    let bottomGradientView = WMFGradientView()
+
+    func setupGradientViews() {
+        topGradientView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(topGradientView)
+        let top = topGradientView.topAnchor.constraint(equalTo: view.topAnchor)
+        let leading = topGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = topGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let height = topGradientView.heightAnchor.constraint(equalToConstant: 150)
+        NSLayoutConstraint.activate([top, leading, trailing, height])
+        
+        bottomGradientView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bottomGradientView)
+        let bottom = bottomGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bLeading = bottomGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let bTrailing = bottomGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let bHeight = bottomGradientView.heightAnchor.constraint(equalToConstant: 150)
+        NSLayoutConstraint.activate([bottom, bLeading, bTrailing, bHeight])
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        countLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    // MARK: View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupGradientViews()
+        setupNavbar()
+        setupToolbar()
+        setupTapGestureRecognizer()
+        notifyDelegateOfNavigationToReference()
+    }
+    
+    // MARK: Actions
+
+    func notifyDelegateOfNavigationToReference() {
+//        if index == 0 {
+//            nextButton.isEnabled = true
+//            previousButton.isEnabled = false
+//        } else if index == backLinks.count - 1 {
+//            nextButton.isEnabled = false
+//            previousButton.isEnabled = true
+//        } else {
+//            nextButton.isEnabled = true
+//            previousButton.isEnabled = true
+//        }
+        countLabel.text = "\(index + 1)/\(backLinks.count)"
+        let backLink = backLinks[index]
+        delegate?.referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: backLink, referenceBackLinksViewController: self)
+    }
+    
+    @objc func goToNextReference() {
+        if index >= backLinks.count - 1 {
+            index = 0
+        } else {
+            index += 1
+        }
+        notifyDelegateOfNavigationToReference()
+    }
+    
+    @objc func goToPreviousReference() {
+        if index <= 0 {
+            index = backLinks.count - 1
+        } else {
+            index -= 1
+        }
+        notifyDelegateOfNavigationToReference()
     }
     
     @objc func closeButtonPressed() {
         delegate?.referenceBackLinksViewControllerUserDidTapClose(self)
     }
     
-    func getBackLink(at indexPath: IndexPath) -> ReferenceBackLink? {
-        guard indexPath.item < backLinks.count else {
-            return nil
-        }
-        return backLinks[indexPath.item]
-    }
-    
-    // MARK: - Collection View Data Source
-    
-    private func configure(cell: HTMLCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.apply(theme: theme)
-        cell.layoutMargins = layout.itemLayoutMargins
-        guard let backLink = getBackLink(at: indexPath) else {
-            cell.html = nil
-            return
-        }
-        print(backLink.html)
-        cell.html = backLink.html
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let maybeCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReferenceBackLinksViewController.cellReuseIdentifier, for: indexPath)
-        guard let cell = maybeCell as? HTMLCollectionViewCell else {
-            return maybeCell
-        }
-        configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
-        cell.delegate = self
-        return cell
-    }
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return backLinks.count
-    }
-    
-    //     override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
-    //        return .sections
-    //    }
-    
-    //     override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
-    //        header.style = .history
-    //        header.title = referenceList(at: sectionIndex)?.heading.html.removingHTML
-    //        header.apply(theme: theme)
-    //        header.layoutMargins = layout.itemLayoutMargins
-    //    }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let reuseIdentifier = ReferenceBackLinksViewController.cellReuseIdentifier
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
-        guard
-            let referenceKey = getBackLink(at: indexPath)?.id,
-            let placeholder = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? HTMLCollectionViewCell
-            else {
-                return estimate
-        }
-        if let cached = layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: referenceKey) {
-            estimate.height = cached
-            estimate.precalculated = true
-            return estimate
-        }
-        configure(cell: placeholder, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, userInfo: referenceKey)
-        return estimate
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+    @objc func goBackToReference() {
+        delegate?.referenceBackLinksViewControllerUserDidNavigateBackToReference(self)
     }
     
     // MARK: Theme
@@ -113,13 +158,9 @@ class ReferenceBackLinksViewController: ColumnarCollectionViewController {
         guard viewIfLoaded != nil else {
             return
         }
-        collectionView.backgroundColor = .clear
-        view.backgroundColor = theme.colors.overlayBackground
-    }
-}
-
-extension ReferenceBackLinksViewController: HTMLCollectionViewCellDelegate {
-    func collectionViewCell(_ cell: HTMLCollectionViewCell, didTapLinkWith url: URL) {
-        delegate?.referenceBackLinksViewControllerUserDidInteractWithHref(url.absoluteString, referenceBackLinksViewController: self)
+        topGradientView.setStart(theme.colors.overlayBackground, end: .clear)
+        bottomGradientView.setStart(.clear, end: theme.colors.overlayBackground)
+        countLabel.textColor = theme.colors.secondaryText
+        view.backgroundColor = .clear
     }
 }

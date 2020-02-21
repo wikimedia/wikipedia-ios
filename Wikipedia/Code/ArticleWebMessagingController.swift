@@ -110,6 +110,32 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript(js)
     }
     
+    func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<CGRect, Error>) -> Void) {
+        guard let webView = webView else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        webView.evaluateJavaScript("pcs.c1.Page.prepareForScrollToAnchor(`\(anchor.sanitizedForJavaScriptTemplateLiterals)`, \(highlight ? "true" : "false"))") { (result, error) in
+            guard
+                let dictionary = result as? [String: Any],
+                let x = dictionary["x"] as? CGFloat,
+                let y = dictionary["y"] as? CGFloat,
+                let width = dictionary["width"] as? CGFloat,
+                let height = dictionary["height"] as? CGFloat,
+                width > 0,
+                height > 0
+                else {
+                    completion(.failure(RequestError.invalidParameters))
+                    return
+            }
+            let scrollRect = CGRect(x: x + webView.scrollView.contentOffset.x + x, y: webView.scrollView.contentOffset.y + y, width: width, height: height)
+            completion(.success(scrollRect))
+        }
+    }
+    
+    func removeElementHighlights() {
+        webView?.evaluateJavaScript("pcs.c1.Page.removeHighlightsFromHighlightedElements()")
+    }
     
     // MARK: iOS App Specific overrides (code in www/, built products in assets/)
     
@@ -121,20 +147,13 @@ class ArticleWebMessagingController: NSObject {
 
 struct ReferenceBackLink {
     let id: String
-    let html: String
-    let sectionId: Int?
-    let sectionTitleHTML: String?
     init?(scriptMessageDict: [String: Any]) {
         guard
-            let html = scriptMessageDict["html"] as? String,
             let id = scriptMessageDict["id"] as? String
         else {
             return nil
         }
-        self.html = html
         self.id = id
-        self.sectionId = scriptMessageDict["sectionId"] as? Int
-        self.sectionTitleHTML = scriptMessageDict["sectionTitleHTML"] as? String
     }
 }
 

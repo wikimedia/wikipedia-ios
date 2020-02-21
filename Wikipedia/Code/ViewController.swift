@@ -369,7 +369,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     }
 
     lazy var toolbar: UIToolbar = {
-        let tb = UIToolbar()
+        let tb = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: 44, height: 44)))
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()

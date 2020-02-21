@@ -537,20 +537,23 @@ class ArticleViewController: ViewController {
         return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
     }
     
-    func scroll(to anchor: String, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
+    func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
             completion?()
             return
         }
-        webView.getScrollRectForHtmlElement(withId: anchor) { (rect) in
+        
+        messagingController.prepareForScroll(to: anchor, highlight: highlighted) { (result) in
             assert(Thread.isMainThread)
-            guard !rect.isNull else {
+            switch result {
+            case .failure(let error):
+                self.showError(error)
                 completion?()
-                return
+            case .success(let rect):
+                let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
+                self.scroll(to: point, centered: centered, animated: animated, completion: completion)
             }
-            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
-            self.scroll(to: point, centered: centered, animated: animated, completion: completion)
         }
     }
     

@@ -1218,10 +1218,6 @@
 		83DAA9B123FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
 		83DAA9B223FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
 		83DAA9B323FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
-		83DAA9B523FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9B423FEB9A5002D5716 /* HTMLCollectionViewCell.swift */; };
-		83DAA9B623FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9B423FEB9A5002D5716 /* HTMLCollectionViewCell.swift */; };
-		83DAA9B723FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9B423FEB9A5002D5716 /* HTMLCollectionViewCell.swift */; };
-		83DAA9B823FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9B423FEB9A5002D5716 /* HTMLCollectionViewCell.swift */; };
 		83DB0A5723EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */; };
 		83DB0A5923EEDE2D00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
 		83DB0A5A23EEDE2D00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
@@ -3619,7 +3615,6 @@
 		83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummaryFetcher.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
-		83DAA9B423FEB9A5002D5716 /* HTMLCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLCollectionViewCell.swift; sourceTree = "<group>"; };
 		83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileviewToMobileHTMLConverter.swift; sourceTree = "<group>"; };
 		83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyArticle.swift; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
@@ -5917,7 +5912,6 @@
 				83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */,
 				67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */,
 				83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */,
-				83DAA9B423FEB9A5002D5716 /* HTMLCollectionViewCell.swift */,
 				B0DE92301D6E3A2000EC76A7 /* UIBarButtonItem Popover Message */,
 			);
 			name = Article;
@@ -10022,7 +10016,6 @@
 				D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
 				B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */,
-				83DAA9B523FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */,
 				7ABE17352239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
 				D837CC37231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
@@ -11048,7 +11041,6 @@
 				7AB7DECB227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D8A42B6E1E815A9C00D8E281 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				7A16C4E9212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
-				83DAA9B823FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */,
 				83F1096723D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */,
 				7AF49F83204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				D8A42B701E815A9C00D8E281 /* NSAttributedString+WMFModify.m in Sources */,
@@ -11498,7 +11490,6 @@
 				830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D8CE25EC1E698E2400DAE2E0 /* WMFImageGalleryViewController.m in Sources */,
-				83DAA9B623FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */,
 				7AF0265722985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DAEDA423CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */,
 				7AB7DEC9227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
@@ -11940,7 +11931,6 @@
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0F9299C1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
-				83DAA9B723FEB9A5002D5716 /* HTMLCollectionViewCell.swift in Sources */,
 				7AF0265822985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DAEDA523CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */,
 				7AB7DECA227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
