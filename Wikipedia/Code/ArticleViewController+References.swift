@@ -112,7 +112,8 @@ private extension ArticleViewController {
         }
         let panelRectInWindowCoordinates = firstPanel.convert(firstPanel.bounds, to: nil)
         guard !isBoundingClientRectVisible(referencesBoundingClientRect) || referenceRectInWindowCoordinates.intersects(panelRectInWindowCoordinates) else {
-            viewController.backgroundView.clearRect = referenceRectInWindowCoordinates
+            let deltaY = webView.scrollView.contentOffset.y < 0 ? 0 - webView.scrollView.contentOffset.y : 0
+            viewController.backgroundView.clearRect = referenceRectInWindowCoordinates.offsetBy(dx: 0, dy: deltaY)
             return
         }
         
