@@ -412,6 +412,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFPOTDImageGalleryViewController ()
 
 @property (nonatomic, strong) MWKImageInfoFetcher *infoFetcher;
+@property (nonatomic, strong) ImageFetcher *imageFetcher;
 
 @end
 
@@ -425,6 +426,7 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithPhotos:photos initialPhoto:nil delegate:nil theme:theme overlayViewTopBarHidden:overlayViewTopBarHidden];
     if (self) {
         self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
+        self.imageFetcher = [[ImageFetcher alloc] init];
     }
 
     return self;
@@ -481,14 +483,30 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     UIImage *memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
-        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage bestImageURL]
-            failure:^(NSError *_Nonnull error) {
+        
+        if (![galleryImage bestImageURL]) {
+            return;
+        }
+        
+        NSURL *imageURL = [galleryImage bestImageURL];
+        
+        NSURLRequest *imageURLRequest = [self.imageFetcher requestFor:imageURL forceCache:NO];
+        
+        [self.imageFetcher dataFor:imageURLRequest completion:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (error) {
                 //show error
+                return;
             }
-            success:^(WMFImageDownload *_Nonnull download) {
-                @strongify(self);
-                [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
-            }];
+            
+            if (data) {
+                UIImage *image = [[UIImage alloc] initWithData:data];
+                WMFImage *wmfImage = [[WMFImage alloc] initWithStaticImage:image animatedImage:nil];
+                [[WMFImageController sharedInstance] addToMemoryCache:wmfImage url:imageURL];
+                
+                 @strongify(self);
+                 [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
+            }
+        }];
     } else {
         [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
     }

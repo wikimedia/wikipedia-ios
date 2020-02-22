@@ -105,7 +105,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 
                 //tonitodo: imageInfo itemKeys are getting wacky. Need to build urlRequest method into imageInfoFetcher instead. ImageInfoFetcher should have it's own ImageInfoCacheHeaderProvider and ImageInfoCacheKeyGenerator that does something along the lines of url.absoluteString.precomposedStringWithCanonicalMapping for itemKey. not sure if it can vary by language yet.
                 for imageInfoURL in imageInfoURLs {
-                    let urlRequest = self.articleFetcher.urlRequest(from: imageInfoURL, forceCache: false)
+                    let urlRequest = self.imageInfoFetcher.urlRequestFor(from: imageInfoURL, forceCache: false)
                     imageInfoURLRequests.append(urlRequest)
                 }
                 

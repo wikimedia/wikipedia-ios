@@ -53,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles fromSiteURL: (NSURL *)siteURL;
 
+- (nonnull NSURLRequest *)urlRequestForFromURL: (NSURL *)url forceCache: (BOOL)forceCache;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -10,6 +10,7 @@ import Foundation
         public enum ItemType: String {
             case image = "Image"
             case article = "Article"
+            case imageInfo = "ImageInfo"
         }
     }
     public struct Request {
@@ -661,6 +662,8 @@ extension SessionDelegate {
                 cacheKeyGenerator = ImageCacheKeyGenerator.self
             case Session.Header.ItemType.article:
                 cacheKeyGenerator = ArticleCacheKeyGenerator.self
+            case Session.Header.ItemType.imageInfo:
+                cacheKeyGenerator = ImageInfoCacheKeyGenerator.self
         }
         
         //2. else try pulling from Persistent Cache

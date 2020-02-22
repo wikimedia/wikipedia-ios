@@ -1,7 +1,7 @@
 
 import Foundation
 
-@objc public class ArticleCacheHeaderProvider: NSObject, CacheHeaderProviding {
+public class ArticleCacheHeaderProvider: NSObject, CacheHeaderProviding {
     
     private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
     
@@ -9,7 +9,7 @@ import Foundation
         
     }
     
-    @objc public func requestHeader(urlRequest: URLRequest) -> [String: String] {
+    public func requestHeader(urlRequest: URLRequest) -> [String: String] {
         
         var header: [String: String] = [:]
         

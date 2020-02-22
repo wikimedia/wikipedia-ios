@@ -23,7 +23,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
 
 @interface MWKImageInfoFetcher ()
 
-@property (nonatomic, strong) ArticleCacheHeaderProvider *cacheHeaderProvider;
+@property (nonatomic, strong) ImageInfoCacheHeaderProvider *cacheHeaderProvider;
 
 @end
 
@@ -32,7 +32,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.cacheHeaderProvider = [[ArticleCacheHeaderProvider alloc] init];
+        self.cacheHeaderProvider = [[ImageInfoCacheHeaderProvider alloc] init];
     }
     return self;
 }
@@ -220,21 +220,8 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     return [params copy];
 }
 
-- (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray *)titles
-                                  fromSiteURL:(NSURL *)siteURL
-                               thumbnailWidth:(NSNumber *)thumbnailWidth
-                              extmetadataKeys:(NSArray<NSString *> *)extMetadataKeys
-                             metadataLanguage:(nullable NSString *)metadataLanguage
-                                 useGenerator:(BOOL)useGenerator
-                                      success:(void (^)(NSArray *))success
-                                      failure:(void (^)(NSError *))failure {
-    NSParameterAssert([titles count]);
-    NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
-    NSParameterAssert(siteURL);
-
-    NSDictionary *params = [self queryParametersForTitles:titles fromSiteURL:siteURL thumbnailWidth:thumbnailWidth extmetadataKeys:extMetadataKeys metadataLanguage:metadataLanguage useGenerator:useGenerator];
+- (nonnull NSURLRequest *)urlRequestForFromURL: (NSURL *)url forceCache: (BOOL)forceCache {
     
-    NSURL *url = [self.fetcher.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params].URL;
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
     NSLog(@"👏%@", [urlRequest URL]);
     NSDictionary *headers = [self.cacheHeaderProvider requestHeaderWithUrlRequest:urlRequest];
@@ -251,8 +238,28 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     }
     
     NSURLRequest *finalRequest = [mutableRequest copy];
+    return finalRequest;
+}
+
+- (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray *)titles
+                                  fromSiteURL:(NSURL *)siteURL
+                               thumbnailWidth:(NSNumber *)thumbnailWidth
+                              extmetadataKeys:(NSArray<NSString *> *)extMetadataKeys
+                             metadataLanguage:(nullable NSString *)metadataLanguage
+                                 useGenerator:(BOOL)useGenerator
+                                      success:(void (^)(NSArray *))success
+                                      failure:(void (^)(NSError *))failure {
+    NSParameterAssert([titles count]);
+    NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
+    NSParameterAssert(siteURL);
+
+    NSDictionary *params = [self queryParametersForTitles:titles fromSiteURL:siteURL thumbnailWidth:thumbnailWidth extmetadataKeys:extMetadataKeys metadataLanguage:metadataLanguage useGenerator:useGenerator];
     
-    return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURLRequest:finalRequest
+    NSURL *url = [self.fetcher.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params].URL;
+    
+    NSURLRequest *urlRequest = [self urlRequestForFromURL:url forceCache:NO];
+    
+    return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURLRequest:urlRequest
                                                             completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                                                          if (error) {
                                                              failure(error);
