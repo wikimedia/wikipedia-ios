@@ -50,13 +50,14 @@ public final class CacheControllerWrapper: NSObject {
         }
         
         let articleFetcher = ArticleFetcher()
+        let imageInfoFetcher = MWKImageInfoFetcher()
         
         guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
             let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: ArticleCacheKeyGenerator.self) else {
             return nil
         }
         
-        let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController)
+        let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
         
         self.cacheController = ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
         

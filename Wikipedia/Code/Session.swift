@@ -440,12 +440,33 @@ import Foundation
     }
     
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-        return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
-            self.handleResponse(response, reattemptLoginOn401Response: reattemptLoginOn401Response)
+        
+        let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
+            
+            if let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
+                
+                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request),
+                    let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
+                    completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
+                    return
+                }
+            }
+            
+            if let _ = error {
+                
+                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request),
+                    let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
+                    completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
+                    return
+                }
+            }
+            
             guard let data = data else {
                 completionHandler(nil, response as? HTTPURLResponse, error)
                 return
             }
+            
             do {
                 guard !data.isEmpty, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
                     completionHandler(nil, response as? HTTPURLResponse, nil)
@@ -456,6 +477,11 @@ import Foundation
                 DDLogError("Error parsing JSON: \(error)")
                 completionHandler(nil, response as? HTTPURLResponse, error)
             }
+        }
+        
+        return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
+            self.handleResponse(response, reattemptLoginOn401Response: reattemptLoginOn401Response)
+            cachedCompletion(data, response, error)
         })
     }
     
@@ -482,6 +508,39 @@ import Foundation
         task.resume()
         return task
     }
+    
+    @objc(getJSONDictionaryFromURLRequest:completionHandler:)
+    @discardableResult public func getJSONDictionary(from urlRequest: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+
+        let task = jsonDictionaryTask(with: urlRequest, completionHandler: completionHandler)
+        task.resume()
+        return task
+    }
+    
+    /*
+     let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
+         
+         if let httpResponse = response as? HTTPURLResponse,
+             httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
+             
+             if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                 completionHandler(cachedResponse.data, cachedResponse.response, nil)
+                 return
+             }
+         }
+         
+         if let _ = error {
+             
+             if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                 completionHandler(cachedResponse.data, cachedResponse.response, nil)
+                 return
+             }
+         }
+         
+         completionHandler(data, response, error)
+         
+     }
+     */
     
     @objc(postFormEncodedBodyParametersToURL:bodyParameters:reattemptLoginOn401Response:completionHandler:)
     @discardableResult public func postFormEncodedBodyParametersToURL(to url: URL?, bodyParameters: [String: String]? = nil, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {

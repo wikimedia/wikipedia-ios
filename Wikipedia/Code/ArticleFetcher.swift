@@ -28,23 +28,87 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         case references = "references"
     }
     
-    @discardableResult func fetchResourceList(with request: URLRequest, endpointType: EndpointType, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        
-        guard endpointType == .mediaList || endpointType == .mobileHtmlOfflineResources else {
-            completion(.failure(ArticleFetcherError.invalidEndpointType))
-            return nil
+    struct MediaListItem {
+        let imageURL: URL
+        let imageTitle: String
+    }
+    
+    @discardableResult func fetchMediaListURLs(with request: URLRequest, completion: @escaping (Result<[MediaListItem], Error>) -> Void) -> URLSessionTask? {
+        return fetchMediaList(with: request) { (result, response) in
+            if let statusCode = response?.statusCode,
+               statusCode == 404 {
+               completion(.failure(ArticleFetcherError.doesNotExist))
+               return
+            }
+            
+            struct SourceAndTitle {
+                let source: MediaListItemSource
+                let title: String?
+            }
+            
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let mediaList):
+                
+                var sourceAndTitles: [SourceAndTitle] = []
+                for item in mediaList.items {
+                    
+                    guard let sources = item.sources else {
+                        continue
+                    }
+                    
+                    for source in sources {
+                        sourceAndTitles.append(SourceAndTitle(source: source, title: item.title))
+                    }
+                }
+                
+                let result = sourceAndTitles.map { (sourceAndTitle) -> MediaListItem? in
+                    let scheme = request.url?.scheme ?? "https"
+                    let finalString = "\(scheme):\(sourceAndTitle.source.urlString)"
+                    
+                    guard let title = sourceAndTitle.title,
+                        let url = URL(string: finalString) else {
+                            return nil
+                    }
+                    
+                    return MediaListItem(imageURL: url, imageTitle: title)
+                    
+                }.compactMap{ $0 }
+                
+                completion(.success(result))
+            }
         }
-        
-        switch endpointType {
-        case .mediaList:
-            return fetchMediaListURLs(with: request, completion: completion)
-        case .mobileHtmlOfflineResources:
-            return fetchOfflineResourceURLs(with: request, completion: completion)
-        default:
-            break
-        }
-        
-        return nil
+    }
+    
+    @discardableResult func fetchOfflineResourceURLs(with request: URLRequest, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
+        return performPageContentServiceGET(with: request, endpointType: .mobileHtmlOfflineResources, completion: { (result: Result<[String]?, Error>, response) in
+            if let statusCode = response?.statusCode,
+                statusCode == 404 {
+                completion(.failure(ArticleFetcherError.doesNotExist))
+                return
+            }
+            
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let urlStrings):
+                
+                guard let urlStrings = urlStrings else {
+                    completion(.failure(ArticleFetcherError.missingData))
+                    return
+                }
+                
+                let result = urlStrings.map { (urlString) -> URL? in
+                    let scheme = request.url?.scheme ?? "https"
+                    let finalString = "\(scheme):\(urlString)"
+                    return URL(string: finalString)
+                }.compactMap{ $0 }
+                
+                completion(.success(result))
+            }
+            
+        })
     }
     
     @discardableResult public func fetchMediaList(with request: URLRequest, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
@@ -142,36 +206,6 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
 
 private extension ArticleFetcher {
     
-    func fetchOfflineResourceURLs(with request: URLRequest, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        return performPageContentServiceGET(with: request, endpointType: .mobileHtmlOfflineResources, completion: { (result: Result<[String]?, Error>, response) in
-            if let statusCode = response?.statusCode,
-                statusCode == 404 {
-                completion(.failure(ArticleFetcherError.doesNotExist))
-                return
-            }
-            
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success(let urlStrings):
-                
-                guard let urlStrings = urlStrings else {
-                    completion(.failure(ArticleFetcherError.missingData))
-                    return
-                }
-                
-                let result = urlStrings.map { (urlString) -> URL? in
-                    let scheme = request.url?.scheme ?? "https"
-                    let finalString = "\(scheme):\(urlString)"
-                    return URL(string: finalString)
-                }.compactMap{ $0 }
-                
-                completion(.success(result))
-            }
-            
-        })
-    }
-    
     @discardableResult func performPageContentServiceGET<T: Decodable>(with request: URLRequest, endpointType: EndpointType, completion: @escaping (Result<T, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
         
         return performMobileAppsServicesGET(for: request) { (result: T?, response, error) in
@@ -182,31 +216,5 @@ private extension ArticleFetcher {
             completion(.success(result), response as? HTTPURLResponse)
         }
     }
-    
-    @discardableResult func fetchMediaListURLs(with request: URLRequest, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        return fetchMediaList(with: request) { (result, response) in
-            if let statusCode = response?.statusCode,
-               statusCode == 404 {
-               completion(.failure(ArticleFetcherError.doesNotExist))
-               return
-            }
-            
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success(let mediaList):
-                let sources = mediaList.items.flatMap { (item) -> [MediaListItemSource] in
-                    return item.sources ?? []
-                }
-                
-                let result = sources.map { (source) -> URL? in
-                    let scheme = request.url?.scheme ?? "https"
-                    let finalString = "\(scheme):\(source.urlString)"
-                    return URL(string: finalString)
-                }.compactMap{ $0 }
-                
-                completion(.success(result))
-            }
-        }
-    }
+
 }

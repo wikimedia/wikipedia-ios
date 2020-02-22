@@ -165,6 +165,9 @@
 		6779D45323F6EC2D002840CA /* CacheFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45223F6EC2D002840CA /* CacheFetching.swift */; };
 		6779D45623FC4DF0002840CA /* PersistentCacheItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45423FC4DF0002840CA /* PersistentCacheItem+CoreDataClass.swift */; };
 		6779D45723FC4DF0002840CA /* PersistentCacheItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45523FC4DF0002840CA /* PersistentCacheItem+CoreDataProperties.swift */; };
+		6779D45924007AF0002840CA /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
+		6779D45A2400822B002840CA /* MWKImageInfoFetcher.h in Sources */ = {isa = PBXBuildFile; fileRef = B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */; };
+		6779D45D24008654002840CA /* MWKImageInfoFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6780D5B4237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B5237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B6237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
@@ -1593,7 +1596,6 @@
 		B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
-		B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
 		B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		B0E806951C0CEA7B0065EBC0 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806931C0CEA7B0065EBC0 /* AboutViewController.m */; };
 		B0E806961C0CEA7B0065EBC0 /* AboutViewController.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0E806941C0CEA7B0065EBC0 /* AboutViewController.plist */; };
@@ -2118,7 +2120,6 @@
 		D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8A42AB41E815A9C00D8E281 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
 		D8A42AB61E815A9C00D8E281 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
-		D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
 		D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */; };
 		D8A42AC01E815A9C00D8E281 /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */; };
 		D8A42AC41E815A9C00D8E281 /* TableOfContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8036C1C0CD98B0065EBC0 /* TableOfContentsViewController.swift */; };
@@ -2371,7 +2372,6 @@
 		D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
-		D8CE25401E698E2400DAE2E0 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
 		D8CE25411E698E2400DAE2E0 /* WMFScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */; };
 		D8CE25471E698E2400DAE2E0 /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */; };
 		D8CE254B1E698E2400DAE2E0 /* TableOfContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8036C1C0CD98B0065EBC0 /* TableOfContentsViewController.swift */; };
@@ -2632,7 +2632,6 @@
 		D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
-		D8EC3E371E9BDA35006712EB /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
 		D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */; };
 		D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */; };
 		D8EC3E421E9BDA35006712EB /* TableOfContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8036C1C0CD98B0065EBC0 /* TableOfContentsViewController.swift */; };
@@ -5985,6 +5984,8 @@
 		67F9AE5423AD7FF1003D4F5E /* MobileHTML Article Cache */ = {
 			isa = PBXGroup;
 			children = (
+				B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */,
+				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
 				67F9AE4A23AD4266003D4F5E /* ArticleURLConverter.swift */,
 				678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */,
 				676A8A8223A4013D0084B967 /* ArticleFetcher.swift */,
@@ -7107,7 +7108,6 @@
 		BC628C791B389E2B00B3F85C /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				BCD67E831C1F163C005179E1 /* Image Info */,
 				BCA15B111C0E9B1600D0A3EA /* Gallery */,
 			);
 			name = Images;
@@ -7402,23 +7402,6 @@
 				B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */,
 			);
 			name = "Event Logging";
-			sourceTree = "<group>";
-		};
-		BCD67E831C1F163C005179E1 /* Image Info */ = {
-			isa = PBXGroup;
-			children = (
-				BCD67E851C1F169B005179E1 /* Fetcher */,
-			);
-			name = "Image Info";
-			sourceTree = "<group>";
-		};
-		BCD67E851C1F169B005179E1 /* Fetcher */ = {
-			isa = PBXGroup;
-			children = (
-				B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */,
-				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
-			);
-			name = Fetcher;
 			sourceTree = "<group>";
 		};
 		BCD67E871C1F17D4005179E1 /* Face Detection */ = {
@@ -8398,6 +8381,7 @@
 				D89D440A1D74D4DB00F7862E /* NSDictionary+WMFCommonParams.h in Headers */,
 				D89F51111D6CC9BD008018E1 /* WMFNetworkUtilities.h in Headers */,
 				D844482A1DDB632100425630 /* WMFArticle+CoreDataProperties.h in Headers */,
+				6779D45D24008654002840CA /* MWKImageInfoFetcher.h in Headers */,
 				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
 				83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */,
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
@@ -10043,7 +10027,6 @@
 				7AE1FE3121B4A9790068BE9F /* TextFormattingButtonView.swift in Sources */,
 				671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */,
 				D80ED25C1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
-				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
 				B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */,
 				B0B423681EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				83B01F7723DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
@@ -10342,6 +10325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6779D45A2400822B002840CA /* MWKImageInfoFetcher.h in Sources */,
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
@@ -10545,6 +10529,7 @@
 				67A6F13823BFB75300736539 /* ImageCacheDBWriter.swift in Sources */,
 				D8FA18F41E1BDA35009675C3 /* UIImage+WMFNormalization.m in Sources */,
 				D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */,
+				6779D45924007AF0002840CA /* MWKImageInfoFetcher.m in Sources */,
 				831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */,
 				7A0F2589217221D10028871B /* RepeatingTimer.swift in Sources */,
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
@@ -10838,7 +10823,6 @@
 				D8A42AB61E815A9C00D8E281 /* RoundedCornerView.swift in Sources */,
 				7AE1FE3421B4A9790068BE9F /* TextFormattingButtonView.swift in Sources */,
 				83E52BC21F682E3E0045E776 /* LicenseView.swift in Sources */,
-				D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */,
 				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
 				7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				83B01F7A23DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
@@ -11270,7 +11254,6 @@
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				672428982362113900490629 /* DiffFetcher.swift in Sources */,
 				D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
-				D8CE25401E698E2400DAE2E0 /* MWKImageInfoFetcher.m in Sources */,
 				D8CE25411E698E2400DAE2E0 /* WMFScrollViewController.swift in Sources */,
 				7A7AC84721B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
 				7AFEB3F61FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
@@ -11713,7 +11696,6 @@
 				D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				8382F8CF20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				7A7AC84821B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
-				D8EC3E371E9BDA35006712EB /* MWKImageInfoFetcher.m in Sources */,
 				D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				83E52BC11F682E3E0045E776 /* LicenseView.swift in Sources */,
@@ -13750,6 +13732,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = AppsLabsMobileHTML;

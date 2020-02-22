@@ -1,15 +1,15 @@
 
 import Foundation
 
-public class ArticleCacheHeaderProvider: CacheHeaderProviding {
+@objc public class ArticleCacheHeaderProvider: NSObject, CacheHeaderProviding {
     
     private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
     
-    public init() {
+    public override init() {
         
     }
     
-    public func requestHeader(urlRequest: URLRequest) -> [String: String] {
+    @objc public func requestHeader(urlRequest: URLRequest) -> [String: String] {
         
         var header: [String: String] = [:]
         

@@ -30,7 +30,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
         // Otherwise fetch it and cache it
         imageInfoFetcher.fetchGalleryInfo(forImageFiles: [title], fromSiteURL: articleURL, success: { (info) in
             DispatchQueue.main.async {
-                guard let info = info?.first as? MWKImageInfo else {
+                guard let info = info.first as? MWKImageInfo else {
                     completion(.failure(RequestError.unexpectedResponse))
                     return
                 }
@@ -39,7 +39,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             }
         }) { (error) in
             DispatchQueue.main.async {
-                completion(.failure(error ?? RequestError.unexpectedResponse))
+                completion(.failure(error))
             }
         }
     }
