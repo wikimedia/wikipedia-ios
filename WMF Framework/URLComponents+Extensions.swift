@@ -13,7 +13,7 @@ extension URLComponents {
     public static func percentEncodedQueryStringFrom(_ queryParameters: [String: Any]) -> String {
         var query = ""
         
-        //sort query parameters by key, this allows for consistency when itemKeys are generated for the caching system.
+        //sort query parameters by key, this allows for consistency when itemKeys are generated for the persistent cache.
         struct KeyValue {
             let key: String
             let value: Any

@@ -96,7 +96,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 var imageInfoURLs: [URL] = []
                 let dedupedTitles = Set(imageTitles)
                 
-                //we also want to add imageInfoFetcher's urls for deduped titles
+                //add imageInfoFetcher's urls for deduped titles (for captions/licensing info in gallery)
                 for title in dedupedTitles {
                     if let imageInfoURL = self.imageInfoFetcher.galleryInfoURL(forImageTitles: [title], fromSiteURL: url) {
                         imageInfoURLs.append(imageInfoURL)
@@ -108,6 +108,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                     imageInfoURLRequests.append(urlRequest)
                 }
                 
+                //add image urls
                 self.imageController.add(urls: imageURLs, groupKey: groupKey, individualCompletion: { (result) in
                     //tonitodo: don't think we need this. if not make it optional
                 }) { (result) in

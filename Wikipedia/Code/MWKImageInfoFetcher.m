@@ -223,9 +223,7 @@ metadataLanguage:(nullable NSString *)metadataLanguage
 - (nonnull NSURLRequest *)urlRequestForFromURL: (NSURL *)url forceCache: (BOOL)forceCache {
     
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
-    NSLog(@"👏%@", [urlRequest URL]);
     NSDictionary *headers = [self.cacheHeaderProvider requestHeaderWithUrlRequest:urlRequest];
-    NSLog(@"👏%@", headers);
     NSMutableURLRequest *mutableRequest = [urlRequest mutableCopy];
     
     for (NSString *key in headers) {

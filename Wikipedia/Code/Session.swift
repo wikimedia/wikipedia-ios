@@ -518,31 +518,6 @@ import Foundation
         return task
     }
     
-    /*
-     let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
-         
-         if let httpResponse = response as? HTTPURLResponse,
-             httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
-             
-             if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
-                 completionHandler(cachedResponse.data, cachedResponse.response, nil)
-                 return
-             }
-         }
-         
-         if let _ = error {
-             
-             if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
-                 completionHandler(cachedResponse.data, cachedResponse.response, nil)
-                 return
-             }
-         }
-         
-         completionHandler(data, response, error)
-         
-     }
-     */
-    
     @objc(postFormEncodedBodyParametersToURL:bodyParameters:reattemptLoginOn401Response:completionHandler:)
     @discardableResult public func postFormEncodedBodyParametersToURL(to url: URL?, bodyParameters: [String: String]? = nil, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard let url = url else {
