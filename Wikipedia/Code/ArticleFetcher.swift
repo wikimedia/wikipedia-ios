@@ -34,7 +34,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     @discardableResult func fetchMediaListURLs(with request: URLRequest, completion: @escaping (Result<[MediaListItem], Error>) -> Void) -> URLSessionTask? {
-        return fetchMediaList(with: request) { (result, response) in
+          return fetchMediaList(with: request) { (result, response) in
             if let statusCode = response?.statusCode,
                statusCode == 404 {
                completion(.failure(ArticleFetcherError.doesNotExist))
