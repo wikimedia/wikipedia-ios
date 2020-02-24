@@ -15,6 +15,7 @@
 // Author: JoeWalshWMF
 // Author: Krottyianock
 // Author: Macofe
+// Author: Matma Rex
 // Author: Mazab IZW
 // Author: Nemo bis
 // Author: Nharateh
@@ -448,8 +449,7 @@
 "in-the-news-currently-trending" = "Obecnie na topie";
 "in-the-news-notification-read-now-action-title" = "Przeczytaj teraz";
 "in-the-news-notification-save-for-later-action-title" = "Zapisz na później";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Udostępnij...";
+"in-the-news-notification-share-action-title" = "Udostępnij…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "in-the-news-title" = "W wiadomościach";
