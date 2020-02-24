@@ -22,6 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
     return self.wmf_imageURL;
 }
 
+- (void)wmf_setImageWithUIImage:(UIImage *)image imageURL:(NSURL *)imageURL detectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    [self wmf_cancelImageDownload];
+    self.wmf_imageURL = imageURL;
+    [self wmf_setImage:image animatedImage:nil detectFaces:detectFaces onGPU:onGPU animated:false failure:failure success:success];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,11 +1,11 @@
 
 import Foundation
 
-final class ImageFetcher: Fetcher, CacheFetching {
+public final class ImageFetcher: Fetcher, CacheFetching {
     
     private let cacheHeaderProvider: CacheHeaderProviding = ImageCacheHeaderProvider()
     
-    func request(for url: URL, forceCache: Bool = false) -> URLRequest {
+    public func request(for url: URL, forceCache: Bool = false) -> URLRequest {
 
         var request = URLRequest(url: url)
         let header = cacheHeaderProvider.requestHeader(urlRequest: request)
