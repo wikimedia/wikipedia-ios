@@ -32,6 +32,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable, readonly) NSURL *wmf_imageURLToFetch;
 
+/**
+*  Use to detect faces if you have already fetched image data by other means.
+ 
+@param image - UIImage to set.
+ @param imageURL - url that is only used for task tracking internally and cancelling. Image data is pulled from image, not fetched with imageURL.
+*/
+- (void)wmf_setImageWithUIImage:(UIImage *)image
+        imageURL:(NSURL *)imageURL
+        detectFaces:(BOOL)detectFaces
+        onGPU:(BOOL)onGPU
+        failure:(WMFErrorHandler)failure
+             success:(WMFSuccessHandler)success;
+
 @end
 
 NS_ASSUME_NONNULL_END
