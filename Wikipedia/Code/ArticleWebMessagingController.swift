@@ -110,12 +110,50 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript(js)
     }
     
+    func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<CGRect, Error>) -> Void) {
+        guard let webView = webView else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        webView.evaluateJavaScript("pcs.c1.Page.prepareForScrollToAnchor(`\(anchor.sanitizedForJavaScriptTemplateLiterals)`, \(highlight ? "true" : "false"))") { (result, error) in
+            guard
+                let dictionary = result as? [String: Any],
+                let x = dictionary["x"] as? CGFloat,
+                let y = dictionary["y"] as? CGFloat,
+                let width = dictionary["width"] as? CGFloat,
+                let height = dictionary["height"] as? CGFloat,
+                width > 0,
+                height > 0
+                else {
+                    completion(.failure(RequestError.invalidParameters))
+                    return
+            }
+            let scrollRect = CGRect(x: x + webView.scrollView.contentOffset.x + x, y: webView.scrollView.contentOffset.y + y, width: width, height: height)
+            completion(.success(scrollRect))
+        }
+    }
+    
+    func removeElementHighlights() {
+        webView?.evaluateJavaScript("pcs.c1.Page.removeHighlightsFromHighlightedElements()")
+    }
     
     // MARK: iOS App Specific overrides (code in www/, built products in assets/)
     
     func removeSearchTermHighlights() {
         let js = "window.wmf.findInPage.removeSearchTermHighlights()"
         webView?.evaluateJavaScript(js)
+    }
+}
+
+struct ReferenceBackLink {
+    let id: String
+    init?(scriptMessageDict: [String: Any]) {
+        guard
+            let id = scriptMessageDict["id"] as? String
+        else {
+            return nil
+        }
+        self.id = id
     }
 }
 
@@ -127,7 +165,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
-        case backLink(selectedIndex: Int, group: [WMFLegacyReference])
+        case backLink(referenceId: String, backLinks: [ReferenceBackLink])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -269,11 +307,11 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getBackLinkAction(with data: [String: Any]?) -> Action? {
-            guard let selectedIndex = data?["selectedIndex"] as? Int, let groupArray = data?["referencesGroup"] as? [[String: Any]]  else {
+            guard let referenceId = data?["referenceId"] as? String, let backLinkDictionaries = data?["backLinks"] as? [[String: Any]]  else {
                 return nil
             }
-            let group = groupArray.compactMap { WMFLegacyReference(scriptMessageDict: $0) }
-            return .backLink(selectedIndex: selectedIndex, group: group)
+            let backLinks = backLinkDictionaries.compactMap { ReferenceBackLink(scriptMessageDict: $0) }
+            return .backLink(referenceId: referenceId, backLinks: backLinks)
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {
