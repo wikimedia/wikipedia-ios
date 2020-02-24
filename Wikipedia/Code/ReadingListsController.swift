@@ -609,6 +609,7 @@ public typealias ReadingListsController = WMFReadingListsController
         do {
             let moc = dataStore.viewContext
             try article.addToDefaultReadingList()
+            article.isSaved = true
             if moc.hasChanges {
                 try moc.save()
             }
@@ -624,6 +625,7 @@ public typealias ReadingListsController = WMFReadingListsController
         do {
             let moc = dataStore.viewContext
             unsave([article], in: moc)
+            article.isSaved = false
             if moc.hasChanges {
                 try moc.save()
             }
@@ -750,7 +752,7 @@ public extension NSManagedObjectContext {
     @discardableResult func fetchOrCreateDefaultReadingList() -> ReadingList? {
         var defaultList = defaultReadingList
         if defaultList == nil { // failsafe
-            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
+            defaultList = wmf_fetchOrCreate(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
             defaultList?.isDefault = true
             do {
                 try save()
