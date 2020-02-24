@@ -20,15 +20,12 @@
 
 #import "WMFChange.h"
 
-#import "MWKImageInfoFetcher.h"
-
 #import "WikiTextSectionUploader.h"
 #import "WMFShareFunnel.h"
 #import "WMFLanguagesViewControllerDelegate.h"
 
 // Model
 #import "MWKLicense.h"
-#import "MWKImageInfoFetcher.h"
 #import "WMFArticleRevisionFetcher.h"
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"

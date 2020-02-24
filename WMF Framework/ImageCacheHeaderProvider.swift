@@ -3,7 +3,7 @@ import Foundation
 
 public class ImageCacheHeaderProvider: CacheHeaderProviding {
     
-    private let cacheKeyGenerator: CacheKeyGenerating.Type = ImageCacheKeyGenerator.self
+    public let cacheKeyGenerator: CacheKeyGenerating.Type = ImageCacheKeyGenerator.self
     
     public init() {
         

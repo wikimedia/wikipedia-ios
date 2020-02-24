@@ -1,7 +1,7 @@
 
 import Foundation
 
-protocol CacheKeyGenerating: class {
+public protocol CacheKeyGenerating: class {
     static func itemKeyForURL(_ url: URL) -> String?
     static func variantForURL(_ url: URL) -> String?
     static func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String

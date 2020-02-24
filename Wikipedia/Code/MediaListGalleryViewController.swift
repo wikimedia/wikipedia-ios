@@ -1,6 +1,7 @@
 class MediaListGalleryViewController: WMFImageGalleryViewController {
     let imageController: ImageController = ImageController.shared
     let imageInfoFetcher = MWKImageInfoFetcher()
+    let imageFetcher = ImageFetcher()
     let articleURL: URL
     required init(articleURL: URL, mediaList: MediaList, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
         self.articleURL = articleURL
@@ -30,7 +31,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
         // Otherwise fetch it and cache it
         imageInfoFetcher.fetchGalleryInfo(forImageFiles: [title], fromSiteURL: articleURL, success: { (info) in
             DispatchQueue.main.async {
-                guard let info = info?.first as? MWKImageInfo else {
+                guard let info = info.first as? MWKImageInfo else {
                     completion(.failure(RequestError.unexpectedResponse))
                     return
                 }
@@ -39,7 +40,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             }
         }) { (error) in
             DispatchQueue.main.async {
-                completion(.failure(error ?? RequestError.unexpectedResponse))
+                completion(.failure(error))
             }
         }
     }
@@ -75,14 +76,21 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             self.wmf_showAlertWithError(RequestError.unexpectedResponse as NSError)
             return
         }
-        imageController.fetchImage(withURL: imageURL, failure: { (error) in
-            DispatchQueue.main.async {
-                self.wmf_showAlertWithError(error as NSError)
-            }
-        }) { [weak self] (download) in
-            DispatchQueue.main.async {
-                photo.image = download.image.staticImage
-                self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
+        
+        let urlRequest = imageFetcher.request(for: imageURL, forceCache: false)
+        
+        imageFetcher.data(for: urlRequest) { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    let image = UIImage(data: data)
+                    photo.image = image
+                    self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.wmf_showAlertWithError(error as NSError)
+                }
             }
         }
     }
