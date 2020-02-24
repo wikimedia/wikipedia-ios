@@ -112,11 +112,13 @@
 "description-help-tips-example-title-two" = "पृथ्वीको सबैभन्दा अग्लो हिमाल";
 "description-help-tips-for-example" = "उदाहरणका लागि";
 "description-published-button-title" = "भयो";
+"description-published-subtitle" = "तपाईले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
 "description-welcome-start-editing-button" = "सम्पादन शुरुवात गर्नुहोस्";
 "diff-compare-header-from-info-heading" = "देखि:";
 "diff-context-lines-collapsed-button-title" = "देखाउनुहोस्";
 "diff-context-lines-expanded-button-title" = "लुकाउनुहोस्";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 बाइट हटाइयाे|$1 बाइटहरू हटाइयाे}}";
+"edit-published-subtitle" = "तपाईले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
 "edit-style-table-view-title" = "शैली";
 "edit-summary-add-summary-text" = "सम्पादन साशंस थप्नुहोस्";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";

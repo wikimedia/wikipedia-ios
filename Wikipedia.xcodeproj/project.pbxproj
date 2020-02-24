@@ -3562,6 +3562,8 @@
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
 		833D4FFA20A9E20800B44E7C /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageTopic+Extensions.swift"; sourceTree = "<group>"; };
+		834C269B24042DBF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		834C269C24042DCF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hr; path = hr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		834CC34A21075B7600F62818 /* UITabBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Theme.swift"; sourceTree = "<group>"; };
 		8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationAuthorizationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -8987,6 +8989,7 @@
 				fil,
 				ga,
 				sl,
+				hr,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -12331,6 +12334,7 @@
 				D85C145A1F388582002186A5 /* kab */,
 				8361AEC621949665006B00B0 /* ga */,
 				83CF71432326D47E009DEC00 /* sl */,
+				834C269B24042DBF00245BE7 /* hr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12439,6 +12443,7 @@
 				D8FFF6942031CB4000A028E0 /* tcy */,
 				8361AEC721949670006B00B0 /* ga */,
 				83CF71442326D48A009DEC00 /* sl */,
+				834C269C24042DCF00245BE7 /* hr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
