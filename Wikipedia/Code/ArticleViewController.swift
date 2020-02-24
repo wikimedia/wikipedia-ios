@@ -656,6 +656,7 @@ class ArticleViewController: ViewController {
     
     internal lazy var editFunnel: EditFunnel = EditFunnel.shared
     internal lazy var shareFunnel: WMFShareFunnel? = WMFShareFunnel(article: article)
+    internal lazy var savedPagesFunnel: SavedPagesFunnel = SavedPagesFunnel()
     internal lazy var readingListsFunnel = ReadingListsFunnel.shared
 }
 
