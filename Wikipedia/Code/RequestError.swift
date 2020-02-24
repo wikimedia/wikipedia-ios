@@ -2,6 +2,7 @@ public enum RequestError: Int, LocalizedError {
     case unknown
     case invalidParameters
     case unexpectedResponse
+    case notModified
     case noNewData
     case timeout = 504
     

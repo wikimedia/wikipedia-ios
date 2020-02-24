@@ -55,7 +55,13 @@ final class CacheFileWriter: CacheTaskTracking {
             }
             
             if let error = error {
-                completion(.failure(error))
+                switch error as? RequestError {
+                case .notModified:
+                    completion(.success)
+                default:
+                    DDLogError("Error downloading data for offline: \(error)\n\(String(describing: response))")
+                    completion(.failure(error))
+                }
                 return
             }
             
