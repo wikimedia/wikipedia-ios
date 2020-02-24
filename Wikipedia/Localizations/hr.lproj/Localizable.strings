@@ -29,7 +29,7 @@
 "abuse-filter-warning-repeat" = "Ponavljajući znakovi";
 "abuse-filter-warning-spam" = "Dodavanje neželjenog sadržaja u članke";
 "abuse-filter-warning-subheading" = "Vaše uređivanje možda sadrži:";
-"account-creation-captcha-cannot-see-image" = "Ne vidite sliku? %1";
+"account-creation-captcha-cannot-see-image" = "Ne vidite sliku? $1";
 "account-creation-captcha-obtaining" = "Dobavljanje novog CAPTCHA kôda...";
 "account-creation-captcha-request-account" = "Zatražite račun.";
 "account-creation-captcha-title" = "Sigurnosna provjera pomoću servisa CAPTCHA";
