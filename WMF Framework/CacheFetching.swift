@@ -1,16 +1,18 @@
 
 import Foundation
 
-protocol CacheFetching {
+public protocol CacheFetching {
     typealias TemporaryFileURL = URL
     typealias MIMEType = String
     typealias DownloadCompletion = (Error?, URLRequest?, URLResponse?, TemporaryFileURL?, MIMEType?) -> Void
+    typealias DataCompletion = (Result<Data, Error>) -> Void
     
     func downloadData(urlRequest: URLRequest, completion: @escaping DownloadCompletion) -> URLSessionTask?
+    func data(for urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask?
 }
 
 extension CacheFetching where Self:Fetcher {
-    func downloadData(urlRequest: URLRequest, completion: @escaping CacheFetching.DownloadCompletion) -> URLSessionTask? {
+    public func downloadData(urlRequest: URLRequest, completion: @escaping CacheFetching.DownloadCompletion) -> URLSessionTask? {
         let task = session.downloadTask(with: urlRequest) { fileURL, response, error in
             self.handleDownloadTaskCompletion(urlRequest: urlRequest, fileURL: fileURL, response: response, error: error, completion: completion)
         }
@@ -33,5 +35,21 @@ extension CacheFetching where Self:Fetcher {
             return
         }
         completion(nil, urlRequest, response, fileURL, unwrappedResponse.mimeType)
+    }
+    
+    @discardableResult public func data(for urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask? {
+        let task = session.dataTask(with: urlRequest) { (data, urlResponse, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let data = data {
+                completion(.success(data))
+            }
+        }
+        
+        task?.resume()
+        return task
     }
 }
