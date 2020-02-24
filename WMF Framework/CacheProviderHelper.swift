@@ -55,7 +55,7 @@ final class CacheProviderHelper {
 
                 return lhsSize < rhsSize
             }
-        case .article:
+        case .article, .imageInfo:
             //allVariantItems.sort { (lhs, rhs) -> Bool in
 
                 //tonitodo: sort based on NSLocale language preferences?

@@ -27,11 +27,15 @@ extension CacheFetching where Self:Fetcher {
             return
         }
         guard let unwrappedResponse = response else {
-            completion(Fetcher.unexpectedResponseError, urlRequest, response, nil, nil)
+            completion(RequestError.unexpectedResponse, urlRequest, response, nil, nil)
             return
         }
         if let httpResponse = unwrappedResponse as? HTTPURLResponse, httpResponse.statusCode != 200 {
-            completion(Fetcher.unexpectedResponseError, urlRequest, response, nil, nil)
+            if httpResponse.statusCode == 304 {
+                completion(RequestError.notModified, urlRequest, response, nil, nil)
+            } else {
+                completion(RequestError.unexpectedResponse, urlRequest, response, nil, nil)
+            }
             return
         }
         completion(nil, urlRequest, response, fileURL, unwrappedResponse.mimeType)
