@@ -609,7 +609,6 @@ public typealias ReadingListsController = WMFReadingListsController
         do {
             let moc = dataStore.viewContext
             try article.addToDefaultReadingList()
-            article.isSaved = true
             if moc.hasChanges {
                 try moc.save()
             }
@@ -625,7 +624,6 @@ public typealias ReadingListsController = WMFReadingListsController
         do {
             let moc = dataStore.viewContext
             unsave([article], in: moc)
-            article.isSaved = false
             if moc.hasChanges {
                 try moc.save()
             }
