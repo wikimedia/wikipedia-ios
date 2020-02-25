@@ -92,7 +92,7 @@ extension CacheDBWriting {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheGroup))
                 return
             }
-            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+            guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
                 return
             }
@@ -164,7 +164,7 @@ extension CacheDBWriting {
         }
         
         context.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheItem>(entityName: "PersistentCacheItem")
+            let fetchRequest = NSFetchRequest<CacheItem>(entityName: "CacheItem")
             do {
                 let fetchedResults = try context.fetch(fetchRequest)
                 if fetchedResults.count == 0 {
@@ -188,7 +188,7 @@ extension CacheDBWriting {
         }
         
         context.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheGroup>(entityName: "PersistentCacheGroup")
+            let fetchRequest = NSFetchRequest<CacheGroup>(entityName: "CacheGroup")
             do {
                 let fetchedResults = try context.fetch(fetchRequest)
                 if fetchedResults.count == 0 {

@@ -9,7 +9,7 @@ enum CacheControllerError: Error {
 public class CacheController {
     
     static let cacheURL: URL = {
-        var url = FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        var url = FileManager.default.wmf_containerURL().appendingPathComponent("Cache", isDirectory: true)
         
         var values = URLResourceValues()
         values.isExcludedFromBackup = true
@@ -30,14 +30,14 @@ public class CacheController {
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
         //create ManagedObjectModel based on Cache.momd
-        guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
+        guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
         }
                 
         //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("PersistentCache.sqlite", isDirectory: false)
+        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
         let options = [

@@ -36,7 +36,7 @@ open class ImageController : NSObject {
         let session = Session.urlSession
         let cache = URLCache.shared
         let fileManager = FileManager.default
-        var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Image Cache", isDirectory: true)
+        var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Cache", isDirectory: true)
         var didGetDirectoryExistsError = false
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
@@ -677,7 +677,7 @@ open class ImageController : NSObject {
         config.urlCache = cache
         let session = URLSession(configuration: config)
         let fileManager = FileManager.default
-        let permanentStorageDirectory = imageControllerDirectory.appendingPathComponent("Permanent Image Cache", isDirectory: true)
+        let permanentStorageDirectory = imageControllerDirectory.appendingPathComponent("Cache", isDirectory: true)
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch let error {

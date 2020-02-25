@@ -158,7 +158,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
                 return false
             }
-            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+            guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
                 return false
             }
             for item in cacheItems {

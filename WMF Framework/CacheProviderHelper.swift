@@ -73,7 +73,7 @@ final class CacheProviderHelper {
                 return response
             }
             
-            //then see if PersistentCache has the fallback
+            //then see if persistent cache has the fallback
             return persistedCacheResponse(url: url, itemKey: fallbackItemKey, variant: fallbackVariant, cacheKeyGenerator: cacheKeyGenerator)
         }
         
