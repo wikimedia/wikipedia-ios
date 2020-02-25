@@ -538,7 +538,6 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [], autoreleaseFrequency: .workItem, target: nil) // needs to be serial according the docs for NSURLSession
     let delegateQueue: OperationQueue
     var callbacks: [Int: Session.Callback] = [:]
-    private let cacheManagedObjectContext = CacheController.backgroundCacheContext //tonitodo: This is not very flexible
     
     override init() {
         delegateQueue = OperationQueue()
@@ -645,7 +644,7 @@ extension SessionDelegate {
         if let persistedCachedResponse = CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: cacheKeyGenerator) {
             return persistedCachedResponse
         //3. else try pulling a fallback from Persistent Cache
-        } else if let moc = cacheManagedObjectContext,
+        } else if let moc = CacheController.backgroundCacheContext,
             let fallbackCachedResponse = CacheProviderHelper.fallbackCacheResponse(url: url, itemKey: itemKey, variant: variant, itemType: itemType, cacheKeyGenerator: cacheKeyGenerator, moc: moc) {
             return fallbackCachedResponse
         }

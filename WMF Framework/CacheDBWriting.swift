@@ -171,7 +171,7 @@ extension CacheDBWriting {
                      DDLogDebug("🌹noItems")
                 } else {
                     for item in fetchedResults {
-                        DDLogDebug("🌹itemKey: \(item.value(forKey: "key")!), variant:  \(item.value(forKey: "variant") ?? "nil"), itemURL: \(item.value(forKey: "url")!)")
+                        DDLogDebug("🌹itemKey: \(item.value(forKey: "key")!), variant:  \(item.value(forKey: "variant") ?? "nil"), itemURL: \(item.value(forKey: "url") ?? "nil")")
                     }
                 }
             } catch let error as NSError {

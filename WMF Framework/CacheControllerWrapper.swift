@@ -45,7 +45,7 @@ public final class CacheControllerWrapper: NSObject {
     @objc init?(articleCacheWithImageCacheControllerWrapper imageCacheWrapper: CacheControllerWrapper) {
         
         guard let imageCacheController = imageCacheWrapper.cacheController as? ImageCacheController else {
-            //assertionFailure("Expecting imageCacheWrapper.cacheController to be of type ImageCacheController")
+            assertionFailure("Expecting imageCacheWrapper.cacheController to be of type ImageCacheController")
             return nil
         }
         

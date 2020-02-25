@@ -10,6 +10,6 @@ public class ArticleCacheHeaderProvider: CacheHeaderProviding {
     }
     
     public func requestHeader(urlRequest: URLRequest) -> [String : String] {
-        return requestHeaderWithETag(urlRequest: urlRequest)
+        return requestHeaderWithETag(urlRequest: urlRequest, itemType: .article)
     }
 }

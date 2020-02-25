@@ -106,8 +106,6 @@ static uint64_t bundleHash() {
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
-        self.imageCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithType:WMFCacheControllerTypeImage];
-        self.articleCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithArticleCacheWithImageCacheControllerWrapper:self.imageCacheControllerWrapper];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
@@ -459,6 +457,12 @@ static uint64_t bundleHash() {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
         }
+        
+        [self moveImageControllerCacheFolderWithError:&migrationError];
+        if (migrationError) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
     }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
@@ -549,6 +553,15 @@ static uint64_t bundleHash() {
         [userDefaults setObject:value forKey:key];
         [wmfDefaults removeObjectForKey:value];
     }
+}
+
+- (void)moveImageControllerCacheFolderWithError: (NSError **)error {
+    
+    NSURL *legacyDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Image Cache" isDirectory:YES];
+    NSURL *newDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Cache" isDirectory:YES];
+    
+    //move legacy image cache to new non-image path name
+    [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
 }
 
 - (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
@@ -648,6 +661,11 @@ static uint64_t bundleHash() {
             return;
         }
     }
+}
+
+- (void)setupCacheControllers {
+    self.imageCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithType:WMFCacheControllerTypeImage];
+    self.articleCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithArticleCacheWithImageCacheControllerWrapper:self.imageCacheControllerWrapper];
 }
 
 #pragma mark - Memory

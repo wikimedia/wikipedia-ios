@@ -125,6 +125,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (NSError *)removeFolderAtBasePath;
 
+// instantiates internal articleCacheController and imageCacheController. Needs to occur after library migration is complete.
+- (void)setupCacheControllers;
+
 @end
 
 NS_ASSUME_NONNULL_END

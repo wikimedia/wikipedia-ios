@@ -13,8 +13,14 @@ final class CacheProviderHelper {
         let responseFileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
         let responseHeaderFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
         
-        guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path),
-            let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
+        guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path) else {
+            return nil
+        }
+        
+        guard let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
+            if let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil) {
+                return CachedURLResponse(response: httpResponse, data: responseData)
+            }
             return nil
         }
         
