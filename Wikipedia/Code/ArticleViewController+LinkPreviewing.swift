@@ -70,7 +70,6 @@ extension ArticleViewController {
             let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
             UIAccessibility.post(notification: .announcement, argument: notification)
             vc.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: vc, didSave: isSaved, articleURL: vc.articleURL)
-            
         }
         let logReadingListsSaveIfNeeded = { [weak self] in
             guard let delegate = self?.articlePreviewingDelegate as? EventLoggingEventValuesProviding else {
@@ -136,7 +135,6 @@ extension ArticleViewController {
         }
     }
 }
-
 
 extension ArticleViewController: WKUIDelegate {
     // MARK: Context menus
