@@ -15,6 +15,7 @@ extension ArticleViewController {
         switch destination {
         case .article(let articleURL):
             let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+            articleVC?.articlePreviewingDelegate = self
             articleVC?.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
             return articleVC
         default:
