@@ -696,6 +696,7 @@ extension WMFArticle {
         }
         
         guard let defaultReadingList = moc.defaultReadingList else {
+            assert(false, "Default reading list should exist")
             return
         }
         
