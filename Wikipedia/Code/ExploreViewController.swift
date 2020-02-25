@@ -46,6 +46,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         imageScaleTransitionView = nil
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
+        
+        let imageController = ImageController.shared
+        
+        imageController.fetchAndPrintEachItem()
+        imageController.fetchAndPrintEachGroup()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {

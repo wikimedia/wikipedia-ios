@@ -351,6 +351,10 @@
 		67D3C454228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */; };
 		67D3C455228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */; };
 		67D3C456228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */; };
+		67D6C00A240581ED005709B1 /* CacheItemMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */; };
+		67D6C00C24058714005709B1 /* CacheItemMappingModel.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */; };
+		67D6C01C2405A4FB005709B1 /* CacheItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */; };
+		67D6C01D2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */; };
 		67DAEDA123CD1BC9003AA208 /* CacheGatekeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */; };
 		67DAEDA323CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
 		67DAEDA423CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
@@ -2331,8 +2335,6 @@
 		D8CC94DA217897FB007293E7 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */; };
 		D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */; };
-		D8CD97681E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */; };
-		D8CD976B1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */; };
 		D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE211D1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE211E1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -3338,6 +3340,11 @@
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
 		67CEF26E2351113000D5CA6C /* DiffController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffController.swift; sourceTree = "<group>"; };
 		67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeView.swift; sourceTree = "<group>"; };
+		67D6C008240581B2005709B1 /* Cache 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cache 2.xcdatamodel"; sourceTree = "<group>"; };
+		67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheItemMigrationPolicy.swift; sourceTree = "<group>"; };
+		67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = CacheItemMappingModel.xcmappingmodel; sourceTree = "<group>"; };
+		67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CacheItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CacheItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheGatekeeper.swift; sourceTree = "<group>"; };
 		67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcher.swift; sourceTree = "<group>"; };
 		67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
@@ -4589,8 +4596,6 @@
 		D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
-		D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CacheItem+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CacheItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Wikipedia Alpha-Info.plist"; path = "Wikipedia/Wikipedia Alpha-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -5893,6 +5898,13 @@
 				67A6C2E423F2F5650071FA23 /* ImageCacheHeaderProvider.swift */,
 			);
 			name = ImageCache;
+			sourceTree = "<group>";
+		};
+		67D6C0152405A3E2005709B1 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		67DB110822613EF700F789B0 /* SchemeHandler */ = {
@@ -7451,6 +7463,7 @@
 				D8B589A621CD05070027083A /* codemirror-config */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
+				67D6C0152405A3E2005709B1 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -8112,8 +8125,10 @@
 				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
 				D8D3650D1E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift */,
 				D8D3650E1E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift */,
-				D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */,
-				D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */,
+				67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */,
+				67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */,
+				67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */,
+				67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */,
 			);
 			name = OldCache;
 			sourceTree = "<group>";
@@ -10353,6 +10368,7 @@
 				67A6C2E523F2F5650071FA23 /* ImageCacheHeaderProvider.swift in Sources */,
 				8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
+				67D6C00C24058714005709B1 /* CacheItemMappingModel.xcmappingmodel in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
 				B0016CBF2136105900FA1096 /* SetupButton.swift in Sources */,
@@ -10394,6 +10410,7 @@
 				D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */,
 				D8EBD1BA1FBB16F700AA7DA9 /* Dictionary+JSON.swift in Sources */,
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
+				67D6C01C2405A4FB005709B1 /* CacheItem+CoreDataClass.swift in Sources */,
 				7A630F71217A400200FC93FC /* Array+Chunked.swift in Sources */,
 				67A6C2E123F2F4890071FA23 /* CacheHeaderProviding.swift in Sources */,
 				67F9AE4923AD2F38003D4F5E /* Array+SafeIndex.swift in Sources */,
@@ -10477,6 +10494,7 @@
 				7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */,
 				6779D45323F6EC2D002840CA /* CacheFetching.swift in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
+				67D6C01D2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift in Sources */,
 				D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */,
 				8359BAC721E4C9C1009B5E6C /* Fetcher.swift in Sources */,
 				0E728D211DAEE2B50074EB4B /* WMFFeedImage.m in Sources */,
@@ -10569,8 +10587,8 @@
 				D844D99D1D6CB61B0042D692 /* NSString+WMFExtras.m in Sources */,
 				6779D45623FC4DF0002840CA /* PersistentCacheItem+CoreDataClass.swift in Sources */,
 				D837B5B21F0D68B800DCB9CD /* URL+LinkParsing.swift in Sources */,
-				D8CD976B1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift in Sources */,
 				67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */,
+				67D6C00A240581ED005709B1 /* CacheItemMigrationPolicy.swift in Sources */,
 				D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */,
 				D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */,
 				830177FA1FBF3E490005681C /* ReadingListsAPIController.swift in Sources */,
@@ -10643,7 +10661,6 @@
 				D82972951E4361C60061550A /* WMFKeyValue+CoreDataProperties.m in Sources */,
 				D8C41DDB23FC09EE00353DCE /* NSManagedObjectContext+History.swift in Sources */,
 				67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */,
-				D8CD97681E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift in Sources */,
 				D84C363B1F32422D00895FA1 /* OnThisDayTimelineView.swift in Sources */,
 				835A042D223AD63000D4D758 /* ArticleSummaryController.swift in Sources */,
 				D844D9B81D6CB7980042D692 /* MWKRecentSearchEntry.m in Sources */,
@@ -22349,9 +22366,10 @@
 		D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				67D6C008240581B2005709B1 /* Cache 2.xcdatamodel */,
 				D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */,
 			);
-			currentVersion = D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */;
+			currentVersion = 67D6C008240581B2005709B1 /* Cache 2.xcdatamodel */;
 			path = Cache.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

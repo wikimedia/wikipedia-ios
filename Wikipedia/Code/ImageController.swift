@@ -185,6 +185,8 @@ open class ImageController : NSObject {
                         self.save(moc: moc)
                         self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
                             completion.success()
+                            self.fetchAndPrintEachItem()
+                            self.fetchAndPrintEachGroup()
                         })
                     }
                 })
@@ -193,7 +195,48 @@ open class ImageController : NSObject {
                 task.resume()
             }
         }
-        
+    }
+    
+    public func fetchAndPrintEachItem() {
+
+        self.perform { (moc) in
+            let fetchRequest = NSFetchRequest<CacheItem>(entityName: "CacheItem")
+            do {
+                let fetchedResults = try moc.fetch(fetchRequest)
+                if fetchedResults.count == 0 {
+                     DDLogDebug("🌹noItems")
+                } else {
+                    for item in fetchedResults {
+                        DDLogDebug("🌹itemKey: \(item.key ?? "nil"), variant: \(item.variant ?? "nil"), groups: \(item.cacheGroups?.count ?? 0)")
+                        //print("🌹\(item)")
+                    }
+                }
+            } catch let error as NSError {
+                // something went wrong, print the error.
+                print(error.description)
+            }
+        }
+    }
+
+    public func fetchAndPrintEachGroup() {
+
+        self.perform { (moc) in
+            let fetchRequest = NSFetchRequest<CacheGroup>(entityName: "CacheGroup")
+            do {
+                let fetchedResults = try moc.fetch(fetchRequest)
+                if fetchedResults.count == 0 {
+                     DDLogDebug("🌹noGroups")
+                } else {
+                    for item in fetchedResults {
+                        DDLogDebug("🌹groupKey: \(item.key ?? "nil"), items: \(item.cacheItems?.count ?? 0)")
+                        //print("🌹\(item)")
+                    }
+                }
+            } catch let error as NSError {
+                // something went wrong, print the error.
+                DDLogDebug(error.description)
+            }
+        }
     }
     
     /// Adds images to the permanent cache
@@ -259,6 +302,8 @@ open class ImageController : NSObject {
             moc.delete(group)
             self.save(moc: moc)
             completion()
+            self.fetchAndPrintEachItem()
+            self.fetchAndPrintEachGroup()
         }
     }
     
@@ -452,9 +497,10 @@ open class ImageController : NSObject {
     /// Size variant for a given image URL.
     /// - Parameter url: An image URL from a Wikimedia project
     /// - Returns: The width of the image in pixles or 0 if it's the original URL
-    fileprivate func variantForURL(_ url: URL) -> Int64 {
+    fileprivate func variantForURL(_ url: URL) -> String? {
         let sizePrefix = WMFParseSizePrefixFromSourceURL(url)
-        return Int64(sizePrefix == NSNotFound ? 0 : sizePrefix)
+        let intVariant = Int64(sizePrefix == NSNotFound ? 0 : sizePrefix)
+        return intVariant < 1 ? nil : String(intVariant)
     }
     
     /// Unique identifier for a given image URL. Takes into account size and image name to generate a unique identifier.
@@ -470,12 +516,17 @@ open class ImageController : NSObject {
     /// - Parameter key: The key for a given image
     /// - Parameter variant: The size variant for a given image
     /// - Returns: A unique string to use as the key for this URL
-    fileprivate func identifierForKey(_ key: String, variant: Int64) -> String {
+    fileprivate func identifierForKey(_ key: String, variant: String?) -> String {
+        
+        guard let variant = variant else {
+            return "\(key)".precomposedStringWithCanonicalMapping
+        }
+        
         return "\(key)__\(variant)".precomposedStringWithCanonicalMapping
     }
     
     /// File URL for saving a given key and variant to disk
-    fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
+    fileprivate func permanentCacheFileURL(key: String, variant: String?) -> URL {
         let identifier = identifierForKey(key, variant: variant)
         let component = identifier.sha256 ?? identifier
         return self.permanentStorageDirectory.appendingPathComponent(component, isDirectory: false)
@@ -484,9 +535,16 @@ open class ImageController : NSObject {
     // MARK: Core Data
     
     /// Get the individual cache item associated with a key and variant
-    fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
+    fileprivate func fetchCacheItem(key: String, variant: String?, moc: NSManagedObjectContext) -> CacheItem? {
         let itemRequest: NSFetchRequest<CacheItem> = CacheItem.fetchRequest()
-        itemRequest.predicate = NSPredicate(format: "key == %@ && variant == %lli", key, variant)
+        
+        let predicate: NSPredicate
+        if let variant = variant {
+            predicate = NSPredicate(format: "key == %@ && variant == %lli", key, variant)
+        } else {
+            predicate = NSPredicate(format: "key == %@", key)
+        }
+        itemRequest.predicate = predicate
         itemRequest.fetchLimit = 1
         do {
             let items = try moc.fetch(itemRequest)
@@ -511,14 +569,14 @@ open class ImageController : NSObject {
         return nil
     }
     
-    fileprivate func createCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
+    fileprivate func createCacheItem(key: String, variant: String?, moc: NSManagedObjectContext) -> CacheItem? {
         guard let entity = NSEntityDescription.entity(forEntityName: "CacheItem", in: moc) else {
             return nil
         }
         let item = CacheItem(entity: entity, insertInto: moc)
         item.key = key
         item.variant = variant
-        item.date = NSDate()
+        item.date = Date()
         return item
     }
     
@@ -531,7 +589,7 @@ open class ImageController : NSObject {
         return group
     }
     
-    fileprivate func fetchOrCreateCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
+    fileprivate func fetchOrCreateCacheItem(key: String, variant: String?, moc: NSManagedObjectContext) -> CacheItem? {
         return fetchCacheItem(key: key, variant: variant, moc:moc) ?? createCacheItem(key: key, variant: variant, moc: moc)
     }
     
