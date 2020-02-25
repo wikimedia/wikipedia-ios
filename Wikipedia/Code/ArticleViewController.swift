@@ -39,8 +39,11 @@ class ArticleViewController: ViewController {
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
 
-    internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
-    internal lazy var imageFetcher: ImageFetcher = ImageFetcher()
+    let session = Session.shared
+    let configuration = Configuration.current
+    
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
 
     private var leadImageHeight: CGFloat = 210
 
@@ -709,21 +712,32 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        // Add the stack view that contains the table of contents and the web view.
+        // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-        
-        webView.scrollView.refreshControl = refreshControl
         
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
         
+        // Scroll view
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
-        webView.scrollView.addSubview(leadImageContainerView)
-        
         webView.scrollView.keyboardDismissMode = .interactive
+        webView.scrollView.refreshControl = refreshControl
+        
+        // Lead image
+        setupLeadImageView()
+        
+        // Delegates
+        webView.uiDelegate = self
+    }
+    
+    /// Adds the lead image view to the web view's scroll view and configures the associated constraints
+    func setupLeadImageView() {
+        webView.scrollView.addSubview(leadImageContainerView)
 
         let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
@@ -815,7 +829,4 @@ extension ViewController {
     }
 }
 
-//WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.")
 //WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
-//WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")
