@@ -3,7 +3,8 @@ import CocoaLumberjackSwift
 import ImageIO
 import FLAnimatedImage
 
-@objc(WMFImageControllerError) public enum ImageControllerError: Int, Error {
+@objc(WMFImageControllerError)
+public enum ImageControllerError: Int, Error {
     case dataNotFound
     case invalidOrEmptyURL
     case invalidImageCache
@@ -22,15 +23,6 @@ open class TypedImageData: NSObject {
     @objc public init(data data_: Data?, MIMEType type_: String?) {
         data = data_
         MIMEType = type_
-    }
-}
-
-fileprivate extension Error {
-    var isCancellationError: Bool {
-        get {
-            let potentialCancellationError = self as NSError
-            return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
-        }
     }
 }
 
@@ -60,25 +52,6 @@ open class ImageController : NSObject {
         }
         return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
     }()
-    
-    
-    @objc public static func temporaryController() -> ImageController {
-        let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
-        let imageControllerDirectory = temporaryDirectory.appendingPathComponent("ImageController-" + UUID().uuidString)
-        let config = Session.defaultConfiguration
-        let cache = URLCache(memoryCapacity: 1000000000, diskCapacity: 1000000000, diskPath: imageControllerDirectory.path)
-        config.urlCache = cache
-        let session = URLSession(configuration: config)
-        let fileManager = FileManager.default
-        let permanentStorageDirectory = imageControllerDirectory.appendingPathComponent("Permanent Image Cache", isDirectory: true)
-        do {
-            try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
-        } catch let error {
-            DDLogError("Error creating permanent cache: \(error)")
-        }
-        return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
-    }
-    
     
     fileprivate let session: URLSession
     fileprivate let cache: URLCache
@@ -125,120 +98,28 @@ open class ImageController : NSObject {
         super.init()
     }
     
+    // MARK: Cache
     
-    fileprivate func cacheKeyForURL(_ url: URL) -> String {
-        guard let host = url.host, let imageName = WMFParseImageNameFromSourceURL(url) else {
-            return url.absoluteString.precomposedStringWithCanonicalMapping
-        }
-        return (host + "__" + imageName).precomposedStringWithCanonicalMapping
-    }
-    
-    fileprivate func variantForURL(_ url: URL) -> Int64 { // A return value of 0 indicates the original size
-        let sizePrefix = WMFParseSizePrefixFromSourceURL(url)
-        return Int64(sizePrefix == NSNotFound ? 0 : sizePrefix)
-    }
-    
-    fileprivate func identifierForURL(_ url: URL) -> String {
-        let key = cacheKeyForURL(url)
-        let variant = variantForURL(url)
-        return "\(key)__\(variant)".precomposedStringWithCanonicalMapping
-    }
-    
-    fileprivate func identifierForKey(_ key: String, variant: Int64) -> String {
-        return "\(key)__\(variant)".precomposedStringWithCanonicalMapping
-    }
-    
-//    fileprivate func legacyPermanentCacheFileURL(key: String, variant: Int64) -> URL {
-//        let identifier = identifierForKey(key, variant: variant)
-//        return self.permanentStorageDirectory.appendingPathComponent(identifier, isDirectory: false)
-//    }
-    
-    fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
-        let identifier = identifierForKey(key, variant: variant)
-        let component = identifier.sha256 ?? identifier
-        return self.permanentStorageDirectory.appendingPathComponent(component, isDirectory: false)
-    }
-    
-    fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
-        let itemRequest: NSFetchRequest<CacheItem> = CacheItem.fetchRequest()
-        itemRequest.predicate = NSPredicate(format: "key == %@ && variant == %lli", key, variant)
-        itemRequest.fetchLimit = 1
-        do {
-            let items = try moc.fetch(itemRequest)
-            return items.first
-        } catch let error {
-            DDLogError("Error fetching cache item: \(error)")
-        }
-        return nil
-    }
-    
-    fileprivate func fetchCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
-        let groupRequest: NSFetchRequest<CacheGroup> = CacheGroup.fetchRequest()
-        groupRequest.predicate = NSPredicate(format: "key == %@", key)
-        groupRequest.fetchLimit = 1
-        do {
-            let groups = try moc.fetch(groupRequest)
-            return groups.first
-        } catch let error {
-            DDLogError("Error fetching cache group: \(error)")
-        }
-        return nil
-    }
-    
-    fileprivate func createCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
-        guard let entity = NSEntityDescription.entity(forEntityName: "CacheItem", in: moc) else {
+    /// Gets the cached image for a given URL from either the session cache or the permanent cache
+    @objc public func cachedImage(withURL url: URL?) -> Image? {
+        guard let url = url else {
             return nil
         }
-        let item = CacheItem(entity: entity, insertInto: moc)
-        item.key = key
-        item.variant = variant
-        item.date = NSDate()
-        return item
+        return sessionCachedImage(withURL: url) ?? permanentlyCachedImage(withURL: url)
     }
     
-    fileprivate func createCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
-        guard let entity = NSEntityDescription.entity(forEntityName: "CacheGroup", in: moc) else {
-            return nil
-        }
-        let group = CacheGroup(entity: entity, insertInto: moc)
-        group.key = key
-        return group
+    @objc public func data(withURL url: URL) -> TypedImageData? {
+        return sessionCachedData(withURL: url) ?? permanentlyCachedTypedDiskDataForImage(withURL: url)
     }
     
-    fileprivate func fetchOrCreateCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
-        return fetchCacheItem(key: key, variant: variant, moc:moc) ?? createCacheItem(key: key, variant: variant, moc: moc)
-    }
+    // MARK: Permanent Cache
     
-    fileprivate func fetchOrCreateCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
-        return fetchCacheGroup(key: key, moc: moc) ?? createCacheGroup(key: key, moc: moc)
-    }
-    
-    
-    fileprivate func save(moc: NSManagedObjectContext) {
-        guard moc.hasChanges else {
-            return
-        }
-        do {
-            try moc.save()
-        } catch let error {
-            DDLogError("Error saving cache moc: \(error)")
-        }
-    }
-    
-    fileprivate func updateCachedFileMimeTypeAtPath(_ path: String, toMIMEType MIMEType: String?) {
-        if let MIMEType = MIMEType {
-            do {
-                try self.fileManager.wmf_setValue(MIMEType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
-            } catch let error {
-                DDLogError("Error setting extended file attribute for MIME Type: \(error)")
-            }
-        }
-    }
-    
-    @objc public func cancelPermanentCacheRequests() {
-        permanentCacheCompletionManager.cancelAll()
-    }
-    
+    /// Adds an image with a given URL to the permanent cache. Coalesces multiple requests so the image is only downloaded once.
+    /// - Parameter url: The image URL
+    /// - Parameter groupKey: The group to associate this image with (the article key)
+    /// - Parameter priority
+    /// - Parameter failure block
+    /// - Parameter success block
     @objc public func permanentlyCache(url: URL, groupKey: String, priority: Float = URLSessionTask.lowPriority, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let key = self.cacheKeyForURL(url)
         let variant = self.variantForURL(url)
@@ -315,6 +196,11 @@ open class ImageController : NSObject {
         
     }
     
+    /// Adds images to the permanent cache
+    /// - Parameter urls: The image URLs
+    /// - Parameter groupKey: The group to associate this image with (the article key)
+    /// - Parameter failure block
+    /// - Parameter success block
     @objc public func permanentlyCacheInBackground(urls: [URL], groupKey: String,  failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let cacheGroup = WMFTaskGroup()
         var errors = [NSError]()
@@ -342,13 +228,13 @@ open class ImageController : NSObject {
         }
     }
     
-    private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
-        let moc = self.managedObjectContext
-        moc.perform {
-            block(moc)
-        }
+    @objc public func cancelPermanentCacheRequests() {
+        permanentCacheCompletionManager.cancelAll()
     }
     
+    /// Removes images that are only referenced by this group. If the images are referenced by any other groups, they will remain in the permanent cache until those groups are also removed
+    /// - Parameter groupKey: The group to remove (the article key)
+    /// - Parameter completion block
     @objc public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
         let fm = self.fileManager
         perform { (moc) in
@@ -358,6 +244,7 @@ open class ImageController : NSObject {
                 return
             }
             for item in group.cacheItems ?? [] {
+                
                 guard let item = item as? CacheItem, let key = item.key, item.cacheGroups?.count == 1 else {
                     continue
                 }
@@ -367,12 +254,6 @@ open class ImageController : NSObject {
                 } catch let error {
                     DDLogError("Error removing from permanent cache: \(error)")
                 }
-//                do {
-//                    let legacyFileURL = self.legacyPermanentCacheFileURL(key: key, variant: item.variant)
-//                    try fm.removeItem(at: legacyFileURL)
-//                } catch let error {
-//                    DDLogError("Error removing from permanent cache: \(error)")
-//                }
                 moc.delete(item)
             }
             moc.delete(group)
@@ -381,6 +262,7 @@ open class ImageController : NSObject {
         }
     }
     
+    /// Get the permanently cached data from disk for a given image URL. Reads the images MIME type from the extended file attribute.
     @objc public func permanentlyCachedTypedDiskDataForImage(withURL url: URL?) -> TypedImageData {
         guard let url = url else {
             return TypedImageData(data: nil, MIMEType: nil)
@@ -390,77 +272,21 @@ open class ImageController : NSObject {
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
         let mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
         let data = fileManager.contents(atPath: fileURL.path)
-//        if data == nil { // check for legacy data
-//            let legacyFileURL = legacyPermanentCacheFileURL(key: key, variant: variant)
-//           mimeType = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: legacyFileURL.path)
-//            data = fileManager.contents(atPath: legacyFileURL.path)
-//        }
         return TypedImageData(data: data, MIMEType: mimeType)
     }
     
-    @objc public func sessionCachedData(withURL url: URL) -> TypedImageData? {
-        let requestURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless()
-        let request = URLRequest(url: requestURL as URL)
-        guard let cachedResponse = URLCache.shared.cachedResponse(for: request) else {
-            return nil
-        }
-        return TypedImageData(data: cachedResponse.data, MIMEType: cachedResponse.response.mimeType)
-    }
-    
-    @objc public func data(withURL url: URL) -> TypedImageData? {
-        return sessionCachedData(withURL: url) ?? permanentlyCachedTypedDiskDataForImage(withURL: url)
-    }
-    
-    @objc public func memoryCachedImage(withURL url: URL) -> Image? {
-        let identifier = identifierForURL(url) as NSString
-        return memoryCache.object(forKey: identifier)
-    }
-    
-    @objc public func addToMemoryCache(_ image: Image, url: URL) {
-        let identifier = identifierForURL(url) as NSString
-        memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
-    }
-    
-    private func getUIImageOrientation(from imageSource: CGImageSource, options: CFDictionary) -> UIImage.Orientation? {
-        guard
-            let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, options) as? [String: Any],
-            let orientationRawValue = properties[kCGImagePropertyOrientation as String] as? UInt32,
-            let cgOrientation = CGImagePropertyOrientation(rawValue: orientationRawValue)
-        else {
-            return nil
-        }
-        switch cgOrientation {
-            case .up: return .up
-            case .upMirrored: return .upMirrored
-            case .down: return .down
-            case .downMirrored: return .downMirrored
-            case .left: return .left
-            case .leftMirrored: return .leftMirrored
-            case .right:  return .right
-            case .rightMirrored: return .rightMirrored
+    /// Sets the extended file attribute to store the mime type on a cached image
+    fileprivate func updateCachedFileMimeTypeAtPath(_ path: String, toMIMEType MIMEType: String?) {
+        if let MIMEType = MIMEType {
+            do {
+                try self.fileManager.wmf_setValue(MIMEType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
+            } catch let error {
+                DDLogError("Error setting extended file attribute for MIME Type: \(error)")
+            }
         }
     }
     
-    private func createImage(data: Data, mimeType: String?) -> Image? {
-        if mimeType == "image/gif", let animatedImage = FLAnimatedImage.wmf_animatedImage(with: data), let staticImage = animatedImage.wmf_staticImage {
-            return Image(staticImage: staticImage, animatedImage: animatedImage)
-        }
-        guard let source = CGImageSourceCreateWithData(data as CFData, nil), CGImageSourceGetCount(source) > 0 else {
-            return nil
-        }
-        let options = [kCGImageSourceShouldCache as String: NSNumber(value: true)] as CFDictionary
-        guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, options) else {
-            return nil
-        }
-        let image: UIImage
-        if let orientation = getUIImageOrientation(from: source, options: options) {
-            image = UIImage(cgImage: cgImage, scale: 1, orientation: orientation)
-        } else {
-            image = UIImage(cgImage: cgImage)
-        }
-        return Image(staticImage: image, animatedImage: nil)
-    }
-    
+    /// Get the permanently cached image for a given URL from memory or disk
     @objc public func permanentlyCachedImage(withURL url: URL) -> Image? {
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
             return memoryCachedImage
@@ -476,6 +302,9 @@ open class ImageController : NSObject {
         return image
     }
     
+    // MARK: Session Cache
+    
+    /// Get the cached image for a given URL from the session cache
     @objc public func sessionCachedImage(withURL url: URL?) -> Image? {
         guard let url = url else {
             return nil
@@ -493,17 +322,30 @@ open class ImageController : NSObject {
         return image
     }
     
-    @objc public func cachedImage(withURL url: URL?) -> Image? {
-        guard let url = url else {
+    @objc public func sessionCachedData(withURL url: URL) -> TypedImageData? {
+        let requestURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless()
+        let request = URLRequest(url: requestURL as URL)
+        guard let cachedResponse = URLCache.shared.cachedResponse(for: request) else {
             return nil
         }
-        return sessionCachedImage(withURL: url) ?? permanentlyCachedImage(withURL: url)
+        return TypedImageData(data: cachedResponse.data, MIMEType: cachedResponse.response.mimeType)
     }
     
-    fileprivate func isCancellationError(_ error: Error?) -> Bool {
-        return error?.isCancellationError ?? false
+    // MARK: Memory Cache
+    
+    @objc public func memoryCachedImage(withURL url: URL) -> Image? {
+        let identifier = identifierForURL(url) as NSString
+        return memoryCache.object(forKey: identifier)
     }
     
+    @objc public func addToMemoryCache(_ image: Image, url: URL) {
+        let identifier = identifierForURL(url) as NSString
+        memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
+    }
+    
+    // MARK: Fetching
+    
+    /// Fetches data from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
     @objc public func fetchData(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) -> String? {
         guard let url = url else {
             failure(ImageControllerError.invalidOrEmptyURL)
@@ -542,7 +384,8 @@ open class ImageController : NSObject {
     @objc public func fetchData(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
         let _ = fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
-
+    
+    /// Fetches an image from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
     @objc public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
         assert(Thread.isMainThread)
         guard let url = url else {
@@ -584,95 +427,214 @@ open class ImageController : NSObject {
         dataCompletionManager.cancel(identifier, token: token)
     }
     
+    /// Populate the cache for a given URL
     @objc public func prefetch(withURL url: URL?) {
         prefetch(withURL: url) { }
     }
     
+    /// Populate the cache for a given URL
     @objc public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
         let _ =  fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
     }
+    
+    // MARK: Identifiers
+    
+    /// Unique identifier for a given image URL. All thumbnails and alternative sizes of images should have the same cacheKey.
+    /// - Parameter url: An image URL from a Wikimedia project
+    /// - Returns: A string to use as the key for this URL
+    fileprivate func cacheKeyForURL(_ url: URL) -> String {
+        guard let host = url.host, let imageName = WMFParseImageNameFromSourceURL(url) else {
+            return url.absoluteString.precomposedStringWithCanonicalMapping
+        }
+        return (host + "__" + imageName).precomposedStringWithCanonicalMapping
+    }
+    
+    /// Size variant for a given image URL.
+    /// - Parameter url: An image URL from a Wikimedia project
+    /// - Returns: The width of the image in pixles or 0 if it's the original URL
+    fileprivate func variantForURL(_ url: URL) -> Int64 {
+        let sizePrefix = WMFParseSizePrefixFromSourceURL(url)
+        return Int64(sizePrefix == NSNotFound ? 0 : sizePrefix)
+    }
+    
+    /// Unique identifier for a given image URL. Takes into account size and image name to generate a unique identifier.
+    /// - Parameter url: An image URL from a Wikimedia project
+    /// - Returns: A unique string to use as the key for this URL
+    fileprivate func identifierForURL(_ url: URL) -> String {
+        let key = cacheKeyForURL(url)
+        let variant = variantForURL(url)
+        return identifierForKey(key, variant: variant)
+    }
+    
+    /// Unique identifier for a given key and variant
+    /// - Parameter key: The key for a given image
+    /// - Parameter variant: The size variant for a given image
+    /// - Returns: A unique string to use as the key for this URL
+    fileprivate func identifierForKey(_ key: String, variant: Int64) -> String {
+        return "\(key)__\(variant)".precomposedStringWithCanonicalMapping
+    }
+    
+    /// File URL for saving a given key and variant to disk
+    fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
+        let identifier = identifierForKey(key, variant: variant)
+        let component = identifier.sha256 ?? identifier
+        return self.permanentStorageDirectory.appendingPathComponent(component, isDirectory: false)
+    }
+    
+    // MARK: Core Data
+    
+    /// Get the individual cache item associated with a key and variant
+    fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
+        let itemRequest: NSFetchRequest<CacheItem> = CacheItem.fetchRequest()
+        itemRequest.predicate = NSPredicate(format: "key == %@ && variant == %lli", key, variant)
+        itemRequest.fetchLimit = 1
+        do {
+            let items = try moc.fetch(itemRequest)
+            return items.first
+        } catch let error {
+            DDLogError("Error fetching cache item: \(error)")
+        }
+        return nil
+    }
+    
+    /// Get the group of cache items associated with a given key
+    fileprivate func fetchCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
+        let groupRequest: NSFetchRequest<CacheGroup> = CacheGroup.fetchRequest()
+        groupRequest.predicate = NSPredicate(format: "key == %@", key)
+        groupRequest.fetchLimit = 1
+        do {
+            let groups = try moc.fetch(groupRequest)
+            return groups.first
+        } catch let error {
+            DDLogError("Error fetching cache group: \(error)")
+        }
+        return nil
+    }
+    
+    fileprivate func createCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
+        guard let entity = NSEntityDescription.entity(forEntityName: "CacheItem", in: moc) else {
+            return nil
+        }
+        let item = CacheItem(entity: entity, insertInto: moc)
+        item.key = key
+        item.variant = variant
+        item.date = NSDate()
+        return item
+    }
+    
+    fileprivate func createCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
+        guard let entity = NSEntityDescription.entity(forEntityName: "CacheGroup", in: moc) else {
+            return nil
+        }
+        let group = CacheGroup(entity: entity, insertInto: moc)
+        group.key = key
+        return group
+    }
+    
+    fileprivate func fetchOrCreateCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
+        return fetchCacheItem(key: key, variant: variant, moc:moc) ?? createCacheItem(key: key, variant: variant, moc: moc)
+    }
+    
+    fileprivate func fetchOrCreateCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
+        return fetchCacheGroup(key: key, moc: moc) ?? createCacheGroup(key: key, moc: moc)
+    }
+    
+    fileprivate func save(moc: NSManagedObjectContext) {
+        guard moc.hasChanges else {
+            return
+        }
+        do {
+            try moc.save()
+        } catch let error {
+            DDLogError("Error saving cache moc: \(error)")
+        }
+    }
+    
+    private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
+        let moc = self.managedObjectContext
+        moc.perform {
+            block(moc)
+        }
+    }
+    
+    // MARK: Utilities
+    
+    private func getUIImageOrientation(from imageSource: CGImageSource, options: CFDictionary) -> UIImage.Orientation? {
+        guard
+            let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, options) as? [String: Any],
+            let orientationRawValue = properties[kCGImagePropertyOrientation as String] as? UInt32,
+            let cgOrientation = CGImagePropertyOrientation(rawValue: orientationRawValue)
+            else {
+                return nil
+        }
+        switch cgOrientation {
+        case .up: return .up
+        case .upMirrored: return .upMirrored
+        case .down: return .down
+        case .downMirrored: return .downMirrored
+        case .left: return .left
+        case .leftMirrored: return .leftMirrored
+        case .right:  return .right
+        case .rightMirrored: return .rightMirrored
+        }
+    }
+    
+    private func createImage(data: Data, mimeType: String?) -> Image? {
+        if mimeType == "image/gif", let animatedImage = FLAnimatedImage.wmf_animatedImage(with: data), let staticImage = animatedImage.wmf_staticImage {
+            return Image(staticImage: staticImage, animatedImage: animatedImage)
+        }
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil), CGImageSourceGetCount(source) > 0 else {
+            return nil
+        }
+        let options = [kCGImageSourceShouldCache as String: NSNumber(value: true)] as CFDictionary
+        guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, options) else {
+            return nil
+        }
+        let image: UIImage
+        if let orientation = getUIImageOrientation(from: source, options: options) {
+            image = UIImage(cgImage: cgImage, scale: 1, orientation: orientation)
+        } else {
+            image = UIImage(cgImage: cgImage)
+        }
+        return Image(staticImage: image, animatedImage: nil)
+    }
+    
+    fileprivate func isCancellationError(_ error: Error?) -> Bool {
+        return error?.isCancellationError ?? false
+    }
+    
     
     @objc public func deleteTemporaryCache() {
         cache.removeAllCachedResponses()
     }
     
-    // MARK: - Migration from SDWebImage
+    // MARK: Testing
     
-//    fileprivate var legacyCacheFolderURL: URL {
-//        get {
-//            return fileManager.wmf_containerURL().appendingPathComponent("Cache").appendingPathComponent("com.hackemist.SDWebImageCache.default")
-//        }
-//    }
-//
-//    @objc public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
-//        let legacyCacheFolderURL = self.legacyCacheFolderURL
-//        let legacyCacheFolderPath = legacyCacheFolderURL.path
-//        perform { (moc) in
-//            let group = self.fetchOrCreateCacheGroup(key: group, moc: moc)
-//            for imageURL in imageURLs {
-//                let key = self.cacheKeyForURL(imageURL)
-//                let variant = self.variantForURL(imageURL)
-//                if let existingItem = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
-//                    group?.addToCacheItems(existingItem)
-//                    continue
-//                }
-//                guard let legacyKey = (imageURL as NSURL).wmf_schemelessURLString(),
-//                    let legacyPath = WMFLegacyImageCache.cachePath(forKey: legacyKey, inPath: legacyCacheFolderPath) else {
-//                        continue
-//                }
-//
-//                let fileURL = self.permanentCacheFileURL(key: key, variant: variant)
-//                let legacyFileURL = URL(fileURLWithPath: legacyPath, isDirectory: false)
-//                var createItem = false
-//                do {
-//                    try self.fileManager.moveItem(at: legacyFileURL, to: fileURL)
-//                    createItem = true
-//                } catch let error as NSError {
-//                    if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
-//                        createItem = true
-//                    }
-//                } catch let error {
-//                    DDLogError("Error moving cached file: \(error)")
-//                }
-//
-//                if !createItem {
-//                    let legacyPermanentCacheURL = self.legacyPermanentCacheFileURL(key: key, variant: variant)
-//                    do {
-//                        try self.fileManager.moveItem(at: legacyPermanentCacheURL, to: fileURL)
-//                        createItem = true
-//                    } catch let error as NSError {
-//                        if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
-//                            createItem = true
-//                        }
-//                    } catch let error {
-//                        DDLogError("Error moving cached file: \(error)")
-//                    }
-//                }
-//
-//                guard createItem else {
-//                    continue
-//                }
-//                if let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc) {
-//                    group?.addToCacheItems(item)
-//                }
-//            }
-//            self.save(moc: moc)
-//            completion()
-//        }
-//    }
-//
-//    @objc public func removeLegacyCache() {
-//        do {
-//            try fileManager.removeItem(at: legacyCacheFolderURL)
-//        } catch let error as NSError {
-//            guard error.domain != NSCocoaErrorDomain || error.code != NSFileNoSuchFileError else {
-//                return
-//            }
-//            DDLogError("Error removing legacy cache \(error)")
-//        }
-//    }
-//
-//    public var temporaryCacheSize: Int64 {
-//        return FileManager.default.sizeOfDirectory(at: legacyCacheFolderURL) + Int64(cache.currentDiskUsage)
-//    }
+    /// Temporary controller for testing
+    @objc public static func temporaryController() -> ImageController {
+        let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
+        let imageControllerDirectory = temporaryDirectory.appendingPathComponent("ImageController-" + UUID().uuidString)
+        let config = Session.defaultConfiguration
+        let cache = URLCache(memoryCapacity: 1000000000, diskCapacity: 1000000000, diskPath: imageControllerDirectory.path)
+        config.urlCache = cache
+        let session = URLSession(configuration: config)
+        let fileManager = FileManager.default
+        let permanentStorageDirectory = imageControllerDirectory.appendingPathComponent("Permanent Image Cache", isDirectory: true)
+        do {
+            try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
+        } catch let error {
+            DDLogError("Error creating permanent cache: \(error)")
+        }
+        return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
+    }
+    
+}
+
+fileprivate extension Error {
+    var isCancellationError: Bool {
+        get {
+            let potentialCancellationError = self as NSError
+            return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
+        }
+    }
 }
