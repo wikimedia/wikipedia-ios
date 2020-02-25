@@ -36,7 +36,7 @@ open class ImageController : NSObject {
         let session = Session.urlSession
         let cache = URLCache.shared
         let fileManager = FileManager.default
-        var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Cache", isDirectory: true)
+        var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Image Cache", isDirectory: true)
         var didGetDirectoryExistsError = false
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
@@ -72,7 +72,7 @@ open class ImageController : NSObject {
         memoryCache = NSCache<NSString, Image>()
         memoryCache.totalCostLimit = 10000000 //pixel count
         let bundle = Bundle.wmf
-        let modelURL = bundle.url(forResource: "Cache", withExtension: "momd")!
+        let modelURL = bundle.url(forResource: "Permanent Image Cache", withExtension: "momd")!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
         let containerURL = permanentStorageDirectory
         let dbURL = containerURL.appendingPathComponent("Cache.sqlite", isDirectory: false)

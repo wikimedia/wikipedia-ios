@@ -29,6 +29,8 @@ public class CacheController {
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
+        return nil
+        
         //create ManagedObjectModel based on Cache.momd
         guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
