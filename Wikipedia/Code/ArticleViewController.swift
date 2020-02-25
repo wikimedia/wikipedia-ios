@@ -99,7 +99,7 @@ class ArticleViewController: ViewController {
     }()
     
     lazy var webView: WKWebView = {
-        return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
+        return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
     
     // MARK: Find In Page
@@ -338,6 +338,7 @@ class ArticleViewController: ViewController {
         dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
             defer {
                 self.footerLoadGroup?.leave()
+                self.updateMenuItems()
             }
             // Handle redirects
             guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
@@ -828,5 +829,3 @@ extension ViewController {
         return margins
     }
 }
-
-//WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
