@@ -29,44 +29,7 @@ public class CacheController {
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
-        //create ManagedObjectModel based on Cache.momd
-        guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
-            let model = NSManagedObjectModel(contentsOf: modelURL) else {
-                assertionFailure("Failure to create managed object model")
-                return nil
-        }
-                
-        //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
-        let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        
-        let options = [
-            NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true),
-            NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)
-        ]
-        
-        do {
-            try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
-        } catch {
-            do {
-                try FileManager.default.removeItem(at: dbURL)
-            } catch {
-                assertionFailure("Failure to remove old db file")
-                return nil
-            }
-
-            do {
-                try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
-            } catch {
-                assertionFailure("Failure to add persistent store to coordinator")
-                return nil
-            }
-        }
-
-        let cacheBackgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
-                
-        return cacheBackgroundContext
+        return ImageController.shared.managedObjectContext
     }()
     
     public typealias ItemKey = String

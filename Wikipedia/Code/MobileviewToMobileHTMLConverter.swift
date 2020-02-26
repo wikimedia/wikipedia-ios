@@ -75,10 +75,9 @@ extension MobileviewToMobileHTMLConverter {
         }
 
         #if WMF_APPS_LABS_MOBILE_HTML
-        let configuration = Configuration.appsLabs
+        let baseURI = "https://\(Configuration.Domain.appsLabs)/api/v1"
         #else
         let configuration = Configuration.current
-        #endif
         let mobileAppsComponents = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [])
         guard let baseURI = mobileAppsComponents.url?.absoluteString else {
             if let completionHandler = completionHandler {
@@ -86,7 +85,8 @@ extension MobileviewToMobileHTMLConverter {
             }
             return
         }
-
+        #endif
+        
         convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI, completionHandler: completionHandler)
     }
 }

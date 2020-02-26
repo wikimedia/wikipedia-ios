@@ -56,7 +56,7 @@ open class ImageController : NSObject {
     fileprivate let session: URLSession
     fileprivate let cache: URLCache
     fileprivate let permanentStorageDirectory: URL
-    fileprivate let managedObjectContext: NSManagedObjectContext
+    let managedObjectContext: NSManagedObjectContext
     fileprivate let persistentStoreCoordinator: NSPersistentStoreCoordinator
     fileprivate let fileManager: FileManager
     fileprivate let memoryCache: NSCache<NSString, Image>
