@@ -71,28 +71,7 @@ class ReferenceBackLinksViewController: ViewController {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(closeButtonPressed))
         view.addGestureRecognizer(tapGR)
     }
-    
-    let topGradientView = WMFGradientView()
-    let bottomGradientView = WMFGradientView()
 
-    func setupGradientViews() {
-        topGradientView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(topGradientView)
-        let top = topGradientView.topAnchor.constraint(equalTo: view.topAnchor)
-        let leading = topGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = topGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let height = topGradientView.heightAnchor.constraint(equalToConstant: 48)
-        NSLayoutConstraint.activate([top, leading, trailing, height])
-        
-        bottomGradientView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bottomGradientView)
-        let bottom = bottomGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        let bLeading = bottomGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let bTrailing = bottomGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let bHeight = bottomGradientView.heightAnchor.constraint(equalToConstant: 48)
-        NSLayoutConstraint.activate([bottom, bLeading, bTrailing, bHeight])
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         countLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
@@ -102,7 +81,6 @@ class ReferenceBackLinksViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGradientViews()
         setupNavbar()
         setupToolbar()
         setupTapGestureRecognizer()
@@ -152,8 +130,6 @@ class ReferenceBackLinksViewController: ViewController {
         }
         closeButton.tintColor = theme.colors.secondaryText
         backToReferenceButton.tintColor = theme.colors.link
-        topGradientView.setStart(theme.colors.overlayBackground, end: .clear)
-        bottomGradientView.setStart(.clear, end: theme.colors.overlayBackground)
         countLabel.textColor = theme.colors.secondaryText
         view.backgroundColor = .clear
     }
