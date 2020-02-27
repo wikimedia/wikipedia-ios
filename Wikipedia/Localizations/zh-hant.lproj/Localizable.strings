@@ -688,6 +688,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "語法突顯";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
 "reading-themes-controls-syntax-highlighting" = "語法突顯";
+"reference-back-links-back-to-reference" = "返回到參考資料";
 "reference-title" = "參考資料 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|1=昨天|$1 天前}}";
 "relative-date-hours-abbreviated" = "$1 小時";

@@ -417,6 +417,7 @@
 "reading-lists-large-sync-completed" = "$1 Artikelen a(n) $2   Lieslëschte vun Ärem Benotzerkont synchroniséiert";
 "reading-lists-sort-saved-articles" = "Gespäichert Artikelen zortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
+"reference-back-links-back-to-reference" = "Zréck op d'Referenz";
 "reference-title" = "Referenz: $1";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";
