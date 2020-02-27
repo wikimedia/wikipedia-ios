@@ -5,6 +5,10 @@ enum CacheFileWriterError: Error {
     case missingTemporaryFileURL
     case missingHeaderItemKey
     case missingHTTPResponse
+    case unableToDetermineSiteURLFromMigration
+    case unexpectedFetcherTypeForBundledMigration
+    case unableToDetermineBundledOfflineURLS
+    case failureToSaveBundledFiles
 }
 
 enum CacheFileWriterResult {
@@ -17,6 +21,30 @@ final class CacheFileWriter: CacheTaskTracking {
     private let fetcher: CacheFetching
     private let cacheKeyGenerator: CacheKeyGenerating.Type
     private let cacheBackgroundContext: NSManagedObjectContext
+    
+    lazy private var baseCSSFileURL: URL = {
+        URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
+            .appendingPathComponent("pcs-html-converter", isDirectory: true)
+            .appendingPathComponent("baseCSS.css", isDirectory: false)
+    }()
+
+    lazy private var pcsCSSFileURL: URL = {
+        URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
+            .appendingPathComponent("pcs-html-converter", isDirectory: true)
+            .appendingPathComponent("pcsCSS.css", isDirectory: false)
+    }()
+
+    lazy private var pcsJSFileURL: URL = {
+        URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
+            .appendingPathComponent("pcs-html-converter", isDirectory: true)
+            .appendingPathComponent("pcsJS.js", isDirectory: false)
+    }()
+
+    lazy private var siteCSSFileURL: URL = {
+        URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
+            .appendingPathComponent("pcs-html-converter", isDirectory: true)
+            .appendingPathComponent("siteCSS.css", isDirectory: false)
+    }()
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
@@ -172,11 +200,11 @@ final class CacheFileWriter: CacheTaskTracking {
     }
 }
 
-//Migration
+//MARK: Migration
 
 extension CacheFileWriter {
     
-    func migrateCachedContent(content: String, urlRequest: URLRequest, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func addMobileHtmlContentForMigration(content: String, urlRequest: URLRequest, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         guard let itemKey =  urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
                 failure(CacheFileWriterError.missingHeaderItemKey)
@@ -194,5 +222,82 @@ extension CacheFileWriter {
                 failure(error)
             }
         }
+    }
+    
+    func addBundledResourcesForMigration(desktopArticleURL: URL, urlRequests:[URLRequest], success: @escaping ([URLRequest]) -> Void, failure: @escaping (Error) -> Void) {
+        guard let siteURL = desktopArticleURL.wmf_site else {
+            failure(CacheFileWriterError.unableToDetermineSiteURLFromMigration)
+            return
+        }
+        
+        guard let articleFetcher = fetcher as? ArticleFetcher else {
+            failure(CacheFileWriterError.unexpectedFetcherTypeForBundledMigration)
+            return
+        }
+        
+        guard let bundledOfflineResources = articleFetcher.bundledOfflineResourceURLs(with: siteURL) else {
+            failure(CacheFileWriterError.unableToDetermineBundledOfflineURLS)
+            return
+        }
+        
+        var failedURLRequests: [URLRequest] = []
+        var succeededURLRequests: [URLRequest] = []
+        
+        for urlRequest in urlRequests {
+            
+            guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+                continue
+            }
+            
+            let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: nil)
+            
+            switch itemKey {
+            case bundledOfflineResources.baseCSS.absoluteString:
+                CacheFileWriterHelper.copyFile(from: baseCSSFileURL, toNewFileWithKey: fileName, mimeType: "text/css") { (result) in
+                    switch result {
+                    case .success, .exists:
+                        succeededURLRequests.append(urlRequest)
+                    case .failure:
+                        failedURLRequests.append(urlRequest)
+                    }
+                }
+            case bundledOfflineResources.siteCSS.absoluteString:
+                CacheFileWriterHelper.copyFile(from: siteCSSFileURL, toNewFileWithKey: fileName, mimeType: "text/css") { (result) in
+                    switch result {
+                    case .success, .exists:
+                        succeededURLRequests.append(urlRequest)
+                    case .failure:
+                        failedURLRequests.append(urlRequest)
+                    }
+                }
+            case bundledOfflineResources.pcsCSS.absoluteString:
+                CacheFileWriterHelper.copyFile(from: pcsCSSFileURL, toNewFileWithKey: fileName, mimeType: "text/css") { (result) in
+                    switch result {
+                    case .success, .exists:
+                        succeededURLRequests.append(urlRequest)
+                    case .failure:
+                        failedURLRequests.append(urlRequest)
+                    }
+                }
+            case bundledOfflineResources.pcsJS.absoluteString:
+            CacheFileWriterHelper.copyFile(from: pcsJSFileURL, toNewFileWithKey: fileName, mimeType: "application/javascript") { (result) in
+                switch result {
+                case .success, .exists:
+                    succeededURLRequests.append(urlRequest)
+                case .failure:
+                    failedURLRequests.append(urlRequest)
+                }
+            }
+            default:
+                failedURLRequests.append(urlRequest)
+            }
+        }
+        
+        if succeededURLRequests.count == 0 {
+            failure(CacheFileWriterError.failureToSaveBundledFiles)
+            return
+        }
+
+        success(succeededURLRequests)
     }
 }

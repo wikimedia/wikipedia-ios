@@ -2,7 +2,7 @@
 import Foundation
 
 enum ArticleCacheDBWriterError: Error {
-    case unableToDetermineMobileHtmlDatabaseKey
+    case unableToDetermineDatabaseKey
     case invalidListEndpointType
     case missingListURLInRequest
     case failureFetchingMediaList
@@ -10,6 +10,8 @@ enum ArticleCacheDBWriterError: Error {
     case failureFetchOrCreateCacheGroup
     case failureFetchOrCreateMustHaveCacheItem
     case missingExpectedItemsOutOfRequestHeader
+    case unableToDetermineBundledOfflineURLS
+    case oneOrMoreItemsFailedToMarkDownloaded
 }
 
 final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
@@ -181,10 +183,10 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
 
 extension ArticleCacheDBWriter {
     
-    func cacheMobileHtmlFromMigration(desktopArticleURL: URL, success: @escaping (URLRequest) -> Void, failure: @escaping (Error) -> Void) { //articleURL should be desktopURL
+    func addMobileHtmlURLForMigration(desktopArticleURL: URL, success: @escaping (URLRequest) -> Void, failure: @escaping (Error) -> Void) { //articleURL should be desktopURL
         
         guard let groupKey = desktopArticleURL.wmf_databaseKey else {
-            failure(ArticleCacheDBWriterError.unableToDetermineMobileHtmlDatabaseKey)
+            failure(ArticleCacheDBWriterError.unableToDetermineDatabaseKey)
             return
         }
         
@@ -207,29 +209,127 @@ extension ArticleCacheDBWriter {
         }
     }
     
-    func migratedCacheItemFile(urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
-        
-        guard let url = urlRequest.url,
-            let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-                failure(ArticleCacheDBWriterError.missingExpectedItemsOutOfRequestHeader)
-                return
-        }
-        
-        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
-        
+    func addBundledResourcesForMigration(desktopArticleURL: URL, completion: @escaping CacheDBWritingCompletionWithURLRequests) {
         cacheBackgroundContext.perform {
-            guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: self.cacheBackgroundContext) else {
-                failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem)
+                
+            
+            guard let offlineResources = self.articleFetcher.bundledOfflineResourceURLs(with: desktopArticleURL) else {
+                completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLS))
                 return
             }
-            item.isDownloaded = true
-            CacheDBWriterHelper.save(moc: self.cacheBackgroundContext) { (result) in
+            
+            guard let groupKey = desktopArticleURL.wmf_databaseKey else {
+                completion(.failure(ArticleCacheDBWriterError.unableToDetermineDatabaseKey))
+                return
+            }
+            
+            let baseCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.baseCSS)
+            let siteCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.siteCSS)
+            let pcsCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsCSS)
+            let pcsJSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsJS)
+            
+            let bundledURLRequests = [baseCSSRequest, siteCSSRequest, pcsCSSRequest, pcsJSRequest]
+            
+            self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: bundledURLRequests, niceToHaveURLRequests: []) { (result) in
                 switch result {
                 case .success:
-                    success()
+                    let result = CacheDBWritingResultWithURLRequests.success(bundledURLRequests)
+                    completion(result)
                 case .failure(let error):
-                    failure(error)
+                    let result = CacheDBWritingResultWithURLRequests.failure(error)
+                    completion(result)
                 }
+            }
+        }
+    }
+    
+    func bundledResourcesAreCached(desktopArticleURL: URL) -> Bool {
+        
+        var result: Bool = false
+        cacheBackgroundContext.performAndWait {
+            
+            var bundledOfflineResourceKeys: [String] = []
+            guard let offlineResources = articleFetcher.bundledOfflineResourceURLs(with: desktopArticleURL) else {
+                result = false
+                return
+            }
+            
+            if let baseCSSKey = offlineResources.baseCSS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(baseCSSKey)
+            }
+
+            if let siteCSSKey = offlineResources.siteCSS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(siteCSSKey)
+            }
+
+            if let pcsCSSKey = offlineResources.pcsCSS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(pcsCSSKey)
+            }
+
+            if let pcsJSKey = offlineResources.pcsJS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(pcsJSKey)
+            }
+            
+            guard bundledOfflineResourceKeys.count == articleFetcher.expectedNumberOfBundledOfflineResources else {
+                result = false
+                return
+            }
+            
+            let fetchRequest: NSFetchRequest<CacheItem> = CacheItem.fetchRequest()
+            
+            fetchRequest.predicate = NSPredicate(format: "key IN %@", bundledOfflineResourceKeys)
+            do {
+                let items = try cacheBackgroundContext.fetch(fetchRequest)
+                
+                guard items.count == articleFetcher.expectedNumberOfBundledOfflineResources else {
+                    result = false
+                    return
+                }
+                
+                for item in items {
+                    if item.isDownloaded == false {
+                        result = false
+                    }
+                }
+                
+                result = true
+                
+            } catch {
+                result = false
+            }
+        }
+        
+        return result
+    }
+    
+    func markDownloaded(urlRequests: [URLRequest], completion: @escaping (CacheDBWritingResult) -> Void) {
+        
+        var markDownloadedErrors: [Error] = []
+        
+        let group = DispatchGroup()
+        
+        for urlRequest in urlRequests {
+            group.enter()
+            markDownloaded(urlRequest: urlRequest) { (result) in
+                
+                defer {
+                    group.leave()
+                }
+                
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    markDownloadedErrors.append(error)
+                }
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            if markDownloadedErrors.count > 0 {
+                completion(.failure(ArticleCacheDBWriterError.oneOrMoreItemsFailedToMarkDownloaded))
+            } else {
+                completion(.success)
             }
         }
     }

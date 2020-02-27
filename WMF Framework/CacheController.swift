@@ -66,7 +66,7 @@ public class CacheController {
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriter
     private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
-    private let gatekeeper = CacheGatekeeper()
+    let gatekeeper = CacheGatekeeper()
     
     init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
         self.dbWriter = dbWriter
