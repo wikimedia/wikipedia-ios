@@ -63,10 +63,6 @@ extension ArticleViewController {
                 return
             }
             let isSaved = vc.dataStore.savedPageList.toggleSavedPage(for: vc.articleURL)
-            if isSaved {
-                UIAccessibility.post(notification: .announcement, argument: CommonStrings.accessibilitySavedNotification)
-            } else {
-            }
             let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
             UIAccessibility.post(notification: .announcement, argument: notification)
             vc.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: vc, didSave: isSaved, articleURL: vc.articleURL)
