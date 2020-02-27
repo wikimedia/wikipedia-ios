@@ -750,7 +750,7 @@ public extension NSManagedObjectContext {
     @discardableResult func fetchOrCreateDefaultReadingList() -> ReadingList? {
         var defaultList = defaultReadingList
         if defaultList == nil { // failsafe
-            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
+            defaultList = wmf_fetchOrCreate(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
             defaultList?.isDefault = true
             do {
                 try save()

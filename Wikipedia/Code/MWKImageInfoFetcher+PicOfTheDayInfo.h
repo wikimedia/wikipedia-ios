@@ -1,4 +1,4 @@
-#import "MWKImageInfoFetcher.h"
+#import <WMF/MWKImageInfoFetcher.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

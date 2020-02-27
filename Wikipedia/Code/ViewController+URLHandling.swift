@@ -33,19 +33,6 @@ extension NSUserActivity {
     public func navigate(to url: URL?) {
         return navigate(to: url, useSafari: false)
     }
-    
-    @objc(wmf_navigateToHrefString:)
-    public func navigate(to href: String?) {
-        guard let href = href else {
-            return
-        }
-        let absoluteString: String
-        if href.hasPrefix("//") {
-            absoluteString = "https:" + href
-        } else {
-            absoluteString = href
-        }
-        navigate(to: URL(string: absoluteString))
-    }
+
 }
 
