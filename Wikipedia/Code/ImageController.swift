@@ -185,56 +185,12 @@ open class ImageController : NSObject {
                         self.save(moc: moc)
                         self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
                             completion.success()
-                            self.fetchAndPrintEachItem()
-                            self.fetchAndPrintEachGroup()
                         })
                     }
                 })
                 task.priority = priority
                 self.permanentCacheCompletionManager.add(task, forGroup: groupKey, identifier: identifier)
                 task.resume()
-            }
-        }
-    }
-    
-    public func fetchAndPrintEachItem() {
-
-        self.perform { (moc) in
-            let fetchRequest = NSFetchRequest<CacheItem>(entityName: "CacheItem")
-            do {
-                let fetchedResults = try moc.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     DDLogDebug("🌹noItems")
-                } else {
-                    for item in fetchedResults {
-                        DDLogDebug("🌹itemKey: \(item.key ?? "nil"), variant: \(item.variant ?? "nil"), groups: \(item.cacheGroups?.count ?? 0)")
-                        //print("🌹\(item)")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
-            }
-        }
-    }
-
-    public func fetchAndPrintEachGroup() {
-
-        self.perform { (moc) in
-            let fetchRequest = NSFetchRequest<CacheGroup>(entityName: "CacheGroup")
-            do {
-                let fetchedResults = try moc.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     DDLogDebug("🌹noGroups")
-                } else {
-                    for item in fetchedResults {
-                        DDLogDebug("🌹groupKey: \(item.key ?? "nil"), items: \(item.cacheItems?.count ?? 0)")
-                        //print("🌹\(item)")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                DDLogDebug(error.description)
             }
         }
     }
@@ -302,8 +258,6 @@ open class ImageController : NSObject {
             moc.delete(group)
             self.save(moc: moc)
             completion()
-            self.fetchAndPrintEachItem()
-            self.fetchAndPrintEachGroup()
         }
     }
     
