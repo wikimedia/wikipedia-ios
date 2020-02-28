@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLocationManager:(CLLocationManager *)locationManager {
     self = [super init];
     if (self) {
-        self.currentAuthorizationStatus = [CLLocationManager authorizationStatus];
+        self.currentAuthorizationStatus = [[locationManager class] authorizationStatus];
         self.locationManager = locationManager;
         locationManager.delegate = self;
     }
@@ -98,25 +98,25 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Permissions
 
 - (BOOL)isAuthorized {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
+    return [[self.locationManager class] authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [[self.locationManager class] authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
 - (BOOL)isAuthorizationNotDetermined {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined;
+    return [[self.locationManager class] authorizationStatus] == kCLAuthorizationStatusNotDetermined;
 }
 
 - (BOOL)isAuthorizationDenied {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
+    return [[self.locationManager class] authorizationStatus] == kCLAuthorizationStatusDenied;
 }
 
 - (BOOL)isAuthorizationRestricted {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted;
+    return [[self.locationManager class] authorizationStatus] == kCLAuthorizationStatusRestricted;
 }
 
 - (BOOL)requestAuthorizationIfNeeded {
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus status = [[self.locationManager class] authorizationStatus];
     if (status == kCLAuthorizationStatusNotDetermined) {
-        NSParameterAssert([CLLocationManager locationServicesEnabled]);
+        NSParameterAssert([[self.locationManager class] locationServicesEnabled]);
         DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
         [self.locationManager requestWhenInUseAuthorization];
         return YES;
