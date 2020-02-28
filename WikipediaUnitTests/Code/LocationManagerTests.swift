@@ -5,7 +5,7 @@ final class LocationManagerTests: XCTestCase {
 
     private var mockCLLocationManager: MockCLLocationManager!
     private var mockDevice: MockUIDevice!
-    private var locationManager: WMFLocationManager!
+    private var locationManager: LocationManager!
     private var delegate: TestLocationManagerDelegate!
 
     override func setUp() {
@@ -16,26 +16,31 @@ final class LocationManagerTests: XCTestCase {
 
         mockDevice = MockUIDevice(orientation: .unknown)
 
-        locationManager = WMFLocationManager(locationManager: mockCLLocationManager, device: mockDevice)
+        locationManager = LocationManager(
+            locationManager: mockCLLocationManager,
+            device: mockDevice
+        )
 
         delegate = TestLocationManagerDelegate()
         locationManager.delegate = delegate
     }
 
-    // MARK: - WMFLocationManager tests
+    // MARK: - LocationManager tests
 
     func testFineLocationManager() {
-        let locationManager = WMFLocationManager.fine()
-        XCTAssertEqual(locationManager.locationManager.distanceFilter, 1)
-        XCTAssertEqual(locationManager.locationManager.desiredAccuracy, kCLLocationAccuracyBest)
-        XCTAssertEqual(locationManager.locationManager.activityType, .fitness)
+        let clLocationManager = CLLocationManager()
+        _ = LocationManager(locationManager: clLocationManager, configuration: .fine)
+        XCTAssertEqual(clLocationManager.distanceFilter, 1)
+        XCTAssertEqual(clLocationManager.desiredAccuracy, kCLLocationAccuracyBest)
+        XCTAssertEqual(clLocationManager.activityType, .fitness)
     }
 
     func testCoarseLocationManager() {
-        let locationManager = WMFLocationManager.coarse()
-        XCTAssertEqual(locationManager.locationManager.distanceFilter, 1000)
-        XCTAssertEqual(locationManager.locationManager.desiredAccuracy, kCLLocationAccuracyKilometer)
-        XCTAssertEqual(locationManager.locationManager.activityType, .fitness)
+        let clLocationManager = CLLocationManager()
+        _ = LocationManager(locationManager: clLocationManager, configuration: .coarse)
+        XCTAssertEqual(clLocationManager.distanceFilter, 1000)
+        XCTAssertEqual(clLocationManager.desiredAccuracy, kCLLocationAccuracyKilometer)
+        XCTAssertEqual(clLocationManager.activityType, .fitness)
     }
 
     func testStartMonitoring() {
@@ -107,34 +112,22 @@ final class LocationManagerTests: XCTestCase {
     func testAuthorizedStatus() {
         // Test authorizedAlways status.
         mockCLLocationManager.simulate(authorizationStatus: .authorizedAlways)
-        XCTAssertEqual(locationManager.isAuthorized(), true)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), false)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), false)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), false)
+        XCTAssertEqual(locationManager.autorizationStatus, .authorizedAlways)
 
         // Test notDetermined status.
         mockCLLocationManager.simulate(authorizationStatus: .notDetermined)
-        XCTAssertEqual(locationManager.isAuthorized(), false)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), true)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), false)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), false)
+        XCTAssertEqual(locationManager.autorizationStatus, .notDetermined)
 
         // Test denied status.
         mockCLLocationManager.simulate(authorizationStatus: .denied)
-        XCTAssertEqual(locationManager.isAuthorized(), false)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), false)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), true)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), false)
+        XCTAssertEqual(locationManager.autorizationStatus, .denied)
 
         // Test restricted status.
         mockCLLocationManager.simulate(authorizationStatus: .restricted)
-        XCTAssertEqual(locationManager.isAuthorized(), false)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), false)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), false)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), true)
+        XCTAssertEqual(locationManager.autorizationStatus, .restricted)
     }
 
-    // MARK: - WMFLocationManagerDelegate tests
+    // MARK: - LocationManagerDelegate tests
 
     func testUpdateLocation() {
         locationManager.startMonitoringLocation()
@@ -153,7 +146,7 @@ final class LocationManagerTests: XCTestCase {
 
         let location = CLLocation(latitude: 10, longitude: 20)
         mockCLLocationManager.simulateUpdate(location: location)
-        let locationManager = WMFLocationManager(locationManager: mockCLLocationManager)
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
         
         // `locationManager.startMonitoringLocation()` is not called.
       
@@ -177,7 +170,7 @@ final class LocationManagerTests: XCTestCase {
 
         let heading = MockCLHeading(headingAccuracy: 10)
         mockCLLocationManager.simulateUpdate(heading: heading)
-        let locationManager = WMFLocationManager(locationManager: mockCLLocationManager)
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
         
         // `locationManager.startMonitoringLocation()` is not called.
         
@@ -260,14 +253,14 @@ final class LocationManagerTests: XCTestCase {
 
         locationManager.stopMonitoringLocation()
         XCTAssertEqual(mockDevice.beginGeneratingDeviceOrientationCount, 1)
-//        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 1) - currently failing
+        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 1)
 
         // Verify `stopMonitoringLocation()` is idempotent.
         locationManager.stopMonitoringLocation()
         locationManager.stopMonitoringLocation()
         locationManager.stopMonitoringLocation()
         XCTAssertEqual(mockDevice.beginGeneratingDeviceOrientationCount, 1)
-//        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 1) - currently failing
+        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 1)
     }
 
     func testMonitoringStopsWhenDeallocated() {
@@ -291,26 +284,26 @@ final class LocationManagerTests: XCTestCase {
     }
 }
 
-/// A test implementation of `WMFLocationManagerDelegate`.
-private final class TestLocationManagerDelegate: NSObject, WMFLocationManagerDelegate {
+/// A test implementation of `LocationManagerDelegate`.
+private final class TestLocationManagerDelegate: LocationManagerDelegate {
     private(set) var heading: CLHeading?
     private(set) var location: CLLocation?
     private(set) var error: Error?
     private(set) var authorized: Bool?
 
-    func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
+    func locationManager(_ locationManager: LocationManager, didReceive error: Error) {
         self.error = error
     }
 
-    func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
+    func locationManager(_ locationManager: LocationManager, didUpdate heading: CLHeading) {
         self.heading = heading
     }
 
-    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+    func locationManager(_ locationManager: LocationManager, didUpdate location: CLLocation) {
         self.location = location
     }
 
-    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        self.authorized = enabled
+    func locationManager(_ locationManager: LocationManager, didUpdateAuthorized authorized: Bool) {
+        self.authorized = authorized
     }
 }
