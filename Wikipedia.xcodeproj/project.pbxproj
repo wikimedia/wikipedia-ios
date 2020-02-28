@@ -1724,7 +1724,6 @@
 		BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
 		BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
 		BAFCE8431F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
-		BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */; };
 		BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4DC1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m */; };
 		BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E11C223FAE00B5AFDE /* WMFArticleRevision.m */; };
 		BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
@@ -4100,8 +4099,6 @@
 		BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareActivityController.swift; sourceTree = "<group>"; };
 		BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageIssuesTableViewController.swift; path = Wikipedia/Code/PageIssuesTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
-		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
-		BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMockLocationManager.m; path = WikipediaUnitTests/Code/WMFMockLocationManager.m; sourceTree = SOURCE_ROOT; };
 		BC23E4DB1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleRevisionFetcher.h; path = Wikipedia/Code/WMFArticleRevisionFetcher.h; sourceTree = SOURCE_ROOT; };
 		BC23E4DC1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleRevisionFetcher.m; path = Wikipedia/Code/WMFArticleRevisionFetcher.m; sourceTree = SOURCE_ROOT; };
 		BC23E4E01C223FAE00B5AFDE /* WMFArticleRevision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleRevision.h; path = Wikipedia/Code/WMFArticleRevision.h; sourceTree = SOURCE_ROOT; };
@@ -7258,8 +7255,6 @@
 				BC62AE611C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m */,
 				BCD320081C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.h */,
 				BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */,
-				BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */,
-				BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -9825,7 +9820,6 @@
 				D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
-				BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */,
 				B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */,
 				B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */,
 				B0E809111C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m in Sources */,
