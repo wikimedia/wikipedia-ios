@@ -1,7 +1,6 @@
 class MediaListGalleryViewController: WMFImageGalleryViewController {
     let imageController: ImageController = ImageController.shared
     let imageInfoFetcher = MWKImageInfoFetcher()
-    let imageFetcher = ImageFetcher()
     let articleURL: URL
     required init(articleURL: URL, mediaList: MediaList, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
         self.articleURL = articleURL
@@ -77,20 +76,14 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             return
         }
         
-        let urlRequest = imageFetcher.request(for: imageURL, forceCache: false)
-        
-        imageFetcher.data(for: urlRequest) { [weak self] (result) in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    photo.image = image
-                    self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.wmf_showAlertWithError(error as NSError)
-                }
+        imageController.fetchImage(withURL: imageURL, failure: { (error) in
+            DispatchQueue.main.async {
+                self.wmf_showAlertWithError(error as NSError)
+            }
+        }) { [weak self] (download) in
+            DispatchQueue.main.async {
+                photo.image = download.image.staticImage
+                self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
             }
         }
     }

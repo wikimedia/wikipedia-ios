@@ -40,7 +40,6 @@ class ArticleViewController: ViewController {
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
 
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
-    internal lazy var imageFetcher: ImageFetcher = ImageFetcher()
 
     private var leadImageHeight: CGFloat = 210
 
@@ -122,29 +121,11 @@ class ArticleViewController: ViewController {
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
         
-        let leadImageRequest = imageFetcher.request(for: leadImageURL, forceCache: forceCache)
-        imageFetcher.data(for: leadImageRequest) { [weak self] (result) in
-            
-            switch result {
-            case .success(let data):
-                
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.leadImageView.wmf_setImage(with: image, imageURL: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                            DDLogError("Error loading lead image: \(error)")
-                        }, success: {
-                            self?.updateLeadImageMargins()
-                            self?.updateArticleMargins()
-                        })
-                    }
-                } else {
-                    DDLogError("Unable to pull lead image out of data.")
-                }
-                    
-            case .failure(let error):
-                DDLogError("Error loading lead image: \(error)")
-            }
-            
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            DDLogError("Error loading lead image: \(error)")
+        }) {
+            self.updateLeadImageMargins()
+            self.updateArticleMargins()
         }
     }
     
