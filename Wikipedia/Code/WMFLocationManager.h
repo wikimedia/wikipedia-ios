@@ -30,10 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- *  Start monitoring location and heading updates.
+ *  Start monitoring location and heading updates. This method is idempotent.
  *
- *  @note
- *  This method is idempotent. To force new values to be sent, use @c restartLocationMonitoring.
  */
 - (void)startMonitoringLocation;
 
@@ -41,11 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Stop monitoring location and heading updates.
  */
 - (void)stopMonitoringLocation;
-
-/**
- *  Restart location monitoring, forcing the receiver to emit new location and heading values (if possible).
- */
-- (void)restartLocationMonitoring;
 
 + (BOOL)isAuthorized;
 

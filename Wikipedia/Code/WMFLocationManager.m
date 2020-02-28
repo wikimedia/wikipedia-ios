@@ -127,11 +127,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Location Monitoring
 
-- (void)restartLocationMonitoring {
-    [self stopMonitoringLocation];
-    [self startMonitoringLocation];
-}
-
 - (void)startMonitoringLocation {
     self.requestingAuthorizationAndStart = YES;
     if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isAuthorizationDenied] || [WMFLocationManager isAuthorizationRestricted] || self.isUpdating) {
