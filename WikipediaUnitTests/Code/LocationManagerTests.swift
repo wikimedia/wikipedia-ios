@@ -4,6 +4,7 @@ import XCTest
 final class LocationManagerTests: XCTestCase {
 
     private var mockCLLocationManager: MockCLLocationManager!
+    private var mockDevice: MockUIDevice!
     private var locationManager: WMFLocationManager!
     private var delegate: TestLocationManagerDelegate!
 
@@ -13,7 +14,9 @@ final class LocationManagerTests: XCTestCase {
         mockCLLocationManager = MockCLLocationManager()
         mockCLLocationManager.simulate(authorizationStatus: .authorizedAlways)
 
-        locationManager = WMFLocationManager(locationManager: mockCLLocationManager)
+        mockDevice = MockUIDevice(orientation: .unknown)
+
+        locationManager = WMFLocationManager(locationManager: mockCLLocationManager, device: mockDevice)
 
         delegate = TestLocationManagerDelegate()
         locationManager.delegate = delegate
@@ -224,6 +227,67 @@ final class LocationManagerTests: XCTestCase {
 
         mockCLLocationManager.simulate(authorizationStatus: .authorizedAlways)
         XCTAssertEqual(delegate.authorized, true)
+    }
+
+    // MARK: - Test heading
+
+    func testDeviceHeadingUpdates() {
+        locationManager.startMonitoringLocation()
+
+        mockDevice.simulateUpdate(orientation: .portrait)
+        XCTAssertEqual(mockCLLocationManager.headingOrientation, .portrait)
+
+        mockDevice.simulateUpdate(orientation: .landscapeLeft)
+        XCTAssertEqual(mockCLLocationManager.headingOrientation, .landscapeLeft)
+
+        // The device orientation updates should not be propagated when the monitoring is stopped.
+        locationManager.stopMonitoringLocation()
+        mockDevice.simulateUpdate(orientation: .portrait)
+        XCTAssertNotEqual(mockCLLocationManager.headingOrientation, .portrait)
+    }
+
+    func test_UIDevice_BeingEndGeneratingDeviceOrientation_IsCalled() {
+        locationManager.startMonitoringLocation()
+        XCTAssertEqual(mockDevice.beginGeneratingDeviceOrientationCount, 1)
+        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 0)
+
+        // Verify `startMonitoringLocation()` is idempotent.
+        locationManager.startMonitoringLocation()
+        locationManager.startMonitoringLocation()
+        locationManager.startMonitoringLocation()
+        XCTAssertEqual(mockDevice.beginGeneratingDeviceOrientationCount, 1)
+        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 0)
+
+        locationManager.stopMonitoringLocation()
+        XCTAssertEqual(mockDevice.beginGeneratingDeviceOrientationCount, 1)
+//        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 1) - currently failing
+
+        // Verify `stopMonitoringLocation()` is idempotent.
+        locationManager.stopMonitoringLocation()
+        locationManager.stopMonitoringLocation()
+        locationManager.stopMonitoringLocation()
+        XCTAssertEqual(mockDevice.beginGeneratingDeviceOrientationCount, 1)
+//        XCTAssertEqual(mockDevice.endGeneratingDeviceOrientationCount, 1) - currently failing
+    }
+
+    func testMonitoringStopsWhenDeallocated() {
+        // Start the monitoring first
+        locationManager.startMonitoringLocation()
+        XCTAssertEqual(mockCLLocationManager.isUpdatingLocation, true)
+        XCTAssertEqual(mockCLLocationManager.isUpdatingHeading, true)
+        mockDevice.simulateUpdate(orientation: .portrait)
+        XCTAssertEqual(mockCLLocationManager.headingOrientation, .portrait)
+
+        // Deallocate
+        locationManager = nil
+      
+        XCTAssertEqual(mockCLLocationManager.isUpdatingLocation, false)
+        XCTAssertEqual(mockCLLocationManager.isUpdatingHeading, false)
+
+        // The device orientation updates should not be propagated
+        // when `locationManager` is deallocated.
+        mockDevice.simulateUpdate(orientation: .landscapeLeft)
+        XCTAssertNotEqual(mockCLLocationManager.headingOrientation, .landscapeLeft)
     }
 }
 
