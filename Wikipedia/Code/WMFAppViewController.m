@@ -886,7 +886,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
 
-    BOOL locationAuthorized = [WMFLocationManager isAuthorized];
+    BOOL locationAuthorized = [WMFLocationManager fineLocationManager].isAuthorized;
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesWithDate:nil
                                                 userInitiated:NO

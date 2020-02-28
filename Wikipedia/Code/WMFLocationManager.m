@@ -97,19 +97,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Permissions
 
-+ (BOOL)isAuthorized {
+- (BOOL)isAuthorized {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
-+ (BOOL)isAuthorizationNotDetermined {
+- (BOOL)isAuthorizationNotDetermined {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined;
 }
 
-+ (BOOL)isAuthorizationDenied {
+- (BOOL)isAuthorizationDenied {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
 }
 
-+ (BOOL)isAuthorizationRestricted {
+- (BOOL)isAuthorizationRestricted {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted;
 }
 
@@ -129,12 +129,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startMonitoringLocation {
     self.requestingAuthorizationAndStart = YES;
-    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isAuthorizationDenied] || [WMFLocationManager isAuthorizationRestricted] || self.isUpdating) {
+    if ([self requestAuthorizationIfNeeded] || [self isAuthorizationDenied] || [self isAuthorizationRestricted] || self.isUpdating) {
         return;
     }
     self.requestingAuthorizationAndStart = NO;
 
-    NSParameterAssert([WMFLocationManager isAuthorized]);
+    NSParameterAssert([self isAuthorized]);
 
     self.updating = YES;
     DDLogDebug(@"%@ starting monitoring location & heading updates.", self);

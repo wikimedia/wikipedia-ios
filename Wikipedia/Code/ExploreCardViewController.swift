@@ -230,7 +230,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
-            if WMFLocationManager.isAuthorized() {
+            if locationManager.isAuthorized() {
                 authCell.updateForLocationEnabled()
             } else {
                 authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
@@ -243,7 +243,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         cell.articleLocation = article.location
-        if WMFLocationManager.isAuthorized() {
+        if locationManager.isAuthorized() {
             locationManager.startMonitoringLocation()
             cell.update(userLocation: locationManager.location, heading: locationManager.heading)
         } else {
@@ -387,7 +387,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         if cell is ArticleLocationExploreCollectionViewCell {
             visibleLocationCellCount += 1
-            if WMFLocationManager.isAuthorized() {
+            if locationManager.isAuthorized() {
                 locationManager.startMonitoringLocation()
             }
         }
@@ -632,7 +632,7 @@ extension ExploreCardViewController: ArticlePreviewingDelegate {
 extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewCellDelegate {
     func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell) {
         UserDefaults.standard.wmf_setExploreDidPromptForLocationAuthorization(true)
-        if WMFLocationManager.isAuthorizationNotDetermined() {
+        if locationManager.isAuthorizationNotDetermined() {
             locationManager.startMonitoringLocation()
             return
         }
@@ -663,7 +663,7 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
         UserDefaults.standard.wmf_setLocationAuthorized(enabled)
         for cell in collectionView.visibleCells {
-            guard let cell = cell as? ArticleLocationAuthorizationCollectionViewCell, WMFLocationManager.isAuthorized() else {
+            guard let cell = cell as? ArticleLocationAuthorizationCollectionViewCell, locationManager.isAuthorized() else {
                 return
             }
             cell.updateForLocationEnabled()

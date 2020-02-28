@@ -231,7 +231,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
 
         
-        guard WMFLocationManager.isAuthorized() else {
+        guard locationManager.isAuthorized() else {
             if !defaults.wmf_placesDidPromptForLocationAuthorization() {
                 defaults.wmf_setPlacesDidPromptForLocationAuthorization(true)
                 promptForLocationAccess()
@@ -1211,7 +1211,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
             self.presentedViewController?.dismiss(animated: true, completion: {
-                guard WMFLocationManager.isAuthorizationNotDetermined() else {
+                guard self.locationManager.isAuthorizationNotDetermined() else {
                     UIApplication.shared.wmf_openAppSpecificSystemSettings()
                     return
                 }
@@ -2175,7 +2175,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     @IBAction fileprivate func recenterOnUserLocation(_ sender: Any) {
-        guard WMFLocationManager.isAuthorized(), let userLocation = locationManager.location else {
+        guard locationManager.isAuthorized(), let userLocation = locationManager.location else {
             promptForLocationAccess()
             return
         }

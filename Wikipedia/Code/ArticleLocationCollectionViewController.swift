@@ -36,7 +36,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationManager.delegate = self
-        if WMFLocationManager.isAuthorized() {
+        if locationManager.isAuthorized() {
             locationManager.startMonitoringLocation()
         }
     }

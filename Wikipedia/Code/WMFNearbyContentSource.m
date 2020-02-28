@@ -58,7 +58,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (void)startUpdating {
     self.isFetchingInitialLocation = NO;
-    if ([WMFLocationManager isAuthorized]) {
+    if ([self.currentLocationManager isAuthorized]) {
         [self.currentLocationManager startMonitoringLocation];
     }
 }
@@ -69,7 +69,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (![WMFLocationManager isAuthorized]) {
+        if (![self.currentLocationManager isAuthorized]) {
             [moc performBlock:^{
                 [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
                 if (![[NSUserDefaults standardUserDefaults] wmf_exploreDidPromptForLocationAuthorization]) {

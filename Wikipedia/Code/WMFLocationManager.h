@@ -40,11 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)stopMonitoringLocation;
 
-+ (BOOL)isAuthorized;
-
-+ (BOOL)isAuthorizationNotDetermined;
-+ (BOOL)isAuthorizationDenied;
-+ (BOOL)isAuthorizationRestricted;
+- (BOOL)isAuthorized;
+- (BOOL)isAuthorizationNotDetermined;
+- (BOOL)isAuthorizationDenied;
+- (BOOL)isAuthorizationRestricted;
 
 @end
 
