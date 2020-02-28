@@ -1,5 +1,6 @@
 import UIKit
 import CoreLocation
+import CocoaLumberjackSwift
 
 public struct LocationManagerConfiguration {
     let accuracy: CLLocationAccuracy
@@ -51,6 +52,7 @@ final public class LocationManager: NSObject {
     public func startMonitoringLocation() {
         guard autorizationStatus != .notDetermined else {
             authorize(succcess: startMonitoringLocation)
+            DDLogVerbose("LocationManager - skip monitoring location because status is \(autorizationStatus.rawValue).")
             return
         }
 
@@ -63,6 +65,7 @@ final public class LocationManager: NSObject {
         locationManager.startUpdatingLocation()
         startUpdatingHeading()
         isUpdating = true
+        DDLogDebug("LocationManager - did start updating location & heading.")
     }
 
     /// Stops monitoring location and heading updates.
@@ -70,6 +73,7 @@ final public class LocationManager: NSObject {
         locationManager.stopUpdatingLocation()
         stopUpdatingHeading()
         isUpdating = false
+        DDLogDebug("LocationManager - did stop updating location & heading.")
     }
   
     
@@ -116,6 +120,7 @@ final public class LocationManager: NSObject {
     private func authorize(succcess: (() -> Void)? = nil) {
         authorizedCompletion = succcess
         locationManager.requestWhenInUseAuthorization()
+        DDLogInfo("LocationManager - requesting authorization to access location when in use.")
     }
 
     // MARK: - Heading
@@ -162,6 +167,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
         self.location = location
         delegate?.locationManager(self, didUpdate: location)
+        DDLogVerbose("LocationManager - did update location: \(location).")
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
@@ -169,10 +175,14 @@ extension LocationManager: CLLocationManagerDelegate {
 
         self.heading = heading
         delegate?.locationManager(self, didUpdate: heading)
+        DDLogVerbose("LocationManager - did update heading: \(heading).")
     }
 
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        guard isUpdating else { return }
+        guard isUpdating else {
+            DDLogVerbose("LocationManager - suppressing error received after call to stop monitoring location: \(error)")
+            return
+        }
 
         #if targetEnvironment(simulator)
         let nsError = error as NSError
@@ -182,12 +192,14 @@ extension LocationManager: CLLocationManagerDelegate {
         #endif
 
         delegate?.locationManager(self, didReceive: error)
+        DDLogError("LocationManager - encountered error: \(error).")
     }
 
     public func locationManager(
         _ manager: CLLocationManager,
         didChangeAuthorization status: CLAuthorizationStatus
     ) {
+        DDLogInfo("LocationManager - did change authorization status \(status.rawValue).")
         delegate?.locationManager(self, didUpdateAuthorized: status.isAuthorized)
 
         if status.isAuthorized {
