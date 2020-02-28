@@ -174,6 +174,13 @@ extension LocationManager: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         guard isUpdating else { return }
 
+        #if targetEnvironment(simulator)
+        let nsError = error as NSError
+        guard !(nsError.domain == kCLErrorDomain && nsError.code == CLError.locationUnknown.rawValue) else {
+            return
+        }
+        #endif
+
         delegate?.locationManager(self, didReceive: error)
     }
 
