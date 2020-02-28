@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readwrite) CLLocationManager *locationManager;
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
+@property (nonatomic, strong) UIDevice *device;
 
 /**
  *  @name Location Manager State
@@ -50,23 +51,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readwrite) CLAuthorizationStatus currentAuthorizationStatus;
 
-- (instancetype)initWithLocationManager:(CLLocationManager *)locationManager NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithLocationManager:(CLLocationManager *)locationManager device:(UIDevice *)device NS_DESIGNATED_INITIALIZER;
 
 @end
 
 @implementation WMFLocationManager
 
 + (instancetype)fineLocationManager {
-    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_fineLocationManager]];
+    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_fineLocationManager] device:[UIDevice currentDevice]];
 }
 
 + (instancetype)coarseLocationManager {
-    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager]];
+    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager] device:[UIDevice currentDevice]];
 }
 
-- (instancetype)initWithLocationManager:(CLLocationManager *)locationManager {
+- (instancetype)initWithLocationManager:(CLLocationManager *)locationManager device:(UIDevice *)device {
     self = [super init];
     if (self) {
+        self.device = device;
         self.currentAuthorizationStatus = [[locationManager class] authorizationStatus];
         self.locationManager = locationManager;
         locationManager.delegate = self;
@@ -158,8 +160,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)startHeadingUpdates {
-    if (![[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    if (![self.device isGeneratingDeviceOrientationNotifications]) {
+        [self.device beginGeneratingDeviceOrientationNotifications];
     }
     @weakify(self);
     self.orientationNotificationToken =
@@ -175,7 +177,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateHeadingOrientation {
-    switch ([[UIDevice currentDevice] orientation]) {
+    switch ([self.device orientation]) {
         case UIDeviceOrientationFaceDown:
             self.locationManager.headingOrientation = CLDeviceOrientationFaceDown;
             break;
