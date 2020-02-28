@@ -371,7 +371,18 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.layoutMargins = layout.itemLayoutMargins
     }
-    
+
+    func updateLocationCells() {
+        let userLocation = locationManager.location
+        let heading = locationManager.heading
+        for cell in collectionView.visibleCells {
+            guard let cell = cell as? ArticleLocationExploreCollectionViewCell else {
+                return
+            }
+            cell.update(userLocation: userLocation, heading: heading)
+        }
+    }
+
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -641,17 +652,6 @@ extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewC
 }
 
 extension ExploreCardViewController: WMFLocationManagerDelegate {
-    func updateLocationCells() {
-        let userLocation = locationManager.location
-        let heading = locationManager.heading
-        for cell in collectionView.visibleCells {
-            guard let cell = cell as? ArticleLocationExploreCollectionViewCell else {
-                return
-            }
-            cell.update(userLocation: userLocation, heading: heading)
-        }
-    }
-    
     func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
         updateLocationCells()
     }

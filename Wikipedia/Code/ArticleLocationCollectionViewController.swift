@@ -107,6 +107,15 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
             ReadingListsFunnel.shared.logUnsaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
         }
     }
+
+    func updateLocationOnVisibleCells() {
+        for cell in collectionView.visibleCells {
+            guard let locationCell = cell as? ArticleLocationCollectionViewCell else {
+                continue
+            }
+            locationCell.update(userLocation: locationManager.location, heading: locationManager.heading)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -156,15 +165,6 @@ extension ArticleLocationCollectionViewController {
 
 // MARK: - WMFLocationManagerDelegate
 extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
-    func updateLocationOnVisibleCells() {
-        for cell in collectionView.visibleCells {
-            guard let locationCell = cell as? ArticleLocationCollectionViewCell else {
-                continue
-            }
-            locationCell.update(userLocation: locationManager.location, heading: locationManager.heading)
-        }
-    }
-    
     func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
         updateLocationOnVisibleCells()
     }
