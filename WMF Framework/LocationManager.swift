@@ -24,11 +24,15 @@ extension LocationManagerConfiguration {
 
 // MARK: - LocationManagerDelegate
 
-public protocol LocationManagerDelegate: class {
-    func locationManager(_ locationManager: LocationManager, didUpdate location: CLLocation)
-    func locationManager(_ locationManager: LocationManager, didUpdate heading: CLHeading)
-    func locationManager(_ locationManager: LocationManager, didReceive error: Error)
-    func locationManager(_ locationManager: LocationManager, didUpdateAuthorized authorized: Bool)
+@objc public protocol LocationManagerDelegate: class {
+    @objc(locationManager:didUpdateLocation:) optional
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation)
+    @objc(locationManager:didUpdateHeading:) optional
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading)
+    @objc(locationManager:didReceiveError:) optional
+    func locationManager(_ locationManager: LocationManagerProtocol, didReceive error: Error)
+    @objc(locationManager:didUpdateAuthorizedState:) optional
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdateAuthorized authorized: Bool)
 }
 
 final public class LocationManager: NSObject {
@@ -166,7 +170,7 @@ extension LocationManager: CLLocationManagerDelegate {
         guard isUpdating, let location = locations.last else { return }
 
         self.location = location
-        delegate?.locationManager(self, didUpdate: location)
+        delegate?.locationManager?(self, didUpdate: location)
         DDLogVerbose("LocationManager - did update location: \(location).")
     }
 
@@ -174,7 +178,7 @@ extension LocationManager: CLLocationManagerDelegate {
         guard isUpdating else { return }
 
         self.heading = heading
-        delegate?.locationManager(self, didUpdate: heading)
+        delegate?.locationManager?(self, didUpdate: heading)
         DDLogVerbose("LocationManager - did update heading: \(heading).")
     }
 
@@ -191,7 +195,7 @@ extension LocationManager: CLLocationManagerDelegate {
         }
         #endif
 
-        delegate?.locationManager(self, didReceive: error)
+        delegate?.locationManager?(self, didReceive: error)
         DDLogError("LocationManager - encountered error: \(error).")
     }
 
@@ -200,7 +204,7 @@ extension LocationManager: CLLocationManagerDelegate {
         didChangeAuthorization status: CLAuthorizationStatus
     ) {
         DDLogInfo("LocationManager - did change authorization status \(status.rawValue).")
-        delegate?.locationManager(self, didUpdateAuthorized: status.isAuthorized)
+        delegate?.locationManager?(self, didUpdateAuthorized: status.isAuthorized)
 
         if status.isAuthorized {
             authorizedCompletion?()

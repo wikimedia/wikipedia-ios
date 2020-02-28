@@ -1293,6 +1293,7 @@
 		A452F9FB24081A7200D8ED09 /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9FA24081A7200D8ED09 /* LocationManagerTests.swift */; };
 		A452F9FD24081B0200D8ED09 /* MockUIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9FC24081B0200D8ED09 /* MockUIDevice.swift */; };
 		A4C558BF2403D7E300AFBFDC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BE2403D7E200AFBFDC /* LocationManager.swift */; };
+		A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B0016CB921354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
 		B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
@@ -3655,6 +3656,7 @@
 		A452F9FA24081A7200D8ED09 /* LocationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
 		A452F9FC24081B0200D8ED09 /* MockUIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUIDevice.swift; sourceTree = "<group>"; };
 		A4C558BE2403D7E200AFBFDC /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerProtocol.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayoutSafeMultiLineButton.swift; sourceTree = "<group>"; };
 		B0016CBE2136105900FA1096 /* SetupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupButton.swift; sourceTree = "<group>"; };
@@ -5130,6 +5132,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C558BE2403D7E200AFBFDC /* LocationManager.swift */,
+				A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */,
 				B0E802F91C0CD4EC0065EBC0 /* WMFLocationManager.h */,
 				B0E802FA1C0CD4EC0065EBC0 /* WMFLocationManager.m */,
 				BC3944C31C8146210008546D /* CLLocationManager+WMFLocationManagers.h */,
@@ -10517,6 +10520,7 @@
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
 				D89D44091D74D4D700F7862E /* NSDictionary+WMFCommonParams.m in Sources */,
+				A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */,
 				8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */,
 				83E880E823EB19270087223F /* MediaList.swift in Sources */,
 				D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */,
