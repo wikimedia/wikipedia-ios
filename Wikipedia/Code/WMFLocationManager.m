@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager () <CLLocationManagerDelegate>
 
-@property (nonatomic, assign, readwrite) BOOL significantLocationUpdatesOnly;
-
 @property (nonatomic, strong, readwrite) CLLocationManager *locationManager;
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
 
@@ -119,13 +117,8 @@ NS_ASSUME_NONNULL_BEGIN
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusNotDetermined) {
         NSParameterAssert([CLLocationManager locationServicesEnabled]);
-        if (self.significantLocationUpdatesOnly) {
-            DDLogInfo(@"%@ is requesting authorization to access location always.", self);
-            [self.locationManager requestAlwaysAuthorization];
-        } else {
-            DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
-            [self.locationManager requestWhenInUseAuthorization];
-        }
+        DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
+        [self.locationManager requestWhenInUseAuthorization];
         return YES;
     }
     DDLogVerbose(@"%@ is skipping authorization request because status is %d.", self, status);
@@ -166,11 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Location Updates
 
 - (void)startLocationUpdates {
-    if (self.significantLocationUpdatesOnly) {
-        [self.locationManager startMonitoringSignificantLocationChanges];
-    } else {
-        [self.locationManager startUpdatingLocation];
-    }
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)startHeadingUpdates {
