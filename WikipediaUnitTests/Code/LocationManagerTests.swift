@@ -112,19 +112,22 @@ final class LocationManagerTests: XCTestCase {
     func testAuthorizedStatus() {
         // Test authorizedAlways status.
         mockCLLocationManager.simulate(authorizationStatus: .authorizedAlways)
-        XCTAssertEqual(locationManager.autorizationStatus, .authorizedAlways)
+        XCTAssertTrue(locationManager.autorizationStatus.isAuthorized)
 
         // Test notDetermined status.
         mockCLLocationManager.simulate(authorizationStatus: .notDetermined)
         XCTAssertEqual(locationManager.autorizationStatus, .notDetermined)
+        XCTAssertFalse(locationManager.autorizationStatus.isAuthorized)
 
         // Test denied status.
         mockCLLocationManager.simulate(authorizationStatus: .denied)
         XCTAssertEqual(locationManager.autorizationStatus, .denied)
+        XCTAssertFalse(locationManager.autorizationStatus.isAuthorized)
 
         // Test restricted status.
         mockCLLocationManager.simulate(authorizationStatus: .restricted)
         XCTAssertEqual(locationManager.autorizationStatus, .restricted)
+        XCTAssertFalse(locationManager.autorizationStatus.isAuthorized)
     }
 
     // MARK: - LocationManagerDelegate tests

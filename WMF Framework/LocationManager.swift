@@ -33,10 +33,10 @@ public protocol LocationManagerDelegate: class {
 final public class LocationManager: NSObject {
 
     /// The latest known location.
-    public var location: CLLocation? { fatalError() }
+    public private(set) lazy var location: CLLocation? = self.locationManager.location
 
     /// The latest known heading.
-    public var heading: CLHeading? { fatalError() }
+    public private(set) lazy var heading: CLHeading? = self.locationManager.heading
 
     /// Returns `true` when the location and heading monitoring is active.
     public private(set) var isUpdating = false
@@ -45,14 +45,34 @@ final public class LocationManager: NSObject {
     public var delegate: LocationManagerDelegate?
 
     /// Returns the current locationManager permission state.
-    public var autorizationStatus: CLAuthorizationStatus { fatalError() }
+    public var autorizationStatus: CLAuthorizationStatus { type(of: locationManager).authorizationStatus() }
 
     /// Starts monitoring location and heading updates.
-    public func startMonitoringLocation() { }
+    public func startMonitoringLocation() {
+        guard autorizationStatus != .notDetermined else {
+            authorize(succcess: startMonitoringLocation)
+            return
+        }
+
+        guard autorizationStatus.isAuthorized else {
+            // Start monitoring location in case the authorization status ever changes to authorized.
+            authorizedCompletion = startMonitoringLocation
+            return
+        }
+
+        locationManager.startUpdatingLocation()
+        startUpdatingHeading()
+        isUpdating = true
+    }
 
     /// Stops monitoring location and heading updates.
-    public func stopMonitoringLocation() { }
-
+    public func stopMonitoringLocation() {
+        locationManager.stopUpdatingLocation()
+        stopUpdatingHeading()
+        isUpdating = false
+    }
+  
+    
     /// Creates a new instance of `LocationManager`.
     ///
     /// - Parameters:
@@ -66,5 +86,133 @@ final public class LocationManager: NSObject {
         locationManager: CLLocationManager = .init(),
         device: UIDevice = .current,
         configuration: LocationManagerConfiguration = .fine
-    ) { }
+    ) {
+        assert(Thread.isMainThread, "Location managers must be created on the main thread")
+
+        locationManager.distanceFilter = configuration.filter
+        locationManager.desiredAccuracy = configuration.accuracy
+        locationManager.activityType = configuration.activityType
+        self.locationManager = locationManager
+        self.device = device
+        super.init()
+        locationManager.delegate = self
+    }
+
+    deinit {
+        stopMonitoringLocation()
+    }
+
+    // MARK: - Private
+
+    private let locationManager: CLLocationManager
+    private let device: UIDevice
+
+    // MARK: - Authorization
+
+    /// The completion closure invoked when `authorizationStatus` changes to `authorizedAlways`
+    /// or `authorizedWhenInUse`.
+    private var authorizedCompletion: (() -> Void)?
+
+    private func authorize(succcess: (() -> Void)? = nil) {
+        authorizedCompletion = succcess
+        locationManager.requestWhenInUseAuthorization()
+    }
+
+    // MARK: - Heading
+
+    /// The observer token for `UIDevice.orientationDidChangeNotification`.
+    private var orientationObserver: NSObjectProtocol?
+
+    private func startUpdatingHeading() {
+        guard !isUpdating else { return }
+        device.beginGeneratingDeviceOrientationNotifications()
+        updateHeadingOrientation()
+        locationManager.startUpdatingHeading()
+
+        orientationObserver = NotificationCenter.default.addObserver(
+            forName: UIDevice.orientationDidChangeNotification,
+            object: nil,
+            queue: nil
+        ) { [weak self] _ in
+            self?.updateHeadingOrientation()
+        }
+    }
+
+    private func stopUpdatingHeading() {
+        guard isUpdating else { return }
+        device.endGeneratingDeviceOrientationNotifications()
+        locationManager.stopUpdatingHeading()
+
+        if let observer = orientationObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
+    private func updateHeadingOrientation() {
+        locationManager.headingOrientation = device.orientation.clOrientation
+    }
+}
+
+// MARK: - LocationManagerDelegate
+
+extension LocationManager: CLLocationManagerDelegate {
+
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard isUpdating, let location = locations.last else { return }
+
+        self.location = location
+        delegate?.locationManager(self, didUpdate: location)
+    }
+
+    public func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
+        guard isUpdating else { return }
+
+        self.heading = heading
+        delegate?.locationManager(self, didUpdate: heading)
+    }
+
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        guard isUpdating else { return }
+
+        delegate?.locationManager(self, didReceive: error)
+    }
+
+    public func locationManager(
+        _ manager: CLLocationManager,
+        didChangeAuthorization status: CLAuthorizationStatus
+    ) {
+        delegate?.locationManager(self, didUpdateAuthorized: status.isAuthorized)
+
+        if status.isAuthorized {
+            authorizedCompletion?()
+            authorizedCompletion = nil
+        }
+    }
+}
+
+public extension CLAuthorizationStatus {
+    var isAuthorized: Bool {
+        self == .authorizedAlways || self == .authorizedWhenInUse
+    }
+}
+
+private extension UIDeviceOrientation {
+    var clOrientation: CLDeviceOrientation {
+        switch self {
+        case .portrait:
+            return .portrait
+        case .portraitUpsideDown:
+            return .portraitUpsideDown
+        case .landscapeLeft:
+            return .landscapeLeft
+        case .landscapeRight:
+            return .landscapeRight
+        case .faceUp:
+            return .faceUp
+        case .faceDown:
+            return .faceDown
+        default:
+            return .unknown
+        }
+    }
 }
