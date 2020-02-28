@@ -294,19 +294,19 @@ private final class TestLocationManagerDelegate: LocationManagerDelegate {
     private(set) var error: Error?
     private(set) var authorized: Bool?
 
-    func locationManager(_ locationManager: LocationManager, didReceive error: Error) {
+    func locationManager(_ locationManager: LocationManagerProtocol, didReceive error: Error) {
         self.error = error
     }
 
-    func locationManager(_ locationManager: LocationManager, didUpdate heading: CLHeading) {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading) {
         self.heading = heading
     }
 
-    func locationManager(_ locationManager: LocationManager, didUpdate location: CLLocation) {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation) {
         self.location = location
     }
 
-    func locationManager(_ locationManager: LocationManager, didUpdateAuthorized authorized: Bool) {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdateAuthorized authorized: Bool) {
         self.authorized = authorized
     }
 }
