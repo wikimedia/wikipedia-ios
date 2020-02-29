@@ -1,0 +1,19 @@
+{
+  "license-footer-text" : "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir",
+  "article-read-more-title" : "Devamını oku",
+  "table-title-other" : "Daha fazla bilgi",
+  "page-edit-history" : "Bütün düzenleme geçmişi",
+  "info-box-close-text" : "Kapat",
+  "page-last-edited" : "{{PLURAL:$1|0=Bugün düzenlendi|1=Dün düzenlendi|$1 gün önce düzenlendi}}",
+  "page-talk-page" : "Tartışma sayfasını görüntüle",
+  "view-in-browser-footer-link" : "Maddeyi tarayıcıda görüntüle",
+  "page-location" : "Haritada görüntüle",
+  "page-similar-titles" : "Benzer sayfalar",
+  "page-last-edited-unknown" : "Bir süre önce düzenlendi",
+  "info-box-title" : "Pratik Bilgiler",
+  "article-about-title" : "Bu madde hakkında",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "Sayfa sorunları",
+  "description-add-link-title" : "Başlık tanımı ekle",
+  "page-read-in-other-languages" : "{{PLURAL:$1|$1 farklı dilde|$1 farklı dilde}} mevcut"
+}

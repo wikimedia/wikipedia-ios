@@ -1,0 +1,19 @@
+{
+  "license-footer-text" : "Innehållet är tillgängligt under $1 om ingenting annat anges.",
+  "article-read-more-title" : "Läs mer",
+  "table-title-other" : "Mer information",
+  "page-edit-history" : "Full redigeringshistorik",
+  "info-box-close-text" : "Stäng",
+  "page-talk-page" : "Visa diskussionssidan",
+  "page-last-edited" : "Redigerades {{PLURAL:$1|0=idag|1=igår|för $1 dygn sedan}}",
+  "info-box-title" : "Snabbfakta",
+  "page-location" : "Visa på en karta",
+  "view-in-browser-footer-link" : "Visa artikeln i webbläsaren",
+  "page-last-edited-unknown" : "Redigerades för ett tid sedan",
+  "page-similar-titles" : "Liknande sidor",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "Sidproblem",
+  "article-about-title" : "Om den här artikeln",
+  "description-add-link-title" : "Lägg till titelbeskrivning",
+  "page-read-in-other-languages" : "Tillgänglig på {{PLURAL:$1|$1 annat|$1 andra}} språk"
+}

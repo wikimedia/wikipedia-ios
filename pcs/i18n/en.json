@@ -1,0 +1,19 @@
+{
+  "license-footer-text" : "Content is available under $1 unless otherwise noted.",
+  "article-read-more-title" : "Read more",
+  "table-title-other" : "More information",
+  "page-edit-history" : "Full edit history",
+  "info-box-close-text" : "Close",
+  "page-talk-page" : "View talk page",
+  "page-last-edited-unknown" : "Edited some time ago",
+  "info-box-title" : "Quick Facts",
+  "page-location" : "View on a map",
+  "page-similar-titles" : "Similar pages",
+  "page-last-edited" : "{{PLURAL:$1|0=Edited today|1=Edited yesterday|Edited $1 days ago}}",
+  "view-in-browser-footer-link" : "View article in browser",
+  "article-about-title" : "About this article",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "Page issues",
+  "description-add-link-title" : "Add title description",
+  "page-read-in-other-languages" : "Available in {{PLURAL:$1|$1 other language|$1 other languages}}"
+}

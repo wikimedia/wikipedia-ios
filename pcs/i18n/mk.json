@@ -1,0 +1,19 @@
+{
+  "license-footer-text" : "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.",
+  "table-title-other" : "Повеќе информации",
+  "article-read-more-title" : "Прочитајте повеќе",
+  "page-edit-history" : "Цела историја на уредувања",
+  "info-box-close-text" : "Затвори",
+  "page-last-edited" : "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}",
+  "page-last-edited-unknown" : "Уредено пред некое време",
+  "info-box-title" : "Кратки факти",
+  "view-in-browser-footer-link" : "Отвори во прелистувач",
+  "page-talk-page" : "Разговорна страница",
+  "page-similar-titles" : "Слични страници",
+  "page-location" : "Погл. на карта",
+  "article-about-title" : "Уреди ја статијава",
+  "license-footer-name" : "CC-BY-SA 3.0",
+  "page-issues" : "Проблеми со страницата",
+  "description-add-link-title" : "Додај опис на насловот",
+  "page-read-in-other-languages" : "Достапно на {{PLURAL:$1|уште $1 јазик|уште $1 јазици}}"
+}

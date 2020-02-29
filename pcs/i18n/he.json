@@ -1,0 +1,19 @@
+{
+  "license-footer-text" : "התוכן זמין לפי תנאי $1 אלא אם נאמר אחרת.",
+  "table-title-other" : "מידע נוסף",
+  "article-read-more-title" : "לקרוא עוד",
+  "page-edit-history" : "היסטוריית עריכה מלאה",
+  "info-box-close-text" : "סגירה",
+  "page-last-edited-unknown" : "נערך לפני זמן־מה",
+  "info-box-title" : "עובדות מהירות",
+  "page-talk-page" : "הצגת דף השיחה",
+  "page-similar-titles" : "דפים דומים",
+  "view-in-browser-footer-link" : "הצגת הערך בדפדפן",
+  "page-last-edited" : "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}",
+  "page-location" : "הצגה על מפה",
+  "article-about-title" : "מידע על הערך הזה",
+  "license-footer-name" : "CC-BY-SA 3.0",
+  "page-issues" : "בעיות בדף",
+  "description-add-link-title" : "הוספת תיאור כותרת",
+  "page-read-in-other-languages" : "זמין ב{{PLURAL:$1|עוד שפה אחת|־$1 שפות נוספות}}"
+}

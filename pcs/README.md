@@ -1,0 +1,2 @@
+### Why is there a pcs folder in the iOS repo?
+Previously, the apps would have to send strings to the PCS mobile-html endpoint for it to be localized. Now, the pcs endpoint itself is being localized. Until the translatewiki.net project for pcs gets off the ground, we will export the already-translated iOS strings for PCS to use. These can be updated by running the localization target in xcode.

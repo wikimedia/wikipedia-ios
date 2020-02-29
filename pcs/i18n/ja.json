@@ -1,0 +1,18 @@
+{
+  "license-footer-text" : "特に記載がない限り、コンテンツは$1のライセンスで利用できます。",
+  "article-read-more-title" : "さらに読む",
+  "table-title-other" : "さらに見る",
+  "page-edit-history" : "すべての編集履歴",
+  "info-box-close-text" : "閉じる",
+  "page-talk-page" : "トークページを見る",
+  "page-last-edited" : "{{PLURAL:$1|0=今日編集|1=昨日編集|$1日前に編集}}",
+  "info-box-title" : "概要",
+  "page-location" : "地図で見る",
+  "page-similar-titles" : "類似したページ",
+  "view-in-browser-footer-link" : "ブラウザで記事を表示する",
+  "license-footer-name" : "クリエイティブ・コモンズ 表示-継承 3.0",
+  "page-issues" : "ページの問題点",
+  "article-about-title" : "この記事について",
+  "description-add-link-title" : "記事の説明を追加",
+  "page-read-in-other-languages" : "他に{{PLURAL:$1|$1 言語}}で利用可能"
+}

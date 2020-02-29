@@ -1,0 +1,18 @@
+{
+  "license-footer-text" : "محتوا تحت $1 در دسترس است، مگر اینکه خلافش ذکر شده‌باشد.",
+  "article-read-more-title" : "بیشتر بخوانید",
+  "table-title-other" : "اطلاعات بیشتر",
+  "page-edit-history" : "تاریخچهٔ کامل ویرایش",
+  "info-box-close-text" : "بستن",
+  "page-talk-page" : "نمایش صفحه بحث",
+  "page-last-edited" : "{{PLURAL:$1|0=ویرایش‌شده امروز|1=ویرایش‌شده دیروز|ویرایش‌شده $1 روز پیش}}",
+  "info-box-title" : "اطلاعات اجمالی",
+  "page-location" : "دیدن در نقشه",
+  "page-similar-titles" : "صفحات مشابه",
+  "view-in-browser-footer-link" : "مقاله را در مرورگر ببینید",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "موضوعات صفحه",
+  "article-about-title" : "دربارهٔ این مقاله",
+  "description-add-link-title" : "افزودن توضیحات عنوان",
+  "page-read-in-other-languages" : "موجود به {{PLURAL:$1|$1 زیان دیگر|$1 زبان دیگر}}"
+}

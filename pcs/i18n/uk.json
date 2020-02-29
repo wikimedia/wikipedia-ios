@@ -1,0 +1,18 @@
+{
+  "license-footer-text" : "Вміст доступний на умовах $1, якщо не вказано інше.",
+  "table-title-other" : "Більше інформації",
+  "article-read-more-title" : "Детальніше",
+  "page-edit-history" : "Повна історія редагування",
+  "info-box-close-text" : "Закрити",
+  "page-last-edited" : "{{PLURAL:$1|0=Відредаговано сьогодні|1=Відредаговано вчора|few=Відредаговано $1 дні назад|many=Відредаговано $1 днів назад}}",
+  "info-box-title" : "Табличка основної інформації",
+  "view-in-browser-footer-link" : "Переглянути статтю в браузері",
+  "page-talk-page" : "Сторінка обговорення",
+  "page-similar-titles" : "Подібні сторінки",
+  "page-location" : "Переглянути на карті",
+  "article-about-title" : "Про цю статтю",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "Проблеми сторінки",
+  "description-add-link-title" : "Додати опис назви",
+  "page-read-in-other-languages" : "Доступно в {{PLURAL:$1|іншій мові|$1 інших мовах}}"
+}

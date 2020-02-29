@@ -1,0 +1,18 @@
+{
+  "license-footer-text" : "Conteúdo disponibilizado nos termos da $1, salvo indicação em contrário.",
+  "article-read-more-title" : "Ler mais",
+  "table-title-other" : "Mais informação",
+  "page-edit-history" : "Historial de edições completo",
+  "info-box-close-text" : "Fechar",
+  "page-talk-page" : "Ver página de discussão",
+  "info-box-title" : "Factos rápidos",
+  "view-in-browser-footer-link" : "Ver artigo no browser",
+  "page-location" : "Ver num mapa",
+  "page-similar-titles" : "Páginas semelhantes",
+  "page-last-edited" : "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado há $1 dias}}",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "Problemas da página",
+  "article-about-title" : "Sobre este artigo",
+  "description-add-link-title" : "Adicionar título de descrição",
+  "page-read-in-other-languages" : "Disponível {{PLURAL:$1|noutra língua|em $1 outras línguas}}"
+}

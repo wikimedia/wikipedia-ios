@@ -1,0 +1,19 @@
+{
+  "page-read-in-other-languages" : "Disponible dans $1 autre{{PLURAL:$1||s}} langue{{PLURAL:$1||s}}",
+  "article-read-more-title" : "En savoir plus",
+  "table-title-other" : "Plus d’informations",
+  "page-edit-history" : "Historique complet des modifications",
+  "info-box-close-text" : "Fermer",
+  "page-last-edited" : "Modifié {{PLURAL:$1|0=aujourd’hui|1=hier|il y a $1 jours}}",
+  "page-talk-page" : "Afficher la page de discussion",
+  "view-in-browser-footer-link" : "Afficher l’article dans le navigateur",
+  "page-location" : "Afficher sur une carte",
+  "page-last-edited-unknown" : "Modifié il y a quelque temps",
+  "page-similar-titles" : "Pages similaires",
+  "info-box-title" : "Faits en bref",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "Problèmes de page",
+  "article-about-title" : "À propos de cet article",
+  "license-footer-text" : "Le contenu est disponible sous $1 sauf spécification contraire.",
+  "description-add-link-title" : "Ajouter la description du titre"
+}

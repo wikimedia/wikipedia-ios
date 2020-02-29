@@ -1,0 +1,19 @@
+{
+  "page-read-in-other-languages" : "Beschikbaar in {{PLURAL:$1|$1 andere taal|$1 andere talen}}",
+  "article-read-more-title" : "Meer lezen",
+  "table-title-other" : "Meer informatie",
+  "page-edit-history" : "Volledige bewerkingsgeschiedenis",
+  "info-box-close-text" : "Sluiten",
+  "page-last-edited" : "{{PLURAL:$1|0=Vandaag bewerkt|1=Gisteren bewerkt|$1 dagen geleden bewerkt}}",
+  "page-last-edited-unknown" : "Enige tijd geleden bewerkt",
+  "view-in-browser-footer-link" : "Artikel in browser bekijken",
+  "page-talk-page" : "Overlegpagina bekijken",
+  "page-similar-titles" : "Vergelijkbare pagina's",
+  "info-box-title" : "Snelle feiten",
+  "page-location" : "Op een kaart bekijken",
+  "article-about-title" : "Over deze pagina",
+  "page-issues" : "Paginaproblemen",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "description-add-link-title" : "Titelbeschrijving toevoegen",
+  "license-footer-text" : "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven."
+}

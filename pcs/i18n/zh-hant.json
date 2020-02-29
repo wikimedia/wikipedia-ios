@@ -1,0 +1,19 @@
+{
+  "license-footer-text" : "除非另有註明，否則頁面內容均以 $1 條款授權",
+  "article-read-more-title" : "延伸閱讀",
+  "table-title-other" : "更多資訊",
+  "page-edit-history" : "完整編輯歷史",
+  "info-box-close-text" : "關閉",
+  "page-talk-page" : "檢視對話頁",
+  "page-last-edited" : "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}",
+  "info-box-title" : "快速預覽",
+  "page-location" : "在地圖上檢視",
+  "view-in-browser-footer-link" : "在瀏覽器裡檢視條目",
+  "page-last-edited-unknown" : "在之前編輯過",
+  "page-similar-titles" : "相似的頁面",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "頁面問題",
+  "article-about-title" : "關於此條目",
+  "description-add-link-title" : "增加標題描述",
+  "page-read-in-other-languages" : "在 {{PLURAL:$1|$1 種其它語言}}中可用"
+}

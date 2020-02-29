@@ -1,0 +1,19 @@
+{
+  "page-read-in-other-languages" : "Disponible en {{PLURAL:$1|$1 altra llengua|$1 altres llengües}}",
+  "article-read-more-title" : "Més informació",
+  "table-title-other" : "Més informació",
+  "page-edit-history" : "Historial complet",
+  "info-box-close-text" : "Tanca",
+  "page-last-edited" : "{{PLURAL:$1|0=S'ha modificat avui|1=S'ha modificat ahir|S'ha modificat fa $1 dies}}",
+  "page-last-edited-unknown" : "S'ha modificat fa un temps",
+  "view-in-browser-footer-link" : "Mostra l'article al navegador",
+  "page-talk-page" : "Mostra la pàgina de discussió",
+  "page-similar-titles" : "Pàgines similars",
+  "info-box-title" : "Dades ràpides",
+  "page-location" : "Mostra en un mapa",
+  "article-about-title" : "Sobre aquest article",
+  "page-issues" : "Problemes de la pàgina",
+  "license-footer-name" : "CC-BY-SA 3.0",
+  "description-add-link-title" : "Afegeix una descripció del títol",
+  "license-footer-text" : "Contingut disponible sota $1 a menys que s'indiqui el contrari."
+}

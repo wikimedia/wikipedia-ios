@@ -1,0 +1,16 @@
+{
+  "article-read-more-title" : "மேலும் படிக்க",
+  "table-title-other" : "மேலதிகத் தகவல்கள்",
+  "page-edit-history" : "முழு தொகுப்பு வரலாறு",
+  "info-box-close-text" : "மூடு",
+  "page-last-edited" : "{{PLURAL:$1|0=இன்று தொகுக்கப்பட்டது|1=நேற்று தொகுக்கப்பட்டது|$1 நாட்களுக்கு முன் தொகுக்கப்பட்டது}}",
+  "info-box-title" : "விரைவு காரணி",
+  "page-talk-page" : "பேச்சுப் பக்கத்தைக் காண்க",
+  "page-location" : "நிலப்படத்தில் காட்டுக",
+  "page-similar-titles" : "ஒத்த பக்கங்கள்",
+  "article-about-title" : "இந்தக் கட்டுரையைப் பற்றி",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "பக்க சிக்கல்கள்",
+  "license-footer-text" : "வேறுவகையாகக் குறிப்பிடப்பட்டிருந்தாலன்றி இவ்வுள்ளடக்கம் $1 இல் கீழ் கிடைக்கும்.",
+  "page-read-in-other-languages" : "{{PLURAL:$1|$1 மற்ற மொழியில்|$1 மற்ற மொழிகளில்}} கிடைக்கத்தக்கது"
+}

@@ -1,0 +1,18 @@
+{
+  "license-footer-text" : "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.",
+  "article-read-more-title" : "Leggi altro",
+  "table-title-other" : "Ulteriori informazioni",
+  "page-edit-history" : "Cronologia delle modifiche completa",
+  "info-box-close-text" : "Chiudi",
+  "page-last-edited" : "Modificata {{PLURAL:$1|0=oggi|1=ieri|$1 giorni fa}}",
+  "info-box-title" : "Fatti in breve",
+  "view-in-browser-footer-link" : "Vedi la voce nel browser",
+  "page-location" : "Visualizza sulla mappa",
+  "page-last-edited-unknown" : "Modificato un po' di tempo fa",
+  "page-similar-titles" : "Pagine simili",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "Problemi alla pagina",
+  "article-about-title" : "Su questa voce",
+  "description-add-link-title" : "Aggiungi una descrizione del titolo",
+  "page-read-in-other-languages" : "Disponibile in {{PLURAL:$1|un'altra lingua|altre $1 lingue}}"
+}

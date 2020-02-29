@@ -1,0 +1,18 @@
+{
+  "license-footer-text" : "除非另有说明，内容基于$1授权。",
+  "table-title-other" : "更多信息",
+  "article-read-more-title" : "阅读更多",
+  "page-edit-history" : "完整编辑历史",
+  "info-box-close-text" : "关闭",
+  "page-last-edited" : "{{PLURAL:$1|0=编辑于今天|1=编辑于昨天|编辑于 $1 天前}}",
+  "info-box-title" : "快速预览",
+  "view-in-browser-footer-link" : "在浏览器查看条目",
+  "page-talk-page" : "查看讨论页",
+  "page-similar-titles" : "相似页面",
+  "page-location" : "在地图上查看",
+  "article-about-title" : "关于此条目",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "page-issues" : "页面问题",
+  "description-add-link-title" : "添加标题描述",
+  "page-read-in-other-languages" : "在$1种其他语言中可用"
+}

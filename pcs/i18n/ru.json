@@ -1,0 +1,19 @@
+{
+  "page-read-in-other-languages" : "Доступно на {{PLURAL:$1|другом языке|$1 других языках}}",
+  "article-read-more-title" : "Подробнее",
+  "table-title-other" : "Подробнее",
+  "page-edit-history" : "Полная история редактирования",
+  "info-box-close-text" : "Закрыть",
+  "page-last-edited" : "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}",
+  "page-last-edited-unknown" : "Отредактировано какое-то время назад",
+  "view-in-browser-footer-link" : "Просмотреть статью в браузере",
+  "page-talk-page" : "Страница обсуждения",
+  "page-similar-titles" : "Похожие страницы",
+  "info-box-title" : "Краткие факты",
+  "page-location" : "Посмотреть на карте",
+  "article-about-title" : "Об этой статье",
+  "page-issues" : "Вопросы по странице",
+  "license-footer-name" : "CC BY-SA 3.0",
+  "description-add-link-title" : "Добавление краткого описания",
+  "license-footer-text" : "Содержимое доступно по лицензии $1"
+}
