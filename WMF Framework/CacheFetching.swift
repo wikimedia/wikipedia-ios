@@ -1,11 +1,21 @@
 
 import Foundation
 
+public struct CacheFetchingResult {
+    let data: Data
+    let response: URLResponse
+}
+
+enum CacheFetchingError: Error {
+    case missingDataAndURLResponse
+    case missingURLResponse
+}
+
 public protocol CacheFetching {
     typealias TemporaryFileURL = URL
     typealias MIMEType = String
     typealias DownloadCompletion = (Error?, URLRequest?, URLResponse?, TemporaryFileURL?, MIMEType?) -> Void
-    typealias DataCompletion = (Result<Data, Error>) -> Void
+    typealias DataCompletion = (Result<CacheFetchingResult, Error>) -> Void
     
     func downloadData(urlRequest: URLRequest, completion: @escaping DownloadCompletion) -> URLSessionTask?
     func data(for urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask?
@@ -48,8 +58,26 @@ extension CacheFetching where Self:Fetcher {
                 return
             }
             
-            if let data = data {
-                completion(.success(data))
+            guard let unwrappedResponse = urlResponse else {
+                completion(.failure(CacheFetchingError.missingURLResponse))
+                return
+            }
+            
+            if let httpResponse = unwrappedResponse as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                if httpResponse.statusCode == 304 {
+                    completion(.failure(RequestError.notModified))
+                } else {
+                    completion(.failure(RequestError.unexpectedResponse))
+                }
+                return
+            }
+            
+            if let data = data,
+                let urlResponse = urlResponse {
+                let result = CacheFetchingResult(data: data, response: urlResponse)
+                completion(.success(result))
+            } else {
+                completion(.failure(CacheFetchingError.missingDataAndURLResponse))
             }
         }
         

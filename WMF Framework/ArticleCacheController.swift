@@ -2,6 +2,22 @@
 import Foundation
 
 public final class ArticleCacheController: CacheController {
+    
+    public static let shared: ArticleCacheController = {
+        
+        let imageCacheController = ImageCacheController.shared
+        
+        let articleFetcher = ArticleFetcher()
+        let imageInfoFetcher = MWKImageInfoFetcher()
+        let articleCacheKeyGenerator = ArticleCacheKeyGenerator.self
+        
+        let cacheBackgroundContext = CacheController.backgroundCacheContext
+        let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: articleCacheKeyGenerator)
+        
+        let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
+        
+        return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter, cacheKeyGenerator: articleCacheKeyGenerator)
+    }()
 
 #if DEBUG
     override public func add(url: URL, groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {

@@ -9,9 +9,15 @@ enum CacheFileWriterError: Error {
     case unexpectedFetcherTypeForBundledMigration
     case unableToDetermineBundledOfflineURLS
     case failureToSaveBundledFiles
+    case unableToPullCachedDataFromNotModified
 }
 
-enum CacheFileWriterResult {
+enum CacheFileWriterAddResult {
+    case success(data: Data, mimeType: String?)
+    case failure(Error)
+}
+
+enum CacheFileWriterRemoveResult {
     case success
     case failure(Error)
 }
@@ -48,7 +54,7 @@ final class CacheFileWriter: CacheTaskTracking {
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    init?(fetcher: CacheFetching,
+    init(fetcher: CacheFetching,
                        cacheBackgroundContext: NSManagedObjectContext,
                        cacheKeyGenerator: CacheKeyGenerating.Type) {
         self.fetcher = fetcher
@@ -58,12 +64,11 @@ final class CacheFileWriter: CacheTaskTracking {
         do {
             try FileManager.default.createDirectory(at: CacheController.cacheURL, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            assertionFailure("Failure to create article cache directory")
-            return nil
+            DDLogError("Error creating permanent cache: \(error)")
         }
     }
     
-    func add(groupKey: String, urlRequest: URLRequest, completion: @escaping (CacheFileWriterResult) -> Void) {
+    func add(groupKey: String, urlRequest: URLRequest, completion: @escaping (CacheFileWriterAddResult) -> Void) {
         
         guard let url = urlRequest.url,
             let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
@@ -76,52 +81,42 @@ final class CacheFileWriter: CacheTaskTracking {
         let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
         
         let untrackKey = UUID().uuidString
-        let task = fetcher.downloadData(urlRequest: urlRequest) { (error, _, response, temporaryFileURL, mimeType) in
+        let task = fetcher.data(for: urlRequest) { (response) in
             
             defer {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)
             }
             
-            if let error = error {
-                switch error as? RequestError {
-                case .notModified:
-                    completion(.success)
-                default:
-                    DDLogError("Error downloading data for offline: \(error)\n\(String(describing: response))")
-                    completion(.failure(error))
-                }
-                return
-            }
-            
-            guard let responseHeader = response as? HTTPURLResponse else {
-                completion(.failure(CacheFileWriterError.missingHTTPResponse))
-                return
-            }
-            
-            let dispatchGroup = DispatchGroup()
-            
-            dispatchGroup.enter()
-            var responseHeaderSaveError: Error? = nil
-            var responseSaveError: Error? = nil
-            
-            CacheFileWriterHelper.saveResponseHeader(urlResponse: responseHeader, toNewFileName: headerFileName) { (result) in
+            switch response {
+            case .success(let result):
                 
-                defer {
-                    dispatchGroup.leave()
+                guard let httpUrlResponse = result.response as? HTTPURLResponse else {
+                    completion(.failure(CacheFileWriterError.missingHTTPResponse))
+                    return
                 }
                 
-                switch result {
-                case .success, .exists:
-                    break
-                case .failure(let error):
-                    responseHeaderSaveError = error
-                }
-            }
-            
-            if let temporaryFileURL = temporaryFileURL {
-                //file needs to be moved
+                let dispatchGroup = DispatchGroup()
+                
                 dispatchGroup.enter()
-                CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: fileName, mimeType: mimeType) { (result) in
+                var responseHeaderSaveError: Error? = nil
+                var responseSaveError: Error? = nil
+                
+                CacheFileWriterHelper.saveResponseHeader(httpUrlResponse: httpUrlResponse, toNewFileName: headerFileName) { (result) in
+                    
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    switch result {
+                    case .success, .exists:
+                        break
+                    case .failure(let error):
+                        responseHeaderSaveError = error
+                    }
+                }
+                
+                dispatchGroup.enter()
+                CacheFileWriterHelper.saveData(data: result.data, toNewFileWithKey: fileName, mimeType: result.response.mimeType) { (result) in
                     
                     defer {
                         dispatchGroup.leave()
@@ -134,25 +129,44 @@ final class CacheFileWriter: CacheTaskTracking {
                         responseSaveError = error
                     }
                 }
-            }
-            
-            dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) { [responseHeaderSaveError, responseSaveError] in
                 
-                if let responseSaveError = responseSaveError {
-                    self.remove(fileName: fileName) { (_) in
-                        completion(.failure(responseSaveError))
+                dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) { [responseHeaderSaveError, responseSaveError] in
+                    
+                    if let responseSaveError = responseSaveError {
+                        self.remove(fileName: fileName) { (_) in
+                            completion(.failure(responseSaveError))
+                        }
+                        return
                     }
-                    return
+                    
+                    if let responseHeaderSaveError = responseHeaderSaveError {
+                        self.remove(fileName: fileName) { (_) in
+                            completion(.failure(responseHeaderSaveError))
+                        }
+                        return
+                    }
+                    
+                    completion(.success(data: result.data, mimeType: result.response.mimeType))
                 }
                 
-                if let responseHeaderSaveError = responseHeaderSaveError {
-                    self.remove(fileName: fileName) { (_) in
-                        completion(.failure(responseHeaderSaveError))
-                    }
-                    return
-                }
                 
-                completion(.success)
+            case .failure(let error):
+                switch error as? RequestError {
+                case .notModified:
+                    //pull cached data to return
+                    let response = URLCache.shared.cachedResponse(for: urlRequest) ?? CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: self.cacheKeyGenerator)
+                    if let data = response?.data {
+                        let mimeType = response?.response.mimeType
+                        completion(.success(data: data, mimeType: mimeType))
+                    } else {
+                        completion(.failure(CacheFileWriterError.unableToPullCachedDataFromNotModified))
+                    }
+                    
+                default:
+                    DDLogError("Error downloading data for offline: \(error)\n\(String(describing: response))")
+                    completion(.failure(error))
+                }
+                return
             }
         }
         
@@ -161,7 +175,7 @@ final class CacheFileWriter: CacheTaskTracking {
         }
     }
     
-    func remove(fileName: String, completion: @escaping (CacheFileWriterResult) -> Void) {
+    func remove(fileName: String, completion: @escaping (CacheFileWriterRemoveResult) -> Void) {
         
         var responseHeaderRemoveError: Error? = nil
         var responseRemoveError: Error? = nil

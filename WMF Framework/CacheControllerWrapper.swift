@@ -26,16 +26,7 @@ public final class CacheControllerWrapper: NSObject {
         switch type {
         case .image:
             
-            let imageFetcher = ImageFetcher()
-            
-            guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
-                let imageFileWriter = CacheFileWriter(fetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: ImageCacheKeyGenerator.self) else {
-                    return
-            }
-
-            let imageDBWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext)
-
-            self.cacheController = ImageCacheController(dbWriter: imageDBWriter, fileWriter: imageFileWriter)
+            cacheController = ImageCacheController.shared
         case .article:
             assertionFailure("Must init from initArticleCacheWithImageCacheControllerWrapper for this type.")
             return nil
@@ -44,23 +35,7 @@ public final class CacheControllerWrapper: NSObject {
     
     @objc init?(articleCacheWithImageCacheControllerWrapper imageCacheWrapper: CacheControllerWrapper) {
         
-        guard let imageCacheController = imageCacheWrapper.cacheController as? ImageCacheController else {
-            assertionFailure("Expecting imageCacheWrapper.cacheController to be of type ImageCacheController")
-            return nil
-        }
-        
-        let articleFetcher = ArticleFetcher()
-        let imageInfoFetcher = MWKImageInfoFetcher()
-        
-        guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
-            let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: ArticleCacheKeyGenerator.self) else {
-            return nil
-        }
-        
-        let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
-        
-        self.cacheController = ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
-        
         super.init()
+        cacheController = ArticleCacheController.shared
     }
 }

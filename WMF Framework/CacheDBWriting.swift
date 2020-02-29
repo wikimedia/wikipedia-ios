@@ -22,7 +22,6 @@ enum CacheDBWritingResult {
 }
 
 enum CacheDBWritingMarkDownloadedError: Error {
-    case invalidContext
     case cannotFindCacheGroup
     case cannotFindCacheItem
     case missingExpectedItemsOutOfRequestHeader
@@ -53,10 +52,7 @@ extension CacheDBWriting {
     
     func markDownloaded(urlRequest: URLRequest, completion: @escaping (CacheDBWritingResult) -> Void) {
         
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
-            return
-        }
+        let context = CacheController.backgroundCacheContext
         
         guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.missingExpectedItemsOutOfRequestHeader))
@@ -83,10 +79,9 @@ extension CacheDBWriting {
     }
     
     func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys) {
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
-            return
-        }
+        
+        let context = CacheController.backgroundCacheContext
+        
         context.perform {
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheGroup))
@@ -107,10 +102,7 @@ extension CacheDBWriting {
     
     func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void) {
 
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
-            return
-        }
+        let context = CacheController.backgroundCacheContext
         
         context.perform {
             guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemAndVariantKey.itemKey, variant: itemAndVariantKey.variant, in: context) else {
@@ -133,10 +125,7 @@ extension CacheDBWriting {
     
     func remove(groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResult) -> Void) {
 
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
-            return
-        }
+        let context = CacheController.backgroundCacheContext
         
         context.perform {
             guard let cacheGroup = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
@@ -159,9 +148,7 @@ extension CacheDBWriting {
     
     func fetchAndPrintEachItem() {
         
-        guard let context = CacheController.backgroundCacheContext else {
-            return
-        }
+        let context = CacheController.backgroundCacheContext
         
         context.perform {
             let fetchRequest = NSFetchRequest<CacheItem>(entityName: "CacheItem")
@@ -183,9 +170,7 @@ extension CacheDBWriting {
     
     func fetchAndPrintEachGroup() {
         
-        guard let context = CacheController.backgroundCacheContext else {
-            return
-        }
+        let context = CacheController.backgroundCacheContext
         
         context.perform {
             let fetchRequest = NSFetchRequest<CacheGroup>(entityName: "CacheGroup")

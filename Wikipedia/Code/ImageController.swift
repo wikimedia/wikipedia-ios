@@ -388,26 +388,22 @@ open class ImageController : NSObject {
     @objc public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
         assert(Thread.isMainThread)
         guard let url = url else {
-            //DDLogDebug("invalid or empty")
             failure(ImageControllerError.invalidOrEmptyURL)
             return nil
         }
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
-            //DDLogDebug("memory: \(url)")
             success(ImageDownload(url: url, image: memoryCachedImage, origin: .memory))
             return nil
         }
         return fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
             guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
                 DispatchQueue.main.async {
-                    //DDLogDebug("invalid: \(url)")
                     failure(ImageControllerError.invalidResponse)
                 }
                 return
             }
             self.addToMemoryCache(image, url: url)
             DispatchQueue.main.async {
-                //DDLogDebug("success: \(url)")
                 success(ImageDownload(url: url, image: image, origin: .unknown))
             }
         }
