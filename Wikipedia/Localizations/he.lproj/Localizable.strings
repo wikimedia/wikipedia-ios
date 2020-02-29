@@ -680,6 +680,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "הדגשת תחביר";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
 "reading-themes-controls-syntax-highlighting" = "הדגשת תחביר";
+"reference-back-links-back-to-reference" = "חזרה להפניה";
 "reference-title" = "הערה $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|לפני $1 ימים}}";
 "relative-date-hours-abbreviated" = "$1 שע׳";
