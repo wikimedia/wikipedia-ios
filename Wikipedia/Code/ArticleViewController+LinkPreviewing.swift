@@ -152,6 +152,17 @@ extension ArticleViewController: WKUIDelegate {
             return
         }
         
+        // It's helpful if we can fetch the article before calling the completion
+        // However, we need to timeout if it takes too long
+        var config = nullConfig
+        var didCallCompletion = false
+        dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
+            if (!didCallCompletion) {
+                completionHandler(config)
+                didCallCompletion = true;
+            }
+        }
+        
         getPeekViewControllerAsync(for: linkURL) { (peekParentVC) in
             assert(Thread.isMainThread)
             guard let peekParentVC = peekParentVC else {
@@ -162,22 +173,13 @@ extension ArticleViewController: WKUIDelegate {
             let peekVC = peekParentVC.wmf_PeekableChildViewController
             
             self.hideFindInPage()
-            let config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
+            config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
                 return peekParentVC
             }) { (suggestedActions) -> UIMenu? in
                 return self.previewMenuElements(for: peekParentVC, suggestedActions: suggestedActions)
             }
             
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
-                // It's helpful if we can fetch the article before calling the completion
-                // However, we need to timeout if it takes more than half a second
-                var didCallCompletion = false
-                dispatchAfterDelayInSeconds(0.5, DispatchQueue.main) {
-                    if (!didCallCompletion) {
-                        completionHandler(config)
-                        didCallCompletion = true;
-                    }
-                }
                 articlePeekVC.fetchArticle {
                     assert(Thread.isMainThread)
                     if (!didCallCompletion) {
