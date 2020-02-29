@@ -687,6 +687,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "문법 강조";
 "reading-themes-controls-accessibility-text-size-slider" = "텍스트 크기 슬라이더";
 "reading-themes-controls-syntax-highlighting" = "문법 강조";
+"reference-back-links-back-to-reference" = "각주로 돌아가기";
 "reference-title" = "각주 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=오늘|1=어제|$1일 전}}";
 "relative-date-hours-abbreviated" = "$1시간";
