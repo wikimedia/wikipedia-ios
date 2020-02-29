@@ -56,7 +56,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup?.leave()
         restoreStateIfNecessary()
-        try? article.addToReadHistory()
+        addToHistory()
         forceCache = false
     }
     

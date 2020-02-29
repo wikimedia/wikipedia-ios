@@ -281,6 +281,11 @@ class ArticleViewController: ViewController {
         toolbarController.update()
     }
     
+    override func wmf_removePeekableChildViewControllers() {
+        super.wmf_removePeekableChildViewControllers()
+        addToHistory()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
@@ -360,6 +365,10 @@ class ArticleViewController: ViewController {
     // MARK: History
 
     func addToHistory() {
+        // Don't add to history if we're in peek/pop
+        guard self.wmf_PeekableChildViewController == nil else {
+            return
+        }
         try? article.addToReadHistory()
     }
     
