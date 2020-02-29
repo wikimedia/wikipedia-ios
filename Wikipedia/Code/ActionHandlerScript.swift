@@ -73,7 +73,6 @@ final class PageContentService   {
             let viewInBrowserString: String
             let licenseSubstitutionString: String
             let menuCoordinateTitle: String
-            let menuReferenceListTitle: String
         }
         
         struct Parameters: Codable {

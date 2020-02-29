@@ -97,7 +97,7 @@
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
-"article-reference-title" = "Label for button linking out to an article's references";
+"article-reference-view-title" = "Title for the reference view. $1 is replaced by the reference link name, for example [1].";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
@@ -659,7 +659,6 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider that adjusts article text size.";
 "reading-themes-controls-syntax-highlighting" = "Text for syntax highlighting label in the Reading Themes Controls popover";
-"reference-back-links-back-to-reference" = "Takes the user back to the reference";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]' {{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
 "relative-date-hours-abbreviated" = "Relative hours, abbreviated. $1 will be replaced with the number of hours.";

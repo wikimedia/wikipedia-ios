@@ -44,25 +44,26 @@ class ReferenceBackLinksViewController: ViewController {
         return view
     }()
     lazy var countItem = UIBarButtonItem(customView: countContainer)
-    lazy var backToReferenceButton = UIBarButtonItem(title: WMFLocalizedString("reference-back-links-back-to-reference", value: "Back to reference", comment: "Takes the user back to the reference"), style: .plain, target: self, action: #selector(goBackToReference))
-    
+
     func setupToolbar() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        var items = [backToReferenceButton, flexibleSpace, countItem]
-        if backLinks.count > 1 {
-            let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-            fixedSpace.width = 16
-            items.append(contentsOf: [fixedSpace, previousButton, nextButton])
+        toolbar.items = [countItem, flexibleSpace, previousButton, nextButton]
+        if backLinks.count <= 1 {
+            previousButton.isEnabled = false
+            nextButton.isEnabled = false
         }
-        toolbar.items = items
         enableToolbar()
         setToolbarHidden(false, animated: false)
     }
     
+    lazy var backToReferenceButton = UIBarButtonItem(image: UIImage(named: "references"), style: .plain, target: self, action: #selector(goBackToReference))
+    lazy var closeButton = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(closeButtonPressed))
+    
     func setupNavbar() {
-        navigationItem.title = referenceLinkTitle
-        let xButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonPressed))
-        navigationItem.leftBarButtonItem = xButton
+        let titleFormat = WMFLocalizedString("article-reference-view-title", value: "Reference %@", comment: "Title for the reference view. %@ is replaced by the reference link name, for example [1].")
+        navigationItem.title = String.localizedStringWithFormat(titleFormat, referenceLinkTitle)
+        navigationItem.rightBarButtonItem = closeButton
+        navigationItem.leftBarButtonItem = backToReferenceButton
         apply(theme: self.theme)
     }
     
@@ -70,28 +71,7 @@ class ReferenceBackLinksViewController: ViewController {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(closeButtonPressed))
         view.addGestureRecognizer(tapGR)
     }
-    
-    let topGradientView = WMFGradientView()
-    let bottomGradientView = WMFGradientView()
 
-    func setupGradientViews() {
-        topGradientView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(topGradientView)
-        let top = topGradientView.topAnchor.constraint(equalTo: view.topAnchor)
-        let leading = topGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = topGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let height = topGradientView.heightAnchor.constraint(equalToConstant: 150)
-        NSLayoutConstraint.activate([top, leading, trailing, height])
-        
-        bottomGradientView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bottomGradientView)
-        let bottom = bottomGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        let bLeading = bottomGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let bTrailing = bottomGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let bHeight = bottomGradientView.heightAnchor.constraint(equalToConstant: 150)
-        NSLayoutConstraint.activate([bottom, bLeading, bTrailing, bHeight])
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         countLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
@@ -101,7 +81,6 @@ class ReferenceBackLinksViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGradientViews()
         setupNavbar()
         setupToolbar()
         setupTapGestureRecognizer()
@@ -111,16 +90,7 @@ class ReferenceBackLinksViewController: ViewController {
     // MARK: Actions
 
     func notifyDelegateOfNavigationToReference() {
-//        if index == 0 {
-//            nextButton.isEnabled = true
-//            previousButton.isEnabled = false
-//        } else if index == backLinks.count - 1 {
-//            nextButton.isEnabled = false
-//            previousButton.isEnabled = true
-//        } else {
-//            nextButton.isEnabled = true
-//            previousButton.isEnabled = true
-//        }
+
         countLabel.text = "\(index + 1)/\(backLinks.count)"
         let backLink = backLinks[index]
         delegate?.referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: backLink, referenceBackLinksViewController: self)
@@ -158,8 +128,8 @@ class ReferenceBackLinksViewController: ViewController {
         guard viewIfLoaded != nil else {
             return
         }
-        topGradientView.setStart(theme.colors.overlayBackground, end: .clear)
-        bottomGradientView.setStart(.clear, end: theme.colors.overlayBackground)
+        closeButton.tintColor = theme.colors.secondaryText
+        backToReferenceButton.tintColor = theme.colors.link
         countLabel.textColor = theme.colors.secondaryText
         view.backgroundColor = .clear
     }
