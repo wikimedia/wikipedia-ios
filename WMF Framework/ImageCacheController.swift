@@ -1,7 +1,7 @@
 
 import Foundation
 
-final class ImageCacheController: CacheController {
+public final class ImageCacheController: CacheController {
     
     public static let shared: ImageCacheController = {
         let imageFetcher = ImageFetcher()
@@ -139,32 +139,28 @@ final class ImageCacheController: CacheController {
     func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
         assert(Thread.isMainThread)
         guard let url = url else {
-            //DDLogDebug("invalid or empty")
             failure(ImageControllerError.invalidOrEmptyURL)
             return nil
         }
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
-            //DDLogDebug("memory: \(url)")
             success(ImageDownload(url: url, image: memoryCachedImage, origin: .memory))
             return nil
         }
         return fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
             guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
                 DispatchQueue.main.async {
-                    //DDLogDebug("invalid: \(url)")
                     failure(ImageControllerError.invalidResponse)
                 }
                 return
             }
             self.addToMemoryCache(image, url: url)
             DispatchQueue.main.async {
-                //DDLogDebug("success: \(url)")
                 success(ImageDownload(url: url, image: image, origin: .unknown))
             }
         }
     }
     
-    func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
+    public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
         let _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
@@ -184,12 +180,12 @@ final class ImageCacheController: CacheController {
     }
     
     /// Populate the cache for a given URL
-   func prefetch(withURL url: URL?) {
+   public func prefetch(withURL url: URL?) {
         prefetch(withURL: url) { }
     }
     
     /// Populate the cache for a given URL
-    func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
+    public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
         let _ =  fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
     }
     
@@ -301,5 +297,43 @@ fileprivate extension Error {
             let potentialCancellationError = self as NSError
             return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
         }
+    }
+}
+
+@objc(WMFImageCacheControllerWrapper)
+public final class ImageCacheControllerWrapper: NSObject {
+    
+    private let imageCacheController = ImageCacheController.shared
+    
+    @objc public static let shared: ImageCacheControllerWrapper = {
+        return ImageCacheControllerWrapper()
+    }()
+    
+    @objc public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
+        let _ = imageCacheController.fetchImage(withURL: url, failure: failure, success: success)
+    }
+    
+    @objc func memoryCachedImage(withURL url: URL) -> Image? {
+        return imageCacheController.memoryCachedImage(withURL: url)
+    }
+    
+    @objc func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
+        return imageCacheController.fetchImage(withURL: url, priority: priority, failure: failure, success: success)
+    }
+    
+    @objc func cancelFetch(withURL url: URL?, token: String?) {
+        imageCacheController.cancelFetch(withURL: url, token: token)
+    }
+    
+    @objc func cachedImage(withURL url: URL?) -> Image? {
+        return imageCacheController.cachedImage(withURL: url)
+    }
+    
+    @objc func fetchData(withURL url: URL, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
+        imageCacheController.fetchData(withURL: url, failure: failure, success: success)
+    }
+    
+    @objc public func data(withURL url: URL) -> TypedImageData? {
+        return imageCacheController.data(withURL: url)
     }
 }

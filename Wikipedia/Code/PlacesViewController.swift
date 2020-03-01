@@ -55,7 +55,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     fileprivate var previouslySelectedArticlePlaceIdentifier: Int?
     fileprivate var didYouMeanSearch: PlaceSearch?
     fileprivate var searching: Bool = false
-    fileprivate let imageController = ImageController.shared
+    fileprivate let imageController = ImageCacheController.shared
 
     fileprivate var _displayCountForTopPlaces: Int?
     fileprivate var displayCountForTopPlaces: Int {

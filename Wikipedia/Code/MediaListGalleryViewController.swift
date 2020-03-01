@@ -1,5 +1,5 @@
 class MediaListGalleryViewController: WMFImageGalleryViewController {
-    let imageController: ImageController = ImageController.shared
+    let imageController: ImageCacheController = ImageCacheController.shared
     let imageInfoFetcher = MWKImageInfoFetcher()
     let articleURL: URL
     required init(articleURL: URL, mediaList: MediaList, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
