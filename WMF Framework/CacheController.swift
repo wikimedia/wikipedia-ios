@@ -29,6 +29,14 @@ public class CacheController {
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
+        //create cacheURL directory
+        do {
+            try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
+        } catch let error {
+            assertionFailure("Error creating permanent cache: \(error)")
+            return nil
+        }
+        
         //create ManagedObjectModel based on Cache.momd
         guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
@@ -37,7 +45,7 @@ public class CacheController {
         }
 
         //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("Cache.sqlite", isDirectory: false)
+        let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
 
         let options = [

@@ -63,7 +63,7 @@ final class CacheFileWriterHelper {
         }
     }
     
-    static func saveResponseHeader(headerFields: [String: Any], toNewFileName fileName: String, completion: (FileSaveResult) -> Void) {
+    static func saveResponseHeader(headerFields: [String: String], toNewFileName fileName: String, completion: (FileSaveResult) -> Void) {
         
         let contentData: Data = NSKeyedArchiver.archivedData(withRootObject: headerFields)
         

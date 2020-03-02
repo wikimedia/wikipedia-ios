@@ -602,10 +602,9 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                     callback.data?(cachedResponse.data)
                     callback.success()
                     return
-                } else {
-                    callback.failure(error)
                 }
             }
+            callback.failure(error)
             return
         }
         

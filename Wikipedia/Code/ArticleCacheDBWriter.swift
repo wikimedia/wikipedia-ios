@@ -112,9 +112,9 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 
                 //add image urls
                 self.imageController.add(urls: imageURLs, groupKey: groupKey, individualCompletion: { (result) in
-                    //tonitodo: don't think we need this. if not make it optional
+                    
                 }) { (result) in
-                    //tonitodo: don't think we need this. if not make it optional
+                    
                 }
                 
             case .failure(let error):

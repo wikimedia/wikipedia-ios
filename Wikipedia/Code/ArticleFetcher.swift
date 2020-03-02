@@ -215,8 +215,6 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     func bundledOfflineResourceURLs() -> BundledOfflineResources? {
 
-        //TONITODO: clean this hardcoded nonsense up, move to Configuration.swift
-
         #if WMF_APPS_LABS_MOBILE_HTML
 
             guard let baseCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/base"),

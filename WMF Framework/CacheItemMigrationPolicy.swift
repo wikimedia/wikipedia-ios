@@ -37,9 +37,9 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             if let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: filePath),
                 let data = FileManager.default.contents(atPath: filePath) {
                     //construct response header file
-                let headerFields: [String: Any] = [
+                let headerFields: [String: String] = [
                         "Content-Type": mimeType,
-                        "Content-Length": data.count
+                        "Content-Length": String(data.count)
                     ]
                 CacheFileWriterHelper.saveResponseHeader(headerFields: headerFields, toNewFileName: headerFileName) { (result) in
                     switch result {
@@ -54,7 +54,6 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
                 destinationItem.setValue(false, forKey: "isDownloaded")
             }
             
-            //tonitodo: clean out records with nil url and false isDownloaded in housekeeper
             destinationItem.setValue(nil, forKey: "url")
             
             manager.associate(sourceInstance: sInstance, withDestinationInstance: destinationItem, for: mapping)

@@ -61,7 +61,6 @@ public final class ArticleCacheController: CacheController {
                     articleDBWriter.markDownloaded(urlRequest: urlRequest) { (result) in
                         switch result {
                         case .success:
-                            DDLogDebug("successfully migrated")
                             
                             if cacheBundledError == nil {
                                 completionHandler(nil)
@@ -71,16 +70,13 @@ public final class ArticleCacheController: CacheController {
                             
                         case .failure(let error):
                             completionHandler(error)
-                            //tonitodo: broadcast migration error
                         }
                     }
                 }) { (error) in
                     completionHandler(error)
-                    //tonitodo: broadcast migration error
                 }
             }) { (error) in
                 completionHandler(error)
-                //tonitodo: broadcast migration error
             }
         }
     }
@@ -100,7 +96,6 @@ public final class ArticleCacheController: CacheController {
             return
         }
         
-        //tonitodo: this will bundle those shared across siteURLs over and over again. need to bundle shared resources first as a separate thing, then bundle site-specific resource.
         if !articleDBWriter.bundledResourcesAreCached() {
             articleDBWriter.addBundledResourcesForMigration(desktopArticleURL: desktopArticleURL) { (result) in
                 

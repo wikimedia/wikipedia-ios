@@ -26,7 +26,7 @@ public final class ImageCacheController: CacheController {
     // MARK: Permanent Cache
     func add(urls: [URL], groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
 
-        //tonitodo: DRY gatekeeper logic with superclass
+        //todo: could use DRY gatekeeper logic with superclass. this will likely get refactored out so holding off.
         if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
             gatekeeper.queueAddCompletion(groupKey: groupKey) {
                 self.add(urls: urls, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
@@ -219,7 +219,6 @@ public final class ImageCacheController: CacheController {
             return TypedImageData(data: nil, MIMEType: nil)
         }
         
-        //tonitodo: sort out these mime types
         return TypedImageData(data: response.data, MIMEType: response.response.mimeType)
     }
     
