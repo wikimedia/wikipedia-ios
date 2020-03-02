@@ -18,11 +18,29 @@ class SelectedTextEditInfo {
   }
 }
 
-const isSelectedTextInTitleDescription = selection => utilities.findClosest(selection.anchorNode, 'p#pagelib_edit_section_title_description') != null
-const isSelectedTextInArticleTitle = selection => utilities.findClosest(selection.anchorNode, 'h1.pagelib_edit_section_title') != null
+const getClosestFromSelection = (selection, selector) => {
+  if (!selection) {
+    return null
+  }
+  if (!selection.anchorNode) {
+    return null
+  }
+  if (!selection.anchorNode.parentElement) {
+    return null
+  }
+  return selection.anchorNode.parentElement.closest(selector)
+}
+
+const isSelectedTextInTitleDescription = selection => getClosestFromSelection(selection, 'p#pcs-edit-section-title-description') != null
+
+const isSelectedTextInArticleTitle = selection  => getClosestFromSelection(selection, 'h1.pcs-edit-section-title') != null
 
 const getSelectedTextSectionID = selection => {
-  const sectionIDString = utilities.findClosest(selection.anchorNode, 'div[id^="section_heading_and_content_block_"]').id.slice('section_heading_and_content_block_'.length)
+  const section = getClosestFromSelection(selection, 'section[data-mw-section-id]')
+  if (!section) {
+    return null
+  }
+  const sectionIDString = section.getAttribute('data-mw-section-id')
   if (sectionIDString == null) {
     return null
   }
@@ -298,13 +316,6 @@ exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForS
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 exports.removeSearchTermHighlights = removeSearchTermHighlights
 },{}],5:[function(require,module,exports){
-
-// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-const findClosest = (el, selector) => {
-  while ((el = el.parentElement) && !el.matches(selector));
-  return el
-}
-
 const scrollToFragment = fragmentId => {
   location.hash = ''
   location.hash = fragmentId
@@ -324,5 +335,4 @@ const accessibilityCursorToFragment = fragmentId => {
 
 exports.accessibilityCursorToFragment = accessibilityCursorToFragment
 exports.scrollToFragment = scrollToFragment
-exports.findClosest = findClosest
 },{}]},{},[1,2,3,4,5]);

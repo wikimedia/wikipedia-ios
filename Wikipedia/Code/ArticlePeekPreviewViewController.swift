@@ -29,24 +29,19 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
             return
         }
         isFetched = true
-        guard let article = dataStore.fetchArticle(with: articleURL) else {
-            guard let key = articleURL.wmf_databaseKey else {
-                completion?()
-                return
-            }
-            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
-                defer {
-                    completion?()
-                }
-                guard let article = article else {
-                    return
-                }
-                self.updateView(with: article)
-            }
+        guard let key = articleURL.wmf_databaseKey else {
+            completion?()
             return
         }
-        updateView(with: article)
-        completion?()
+        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
+            defer {
+                completion?()
+            }
+            guard let article = article else {
+                return
+            }
+            self.updateView(with: article)
+        }
     }
     
     public func updatePreferredContentSize(for contentWidth: CGFloat) {

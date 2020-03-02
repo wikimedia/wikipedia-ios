@@ -754,7 +754,7 @@
 "share-default-format" = "Default share format string. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-email-format" = "Share format string for email. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-get-directions-in-maps" = "Button to get directions to the current article's location in the Maps app.";
-"share-menu-item" = "Button label for 'Share…' menu";
+"share-menu-item" = "'Share…' menu item with ellipsis to indicate further actions are required.";
 "share-message-format" = "Share format string for messages. $1 is replaced with the article title, $2 is replaced with the article URL.";
 "share-on-twitter-sign-off" = "Text placed at the end of a tweet when sharing. Contains the wikipedia twitter handle";
 "share-open-in-maps" = "Button to open current article's location in the Maps app.";
