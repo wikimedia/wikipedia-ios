@@ -25,8 +25,6 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             destinationItem.setValue(newVariant, forKey: "variant")
             destinationItem.setValue(date, forKey: "date")
             
-            //should we confirm file actually exists in file system before setting this to true?
-            
             //only images will be migrating
             let cacheKeyGenerator = ImageCacheKeyGenerator.self
             let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(key, variant: newVariant)
