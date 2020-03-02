@@ -87,7 +87,7 @@
 "article-languages-others" = "Aner Sproochen";
 "article-languages-yours" = "Är Sprooch";
 "article-read-more-title" = "Liest méi";
-"article-reference-title" = "Referenze weisen";
+"article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
 "back-button-accessibility-label" = "Zréck";
@@ -417,7 +417,6 @@
 "reading-lists-large-sync-completed" = "$1 Artikelen a(n) $2   Lieslëschte vun Ärem Benotzerkont synchroniséiert";
 "reading-lists-sort-saved-articles" = "Gespäichert Artikelen zortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
-"reference-back-links-back-to-reference" = "Zréck op d'Referenz";
 "reference-title" = "Referenz: $1";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";

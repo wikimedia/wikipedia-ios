@@ -210,6 +210,7 @@
 "diff-thanks-anonymous-no-thanks" = "Anonieme gebruikers kunnen niet worden bedankt";
 "diff-thanks-login-title" = "Meld u aan om een bedankje te versturen";
 "diff-thanks-send-button-title" = "Bedankje sturen";
+"diff-thanks-send-title" = "Publiekelijk een bedankje sturen";
 "diff-thanks-sent-already" = "U hebt al een bedankje voor deze bewerking verstuurd";
 "diff-thanks-sent-cannot-unsend" = "Het versturen van een bedankje kan niet ongedaan worden gemaakt";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 niet bewerkte regel|$1 niet bewerkte regels}}";
