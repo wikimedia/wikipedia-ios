@@ -437,8 +437,7 @@
 "in-the-news-currently-trending" = "В настоящее время популярные";
 "in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Поделиться...";
+"in-the-news-notification-share-action-title" = "Поделиться…";
 "in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
 "in-the-news-title" = "В новостях";

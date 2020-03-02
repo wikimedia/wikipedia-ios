@@ -133,7 +133,7 @@
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamını oku";
-"article-reference-title" = "Kaynakları görüntüle";
+"article-reference-view-title" = "$1 kaynağı";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";

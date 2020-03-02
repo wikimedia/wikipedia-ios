@@ -107,7 +107,7 @@
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
 "article-read-more-title" = "Прочитајте повеќе";
-"article-reference-title" = "Погл. наводи";
+"article-reference-view-title" = "Навод $1";
 "article-save-error-not-enough-space" = "Немате доволно простор на уредот за да ја зачувате статијава";
 "article-share" = "Сподели";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Контроли за изгледите за читање";

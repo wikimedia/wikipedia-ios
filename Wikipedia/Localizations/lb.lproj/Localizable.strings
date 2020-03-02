@@ -87,7 +87,7 @@
 "article-languages-others" = "Aner Sproochen";
 "article-languages-yours" = "Är Sprooch";
 "article-read-more-title" = "Liest méi";
-"article-reference-title" = "Referenze weisen";
+"article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
 "back-button-accessibility-label" = "Zréck";

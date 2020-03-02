@@ -141,7 +141,7 @@
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Seguir leyendo";
-"article-reference-title" = "Ver referencias";
+"article-reference-view-title" = "Referencia $1";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
