@@ -20,6 +20,8 @@
 
 #import "WMFChange.h"
 
+#import "WMFWebView.h"
+
 #import "WikiTextSectionUploader.h"
 #import "WMFShareFunnel.h"
 #import "WMFLanguagesViewControllerDelegate.h"

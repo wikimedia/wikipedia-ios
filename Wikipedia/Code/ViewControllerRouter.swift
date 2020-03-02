@@ -30,53 +30,47 @@ class ViewControllerRouter: NSObject {
     @objc(routeURL:completion:)
     public func route(_ url: URL, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
-        do {
-            let destination = try router.destination(for: url)
-            switch destination {
-            case .article(let articleURL):
-                appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
-                return true
-            case .externalLink(let linkURL):
-                appViewController.navigate(to: linkURL, useSafari: true)
-                completion()
-                return true
-            case .articleHistory(let linkURL, let articleTitle):
-                let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL)
-                return presentOrPush(pageHistoryVC, with: completion)
-            case .articleDiffCompare(let linkURL, let fromRevID, let toRevID):
-                guard let siteURL = linkURL.wmf_site,
-                  (fromRevID != nil || toRevID != nil) else {
-                    completion()
-                    return false
-                }
-                let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil, hidesHistoryBackTitle: true)
-                return presentOrPush(diffContainerVC, with: completion)
-            case .articleDiffSingle(let linkURL, let fromRevID, let toRevID):
-                guard let siteURL = linkURL.wmf_site,
-                    (fromRevID != nil || toRevID != nil) else {
-                    completion()
-                    return false
-                }
-                let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil, hidesHistoryBackTitle: true)
-                return presentOrPush(diffContainerVC, with: completion)
-            case .inAppLink(let linkURL):
-                let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
-                return presentOrPush(singlePageVC, with: completion)
-            case .userTalk(let linkURL):
-                guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
-                    completion()
-                    return false
-                }
-                return presentOrPush(talkPageVC, with: completion)
-            default:
+        let destination = router.destination(for: url)
+        switch destination {
+        case .article(let articleURL):
+            appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
+            return true
+        case .externalLink(let linkURL):
+            appViewController.navigate(to: linkURL, useSafari: true)
+            completion()
+            return true
+        case .articleHistory(let linkURL, let articleTitle):
+            let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL)
+            return presentOrPush(pageHistoryVC, with: completion)
+        case .articleDiffCompare(let linkURL, let fromRevID, let toRevID):
+            guard let siteURL = linkURL.wmf_site,
+              (fromRevID != nil || toRevID != nil) else {
                 completion()
                 return false
             }
-        } catch let error {
-            DDLogError("Error routing link: \(error)")
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil, hidesHistoryBackTitle: true)
+            return presentOrPush(diffContainerVC, with: completion)
+        case .articleDiffSingle(let linkURL, let fromRevID, let toRevID):
+            guard let siteURL = linkURL.wmf_site,
+                (fromRevID != nil || toRevID != nil) else {
+                completion()
+                return false
+            }
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil, hidesHistoryBackTitle: true)
+            return presentOrPush(diffContainerVC, with: completion)
+        case .inAppLink(let linkURL):
+            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
+            return presentOrPush(singlePageVC, with: completion)
+        case .userTalk(let linkURL):
+            guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
+                completion()
+                return false
+            }
+            return presentOrPush(talkPageVC, with: completion)
+        default:
+            completion()
+            return false
         }
-        completion()
-        return false
     }
     
 }

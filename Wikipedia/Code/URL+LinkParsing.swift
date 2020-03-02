@@ -104,6 +104,10 @@ extension URL {
         }
         return wmf_URL(withTitle: "Talk:\(namespaceAndTitle.title)")
     }
+    
+    public var isPreviewable: Bool {
+        return (self as NSURL).wmf_isPeekable
+    }
 }
 
 

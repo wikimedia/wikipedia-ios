@@ -39,7 +39,11 @@ class ArticleViewController: ViewController {
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
 
-    internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
+    let session = Session.shared
+    let configuration = Configuration.current
+    
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
 
     private var leadImageHeight: CGFloat = 210
 
@@ -95,7 +99,7 @@ class ArticleViewController: ViewController {
     }()
     
     lazy var webView: WKWebView = {
-        return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
+        return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
     
     // MARK: Find In Page
@@ -259,6 +263,11 @@ class ArticleViewController: ViewController {
         toolbarController.update()
     }
     
+    override func wmf_removePeekableChildViewControllers() {
+        super.wmf_removePeekableChildViewControllers()
+        addToHistory()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
@@ -316,6 +325,7 @@ class ArticleViewController: ViewController {
         dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
             defer {
                 self.footerLoadGroup?.leave()
+                self.updateMenuItems()
             }
             // Handle redirects
             guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
@@ -337,6 +347,10 @@ class ArticleViewController: ViewController {
     // MARK: History
 
     func addToHistory() {
+        // Don't add to history if we're in peek/pop
+        guard self.wmf_PeekableChildViewController == nil else {
+            return
+        }
         try? article.addToReadHistory()
     }
     
@@ -690,21 +704,32 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        // Add the stack view that contains the table of contents and the web view.
+        // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-        
-        webView.scrollView.refreshControl = refreshControl
         
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
         
+        // Scroll view
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
-        webView.scrollView.addSubview(leadImageContainerView)
-        
         webView.scrollView.keyboardDismissMode = .interactive
+        webView.scrollView.refreshControl = refreshControl
+        
+        // Lead image
+        setupLeadImageView()
+        
+        // Delegates
+        webView.uiDelegate = self
+    }
+    
+    /// Adds the lead image view to the web view's scroll view and configures the associated constraints
+    func setupLeadImageView() {
+        webView.scrollView.addSubview(leadImageContainerView)
 
         let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
@@ -795,8 +820,3 @@ extension ViewController {
         return margins
     }
 }
-
-//WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
-//WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")

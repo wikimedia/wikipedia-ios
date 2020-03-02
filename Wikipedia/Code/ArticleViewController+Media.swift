@@ -6,6 +6,7 @@ extension ArticleViewController {
         assert(Thread.isMainThread)
         if let mediaList = mediaList {
             completion(.success(mediaList))
+            return
         }
         
         let request: URLRequest
@@ -69,7 +70,11 @@ extension ArticleViewController {
     }
     
     func showImage(in mediaList: MediaList, item: MediaListItem?) {
-        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, initialItem: item, theme: theme)
+        let gallery = getGalleryViewController(for: item, in: mediaList)
         present(gallery, animated: true)
+    }
+    
+    func getGalleryViewController(for item: MediaListItem?, in mediaList: MediaList) -> MediaListGalleryViewController {
+        return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, initialItem: item, theme: theme)
     }
 }
