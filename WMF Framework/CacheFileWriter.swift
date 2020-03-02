@@ -221,14 +221,54 @@ extension CacheFileWriter {
         
         let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
         let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
-
-        CacheFileWriterHelper.saveContent(content, toNewFileName: fileName, mimeType: mimeType) { (result) in
+        
+        //artificially create and save mobile-html header
+        let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+        
+        var responseHeaderError: Error?
+        var contentError: Error?
+        let group = DispatchGroup()
+        
+        group.enter()
+        CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": "text/html"], toNewFileName: headerFileName) { (result) in
+            
+            defer {
+                group.leave()
+            }
+            
             switch result {
             case .success, .exists:
-                success()
+                break
             case .failure(let error):
-                failure(error)
+                responseHeaderError = error
             }
+        }
+
+        group.enter()
+        CacheFileWriterHelper.saveContent(content, toNewFileName: fileName, mimeType: mimeType) { (result) in
+            
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .success, .exists:
+                break
+            case .failure(let error):
+                contentError = error
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            if let contentError = contentError {
+                failure(contentError)
+                return
+            }
+            
+            if let responseHeaderError = responseHeaderError {
+                failure(responseHeaderError)
+            }
+            
+            success()
         }
     }
     
@@ -247,6 +287,26 @@ extension CacheFileWriter {
         var failedURLRequests: [URLRequest] = []
         var succeededURLRequests: [URLRequest] = []
         
+        func writeBundledFilesBlock(mimeType: String, bundledFileURL: URL, fileName: String, headerFileName: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+            CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: fileName, mimeType: mimeType) { (result) in
+                switch result {
+                case .success, .exists:
+                    
+                    CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": mimeType], toNewFileName: headerFileName) { (result) in
+                        switch result {
+                        case .success, .exists:
+                            completion(.success(true))
+                        case .failure(let error):
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+        
         for urlRequest in urlRequests {
             
             guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
@@ -254,35 +314,54 @@ extension CacheFileWriter {
             }
             
             let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: nil)
+            let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: nil)
             
             switch itemKey {
             case bundledOfflineResources.baseCSS.absoluteString:
-                CacheFileWriterHelper.copyFile(from: baseCSSFileURL, toNewFileWithKey: fileName, mimeType: "text/css") { (result) in
+                
+                writeBundledFilesBlock(mimeType: "text/css", bundledFileURL: baseCSSFileURL, fileName: fileName, headerFileName: headerFileName) { (result) in
                     switch result {
-                    case .success, .exists:
-                        succeededURLRequests.append(urlRequest)
+                    case .success(let resultFlag):
+                        if resultFlag == true {
+                            succeededURLRequests.append(urlRequest)
+                        } else {
+                            failedURLRequests.append(urlRequest)
+                        }
                     case .failure:
                         failedURLRequests.append(urlRequest)
                     }
                 }
+                
             case bundledOfflineResources.pcsCSS.absoluteString:
-                CacheFileWriterHelper.copyFile(from: pcsCSSFileURL, toNewFileWithKey: fileName, mimeType: "text/css") { (result) in
+                
+                writeBundledFilesBlock(mimeType: "text/css", bundledFileURL: pcsCSSFileURL, fileName: fileName, headerFileName: headerFileName) { (result) in
                     switch result {
-                    case .success, .exists:
-                        succeededURLRequests.append(urlRequest)
+                    case .success(let resultFlag):
+                        if resultFlag == true {
+                            succeededURLRequests.append(urlRequest)
+                        } else {
+                            failedURLRequests.append(urlRequest)
+                        }
                     case .failure:
                         failedURLRequests.append(urlRequest)
                     }
                 }
+                
             case bundledOfflineResources.pcsJS.absoluteString:
-            CacheFileWriterHelper.copyFile(from: pcsJSFileURL, toNewFileWithKey: fileName, mimeType: "application/javascript") { (result) in
-                switch result {
-                case .success, .exists:
-                    succeededURLRequests.append(urlRequest)
-                case .failure:
-                    failedURLRequests.append(urlRequest)
+                
+                writeBundledFilesBlock(mimeType: "application/javascript", bundledFileURL: pcsJSFileURL, fileName: fileName, headerFileName: headerFileName) { (result) in
+                    switch result {
+                    case .success(let resultFlag):
+                        if resultFlag == true {
+                            succeededURLRequests.append(urlRequest)
+                        } else {
+                            failedURLRequests.append(urlRequest)
+                        }
+                    case .failure:
+                        failedURLRequests.append(urlRequest)
+                    }
                 }
-            }
+                
             default:
                 failedURLRequests.append(urlRequest)
             }

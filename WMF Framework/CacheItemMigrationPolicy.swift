@@ -26,7 +26,35 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             destinationItem.setValue(date, forKey: "date")
             
             //should we confirm file actually exists in file system before setting this to true?
-            destinationItem.setValue(true, forKey: "isDownloaded")
+            
+            //only images will be migrating
+            let cacheKeyGenerator = ImageCacheKeyGenerator.self
+            let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(key, variant: newVariant)
+            let filePath = CacheFileWriterHelper.fileURL(for: fileName).path
+            let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(key, variant: newVariant)
+            
+            //artifically create and save image response header
+            if let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: filePath),
+                let data = FileManager.default.contents(atPath: filePath) {
+                    //construct response header file
+                let headerFields: [String: Any] = [
+                        "Content-Type": mimeType,
+                        "Content-Length": data.count
+                    ]
+                CacheFileWriterHelper.saveResponseHeader(headerFields: headerFields, toNewFileName: headerFileName) { (result) in
+                    switch result {
+                    case .success, .exists:
+                        destinationItem.setValue(true, forKey: "isDownloaded")
+                    case .failure:
+                        destinationItem.setValue(false, forKey: "isDownloaded")
+                    }
+                }
+                
+            } else {
+                destinationItem.setValue(false, forKey: "isDownloaded")
+            }
+            
+            //tonitodo: clean out records with nil url and false isDownloaded in housekeeper
             destinationItem.setValue(nil, forKey: "url")
             
             manager.associate(sourceInstance: sInstance, withDestinationInstance: destinationItem, for: mapping)

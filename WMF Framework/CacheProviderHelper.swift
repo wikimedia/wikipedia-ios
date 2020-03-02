@@ -16,20 +16,8 @@ final class CacheProviderHelper {
         guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path) else {
             return nil
         }
-        
-        //missing response header file could happen as a result of migrating saved articles for mobile-html response and images.
-        //artifically returning a header here in this case, though maybe better would be to create a response header file during migration.
+
         guard let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
-            
-            var mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: responseFileName) ?? (url as NSURL).wmf_mimeTypeForExtension()
-            if url.absoluteString.contains("mobile-html") {
-                mimeType = "text/html"
-            }
-            let headerFields = mimeType.isEmpty ? [:] : ["Content-Type": mimeType]
-            
-            if let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
-                return CachedURLResponse(response: httpResponse, data: responseData)
-            }
             
             return nil
         }
