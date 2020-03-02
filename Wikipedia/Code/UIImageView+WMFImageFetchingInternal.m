@@ -134,7 +134,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageCacheContro
 }
 
 - (void)wmf_setImage:(UIImage *)image
-       animatedImage:(FLAnimatedImage *)animatedImage
+       animatedImage:(nullable FLAnimatedImage *)animatedImage
          detectFaces:(BOOL)detectFaces
                onGPU:(BOOL)onGPU
             animated:(BOOL)animated
@@ -174,7 +174,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageCacheContro
 }
 
 - (void)wmf_setImage:(UIImage *)image
-       animatedImage:(FLAnimatedImage *)animatedImage
+       animatedImage:(nullable FLAnimatedImage *)animatedImage
          detectFaces:(BOOL)detectFaces
      faceBoundsValue:(nullable NSValue *)faceBoundsValue
             animated:(BOOL)animated
