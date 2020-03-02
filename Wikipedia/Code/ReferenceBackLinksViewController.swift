@@ -1,25 +1,27 @@
-protocol ReferenceBackLinksViewControllerDelegate: class {
-    func referenceBackLinksViewControllerUserDidTapClose(_ referenceBackLinksViewController: ReferenceBackLinksViewController)
+protocol ReferenceBackLinksViewControllerDelegate: ReferenceViewControllerDelegate {
     func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController)
-    func referenceBackLinksViewControllerUserDidNavigateBackToReference(_ referenceBackLinksViewController: ReferenceBackLinksViewController)
 }
 
-class ReferenceBackLinksViewController: ViewController {
-    weak var delegate: ReferenceBackLinksViewControllerDelegate?
-    
+class ReferenceBackLinksViewController: ReferenceViewController {    
     var index = 0
     let backLinks: [ReferenceBackLink]
-    let referenceId: String
     
     init?(referenceId: String, backLinks: [ReferenceBackLink], delegate: ReferenceBackLinksViewControllerDelegate?, theme: Theme) {
         guard backLinks.count > 0 else {
             return nil
         }
-        self.referenceId = referenceId
         self.backLinks = backLinks
-        self.delegate = delegate
         super.init(theme: theme)
-        navigationMode = .forceBar
+        self.referenceId = referenceId
+        self.delegate = delegate
+    }
+    
+    func updateReferenceLinkText() {
+        guard let referenceNumberString = referenceId?.split(separator: "-").last else {
+            referenceLinkText = nil
+            return
+        }
+        referenceLinkText = "[" + referenceNumberString + "]"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,13 +29,6 @@ class ReferenceBackLinksViewController: ViewController {
     }
     
     // MARK: Setup
-    
-    var referenceLinkTitle: String {
-        guard let referenceNumberString = referenceId.split(separator: "-").last else {
-            return ""
-        }
-       return "[" + referenceNumberString + "]"
-    }
     
     lazy var nextButton = UIBarButtonItem(image:UIImage(named: "directionDown"), style: .plain, target: self, action: #selector(goToNextReference))
     lazy var previousButton = UIBarButtonItem(image:UIImage(named: "directionUp"), style: .plain, target: self, action: #selector(goToPreviousReference))
@@ -56,17 +51,7 @@ class ReferenceBackLinksViewController: ViewController {
         setToolbarHidden(false, animated: false)
     }
     
-    lazy var backToReferenceButton = UIBarButtonItem(image: UIImage(named: "references"), style: .plain, target: self, action: #selector(goBackToReference))
-    lazy var closeButton = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(closeButtonPressed))
-    
-    func setupNavbar() {
-        let titleFormat = WMFLocalizedString("article-reference-view-title", value: "Reference %@", comment: "Title for the reference view. %@ is replaced by the reference link name, for example [1].")
-        navigationItem.title = String.localizedStringWithFormat(titleFormat, referenceLinkTitle)
-        navigationItem.rightBarButtonItem = closeButton
-        navigationItem.leftBarButtonItem = backToReferenceButton
-        apply(theme: self.theme)
-    }
-    
+
     func setupTapGestureRecognizer() {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(closeButtonPressed))
         view.addGestureRecognizer(tapGR)
@@ -81,7 +66,6 @@ class ReferenceBackLinksViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavbar()
         setupToolbar()
         setupTapGestureRecognizer()
         notifyDelegateOfNavigationToReference()
@@ -93,7 +77,7 @@ class ReferenceBackLinksViewController: ViewController {
 
         countLabel.text = "\(index + 1)/\(backLinks.count)"
         let backLink = backLinks[index]
-        delegate?.referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: backLink, referenceBackLinksViewController: self)
+        (delegate as? ReferenceBackLinksViewControllerDelegate)?.referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: backLink, referenceBackLinksViewController: self)
     }
     
     @objc func goToNextReference() {
@@ -104,6 +88,7 @@ class ReferenceBackLinksViewController: ViewController {
         }
         notifyDelegateOfNavigationToReference()
     }
+
     
     @objc func goToPreviousReference() {
         if index <= 0 {
@@ -113,23 +98,14 @@ class ReferenceBackLinksViewController: ViewController {
         }
         notifyDelegateOfNavigationToReference()
     }
-    
-    @objc func closeButtonPressed() {
-        delegate?.referenceBackLinksViewControllerUserDidTapClose(self)
-    }
-    
-    @objc func goBackToReference() {
-        delegate?.referenceBackLinksViewControllerUserDidNavigateBackToReference(self)
-    }
-    
+
     // MARK: Theme
+    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
-        closeButton.tintColor = theme.colors.secondaryText
-        backToReferenceButton.tintColor = theme.colors.link
         countLabel.textColor = theme.colors.secondaryText
         view.backgroundColor = .clear
     }
