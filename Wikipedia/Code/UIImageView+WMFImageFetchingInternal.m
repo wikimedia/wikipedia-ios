@@ -15,21 +15,21 @@ static const char *const MWKFaceDetectionURLToCancelAssociationKey = "MWKFaceDet
 
 static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 
-static const char *const WMFImageControllerAssociationKey = "WMFImageController";
+static const char *const WMFImageControllerAssociationKey = "WMFImageCacheControllerWrapper";
 
 @implementation UIImageView (WMFImageFetchingInternal)
 
 #pragma mark - Associated Objects
 
-- (WMFImageController *__nullable)wmf_imageController {
-    WMFImageController *controller = objc_getAssociatedObject(self, WMFImageControllerAssociationKey);
+- (WMFImageCacheControllerWrapper *__nullable)wmf_imageController {
+    WMFImageCacheControllerWrapper *controller = objc_getAssociatedObject(self, WMFImageControllerAssociationKey);
     if (!controller) {
-        controller = [WMFImageController sharedInstance];
+        controller = [WMFImageCacheControllerWrapper shared];
     }
     return controller;
 }
 
-- (void)wmf_setImageController:(nullable WMFImageController *)imageController {
+- (void)wmf_setImageController:(nullable WMFImageCacheControllerWrapper *)imageController {
     objc_setAssociatedObject(self, WMFImageControllerAssociationKey, imageController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

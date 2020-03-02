@@ -22,15 +22,16 @@ enum CacheDBWritingResult {
 }
 
 enum CacheDBWritingMarkDownloadedError: Error {
-    case invalidContext
     case cannotFindCacheGroup
     case cannotFindCacheItem
     case missingExpectedItemsOutOfRequestHeader
+    case missingMOC
 }
 
 enum CacheDBWritingRemoveError: Error {
     case cannotFindCacheGroup
     case cannotFindCacheItem
+    case missingMOC
 }
 
 protocol CacheDBWriting: CacheTaskTracking {
@@ -54,7 +55,7 @@ extension CacheDBWriting {
     func markDownloaded(urlRequest: URLRequest, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
+            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
             return
         }
         
@@ -83,16 +84,18 @@ extension CacheDBWriting {
     }
     
     func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys) {
+        
         guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
+            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
             return
         }
+        
         context.perform {
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheGroup))
                 return
             }
-            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+            guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
                 return
             }
@@ -108,7 +111,7 @@ extension CacheDBWriting {
     func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void) {
 
         guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
+            completion(.failure(CacheDBWritingRemoveError.missingMOC))
             return
         }
         
@@ -134,7 +137,7 @@ extension CacheDBWriting {
     func remove(groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResult) -> Void) {
 
         guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
+            completion(.failure(CacheDBWritingRemoveError.missingMOC))
             return
         }
         
@@ -164,14 +167,14 @@ extension CacheDBWriting {
         }
         
         context.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheItem>(entityName: "PersistentCacheItem")
+            let fetchRequest = NSFetchRequest<CacheItem>(entityName: "CacheItem")
             do {
                 let fetchedResults = try context.fetch(fetchRequest)
                 if fetchedResults.count == 0 {
                      DDLogDebug("🌹noItems")
                 } else {
                     for item in fetchedResults {
-                        DDLogDebug("🌹itemKey: \(item.value(forKey: "key")!), variant:  \(item.value(forKey: "variant") ?? "nil"), itemURL: \(item.value(forKey: "url")!)")
+                        DDLogDebug("🌹itemKey: \(item.value(forKey: "key")!), variant:  \(item.value(forKey: "variant") ?? "nil"), itemURL: \(item.value(forKey: "url") ?? "nil")")
                     }
                 }
             } catch let error as NSError {
@@ -188,7 +191,7 @@ extension CacheDBWriting {
         }
         
         context.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheGroup>(entityName: "PersistentCacheGroup")
+            let fetchRequest = NSFetchRequest<CacheGroup>(entityName: "CacheGroup")
             do {
                 let fetchedResults = try context.fetch(fetchRequest)
                 if fetchedResults.count == 0 {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CacheGroup" representedClassName="WMFCacheGroup" syncable="YES">
+        <attribute name="key" attributeType="String"/>
+        <relationship name="cacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CacheItem" inverseName="cacheGroups" inverseEntity="CacheItem"/>
+        <relationship name="mustHaveCacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CacheItem" inverseName="mustHaveCacheGroups" inverseEntity="CacheItem"/>
+        <fetchIndex name="byKeyIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="CacheItem" representedClassName="WMFCacheItem" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="key" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <attribute name="variant" optional="YES" attributeType="String" customClassName="NSArray"/>
+        <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CacheGroup" inverseName="cacheItems" inverseEntity="CacheGroup"/>
+        <relationship name="mustHaveCacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CacheGroup" inverseName="mustHaveCacheItems" inverseEntity="CacheGroup"/>
+        <fetchIndex name="byDateIndex">
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+            <fetchIndexElement property="variant" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <elements>
+        <element name="CacheGroup" positionX="-63" positionY="9" width="128" height="88"/>
+        <element name="CacheItem" positionX="-63" positionY="-18" width="128" height="148"/>
+    </elements>
+</model>

@@ -1,5 +1,7 @@
+
 import Foundation
 import CoreData
+
 
 extension CacheGroup {
 
@@ -9,6 +11,7 @@ extension CacheGroup {
 
     @NSManaged public var key: String?
     @NSManaged public var cacheItems: NSSet?
+    @NSManaged public var mustHaveCacheItems: NSSet?
 
 }
 
@@ -26,5 +29,22 @@ extension CacheGroup {
 
     @objc(removeCacheItems:)
     @NSManaged public func removeFromCacheItems(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for mustHaveCacheItems
+extension CacheGroup {
+
+    @objc(addMustHaveCacheItemsObject:)
+    @NSManaged public func addToMustHaveCacheItems(_ value: CacheItem)
+
+    @objc(removeMustHaveCacheItemsObject:)
+    @NSManaged public func removeFromMustHaveCacheItems(_ value: CacheItem)
+
+    @objc(addMustHaveCacheItems:)
+    @NSManaged public func addToMustHaveCacheItems(_ values: NSSet)
+
+    @objc(removeMustHaveCacheItems:)
+    @NSManaged public func removeFromMustHaveCacheItems(_ values: NSSet)
 
 }

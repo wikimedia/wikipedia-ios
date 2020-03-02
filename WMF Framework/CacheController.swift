@@ -9,7 +9,7 @@ enum CacheControllerError: Error {
 public class CacheController {
     
     static let cacheURL: URL = {
-        var url = FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        var url = FileManager.default.wmf_containerURL().appendingPathComponent("Permanent Cache", isDirectory: true)
         
         var values = URLResourceValues()
         values.isExcludedFromBackup = true
@@ -29,22 +29,30 @@ public class CacheController {
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
+        //create cacheURL directory
+        do {
+            try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
+        } catch let error {
+            assertionFailure("Error creating permanent cache: \(error)")
+            return nil
+        }
+        
         //create ManagedObjectModel based on Cache.momd
-        guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
+        guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
         }
-                
+
         //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("PersistentCache.sqlite", isDirectory: false)
+        let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        
+
         let options = [
             NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true),
             NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)
         ]
-        
+
         do {
             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
         } catch {
@@ -52,7 +60,6 @@ public class CacheController {
                 try FileManager.default.removeItem(at: dbURL)
             } catch {
                 assertionFailure("Failure to remove old db file")
-                return nil
             }
 
             do {
@@ -65,7 +72,7 @@ public class CacheController {
 
         let cacheBackgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
-                
+
         return cacheBackgroundContext
     }()
     
@@ -102,12 +109,13 @@ public class CacheController {
     
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriter
-    private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
-    private let gatekeeper = CacheGatekeeper()
+    private let cacheKeyGenerator: CacheKeyGenerating.Type
+    let gatekeeper = CacheGatekeeper()
     
-    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
+    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter, cacheKeyGenerator: CacheKeyGenerating.Type) {
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
+        self.cacheKeyGenerator = cacheKeyGenerator
     }
 
     public func add(url: URL, groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -187,7 +195,7 @@ public class CacheController {
                         }
                         
                         switch result {
-                        case .success:
+                        case .success(let data, let mimeType):
                             
                             self.dbWriter.markDownloaded(urlRequest: urlRequest) { (result) in
                                 
@@ -209,6 +217,8 @@ public class CacheController {
                                 
                                 self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             }
+                            
+                            self.finishFileSave(data: data, mimeType: mimeType, uniqueKey: uniqueKey, url: url)
                             
                         case .failure(let error):
                             
@@ -234,6 +244,10 @@ public class CacheController {
                 let groupResult = FinalGroupResult.failure(error: error)
                 groupCompleteBlock(groupResult)
         }
+    }
+    
+    func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
+        //hook to allow subclasses to do any additional work with data
     }
     
     public func remove(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -351,5 +365,33 @@ public class CacheController {
                 groupCompleteBlock(groupResult)
             }
         }
+    }
+    
+    func responseFromPersistentCacheOrFallbackIfNeeded(request: URLRequest, cacheKeyGenerator: CacheKeyGenerating.Type) -> CachedURLResponse? {
+        
+        //1. first try pulling from URLCache
+        if let response = URLCache.shared.cachedResponse(for: request) {
+            return response
+        }
+        
+        guard let url = request.url,
+            let itemKey = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey],
+            let moc = CacheController.backgroundCacheContext else {
+            return nil
+        }
+        
+        let variant = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+        let itemTypeRaw = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemType] ?? Session.Header.ItemType.article.rawValue
+        let itemType = Session.Header.ItemType(rawValue: itemTypeRaw) ?? Session.Header.ItemType.article
+        
+        //2. else try pulling from Persistent Cache
+        if let persistedCachedResponse = CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: cacheKeyGenerator) {
+            return persistedCachedResponse
+        //3. else try pulling a fallback from Persistent Cache
+        } else if let fallbackCachedResponse = CacheProviderHelper.fallbackCacheResponse(url: url, itemKey: itemKey, variant: variant, itemType: itemType, cacheKeyGenerator: cacheKeyGenerator, moc: moc) {
+            return fallbackCachedResponse
+        }
+        
+        return nil
     }
 }

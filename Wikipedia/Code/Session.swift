@@ -538,7 +538,6 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [], autoreleaseFrequency: .workItem, target: nil) // needs to be serial according the docs for NSURLSession
     let delegateQueue: OperationQueue
     var callbacks: [Int: Session.Callback] = [:]
-    private let cacheManagedObjectContext = CacheController.backgroundCacheContext //tonitodo: This is not very flexible
     
     override init() {
         delegateQueue = OperationQueue()
@@ -603,10 +602,9 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                     callback.data?(cachedResponse.data)
                     callback.success()
                     return
-                } else {
-                    callback.failure(error)
                 }
             }
+            callback.failure(error)
             return
         }
         
@@ -617,17 +615,6 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
 extension SessionDelegate {
     func responseFromPersistentCacheOrFallbackIfNeeded(request: URLRequest) -> CachedURLResponse? {
         
-        //1. first try pulling from URLCache
-        if let response = URLCache.shared.cachedResponse(for: request) {
-            return response
-        }
-        
-        guard let url = request.url,
-            let itemKey = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-            return nil
-        }
-        
-        let variant = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
         let itemTypeRaw = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemType] ?? Session.Header.ItemType.article.rawValue
         let itemType = Session.Header.ItemType(rawValue: itemTypeRaw) ?? Session.Header.ItemType.article
         
@@ -641,15 +628,11 @@ extension SessionDelegate {
                 cacheKeyGenerator = ImageInfoCacheKeyGenerator.self
         }
         
-        //2. else try pulling from Persistent Cache
-        if let persistedCachedResponse = CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: cacheKeyGenerator) {
-            return persistedCachedResponse
-        //3. else try pulling a fallback from Persistent Cache
-        } else if let moc = cacheManagedObjectContext,
-            let fallbackCachedResponse = CacheProviderHelper.fallbackCacheResponse(url: url, itemKey: itemKey, variant: variant, itemType: itemType, cacheKeyGenerator: cacheKeyGenerator, moc: moc) {
-            return fallbackCachedResponse
+        switch itemType {
+            case Session.Header.ItemType.image:
+                return ImageCacheController.shared?.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator) ?? nil
+            case Session.Header.ItemType.article, Session.Header.ItemType.imageInfo:
+                return ArticleCacheController.shared?.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator) ?? nil
         }
-        
-        return nil
     }
 }

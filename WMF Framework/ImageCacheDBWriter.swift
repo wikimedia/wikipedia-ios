@@ -83,10 +83,6 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
         return result
     }
-    
-    func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
-        //tonitodo
-    }
 }
 
 
