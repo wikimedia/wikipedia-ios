@@ -66,8 +66,10 @@ final class CacheProviderHelper {
         }
         
         if let fallbackItemKey = allVariantItems.first?.key,
-            let fallbackVariant = allVariantItems.first?.variant,
-            let fallbackURL = allVariantItems.first?.url {
+            let fallbackVariant = allVariantItems.first?.variant {
+            
+            //migrated images do not have urls. defaulting to url passed in here.
+            let fallbackURL = allVariantItems.first?.url ?? url
             
             //first see if URLCache has the fallback
             let request = URLRequest(url: fallbackURL)
