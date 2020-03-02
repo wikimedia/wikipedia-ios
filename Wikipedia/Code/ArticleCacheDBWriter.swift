@@ -214,7 +214,7 @@ extension ArticleCacheDBWriter {
         cacheBackgroundContext.perform {
                 
             
-            guard let offlineResources = self.articleFetcher.bundledOfflineResourceURLs(with: desktopArticleURL) else {
+            guard let offlineResources = self.articleFetcher.bundledOfflineResourceURLs() else {
                 completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLS))
                 return
             }
@@ -225,11 +225,10 @@ extension ArticleCacheDBWriter {
             }
             
             let baseCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.baseCSS)
-            let siteCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.siteCSS)
             let pcsCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsCSS)
             let pcsJSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsJS)
             
-            let bundledURLRequests = [baseCSSRequest, siteCSSRequest, pcsCSSRequest, pcsJSRequest]
+            let bundledURLRequests = [baseCSSRequest, pcsCSSRequest, pcsJSRequest]
             
             self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: bundledURLRequests, niceToHaveURLRequests: []) { (result) in
                 switch result {
@@ -244,23 +243,19 @@ extension ArticleCacheDBWriter {
         }
     }
     
-    func bundledResourcesAreCached(desktopArticleURL: URL) -> Bool {
+    func bundledResourcesAreCached() -> Bool {
         
         var result: Bool = false
         cacheBackgroundContext.performAndWait {
             
             var bundledOfflineResourceKeys: [String] = []
-            guard let offlineResources = articleFetcher.bundledOfflineResourceURLs(with: desktopArticleURL) else {
+            guard let offlineResources = articleFetcher.bundledOfflineResourceURLs() else {
                 result = false
                 return
             }
             
             if let baseCSSKey = offlineResources.baseCSS.wmf_databaseKey {
                 bundledOfflineResourceKeys.append(baseCSSKey)
-            }
-
-            if let siteCSSKey = offlineResources.siteCSS.wmf_databaseKey {
-                bundledOfflineResourceKeys.append(siteCSSKey)
             }
 
             if let pcsCSSKey = offlineResources.pcsCSS.wmf_databaseKey {

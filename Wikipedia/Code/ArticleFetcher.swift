@@ -207,21 +207,15 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     struct BundledOfflineResources {
         let baseCSS: URL
-        let siteCSS: URL
         let pcsCSS: URL
         let pcsJS: URL
     }
     
-    let expectedNumberOfBundledOfflineResources = 4
+    let expectedNumberOfBundledOfflineResources = 3
     
-    func bundledOfflineResourceURLs(with siteURL: URL) -> BundledOfflineResources? {
+    func bundledOfflineResourceURLs() -> BundledOfflineResources? {
 
         //TONITODO: clean this hardcoded nonsense up, move to Configuration.swift
-        
-        guard let siteDomain = (siteURL as NSURL).wmf_domain,
-        let siteCSS = URL(string: "https://\(siteDomain)/api/rest_v1/data/css/mobile/site") else {
-            return nil
-        }
 
         #if WMF_APPS_LABS_MOBILE_HTML
 
@@ -231,7 +225,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                     return nil
             }
 
-            return BundledOfflineResources(baseCSS: baseCSS, siteCSS: siteCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
         #else
 
            guard let baseCSS = URL(string: "https://meta.wikimedia.org/api/v1/data/css/mobile/base"),
@@ -240,7 +234,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                     return nil
             }
 
-            return BundledOfflineResources(baseCSS: baseCSS, siteCSS: siteCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
 
         #endif
     }

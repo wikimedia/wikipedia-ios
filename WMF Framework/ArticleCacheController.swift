@@ -85,12 +85,12 @@ public final class ArticleCacheController: CacheController {
         }
     }
     
-    private func bundledResourcesAreCached(desktopArticleURL: URL) -> Bool {
+    private func bundledResourcesAreCached() -> Bool {
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
             return false
         }
         
-        return articleDBWriter.bundledResourcesAreCached(desktopArticleURL: desktopArticleURL)
+        return articleDBWriter.bundledResourcesAreCached()
     }
     
     private func cacheBundledResourcesIfNeeded(desktopArticleURL: URL, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
@@ -101,13 +101,13 @@ public final class ArticleCacheController: CacheController {
         }
         
         //tonitodo: this will bundle those shared across siteURLs over and over again. need to bundle shared resources first as a separate thing, then bundle site-specific resource.
-        if !articleDBWriter.bundledResourcesAreCached(desktopArticleURL: desktopArticleURL) {
+        if !articleDBWriter.bundledResourcesAreCached() {
             articleDBWriter.addBundledResourcesForMigration(desktopArticleURL: desktopArticleURL) { (result) in
                 
                 switch result {
                 case .success(let requests):
                     
-                    self.fileWriter.addBundledResourcesForMigration(desktopArticleURL: desktopArticleURL, urlRequests: requests, success: { (_) in
+                    self.fileWriter.addBundledResourcesForMigration(urlRequests: requests, success: { (_) in
                         
                         articleDBWriter.markDownloaded(urlRequests: requests) { (result) in
                             switch result {
