@@ -82,7 +82,6 @@
 "article-languages-others" = "Drugi jezici";
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Pročitajte više";
-"article-reference-title" = "Vidi izvore";
 "article-save-error-not-enough-space" = "Na uređaju nemate dovoljno prostora da biste mogli sačuvati ovaj članak";
 "article-share" = "Podijeli";
 "back-button-accessibility-label" = "Natrag";
@@ -123,7 +122,7 @@
 "description-published-title" = "Opis je objavljen!";
 "description-welcome-concise-title" = "Budite kratki";
 "description-welcome-descriptions-title" = "Opisi naslova";
-"description-welcome-promise-title" = "Obećavam da neću zloupotrijebiti ovu mogućnost kad počnem.";
+"description-welcome-promise-title" = "Započinjanjem radnje izvršenja obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počnite uređivati";
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Usporedi izmjene";

@@ -107,7 +107,7 @@
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
 "article-read-more-title" = "Прочитајте повеќе";
-"article-reference-title" = "Погл. наводи";
+"article-reference-view-title" = "Навод $1";
 "article-save-error-not-enough-space" = "Немате доволно простор на уредот за да ја зачувате статијава";
 "article-share" = "Сподели";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Контроли за изгледите за читање";
@@ -669,7 +669,6 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Истакнување на синтакса";
 "reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
 "reading-themes-controls-syntax-highlighting" = "Истакнување на синтакса";
-"reference-back-links-back-to-reference" = "Назад на наводот";
 "reference-title" = "Навод $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=денес|1=вчера|пред $1 дена}}";
 "relative-date-hours-abbreviated" = "$1 ч.";

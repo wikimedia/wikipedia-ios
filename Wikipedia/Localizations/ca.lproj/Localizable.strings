@@ -118,7 +118,7 @@
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
-"article-reference-title" = "Mostra les referències";
+"article-reference-view-title" = "Referència $1";
 "article-save-error-not-enough-space" = "No teniu prou espai al dispositiu per desar l'article.";
 "article-share" = "Comparteix";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";

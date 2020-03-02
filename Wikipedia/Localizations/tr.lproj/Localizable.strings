@@ -133,7 +133,7 @@
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamını oku";
-"article-reference-title" = "Kaynakları görüntüle";
+"article-reference-view-title" = "$1 kaynağı";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
@@ -695,7 +695,6 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Sözdizimi Vurgulama";
 "reading-themes-controls-accessibility-text-size-slider" = "Metin boyutu kaydırıcısı";
 "reading-themes-controls-syntax-highlighting" = "Sözdizimi Vurgulama";
-"reference-back-links-back-to-reference" = "Kaynağa geri dön";
 "reference-title" = "$1 referansı";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|1=Dün|$1 gün önce}}";
 "relative-date-hours-abbreviated" = "$1st";
