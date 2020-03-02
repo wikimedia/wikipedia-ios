@@ -127,7 +127,7 @@
 "article-languages-others" = "Jiné jazyky";
 "article-languages-yours" = "Vaše jazyky";
 "article-read-more-title" = "Číst dál";
-"article-reference-title" = "Zobrazit reference";
+"article-reference-view-title" = "Reference $1";
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládací prvky pro čtení motivů";
