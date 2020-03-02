@@ -153,7 +153,9 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
     
     func allDownloaded(groupKey: String) -> Bool {
         
-        let context = CacheController.backgroundCacheContext
+        guard let context = CacheController.backgroundCacheContext else {
+            return false
+        }
         
         return context.performWaitAndReturn {
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {

@@ -631,9 +631,9 @@ extension SessionDelegate {
         
         switch itemType {
             case Session.Header.ItemType.image:
-                return ImageCacheController.shared.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator)
+                return ImageCacheController.shared?.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator) ?? nil
             case Session.Header.ItemType.article, Session.Header.ItemType.imageInfo:
-                return ArticleCacheController.shared.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator)
+                return ArticleCacheController.shared?.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator) ?? nil
         }
     }
 }

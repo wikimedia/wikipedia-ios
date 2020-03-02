@@ -1471,7 +1471,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                     nextCoordinate = coordinate
                     coordinate = previousPlace.coordinate
                     if let thumbnailURL = article.thumbnailURL {
-                        imageController.prefetch(withURL: thumbnailURL)
+                        imageController?.prefetch(withURL: thumbnailURL)
                     }
                 }
                 

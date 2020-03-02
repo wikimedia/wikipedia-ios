@@ -56,7 +56,7 @@ class ArticleViewController: ViewController {
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
-            let cacheController = dataStore.articleCacheControllerWrapper.cacheController
+            let cacheController = ArticleCacheController.shared
             else {
                 return nil
         }

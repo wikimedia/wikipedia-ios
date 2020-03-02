@@ -9,7 +9,6 @@
 @class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
-@class WMFCacheControllerWrapper;
 @class MobileviewToMobileHTMLConverter;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -71,9 +70,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 #pragma mark - Caching
 
-@property (readonly, strong, nonatomic) WMFCacheControllerWrapper *imageCacheControllerWrapper;
-@property (readonly, strong, nonatomic) WMFCacheControllerWrapper *articleCacheControllerWrapper;
-
 @property (readonly, strong, nonatomic) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock;
@@ -124,9 +120,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 // Storage helper methods
 
 - (NSError *)removeFolderAtBasePath;
-
-// instantiates internal articleCacheController and imageCacheController. Needs to occur after library migration is complete.
-- (void)setupCacheControllers;
 
 @end
 

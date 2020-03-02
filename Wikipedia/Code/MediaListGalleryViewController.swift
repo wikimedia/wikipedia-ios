@@ -1,5 +1,5 @@
 class MediaListGalleryViewController: WMFImageGalleryViewController {
-    let imageController: ImageCacheController = ImageCacheController.shared
+    let imageController: ImageCacheController? = ImageCacheController.shared
     let imageInfoFetcher = MWKImageInfoFetcher()
     let articleURL: URL
     required init(articleURL: URL, mediaList: MediaList, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
@@ -76,7 +76,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             return
         }
         
-        imageController.fetchImage(withURL: imageURL, failure: { (error) in
+        imageController?.fetchImage(withURL: imageURL, failure: { (error) in
             DispatchQueue.main.async {
                 self.wmf_showAlertWithError(error as NSError)
             }

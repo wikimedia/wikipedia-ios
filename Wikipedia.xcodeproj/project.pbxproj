@@ -408,7 +408,6 @@
 		67EA9E14228F035D008D9EFD /* TalkPageReplyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */; };
 		67EA9E15228F035E008D9EFD /* TalkPageReplyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */; };
 		67EA9E16228F035E008D9EFD /* TalkPageReplyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */; };
-		67F1375C23C7917100512B61 /* CacheControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375B23C7917100512B61 /* CacheControllerWrapper.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
 		67F73E6D2267B79E0079DEEF /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67F73E712267B8020079DEEF /* TalkPageTopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E702267B8020079DEEF /* TalkPageTopicListViewController.swift */; };
@@ -3353,7 +3352,6 @@
 		67E8B0AB226A6DCA00537BC9 /* TalkPageNetworkDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageNetworkDataTests.swift; sourceTree = "<group>"; };
 		67E8B0AD226A74C200537BC9 /* TalkPageFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFetcherTests.swift; sourceTree = "<group>"; };
 		67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 2.xcdatamodel"; sourceTree = "<group>"; };
-		67F1375B23C7917100512B61 /* CacheControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheControllerWrapper.swift; sourceTree = "<group>"; };
 		67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTaskTracking.swift; sourceTree = "<group>"; };
 		67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewControllerDelegate.h; sourceTree = "<group>"; };
 		67F73E6C2267B79E0079DEEF /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -5843,7 +5841,6 @@
 				678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */,
 				678C7C3323BE75F9001AC4D5 /* CacheFileWriterHelper.swift */,
 				678C7C3523BE7779001AC4D5 /* FileManager+CacheExtensions.swift */,
-				67F1375B23C7917100512B61 /* CacheControllerWrapper.swift */,
 				67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */,
 				67A6C2E023F2F4890071FA23 /* CacheHeaderProviding.swift */,
 				67A6C2FA23F6042B0071FA23 /* CacheKeyGenerating.swift */,
@@ -10401,7 +10398,6 @@
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
 				8380753920DC7684000D222C /* ColumarCollectionViewLayoutSection.swift in Sources */,
 				B32536011EE87A6200372E93 /* EventRecord+CoreDataProperties.swift in Sources */,
-				67F1375C23C7917100512B61 /* CacheControllerWrapper.swift in Sources */,
 				D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */,
 				D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */,
 				D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */,

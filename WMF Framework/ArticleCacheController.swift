@@ -3,15 +3,17 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
-    public static let shared: ArticleCacheController = {
+    public static let shared: ArticleCacheController? = {
         
-        let imageCacheController = ImageCacheController.shared
+        guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
+        let imageCacheController = ImageCacheController.shared else {
+            return nil
+        }
         
         let articleFetcher = ArticleFetcher()
         let imageInfoFetcher = MWKImageInfoFetcher()
         let articleCacheKeyGenerator = ArticleCacheKeyGenerator.self
         
-        let cacheBackgroundContext = CacheController.backgroundCacheContext
         let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: articleCacheKeyGenerator)
         
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)

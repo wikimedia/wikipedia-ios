@@ -228,7 +228,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
             let imageController = ImageCacheController.shared
             imageURLsCurrentlyBeingPrefetched.formUnion(imageURLsToPrefetch)
             for imageURL in imageURLsToPrefetch {
-                imageController.prefetch(withURL: imageURL) {
+                imageController?.prefetch(withURL: imageURL) {
                     self.imageURLsCurrentlyBeingPrefetched.remove(imageURL)
                 }
             }

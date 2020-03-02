@@ -3,11 +3,14 @@ import Foundation
 
 public final class ImageCacheController: CacheController {
     
-    public static let shared: ImageCacheController = {
+    public static let shared: ImageCacheController? = {
+        
+        guard let cacheBackgroundContext = CacheController.backgroundCacheContext else {
+            return nil
+        }
+        
         let imageFetcher = ImageFetcher()
         let imageCacheKeyGenerator = ImageCacheKeyGenerator.self
-        
-        let cacheBackgroundContext = CacheController.backgroundCacheContext
         
         let imageFileWriter = CacheFileWriter(fetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: imageCacheKeyGenerator)
 
@@ -310,30 +313,30 @@ public final class ImageCacheControllerWrapper: NSObject {
     }()
     
     @objc public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
-        let _ = imageCacheController.fetchImage(withURL: url, failure: failure, success: success)
+        let _ = imageCacheController?.fetchImage(withURL: url, failure: failure, success: success)
     }
     
     @objc func memoryCachedImage(withURL url: URL) -> Image? {
-        return imageCacheController.memoryCachedImage(withURL: url)
+        return imageCacheController?.memoryCachedImage(withURL: url)
     }
     
     @objc func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
-        return imageCacheController.fetchImage(withURL: url, priority: priority, failure: failure, success: success)
+        return imageCacheController?.fetchImage(withURL: url, priority: priority, failure: failure, success: success)
     }
     
     @objc func cancelFetch(withURL url: URL?, token: String?) {
-        imageCacheController.cancelFetch(withURL: url, token: token)
+        imageCacheController?.cancelFetch(withURL: url, token: token)
     }
     
     @objc func cachedImage(withURL url: URL?) -> Image? {
-        return imageCacheController.cachedImage(withURL: url)
+        return imageCacheController?.cachedImage(withURL: url)
     }
     
     @objc func fetchData(withURL url: URL, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
-        imageCacheController.fetchData(withURL: url, failure: failure, success: success)
+        imageCacheController?.fetchData(withURL: url, failure: failure, success: success)
     }
     
     @objc public func data(withURL url: URL) -> TypedImageData? {
-        return imageCacheController.data(withURL: url)
+        return imageCacheController?.data(withURL: url)
     }
 }

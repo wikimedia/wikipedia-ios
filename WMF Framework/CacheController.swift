@@ -27,9 +27,45 @@ public class CacheController {
         return FileManager.default.sizeOfDirectory(at: cacheURL)
     }
     
-    static let backgroundCacheContext: NSManagedObjectContext = {
+    static let backgroundCacheContext: NSManagedObjectContext? = {
         
-        return ImageController.shared.managedObjectContext
+        //create ManagedObjectModel based on Cache.momd
+        guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
+            let model = NSManagedObjectModel(contentsOf: modelURL) else {
+                assertionFailure("Failure to create managed object model")
+                return nil
+        }
+
+        //create persistent store coordinator / persistent store
+        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("Cache.sqlite", isDirectory: false)
+        let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+
+        let options = [
+            NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true),
+            NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)
+        ]
+
+        do {
+            try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
+        } catch {
+            do {
+                try FileManager.default.removeItem(at: dbURL)
+            } catch {
+                assertionFailure("Failure to remove old db file")
+            }
+
+            do {
+                try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
+            } catch {
+                assertionFailure("Failure to add persistent store to coordinator")
+                return nil
+            }
+        }
+
+        let cacheBackgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
+
+        return cacheBackgroundContext
     }()
     
     public typealias ItemKey = String
@@ -331,15 +367,14 @@ public class CacheController {
         }
         
         guard let url = request.url,
-            let itemKey = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+            let itemKey = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey],
+            let moc = CacheController.backgroundCacheContext else {
             return nil
         }
         
         let variant = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
         let itemTypeRaw = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemType] ?? Session.Header.ItemType.article.rawValue
         let itemType = Session.Header.ItemType(rawValue: itemTypeRaw) ?? Session.Header.ItemType.article
-        
-        let moc = CacheController.backgroundCacheContext
         
         //2. else try pulling from Persistent Cache
         if let persistedCachedResponse = CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: cacheKeyGenerator) {

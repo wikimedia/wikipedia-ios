@@ -20,7 +20,7 @@ extension MWKDataStore {
             return
         }
 
-        guard let articleCacheController = articleCacheControllerWrapper.cacheController as? ArticleCacheController else {
+        guard let articleCacheController = ArticleCacheController.shared else {
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noArticleCacheController)
             return
         }
