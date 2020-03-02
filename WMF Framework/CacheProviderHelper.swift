@@ -65,8 +65,9 @@ final class CacheProviderHelper {
             break
         }
         
-        if let fallbackItemKey = allVariantItems.first?.key,
-            let fallbackVariant = allVariantItems.first?.variant {
+        if let fallbackItemKey = allVariantItems.first?.key {
+            
+            let fallbackVariant = allVariantItems.first?.variant
             
             //migrated images do not have urls. defaulting to url passed in here.
             let fallbackURL = allVariantItems.first?.url ?? url
