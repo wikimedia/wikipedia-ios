@@ -164,7 +164,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
-        case backLink(referenceId: String, backLinks: [ReferenceBackLink])
+        case backLink(referenceId: String, referenceText: String, backLinks: [ReferenceBackLink])
         case pronunciation(url: URL)
         case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
@@ -306,11 +306,15 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getBackLinkAction(with data: [String: Any]?) -> Action? {
-            guard let referenceId = data?["referenceId"] as? String, let backLinkDictionaries = data?["backLinks"] as? [[String: Any]]  else {
+            guard
+                let referenceId = data?["referenceId"] as? String,
+                let referenceText = data?["referenceText"] as? String,
+                let backLinkDictionaries = data?["backLinks"] as? [[String: Any]]
+            else {
                 return nil
             }
             let backLinks = backLinkDictionaries.compactMap { ReferenceBackLink(scriptMessageDict: $0) }
-            return .backLink(referenceId: referenceId, backLinks: backLinks)
+            return .backLink(referenceId: referenceId, referenceText: referenceText, backLinks: backLinks)
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {

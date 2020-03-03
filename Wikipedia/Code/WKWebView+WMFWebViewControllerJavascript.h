@@ -12,7 +12,7 @@
 
 - (void)wmf_highlightLinkID:(NSString *)linkID;
 
-- (void)wmf_unHighlightLinkID:(NSString *)linkID;
+- (void)wmf_unHighlightAllLinkIDs;
 
 /**
  * Currently-selected text in the webview, if there is any.

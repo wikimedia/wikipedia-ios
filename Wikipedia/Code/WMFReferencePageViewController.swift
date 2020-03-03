@@ -12,7 +12,7 @@ extension UIViewController {
 }
 
 
-class WMFReferencePageViewController: UIViewController, UIPageViewControllerDataSource, Themeable {
+class WMFReferencePageViewController: ReferenceViewController, UIPageViewControllerDataSource {
     @objc var lastClickedReferencesIndex:Int = 0
     @objc var lastClickedReferencesGroup = [WMFLegacyReference]()
     @objc weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
@@ -22,14 +22,13 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
     
     var articleURL: URL?
 
-    var theme = Theme.standard
-    
-    func apply(theme: Theme) {
-        self.theme = theme
-        backgroundView.apply(theme: theme)
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
+        backgroundView.apply(theme: theme)
+
     }
 
     fileprivate lazy var pageControllers: [UIViewController] = {
@@ -38,7 +37,7 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
         for reference in self.lastClickedReferencesGroup {
             let panel = WMFReferencePanelViewController.wmf_viewControllerFromReferencePanelsStoryboard()
             panel.articleURL = articleURL
-            panel.apply(theme: self.theme)
+            panel.apply(theme: theme)
             panel.reference = reference
             controllers.append(panel)
         }
@@ -52,6 +51,9 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateReference(with: lastClickedReferencesIndex)
+        
         addChild(pageViewController)
         pageViewController.view.frame = containerView.bounds
         pageViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -125,6 +127,20 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         self.presentingViewController?.dismiss(animated: false, completion: nil)
+    }
+    
+    func updateReference(with index: Int) {
+        guard index < lastClickedReferencesGroup.count else {
+            return
+        }
+        currentReference = lastClickedReferencesGroup[index]
+    }
+    
+    var currentReference: WMFLegacyReference? = nil {
+        didSet {
+            referenceId = currentReference?.anchor.removingPercentEncoding
+            referenceLinkText = currentReference?.text
+        }
     }
     
 }
