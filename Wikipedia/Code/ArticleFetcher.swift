@@ -202,6 +202,40 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         
         return urlRequest(from: mobileHTMLURL, forceCache: forceCache)
     }
+    
+    //MARK: Bundled offline resources
+    
+    struct BundledOfflineResources {
+        let baseCSS: URL
+        let pcsCSS: URL
+        let pcsJS: URL
+    }
+    
+    let expectedNumberOfBundledOfflineResources = 3
+    
+    func bundledOfflineResourceURLs() -> BundledOfflineResources? {
+
+        #if WMF_APPS_LABS_MOBILE_HTML
+
+            guard let baseCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/base"),
+                let pcsCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/pcs"),
+                let pcsJS = URL(string: "https://apps.wmflabs.org/api/v1/data/javascript/mobile/pcs") else {
+                    return nil
+            }
+
+            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+        #else
+
+           guard let baseCSS = URL(string: "https://meta.wikimedia.org/api/v1/data/css/mobile/base"),
+                let pcsCSS = URL(string: "https://meta.wikimedia.org/api/v1/data/css/mobile/pcs"),
+                let pcsJS = URL(string: "https://meta.wikimedia.org/api/v1/data/javascript/mobile/pcs") else {
+                    return nil
+            }
+
+            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+
+        #endif
+    }
 }
 
 private extension ArticleFetcher {

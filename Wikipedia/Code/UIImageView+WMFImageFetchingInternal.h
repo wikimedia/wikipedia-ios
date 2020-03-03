@@ -1,7 +1,7 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import <WMF/WMFBlockDefinitions.h>
 @class MWKImage;
-@class WMFImageController;
+@class WMFImageCacheControllerWrapper;
 @class WMFFaceDetectionCache;
 @class FLAnimatedImage;
 
@@ -43,9 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The image controller used to fetch image data.
  *
- *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [WMFImageController sharedInstance].
+ *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [WMFImageCacheControllerWrapper sharedInstance].
  */
-@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageController *wmf_imageController;
+@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageCacheControllerWrapper *wmf_imageController;
 
 /**
  *  Fetch the receiver's @c wmf_imageURLToFetch
@@ -57,22 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
- *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFImageController.
+ *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFImageCacheControllerWrapper.
  *
  *  @see wmf_imageURLToFetch
  */
 - (void)wmf_cancelImageDownload;
-
-/**
- *  Use to detect faces if you have already fetched image data by other means.
- */
-- (void)wmf_setImage:(UIImage *)image
-animatedImage:(nullable FLAnimatedImage *)animatedImage
-  detectFaces:(BOOL)detectFaces
-        onGPU:(BOOL)onGPU
-     animated:(BOOL)animated
-      failure:(WMFErrorHandler)failure
-             success:(WMFSuccessHandler)success;
 
 @end
 

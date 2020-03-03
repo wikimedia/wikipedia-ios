@@ -169,7 +169,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         return;
     }
 
-    WMFImageController *imageController = [WMFImageController sharedInstance];
+    WMFImageCacheControllerWrapper *imageController = [WMFImageCacheControllerWrapper shared];
     [imageController fetchDataWithURL:thumbnailURL
         failure:^(NSError *_Nonnull error) {
             [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];

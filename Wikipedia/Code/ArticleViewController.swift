@@ -60,7 +60,7 @@ class ArticleViewController: ViewController {
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
-            let cacheController = dataStore.articleCacheControllerWrapper.cacheController
+            let cacheController = ArticleCacheController.shared
             else {
                 return nil
         }
@@ -125,29 +125,11 @@ class ArticleViewController: ViewController {
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
         
-        let leadImageRequest = imageFetcher.request(for: leadImageURL, forceCache: forceCache)
-        imageFetcher.data(for: leadImageRequest) { [weak self] (result) in
-            
-            switch result {
-            case .success(let data):
-                
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.leadImageView.wmf_setImage(with: image, imageURL: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                            DDLogError("Error loading lead image: \(error)")
-                        }, success: {
-                            self?.updateLeadImageMargins()
-                            self?.updateArticleMargins()
-                        })
-                    }
-                } else {
-                    DDLogError("Unable to pull lead image out of data.")
-                }
-                    
-            case .failure(let error):
-                DDLogError("Error loading lead image: \(error)")
-            }
-            
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            DDLogError("Error loading lead image: \(error)")
+        }) {
+            self.updateLeadImageMargins()
+            self.updateArticleMargins()
         }
     }
     

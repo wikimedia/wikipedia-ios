@@ -29,7 +29,7 @@ final class SavedArticlesFetcher: NSObject {
     @objc init?(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         
-        if let articleCacheController = dataStore.articleCacheControllerWrapper.cacheController as? ArticleCacheController {
+        if let articleCacheController = ArticleCacheController.shared {
             self.articleCacheController = articleCacheController
         } else {
             return nil

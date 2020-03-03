@@ -13,12 +13,14 @@ final class CacheProviderHelper {
         let responseFileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
         let responseHeaderFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
         
-        guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path),
-            let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
+        guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path) else {
             return nil
         }
-        
-        //let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: responseFileName)
+
+        guard let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
+            
+            return nil
+        }
     
         var responseHeaders: [String: String]?
         do {
@@ -63,9 +65,12 @@ final class CacheProviderHelper {
             break
         }
         
-        if let fallbackItemKey = allVariantItems.first?.key,
-            let fallbackVariant = allVariantItems.first?.variant,
-            let fallbackURL = allVariantItems.first?.url {
+        if let fallbackItemKey = allVariantItems.first?.key {
+            
+            let fallbackVariant = allVariantItems.first?.variant
+            
+            //migrated images do not have urls. defaulting to url passed in here.
+            let fallbackURL = allVariantItems.first?.url ?? url
             
             //first see if URLCache has the fallback
             let request = URLRequest(url: fallbackURL)
@@ -73,7 +78,7 @@ final class CacheProviderHelper {
                 return response
             }
             
-            //then see if PersistentCache has the fallback
+            //then see if persistent cache has the fallback
             return persistedCacheResponse(url: url, itemKey: fallbackItemKey, variant: fallbackVariant, cacheKeyGenerator: cacheKeyGenerator)
         }
         

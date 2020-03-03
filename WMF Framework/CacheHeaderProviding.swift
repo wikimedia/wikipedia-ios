@@ -7,7 +7,7 @@ public protocol CacheHeaderProviding: class {
 }
 
 extension CacheHeaderProviding {
-    func requestHeaderWithETag(urlRequest: URLRequest) -> [String: String] {
+    func requestHeaderWithETag(urlRequest: URLRequest, itemType: Session.Header.ItemType) -> [String: String] {
         var header: [String: String] = [:]
                     
         guard let url = urlRequest.url,
@@ -52,7 +52,7 @@ extension CacheHeaderProviding {
             }
         }
         
-        header[Session.Header.persistentCacheItemType] = Session.Header.ItemType.imageInfo.rawValue
+        header[Session.Header.persistentCacheItemType] = itemType.rawValue
         
         return header
     }

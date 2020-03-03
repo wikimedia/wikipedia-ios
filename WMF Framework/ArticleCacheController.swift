@@ -2,6 +2,24 @@
 import Foundation
 
 public final class ArticleCacheController: CacheController {
+    
+    public static let shared: ArticleCacheController? = {
+        
+        guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
+        let imageCacheController = ImageCacheController.shared else {
+            return nil
+        }
+        
+        let articleFetcher = ArticleFetcher()
+        let imageInfoFetcher = MWKImageInfoFetcher()
+        let articleCacheKeyGenerator = ArticleCacheKeyGenerator.self
+        
+        let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: articleCacheKeyGenerator)
+        
+        let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
+        
+        return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter, cacheKeyGenerator: articleCacheKeyGenerator)
+    }()
 
 #if DEBUG
     override public func add(url: URL, groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
@@ -27,38 +45,83 @@ public final class ArticleCacheController: CacheController {
         case invalidDBWriterType
     }
     
-    public func cacheFromMigration(desktopArticleURL: URL, itemKey: String? = nil, content: String, mimeType: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
+    public func cacheFromMigration(desktopArticleURL: URL, content: String, mimeType: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
             completionHandler(CacheFromMigrationError.invalidDBWriterType)
             return
         }
         
-        articleDBWriter.cacheMobileHtmlFromMigration(desktopArticleURL: desktopArticleURL, success: { urlRequest in
+        cacheBundledResourcesIfNeeded(desktopArticleURL: desktopArticleURL) { (cacheBundledError) in
             
-            self.fileWriter.migrateCachedContent(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
+            articleDBWriter.addMobileHtmlURLForMigration(desktopArticleURL: desktopArticleURL, success: { urlRequest in
+                
+                self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
 
-                articleDBWriter.migratedCacheItemFile(urlRequest: urlRequest, success: {
-
-                    DDLogDebug("successfully migrated")
-                    completionHandler(nil)
-
-                    DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 10) {
-                        self.dbWriter.fetchAndPrintEachItem()
-                        self.dbWriter.fetchAndPrintEachGroup()
+                    articleDBWriter.markDownloaded(urlRequest: urlRequest) { (result) in
+                        switch result {
+                        case .success:
+                            
+                            if cacheBundledError == nil {
+                                completionHandler(nil)
+                            } else {
+                                completionHandler(cacheBundledError)
+                            }
+                            
+                        case .failure(let error):
+                            completionHandler(error)
+                        }
                     }
-                    
                 }) { (error) in
                     completionHandler(error)
-                    //tonitodo: broadcast migration error
                 }
             }) { (error) in
                 completionHandler(error)
-                //tonitodo: broadcast migration error
             }
-        }) { (error) in
-            completionHandler(error)
-            //tonitodo: broadcast migration error
+        }
+    }
+    
+    private func bundledResourcesAreCached() -> Bool {
+        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
+            return false
+        }
+        
+        return articleDBWriter.bundledResourcesAreCached()
+    }
+    
+    private func cacheBundledResourcesIfNeeded(desktopArticleURL: URL, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
+        
+        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
+            completionHandler(CacheFromMigrationError.invalidDBWriterType)
+            return
+        }
+        
+        if !articleDBWriter.bundledResourcesAreCached() {
+            articleDBWriter.addBundledResourcesForMigration(desktopArticleURL: desktopArticleURL) { (result) in
+                
+                switch result {
+                case .success(let requests):
+                    
+                    self.fileWriter.addBundledResourcesForMigration(urlRequests: requests, success: { (_) in
+                        
+                        articleDBWriter.markDownloaded(urlRequests: requests) { (result) in
+                            switch result {
+                            case .success:
+                                completionHandler(nil)
+                            case .failure(let error):
+                                completionHandler(error)
+                            }
+                        }
+                        
+                    }) { (error) in
+                        completionHandler(error)
+                    }
+                case .failure(let error):
+                    completionHandler(error)
+                }
+            }
+        } else {
+            completionHandler(nil)
         }
     }
 }
