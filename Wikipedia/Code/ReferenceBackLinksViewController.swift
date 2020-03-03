@@ -6,22 +6,15 @@ class ReferenceBackLinksViewController: ReferenceViewController {
     var index = 0
     let backLinks: [ReferenceBackLink]
     
-    init?(referenceId: String, backLinks: [ReferenceBackLink], delegate: ReferenceBackLinksViewControllerDelegate?, theme: Theme) {
+    init?(referenceId: String, referenceText:String, backLinks: [ReferenceBackLink], delegate: ReferenceBackLinksViewControllerDelegate?, theme: Theme) {
         guard backLinks.count > 0 else {
             return nil
         }
         self.backLinks = backLinks
         super.init(theme: theme)
         self.referenceId = referenceId
+        self.referenceLinkText = referenceText
         self.delegate = delegate
-    }
-    
-    func updateReferenceLinkText() {
-        guard let referenceNumberString = referenceId?.split(separator: "-").last else {
-            referenceLinkText = nil
-            return
-        }
-        referenceLinkText = "[" + referenceNumberString + "]"
     }
     
     required init?(coder aDecoder: NSCoder) {

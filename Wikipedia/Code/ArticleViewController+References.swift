@@ -81,8 +81,8 @@ extension ArticleViewController {
         dismiss(animated: true)
     }
     
-    func showReferenceBackLinks(_ backLinks: [ReferenceBackLink], referenceId: String) {
-        guard let vc = ReferenceBackLinksViewController(referenceId: referenceId, backLinks: backLinks, delegate: self, theme: theme) else {
+    func showReferenceBackLinks(_ backLinks: [ReferenceBackLink], referenceId: String, referenceText: String) {
+        guard let vc = ReferenceBackLinksViewController(referenceId: referenceId, referenceText: referenceText, backLinks: backLinks, delegate: self, theme: theme) else {
             showGenericError()
             return
         }
