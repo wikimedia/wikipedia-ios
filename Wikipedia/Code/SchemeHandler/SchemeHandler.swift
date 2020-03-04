@@ -112,23 +112,24 @@ private extension SchemeHandler {
         
         //set persistentCacheItemType in header if it doesn't already exist
         //set If-None-Match in header if it doesn't already exist
-        guard mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] == nil else {
-            return maybeRequest
-        }
         
-        let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
-        
-        let typeHeaders: [String: String]
-        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
-            typeHeaders = session.typeHeadersForType(.image)
-        } else {
-            typeHeaders = session.typeHeadersForType(.article)
-        }
+        let containsType = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
+        let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] != nil
 
         if var request = maybeRequest {
 
-            for (key, value) in typeHeaders {
-                request.setValue(value, forHTTPHeaderField: key)
+            if !containsType {
+                
+                let typeHeaders: [String: String]
+                if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+                    typeHeaders = session.typeHeadersForType(.image)
+                } else {
+                    typeHeaders = session.typeHeadersForType(.article)
+                }
+                
+                for (key, value) in typeHeaders {
+                    request.setValue(value, forHTTPHeaderField: key)
+                }
             }
             
             guard !containsIfNoneMatch else {

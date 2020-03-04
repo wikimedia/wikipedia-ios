@@ -30,6 +30,7 @@ public protocol CacheFetching {
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String?
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void)
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String?
+    func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String?
     func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String?
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String?
     func variantForURLRequest(_ urlRequest: URLRequest) -> String?
@@ -123,8 +124,8 @@ extension CacheFetching where Self:Fetcher {
         return session.variantForURLRequest(urlRequest)
     }
     
-    public func urlRequestFromURL(_ url: URL, type: Header.PersistItemType) -> URLRequest? {
-        return session.urlRequestFromURL(url, type: type)
+    public func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
+        return session.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
     }
     
     public func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {

@@ -60,7 +60,7 @@ class PermanentlyPersistableURLCache: URLCache {
 //MARK: Public - URL Creation
 
 extension PermanentlyPersistableURLCache {
-    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType) -> URLRequest {
+    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
         
         var request = URLRequest(url: url)
         
@@ -74,6 +74,10 @@ extension PermanentlyPersistableURLCache {
         
         for (key, value) in additionalHeaders {
             request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if let cachePolicy = cachePolicy {
+            request.cachePolicy = cachePolicy
         }
         
         return request
@@ -452,11 +456,10 @@ private extension PermanentlyPersistableURLCache {
     
     func permanentlyCachedResponse(for request: URLRequest) -> CachedURLResponse? {
         
-        print("🤦‍♀️\(request.url?.absoluteString ?? "nil")")
-        //2. else try pulling from Persistent Cache
+        //1. try pulling from Persistent Cache
         if let persistedCachedResponse = persistedResponseWithURLRequest(request) {
             return persistedCachedResponse
-        //3. else try pulling a fallback from Persistent Cache
+        //2. else try pulling a fallback from Persistent Cache
         } else if let moc = cacheManagedObjectContext,
             let fallbackCachedResponse = fallbackPersistedResponse(urlRequest: request, moc: moc) {
             return fallbackCachedResponse
@@ -582,7 +585,7 @@ private extension PermanentlyPersistableURLCache {
     }
 }
 
-private extension HTTPURLResponse {
+public extension HTTPURLResponse {
     static let etagHeaderKey = "Etag"
     static let ifNoneMatchHeaderKey = "If-None-Match"
 }

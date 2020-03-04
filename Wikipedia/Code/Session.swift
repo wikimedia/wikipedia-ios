@@ -533,12 +533,12 @@ extension Session {
         return urlRequestFromURL(url, type: .imageInfo)
     }
     
-    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType) -> URLRequest? {
+    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
         guard let permanentCache = permanentCache else {
             return nil
         }
         
-        return permanentCache.urlRequestFromURL(url, type: type)
+        return permanentCache.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
     }
     
     public func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {

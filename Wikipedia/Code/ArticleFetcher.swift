@@ -178,11 +178,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest? {
         
-        var request = urlRequestFromURL(url, type: .article)
-        
-        if forceCache {
-            request?.cachePolicy = .returnCacheDataElseLoad
-        }
+        let cachePolicy: URLRequest.CachePolicy? = forceCache ? .returnCacheDataElseLoad : nil
+        let request = urlRequestFromURL(url, type: .article, cachePolicy: cachePolicy)
         
         return request
     }

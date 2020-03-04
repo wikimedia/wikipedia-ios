@@ -302,7 +302,7 @@ public class CacheController {
                     
                     self.gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
                     
-                    self.fileWriter.remove(fileName: uniqueKey) { (result) in
+                    self.fileWriter.remove(itemKey: key.itemKey, variant: key.variant) { (result) in
                         
                         switch result {
                         case .success:

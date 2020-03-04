@@ -12,6 +12,7 @@ enum CacheFileWriterError: Error {
     case unableToPullCachedDataFromNotModified
     case missingURLInRequest
     case unableToGenerateHTTPURLResponse
+    case unableToDetermineFileNames
 }
 
 enum CacheFileWriterAddResult {
@@ -93,7 +94,13 @@ final class CacheFileWriter: CacheTaskTracking {
         }
     }
     
-    func remove(fileName: String, completion: @escaping (CacheFileWriterRemoveResult) -> Void) {
+    func remove(itemKey: String, variant: String?, completion: @escaping (CacheFileWriterRemoveResult) -> Void) {
+        
+        guard let fileName = self.fetcher.uniqueFileNameForItemKey(itemKey, variant: variant),
+            let headerFileName = self.fetcher.uniqueHeaderFileNameForItemKey(itemKey, variant: variant) else {
+                completion(.failure(CacheFileWriterError.unableToDetermineFileNames))
+                return
+        }
         
         var responseHeaderRemoveError: Error? = nil
         var responseRemoveError: Error? = nil
@@ -109,7 +116,7 @@ final class CacheFileWriter: CacheTaskTracking {
         }
         
         //remove response header from file system
-        let responseHeaderCachedFileURL = CacheFileWriterHelper.fileURL(for: fileName)
+        let responseHeaderCachedFileURL = CacheFileWriterHelper.fileURL(for: headerFileName)
         do {
             try FileManager.default.removeItem(at: responseHeaderCachedFileURL)
         } catch let error as NSError {
