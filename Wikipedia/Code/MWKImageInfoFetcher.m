@@ -206,7 +206,7 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     return [params copy];
 }
 
-- (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url forceCache: (BOOL)forceCache {
+- (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url {
     
     return [self.session imageInfoURLRequestFromURL:url];
 }
@@ -227,7 +227,7 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     
     NSURL *url = [self.fetcher.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params].URL;
     
-    NSURLRequest *urlRequest = [self urlRequestForFromURL:url forceCache:NO];
+    NSURLRequest *urlRequest = [self urlRequestForFromURL:url];
     
     return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURLRequest:urlRequest
                                                             completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {

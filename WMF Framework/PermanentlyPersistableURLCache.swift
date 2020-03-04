@@ -43,7 +43,8 @@ class PermanentlyPersistableURLCache: URLCache {
         if let response = super.cachedResponse(for: request) {
             return response
         }
-        return permanentlyCachedResponse(for: request)
+        let cachedResponse = permanentlyCachedResponse(for: request)
+        return cachedResponse
     }
     
     
@@ -62,26 +63,54 @@ extension PermanentlyPersistableURLCache {
     func urlRequestFromURL(_ url: URL, type: Header.PersistItemType) -> URLRequest {
         
         var request = URLRequest(url: url)
-        request.setValue(type.rawValue, forHTTPHeaderField: Header.persistentCacheItemType)
         
-        addAdditionalHeadersToURLRequest(&request, type: type)
+        let typeHeaders = typeHeadersForType(type)
+        
+        for (key, value) in typeHeaders {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        let additionalHeaders = additionalHeadersForType(type, urlRequest: request)
+        
+        for (key, value) in additionalHeaders {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
         
         return request
+    }
+    
+    func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
+        return [Header.persistentCacheItemType: type.rawValue]
+    }
+    
+    func additionalHeadersForType(_ type: Header.PersistItemType, urlRequest: URLRequest) -> [String: String] {
+        
+        var headers: [String: String] = [:]
+        
+        //add If-None-Match, otherwise it will not be populated if URLCache.shared is cleared but persistent cache exists.
+        switch type {
+        case .article, .imageInfo:
+            if let cachedUrlResponse = self.cachedResponse(for: urlRequest)?.response as? HTTPURLResponse {
+                 for (key, value) in cachedUrlResponse.allHeaderFields {
+                    if let keyString = key as? String,
+                        let valueString = value as? String,
+                        keyString == HTTPURLResponse.etagHeaderKey {
+                        headers[HTTPURLResponse.ifNoneMatchHeaderKey] = valueString
+                    }
+                }
+                
+            }
+        case .image:
+            break
+        }
+        
+        return headers
     }
 }
 
 //MARK: Private - URLRequest header creation
 
 private extension PermanentlyPersistableURLCache {
-    func addAdditionalHeadersToURLRequest(_ urlRequest: inout URLRequest, type: Header.PersistItemType) {
-        
-        switch type {
-        case .article, .imageInfo:
-            addEtagHeaderToURLRequest(&urlRequest, type: type)
-        case .image:
-            break
-        }
-    }
     
     func addEtagHeaderToURLRequest(_ urlRequest: inout URLRequest, type: Header.PersistItemType) {
 

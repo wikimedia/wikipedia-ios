@@ -208,13 +208,46 @@ import Foundation
     }
     
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
+        
+        if request.cachePolicy == .returnCacheDataElseLoad,
+            let cachedResponse = permanentCache?.cachedResponse(for: request) {
+            callback.response?(cachedResponse.response)
+            callback.data?(cachedResponse.data)
+            callback.success()
+            return nil
+        }
+        
         let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task
     }
     
     public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        let task = defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
+        
+        let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
+            
+            if let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 304 {
+                
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request) {
+                    completionHandler(cachedResponse.data, cachedResponse.response, nil)
+                    return
+                }
+            }
+            
+            if let _ = error {
+                
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request) {
+                    completionHandler(cachedResponse.data, cachedResponse.response, nil)
+                    return
+                }
+            }
+            
+            completionHandler(data, response, error)
+            
+        }
+        
+        let task = defaultURLSession.dataTask(with: request, completionHandler: cachedCompletion)
         return task
     }
     
@@ -392,8 +425,28 @@ import Foundation
     }
     
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-        return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
-            self.handleResponse(response, reattemptLoginOn401Response: reattemptLoginOn401Response)
+        
+        let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
+        
+            if let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 304 {
+                
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request),
+                    let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
+                    completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
+                    return
+                }
+            }
+            
+            if let _ = error {
+                
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request),
+                    let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
+                    completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
+                    return
+                }
+            }
+            
             guard let data = data else {
                 completionHandler(nil, response as? HTTPURLResponse, error)
                 return
@@ -408,6 +461,11 @@ import Foundation
                 DDLogError("Error parsing JSON: \(error)")
                 completionHandler(nil, response as? HTTPURLResponse, error)
             }
+        }
+        
+        return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
+            self.handleResponse(response, reattemptLoginOn401Response: reattemptLoginOn401Response)
+            cachedCompletion(data, response, error)
         })
     }
     
@@ -481,6 +539,22 @@ extension Session {
         }
         
         return permanentCache.urlRequestFromURL(url, type: type)
+    }
+    
+    public func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
+        guard let permanentCache = permanentCache else {
+            return [:]
+        }
+        
+        return permanentCache.typeHeadersForType(type)
+    }
+    
+    public func additionalHeadersForType(_ type: Header.PersistItemType, urlRequest: URLRequest) -> [String: String] {
+        guard let permanentCache = permanentCache else {
+            return [:]
+        }
+        
+        return permanentCache.additionalHeadersForType(type, urlRequest: urlRequest)
     }
     
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
@@ -565,6 +639,21 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        
+        if let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
+            
+            let taskIdentifier = dataTask.taskIdentifier
+            if let callback = callbacks[taskIdentifier],
+                let request = dataTask.originalRequest,
+                let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
+                callback.response?(cachedResponse.response)
+                callback.data?(cachedResponse.data)
+                callback.success()
+                callbacks.removeValue(forKey: taskIdentifier)
+            }
+        }
+        
         defer {
             completionHandler(.allow)
         }
@@ -593,6 +682,15 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         
         if let error = error as NSError? {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
+                
+                if let request = task.currentRequest,
+                let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
+                    callback.response?(cachedResponse.response)
+                    callback.data?(cachedResponse.data)
+                    callback.success()
+                    return
+                }
+                
                 callback.failure(error)
             }
             return

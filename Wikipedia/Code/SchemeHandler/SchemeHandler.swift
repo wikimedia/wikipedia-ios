@@ -108,42 +108,48 @@ private extension SchemeHandler {
         
         mutableRequest.url = newURL
         
-        var maybeRequest = mutableRequest.copy() as? URLRequest
+        let maybeRequest = mutableRequest.copy() as? URLRequest
         
+        //set persistentCacheItemType in header if it doesn't already exist
+        //set If-None-Match in header if it doesn't already exist
+        guard mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] == nil else {
+            return maybeRequest
+        }
+        
+        let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
+        
+        let typeHeaders: [String: String]
+        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+            typeHeaders = session.typeHeadersForType(.image)
+        } else {
+            typeHeaders = session.typeHeadersForType(.article)
+        }
+
+        if var request = maybeRequest {
+
+            for (key, value) in typeHeaders {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+            
+            guard !containsIfNoneMatch else {
+                return request
+            }
+
+            let additionalHeaders: [String: String]
+            if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+                additionalHeaders = session.additionalHeadersForType(.image, urlRequest: request)
+            } else {
+                additionalHeaders = session.additionalHeadersForType(.article, urlRequest: request)
+            }
+            
+            for (key, value) in additionalHeaders {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+            
+            return request
+        }
+
         return maybeRequest
-        
-//        //reassign If-None-Match if needed. It seems like If-None-Match header gets lost between ArticleFetcher URLRequest creation and SchemeHandler.
-//        if var request = maybeRequest,
-//            let eTag = request.allHTTPHeaderFields?[Header.persistentCacheETag],
-//            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] == nil {
-//            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] = eTag
-//            maybeRequest = request
-//        }
-        
-        //set persistent cache headers if they don't already exist
-//        guard mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemKey] == nil else {
-//            return maybeRequest
-//        }
-//
-//        let headerProvider: CacheHeaderProviding
-//        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
-//            headerProvider = ImageCacheHeaderProvider()
-//        } else {
-//            headerProvider = ArticleCacheHeaderProvider()
-//        }
-//
-//        if var request = maybeRequest {
-//
-//            let header = headerProvider.requestHeader(urlRequest: request)
-//
-//            for (key, value) in header {
-//                request.setValue(value, forHTTPHeaderField: key)
-//            }
-//
-//            return request
-//        }
-//
-//        return maybeRequest
     }
     
     func isMimeTypeImage(type: String) -> Bool {
