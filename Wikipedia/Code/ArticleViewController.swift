@@ -294,16 +294,20 @@ class ArticleViewController: ViewController {
         }
     }
     
-    func loadPage() {
+    func loadPage(allowCache: Bool = true) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: forceCache, scheme: schemeHandler.scheme) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: allowCache && forceCache, scheme: schemeHandler.scheme) else {
 
             showGenericError()
             state = .error
             return
+        }
+        
+        if !allowCache {
+            request.cachePolicy = .reloadIgnoringLocalCacheData
         }
         
         footerLoadGroup = DispatchGroup()
@@ -471,7 +475,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        webView.reload()
+        loadPage(allowCache: false)
     }
     
     // MARK: Overrideable functionality
