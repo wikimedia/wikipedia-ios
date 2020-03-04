@@ -725,6 +725,7 @@ private extension ArticleViewController {
         
         // Delegates
         webView.uiDelegate = self
+        webView.navigationDelegate = self
     }
     
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints
@@ -807,6 +808,29 @@ extension ArticleViewController: ImageScaleTransitionProviding {
         leadImageView.layer.contentsRect = imageView.layer.contentsRect
         
         view.layoutIfNeeded()
+    }
+    
+}
+
+extension ArticleViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        guard article.isConversionFromMobileViewNeeded else {
+            showError(error)
+            return
+        }
+        dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { (migrationError) in
+            DispatchQueue.main.async {
+                if let error = migrationError {
+                    self.showError(error)
+                    return
+                }
+                guard self.article.isConversionFromMobileViewNeeded else {
+                    self.showGenericError()
+                    return
+                }
+                self.loadPage()
+            }
+        }
     }
     
 }
