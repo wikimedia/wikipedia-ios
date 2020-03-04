@@ -360,6 +360,7 @@ extension PermanentlyPersistableURLCache {
                 }
             }
         case .string(let string):
+            dispatchGroup.enter()
             CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName, mimeType: mimeType) { (result) in
                 defer {
                     dispatchGroup.leave()
@@ -451,6 +452,7 @@ private extension PermanentlyPersistableURLCache {
     
     func permanentlyCachedResponse(for request: URLRequest) -> CachedURLResponse? {
         
+        print("🤦‍♀️\(request.url?.absoluteString ?? "nil")")
         //2. else try pulling from Persistent Cache
         if let persistedCachedResponse = persistedResponseWithURLRequest(request) {
             return persistedCachedResponse
