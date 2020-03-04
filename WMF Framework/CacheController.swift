@@ -109,13 +109,11 @@ public class CacheController {
     
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriter
-    private let cacheKeyGenerator: CacheKeyGenerating.Type
     let gatekeeper = CacheGatekeeper()
     
-    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter, cacheKeyGenerator: CacheKeyGenerating.Type) {
+    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
-        self.cacheKeyGenerator = cacheKeyGenerator
     }
 
     public func add(url: URL, groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -163,13 +161,10 @@ public class CacheController {
                 let group = DispatchGroup()
                 for urlRequest in urlRequests {
                     
-                    guard let url = urlRequest.url,
-                        let itemKey =  urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-                            continue
+                    guard let uniqueKey = fileWriter.uniqueFileNameForURLRequest(urlRequest),
+                        let url = urlRequest.url else {
+                        continue
                     }
-                    
-                    let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
-                    let uniqueKey = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
                     
                     group.enter()
                     
@@ -183,7 +178,7 @@ public class CacheController {
                     
                     gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
                     
-                    guard dbWriter.shouldDownloadVariant(itemKey: itemKey, variant: variant) else {
+                    guard dbWriter.shouldDownloadVariant(urlRequest: urlRequest) else {
                         group.leave()
                         continue
                     }
@@ -291,7 +286,9 @@ public class CacheController {
                 let group = DispatchGroup()
                 for key in keys {
                     
-                    let uniqueKey = self.cacheKeyGenerator.uniqueFileNameForItemKey(key.itemKey, variant: key.variant)
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForItemKey(key.itemKey, variant: key.variant) else {
+                        continue
+                    }
                     
                     group.enter()
                     
@@ -365,33 +362,5 @@ public class CacheController {
                 groupCompleteBlock(groupResult)
             }
         }
-    }
-    
-    func responseFromPersistentCacheOrFallbackIfNeeded(request: URLRequest, cacheKeyGenerator: CacheKeyGenerating.Type) -> CachedURLResponse? {
-        
-        //1. first try pulling from URLCache
-        if let response = URLCache.shared.cachedResponse(for: request) {
-            return response
-        }
-        
-        guard let url = request.url,
-            let itemKey = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey],
-            let moc = CacheController.backgroundCacheContext else {
-            return nil
-        }
-        
-        let variant = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
-        let itemTypeRaw = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemType] ?? Session.Header.ItemType.article.rawValue
-        let itemType = Session.Header.ItemType(rawValue: itemTypeRaw) ?? Session.Header.ItemType.article
-        
-        //2. else try pulling from Persistent Cache
-        if let persistedCachedResponse = CacheProviderHelper.persistedCacheResponse(url: url, itemKey: itemKey, variant: variant, cacheKeyGenerator: cacheKeyGenerator) {
-            return persistedCachedResponse
-        //3. else try pulling a fallback from Persistent Cache
-        } else if let fallbackCachedResponse = CacheProviderHelper.fallbackCacheResponse(url: url, itemKey: itemKey, variant: variant, itemType: itemType, cacheKeyGenerator: cacheKeyGenerator, moc: moc) {
-            return fallbackCachedResponse
-        }
-        
-        return nil
     }
 }

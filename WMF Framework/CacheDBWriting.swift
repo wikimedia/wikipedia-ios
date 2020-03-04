@@ -24,7 +24,7 @@ enum CacheDBWritingResult {
 enum CacheDBWritingMarkDownloadedError: Error {
     case cannotFindCacheGroup
     case cannotFindCacheItem
-    case missingExpectedItemsOutOfRequestHeader
+    case unableToDetermineItemKey
     case missingMOC
 }
 
@@ -42,6 +42,8 @@ protocol CacheDBWriting: CacheTaskTracking {
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
     func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool
+    func shouldDownloadVariant(urlRequest: URLRequest) -> Bool
+    var fetcher: CacheFetching { get }
 
     //default implementations
     func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void)
@@ -59,12 +61,12 @@ extension CacheDBWriting {
             return
         }
         
-        guard let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-                completion(.failure(CacheDBWritingMarkDownloadedError.missingExpectedItemsOutOfRequestHeader))
-                return
+        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
+            return
         }
         
-        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+        let variant = fetcher.variantForURLRequest(urlRequest)
     
         context.perform {
             guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: context) else {
@@ -206,5 +208,15 @@ extension CacheDBWriting {
                 DDLogDebug(error.description)
             }
         }
+    }
+    
+    func shouldDownloadVariant(urlRequest: URLRequest) -> Bool {
+        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
+            return false
+        }
+        
+        let variant = fetcher.variantForURLRequest(urlRequest)
+        
+        return shouldDownloadVariant(itemKey: itemKey, variant: variant)
     }
 }

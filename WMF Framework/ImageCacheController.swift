@@ -1,6 +1,10 @@
 
 import Foundation
 
+enum ImageCacheControllerError: Error {
+    case failureGeneratingUniqueKey
+}
+
 public final class ImageCacheController: CacheController {
     
     public static let shared: ImageCacheController? = {
@@ -10,20 +14,17 @@ public final class ImageCacheController: CacheController {
         }
         
         let imageFetcher = ImageFetcher()
-        let imageCacheKeyGenerator = ImageCacheKeyGenerator.self
         
-        let imageFileWriter = CacheFileWriter(fetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: imageCacheKeyGenerator)
+        let imageFileWriter = CacheFileWriter(fetcher: imageFetcher)
 
         let imageDBWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext)
 
-        return ImageCacheController(dbWriter: imageDBWriter, fileWriter: imageFileWriter, imageFetcher: imageFetcher, cacheKeyGenerator: imageCacheKeyGenerator)
+        return ImageCacheController(dbWriter: imageDBWriter, fileWriter: imageFileWriter, imageFetcher: imageFetcher)
     }()
     
-    let cacheKeyGenerator = ImageCacheKeyGenerator.self
+    // MARK: Permanent Cache
     
     //batch inserts to db and selectively decides which file variant to download. Used when inserting multiple image urls from media-list endpoint via ArticleCacheController.
-    
-    // MARK: Permanent Cache
     func add(urls: [URL], groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
 
         //todo: could use DRY gatekeeper logic with superclass. this will likely get refactored out so holding off.
@@ -53,20 +54,16 @@ public final class ImageCacheController: CacheController {
     private let imageFetcher: ImageFetcher
     fileprivate let memoryCache: NSCache<NSString, Image>
     
-    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter, imageFetcher: ImageFetcher, cacheKeyGenerator: CacheKeyGenerating.Type) {
+    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter, imageFetcher: ImageFetcher) {
         self.imageFetcher = imageFetcher
         memoryCache = NSCache<NSString, Image>()
         memoryCache.totalCostLimit = 10000000 //pixel count
-        super.init(dbWriter: dbWriter, fileWriter: fileWriter, cacheKeyGenerator: cacheKeyGenerator)
+        super.init(dbWriter: dbWriter, fileWriter: fileWriter)
     }
     
     struct FetchResult {
         let data: Data
         let response: URLResponse
-    }
-    
-    enum ImageCacheControllerError: Error {
-        case unableToDetermineItemKey
     }
     
     private var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
@@ -87,12 +84,10 @@ public final class ImageCacheController: CacheController {
     
     func fetchData(withURL url: URL, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) -> String? {
         
-        guard let itemKey =  cacheKeyGenerator.itemKeyForURL(url) else { failure(ImageCacheControllerError.unableToDetermineItemKey)
+        guard let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image) else {
+            failure(ImageCacheControllerError.failureGeneratingUniqueKey)
             return nil
         }
-        
-        let variant = cacheKeyGenerator.variantForURL(url)
-        let uniqueKey = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
         
         let token = UUID().uuidString
         let completion = ImageControllerDataCompletion(success: success, failure: failure)
@@ -102,8 +97,7 @@ public final class ImageCacheController: CacheController {
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
             
-            let urlRequest = self.imageFetcher.request(for: schemedURL)
-            let task = self.imageFetcher.data(for: urlRequest) { (result) in
+            let task = self.imageFetcher.dataForURL(schemedURL, type: .image) { (result) in
                 switch result {
                 case .failure(let error):
                     guard !self.isCancellationError(error) else {
@@ -168,17 +162,13 @@ public final class ImageCacheController: CacheController {
     }
     
    func cancelFetch(withURL url: URL?, token: String?) {
-        guard let url = url, let token = token else {
+    
+        guard let url = url,
+            let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image),
+            let token = token else {
             return
         }
-        
-        guard let itemKey = cacheKeyGenerator.itemKeyForURL(url) else {
-            return
-        }
-        
-        let variant = cacheKeyGenerator.variantForURL(url)
-
-        let uniqueKey = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
+    
         dataCompletionManager.cancel(uniqueKey, token: token)
     }
     
@@ -214,8 +204,7 @@ public final class ImageCacheController: CacheController {
     }
     
     func data(withURL url: URL) -> TypedImageData? {
-        let request = imageFetcher.request(for: url)
-        guard let response = responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator) else {
+        guard let response = imageFetcher.cachedResponseForURL(url, type: .image) else {
             return TypedImageData(data: nil, MIMEType: nil)
         }
         
@@ -226,22 +215,20 @@ public final class ImageCacheController: CacheController {
     
     func memoryCachedImage(withURL url: URL) -> Image? {
         
-        guard let itemKey = cacheKeyGenerator.itemKeyForURL(url) else {
+        guard let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image) else {
             return nil
         }
-        let variant = cacheKeyGenerator.variantForURL(url)
-        let uniqueKey = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant) as NSString
         
-        return memoryCache.object(forKey: uniqueKey)
+        return memoryCache.object(forKey: uniqueKey as NSString)
     }
     
     func addToMemoryCache(_ image: Image, url: URL) {
-        guard let itemKey = cacheKeyGenerator.itemKeyForURL(url) else {
+        
+        guard let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image) else {
             return
         }
-        let variant = cacheKeyGenerator.variantForURL(url)
-        let uniqueKey = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant) as NSString
-        memoryCache.setObject(image, forKey: uniqueKey, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
+        
+        memoryCache.setObject(image, forKey: (uniqueKey as NSString), cost: Int(image.staticImage.size.width * image.staticImage.size.height))
     }
     
     // MARK: Utilities

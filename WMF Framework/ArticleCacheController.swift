@@ -12,13 +12,12 @@ public final class ArticleCacheController: CacheController {
         
         let articleFetcher = ArticleFetcher()
         let imageInfoFetcher = MWKImageInfoFetcher()
-        let articleCacheKeyGenerator = ArticleCacheKeyGenerator.self
         
-        let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, cacheKeyGenerator: articleCacheKeyGenerator)
+        let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher)
         
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
         
-        return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter, cacheKeyGenerator: articleCacheKeyGenerator)
+        return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
     }()
 
 #if DEBUG

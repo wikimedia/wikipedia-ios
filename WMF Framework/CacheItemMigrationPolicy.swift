@@ -7,6 +7,8 @@ enum CacheItemMigrationPolicyError: Error {
 
 class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
     
+    private let fetcher = ImageFetcher()
+    
     override func createDestinationInstances(forSource sInstance: NSManagedObject, in mapping: NSEntityMapping, manager: NSMigrationManager) throws {
         
         if sInstance.entity.name == "CacheItem" {
@@ -25,37 +27,34 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             destinationItem.setValue(newVariant, forKey: "variant")
             destinationItem.setValue(date, forKey: "date")
             
-            //only images will be migrating
-            let cacheKeyGenerator = ImageCacheKeyGenerator.self
-            let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(key, variant: newVariant)
-            let filePath = CacheFileWriterHelper.fileURL(for: fileName).path
-            let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(key, variant: newVariant)
-            
             //artifically create and save image response header
-            if let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: filePath),
-                let data = FileManager.default.contents(atPath: filePath) {
-                    //construct response header file
-                let headerFields: [String: String] = [
-                        "Content-Type": mimeType,
-                        "Content-Length": String(data.count)
-                    ]
-                CacheFileWriterHelper.saveResponseHeader(headerFields: headerFields, toNewFileName: headerFileName) { (result) in
-                    switch result {
-                    case .success, .exists:
-                        destinationItem.setValue(true, forKey: "isDownloaded")
-                    case .failure:
-                        destinationItem.setValue(false, forKey: "isDownloaded")
+            var isDownloaded = false
+            if let fileName = fetcher.uniqueFileNameForItemKey(key, variant: newVariant),
+                let headerFileName = fetcher.uniqueHeaderFileNameForItemKey(key, variant: newVariant) {
+                let filePath = CacheFileWriterHelper.fileURL(for: fileName).path
+                
+                if let mimeType = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: filePath),
+                    let data = FileManager.default.contents(atPath: filePath) {
+                        //construct response header file
+                    let headerFields: [String: String] = [
+                            "Content-Type": mimeType,
+                            "Content-Length": String(data.count)
+                        ]
+                    CacheFileWriterHelper.saveResponseHeader(headerFields: headerFields, toNewFileName: headerFileName) { (result) in
+                        switch result {
+                        case .success, .exists:
+                            isDownloaded = true
+                        case .failure:
+                            break
+                        }
                     }
                 }
-                
-            } else {
-                destinationItem.setValue(false, forKey: "isDownloaded")
             }
             
+            destinationItem.setValue(isDownloaded, forKey: "isDownloaded")
             destinationItem.setValue(nil, forKey: "url")
             
             manager.associate(sourceInstance: sInstance, withDestinationInstance: destinationItem, for: mapping)
-            
         }
     }
 }

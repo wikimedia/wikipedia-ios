@@ -6,6 +6,7 @@ enum ArticleFetcherError: Error {
     case failureToGenerateURL
     case missingData
     case invalidEndpointType
+    case unableToGenerateURLRequest
 }
 
 @objc(WMFArticleFetcher)
@@ -17,8 +18,6 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         super.init(session: session, configuration: configuration)
         #endif
     }
-    
-    private let cacheHeaderProvider: CacheHeaderProviding = ArticleCacheHeaderProvider()
     
     public enum EndpointType: String {
         case summary
@@ -154,7 +153,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        return urlRequest(from: url, forceCache: forceCache)
+        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+            return urlRequest
+        } else {
+            throw ArticleFetcherError.unableToGenerateURLRequest
+        }
     }
     
     public func mobileHTMLOfflineResourcesRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
@@ -166,20 +169,19 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        return urlRequest(from: url, forceCache: forceCache)
+        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+            return urlRequest
+        } else {
+            throw ArticleFetcherError.unableToGenerateURLRequest
+        }
     }
     
-    public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest {
+    public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest? {
         
-        var request = URLRequest(url: url)
-        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
-        
-        for (key, value) in header {
-            request.setValue(value, forHTTPHeaderField: key)
-        }
+        var request = urlRequestFromURL(url, type: .article)
         
         if forceCache {
-            request.cachePolicy = .returnCacheDataElseLoad
+            request?.cachePolicy = .returnCacheDataElseLoad
         }
         
         return request
@@ -200,7 +202,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
         }
         
-        return urlRequest(from: mobileHTMLURL, forceCache: forceCache)
+        if let urlRequest = urlRequest(from: mobileHTMLURL, forceCache: forceCache) {
+            return urlRequest
+        } else {
+            throw ArticleFetcherError.unableToGenerateURLRequest
+        }
     }
     
     //MARK: Bundled offline resources
