@@ -70,15 +70,14 @@ final class CacheDBWriterHelper {
         return item
     }
     
-    static func isCached(url: URL, in moc: NSManagedObjectContext) -> Bool {
+    static func isCached(itemKey: CacheController.ItemKey, variant: String?, in moc: NSManagedObjectContext) -> Bool {
         
-        guard let groupKey = url.wmf_databaseKey,
-        let context = CacheController.backgroundCacheContext else {
+        guard let context = CacheController.backgroundCacheContext else {
             return false
         }
         
         return context.performWaitAndReturn {
-            CacheDBWriterHelper.cacheGroup(with: groupKey, in: moc) != nil
+            CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: moc) != nil
         } ?? false
     }
     

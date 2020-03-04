@@ -4,7 +4,7 @@ public struct Header {
     public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
     //public static let persistentCacheETag = "Persistent-Cache-ETag"
     
-    //existence of a PersistItemType in a URLRequest header indicates to the system that we want to reference the persistent cache for the use of passing through Etags (If-None-Match) and falling back on a cached response (or other variant of) in the case of an urlSession error.
+    //existence of a PersistItemType in a URLRequest header indicates to the system that we want to reference the persistent cache for the use of passing through Etags (If-None-Match) and falling back on a cached response (or other variant of) in the case of a urlSession error.
     //pass PersistItemType header value urlRequest headers to gain different behaviors on how a request interacts with the cache, such as:
         //for reading:
         //article & imageInfo both set If-None-Match request header value based on previous cached E-tags in response headers
@@ -50,10 +50,16 @@ class PermanentlyPersistableURLCache: URLCache {
     
     override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest) {
         super.storeCachedResponse(cachedResponse, for: request)
+        
+        updateCacheWithCachedResponse(cachedResponse, request: request)
     }
     
     override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for dataTask: URLSessionDataTask) {
         super.storeCachedResponse(cachedResponse, for: dataTask)
+        
+        if let request = dataTask.originalRequest {
+            updateCacheWithCachedResponse(cachedResponse, request: request)
+        }
     }
 }
 
@@ -447,6 +453,45 @@ extension PermanentlyPersistableURLCache {
         }
         
         completion()
+    }
+    
+    private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
+        
+        let variant = variantForURLRequest(request)
+        if let itemKey = itemKeyForURLRequest(request),
+            let httpResponse = cachedResponse.response as? HTTPURLResponse,
+            let moc = cacheManagedObjectContext {
+            if CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc),
+                httpResponse.statusCode == 200 {
+                
+                let headerFileName = uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+                let contentFileName = uniqueFileNameForItemKey(itemKey, variant: variant)
+               
+                CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
+                    switch result {
+                    case .success:
+                        DDLogDebug("Successfully updated cached header file.")
+                    case .failure(let error):
+                        DDLogDebug("Failed updating cached header file: \(error)")
+                    case .exists:
+                        assertionFailure("This shouldn't happen.")
+                        break
+                    }
+                }
+                
+                CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
+                    switch result {
+                        case .success:
+                            DDLogDebug("Successfully updated cached header file.")
+                        case .failure(let error):
+                            DDLogDebug("Failed updating cached header file: \(error)")
+                        case .exists:
+                            assertionFailure("This shouldn't happen.")
+                            break
+                    }
+                }
+            }
+        }
     }
 }
 
