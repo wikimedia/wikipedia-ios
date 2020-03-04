@@ -219,7 +219,8 @@ public class CommonStrings: NSObject {
 }
 
 
-// Temporarily keep these strings to sync to PCS
+// Temporarily keep these strings to sync to PCS for https://phabricator.wikimedia.org/T246529
+// Remove once is https://phabricator.wikimedia.org/T246659 resolved
 
 //let addTitleDescription = WMFLocalizedString("description-add-link-title", language: language, value: "Add title description", comment: "Text for link for adding a title description")
 //let tableInfoboxTitle = WMFLocalizedString("info-box-title", language: language, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")

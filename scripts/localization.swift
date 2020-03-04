@@ -555,6 +555,8 @@ func importLocalizationsFromTWN(_ path: String) {
     }
 }
 
+// Sync to PCS strings for https://phabricator.wikimedia.org/T246529
+// Remove once is https://phabricator.wikimedia.org/T246659 resolved
 
 let pcsi18nKeys = [
     "article-about-title",
