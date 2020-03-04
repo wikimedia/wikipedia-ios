@@ -5837,13 +5837,6 @@
 				67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */,
 				6779D45023F60903002840CA /* CacheFileWriter.swift */,
 				6779D45223F6EC2D002840CA /* CacheFetching.swift */,
-				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
-				67D6C01E2405B3D2005709B1 /* CacheGroup+CoreDataClass.swift */,
-				67D6C01F2405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift */,
-				67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */,
-				67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */,
-				67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */,
-				67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */,
 			);
 			name = BaseCache;
 			sourceTree = "<group>";
@@ -8047,6 +8040,7 @@
 			isa = PBXGroup;
 			children = (
 				678C7C2823BE6766001AC4D5 /* NewCache */,
+				D8CC94D82178976C007293E7 /* OldCache */,
 				D8CC94D721789763007293E7 /* Wikipedia */,
 				D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */,
 			);
@@ -8093,6 +8087,20 @@
 				D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */,
 			);
 			name = Wikipedia;
+			sourceTree = "<group>";
+		};
+		D8CC94D82178976C007293E7 /* OldCache */ = {
+			isa = PBXGroup;
+			children = (
+				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
+				67D6C01E2405B3D2005709B1 /* CacheGroup+CoreDataClass.swift */,
+				67D6C01F2405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift */,
+				67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */,
+				67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */,
+				67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */,
+				67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */,
+			);
+			name = OldCache;
 			sourceTree = "<group>";
 		};
 		D8D5513E1DF1A33D00B90177 /* Third Party */ = {
