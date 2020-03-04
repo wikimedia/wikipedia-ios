@@ -1,9 +1,12 @@
 import WMF
 
-class WMFReferencePanelViewController: ViewController {
+class WMFReferencePanelViewController: UIViewController, Themeable {
+    var theme = Theme.standard
     var articleURL: URL?
     
-    override func apply(theme: Theme) {
+    @objc(applyTheme:)
+    func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
@@ -18,6 +21,7 @@ class WMFReferencePanelViewController: ViewController {
         super.viewDidLoad()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
         embedContainerControllerView()
+        apply(theme: self.theme)
     }
 
     @objc func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
