@@ -238,7 +238,8 @@ import Foundation
                 }
             }
             
-            if let _ = error {
+            if let _ = error,
+            request.cachePolicy != .reloadIgnoringLocalCacheData {
                 
                 if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
@@ -612,7 +613,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
         if let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
+            httpResponse.statusCode == 304 {
             
             let taskIdentifier = dataTask.taskIdentifier
             if let callback = callbacks[taskIdentifier],
@@ -655,6 +656,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
                 
                 if let request = task.currentRequest,
+                request.cachePolicy != .reloadIgnoringLocalCacheData,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                     callback.response?(cachedResponse.response)
                     callback.data?(cachedResponse.data)

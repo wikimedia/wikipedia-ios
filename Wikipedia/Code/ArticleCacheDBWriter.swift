@@ -73,7 +73,7 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 
                 for url in urls {
                     
-                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, forceCache: false) else {
+                    guard let urlRequest = self.articleFetcher.urlRequest(from: url) else {
                         continue
                     }
                     

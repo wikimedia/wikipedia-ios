@@ -144,7 +144,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return request
     }
     
-    public func mobileHTMLMediaListRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
+    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -153,14 +153,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
     }
     
-    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
+    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -169,22 +169,21 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
     }
     
-    public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest? {
+    public func urlRequest(from url: URL, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
         
-        let cachePolicy: URLRequest.CachePolicy? = forceCache ? .returnCacheDataElseLoad : nil
         let request = urlRequestFromURL(url, type: .article, cachePolicy: cachePolicy)
         
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL, forceCache: Bool = false, scheme: String? = nil) throws -> URLRequest {
+    public func mobileHTMLRequest(articleURL: URL, scheme: String? = nil, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -199,7 +198,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
         }
         
-        if let urlRequest = urlRequest(from: mobileHTMLURL, forceCache: forceCache) {
+        if let urlRequest = urlRequest(from: mobileHTMLURL, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
