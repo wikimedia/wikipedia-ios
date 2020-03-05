@@ -817,7 +817,8 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 }
 
 extension ArticleViewController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         guard article.isConversionFromMobileViewNeeded else {
             showError(error)
             return
@@ -828,7 +829,7 @@ extension ArticleViewController: WKNavigationDelegate {
                     self.showError(error)
                     return
                 }
-                guard self.article.isConversionFromMobileViewNeeded else {
+                guard !self.article.isConversionFromMobileViewNeeded else {
                     self.showGenericError()
                     return
                 }
