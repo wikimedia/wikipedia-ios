@@ -294,16 +294,20 @@ class ArticleViewController: ViewController {
         }
     }
     
-    func loadPage() {
+    func loadPage(allowCache: Bool = true) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: forceCache, scheme: schemeHandler.scheme) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: allowCache && forceCache, scheme: schemeHandler.scheme) else {
 
             showGenericError()
             state = .error
             return
+        }
+        
+        if !allowCache {
+            request.cachePolicy = .reloadIgnoringLocalCacheData
         }
         
         footerLoadGroup = DispatchGroup()
@@ -471,7 +475,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        webView.reload()
+        loadPage(allowCache: false)
     }
     
     // MARK: Overrideable functionality
@@ -725,6 +729,7 @@ private extension ArticleViewController {
         
         // Delegates
         webView.uiDelegate = self
+        webView.navigationDelegate = self
     }
     
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints
@@ -807,6 +812,30 @@ extension ArticleViewController: ImageScaleTransitionProviding {
         leadImageView.layer.contentsRect = imageView.layer.contentsRect
         
         view.layoutIfNeeded()
+    }
+    
+}
+
+extension ArticleViewController: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        guard article.isConversionFromMobileViewNeeded else {
+            showError(error)
+            return
+        }
+        dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { (migrationError) in
+            DispatchQueue.main.async {
+                if let error = migrationError {
+                    self.showError(error)
+                    return
+                }
+                guard !self.article.isConversionFromMobileViewNeeded else {
+                    self.showGenericError()
+                    return
+                }
+                self.loadPage()
+            }
+        }
     }
     
 }
