@@ -1,5 +1,6 @@
 // Messages for Central Kurdish (کوردی)
 // Exported from translatewiki.net
+// Author: Arya sarhan
 // Author: Asoxor
 // Author: Diyariq
 // Author: Lost Whispers
@@ -55,17 +56,23 @@
 "account-creation-passwords-mismatched" = "تێپەڕوشەکە ھەڵەیە";
 "account-creation-saving" = "پاشەکەوتکردن...";
 "account-creation-title" = "ھەژمارێکی نوێ دروست بکە";
-// Fuzzy
 "action-find-in-page" = "دۆزینەوە لەنێو پەڕە";
+"action-language-accessibility" = "گۆڕینی زمان";
+"action-move-to" = "لۆگی گواستنەوە...";
 "action-read" = "خوێندنەوە";
 "action-save" = "پاشەکەوتکردن";
 "action-saved" = "پاشەکەوت کرا";
 "action-saved-accessibility" = "پاشەکەوتکرا. چالاکی بکە بۆ سڕینەوە.";
 "action-saved-accessibility-notification" = "وتارەکە بۆ دواتر پاشەکەوتکرا";
 "action-share" = "هاوبەشی کردن";
+"action-share-accessibility" = "ھاوبەشکردن";
+"action-undo" = "پووچەڵکردنەوە";
 "action-unsave" = "سڕینەوە";
 "action-unsaved-accessibility-notification" = "وتارەکە سڕدرایەوە";
+"action-update" = "نوێکردنەوە";
+"add-articles-to-reading-list" = "زیادکردنی {{PLURAL:$1|$1 وتار|$1 وتار}} بۆ پێڕستی خوێندنەوە";
 "announcements-dismiss" = "لێگەڕان";
+"app-store-subtitle" = "ئینسایکڵۆپیدیای ئازاد";
 "appearance-settings-adjust-text-sizing" = "ڕێکخستنی قەبارەی دەقی وتار";
 "appearance-settings-expand-tables" = "فراوانکردنی خشتەکان";
 "appearance-settings-expand-tables-footer" = "ھەموو خشتەکانی وتارەکان بە کراوەیی بەجێبھێڵە لە حاڵەتی بنچینەیی، بە زانیارییە خێراکان و پەراوێزەکان و تێبینییەکان و بەستەرە دەرەکییەکانیشەوە.";
@@ -85,6 +92,7 @@
 "article-languages-others" = "زمانەکانی تر";
 "article-languages-yours" = "زمانەکانت";
 "article-read-more-title" = "زیاتر بخوێنەوە";
+"article-reference-view-title" = "سەرچاوە $1";
 "article-share" = "ھاوبەشکردن";
 "article-toolbar-reading-themes-controls-toolbar-item" = "کۆنترۆڵەکانی بەرگەکانی خوێندنەوە";
 "back-button-accessibility-label" = "گەڕانەوە";
@@ -98,14 +106,30 @@
 "button-saved-remove" = "لە خەزێنەکراوەکانی لابەرە";
 "button-skip" = "پەڕاندن";
 "cancel" = "ھەڵوەشاندنەوە";
+"clear-title-accessibility-label" = "سڕینەوە";
 "close-button-accessibility-label" = "داخستن";
 "compass-direction" = "لە کاتژمێر $1";
 "continue-reading-empty-description" = "ویکیپیدیا بگەڕێ بۆ دۆزینەوەی وتاری زیاتر بۆ خوێندنەوەیان";
 "continue-reading-empty-title" = "وتاری خوێندراوە نییە";
+"description-add-link-title" = "زیادکردنی وەسفی ناونیشان";
+"description-add-title" = "زیادکردنی وەسف";
+"description-edit-for-article" = "وەسفی ناونیشان بۆ $1";
+"description-edit-learn-more" = "زیاتر بزانە";
+"description-edit-length-warning" = "$1 / $2";
+"description-help-about-title" = "دەربارە";
+"description-help-about-wikidata" = "دەربارەی ویکیداتا";
+"description-help-more-info-title" = "زانیاریی زیاتر";
+"description-help-tips-for-example" = "بۆ نموونە:";
+"description-published-button-title" = "کرا";
+"diff-compare-header-from-info-heading" = "لە:";
+"diff-compare-header-to-info-heading" = "بۆ:";
+"diff-context-lines-collapsed-button-title" = "نیشان بدە";
+"diff-context-lines-expanded-button-title" = "بشارەوە";
 "dim-images" = "وێنەی کز";
 "edit-summary-choice-fixed-grammar" = "چاککردنی ڕێزمان";
 "edit-summary-choice-fixed-typos" = "چاککردنی ھەڵەی ڕێنووس";
 "edit-summary-choice-linked-words" = "بەستەرەکان زیاد کرا";
+"edit-text-size-table-view-title" = "قەبارەی دەق";
 "empty-no-article-message" = "ببورە، نەتوانرا وتارەکە بیشان بدرێت";
 "empty-no-feed-action-message" = "دەتوانیت وتارە خەزێنە کراوەکانت بخوێنیتەوە";
 "empty-no-feed-message" = "دەتوانیت وتارە پێشنیازکراوەکانت ببینیت کاتێک کە ئینتەرنێتت کار پێ کرد";
@@ -120,6 +144,9 @@
 "explore-continue-reading-heading" = "بەردەوامبوون لە خوێندنەوە";
 "explore-enable-location-title" = "بە وتارەکانی نزیک ناوچەکەت بگەڕێ";
 "explore-featured-article-heading" = "وتاری ھەڵبژێردراو";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "لە $1 ویکیپیدیا";
+"explore-featured-article-sub-heading-from-wikipedia" = "لە ویکیپیدیا";
+"explore-feed-preferences-card-hidden-title" = "شاردنەوەی کارت";
 "explore-main-page-description" = "پەڕەی دەستپێکی پرۆژەکانی ویکیمیدیا";
 "explore-main-page-heading" = "ئەمڕۆ لە ویکیپیدیا";
 // Fuzzy

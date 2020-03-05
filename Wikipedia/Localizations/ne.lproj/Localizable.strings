@@ -184,6 +184,7 @@
 "field-username-placeholder" = "प्रयोगकर्ता नाम प्रविष्टि गर्नुहोस्";
 "field-username-title" = "प्रयोगकर्ताको नाम";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "खोजेर बदल्ने";
 "find-textfield-accessibility" = "खाेज्नुहाेस्";
 "forgot-password-button-title" = "पूर्वरूपमा फर्काउनुहोस्";
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";

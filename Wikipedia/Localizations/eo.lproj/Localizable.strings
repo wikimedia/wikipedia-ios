@@ -754,6 +754,7 @@
 "theme-black-display-name" = "Nigra";
 "theme-dark-display-name" = "Malhela";
 "theme-default-display-name" = "Defaŭlta";
+"theme-light-display-name" = "Hela";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Vikipedio";
 "top-read-header-with-language" = "$1 Vikipedio";
