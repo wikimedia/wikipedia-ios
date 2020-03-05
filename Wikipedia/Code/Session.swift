@@ -1,18 +1,7 @@
 import Foundation
 
 @objc(WMFSession) public class Session: NSObject {
-    public struct Header {
-        public static let persistentCacheItemKey = "Persistent-Cache-Item-Key"
-        public static let persistentCacheItemVariant = "Persistent-Cache-Item-Variant"
-        public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
-        public static let persistentCacheETag = "Persistent-Cache-ETag"
-        
-        public enum ItemType: String {
-            case image = "Image"
-            case article = "Article"
-            case imageInfo = "ImageInfo"
-        }
-    }
+    
     public struct Request {
         public enum Method {
             case get
@@ -89,6 +78,7 @@ import Foundation
     @objc public static var defaultConfiguration: URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage
+        config.urlCache = PermanentlyPersistableURLCache()
         return config
     }
     
@@ -220,13 +210,13 @@ import Foundation
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
         
         if request.cachePolicy == .returnCacheDataElseLoad,
-            let cachedResponse = sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+            let cachedResponse = permanentCache?.cachedResponse(for: request) {
             callback.response?(cachedResponse.response)
             callback.data?(cachedResponse.data)
             callback.success()
             return nil
         }
-
+        
         let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task
@@ -237,9 +227,9 @@ import Foundation
         let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
             
             if let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
+                httpResponse.statusCode == 304 {
                 
-                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }
@@ -247,7 +237,7 @@ import Foundation
             
             if let _ = error {
                 
-                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }
@@ -267,13 +257,7 @@ import Foundation
     }
 
     public func downloadTask(with urlRequest: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask? {
-        
-        if urlRequest.cachePolicy == .returnCacheDataElseLoad,
-            let cachedResponse = sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: urlRequest) {
-            completionHandler(nil, cachedResponse.response, nil)
-            return nil
-        }
-        
+
         return defaultURLSession.downloadTask(with: urlRequest, completionHandler: completionHandler)
     }
     
@@ -443,11 +427,11 @@ import Foundation
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         
         let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
-            
+        
             if let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 304 { //catches errors and 304 Not Modified
+                httpResponse.statusCode == 304 {
                 
-                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request),
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
                     return
@@ -456,7 +440,7 @@ import Foundation
             
             if let _ = error {
                 
-                if let cachedResponse = self.sessionDelegate.responseFromPersistentCacheOrFallbackIfNeeded(request: request),
+                if let cachedResponse = self.permanentCache?.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
                     return
@@ -467,7 +451,6 @@ import Foundation
                 completionHandler(nil, response as? HTTPURLResponse, error)
                 return
             }
-            
             do {
                 guard !data.isEmpty, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
                     completionHandler(nil, response as? HTTPURLResponse, nil)
@@ -534,6 +517,111 @@ import Foundation
     }
 }
 
+//MARK: PermanentlyPersistableURLCache Passthroughs
+
+enum SessionPermanentCacheError: Error {
+    case unexpectedURLCacheType
+}
+
+extension Session {
+    
+    var permanentCache: PermanentlyPersistableURLCache? {
+        return defaultURLSession.configuration.urlCache as? PermanentlyPersistableURLCache
+    }
+    
+    @objc func imageInfoURLRequestFromURL(_ url: URL) -> URLRequest? {
+        return urlRequestFromURL(url, type: .imageInfo)
+    }
+    
+    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
+        guard let permanentCache = permanentCache else {
+            return nil
+        }
+        
+        return permanentCache.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
+    }
+    
+    public func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
+        guard let permanentCache = permanentCache else {
+            return [:]
+        }
+        
+        return permanentCache.typeHeadersForType(type)
+    }
+    
+    public func additionalHeadersForType(_ type: Header.PersistItemType, urlRequest: URLRequest) -> [String: String] {
+        guard let permanentCache = permanentCache else {
+            return [:]
+        }
+        
+        return permanentCache.additionalHeadersForType(type, urlRequest: urlRequest)
+    }
+    
+    func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
+        guard let permanentCache = permanentCache else {
+            return nil
+        }
+        
+        return permanentCache.uniqueFileNameForURL(url, type: type)
+    }
+    
+    func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse? {
+        guard let permanentCache = permanentCache else {
+            return nil
+        }
+        
+        let request = permanentCache.urlRequestFromURL(url, type: type)
+        
+        return cachedResponseForURLRequest(request)
+    }
+    
+    //assumes urlRequest is already populated with the proper cache headers
+    func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? {
+        guard let permanentCache = permanentCache else {
+            return nil
+        }
+        
+        return permanentCache.cachedResponse(for: urlRequest)
+    }
+    
+    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        
+        guard let permanentCache = permanentCache else {
+            failure(SessionPermanentCacheError.unexpectedURLCacheType)
+            return
+        }
+        
+        permanentCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, mimeType: mimeType, urlRequest: urlRequest, success: success, failure: failure)
+    }
+    
+    func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
+        return permanentCache?.uniqueFileNameForItemKey(itemKey, variant: variant)
+    }
+    
+    func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String? {
+        return permanentCache?.uniqueFileNameForURLRequest(urlRequest)
+    }
+    
+    func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
+        return permanentCache?.itemKeyForURLRequest(urlRequest)
+    }
+    
+    func variantForURLRequest(_ urlRequest: URLRequest) -> String? {
+        return permanentCache?.variantForURLRequest(urlRequest)
+    }
+    
+    func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
+        return permanentCache?.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+    }
+    
+    //Bundled migration only - copies files into cache
+    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Bool, Error>) -> Void) {
+        
+        permanentCache?.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
+    }
+}
+
+
 class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [], autoreleaseFrequency: .workItem, target: nil) // needs to be serial according the docs for NSURLSession
     let delegateQueue: OperationQueue
@@ -558,14 +646,14 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             let taskIdentifier = dataTask.taskIdentifier
             if let callback = callbacks[taskIdentifier],
                 let request = dataTask.originalRequest,
-                let cachedResponse = responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                 callback.response?(cachedResponse.response)
                 callback.data?(cachedResponse.data)
                 callback.success()
                 callbacks.removeValue(forKey: taskIdentifier)
             }
         }
-
+        
         defer {
             completionHandler(.allow)
         }
@@ -584,7 +672,6 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        
         guard let callback = callbacks[task.taskIdentifier] else {
             return
         }
@@ -597,42 +684,18 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
                 
                 if let request = task.currentRequest,
-                let cachedResponse = responseFromPersistentCacheOrFallbackIfNeeded(request: request) {
+                let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                     callback.response?(cachedResponse.response)
                     callback.data?(cachedResponse.data)
                     callback.success()
                     return
                 }
+                
+                callback.failure(error)
             }
-            callback.failure(error)
             return
         }
         
         callback.success()
-    }
-}
-
-extension SessionDelegate {
-    func responseFromPersistentCacheOrFallbackIfNeeded(request: URLRequest) -> CachedURLResponse? {
-        
-        let itemTypeRaw = request.allHTTPHeaderFields?[Session.Header.persistentCacheItemType] ?? Session.Header.ItemType.article.rawValue
-        let itemType = Session.Header.ItemType(rawValue: itemTypeRaw) ?? Session.Header.ItemType.article
-        
-        let cacheKeyGenerator: CacheKeyGenerating.Type
-        switch itemType {
-            case Session.Header.ItemType.image:
-                cacheKeyGenerator = ImageCacheKeyGenerator.self
-            case Session.Header.ItemType.article:
-                cacheKeyGenerator = ArticleCacheKeyGenerator.self
-            case Session.Header.ItemType.imageInfo:
-                cacheKeyGenerator = ImageInfoCacheKeyGenerator.self
-        }
-        
-        switch itemType {
-            case Session.Header.ItemType.image:
-                return ImageCacheController.shared?.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator) ?? nil
-            case Session.Header.ItemType.article, Session.Header.ItemType.imageInfo:
-                return ArticleCacheController.shared?.responseFromPersistentCacheOrFallbackIfNeeded(request: request, cacheKeyGenerator: cacheKeyGenerator) ?? nil
-        }
     }
 }

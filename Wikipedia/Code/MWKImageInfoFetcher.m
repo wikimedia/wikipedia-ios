@@ -21,21 +21,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     }
 }
 
-@interface MWKImageInfoFetcher ()
-
-@property (nonatomic, strong) ImageInfoCacheHeaderProvider *cacheHeaderProvider;
-
-@end
-
 @implementation MWKImageInfoFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.cacheHeaderProvider = [[ImageInfoCacheHeaderProvider alloc] init];
-    }
-    return self;
-}
 
 - (void)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
@@ -220,23 +206,9 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     return [params copy];
 }
 
-- (nonnull NSURLRequest *)urlRequestForFromURL: (NSURL *)url forceCache: (BOOL)forceCache {
+- (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url {
     
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
-    NSDictionary *headers = [self.cacheHeaderProvider requestHeaderWithUrlRequest:urlRequest];
-    NSMutableURLRequest *mutableRequest = [urlRequest mutableCopy];
-    
-    for (NSString *key in headers) {
-        id value = headers[key];
-        if ([value isKindOfClass:[NSString class]]) {
-            NSString *stringValue = (NSString *)value;
-            
-            [mutableRequest setValue:stringValue forHTTPHeaderField:key];
-        }
-    }
-    
-    NSURLRequest *finalRequest = [mutableRequest copy];
-    return finalRequest;
+    return [self.session imageInfoURLRequestFromURL:url];
 }
 
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray *)titles
@@ -255,7 +227,7 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     
     NSURL *url = [self.fetcher.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params].URL;
     
-    NSURLRequest *urlRequest = [self urlRequestForFromURL:url forceCache:NO];
+    NSURLRequest *urlRequest = [self urlRequestForFromURL:url];
     
     return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURLRequest:urlRequest
                                                             completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {

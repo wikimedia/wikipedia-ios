@@ -9,7 +9,7 @@ enum ArticleCacheDBWriterError: Error {
     case failureFetchingOfflineResourceList
     case failureFetchOrCreateCacheGroup
     case failureFetchOrCreateMustHaveCacheItem
-    case missingExpectedItemsOutOfRequestHeader
+    case unableToDetermineItemKey
     case unableToDetermineBundledOfflineURLS
     case oneOrMoreItemsFailedToMarkDownloaded
 }
@@ -17,19 +17,19 @@ enum ArticleCacheDBWriterError: Error {
 final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
     
     private let articleFetcher: ArticleFetcher
-    private let fetcher: CacheFetching
     private let cacheBackgroundContext: NSManagedObjectContext
     private let imageController: ImageCacheController
     private let imageInfoFetcher: MWKImageInfoFetcher
     
+    var fetcher: CacheFetching {
+        return articleFetcher
+    }
+    
     var groupedTasks: [String : [IdentifiedTask]] = [:]
-    
-    
 
     init(articleFetcher: ArticleFetcher, cacheBackgroundContext: NSManagedObjectContext, imageController: ImageCacheController, imageInfoFetcher: MWKImageInfoFetcher) {
         
         self.articleFetcher = articleFetcher
-        self.fetcher = articleFetcher
         self.cacheBackgroundContext = cacheBackgroundContext
         self.imageController = imageController
         self.imageInfoFetcher = imageInfoFetcher
@@ -72,7 +72,10 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
             case .success(let urls):
                 
                 for url in urls {
-                    let urlRequest = self.articleFetcher.urlRequest(from: url, forceCache: false)
+                    
+                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, forceCache: false) else {
+                        continue
+                    }
                     
                     mobileHtmlOfflineResourceURLRequests.append(urlRequest)
                 }
@@ -106,8 +109,9 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
                 }
                 
                 for imageInfoURL in imageInfoURLs {
-                    let urlRequest = self.imageInfoFetcher.urlRequestFor(from: imageInfoURL, forceCache: false)
-                    imageInfoURLRequests.append(urlRequest)
+                    if let urlRequest = self.imageInfoFetcher.urlRequestFor(from: imageInfoURL) {
+                        imageInfoURLRequests.append(urlRequest)
+                    }
                 }
                 
                 //add image urls
@@ -228,7 +232,7 @@ extension ArticleCacheDBWriter {
             let pcsCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsCSS)
             let pcsJSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsJS)
             
-            let bundledURLRequests = [baseCSSRequest, pcsCSSRequest, pcsJSRequest]
+            let bundledURLRequests = [baseCSSRequest, pcsCSSRequest, pcsJSRequest].compactMap { $0 }
             
             self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: bundledURLRequests, niceToHaveURLRequests: []) { (result) in
                 switch result {
@@ -401,12 +405,12 @@ private extension ArticleCacheDBWriter {
             for urlRequest in mustHaveURLRequests {
                 
                 guard let url = urlRequest.url,
-                    let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-                        completion(.failure(ImageCacheDBWriterError.missingExpectedItemsOutOfRequestHeader))
+                    let itemKey = self.fetcher.itemKeyForURLRequest(urlRequest) else {
+                        completion(.failure(ArticleCacheDBWriterError.unableToDetermineItemKey))
                         return
                 }
                 
-                let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+                let variant = self.fetcher.variantForURLRequest(urlRequest)
                 
                 guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
                     completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem))
@@ -420,11 +424,11 @@ private extension ArticleCacheDBWriter {
             for urlRequest in niceToHaveURLRequests {
                 
                 guard let url = urlRequest.url,
-                        let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+                        let itemKey = self.fetcher.itemKeyForURLRequest(urlRequest) else {
                         continue
                 }
                 
-                let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+                let variant = self.fetcher.variantForURLRequest(urlRequest)
                 
                 guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
                     continue
