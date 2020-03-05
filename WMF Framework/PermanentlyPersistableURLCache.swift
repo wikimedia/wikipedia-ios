@@ -200,7 +200,7 @@ private extension PermanentlyPersistableURLCache {
     
     func imageVariantForURL(_ url: URL) -> String? {
         let sizePrefix = WMFParseSizePrefixFromSourceURL(url)
-        return sizePrefix == NSNotFound ? nil : String(sizePrefix)
+        return sizePrefix == NSNotFound ? "0" : String(sizePrefix)
     }
     
     func articleVariantForURL(_ url: URL) -> String? {
@@ -602,7 +602,12 @@ private extension PermanentlyPersistableURLCache {
                     let rhsSize = Int64(rhsVariant) else {
                         return true
                 }
-
+                // 0 is original so treat it as larger than others
+                if rhsSize == 0 {
+                    return true
+                } else if lhsSize == 0 {
+                    return false
+                }
                 return lhsSize < rhsSize
             }
         case .article, .imageInfo:
