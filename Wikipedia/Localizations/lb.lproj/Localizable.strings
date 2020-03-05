@@ -30,8 +30,7 @@
 "abuse-filter-disallow-heading" = "Dir däerft dës Ännerung net verëffentlechen";
 "abuse-filter-disallow-unconstructive" = "En automatiséierte Filter huet dës Ännerung als méiglecherweis net konstruktiv respektiv als Vandalismus-Versuch identifizéiert. Gitt wgl. zréck an ännert Är Ännerung.";
 "abuse-filter-warning-blanking" = "Abschnitter oder komplett Artikele läschen";
-// Fuzzy
-"abuse-filter-warning-caps" = "Mat GROUSSE BUSCHTAWEN tippen";
+"abuse-filter-warning-caps" = "Alles mat grousse Buschtawen";
 "abuse-filter-warning-heading" = "Dëst gesäit no enger wéineg konstruktiver Ännerung aus, sidd Dir sécher datt Dir se verëffentleche wëllt?";
 "abuse-filter-warning-irrelevant" = "Irrelevant extern Linken oder Biller";
 "abuse-filter-warning-repeat" = "Zeeche widderholl";
@@ -326,7 +325,6 @@
 "page-edit-history" = "All Versioune vun der Säit";
 "page-history-anonymous-edits" = "anonym Ännerungen";
 "page-history-minor-edits" = "kleng Ännerungen";
-// Fuzzy
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
 "page-history-revision-comment-accessibility-label" = "Bemierkung $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
