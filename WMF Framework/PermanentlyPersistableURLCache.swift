@@ -594,24 +594,8 @@ private extension PermanentlyPersistableURLCache {
         
         switch type {
         case .image:
-            allVariantItems.sort { (lhs, rhs) -> Bool in
-
-                guard let lhsVariant = lhs.variant,
-                    let lhsSize = Int64(lhsVariant),
-                    let rhsVariant = rhs.variant,
-                    let rhsSize = Int64(rhsVariant) else {
-                        return true
-                }
-                // 0 is original so treat it as larger than others
-                if rhsSize == 0 {
-                    return true
-                } else if lhsSize == 0 {
-                    return false
-                }
-                return lhsSize < rhsSize
-            }
+            allVariantItems.sortAsImageCacheItems()
         case .article, .imageInfo:
-
             break
         }
         
@@ -640,4 +624,25 @@ private extension PermanentlyPersistableURLCache {
 public extension HTTPURLResponse {
     static let etagHeaderKey = "Etag"
     static let ifNoneMatchHeaderKey = "If-None-Match"
+}
+
+public extension Array where Element: CacheItem {
+    mutating func sortAsImageCacheItems() {
+        sort { (lhs, rhs) -> Bool in
+
+            guard let lhsVariant = lhs.variant,
+                let lhsSize = Int64(lhsVariant),
+                let rhsVariant = rhs.variant,
+                let rhsSize = Int64(rhsVariant) else {
+                    return true
+            }
+            // 0 is original so treat it as larger than others
+            if rhsSize == 0 {
+                return true
+            } else if lhsSize == 0 {
+                return false
+            }
+            return lhsSize < rhsSize
+        }
+    }
 }
