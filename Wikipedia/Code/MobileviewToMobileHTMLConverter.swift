@@ -70,15 +70,16 @@ extension MobileviewToMobileHTMLConverter {
             assertionFailure("Article url host not available")
             if let completionHandler = completionHandler {
                 completionHandler(nil, MobileviewToMobileHTMLConverterError.noArticleURLHost)
-            }
+            } 
             return
         }
 
         #if WMF_APPS_LABS_MOBILE_HTML
-        let baseURI = "https://\(Configuration.Domain.appsLabs)/api/v1"
+        let baseURI = "//\(Configuration.Domain.appsLabs)/api/v1/"
         #else
         let configuration = Configuration.current
-        let mobileAppsComponents = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [])
+        var mobileAppsComponents = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [""])
+        mobileAppsComponents.scheme = nil
         guard let baseURI = mobileAppsComponents.url?.absoluteString else {
             if let completionHandler = completionHandler {
                 completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileAppsHost)

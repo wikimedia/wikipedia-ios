@@ -32,19 +32,19 @@ final class CacheFileWriter: CacheTaskTracking {
     lazy private var baseCSSFileURL: URL = {
         URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
             .appendingPathComponent("pcs-html-converter", isDirectory: true)
-            .appendingPathComponent("baseCSS.css", isDirectory: false)
+            .appendingPathComponent("base.css", isDirectory: false)
     }()
 
     lazy private var pcsCSSFileURL: URL = {
         URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
             .appendingPathComponent("pcs-html-converter", isDirectory: true)
-            .appendingPathComponent("pcsCSS.css", isDirectory: false)
+            .appendingPathComponent("pcs.css", isDirectory: false)
     }()
 
     lazy private var pcsJSFileURL: URL = {
         URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
             .appendingPathComponent("pcs-html-converter", isDirectory: true)
-            .appendingPathComponent("pcsJS.js", isDirectory: false)
+            .appendingPathComponent("pcs.js", isDirectory: false)
     }()
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
