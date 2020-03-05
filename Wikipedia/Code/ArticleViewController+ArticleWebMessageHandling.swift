@@ -18,8 +18,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleFooterItem(type: type, payload: payload)
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
-        case .backLink(let referenceId, let backLinks):
-            showReferenceBackLinks(backLinks, referenceId: referenceId)
+        case .backLink(let referenceId, let referenceText, let backLinks):
+            showReferenceBackLinks(backLinks, referenceId: referenceId, referenceText: referenceText)
         case .reference(let index, let group):
             showReferences(group, selectedIndex: index, animated: true)
         case .image(let src, let href, let width, let height):
@@ -56,7 +56,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup?.leave()
         restoreStateIfNecessary()
-        try? article.addToReadHistory()
+        addToHistory()
         forceCache = false
     }
     

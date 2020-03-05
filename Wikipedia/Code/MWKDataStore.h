@@ -9,7 +9,6 @@
 @class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
-@class WMFCacheControllerWrapper;
 @class MobileviewToMobileHTMLConverter;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -70,9 +69,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
 
 #pragma mark - Caching
-
-@property (readonly, strong, nonatomic) WMFCacheControllerWrapper *imageCacheControllerWrapper;
-@property (readonly, strong, nonatomic) WMFCacheControllerWrapper *articleCacheControllerWrapper;
 
 @property (readonly, strong, nonatomic) MobileviewToMobileHTMLConverter *mobileviewConverter;
 

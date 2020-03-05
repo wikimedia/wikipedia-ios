@@ -39,8 +39,11 @@ class ArticleViewController: ViewController {
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
 
-    internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
-    internal lazy var imageFetcher: ImageFetcher = ImageFetcher()
+    let session = Session.shared
+    let configuration = Configuration.current
+    
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
 
     private var leadImageHeight: CGFloat = 210
 
@@ -57,7 +60,7 @@ class ArticleViewController: ViewController {
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
-            let cacheController = dataStore.articleCacheControllerWrapper.cacheController
+            let cacheController = ArticleCacheController.shared
             else {
                 return nil
         }
@@ -96,7 +99,7 @@ class ArticleViewController: ViewController {
     }()
     
     lazy var webView: WKWebView = {
-        return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
+        return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
     
     // MARK: Find In Page
@@ -122,29 +125,11 @@ class ArticleViewController: ViewController {
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
         
-        let leadImageRequest = imageFetcher.request(for: leadImageURL, forceCache: forceCache)
-        imageFetcher.data(for: leadImageRequest) { [weak self] (result) in
-            
-            switch result {
-            case .success(let data):
-                
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.leadImageView.wmf_setImage(with: image, imageURL: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                            DDLogError("Error loading lead image: \(error)")
-                        }, success: {
-                            self?.updateLeadImageMargins()
-                            self?.updateArticleMargins()
-                        })
-                    }
-                } else {
-                    DDLogError("Unable to pull lead image out of data.")
-                }
-                    
-            case .failure(let error):
-                DDLogError("Error loading lead image: \(error)")
-            }
-            
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            DDLogError("Error loading lead image: \(error)")
+        }) {
+            self.updateLeadImageMargins()
+            self.updateArticleMargins()
         }
     }
     
@@ -278,6 +263,11 @@ class ArticleViewController: ViewController {
         toolbarController.update()
     }
     
+    override func wmf_removePeekableChildViewControllers() {
+        super.wmf_removePeekableChildViewControllers()
+        addToHistory()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
@@ -304,16 +294,20 @@ class ArticleViewController: ViewController {
         }
     }
     
-    func loadPage() {
+    func loadPage(allowCache: Bool = true) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: forceCache, scheme: schemeHandler.scheme) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: allowCache && forceCache, scheme: schemeHandler.scheme) else {
 
             showGenericError()
             state = .error
             return
+        }
+        
+        if !allowCache {
+            request.cachePolicy = .reloadIgnoringLocalCacheData
         }
         
         footerLoadGroup = DispatchGroup()
@@ -335,6 +329,7 @@ class ArticleViewController: ViewController {
         dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
             defer {
                 self.footerLoadGroup?.leave()
+                self.updateMenuItems()
             }
             // Handle redirects
             guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
@@ -356,6 +351,10 @@ class ArticleViewController: ViewController {
     // MARK: History
 
     func addToHistory() {
+        // Don't add to history if we're in peek/pop
+        guard self.wmf_PeekableChildViewController == nil else {
+            return
+        }
         try? article.addToReadHistory()
     }
     
@@ -476,7 +475,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        webView.reload()
+        loadPage(allowCache: false)
     }
     
     // MARK: Overrideable functionality
@@ -709,21 +708,33 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        // Add the stack view that contains the table of contents and the web view.
+        // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-        
-        webView.scrollView.refreshControl = refreshControl
         
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
         
+        // Scroll view
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
-        webView.scrollView.addSubview(leadImageContainerView)
-        
         webView.scrollView.keyboardDismissMode = .interactive
+        webView.scrollView.refreshControl = refreshControl
+        
+        // Lead image
+        setupLeadImageView()
+        
+        // Delegates
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+    }
+    
+    /// Adds the lead image view to the web view's scroll view and configures the associated constraints
+    func setupLeadImageView() {
+        webView.scrollView.addSubview(leadImageContainerView)
 
         let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
@@ -805,6 +816,30 @@ extension ArticleViewController: ImageScaleTransitionProviding {
     
 }
 
+extension ArticleViewController: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        guard article.isConversionFromMobileViewNeeded else {
+            showError(error)
+            return
+        }
+        dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { (migrationError) in
+            DispatchQueue.main.async {
+                if let error = migrationError {
+                    self.showError(error)
+                    return
+                }
+                guard !self.article.isConversionFromMobileViewNeeded else {
+                    self.showGenericError()
+                    return
+                }
+                self.loadPage()
+            }
+        }
+    }
+    
+}
+
 extension ViewController {
     /// Allows for re-use by edit preview VC
     var articleMargins: UIEdgeInsets {
@@ -814,8 +849,3 @@ extension ViewController {
         return margins
     }
 }
-
-//WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
-//WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")

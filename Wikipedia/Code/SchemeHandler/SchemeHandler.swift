@@ -108,39 +108,48 @@ private extension SchemeHandler {
         
         mutableRequest.url = newURL
         
-        var maybeRequest = mutableRequest.copy() as? URLRequest
+        let maybeRequest = mutableRequest.copy() as? URLRequest
         
-        //reassign If-None-Match if needed. It seems like If-None-Match header gets lost between ArticleFetcher URLRequest creation and SchemeHandler.
-        if var request = maybeRequest,
-            let eTag = request.allHTTPHeaderFields?[Session.Header.persistentCacheETag],
-            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] == nil {
-            request.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] = eTag
-            maybeRequest = request
-        }
+        //set persistentCacheItemType in header if it doesn't already exist
+        //set If-None-Match in header if it doesn't already exist
         
-        //set persistent cache headers if they don't already exist
-        guard mutableRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] == nil else {
-            return maybeRequest
-        }
+        let containsType = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
+        let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] != nil
 
-        let headerProvider: CacheHeaderProviding
-        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
-            headerProvider = ImageCacheHeaderProvider()
-        } else {
-            headerProvider = ArticleCacheHeaderProvider()
-        }
-        
         if var request = maybeRequest {
+
+            if !containsType {
+                
+                let typeHeaders: [String: String]
+                if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+                    typeHeaders = session.typeHeadersForType(.image)
+                } else {
+                    typeHeaders = session.typeHeadersForType(.article)
+                }
+                
+                for (key, value) in typeHeaders {
+                    request.setValue(value, forHTTPHeaderField: key)
+                }
+            }
             
-            let header = headerProvider.requestHeader(urlRequest: request)
+            guard !containsIfNoneMatch else {
+                return request
+            }
+
+            let additionalHeaders: [String: String]
+            if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+                additionalHeaders = session.additionalHeadersForType(.image, urlRequest: request)
+            } else {
+                additionalHeaders = session.additionalHeadersForType(.article, urlRequest: request)
+            }
             
-            for (key, value) in header {
+            for (key, value) in additionalHeaders {
                 request.setValue(value, forHTTPHeaderField: key)
             }
             
             return request
         }
-        
+
         return maybeRequest
     }
     

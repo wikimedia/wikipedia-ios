@@ -4,12 +4,17 @@ import Foundation
 enum ImageCacheDBWriterError: Error {
     case batchURLInsertFailure
     case missingExpectedItemsOutOfRequestHeader
+    case unableToDetermineURLRequest
 }
 
 final class ImageCacheDBWriter: CacheDBWriting {
 
     private let cacheBackgroundContext: NSManagedObjectContext
     private let imageFetcher: ImageFetcher
+    
+    var fetcher: CacheFetching {
+        return imageFetcher
+    }
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
@@ -20,14 +25,17 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        let urlRequest = imageFetcher.request(for: url, forceCache: false)
+        guard let urlRequest = imageFetcher.urlRequestFromURL(url, type: .image) else {
+            completion(.failure(ImageCacheDBWriterError.unableToDetermineURLRequest))
+            return
+        }
         
         cacheImages(groupKey: groupKey, urlRequests: [urlRequest], completion: completion)
     }
     
     func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        let urlRequests = urls.map { imageFetcher.request(for: $0, forceCache: false) }
+        let urlRequests = urls.compactMap { imageFetcher.urlRequestFromURL($0, type: .image) }
         
         cacheImages(groupKey: groupKey, urlRequests: urlRequests, completion: completion)
     }
@@ -83,10 +91,6 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
         return result
     }
-    
-    func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
-        //tonitodo
-    }
 }
 
 
@@ -105,13 +109,13 @@ private extension ImageCacheDBWriter {
                 dispatchGroup.enter()
                 
                 guard let url = urlRequest.url,
-                    let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+                    let itemKey = self.imageFetcher.itemKeyForURLRequest(urlRequest) else {
                         errorRequests.append(urlRequest)
                         dispatchGroup.leave()
                         continue
                 }
                 
-                let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+                let variant = self.imageFetcher.variantForURLRequest(urlRequest)
                     
                 guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
                     errorRequests.append(urlRequest)

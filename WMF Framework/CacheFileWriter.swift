@@ -5,9 +5,22 @@ enum CacheFileWriterError: Error {
     case missingTemporaryFileURL
     case missingHeaderItemKey
     case missingHTTPResponse
+    case unableToDetermineSiteURLFromMigration
+    case unexpectedFetcherTypeForBundledMigration
+    case unableToDetermineBundledOfflineURLS
+    case failureToSaveBundledFiles
+    case unableToPullCachedDataFromNotModified
+    case missingURLInRequest
+    case unableToGenerateHTTPURLResponse
+    case unableToDetermineFileNames
 }
 
-enum CacheFileWriterResult {
+enum CacheFileWriterAddResult {
+    case success(data: Data, mimeType: String?)
+    case failure(Error)
+}
+
+enum CacheFileWriterRemoveResult {
     case success
     case failure(Error)
 }
@@ -15,116 +28,64 @@ enum CacheFileWriterResult {
 final class CacheFileWriter: CacheTaskTracking {
 
     private let fetcher: CacheFetching
-    private let cacheKeyGenerator: CacheKeyGenerating.Type
-    private let cacheBackgroundContext: NSManagedObjectContext
+    
+    lazy private var baseCSSFileURL: URL = {
+        URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
+            .appendingPathComponent("pcs-html-converter", isDirectory: true)
+            .appendingPathComponent("baseCSS.css", isDirectory: false)
+    }()
+
+    lazy private var pcsCSSFileURL: URL = {
+        URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
+            .appendingPathComponent("pcs-html-converter", isDirectory: true)
+            .appendingPathComponent("pcsCSS.css", isDirectory: false)
+    }()
+
+    lazy private var pcsJSFileURL: URL = {
+        URL(fileURLWithPath: WikipediaAppUtils.assetsPath())
+            .appendingPathComponent("pcs-html-converter", isDirectory: true)
+            .appendingPathComponent("pcsJS.js", isDirectory: false)
+    }()
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    init?(fetcher: CacheFetching,
-                       cacheBackgroundContext: NSManagedObjectContext,
-                       cacheKeyGenerator: CacheKeyGenerating.Type) {
+    init(fetcher: CacheFetching) {
         self.fetcher = fetcher
-        self.cacheBackgroundContext = cacheBackgroundContext
-        self.cacheKeyGenerator = cacheKeyGenerator
         
         do {
             try FileManager.default.createDirectory(at: CacheController.cacheURL, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            assertionFailure("Failure to create article cache directory")
-            return nil
+            DDLogError("Error creating permanent cache: \(error)")
         }
     }
     
-    func add(groupKey: String, urlRequest: URLRequest, completion: @escaping (CacheFileWriterResult) -> Void) {
-        
-        guard let url = urlRequest.url,
-            let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-            completion(.failure(CacheFileWriterError.missingHeaderItemKey))
-            return
-        }
-        
-        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
-        let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
-        let headerFileName = cacheKeyGenerator.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+    func add(groupKey: String, urlRequest: URLRequest, completion: @escaping (CacheFileWriterAddResult) -> Void) {
         
         let untrackKey = UUID().uuidString
-        let task = fetcher.downloadData(urlRequest: urlRequest) { (error, _, response, temporaryFileURL, mimeType) in
+        let task = fetcher.dataForURLRequest(urlRequest) { (response) in
             
             defer {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)
             }
             
-            if let error = error {
-                switch error as? RequestError {
-                case .notModified:
-                    completion(.success)
-                default:
-                    DDLogError("Error downloading data for offline: \(error)\n\(String(describing: response))")
+            switch response {
+            case .success(let result):
+                
+                guard let httpUrlResponse = result.response as? HTTPURLResponse else {
+                    completion(.failure(CacheFileWriterError.missingHTTPResponse))
+                    return
+                }
+                
+                self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), mimeType: result.response.mimeType, urlRequest: urlRequest, success: {
+                    completion(.success(data: result.data, mimeType: result.response.mimeType))
+                }) { (error) in
                     completion(.failure(error))
                 }
+                
+            case .failure(let error):
+                DDLogError("Error downloading data for offline: \(error)\n\(String(describing: response))")
+                completion(.failure(error))
                 return
-            }
-            
-            guard let responseHeader = response as? HTTPURLResponse else {
-                completion(.failure(CacheFileWriterError.missingHTTPResponse))
-                return
-            }
-            
-            let dispatchGroup = DispatchGroup()
-            
-            dispatchGroup.enter()
-            var responseHeaderSaveError: Error? = nil
-            var responseSaveError: Error? = nil
-            
-            CacheFileWriterHelper.saveResponseHeader(urlResponse: responseHeader, toNewFileName: headerFileName) { (result) in
-                
-                defer {
-                    dispatchGroup.leave()
-                }
-                
-                switch result {
-                case .success, .exists:
-                    break
-                case .failure(let error):
-                    responseHeaderSaveError = error
-                }
-            }
-            
-            if let temporaryFileURL = temporaryFileURL {
-                //file needs to be moved
-                dispatchGroup.enter()
-                CacheFileWriterHelper.moveFile(from: temporaryFileURL, toNewFileWithKey: fileName, mimeType: mimeType) { (result) in
-                    
-                    defer {
-                        dispatchGroup.leave()
-                    }
-                    
-                    switch result {
-                    case .success, .exists:
-                        break
-                    case .failure(let error):
-                        responseSaveError = error
-                    }
-                }
-            }
-            
-            dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) { [responseHeaderSaveError, responseSaveError] in
-                
-                if let responseSaveError = responseSaveError {
-                    self.remove(fileName: fileName) { (_) in
-                        completion(.failure(responseSaveError))
-                    }
-                    return
-                }
-                
-                if let responseHeaderSaveError = responseHeaderSaveError {
-                    self.remove(fileName: fileName) { (_) in
-                        completion(.failure(responseHeaderSaveError))
-                    }
-                    return
-                }
-                
-                completion(.success)
             }
         }
         
@@ -133,7 +94,13 @@ final class CacheFileWriter: CacheTaskTracking {
         }
     }
     
-    func remove(fileName: String, completion: @escaping (CacheFileWriterResult) -> Void) {
+    func remove(itemKey: String, variant: String?, completion: @escaping (CacheFileWriterRemoveResult) -> Void) {
+        
+        guard let fileName = self.fetcher.uniqueFileNameForItemKey(itemKey, variant: variant),
+            let headerFileName = self.fetcher.uniqueHeaderFileNameForItemKey(itemKey, variant: variant) else {
+                completion(.failure(CacheFileWriterError.unableToDetermineFileNames))
+                return
+        }
         
         var responseHeaderRemoveError: Error? = nil
         var responseRemoveError: Error? = nil
@@ -149,7 +116,7 @@ final class CacheFileWriter: CacheTaskTracking {
         }
         
         //remove response header from file system
-        let responseHeaderCachedFileURL = CacheFileWriterHelper.fileURL(for: fileName)
+        let responseHeaderCachedFileURL = CacheFileWriterHelper.fileURL(for: headerFileName)
         do {
             try FileManager.default.removeItem(at: responseHeaderCachedFileURL)
         } catch let error as NSError {
@@ -170,29 +137,119 @@ final class CacheFileWriter: CacheTaskTracking {
         
         completion(.success)
     }
+    
+    func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
+        return fetcher.uniqueFileNameForItemKey(itemKey, variant: variant)
+    }
+    
+    func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String? {
+        return fetcher.uniqueFileNameForURLRequest(urlRequest)
+    }
+    
 }
 
-//Migration
+//MARK: Migration
 
 extension CacheFileWriter {
     
-    func migrateCachedContent(content: String, urlRequest: URLRequest, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    //assumes urlRequest is already populated with the right type header
+    func addMobileHtmlContentForMigration(content: String, urlRequest: URLRequest, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
-        guard let itemKey =  urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-                failure(CacheFileWriterError.missingHeaderItemKey)
+        guard let url =  urlRequest.url else {
+                failure(CacheFileWriterError.missingURLInRequest)
                 return
         }
         
-        let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
-        let fileName = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
-
-        CacheFileWriterHelper.saveContent(content, toNewFileName: fileName, mimeType: mimeType) { (result) in
-            switch result {
-            case .success, .exists:
-                success()
-            case .failure(let error):
-                failure(error)
+        //artificially create HTTPURLResponse
+        guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "text/html"]) else {
+            failure(CacheFileWriterError.unableToGenerateHTTPURLResponse)
+            return
+        }
+        
+        fetcher.cacheResponse(httpUrlResponse: response, content: .string(content), mimeType: mimeType, urlRequest: urlRequest, success: {
+            success()
+        }) { (error) in
+            failure(error)
+        }
+    }
+    
+    func addBundledResourcesForMigration(urlRequests:[URLRequest], success: @escaping ([URLRequest]) -> Void, failure: @escaping (Error) -> Void) {
+        
+        guard let articleFetcher = fetcher as? ArticleFetcher else {
+            failure(CacheFileWriterError.unexpectedFetcherTypeForBundledMigration)
+            return
+        }
+        
+        guard let bundledOfflineResources = articleFetcher.bundledOfflineResourceURLs() else {
+            failure(CacheFileWriterError.unableToDetermineBundledOfflineURLS)
+            return
+        }
+        
+        var failedURLRequests: [URLRequest] = []
+        var succeededURLRequests: [URLRequest] = []
+        
+        for urlRequest in urlRequests {
+            
+            guard let urlString = urlRequest.url?.absoluteString else {
+                continue
+            }
+            
+            switch urlString {
+            case bundledOfflineResources.baseCSS.absoluteString:
+                
+                fetcher.writeBundledFiles(mimeType: "text/css", bundledFileURL: baseCSSFileURL, urlRequest: urlRequest) { (result) in
+                    switch result {
+                    case .success(let resultFlag):
+                        if resultFlag == true {
+                            succeededURLRequests.append(urlRequest)
+                        } else {
+                            failedURLRequests.append(urlRequest)
+                        }
+                    case .failure:
+                        failedURLRequests.append(urlRequest)
+                    }
+                }
+                
+            case bundledOfflineResources.pcsCSS.absoluteString:
+                
+                fetcher.writeBundledFiles(mimeType: "text/css", bundledFileURL: pcsCSSFileURL, urlRequest: urlRequest) { (result) in
+                    switch result {
+                    case .success(let resultFlag):
+                        if resultFlag == true {
+                            succeededURLRequests.append(urlRequest)
+                        } else {
+                            failedURLRequests.append(urlRequest)
+                        }
+                    case .failure:
+                        failedURLRequests.append(urlRequest)
+                    }
+                }
+                
+            case bundledOfflineResources.pcsJS.absoluteString:
+                
+                fetcher.writeBundledFiles(mimeType: "application/javascript", bundledFileURL: pcsJSFileURL, urlRequest: urlRequest) { (result) in
+                    switch result {
+                    case .success(let resultFlag):
+                        if resultFlag == true {
+                            succeededURLRequests.append(urlRequest)
+                        } else {
+                            failedURLRequests.append(urlRequest)
+                        }
+                    case .failure:
+                        failedURLRequests.append(urlRequest)
+                    }
+                }
+                
+            default:
+                failedURLRequests.append(urlRequest)
             }
         }
+        
+        if succeededURLRequests.count == 0 {
+            failure(CacheFileWriterError.failureToSaveBundledFiles)
+            return
+        }
+
+        success(succeededURLRequests)
     }
 }

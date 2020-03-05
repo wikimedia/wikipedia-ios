@@ -6,6 +6,7 @@ enum ArticleFetcherError: Error {
     case failureToGenerateURL
     case missingData
     case invalidEndpointType
+    case unableToGenerateURLRequest
 }
 
 @objc(WMFArticleFetcher)
@@ -17,8 +18,6 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         super.init(session: session, configuration: configuration)
         #endif
     }
-    
-    private let cacheHeaderProvider: CacheHeaderProviding = ArticleCacheHeaderProvider()
     
     public enum EndpointType: String {
         case summary
@@ -154,7 +153,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        return urlRequest(from: url, forceCache: forceCache)
+        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+            return urlRequest
+        } else {
+            throw ArticleFetcherError.unableToGenerateURLRequest
+        }
     }
     
     public func mobileHTMLOfflineResourcesRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
@@ -166,21 +169,17 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        return urlRequest(from: url, forceCache: forceCache)
+        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+            return urlRequest
+        } else {
+            throw ArticleFetcherError.unableToGenerateURLRequest
+        }
     }
     
-    public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest {
+    public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest? {
         
-        var request = URLRequest(url: url)
-        let header = cacheHeaderProvider.requestHeader(urlRequest: request)
-        
-        for (key, value) in header {
-            request.setValue(value, forHTTPHeaderField: key)
-        }
-        
-        if forceCache {
-            request.cachePolicy = .returnCacheDataElseLoad
-        }
+        let cachePolicy: URLRequest.CachePolicy? = forceCache ? .returnCacheDataElseLoad : nil
+        let request = urlRequestFromURL(url, type: .article, cachePolicy: cachePolicy)
         
         return request
     }
@@ -200,7 +199,45 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
         }
         
-        return urlRequest(from: mobileHTMLURL, forceCache: forceCache)
+        if let urlRequest = urlRequest(from: mobileHTMLURL, forceCache: forceCache) {
+            return urlRequest
+        } else {
+            throw ArticleFetcherError.unableToGenerateURLRequest
+        }
+    }
+    
+    //MARK: Bundled offline resources
+    
+    struct BundledOfflineResources {
+        let baseCSS: URL
+        let pcsCSS: URL
+        let pcsJS: URL
+    }
+    
+    let expectedNumberOfBundledOfflineResources = 3
+    
+    func bundledOfflineResourceURLs() -> BundledOfflineResources? {
+
+        #if WMF_APPS_LABS_MOBILE_HTML
+
+            guard let baseCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/base"),
+                let pcsCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/pcs"),
+                let pcsJS = URL(string: "https://apps.wmflabs.org/api/v1/data/javascript/mobile/pcs") else {
+                    return nil
+            }
+
+            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+        #else
+
+           guard let baseCSS = URL(string: "https://meta.wikimedia.org/api/v1/data/css/mobile/base"),
+                let pcsCSS = URL(string: "https://meta.wikimedia.org/api/v1/data/css/mobile/pcs"),
+                let pcsJS = URL(string: "https://meta.wikimedia.org/api/v1/data/javascript/mobile/pcs") else {
+                    return nil
+            }
+
+            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+
+        #endif
     }
 }
 

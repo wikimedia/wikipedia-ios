@@ -9,7 +9,7 @@ enum CacheControllerError: Error {
 public class CacheController {
     
     static let cacheURL: URL = {
-        var url = FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        var url = FileManager.default.wmf_containerURL().appendingPathComponent("Permanent Cache", isDirectory: true)
         
         var values = URLResourceValues()
         values.isExcludedFromBackup = true
@@ -29,22 +29,30 @@ public class CacheController {
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
+        //create cacheURL directory
+        do {
+            try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
+        } catch let error {
+            assertionFailure("Error creating permanent cache: \(error)")
+            return nil
+        }
+        
         //create ManagedObjectModel based on Cache.momd
-        guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
+        guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
         }
-                
+
         //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("PersistentCache.sqlite", isDirectory: false)
+        let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        
+
         let options = [
             NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true),
             NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)
         ]
-        
+
         do {
             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
         } catch {
@@ -52,7 +60,6 @@ public class CacheController {
                 try FileManager.default.removeItem(at: dbURL)
             } catch {
                 assertionFailure("Failure to remove old db file")
-                return nil
             }
 
             do {
@@ -65,7 +72,7 @@ public class CacheController {
 
         let cacheBackgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
-                
+
         return cacheBackgroundContext
     }()
     
@@ -102,8 +109,7 @@ public class CacheController {
     
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriter
-    private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
-    private let gatekeeper = CacheGatekeeper()
+    let gatekeeper = CacheGatekeeper()
     
     init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
         self.dbWriter = dbWriter
@@ -155,13 +161,10 @@ public class CacheController {
                 let group = DispatchGroup()
                 for urlRequest in urlRequests {
                     
-                    guard let url = urlRequest.url,
-                        let itemKey =  urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-                            continue
+                    guard let uniqueKey = fileWriter.uniqueFileNameForURLRequest(urlRequest),
+                        let url = urlRequest.url else {
+                        continue
                     }
-                    
-                    let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
-                    let uniqueKey = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
                     
                     group.enter()
                     
@@ -175,7 +178,7 @@ public class CacheController {
                     
                     gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
                     
-                    guard dbWriter.shouldDownloadVariant(itemKey: itemKey, variant: variant) else {
+                    guard dbWriter.shouldDownloadVariant(urlRequest: urlRequest) else {
                         group.leave()
                         continue
                     }
@@ -187,7 +190,7 @@ public class CacheController {
                         }
                         
                         switch result {
-                        case .success:
+                        case .success(let data, let mimeType):
                             
                             self.dbWriter.markDownloaded(urlRequest: urlRequest) { (result) in
                                 
@@ -209,6 +212,8 @@ public class CacheController {
                                 
                                 self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             }
+                            
+                            self.finishFileSave(data: data, mimeType: mimeType, uniqueKey: uniqueKey, url: url)
                             
                         case .failure(let error):
                             
@@ -234,6 +239,10 @@ public class CacheController {
                 let groupResult = FinalGroupResult.failure(error: error)
                 groupCompleteBlock(groupResult)
         }
+    }
+    
+    func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
+        //hook to allow subclasses to do any additional work with data
     }
     
     public func remove(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -277,7 +286,9 @@ public class CacheController {
                 let group = DispatchGroup()
                 for key in keys {
                     
-                    let uniqueKey = self.cacheKeyGenerator.uniqueFileNameForItemKey(key.itemKey, variant: key.variant)
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForItemKey(key.itemKey, variant: key.variant) else {
+                        continue
+                    }
                     
                     group.enter()
                     
@@ -291,7 +302,7 @@ public class CacheController {
                     
                     self.gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
                     
-                    self.fileWriter.remove(fileName: uniqueKey) { (result) in
+                    self.fileWriter.remove(itemKey: key.itemKey, variant: key.variant) { (result) in
                         
                         switch result {
                         case .success:
