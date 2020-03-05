@@ -53,17 +53,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
             var allVariantItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: context)
 
-            allVariantItems.sort { (lhs, rhs) -> Bool in
-
-                guard let lhsVariant = lhs.variant,
-                    let lhsSize = Int64(lhsVariant),
-                    let rhsVariant = rhs.variant,
-                    let rhsSize = Int64(rhsVariant) else {
-                        return true
-                }
-
-                return lhsSize < rhsSize
-            }
+            allVariantItems.sortAsImageCacheItems()
 
             switch (UIScreen.main.scale, allVariantItems.count) {
             case (1.0, _), (_, 1):
