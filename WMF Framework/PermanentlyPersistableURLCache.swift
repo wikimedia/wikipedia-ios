@@ -21,7 +21,9 @@ public struct Header {
 }
 
 class PermanentlyPersistableURLCache: URLCache {
-    private let cacheManagedObjectContext = CacheController.backgroundCacheContext
+    private lazy var cacheManagedObjectContext = {
+        return CacheController.backgroundCacheContext
+    }()
     
 //MARK: Public - Overrides
     
