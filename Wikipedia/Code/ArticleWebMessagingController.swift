@@ -54,7 +54,9 @@ class ArticleWebMessagingController: NSObject {
             return
         }
         webView?.evaluateJavaScript("pcs.c1.Footer.add(\(parametersJS))", completionHandler: { (result, error) in
-            
+            if let error = error {
+                DDLogError("Error adding footer: \(error)")
+            }
         })
     }
     
