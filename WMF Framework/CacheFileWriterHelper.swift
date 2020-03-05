@@ -111,6 +111,8 @@ final class CacheFileWriterHelper {
             
             let _ = try FileManager.default.replaceItemAt(destinationURL, withItemAt: temporaryFileURL)
             
+            try FileManager.default.removeItem(at: temporaryDirectoryURL)
+            
             completion(.success)
             
         } catch (let error) {
