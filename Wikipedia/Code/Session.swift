@@ -78,9 +78,11 @@ import Foundation
     @objc public static var defaultConfiguration: URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage
-        config.urlCache = PermanentlyPersistableURLCache()
+        config.urlCache = permanentCache
         return config
     }
+    
+    private static let permanentCache = PermanentlyPersistableURLCache()
     
     @objc public static let urlSession: URLSession = {
         return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
@@ -104,6 +106,7 @@ import Foundation
     
     public let defaultURLSession = Session.urlSession
     private let sessionDelegate = Session.sessionDelegate
+    private var defaultPermanentCache = Session.permanentCache
     
     public let wifiOnlyURLSession: URLSession = {
         var config = Session.defaultConfiguration
@@ -210,7 +213,7 @@ import Foundation
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
         
         if request.cachePolicy == .returnCacheDataElseLoad,
-            let cachedResponse = permanentCache?.cachedResponse(for: request) {
+            let cachedResponse = defaultPermanentCache.cachedResponse(for: request) {
             callback.response?(cachedResponse.response)
             callback.data?(cachedResponse.data)
             callback.success()
@@ -229,7 +232,7 @@ import Foundation
             if let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 304 {
                 
-                if let cachedResponse = self.permanentCache?.cachedResponse(for: request) {
+                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }
@@ -237,7 +240,7 @@ import Foundation
             
             if let _ = error {
                 
-                if let cachedResponse = self.permanentCache?.cachedResponse(for: request) {
+                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }
@@ -431,7 +434,7 @@ import Foundation
             if let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 304 {
                 
-                if let cachedResponse = self.permanentCache?.cachedResponse(for: request),
+                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
                     return
@@ -440,7 +443,7 @@ import Foundation
             
             if let _ = error {
                 
-                if let cachedResponse = self.permanentCache?.cachedResponse(for: request),
+                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
                     return
@@ -525,99 +528,67 @@ enum SessionPermanentCacheError: Error {
 
 extension Session {
     
-    var permanentCache: PermanentlyPersistableURLCache? {
-        return defaultURLSession.configuration.urlCache as? PermanentlyPersistableURLCache
-    }
-    
     @objc func imageInfoURLRequestFromURL(_ url: URL) -> URLRequest? {
         return urlRequestFromURL(url, type: .imageInfo)
     }
     
     func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
-        guard let permanentCache = permanentCache else {
-            return nil
-        }
-        
-        return permanentCache.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
+        return defaultPermanentCache.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
     }
     
     public func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
-        guard let permanentCache = permanentCache else {
-            return [:]
-        }
-        
-        return permanentCache.typeHeadersForType(type)
+        return defaultPermanentCache.typeHeadersForType(type)
     }
     
     public func additionalHeadersForType(_ type: Header.PersistItemType, urlRequest: URLRequest) -> [String: String] {
-        guard let permanentCache = permanentCache else {
-            return [:]
-        }
-        
-        return permanentCache.additionalHeadersForType(type, urlRequest: urlRequest)
+        return defaultPermanentCache.additionalHeadersForType(type, urlRequest: urlRequest)
     }
     
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        guard let permanentCache = permanentCache else {
-            return nil
-        }
-        
-        return permanentCache.uniqueFileNameForURL(url, type: type)
+        return defaultPermanentCache.uniqueFileNameForURL(url, type: type)
     }
     
     func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse? {
-        guard let permanentCache = permanentCache else {
-            return nil
-        }
         
-        let request = permanentCache.urlRequestFromURL(url, type: type)
+        let request = defaultPermanentCache.urlRequestFromURL(url, type: type)
         
         return cachedResponseForURLRequest(request)
     }
     
     //assumes urlRequest is already populated with the proper cache headers
     func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? {
-        guard let permanentCache = permanentCache else {
-            return nil
-        }
-        
-        return permanentCache.cachedResponse(for: urlRequest)
+        return defaultPermanentCache.cachedResponse(for: urlRequest)
     }
     
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
-        guard let permanentCache = permanentCache else {
-            failure(SessionPermanentCacheError.unexpectedURLCacheType)
-            return
-        }
-        
-        permanentCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, mimeType: mimeType, urlRequest: urlRequest, success: success, failure: failure)
+        defaultPermanentCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, mimeType: mimeType, urlRequest: urlRequest, success: success, failure: failure)
     }
     
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
-        return permanentCache?.uniqueFileNameForItemKey(itemKey, variant: variant)
+        return defaultPermanentCache.uniqueFileNameForItemKey(itemKey, variant: variant)
     }
     
     func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return permanentCache?.uniqueFileNameForURLRequest(urlRequest)
+        return defaultPermanentCache.uniqueFileNameForURLRequest(urlRequest)
     }
     
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return permanentCache?.itemKeyForURLRequest(urlRequest)
+        return defaultPermanentCache.itemKeyForURLRequest(urlRequest)
     }
     
     func variantForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return permanentCache?.variantForURLRequest(urlRequest)
+        return defaultPermanentCache.variantForURLRequest(urlRequest)
     }
     
     func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
-        return permanentCache?.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+        return defaultPermanentCache.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
     }
     
     //Bundled migration only - copies files into cache
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Bool, Error>) -> Void) {
         
-        permanentCache?.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
+        defaultPermanentCache.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
     }
 }
 

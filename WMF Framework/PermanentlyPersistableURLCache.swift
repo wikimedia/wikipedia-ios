@@ -460,38 +460,39 @@ extension PermanentlyPersistableURLCache {
     private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
         
         let variant = variantForURLRequest(request)
-        if let itemKey = itemKeyForURLRequest(request),
+        
+        guard let itemKey = itemKeyForURLRequest(request),
             let httpResponse = cachedResponse.response as? HTTPURLResponse,
-            let moc = cacheManagedObjectContext {
-            if CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc),
-                httpResponse.statusCode == 200 {
-                
-                let headerFileName = uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-                let contentFileName = uniqueFileNameForItemKey(itemKey, variant: variant)
-               
-                CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
-                    switch result {
-                    case .success:
-                        DDLogDebug("Successfully updated cached header file.")
-                    case .failure(let error):
-                        DDLogDebug("Failed updating cached header file: \(error)")
-                    case .exists:
-                        assertionFailure("This shouldn't happen.")
-                        break
-                    }
-                }
-                
-                CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
-                    switch result {
-                        case .success:
-                            DDLogDebug("Successfully updated cached header file.")
-                        case .failure(let error):
-                            DDLogDebug("Failed updating cached header file: \(error)")
-                        case .exists:
-                            assertionFailure("This shouldn't happen.")
-                            break
-                    }
-                }
+            let moc = cacheManagedObjectContext,
+            CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc),
+            httpResponse.statusCode == 200 else {
+            return
+        }
+
+        let headerFileName = uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+        let contentFileName = uniqueFileNameForItemKey(itemKey, variant: variant)
+       
+        CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
+            switch result {
+            case .success:
+                DDLogDebug("Successfully updated cached header file.")
+            case .failure(let error):
+                DDLogDebug("Failed updating cached header file: \(error)")
+            case .exists:
+                assertionFailure("This shouldn't happen.")
+                break
+            }
+        }
+        
+        CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
+            switch result {
+                case .success:
+                    DDLogDebug("Successfully updated cached header file.")
+                case .failure(let error):
+                    DDLogDebug("Failed updating cached header file: \(error)")
+                case .exists:
+                    assertionFailure("This shouldn't happen.")
+                    break
             }
         }
     }
