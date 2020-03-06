@@ -21,7 +21,7 @@ public final class ArticleCacheController: CacheController {
         return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
     }()
     
-    public static func sharedNewResourceCacheController() -> ArticleCacheController? {
+    public static func newResourceCacheController() -> ArticleCacheController? {
         
         guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
         let imageCacheController = ImageCacheController.shared else {
