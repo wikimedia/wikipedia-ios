@@ -54,4 +54,13 @@ extension WMFArticle {
             errorCodeNumber = NSNumber(value: newValue.rawValue)
         }
     }
+    
+    public func retryDownload() {
+        guard savedDate != nil, isDownloaded == false else {
+            return
+        }
+        downloadAttemptCount = 0
+        downloadRetryDate = nil
+    }
 }
+
