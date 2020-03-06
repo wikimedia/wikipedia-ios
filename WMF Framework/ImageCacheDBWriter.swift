@@ -50,11 +50,11 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
         var result: Bool = false
         context.performAndWait {
-
+        
             let allVariantCacheItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: context)
-            let allVariantItems = allVariantCacheItems.compactMap { return CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }
-            
-            result = shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
+                let allVariantItems = allVariantCacheItems.compactMap { return CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }
+                
+                result = shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
         }
 
         return result
@@ -66,31 +66,23 @@ final class ImageCacheDBWriter: CacheDBWriting {
             return true
         }
         
-        let sortedItems = allVariantItems.sorted(by: { (lhs, rhs) -> Bool in
-
-            guard let lhsVariant = lhs.variant,
-                let lhsSize = Int64(lhsVariant),
-                let rhsVariant = rhs.variant,
-                let rhsSize = Int64(rhsVariant) else {
-                    return true
-            }
-
-            return lhsSize < rhsSize
-        })
-
-        switch (UIScreen.main.scale, sortedItems.count) {
+        var sortableVariantItems = allVariantItems
+            
+        sortableVariantItems.sortAsImageItemKeyAndVariants()
+        
+        switch (UIScreen.main.scale, allVariantItems.count) {
         case (1.0, _), (_, 1):
-            guard let firstVariant = sortedItems.first?.variant else {
+            guard let firstVariant = allVariantItems.first?.variant else {
                 return true
             }
             return variant == firstVariant
         case (2.0, _):
-            guard let secondVariant = sortedItems[safeIndex: 1]?.variant else {
+            guard let secondVariant = allVariantItems[safeIndex: 1]?.variant else {
                 return true
             }
             return variant == secondVariant
         case (3.0, _):
-            guard let lastVariant = sortedItems.last?.variant else {
+            guard let lastVariant = allVariantItems.last?.variant else {
                 return true
             }
             return variant == lastVariant
