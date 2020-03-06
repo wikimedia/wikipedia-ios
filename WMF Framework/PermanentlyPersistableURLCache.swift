@@ -639,6 +639,27 @@ public extension HTTPURLResponse {
     static let ifNoneMatchHeaderKey = "If-None-Match"
 }
 
+public extension Array where Element == CacheController.ItemKeyAndVariant {
+    mutating func sortAsImageItemKeyAndVariants() {
+        sort { (lhs, rhs) -> Bool in
+
+            guard let lhsVariant = lhs.variant,
+                let lhsSize = Int64(lhsVariant),
+                let rhsVariant = rhs.variant,
+                let rhsSize = Int64(rhsVariant) else {
+                    return true
+            }
+            // 0 is original so treat it as larger than others
+            if rhsSize == 0 {
+                return true
+            } else if lhsSize == 0 {
+                return false
+            }
+            return lhsSize < rhsSize
+        }
+    }
+}
+
 public extension Array where Element: CacheItem {
     mutating func sortAsImageCacheItems() {
         sort { (lhs, rhs) -> Bool in
