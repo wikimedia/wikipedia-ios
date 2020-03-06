@@ -51,45 +51,52 @@ final class ImageCacheDBWriter: CacheDBWriting {
         var result: Bool = false
         context.performAndWait {
 
-            var allVariantItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: context)
-
-            allVariantItems.sort { (lhs, rhs) -> Bool in
-
-                guard let lhsVariant = lhs.variant,
-                    let lhsSize = Int64(lhsVariant),
-                    let rhsVariant = rhs.variant,
-                    let rhsSize = Int64(rhsVariant) else {
-                        return true
-                }
-
-                return lhsSize < rhsSize
-            }
-
-            switch (UIScreen.main.scale, allVariantItems.count) {
-            case (1.0, _), (_, 1):
-                guard let firstVariant = allVariantItems.first?.variant else {
-                    result = true
-                    return
-                }
-                result = variant == firstVariant
-            case (2.0, _):
-                guard let secondVariant = allVariantItems[safeIndex: 1]?.variant else {
-                    result = true
-                    return
-                }
-                result = variant == secondVariant
-            case (3.0, _):
-                guard let lastVariant = allVariantItems.last?.variant else {
-                    result = true
-                    return
-                }
-                result = variant == lastVariant
-            default:
-                result = false
-            }
+            let allVariantCacheItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: context)
+            let allVariantItems = allVariantCacheItems.compactMap { return CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }
+            
+            result = shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
         }
 
         return result
+    }
+    
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        
+        guard let variant = variant else {
+            return true
+        }
+        
+        let sortedItems = allVariantItems.sorted(by: { (lhs, rhs) -> Bool in
+
+            guard let lhsVariant = lhs.variant,
+                let lhsSize = Int64(lhsVariant),
+                let rhsVariant = rhs.variant,
+                let rhsSize = Int64(rhsVariant) else {
+                    return true
+            }
+
+            return lhsSize < rhsSize
+        })
+
+        switch (UIScreen.main.scale, sortedItems.count) {
+        case (1.0, _), (_, 1):
+            guard let firstVariant = sortedItems.first?.variant else {
+                return true
+            }
+            return variant == firstVariant
+        case (2.0, _):
+            guard let secondVariant = sortedItems[safeIndex: 1]?.variant else {
+                return true
+            }
+            return variant == secondVariant
+        case (3.0, _):
+            guard let lastVariant = sortedItems.last?.variant else {
+                return true
+            }
+            return variant == lastVariant
+        default:
+            return false
+        }
     }
 }
 

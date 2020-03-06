@@ -139,6 +139,10 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
         return true
     }
+    
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        return true
+    }
 }
 
 //Migration

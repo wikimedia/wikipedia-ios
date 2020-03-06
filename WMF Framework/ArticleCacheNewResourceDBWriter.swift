@@ -10,6 +10,7 @@ enum ArticleCacheNewResourceDBWriterError: Error {
 }
 
 final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
+    
     let articleFetcher: ArticleFetcher
     let imageInfoFetcher: MWKImageInfoFetcher
     let imageFetcher: ImageFetcher
@@ -22,10 +23,18 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    struct NetworkItem: Hashable {
+    private struct NetworkItem: Hashable {
         let itemKeyAndVariant: CacheController.ItemKeyAndVariant
         let url: URL?
         let urlRequest: URLRequest?
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(itemKeyAndVariant)
+        }
+        
+        static func ==(lhs: NetworkItem, rhs: NetworkItem) -> Bool {
+            return lhs.itemKeyAndVariant == rhs.itemKeyAndVariant
+        }
     }
     
     init(articleFetcher: ArticleFetcher, imageFetcher: ImageFetcher, imageInfoFetcher: MWKImageInfoFetcher, cacheBackgroundContext: NSManagedObjectContext, imageController: ImageCacheController) {
@@ -64,6 +73,7 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
                 }
                 
+                
                 let mediaListItems = urls.mediaListURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.imageFetcher.itemKeyForURL(url, type: .image) else {
                         return nil
@@ -79,7 +89,46 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
                 }
                 
-                let networkItems: Set<NetworkItem> = Set(offlineResourceItems + mediaListItems)
+                //group into dictionary of the same itemKey for use in filtering out variants
+                var similarItemsDictionary: [CacheController.ItemKey: [NetworkItem]] = [:]
+                for item in mediaListItems {
+                    if var existingItems = similarItemsDictionary[item.itemKeyAndVariant.itemKey] {
+                        existingItems.append(item)
+                        similarItemsDictionary[item.itemKeyAndVariant.itemKey] = existingItems
+                    } else {
+                        similarItemsDictionary[item.itemKeyAndVariant.itemKey] = [item]
+                    }
+                }
+                
+                //filter out any variants that image cache controller should not download (i.e. multiple sizes of the same image)
+                var finalMediaListItems: [NetworkItem] = []
+                for item in mediaListItems {
+                    guard let similarItems = similarItemsDictionary[item.itemKeyAndVariant.itemKey] else {
+                        continue
+                    }
+                    
+                    let allVariantItems = similarItems.map { $0.itemKeyAndVariant }
+                    if ImageCacheController.shared?.shouldDownloadVariantForAllVariantItems(variant: item.itemKeyAndVariant.variant, allVariantItems) ?? false {
+                        finalMediaListItems.append(item)
+                    }
+                }
+                
+                let imageInfoItems = urls.imageInfoURLs.compactMap { (url) -> NetworkItem? in
+                    guard let itemKey = self.imageFetcher.itemKeyForURL(url, type: .imageInfo) else {
+                        return nil
+                    }
+                    
+                    let variant = self.imageFetcher.variantForURL(url, type: .imageInfo)
+                    
+                    guard let itemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: variant),
+                        let urlRequest = self.imageFetcher.urlRequestFromURL(url, type: .imageInfo) else {
+                        return nil
+                    }
+                    
+                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
+                }
+                
+                let networkItems: Set<NetworkItem> = Set(offlineResourceItems + finalMediaListItems + imageInfoItems)
                 
                 //pull cache items for group key
                 guard let context = CacheController.backgroundCacheContext else {
@@ -134,7 +183,7 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
-    func cacheItems(groupKey: String, items: Set<NetworkItem>, completion: @escaping ((SaveResult) -> Void)) {
+    private func cacheItems(groupKey: String, items: Set<NetworkItem>, completion: @escaping ((SaveResult) -> Void)) {
 
         let context = self.cacheBackgroundContext
         context.perform {
@@ -175,4 +224,7 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
         return true
     }
     
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        return true
+    }
 }

@@ -144,6 +144,10 @@ public class CacheController {
         fileWriter.cancelTasks(for: groupKey)
     }
     
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        return dbWriter.shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
+    }
+    
     func finishDBAdd(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithURLRequests) {
         
         let groupCompleteBlock = { (groupResult: FinalGroupResult) in

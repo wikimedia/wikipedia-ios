@@ -43,6 +43,7 @@ protocol CacheDBWriting: CacheTaskTracking {
     func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool
     func shouldDownloadVariant(urlRequest: URLRequest) -> Bool
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool
     var fetcher: CacheFetching { get }
 
     //default implementations
