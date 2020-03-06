@@ -549,6 +549,10 @@ extension Session {
         return defaultPermanentCache.uniqueFileNameForURL(url, type: type)
     }
     
+    func isCachedWithURLRequest(_ urlRequest: URLRequest) -> Bool {
+        return defaultPermanentCache.isCachedWithURLRequest(urlRequest)
+    }
+    
     func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse? {
         
         let request = defaultPermanentCache.urlRequestFromURL(url, type: type)
@@ -580,6 +584,14 @@ extension Session {
     
     func variantForURLRequest(_ urlRequest: URLRequest) -> String? {
         return defaultPermanentCache.variantForURLRequest(urlRequest)
+    }
+    
+    func itemKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
+        return defaultPermanentCache.itemKeyForURL(url, type: type)
+    }
+    
+    func variantForURL(_ url: URL, type: Header.PersistItemType) -> String? {
+        return defaultPermanentCache.variantForURL(url, type: type)
     }
     
     func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {

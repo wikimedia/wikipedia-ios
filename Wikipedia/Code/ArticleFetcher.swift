@@ -205,6 +205,15 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
+    public func isCached(articleURL: URL, scheme: String? = nil) -> Bool {
+
+        guard let request = try? mobileHTMLRequest(articleURL: articleURL, scheme: scheme) else {
+            return false
+        }
+        
+        return session.isCachedWithURLRequest(request)
+    }
+    
     //MARK: Bundled offline resources
     
     struct BundledOfflineResources {

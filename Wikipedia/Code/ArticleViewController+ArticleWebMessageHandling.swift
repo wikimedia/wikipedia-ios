@@ -58,6 +58,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         restoreStateIfNecessary()
         addToHistory()
         fromNavStateRestoration = false
+        cacheNewResourcesIfNeeded()
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {

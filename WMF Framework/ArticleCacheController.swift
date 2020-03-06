@@ -3,6 +3,7 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
+    //use to cache entire article and all dependent resources and images
     public static let shared: ArticleCacheController? = {
         
         guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
@@ -18,6 +19,24 @@ public final class ArticleCacheController: CacheController {
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
         
         return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
+    }()
+    
+    //use to cache only new resources from media-list and mobile-html-offline-resources, if they aren't already cached
+    public static var sharedNewResource: ArticleCacheController? = {
+        
+        guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
+        let imageCacheController = ImageCacheController.shared else {
+            return nil
+        }
+        
+        let articleFetcher = ArticleFetcher()
+        let imageInfoFetcher = MWKImageInfoFetcher()
+        let imageFetcher = ImageFetcher()
+        
+        let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher)
+        let newResourceDBWriter = ArticleCacheNewResourceDBWriter(articleFetcher: articleFetcher, imageFetcher: imageFetcher, imageInfoFetcher: imageInfoFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController)
+        
+        return ArticleCacheController(dbWriter: newResourceDBWriter, fileWriter: cacheFileWriter)
     }()
 
 #if DEBUG

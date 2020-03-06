@@ -65,7 +65,7 @@ class PermanentlyPersistableURLCache: URLCache {
     }
 }
 
-//MARK: Public - URL Creation
+//MARK: Public - URLRequest Creation
 
 extension PermanentlyPersistableURLCache {
     func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
@@ -118,6 +118,17 @@ extension PermanentlyPersistableURLCache {
         
         return headers
     }
+    
+    func isCachedWithURLRequest(_ urlRequest: URLRequest) -> Bool {
+        guard let itemKey = itemKeyForURLRequest(urlRequest),
+        let moc = cacheManagedObjectContext else {
+            return false
+        }
+        
+        let variant = variantForURLRequest(urlRequest)
+        
+        return CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc)
+    }
 }
 
 //MARK: Private - URLRequest header creation
@@ -158,9 +169,7 @@ extension PermanentlyPersistableURLCache {
         
         return variantForURL(url, type: type)
     }
-}
-
-private extension PermanentlyPersistableURLCache {
+    
     func itemKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
         switch type {
         case .image:
@@ -182,7 +191,10 @@ private extension PermanentlyPersistableURLCache {
             return imageInfoVariantForURL(url)
         }
     }
-    
+}
+
+private extension PermanentlyPersistableURLCache {
+
     func imageItemKeyForURL(_ url: URL) -> String? {
         guard let host = url.host, let imageName = WMFParseImageNameFromSourceURL(url) else {
             return url.absoluteString.precomposedStringWithCanonicalMapping

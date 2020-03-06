@@ -124,11 +124,23 @@ extension CacheFetching where Self:Fetcher {
         return session.variantForURLRequest(urlRequest)
     }
     
+    public func itemKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
+        return session.itemKeyForURL(url, type: type)
+    }
+    
+    public func variantForURL(_ url: URL, type: Header.PersistItemType) -> String? {
+        return session.variantForURL(url, type: type)
+    }
+    
     public func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
         return session.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
     }
     
     public func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
         return session.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+    }
+    
+    public func isCachedWithURLRequest(_ request: URLRequest) -> Bool {
+        return session.isCachedWithURLRequest(request)
     }
 }

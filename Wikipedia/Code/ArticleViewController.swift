@@ -56,7 +56,6 @@ class ArticleViewController: ViewController {
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
     }()
-
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
         guard
@@ -344,6 +343,27 @@ class ArticleViewController: ViewController {
             self.footerLoadGroup?.leave()
         }) { (error) in
             self.footerLoadGroup?.leave()
+        }
+    }
+    
+    func cacheNewResourcesIfNeeded() {
+        if let groupKey = articleURL.wmf_databaseKey,
+            fetcher.isCached(articleURL: articleURL, scheme: schemeHandler.scheme) {
+            ArticleCacheController.sharedNewResource?.add(url: articleURL, groupKey: groupKey, individualCompletion: { (itemResult) in
+                switch itemResult {
+                case .success(let itemKey):
+                    DDLogDebug("successfully cached new resource \(itemKey)")
+                case .failure(let error):
+                    DDLogDebug("failed to cached new resourc \(groupKey): \(error)")
+                }
+            }, groupCompletion: { (groupResult) in
+                switch groupResult {
+                case .success(let itemKeys):
+                    DDLogDebug("successfully cached new resources for \(groupKey), itemKeyCount: \(itemKeys.count)")
+                case .failure(let error):
+                    DDLogDebug("failed to cache new resources for \(groupKey): \(error)")
+                }
+            })
         }
     }
     
