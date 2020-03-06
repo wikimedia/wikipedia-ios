@@ -42,24 +42,6 @@ extension ArticleError: LocalizedError {
 
 
 extension WMFArticle {
-    @objc public func updatePropertiesForError(_ underlyingError: Error) {
-        if let requestError = underlyingError as? RequestError {
-            switch requestError {
-            case .api:
-                error = .apiFailed
-            default:
-                error = .none
-            }
-        } else {
-            let nsError = error as NSError
-            if nsError.domain == NSCocoaErrorDomain && nsError.code == NSFileWriteOutOfSpaceError {
-                error = .saveToDiskFailed
-            } else {
-                error = .none
-            }
-        }
-    }
-    
     public var error: ArticleError {
         get {
             return ArticleError(rawValue: errorCodeNumber?.int32Value ?? 0) ?? .none

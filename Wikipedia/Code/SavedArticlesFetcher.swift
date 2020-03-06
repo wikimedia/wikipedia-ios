@@ -77,13 +77,18 @@ private extension SavedArticlesFetcher {
         progress = Progress.discreteProgress(totalUnitCount: -1)
     }
     
+    private var articlesToFetchPredicate: NSPredicate {
+        let now = NSDate()
+        return NSPredicate(format: "savedDate != NULL && isDownloaded != YES && (downloadRetryDate == NULL || downloadRetryDate < %@)", now)
+    }
+    
     func calculateCountOfArticlesToFetch() -> Int64? {
         assert(Thread.isMainThread)
         
         let moc = dataStore.viewContext
         let request = WMFArticle.fetchRequest()
         request.includesSubentities = false
-        request.predicate = NSPredicate(format: "savedDate != NULL && isDownloaded != YES")
+        request.predicate = articlesToFetchPredicate
         
         do {
             let count = try moc.count(for: request)
@@ -151,7 +156,7 @@ private extension SavedArticlesFetcher {
         
         let moc = dataStore.viewContext
         let request = WMFArticle.fetchRequest()
-        request.predicate = NSPredicate(format: "savedDate != NULL && isDownloaded != YES")
+        request.predicate = articlesToFetchPredicate
         request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: true)]
         request.fetchLimit = 1
         
@@ -256,28 +261,46 @@ private extension SavedArticlesFetcher {
     
     func didFailToFetchArticle(with key: String, error: Error) {
         operateOnArticles(with: key) { (article) in
-            article.updatePropertiesForError(error)
-            article.isDownloaded = !isErrorRecoverableOnRetry(error)
+            handleFailure(with: article, error: error)
         }
     }
     
-    func isErrorRecoverableOnRetry(_ error: Error) -> Bool {
-        
-        let error = error as NSError
-        switch error.domain {
-        case NSCocoaErrorDomain:
-            switch error.code {
-            case NSFileWriteOutOfSpaceError:
+    func handleFailure(with article: WMFArticle, error: Error) {
+        if let requestError = error as? RequestError {
+            switch requestError {
+            case .api:
+                article.error = .apiFailed
+            default:
+                article.error = .none
+            }
+        } else {
+            let nsError = error as NSError
+            if nsError.domain == NSCocoaErrorDomain && nsError.code == NSFileWriteOutOfSpaceError {
                 let userInfo = [SavedArticlesFetcher.saveToDiskDidFailErrorKey: error]
                 NotificationCenter.default.post(name: SavedArticlesFetcher.saveToDiskDidFail, object: self, userInfo: userInfo)
                 stop()
-            default:
-                break
+                article.error = .saveToDiskFailed
+            } else {
+                article.error = .none
             }
-            return true
-        default:
-            return true
         }
+        let newAttemptCount =  max(1, article.downloadAttemptCount + 1)
+        article.downloadAttemptCount = newAttemptCount
+        let secondsFromNowToAttempt: Int64
+        // pow() exists but this feels safer than converting to/from decimal, feel free to update if you know better
+        switch newAttemptCount {
+        case 1:
+            secondsFromNowToAttempt = 30
+        case 2:
+            secondsFromNowToAttempt = 900
+        case 3:
+            secondsFromNowToAttempt = 27000
+        case 4:
+            secondsFromNowToAttempt = 810000
+        default:
+            secondsFromNowToAttempt = 2419200 // 28 days later ☣
+        }
+        article.downloadRetryDate = Date(timeIntervalSinceNow: TimeInterval(integerLiteral: secondsFromNowToAttempt))
     }
 
     func didRemoveArticle(with key: String) {
