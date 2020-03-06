@@ -102,16 +102,10 @@ extension PermanentlyPersistableURLCache {
         //add If-None-Match, otherwise it will not be populated if URLCache.shared is cleared but persistent cache exists.
         switch type {
         case .article, .imageInfo:
-            if let cachedUrlResponse = self.cachedResponse(for: urlRequest)?.response as? HTTPURLResponse {
-                 for (key, value) in cachedUrlResponse.allHeaderFields {
-                    if let keyString = key as? String,
-                        let valueString = value as? String,
-                        keyString == HTTPURLResponse.etagHeaderKey {
-                        headers[HTTPURLResponse.ifNoneMatchHeaderKey] = valueString
-                    }
-                }
-                
+            guard let cachedHeaders = permanentlyCachedHeaders(for: urlRequest) else {
+                break
             }
+            headers[HTTPURLResponse.ifNoneMatchHeaderKey] = cachedHeaders[HTTPURLResponse.etagHeaderKey]
         case .image:
             break
         }
@@ -520,6 +514,21 @@ extension PermanentlyPersistableURLCache {
 
 private extension PermanentlyPersistableURLCache {
     
+    func permanentlyCachedHeaders(for request: URLRequest) -> [String: String]? {
+        guard let url = request.url,
+            let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
+            let type = Header.PersistItemType(rawValue: typeRaw) else {
+                return nil
+        }
+        guard let responseHeaderFileName = uniqueHeaderFileNameForURL(url, type: type) else {
+            return nil
+        }
+        guard let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
+            return nil
+        }
+        return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(responseHeaderData) as? [String: String]
+    }
+    
     func permanentlyCachedResponse(for request: URLRequest) -> CachedURLResponse? {
         
         //1. try pulling from Persistent Cache
@@ -572,7 +581,9 @@ private extension PermanentlyPersistableURLCache {
             let responseHeaderFileName = maybeResponseHeaderFileName else {
                 return nil
         }
-
+        
+        assert(!Thread.isMainThread)
+        
         guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path) else {
             return nil
         }
