@@ -11,8 +11,7 @@
                                 failure:(void (^)(NSError *))failure {
     NSString *title = articleURL.wmf_title;
     if (!title.length) {
-        NSError *error = NSError.wmf_invalidParametersError;
-        failure(error);
+        failure([WMFFetcher invalidParametersError]);
         return;
     }
     NSDictionary *params = @{
