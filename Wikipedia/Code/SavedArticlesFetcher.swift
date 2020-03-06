@@ -266,22 +266,30 @@ private extension SavedArticlesFetcher {
     }
     
     func handleFailure(with article: WMFArticle, error: Error) {
-        if let requestError = error as? RequestError {
-            switch requestError {
-            case .api:
-                article.error = .apiFailed
+        var underlyingError: Error = error
+        if let writerError = error as? ArticleCacheDBWriterError {
+            switch writerError {
+            case .failureFetchingMediaList(let error):
+                fallthrough
+            case .failureFetchingOfflineResourceList(let error):
+                underlyingError = error
+            case .oneOrMoreItemsFailedToMarkDownloaded(let errors):
+                underlyingError = errors.first ?? error
             default:
-                article.error = .none
+                break
             }
+        }
+        if underlyingError is RequestError {
+            article.error = .apiFailed
         } else {
-            let nsError = error as NSError
+            let nsError = underlyingError as NSError
             if nsError.domain == NSCocoaErrorDomain && nsError.code == NSFileWriteOutOfSpaceError {
                 let userInfo = [SavedArticlesFetcher.saveToDiskDidFailErrorKey: error]
                 NotificationCenter.default.post(name: SavedArticlesFetcher.saveToDiskDidFail, object: self, userInfo: userInfo)
                 stop()
                 article.error = .saveToDiskFailed
             } else {
-                article.error = .none
+                article.error = .apiFailed
             }
         }
         let newAttemptCount =  max(1, article.downloadAttemptCount + 1)
