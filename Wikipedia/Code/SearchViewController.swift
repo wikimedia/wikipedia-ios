@@ -138,15 +138,10 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         
         let start = Date()
         
-        MWNetworkActivityIndicatorManager.shared()?.push()
         fakeProgressController.start()
-        
-        let commonCompletion = {
-            MWNetworkActivityIndicatorManager.shared()?.pop()
-        }
+    
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async {
-                commonCompletion()
                 self.fakeProgressController.stop()
                 guard searchTerm == self.searchBar.text else {
                     return
@@ -159,7 +154,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         
         let sucess = { (results: WMFSearchResults, type: WMFSearchType) in
             DispatchQueue.main.async {
-                commonCompletion()
                 guard searchTerm == self.searchBar.text else {
                     return
                 }

@@ -1,6 +1,4 @@
 #import "MWKLanguageLinkFetcher.h"
-@import WMF.MWNetworkActivityIndicatorManager;
-@import WMF.WMFNetworkUtilities;
 @import WMF.NSURL_WMFLinkParsing;
 @import WMF.Swift;
 @import WMF.MWKLanguageLink;
@@ -13,9 +11,7 @@
                                 failure:(void (^)(NSError *))failure {
     NSString *title = articleURL.wmf_title;
     if (!title.length) {
-        NSError *error = [NSError errorWithDomain:WMFNetworkingErrorDomain
-                                             code:WMFNetworkingError_InvalidParameters
-                                         userInfo:nil];
+        NSError *error = NSError.wmf_invalidParametersError;
         failure(error);
         return;
     }
@@ -24,16 +20,14 @@
         @"prop": @"langlinks",
         @"titles": title,
         @"lllimit": @"500",
-        @"llprop": WMFJoinedPropertyParameters(@[@"langname", @"autonym"]),
+        @"llprop": [@[@"langname", @"autonym"] componentsJoinedByString:@"|"],
         @"llinlanguagecode": [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
         @"redirects": @"",
         @"format": @"json"
     };
-    [[MWNetworkActivityIndicatorManager sharedManager] push];
     [self performMediaWikiAPIGETForURL:articleURL
                    withQueryParameters:params
                      completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
-                         [[MWNetworkActivityIndicatorManager sharedManager] pop];
                          if (error) {
                              failure(error);
                              return;

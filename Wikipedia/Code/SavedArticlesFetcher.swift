@@ -1,5 +1,5 @@
-
 import Foundation
+import WMF
 
 //WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
 
@@ -7,6 +7,7 @@ import Foundation
 final class SavedArticlesFetcher: NSObject {
     @objc static let saveToDiskDidFail = NSNotification.Name("SaveToDiskDidFail")
     @objc static let saveToDiskDidFailErrorKey = "error"
+    @objc static let saveToDiskDidFailArticleURLKey = "articleURL"
     
     @objc dynamic var progress: Progress = Progress()
     private var countOfFetchesInProcess: Int64 = 0 {
@@ -255,14 +256,28 @@ private extension SavedArticlesFetcher {
     
     func didFailToFetchArticle(with key: String, error: Error) {
         operateOnArticles(with: key) { (article) in
-            article.updatePropertiesForError(error as NSError)
+            article.updatePropertiesForError(error)
             article.isDownloaded = !isErrorRecoverableOnRetry(error)
         }
     }
     
     func isErrorRecoverableOnRetry(_ error: Error) -> Bool {
-        // TODO: handle different errors differently - set isDownloaded = true on items that need to be skipped (errors that won't recover on retry)
-        return true
+        
+        let error = error as NSError
+        switch error.domain {
+        case NSCocoaErrorDomain:
+            switch error.code {
+            case NSFileWriteOutOfSpaceError:
+                let userInfo = [SavedArticlesFetcher.saveToDiskDidFailErrorKey: error]
+                NotificationCenter.default.post(name: SavedArticlesFetcher.saveToDiskDidFail, object: self, userInfo: userInfo)
+                stop()
+            default:
+                break
+            }
+            return true
+        default:
+            return true
+        }
     }
 
     func didRemoveArticle(with key: String) {

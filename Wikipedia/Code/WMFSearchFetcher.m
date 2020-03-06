@@ -40,8 +40,6 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         resultLimit = WMFMaxSearchResultLimit;
     }
 
-    [[MWNetworkActivityIndicatorManager sharedManager] push];
-
     NSNumber *numResults = @(resultLimit);
 
     NSDictionary *params = nil;
@@ -108,7 +106,6 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     [self performMediaWikiAPIGETForURL:url
                    withQueryParameters:queryParameters
                      completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
-                         [[MWNetworkActivityIndicatorManager sharedManager] pop];
                          if (error) {
                              failure(error);
                              return;
