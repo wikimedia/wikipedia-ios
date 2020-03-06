@@ -21,8 +21,7 @@ public final class ArticleCacheController: CacheController {
         return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
     }()
     
-    //use to cache only new resources from media-list and mobile-html-offline-resources, if they aren't already cached
-    public static var sharedNewResource: ArticleCacheController? = {
+    public static func sharedNewResourceCacheController() -> ArticleCacheController? {
         
         guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
         let imageCacheController = ImageCacheController.shared else {
@@ -37,7 +36,7 @@ public final class ArticleCacheController: CacheController {
         let newResourceDBWriter = ArticleCacheNewResourceDBWriter(articleFetcher: articleFetcher, imageFetcher: imageFetcher, imageInfoFetcher: imageInfoFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController)
         
         return ArticleCacheController(dbWriter: newResourceDBWriter, fileWriter: cacheFileWriter)
-    }()
+    }
 
 #if DEBUG
     override public func add(url: URL, groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {

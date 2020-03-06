@@ -82,7 +82,7 @@ public class CacheController {
     public typealias IndividualCompletionBlock = (FinalIndividualResult) -> Void
     public typealias GroupCompletionBlock = (FinalGroupResult) -> Void
     
-    public struct ItemKeyAndVariant {
+    public struct ItemKeyAndVariant: Hashable {
         let itemKey: CacheController.ItemKey
         let variant: String?
         

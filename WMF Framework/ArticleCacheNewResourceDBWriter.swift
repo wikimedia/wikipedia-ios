@@ -22,10 +22,10 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    struct Item {
+    struct NetworkItem: Hashable {
         let itemKeyAndVariant: CacheController.ItemKeyAndVariant
-        let url: URL
-        let urlRequest: URLRequest
+        let url: URL?
+        let urlRequest: URLRequest?
     }
     
     init(articleFetcher: ArticleFetcher, imageFetcher: ImageFetcher, imageInfoFetcher: MWKImageInfoFetcher, cacheBackgroundContext: NSManagedObjectContext, imageController: ImageCacheController) {
@@ -48,8 +48,8 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
             switch result {
             case .success(let urls):
                 
-                //get itemKey and variant of each url, filter urls only by those that are not already cached.
-                let offlineResourceItems = urls.offlineResourcesURLs.compactMap { (url) -> Item? in
+                //package urls into NetworkItems, filter out equivalent CacheItems that are already downloaded
+                let offlineResourceItems = urls.offlineResourcesURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .article) else {
                         return nil
                     }
@@ -61,10 +61,10 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                         return nil
                     }
                     
-                    return Item(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
+                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
                 }
                 
-                let mediaListItems = urls.mediaListURLs.compactMap { (url) -> Item? in
+                let mediaListItems = urls.mediaListURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.imageFetcher.itemKeyForURL(url, type: .image) else {
                         return nil
                     }
@@ -76,13 +76,12 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                         return nil
                     }
                     
-                    return Item(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
+                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
                 }
                 
-                //combine items to one set
-                let allItems = offlineResourceItems + mediaListItems
+                let networkItems: Set<NetworkItem> = Set(offlineResourceItems + mediaListItems)
                 
-                //get set of CacheItems under groupKey
+                //pull cache items for group key
                 guard let context = CacheController.backgroundCacheContext else {
                     completion(.failure(ArticleCacheNewResourceDBWriterError.missingMOC))
                     return
@@ -98,20 +97,27 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                         return
                     }
                     
-                    //filter items down by those not contained in cacheItems
-                    //tonitodo: prefer Sets for this
-                    let nonCachedItems = allItems.filter { (allItem) -> Bool in
-                        return !cacheItems.contains { (cacheItem) -> Bool in
-                            return allItem.itemKeyAndVariant.itemKey == cacheItem.key && allItem.itemKeyAndVariant.variant == cacheItem.variant && cacheItem.isDownloaded == true
+                    let downloadedCacheItems = cacheItems.compactMap { (cacheItem) -> NetworkItem? in
+                        guard let itemKey = cacheItem.key,
+                        let itemKeyandVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: cacheItem.variant),
+                            cacheItem.isDownloaded == true else {
+                            return nil
                         }
+                        
+                        return NetworkItem(itemKeyAndVariant: itemKeyandVariant, url: cacheItem.url, urlRequest: nil)
                     }
+                    
+                    let downloadedCacheItemsSet = Set(downloadedCacheItems)
+                    
+                    //get final set of resources that aren't already cached
+                    let filteredNewItems = networkItems.subtracting(downloadedCacheItemsSet)
                     
                     //cache nonCached urls
                     
-                    self.cacheItems(groupKey: groupKey, items: nonCachedItems) { (result) in
+                    self.cacheItems(groupKey: groupKey, items: filteredNewItems) { (result) in
                         switch result {
                         case .success:
-                            let requests = nonCachedItems.map { $0.urlRequest }
+                            let requests = filteredNewItems.compactMap { $0.urlRequest }
                             let result = CacheDBWritingResultWithURLRequests.success(requests)
                             completion(result)
                         case .failure(let error):
@@ -128,7 +134,7 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
-    func cacheItems(groupKey: String, items: [Item], completion: @escaping ((SaveResult) -> Void)) {
+    func cacheItems(groupKey: String, items: Set<NetworkItem>, completion: @escaping ((SaveResult) -> Void)) {
 
         let context = self.cacheBackgroundContext
         context.perform {
@@ -140,9 +146,14 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
             
             for item in items {
                 
+                guard let url = item.url,
+                    let _ = item.urlRequest else {
+                        assertionFailure("These need to be populated at this point. They are only optional to be able to compare cleanly with a set of converted CacheItems to NetworkItems")
+                        continue
+                }
+                
                 let itemKey = item.itemKeyAndVariant.itemKey
                 let variant = item.itemKeyAndVariant.variant
-                let url = item.url
                 
                 guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
                     completion(.failure(ArticleCacheNewResourceDBWriterError.failureFetchOrCreatCacheItem))

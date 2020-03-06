@@ -57,6 +57,10 @@ class ArticleViewController: ViewController {
         return rc
     }()
     
+    lazy var sharedNewResourceCacheController: ArticleCacheController? = {
+        return ArticleCacheController.sharedNewResourceCacheController()
+    }()
+    
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
@@ -349,7 +353,7 @@ class ArticleViewController: ViewController {
     func cacheNewResourcesIfNeeded() {
         if let groupKey = articleURL.wmf_databaseKey,
             fetcher.isCached(articleURL: articleURL, scheme: schemeHandler.scheme) {
-            ArticleCacheController.sharedNewResource?.add(url: articleURL, groupKey: groupKey, individualCompletion: { (itemResult) in
+            sharedNewResourceCacheController?.add(url: articleURL, groupKey: groupKey, individualCompletion: { (itemResult) in
                 switch itemResult {
                 case .success(let itemKey):
                     DDLogDebug("successfully cached new resource \(itemKey)")
