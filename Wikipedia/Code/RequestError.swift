@@ -20,12 +20,12 @@ public enum RequestError: LocalizedError {
         return .http(code)
     }
     
-    public static func from(_ apiError: [String: Any]?) -> RequestError {
+    public static func from(_ apiError: [String: Any]?) -> RequestError? {
         guard
             let error = apiError?["error"] as? [String: Any],
             let code = error["code"] as? String
         else {
-            return .unexpectedResponse
+            return nil
         }
         return .api(code)
     }
