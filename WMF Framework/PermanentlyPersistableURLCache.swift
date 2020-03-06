@@ -211,7 +211,7 @@ private extension PermanentlyPersistableURLCache {
     }
     
     func articleVariantForURL(_ url: URL) -> String? {
-        #if WMF_APPS_LABS_MOBILE_HTML
+        #if WMF_APPS_LABS_MOBILE_HTML || WMF_LOCAL
             if let pathComponents = (url as NSURL).pathComponents,
             pathComponents.count >= 2 {
                 let newHost = pathComponents[1]

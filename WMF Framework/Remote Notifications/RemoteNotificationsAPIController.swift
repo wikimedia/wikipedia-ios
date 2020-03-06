@@ -218,28 +218,17 @@ class RemoteNotificationsAPIController: Fetcher {
                     "notfilter": filter.rawValue]
 
             let wikis = subdomains.compactMap { $0.replacingOccurrences(of: "-", with: "_").appending("wiki") }
-            if let listOfWikis = WMFJoinedPropertyParameters(wikis) {
-                dictionary["notwikis"] = listOfWikis
-            }
-
+            dictionary["notwikis"] = wikis.joined(separator: "|")
             return dictionary
         }
 
         static func markAsRead(notifications: [RemoteNotification]) -> Parameters? {
             let IDs = notifications.compactMap { $0.id }
             let wikis = notifications.compactMap { $0.wiki }
-            guard let listOfIDs = WMFJoinedPropertyParameters(IDs) else {
-                assertionFailure("List of IDs cannot be nil")
-                return nil
-            }
-            guard let listOfWikis = WMFJoinedPropertyParameters(wikis) else {
-                assertionFailure("List of wikis cannot be nil")
-                return nil
-            }
             return ["action": "echomarkread",
                     "format": "json",
-                    "wikis": listOfWikis,
-                    "list": listOfIDs]
+                    "wikis": wikis.joined(separator: "|"),
+                    "list":  IDs.joined(separator: "|")]
         }
     }
 }

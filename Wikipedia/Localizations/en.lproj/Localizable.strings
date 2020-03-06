@@ -62,6 +62,7 @@
 "action-remove" = "Remove";
 "action-replace" = "Replace";
 "action-replace-all" = "Replace all";
+"action-retry" = "Retry";
 "action-save" = "Save";
 "action-saved" = "Saved";
 "action-saved-accessibility" = "Saved. Activate to unsave.";

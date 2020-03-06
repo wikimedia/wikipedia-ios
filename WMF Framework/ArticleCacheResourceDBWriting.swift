@@ -41,8 +41,8 @@ extension ArticleCacheResourceDBWriting {
             switch result {
             case .success(let items):
                 completion(.success(items))
-            case .failure:
-                completion(.failure(.failureFetchingMediaList))
+            case .failure(let error):
+                completion(.failure(.failureFetchingMediaList(error)))
             }
         }
         
@@ -68,8 +68,8 @@ extension ArticleCacheResourceDBWriting {
             switch result {
             case .success(let urls):
                 completion(.success(urls))
-            case .failure:
-                completion(.failure(.failureFetchingOfflineResourceList))
+            case .failure(let error):
+                completion(.failure(.failureFetchingOfflineResourceList(error)))
             }
         }
         

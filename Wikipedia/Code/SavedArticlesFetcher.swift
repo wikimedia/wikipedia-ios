@@ -1,5 +1,5 @@
-
 import Foundation
+import WMF
 
 //WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
 
@@ -7,6 +7,7 @@ import Foundation
 final class SavedArticlesFetcher: NSObject {
     @objc static let saveToDiskDidFail = NSNotification.Name("SaveToDiskDidFail")
     @objc static let saveToDiskDidFailErrorKey = "error"
+    @objc static let saveToDiskDidFailArticleURLKey = "articleURL"
     
     @objc dynamic var progress: Progress = Progress()
     private var countOfFetchesInProcess: Int64 = 0 {
@@ -76,13 +77,18 @@ private extension SavedArticlesFetcher {
         progress = Progress.discreteProgress(totalUnitCount: -1)
     }
     
+    private var articlesToFetchPredicate: NSPredicate {
+        let now = NSDate()
+        return NSPredicate(format: "savedDate != NULL && isDownloaded != YES && (downloadRetryDate == NULL || downloadRetryDate < %@)", now)
+    }
+    
     func calculateCountOfArticlesToFetch() -> Int64? {
         assert(Thread.isMainThread)
         
         let moc = dataStore.viewContext
         let request = WMFArticle.fetchRequest()
         request.includesSubentities = false
-        request.predicate = NSPredicate(format: "savedDate != NULL && isDownloaded != YES")
+        request.predicate = articlesToFetchPredicate
         
         do {
             let count = try moc.count(for: request)
@@ -150,7 +156,7 @@ private extension SavedArticlesFetcher {
         
         let moc = dataStore.viewContext
         let request = WMFArticle.fetchRequest()
-        request.predicate = NSPredicate(format: "savedDate != NULL && isDownloaded != YES")
+        request.predicate = articlesToFetchPredicate
         request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: true)]
         request.fetchLimit = 1
         
@@ -255,14 +261,54 @@ private extension SavedArticlesFetcher {
     
     func didFailToFetchArticle(with key: String, error: Error) {
         operateOnArticles(with: key) { (article) in
-            article.updatePropertiesForError(error as NSError)
-            article.isDownloaded = !isErrorRecoverableOnRetry(error)
+            handleFailure(with: article, error: error)
         }
     }
     
-    func isErrorRecoverableOnRetry(_ error: Error) -> Bool {
-        // TODO: handle different errors differently - set isDownloaded = true on items that need to be skipped (errors that won't recover on retry)
-        return true
+    func handleFailure(with article: WMFArticle, error: Error) {
+        var underlyingError: Error = error
+        if let writerError = error as? ArticleCacheDBWriterError {
+            switch writerError {
+            case .failureFetchingMediaList(let error):
+                fallthrough
+            case .failureFetchingOfflineResourceList(let error):
+                underlyingError = error
+            case .oneOrMoreItemsFailedToMarkDownloaded(let errors):
+                underlyingError = errors.first ?? error
+            default:
+                break
+            }
+        }
+        if underlyingError is RequestError {
+            article.error = .apiFailed
+        } else {
+            let nsError = underlyingError as NSError
+            if nsError.domain == NSCocoaErrorDomain && nsError.code == NSFileWriteOutOfSpaceError {
+                let userInfo = [SavedArticlesFetcher.saveToDiskDidFailErrorKey: error]
+                NotificationCenter.default.post(name: SavedArticlesFetcher.saveToDiskDidFail, object: self, userInfo: userInfo)
+                stop()
+                article.error = .saveToDiskFailed
+            } else {
+                article.error = .apiFailed
+            }
+        }
+        let newAttemptCount =  max(1, article.downloadAttemptCount + 1)
+        article.downloadAttemptCount = newAttemptCount
+        let secondsFromNowToAttempt: Int64
+        // pow() exists but this feels safer than converting to/from decimal, feel free to update if you know better
+        switch newAttemptCount {
+        case 1:
+            secondsFromNowToAttempt = 30
+        case 2:
+            secondsFromNowToAttempt = 900
+        case 3:
+            secondsFromNowToAttempt = 27000
+        case 4:
+            secondsFromNowToAttempt = 810000
+        default:
+            secondsFromNowToAttempt = 2419200 // 28 days later ☣
+        }
+        article.downloadRetryDate = Date(timeIntervalSinceNow: TimeInterval(integerLiteral: secondsFromNowToAttempt))
     }
 
     func didRemoveArticle(with key: String) {

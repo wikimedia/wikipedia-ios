@@ -1,17 +1,16 @@
 
 import Foundation
 
-enum ArticleCacheDBWriterError: Error {
+public enum ArticleCacheDBWriterError: Error {
     case unableToDetermineDatabaseKey
-    case invalidListEndpointType
     case missingListURLInRequest
-    case failureFetchingMediaList
-    case failureFetchingOfflineResourceList
+    case failureFetchingMediaList(Error)
+    case failureFetchingOfflineResourceList(Error)
     case failureFetchOrCreateCacheGroup
     case failureFetchOrCreateMustHaveCacheItem
     case unableToDetermineItemKey
-    case unableToDetermineBundledOfflineURLS
-    case oneOrMoreItemsFailedToMarkDownloaded
+    case unableToDetermineBundledOfflineURLs
+    case oneOrMoreItemsFailedToMarkDownloaded([Error])
     case failureMakingRequestFromMustHaveResource
 }
 
@@ -157,7 +156,7 @@ extension ArticleCacheDBWriter {
                 
             
             guard let offlineResources = self.articleFetcher.bundledOfflineResourceURLs() else {
-                completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLS))
+                completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLs))
                 return
             }
             
@@ -265,7 +264,7 @@ extension ArticleCacheDBWriter {
         
         group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
             if markDownloadedErrors.count > 0 {
-                completion(.failure(ArticleCacheDBWriterError.oneOrMoreItemsFailedToMarkDownloaded))
+                completion(.failure(ArticleCacheDBWriterError.oneOrMoreItemsFailedToMarkDownloaded(markDownloadedErrors)))
             } else {
                 completion(.success)
             }
