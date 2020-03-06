@@ -20,7 +20,7 @@ public final class ArticleCacheController: CacheController {
         return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
     }()
 
-#if DEBUG
+#if DEBUG && false // change this to true or remove to re-enable
     override public func add(url: URL, groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
         super.add(url: url, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
         

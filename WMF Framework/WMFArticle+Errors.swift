@@ -59,8 +59,10 @@ extension WMFArticle {
         guard savedDate != nil, isDownloaded == false else {
             return
         }
+        errorCodeNumber = nil
         downloadAttemptCount = 0
         downloadRetryDate = nil
+        
     }
 }
 
