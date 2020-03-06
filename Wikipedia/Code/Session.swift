@@ -549,8 +549,8 @@ extension Session {
         return defaultPermanentCache.uniqueFileNameForURL(url, type: type)
     }
     
-    func isCachedWithURLRequest(_ urlRequest: URLRequest) -> Bool {
-        return defaultPermanentCache.isCachedWithURLRequest(urlRequest)
+    func isCachedWithURLRequest(_ urlRequest: URLRequest, completion: @escaping (Bool) -> Void) {
+        return defaultPermanentCache.isCachedWithURLRequest(urlRequest, completion: completion)
     }
     
     func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse? {

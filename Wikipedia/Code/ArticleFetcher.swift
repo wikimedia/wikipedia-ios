@@ -205,13 +205,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
-    public func isCached(articleURL: URL, scheme: String? = nil) -> Bool {
+    public func isCached(articleURL: URL, scheme: String? = nil, completion: @escaping (Bool) -> Void) {
 
         guard let request = try? mobileHTMLRequest(articleURL: articleURL, scheme: scheme) else {
-            return false
+            completion(false)
+            return
         }
         
-        return session.isCachedWithURLRequest(request)
+        return session.isCachedWithURLRequest(request, completion: completion)
     }
     
     //MARK: Bundled offline resources

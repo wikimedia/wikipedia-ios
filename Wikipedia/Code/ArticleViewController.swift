@@ -351,9 +351,14 @@ class ArticleViewController: ViewController {
     }
     
     func cacheNewResourcesIfNeeded() {
-        if let groupKey = articleURL.wmf_databaseKey,
-            fetcher.isCached(articleURL: articleURL, scheme: schemeHandler.scheme) {
-            newResourceCacheController?.add(url: articleURL, groupKey: groupKey, individualCompletion: { (itemResult) in
+        guard let groupKey = articleURL.wmf_databaseKey else {
+            return
+        }
+        fetcher.isCached(articleURL: articleURL) { (isCached) in
+            guard isCached else {
+                return
+            }
+            self.newResourceCacheController?.add(url: self.articleURL, groupKey: groupKey, individualCompletion: { (itemResult) in
                 switch itemResult {
                 case .success(let itemKey):
                     DDLogDebug("successfully cached new resource \(itemKey)")

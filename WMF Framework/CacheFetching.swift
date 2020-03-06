@@ -140,7 +140,7 @@ extension CacheFetching where Self:Fetcher {
         return session.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
     }
     
-    public func isCachedWithURLRequest(_ request: URLRequest) -> Bool {
-        return session.isCachedWithURLRequest(request)
+    public func isCachedWithURLRequest(_ request: URLRequest, completion: @escaping (Bool) -> Void) {
+        return session.isCachedWithURLRequest(request, completion: completion)
     }
 }

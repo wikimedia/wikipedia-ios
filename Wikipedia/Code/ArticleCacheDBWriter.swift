@@ -112,29 +112,6 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
-    func allDownloaded(groupKey: String) -> Bool {
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            return false
-        }
-        
-        return context.performWaitAndReturn {
-            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-                return false
-            }
-            guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
-                return false
-            }
-            for item in cacheItems {
-                if !item.isDownloaded && group.mustHaveCacheItems?.contains(item) ?? false {
-                    return false
-                }
-            }
-            
-            return true
-        } ?? false
-    }
-    
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
         //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
         return true
