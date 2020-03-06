@@ -1627,7 +1627,6 @@
 		B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8092E1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m */; };
 		B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */; };
 		B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */; };
-		B0E809391C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */; };
 		B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8093A1C0D1A590065EBC0 /* WMFSafeAssignTests.m */; };
 		B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */; };
 		B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */; };
@@ -4025,7 +4024,6 @@
 		B0E8092E1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFExtrasTests.m"; path = "WikipediaUnitTests/Code/NSURL+WMFExtrasTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGeometryTests.m; path = WikipediaUnitTests/Code/WMFGeometryTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkControllerTests.m; path = WikipediaUnitTests/Code/MWKLanguageLinkControllerTests.m; sourceTree = SOURCE_ROOT; };
-		B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkFetcherTests.m; path = WikipediaUnitTests/Code/MWKLanguageLinkFetcherTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8093A1C0D1A590065EBC0 /* WMFSafeAssignTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSafeAssignTests.m; path = WikipediaUnitTests/Code/WMFSafeAssignTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFLinkParsingTests.m"; path = "WikipediaUnitTests/Code/NSURL+WMFLinkParsingTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809481C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WMFImageFetchingVisualTests.m"; path = "WikipediaUnitTests/Code/UIImageView+WMFImageFetchingVisualTests.m"; sourceTree = SOURCE_ROOT; };
@@ -7333,7 +7331,6 @@
 				B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */,
 				B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */,
 				B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */,
-				B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */,
 				B0E8093A1C0D1A590065EBC0 /* WMFSafeAssignTests.m */,
 				B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */,
 				B0E809481C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m */,
@@ -9849,7 +9846,6 @@
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
-				B0E809391C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m in Sources */,
 				B0E808A61C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
