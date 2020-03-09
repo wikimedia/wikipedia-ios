@@ -101,6 +101,7 @@
 "action-remove" = "移除";
 "action-replace" = "替换";
 "action-replace-all" = "替换所有";
+"action-retry" = "重试";
 "action-save" = "保存";
 "action-saved" = "已保存";
 "action-saved-accessibility" = "已保存。激活以取消保存。";

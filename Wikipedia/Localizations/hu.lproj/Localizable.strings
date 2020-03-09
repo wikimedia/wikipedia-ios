@@ -78,6 +78,7 @@
 "action-remove" = "Eltávolítás";
 "action-replace" = "Csere";
 "action-replace-all" = "Összes cseréje";
+"action-retry" = "Újra";
 "action-save" = "Mentés";
 "action-saved" = "Elmentve";
 "action-saved-accessibility" = "Mentve. Aktiválja a visszavonáshoz.";
@@ -85,6 +86,7 @@
 "action-share" = "Megosztás";
 "action-share-accessibility" = "Megosztás";
 "action-sort" = "Rendezés";
+"action-thank-user-accessibility" = "Köszönet a felhasználónak";
 "action-undo" = "Visszavonás";
 "action-unsave" = "Mentés eldobása";
 "action-unsaved-accessibility-notification" = "Szócikk eltávolítva";
@@ -162,12 +164,21 @@
 "description-welcome-concise-title" = "Fogalmazz tömören";
 "description-welcome-descriptions-sub-title" = "Összefoglalja a szócikk témáját, hogy az olvasó megtudja, miről szól";
 "description-welcome-descriptions-title" = "Címleírások";
+"description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
 "diff-paragraph-moved-direction-down" = "le";
 "diff-paragraph-moved-direction-up" = "föl";
+"diff-revision-error-title" = "A lapváltozat betöltése sikertelen";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|Egy szerkesztés|$1 szerkesztés}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|Egy bájt|$1 bájt}} hozzáadva";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|Egy bájt|$1 bájt}} eltávolítva";
 "diff-single-header-summary-heading" = "Szerkesztési összefoglaló";
+"diff-single-line-format" = "$1. sor";
+"diff-thanks-anonymous-no-thanks" = "Anonim szerkesztőknek nem küldhető köszönet";
 "diff-thanks-login-title" = "Köszönet küldéséhez jelentkezz be";
 "diff-thanks-send-button-title" = "Köszönet küldése";
+"diff-thanks-sent" = "Köszönetedet elküldted $1 szerkesztőnek";
+"diff-thanks-sent-cannot-unsend" = "A köszönetek nem visszavonhatóak";
 "dim-images" = "Képek sötétítése";
 "edit-bold-accessibility-label" = "Félkövér formázás hozzáadása";
 "edit-bold-remove-accessibility-label" = "Félkövér formázás eltávolítása";
@@ -328,7 +339,6 @@
 "in-the-news-currently-trending" = "Jelenleg felkapott";
 "in-the-news-notification-read-now-action-title" = "Olvasás most";
 "in-the-news-notification-save-for-later-action-title" = "Elmentés későbbre";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "Megosztás…";
 "in-the-news-sub-title-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "in-the-news-sub-title-from-wikipedia" = "A Wikipédiáról";
@@ -358,6 +368,7 @@
 "insert-media-media-settings-title" = "Médiabeállítások";
 "insert-media-title" = "Média beszúrása";
 "insert-media-uploaded-image-title" = "Feltöltött kép";
+"intermediate-edits-count-limited" = "$1+ közbenső változtatás nincs mutatva";
 "languages-settings-title" = "Nyelvek";
 "languages-title" = "Nyelvváltás";
 "languages-wikipedia" = "Wikipédia nyelvek";
@@ -419,6 +430,7 @@
 "page-history-revision-minor-edit-accessibility-label" = "apró szerkesztés";
 "page-history-revision-size-diff-addition" = "Hozzáadva {{PLURAL:$1|$1 bájt|$1 bájt}}";
 "page-history-revision-size-diff-subtraction" = "Eltávolítva {{PLURAL:$1|$1 bájt|$1 bájt}}";
+"page-history-stats-text" = "{{PLURAL:$1|$Egy szerkesztés|$1 szerkesztés}} $2-óta";
 "page-issues" = "A lap problémái";
 "page-last-edited" = "Szerkesztve {{PLURAL:$1|0=ma|1=tegnap|$1 napja}}";
 "page-location" = "Megtekintés térképen";
@@ -494,10 +506,12 @@
 "reading-list-sync-disabled-panel-title" = "Szinkronizálás leállítva";
 "reading-list-sync-enable-button-title" = "Szinkronizálás engedélyezése";
 "reading-list-sync-enabled-panel-title" = "A szinkronizálás engedélyezve van ennél a fióknál";
+"reading-lists-article-added-confirmation" = "Szócikk hozzáadva a következőhöz: „$1”";
 "reading-lists-article-not-synced" = "Nincs szinkronizálva";
 "reading-lists-conflicting-reading-list-name-updated" = "„$1” nevű listád át lett nevezve a következőre: „$2”";
 "reading-lists-default-list-title" = "Elmentve";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Lista|Listák}} törlése?";
+"reading-lists-sort-saved-articles" = "Mentett szócikkek rendezése";
 "reading-themes-controls-accessibility-black-theme-button" = "Fekete téma";
 "reading-themes-controls-accessibility-brightness-slider" = "Fényerő csúszka";
 "reading-themes-controls-accessibility-dark-theme-button" = "Sötét téma";
@@ -524,6 +538,7 @@
 "replace-textfield-placeholder" = "Csere a következőre...";
 "request-feedback-on-error" = "Az alkalmazás egy olyan hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "reverted-edit-back-to-article-button-title" = "Vissza a szócikkhez";
+"reverted-edit-notification-body" = "A(z) „$1” szócikkben végzett szerkesztésedet $2 visszavonta";
 "reverted-edit-notification-read-more-action-title" = "További információ";
 "reverted-edit-thanks-for-editing-title" = "Köszönjük, hogy szerkesztetted a Wikipédiát!";
 "reverted-edit-title" = "Visszavont szerkesztés";
@@ -582,8 +597,14 @@
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
 "table-title-other" = "További információk";
+"talk-page-discussion-read-accessibility-label" = "Olvasott";
+"talk-page-discussion-unread-accessibility-label" = "Olvasatlan";
+"talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";
+"talk-page-link-user-action-sheet-app" = "Felhasználói lap megtekintése az alkalmazásban";
+"talk-page-link-user-action-sheet-safari" = "Felhasználói lap megtekintése Safarival";
 "talk-page-new-topic-title" = "Új téma";
 "talk-page-reply-title" = "Válasz";
+"talk-page-title-article-talk" = "szócikk-vitalap";
 "talk-page-title-user-talk" = "Szerkesztővita";
 "talk-pages-reply-button-title" = "Válasz erre a témára";
 "theme-black-display-name" = "Fekete";
@@ -625,6 +646,7 @@
 "wikitext-downloading" = "Tartalom betöltése…";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
 "wikitext-preview-changes-none" = "Nem történt megjeleníthető változtatás.";
+"wikitext-preview-link-external-preview-description" = "Ez a link a következő külső weboldalra mutat: $1";
 "wikitext-preview-link-external-preview-title" = "Külső hivatkozás";
 "wikitext-preview-link-not-found-preview-description" = "A Wikipédián nincs szócikk pontosan ezzel a névvel";
 "wikitext-preview-link-preview-description" = "A hivatkozás ide mutat: „$1”";

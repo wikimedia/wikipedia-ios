@@ -98,6 +98,7 @@
 "action-remove" = "Usuń";
 "action-replace" = "Zamień";
 "action-replace-all" = "Zamień wszystkie";
+"action-retry" = "Ponów";
 "action-save" = "Zapisz";
 "action-saved" = "Zapisane";
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";

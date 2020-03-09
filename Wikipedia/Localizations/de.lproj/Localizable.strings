@@ -3,6 +3,7 @@
 // Author: 1233qwer1234qwer4
 // Author: BodminPill
 // Author: Envlh
+// Author: Ferdinand0101
 // Author: Fitoschido
 // Author: Hikemaniac
 // Author: Hwboehm
@@ -72,6 +73,7 @@
 "action-remove" = "Entfernen";
 "action-replace" = "Ersetzen";
 "action-replace-all" = "Alle ersetzen";
+"action-retry" = "Erneut versuchen";
 "action-save" = "Speichern";
 "action-saved" = "Gespeichert";
 "action-saved-accessibility" = "Gespeichert. Aktivieren zum Löschen.";

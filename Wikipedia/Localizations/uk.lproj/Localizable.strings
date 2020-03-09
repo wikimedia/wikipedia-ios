@@ -84,6 +84,7 @@
 "action-remove" = "Видалити";
 "action-replace" = "Замінити";
 "action-replace-all" = "Замінити все";
+"action-retry" = "Повторити";
 "action-save" = "Зберегти";
 "action-saved" = "Збережене";
 "action-saved-accessibility" = "Збережено. Активуйте для видалення.";

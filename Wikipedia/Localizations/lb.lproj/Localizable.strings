@@ -63,6 +63,7 @@
 "action-remove" = "Ewechhuelen";
 "action-replace" = "Ersetzen";
 "action-replace-all" = "All ersetzen";
+"action-retry" = "Nach eng Kéier probéieren";
 "action-save" = "Späicheren";
 "action-saved" = "Gespäichert";
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";

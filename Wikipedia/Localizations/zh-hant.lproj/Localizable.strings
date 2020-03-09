@@ -91,6 +91,7 @@
 "action-remove" = "移除";
 "action-replace" = "取代";
 "action-replace-all" = "全部取代";
+"action-retry" = "重試";
 "action-save" = "儲存";
 "action-saved" = "已儲存";
 "action-saved-accessibility" = "已儲存。啟用來取消儲存。";

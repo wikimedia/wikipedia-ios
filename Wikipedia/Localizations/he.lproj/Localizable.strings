@@ -83,6 +83,7 @@
 "action-remove" = "הסרה";
 "action-replace" = "החלפה";
 "action-replace-all" = "להחליף הכול";
+"action-retry" = "לנסות שוב";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";

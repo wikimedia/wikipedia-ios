@@ -77,6 +77,7 @@
 "action-remove" = "Odstrániť";
 "action-replace" = "Nahradiť";
 "action-replace-all" = "Nahradiť všetky";
+"action-retry" = "Skúsiť znova";
 "action-save" = "Uložiť";
 "action-saved" = "Uložené";
 "action-saved-accessibility" = "Uložené. Aktivujte pre odstránenie z uložených";
@@ -112,6 +113,7 @@
 "article-languages-others" = "Ostatné jazyky";
 "article-languages-yours" = "Vaše jazyky";
 "article-read-more-title" = "Ďalšie informácie";
+"article-reference-view-title" = "Referencia $1";
 "article-save-error-not-enough-space" = "Na vašom zariadení nemáte dostatok miesta na uloženie tohto článku";
 "article-share" = "Zdieľať";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládače čítacích tém";

@@ -72,6 +72,7 @@
 "action-remove" = "Отстрани";
 "action-replace" = "Замени";
 "action-replace-all" = "Замени сè";
+"action-retry" = "Пробај пак";
 "action-save" = "Зачувај";
 "action-saved" = "Зачувано";
 "action-saved-accessibility" = "Зачувано. Активирајте за да го избришете.";
