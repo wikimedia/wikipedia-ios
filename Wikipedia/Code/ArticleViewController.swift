@@ -758,9 +758,9 @@ private extension ArticleViewController {
             switch result {
             case .success(let user):
                 self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
-            case .failure(let error):
+            case .failure:
+                DDLogError("Error getting userinfo for \(siteURL)")
                 self.setupPageContentServiceJavaScriptInterface(with: [])
-                self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
             }
             completion()
         }
@@ -816,28 +816,49 @@ extension ArticleViewController: ImageScaleTransitionProviding {
     
 }
 
-extension ArticleViewController: WKNavigationDelegate {
+// MARK: - Article Load Errors
+
+extension ArticleViewController {
+    func handleArticleLoadFailure(with error: Error) {
+        fakeProgressController.finish()
+        wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+        showError(error)
+    }
     
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    func articleLoadDidFail(with error: Error) {
+        // Convert from mobileview if necessary
         guard article.isConversionFromMobileViewNeeded else {
-            showError(error)
+            handleArticleLoadFailure(with: error)
             return
         }
-        dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { (migrationError) in
+        dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { [weak self] (migrationError) in
             DispatchQueue.main.async {
-                if let error = migrationError {
-                    self.showError(error)
-                    return
-                }
-                guard !self.article.isConversionFromMobileViewNeeded else {
-                    self.showGenericError()
-                    return
-                }
-                self.loadPage()
+                self?.oneOffArticleMigrationDidFinish(with: migrationError)
             }
         }
     }
     
+    func oneOffArticleMigrationDidFinish(with migrationError: Error?) {
+        if let error = migrationError {
+            handleArticleLoadFailure(with: error)
+            return
+        }
+        guard !article.isConversionFromMobileViewNeeded else {
+            handleArticleLoadFailure(with: RequestError.unexpectedResponse)
+            return
+        }
+        loadPage()
+    }
+}
+
+extension ArticleViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        articleLoadDidFail(with: error)
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        articleLoadDidFail(with: error)
+    }
 }
 
 extension ViewController {
