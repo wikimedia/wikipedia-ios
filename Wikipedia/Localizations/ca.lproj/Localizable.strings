@@ -83,6 +83,7 @@
 "action-remove" = "Suprimeix";
 "action-replace" = "Reemplaça";
 "action-replace-all" = "Reemplaça-ho tot";
+"action-retry" = "Torna-ho a provar";
 "action-save" = "Desa";
 "action-saved" = "Desat";
 "action-saved-accessibility" = "Desat. Activa per a desfer-ho.";

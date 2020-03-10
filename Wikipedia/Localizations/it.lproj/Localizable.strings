@@ -89,6 +89,7 @@
 "action-remove" = "Rimuovi";
 "action-replace" = "Sostituisci";
 "action-replace-all" = "Sostituisci tutto";
+"action-retry" = "Riprova";
 "action-save" = "Salva";
 "action-saved" = "Salvato";
 "action-saved-accessibility-notification" = "Voce salvata per dopo";

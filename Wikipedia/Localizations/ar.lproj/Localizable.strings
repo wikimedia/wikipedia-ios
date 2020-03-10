@@ -90,6 +90,7 @@
 "action-remove" = "إزالة";
 "action-replace" = "استبدال";
 "action-replace-all" = "استبدل الكل";
+"action-retry" = "إعادة المحاولة";
 "action-save" = "حفظ";
 "action-saved" = "محفوظة";
 "action-saved-accessibility" = "تم الحفظ، تفعيل لعدم الحفظ.";
