@@ -182,16 +182,19 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
  extmetadataKeys:(NSArray<NSString *> *)extMetadataKeys
 metadataLanguage:(nullable NSString *)metadataLanguage
                               useGenerator:(BOOL)useGenerator {
+    if (!titles) {
+        return @{};
+    }
 
     NSMutableDictionary *params =
         [@{@"format": @"json",
            @"action": @"query",
-           @"titles": WMFJoinedPropertyParameters(titles),
+           @"titles": [titles componentsJoinedByString:@"|"],
            // suppress continue warning
            @"rawcontinue": @"",
            @"prop": @"imageinfo",
-           @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-           @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
+           @"iiprop": [@[@"url", @"extmetadata", @"dimensions"] componentsJoinedByString:@"|"],
+           @"iiextmetadatafilter": [extMetadataKeys ?: @[] componentsJoinedByString:@"|"],
            @"iiextmetadatamultilang": @1,
            @"iiurlwidth": thumbnailWidth} mutableCopy];
 

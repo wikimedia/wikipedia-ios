@@ -347,15 +347,23 @@ class ArticleViewController: ViewController {
     }
     
     func syncCachedResourcesIfNeeded() {
-        if let groupKey = articleURL.wmf_databaseKey,
-            fetcher.isCached(articleURL: articleURL, scheme: schemeHandler.scheme) {
+        guard let groupKey = articleURL.wmf_databaseKey else {
+            return
+        }
+        
+        fetcher.isCached(articleURL: articleURL) { [weak self] (isCached) in
             
-            cacheController.syncCachedResources(url: articleURL, groupKey: groupKey) { (result) in
+            guard let self = self,
+                isCached else {
+                    return
+            }
+            
+            self.cacheController.syncCachedResources(url: self.articleURL, groupKey: groupKey) { (result) in
                 switch result {
-                case .success(let itemKeys):
-                    DDLogDebug("successfully synced \(itemKeys.count) resources")
-                case .failure(let error):
-                    DDLogDebug("failed to synced resources for \(groupKey): \(error)")
+                    case .success(let itemKeys):
+                        DDLogDebug("successfully synced \(itemKeys.count) resources")
+                    case .failure(let error):
+                        DDLogDebug("failed to synced resources for \(groupKey): \(error)")
                 }
             }
         }

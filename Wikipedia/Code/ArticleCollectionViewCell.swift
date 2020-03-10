@@ -6,9 +6,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public let imageView = UIImageView()
     public var extractLabel: UILabel?
     public let actionsView = ActionsView()
-    public var alertIcon = UIImageView()
-    public var alertLabel = UILabel()
+    public var alertButton = AlignedImageButton()
     open var alertType: ReadingListAlertType?
+    public var alertButtonCallback: (() -> Void)?
+    
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
     private var _titleHTML: String? = nil
@@ -48,7 +49,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             return actionsView.actions
         }
     }
-    
+
     open override func setup() {
         titleTextStyle = .georgiaTitle3
         imageView.contentMode = .scaleAspectFill
@@ -62,8 +63,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.isOpaque = true
       
         
-        contentView.addSubview(alertIcon)
-        contentView.addSubview(alertLabel)
+        contentView.addSubview(alertButton)
+        alertButton.addTarget(self, action: #selector(alertButtonTapped), for: .touchUpInside)
+        alertButton.verticalPadding = spacing
+        alertButton.leftPadding = spacing
+        alertButton.rightPadding = spacing
+        alertButton.horizontalSpacing = spacing
         contentView.addSubview(statusView)
 
         contentView.addSubview(imageView)
@@ -72,7 +77,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         
         super.setup()
     }
-    
     
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
@@ -86,14 +90,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         spacing = 3
         imageViewDimension = 70
         statusViewDimension = 6
-        alertIconDimension = 12
         imageView.wmf_reset()
         resetSwipeable()
         isBatchEditing = false
         isBatchEditable = false
         actions = []
-        isAlertLabelHidden = true
-        isAlertIconHidden = true
+        isAlertButtonHidden = true
         isStatusViewHidden = true
         updateFonts(with: traitCollection)
     }
@@ -103,8 +105,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         titleLabel.backgroundColor = labelBackgroundColor
         descriptionLabel.backgroundColor = labelBackgroundColor
         extractLabel?.backgroundColor = labelBackgroundColor
-        alertIcon.backgroundColor = labelBackgroundColor
-        alertLabel.backgroundColor = labelBackgroundColor
+        alertButton.titleLabel?.backgroundColor = labelBackgroundColor
     }
     
     open override func safeAreaInsetsDidChange() {
@@ -138,16 +139,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    public var isAlertLabelHidden: Bool = true {
+    public var isAlertButtonHidden: Bool = true {
         didSet {
-            alertLabel.isHidden = isAlertLabelHidden
-            setNeedsLayout()
-        }
-    }
-    
-    public var isAlertIconHidden: Bool = true {
-        didSet {
-            alertIcon.isHidden = isAlertIconHidden
+            alertButton.isHidden = isAlertButtonHidden
             setNeedsLayout()
         }
     }
@@ -215,9 +209,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var extractTextStyle: DynamicTextStyle!
     public var saveButtonTextStyle: DynamicTextStyle!
     
-    public var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
-    public var spacing: CGFloat!
-    
+    public var imageViewDimension: CGFloat = 0 //used as height on full width cell, width & height on right aligned
+    public var spacing: CGFloat = 3
+
     public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
@@ -233,7 +227,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         
         descriptionLabel.font = UIFont.wmf_font(descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         extractLabel?.font = UIFont.wmf_font(extractTextStyle, compatibleWithTraitCollection: traitCollection)
-        alertLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
+        alertButton.titleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
     // MARK - Semantic content
@@ -401,5 +395,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         didSet {
             batchEditSelectView?.isSelected = isSelected
         }
+    }
+    
+    // MARK: - Actions
+    
+    @objc func alertButtonTapped() {
+        alertButtonCallback?()
     }
 }

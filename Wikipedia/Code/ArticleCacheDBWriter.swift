@@ -1,17 +1,16 @@
 
 import Foundation
 
-enum ArticleCacheDBWriterError: Error {
+public enum ArticleCacheDBWriterError: Error {
     case unableToDetermineDatabaseKey
-    case invalidListEndpointType
     case missingListURLInRequest
-    case failureFetchingMediaList
-    case failureFetchingOfflineResourceList
+    case failureFetchingMediaList(Error)
+    case failureFetchingOfflineResourceList(Error)
     case failureFetchOrCreateCacheGroup
     case failureFetchOrCreateMustHaveCacheItem
     case unableToDetermineItemKey
-    case unableToDetermineBundledOfflineURLS
-    case oneOrMoreItemsFailedToMarkDownloaded
+    case unableToDetermineBundledOfflineURLs
+    case oneOrMoreItemsFailedToMarkDownloaded([Error])
     case failureMakingRequestFromMustHaveResource
 }
 
@@ -112,29 +111,6 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
-    func allDownloaded(groupKey: String) -> Bool {
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            return false
-        }
-        
-        return context.performWaitAndReturn {
-            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-                return false
-            }
-            guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
-                return false
-            }
-            for item in cacheItems {
-                if !item.isDownloaded && group.mustHaveCacheItems?.contains(item) ?? false {
-                    return false
-                }
-            }
-            
-            return true
-        } ?? false
-    }
-    
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
         //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
         return true
@@ -180,7 +156,7 @@ extension ArticleCacheDBWriter {
                 
             
             guard let offlineResources = self.articleFetcher.bundledOfflineResourceURLs() else {
-                completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLS))
+                completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLs))
                 return
             }
             
@@ -288,7 +264,7 @@ extension ArticleCacheDBWriter {
         
         group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
             if markDownloadedErrors.count > 0 {
-                completion(.failure(ArticleCacheDBWriterError.oneOrMoreItemsFailedToMarkDownloaded))
+                completion(.failure(ArticleCacheDBWriterError.oneOrMoreItemsFailedToMarkDownloaded(markDownloadedErrors)))
             } else {
                 completion(.success)
             }

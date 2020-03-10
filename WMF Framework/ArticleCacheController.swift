@@ -121,7 +121,7 @@ public final class ArticleCacheController: CacheController {
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                  
-                    if failedAddKeys.count == 0 && failedRemoveKeys.count == 0 {
+                    guard failedAddKeys.count == 0 && failedRemoveKeys.count == 0 else {
                         groupCompletion(.failure(error: CacheControllerError.atLeastOneItemFailedInSync))
                         return
                     }

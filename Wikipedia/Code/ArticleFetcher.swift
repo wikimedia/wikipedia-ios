@@ -14,6 +14,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     @objc required public init(session: Session, configuration: Configuration) {
         #if WMF_APPS_LABS_MOBILE_HTML
         super.init(session: Session.shared, configuration: Configuration.appsLabs)
+        #elseif WMF_LOCAL
+        super.init(session: Session.shared, configuration: Configuration.local)
         #else
         super.init(session: session, configuration: configuration)
         #endif
@@ -219,13 +221,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
-    public func isCached(articleURL: URL, scheme: String? = nil) -> Bool {
+    public func isCached(articleURL: URL, scheme: String? = nil, completion: @escaping (Bool) -> Void) {
 
         guard let request = try? mobileHTMLRequest(articleURL: articleURL, scheme: scheme) else {
-            return false
+            completion(false)
+            return
         }
         
-        return session.isCachedWithURLRequest(request)
+        return session.isCachedWithURLRequest(request, completion: completion)
     }
     
     //MARK: Bundled offline resources
@@ -240,6 +243,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     #if WMF_APPS_LABS_MOBILE_HTML
      static let pcsBaseURI = "//\(Configuration.Domain.appsLabs)/api/v1/"
+    #elseif WMF_LOCAL
+     static let pcsBaseURI = "//\(Configuration.Domain.localhost):8888/api/v1/"
     #else
      static let pcsBaseURI = "//\(Configuration.Domain.metaWiki)/api/rest_v1/"
     #endif
