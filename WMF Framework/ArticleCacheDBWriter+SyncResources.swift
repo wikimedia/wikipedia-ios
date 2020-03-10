@@ -72,7 +72,7 @@ extension ArticleCacheDBWriter {
             switch result {
             case .success(let urls):
                 
-                //package urls into NetworkItems, filter out equivalent CacheItems that are already downloaded
+                //package offline resource urls into NetworkItems
                 let offlineResourceItems = urls.offlineResourcesURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .article) else {
                         return nil
@@ -88,7 +88,7 @@ extension ArticleCacheDBWriter {
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
-                
+                //begin package media list urls into NetworkItems
                 let mediaListItems = urls.mediaListURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .image) else {
                         return nil
@@ -127,7 +127,9 @@ extension ArticleCacheDBWriter {
                         finalMediaListItems.append(item)
                     }
                 }
+                //end package media list urls into NetworkItems
                 
+                //begin image info urls into NetworkItems
                 let imageInfoItems = urls.imageInfoURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .imageInfo) else {
                         return nil
@@ -142,10 +144,11 @@ extension ArticleCacheDBWriter {
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
+                //consolidate list of network items to compare with downloaded cached items
+                //remove list also contains mobile-html & media-list urls for comparison purposes only, otherwise it will think they should be removed from cache.
                 let networkItemsForAdd: Set<NetworkItem> = Set(offlineResourceItems + finalMediaListItems + imageInfoItems)
                 let networkItemsForRemove: Set<NetworkItem> = Set([mobileHTMLNetworkItem] + [mediaListNetworkItem] + offlineResourceItems + finalMediaListItems + imageInfoItems)
                 
-                //pull cache items for group key
                 guard let context = CacheController.backgroundCacheContext else {
                     completion(.failure(ArticleCacheDBWriterSyncError.missingMOC))
                     return
@@ -171,37 +174,32 @@ extension ArticleCacheDBWriter {
                         return NetworkItem(itemKeyAndVariant: itemKeyandVariant, url: cacheItem.url, urlRequest: nil, cacheItem: cacheItem)
                     }
                     
-                    let removableCacheItems = cacheItems.compactMap { (cacheItem) -> NetworkItem? in
-                        
-                        guard cacheItem.cacheGroups?.count == 1,
-                            cacheItem.isDownloaded == true else {
-                            return nil
-                        }
-                        
-                        guard let itemKey = cacheItem.key,
-                        let itemKeyandVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: cacheItem.variant) else {
-                            return nil
-                        }
-                        
-                        return NetworkItem(itemKeyAndVariant: itemKeyandVariant, url: cacheItem.url, urlRequest: nil, cacheItem: cacheItem)
-                    }
-                    
                     let downloadedCacheItemsSet = Set(downloadedCacheItems)
-                    let removableCacheItemsSet = Set(removableCacheItems)
                     
-                    //get final set of resources that aren't already cached
+                    //determine final set of new items that need to be cached
                     let filteredNewItems = networkItemsForAdd.subtracting(downloadedCacheItemsSet)
                     let filteredNewURLRequests = filteredNewItems.compactMap { $0.urlRequest }
                     
-                    //create list of old cache items to remove
-                    let filteredOldItems = removableCacheItemsSet.subtracting(networkItemsForRemove)
-                    let filteredOldItemKeyAndVariants = filteredOldItems.compactMap { $0.itemKeyAndVariant }
+                    //determine set of old items that need to be removed
+                    let filteredOldItems = downloadedCacheItemsSet.subtracting(networkItemsForRemove)
+                    
+                    //create list of unique item key and variants (those with 1 cache group) to return to CacheController for file deletion. Otherwise delete from group.
+                    var uniqueOldItemKeyAndVariants: [CacheController.ItemKeyAndVariant] = []
+                    for filteredOldItem in filteredOldItems {
+                        if let cacheItem = filteredOldItem.cacheItem {
+                            if cacheItem.cacheGroups?.count == 1 {
+                                uniqueOldItemKeyAndVariants.append(filteredOldItem.itemKeyAndVariant)
+                            } else {
+                                group.removeFromCacheItems(cacheItem)
+                            }
+                        }
+                    }
                     
                     //cache nonCached urls
                     self.cacheItems(groupKey: groupKey, items: filteredNewItems) { (result) in
                         switch result {
                         case .success:
-                            let result = CacheDBWritingSyncSuccessResult(addURLRequests: filteredNewURLRequests, removeItemKeyAndVariants: filteredOldItemKeyAndVariants)
+                            let result = CacheDBWritingSyncSuccessResult(addURLRequests: filteredNewURLRequests, removeItemKeyAndVariants: uniqueOldItemKeyAndVariants)
                             completion(.success(result))
                         case .failure(let error):
                             completion(.failure(error))
