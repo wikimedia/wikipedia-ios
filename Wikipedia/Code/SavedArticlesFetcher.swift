@@ -238,12 +238,15 @@ private extension SavedArticlesFetcher {
                         switch groupResult {
                         case .success:
                             DDLogDebug("🙈success in groupCompletion of \(articleKey)")
-                            self.didRemoveArticle(with: articleKey)
-                            self.updateCountOfFetchesInProcess()
-                        case .failure:
-                            DDLogDebug("🙈failure in groupCompletion of \(articleKey)")
+                        case .failure(let error):
+                            DDLogDebug("🙈failure in groupCompletion of \(articleKey): \(error)")
                             break
                         }
+                        // Ignoring failures to ensure the DB doesn't get stuck trying
+                        // to remove a cache group that doesn't exist.
+                        // TODO: Clean up these DB inconsistencies in the DatabaseHousekeeper
+                        self.didRemoveArticle(with: articleKey)
+                        self.updateCountOfFetchesInProcess()
                         updateAgain()
                     }
                 }
