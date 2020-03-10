@@ -57,6 +57,7 @@
 "action-remove" = "Ukloni";
 "action-replace" = "Zamijeni";
 "action-replace-all" = "Zamijeni sve";
+"action-retry" = "Pokušaj ponovno";
 "action-save" = "Spremi";
 "action-saved" = "Spremljeno";
 "action-saved-accessibility-notification" = "Članak je spremljen za kasnije";

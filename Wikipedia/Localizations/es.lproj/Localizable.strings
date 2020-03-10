@@ -106,6 +106,7 @@
 "action-remove" = "Quitar";
 "action-replace" = "Reemplazar";
 "action-replace-all" = "Reemplazar todo";
+"action-retry" = "Reintentar";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-saved-accessibility" = "Guardado. Activar para deshacer.";

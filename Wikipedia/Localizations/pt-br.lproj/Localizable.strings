@@ -96,6 +96,7 @@
 "action-remove" = "Remover";
 "action-replace" = "Substituir";
 "action-replace-all" = "Substituir todos";
+"action-retry" = "Atualizar";
 "action-save" = "Salvar";
 "action-saved" = "Salvo";
 "action-saved-accessibility" = "Salvou. Ative para não se proteger.";
