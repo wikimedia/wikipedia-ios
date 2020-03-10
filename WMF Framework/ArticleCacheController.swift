@@ -3,6 +3,7 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
+    //use to cache entire article and all dependent resources and images
     public static let shared: ArticleCacheController? = {
         
         guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
@@ -20,34 +21,125 @@ public final class ArticleCacheController: CacheController {
         return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
     }()
 
-#if DEBUG && false // change this to true or remove to re-enable
-    override public func add(url: URL, groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
-        super.add(url: url, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            self.dbWriter.fetchAndPrintEachItem()
-            self.dbWriter.fetchAndPrintEachGroup()
-        }
+    enum ArticleCacheControllerError: Error {
+        case invalidDBWriterType
     }
     
-    public override func remove(groupKey: CacheController.GroupKey, individualCompletion: @escaping CacheController.IndividualCompletionBlock, groupCompletion: @escaping CacheController.GroupCompletionBlock) {
-        super.remove(groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
+    //syncs already cached resources with mobile-html-offline-resources and media-list endpoints (caches new urls, removes old urls)
+    public func syncCachedResources(url: URL, groupKey: CacheController.GroupKey, groupCompletion: @escaping GroupCompletionBlock) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            self.dbWriter.fetchAndPrintEachItem()
-            self.dbWriter.fetchAndPrintEachGroup()
+        guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
+            groupCompletion(.failure(error: ArticleCacheControllerError.invalidDBWriterType))
+            return
         }
-    }
-#endif
-
-    enum CacheFromMigrationError: Error {
-        case invalidDBWriterType
+        
+        articleDBWriter.syncResources(url: url, groupKey: groupKey) { (result) in
+            switch result {
+            case .success(let syncResult):
+            
+                let group = DispatchGroup()
+                
+                var successfulAddKeys: [CacheController.UniqueKey] = []
+                var failedAddKeys: [CacheController.UniqueKey] = []
+                var successfulRemoveKeys: [CacheController.UniqueKey] = []
+                var failedRemoveKeys: [CacheController.UniqueKey] = []
+                
+                //add new urls in file system
+                for urlRequest in syncResult.addURLRequests {
+                    
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForURLRequest(urlRequest),
+                        let url = urlRequest.url else {
+                        continue
+                    }
+                    
+                    group.enter()
+                    
+                    self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
+                        switch fileWriterResult {
+                        case .success(let data, let mimeType):
+                            
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest) { (dbWriterResult) in
+                            
+                                defer {
+                                    group.leave()
+                                }
+                                    
+                                switch dbWriterResult {
+                                case .success:
+                                    successfulAddKeys.append(uniqueKey)
+                                case .failure:
+                                    failedAddKeys.append(uniqueKey)
+                                }
+                            }
+                        case .failure:
+                            
+                            defer {
+                                group.leave()
+                            }
+                            
+                            failedAddKeys.append(uniqueKey)
+                        }
+                    }
+                }
+                
+                //remove old urls in file system
+                for key in syncResult.removeItemKeyAndVariants {
+                    
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForItemKey(key.itemKey, variant: key.variant) else {
+                        continue
+                    }
+                    
+                    group.enter()
+                    
+                    self.fileWriter.remove(itemKey: key.itemKey, variant: key.variant) { (fileWriterResult) in
+                    
+                        switch fileWriterResult {
+                        case .success:
+                            
+                            self.dbWriter.remove(itemAndVariantKey: key) { (dbWriterResult) in
+                                
+                                defer {
+                                    group.leave()
+                                }
+                                
+                                switch dbWriterResult {
+                                case .success:
+                                    successfulRemoveKeys.append(uniqueKey)
+                                case .failure:
+                                    failedRemoveKeys.append(uniqueKey)
+                                }
+                            }
+                        case .failure:
+                            defer {
+                                group.leave()
+                            }
+                            
+                            failedRemoveKeys.append(uniqueKey)
+                        }
+                    }
+                }
+                
+                group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                 
+                    guard failedAddKeys.count == 0 && failedRemoveKeys.count == 0 else {
+                        groupCompletion(.failure(error: CacheControllerError.atLeastOneItemFailedInSync))
+                        return
+                    }
+                    
+                    let successKeys = successfulAddKeys + successfulRemoveKeys
+                    groupCompletion(.success(uniqueKeys: successKeys))
+                }
+                
+            case .failure(let error):
+                groupCompletion(.failure(error: error))
+            }
+        }
     }
     
     public func cacheFromMigration(desktopArticleURL: URL, content: String, mimeType: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
-            completionHandler(CacheFromMigrationError.invalidDBWriterType)
+            completionHandler(ArticleCacheControllerError.invalidDBWriterType)
             return
         }
         
@@ -91,7 +183,7 @@ public final class ArticleCacheController: CacheController {
     private func cacheBundledResourcesIfNeeded(desktopArticleURL: URL, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
-            completionHandler(CacheFromMigrationError.invalidDBWriterType)
+            completionHandler(ArticleCacheControllerError.invalidDBWriterType)
             return
         }
         

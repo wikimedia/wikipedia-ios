@@ -65,7 +65,7 @@ class PermanentlyPersistableURLCache: URLCache {
     }
 }
 
-//MARK: Public - URL Creation
+//MARK: Public - URLRequest Creation
 
 extension PermanentlyPersistableURLCache {
     func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
@@ -102,21 +102,27 @@ extension PermanentlyPersistableURLCache {
         //add If-None-Match, otherwise it will not be populated if URLCache.shared is cleared but persistent cache exists.
         switch type {
         case .article, .imageInfo:
-            if let cachedUrlResponse = self.cachedResponse(for: urlRequest)?.response as? HTTPURLResponse {
-                 for (key, value) in cachedUrlResponse.allHeaderFields {
-                    if let keyString = key as? String,
-                        let valueString = value as? String,
-                        keyString == HTTPURLResponse.etagHeaderKey {
-                        headers[HTTPURLResponse.ifNoneMatchHeaderKey] = valueString
-                    }
-                }
-                
+            guard let cachedHeaders = permanentlyCachedHeaders(for: urlRequest) else {
+                break
             }
+            headers[HTTPURLResponse.ifNoneMatchHeaderKey] = cachedHeaders[HTTPURLResponse.etagHeaderKey]
         case .image:
             break
         }
         
         return headers
+    }
+    
+    func isCachedWithURLRequest(_ urlRequest: URLRequest, completion: @escaping (Bool) -> Void) {
+        guard let itemKey = itemKeyForURLRequest(urlRequest),
+        let moc = cacheManagedObjectContext else {
+            completion(false)
+            return
+        }
+        
+        let variant = variantForURLRequest(urlRequest)
+        
+        return CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: completion)
     }
 }
 
@@ -158,9 +164,7 @@ extension PermanentlyPersistableURLCache {
         
         return variantForURL(url, type: type)
     }
-}
-
-private extension PermanentlyPersistableURLCache {
+    
     func itemKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
         switch type {
         case .image:
@@ -182,7 +186,10 @@ private extension PermanentlyPersistableURLCache {
             return imageInfoVariantForURL(url)
         }
     }
-    
+}
+
+private extension PermanentlyPersistableURLCache {
+
     func imageItemKeyForURL(_ url: URL) -> String? {
         guard let host = url.host, let imageName = WMFParseImageNameFromSourceURL(url) else {
             return url.absoluteString.precomposedStringWithCanonicalMapping
@@ -460,46 +467,67 @@ extension PermanentlyPersistableURLCache {
     private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
         
         let variant = variantForURLRequest(request)
-        if let itemKey = itemKeyForURLRequest(request),
+        
+        guard let itemKey = itemKeyForURLRequest(request),
             let httpResponse = cachedResponse.response as? HTTPURLResponse,
-            let moc = cacheManagedObjectContext {
-            if CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc),
-                httpResponse.statusCode == 200 {
-                
-                let headerFileName = uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-                let contentFileName = uniqueFileNameForItemKey(itemKey, variant: variant)
-               
-                CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
-                    switch result {
-                    case .success:
-                        DDLogDebug("Successfully updated cached header file.")
-                    case .failure(let error):
-                        DDLogDebug("Failed updating cached header file: \(error)")
-                    case .exists:
-                        assertionFailure("This shouldn't happen.")
-                        break
-                    }
-                }
-                
-                CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
-                    switch result {
-                        case .success:
-                            DDLogDebug("Successfully updated cached header file.")
-                        case .failure(let error):
-                            DDLogDebug("Failed updating cached header file: \(error)")
-                        case .exists:
-                            assertionFailure("This shouldn't happen.")
-                            break
-                    }
+            let moc = cacheManagedObjectContext,
+            httpResponse.statusCode == 200 else {
+            return
+        }
+        
+        CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: { (isCached) in
+            guard isCached else {
+                return
+            }
+            let headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+            let contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
+            
+            CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
+                switch result {
+                case .success:
+                    DDLogDebug("Successfully updated cached header file.")
+                case .failure(let error):
+                    DDLogDebug("Failed updating cached header file: \(error)")
+                case .exists:
+                    assertionFailure("This shouldn't happen.")
+                    break
                 }
             }
-        }
+            
+            CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
+                switch result {
+                case .success:
+                    DDLogDebug("Successfully updated cached header file.")
+                case .failure(let error):
+                    DDLogDebug("Failed updating cached header file: \(error)")
+                case .exists:
+                    assertionFailure("This shouldn't happen.")
+                    break
+                }
+            }
+        })
+
     }
 }
 
 //MARK: Private - Permanent Cache Fetching
 
 private extension PermanentlyPersistableURLCache {
+    
+    func permanentlyCachedHeaders(for request: URLRequest) -> [String: String]? {
+        guard let url = request.url,
+            let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
+            let type = Header.PersistItemType(rawValue: typeRaw) else {
+                return nil
+        }
+        guard let responseHeaderFileName = uniqueHeaderFileNameForURL(url, type: type) else {
+            return nil
+        }
+        guard let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
+            return nil
+        }
+        return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(responseHeaderData) as? [String: String]
+    }
     
     func permanentlyCachedResponse(for request: URLRequest) -> CachedURLResponse? {
         
@@ -553,7 +581,9 @@ private extension PermanentlyPersistableURLCache {
             let responseHeaderFileName = maybeResponseHeaderFileName else {
                 return nil
         }
-
+        
+        assert(!Thread.isMainThread)
+        
         guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path) else {
             return nil
         }
@@ -624,6 +654,27 @@ private extension PermanentlyPersistableURLCache {
 public extension HTTPURLResponse {
     static let etagHeaderKey = "Etag"
     static let ifNoneMatchHeaderKey = "If-None-Match"
+}
+
+public extension Array where Element == CacheController.ItemKeyAndVariant {
+    mutating func sortAsImageItemKeyAndVariants() {
+        sort { (lhs, rhs) -> Bool in
+
+            guard let lhsVariant = lhs.variant,
+                let lhsSize = Int64(lhsVariant),
+                let rhsVariant = rhs.variant,
+                let rhsSize = Int64(rhsVariant) else {
+                    return true
+            }
+            // 0 is original so treat it as larger than others
+            if rhsSize == 0 {
+                return true
+            } else if lhsSize == 0 {
+                return false
+            }
+            return lhsSize < rhsSize
+        }
+    }
 }
 
 public extension Array where Element: CacheItem {

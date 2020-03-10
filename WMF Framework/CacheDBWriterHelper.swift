@@ -70,15 +70,17 @@ final class CacheDBWriterHelper {
         return item
     }
     
-    static func isCached(itemKey: CacheController.ItemKey, variant: String?, in moc: NSManagedObjectContext) -> Bool {
+    static func isCached(itemKey: CacheController.ItemKey, variant: String?, in moc: NSManagedObjectContext, completion: @escaping (Bool) -> Void){
         
         guard let context = CacheController.backgroundCacheContext else {
-            return false
+            completion(false)
+            return
         }
         
-        return context.performWaitAndReturn {
-            CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: moc) != nil
-        } ?? false
+        return context.perform {
+            let isCached = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: moc) != nil
+            completion(isCached)
+        }
     }
     
     static func allDownloadedVariantItems(itemKey: CacheController.ItemKey, in moc: NSManagedObjectContext) -> [CacheItem] {

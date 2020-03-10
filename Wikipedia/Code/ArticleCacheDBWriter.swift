@@ -11,14 +11,15 @@ public enum ArticleCacheDBWriterError: Error {
     case unableToDetermineItemKey
     case unableToDetermineBundledOfflineURLs
     case oneOrMoreItemsFailedToMarkDownloaded([Error])
+    case failureMakingRequestFromMustHaveResource
 }
 
-final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
+final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
     
-    private let articleFetcher: ArticleFetcher
-    private let cacheBackgroundContext: NSManagedObjectContext
+    let articleFetcher: ArticleFetcher
+    let cacheBackgroundContext: NSManagedObjectContext
     private let imageController: ImageCacheController
-    private let imageInfoFetcher: MWKImageInfoFetcher
+    let imageInfoFetcher: MWKImageInfoFetcher
     
     var fetcher: CacheFetching {
         return articleFetcher
@@ -40,145 +41,82 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
     
     //note, this comes in as desktopArticleURL via WMFArticle's key
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests) {
-
-        var mobileHTMLRequest: URLRequest
-        var mobileHTMLOfflineResourcesRequest: URLRequest
-        var mobileHTMLMediaListRequest: URLRequest
-        do {
-            mobileHTMLRequest = try articleFetcher.mobileHTMLRequest(articleURL: url)
-            mobileHTMLOfflineResourcesRequest = try articleFetcher.mobileHTMLOfflineResourcesRequest(articleURL: url)
-            mobileHTMLMediaListRequest = try articleFetcher.mobileHTMLMediaListRequest(articleURL: url)
-        } catch (let error) {
-            completion(.failure(error))
-            return
-        }
         
-        var mobileHtmlOfflineResourceURLRequests: [URLRequest] = []
-        var mediaListError: Error?
-        var mobileHtmlOfflineResourceError: Error?
-        
-        var imageInfoURLRequests: [URLRequest] = []
-        
-        let group = DispatchGroup()
-        
-        group.enter()
-        fetchOfflineResourceURLs(request: mobileHTMLOfflineResourcesRequest, groupKey: groupKey) { (result) in
-            defer {
-                group.leave()
+        fetchImageAndResourceURLsForArticleURL(url, groupKey: groupKey) { [weak self] (result) in
+            
+            guard let self = self else {
+                return
             }
             
             switch result {
             case .success(let urls):
                 
-                for url in urls {
-                    
-                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, forceCache: false) else {
+                var mustHaveURLRequests: [URLRequest] = []
+                
+                let mobileHTMLRequest: URLRequest
+                let mobileHTMLMediaListRequest: URLRequest
+                do {
+                    mobileHTMLRequest = try self.articleFetcher.mobileHTMLRequest(articleURL: url)
+                    mobileHTMLMediaListRequest = try self.articleFetcher.mobileHTMLMediaListRequest(articleURL: url)
+                } catch (let error) {
+                    completion(.failure(error))
+                    return
+                }
+                
+                mustHaveURLRequests.append(mobileHTMLRequest)
+                mustHaveURLRequests.append(mobileHTMLMediaListRequest)
+                
+                //append mobile-html-offline-resource URLRequests
+                for url in urls.offlineResourcesURLs {
+                    guard let urlRequest = self.articleFetcher.urlRequest(from: url) else {
                         continue
                     }
                     
-                    mobileHtmlOfflineResourceURLRequests.append(urlRequest)
+                    mustHaveURLRequests.append(urlRequest)
                 }
                 
-                
-            case .failure(let error):
-                mobileHtmlOfflineResourceError = error
-            }
-        }
-        
-        group.enter()
-        fetchMediaListURLs(request: mobileHTMLMediaListRequest, groupKey: groupKey) { (result) in
-            
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let items):
-                
-                let imageTitles = items.map { $0.imageTitle }
-                let imageURLs = items.map { $0.imageURL }
-                var imageInfoURLs: [URL] = []
-                let dedupedTitles = Set(imageTitles)
-                
-                //add imageInfoFetcher's urls for deduped titles (for captions/licensing info in gallery)
-                for title in dedupedTitles {
-                    if let imageInfoURL = self.imageInfoFetcher.galleryInfoURL(forImageTitles: [title], fromSiteURL: url) {
-                        imageInfoURLs.append(imageInfoURL)
+                //append image info URLRequests
+                for url in urls.imageInfoURLs {
+                    guard let urlRequest = self.imageInfoFetcher.urlRequestFor(from: url) else {
+                        completion(.failure(ArticleCacheDBWriterError.failureMakingRequestFromMustHaveResource))
+                        return
                     }
+                    
+                    mustHaveURLRequests.append(urlRequest)
                 }
                 
-                for imageInfoURL in imageInfoURLs {
-                    if let urlRequest = self.imageInfoFetcher.urlRequestFor(from: imageInfoURL) {
-                        imageInfoURLRequests.append(urlRequest)
-                    }
-                }
-                
-                //add image urls
-                self.imageController.add(urls: imageURLs, groupKey: groupKey, individualCompletion: { (result) in
+                //send image urls straight to imageController to deal with
+                self.imageController.add(urls: urls.mediaListURLs, groupKey: groupKey, individualCompletion: { (result) in
                     
                 }) { (result) in
                     
                 }
                 
+                //write URLs to database
+                self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: mustHaveURLRequests, niceToHaveURLRequests: []) { (result) in
+                    switch result {
+                    case .success:
+                        let result = CacheDBWritingResultWithURLRequests.success(mustHaveURLRequests)
+                        completion(result)
+                    case .failure(let error):
+                        let result = CacheDBWritingResultWithURLRequests.failure(error)
+                        completion(result)
+                    }
+                }
+                
             case .failure(let error):
-                mediaListError = error
-            }
-        }
-        
-        group.notify(queue: DispatchQueue.global(qos: .default)) {
-            
-            if let mediaListError = mediaListError {
-                let result = CacheDBWritingResultWithURLRequests.failure(mediaListError)
-                completion(result)
+                completion(.failure(error))
                 return
             }
-            
-            if let mobileHtmlOfflineResourceError = mobileHtmlOfflineResourceError {
-                let result = CacheDBWritingResultWithURLRequests.failure(mobileHtmlOfflineResourceError)
-                completion(result)
-                return
-            }
-            
-            let mustHaveRequests = [[mobileHTMLRequest], [mobileHTMLMediaListRequest], mobileHtmlOfflineResourceURLRequests, imageInfoURLRequests].flatMap { $0 }
-            
-            self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: mustHaveRequests, niceToHaveURLRequests: []) { (result) in
-                switch result {
-                case .success:
-                    let result = CacheDBWritingResultWithURLRequests.success(mustHaveRequests)
-                    completion(result)
-                case .failure(let error):
-                    let result = CacheDBWritingResultWithURLRequests.failure(error)
-                    completion(result)
-                }
-            }
         }
-    }
-    
-    func allDownloaded(groupKey: String) -> Bool {
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            return false
-        }
-        
-        return context.performWaitAndReturn {
-            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-                return false
-            }
-            guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
-                return false
-            }
-            for item in cacheItems {
-                if !item.isDownloaded && group.mustHaveCacheItems?.contains(item) ?? false {
-                    return false
-                }
-            }
-            
-            return true
-        } ?? false
     }
     
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
         //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
+        return true
+    }
+    
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
         return true
     }
 }
@@ -330,114 +268,6 @@ extension ArticleCacheDBWriter {
             } else {
                 completion(.success)
             }
-        }
-    }
-}
-
-private extension ArticleCacheDBWriter {
-    
-    func fetchMediaListURLs(request: URLRequest, groupKey: String, completion: @escaping (Result<[ArticleFetcher.MediaListItem], ArticleCacheDBWriterError>) -> Void) {
-        
-        guard let url = request.url else {
-            completion(.failure(.missingListURLInRequest))
-            return
-        }
-        
-        let untrackKey = UUID().uuidString
-        let task = articleFetcher.fetchMediaListURLs(with: request) { [weak self] (result) in
-            
-            defer {
-                self?.untrackTask(untrackKey: untrackKey, from: groupKey)
-            }
-            
-            switch result {
-            case .success(let items):
-                completion(.success(items))
-            case .failure(let error):
-                completion(.failure(.failureFetchingMediaList(error)))
-            }
-        }
-        
-        if let task = task {
-            trackTask(untrackKey: untrackKey, task: task, to: groupKey)
-        }
-    }
-    
-    func fetchOfflineResourceURLs(request: URLRequest, groupKey: String, completion: @escaping (Result<[URL], ArticleCacheDBWriterError>) -> Void) {
-        
-        guard let url = request.url else {
-            completion(.failure(.missingListURLInRequest))
-            return
-        }
-        
-        let untrackKey = UUID().uuidString
-        let task = articleFetcher.fetchOfflineResourceURLs(with: request) { [weak self] (result) in
-            
-            defer {
-                self?.untrackTask(untrackKey: untrackKey, from: groupKey)
-            }
-            
-            switch result {
-            case .success(let urls):
-                completion(.success(urls))
-            case .failure(let error):
-                completion(.failure(.failureFetchingOfflineResourceList(error)))
-            }
-        }
-        
-        if let task = task {
-            trackTask(untrackKey: untrackKey, task: task, to: groupKey)
-        }
-    }
-    
-    func cacheURLs(groupKey: String, mustHaveURLRequests: [URLRequest], niceToHaveURLRequests: [URLRequest], completion: @escaping ((SaveResult) -> Void)) {
-
-
-        let context = self.cacheBackgroundContext
-        context.perform {
-
-            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
-                completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateCacheGroup))
-                return
-            }
-            
-            for urlRequest in mustHaveURLRequests {
-                
-                guard let url = urlRequest.url,
-                    let itemKey = self.fetcher.itemKeyForURLRequest(urlRequest) else {
-                        completion(.failure(ArticleCacheDBWriterError.unableToDetermineItemKey))
-                        return
-                }
-                
-                let variant = self.fetcher.variantForURLRequest(urlRequest)
-                
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
-                    completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem))
-                    return
-                }
-                
-                group.addToCacheItems(item)
-                group.addToMustHaveCacheItems(item)
-            }
-            
-            for urlRequest in niceToHaveURLRequests {
-                
-                guard let url = urlRequest.url,
-                        let itemKey = self.fetcher.itemKeyForURLRequest(urlRequest) else {
-                        continue
-                }
-                
-                let variant = self.fetcher.variantForURLRequest(urlRequest)
-                
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
-                    continue
-                }
-                
-                item.variant = variant
-                group.addToCacheItems(item)
-            }
-            
-            CacheDBWriterHelper.save(moc: context, completion: completion)
         }
     }
 }

@@ -162,6 +162,8 @@
 		676070A62280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		6773B1FE240F02E40022A70E /* PermanentlyPersistableURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */; };
+		6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */; };
+		6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */; };
 		6779D45123F60903002840CA /* CacheFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45023F60903002840CA /* CacheFileWriter.swift */; };
 		6779D45323F6EC2D002840CA /* CacheFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45223F6EC2D002840CA /* CacheFetching.swift */; };
 		6779D45924007AF0002840CA /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
@@ -3273,6 +3275,8 @@
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCache.swift; sourceTree = "<group>"; };
+		6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCacheDBWriter+SyncResources.swift"; sourceTree = "<group>"; };
+		6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheResourceDBWriting.swift; sourceTree = "<group>"; };
 		6779D45023F60903002840CA /* CacheFileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFileWriter.swift; sourceTree = "<group>"; };
 		6779D45223F6EC2D002840CA /* CacheFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFetching.swift; sourceTree = "<group>"; };
 		6780D5B3237A1F480087A5D1 /* DiffResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiffResponse.json; sourceTree = "<group>"; };
@@ -5802,14 +5806,14 @@
 			name = List;
 			sourceTree = "<group>";
 		};
-		678C7C2823BE6766001AC4D5 /* NewCache */ = {
+		678C7C2823BE6766001AC4D5 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
 				67A6F13423BFB4E700736539 /* ImageCache */,
 				67F9AE5423AD7FF1003D4F5E /* MobileHTML Article Cache */,
 				678C7C3923BE944F001AC4D5 /* BaseCache */,
 			);
-			name = NewCache;
+			name = Cache;
 			sourceTree = "<group>";
 		};
 		678C7C3923BE944F001AC4D5 /* BaseCache */ = {
@@ -5825,6 +5829,13 @@
 				67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */,
 				6779D45023F60903002840CA /* CacheFileWriter.swift */,
 				6779D45223F6EC2D002840CA /* CacheFetching.swift */,
+				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
+				67D6C01E2405B3D2005709B1 /* CacheGroup+CoreDataClass.swift */,
+				67D6C01F2405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift */,
+				67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */,
+				67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */,
+				67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */,
+				67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */,
 			);
 			name = BaseCache;
 			sourceTree = "<group>";
@@ -5975,9 +5986,11 @@
 				B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */,
 				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
 				67F9AE4A23AD4266003D4F5E /* ArticleURLConverter.swift */,
-				678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */,
 				676A8A8223A4013D0084B967 /* ArticleFetcher.swift */,
 				67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */,
+				678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */,
+				6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */,
+				6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */,
 			);
 			name = "MobileHTML Article Cache";
 			sourceTree = "<group>";
@@ -8027,8 +8040,7 @@
 		D8CC94D62178972C007293E7 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				678C7C2823BE6766001AC4D5 /* NewCache */,
-				D8CC94D82178976C007293E7 /* OldCache */,
+				678C7C2823BE6766001AC4D5 /* Cache */,
 				D8CC94D721789763007293E7 /* Wikipedia */,
 				D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */,
 			);
@@ -8075,20 +8087,6 @@
 				D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */,
 			);
 			name = Wikipedia;
-			sourceTree = "<group>";
-		};
-		D8CC94D82178976C007293E7 /* OldCache */ = {
-			isa = PBXGroup;
-			children = (
-				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
-				67D6C01E2405B3D2005709B1 /* CacheGroup+CoreDataClass.swift */,
-				67D6C01F2405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift */,
-				67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */,
-				67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */,
-				67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */,
-				67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */,
-			);
-			name = OldCache;
 			sourceTree = "<group>";
 		};
 		D8D5513E1DF1A33D00B90177 /* Third Party */ = {
@@ -10502,6 +10500,7 @@
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
 				D82C3A99213451100073EEAC /* DeviceInfo.swift in Sources */,
+				6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */,
 				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
 				D8FA18F21E1BDA35009675C3 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
@@ -10573,6 +10572,7 @@
 				D844485F1DDCE4E500425630 /* WMFContentGroup+Extensions.m in Sources */,
 				7A3AD05C20ADB1F500C92E04 /* WMFKeychainCredentials.swift in Sources */,
 				D880652F218C732800BF7B91 /* WorkerController.swift in Sources */,
+				6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */,
 				0E728D1F1DAEE2B50074EB4B /* WMFFeedArticlePreview.m in Sources */,
 				D83FA6B61D74CDE6008CAB00 /* EventLoggingFunnel.m in Sources */,
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,

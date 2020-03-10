@@ -146,7 +146,19 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return request
     }
     
-    public func mobileHTMLMediaListRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
+    public func mobileHTMLURL(articleURL: URL) throws -> URL {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            let mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
+        else {
+            throw RequestError.invalidParameters
+        }
+        
+        return mobileHTMLURL
+    }
+    
+    public func mediaListURL(articleURL: URL) throws -> URL {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -155,14 +167,21 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+        return url
+    }
+    
+    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
+        
+        let url = try mediaListURL(articleURL: articleURL)
+        
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
     }
     
-    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, forceCache: Bool = false) throws -> URLRequest {
+    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -171,41 +190,45 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        if let urlRequest = urlRequest(from: url, forceCache: forceCache) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
     }
     
-    public func urlRequest(from url: URL, forceCache: Bool = false) -> URLRequest? {
+    public func urlRequest(from url: URL, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
         
-        let cachePolicy: URLRequest.CachePolicy? = forceCache ? .returnCacheDataElseLoad : nil
         let request = urlRequestFromURL(url, type: .article, cachePolicy: cachePolicy)
         
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL, forceCache: Bool = false, scheme: String? = nil) throws -> URLRequest {
-        guard
-            let articleTitle = articleURL.wmf_title,
-            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            var mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
-        else {
-            throw RequestError.invalidParameters
-        }
+    public func mobileHTMLRequest(articleURL: URL, scheme: String? = nil, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
+        
+        var url = try mobileHTMLURL(articleURL: articleURL)
         
         if let scheme = scheme {
-            var urlComponents = URLComponents(url: mobileHTMLURL, resolvingAgainstBaseURL: false)
+            var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
             urlComponents?.scheme = scheme
-            mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
+            url = urlComponents?.url ?? url
         }
         
-        if let urlRequest = urlRequest(from: mobileHTMLURL, forceCache: forceCache) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
+    }
+    
+    public func isCached(articleURL: URL, scheme: String? = nil, completion: @escaping (Bool) -> Void) {
+
+        guard let request = try? mobileHTMLRequest(articleURL: articleURL, scheme: scheme) else {
+            completion(false)
+            return
+        }
+        
+        return session.isCachedWithURLRequest(request, completion: completion)
     }
     
     //MARK: Bundled offline resources
