@@ -62,6 +62,7 @@
 "action-remove" = "Title of the action that removes the selection from the current context.";
 "action-replace" = "Title of the replace all action.";
 "action-replace-all" = "Title of the replace all action.";
+"action-retry" = "Title of the retry action.";
 "action-save" = "Title for the 'Save' action {{Identical|Save}}";
 "action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible. {{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action {{Identical|Saved}}";

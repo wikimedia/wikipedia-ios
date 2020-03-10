@@ -23,7 +23,7 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             
             destinationItem.setValue(key, forKey: "key")
             
-            let newVariant: String? = variant < 1 ? nil : String(variant)
+            let newVariant = String(variant)
             destinationItem.setValue(newVariant, forKey: "variant")
             destinationItem.setValue(date, forKey: "date")
             

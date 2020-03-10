@@ -5,9 +5,6 @@
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/WMFLegacySerializer.h>
 
-//Networking
-#import <WMF/MWNetworkActivityIndicatorManager.h>
-
 //Models
 #import <WMF/WMFLocationSearchResults.h>
 #import <WMF/MWKLocationSearchResult.h>

@@ -4,7 +4,6 @@
 #import <WMF/WMFLogging.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/NSError+WMFExtensions.h>
-#import <WMF/WMFNetworkUtilities.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/WMF-Swift.h>

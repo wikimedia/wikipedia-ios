@@ -1,17 +1,16 @@
 
 import Foundation
 
-enum ArticleCacheDBWriterError: Error {
+public enum ArticleCacheDBWriterError: Error {
     case unableToDetermineDatabaseKey
-    case invalidListEndpointType
     case missingListURLInRequest
-    case failureFetchingMediaList
-    case failureFetchingOfflineResourceList
+    case failureFetchingMediaList(Error)
+    case failureFetchingOfflineResourceList(Error)
     case failureFetchOrCreateCacheGroup
     case failureFetchOrCreateMustHaveCacheItem
     case unableToDetermineItemKey
-    case unableToDetermineBundledOfflineURLS
-    case oneOrMoreItemsFailedToMarkDownloaded
+    case unableToDetermineBundledOfflineURLs
+    case oneOrMoreItemsFailedToMarkDownloaded([Error])
 }
 
 final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
@@ -219,7 +218,7 @@ extension ArticleCacheDBWriter {
                 
             
             guard let offlineResources = self.articleFetcher.bundledOfflineResourceURLs() else {
-                completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLS))
+                completion(.failure(ArticleCacheDBWriterError.unableToDetermineBundledOfflineURLs))
                 return
             }
             
@@ -327,7 +326,7 @@ extension ArticleCacheDBWriter {
         
         group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
             if markDownloadedErrors.count > 0 {
-                completion(.failure(ArticleCacheDBWriterError.oneOrMoreItemsFailedToMarkDownloaded))
+                completion(.failure(ArticleCacheDBWriterError.oneOrMoreItemsFailedToMarkDownloaded(markDownloadedErrors)))
             } else {
                 completion(.success)
             }
@@ -354,8 +353,8 @@ private extension ArticleCacheDBWriter {
             switch result {
             case .success(let items):
                 completion(.success(items))
-            case .failure:
-                completion(.failure(.failureFetchingMediaList))
+            case .failure(let error):
+                completion(.failure(.failureFetchingMediaList(error)))
             }
         }
         
@@ -381,8 +380,8 @@ private extension ArticleCacheDBWriter {
             switch result {
             case .success(let urls):
                 completion(.success(urls))
-            case .failure:
-                completion(.failure(.failureFetchingOfflineResourceList))
+            case .failure(let error):
+                completion(.failure(.failureFetchingOfflineResourceList(error)))
             }
         }
         

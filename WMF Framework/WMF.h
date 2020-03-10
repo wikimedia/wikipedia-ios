@@ -77,15 +77,12 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageFilter.h>
-#import <WMF/WMFNetworkUtilities.h>
 
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/NSURL+WMFMainPage.h>
 #import <WMF/WMFAssetsFile.h>
 
 #import <WMF/WMFNotificationsController.h>
-
-#import <WMF/MWNetworkActivityIndicatorManager.h>
 
 #import <WMF/MWKLanguageLinkController_Private.h>
 #import <WMF/WMFFaceDetectionCache.h>
@@ -121,7 +118,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/EventLoggingFunnel.h>
 #import <WMF/MWKSearchResult.h>
-#import <WMF/NSDictionary+WMFCommonParams.h>
 
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFContentGroup+Extensions.h>

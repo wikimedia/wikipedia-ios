@@ -14,6 +14,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     @objc required public init(session: Session, configuration: Configuration) {
         #if WMF_APPS_LABS_MOBILE_HTML
         super.init(session: Session.shared, configuration: Configuration.appsLabs)
+        #elseif WMF_LOCAL
+        super.init(session: Session.shared, configuration: Configuration.local)
         #else
         super.init(session: session, configuration: configuration)
         #endif
@@ -216,28 +218,23 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     let expectedNumberOfBundledOfflineResources = 3
     
+    #if WMF_APPS_LABS_MOBILE_HTML
+     static let pcsBaseURI = "//\(Configuration.Domain.appsLabs)/api/v1/"
+    #elseif WMF_LOCAL
+     static let pcsBaseURI = "//\(Configuration.Domain.localhost):8888/api/v1/"
+    #else
+     static let pcsBaseURI = "//\(Configuration.Domain.metaWiki)/api/rest_v1/"
+    #endif
+    
     func bundledOfflineResourceURLs() -> BundledOfflineResources? {
-
-        #if WMF_APPS_LABS_MOBILE_HTML
-
-            guard let baseCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/base"),
-                let pcsCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/pcs"),
-                let pcsJS = URL(string: "https://apps.wmflabs.org/api/v1/data/javascript/mobile/pcs") else {
-                    return nil
-            }
-
-            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
-        #else
-
-           guard let baseCSS = URL(string: "https://meta.wikimedia.org/api/v1/data/css/mobile/base"),
-                let pcsCSS = URL(string: "https://meta.wikimedia.org/api/v1/data/css/mobile/pcs"),
-                let pcsJS = URL(string: "https://meta.wikimedia.org/api/v1/data/javascript/mobile/pcs") else {
-                    return nil
-            }
-
-            return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
-
-        #endif
+        guard
+            let baseCSS = URL(string: "https:\(ArticleFetcher.pcsBaseURI)data/css/mobile/base"),
+            let pcsCSS = URL(string: "https:\(ArticleFetcher.pcsBaseURI)data/css/mobile/pcs"),
+            let pcsJS = URL(string: "https:\(ArticleFetcher.pcsBaseURI)data/javascript/mobile/pcs")
+        else {
+            return nil
+        }
+        return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
     }
 }
 

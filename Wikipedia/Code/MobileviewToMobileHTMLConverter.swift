@@ -56,6 +56,9 @@ extension MobileviewToMobileHTMLConverter {
             return sectionDict
         }
         mobileviewDict["sections"] = sectionDictionaries
+        if (mobileviewDict["normalizedtitle"] == nil) {
+            mobileviewDict["normalizedtitle"] = articleURL.wmf_title
+        }
         let jsonDict = ["mobileview": mobileviewDict]
         guard
             let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict, options: .fragmentsAllowed),
@@ -70,23 +73,11 @@ extension MobileviewToMobileHTMLConverter {
             assertionFailure("Article url host not available")
             if let completionHandler = completionHandler {
                 completionHandler(nil, MobileviewToMobileHTMLConverterError.noArticleURLHost)
-            }
+            } 
             return
         }
 
-        #if WMF_APPS_LABS_MOBILE_HTML
-        let baseURI = "https://\(Configuration.Domain.appsLabs)/api/v1"
-        #else
-        let configuration = Configuration.current
-        let mobileAppsComponents = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: [])
-        guard let baseURI = mobileAppsComponents.url?.absoluteString else {
-            if let completionHandler = completionHandler {
-                completionHandler(nil, MobileviewToMobileHTMLConverterError.noMobileAppsHost)
-            }
-            return
-        }
-        #endif
-        
-        convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: baseURI, completionHandler: completionHandler)
+
+        convertToMobileHTML(mobileViewJSON: jsonString, domain: host, baseURI: ArticleFetcher.pcsBaseURI, completionHandler: completionHandler)
     }
 }
