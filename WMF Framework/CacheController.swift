@@ -4,6 +4,7 @@ import Foundation
 enum CacheControllerError: Error {
     case atLeastOneItemFailedInFileWriter
     case failureToGenerateItemResult
+    case atLeastOneItemFailedInSync
 }
 
 public class CacheController {
@@ -82,7 +83,7 @@ public class CacheController {
     public typealias IndividualCompletionBlock = (FinalIndividualResult) -> Void
     public typealias GroupCompletionBlock = (FinalGroupResult) -> Void
     
-    public struct ItemKeyAndVariant {
+    public struct ItemKeyAndVariant: Hashable {
         let itemKey: CacheController.ItemKey
         let variant: String?
         
@@ -142,6 +143,10 @@ public class CacheController {
     public func cancelTasks(groupKey: String) {
         dbWriter.cancelTasks(for: groupKey)
         fileWriter.cancelTasks(for: groupKey)
+    }
+    
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        return dbWriter.shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
     }
     
     func finishDBAdd(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithURLRequests) {

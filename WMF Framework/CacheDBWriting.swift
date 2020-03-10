@@ -43,6 +43,7 @@ protocol CacheDBWriting: CacheTaskTracking {
     func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool
     func shouldDownloadVariant(urlRequest: URLRequest) -> Bool
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool
     var fetcher: CacheFetching { get }
 
     //default implementations
@@ -158,54 +159,6 @@ extension CacheDBWriting {
                 case .failure(let error):
                     completion(.failure(error))
                 }
-            }
-        }
-    }
-    
-    func fetchAndPrintEachItem() {
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            return
-        }
-        
-        context.perform {
-            let fetchRequest = NSFetchRequest<CacheItem>(entityName: "CacheItem")
-            do {
-                let fetchedResults = try context.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     DDLogDebug("🌹noItems")
-                } else {
-                    for item in fetchedResults {
-                        DDLogDebug("🌹itemKey: \(item.value(forKey: "key")!), variant:  \(item.value(forKey: "variant") ?? "nil"), itemURL: \(item.value(forKey: "url") ?? "nil")")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
-            }
-        }
-    }
-    
-    func fetchAndPrintEachGroup() {
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            return
-        }
-        
-        context.perform {
-            let fetchRequest = NSFetchRequest<CacheGroup>(entityName: "CacheGroup")
-            do {
-                let fetchedResults = try context.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     DDLogDebug("🌹noGroups")
-                } else {
-                    for item in fetchedResults {
-                        DDLogDebug("🌹groupKey: \(item.value(forKey: "key")!)")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                DDLogDebug(error.description)
             }
         }
     }

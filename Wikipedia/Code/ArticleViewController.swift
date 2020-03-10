@@ -35,7 +35,7 @@ class ArticleViewController: ViewController {
     internal let dataStore: MWKDataStore
     
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
-    private let cacheController: CacheController
+    private let cacheController: ArticleCacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
 
@@ -47,7 +47,8 @@ class ArticleViewController: ViewController {
 
     private var leadImageHeight: CGFloat = 210
 
-    internal var forceCache: Bool = false
+    //tells calls to try pulling from cache first so the user sees the article as quickly as possible
+    internal var fromNavStateRestoration: Bool = false
 
     private var contentSizeObservation: NSKeyValueObservation? = nil
     lazy var refreshControl: UIRefreshControl = {
@@ -55,9 +56,8 @@ class ArticleViewController: ViewController {
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
     }()
-
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = ArticleCacheController.shared
@@ -73,7 +73,7 @@ class ArticleViewController: ViewController {
 
         self.schemeHandler = SchemeHandler.shared
         
-        self.forceCache = forceCache
+        self.fromNavStateRestoration = fromNavStateRestoration
 
         self.cacheController = cacheController
         
@@ -289,25 +289,23 @@ class ArticleViewController: ViewController {
     
     func load() {
         state = .loading
+        
         setupPageContentServiceJavaScriptInterface {
-            self.loadPage()
+            let cachePolicy: URLRequest.CachePolicy? = self.fromNavStateRestoration ? .returnCacheDataElseLoad : nil
+            self.loadPage(cachePolicy: cachePolicy)
         }
     }
     
-    func loadPage(allowCache: Bool = true) {
+    func loadPage(cachePolicy: URLRequest.CachePolicy? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, forceCache: allowCache && forceCache, scheme: schemeHandler.scheme) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
 
             showGenericError()
             state = .error
             return
-        }
-        
-        if !allowCache {
-            request.cachePolicy = .reloadIgnoringLocalCacheData
         }
         
         footerLoadGroup = DispatchGroup()
@@ -345,6 +343,29 @@ class ArticleViewController: ViewController {
             self.footerLoadGroup?.leave()
         }) { (error) in
             self.footerLoadGroup?.leave()
+        }
+    }
+    
+    func syncCachedResourcesIfNeeded() {
+        guard let groupKey = articleURL.wmf_databaseKey else {
+            return
+        }
+        
+        fetcher.isCached(articleURL: articleURL) { [weak self] (isCached) in
+            
+            guard let self = self,
+                isCached else {
+                    return
+            }
+            
+            self.cacheController.syncCachedResources(url: self.articleURL, groupKey: groupKey) { (result) in
+                switch result {
+                    case .success(let itemKeys):
+                        DDLogDebug("successfully synced \(itemKeys.count) resources")
+                    case .failure(let error):
+                        DDLogDebug("failed to synced resources for \(groupKey): \(error)")
+                }
+            }
         }
     }
     
@@ -475,7 +496,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        loadPage(allowCache: false)
+        loadPage(cachePolicy: .reloadIgnoringLocalCacheData)
     }
     
     // MARK: Overrideable functionality
