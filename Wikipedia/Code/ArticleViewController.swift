@@ -35,7 +35,7 @@ class ArticleViewController: ViewController {
     internal let dataStore: MWKDataStore
     
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
-    private let cacheController: CacheController
+    private let cacheController: ArticleCacheController
     
     private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
 
@@ -55,10 +55,6 @@ class ArticleViewController: ViewController {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
-    }()
-    
-    lazy var newResourceCacheController: ArticleCacheController? = {
-        return ArticleCacheController.newResourceCacheController()
     }()
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
@@ -350,24 +346,18 @@ class ArticleViewController: ViewController {
         }
     }
     
-    func cacheNewResourcesIfNeeded() {
+    func syncCachedResourcesIfNeeded() {
         if let groupKey = articleURL.wmf_databaseKey,
             fetcher.isCached(articleURL: articleURL, scheme: schemeHandler.scheme) {
-            newResourceCacheController?.add(url: articleURL, groupKey: groupKey, individualCompletion: { (itemResult) in
-                switch itemResult {
-                case .success(let itemKey):
-                    DDLogDebug("successfully cached new resource \(itemKey)")
-                case .failure(let error):
-                    DDLogDebug("failed to cached new resourc \(groupKey): \(error)")
-                }
-            }, groupCompletion: { (groupResult) in
-                switch groupResult {
+            
+            cacheController.syncCachedResources(url: articleURL, groupKey: groupKey) { (result) in
+                switch result {
                 case .success(let itemKeys):
-                    DDLogDebug("successfully cached new resources for \(groupKey), itemKeyCount: \(itemKeys.count)")
+                    DDLogDebug("successfully synced \(itemKeys.count) resources")
                 case .failure(let error):
-                    DDLogDebug("failed to cache new resources for \(groupKey): \(error)")
+                    DDLogDebug("failed to synced resources for \(groupKey): \(error)")
                 }
-            })
+            }
         }
     }
     

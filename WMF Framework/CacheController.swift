@@ -4,6 +4,7 @@ import Foundation
 enum CacheControllerError: Error {
     case atLeastOneItemFailedInFileWriter
     case failureToGenerateItemResult
+    case atLeastOneItemFailedInSync
 }
 
 public class CacheController {

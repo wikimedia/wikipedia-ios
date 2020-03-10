@@ -144,7 +144,19 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return request
     }
     
-    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
+    public func mobileHTMLURL(articleURL: URL) throws -> URL {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            let mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
+        else {
+            throw RequestError.invalidParameters
+        }
+        
+        return mobileHTMLURL
+    }
+    
+    public func mediaListURL(articleURL: URL) throws -> URL {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -152,6 +164,13 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         else {
             throw RequestError.invalidParameters
         }
+        
+        return url
+    }
+    
+    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
+        
+        let url = try mediaListURL(articleURL: articleURL)
         
         if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
@@ -184,21 +203,16 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     public func mobileHTMLRequest(articleURL: URL, scheme: String? = nil, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
-        guard
-            let articleTitle = articleURL.wmf_title,
-            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            var mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
-        else {
-            throw RequestError.invalidParameters
-        }
+        
+        var url = try mobileHTMLURL(articleURL: articleURL)
         
         if let scheme = scheme {
-            var urlComponents = URLComponents(url: mobileHTMLURL, resolvingAgainstBaseURL: false)
+            var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
             urlComponents?.scheme = scheme
-            mobileHTMLURL = urlComponents?.url ?? mobileHTMLURL
+            url = urlComponents?.url ?? url
         }
         
-        if let urlRequest = urlRequest(from: mobileHTMLURL, cachePolicy: cachePolicy) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest

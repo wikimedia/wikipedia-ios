@@ -1,32 +1,27 @@
 
 import Foundation
 
-enum ArticleCacheNewResourceDBWriterError: Error {
+enum ArticleCacheDBWriterSyncError: Error {
     case missingMOC
     case cannotFindCacheGroup
     case cannotFindCacheItem
     case unableToDetermineItemKey
-    case failureFetchOrCreatCacheItem
+    case failureFetchOrCreateCacheItem
+    case failureToCreateNetworkItem
 }
 
-final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
-    
-    let articleFetcher: ArticleFetcher
-    let imageInfoFetcher: MWKImageInfoFetcher
-    let imageFetcher: ImageFetcher
-    let cacheBackgroundContext: NSManagedObjectContext
-    private let imageController: ImageCacheController
-    
-    var fetcher: CacheFetching {
-        return articleFetcher
-    }
-    
-    var groupedTasks: [String : [IdentifiedTask]] = [:]
+struct CacheDBWritingSyncSuccessResult {
+    let addURLRequests: [URLRequest]
+    let removeItemKeyAndVariants: [CacheController.ItemKeyAndVariant]
+}
+
+extension ArticleCacheDBWriter {
     
     private struct NetworkItem: Hashable {
         let itemKeyAndVariant: CacheController.ItemKeyAndVariant
         let url: URL?
         let urlRequest: URLRequest?
+        let cacheItem: CacheItem?
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(itemKeyAndVariant)
@@ -37,16 +32,36 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
-    init(articleFetcher: ArticleFetcher, imageFetcher: ImageFetcher, imageInfoFetcher: MWKImageInfoFetcher, cacheBackgroundContext: NSManagedObjectContext, imageController: ImageCacheController) {
+    //adds new resources to DB, returns old resources in completion
+    func syncResources(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (Result<CacheDBWritingSyncSuccessResult, Error>) -> Void) {
         
-        self.articleFetcher = articleFetcher
-        self.imageFetcher = imageFetcher
-        self.imageInfoFetcher = imageInfoFetcher
-        self.cacheBackgroundContext = cacheBackgroundContext
-        self.imageController = imageController
-    }
-    
-    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests) {
+        let mobileHTMLURL: URL
+        let mediaListURL: URL
+        let mobileHTMLRequest: URLRequest
+        let mediaListRequest: URLRequest
+        do {
+            mobileHTMLURL  = try articleFetcher.mobileHTMLURL(articleURL: url)
+            mediaListURL  = try articleFetcher.mediaListURL(articleURL: url)
+            mobileHTMLRequest = try articleFetcher.mobileHTMLRequest(articleURL: url)
+            mediaListRequest = try articleFetcher.mobileHTMLMediaListRequest(articleURL: url)
+        } catch (let error) {
+           completion(.failure(error))
+           return
+        }
+
+        let mobileHTMLItemKey = articleFetcher.itemKeyForURL(mobileHTMLURL, type: .article)
+        let mobileHTMLVariant = articleFetcher.variantForURL(mobileHTMLURL, type: .article)
+        let mediaListItemKey = articleFetcher.itemKeyForURL(mediaListURL, type: .article)
+        let mediaListVariant = articleFetcher.variantForURL(mediaListURL, type: .article)
+        
+        guard let mobileHTMLItemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: mobileHTMLItemKey, variant: mobileHTMLVariant),
+            let mediaListItemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: mediaListItemKey, variant: mediaListVariant) else {
+                completion(.failure(ArticleCacheDBWriterSyncError.failureToCreateNetworkItem))
+                return
+        }
+        
+        let mobileHTMLNetworkItem = NetworkItem(itemKeyAndVariant: mobileHTMLItemKeyAndVariant, url: mobileHTMLURL, urlRequest: mobileHTMLRequest, cacheItem: nil)
+        let mediaListNetworkItem = NetworkItem(itemKeyAndVariant: mediaListItemKeyAndVariant, url: mediaListURL, urlRequest: mediaListRequest, cacheItem: nil)
         
         fetchImageAndResourceURLsForArticleURL(url, groupKey: groupKey) { [weak self] (result) in
             
@@ -70,23 +85,23 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                         return nil
                     }
                     
-                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
+                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
                 
                 let mediaListItems = urls.mediaListURLs.compactMap { (url) -> NetworkItem? in
-                    guard let itemKey = self.imageFetcher.itemKeyForURL(url, type: .image) else {
+                    guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .image) else {
                         return nil
                     }
                     
-                    let variant = self.imageFetcher.variantForURL(url, type: .image)
+                    let variant = self.articleFetcher.variantForURL(url, type: .image)
                     
                     guard let itemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: variant),
-                        let urlRequest = self.imageFetcher.urlRequestFromURL(url, type: .image) else {
+                        let urlRequest = self.articleFetcher.urlRequestFromURL(url, type: .image) else {
                         return nil
                     }
                     
-                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
+                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
                 //group into dictionary of the same itemKey for use in filtering out variants
@@ -114,35 +129,35 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                 }
                 
                 let imageInfoItems = urls.imageInfoURLs.compactMap { (url) -> NetworkItem? in
-                    guard let itemKey = self.imageFetcher.itemKeyForURL(url, type: .imageInfo) else {
+                    guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .imageInfo) else {
                         return nil
                     }
                     
-                    let variant = self.imageFetcher.variantForURL(url, type: .imageInfo)
-                    
+                    let variant = self.articleFetcher.variantForURL(url, type: .imageInfo)
                     guard let itemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: variant),
-                        let urlRequest = self.imageFetcher.urlRequestFromURL(url, type: .imageInfo) else {
+                        let urlRequest = self.articleFetcher.urlRequestFromURL(url, type: .imageInfo) else {
                         return nil
                     }
                     
-                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest)
+                    return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
-                let networkItems: Set<NetworkItem> = Set(offlineResourceItems + finalMediaListItems + imageInfoItems)
+                let networkItemsForAdd: Set<NetworkItem> = Set(offlineResourceItems + finalMediaListItems + imageInfoItems)
+                let networkItemsForRemove: Set<NetworkItem> = Set([mobileHTMLNetworkItem] + [mediaListNetworkItem] + offlineResourceItems + finalMediaListItems + imageInfoItems)
                 
                 //pull cache items for group key
                 guard let context = CacheController.backgroundCacheContext else {
-                    completion(.failure(ArticleCacheNewResourceDBWriterError.missingMOC))
+                    completion(.failure(ArticleCacheDBWriterSyncError.missingMOC))
                     return
                 }
                 
                 context.perform {
                     guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
-                        completion(.failure(ArticleCacheNewResourceDBWriterError.cannotFindCacheGroup))
+                        completion(.failure(ArticleCacheDBWriterSyncError.cannotFindCacheGroup))
                         return
                     }
                     guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
-                        completion(.failure(ArticleCacheNewResourceDBWriterError.cannotFindCacheItem))
+                        completion(.failure(ArticleCacheDBWriterSyncError.cannotFindCacheItem))
                         return
                     }
                     
@@ -153,25 +168,43 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                             return nil
                         }
                         
-                        return NetworkItem(itemKeyAndVariant: itemKeyandVariant, url: cacheItem.url, urlRequest: nil)
+                        return NetworkItem(itemKeyAndVariant: itemKeyandVariant, url: cacheItem.url, urlRequest: nil, cacheItem: cacheItem)
+                    }
+                    
+                    let removableCacheItems = cacheItems.compactMap { (cacheItem) -> NetworkItem? in
+                        
+                        guard cacheItem.cacheGroups?.count == 1,
+                            cacheItem.isDownloaded == true else {
+                            return nil
+                        }
+                        
+                        guard let itemKey = cacheItem.key,
+                        let itemKeyandVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: cacheItem.variant) else {
+                            return nil
+                        }
+                        
+                        return NetworkItem(itemKeyAndVariant: itemKeyandVariant, url: cacheItem.url, urlRequest: nil, cacheItem: cacheItem)
                     }
                     
                     let downloadedCacheItemsSet = Set(downloadedCacheItems)
+                    let removableCacheItemsSet = Set(removableCacheItems)
                     
                     //get final set of resources that aren't already cached
-                    let filteredNewItems = networkItems.subtracting(downloadedCacheItemsSet)
+                    let filteredNewItems = networkItemsForAdd.subtracting(downloadedCacheItemsSet)
+                    let filteredNewURLRequests = filteredNewItems.compactMap { $0.urlRequest }
+                    
+                    //create list of old cache items to remove
+                    let filteredOldItems = removableCacheItemsSet.subtracting(networkItemsForRemove)
+                    let filteredOldItemKeyAndVariants = filteredOldItems.compactMap { $0.itemKeyAndVariant }
                     
                     //cache nonCached urls
-                    
                     self.cacheItems(groupKey: groupKey, items: filteredNewItems) { (result) in
                         switch result {
                         case .success:
-                            let requests = filteredNewItems.compactMap { $0.urlRequest }
-                            let result = CacheDBWritingResultWithURLRequests.success(requests)
-                            completion(result)
+                            let result = CacheDBWritingSyncSuccessResult(addURLRequests: filteredNewURLRequests, removeItemKeyAndVariants: filteredOldItemKeyAndVariants)
+                            completion(.success(result))
                         case .failure(let error):
-                            let result = CacheDBWritingResultWithURLRequests.failure(error)
-                            completion(result)
+                            completion(.failure(error))
                         }
                     }
                 }
@@ -205,7 +238,7 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
                 let variant = item.itemKeyAndVariant.variant
                 
                 guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
-                    completion(.failure(ArticleCacheNewResourceDBWriterError.failureFetchOrCreatCacheItem))
+                    completion(.failure(ArticleCacheDBWriterSyncError.failureFetchOrCreateCacheItem))
                     return
                 }
                 
@@ -214,17 +247,5 @@ final class ArticleCacheNewResourceDBWriter: ArticleCacheResourceDBWriting {
             
             CacheDBWriterHelper.save(moc: context, completion: completion)
         }
-    }
-    
-    func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests) {
-        assertionFailure("ArticleCacheNewResourceDBWriter not setup for batch url inserts.")
-    }
-    
-    func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
-        return true
-    }
-    
-    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
-        return true
     }
 }

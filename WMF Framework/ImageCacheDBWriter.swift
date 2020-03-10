@@ -70,19 +70,19 @@ final class ImageCacheDBWriter: CacheDBWriting {
             
         sortableVariantItems.sortAsImageItemKeyAndVariants()
         
-        switch (UIScreen.main.scale, allVariantItems.count) {
+        switch (UIScreen.main.scale, sortableVariantItems.count) {
         case (1.0, _), (_, 1):
-            guard let firstVariant = allVariantItems.first?.variant else {
+            guard let firstVariant = sortableVariantItems.first?.variant else {
                 return true
             }
             return variant == firstVariant
         case (2.0, _):
-            guard let secondVariant = allVariantItems[safeIndex: 1]?.variant else {
+            guard let secondVariant = sortableVariantItems[safeIndex: 1]?.variant else {
                 return true
             }
             return variant == secondVariant
         case (3.0, _):
-            guard let lastVariant = allVariantItems.last?.variant else {
+            guard let lastVariant = sortableVariantItems.last?.variant else {
                 return true
             }
             return variant == lastVariant
