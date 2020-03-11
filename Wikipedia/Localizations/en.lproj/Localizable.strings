@@ -529,6 +529,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 edit|$1 edits}} since $2";
 "page-history-user-edits" = "user edits";
 "page-issues" = "Page issues";
+"page-issues-subtitle" = "Alerts about subpar or problematic content";
 "page-last-edited" = "{{PLURAL:$1|0=Edited today|1=Edited yesterday|Edited $1 days ago}}";
 "page-last-edited-unknown" = "Edited some time ago";
 "page-location" = "View on a map";
@@ -540,6 +541,7 @@
 "page-read-in-other-languages" = "Available in {{PLURAL:$1|$1 other language|$1 other languages}}";
 "page-similar-titles" = "Similar pages";
 "page-talk-page" = "View talk page";
+"page-talk-page-subtitle" = "Discuss improvements to this article";
 "panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";
 "pictured" = "pictured";

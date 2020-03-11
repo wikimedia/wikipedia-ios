@@ -529,6 +529,7 @@
 "page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with they year when the first edit was made.";
 "page-history-user-edits" = "Text for view that shows many edits were made by logged-in users";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}";
+"page-issues-subtitle" = "Subtitle for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).";
 "page-last-edited" = "Relative days since an article was last edited. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
 "page-last-edited-unknown" = "Shown on the item for showing the article history when it's unclear how many days ago the article was edited.";
 "page-location" = "Label for button used to show an article on the map";
@@ -540,6 +541,7 @@
 "page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
 "page-talk-page" = "Label for button linking out to an article's talk page";
+"page-talk-page-subtitle" = "Subtitle for button linking out to an article's talk page";
 "panel-compare-revisions-text" = "Text for educational panel about comparing revisions";
 "panel-compare-revisions-title" = "Title for educational panel about comparing revisions";
 "pictured" = "Indicates the person or item is pictured (as in a news story).";

@@ -244,6 +244,9 @@ public class CommonStrings: NSObject {
 //}
 //let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history")
 //let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
+// WMFLocalizedString("page-talk-page-subtitle", value: "Discuss improvements to this article", comment: "Subtitle for button linking out to an article's talk page")
+
 //let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
+// WMFLocalizedString("page-issues-subtitle", value: "Alerts about subpar or problematic content", comment: "Subtitle for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).")
 //let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
 //let menuCoordinateTitle = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")

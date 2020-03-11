@@ -573,7 +573,9 @@ let pcsi18nKeys = [
     "page-last-edited-unknown",
     "page-edit-history",
     "page-talk-page",
+    "page-talk-page-subtitle",
     "page-issues",
+    "page-issues-subtitle",
     "page-similar-titles",
     "page-location"
 ]
