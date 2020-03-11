@@ -466,7 +466,20 @@ extension PermanentlyPersistableURLCache {
     
     private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
         
-        let variant = variantForURLRequest(request)
+        
+        
+        let isArticleOrImageInfoRequest: Bool
+        if let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
+            let type = Header.PersistItemType(rawValue: typeRaw),
+            (type == .article || type == .imageInfo) {
+            isArticleOrImageInfoRequest = true
+        } else {
+            isArticleOrImageInfoRequest = false
+        }
+        
+        //we only want to update specific variant for image types
+        //for articles and imageInfo's it's okay to update the alternative language variants in the cache.
+        let variant: String? = isArticleOrImageInfoRequest ? nil : variantForURLRequest(request)
         
         guard let itemKey = itemKeyForURLRequest(request),
             let httpResponse = cachedResponse.response as? HTTPURLResponse,
@@ -479,8 +492,21 @@ extension PermanentlyPersistableURLCache {
             guard isCached else {
                 return
             }
-            let headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-            let contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
+            
+            let headerFileName: String
+            let contentFileName: String
+            
+            if isArticleOrImageInfoRequest,
+                let topVariant = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc).first {
+                
+                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: topVariant.variant)
+                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: topVariant.variant)
+                
+            } else {
+                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
+            }
+            
             
             CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
                 switch result {
