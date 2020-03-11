@@ -199,7 +199,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     public func urlRequest(from url: URL, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
         
-        let request = urlRequestFromURL(url, type: .article, cachePolicy: cachePolicy)
+        let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy)
         
         return request
     }

@@ -25,7 +25,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        guard let urlRequest = imageFetcher.urlRequestFromURL(url, type: .image) else {
+        guard let urlRequest = imageFetcher.urlRequestFromPersistence(with: url, persistType: .image) else {
             completion(.failure(ImageCacheDBWriterError.unableToDetermineURLRequest))
             return
         }
@@ -35,9 +35,40 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        let urlRequests = urls.compactMap { imageFetcher.urlRequestFromURL($0, type: .image) }
+        let urlRequests = urls.compactMap { imageFetcher.urlRequestFromPersistence(with: $0, persistType: .image) }
         
         cacheImages(groupKey: groupKey, urlRequests: urlRequests, completion: completion)
+    }
+    
+    func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
+        
+        guard let context = CacheController.backgroundCacheContext else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
+            return
+        }
+        
+        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
+            return
+        }
+        
+        let variant = fetcher.variantForURLRequest(urlRequest)
+    
+        context.perform {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: context) else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
+                return
+            }
+            cacheItem.isDownloaded = true
+            CacheDBWriterHelper.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    completion(.success)
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
     }
     
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
