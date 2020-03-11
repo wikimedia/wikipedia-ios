@@ -238,8 +238,7 @@ import Foundation
                 }
             }
             
-            if let _ = error,
-            request.cachePolicy != .reloadIgnoringLocalCacheData {
+            if let _ = error {
                 
                 if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
@@ -678,8 +677,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         if let error = error as NSError? {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
                 
-                if let request = task.currentRequest,
-                request.cachePolicy != .reloadIgnoringLocalCacheData,
+                if let request = task.originalRequest,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                     callback.response?(cachedResponse.response)
                     callback.data?(cachedResponse.data)

@@ -654,6 +654,8 @@ private extension PermanentlyPersistableURLCache {
 public extension HTTPURLResponse {
     static let etagHeaderKey = "Etag"
     static let ifNoneMatchHeaderKey = "If-None-Match"
+    static let varyHeaderKey = "Vary"
+    static let acceptLanguageHeaderValue = "Accept-Language"
 }
 
 public extension Array where Element == CacheController.ItemKeyAndVariant {

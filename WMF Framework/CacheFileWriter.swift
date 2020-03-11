@@ -77,8 +77,8 @@ final class CacheFileWriter: CacheTaskTracking {
                 }
                 
                 self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), mimeType: result.response.mimeType, urlRequest: urlRequest, success: {
-                    let varyHeaderValue = httpUrlResponse.allHeaderFields["vary"] as? String ?? nil
-                    let variesOnLanguage = varyHeaderValue?.contains("Accept-Language") ?? false
+                    let varyHeaderValue = httpUrlResponse.allHeaderFields[HTTPURLResponse.varyHeaderKey] as? String ?? nil
+                    let variesOnLanguage = varyHeaderValue?.contains(HTTPURLResponse.acceptLanguageHeaderValue) ?? false
                     completion(.success(data: result.data, mimeType: result.response.mimeType, variesOnLanguage: variesOnLanguage))
                 }) { (error) in
                     completion(.failure(error))
