@@ -50,7 +50,7 @@ protocol CacheDBWriting: CacheTaskTracking {
     func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void)
     func remove(groupKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
     func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys)
-    func markDownloaded(urlRequest: URLRequest, shouldSetVariant: Bool, completion: @escaping (CacheDBWritingResult) -> Void)
+    func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void)
 }
 
 extension CacheDBWriting {

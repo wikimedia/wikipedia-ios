@@ -40,7 +40,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
         cacheImages(groupKey: groupKey, urlRequests: urlRequests, completion: completion)
     }
     
-    func markDownloaded(urlRequest: URLRequest, shouldSetVariant: Bool, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         guard let context = CacheController.backgroundCacheContext else {
             completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))

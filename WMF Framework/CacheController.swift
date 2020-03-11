@@ -195,9 +195,9 @@ public class CacheController {
                         }
                         
                         switch result {
-                        case .success(let data, let mimeType, let variesOnLanguage):
+                        case .success(let response, let data):
                             
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest, shouldSetVariant: variesOnLanguage) { (result) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
                                 
                                 defer {
                                     group.leave()
@@ -218,7 +218,7 @@ public class CacheController {
                                 self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             }
                             
-                            self.finishFileSave(data: data, mimeType: mimeType, uniqueKey: uniqueKey, url: url)
+                            self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
                             
                         case .failure(let error):
                             

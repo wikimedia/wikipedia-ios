@@ -56,9 +56,9 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
                         switch fileWriterResult {
-                        case .success(let data, let mimeType, let variesOnLanguage):
+                        case .success(let response, let data):
                             
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest, shouldSetVariant: variesOnLanguage) { (dbWriterResult) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (dbWriterResult) in
                             
                                 defer {
                                     group.leave()
@@ -149,7 +149,7 @@ public final class ArticleCacheController: CacheController {
                 
                 self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
 
-                    articleDBWriter.markDownloaded(urlRequest: urlRequest, shouldSetVariant: false) { (result) in
+                    articleDBWriter.markDownloaded(urlRequest: urlRequest, response: nil) { (result) in
                         switch result {
                         case .success:
                             
@@ -195,7 +195,7 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.addBundledResourcesForMigration(urlRequests: requests, success: { (_) in
                         
-                        let bulkRequests = requests.map { ArticleCacheDBWriter.BulkMarkDownloadRequest(urlRequest: $0, shouldSetVariant: false) }
+                        let bulkRequests = requests.map { ArticleCacheDBWriter.BulkMarkDownloadRequest(urlRequest: $0, response: nil) }
                         articleDBWriter.markDownloaded(requests: bulkRequests) { (result) in
                             switch result {
                             case .success:
