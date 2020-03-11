@@ -345,8 +345,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var semaphore = DispatchSemaphore(value: 1)
     
-    private var libraryValueCache: [String: NSCoding] = [:]
-    private func libraryValue(for key: String) -> NSCoding? {
+    private var libraryValueCache: [String: NSSecureCoding] = [:]
+    private func libraryValue(for key: String) -> NSSecureCoding? {
         semaphore.wait()
         defer {
             semaphore.signal()
@@ -363,7 +363,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 return
             }
             
-            if let legacyValue = UserDefaults.standard.object(forKey: key) as? NSCoding {
+            if let legacyValue = UserDefaults.standard.object(forKey: key) as? NSSecureCoding {
                 value = legacyValue
                 libraryValueCache[key] = legacyValue
                 managedObjectContext.wmf_setValue(legacyValue, forKey: key)
@@ -375,7 +375,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         return value
     }
     
-    private func setLibraryValue(_ value: NSCoding?, for key: String) {
+    private func setLibraryValue(_ value: NSSecureCoding?, for key: String) {
         semaphore.wait()
         defer {
             semaphore.signal()
@@ -421,7 +421,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    @objc public var lastLoggedSnapshot: NSCoding? {
+    @objc public var lastLoggedSnapshot: NSSecureCoding? {
         get {
             return libraryValue(for: Key.lastLoggedSnapshot)
         }

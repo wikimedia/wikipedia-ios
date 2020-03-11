@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="RemoteNotification" representedClassName="RemoteNotification" syncable="YES">
-        <attribute name="affectedPageID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="agent" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="categoryString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="stateNumber" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="typeString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="wiki" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="affectedPageID" optional="YES" attributeType="String"/>
+        <attribute name="agent" optional="YES" attributeType="String"/>
+        <attribute name="categoryString" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="message" optional="YES" attributeType="String"/>
+        <attribute name="stateNumber" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="typeString" optional="YES" attributeType="String"/>
+        <attribute name="wiki" optional="YES" attributeType="String"/>
         <fetchIndex name="byPropertyIndex">
             <fetchIndexElement property="stateNumber" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="value" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="group" optional="YES" attributeType="String"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <fetchIndex name="compoundIndex">
             <fetchIndexElement property="key" type="Binary" order="ascending"/>
             <fetchIndexElement property="group" type="Binary" order="ascending"/>
@@ -27,6 +27,6 @@
     </entity>
     <elements>
         <element name="RemoteNotification" positionX="-63" positionY="-18" width="128" height="180"/>
-        <element name="WMFKeyValue" positionX="-63" positionY="54" width="128" height="30"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="54" width="128" height="103"/>
     </elements>
 </model>

@@ -242,7 +242,7 @@
     self.siteURLString = siteURL.wmf_databaseKey;
 }
 
-- (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
+- (void)setFullContentObject:(NSObject<NSSecureCoding> *)fullContentObject {
     NSManagedObjectContext *moc = self.managedObjectContext;
     NSAssert(moc != nil, @"nil moc");
     if (!moc) {
@@ -332,7 +332,7 @@
         case WMFContentGroupKindNews:
         case WMFContentGroupKindUnknown:
         default: {
-            id<NSCoding> firstObject = contentArray.firstObject ?: content;
+            id<NSSecureCoding> firstObject = contentArray.firstObject ?: content;
             if (firstObject) {
                 self.contentPreview = firstObject;
             }
@@ -725,7 +725,7 @@
     return contentGroups;
 }
 
-- (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+- (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSSecureCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self];
     group.date = date;
     group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
@@ -748,15 +748,15 @@
     return group;
 }
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSCoding>)associatedContent {
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSSecureCoding>)associatedContent {
     return [self createGroupForURL:nil ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:nil];
 }
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSSecureCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     return [self createGroupForURL:nil ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
 }
 
-- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSSecureCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
 
     WMFContentGroup *group = [self contentGroupForURL:URL];
     if (group) {
@@ -776,7 +776,7 @@
     return group;
 }
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSCoding>)associatedContent inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSSecureCoding>)associatedContent inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     return [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:NULL];
 }
 

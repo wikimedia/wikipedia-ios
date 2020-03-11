@@ -79,7 +79,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         guard let eventData = eventData as? [String: Any] else {
             return
         }
-        EventLoggingService.shared?.lastLoggedSnapshot = eventData as NSCoding
+        EventLoggingService.shared?.lastLoggedSnapshot = eventData as NSSecureCoding
         UserDefaults.standard.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
     }
     

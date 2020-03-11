@@ -123,7 +123,7 @@
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="ns" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="pageID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary"/>
+        <attribute name="pageViews" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="NSDictionary"/>
         <attribute name="placesSortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="signedQuadKey" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
@@ -174,7 +174,6 @@
     </entity>
     <entity name="WMFContentGroup" representedClassName="WMFContentGroup" syncable="YES">
         <attribute name="articleURLString" optional="YES" attributeType="String"/>
-        <attribute name="content" optional="YES" attributeType="Transformable" customClassName="NSArray"/>
         <attribute name="contentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="contentGroupKindInteger" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="contentMidnightUTCDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -214,7 +213,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="group" optional="YES" attributeType="String"/>
         <attribute name="key" attributeType="String"/>
-        <attribute name="value" optional="YES" attributeType="Transformable"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <fetchIndex name="compoundIndex">
             <fetchIndexElement property="key" type="Binary" order="ascending"/>
             <fetchIndexElement property="group" type="Binary" order="ascending"/>
@@ -230,7 +229,7 @@
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="568"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
-        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="358"/>
-        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
+        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="343"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="103"/>
     </elements>
 </model>

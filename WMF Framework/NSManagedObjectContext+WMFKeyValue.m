@@ -40,7 +40,7 @@
     return [self wmf_valueOfClass:[NSString class] forKey:key];
 }
 
-- (WMFKeyValue *)wmf_setValue:(nullable id<NSCoding>)value forKey:(NSString *)key {
+- (WMFKeyValue *)wmf_setValue:(nullable id<NSSecureCoding>)value forKey:(NSString *)key {
     NSArray<WMFKeyValue *> *results = [self wmf_keyValuesForKey:key fetchLimit:0];
     if (results.count > 1) {
         // failsafe to delete extra key value objects

@@ -1164,7 +1164,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 keyValue.key = search.key
                 keyValue.group = currentSearchHistoryGroup()
                 keyValue.date = Date()
-                keyValue.value = search.dictionaryValue as NSCoding
+                keyValue.value = search.dictionaryValue as NSSecureCoding
             }
             try moc.save()
         } catch let error {
