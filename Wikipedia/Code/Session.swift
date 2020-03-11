@@ -529,12 +529,23 @@ enum SessionPermanentCacheError: Error {
 
 extension Session {
     
-    @objc func imageInfoURLRequestFromURL(_ url: URL) -> URLRequest? {
-        return urlRequestFromURL(url, type: .imageInfo)
+    @objc func imageInfoURLRequestFromPersistence(with url: URL) -> URLRequest? {
+        return urlRequestFromPersistence(with: url, persistType: .imageInfo)
     }
     
-    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
-        return defaultPermanentCache.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
+    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
+        
+        var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
+        
+        let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
+        
+        if let headerFields = sessionRequest?.allHTTPHeaderFields {
+            for (key, value) in headerFields {
+                permanentCacheRequest.addValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
+        return permanentCacheRequest
     }
     
     public func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
