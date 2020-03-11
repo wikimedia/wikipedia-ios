@@ -56,9 +56,9 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
                         switch fileWriterResult {
-                        case .success(let data, let mimeType):
+                        case .success(let data, let mimeType, let variesOnLanguage):
                             
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest) { (dbWriterResult) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, shouldSetVariant: variesOnLanguage) { (dbWriterResult) in
                             
                                 defer {
                                     group.leave()
@@ -149,7 +149,7 @@ public final class ArticleCacheController: CacheController {
                 
                 self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
 
-                    articleDBWriter.markDownloaded(urlRequest: urlRequest) { (result) in
+                    articleDBWriter.markDownloaded(urlRequest: urlRequest, shouldSetVariant: false) { (result) in
                         switch result {
                         case .success:
                             
@@ -195,7 +195,8 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.addBundledResourcesForMigration(urlRequests: requests, success: { (_) in
                         
-                        articleDBWriter.markDownloaded(urlRequests: requests) { (result) in
+                        let bulkRequests = requests.map { ArticleCacheDBWriter.BulkMarkDownloadRequest(urlRequest: $0, shouldSetVariant: false) }
+                        articleDBWriter.markDownloaded(requests: bulkRequests) { (result) in
                             switch result {
                             case .success:
                                 completionHandler(nil)

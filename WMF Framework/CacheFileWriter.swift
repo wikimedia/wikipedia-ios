@@ -16,7 +16,7 @@ enum CacheFileWriterError: Error {
 }
 
 enum CacheFileWriterAddResult {
-    case success(data: Data, mimeType: String?)
+    case success(data: Data, mimeType: String?, variesOnLanguage: Bool)
     case failure(Error)
 }
 
@@ -77,7 +77,9 @@ final class CacheFileWriter: CacheTaskTracking {
                 }
                 
                 self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), mimeType: result.response.mimeType, urlRequest: urlRequest, success: {
-                    completion(.success(data: result.data, mimeType: result.response.mimeType))
+                    let varyHeaderValue = httpUrlResponse.allHeaderFields["vary"] as? String ?? nil
+                    let variesOnLanguage = varyHeaderValue?.contains("Accept-Language") ?? false
+                    completion(.success(data: result.data, mimeType: result.response.mimeType, variesOnLanguage: variesOnLanguage))
                 }) { (error) in
                     completion(.failure(error))
                 }

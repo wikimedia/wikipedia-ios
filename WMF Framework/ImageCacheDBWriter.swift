@@ -40,6 +40,37 @@ final class ImageCacheDBWriter: CacheDBWriting {
         cacheImages(groupKey: groupKey, urlRequests: urlRequests, completion: completion)
     }
     
+    func markDownloaded(urlRequest: URLRequest, shouldSetVariant: Bool, completion: @escaping (CacheDBWritingResult) -> Void) {
+        
+        guard let context = CacheController.backgroundCacheContext else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
+            return
+        }
+        
+        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
+            return
+        }
+        
+        let variant = fetcher.variantForURLRequest(urlRequest)
+    
+        context.perform {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: context) else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
+                return
+            }
+            cacheItem.isDownloaded = true
+            CacheDBWriterHelper.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    completion(.success)
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
         
         guard let variant = variant else {

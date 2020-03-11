@@ -195,9 +195,9 @@ public class CacheController {
                         }
                         
                         switch result {
-                        case .success(let data, let mimeType):
+                        case .success(let data, let mimeType, let variesOnLanguage):
                             
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest) { (result) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, shouldSetVariant: variesOnLanguage) { (result) in
                                 
                                 defer {
                                     group.leave()

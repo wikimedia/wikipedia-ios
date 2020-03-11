@@ -50,42 +50,11 @@ protocol CacheDBWriting: CacheTaskTracking {
     func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void)
     func remove(groupKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
     func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys)
-    func markDownloaded(urlRequest: URLRequest, completion: @escaping (CacheDBWritingResult) -> Void)
+    func markDownloaded(urlRequest: URLRequest, shouldSetVariant: Bool, completion: @escaping (CacheDBWritingResult) -> Void)
 }
 
 extension CacheDBWriting {
-    
-    func markDownloaded(urlRequest: URLRequest, completion: @escaping (CacheDBWritingResult) -> Void) {
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
-            return
-        }
-        
-        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
-            return
-        }
-        
-        let variant = fetcher.variantForURLRequest(urlRequest)
-    
-        context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: context) else {
-                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
-                return
-            }
-            cacheItem.isDownloaded = true
-            CacheDBWriterHelper.save(moc: context) { (result) in
-                switch result {
-                case .success:
-                    completion(.success)
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-    
+
     func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys) {
         
         guard let context = CacheController.backgroundCacheContext else {

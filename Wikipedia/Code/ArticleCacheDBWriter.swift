@@ -111,6 +111,42 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
+    func markDownloaded(urlRequest: URLRequest, shouldSetVariant: Bool, completion: @escaping (CacheDBWritingResult) -> Void) {
+        
+        guard let context = CacheController.backgroundCacheContext else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
+            return
+        }
+        
+        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
+            return
+        }
+        
+        let variant = fetcher.variantForURLRequest(urlRequest)
+    
+        context.perform {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: nil, in: context) else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
+                return
+            }
+            cacheItem.isDownloaded = true
+            
+            if shouldSetVariant {
+                cacheItem.variant = variant
+            }
+            
+            CacheDBWriterHelper.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    completion(.success)
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
         //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
         return true
@@ -239,15 +275,20 @@ extension ArticleCacheDBWriter {
         return result
     }
     
-    func markDownloaded(urlRequests: [URLRequest], completion: @escaping (CacheDBWritingResult) -> Void) {
+    struct BulkMarkDownloadRequest {
+        let urlRequest: URLRequest
+        let shouldSetVariant: Bool
+    }
+    
+    func markDownloaded(requests: [BulkMarkDownloadRequest], completion: @escaping (CacheDBWritingResult) -> Void) {
         
         var markDownloadedErrors: [Error] = []
         
         let group = DispatchGroup()
         
-        for urlRequest in urlRequests {
+        for request in requests {
             group.enter()
-            markDownloaded(urlRequest: urlRequest) { (result) in
+            markDownloaded(urlRequest: request.urlRequest, shouldSetVariant: request.shouldSetVariant) { (result) in
                 
                 defer {
                     group.leave()
