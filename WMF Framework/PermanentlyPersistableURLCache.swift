@@ -479,6 +479,14 @@ extension PermanentlyPersistableURLCache {
             guard isCached else {
                 return
             }
+
+            let cachedHeaders = self.permanentlyCachedHeaders(for: request)
+            let cachedETag = cachedHeaders?[HTTPURLResponse.etagHeaderKey]
+            let responseETag = httpResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+            guard cachedETag == nil || cachedETag != responseETag else {
+                return
+            }
+            
             let headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
             let contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
             
