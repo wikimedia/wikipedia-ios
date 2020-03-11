@@ -39,7 +39,7 @@ class ArticleWebMessagingController: NSObject {
         }
     }
     
-    func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], languageCount: Int, lastModified: Date?) {
+    func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], lastModified: Date?) {
         guard let title = articleURL.wmf_title else {
             return
         }
@@ -47,7 +47,7 @@ class ArticleWebMessagingController: NSObject {
         if let lastModified = lastModified {
             editedDaysAgo = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
         }
-        let menu = PageContentService.Footer.Menu(items: menuItems, editedDaysAgo: editedDaysAgo, languageCount: languageCount)
+        let menu = PageContentService.Footer.Menu(items: menuItems, editedDaysAgo: editedDaysAgo)
         let readMore = PageContentService.Footer.ReadMore(itemCount: 3, baseURL: restAPIBaseURL.absoluteString)
         let parameters = PageContentService.Footer.Parameters(title: title, menu: menu, readMore: readMore)
         guard let parametersJS = try? PageContentService.getJavascriptFor(parameters) else {

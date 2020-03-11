@@ -69,8 +69,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showCoordinate()
         case .disambiguation:
             showDisambiguation(with: payload)
-        case .languages:
-            showLanguages()
         case .lastEdited:
             showEditHistory()
         case .pageIssues:
@@ -96,12 +94,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
             return
         }
         var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
-        if languageCount > 0 {
-            menuItems.append(.languages)
-        }
         if article.coordinate != nil {
             menuItems.append(.coordinate)
         }
-        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, languageCount:languageCount, lastModified: article.lastModifiedDate)
+        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, lastModified: article.lastModifiedDate)
     }
 }

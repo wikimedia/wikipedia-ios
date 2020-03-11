@@ -37,8 +37,6 @@ class ArticleViewController: ViewController {
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: ArticleCacheController
     
-    private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-
     let session = Session.shared
     let configuration = Configuration.current
     
@@ -278,8 +276,7 @@ class ArticleViewController: ViewController {
     // MARK: Article load
     
     var footerLoadGroup: DispatchGroup?
-    var languageCount: Int = 0
-    
+
     func loadIfNecessary() {
         guard state == .initial else {
             return
@@ -336,13 +333,6 @@ class ArticleViewController: ViewController {
             self.article = article
             self.articleURL = newURL
             self.addToHistory()
-        }
-        footerLoadGroup?.enter()
-        languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
-            self.languageCount = links.count
-            self.footerLoadGroup?.leave()
-        }) { (error) in
-            self.footerLoadGroup?.leave()
         }
     }
     
