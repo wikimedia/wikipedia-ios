@@ -111,7 +111,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
-    func markDownloaded(urlRequest: URLRequest, shouldSetVariant: Bool, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         guard let context = CacheController.backgroundCacheContext else {
             completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
@@ -131,8 +131,10 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 return
             }
             cacheItem.isDownloaded = true
-            
-            if shouldSetVariant {
+                        
+            let varyHeaderValue = response?.allHeaderFields[HTTPURLResponse.varyHeaderKey] as? String ?? nil
+            let variesOnLanguage = varyHeaderValue?.contains(HTTPURLResponse.acceptLanguageHeaderValue) ?? false
+            if variesOnLanguage {
                 cacheItem.variant = variant
             }
             
@@ -277,7 +279,7 @@ extension ArticleCacheDBWriter {
     
     struct BulkMarkDownloadRequest {
         let urlRequest: URLRequest
-        let shouldSetVariant: Bool
+        let response: HTTPURLResponse?
     }
     
     func markDownloaded(requests: [BulkMarkDownloadRequest], completion: @escaping (CacheDBWritingResult) -> Void) {
@@ -288,7 +290,7 @@ extension ArticleCacheDBWriter {
         
         for request in requests {
             group.enter()
-            markDownloaded(urlRequest: request.urlRequest, shouldSetVariant: request.shouldSetVariant) { (result) in
+            markDownloaded(urlRequest: request.urlRequest, response: request.response) { (result) in
                 
                 defer {
                     group.leave()
