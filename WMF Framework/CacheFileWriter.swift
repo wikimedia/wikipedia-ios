@@ -16,7 +16,7 @@ enum CacheFileWriterError: Error {
 }
 
 enum CacheFileWriterAddResult {
-    case success(data: Data, mimeType: String?)
+    case success(response: HTTPURLResponse, data: Data)
     case failure(Error)
 }
 
@@ -77,7 +77,7 @@ final class CacheFileWriter: CacheTaskTracking {
                 }
                 
                 self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), mimeType: result.response.mimeType, urlRequest: urlRequest, success: {
-                    completion(.success(data: result.data, mimeType: result.response.mimeType))
+                    completion(.success(response: httpUrlResponse, data: result.data))
                 }) { (error) in
                     completion(.failure(error))
                 }
