@@ -97,9 +97,8 @@ extension ArticleCacheResourceDBWriting {
                         return
                 }
                 
-                let variant = self.fetcher.variantForURLRequest(urlRequest)
-                
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
+                //note, we purposefully do not set variant here. We need to wait until CacheFileWriter determines if the response varies on language, then set it when we call markDownloaded
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: nil, in: context) else {
                     completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem))
                     return
                 }
@@ -115,13 +114,10 @@ extension ArticleCacheResourceDBWriting {
                         continue
                 }
                 
-                let variant = self.fetcher.variantForURLRequest(urlRequest)
-                
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: nil, in: context) else {
                     continue
                 }
                 
-                item.variant = variant
                 group.addToCacheItems(item)
             }
             
