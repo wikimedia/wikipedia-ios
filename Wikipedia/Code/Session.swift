@@ -1,7 +1,7 @@
 import Foundation
 
 public extension URLRequest.CachePolicy {
-    static let noReallyForceRemoteOnly: UInt = 99
+    static let noPersistentCacheOnError: UInt = 99
 }
 
 @objc(WMFSession) public class Session: NSObject {
@@ -445,7 +445,8 @@ public extension URLRequest.CachePolicy {
                 }
             }
             
-            if let _ = error {
+            if let _ = error,
+                request.prefersPersistentCacheOverError {
                 
                 if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
@@ -682,6 +683,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
                 
                 if let request = task.originalRequest,
+                request.prefersPersistentCacheOverError,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                     callback.response?(cachedResponse.response)
                     callback.data?(cachedResponse.data)
@@ -695,5 +697,17 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         }
         
         callback.success()
+    }
+}
+
+fileprivate extension URLRequest {
+    var prefersPersistentCacheOverError: Bool {
+        if let customCachePolicyValue = allHTTPHeaderFields?[URLRequest.customCachePolicyHeaderKey],
+            let intCustomCachePolicyValue = UInt(customCachePolicyValue),
+            intCustomCachePolicyValue == URLRequest.CachePolicy.noPersistentCacheOnError {
+            return false
+        }
+        
+        return true
     }
 }
