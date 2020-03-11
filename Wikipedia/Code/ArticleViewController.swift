@@ -292,16 +292,16 @@ class ArticleViewController: ViewController {
         
         setupPageContentServiceJavaScriptInterface {
             let cachePolicy: URLRequest.CachePolicy? = self.fromNavStateRestoration ? .returnCacheDataElseLoad : nil
-            self.loadPage(cachePolicy: cachePolicy)
+            self.loadPage(cachePolicyRawValue: cachePolicy?.rawValue)
         }
     }
     
-    func loadPage(cachePolicy: URLRequest.CachePolicy? = nil) {
+    func loadPage(cachePolicyRawValue: UInt? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicyRawValue: cachePolicyRawValue) else {
 
             showGenericError()
             state = .error
@@ -496,7 +496,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        loadPage(cachePolicy: .reloadIgnoringLocalCacheData)
+        loadPage(cachePolicyRawValue: URLRequest.CachePolicy.noReallyForceRemoteOnly)
     }
     
     // MARK: Overrideable functionality

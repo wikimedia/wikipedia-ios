@@ -1,5 +1,9 @@
 import Foundation
 
+public extension URLRequest.CachePolicy {
+    static let noReallyForceRemoteOnly: UInt = 99
+}
+
 @objc(WMFSession) public class Session: NSObject {
     
     public struct Request {
@@ -532,9 +536,9 @@ extension Session {
         return urlRequestFromPersistence(with: url, persistType: .imageInfo)
     }
     
-    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
+    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicyRawValue: UInt? = nil, headers: [String: String] = [:]) -> URLRequest? {
         
-        var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
+        var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicyRawValue: cachePolicyRawValue)
         
         let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
         

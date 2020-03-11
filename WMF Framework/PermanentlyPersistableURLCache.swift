@@ -68,7 +68,7 @@ class PermanentlyPersistableURLCache: URLCache {
 //MARK: Public - URLRequest Creation
 
 extension PermanentlyPersistableURLCache {
-    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
+    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicyRawValue: UInt? = nil) -> URLRequest {
         
         var request = URLRequest(url: url)
         
@@ -84,8 +84,14 @@ extension PermanentlyPersistableURLCache {
             request.setValue(value, forHTTPHeaderField: key)
         }
         
-        if let cachePolicy = cachePolicy {
-            request.cachePolicy = cachePolicy
+        if let cachePolicyRawValue = cachePolicyRawValue {
+            if let cachePolicy = URLRequest.CachePolicy(rawValue: cachePolicyRawValue) {
+                request.cachePolicy = cachePolicy
+            } else {
+                if cachePolicyRawValue == URLRequest.CachePolicy.noReallyForceRemoteOnly {
+                    request.setValue(String(URLRequest.CachePolicy.noReallyForceRemoteOnly), forHTTPHeaderField: HTTPURLResponse.customCachePolicy)
+                }
+            }
         }
         
         return request
@@ -656,6 +662,7 @@ public extension HTTPURLResponse {
     static let ifNoneMatchHeaderKey = "If-None-Match"
     static let varyHeaderKey = "Vary"
     static let acceptLanguageHeaderValue = "Accept-Language"
+    static let customCachePolicy = "Custom-Cache-Policy"
 }
 
 public extension Array where Element == CacheController.ItemKeyAndVariant {
