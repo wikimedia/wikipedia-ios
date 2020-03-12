@@ -132,8 +132,8 @@ extension CacheFetching where Self:Fetcher {
         return session.variantForURL(url, type: type)
     }
     
-    public func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicyRawValue: UInt? = nil, headers: [String: String] = [:]) -> URLRequest? {
-        return session.urlRequestFromPersistence(with: url, persistType: persistType, cachePolicyRawValue: cachePolicyRawValue, headers: headers)
+    public func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
+        return session.urlRequestFromPersistence(with: url, persistType: persistType, cachePolicy: cachePolicy, headers: headers)
     }
     
     public func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {

@@ -1,7 +1,18 @@
 import Foundation
 
-public extension URLRequest.CachePolicy {
-    static let noPersistentCacheOnError: UInt = 99
+public enum WMFCachePolicy {
+    case foundation(URLRequest.CachePolicy)
+    case noPersistentCacheOnError
+    
+    var rawValue: UInt {
+        
+        switch self {
+        case .foundation(let cachePolicy):
+            return cachePolicy.rawValue
+        case .noPersistentCacheOnError:
+            return 99
+        }
+    }
 }
 
 @objc(WMFSession) public class Session: NSObject {
@@ -537,9 +548,9 @@ extension Session {
         return urlRequestFromPersistence(with: url, persistType: .imageInfo)
     }
     
-    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicyRawValue: UInt? = nil, headers: [String: String] = [:]) -> URLRequest? {
+    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
         
-        var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicyRawValue: cachePolicyRawValue)
+        var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
         
         let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
         
@@ -697,17 +708,5 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         }
         
         callback.success()
-    }
-}
-
-fileprivate extension URLRequest {
-    var prefersPersistentCacheOverError: Bool {
-        if let customCachePolicyValue = allHTTPHeaderFields?[URLRequest.customCachePolicyHeaderKey],
-            let intCustomCachePolicyValue = UInt(customCachePolicyValue),
-            intCustomCachePolicyValue == URLRequest.CachePolicy.noPersistentCacheOnError {
-            return false
-        }
-        
-        return true
     }
 }

@@ -68,7 +68,7 @@ class PermanentlyPersistableURLCache: URLCache {
 //MARK: Public - URLRequest Creation
 
 extension PermanentlyPersistableURLCache {
-    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicyRawValue: UInt? = nil) -> URLRequest {
+    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil) -> URLRequest {
         
         var request = URLRequest(url: url)
         
@@ -84,11 +84,13 @@ extension PermanentlyPersistableURLCache {
             request.setValue(value, forHTTPHeaderField: key)
         }
         
-        if let cachePolicyRawValue = cachePolicyRawValue {
-            if cachePolicyRawValue == URLRequest.CachePolicy.noPersistentCacheOnError {
-                request.setValue(String(URLRequest.CachePolicy.noPersistentCacheOnError), forHTTPHeaderField: URLRequest.customCachePolicyHeaderKey)
-            } else if let cachePolicy = URLRequest.CachePolicy(rawValue: cachePolicyRawValue) {
+        if let cachePolicy = cachePolicy {
+            switch cachePolicy {
+            case .foundation(let cachePolicy):
                 request.cachePolicy = cachePolicy
+                request.prefersPersistentCacheOverError = true
+            case .noPersistentCacheOnError:
+                request.prefersPersistentCacheOverError = false
             }
         }
         
@@ -690,6 +692,23 @@ public extension HTTPURLResponse {
 public extension URLRequest {
     static let ifNoneMatchHeaderKey = "If-None-Match"
     static let customCachePolicyHeaderKey = "Custom-Cache-Policy"
+    
+    var prefersPersistentCacheOverError: Bool {
+        get {
+            if let customCachePolicyValue = allHTTPHeaderFields?[URLRequest.customCachePolicyHeaderKey],
+                let intCustomCachePolicyValue = UInt(customCachePolicyValue),
+                intCustomCachePolicyValue == WMFCachePolicy.noPersistentCacheOnError.rawValue {
+                return false
+            }
+            
+            return true
+        }
+        set {
+            let value = newValue ? nil : String(WMFCachePolicy.noPersistentCacheOnError.rawValue)
+            setValue(value, forHTTPHeaderField: URLRequest.customCachePolicyHeaderKey)
+        }
+        
+    }
 }
 
 public extension Array where Element == CacheController.ItemKeyAndVariant {

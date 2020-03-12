@@ -170,18 +170,18 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return url
     }
     
-    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicyRawValue: UInt? = nil) throws -> URLRequest {
+    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         
         let url = try mediaListURL(articleURL: articleURL)
         
-        if let urlRequest = urlRequest(from: url, cachePolicyRawValue: cachePolicyRawValue) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
     }
     
-    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, cachePolicyRawValue: UInt? = nil) throws -> URLRequest {
+    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -190,21 +190,21 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        if let urlRequest = urlRequest(from: url, cachePolicyRawValue: cachePolicyRawValue) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
     }
     
-    public func urlRequest(from url: URL, cachePolicyRawValue: UInt? = nil) -> URLRequest? {
+    public func urlRequest(from url: URL, cachePolicy: WMFCachePolicy? = nil) -> URLRequest? {
         
-        let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicyRawValue: cachePolicyRawValue)
+        let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy)
         
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL, scheme: String? = nil, cachePolicyRawValue: UInt? = nil) throws -> URLRequest {
+    public func mobileHTMLRequest(articleURL: URL, scheme: String? = nil, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         
         var url = try mobileHTMLURL(articleURL: articleURL)
         
@@ -214,7 +214,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             url = urlComponents?.url ?? url
         }
         
-        if let urlRequest = urlRequest(from: url, cachePolicyRawValue: cachePolicyRawValue) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
