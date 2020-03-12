@@ -588,6 +588,9 @@ func exportPCSi18nJSON(localizationFileURL: URL, outputFileURL: URL) {
     for key in pcsi18nKeys {
         output[key] = dictionary[key] as? String
     }
+    guard !output.isEmpty else {
+        return
+    }
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
     guard let data = try? encoder.encode(output) else {
