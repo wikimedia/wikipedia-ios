@@ -1,5 +1,20 @@
 import Foundation
 
+public enum WMFCachePolicy {
+    case foundation(URLRequest.CachePolicy)
+    case noPersistentCacheOnError
+    
+    var rawValue: UInt {
+        
+        switch self {
+        case .foundation(let cachePolicy):
+            return cachePolicy.rawValue
+        case .noPersistentCacheOnError:
+            return 99
+        }
+    }
+}
+
 @objc(WMFSession) public class Session: NSObject {
     
     public struct Request {
@@ -238,8 +253,7 @@ import Foundation
                 }
             }
             
-            if let _ = error,
-            request.cachePolicy != .reloadIgnoringLocalCacheData {
+            if let _ = error {
                 
                 if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
@@ -442,7 +456,8 @@ import Foundation
                 }
             }
             
-            if let _ = error {
+            if let _ = error,
+                request.prefersPersistentCacheOverError {
                 
                 if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
@@ -529,12 +544,23 @@ enum SessionPermanentCacheError: Error {
 
 extension Session {
     
-    @objc func imageInfoURLRequestFromURL(_ url: URL) -> URLRequest? {
-        return urlRequestFromURL(url, type: .imageInfo)
+    @objc func imageInfoURLRequestFromPersistence(with url: URL) -> URLRequest? {
+        return urlRequestFromPersistence(with: url, persistType: .imageInfo)
     }
     
-    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
-        return defaultPermanentCache.urlRequestFromURL(url, type: type, cachePolicy: cachePolicy)
+    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
+        
+        var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
+        
+        let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
+        
+        if let headerFields = sessionRequest?.allHTTPHeaderFields {
+            for (key, value) in headerFields {
+                permanentCacheRequest.addValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
+        return permanentCacheRequest
     }
     
     public func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
@@ -667,8 +693,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         if let error = error as NSError? {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
                 
-                if let request = task.currentRequest,
-                request.cachePolicy != .reloadIgnoringLocalCacheData,
+                if let request = task.originalRequest,
+                request.prefersPersistentCacheOverError,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                     callback.response?(cachedResponse.response)
                     callback.data?(cachedResponse.data)

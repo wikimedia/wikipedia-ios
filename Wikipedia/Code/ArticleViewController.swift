@@ -288,12 +288,12 @@ class ArticleViewController: ViewController {
         state = .loading
         
         setupPageContentServiceJavaScriptInterface {
-            let cachePolicy: URLRequest.CachePolicy? = self.fromNavStateRestoration ? .returnCacheDataElseLoad : nil
+            let cachePolicy: WMFCachePolicy? = self.fromNavStateRestoration ? .foundation(.returnCacheDataElseLoad) : nil
             self.loadPage(cachePolicy: cachePolicy)
         }
     }
     
-    func loadPage(cachePolicy: URLRequest.CachePolicy? = nil) {
+    func loadPage(cachePolicy: WMFCachePolicy? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
@@ -486,7 +486,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        loadPage(cachePolicy: .reloadIgnoringLocalCacheData)
+        loadPage(cachePolicy: .noPersistentCacheOnError)
     }
     
     // MARK: Overrideable functionality
@@ -830,16 +830,19 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 // MARK: - Article Load Errors
 
 extension ArticleViewController {
-    func handleArticleLoadFailure(with error: Error) {
+    func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
         fakeProgressController.finish()
-        wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+        if showEmptyView {
+            wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+        }
         showError(error)
+        refreshControl.endRefreshing()
     }
     
     func articleLoadDidFail(with error: Error) {
         // Convert from mobileview if necessary
         guard article.isConversionFromMobileViewNeeded else {
-            handleArticleLoadFailure(with: error)
+            handleArticleLoadFailure(with: error, showEmptyView: !article.isSaved)
             return
         }
         dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { [weak self] (migrationError) in
@@ -851,11 +854,11 @@ extension ArticleViewController {
     
     func oneOffArticleMigrationDidFinish(with migrationError: Error?) {
         if let error = migrationError {
-            handleArticleLoadFailure(with: error)
+            handleArticleLoadFailure(with: error, showEmptyView: true)
             return
         }
         guard !article.isConversionFromMobileViewNeeded else {
-            handleArticleLoadFailure(with: RequestError.unexpectedResponse)
+            handleArticleLoadFailure(with: RequestError.unexpectedResponse, showEmptyView: true)
             return
         }
         loadPage()
