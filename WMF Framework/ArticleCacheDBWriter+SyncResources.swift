@@ -81,7 +81,7 @@ extension ArticleCacheDBWriter {
                     let variant = self.articleFetcher.variantForURL(url, type: .article)
                     
                     guard let itemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: variant),
-                        let urlRequest = self.articleFetcher.urlRequestFromURL(url, type: .article) else {
+                        let urlRequest = self.articleFetcher.urlRequestFromPersistence(with: url, persistType: .article) else {
                         return nil
                     }
                     
@@ -97,7 +97,7 @@ extension ArticleCacheDBWriter {
                     let variant = self.articleFetcher.variantForURL(url, type: .image)
                     
                     guard let itemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: variant),
-                        let urlRequest = self.articleFetcher.urlRequestFromURL(url, type: .image) else {
+                        let urlRequest = self.articleFetcher.urlRequestFromPersistence(with: url, persistType: .image) else {
                         return nil
                     }
                     
@@ -137,7 +137,7 @@ extension ArticleCacheDBWriter {
                     
                     let variant = self.articleFetcher.variantForURL(url, type: .imageInfo)
                     guard let itemKeyAndVariant = CacheController.ItemKeyAndVariant(itemKey: itemKey, variant: variant),
-                        let urlRequest = self.articleFetcher.urlRequestFromURL(url, type: .imageInfo) else {
+                        let urlRequest = self.articleFetcher.urlRequestFromPersistence(with: url, persistType: .imageInfo) else {
                         return nil
                     }
                     
