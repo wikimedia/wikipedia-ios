@@ -68,7 +68,7 @@ class PermanentlyPersistableURLCache: URLCache {
 //MARK: Public - URLRequest Creation
 
 extension PermanentlyPersistableURLCache {
-    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
+    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil) -> URLRequest {
         
         var request = URLRequest(url: url)
         
@@ -85,7 +85,13 @@ extension PermanentlyPersistableURLCache {
         }
         
         if let cachePolicy = cachePolicy {
-            request.cachePolicy = cachePolicy
+            switch cachePolicy {
+            case .foundation(let cachePolicy):
+                request.cachePolicy = cachePolicy
+                request.prefersPersistentCacheOverError = true
+            case .noPersistentCacheOnError:
+                request.prefersPersistentCacheOverError = false
+            }
         }
         
         return request
@@ -105,7 +111,7 @@ extension PermanentlyPersistableURLCache {
             guard let cachedHeaders = permanentlyCachedHeaders(for: urlRequest) else {
                 break
             }
-            headers[HTTPURLResponse.ifNoneMatchHeaderKey] = cachedHeaders[HTTPURLResponse.etagHeaderKey]
+            headers[URLRequest.ifNoneMatchHeaderKey] = cachedHeaders[HTTPURLResponse.etagHeaderKey]
         case .image:
             break
         }
@@ -137,7 +143,7 @@ private extension PermanentlyPersistableURLCache {
                 if let keyString = key as? String,
                     let valueString = value as? String,
                     keyString == HTTPURLResponse.etagHeaderKey {
-                    urlRequest.setValue(valueString, forHTTPHeaderField: HTTPURLResponse.ifNoneMatchHeaderKey)
+                    urlRequest.setValue(valueString, forHTTPHeaderField: URLRequest.ifNoneMatchHeaderKey)
                 }
             }
         }
@@ -614,7 +620,7 @@ private extension PermanentlyPersistableURLCache {
                 return nil
         }
         
-        assert(!Thread.isMainThread)
+        //assert(!Thread.isMainThread)
         
         guard let responseData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseFileName).path) else {
             return nil
@@ -685,9 +691,30 @@ private extension PermanentlyPersistableURLCache {
 
 public extension HTTPURLResponse {
     static let etagHeaderKey = "Etag"
-    static let ifNoneMatchHeaderKey = "If-None-Match"
     static let varyHeaderKey = "Vary"
     static let acceptLanguageHeaderValue = "Accept-Language"
+}
+
+public extension URLRequest {
+    static let ifNoneMatchHeaderKey = "If-None-Match"
+    static let customCachePolicyHeaderKey = "Custom-Cache-Policy"
+    
+    var prefersPersistentCacheOverError: Bool {
+        get {
+            if let customCachePolicyValue = allHTTPHeaderFields?[URLRequest.customCachePolicyHeaderKey],
+                let intCustomCachePolicyValue = UInt(customCachePolicyValue),
+                intCustomCachePolicyValue == WMFCachePolicy.noPersistentCacheOnError.rawValue {
+                return false
+            }
+            
+            return true
+        }
+        set {
+            let value = newValue ? nil : String(WMFCachePolicy.noPersistentCacheOnError.rawValue)
+            setValue(value, forHTTPHeaderField: URLRequest.customCachePolicyHeaderKey)
+        }
+        
+    }
 }
 
 public extension Array where Element == CacheController.ItemKeyAndVariant {
