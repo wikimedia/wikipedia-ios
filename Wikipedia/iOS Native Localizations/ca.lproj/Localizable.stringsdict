@@ -288,7 +288,7 @@
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>S’ha actualitzat %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -296,9 +296,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>S'ha modificat fa %1$d dies</string>
+			<string>fa %1$d dies</string>
 			<key>zero</key>
-			<string>S'ha modificat avui</string>
+			<string>avui</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
