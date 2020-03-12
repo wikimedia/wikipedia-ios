@@ -1246,6 +1246,7 @@
 		83E776A620FFA4D700E26A47 /* DetailTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E776A220FFA4D700E26A47 /* DetailTransition.swift */; };
 		83E880E823EB19270087223F /* MediaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E880E723EB19270087223F /* MediaList.swift */; };
 		83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */; };
+		83E9C45B2419193C006BDBC2 /* WikipediaSiteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */; };
 		83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE476C20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
@@ -3627,6 +3628,7 @@
 		83E776A220FFA4D700E26A47 /* DetailTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTransition.swift; sourceTree = "<group>"; };
 		83E880E723EB19270087223F /* MediaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaList.swift; sourceTree = "<group>"; };
 		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
+		83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikipediaSiteInfo.swift; path = "WMF Framework/WikipediaSiteInfo.swift"; sourceTree = SOURCE_ROOT; };
 		83EE476920D019A100A21F34 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLComponentsBuilder.swift; sourceTree = "<group>"; };
@@ -8002,6 +8004,7 @@
 				D826C51A217741C50012F940 /* ReachabilityNotifier.swift */,
 				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */,
+				83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */,
 				D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */,
 				835A042C223AD63000D4D758 /* ArticleSummaryController.swift */,
 			);
@@ -10460,6 +10463,7 @@
 				83E880E823EB19270087223F /* MediaList.swift in Sources */,
 				D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */,
 				D8DC16EF1D6F6DEC00D6D9FB /* MWKTitle.m in Sources */,
+				83E9C45B2419193C006BDBC2 /* WikipediaSiteInfo.swift in Sources */,
 				D844485B1DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m in Sources */,
 				D8FA18F51E1BDA3C009675C3 /* WMFSparklineView.swift in Sources */,
 				B0B4234D1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m in Sources */,

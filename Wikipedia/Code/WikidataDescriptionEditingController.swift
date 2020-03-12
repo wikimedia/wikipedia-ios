@@ -83,11 +83,7 @@ public enum ArticleDescriptionSource: String {
             }
         }
         
-        let languageCodeParameters = [
-            "action": "query",
-            "meta": "siteinfo",
-            "format": "json",
-            "formatversion": "2"]
+        let languageCodeParameters = WikipediaSiteInfo.defaultRequestParameters
 
         let languageCodeComponents = configuration.mediaWikiAPIURLForWikiLanguage(language, with: languageCodeParameters)
         session.jsonDecodableTask(with: languageCodeComponents.url) { (siteInfo: MediaWikiSiteInfoResult?, response, error) in
