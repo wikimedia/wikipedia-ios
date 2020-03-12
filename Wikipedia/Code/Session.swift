@@ -1,5 +1,20 @@
 import Foundation
 
+public enum WMFCachePolicy {
+    case foundation(URLRequest.CachePolicy)
+    case noPersistentCacheOnError
+    
+    var rawValue: UInt {
+        
+        switch self {
+        case .foundation(let cachePolicy):
+            return cachePolicy.rawValue
+        case .noPersistentCacheOnError:
+            return 99
+        }
+    }
+}
+
 @objc(WMFSession) public class Session: NSObject {
     
     public struct Request {
@@ -441,7 +456,8 @@ import Foundation
                 }
             }
             
-            if let _ = error {
+            if let _ = error,
+                request.prefersPersistentCacheOverError {
                 
                 if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
@@ -532,7 +548,7 @@ extension Session {
         return urlRequestFromPersistence(with: url, persistType: .imageInfo)
     }
     
-    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: URLRequest.CachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
+    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
         
         var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
         
@@ -678,6 +694,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
                 
                 if let request = task.originalRequest,
+                request.prefersPersistentCacheOverError,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                     callback.response?(cachedResponse.response)
                     callback.data?(cachedResponse.data)

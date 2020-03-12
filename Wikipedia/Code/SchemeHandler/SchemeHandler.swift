@@ -114,7 +114,7 @@ private extension SchemeHandler {
         //set If-None-Match in header if it doesn't already exist
         
         let containsType = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
-        let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[HTTPURLResponse.ifNoneMatchHeaderKey] != nil
+        let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[URLRequest.ifNoneMatchHeaderKey] != nil
 
         if var request = maybeRequest {
 

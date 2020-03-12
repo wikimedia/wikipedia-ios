@@ -170,7 +170,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return url
     }
     
-    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
+    public func mobileHTMLMediaListRequest(articleURL: URL, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         
         let url = try mediaListURL(articleURL: articleURL)
         
@@ -181,7 +181,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
-    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
+    public func mobileHTMLOfflineResourcesRequest(articleURL: URL, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -197,14 +197,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
-    public func urlRequest(from url: URL, cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest? {
+    public func urlRequest(from url: URL, cachePolicy: WMFCachePolicy? = nil) -> URLRequest? {
         
         let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy)
         
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL, scheme: String? = nil, cachePolicy: URLRequest.CachePolicy? = nil) throws -> URLRequest {
+    public func mobileHTMLRequest(articleURL: URL, scheme: String? = nil, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         
         var url = try mobileHTMLURL(articleURL: articleURL)
         
