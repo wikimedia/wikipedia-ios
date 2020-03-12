@@ -531,7 +531,6 @@
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}";
 "page-issues-subtitle" = "Subtitle for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).";
 "page-last-edited" = "Relative days since an article was last edited. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
-"page-last-edited-unknown" = "Shown on the item for showing the article history when it's unclear how many days ago the article was edited.";
 "page-location" = "Label for button used to show an article on the map";
 "page-protected-autoconfirmed" = "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.";
 "page-protected-can-not-edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";

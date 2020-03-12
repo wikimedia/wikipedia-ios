@@ -570,7 +570,6 @@ let pcsi18nKeys = [
     "view-in-browser-footer-link",
     "page-read-in-other-languages",
     "page-last-edited",
-    "page-last-edited-unknown",
     "page-edit-history",
     "page-talk-page",
     "page-talk-page-subtitle",
