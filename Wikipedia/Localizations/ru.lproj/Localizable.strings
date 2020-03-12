@@ -524,6 +524,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
+// Fuzzy
 "page-edit-history" = "Полная история редактирования";
 "page-history-anonymous-edits" = "анонимные правки";
 "page-history-bot-edits" = "правки ботов";
@@ -534,8 +535,8 @@
 "page-history-revision-minor-edit-accessibility-label" = "Малая правка";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
 "page-issues" = "Вопросы по странице";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
-"page-last-edited-unknown" = "Отредактировано какое-то время назад";
 "page-location" = "Посмотреть на карте";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";

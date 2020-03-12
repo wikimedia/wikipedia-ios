@@ -373,8 +373,10 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 na Wikipedia en $1";
 "on-this-day-title" = "Tal día como güei";
 "original-tab-button-popover-description" = "Toca na «W» pa volver a la llingüeta na que principiasti";
+// Fuzzy
 "page-edit-history" = "Historial d'edición completu";
 "page-issues" = "Problemes de la páxina";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Editáu güei|1=Editáu ayeri|Editáu hai $1 díes}}";
 "page-location" = "Ver nun mapa";
 "page-protected-autoconfirmed" = "Esta páxina ta semiprotexida.";

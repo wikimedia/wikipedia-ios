@@ -166,9 +166,11 @@
 "on-this-day-detail-header-date-range" = "nuo $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "on-this-day-title" = "Šią dieną";
+// Fuzzy
 "page-edit-history" = "Pilna keitimų istorija";
 "page-history-revision-minor-edit-accessibility-label" = "Smulkus keitimas";
 "page-issues" = "Puslapio klausimai";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Redaguota šiandien|1=Redaguota vakar|Redaguota prieš $1 dienas}}";
 "page-location" = "Žiūrėti žemėlapyje";
 "page-protected-autoconfirmed" = "Šis puslapis buvo pusiau apsaugotas.";

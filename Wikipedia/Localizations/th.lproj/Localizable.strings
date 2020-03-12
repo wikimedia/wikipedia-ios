@@ -461,8 +461,10 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 จากวิกิพีเดียภาษา$2";
 "on-this-day-title" = "วันนี้ในอดีต";
 "original-tab-button-popover-description" = "แตะบน 'W' เพื่อกลับไปยังแท็บที่คุณเปิดก่อนหน้านี้";
+// Fuzzy
 "page-edit-history" = "ประวัติการแก้ไขแบบเต็ม";
 "page-issues" = "ปัญหาในหน้า";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=แก้ไขเมื่อวันนี้|1=แก้ไขเมื่อวาน|แก้ไขเมื่อ $1 วันที่ผ่านมา}}";
 "page-location" = "ดูบนแผนที่";
 "page-protected-autoconfirmed" = "หน้านี้ถูกล็อกแบบกึ่งล็อก";

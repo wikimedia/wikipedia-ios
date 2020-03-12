@@ -1,6 +1,7 @@
 // Messages for Japanese (日本語)
 // Exported from translatewiki.net
 // Author: Aefgh39622
+// Author: Afaz
 // Author: Barrel0116
 // Author: Dude1717
 // Author: Fryed-peach
@@ -99,6 +100,7 @@
 "action-remove" = "除去";
 "action-replace" = "置換";
 "action-replace-all" = "すべて置換";
+"action-retry" = "再試行";
 "action-save" = "保存";
 "action-saved" = "保存済み";
 "action-saved-accessibility" = "保存しました。リストから削除するには選択してください。";
@@ -311,15 +313,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "すべてオンにする";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "オン";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1の言語で利用可能";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "隠されている%@のカードすべて";
+"explore-feed-preferences-feed-cards-hidden-title" = "隠されている$1のカードすべて";
 "explore-feed-preferences-global-card-footer-text" = "このカードは言語に依存しないため、非表示にすると「探してみよう」フィードから除去されます。";
 "explore-feed-preferences-global-cards-description" = "言語非依存のカードです";
 "explore-feed-preferences-global-cards-subtitle" = "言語に関係ないもの";
 "explore-feed-preferences-global-cards-title" = "グローバルカード";
 "explore-feed-preferences-hide-card-action-title" = "カードを隠す";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "「%@」のカードをすべて非表示";
+"explore-feed-preferences-hide-feed-cards-action-title" = "「$1」のカードをすべて非表示";
 "explore-feed-preferences-in-the-news-description" = "最近の出来事の記事";
 "explore-feed-preferences-languages-footer-text" = "すべての言語で探してみようカードをすべて非表示にすると、「探してみよう」タブも表示されなくなります。";
 "explore-feed-preferences-on-this-day-description" = "今日は何の日";
@@ -522,6 +522,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";
+// Fuzzy
 "page-edit-history" = "すべての編集履歴";
 "page-history-anonymous-edits" = "匿名編集";
 "page-history-bot-edits" = "ボット編集";
@@ -538,6 +539,7 @@
 "page-history-stats-text" = "$2以降に{{PLURAL:$1|$1回の編集}}";
 "page-history-user-edits" = "利用者の編集";
 "page-issues" = "ページの問題点";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=今日編集|1=昨日編集|$1日前に編集}}";
 "page-location" = "地図で見る";
 "page-protected-autoconfirmed" = "このページは半保護されています。";
@@ -653,8 +655,7 @@
 "reading-lists-default-list-title" = "とりあえず";
 "reading-lists-delete-reading-list-alert-message" = "この操作は取り消せません。{{PLURAL:$1|このリスト|これらのリスト}}に保存された記事だけが削除されます。";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|リスト|リスト}}を削除？";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1記事と$2あとで読むリストがあなたのアカウントから同期されました";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1記事}}と{{PLURAL:$2|$2あとで読むリスト}}があなたのアカウントから同期されました";
 "reading-lists-list-not-synced-limit-exceeded" = "上限に達したためリストが同期できませんでした";
 "reading-lists-sort-saved-articles" = "保存した記事を並び替え";
 "reading-lists-split-notification" = "あとで読むリストに登録できる項目数は$1件以下です。既存のリストでこの上限をオーバーしたものは分割されました。";

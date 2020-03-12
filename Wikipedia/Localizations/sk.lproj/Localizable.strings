@@ -526,6 +526,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
+// Fuzzy
 "page-edit-history" = "Úplná história úprav";
 "page-history-anonymous-edits" = "úpravy anonymných používateľov";
 "page-history-bot-edits" = "úpravy botov";
@@ -544,8 +545,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 úprava|$1 úpravy|$1 úprav}} od $2";
 "page-history-user-edits" = "úpravy používateľa";
 "page-issues" = "Problémy stránky";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Upravené dnes|1=Upravené včera|2=Upravené predvčerom|Upravené pred $1 dňami}}";
-"page-last-edited-unknown" = "Upravené pred nejakým časom";
 "page-location" = "Zobraziť na mape";
 "page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
 "page-protected-can-not-edit" = "Nemáte právo upraviť túto stránku";
