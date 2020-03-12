@@ -36,7 +36,6 @@ final class PageContentService   {
         struct Menu: Codable {
             static let fragment = "pcs-footer-container-menu"
             enum Item: String, Codable {
-                case languages
                 case lastEdited
                 case pageIssues
                 case disambiguation
@@ -45,7 +44,6 @@ final class PageContentService   {
             }
             let items: [Item]
             let editedDaysAgo: Int?
-            let languageCount: Int?
         }
         
         struct ReadMore: Codable {

@@ -296,11 +296,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Edited yesterday</string>
+			<string>Updated yesterday</string>
 			<key>other</key>
-			<string>Edited %1$d days ago</string>
+			<string>Updated %1$d days ago</string>
 			<key>zero</key>
-			<string>Edited today</string>
+			<string>Updated today</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
