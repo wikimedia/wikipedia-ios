@@ -238,12 +238,14 @@ public class CommonStrings: NSObject {
 //let menuLastEditedTitle: String
 //if let lastModified = lastModified {
 //    let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
-//    menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: language, value: "{{PLURAL:%1$d|0=Edited today|1=Edited yesterday|Edited %1$d days ago}}", comment: "Relative days since an article was last edited. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago."), days)
+//    menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: language, value: "{{PLURAL:%1$d|0=Updated today|1=Updated yesterday|Updated %1$d days ago}}", comment: "Relative days since an article was last edited. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago."), days)
 //} else {
-//    menuLastEditedTitle = WMFLocalizedString("page-last-edited-unknown",  language: language, value: "Edited some time ago", comment: "Shown on the item for showing the article history when it's unclear how many days ago the article was edited.")
 //}
-//let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history")
+//let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: language, value: "View edit history", comment: "Label for button used to show an article's complete edit history")
 //let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
-//let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
+// WMFLocalizedString("page-talk-page-subtitle", value: "Discuss improvements to this article", comment: "Subtitle for button linking out to an article's talk page")
+
+//let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: language, value: "View page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
+// WMFLocalizedString("page-issues-subtitle", value: "Alerts about subpar or problematic content", comment: "Subtitle for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).")
 //let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
 //let menuCoordinateTitle = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
