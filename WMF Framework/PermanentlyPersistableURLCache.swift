@@ -496,6 +496,13 @@ extension PermanentlyPersistableURLCache {
             guard isCached else {
                 return
             }
+
+            let cachedHeaders = self.permanentlyCachedHeaders(for: request)
+            let cachedETag = cachedHeaders?[HTTPURLResponse.etagHeaderKey]
+            let responseETag = httpResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+            guard cachedETag == nil || cachedETag != responseETag else {
+                return
+            }
             
             let headerFileName: String
             let contentFileName: String
@@ -510,7 +517,6 @@ extension PermanentlyPersistableURLCache {
                 headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
                 contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
             }
-            
             
             CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
                 switch result {
