@@ -56,13 +56,28 @@ extension WMFArticle {
     }
     
     public func retryDownload() {
-        guard savedDate != nil, isDownloaded == false else {
+        guard savedDate != nil else {
             return
         }
+        isDownloaded = false
         errorCodeNumber = nil
         downloadAttemptCount = 0
         downloadRetryDate = nil
-        
+    }
+}
+
+extension NSManagedObjectContext {
+    public func retryFailedArticleDownloads(with keys: [String]) throws {
+        let batches = keys.chunked(into: 500)
+        for batch in batches {
+            let articleFetch = WMFArticle.fetchRequest()
+            articleFetch.predicate = NSPredicate(format: "errorCodeNumber != NULL && key IN %@", batch)
+            let articles = try fetch(articleFetch)
+            for article in articles {
+                article.retryDownload()
+            }
+            try save()
+        }
     }
 }
 
