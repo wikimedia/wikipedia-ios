@@ -263,12 +263,12 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
+// Fuzzy
 "page-edit-history" = "पूर्ण सम्पादन इतिहास";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
 "page-issues" = "पृष्ठका समस्याहरू";
 // Fuzzy
 "page-last-edited" = "$1 दिन पहिले सम्पादन गरिएको";
-"page-last-edited-unknown" = "केही समय अगाडी सम्पादन गरिएकाे";
 "page-location" = "कुनै नक्सामा हेर्नुहोस्";
 "page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
 "page-protected-can-not-edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";

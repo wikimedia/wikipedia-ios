@@ -387,6 +387,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 သမိုင်းဝင်ဖြစ်ရပ်|$1 သမိုင်းဝင်ဖြစ်ရပ်များ}}";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
+// Fuzzy
 "page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
 "page-history-anonymous-edits" = "အမည်မသိ တည်းဖြတ်မှုများ";
 "page-history-bot-edits" = "ဘော တည်းဖြတ်မှုများ";
@@ -398,8 +399,8 @@
 "page-history-stats-text" = "$2 ကတည်းက {{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
 "page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=ယနေ့တည်းဖြတ်ခဲ့သည်|1=မနေ့ကတည်းဖြတ်ခဲ့သည်|$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်}}";
-"page-last-edited-unknown" = "အချို့သောအချိန်တုန်းက တည်းဖြတ်ခဲ့သည်";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
