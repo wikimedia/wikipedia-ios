@@ -574,6 +574,10 @@ class ArticleViewController: ViewController {
         return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
     }
     
+    /// Used to wait for the callback that the anchor is ready for scrollin'
+    typealias ScrollToAnchorCompletion = (_ anchor: String, _ rect: CGRect) -> Void
+    var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
+
     func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
@@ -587,9 +591,12 @@ class ArticleViewController: ViewController {
             case .failure(let error):
                 self.showError(error)
                 completion?()
-            case .success(let rect):
-                let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
-                self.scroll(to: point, centered: centered, animated: animated, completion: completion)
+            case .success:
+                let scrollCompletion: ScrollToAnchorCompletion = { (anchor, rect) in
+                    let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.scrollView.contentOffset.y)
+                    self.scroll(to: point, centered: centered, animated: animated, completion: completion)
+                }
+                self.scrollToAnchorCompletions.insert(scrollCompletion, at: 0)
             }
         }
     }
