@@ -86,7 +86,7 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript(js)
     }
     
-    func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let webView = webView else {
             completion(.failure(RequestError.invalidParameters))
             return
@@ -96,7 +96,7 @@ class ArticleWebMessagingController: NSObject {
                 DDLogError("Error attempting to scroll to anchor: \(anchor) \(error)")
                 completion(.failure(error))
             } else {
-                completion(.success(true))
+                completion(.success(()))
             }
         }
     }
