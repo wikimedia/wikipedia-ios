@@ -255,6 +255,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटना|$1 ऐतिहासिक घटनाओं}}";
 "on-this-day-footer" = "इस दिन की अधिक ऐतिहासिक घटनाएं";
 "on-this-day-title" = "आज के दिन";
+// Fuzzy
 "page-edit-history" = "पूर्ण संपादन इतिहास";
 "page-issues" = "पेज समस्याएं";
 // Fuzzy

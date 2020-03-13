@@ -263,6 +263,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ڕووداوی مێژوویی|$1 ڕووداوە مێژووییەکان}}";
 "on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
 "on-this-day-title" = "لەم ڕۆژەدا";
+// Fuzzy
 "page-edit-history" = "مێژووی دەستکاری تەواو";
 "page-issues" = "گرفتەکانی پەڕە";
 // Fuzzy

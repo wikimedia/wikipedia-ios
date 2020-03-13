@@ -521,6 +521,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
+// Fuzzy
 "page-edit-history" = "Цела историја на уредувања";
 "page-history-anonymous-edits" = "анон. уредувања";
 "page-history-bot-edits" = "ботовски уредувања";
@@ -539,8 +540,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 уредување|$1 уредувања}} од $2 наваму";
 "page-history-user-edits" = "кориснички уредувања";
 "page-issues" = "Проблеми со страницата";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}";
-"page-last-edited-unknown" = "Уредено пред некое време";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";

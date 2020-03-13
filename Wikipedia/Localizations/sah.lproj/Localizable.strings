@@ -283,6 +283,7 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мөл.";
 "number-thousands" = "$1 тыһ.";
+// Fuzzy
 "page-edit-history" = "Уларытыы толору устуоруйата";
 "page-issues" = "Сирэйгэ ыйытыылар";
 // Fuzzy

@@ -212,6 +212,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historijski događaj|$1 historijska događaja|$1 historijskih događaja}}";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";
+// Fuzzy
 "page-edit-history" = "Cjelokupna historija izmjena";
 "page-issues" = "Problemi sa sadržajem";
 // Fuzzy

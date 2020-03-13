@@ -540,6 +540,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
+// Fuzzy
 "page-edit-history" = "完整編輯歷史";
 "page-history-anonymous-edits" = "匿名編輯";
 "page-history-bot-edits" = "機器人編輯";
@@ -558,8 +559,8 @@
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
 "page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
-"page-last-edited-unknown" = "在之前編輯過";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";

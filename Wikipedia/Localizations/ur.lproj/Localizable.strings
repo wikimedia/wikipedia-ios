@@ -282,6 +282,7 @@
 "on-this-day-footer" = "اس دن کے مزید تاریخی واقعات";
 "on-this-day-footer-with-event-count" = "اس دن کے مزید $1 تاریخی واقعات";
 "on-this-day-title" = "آج کے دن";
+// Fuzzy
 "page-edit-history" = "مکمل ترمیمی تاریخچہ";
 "page-issues" = "تبصرہ تحریر";
 // Fuzzy

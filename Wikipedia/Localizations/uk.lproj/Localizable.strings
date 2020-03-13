@@ -533,6 +533,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
+// Fuzzy
 "page-edit-history" = "Повна історія редагування";
 "page-history-anonymous-edits" = "анонімні редагування";
 "page-history-bot-edits" = "бото-редагування";
@@ -551,8 +552,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}} з $2";
 "page-history-user-edits" = "редагування користувачів";
 "page-issues" = "Проблеми сторінки";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Відредаговано сьогодні|1=Відредаговано вчора|few=Відредаговано $1 дні назад|many=Відредаговано $1 днів назад}}";
-"page-last-edited-unknown" = "Відредаговано якийсь час тому";
 "page-location" = "Переглянути на карті";
 "page-protected-autoconfirmed" = "Сторінка є частково захищена.";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";
