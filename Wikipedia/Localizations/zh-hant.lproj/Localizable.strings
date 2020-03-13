@@ -28,13 +28,13 @@
 // Author: 神樂坂秀吉
 
 "about-content-license" = "內容許可協議";
-"about-content-license-details" = "內容皆基於$1授權，除非另有聲明。";
+"about-content-license-details" = "除非另有聲明，內容皆基於$1授權。";
 "about-content-license-details-share-alike-license" = "創作共用 姓名標示 - 相同方式分享";
 "about-contributors" = "貢獻者";
 "about-libraries" = "使用的函式庫";
 "about-libraries-complete-list" = "完整清單";
 "about-libraries-license" = "授權條款";
-"about-libraries-licenses-title" = "我們熱愛開源軟體$1";
+"about-libraries-licenses-title" = "我們熱愛開放原始碼軟體$1";
 "about-places-maps-license" = "地點地圖授權條款";
 "about-places-maps-license-details" = "請使用由蘋果地圖所提供的地圖。$1。";
 "about-places-maps-license-details-link-text" = "請查看在此的授權條款詳情";
@@ -91,6 +91,7 @@
 "action-remove" = "移除";
 "action-replace" = "取代";
 "action-replace-all" = "全部取代";
+"action-retry" = "重試";
 "action-save" = "儲存";
 "action-saved" = "已儲存";
 "action-saved-accessibility" = "已儲存。啟用來取消儲存。";
@@ -126,7 +127,7 @@
 "article-languages-others" = "其他語言";
 "article-languages-yours" = "您的語言";
 "article-read-more-title" = "延伸閱讀";
-"article-reference-title" = "檢視參考資料";
+"article-reference-view-title" = "參考資料 $1";
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
@@ -603,8 +604,8 @@
 "places-search-your-current-location" = "您的目前位置";
 "places-title" = "地點";
 "places-unknown-distance" = "未知距離";
-"potd-description-prefix" = "$1 的每日圖片";
-"potd-empty-error-description" = "抓取 $1 的每日圖片失敗";
+"potd-description-prefix" = "$1的每日圖片";
+"potd-empty-error-description" = "抓取$1的每日圖片失敗";
 "preference-summary-eventlogging-opt-in" = "允許維基媒體基金會收集有關您如何使用應用程式的資訊，來讓此應用程式能更好";
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";

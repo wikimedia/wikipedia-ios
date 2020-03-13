@@ -41,8 +41,16 @@
     return [self performCancelableMediaWikiAPIGETForURL:URL cancellationKey:NSUUID.UUID.UUIDString withQueryParameters:queryParameters completionHandler:completionHandler];
 }
 
+- (NSURLSessionTask *)performMediaWikiAPIGETForURLRequest:(NSURLRequest *)urlRequest completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler {
+    return [self performCancelableMediaWikiAPIGETForURLRequest:urlRequest cancellationKey:NSUUID.UUID.UUIDString  completionHandler:completionHandler];
+}
+
 - (NSURLSessionTask *)performCancelableMediaWikiAPIGETForURL:(NSURL *)URL cancellationKey:(NSString *)cancellationKey withQueryParameters:(NSDictionary<NSString *, id> *)queryParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler {
     return [self.fetcher performMediaWikiAPIGETForURL:URL withQueryParameters:queryParameters cancellationKey:cancellationKey completionHandler:completionHandler];
+}
+
+- (NSURLSessionTask *)performCancelableMediaWikiAPIGETForURLRequest:(NSURLRequest *)urlRequest cancellationKey:(NSString *)cancellationKey completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler {
+    return [self.fetcher performMediaWikiAPIGETForURLRequest:urlRequest cancellationKey:cancellationKey completionHandler:completionHandler];
 }
 
 - (void)cancelAllFetches {

@@ -11,7 +11,6 @@
 // Author: Iváns
 // Author: Macofe
 // Author: Maria zaos
-// Author: Navhy
 // Author: Nemo bis
 // Author: Toliño
 
@@ -72,6 +71,8 @@
 "action-language-accessibility" = "Cambiar a lingua";
 "action-move-to" = "Mover a...";
 "action-move-to-reading-list" = "Mover á lista de lectura";
+"action-next-revision-accessibility" = "Seguinte revisión";
+"action-previous-revision-accessibility" = "Revisión anterior";
 "action-read" = "Ler";
 "action-redo" = "Refacer";
 "action-remove" = "Eliminar";
@@ -169,10 +170,15 @@
 "description-welcome-promise-title" = "Ó comezar, prometo non utilizar de forma irresponsable esta funcionalidade";
 "description-welcome-start-editing-button" = "Comezar a editar";
 "diff-compare-header-from-info-heading" = "De:";
+"diff-compare-header-heading" = "Comparar revisións";
 "diff-compare-header-to-info-heading" = "Para:";
+"diff-compare-title" = "Comparar revisións";
 "diff-context-lines-collapsed-button-title" = "Amosar";
 "diff-context-lines-expanded-button-title" = "Agochar";
+"diff-paragraph-moved-direction-down" = "abaixo";
+"diff-paragraph-moved-direction-up" = "arriba";
 "diff-single-header-summary-heading" = "Resumo de edición";
+"diff-single-line-format" = "Liña $1";
 "dim-images" = "Atenuación de imaxes";
 "edit-bold-accessibility-label" = "Engadir grosas";
 "edit-bold-remove-accessibility-label" = "Eliminar grosas";
@@ -405,7 +411,6 @@
 "in-the-news-currently-trending" = "Popular actualmente";
 "in-the-news-notification-read-now-action-title" = "Ler agora";
 "in-the-news-notification-save-for-later-action-title" = "Gardar para máis tarde";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipedia";

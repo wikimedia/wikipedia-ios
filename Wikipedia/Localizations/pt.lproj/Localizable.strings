@@ -437,7 +437,6 @@
 "in-the-news-currently-trending" = "Em tendência";
 "in-the-news-notification-read-now-action-title" = "Ler agora";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para mais tarde";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "Partilhar...";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipédia em $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipédia";
@@ -549,6 +548,7 @@
 "page-history-user-edits" = "edições dos utilizadores";
 "page-issues" = "Problemas da página";
 "page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado há $1 dias}}";
+"page-last-edited-unknown" = "Editado há algum tempo";
 "page-location" = "Ver num mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Não tem permissão para editar esta página";
@@ -785,8 +785,9 @@
 "status-saving-for-later" = "A guardar para mais tarde...";
 "table-of-contents-button-label" = "Índice";
 "table-of-contents-close-accessibility-hint" = "Fechar";
-"table-of-contents-close-accessibility-label" = "Fechar Índice";
+"table-of-contents-close-accessibility-label" = "Fechar índice";
 "table-of-contents-heading" = "Índice";
+"table-of-contents-hide-button-label" = "Ocultar índice";
 "table-title-other" = "Mais informação";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Premir duas vezes para abrir o tópico de discussão";

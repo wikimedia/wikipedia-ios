@@ -35,13 +35,19 @@ class ArticleViewController: ViewController {
     internal let dataStore: MWKDataStore
     
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
-    private let cacheController: CacheController
+    private let cacheController: ArticleCacheController
     
-    private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-
-    internal lazy var fetcher: ArticleFetcher = ArticleFetcher()
+    let session = Session.shared
+    let configuration = Configuration.current
+    
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
 
     private var leadImageHeight: CGFloat = 210
+
+    //tells calls to try pulling from cache first so the user sees the article as quickly as possible
+    internal var fromNavStateRestoration: Bool = false
+
     private var contentSizeObservation: NSKeyValueObservation? = nil
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -49,10 +55,10 @@ class ArticleViewController: ViewController {
         return rc
     }()
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, forceCache: Bool = false) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
-            let cacheController = dataStore.articleCacheControllerWrapper.cacheController
+            let cacheController = ArticleCacheController.shared
             else {
                 return nil
         }
@@ -62,9 +68,11 @@ class ArticleViewController: ViewController {
         self.article = article
         
         self.dataStore = dataStore
+
         self.schemeHandler = SchemeHandler.shared
-        self.schemeHandler.forceCache = forceCache
-        self.schemeHandler.cacheController = cacheController
+        
+        self.fromNavStateRestoration = fromNavStateRestoration
+
         self.cacheController = cacheController
         
         super.init(theme: theme)
@@ -89,7 +97,7 @@ class ArticleViewController: ViewController {
     }()
     
     lazy var webView: WKWebView = {
-        return WKWebView(frame: view.bounds, configuration: webViewConfiguration)
+        return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
     
     // MARK: Find In Page
@@ -114,6 +122,7 @@ class ArticleViewController: ViewController {
     
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
+        
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
             DDLogError("Error loading lead image: \(error)")
         }) {
@@ -243,6 +252,7 @@ class ArticleViewController: ViewController {
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
+        startSignificantlyViewedTimer()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -251,17 +261,22 @@ class ArticleViewController: ViewController {
         toolbarController.update()
     }
     
+    override func wmf_removePeekableChildViewControllers() {
+        super.wmf_removePeekableChildViewControllers()
+        addToHistory()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
+        stopSignificantlyViewedTimer()
     }
     
     // MARK: Article load
     
     var footerLoadGroup: DispatchGroup?
-    var languageCount: Int = 0
-    
+
     func loadIfNecessary() {
         guard state == .initial else {
             return
@@ -271,17 +286,20 @@ class ArticleViewController: ViewController {
     
     func load() {
         state = .loading
+        
         setupPageContentServiceJavaScriptInterface {
-            self.loadPage()
+            let cachePolicy: WMFCachePolicy? = self.fromNavStateRestoration ? .foundation(.returnCacheDataElseLoad) : nil
+            self.loadPage(cachePolicy: cachePolicy)
         }
     }
     
-    func loadPage() {
+    func loadPage(cachePolicy: WMFCachePolicy? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
+        
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
 
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL) else {
             showGenericError()
             state = .error
             return
@@ -306,6 +324,7 @@ class ArticleViewController: ViewController {
         dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
             defer {
                 self.footerLoadGroup?.leave()
+                self.updateMenuItems()
             }
             // Handle redirects
             guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
@@ -313,15 +332,58 @@ class ArticleViewController: ViewController {
             }
             self.article = article
             self.articleURL = newURL
-            try? self.article.addToReadHistory()
+            self.addToHistory()
         }
-        footerLoadGroup?.enter()
-        languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
-            self.languageCount = links.count
-            self.footerLoadGroup?.leave()
-        }) { (error) in
-            self.footerLoadGroup?.leave()
+    }
+    
+    func syncCachedResourcesIfNeeded() {
+        guard let groupKey = articleURL.wmf_databaseKey else {
+            return
         }
+        
+        fetcher.isCached(articleURL: articleURL) { [weak self] (isCached) in
+            
+            guard let self = self,
+                isCached else {
+                    return
+            }
+            
+            self.cacheController.syncCachedResources(url: self.articleURL, groupKey: groupKey) { (result) in
+                switch result {
+                    case .success(let itemKeys):
+                        DDLogDebug("successfully synced \(itemKeys.count) resources")
+                    case .failure(let error):
+                        DDLogDebug("failed to synced resources for \(groupKey): \(error)")
+                }
+            }
+        }
+    }
+    
+    // MARK: History
+
+    func addToHistory() {
+        // Don't add to history if we're in peek/pop
+        guard self.wmf_PeekableChildViewController == nil else {
+            return
+        }
+        try? article.addToReadHistory()
+    }
+    
+    var significantlyViewedTimer: Timer?
+    
+    func startSignificantlyViewedTimer() {
+        guard significantlyViewedTimer == nil, !article.wasSignificantlyViewed else {
+            return
+        }
+        significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in
+            self?.article.wasSignificantlyViewed = true
+            self?.stopSignificantlyViewedTimer()
+        })
+    }
+    
+    func stopSignificantlyViewedTimer() {
+        significantlyViewedTimer?.invalidate()
+        significantlyViewedTimer = nil
     }
     
     // MARK: State Restoration
@@ -424,7 +486,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        webView.reload()
+        loadPage(cachePolicy: .noPersistentCacheOnError)
     }
     
     // MARK: Overrideable functionality
@@ -512,20 +574,30 @@ class ArticleViewController: ViewController {
         return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
     }
     
-    func scroll(to anchor: String, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
+    /// Used to wait for the callback that the anchor is ready for scrollin'
+    typealias ScrollToAnchorCompletion = (_ anchor: String, _ rect: CGRect) -> Void
+    var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
+
+    func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
             completion?()
             return
         }
-        webView.getScrollRectForHtmlElement(withId: anchor) { (rect) in
+        
+        messagingController.prepareForScroll(to: anchor, highlight: highlighted) { (result) in
             assert(Thread.isMainThread)
-            guard !rect.isNull else {
+            switch result {
+            case .failure(let error):
+                self.showError(error)
                 completion?()
-                return
+            case .success:
+                let scrollCompletion: ScrollToAnchorCompletion = { (anchor, rect) in
+                    let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.scrollView.contentOffset.y)
+                    self.scroll(to: point, centered: centered, animated: animated, completion: completion)
+                }
+                self.scrollToAnchorCompletions.insert(scrollCompletion, at: 0)
             }
-            let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
-            self.scroll(to: point, centered: centered, animated: animated, completion: completion)
         }
     }
     
@@ -597,11 +669,11 @@ class ArticleViewController: ViewController {
         dismissReferencesPopover()
     }
     
-    
     // MARK: Analytics
     
     internal lazy var editFunnel: EditFunnel = EditFunnel.shared
     internal lazy var shareFunnel: WMFShareFunnel? = WMFShareFunnel(article: article)
+    internal lazy var savedPagesFunnel: SavedPagesFunnel = SavedPagesFunnel()
     internal lazy var readingListsFunnel = ReadingListsFunnel.shared
 }
 
@@ -614,9 +686,12 @@ private extension ArticleViewController {
         setupWebView()
     }
     
+    // MARK: Notifications
+    
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
             self?.contentSizeDidChange()
         }
@@ -639,6 +714,11 @@ private extension ArticleViewController {
     
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
+        stopSignificantlyViewedTimer()
+    }
+    
+    @objc func applicationDidBecomeActive(_ notification: Notification) {
+        startSignificantlyViewedTimer()
     }
     
     func setupSearchButton() {
@@ -646,21 +726,33 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        // Add the stack view that contains the table of contents and the web view.
+        // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-        
-        webView.scrollView.refreshControl = refreshControl
         
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
         
+        // Scroll view
         scrollView = webView.scrollView // so that content insets are inherited
         scrollView?.delegate = self
-        webView.scrollView.addSubview(leadImageContainerView)
-        
         webView.scrollView.keyboardDismissMode = .interactive
+        webView.scrollView.refreshControl = refreshControl
+        
+        // Lead image
+        setupLeadImageView()
+        
+        // Delegates
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+    }
+    
+    /// Adds the lead image view to the web view's scroll view and configures the associated constraints
+    func setupLeadImageView() {
+        webView.scrollView.addSubview(leadImageContainerView)
 
         let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
         let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
@@ -684,8 +776,9 @@ private extension ArticleViewController {
             switch result {
             case .success(let user):
                 self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
-            case .failure(let error):
-                self.alertManager.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
+            case .failure:
+                DDLogError("Error getting userinfo for \(siteURL)")
+                self.setupPageContentServiceJavaScriptInterface(with: [])
             }
             completion()
         }
@@ -741,6 +834,54 @@ extension ArticleViewController: ImageScaleTransitionProviding {
     
 }
 
+// MARK: - Article Load Errors
+
+extension ArticleViewController {
+    func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
+        fakeProgressController.finish()
+        if showEmptyView {
+            wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+        }
+        showError(error)
+        refreshControl.endRefreshing()
+    }
+    
+    func articleLoadDidFail(with error: Error) {
+        // Convert from mobileview if necessary
+        guard article.isConversionFromMobileViewNeeded else {
+            handleArticleLoadFailure(with: error, showEmptyView: !article.isSaved)
+            return
+        }
+        dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { [weak self] (migrationError) in
+            DispatchQueue.main.async {
+                self?.oneOffArticleMigrationDidFinish(with: migrationError)
+            }
+        }
+    }
+    
+    func oneOffArticleMigrationDidFinish(with migrationError: Error?) {
+        if let error = migrationError {
+            handleArticleLoadFailure(with: error, showEmptyView: true)
+            return
+        }
+        guard !article.isConversionFromMobileViewNeeded else {
+            handleArticleLoadFailure(with: RequestError.unexpectedResponse, showEmptyView: true)
+            return
+        }
+        loadPage()
+    }
+}
+
+extension ArticleViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        articleLoadDidFail(with: error)
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        articleLoadDidFail(with: error)
+    }
+}
+
 extension ViewController {
     /// Allows for re-use by edit preview VC
     var articleMargins: UIEdgeInsets {
@@ -750,8 +891,3 @@ extension ViewController {
         return margins
     }
 }
-
-//WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.")
-//WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
-//WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")

@@ -6,8 +6,13 @@ enum SaveResult {
     case failure(Error)
 }
 
-enum CacheDBWritingResultWithItemKeys {
-    case success([CacheController.ItemKey])
+enum CacheDBWritingResultWithURLRequests {
+    case success([URLRequest])
+    case failure(Error)
+}
+
+enum CacheDBWritingResultWithItemAndVariantKeys {
+    case success([CacheController.ItemKeyAndVariant])
     case failure(Error)
 }
 
@@ -17,68 +22,52 @@ enum CacheDBWritingResult {
 }
 
 enum CacheDBWritingMarkDownloadedError: Error {
-    case invalidContext
     case cannotFindCacheGroup
     case cannotFindCacheItem
+    case unableToDetermineItemKey
+    case missingMOC
 }
 
 enum CacheDBWritingRemoveError: Error {
     case cannotFindCacheGroup
     case cannotFindCacheItem
+    case missingMOC
 }
 
 protocol CacheDBWriting: CacheTaskTracking {
     
-    typealias CacheDBWritingCompletion = (CacheDBWritingResultWithItemKeys) -> Void
+    typealias CacheDBWritingCompletionWithURLRequests = (CacheDBWritingResultWithURLRequests) -> Void
+    typealias CacheDBWritingCompletionWithItemAndVariantKeys = (CacheDBWritingResultWithItemAndVariantKeys) -> Void
     
-    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletion)
-    func add(url: URL, groupKey: CacheController.GroupKey, itemKey: CacheController.ItemKey, completion: @escaping CacheDBWritingCompletion)
+    func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
+    func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests)
+    func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool
+    func shouldDownloadVariant(urlRequest: URLRequest) -> Bool
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool
+    var fetcher: CacheFetching { get }
 
     //default implementations
-    func remove(itemKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
+    func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void)
     func remove(groupKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
-    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void)
-    func markDownloaded(itemKey: CacheController.ItemKey, etag: String?, completion: @escaping (CacheDBWritingResult) -> Void)
+    func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys)
+    func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void)
 }
 
 extension CacheDBWriting {
-    
-    func markDownloaded(itemKey: CacheController.ItemKey, etag: String?, completion: @escaping (CacheDBWritingResult) -> Void) {
+
+    func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys) {
         
         guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
+            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
             return
         }
-    
-        context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
-                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
-                return
-            }
-            cacheItem.isDownloaded = true
-            cacheItem.etag = etag
-            CacheDBWriterHelper.save(moc: context) { (result) in
-                switch result {
-                case .success:
-                    completion(.success)
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-    
-    func fetchItemKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithItemKeys) -> Void) {
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
-            return
-        }
+        
         context.perform {
             guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheGroup))
                 return
             }
-            guard let cacheItems = group.cacheItems as? Set<PersistentCacheItem> else {
+            guard let cacheItems = group.cacheItems as? Set<CacheItem> else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
                 return
             }
@@ -87,19 +76,19 @@ extension CacheDBWriting {
                 return cacheItem.cacheGroups?.count == 1
             })
 
-            completion(.success(cacheItemsToRemove.compactMap { $0.key }))
+            completion(.success(cacheItemsToRemove.compactMap { CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }))
         }
     }
     
-    func remove(itemKey: CacheController.ItemKey, completion: @escaping (CacheDBWritingResult) -> Void) {
+    func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void) {
 
         guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
+            completion(.failure(CacheDBWritingRemoveError.missingMOC))
             return
         }
         
         context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, in: context) else {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemAndVariantKey.itemKey, variant: itemAndVariantKey.variant, in: context) else {
                 completion(.failure(CacheDBWritingRemoveError.cannotFindCacheItem))
                 return
             }
@@ -120,7 +109,7 @@ extension CacheDBWriting {
     func remove(groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResult) -> Void) {
 
         guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.invalidContext))
+            completion(.failure(CacheDBWritingRemoveError.missingMOC))
             return
         }
         
@@ -143,51 +132,13 @@ extension CacheDBWriting {
         }
     }
     
-    func fetchAndPrintEachItem() {
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            return
+    func shouldDownloadVariant(urlRequest: URLRequest) -> Bool {
+        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
+            return false
         }
         
-        context.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheItem>(entityName: "PersistentCacheItem")
-            do {
-                let fetchedResults = try context.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     print("🌹noItems")
-                } else {
-                    for item in fetchedResults {
-                        print("🌹itemKey: \(item.value(forKey: "key")!)")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
-            }
-        }
-    }
-    
-    func fetchAndPrintEachGroup() {
+        let variant = fetcher.variantForURLRequest(urlRequest)
         
-        guard let context = CacheController.backgroundCacheContext else {
-            return
-        }
-        
-        context.perform {
-            let fetchRequest = NSFetchRequest<PersistentCacheGroup>(entityName: "PersistentCacheGroup")
-            do {
-                let fetchedResults = try context.fetch(fetchRequest)
-                if fetchedResults.count == 0 {
-                     print("🌹noGroups")
-                } else {
-                    for item in fetchedResults {
-                        print("🌹groupKey: \(item.value(forKey: "key")!)")
-                    }
-                }
-            } catch let error as NSError {
-                // something went wrong, print the error.
-                print(error.description)
-            }
-        }
+        return shouldDownloadVariant(itemKey: itemKey, variant: variant)
     }
 }

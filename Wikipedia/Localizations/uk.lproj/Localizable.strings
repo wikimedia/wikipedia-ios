@@ -84,6 +84,7 @@
 "action-remove" = "Видалити";
 "action-replace" = "Замінити";
 "action-replace-all" = "Замінити все";
+"action-retry" = "Повторити";
 "action-save" = "Зберегти";
 "action-saved" = "Збережене";
 "action-saved-accessibility" = "Збережено. Активуйте для видалення.";
@@ -119,6 +120,7 @@
 "article-languages-others" = "Інші мови";
 "article-languages-yours" = "Ваші мови";
 "article-read-more-title" = "Детальніше";
+"article-reference-view-title" = "Посилання $1";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Налаштування тем для читання";
@@ -439,7 +441,6 @@
 "in-the-news-currently-trending" = "Зараз популярні";
 "in-the-news-notification-read-now-action-title" = "Читати зараз";
 "in-the-news-notification-save-for-later-action-title" = "Зберегти на потім";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "Поділитися…";
 "in-the-news-sub-title-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "in-the-news-sub-title-from-wikipedia" = "З Вікіпедії";
@@ -551,6 +552,7 @@
 "page-history-user-edits" = "редагування користувачів";
 "page-issues" = "Проблеми сторінки";
 "page-last-edited" = "{{PLURAL:$1|0=Відредаговано сьогодні|1=Відредаговано вчора|few=Відредаговано $1 дні назад|many=Відредаговано $1 днів назад}}";
+"page-last-edited-unknown" = "Відредаговано якийсь час тому";
 "page-location" = "Переглянути на карті";
 "page-protected-autoconfirmed" = "Сторінка є частково захищена.";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";
@@ -789,6 +791,7 @@
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
+"table-of-contents-hide-button-label" = "Приховати зміст";
 "table-title-other" = "Більше інформації";
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
 "talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";

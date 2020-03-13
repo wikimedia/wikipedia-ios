@@ -34,9 +34,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 
-@property (nonatomic, strong) WMFCacheControllerWrapper *imageCacheControllerWrapper;
-@property (nonatomic, strong) WMFCacheControllerWrapper *articleCacheControllerWrapper;
-
 @property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
@@ -106,8 +103,6 @@ static uint64_t bundleHash() {
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
-        self.imageCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithType:WMFCacheControllerTypeImage];
-        self.articleCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithArticleCacheWithImageCacheControllerWrapper:self.imageCacheControllerWrapper];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
@@ -459,6 +454,12 @@ static uint64_t bundleHash() {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
         }
+        
+        [self moveImageControllerCacheFolderWithError:&migrationError];
+        if (migrationError) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
     }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
@@ -549,6 +550,15 @@ static uint64_t bundleHash() {
         [userDefaults setObject:value forKey:key];
         [wmfDefaults removeObjectForKey:value];
     }
+}
+
+- (void)moveImageControllerCacheFolderWithError: (NSError **)error {
+    
+    NSURL *legacyDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Image Cache" isDirectory:YES];
+    NSURL *newDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Cache" isDirectory:YES];
+    
+    //move legacy image cache to new non-image path name
+    [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
 }
 
 - (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
@@ -837,6 +847,8 @@ static uint64_t bundleHash() {
 - (void)clearTemporaryCache {
     [self clearMemoryCache];
     [WMFSession clearTemporaryCache];
+    NSSet<NSString *> *typesToClear = [NSSet setWithObjects:WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache, nil];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:typesToClear modifiedSince:[NSDate distantPast] completionHandler:^{}];
 }
 
 #pragma mark - Remote Configuration
@@ -852,7 +864,7 @@ static uint64_t bundleHash() {
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
 
     // Site info
-    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:@{@"action": @"query", @"format": @"json", @"meta": @"siteinfo"}];
+    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
     [taskGroup enter];
     [[WMFSession shared] getJSONDictionaryFromURL:components.URL
                                       ignoreCache:YES

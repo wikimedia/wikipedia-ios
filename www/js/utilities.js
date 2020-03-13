@@ -1,10 +1,3 @@
-
-// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-const findClosest = (el, selector) => {
-  while ((el = el.parentElement) && !el.matches(selector));
-  return el
-}
-
 const scrollToFragment = fragmentId => {
   location.hash = ''
   location.hash = fragmentId
@@ -24,4 +17,3 @@ const accessibilityCursorToFragment = fragmentId => {
 
 exports.accessibilityCursorToFragment = accessibilityCursorToFragment
 exports.scrollToFragment = scrollToFragment
-exports.findClosest = findClosest

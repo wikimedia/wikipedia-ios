@@ -101,6 +101,7 @@
 "action-remove" = "移除";
 "action-replace" = "替换";
 "action-replace-all" = "替换所有";
+"action-retry" = "重试";
 "action-save" = "保存";
 "action-saved" = "已保存";
 "action-saved-accessibility" = "已保存。激活以取消保存。";
@@ -135,7 +136,6 @@
 "article-languages-others" = "其他语言";
 "article-languages-yours" = "您的语言";
 "article-read-more-title" = "阅读更多";
-"article-reference-title" = "查看参考文献";
 "article-save-error-not-enough-space" = "您的设备没有足够空间保存此条目";
 "article-share" = "分享";
 "article-toolbar-reading-themes-controls-toolbar-item" = "阅读主题控制";

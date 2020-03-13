@@ -74,7 +74,7 @@ class ShareViewController: UIViewController, Themeable {
                 self.imageLicense = imageInfo.license
             })
             loadGroup.enter()
-            let _ = ImageController.shared.fetchImage(withURL: imageURL, failure: { (fail) in
+            let _ = ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { (fail) in
                 self.loadGroup.leave()
             }) { (download) in
                 self.image = download.image.staticImage

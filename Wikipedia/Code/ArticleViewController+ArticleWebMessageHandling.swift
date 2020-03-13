@@ -18,8 +18,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleFooterItem(type: type, payload: payload)
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
-        case .backLink(let index, let group):
-            fallthrough
+        case .backLink(let referenceId, let referenceText, let backLinks):
+            showReferenceBackLinks(backLinks, referenceId: referenceId, referenceText: referenceText)
         case .reference(let index, let group):
             showReferences(group, selectedIndex: index, animated: true)
         case .image(let src, let href, let width, let height):
@@ -28,6 +28,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
         case .pronunciation(let url):
             showAudio(with: url)
+        case .scrollToAnchor(let anchor, let rect):
+            scrollToAnchorCompletions.popLast()?(anchor, rect)
         default:
             break
         }
@@ -56,8 +58,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishFinalSetup() {
         footerLoadGroup?.leave()
         restoreStateIfNecessary()
-        try? article.addToReadHistory()
-        schemeHandler.forceCache = false
+        addToHistory()
+        fromNavStateRestoration = false
+        syncCachedResourcesIfNeeded()
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {
@@ -68,8 +71,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showCoordinate()
         case .disambiguation:
             showDisambiguation(with: payload)
-        case .languages:
-            showLanguages()
         case .lastEdited:
             showEditHistory()
         case .pageIssues:
@@ -95,12 +96,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
             return
         }
         var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
-        if languageCount > 0 {
-            menuItems.append(.languages)
-        }
         if article.coordinate != nil {
             menuItems.append(.coordinate)
         }
-        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, languageCount:languageCount, lastModified: article.lastModifiedDate)
+        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, lastModified: article.lastModifiedDate)
     }
 }

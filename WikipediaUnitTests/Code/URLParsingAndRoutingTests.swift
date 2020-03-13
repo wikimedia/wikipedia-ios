@@ -22,7 +22,7 @@ class URLParsingAndRoutingTests: XCTestCase {
     
     func testMainPage() {
         let enMainPageURL = URL(string: "https://en.m.wikipedia.org/wiki/Main_Page")!
-        let dest = try? router.destination(for: enMainPageURL)
+        let dest = router.destination(for: enMainPageURL)
         switch dest {
         case .inAppLink(let linkURL):
             XCTAssertEqual(linkURL, enMainPageURL.canonical)
@@ -37,7 +37,7 @@ class URLParsingAndRoutingTests: XCTestCase {
             return
         }
         
-        var dest = try? router.destination(for: components.url!)
+        var dest = router.destination(for: components.url!)
         switch dest {
         case .userTalk(let linkURL):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -46,7 +46,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         }
 
         components.path = "/wiki//æ/_raising"
-        dest = try? router.destination(for: components.url!)
+        dest = router.destination(for: components.url!)
         switch dest {
         case .article(let linkURL):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -56,7 +56,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         
         components.host = "fr.m.wikipedia.org"
         components.path = "/wiki/France"
-        dest = try? router.destination(for: components.url!)
+        dest = router.destination(for: components.url!)
         switch dest {
         case .article(let linkURL):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -66,7 +66,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         
         // Special should work on frwiki because it's a canonical namespace
         components.path = "/wiki/Special:MobileDiff/24601"
-        dest = try? router.destination(for: components.url!)
+        dest = router.destination(for: components.url!)
         switch dest {
         case .articleDiffSingle(let linkURL, _, let toRevID):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -77,7 +77,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         
         components.host = "zh.m.wikipedia.org"
         components.path = "/wiki/特殊:MobileDiff/24601"
-        dest = try? router.destination(for: components.url!)
+        dest = router.destination(for: components.url!)
         switch dest {
         case .articleDiffSingle(let linkURL, _, let toRevID):
             XCTAssertEqual(linkURL, components.url!.canonical)

@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!_typedImageData) {
             NSURL *URL = self.imageInfo.canonicalFileURL;
             if (URL) {
-                _typedImageData = [[WMFImageController sharedInstance] dataWithURL:URL];
+                _typedImageData = [[WMFImageCacheControllerWrapper shared] dataWithURL:URL];
             }
         }
         return _typedImageData;
@@ -216,7 +216,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL *url = [photo bestImageURL];
 
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:url
+    [[WMFImageCacheControllerWrapper shared] fetchImageWithURL:url
         failure:^(NSError *_Nonnull error) {
             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
@@ -363,7 +363,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)placeholderImage {
     NSURL *url = [self thumbnailImageURL];
     if (url) {
-        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
+        return [[[WMFImageCacheControllerWrapper shared] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -376,7 +376,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)image {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
+        return [[[WMFImageCacheControllerWrapper shared] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -385,7 +385,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)memoryCachedImage {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
+        return [[[WMFImageCacheControllerWrapper shared] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -481,14 +481,18 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     UIImage *memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
-        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage bestImageURL]
-            failure:^(NSError *_Nonnull error) {
+        
+        [[WMFImageCacheControllerWrapper shared] fetchImageWithURL:[galleryImage bestImageURL]
+        failure:^(NSError *_Nonnull error) {
+            if (error) {
                 //show error
+                return;
             }
-            success:^(WMFImageDownload *_Nonnull download) {
-                @strongify(self);
-                [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
-            }];
+        }
+         success:^(WMFImageDownload *_Nonnull download) {
+             @strongify(self);
+             [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
+         }];
     } else {
         [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
     }

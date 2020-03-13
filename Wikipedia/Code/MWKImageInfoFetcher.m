@@ -1,5 +1,7 @@
-#import "MWKImageInfoFetcher.h"
-@import WMF;
+#import <WMF/MWKImageInfoFetcher.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/UIScreen+WMFImageWidth.h>
+#import <WMF/WMF-Swift.h>
 
 /// Required extmetadata keys, don't forget to add new ones to +requiredExtMetadataKeys!
 static NSString *const ExtMetadataImageDescriptionKey = @"ImageDescription";
@@ -75,6 +77,11 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
         return nil;
     }
     NSDictionary *indexedImages = json[@"query"][@"pages"];
+    
+    if (!indexedImages) {
+        return @[];
+    }
+    
     NSMutableArray *itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
 
     NSArray<NSString *> *preferredLangCodes = [[[MWKLanguageLinkController sharedInstance] preferredLanguages] wmf_map:^NSString *(MWKLanguageLink *language) {
@@ -155,6 +162,58 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     return nil;
 }
 
+- (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles
+                            fromSiteURL: (NSURL *)siteURL {
+    
+    NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_language useGenerator:NO];
+    
+    NSURLComponents *components = [[NSURLComponents alloc] initWithURL:siteURL resolvingAgainstBaseURL:NO];
+    
+    if (components.host) {
+        return [self.configuration mediaWikiAPIURLComponentsForHost:components.host withQueryParameters:params].URL;
+    }
+    
+    return nil;
+}
+
+- (NSDictionary *)queryParametersForTitles:(NSArray *)titles
+     fromSiteURL:(NSURL *)siteURL
+  thumbnailWidth:(NSNumber *)thumbnailWidth
+ extmetadataKeys:(NSArray<NSString *> *)extMetadataKeys
+metadataLanguage:(nullable NSString *)metadataLanguage
+                              useGenerator:(BOOL)useGenerator {
+    if (!titles) {
+        return @{};
+    }
+
+    NSMutableDictionary *params =
+        [@{@"format": @"json",
+           @"action": @"query",
+           @"titles": [titles componentsJoinedByString:@"|"],
+           // suppress continue warning
+           @"rawcontinue": @"",
+           @"prop": @"imageinfo",
+           @"iiprop": [@[@"url", @"extmetadata", @"dimensions"] componentsJoinedByString:@"|"],
+           @"iiextmetadatafilter": [extMetadataKeys ?: @[] componentsJoinedByString:@"|"],
+           @"iiextmetadatamultilang": @1,
+           @"iiurlwidth": thumbnailWidth} mutableCopy];
+
+    if (useGenerator) {
+        params[@"generator"] = @"images";
+    }
+
+    if (metadataLanguage) {
+        params[@"iiextmetadatalanguage"] = metadataLanguage;
+    }
+    
+    return [params copy];
+}
+
+- (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url {
+    
+    return [self.session imageInfoURLRequestFromPersistenceWith: url];
+}
+
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray *)titles
                                   fromSiteURL:(NSURL *)siteURL
                                thumbnailWidth:(NSNumber *)thumbnailWidth
@@ -167,29 +226,14 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
     NSParameterAssert(siteURL);
 
-    NSMutableDictionary *params =
-        [@{@"format": @"json",
-           @"action": @"query",
-           @"titles": WMFJoinedPropertyParameters(titles),
-           // suppress continue warning
-           @"rawcontinue": @"",
-           @"prop": @"imageinfo",
-           @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-           @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
-           @"iiextmetadatamultilang": @1,
-           @"iiurlwidth": thumbnailWidth} mutableCopy];
-
-    if (useGenerator) {
-        params[@"generator"] = @"images";
-    }
-
-    if (metadataLanguage) {
-        params[@"iiextmetadatalanguage"] = metadataLanguage;
-    }
-
-    return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURL:siteURL
-                                                   withQueryParameters:params
-                                                     completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+    NSDictionary *params = [self queryParametersForTitles:titles fromSiteURL:siteURL thumbnailWidth:thumbnailWidth extmetadataKeys:extMetadataKeys metadataLanguage:metadataLanguage useGenerator:useGenerator];
+    
+    NSURL *url = [self.fetcher.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params].URL;
+    
+    NSURLRequest *urlRequest = [self urlRequestForFromURL:url];
+    
+    return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURLRequest:urlRequest
+                                                            completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                                                          if (error) {
                                                              failure(error);
                                                              return;

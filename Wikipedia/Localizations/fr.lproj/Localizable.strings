@@ -3,6 +3,7 @@
 // Author: Brion Vibber
 // Author: Caliburn
 // Author: Derugon
+// Author: Eneelk
 // Author: Envlh
 // Author: Eric.LEWIN
 // Author: Fitoschido
@@ -93,6 +94,7 @@
 "action-remove" = "Supprimer";
 "action-replace" = "Remplacer";
 "action-replace-all" = "Remplacer tout";
+"action-retry" = "Réessayer";
 "action-save" = "Enregistrer";
 "action-saved" = "Enregistré";
 "action-saved-accessibility" = "Enregistré. Activer pour retirer l’enregistrement.";
@@ -128,7 +130,7 @@
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
 "article-read-more-title" = "En savoir plus";
-"article-reference-title" = "Voir les références";
+"article-reference-view-title" = "Référence $1";
 "article-save-error-not-enough-space" = "Vous n’avez pas assez d’espace disponible sur votre appareil pour enregistrer cet article";
 "article-share" = "Partager";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Contrôles des thèmes de lecture";

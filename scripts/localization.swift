@@ -555,9 +555,69 @@ func importLocalizationsFromTWN(_ path: String) {
     }
 }
 
+// Sync to PCS strings for https://phabricator.wikimedia.org/T246529
+// Remove once is https://phabricator.wikimedia.org/T246659 resolved
 
+let pcsi18nKeys = [
+    "article-about-title",
+    "article-read-more-title",
+    "description-add-link-title",
+    "info-box-title",
+    "table-title-other",
+    "info-box-close-text",
+    "license-footer-text",
+    "license-footer-name",
+    "view-in-browser-footer-link",
+    "page-read-in-other-languages",
+    "page-last-edited",
+    "page-edit-history",
+    "page-talk-page",
+    "page-talk-page-subtitle",
+    "page-issues",
+    "page-issues-subtitle",
+    "page-similar-titles",
+    "page-location"
+]
 
+func exportPCSi18nJSON(localizationFileURL: URL, outputFileURL: URL) {
+    guard let dictionary = NSDictionary(contentsOf: localizationFileURL) else {
+        print("Unable to read \(localizationFileURL)")
+        return
+    }
+    var output: [String: String] = [:]
+    for key in pcsi18nKeys {
+        output[key] = dictionary[key] as? String
+    }
+    guard !output.isEmpty else {
+        return
+    }
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+    guard let data = try? encoder.encode(output) else {
+        return
+    }
+    try? data.write(to: outputFileURL)
+}
 
+func exportPageContentServiceStrings(_ path: String) throws {
+    let iOSENPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
+
+    let fm = FileManager.default
+    let outputFolderURL = URL(fileURLWithPath: path).appendingPathComponent("pcs").appendingPathComponent("i18n")
+    try fm.createDirectory(at: outputFolderURL, withIntermediateDirectories: true, attributes: nil)
+    
+    exportPCSi18nJSON(localizationFileURL: URL(fileURLWithPath: iOSENPath), outputFileURL: outputFolderURL.appendingPathComponent("en.json"))
+    
+    let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
+    for filename in contents {
+        guard let locale = filename.components(separatedBy: ".").first?.lowercased() else {
+            continue
+        }
+        
+        let fileURL = URL(fileURLWithPath: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings")
+        exportPCSi18nJSON(localizationFileURL: fileURL, outputFileURL: outputFolderURL.appendingPathComponent("\(locale).json"))
+    }
+}
 
 // Code that updated source translations
 //  var replacements = [String: String]()

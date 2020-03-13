@@ -12,10 +12,28 @@ extension URLComponents {
     
     public static func percentEncodedQueryStringFrom(_ queryParameters: [String: Any]) -> String {
         var query = ""
+        
+        //sort query parameters by key, this allows for consistency when itemKeys are generated for the persistent cache.
+        struct KeyValue {
+            let key: String
+            let value: Any
+        }
+        
+        var unorderedKeyValues: [KeyValue] = []
+        
         for (name, value) in queryParameters {
+            
+            unorderedKeyValues.append(KeyValue(key: name, value: value))
+        }
+        
+        let orderedKeyValues = unorderedKeyValues.sorted { (lhs, rhs) -> Bool in
+            return lhs.key < rhs.key
+        }
+        
+        for keyValue in orderedKeyValues {
             guard
-                let encodedName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed),
-                let encodedValue = String(describing: value).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed) else {
+                let encodedName = keyValue.key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed),
+                let encodedValue = String(describing: keyValue.value).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed) else {
                     continue
             }
             if query != "" {
@@ -24,6 +42,7 @@ extension URLComponents {
             
             query.append("\(encodedName)=\(encodedValue)")
         }
+        
         return query
     }
     

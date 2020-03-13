@@ -4,12 +4,13 @@ import Foundation
 enum CacheControllerError: Error {
     case atLeastOneItemFailedInFileWriter
     case failureToGenerateItemResult
+    case atLeastOneItemFailedInSync
 }
 
 public class CacheController {
     
     static let cacheURL: URL = {
-        var url = FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        var url = FileManager.default.wmf_containerURL().appendingPathComponent("Permanent Cache", isDirectory: true)
         
         var values = URLResourceValues()
         values.isExcludedFromBackup = true
@@ -29,22 +30,30 @@ public class CacheController {
     
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
+        //create cacheURL directory
+        do {
+            try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
+        } catch let error {
+            assertionFailure("Error creating permanent cache: \(error)")
+            return nil
+        }
+        
         //create ManagedObjectModel based on Cache.momd
-        guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
+        guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
         }
-                
+
         //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("PersistentCache.sqlite", isDirectory: false)
+        let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        
+
         let options = [
             NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true),
             NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)
         ]
-        
+
         do {
             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
         } catch {
@@ -52,7 +61,6 @@ public class CacheController {
                 try FileManager.default.removeItem(at: dbURL)
             } catch {
                 assertionFailure("Failure to remove old db file")
-                return nil
             }
 
             do {
@@ -65,65 +73,70 @@ public class CacheController {
 
         let cacheBackgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
-                
+
         return cacheBackgroundContext
     }()
     
     public typealias ItemKey = String
     public typealias GroupKey = String
-    public typealias ItemCompletionBlock = (FinalItemResult) -> Void
+    public typealias UniqueKey = String //combo of item key + variant
+    public typealias IndividualCompletionBlock = (FinalIndividualResult) -> Void
     public typealias GroupCompletionBlock = (FinalGroupResult) -> Void
+    
+    public struct ItemKeyAndVariant: Hashable {
+        let itemKey: CacheController.ItemKey
+        let variant: String?
+        
+        init?(itemKey: CacheController.ItemKey?, variant: String?) {
+            
+            guard let itemKey = itemKey else {
+                return nil
+            }
+            
+            self.itemKey = itemKey
+            self.variant = variant
+        }
+    }
 
-    public enum FinalItemResult {
-        case success(itemKey: ItemKey)
+    public enum FinalIndividualResult {
+        case success(uniqueKey: CacheController.UniqueKey)
         case failure(error: Error)
     }
     
     public enum FinalGroupResult {
-        case success(itemKeys: [ItemKey])
-        case failure(error: Error) //, itemKeys: [ItemKey]?
+        case success(uniqueKeys: [CacheController.UniqueKey])
+        case failure(error: Error)
     }
     
-    let provider: CacheProviding
     let dbWriter: CacheDBWriting
-    let fileWriter: CacheFileWriting
-    private let gatekeeper = CacheGatekeeper()
+    let fileWriter: CacheFileWriter
+    let gatekeeper = CacheGatekeeper()
     
-    init(fetcher: Fetcher, dbWriter: CacheDBWriting, fileWriter: CacheFileWriting, provider: CacheProviding) {
-        self.provider = provider
+    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
     }
 
-    public func add(url: URL, groupKey: GroupKey, itemKey: ItemKey? = nil, bypassGroupDeduping: Bool = false, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
+    public func add(url: URL, groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
         
-        if !bypassGroupDeduping {
-            
-            if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
-                gatekeeper.queueAddCompletion(groupKey: groupKey) {
-                    self.add(url: url, groupKey: groupKey, itemKey: itemKey, bypassGroupDeduping: bypassGroupDeduping, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
-                    return
-                }
-            } else {
-                gatekeeper.addCurrentlyAddingGroupKey(groupKey)
-            }
-            
-            if gatekeeper.numberOfQueuedGroupCompletions(for: groupKey) > 0 {
-                gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
+        if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
+            gatekeeper.queueAddCompletion(groupKey: groupKey) {
+                self.add(url: url, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
                 return
             }
+        } else {
+            gatekeeper.addCurrentlyAddingGroupKey(groupKey)
+        }
+        
+        if gatekeeper.numberOfQueuedGroupCompletions(for: groupKey) > 0 {
+            gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
+            return
         }
         
         gatekeeper.queueGroupCompletion(groupKey: groupKey, groupCompletion: groupCompletion)
         
-        if let itemKey = itemKey {
-            dbWriter.add(url: url, groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
-                self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
-            }
-        } else {
-            dbWriter.add(url: url, groupKey: groupKey) { [weak self] (result) in
-                self?.finishDBAdd(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion, result: result)
-            }
+        dbWriter.add(url: url, groupKey: groupKey) { [weak self] (result) in
+            self?.finishDBAdd(groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion, result: result)
         }
     }
     
@@ -132,15 +145,11 @@ public class CacheController {
         fileWriter.cancelTasks(for: groupKey)
     }
     
-    public func cachedURLResponse(for request: URLRequest) -> CachedURLResponse? {
-        return provider.cachedURLResponse(for: request)
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        return dbWriter.shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
     }
     
-    public func newCachePolicyRequest(from originalRequest: NSURLRequest, newURL: URL) -> URLRequest? {
-        return provider.newCachePolicyRequest(from: originalRequest, newURL: newURL)
-    }
-    
-    private func finishDBAdd(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithItemKeys) {
+    func finishDBAdd(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithURLRequests) {
         
         let groupCompleteBlock = { (groupResult: FinalGroupResult) in
             self.gatekeeper.runAndRemoveGroupCompletions(groupKey: groupKey, groupResult: groupResult)
@@ -149,54 +158,67 @@ public class CacheController {
         }
         
         switch result {
-            case .success(let itemKeys):
+            case .success(let urlRequests):
                 
-                var successfulItemKeys: [CacheController.ItemKey] = []
-                var failedItemKeys: [CacheController.ItemKey] = []
+                var successfulKeys: [CacheController.UniqueKey] = []
+                var failedKeys: [CacheController.UniqueKey] = []
                 
                 let group = DispatchGroup()
-                for itemKey in itemKeys {
+                for urlRequest in urlRequests {
                     
-                    group.enter()
-                    
-                    if gatekeeper.numberOfQueuedItemCompletions(for: itemKey) > 0 {
-                        defer {
-                            group.leave()
-                        }
-                        gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                    guard let uniqueKey = fileWriter.uniqueFileNameForURLRequest(urlRequest),
+                        let url = urlRequest.url else {
                         continue
                     }
                     
-                    gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                    group.enter()
                     
-                    fileWriter.add(groupKey: groupKey, itemKey: itemKey) { [weak self] (result) in
+                    if gatekeeper.numberOfQueuedIndividualCompletions(for: uniqueKey) > 0 {
+                        defer {
+                            group.leave()
+                        }
+                        gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
+                        continue
+                    }
+                    
+                    gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
+                    
+                    guard dbWriter.shouldDownloadVariant(urlRequest: urlRequest) else {
+                        group.leave()
+                        continue
+                    }
+                    
+                    fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
                         
                         guard let self = self else {
                             return
                         }
                         
                         switch result {
-                        case .success(let etag):
+                        case .success(let response, let data):
                             
-                            self.dbWriter.markDownloaded(itemKey: itemKey, etag: etag) { (result) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
                                 
                                 defer {
                                     group.leave()
                                 }
                                 
-                                var itemResult: FinalItemResult
+                                let individualResult: FinalIndividualResult
+                                
                                 switch result {
                                 case .success:
-                                    successfulItemKeys.append(itemKey)
-                                    itemResult = FinalItemResult.success(itemKey: itemKey)
+                                    successfulKeys.append(uniqueKey)
+                                    individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
                                     
                                 case .failure(let error):
-                                    failedItemKeys.append(itemKey)
-                                    itemResult = FinalItemResult.failure(error: error)
+                                    failedKeys.append(uniqueKey)
+                                    individualResult = FinalIndividualResult.failure(error: error)
                                 }
                                 
-                                self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                                self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             }
+                            
+                            self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
                             
                         case .failure(let error):
                             
@@ -204,15 +226,15 @@ public class CacheController {
                                 group.leave()
                             }
                             
-                            failedItemKeys.append(itemKey)
-                            let itemResult = FinalItemResult.failure(error: error)
-                            self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                            failedKeys.append(uniqueKey)
+                            let individualResult = FinalIndividualResult.failure(error: error)
+                            self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                         }
                     }
                     
                     group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                         
-                        let groupResult = failedItemKeys.count > 0 ? FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter) : FinalGroupResult.success(itemKeys: successfulItemKeys)
+                        let groupResult = failedKeys.count > 0 ? FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter) : FinalGroupResult.success(uniqueKeys: successfulKeys)
                         
                         groupCompleteBlock(groupResult)
                     }
@@ -224,11 +246,15 @@ public class CacheController {
         }
     }
     
-    public func remove(groupKey: GroupKey, itemCompletion: @escaping ItemCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
+    func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
+        //hook to allow subclasses to do any additional work with data
+    }
+    
+    public func remove(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
 
         if gatekeeper.shouldQueueRemoveCompletion(groupKey: groupKey) {
             gatekeeper.queueRemoveCompletion(groupKey: groupKey) {
-                self.remove(groupKey: groupKey, itemCompletion: itemCompletion, groupCompletion: groupCompletion)
+                self.remove(groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
                 return
             }
         } else {
@@ -250,60 +276,64 @@ public class CacheController {
             self.gatekeeper.runAndRemoveQueuedAdds(groupKey: groupKey)
         }
 
-        dbWriter.fetchItemKeysToRemove(for: groupKey) { [weak self] (result) in
+        dbWriter.fetchKeysToRemove(for: groupKey) { [weak self] (result) in
             
             guard let self = self else {
                 return
             }
             
             switch result {
-            case .success(let itemKeys):
+            case .success(let keys):
                 
-                var successfulItemKeys: [CacheController.ItemKey] = []
-                var failedItemKeys: [CacheController.ItemKey] = []
+                var successfulKeys: [CacheController.UniqueKey] = []
+                var failedKeys: [CacheController.UniqueKey] = []
                 
                 let group = DispatchGroup()
-                for itemKey in itemKeys {
-                    group.enter()
+                for key in keys {
                     
-                    if self.gatekeeper.numberOfQueuedItemCompletions(for: itemKey) > 0 {
-                        defer {
-                            group.leave()
-                        }
-                        self.gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForItemKey(key.itemKey, variant: key.variant) else {
                         continue
                     }
                     
-                    self.gatekeeper.queueItemCompletion(itemKey: itemKey, itemCompletion: itemCompletion)
+                    group.enter()
                     
-                    self.fileWriter.remove(itemKey: itemKey) { (result) in
+                    if self.gatekeeper.numberOfQueuedIndividualCompletions(for: uniqueKey) > 0 {
+                        defer {
+                            group.leave()
+                        }
+                        self.gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
+                        continue
+                    }
+                    
+                    self.gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
+                    
+                    self.fileWriter.remove(itemKey: key.itemKey, variant: key.variant) { (result) in
                         
                         switch result {
                         case .success:
                             
-                            self.dbWriter.remove(itemKey: itemKey) { (result) in
-                                
+                            self.dbWriter.remove(itemAndVariantKey: key) { (result) in
                                 defer {
                                     group.leave()
                                 }
                                 
-                                var itemResult: FinalItemResult
+                                var individualResult: FinalIndividualResult
                                 switch result {
                                 case .success:
-                                    successfulItemKeys.append(itemKey)
-                                    itemResult = FinalItemResult.success(itemKey: itemKey)
+                                    successfulKeys.append(uniqueKey)
+                                    individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
                                 case .failure(let error):
-                                    failedItemKeys.append(itemKey)
-                                    itemResult = FinalItemResult.failure(error: error)
+                                    failedKeys.append(uniqueKey)
+                                    individualResult = FinalIndividualResult.failure(error: error)
                                 }
                                 
-                                self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                                self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             }
                             
                         case .failure(let error):
-                            failedItemKeys.append(itemKey)
-                            let itemResult = FinalItemResult.failure(error: error)
-                            self.gatekeeper.runAndRemoveItemCompletions(itemKey: itemKey, itemResult: itemResult)
+                            failedKeys.append(uniqueKey)
+                            let individualResult = FinalIndividualResult.failure(error: error)
+                            self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             group.leave()
                         }
                     }
@@ -311,14 +341,14 @@ public class CacheController {
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     
-                    if failedItemKeys.count == 0 {
+                    if failedKeys.count == 0 {
                         
                         self.dbWriter.remove(groupKey: groupKey, completion: { (result) in
                             
                             var groupResult: FinalGroupResult
                             switch result {
                             case .success:
-                                groupResult = FinalGroupResult.success(itemKeys: successfulItemKeys)
+                                groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
                                 
                             case .failure(let error):
                                 groupResult = FinalGroupResult.failure(error: error)

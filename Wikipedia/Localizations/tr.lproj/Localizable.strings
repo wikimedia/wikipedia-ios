@@ -98,6 +98,7 @@
 "action-remove" = "Kaldır";
 "action-replace" = "Değiştir";
 "action-replace-all" = "Tümünü değiştir";
+"action-retry" = "Tekrar dene";
 "action-save" = "Kaydet";
 "action-saved" = "Kaydedildi";
 "action-saved-accessibility" = "Kaydedildi. Geri almak için aktifleştirin.";
@@ -133,7 +134,7 @@
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamını oku";
-"article-reference-title" = "Kaynakları görüntüle";
+"article-reference-view-title" = "$1 kaynağı";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
@@ -209,7 +210,7 @@
 "diff-single-header-editor-title" = "Editör bilgisi";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bayt eklendi|$1 bayt eklendi}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 bayt kaldırıldı|$1 bayt kaldırıldı}}";
-"diff-single-header-summary-heading" = "Özeti düzenle";
+"diff-single-header-summary-heading" = "Değişiklik özeti";
 "diff-single-intro-title" = "Giriş";
 "diff-single-line-format" = "$1 satır";
 "diff-thanks-anonymous-no-thanks" = "Anonim kullanıcılar teşekkür edilemez";

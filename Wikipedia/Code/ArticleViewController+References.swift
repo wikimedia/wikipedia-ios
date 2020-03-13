@@ -30,6 +30,7 @@ extension ArticleViewController {
     /// Show references that were tapped in the article as a panel
     func showReferencesPanel(with references: [WMFLegacyReference], referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, selectedIndex: Int, animated: Bool) {
         let vc = WMFReferencePageViewController.wmf_viewControllerFromReferencePanelsStoryboard()
+        vc.delegate = self
         vc.pageViewController.delegate = self
         vc.appearanceDelegate = self
         vc.apply(theme: theme)
@@ -79,6 +80,24 @@ extension ArticleViewController {
         }
         dismiss(animated: true)
     }
+    
+    func showReferenceBackLinks(_ backLinks: [ReferenceBackLink], referenceId: String, referenceText: String) {
+        guard let vc = ReferenceBackLinksViewController(referenceId: referenceId, referenceText: referenceText, backLinks: backLinks, delegate: self, theme: theme) else {
+            showGenericError()
+            return
+        }
+        addChild(vc)
+        view.wmf_addSubviewWithConstraintsToEdges(vc.view)
+        vc.didMove(toParent: self)
+    }
+    
+    func dismissReferenceBackLinksViewController() {
+        let vc = children.first { $0 is ReferenceBackLinksViewController }
+       vc?.willMove(toParent: nil)
+       vc?.view.removeFromSuperview()
+       vc?.removeFromParent()
+       messagingController.removeElementHighlights()
+    }
 }
 
 private extension ArticleViewController {
@@ -96,7 +115,8 @@ private extension ArticleViewController {
     }
 
     func adjustScrollForReferencePageViewController(_ referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, viewController: WMFReferencePageViewController, animated: Bool) {
-        let referenceRectInWindowCoordinates = webView.scrollView.convert(referenceRectInScrollCoordinates, to: nil)
+        let deltaY = webView.scrollView.contentOffset.y < 0 ? 0 - webView.scrollView.contentOffset.y : 0
+        let referenceRectInWindowCoordinates = webView.scrollView.convert(referenceRectInScrollCoordinates, to: nil).offsetBy(dx: 0, dy: deltaY)
         guard
             !referenceRectInWindowCoordinates.isEmpty,
             let firstPanel = viewController.firstPanelView()
@@ -123,11 +143,13 @@ extension ArticleViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard
             let firstRefVC = pageViewController.viewControllers?.first as? WMFReferencePanelViewController,
-            let refId = firstRefVC.reference?.refId
+            let ref = firstRefVC.reference
             else {
                 return
         }
-        webView.wmf_highlightLinkID(refId)
+        (presentedViewController as? WMFReferencePageViewController)?.currentReference = ref
+        webView.wmf_unHighlightAllLinkIDs()
+        webView.wmf_highlightLinkID(ref.refId)
     }
 }
 
@@ -139,18 +161,35 @@ extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
             else {
                 return
         }
+        webView.wmf_unHighlightAllLinkIDs()
         webView.wmf_highlightLinkID(refId)
     }
     
     func referencePageViewControllerWillDisappear(_ referencePageViewController: WMFReferencePageViewController) {
-        for vc in referencePageViewController.pageViewController.viewControllers ?? [] {
-            guard
-                let panel = vc as? WMFReferencePanelViewController,
-                let refId = panel.reference?.refId
-                else {
-                    continue
-            }
-            webView.wmf_unHighlightLinkID(refId)
+        webView.wmf_unHighlightAllLinkIDs()
+    }
+}
+
+
+extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
+    func referenceViewControllerUserDidTapClose(_ vc: ReferenceViewController) {
+        if vc is ReferenceBackLinksViewController {
+            dismissReferenceBackLinksViewController()
+        } else {
+            dismissReferencesPopover()
         }
+    }
+    
+    func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController) {
+        scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true)
+    }
+    
+    func referenceViewControllerUserDidNavigateBackToReference(_ vc: ReferenceViewController) {
+        referenceViewControllerUserDidTapClose(vc)
+        guard let referenceId = vc.referenceId else {
+            showGenericError()
+            return
+        }
+        scroll(to: referenceId, animated: true)
     }
 }

@@ -30,8 +30,8 @@ static int const kMinimumTextSelectionLength = 2;
            completionHandler:NULL];
 }
 
-- (void)wmf_unHighlightLinkID:(NSString *)linkID {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').classList.remove('reference-highlight');", linkID]
+- (void)wmf_unHighlightAllLinkIDs {
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.querySelectorAll('.reference-highlight').forEach(e => {e.classList.remove('reference-highlight')});"]
            completionHandler:NULL];
 }
 

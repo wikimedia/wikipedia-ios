@@ -40,8 +40,6 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         resultLimit = WMFMaxSearchResultLimit;
     }
 
-    [[MWNetworkActivityIndicatorManager sharedManager] push];
-
     NSNumber *numResults = @(resultLimit);
 
     NSDictionary *params = nil;
@@ -107,9 +105,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 - (void)performSearchRequestForSearchTerm:(NSString *)searchTerm url:(NSURL *)url queryParameters:(NSDictionary *)queryParameters appendToPreviousResults:(nullable WMFSearchResults *)previousResults failure:(WMFErrorHandler)failure success:(WMFSearchResultsHandler)success {
     [self performMediaWikiAPIGETForURL:url
                    withQueryParameters:queryParameters
-                     completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
-                         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                         if (error) {
+                     completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {                         if (error) {
                              failure(error);
                              return;
                          }
@@ -149,6 +145,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     NSURL *url = [self.configuration mediaWikiAPIURLComponentsForHost:@"commons.wikimedia.org" withQueryParameters:nil].URL;
     if (!url) {
         failure(WMFFetcher.invalidParametersError);
+        return;
     }
     if (resultLimit > WMFMaxSearchResultLimit) {
         DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",

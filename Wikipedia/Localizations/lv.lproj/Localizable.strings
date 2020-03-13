@@ -54,7 +54,7 @@
 "article-languages-others" = "Citas valodas";
 "article-languages-yours" = "Tavas valodas";
 "article-read-more-title" = "Lasīt vairāk";
-"article-reference-title" = "Skatīt atsauces";
+"article-reference-view-title" = "Atsauce $1";
 "article-share" = "Dalīties";
 "back-button-accessibility-label" = "Atpakaļ";
 "button-next" = "Tālāk";

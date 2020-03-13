@@ -83,6 +83,7 @@
 "action-remove" = "הסרה";
 "action-replace" = "החלפה";
 "action-replace-all" = "להחליף הכול";
+"action-retry" = "לנסות שוב";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
@@ -118,7 +119,7 @@
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
 "article-read-more-title" = "לקרוא עוד";
-"article-reference-title" = "הצגת הערות שוליים";
+"article-reference-view-title" = "הערת שוליים $1";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";

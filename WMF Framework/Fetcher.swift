@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 // Base class for combining a Session and Configuration to make network requests
 // Session handles constructing and making requests, Configuration handles url structure for the current target
@@ -103,7 +103,20 @@ open class Fetcher: NSObject {
         let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.getJSONDictionary(from: components.url) { (result, response, error) in
-            let returnError = error ?? WMFErrorForApiErrorObject(result?["error"] as? [AnyHashable : Any])
+            let returnError = error ?? RequestError.from(result?["error"] as? [String : Any])
+            completionHandler(result, response, returnError)
+            self.untrack(taskFor: key)
+        }
+        track(task: task, for: key)
+        return task
+    }
+    
+    @objc(performMediaWikiAPIGETForURLRequest:cancellationKey:completionHandler:)
+    @discardableResult public func performMediaWikiAPIGET(for urlRequest: URLRequest, cancellationKey: CancellationKey?, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+        
+        let key = cancellationKey ?? UUID().uuidString
+        let task = session.getJSONDictionary(from: urlRequest) { (result, response, error) in
+            let returnError = error ?? RequestError.from(result?["error"] as? [String : Any])
             completionHandler(result, response, returnError)
             self.untrack(taskFor: key)
         }
@@ -134,6 +147,17 @@ open class Fetcher: NSObject {
         let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
         let key = UUID().uuidString
         let task = session.jsonDecodableTask(with: taskURL, headers: headers, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
+            completionHandler(result, response, error)
+            self.untrack(taskFor: key)
+        }
+        track(task: task, for: key)
+        return task
+    }
+    
+    @discardableResult public func performMobileAppsServicesGET<T: Decodable>(for urlRequest: URLRequest, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
+        
+        let key = UUID().uuidString
+        let task = session.jsonDecodableTask(with: urlRequest) { (result: T?, response: URLResponse?, error: Error?) in
             completionHandler(result, response, error)
             self.untrack(taskFor: key)
         }

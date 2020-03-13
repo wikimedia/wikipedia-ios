@@ -42,6 +42,15 @@ public struct LegacyArticle {
             }
             sections.append(section)
         }
+        sections.sort { (section1, section2) -> Bool in
+            guard let id1 = section1.info["id"] as? Int else {
+                return true
+            }
+            guard let id2 = section2.info["id"] as? Int else {
+                return false
+            }
+            return id1 < id2
+        }
         self.sections = sections
     }
 }

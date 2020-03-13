@@ -12,14 +12,6 @@ final class PageContentService   {
             let platform = Parameters.platform
             let clientVersion = Parameters.clientVersion
             
-            struct L10n: Codable {
-                let addTitleDescription: String
-                let tableInfobox: String
-                let tableOther: String
-                let tableClose: String
-            }
-            let l10n: L10n
-            
             let theme: String
             let dimImages: Bool
 
@@ -44,7 +36,6 @@ final class PageContentService   {
         struct Menu: Codable {
             static let fragment = "pcs-footer-container-menu"
             enum Item: String, Codable {
-                case languages
                 case lastEdited
                 case pageIssues
                 case disambiguation
@@ -52,6 +43,7 @@ final class PageContentService   {
                 case talkPage
             }
             let items: [Item]
+            let editedDaysAgo: Int?
         }
         
         struct ReadMore: Codable {
@@ -60,29 +52,12 @@ final class PageContentService   {
             let baseURL: String
         }
         
-        struct L10n: Codable {
-            let readMoreHeading: String
-            let menuDisambiguationTitle: String
-            let menuLanguagesTitle: String
-            let menuHeading: String
-            let menuLastEditedSubtitle: String
-            let menuLastEditedTitle: String
-            let licenseString: String
-            let menuTalkPageTitle: String
-            let menuPageIssuesTitle: String
-            let viewInBrowserString: String
-            let licenseSubstitutionString: String
-            let menuCoordinateTitle: String
-            let menuReferenceListTitle: String
-        }
-        
         struct Parameters: Codable {
             let platform = Setup.Parameters.platform
             let clientVersion = Setup.Parameters.clientVersion
             let title: String
             let menu: Menu
             let readMore: ReadMore
-            let l10n: L10n
         }
     }
     

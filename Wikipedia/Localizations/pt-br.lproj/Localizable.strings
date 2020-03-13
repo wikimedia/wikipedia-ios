@@ -96,6 +96,7 @@
 "action-remove" = "Remover";
 "action-replace" = "Substituir";
 "action-replace-all" = "Substituir todos";
+"action-retry" = "Atualizar";
 "action-save" = "Salvar";
 "action-saved" = "Salvo";
 "action-saved-accessibility" = "Salvou. Ative para não se proteger.";
@@ -131,7 +132,7 @@
 "article-languages-others" = "Outros idiomas";
 "article-languages-yours" = "Seu idioma:";
 "article-read-more-title" = "Leia mais";
-"article-reference-title" = "Ver referências";
+"article-reference-view-title" = "Referências $1";
 "article-save-error-not-enough-space" = "Não tem espaço suficiente no seu dispositivo para salvar este artigo";
 "article-share" = "Compartilhar";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de leitura de temas";

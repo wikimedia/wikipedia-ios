@@ -1,5 +1,8 @@
-@import WMF.WMFBlockDefinitions;
-@import WMF.WMFLegacyFetcher;
+@import Foundation;
+#import "WMFLegacyFetcher.h"
+#import "WMFBlockDefinitions.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class NSURLSessionDataTask;
 
@@ -48,4 +51,10 @@
                               failure:(WMFErrorHandler)failure
                               success:(WMFSuccessIdHandler)success;
 
+- (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles fromSiteURL: (NSURL *)siteURL;
+
+- (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url;
+
 @end
+
+NS_ASSUME_NONNULL_END

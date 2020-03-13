@@ -321,8 +321,7 @@
 "in-the-news-currently-trending" = "Tendencia agora";
 "in-the-news-notification-read-now-action-title" = "Lleer agora";
 "in-the-news-notification-save-for-later-action-title" = "Guardar pa después";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Compartir...";
+"in-the-news-notification-share-action-title" = "Compartir…";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidá";

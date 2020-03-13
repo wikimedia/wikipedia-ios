@@ -192,8 +192,12 @@
 "diff-context-lines-collapsed-button-title" = "표시";
 "diff-context-lines-expanded-button-title" = "숨기기";
 "diff-multi-line-format" = "줄 $1 - $2";
+"diff-paragraph-moved" = "문단 이동됨";
+"diff-paragraph-moved-direction-down" = "아래로";
+"diff-paragraph-moved-direction-up" = "위로";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|줄 $1개}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1개 문단}}";
+"diff-paragraph-moved-format" = "$1 $2 이동됨";
 "diff-revision-error-title" = "판을 불러올 수 없습니다";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|편집 $1개|편집 $1}}";
 "diff-single-header-editor-title" = "편집자 정보";
@@ -443,7 +447,6 @@
 "in-the-news-currently-trending" = "지금의 화제";
 "in-the-news-notification-read-now-action-title" = "지금 읽기";
 "in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "공유...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 위키백과에서";
 "in-the-news-sub-title-from-wikipedia" = "위키백과에서";
@@ -477,6 +480,12 @@
 "insert-media-media-settings-title" = "미디어 설정";
 "insert-media-title" = "미디어 추가";
 "insert-media-uploaded-image-title" = "업로드한 이미지";
+"intermediate-edits-count" = "{{PLURAL:$1|중간 판 $1개}}는 보이지 않습니다";
+"intermediate-edits-count-limited" = "$1개 이상의 중간 판은 보이지 않습니다";
+"intermediate-edits-editors-count" = "{{PLURAL:$2|$2명의}} {{PLURAL:$1|중간 판 $1개}}는 보이지 않습니다";
+"intermediate-edits-editors-count-limited" = "$2명 이상의 중간 판 $1개 이상은 보이지 않습니다";
+"intermediate-edits-editors-limited-count" = "$2명 이상의 {{PLURAL:$1|중간 판 $1개 이상}}은 보이지 않습니다";
+"intermediate-edits-limited-editors-count" = "{{PLURAL:$2|$2명}}의 중간 판 $1개는 보이지 않습니다";
 "languages-settings-title" = "언어";
 "languages-title" = "언어 변경";
 "languages-wikipedia" = "위키백과 언어";
@@ -547,6 +556,7 @@
 "page-history-user-edits" = "사용자 편집";
 "page-issues" = "문서 이슈";
 "page-last-edited" = "{{PLURAL:$1|0=오늘 마지막으로 편집|1=어제 마지막으로 편집|$1일 전에 마지막으로 편집}}";
+"page-last-edited-unknown" = "조금 전에 편집됨";
 "page-location" = "지도에서 보기";
 "page-protected-autoconfirmed" = "이 문서는 준보호되어 있습니다.";
 "page-protected-can-not-edit" = "이 문서를 편집할 권한이 없습니다";
@@ -785,6 +795,7 @@
 "table-of-contents-close-accessibility-hint" = "닫기";
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
 "table-of-contents-heading" = "목차";
+"table-of-contents-hide-button-label" = "목차 숨기기";
 "table-title-other" = "자세한 정보";
 "talk-page-add-discussion-accessibility-label" = "토론 추가";
 "talk-page-discussion-accessibility-hint" = "토론 스레드를 열려면 두 번 탭하십시오";

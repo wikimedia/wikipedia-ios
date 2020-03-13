@@ -6,6 +6,7 @@
 // Author: Macofe
 // Author: Nemo bis
 // Author: Robby
+// Author: Soued031
 
 "about-content-license" = "Lizenz vum Inhalt";
 "about-content-license-details" = "Wann et net anescht uginn ass, ass den Inhalt ënnert enger $1 disponibel.";
@@ -27,10 +28,9 @@
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
 "abuse-filter-disallow-heading" = "Dir däerft dës Ännerung net verëffentlechen";
-"abuse-filter-disallow-unconstructive" = "En automatiséierte Filter huet dës Ännerung als méiglecherweis net konstruktiv respektiv als Vandalismus-Versuch identifizéiert. Gitt w.e.g. zréck an ännert Är Ännerung.";
+"abuse-filter-disallow-unconstructive" = "En automatiséierte Filter huet dës Ännerung als méiglecherweis net konstruktiv respektiv als Vandalismus-Versuch identifizéiert. Gitt wgl. zréck an ännert Är Ännerung.";
 "abuse-filter-warning-blanking" = "Abschnitter oder komplett Artikele läschen";
-// Fuzzy
-"abuse-filter-warning-caps" = "Mat GROUSSE BUSCHTAWEN tippen";
+"abuse-filter-warning-caps" = "Alles mat grousse Buschtawen";
 "abuse-filter-warning-heading" = "Dëst gesäit no enger wéineg konstruktiver Ännerung aus, sidd Dir sécher datt Dir se verëffentleche wëllt?";
 "abuse-filter-warning-irrelevant" = "Irrelevant extern Linken oder Biller";
 "abuse-filter-warning-repeat" = "Zeeche widderholl";
@@ -63,6 +63,7 @@
 "action-remove" = "Ewechhuelen";
 "action-replace" = "Ersetzen";
 "action-replace-all" = "All ersetzen";
+"action-retry" = "Nach eng Kéier probéieren";
 "action-save" = "Späicheren";
 "action-saved" = "Gespäichert";
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
@@ -86,7 +87,7 @@
 "article-languages-others" = "Aner Sproochen";
 "article-languages-yours" = "Är Sprooch";
 "article-read-more-title" = "Liest méi";
-"article-reference-title" = "Referenze weisen";
+"article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
 "back-button-accessibility-label" = "Zréck";
@@ -158,7 +159,7 @@
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
-"error-generic-recovery-suggestion" = "Probéiert w.e.g. méi spéit nach eng Kéier";
+"error-generic-recovery-suggestion" = "Probéiert wgl. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-because-you-read" = "Well Dir liest";
@@ -311,7 +312,7 @@
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
-"no-email-account-alert" = "Configuréiert w.e.g. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
+"no-email-account-alert" = "Configuréiert wgl. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "no-internet-connection" = "Keng Internet Verbindung";
 "no-internet-connection-article-reload-button" = "Zréck op déi lescht gespäichert Versioun";
 "number-billions" = "$1 Mrd.";
@@ -325,7 +326,6 @@
 "page-edit-history" = "All Versioune vun der Säit";
 "page-history-anonymous-edits" = "anonym Ännerungen";
 "page-history-minor-edits" = "kleng Ännerungen";
-// Fuzzy
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
 "page-history-revision-comment-accessibility-label" = "Bemierkung $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
@@ -334,6 +334,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";
 "page-issues" = "Problemer mat der Säit";
 "page-last-edited" = "{{PLURAL:$1|0=Haut today|1=Gëschter|Viru(n) $1 Deeg}} geännert";
+"page-last-edited-unknown" = "Virun enger gewësser Zäit geännert";
 "page-location" = "Op enger Kaart weisen";
 "page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
 "page-protected-can-not-edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
@@ -404,7 +405,7 @@
 "reading-list-sync-enable-button-title" = "Synchronisatioun aktivéieren";
 "reading-list-sync-enable-title" = "Synchronisatioun vu Lieslëschten aschalten?";
 "reading-list-sync-enabled-panel-title" = "D'Synchronisatioun ass op dësem Benotzerkonto aktivéiert";
-"reading-list-with-provided-name-not-found" = "Eng Lieslëscht mam Numm \"$1\" gouf net fonnt. Vergewëssert Iech w.e.g. datt Dir de richtegen Numm hutt.";
+"reading-list-with-provided-name-not-found" = "Eng Lieslëscht mam Numm \"$1\" gouf net fonnt. Vergewëssert Iech wgl. datt Dir de richtegen Numm hutt.";
 "reading-lists-article-not-synced" = "Net synchroniséiert";
 "reading-lists-conflicting-reading-list-name-updated" = "Är Lëscht '$1' gouf op '$2' ëmbenannt";
 "reading-lists-count" = "{{PLURAL:$1|Eng Lieslëscht|$1 Lieslëschten}}";
@@ -429,7 +430,7 @@
 "replace-infolabel-method-replace-all" = "All ersetzen";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen duerch...";
-"request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
+"request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt wgl. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "reverted-edit-back-to-article-button-title" = "Zréck op den Artikel";
 "reverted-edit-notification-read-more-action-title" = "Liest méi";
 "saved-all-articles-title" = "All Artikelen";
@@ -504,7 +505,7 @@
 "talk-page-info-active-conversations-generic" = "Aktiv Gespréicher op Wikipedia";
 "talk-page-link-user-action-sheet-title" = "Benotzersäiten";
 "talk-page-new-banner-subtitle" = "Denkt dru, mir sinn hei all Mënschen";
-"talk-page-new-banner-title" = "Sidd w.e.g. fein";
+"talk-page-new-banner-title" = "Sidd wgl. fein";
 "talk-page-new-reply-body-accessibility-label" = "Äntwert zuesummesetzen";
 "talk-page-new-reply-success-text" = "Är Äntwert gouf verëffentlecht";
 "talk-page-new-subject-placeholder-text" = "Sujet";
@@ -522,7 +523,7 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Méi dacks geliesen Artikele weisen";
 "two-factor-login-continue" = "Virufuere mam Aloggen";
-"two-factor-login-instructions" = "Gitt w.e.g. den Zwee-Facteur Iwwerpréifungs-Code an";
+"two-factor-login-instructions" = "Gitt wgl. den Zwee-Facteur Iwwerpréifungs-Code an";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";

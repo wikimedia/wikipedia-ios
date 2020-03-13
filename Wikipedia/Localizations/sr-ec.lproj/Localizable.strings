@@ -115,7 +115,6 @@
 "article-languages-others" = "Други језици";
 "article-languages-yours" = "Ваши језици";
 "article-read-more-title" = "Прочитајте више";
-"article-reference-title" = "Прикажи референце";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
@@ -479,7 +478,7 @@
 "main-menu-rate-app" = "Оцени апликацију";
 "main-menu-terms-of-use" = "Услови коришћења";
 "main-menu-title" = "Више";
-"main-menu-zero-faq" = "ЧПП о Википедији нула";
+"main-menu-zero-faq" = "Честа питања о Википедији нула";
 "menu-cancel-accessibility-label" = "Откажи";
 "more-languages-tooltip-description" = "Претражујте Википедију на готово 300 језика";
 "more-languages-tooltip-title" = "Додај језике";

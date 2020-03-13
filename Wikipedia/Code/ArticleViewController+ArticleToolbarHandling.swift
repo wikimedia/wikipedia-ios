@@ -12,8 +12,14 @@ extension ArticleViewController: ArticleToolbarHandling {
     }
     
     func toggleSave(from viewController: ArticleToolbarController) {
-        article.isSaved = !article.isSaved
-        try? article.managedObjectContext?.save()
+        let isSaved = dataStore.savedPageList.toggleSavedPage(for: articleURL)
+        if isSaved {
+            savedPagesFunnel.logSaveNew(withArticleURL: articleURL)
+            readingListsFunnel.logArticleSaveInCurrentArticle(articleURL)
+        } else {
+            savedPagesFunnel.logDelete(withArticleURL: articleURL)
+            readingListsFunnel.logArticleUnsaveInCurrentArticle(articleURL)
+        }
     }
     
     func showThemePopover(from controller: ArticleToolbarController) {
