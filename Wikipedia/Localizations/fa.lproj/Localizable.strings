@@ -434,8 +434,10 @@
 "on-this-day-footer-with-event-count" = "$1 وقایع تاریخی بیشتر برای این روز";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از $2 ویکی‌پدیا";
 "on-this-day-title" = "در این روز";
+// Fuzzy
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "page-issues" = "موضوعات صفحه";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=ویرایش‌شده امروز|1=ویرایش‌شده دیروز|ویرایش‌شده $1 روز پیش}}";
 "page-location" = "دیدن در نقشه";
 "page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";

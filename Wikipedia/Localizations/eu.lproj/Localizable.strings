@@ -11,6 +11,7 @@
 // Author: Nemo bis
 // Author: Sator
 // Author: Subi
+// Author: Theklan
 // Author: Xabier Armendaritz
 
 "about-content-license" = "Lizentziaren edukia";
@@ -63,12 +64,17 @@
 "action-move-to" = "Horra mugitu...";
 "action-move-to-reading-list" = "Irakurketa zerrendara mugitu";
 "action-read" = "Irakurri";
+"action-redo" = "Berregin";
 "action-remove" = "Kendu";
+"action-replace" = "Ordezkatu";
+"action-replace-all" = "Denak ordezkatu";
+"action-retry" = "Saiatu berriro";
 "action-save" = "Gorde";
 "action-saved" = "Gordeta";
 "action-saved-accessibility" = "Gordeta. Aktibatu ez gordetzeko.";
 "action-saved-accessibility-notification" = "Gerorako gorde da artikulua";
 "action-share" = "Partekatu";
+"action-share-accessibility" = "Partekatu";
 "action-sort" = "Sailkatu";
 "action-undo" = "Desegin";
 "action-unsave" = "Ez da gorde";
@@ -114,10 +120,17 @@
 "button-saved-remove" = "Gordetakoetatik kendu";
 "button-skip" = "Jauzi";
 "cancel" = "Ezeztatu";
+"clear-title-accessibility-label" = "Garbitu";
 "close-button-accessibility-label" = "Itxi";
 "compass-direction" = "ordu $1(e)tan";
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
 "continue-reading-empty-title" = "Ez dago azkenaldian irakurritako artikulurik";
+"description-add-link-title" = "Gehitu artikuluaren deskribapena";
+"description-add-title" = "Gehitu deskribapena";
+"description-edit-learn-more" = "Gehiago ikasi";
+"description-edit-length-warning" = "$1 / $2";
+"description-help-about-title" = "Honi buruz";
+"description-help-about-wikidata" = "Wikidatari buruz";
 "dim-images" = "Irudiak arindu";
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
 "edit-summary-choice-fixed-typos" = "Tipografia konpondu";
@@ -308,6 +321,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
+// Fuzzy
 "page-edit-history" = "Aldaketa guztien historia";
 "page-issues" = "Orriaren arazoak";
 // Fuzzy
@@ -525,6 +539,8 @@
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";
 "table-of-contents-heading" = "Edukiak";
 "table-title-other" = "Informazio gehiago";
+"talk-page-discussion-read-accessibility-label" = "Irakurri";
+"talk-page-discussion-unread-accessibility-label" = "irakurri gabe";
 "theme-black-display-name" = "Beltza";
 "theme-dark-display-name" = "Iluna";
 "theme-default-display-name" = "Lehenetsia";

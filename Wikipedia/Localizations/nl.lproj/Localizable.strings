@@ -506,6 +506,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
+// Fuzzy
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "page-history-anonymous-edits" = "anonieme bewerkingen";
 "page-history-bot-edits" = "botbewerkingen";
@@ -520,8 +521,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|1 bewerking|$1 bewerkingen}} sinds $1";
 "page-history-user-edits" = "gebruikersbewerkingen";
 "page-issues" = "Paginaproblemen";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Vandaag bewerkt|1=Gisteren bewerkt|$1 dagen geleden bewerkt}}";
-"page-last-edited-unknown" = "Enige tijd geleden bewerkt";
 "page-location" = "Op een kaart bekijken";
 "page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";

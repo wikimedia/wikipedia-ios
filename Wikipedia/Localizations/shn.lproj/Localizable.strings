@@ -473,8 +473,10 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ဢၼ်မႃးတီႈ ဝီႇၶီႇၽီးတီးယႃး $2";
 "on-this-day-title" = "တႃႇဝၼ်းမိူဝ်ႈၼႆႉ";
 "original-tab-button-popover-description" = "တွၼ်ႈတႃႇတွၼ်ႇပိၼ်ႇၶုၼ်းၸူး ထႅပ်ႉဢၼ်ၸဝ်ႈၵဝ်ႇတႄႇမႃးၼၼ်ႉ ၼဵၵ်းၸမ်ႈၼိူဝ် 'W'";
+// Fuzzy
 "page-edit-history" = "ပိုၼ်းမႄးထတ်း တဵမ်ထူၼ်ႈ";
 "page-issues" = "ၶေႃႈၶၼ် ၼႃႈလိၵ်ႈ";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=ဢၼ်မႄးထတ်းမႃး မိူဝ်ႈၼႆႉ|1=ဢၼ်မႄးထတ်းမႃး မိူဝ်ႈဝႃး|ဢၼ်မႄးထတ်း မိူဝ်ႈပူၼ်ႉမႃး $1 ဝၼ်း}}";
 "page-location" = "တူၺ်းၵႃႈတီႈၼိူဝ် ႁၢင်ႈၽႅၼ်ႇလိၼ်";
 "page-protected-autoconfirmed" = "ၼႃႈလိၵ်ႈဢၼ်ၼႆႉ ထုၵ်ႇ ႁႄႉၵင်ႈဝႆႉ ၵမ်ႈၽွင်ႈ";

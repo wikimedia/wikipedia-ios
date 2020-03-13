@@ -504,6 +504,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 са $2 Википедије";
 "on-this-day-title" = "На данашњи дан";
 "original-tab-button-popover-description" = "Додирните „W” да бисте се вратили на почетну картицу";
+// Fuzzy
 "page-edit-history" = "Целокупна историја измена";
 "page-history-anonymous-edits" = "анонимне измене";
 "page-history-bot-edits" = "ботовске измене";
@@ -522,8 +523,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 измена|$1 измене}} од $2";
 "page-history-user-edits" = "измене корисника";
 "page-issues" = "Проблеми са страницом";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Уређено данас|1=Уређено јуче|Уређено пре $1 дана}}";
-"page-last-edited-unknown" = "Уређено пре неког времена";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";

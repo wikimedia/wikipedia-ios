@@ -539,6 +539,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
+// Fuzzy
 "page-edit-history" = "تاريخ التعديل الكامل";
 "page-history-anonymous-edits" = "تعديلات المجهولين";
 "page-history-bot-edits" = "تعديلات البوتات";
@@ -557,6 +558,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
 "page-issues" = "مشاكل في الصفحة";
+// Fuzzy
 "page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";

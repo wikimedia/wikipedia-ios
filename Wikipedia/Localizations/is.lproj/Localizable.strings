@@ -455,8 +455,10 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 af $2 Wikipedia";
 "on-this-day-title" = "Á þessum degi";
 "original-tab-button-popover-description" = "Ýttu á 'W'-ið til að fara til baka á flipann þar sem þú varst";
+// Fuzzy
 "page-edit-history" = "Öll breytingaskráin";
 "page-issues" = "Vandamál varðandi síðu";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Breytt í dag|1=Breytt í gær|Breytt fyrir $1 dögum síðan}}";
 "page-location" = "Skoða á korti";
 "page-protected-autoconfirmed" = "Þessi síða er varin að hluta til.";

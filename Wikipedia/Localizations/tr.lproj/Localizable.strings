@@ -547,6 +547,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
+// Fuzzy
 "page-edit-history" = "Bütün düzenleme geçmişi";
 "page-history-anonymous-edits" = "anon düzenlemeleri";
 "page-history-bot-edits" = "bot düzenlemeleri";
@@ -565,8 +566,8 @@
 "page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Bugün düzenlendi|1=Dün düzenlendi|$1 gün önce düzenlendi}}";
-"page-last-edited-unknown" = "Bir süre önce düzenlendi";
 "page-location" = "Haritada görüntüle";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
