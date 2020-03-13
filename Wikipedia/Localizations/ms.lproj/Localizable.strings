@@ -419,8 +419,10 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketik pada 'W' untuk kembali ke tab yang anda bermula";
+// Fuzzy
 "page-edit-history" = "Semua sejarah penyuntingan";
 "page-issues" = "Isu-isu laman";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Disunting hari ini|1=Disunting semalam|Disunting $1 hari lalu}}";
 "page-location" = "Paparkan di peta";
 "page-protected-autoconfirmed" = "Laman ini telah diberi perlindungan separa.";

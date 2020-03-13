@@ -533,6 +533,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
+// Fuzzy
 "page-edit-history" = "Full redigeringshistorik";
 "page-history-anonymous-edits" = "anonyma redigeringar";
 "page-history-bot-edits" = "botredigeringar";
@@ -551,8 +552,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
 "page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
+// Fuzzy
 "page-last-edited" = "Redigerades {{PLURAL:$1|0=idag|1=igår|för $1 dygn sedan}}";
-"page-last-edited-unknown" = "Redigerades för ett tid sedan";
 "page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";

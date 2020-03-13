@@ -157,6 +157,7 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
+// Fuzzy
 "page-edit-history" = "Pilna labojumu vēsture";
 "page-history-compare-title" = "Salīdzināt";
 "page-history-revision-author-accessibility-label" = "Autors: $1";

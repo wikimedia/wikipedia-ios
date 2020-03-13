@@ -366,12 +366,14 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra $2 Wikipedia";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Tryk på «W» for at gå tilbage til fanen du startede fra";
+// Fuzzy
 "page-edit-history" = "Fuld redigeringshistorik";
 "page-history-compare-title" = "Sammenlign";
 "page-history-minor-edits" = "mindre redigeringer";
 "page-history-revision-minor-edit-accessibility-label" = "Mindre ændring";
 "page-history-revision-size-diff-addition" = "Tilføjede {{PLURAL:$1|$1 byte|$1 bytes}}";
 "page-issues" = "Problemer med siden";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Redigeret i dag|1=Redigeret i går|Redigeret for $1 dage siden}}";
 "page-location" = "Vis på et kort";
 "page-protected-autoconfirmed" = "Denne side er delvis beskyttet.";

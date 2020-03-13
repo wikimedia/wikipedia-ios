@@ -446,8 +446,10 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
+// Fuzzy
 "page-edit-history" = "Fullstendig redigeringshistorikk";
 "page-issues" = "Merknader for siden";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Redigert i dag|1=Redigert i går|Redigert for $1 dager siden}}";
 "page-location" = "Vis på kart";
 "page-protected-autoconfirmed" = "Denne siden er delvis beskyttet.";

@@ -543,6 +543,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
+// Fuzzy
 "page-edit-history" = "Historique complet des modifications";
 "page-history-anonymous-edits" = "modifications anonymes";
 "page-history-bot-edits" = "modifications par robot";
@@ -561,8 +562,8 @@
 "page-history-stats-text" = "$1 modifications{{PLURAL:$1||s}} depuis $2";
 "page-history-user-edits" = "modifications par un utilisateur";
 "page-issues" = "Problèmes de page";
+// Fuzzy
 "page-last-edited" = "Modifié {{PLURAL:$1|0=aujourd’hui|1=hier|il y a $1 jours}}";
-"page-last-edited-unknown" = "Modifié il y a quelque temps";
 "page-location" = "Afficher sur une carte";
 "page-protected-autoconfirmed" = "Cette page a été semi-protégée.";
 "page-protected-can-not-edit" = "Vous n’avez pas le droit de modifier cette page.";
