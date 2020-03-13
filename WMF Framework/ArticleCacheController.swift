@@ -40,9 +40,9 @@ public final class ArticleCacheController: CacheController {
                 let group = DispatchGroup()
                 
                 var successfulAddKeys: [CacheController.UniqueKey] = []
-                var failedAddKeys: [CacheController.UniqueKey] = []
+                var failedAddKeys: [(CacheController.UniqueKey, Error)] = []
                 var successfulRemoveKeys: [CacheController.UniqueKey] = []
-                var failedRemoveKeys: [CacheController.UniqueKey] = []
+                var failedRemoveKeys: [(CacheController.UniqueKey, Error)] = []
                 
                 //add new urls in file system
                 for urlRequest in syncResult.addURLRequests {
@@ -67,17 +67,17 @@ public final class ArticleCacheController: CacheController {
                                 switch dbWriterResult {
                                 case .success:
                                     successfulAddKeys.append(uniqueKey)
-                                case .failure:
-                                    failedAddKeys.append(uniqueKey)
+                                case .failure(let error):
+                                    failedAddKeys.append((uniqueKey, error))
                                 }
                             }
-                        case .failure:
+                        case .failure(let error):
                             
                             defer {
                                 group.leave()
                             }
                             
-                            failedAddKeys.append(uniqueKey)
+                            failedAddKeys.append((uniqueKey, error))
                         }
                     }
                 }
@@ -105,24 +105,23 @@ public final class ArticleCacheController: CacheController {
                                 switch dbWriterResult {
                                 case .success:
                                     successfulRemoveKeys.append(uniqueKey)
-                                case .failure:
-                                    failedRemoveKeys.append(uniqueKey)
+                                case .failure(let error):
+                                    failedRemoveKeys.append((uniqueKey, error))
                                 }
                             }
-                        case .failure:
+                        case .failure(let error):
                             defer {
                                 group.leave()
                             }
                             
-                            failedRemoveKeys.append(uniqueKey)
+                            failedRemoveKeys.append((uniqueKey, error))
                         }
                     }
                 }
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                 
-                    guard failedAddKeys.count == 0 && failedRemoveKeys.count == 0 else {
-                        groupCompletion(.failure(error: CacheControllerError.atLeastOneItemFailedInSync))
+                    if let error = failedAddKeys.first?.1 ?? failedRemoveKeys.first?.1 {
+                        groupCompletion(.failure(error: CacheControllerError.atLeastOneItemFailedInSync(error)))
                         return
                     }
                     
