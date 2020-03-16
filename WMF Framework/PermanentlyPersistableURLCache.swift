@@ -421,7 +421,7 @@ extension PermanentlyPersistableURLCache {
     }
     
     //Bundled migration only - copies files into cache
-    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let url = urlRequest.url else {
             completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest))
@@ -445,7 +445,7 @@ extension PermanentlyPersistableURLCache {
                  CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": mimeType], toNewFileName: headerFileName) { (result) in
                     switch result {
                     case .success, .exists:
-                        completion(.success(true))
+                        completion(.success(()))
                     case .failure(let error):
                         completion(.failure(error))
                     }

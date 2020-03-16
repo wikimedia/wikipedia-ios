@@ -199,12 +199,8 @@ extension CacheFileWriter {
                 
                 fetcher.writeBundledFiles(mimeType: "text/css", bundledFileURL: baseCSSFileURL, urlRequest: urlRequest) { (result) in
                     switch result {
-                    case .success(let resultFlag):
-                        if resultFlag == true {
-                            succeededURLRequests.append(urlRequest)
-                        } else {
-                            failedURLRequests.append(urlRequest)
-                        }
+                    case .success:
+                        succeededURLRequests.append(urlRequest)
                     case .failure:
                         failedURLRequests.append(urlRequest)
                     }
@@ -214,12 +210,8 @@ extension CacheFileWriter {
                 
                 fetcher.writeBundledFiles(mimeType: "text/css", bundledFileURL: pcsCSSFileURL, urlRequest: urlRequest) { (result) in
                     switch result {
-                    case .success(let resultFlag):
-                        if resultFlag == true {
-                            succeededURLRequests.append(urlRequest)
-                        } else {
-                            failedURLRequests.append(urlRequest)
-                        }
+                    case .success:
+                        succeededURLRequests.append(urlRequest)
                     case .failure:
                         failedURLRequests.append(urlRequest)
                     }
@@ -229,12 +221,8 @@ extension CacheFileWriter {
                 
                 fetcher.writeBundledFiles(mimeType: "application/javascript", bundledFileURL: pcsJSFileURL, urlRequest: urlRequest) { (result) in
                     switch result {
-                    case .success(let resultFlag):
-                        if resultFlag == true {
-                            succeededURLRequests.append(urlRequest)
-                        } else {
-                            failedURLRequests.append(urlRequest)
-                        }
+                    case .success:
+                        succeededURLRequests.append(urlRequest)
                     case .failure:
                         failedURLRequests.append(urlRequest)
                     }

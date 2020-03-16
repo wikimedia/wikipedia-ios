@@ -36,7 +36,7 @@ public protocol CacheFetching {
     func variantForURLRequest(_ urlRequest: URLRequest) -> String?
     
     //Bundled migration only - copies files into cache
-    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Bool, Error>) -> Void)
+    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 extension CacheFetching where Self:Fetcher {
@@ -108,7 +108,7 @@ extension CacheFetching where Self:Fetcher {
         session.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, mimeType: mimeType, urlRequest: urlRequest, success: success, failure: failure)
     }
     
-    public func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Bool, Error>) -> Void) {
+    public func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
         session.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
     }
     

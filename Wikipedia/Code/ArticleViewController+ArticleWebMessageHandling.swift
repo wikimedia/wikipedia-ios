@@ -28,6 +28,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
         case .pronunciation(let url):
             showAudio(with: url)
+        case .scrollToAnchor(let anchor, let rect):
+            scrollToAnchorCompletions.popLast()?(anchor, rect)
         default:
             break
         }
