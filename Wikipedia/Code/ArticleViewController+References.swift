@@ -190,6 +190,9 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
             showGenericError()
             return
         }
-        scroll(to: referenceId, animated: true)
+        scroll(to: referenceId, highlighted: true, animated: true)
+        dispatchOnMainQueueAfterDelayInSeconds(0.3, { [weak self] in
+            self?.webView.wmf_unHighlightAllLinkIDs()
+        })
     }
 }
