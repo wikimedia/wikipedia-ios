@@ -389,8 +389,7 @@
 "on-this-day-footer" = "Alti eventi storici in questo giorno";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
-// Fuzzy
-"page-edit-history" = "Cronologia delle modifiche completa";
+"page-edit-history" = "Vedi cronologia delle modifiche";
 "page-history-compare-title" = "Confronta";
 "page-history-revision-author-accessibility-label" = "Autore: $1";
 "page-history-revision-comment-accessibility-label" = "Commento $1";
@@ -399,8 +398,7 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
 "page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";
 "page-issues" = "Problemi alla pagina";
-// Fuzzy
-"page-last-edited" = "Modificata {{PLURAL:$1|0=oggi|1=ieri|$1 giorni fa}}";
+"page-last-edited" = "Aggiornata {{PLURAL:$1|0=oggi|1=ieri|$1 giorni fa}}";
 "page-location" = "Visualizza sulla mappa";
 "page-protected-autoconfirmed" = "Questa pagina è stata semi-protetta.";
 "page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";

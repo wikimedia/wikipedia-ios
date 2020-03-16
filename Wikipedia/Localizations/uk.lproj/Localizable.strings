@@ -533,8 +533,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
-// Fuzzy
-"page-edit-history" = "Повна історія редагування";
+"page-edit-history" = "Переглянути історію редагувань";
 "page-history-anonymous-edits" = "анонімні редагування";
 "page-history-bot-edits" = "бото-редагування";
 "page-history-compare-accessibility-hint" = "Натисніть, аби порівняти дві версії";
@@ -552,8 +551,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}} з $2";
 "page-history-user-edits" = "редагування користувачів";
 "page-issues" = "Проблеми сторінки";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Відредаговано сьогодні|1=Відредаговано вчора|few=Відредаговано $1 дні назад|many=Відредаговано $1 днів назад}}";
+"page-issues-subtitle" = "Звістки про незвичний чи проблематичний контент";
+"page-last-edited" = "{{PLURAL:$1|0=Оновлено сьогодні|one=Оновлено $1 день тому|few=Оновлено $1 дні тому|many=Оновлено $1 днів тому}}";
 "page-location" = "Переглянути на карті";
 "page-protected-autoconfirmed" = "Сторінка є частково захищена.";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";
@@ -563,6 +562,7 @@
 "page-read-in-other-languages" = "Доступно в {{PLURAL:$1|іншій мові|$1 інших мовах}}";
 "page-similar-titles" = "Подібні сторінки";
 "page-talk-page" = "Сторінка обговорення";
+"page-talk-page-subtitle" = "Обговорити покращення цієї статті";
 "panel-compare-revisions-text" = "Порівняння версій допомагає показати, як стаття змінювалася з часом. Порівняння двох версій статті показує різницю між версіями завдяки підсвічуванню того вмісту, який змінився.";
 "panel-compare-revisions-title" = "Порівняння версій";
 "pictured" = "проілюстровано";

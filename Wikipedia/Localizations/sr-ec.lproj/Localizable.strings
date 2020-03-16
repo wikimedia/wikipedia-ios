@@ -504,8 +504,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 са $2 Википедије";
 "on-this-day-title" = "На данашњи дан";
 "original-tab-button-popover-description" = "Додирните „W” да бисте се вратили на почетну картицу";
-// Fuzzy
-"page-edit-history" = "Целокупна историја измена";
+"page-edit-history" = "Прикажи историју измена";
 "page-history-anonymous-edits" = "анонимне измене";
 "page-history-bot-edits" = "ботовске измене";
 "page-history-compare-accessibility-hint" = "Додирните како бисте изабрали две измене за упоређивање";
@@ -523,8 +522,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 измена|$1 измене}} од $2";
 "page-history-user-edits" = "измене корисника";
 "page-issues" = "Проблеми са страницом";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Уређено данас|1=Уређено јуче|Уређено пре $1 дана}}";
+"page-last-edited" = "{{PLURAL:$1|0=Ажурирано данас|1=Ажурирано јуче|Ажурирано пре $1 дана}}";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
@@ -534,6 +532,7 @@
 "page-read-in-other-languages" = "Доступно на још $1 језика";
 "page-similar-titles" = "Сличне странице";
 "page-talk-page" = "Прикажи страницу за разговор";
+"page-talk-page-subtitle" = "Дискутујте о побошљањима чланка";
 "panel-compare-revisions-text" = "Упоређивање измена помаже да се покаже како се чланак временом мењао. Упоређивање две измене чланка показаће разлику између тих ревизија истицањем било ког садржаја који је промењен.";
 "panel-compare-revisions-title" = "Упоређивање измена";
 "pictured" = "на слици";

@@ -166,8 +166,10 @@
 "description-welcome-descriptions-title" = "Címleírások";
 "description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
+"diff-context-lines-expanded-button-title" = "Elrejtés";
 "diff-paragraph-moved-direction-down" = "le";
 "diff-paragraph-moved-direction-up" = "föl";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|Egy sor|$1 sor}}";
 "diff-revision-error-title" = "A lapváltozat betöltése sikertelen";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|Egy szerkesztés|$1 szerkesztés}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|Egy bájt|$1 bájt}} hozzáadva";
@@ -179,6 +181,7 @@
 "diff-thanks-send-button-title" = "Köszönet küldése";
 "diff-thanks-sent" = "Köszönetedet elküldted $1 szerkesztőnek";
 "diff-thanks-sent-cannot-unsend" = "A köszönetek nem visszavonhatóak";
+"diff-unedited-lines-format" = "{{PLURAL:$1|Egy változatlan sor|$1 változatlan sor}}";
 "dim-images" = "Képek sötétítése";
 "edit-bold-accessibility-label" = "Félkövér formázás hozzáadása";
 "edit-bold-remove-accessibility-label" = "Félkövér formázás eltávolítása";
@@ -368,6 +371,7 @@
 "insert-media-media-settings-title" = "Médiabeállítások";
 "insert-media-title" = "Média beszúrása";
 "insert-media-uploaded-image-title" = "Feltöltött kép";
+"intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}} nincs mutatva";
 "intermediate-edits-count-limited" = "$1+ közbenső változtatás nincs mutatva";
 "languages-settings-title" = "Nyelvek";
 "languages-title" = "Nyelvváltás";
@@ -418,8 +422,7 @@
 "on-this-day-footer" = "Több történelmi esemény ezen a napon";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
-// Fuzzy
-"page-edit-history" = "Teljes laptörténet";
+"page-edit-history" = "Laptörténet megtekintése";
 "page-history-anonymous-edits" = "névtelen szerkesztés";
 "page-history-bot-edits" = "bot szerkesztés";
 "page-history-compare-title" = "Összehasonlít";
@@ -431,6 +434,7 @@
 "page-history-revision-minor-edit-accessibility-label" = "apró szerkesztés";
 "page-history-revision-size-diff-addition" = "Hozzáadva {{PLURAL:$1|$1 bájt|$1 bájt}}";
 "page-history-revision-size-diff-subtraction" = "Eltávolítva {{PLURAL:$1|$1 bájt|$1 bájt}}";
+"page-history-revision-time-accessibility-label" = "Változtatás közzétéve ekkor: $1";
 "page-history-stats-text" = "{{PLURAL:$1|$Egy szerkesztés|$1 szerkesztés}} $2-óta";
 "page-issues" = "A lap problémái";
 // Fuzzy
@@ -564,6 +568,7 @@
 "search-recent-title" = "Legutóbbi keresések";
 "search-result-redirected-from" = "$1 szócikkből átirányítva";
 "search-title" = "Keresés";
+"settings-account" = "Fiók";
 "settings-appearance" = "Olvasási preferenciák";
 "settings-clear-cache" = "Gyorsítótárazott adatok törlése";
 "settings-clear-cache-are-you-sure-message" = "A gyorsítótárazott adatok törlése körülbelül $1 helyet fog felszabadítani, az elmentett lapokat nem érinti.";
@@ -588,8 +593,11 @@
 "share-article-name-on-wikipedia" = "„$1” a @Wikipedia szabad enciklopédiában:";
 "share-get-directions-in-maps" = "Útvonalterv";
 "share-menu-item" = "Megosztás";
+"share-message-format" = "„$1” $2";
 "share-on-twitter-sign-off" = "a @Wikipedia szabad enciklopédián keresztül";
 "share-open-in-maps" = "Megnyitás a Térképekben";
+"share-social-format" = "„$1” a Wikipédián: $2";
+"share-social-mention-format" = "„$1” @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nemrég hozzáadva";
 "sort-by-title-action" = "Cím";
 "status-saved-for-later" = "Mentve későbbre";
