@@ -190,9 +190,10 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
             showGenericError()
             return
         }
-        scroll(to: "back_link_\(referenceId)", highlighted: true, animated: true)
-        dispatchOnMainQueueAfterDelayInSeconds(0.3, { [weak self] in
-            self?.messagingController.removeElementHighlights()
-        })
+        scroll(to: "back_link_\(referenceId)", highlighted: true, animated: true) { [weak self] in
+            dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
+                self?.messagingController.removeElementHighlights()
+            }
+        }
     }
 }
