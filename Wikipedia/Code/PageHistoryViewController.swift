@@ -307,6 +307,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     @objc private func compare(_ sender: UIBarButtonItem) {
+        EditHistoryCompareFunnel.shared.logCompare1(articleURL: pageURL)
         state = .editing
     }
 
@@ -325,6 +326,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     
     private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
         if let siteURL = pageURL.wmf_site {
+            
+            if type == .single {
+                EditHistoryCompareFunnel.shared.logRevisionView(language: pageURL.wmf_language)
+            }
+            
             let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision)
             push(diffContainerVC, animated: true)
         }
@@ -743,6 +749,9 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
     }
 
     func pageHistoryComparisonSelectionViewControllerDidTapCompare(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController) {
+        
+        EditHistoryCompareFunnel.shared.logCompare2(articleURL: pageURL)
+        
         guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.second.rawValue] else {
             return
         }

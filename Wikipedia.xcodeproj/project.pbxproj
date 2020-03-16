@@ -376,6 +376,10 @@
 		67E069142239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
 		67E06919223B32DF008550AC /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67E0691B223B32F1008550AC /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
+		67E466FA241BED770014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
+		67E466FB241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
+		67E466FC241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
+		67E466FD241BED810014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
 		67E8B0742268DA8B00537BC9 /* TalkPageTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0732268DA8B00537BC9 /* TalkPageTopicCell.swift */; };
 		67E8B0762268DE4B00537BC9 /* TalkPageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0752268DE4B00537BC9 /* TalkPageContainerViewController.swift */; };
 		67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
@@ -3344,6 +3348,7 @@
 		67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFFindAndReplaceKeyboardBar.xib; sourceTree = "<group>"; };
 		67E06918223B32DF008550AC /* FocusNavigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FocusNavigationView.xib; sourceTree = "<group>"; };
 		67E0691A223B32F1008550AC /* FocusNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNavigationView.swift; sourceTree = "<group>"; };
+		67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHistoryCompareFunnel.swift; sourceTree = "<group>"; };
 		67E8B0732268DA8B00537BC9 /* TalkPageTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicCell.swift; sourceTree = "<group>"; };
 		67E8B0752268DE4B00537BC9 /* TalkPageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageContainerViewController.swift; sourceTree = "<group>"; };
 		67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPagesController.swift; sourceTree = "<group>"; };
@@ -5516,6 +5521,7 @@
 				B0E8059B1C0CE2F50065EBC0 /* WMFShareFunnel.h */,
 				B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */,
 				7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */,
+				67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */,
 				7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */,
 				7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */,
 				7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */,
@@ -10200,6 +10206,7 @@
 				D8A47C8A23D728A4002AA823 /* ArticleTableOfContentsDisplayController.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
+				67E466FA241BED770014149B /* EditHistoryCompareFunnel.swift in Sources */,
 				8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				8386BDFB2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
@@ -10968,6 +10975,7 @@
 				D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				83DB0A5C23EEDE2E00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */,
 				B08624331F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
+				67E466FD241BED810014149B /* EditHistoryCompareFunnel.swift in Sources */,
 				7A48EA1121B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
 				BA7683C71F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				6782DBAC2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
@@ -11421,6 +11429,7 @@
 				7A4D227E21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B09CE59B222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				8382F8DA20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
+				67E466FB241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */,
 				D8CE25CE1E698E2400DAE2E0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				8386BDF52386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
@@ -11866,6 +11875,7 @@
 				7A4D227F21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B09CE59C222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				D8EC3ECC1E9BDA35006712EB /* WMFHamburgerMenuFunnel.m in Sources */,
+				67E466FC241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */,
 				D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				8386BDF72386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				D8E27BA81F82B38600F9D2B3 /* RMessage.m in Sources */,

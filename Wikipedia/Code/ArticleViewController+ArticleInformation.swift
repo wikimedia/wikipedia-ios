@@ -27,10 +27,14 @@ extension ArticleViewController {
     }
     
     func showEditHistory() {
+        
         guard let title = articleURL.wmf_title else {
             showGenericError()
             return
         }
+        
+        EditHistoryCompareFunnel.shared.logShowHistory(articleURL: articleURL)
+        
         let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
         historyVC.apply(theme: theme)
         push(historyVC)
