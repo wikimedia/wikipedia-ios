@@ -532,8 +532,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
-// Fuzzy
-"page-edit-history" = "Historial complet";
+"page-edit-history" = "Mostra l'historial de modificacions";
 "page-history-anonymous-edits" = "edicions anònimes";
 "page-history-bot-edits" = "edicions de bots";
 "page-history-compare-accessibility-hint" = "Toqueu per a seleccionar dues revisions per comparar";
@@ -551,6 +550,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 edició|$1 edicions}} des del $2";
 "page-history-user-edits" = "edicions d'usuaris";
 "page-issues" = "Problemes de la pàgina";
+"page-issues-subtitle" = "Avisa sobre contingut problemàtic o de baixa qualitat";
 "page-last-edited" = "S’ha actualitzat {{PLURAL:$1|0=avui|1=ahir|fa $1 dies}}";
 "page-location" = "Mostra en un mapa";
 "page-protected-autoconfirmed" = "La pàgina ha estat semiprotegida.";
@@ -561,6 +561,7 @@
 "page-read-in-other-languages" = "Disponible en {{PLURAL:$1|$1 altra llengua|$1 altres llengües}}";
 "page-similar-titles" = "Pàgines similars";
 "page-talk-page" = "Mostra la pàgina de discussió";
+"page-talk-page-subtitle" = "Discuteix millores de l'article";
 "panel-compare-revisions-text" = "Comparar revisions ajuda a mostrar com canvia un article al llarg del temps. Comparar dues revisions d'un article mostrarà la diferència entre les revisions ressaltant el contingut que hagi canviat.";
 "panel-compare-revisions-title" = "Comparació de revisions";
 "pictured" = "retratat";

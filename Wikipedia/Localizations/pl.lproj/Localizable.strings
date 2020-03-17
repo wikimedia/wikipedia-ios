@@ -538,8 +538,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z $2 Wikipedii";
 "on-this-day-title" = "W tym dniu...";
 "original-tab-button-popover-description" = "Stuknij w 'W' żeby powrócić to początkowej karty";
-// Fuzzy
-"page-edit-history" = "Pełna historia edycji";
+"page-edit-history" = "Zobacz historię edycji";
 "page-history-anonymous-edits" = "anonimowe edycje";
 "page-history-bot-edits" = "edycje bota";
 "page-history-compare-accessibility-hint" = "Stuknij, aby wybrać dwie wersje do porównania";

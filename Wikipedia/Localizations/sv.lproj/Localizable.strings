@@ -85,6 +85,7 @@
 "action-remove" = "Ta bort";
 "action-replace" = "Ersätt";
 "action-replace-all" = "Ersätt alla";
+"action-retry" = "Försök igen";
 "action-save" = "Spara";
 "action-saved" = "Sparades";
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
@@ -533,8 +534,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
-// Fuzzy
-"page-edit-history" = "Full redigeringshistorik";
+"page-edit-history" = "Visa redigeringshistorik";
 "page-history-anonymous-edits" = "anonyma redigeringar";
 "page-history-bot-edits" = "botredigeringar";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
@@ -552,8 +552,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
 "page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
-// Fuzzy
-"page-last-edited" = "Redigerades {{PLURAL:$1|0=idag|1=igår|för $1 dygn sedan}}";
+"page-issues-subtitle" = "Meddelanden om bristfälligt eller problematiskt innehåll";
+"page-last-edited" = "{{PLURAL:$1|0=Uppdaterades idag|1=Uppdaterades igår|Uppdaterades $1 dygn sedan}}";
 "page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
@@ -563,6 +563,7 @@
 "page-read-in-other-languages" = "Tillgänglig på {{PLURAL:$1|$1 annat|$1 andra}} språk";
 "page-similar-titles" = "Liknande sidor";
 "page-talk-page" = "Visa diskussionssidan";
+"page-talk-page-subtitle" = "Diskutera förbättringar av denna artikel";
 "panel-compare-revisions-text" = "Jämför versioner för att se hur en artikel har ändrats med tiden. När två versioner av en artikel jämförs kommer skillnaden mellan dessa version visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "pictured" = "i bild";

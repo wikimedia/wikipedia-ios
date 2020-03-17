@@ -135,7 +135,7 @@
 "edit-minor-learn-more-text" = "Méi iwwer kleng Ännerunge gewuer ginn";
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
 "edit-published" = "Ännerung verëffentlecht";
-"edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaacht";
+"edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaach";
 "edit-strikethrough-remove-accessibility-label" = "Duerchsträichen ewech huelen";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-add-summary-text" = "E Resumé vun der Ännerung dobäisetzen";
@@ -322,8 +322,7 @@
 "on-this-day-footer-with-event-count" = "$1 weider historesch Evenementer op dësem Dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
-// Fuzzy
-"page-edit-history" = "All Versioune vun der Säit";
+"page-edit-history" = "All Versioune vun der Säit weisen";
 "page-history-anonymous-edits" = "anonym Ännerungen";
 "page-history-minor-edits" = "kleng Ännerungen";
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
@@ -333,7 +332,6 @@
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
 "page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";
 "page-issues" = "Problemer mat der Säit";
-// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Haut today|1=Gëschter|Viru(n) $1 Deeg}} geännert";
 "page-location" = "Op enger Kaart weisen";
 "page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
@@ -344,6 +342,7 @@
 "page-read-in-other-languages" = "Disponibel {{PLURAL:$1|an enger anerer Sprooch|a(n) $1 anere Sproochen}}";
 "page-similar-titles" = "Änlech Säiten";
 "page-talk-page" = "Diskussiounssäit weisen";
+"page-talk-page-subtitle" = "Verbesserunge vun dësem Artikel diskutéieren";
 "pictured" = "als Bild";
 "places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
 "places-accessibility-group" = "$1 Artikelen";

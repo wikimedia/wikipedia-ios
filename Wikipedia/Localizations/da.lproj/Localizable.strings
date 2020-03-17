@@ -366,8 +366,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra $2 Wikipedia";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Tryk på «W» for at gå tilbage til fanen du startede fra";
-// Fuzzy
-"page-edit-history" = "Fuld redigeringshistorik";
+"page-edit-history" = "Vis redigeringshistorik";
 "page-history-compare-title" = "Sammenlign";
 "page-history-minor-edits" = "mindre redigeringer";
 "page-history-revision-minor-edit-accessibility-label" = "Mindre ændring";

@@ -543,8 +543,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
-// Fuzzy
-"page-edit-history" = "Historique complet des modifications";
+"page-edit-history" = "Voir l'historique des modifications";
 "page-history-anonymous-edits" = "modifications anonymes";
 "page-history-bot-edits" = "modifications par robot";
 "page-history-compare-accessibility-hint" = "Tapper pour sélectionner deux versions à comparer";
@@ -562,8 +561,8 @@
 "page-history-stats-text" = "$1 modifications{{PLURAL:$1||s}} depuis $2";
 "page-history-user-edits" = "modifications par un utilisateur";
 "page-issues" = "Problèmes de page";
-// Fuzzy
-"page-last-edited" = "Modifié {{PLURAL:$1|0=aujourd’hui|1=hier|il y a $1 jours}}";
+"page-issues-subtitle" = "Alertes concernant sune sous-partie ou un contenu problématique";
+"page-last-edited" = "Mis à jour {{PLURAL:$1|0=aujourd’hui|1=hier|il y a $1 jours}}";
 "page-location" = "Afficher sur une carte";
 "page-protected-autoconfirmed" = "Cette page a été semi-protégée.";
 "page-protected-can-not-edit" = "Vous n’avez pas le droit de modifier cette page.";
@@ -573,6 +572,7 @@
 "page-read-in-other-languages" = "Disponible dans $1 autre{{PLURAL:$1||s}} langue{{PLURAL:$1||s}}";
 "page-similar-titles" = "Pages similaires";
 "page-talk-page" = "Afficher la page de discussion";
+"page-talk-page-subtitle" = "Discuter les améliorations de cet article";
 "panel-compare-revisions-text" = "Comparer les versions aide à montrer comment un article a changé au cours du temps. La comparaison de deux versions d’un article affichera les différences entre elles en surlignant tout contenu qui a été modifié.";
 "panel-compare-revisions-title" = "Comparaison des versions";
 "pictured" = "en image";

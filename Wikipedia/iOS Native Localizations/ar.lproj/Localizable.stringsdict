@@ -280,7 +280,7 @@
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>عُدِّلت %#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -288,9 +288,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>قبل %1$d أيام</string>
+			<string>حُدِثَت قبل %1$d أيام</string>
 			<key>zero</key>
-			<string>اليوم</string>
+			<string>حُدِثَت اليوم</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>

@@ -14,6 +14,7 @@
 // Author: Mhurd
 // Author: Mido
 // Author: Musab Moahmmed
+// Author: NEHAOUA
 // Author: Nemo bis
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
@@ -126,6 +127,7 @@
 "article-languages-others" = "لغات اخرى";
 "article-languages-yours" = "لغاتك";
 "article-read-more-title" = "قراءة المزيد";
+"article-reference-view-title" = "$1 مرجع";
 "article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
@@ -446,7 +448,6 @@
 "in-the-news-currently-trending" = "الأكثر زيارة حاليا";
 "in-the-news-notification-read-now-action-title" = "اقرأ الآن";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "شارك...";
 "in-the-news-sub-title-from-language-wikipedia" = "من ويكيبيديا $1";
 "in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
@@ -539,8 +540,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
-// Fuzzy
-"page-edit-history" = "تاريخ التعديل الكامل";
+"page-edit-history" = "عرض تاريخ التعديلات";
 "page-history-anonymous-edits" = "تعديلات المجهولين";
 "page-history-bot-edits" = "تعديلات البوتات";
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
@@ -558,8 +558,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
 "page-issues" = "مشاكل في الصفحة";
-// Fuzzy
-"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
+"page-issues-subtitle" = "تنبيهات حول محتوى فرعي أو إشكالي";
+"page-last-edited" = "{{PLURAL:$1|0=حُدِثَت اليوم|1=حُدِثَت بالأمس|حُدِثَت قبل $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
@@ -569,6 +569,7 @@
 "page-read-in-other-languages" = "متاحة {{PLURAL:$1|بـ$1 لغة أخرى|بـ$1 لغات أخرى}}";
 "page-similar-titles" = "صفحات مشابهة";
 "page-talk-page" = "اعرض صفحة النقاش";
+"page-talk-page-subtitle" = "ناقش التحسينات في هذه المقالة";
 "panel-compare-revisions-text" = "تساعد مقارنة المراجعات في إظهار كيف تم تغيير مقالة بمرور الوقت، ستوضح المقارنة بين مراجعتين لمقالة ما الفرق بين تلك المراجعات من خلال إبراز أي محتوى تم تغييره.";
 "panel-compare-revisions-title" = "مقارنة المراجعات";
 "pictured" = "مصوّر";
@@ -798,6 +799,7 @@
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
+"table-of-contents-hide-button-label" = "إخفاء جدول المحتويات.";
 "table-title-other" = "مزيد من المعلومات";
 "talk-page-add-discussion-accessibility-label" = "أضف نقاشا";
 "talk-page-discussion-accessibility-hint" = "انقر نقرًا مزدوجًا لفتح موضوع نقاش";
