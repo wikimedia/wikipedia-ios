@@ -296,9 +296,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Upravené pred %1$d dňami</string>
+			<string>Aktualizované pred %1$d dňami</string>
 			<key>zero</key>
-			<string>Upravené dnes</string>
+			<string>Aktualizované dnes</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>

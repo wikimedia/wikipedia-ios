@@ -547,8 +547,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
-// Fuzzy
-"page-edit-history" = "Bütün düzenleme geçmişi";
+"page-edit-history" = "Düzenleme geçmişini görüntüle";
 "page-history-anonymous-edits" = "anon düzenlemeleri";
 "page-history-bot-edits" = "bot düzenlemeleri";
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
@@ -566,8 +565,8 @@
 "page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Bugün düzenlendi|1=Dün düzenlendi|$1 gün önce düzenlendi}}";
+"page-issues-subtitle" = "Alt bölüm veya sorunlu içerik hakkında uyarılar";
+"page-last-edited" = "{{PLURAL:$1|0=Bugün güncellendi|1=Dün güncellendi|$1 gün önce güncellendi}}";
 "page-location" = "Haritada görüntüle";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
@@ -577,6 +576,7 @@
 "page-read-in-other-languages" = "{{PLURAL:$1|$1 farklı dilde|$1 farklı dilde}} mevcut";
 "page-similar-titles" = "Benzer sayfalar";
 "page-talk-page" = "Tartışma sayfasını görüntüle";
+"page-talk-page-subtitle" = "Bu maddedeki geliştirmeleri tartışın";
 "panel-compare-revisions-text" = "Revizyonları karşılaştırmak, bir makalenin zaman içinde nasıl değiştiğini göstermeye yardımcı olur. Bir makalenin iki revizyonunun karşılaştırılması, değiştirilen herhangi bir içeriği vurgulayarak bu revizyonlar arasındaki farkı gösterecektir.";
 "panel-compare-revisions-title" = "Düzeltmeleri karşılaştırma";
 "pictured" = "resimdeki";

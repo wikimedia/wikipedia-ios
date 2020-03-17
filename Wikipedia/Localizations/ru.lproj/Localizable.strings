@@ -1,6 +1,7 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
 // Author: Agilight
+// Author: Alexander Yukal
 // Author: Alexandr Efremov
 // Author: Av6
 // Author: BadDog
@@ -524,8 +525,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
-// Fuzzy
-"page-edit-history" = "Полная история редактирования";
+"page-edit-history" = "Просмотр истории изменений";
 "page-history-anonymous-edits" = "анонимные правки";
 "page-history-bot-edits" = "правки ботов";
 "page-history-compare-title" = "Сравнить";
@@ -535,6 +535,7 @@
 "page-history-revision-minor-edit-accessibility-label" = "Малая правка";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
 "page-issues" = "Вопросы по странице";
+"page-issues-subtitle" = "Оповещения о некачественном или проблемном контенте";
 // Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
 "page-location" = "Посмотреть на карте";
@@ -546,6 +547,7 @@
 "page-read-in-other-languages" = "Доступно на {{PLURAL:$1|другом языке|$1 других языках}}";
 "page-similar-titles" = "Похожие страницы";
 "page-talk-page" = "Страница обсуждения";
+"page-talk-page-subtitle" = "Обсудить улучшения этой статьи";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-group" = "$1 статьи";

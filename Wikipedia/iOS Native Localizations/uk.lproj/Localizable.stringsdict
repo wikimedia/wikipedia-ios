@@ -296,13 +296,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Відредаговано %1$d дні назад</string>
+			<string>Оновлено %1$d дні тому</string>
 			<key>many</key>
-			<string>Відредаговано %1$d днів назад</string>
+			<string>Оновлено %1$d днів тому</string>
+			<key>one</key>
+			<string>Оновлено %1$d день тому</string>
 			<key>other</key>
-			<string>Відредаговано %1$d днів назад</string>
+			<string>Оновлено %1$d днів тому</string>
 			<key>zero</key>
-			<string>Відредаговано сьогодні</string>
+			<string>Оновлено сьогодні</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
