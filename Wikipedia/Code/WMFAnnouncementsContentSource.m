@@ -124,6 +124,16 @@
     } else {
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
+
+    // Workaround for the great fundraising mystery of 2019: https://phabricator.wikimedia.org/T247554
+    // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
+    NSArray *announcements = [moc contentGroupsOfKind:WMFContentGroupKindAnnouncement];
+    for (WMFContentGroup *announcement in announcements) {
+        if (![announcement.key containsString:@"FUNDRAISING19"]) {
+            continue;
+        }
+        [moc deleteObject:announcement];
+    }
 }
 
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
