@@ -224,7 +224,7 @@ platform :ios do
   desc "updates version, builds, and pushes to TestFlight"
   lane :push_beta do |options|
     push(
-      product_name: "Wikipedia (apps.wmflabs.org mobile-html)",
+      product_name: "Wikipedia",
       app_identifier: "org.wikimedia.wikipedia",
       tag_prefix: "betas",
       build: options[:build]
