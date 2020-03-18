@@ -9,6 +9,7 @@ extension ArticleViewController {
         let predicate = NSPredicate(format: "placement == %@", "article")
         let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .announcement, with: predicate)
         guard
+            let contentGroupURL = contentGroup?.url,
             let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
             let actionURL = announcement.actionURL
         else {
@@ -17,6 +18,8 @@ extension ArticleViewController {
         }
         let dismiss = {
             UserDefaults.standard.shouldCheckForArticleAnnouncements = false
+            // re-fetch since time has elapsed
+            let contentGroup = self.dataStore.viewContext.contentGroup(for: contentGroupURL)
             contentGroup?.markDismissed()
             contentGroup?.updateVisibilityForUserIsLogged(in: self.session.isAuthenticated)
             do {
@@ -29,11 +32,12 @@ extension ArticleViewController {
         FeedFunnel.shared.logFeedImpression(for: context)
         wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
             self.navigate(to: actionURL, useSafari: true)
-            dismiss()
+            // dismiss handler is called
         }, secondaryButtonTapHandler: { (sender) in
-            dismiss()
+            // dismiss handler is called
         }, footerLinkAction: { (url) in
              self.navigate(to: url, useSafari: true)
+            // intentionally don't dismiss
         }, dismissHandler: {
             dismiss()
         }, theme: theme)
