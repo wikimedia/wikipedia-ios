@@ -255,6 +255,15 @@ class ArticleViewController: ViewController {
         startSignificantlyViewedTimer()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard isFirstAppearance else {
+            return
+        }
+        showAnnouncementIfNeeded()
+        isFirstAppearance = false
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         tableOfContentsController.update(with: traitCollection)
