@@ -64,7 +64,7 @@ import Foundation
             if let previewURL = group.contentPreview as? NSURL, let key = previewURL.wmf_databaseKey {
                 referencedArticleKeys.insert(key)
             }
-
+            
             guard let fullContent = group.fullContent else {
                 continue
             }
@@ -128,17 +128,14 @@ import Foundation
         */
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
-        var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE")
+        //savedDate == NULL && isDownloaded == YES will be picked up by SavedArticlesFetcher for deletion
+        let articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
         
         if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
             referencedArticleKeys.formUnion(preservedArticleKeys)
         }
         
-        if !referencedArticleKeys.isEmpty {
-            let referencedKeysPredicate = NSPredicate(format: "!(key IN %@)", referencedArticleKeys)
-            articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
-        }
-
+        articlesToDeleteFetchRequest.propertiesToFetch = ["key"]
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
 
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
@@ -146,6 +143,10 @@ import Foundation
         var urls: [URL] = []
         for obj in articlesToDelete {
             guard obj.isFault else { // only delete articles that are faults. prevents deletion of articles that are being actively viewed. repro steps: open disambiguation pages view -> exit app -> re-enter app
+                continue
+            }
+            
+            guard let key = obj.key, !referencedArticleKeys.contains(key) else {
                 continue
             }
             moc.delete(obj)
