@@ -186,9 +186,9 @@
         <attribute name="featuredContentIdentifier" optional="YES" attributeType="String"/>
         <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="key" attributeType="String"/>
-        <attribute name="location" optional="YES" attributeType="Transformable" customClassName="CLLocation"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="CLLocation"/>
         <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="placemark" optional="YES" attributeType="Transformable" customClassName="CLPlacemark"/>
+        <attribute name="placemark" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="CLPlacemark"/>
         <attribute name="placement" optional="YES" attributeType="String"/>
         <attribute name="siteURLString" optional="YES" attributeType="String"/>
         <attribute name="undoTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
