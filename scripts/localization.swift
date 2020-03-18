@@ -570,10 +570,11 @@ let pcsi18nKeys = [
     "view-in-browser-footer-link",
     "page-read-in-other-languages",
     "page-last-edited",
-    "page-last-edited-unknown",
     "page-edit-history",
     "page-talk-page",
+    "page-talk-page-subtitle",
     "page-issues",
+    "page-issues-subtitle",
     "page-similar-titles",
     "page-location"
 ]
@@ -586,6 +587,9 @@ func exportPCSi18nJSON(localizationFileURL: URL, outputFileURL: URL) {
     var output: [String: String] = [:]
     for key in pcsi18nKeys {
         output[key] = dictionary[key] as? String
+    }
+    guard !output.isEmpty else {
+        return
     }
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted

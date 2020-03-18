@@ -284,9 +284,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%1$d 日前編輯</string>
+			<string>%1$d 日前更新</string>
 			<key>zero</key>
-			<string>今日編輯</string>
+			<string>今日更新</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>

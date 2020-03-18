@@ -40,9 +40,9 @@ public final class ArticleCacheController: CacheController {
                 let group = DispatchGroup()
                 
                 var successfulAddKeys: [CacheController.UniqueKey] = []
-                var failedAddKeys: [CacheController.UniqueKey] = []
+                var failedAddKeys: [(CacheController.UniqueKey, Error)] = []
                 var successfulRemoveKeys: [CacheController.UniqueKey] = []
-                var failedRemoveKeys: [CacheController.UniqueKey] = []
+                var failedRemoveKeys: [(CacheController.UniqueKey, Error)] = []
                 
                 //add new urls in file system
                 for urlRequest in syncResult.addURLRequests {
@@ -56,9 +56,9 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
                         switch fileWriterResult {
-                        case .success(let data, let mimeType):
+                        case .success(let response, let data):
                             
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest) { (dbWriterResult) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (dbWriterResult) in
                             
                                 defer {
                                     group.leave()
@@ -67,17 +67,17 @@ public final class ArticleCacheController: CacheController {
                                 switch dbWriterResult {
                                 case .success:
                                     successfulAddKeys.append(uniqueKey)
-                                case .failure:
-                                    failedAddKeys.append(uniqueKey)
+                                case .failure(let error):
+                                    failedAddKeys.append((uniqueKey, error))
                                 }
                             }
-                        case .failure:
+                        case .failure(let error):
                             
                             defer {
                                 group.leave()
                             }
                             
-                            failedAddKeys.append(uniqueKey)
+                            failedAddKeys.append((uniqueKey, error))
                         }
                     }
                 }
@@ -105,24 +105,23 @@ public final class ArticleCacheController: CacheController {
                                 switch dbWriterResult {
                                 case .success:
                                     successfulRemoveKeys.append(uniqueKey)
-                                case .failure:
-                                    failedRemoveKeys.append(uniqueKey)
+                                case .failure(let error):
+                                    failedRemoveKeys.append((uniqueKey, error))
                                 }
                             }
-                        case .failure:
+                        case .failure(let error):
                             defer {
                                 group.leave()
                             }
                             
-                            failedRemoveKeys.append(uniqueKey)
+                            failedRemoveKeys.append((uniqueKey, error))
                         }
                     }
                 }
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                 
-                    guard failedAddKeys.count == 0 && failedRemoveKeys.count == 0 else {
-                        groupCompletion(.failure(error: CacheControllerError.atLeastOneItemFailedInSync))
+                    if let error = failedAddKeys.first?.1 ?? failedRemoveKeys.first?.1 {
+                        groupCompletion(.failure(error: CacheControllerError.atLeastOneItemFailedInSync(error)))
                         return
                     }
                     
@@ -149,7 +148,7 @@ public final class ArticleCacheController: CacheController {
                 
                 self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
 
-                    articleDBWriter.markDownloaded(urlRequest: urlRequest) { (result) in
+                    articleDBWriter.markDownloaded(urlRequest: urlRequest, response: nil) { (result) in
                         switch result {
                         case .success:
                             
@@ -195,7 +194,8 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.addBundledResourcesForMigration(urlRequests: requests, success: { (_) in
                         
-                        articleDBWriter.markDownloaded(urlRequests: requests) { (result) in
+                        let bulkRequests = requests.map { ArticleCacheDBWriter.BulkMarkDownloadRequest(urlRequest: $0, response: nil) }
+                        articleDBWriter.markDownloaded(requests: bulkRequests) { (result) in
                             switch result {
                             case .success:
                                 completionHandler(nil)

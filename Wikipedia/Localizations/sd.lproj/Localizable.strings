@@ -486,6 +486,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 وڪيپيڊيا مان $1";
 "on-this-day-title" = "ھن ڏينھن تي";
 "original-tab-button-popover-description" = "جنھن ٽيب کان توھان شروع ڪيو ان ڏانھن ورڻ لاءِ 'W' تي ڇھو";
+// Fuzzy
 "page-edit-history" = "پوري سنوار جي سوانح";
 "page-history-anonymous-edits" = "گمنام سنوارون";
 "page-history-bot-edits" = "بوٽ سنوارون";
@@ -504,6 +505,7 @@
 "page-history-stats-text" = "$2 کان {{PLURAL:$1|$1 سنوار|$1 سنوارون}}";
 "page-history-user-edits" = "واپرائيندڙ سنوارون";
 "page-issues" = "صفحي جا مسئلا";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=اڄ سنواريل|1=ڪالھ سنواريل|$1 ڏينھن اڳ سنواريل}}";
 "page-location" = "نقشي تي ڏسو";
 "page-protected-autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";

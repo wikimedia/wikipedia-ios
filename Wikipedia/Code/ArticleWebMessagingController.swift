@@ -39,7 +39,7 @@ class ArticleWebMessagingController: NSObject {
         }
     }
     
-    func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], languageCount: Int, lastModified: Date?) {
+    func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], lastModified: Date?) {
         guard let title = articleURL.wmf_title else {
             return
         }
@@ -47,7 +47,7 @@ class ArticleWebMessagingController: NSObject {
         if let lastModified = lastModified {
             editedDaysAgo = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
         }
-        let menu = PageContentService.Footer.Menu(items: menuItems, editedDaysAgo: editedDaysAgo, languageCount: languageCount)
+        let menu = PageContentService.Footer.Menu(items: menuItems, editedDaysAgo: editedDaysAgo)
         let readMore = PageContentService.Footer.ReadMore(itemCount: 3, baseURL: restAPIBaseURL.absoluteString)
         let parameters = PageContentService.Footer.Parameters(title: title, menu: menu, readMore: readMore)
         guard let parametersJS = try? PageContentService.getJavascriptFor(parameters) else {
@@ -86,26 +86,18 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript(js)
     }
     
-    func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<CGRect, Error>) -> Void) {
+    func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let webView = webView else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
-        webView.evaluateJavaScript("pcs.c1.Page.prepareForScrollToAnchor(`\(anchor.sanitizedForJavaScriptTemplateLiterals)`, \(highlight ? "true" : "false"))") { (result, error) in
-            guard
-                let dictionary = result as? [String: Any],
-                let x = dictionary["x"] as? CGFloat,
-                let y = dictionary["y"] as? CGFloat,
-                let width = dictionary["width"] as? CGFloat,
-                let height = dictionary["height"] as? CGFloat,
-                width > 0,
-                height > 0
-                else {
-                    completion(.failure(RequestError.invalidParameters))
-                    return
+        webView.evaluateJavaScript("pcs.c1.Page.prepareForScrollToAnchor(`\(anchor.sanitizedForJavaScriptTemplateLiterals)`, {highlight: \(highlight ? "true" : "false")})") { (result, error) in
+            if let error = error {
+                DDLogError("Error attempting to scroll to anchor: \(anchor) \(error)")
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
             }
-            let scrollRect = CGRect(x: x + webView.scrollView.contentOffset.x + x, y: webView.scrollView.contentOffset.y + y, width: width, height: height)
-            completion(.success(scrollRect))
         }
     }
     
@@ -152,6 +144,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case viewInBrowser
         case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
+        case scrollToAnchor(anchor: String, rect: CGRect)
         case unknown(href: String)
     }
     
@@ -173,6 +166,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case viewInBrowser = "view_in_browser"
         case leadImage
         case tableOfContents
+        case scrollToAnchor = "scroll_to_anchor"
         init?(pcsActionString: String) {
             let cleaned = pcsActionString.replacingOccurrences(of: "_clicked", with: "")
             self.init(rawValue: cleaned)
@@ -209,6 +203,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getLeadImageAction(with: data)
             case .tableOfContents:
                 return getTableOfContentsAction(with: data)
+            case .scrollToAnchor:
+                return getScrollToAnchorAction(with: data)
             }
         }
         func getLeadImageAction(with data: [String: Any]?) -> Action? {
@@ -312,6 +308,23 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return nil
             }
             return .footerItem(type: menuItemType, payload: data?["payload"])
+        }
+        
+        func getScrollToAnchorAction(with data: [String: Any]?) -> Action? {
+            guard
+                let dictionary = data?["rect"] as? [String: Any],
+                let anchor = data?["anchor"] as? String,
+                let x = dictionary["x"] as? CGFloat,
+                let y = dictionary["y"] as? CGFloat,
+                let width = dictionary["width"] as? CGFloat,
+                let height = dictionary["height"] as? CGFloat,
+                width > 0,
+                height > 0
+            else {
+                return nil
+            }
+            let rect = CGRect(x: x, y: y, width: width, height: height)
+            return .scrollToAnchor(anchor: anchor, rect: rect)
         }
     }
     

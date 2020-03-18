@@ -37,8 +37,6 @@ class ArticleViewController: ViewController {
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: ArticleCacheController
     
-    private lazy var languageLinkFetcher: MWKLanguageLinkFetcher = MWKLanguageLinkFetcher()
-
     let session = Session.shared
     let configuration = Configuration.current
     
@@ -278,8 +276,7 @@ class ArticleViewController: ViewController {
     // MARK: Article load
     
     var footerLoadGroup: DispatchGroup?
-    var languageCount: Int = 0
-    
+
     func loadIfNecessary() {
         guard state == .initial else {
             return
@@ -291,12 +288,12 @@ class ArticleViewController: ViewController {
         state = .loading
         
         setupPageContentServiceJavaScriptInterface {
-            let cachePolicy: URLRequest.CachePolicy? = self.fromNavStateRestoration ? .returnCacheDataElseLoad : nil
+            let cachePolicy: WMFCachePolicy? = self.fromNavStateRestoration ? .foundation(.returnCacheDataElseLoad) : nil
             self.loadPage(cachePolicy: cachePolicy)
         }
     }
     
-    func loadPage(cachePolicy: URLRequest.CachePolicy? = nil) {
+    func loadPage(cachePolicy: WMFCachePolicy? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
@@ -336,13 +333,6 @@ class ArticleViewController: ViewController {
             self.article = article
             self.articleURL = newURL
             self.addToHistory()
-        }
-        footerLoadGroup?.enter()
-        languageLinkFetcher.fetchLanguageLinks(forArticleURL: articleURL, success: { (links) in
-            self.languageCount = links.count
-            self.footerLoadGroup?.leave()
-        }) { (error) in
-            self.footerLoadGroup?.leave()
         }
     }
     
@@ -496,7 +486,7 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        loadPage(cachePolicy: .reloadIgnoringLocalCacheData)
+        loadPage(cachePolicy: .noPersistentCacheOnError)
     }
     
     // MARK: Overrideable functionality
@@ -584,6 +574,10 @@ class ArticleViewController: ViewController {
         return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
     }
     
+    /// Used to wait for the callback that the anchor is ready for scrollin'
+    typealias ScrollToAnchorCompletion = (_ anchor: String, _ rect: CGRect) -> Void
+    var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
+
     func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
@@ -597,9 +591,12 @@ class ArticleViewController: ViewController {
             case .failure(let error):
                 self.showError(error)
                 completion?()
-            case .success(let rect):
-                let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y)
-                self.scroll(to: point, centered: centered, animated: animated, completion: completion)
+            case .success:
+                let scrollCompletion: ScrollToAnchorCompletion = { (anchor, rect) in
+                    let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.scrollView.contentOffset.y)
+                    self.scroll(to: point, centered: centered, animated: animated, completion: completion)
+                }
+                self.scrollToAnchorCompletions.insert(scrollCompletion, at: 0)
             }
         }
     }
@@ -840,16 +837,19 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 // MARK: - Article Load Errors
 
 extension ArticleViewController {
-    func handleArticleLoadFailure(with error: Error) {
+    func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
         fakeProgressController.finish()
-        wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+        if showEmptyView {
+            wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+        }
         showError(error)
+        refreshControl.endRefreshing()
     }
     
     func articleLoadDidFail(with error: Error) {
         // Convert from mobileview if necessary
         guard article.isConversionFromMobileViewNeeded else {
-            handleArticleLoadFailure(with: error)
+            handleArticleLoadFailure(with: error, showEmptyView: !article.isSaved)
             return
         }
         dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { [weak self] (migrationError) in
@@ -861,11 +861,11 @@ extension ArticleViewController {
     
     func oneOffArticleMigrationDidFinish(with migrationError: Error?) {
         if let error = migrationError {
-            handleArticleLoadFailure(with: error)
+            handleArticleLoadFailure(with: error, showEmptyView: true)
             return
         }
         guard !article.isConversionFromMobileViewNeeded else {
-            handleArticleLoadFailure(with: RequestError.unexpectedResponse)
+            handleArticleLoadFailure(with: RequestError.unexpectedResponse, showEmptyView: true)
             return
         }
         loadPage()

@@ -426,7 +426,7 @@
 "forgot-password-username-or-email-title" = "或";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
-"history-clear-confirmation-heading" = "您確定要刪除所有近期項目嗎？";
+"history-clear-confirmation-heading" = "您確定要刪除您所有的近期項目嗎？";
 "history-clear-delete-all" = "是的，刪除全部";
 "history-title" = "歷史";
 "home-button-explore-accessibility-label" = "維基百科，返回探索";
@@ -540,7 +540,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
-"page-edit-history" = "完整編輯歷史";
+"page-edit-history" = "檢視編輯歷史";
 "page-history-anonymous-edits" = "匿名編輯";
 "page-history-bot-edits" = "機器人編輯";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
@@ -558,8 +558,8 @@
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
 "page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
-"page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
-"page-last-edited-unknown" = "在之前編輯過";
+"page-issues-subtitle" = "關於欠佳或是有問題內容的警告";
+"page-last-edited" = "{{PLURAL:$1|0=今日更新|1=昨日更新|$1 日前更新}}";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
@@ -569,6 +569,7 @@
 "page-read-in-other-languages" = "在 {{PLURAL:$1|$1 種其它語言}}中可用";
 "page-similar-titles" = "相似的頁面";
 "page-talk-page" = "檢視對話頁";
+"page-talk-page-subtitle" = "討論改善此條目";
 "panel-compare-revisions-text" = "比較修訂能協助顯示出條目隨著時間的內容變化，比較條目裡的兩個修訂時，會透過凸顯出所更改過的內容，來顯示出這些修訂間的差異。";
 "panel-compare-revisions-title" = "比較修訂";
 "pictured" = "如圖";

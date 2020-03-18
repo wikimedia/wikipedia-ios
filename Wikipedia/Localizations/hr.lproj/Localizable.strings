@@ -83,6 +83,7 @@
 "article-languages-others" = "Drugi jezici";
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Pročitajte više";
+"article-reference-view-title" = "Izvor $1";
 "article-save-error-not-enough-space" = "Na uređaju nemate dovoljno prostora da biste mogli sačuvati ovaj članak";
 "article-share" = "Podijeli";
 "back-button-accessibility-label" = "Natrag";
@@ -244,7 +245,8 @@
 "menu-cancel-accessibility-label" = "Odustani";
 "more-languages-tooltip-title" = "Dodajte jezike";
 "on-this-day-title" = "Na današnji dan";
-"page-last-edited-unknown" = "Uređeno prije nekog vremena";
+"page-edit-history" = "Pogledaj povijest izmjena";
+"page-talk-page-subtitle" = "Raspravite o poboljšanjima u ovom članku";
 "places-filter-button-title" = "Filtar";
 "places-filter-saved-articles" = "Spremljeni članci";
 "reading-list-keep-title" = "Zadržati spremljene članke na uređaju?";

@@ -498,6 +498,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "original-tab-button-popover-description" = "点按“W”以返回您开始来自的标签";
+// Fuzzy
 "page-edit-history" = "完整编辑历史";
 "page-history-anonymous-edits" = "匿名编辑";
 "page-history-bot-edits" = "机器人编辑";
@@ -513,6 +514,7 @@
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次编辑}}";
 "page-history-user-edits" = "用户编辑数";
 "page-issues" = "页面问题";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=编辑于今天|1=编辑于昨天|编辑于 $1 天前}}";
 "page-location" = "在地图上查看";
 "page-protected-autoconfirmed" = "此页面已半保护。";

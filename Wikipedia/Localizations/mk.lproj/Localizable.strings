@@ -521,7 +521,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
-"page-edit-history" = "Цела историја на уредувања";
+"page-edit-history" = "Историја на уредувања";
 "page-history-anonymous-edits" = "анон. уредувања";
 "page-history-bot-edits" = "ботовски уредувања";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
@@ -539,8 +539,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 уредување|$1 уредувања}} од $2 наваму";
 "page-history-user-edits" = "кориснички уредувања";
 "page-issues" = "Проблеми со страницата";
-"page-last-edited" = "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}";
-"page-last-edited-unknown" = "Уредено пред некое време";
+"page-issues-subtitle" = "Известува за неквалитетна или проблематична содржина";
+"page-last-edited" = "{{PLURAL:$1|0=Подновено денес|1=Подновено вчера|Подновено пред $1 дена}}";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
@@ -550,6 +550,7 @@
 "page-read-in-other-languages" = "Достапно на {{PLURAL:$1|уште $1 јазик|уште $1 јазици}}";
 "page-similar-titles" = "Слични страници";
 "page-talk-page" = "Разговорна страница";
+"page-talk-page-subtitle" = "Поразговарајте за подобрувањето на статијава";
 "panel-compare-revisions-text" = "Споредувањето на преработките дава слика за тоа како една статија се менувала со текот на времето. Споредувањето на две преработки на една статија ги прикажува разликите помеѓу нив со истакнување на променетата содржина.";
 "panel-compare-revisions-title" = "Споредба на преработки";
 "pictured" = "на сликата";

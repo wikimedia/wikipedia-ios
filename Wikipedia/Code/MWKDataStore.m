@@ -790,7 +790,7 @@ static uint64_t bundleHash() {
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
 
     // Site info
-    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:@{@"action": @"query", @"format": @"json", @"meta": @"siteinfo"}];
+    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
     [taskGroup enter];
     [[WMFSession shared] getJSONDictionaryFromURL:components.URL
                                       ignoreCache:YES

@@ -270,7 +270,16 @@ private extension SavedArticlesFetcher {
     
     func handleFailure(with article: WMFArticle, error: Error) {
         var underlyingError: Error = error
-        if let writerError = error as? ArticleCacheDBWriterError {
+        if let cacheError = error as? CacheControllerError {
+            switch cacheError {
+            case .atLeastOneItemFailedInSync(let error):
+                fallthrough
+            case .atLeastOneItemFailedInFileWriter(let error):
+                underlyingError = error
+            default:
+                break
+            }
+        } else if let writerError = error as? ArticleCacheDBWriterError {
             switch writerError {
             case .failureFetchingMediaList(let error):
                 fallthrough
@@ -291,6 +300,23 @@ private extension SavedArticlesFetcher {
                 NotificationCenter.default.post(name: SavedArticlesFetcher.saveToDiskDidFail, object: self, userInfo: userInfo)
                 stop()
                 article.error = .saveToDiskFailed
+            } else if nsError.domain == NSURLErrorDomain {
+                switch nsError.code {
+                case NSURLErrorTimedOut:
+                    fallthrough
+                case NSURLErrorCancelled:
+                    fallthrough
+                case NSURLErrorCannotConnectToHost:
+                    fallthrough
+                case NSURLErrorCannotFindHost:
+                    fallthrough
+                case NSURLErrorNetworkConnectionLost:
+                    fallthrough
+                case NSURLErrorNotConnectedToInternet:
+                    stop()
+                default:
+                    article.error = .apiFailed
+                }
             } else {
                 article.error = .apiFailed
             }

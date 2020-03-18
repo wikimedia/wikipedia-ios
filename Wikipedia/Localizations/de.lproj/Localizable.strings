@@ -484,6 +484,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
+// Fuzzy
 "page-edit-history" = "Vollständige Versionsgeschichte";
 "page-history-anonymous-edits" = "Anonyme Bearbeitungen";
 "page-history-bot-edits" = "Botbearbeitungen";
@@ -500,6 +501,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}} seit $2";
 "page-history-user-edits" = "Benutzerbearbeitungen";
 "page-issues" = "Seitenprobleme";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}} bearbeitet";
 "page-location" = "Auf einer Karte ansehen";
 "page-protected-autoconfirmed" = "Diese Seite wurde halbgesperrt.";

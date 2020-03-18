@@ -231,9 +231,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Уређено пре %1$d дана</string>
+			<string>Ажурирано пре %1$d дана</string>
 			<key>zero</key>
-			<string>Уређено данас</string>
+			<string>Ажурирано данас</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

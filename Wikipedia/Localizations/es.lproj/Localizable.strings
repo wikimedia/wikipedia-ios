@@ -3,6 +3,7 @@
 // Author: Agusbou2015
 // Author: Andru1013
 // Author: Astroemi
+// Author: Canaan9801
 // Author: Carlosmg.dg
 // Author: David.novella
 // Author: Dgstranz
@@ -555,7 +556,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, de Wikipedia en $2";
 "on-this-day-title" = "Un día como hoy";
 "original-tab-button-popover-description" = "Pulsa en la 'W' para volver a la pestaña desde la que comenzaste";
-"page-edit-history" = "Historial de edición completo";
+"page-edit-history" = "Ver historial de ediciones";
 "page-history-anonymous-edits" = "ediciones anónimas";
 "page-history-bot-edits" = "ediciones de bots";
 "page-history-compare-accessibility-hint" = "Toca para seleccionar dos revisiones para comparar";
@@ -573,8 +574,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 edición|$1 ediciones}} desde $2";
 "page-history-user-edits" = "ediciones del usuario";
 "page-issues" = "Problemas de la página";
-"page-last-edited" = "\n\n{{PLURAL:$1|0=Editado hoy|1=Editado ayer|Editado hace $1 días}}";
-"page-last-edited-unknown" = "Editado hace algún tiempo";
+"page-issues-subtitle" = "Avisa sobre contenido problemático o de pésima calidad.";
+"page-last-edited" = "Actualizado {{PLURAL:$1|0=hoy|1=ayer|hace $1 días}}";
 "page-location" = "Ver en mapa";
 "page-protected-autoconfirmed" = "Esta página está semiprotegida.";
 "page-protected-can-not-edit" = "No tienes permisos para editar esta página";
@@ -584,6 +585,7 @@
 "page-read-in-other-languages" = "\nDisponible en {{PLURAL:$1|$1 idioma más|otros $1 idiomas}}";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discusión";
+"page-talk-page-subtitle" = "Descutir mejoras a este artículo";
 "panel-compare-revisions-text" = "Comparar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Comparar dos revisiones de un artículo mostrará la diferencia entre esas revisiones al resaltar cualquier contenido que fue cambiado.";
 "panel-compare-revisions-title" = "Comparando revisiones";
 "pictured" = "retratado";

@@ -540,7 +540,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";
-"page-edit-history" = "Celá historie editací";
+"page-edit-history" = "Zobrazit historii editací";
 "page-history-anonymous-edits" = "anonymní editace";
 "page-history-bot-edits" = "editace robotů";
 "page-history-compare-accessibility-hint" = "Klepněte pro vybrání dvou revizí k porovnání";
@@ -558,8 +558,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 editace|$1 editace|$1 editací}} od $2";
 "page-history-user-edits" = "editace uživatelů";
 "page-issues" = "Nedostatky stránky";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";
-"page-last-edited-unknown" = "Editováno před nějakou dobou";
 "page-location" = "Zobrazit na mapě";
 "page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";

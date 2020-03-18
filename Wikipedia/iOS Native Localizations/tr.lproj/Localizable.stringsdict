@@ -296,9 +296,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%1$d gün önce düzenlendi</string>
+			<string>%1$d gün önce güncellendi</string>
 			<key>zero</key>
-			<string>Bugün düzenlendi</string>
+			<string>Bugün güncellendi</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>

@@ -539,6 +539,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 위키백과에서 $1";
 "on-this-day-title" = "오늘의 역사";
 "original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
+// Fuzzy
 "page-edit-history" = "전체 편집 내역";
 "page-history-anonymous-edits" = "익명 편집";
 "page-history-bot-edits" = "봇 편집";
@@ -555,8 +556,8 @@
 "page-history-stats-text" = "$2 이후 {{PLURAL:$1|편집 $1회}}";
 "page-history-user-edits" = "사용자 편집";
 "page-issues" = "문서 이슈";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=오늘 마지막으로 편집|1=어제 마지막으로 편집|$1일 전에 마지막으로 편집}}";
-"page-last-edited-unknown" = "조금 전에 편집됨";
 "page-location" = "지도에서 보기";
 "page-protected-autoconfirmed" = "이 문서는 준보호되어 있습니다.";
 "page-protected-can-not-edit" = "이 문서를 편집할 권한이 없습니다";

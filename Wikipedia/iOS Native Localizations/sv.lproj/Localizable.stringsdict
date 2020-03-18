@@ -276,7 +276,7 @@
 	<key>page-last-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Redigerades %#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -284,9 +284,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>för %1$d dygn sedan</string>
+			<string>Uppdaterades %1$d dygn sedan</string>
 			<key>zero</key>
-			<string>idag</string>
+			<string>Uppdaterades idag</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>

@@ -211,7 +211,7 @@ metadataLanguage:(nullable NSString *)metadataLanguage
 
 - (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url {
     
-    return [self.session imageInfoURLRequestFromURL:url];
+    return [self.session imageInfoURLRequestFromPersistenceWith: url];
 }
 
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray *)titles

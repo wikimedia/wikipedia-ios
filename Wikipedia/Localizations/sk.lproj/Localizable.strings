@@ -526,7 +526,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
-"page-edit-history" = "Úplná história úprav";
+"page-edit-history" = "Zobraziť históriu úprav";
 "page-history-anonymous-edits" = "úpravy anonymných používateľov";
 "page-history-bot-edits" = "úpravy botov";
 "page-history-compare-accessibility-hint" = "Ťuknite pre vybratie dvoch revízií na porovnanie";
@@ -544,8 +544,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 úprava|$1 úpravy|$1 úprav}} od $2";
 "page-history-user-edits" = "úpravy používateľa";
 "page-issues" = "Problémy stránky";
-"page-last-edited" = "{{PLURAL:$1|0=Upravené dnes|1=Upravené včera|2=Upravené predvčerom|Upravené pred $1 dňami}}";
-"page-last-edited-unknown" = "Upravené pred nejakým časom";
+"page-issues-subtitle" = "Upozornenia o nekvalitnom alebo problematickom obsahu";
+"page-last-edited" = "{{PLURAL:$1|0=Aktualizované dnes|1=Aktualizované včera|2=Aktualizované predvčerom|Aktualizované pred $1 dňami}}";
 "page-location" = "Zobraziť na mape";
 "page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
 "page-protected-can-not-edit" = "Nemáte právo upraviť túto stránku";
@@ -555,6 +555,7 @@
 "page-read-in-other-languages" = "Dostupné v {{PLURAL:$1|$1 ďalšom jazyku|$1 dalších jazykoch}}";
 "page-similar-titles" = "Podobné stránky";
 "page-talk-page" = "Zobraziť diskusiu";
+"page-talk-page-subtitle" = "Diskutovať o vylepšeniach tohto článku";
 "panel-compare-revisions-text" = "Porovnávanie revízií pomáha zobraziť, ako sa článok menil v závislosti od času. Porovnávanie dvoch revízií článku ukáže rozdiel medzi danými revíziami zvýraznením akéhokoľvek obsahu, ktorý bol zmenený.";
 "panel-compare-revisions-title" = "Porovnávanie revízií";
 "pictured" = "na obrázku";

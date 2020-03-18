@@ -1,10 +1,10 @@
 
 import Foundation
 
-enum CacheControllerError: Error {
-    case atLeastOneItemFailedInFileWriter
+public enum CacheControllerError: Error {
+    case atLeastOneItemFailedInFileWriter(Error)
     case failureToGenerateItemResult
-    case atLeastOneItemFailedInSync
+    case atLeastOneItemFailedInSync(Error)
 }
 
 public class CacheController {
@@ -161,7 +161,7 @@ public class CacheController {
             case .success(let urlRequests):
                 
                 var successfulKeys: [CacheController.UniqueKey] = []
-                var failedKeys: [CacheController.UniqueKey] = []
+                var failedKeys: [(CacheController.UniqueKey, Error)] = []
                 
                 let group = DispatchGroup()
                 for urlRequest in urlRequests {
@@ -195,9 +195,9 @@ public class CacheController {
                         }
                         
                         switch result {
-                        case .success(let data, let mimeType):
+                        case .success(let response, let data):
                             
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest) { (result) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
                                 
                                 defer {
                                     group.leave()
@@ -211,14 +211,14 @@ public class CacheController {
                                     individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
                                     
                                 case .failure(let error):
-                                    failedKeys.append(uniqueKey)
+                                    failedKeys.append((uniqueKey, error))
                                     individualResult = FinalIndividualResult.failure(error: error)
                                 }
                                 
                                 self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             }
                             
-                            self.finishFileSave(data: data, mimeType: mimeType, uniqueKey: uniqueKey, url: url)
+                            self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
                             
                         case .failure(let error):
                             
@@ -226,16 +226,19 @@ public class CacheController {
                                 group.leave()
                             }
                             
-                            failedKeys.append(uniqueKey)
+                            failedKeys.append((uniqueKey, error))
                             let individualResult = FinalIndividualResult.failure(error: error)
                             self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                         }
                     }
                     
                     group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                        
-                        let groupResult = failedKeys.count > 0 ? FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter) : FinalGroupResult.success(uniqueKeys: successfulKeys)
-                        
+                        let groupResult: FinalGroupResult
+                        if let error = failedKeys.first?.1 {
+                            groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
+                        } else {
+                            groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
+                        }
                         groupCompleteBlock(groupResult)
                     }
                 }
@@ -286,7 +289,7 @@ public class CacheController {
             case .success(let keys):
                 
                 var successfulKeys: [CacheController.UniqueKey] = []
-                var failedKeys: [CacheController.UniqueKey] = []
+                var failedKeys: [(CacheController.UniqueKey, Error)] = []
                 
                 let group = DispatchGroup()
                 for key in keys {
@@ -323,7 +326,7 @@ public class CacheController {
                                     successfulKeys.append(uniqueKey)
                                     individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
                                 case .failure(let error):
-                                    failedKeys.append(uniqueKey)
+                                    failedKeys.append((uniqueKey, error))
                                     individualResult = FinalIndividualResult.failure(error: error)
                                 }
                                 
@@ -331,7 +334,7 @@ public class CacheController {
                             }
                             
                         case .failure(let error):
-                            failedKeys.append(uniqueKey)
+                            failedKeys.append((uniqueKey, error))
                             let individualResult = FinalIndividualResult.failure(error: error)
                             self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             group.leave()
@@ -340,26 +343,23 @@ public class CacheController {
                 }
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                    
-                    if failedKeys.count == 0 {
-                        
-                        self.dbWriter.remove(groupKey: groupKey, completion: { (result) in
-                            
-                            var groupResult: FinalGroupResult
-                            switch result {
-                            case .success:
-                                groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
-                                
-                            case .failure(let error):
-                                groupResult = FinalGroupResult.failure(error: error)
-                            }
-                            
-                           groupCompleteBlock(groupResult)
-                        })
-                    } else {
-                        let groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter)
+                    if let error = failedKeys.first?.1 {
+                        let groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
                         groupCompleteBlock(groupResult)
+                        return
                     }
+                    self.dbWriter.remove(groupKey: groupKey, completion: { (result) in
+                        var groupResult: FinalGroupResult
+                        switch result {
+                        case .success:
+                            groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
+                            
+                        case .failure(let error):
+                            groupResult = FinalGroupResult.failure(error: error)
+                        }
+                        
+                        groupCompleteBlock(groupResult)
+                    })
                 }
                 
             case .failure(let error):

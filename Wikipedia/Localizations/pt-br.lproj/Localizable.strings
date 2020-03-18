@@ -545,7 +545,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";
-"page-edit-history" = "Histórico de edição completo";
+"page-edit-history" = "Ver histórico de edições";
 "page-history-anonymous-edits" = "Edições anônimas";
 "page-history-bot-edits" = "edições de robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões para comparar";
@@ -563,8 +563,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 edição|$1 edições}} desde $2";
 "page-history-user-edits" = "edições de usuário";
 "page-issues" = "Problemas da página";
-"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado $1 dia atrás}}";
-"page-last-edited-unknown" = "Editado há algum tempo";
+"page-issues-subtitle" = "Alertas sobre conteúdo insuficiente ou problemático";
+"page-last-edited" = "{{PLURAL:$1|0=Atualizado hoje|1=Atualizado ontem|Atualizado $1 dia atrás}}";
 "page-location" = "Ver no mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Você não tem permissão para editar esta página";
@@ -574,6 +574,7 @@
 "page-read-in-other-languages" = "Disponível em {PLURAL:$1|$1 outro idioma|$1 outros idiomas}}";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discussão";
+"page-talk-page-subtitle" = "Discutir melhorias neste artigo";
 "panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo mudou ao longo do tempo. A comparação de duas revisões de um artigo mostrará a diferença entre essas revisões, destacando qualquer conteúdo que foi alterado.";
 "panel-compare-revisions-title" = "Comparando revisões";
 "pictured" = "Retratado";

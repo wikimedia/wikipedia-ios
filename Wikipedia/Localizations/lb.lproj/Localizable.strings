@@ -135,7 +135,7 @@
 "edit-minor-learn-more-text" = "Méi iwwer kleng Ännerunge gewuer ginn";
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
 "edit-published" = "Ännerung verëffentlecht";
-"edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaacht";
+"edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaach";
 "edit-strikethrough-remove-accessibility-label" = "Duerchsträichen ewech huelen";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-add-summary-text" = "E Resumé vun der Ännerung dobäisetzen";
@@ -173,8 +173,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Aus";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Un";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Op $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "All %@ Kaarte si verstoppt";
+"explore-feed-preferences-feed-cards-hidden-title" = "All $1 Kaarte si verstoppt";
 "explore-feed-preferences-global-cards-subtitle" = "Net sproochspezifesch";
 "explore-feed-preferences-global-cards-title" = "Global Kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Dës Kaart verstoppen";
@@ -323,7 +322,7 @@
 "on-this-day-footer-with-event-count" = "$1 weider historesch Evenementer op dësem Dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
-"page-edit-history" = "All Versioune vun der Säit";
+"page-edit-history" = "All Versioune vun der Säit weisen";
 "page-history-anonymous-edits" = "anonym Ännerungen";
 "page-history-minor-edits" = "kleng Ännerungen";
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
@@ -334,17 +333,16 @@
 "page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";
 "page-issues" = "Problemer mat der Säit";
 "page-last-edited" = "{{PLURAL:$1|0=Haut today|1=Gëschter|Viru(n) $1 Deeg}} geännert";
-"page-last-edited-unknown" = "Virun enger gewësser Zäit geännert";
 "page-location" = "Op enger Kaart weisen";
 "page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
 "page-protected-can-not-edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
 "page-protected-can-not-edit-title" = "Dës Säit ass gespaart";
 "page-protected-other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
 "page-protected-sysop" = "Dës Säit ass komplett gespaart.";
-// Fuzzy
-"page-read-in-other-languages" = "Disponibel a(n) $1 anere Sproochen";
-"page-similar-titles" = "Ähnlech Säiten";
+"page-read-in-other-languages" = "Disponibel {{PLURAL:$1|an enger anerer Sprooch|a(n) $1 anere Sproochen}}";
+"page-similar-titles" = "Änlech Säiten";
 "page-talk-page" = "Diskussiounssäit weisen";
+"page-talk-page-subtitle" = "Verbesserunge vun dësem Artikel diskutéieren";
 "pictured" = "als Bild";
 "places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
 "places-accessibility-group" = "$1 Artikelen";
@@ -394,7 +392,7 @@
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Neen, d'Artikele vu mengem Apparat a vu mengem Wikipedia-Benotzerkont ewechhuelen.";
 "reading-list-keep-title" = "Gespäichert Artikelen um Apparat halen?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikelen zortéieren";
-"reading-list-limit-hit-for-unsorted-articles-title" = "Limit fir net-zortéiert Artikelen";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Limitt fir net-zortéiert Artikelen";
 "reading-list-login-button-title" = "Alogge fir Är gespäichert Artikelen ze synchroniséieren";
 "reading-list-login-or-create-account-title" = "Alogge fir gespäichert Artikelen ze synchroniséieren";
 "reading-list-login-title" = "Är gespäichert Artikele synchroniséieren?";

@@ -67,9 +67,8 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
-    NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
-          [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
-    NSLog(@"\n\nSimulator container directory:\n\t%@\n\n",
+    // Use NSLog so we can break and copy/paste. DDLogDebug is async.
+    NSLog(@"\nSimulator container directory:\n\t%@\n",
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
 

@@ -532,6 +532,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
+// Fuzzy
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-anonymous-edits" = "עריכות אלמוניות";
 "page-history-bot-edits" = "עריכות של בוטים";
@@ -550,8 +551,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|עריכה אחת|$1 עריכות}} מאז $2";
 "page-history-user-edits" = "עריכות משתמש";
 "page-issues" = "בעיות בדף";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
-"page-last-edited-unknown" = "נערך לפני זמן־מה";
 "page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
 "page-protected-can-not-edit" = "אין לך הרשאה לערוך את הדף הזה";

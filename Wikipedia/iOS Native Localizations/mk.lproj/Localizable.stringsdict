@@ -296,9 +296,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Изменето пред %1$d дена</string>
+			<string>Подновено пред %1$d дена</string>
 			<key>zero</key>
-			<string>Изменето денес</string>
+			<string>Подновено денес</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
