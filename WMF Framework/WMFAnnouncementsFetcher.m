@@ -12,9 +12,12 @@
         failure(error);
         return;
     }
-
-    NSURL *url = [[self.configuration wikipediaMobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
     
+#if WMF_LOCAL_ANNOUNCEMENTS
+    NSURL *url = [[WMFConfiguration.localWikiFeeds wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
+#else
+    NSURL *url = [[self.configuration wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
+#endif
     [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);

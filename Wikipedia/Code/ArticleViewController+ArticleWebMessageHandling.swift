@@ -92,7 +92,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func setupFooter() {
         // Always use Configuration.production for related articles
-        guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
+        guard let baseURL = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: []).url else {
             return
         }
         var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
