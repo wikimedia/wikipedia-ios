@@ -144,13 +144,12 @@
         <fetchIndex name="bySignedQuadKeyIndex">
             <fetchIndexElement property="signedQuadKey" type="Binary" order="ascending"/>
         </fetchIndex>
-        <fetchIndex name="compoundIndex">
+        <fetchIndex name="housekeeperIndex">
             <fetchIndexElement property="viewedDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
-            <fetchIndexElement property="isExcludedFromFeed" type="Binary" order="ascending"/>
-            <fetchIndexElement property="key" type="Binary" order="ascending"/>
-            <fetchIndexElement property="placesSortOrder" type="Binary" order="ascending"/>
             <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
+            <fetchIndexElement property="placesSortOrder" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isExcludedFromFeed" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="compoundIndex1">
             <fetchIndexElement property="viewedDateWithoutTime" type="Binary" order="ascending"/>
