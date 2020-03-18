@@ -90,11 +90,11 @@
                                                 customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                                     group.contentPreview = obj;
                                                     group.placement = obj.placement;
-                                                    if (group.isVisible && [obj.placement isEqualToString:@"article"]) {
-                                                        NSUserDefaults.standardUserDefaults.shouldCheckForArticleAnnouncements = YES;
-                                                    }
                                                 }];
             [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
+            if (group.isVisible && [group.placement isEqualToString:@"article"]) {
+                NSUserDefaults.standardUserDefaults.shouldCheckForArticleAnnouncements = YES;
+            }
         }];
 
         if (completion) {
