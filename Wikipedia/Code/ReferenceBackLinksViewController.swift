@@ -43,12 +43,6 @@ class ReferenceBackLinksViewController: ReferenceViewController {
         enableToolbar()
         setToolbarHidden(false, animated: false)
     }
-    
-
-    func setupTapGestureRecognizer() {
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(closeButtonPressed))
-        view.addGestureRecognizer(tapGR)
-    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -57,10 +51,14 @@ class ReferenceBackLinksViewController: ReferenceViewController {
     
     // MARK: View Lifecycle
     
+    override func loadView() {
+        super.loadView()
+        self.view = PassthroughView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupToolbar()
-        setupTapGestureRecognizer()
         notifyDelegateOfNavigationToReference()
     }
     
