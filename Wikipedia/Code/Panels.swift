@@ -240,9 +240,11 @@ extension UIViewController {
         let panel = AnnouncementPanelViewController(announcement: announcement, primaryButtonTapHandler: { (sender: Any) in
             primaryButtonTapHandler?(sender)
             self.dismiss(animated: true)
+            // dismissHandler is called on viewDidDisappear
         }, secondaryButtonTapHandler: { (sender: Any) in
             secondaryButtonTapHandler?(sender)
             self.dismiss(animated: true)
+            // dismissHandler is called on viewDidDisappear
         }, footerLinkAction: footerLinkAction, dismissHandler: {
             dismissHandler?()
         }, width: view.frame.width * 0.9, theme: theme)
