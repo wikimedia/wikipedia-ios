@@ -411,6 +411,7 @@ class ArticleViewController: ViewController {
         guard isRestoringState else {
             return
         }
+        setWebViewHidden(true, animated: false)
         isRestoringState = false
         isRestoringStateOnNextContentSizeChange = true
         perform(#selector(restoreState), with: nil, afterDelay: 0.5) // failsafe, attempt to restore state after half a second regardless
@@ -436,6 +437,19 @@ class ArticleViewController: ViewController {
         } else if let anchor = article.viewedFragment {
             scroll(to: anchor, animated: false)
         }
+        setWebViewHidden(false, animated: true)
+    }
+    
+    func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+        let block = {
+            self.webView.alpha = hidden ? 0 : 1
+        }
+        guard animated else {
+            block()
+            completion?(true)
+            return
+        }
+        UIView.animate(withDuration: 0.3, animations: block, completion: completion)
     }
     
     func callLoadCompletionIfNecessary() {
