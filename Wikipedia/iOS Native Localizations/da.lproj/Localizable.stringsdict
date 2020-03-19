@@ -66,38 +66,6 @@
 			<string>%1$d bytes</string>
 		</dict>
 	</dict>
-	<key>page-last-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>Redigeret for %1$d dage siden</string>
-			<key>zero</key>
-			<string>Redigeret i dag</string>
-		</dict>
-	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Tilgængelig på %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d andet sprog</string>
-			<key>other</key>
-			<string>%1$d andre sprog</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

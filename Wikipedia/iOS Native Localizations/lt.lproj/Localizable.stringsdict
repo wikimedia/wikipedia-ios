@@ -18,38 +18,6 @@
 			<string>%1$d istorinių įvykių</string>
 		</dict>
 	</dict>
-	<key>page-last-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>Redaguota prieš %1$d dienas</string>
-			<key>zero</key>
-			<string>Redaguota šiandien</string>
-		</dict>
-	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Prieinama %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d kita kalba</string>
-			<key>other</key>
-			<string>%1$d kitų kalbų</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

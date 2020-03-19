@@ -112,38 +112,6 @@
 			<string>%1$d Bearbeitungen</string>
 		</dict>
 	</dict>
-	<key>page-last-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ bearbeitet</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>Vor %1$d Tagen</string>
-			<key>zero</key>
-			<string>Heute</string>
-		</dict>
-	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>In %#@v1@ verfügbar</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>einer weiteren Sprache</string>
-			<key>other</key>
-			<string>%1$d weiteren Sprachen</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

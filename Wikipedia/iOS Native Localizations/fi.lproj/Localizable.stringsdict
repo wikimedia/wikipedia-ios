@@ -210,38 +210,6 @@
 			<string>%1$d muokkausta</string>
 		</dict>
 	</dict>
-	<key>page-last-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>Muokattu %1$d päivää sitten</string>
-			<key>zero</key>
-			<string>Muokattu tänään</string>
-		</dict>
-	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Saatavilla %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d muulla kielellä</string>
-			<key>other</key>
-			<string>%1$d muulla kielellä</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -108,42 +108,6 @@
 			<string>%1$d правок</string>
 		</dict>
 	</dict>
-	<key>page-last-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>few</key>
-			<string>Изменено %1$d дня назад</string>
-			<key>many</key>
-			<string>Изменено %1$d дней назад</string>
-			<key>other</key>
-			<string>Изменено %1$d дней назад</string>
-			<key>zero</key>
-			<string>Изменено сегодня</string>
-		</dict>
-	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Доступно на %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>другом языке</string>
-			<key>other</key>
-			<string>%1$d других языках</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
