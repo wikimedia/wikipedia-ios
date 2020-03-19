@@ -12,10 +12,10 @@ enum ArticleFetcherError: Error {
 @objc(WMFArticleFetcher)
 final public class ArticleFetcher: Fetcher, CacheFetching {    
     @objc required public init(session: Session, configuration: Configuration) {
-        #if WMF_APPS_LABS_MOBILE_HTML
-        super.init(session: Session.shared, configuration: Configuration.appsLabs)
-        #elseif WMF_LOCAL
-        super.init(session: Session.shared, configuration: Configuration.local)
+        #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE
+        super.init(session: Session.shared, configuration: Configuration.appsLabsPageContentService)
+        #elseif WMF_LOCAL_PAGE_CONTENT_SERVICE
+        super.init(session: Session.shared, configuration: Configuration.localPageContentService)
         #else
         super.init(session: session, configuration: configuration)
         #endif
@@ -133,7 +133,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }
@@ -150,7 +150,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let mobileHTMLURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
+            let mobileHTMLURL = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }
@@ -162,7 +162,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "media-list", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["page", "media-list", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }
@@ -185,7 +185,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html-offline-resources", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html-offline-resources", percentEncodedTitle]).url
         else {
             throw RequestError.invalidParameters
         }
@@ -241,9 +241,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     let expectedNumberOfBundledOfflineResources = 3
     
-    #if WMF_APPS_LABS_MOBILE_HTML
+    #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE
      static let pcsBaseURI = "//\(Configuration.Domain.appsLabs)/api/v1/"
-    #elseif WMF_LOCAL
+    #elseif WMF_LOCAL_PAGE_CONTENT_SERVICE
      static let pcsBaseURI = "//\(Configuration.Domain.localhost):8888/api/v1/"
     #else
      static let pcsBaseURI = "//\(Configuration.Domain.metaWiki)/api/rest_v1/"

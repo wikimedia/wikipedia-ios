@@ -220,32 +220,3 @@ public class CommonStrings: NSObject {
         return WMFLocalizedString("article-read-more-title", language: language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}")
     }
 }
-
-
-// Temporarily keep these strings to sync to PCS for https://phabricator.wikimedia.org/T246529
-// Remove once is https://phabricator.wikimedia.org/T246659 resolved
-
-//let addTitleDescription = WMFLocalizedString("description-add-link-title", language: language, value: "Add title description", comment: "Text for link for adding a title description")
-//let tableInfoboxTitle = WMFLocalizedString("info-box-title", language: language, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
-//let tableOtherTitle = WMFLocalizedString("table-title-other", language: language, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
-//let tableFooterTitle = WMFLocalizedString("info-box-close-text", language: language, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it {{Identical|Close}}")
-//let readMoreHeading = CommonStrings.readMoreTitle(with: language).uppercased(with: locale)
-//let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: language, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1")
-//let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: language, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0 {{Identical|CC BY-SA}}")
-//let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: language, value: "View article in browser", comment: "Link to view article in browser")
-//let menuHeading = CommonStrings.aboutThisArticleTitle(with: language).uppercased(with: locale)
-//let menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in {{PLURAL:%1$d|%1$d other language|%1$d other languages}}", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), languageCount)
-//let menuLastEditedTitle: String
-//if let lastModified = lastModified {
-//    let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
-//    menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: language, value: "{{PLURAL:%1$d|0=Updated today|1=Updated yesterday|Updated %1$d days ago}}", comment: "Relative days since an article was last edited. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago."), days)
-//} else {
-//}
-//let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: language, value: "View edit history", comment: "Label for button used to show an article's complete edit history")
-//let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
-// WMFLocalizedString("page-talk-page-subtitle", value: "Discuss improvements to this article", comment: "Subtitle for button linking out to an article's talk page")
-
-//let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: language, value: "View page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
-// WMFLocalizedString("page-issues-subtitle", value: "Alerts about subpar or problematic content", comment: "Subtitle for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).")
-//let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
-//let menuCoordinateTitle = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")

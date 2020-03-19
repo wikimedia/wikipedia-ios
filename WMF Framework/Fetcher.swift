@@ -144,7 +144,7 @@ open class Fetcher: NSObject {
         
         //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
         let headers = ["Accept": "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\""]
-        let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
+        let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
         let key = UUID().uuidString
         let task = session.jsonDecodableTask(with: taskURL, headers: headers, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
             completionHandler(result, response, error)

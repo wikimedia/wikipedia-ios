@@ -90,11 +90,11 @@
                                                 customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                                     group.contentPreview = obj;
                                                     group.placement = obj.placement;
-                                                    if ([obj.placement isEqualToString:@"article"]) {
-                                                        NSUserDefaults.standardUserDefaults.shouldCheckForArticleAnnouncements = YES;
-                                                    }
                                                 }];
             [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
+            if (group.isVisible && [group.placement isEqualToString:@"article"]) {
+                NSUserDefaults.standardUserDefaults.shouldCheckForArticleAnnouncements = YES;
+            }
         }];
 
         if (completion) {
@@ -123,6 +123,16 @@
         NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed = YES;
     } else {
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
+    }
+
+    // Workaround for the great fundraising mystery of 2019: https://phabricator.wikimedia.org/T247554
+    // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
+    NSArray *announcements = [moc contentGroupsOfKind:WMFContentGroupKindAnnouncement];
+    for (WMFContentGroup *announcement in announcements) {
+        if (![announcement.key containsString:@"FUNDRAISING19"]) {
+            continue;
+        }
+        [moc deleteObject:announcement];
     }
 }
 
