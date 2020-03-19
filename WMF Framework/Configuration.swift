@@ -7,10 +7,10 @@ import Foundation
 @objc(WMFConfiguration)
 public class Configuration: NSObject {
     @objc public static let current: Configuration = {
-        #if WMF_LOCAL
-        return .local
-        #elseif WMF_APPS_LABS
-        return .appsLabs
+        #if WMF_LOCAL_PAGE_CONTENT_SERVICE
+        return .localPageContentService
+        #elseif WMF_APPS_LABS_PAGE_CONTENT_SERVICE
+        return .appsLabsPageContentService
         #elseif WMF_LABS
         return .betaLabs
         #else
@@ -23,31 +23,47 @@ public class Configuration: NSObject {
     public static let production: Configuration = {
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
-            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getProductionBuilderFactory(),
+            pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
             mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
         )
     }()
     
-    static let local: Configuration = {
-        var mobileAppsServicesHostComponents = URLComponents()
-        mobileAppsServicesHostComponents.scheme = Scheme.http
-        mobileAppsServicesHostComponents.host = Domain.localhost
-        mobileAppsServicesHostComponents.port = 8888
+    static let localPageContentService: Configuration = {
+        var pageContentServiceHostComponents = URLComponents()
+        pageContentServiceHostComponents.scheme = Scheme.http
+        pageContentServiceHostComponents.host = Domain.localhost
+        pageContentServiceHostComponents.port = 8888
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
-            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getStagingBuilderFactory(with: mobileAppsServicesHostComponents),
+            pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getStagingBuilderFactory(with: pageContentServiceHostComponents),
+            wikiFeedsAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
             mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getLocalBuilderFactory()
         )
     }()
     
-    public static let appsLabs: Configuration = {
+    /// Allows announcements to be run locally, doesn't work with the feed
+    @objc static let localWikiFeeds: Configuration = {
+        var wikiFeedsHostComponents = URLComponents()
+        wikiFeedsHostComponents.scheme = Scheme.http
+        wikiFeedsHostComponents.host = Domain.localhost
+        wikiFeedsHostComponents.port = 8889
+        return Configuration(
+            defaultSiteDomain: Domain.wikipedia,
+            pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
+            wikiFeedsAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getStagingBuilderFactory(with: wikiFeedsHostComponents),
+            mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getLocalBuilderFactory()
+        )
+    }()
+    
+    public static let appsLabsPageContentService: Configuration = {
         var appsLabsHostComponents = URLComponents()
         appsLabsHostComponents.scheme = Scheme.https
         appsLabsHostComponents.host = Domain.appsLabs
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
             otherDomains: [Domain.wikipedia],
-            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getStagingBuilderFactory(with: appsLabsHostComponents),
+            pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getStagingBuilderFactory(with: appsLabsHostComponents),
+            wikiFeedsAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
             mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
         )
     }()
@@ -56,7 +72,7 @@ public class Configuration: NSObject {
         return Configuration(
             defaultSiteDomain: Domain.betaLabs,
             otherDomains: [Domain.wikipedia],
-            mobileAppsServicesAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MobileApps.getProductionBuilderFactory(),
+            pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
             mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
         )
     }()
@@ -84,7 +100,7 @@ public class Configuration: NSObject {
    
     struct Path {
         static let wikiResourceComponent = ["wiki"]
-        static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
+        static let restBaseAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
         static let mediaWikiRestAPIComponents = ["w", "rest.php"]
     }
@@ -108,7 +124,7 @@ public class Configuration: NSObject {
        return Router(configuration: self)
     }()
 
-    required init(defaultSiteDomain: String, otherDomains: [String] = [], mobileAppsServicesAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder) {
+    required init(defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, wikiFeedsAPIURLComponentsBuilderFactory: ((String?) -> APIURLComponentsBuilder)? = nil, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder) {
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
         components.scheme = "https"
@@ -122,13 +138,19 @@ public class Configuration: NSObject {
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
         self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
-        self.mobileAppsServicesAPIURLComponentsBuilderFactory = mobileAppsServicesAPIURLComponentsBuilderFactory
+        self.pageContentServiceAPIURLComponentsBuilderFactory = pageContentServiceAPIURLComponentsBuilderFactory
+        self.wikiFeedsAPIURLComponentsBuilderFactory = wikiFeedsAPIURLComponentsBuilderFactory ?? pageContentServiceAPIURLComponentsBuilderFactory
         self.mediaWikiRestAPIURLComponentsBuilderFactory = mediaWikiRestAPIURLComponentsBuilderFactory
     }
     
-    let mobileAppsServicesAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
-    func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        return mobileAppsServicesAPIURLComponentsBuilderFactory(host)
+    let pageContentServiceAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
+    func pageContentServiceAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
+        return pageContentServiceAPIURLComponentsBuilderFactory(host)
+    }
+    
+    private let wikiFeedsAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
+    private func wikiFeedsAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
+        return wikiFeedsAPIURLComponentsBuilderFactory(host)
     }
     
     func mediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
@@ -138,8 +160,8 @@ public class Configuration: NSObject {
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
 
-    let mediaWikiRestAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
-    func mediaWikiRestAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
+    private let mediaWikiRestAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
+    private func mediaWikiRestAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
         return mediaWikiRestAPIURLComponentsBuilderFactory(host)
     }
     
@@ -149,15 +171,29 @@ public class Configuration: NSObject {
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.wikiResourceComponent)
     }
-    @objc(wikipediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
-    public func wikipediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(host)
+    
+    /// The Page Content Service includes mobile-html and the associated endpoints. It can be run locally with this repository: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/mobileapps
+    /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
+    @objc(pageContentServiceAPIURLComponentsForHost:appendingPathComponents:)
+    public func pageContentServiceAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = pageContentServiceAPIURLComponentsBuilderForHost(host)
         return builder.components(byAppending: pathComponents)
     }
     
-    @objc(wikimediaMobileAppsServicesAPIURLComponentsAppendingPathComponents:)
-    public func wikimediaMobileAppsServicesAPIURLComponents(appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(Domain.wikimedia)
+    
+    private let metricsAPIURLComponentsBuilder = APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory()(Domain.wikimedia)
+    /// The metrics API lives only on wikimedia.org: https://wikimedia.org/api/rest_v1/
+    @objc(metricsAPIURLComponentsAppendingPathComponents:)
+    public func metricsAPIURLComponents(appending pathComponents: [String] = [""]) -> URLComponents {
+        
+        return metricsAPIURLComponentsBuilder.components(byAppending: ["metrics"] + pathComponents)
+    }
+    
+    /// Wikifeeds includes feed content and announcements. It can be run locally with this repository: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/wikifeeds
+    /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
+    @objc(wikiFeedsAPIURLComponentsForHost:appendingPathComponents:)
+    public func wikiFeedsAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = wikiFeedsAPIURLComponentsBuilderForHost(host)
         return builder.components(byAppending: pathComponents)
     }
     

@@ -12644,7 +12644,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = Test;
 		};
@@ -12799,7 +12798,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = UITest;
 		};
@@ -13333,7 +13331,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_APPS_LABS_MOBILE_HTML";
+				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -13342,7 +13340,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = AppsLabsMobileHTML;
 		};
@@ -13916,7 +13913,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = EventLoggingDevDebug;
 		};
@@ -14987,7 +14983,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = Debug;
 		};
@@ -15054,7 +15049,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = Release;
 		};
@@ -15196,7 +15190,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = BetaClusterDebug;
 		};
@@ -15469,7 +15462,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_APPS_LABS_MOBILE_HTML";
+				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -15480,7 +15473,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = AppsLabsMobileHTMLRelease;
 		};
@@ -16693,6 +16685,7 @@
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
+					"WMF_LOCAL_ANNOUNCEMENTS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -16706,7 +16699,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL";
+				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL_PAGE_CONTENT_SERVICE -DWMF_LOCAL_ANNOUNCEMENTS";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -16715,7 +16708,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = LocalDebug;
 		};
@@ -17255,7 +17247,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = Alpha;
 		};
@@ -17506,7 +17497,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = AlphaDebug;
 		};
@@ -18501,7 +18491,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = YES;
 			};
 			name = PageLibraryDevDebug;
 		};
@@ -18979,7 +18968,6 @@
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 					"WMF_TWEAKS_ENABLED=1",
 					"FB_TWEAK_ENABLED=1",
-					"WMF_ANNOUNCEMENT_DATE_IGNORE=1",
 				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -18991,7 +18979,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_APPS_LABS_MOBILE_HTML";
+				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -19002,7 +18990,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = Beta;
 		};
@@ -19292,7 +19279,6 @@
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 					"WMF_TWEAKS_ENABLED=1",
 					"FB_TWEAK_ENABLED=1",
-					"WMF_ANNOUNCEMENT_DATE_IGNORE=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -19306,7 +19292,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_APPS_LABS_MOBILE_HTML";
+				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -19315,7 +19301,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = BetaDebug;
 		};
@@ -19958,7 +19943,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = UserTestingRelease;
 		};
@@ -20303,7 +20287,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = UserTestingDebug;
 		};
@@ -21264,7 +21247,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_PAGE_LIBRARY_DEVELOPMENT = "";
 			};
 			name = BetaCluster;
 		};

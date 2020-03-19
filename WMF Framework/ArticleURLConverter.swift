@@ -40,7 +40,7 @@ public class ArticleURLConverter {
         }
         
         let pathComponents = ["page", endpointType.rawValue, percentEncodedUrlTitle]
-        var components = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents)
+        var components = configuration.pageContentServiceAPIURLComponentsForHost(host, appending: pathComponents)
         if let scheme = scheme {
             components.scheme = scheme
         }
