@@ -332,7 +332,7 @@
         case WMFContentGroupKindNews:
         case WMFContentGroupKindUnknown:
         default: {
-            id<NSSecureCoding> firstObject = contentArray.firstObject ?: content;
+            id<NSCoding> firstObject = contentArray.firstObject ?: content;
             if (firstObject) {
                 self.contentPreview = firstObject;
             }
