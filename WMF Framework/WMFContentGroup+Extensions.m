@@ -242,7 +242,7 @@
     self.siteURLString = siteURL.wmf_databaseKey;
 }
 
-- (void)setFullContentObject:(NSObject<NSSecureCoding> *)fullContentObject {
+- (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
     NSManagedObjectContext *moc = self.managedObjectContext;
     NSAssert(moc != nil, @"nil moc");
     if (!moc) {
