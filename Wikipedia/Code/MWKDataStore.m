@@ -411,21 +411,6 @@ static uint64_t bundleHash() {
         }
     }
 
-    if (currentLibraryVersion < 7) {
-        NSError *fileProtectionError = nil;
-        if ([self.containerURL setResourceValue:NSURLFileProtectionCompleteUntilFirstUserAuthentication forKey:NSURLFileProtectionKey error:&fileProtectionError]) {
-            [moc wmf_setValue:@(7) forKey:WMFLibraryVersionKey];
-            NSError *migrationSaveError = nil;
-            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
-                DDLogError(@"Error saving during migration: %@", migrationSaveError);
-                return;
-            }
-        } else {
-            DDLogError(@"Error enabling file protection: %@", fileProtectionError);
-            return;
-        }
-    }
-
     if (currentLibraryVersion < 8) {
         NSUserDefaults *ud = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
