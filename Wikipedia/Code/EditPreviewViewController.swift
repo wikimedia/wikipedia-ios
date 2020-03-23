@@ -157,8 +157,8 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
             if let title = title {
                 guard
                     let host = articleURL?.host,
-                    let newArticleURL = ArticleURLConverter.desktopURL(host: host, title: title)
-                else {
+                    let encodedTitle = title.percentEncodedPageTitleForPathComponents,
+                    let newArticleURL = Configuration.current.articleURLForHost(host, appending: [encodedTitle]).url else {
                     showInternalLinkInAlert(link: href)
                     break
                 }
