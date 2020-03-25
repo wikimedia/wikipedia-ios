@@ -32,20 +32,22 @@ extension MWKDataStore {
         }
 
         mobileviewConverter.convertMobileviewSavedDataToMobileHTML(articleURL: articleURL, article: legacyArticle) { (result, error) in
-            let blastMobileviewSavedDataFolder = {
-                // Remove old mobileview saved data folder for this article
-                do {
-                    try FileManager.default.removeItem(atPath: self.path(forArticleURL: articleURL))
-                } catch {
-                    DDLogError("Could not remove mobileview folder for articleURL: \(articleURL)")
-                }
-            }
+            //TODO: uncomment after 6.6 Beta releases if we decide to delete old data incrementally
+//            let removeArticleMobileviewSavedDataFolder = {
+//                // Remove old mobileview saved data folder for this article
+//                do {
+//                    try FileManager.default.removeItem(atPath: self.path(forArticleURL: articleURL))
+//                } catch {
+//                    DDLogError("Could not remove mobileview folder for articleURL: \(articleURL)")
+//                }
+//            }
             
             let handleConversionFailure = {
                 // No need to keep mobileview section html if conversion failed, so ok to remove section data
                 // because we're setting `isDownloaded` next so saved article fetching will re-download from
                 // new mobilehtml endpoint.
-                blastMobileviewSavedDataFolder()
+                //TODO: uncomment after 6.6 Beta releases if we decide to delete old data incrementally
+                //removeArticleMobileviewSavedDataFolder()
 
                 // If conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
                 DispatchQueue.main.async {
@@ -72,7 +74,8 @@ extension MWKDataStore {
 
             articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html"){ error in
                 // Conversion succeeded so can safely blast old mobileview folder.
-                blastMobileviewSavedDataFolder()
+                //TODO: uncomment after 6.6 Beta releases if we decide to delete old data incrementally
+                //removeArticleMobileviewSavedDataFolder()
                 DispatchQueue.main.async {
                     do {
                         article.isConversionFromMobileViewNeeded = false
