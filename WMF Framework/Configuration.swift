@@ -89,8 +89,7 @@ public class Configuration: NSObject {
         static let wikidata = "wikidata.org"
         static let mediaWiki = "mediawiki.org"
         static let betaLabs = "wikipedia.beta.wmflabs.org"
-        static let appsLabs = "apps.wmflabs.org" // Apps team's labs instance
-        static let mobileAppsServicesLabs = "mobileapps.wmflabs.org" // Product Infrastructure team's labs instance
+        static let appsLabs = "mobileapps.wmflabs.org" // Product Infrastructure team's labs instance
         static let localhost = "localhost"
         static let englishWikipedia = "en.wikipedia.org"
         static let wikimedia = "wikimedia.org"
