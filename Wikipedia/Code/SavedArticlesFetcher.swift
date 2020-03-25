@@ -425,9 +425,10 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
 
         guard let nonNilArticle = article else {
             // No more articles to convert, ensure the legacy folder is deleted
-            DispatchQueue.global(qos: .background).async {
-                self.dataStore.removeAllLegacyArticleData()
-            }
+            //TODO: uncomment after 6.6 Beta releases once we no longer need backup of old data
+//            DispatchQueue.global(qos: .background).async {
+//                self.dataStore.removeAllLegacyArticleData()
+//            }
             return
         }
         
@@ -435,9 +436,10 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
             do {
                 guard try moc.count(for: self.conversionsNeededCountFetchRequest) > 0 else {
                     // No more articles to convert, ensure the legacy folder is deleted
-                    DispatchQueue.global(qos: .background).async {
-                        self.dataStore.removeAllLegacyArticleData()
-                    }
+                    //TODO: uncomment after 6.6 Beta releases once we no longer need backup of old data
+//                    DispatchQueue.global(qos: .background).async {
+//                        self.dataStore.removeAllLegacyArticleData()
+//                    }
                     self.stop()
                     return
                 }
