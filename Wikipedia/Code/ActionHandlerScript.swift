@@ -6,11 +6,8 @@ import WebKit
 final class PageContentService   {
     struct Setup {
         struct Parameters: Codable {
-            static let platform = "ios"
-            static let clientVersion = Bundle.main.wmf_shortVersionString() // static to only pull this once
-        
-            let platform = Parameters.platform
-            let clientVersion = Parameters.clientVersion
+            let platform = "ios"
+            let version = 1
             
             let theme: String
             let dimImages: Bool
@@ -53,8 +50,6 @@ final class PageContentService   {
         }
         
         struct Parameters: Codable {
-            let platform = Setup.Parameters.platform
-            let clientVersion = Setup.Parameters.clientVersion
             let title: String
             let menu: Menu
             let readMore: ReadMore
