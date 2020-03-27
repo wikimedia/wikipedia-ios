@@ -302,8 +302,14 @@ class ArticleViewController: ViewController {
         }
     }
     
-    /// Waits for the article to finish loading (or re-loading) and performs post load actions
+    /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
     func setupArticleLoadWaitGroup() {
+        assert(Thread.isMainThread)
+        
+        guard articleLoadWaitGroup == nil else {
+            return
+        }
+        
         articleLoadWaitGroup = DispatchGroup()
         articleLoadWaitGroup?.enter() // will leave on setup complete
         articleLoadWaitGroup?.notify(queue: DispatchQueue.main) { [weak self] in
@@ -311,9 +317,11 @@ class ArticleViewController: ViewController {
             self?.shareIfNecessary()
             self?.articleLoadWaitGroup = nil
         }
+        
         guard let key = article.key else {
             return
         }
+        
         articleLoadWaitGroup?.enter()
         // async to allow the page network requests some time to go through
         DispatchQueue.main.async {
@@ -344,7 +352,6 @@ class ArticleViewController: ViewController {
             return
         }
 
-        setupArticleLoadWaitGroup()
         webView.load(request)
     }
     
@@ -513,7 +520,6 @@ class ArticleViewController: ViewController {
     
     @objc public func refresh() {
         #if DEBUG // on debug builds, reload everything including JS and CSS
-            setupArticleLoadWaitGroup()
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
             loadPage(cachePolicy: .noPersistentCacheOnError)
@@ -904,6 +910,32 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        switch navigationAction.navigationType {
+        case .reload:
+            fallthrough
+        case .other:
+            setupArticleLoadWaitGroup()
+            decisionHandler(.allow)
+        default:
+            decisionHandler(.cancel)
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+        switch navigationAction.navigationType {
+        case .reload:
+            fallthrough
+        case .other:
+            setupArticleLoadWaitGroup()
+            decisionHandler(.allow, preferences)
+        default:
+            decisionHandler(.cancel, preferences)
+        }
+    }
+    
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         articleLoadDidFail(with: error)
     }
