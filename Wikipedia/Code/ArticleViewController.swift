@@ -284,7 +284,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Article load
     
-    var footerLoadGroup: DispatchGroup?
+    var articleLoadWaitGroup: DispatchGroup?
 
     func loadIfNecessary() {
         guard state == .initial else {
@@ -302,47 +302,50 @@ class ArticleViewController: ViewController {
         }
     }
     
+    /// Waits for the article to finish loading (or re-loading) and performs post load actions
+    func setupArticleLoadWaitGroup() {
+        articleLoadWaitGroup = DispatchGroup()
+        articleLoadWaitGroup?.enter() // will leave on setup complete
+        articleLoadWaitGroup?.notify(queue: DispatchQueue.main) { [weak self] in
+            self?.setupFooter()
+            self?.shareIfNecessary()
+            self?.articleLoadWaitGroup = nil
+        }
+        guard let key = article.key else {
+            return
+        }
+        articleLoadWaitGroup?.enter()
+        // async to allow the page network requests some time to go through
+        DispatchQueue.main.async {
+            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+                defer {
+                    self.articleLoadWaitGroup?.leave()
+                    self.updateMenuItems()
+                }
+                // Handle redirects
+                guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
+                    return
+                }
+                self.article = article
+                self.articleURL = newURL
+                self.addToHistory()
+            }
+        }
+    }
+    
     func loadPage(cachePolicy: WMFCachePolicy? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+            showGenericError()
+            state = .error
+            return
+        }
 
-            showGenericError()
-            state = .error
-            return
-        }
-        
-        footerLoadGroup = DispatchGroup()
-        footerLoadGroup?.enter() // will leave on setup complete
-        footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
-            self?.setupFooter()
-            self?.shareIfNecessary()
-            self?.footerLoadGroup = nil
-        }
-        
+        setupArticleLoadWaitGroup()
         webView.load(request)
-        
-        guard let key = article.key else {
-            showGenericError()
-            state = .error
-            return
-        }
-        footerLoadGroup?.enter()
-        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
-            defer {
-                self.footerLoadGroup?.leave()
-                self.updateMenuItems()
-            }
-            // Handle redirects
-            guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
-                return
-            }
-            self.article = article
-            self.articleURL = newURL
-            self.addToHistory()
-        }
     }
     
     func syncCachedResourcesIfNeeded() {
@@ -509,7 +512,12 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        loadPage(cachePolicy: .noPersistentCacheOnError)
+        #if DEBUG // on debug builds, reload everything including JS and CSS
+            setupArticleLoadWaitGroup()
+            webView.reloadFromOrigin()
+        #else // on release builds, just reload the page with a different cache policy
+            loadPage(cachePolicy: .noPersistentCacheOnError)
+        #endif
     }
     
     // MARK: Overrideable functionality

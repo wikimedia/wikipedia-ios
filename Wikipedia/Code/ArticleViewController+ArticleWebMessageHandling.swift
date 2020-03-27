@@ -56,7 +56,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handlePCSDidFinishFinalSetup() {
-        footerLoadGroup?.leave()
+        articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
         addToHistory()
         fromNavStateRestoration = false
