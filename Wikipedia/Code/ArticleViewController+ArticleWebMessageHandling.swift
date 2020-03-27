@@ -55,7 +55,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         refreshControl.endRefreshing()
     }
     
-    func handlePCSDidFinishFinalSetup() {
+    @objc func handlePCSDidFinishFinalSetup() {
         articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
         addToHistory()
