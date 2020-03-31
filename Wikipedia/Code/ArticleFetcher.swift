@@ -83,7 +83,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     @discardableResult func fetchOfflineResourceURLs(with request: URLRequest, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        return performPageContentServiceGET(with: request, endpointType: .mobileHtmlOfflineResources, completion: { (result: Result<[String]?, Error>, response) in
+        return jsonDecodableTask(with: request) { (result: Result<[String]?, Error>, response) in
             if let statusCode = response?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -109,11 +109,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                 completion(.success(result))
             }
             
-        })
+        }
     }
     
     @discardableResult public func fetchMediaList(with request: URLRequest, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
-        return performPageContentServiceGET(with: request, endpointType: .mediaList, completion: { (result: Result<MediaList?, Error>, response) in
+        return jsonDecodableTask(with: request) { (result: Result<MediaList?, Error>, response) in
             switch result {
             case .success(let result):
                 guard let mediaList = result else {
@@ -126,7 +126,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             case .failure(let error):
                 completion(.failure(error), response)
             }
-        })
+        }
     }
     
     public func mobileHTMLPreviewRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
@@ -197,9 +197,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
-    public func urlRequest(from url: URL, cachePolicy: WMFCachePolicy? = nil) -> URLRequest? {
+    public func urlRequest(from url: URL, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
         
-        let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy)
+        let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy, headers: headers)
         
         return request
     }
@@ -213,8 +213,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             urlComponents?.scheme = scheme
             url = urlComponents?.url ?? url
         }
-        
-        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
+        let headers = ["Accept": "text/html; charset=utf-8"]
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: headers) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
@@ -259,19 +259,4 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
         return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
     }
-}
-
-private extension ArticleFetcher {
-    
-    @discardableResult func performPageContentServiceGET<T: Decodable>(with request: URLRequest, endpointType: EndpointType, completion: @escaping (Result<T, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
-        
-        return performMobileAppsServicesGET(for: request) { (result: T?, response, error) in
-            guard let result = result else {
-                completion(.failure(error ?? RequestError.unexpectedResponse), response as? HTTPURLResponse)
-                return
-            }
-            completion(.success(result), response as? HTTPURLResponse)
-        }
-    }
-
 }
