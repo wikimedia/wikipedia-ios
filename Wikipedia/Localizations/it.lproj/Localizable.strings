@@ -108,14 +108,12 @@
 "appearance-settings-expand-tables" = "Espandi le tabelle";
 "appearance-settings-set-automatic-table-opening" = "Impostazioni tabella";
 "appearance-settings-theme-options" = "Opzioni tema";
-"article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|voce cancellata|voci cancellate}}";
 "article-languages-filter-placeholder" = "Trova lingua";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-others" = "Altre lingue";
 "article-languages-yours" = "Le tue lingue";
-"article-read-more-title" = "Leggi altro";
 "article-reference-view-title" = "Riferimento $1";
 "article-share" = "Condividi";
 "back-button-accessibility-label" = "Indietro";
@@ -135,7 +133,6 @@
 "compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
-"description-add-link-title" = "Aggiungi una descrizione del titolo";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione del titolo per $1";
 "description-edit-learn-more" = "Ulteriori informazioni";
@@ -305,8 +302,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia in $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipedia";
 "in-the-news-title" = "Novità";
-"info-box-close-text" = "Chiudi";
-"info-box-title" = "Fatti in breve";
 "insert-action-title" = "Inserisci";
 "insert-link-title" = "Inserisci collegamento";
 "insert-media-alternative-text-description" = "Descrizione testuale per utenti che non riescono a vedere l'immagine";
@@ -343,8 +338,6 @@
 "languages-settings-title" = "Lingue";
 "languages-title" = "Cambia lingua";
 "languages-wikipedia" = "Lingue di Wikipedia";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "logged-out-continue-without-logging-in-button-title" = "Continua senza accedere";
 "logged-out-title" = "Sei stato disconnesso";
 "login-forgot-password" = "Hai dimenticato la password?";
@@ -389,7 +382,6 @@
 "on-this-day-footer" = "Alti eventi storici in questo giorno";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
-"page-edit-history" = "Vedi cronologia delle modifiche";
 "page-history-compare-title" = "Confronta";
 "page-history-revision-author-accessibility-label" = "Autore: $1";
 "page-history-revision-comment-accessibility-label" = "Commento $1";
@@ -397,16 +389,11 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Aggiunto|Aggiunti}} $1 byte";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
 "page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";
-"page-issues" = "Problemi alla pagina";
-"page-last-edited" = "Aggiornata {{PLURAL:$1|0=oggi|1=ieri|$1 giorni fa}}";
-"page-location" = "Visualizza sulla mappa";
 "page-protected-autoconfirmed" = "Questa pagina è stata semi-protetta.";
 "page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";
 "page-protected-can-not-edit-title" = "Questa pagina è protetta";
 "page-protected-other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
 "page-protected-sysop" = "Questa pagina è stata protetta.";
-"page-read-in-other-languages" = "Disponibile in {{PLURAL:$1|un'altra lingua|altre $1 lingue}}";
-"page-similar-titles" = "Pagine simili";
 "places-accessibility-clear-saved-searches" = "Cancella le ricerche salvate";
 "places-accessibility-group" = "$1 voci";
 "places-accessibility-show-as-list" = "Mostra come elenco";
@@ -540,7 +527,6 @@
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
-"table-title-other" = "Ulteriori informazioni";
 "talk-page-add-discussion-accessibility-label" = "Aggiungi discussione";
 "talk-page-discussion-unread-accessibility-label" = "Non lette";
 "talk-page-info-active-conversations-generic" = "Conversazioni attive su Wikipedia";
@@ -568,7 +554,6 @@
 "two-factor-login-title" = "Accedi alla tua utenza";
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
 "unknown-generic-text" = "Sconosciuto";
-"view-in-browser-footer-link" = "Vedi la voce nel browser";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";
 "welcome-exploration-explore-feed-title" = "Esplora feed";
 "welcome-exploration-on-this-day-description" = "Viaggia indietro nel tempo per sapere cosa è successo oggi nella storia";
