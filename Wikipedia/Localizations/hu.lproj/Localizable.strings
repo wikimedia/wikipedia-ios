@@ -105,14 +105,12 @@
 "appearance-settings-reading-themes" = "Olvasási témák";
 "appearance-settings-set-automatic-table-opening" = "Táblázatbeállítások";
 "appearance-settings-theme-options" = "Témabeállítások";
-"article-about-title" = "Erről a szócikkről";
 "article-delete" = "Törlés";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|szócikk|szócikk}} törölve";
 "article-languages-filter-placeholder" = "Nyelv keresése";
 "article-languages-label" = "Nyelvválasztás";
 "article-languages-others" = "Más nyelvek";
 "article-languages-yours" = "A te nyelveid";
-"article-read-more-title" = "További információ";
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
@@ -134,7 +132,6 @@
 "compass-direction" = "$1 óra irányban";
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
 "continue-reading-empty-title" = "Nincsenek nemrég olvasott szócikkek";
-"description-add-link-title" = "Adj meg egy címleírást";
 "description-add-title" = "Leírás hozzáadása";
 "description-edit-learn-more" = "Tudj meg többet";
 "description-edit-length-warning" = "$1/$2";
@@ -346,8 +343,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "in-the-news-sub-title-from-wikipedia" = "A Wikipédiáról";
 "in-the-news-title" = "A hírekben";
-"info-box-close-text" = "Bezárás";
-"info-box-title" = "Gyors adatok";
 "insert-action-title" = "Beszúrás";
 "insert-link-title" = "Hivatkozás beszúrása";
 "insert-media-alternative-text-description" = "Leírás olyan olvasók számára, akik nem látják a képet";
@@ -376,8 +371,6 @@
 "languages-settings-title" = "Nyelvek";
 "languages-title" = "Nyelvváltás";
 "languages-wikipedia" = "Wikipédia nyelvek";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "A tartalom további jelölés hiányában a(z) $1 feltételei szerint használható fel.";
 "logged-out-continue-without-logging-in-button-title" = "Folytatás bejelentkezés nélkül";
 "logged-out-log-back-in-button-title" = "Jelentkezz vissza a fiókodba";
 "logged-out-title" = "Kijelentkeztél";
@@ -422,7 +415,6 @@
 "on-this-day-footer" = "Több történelmi esemény ezen a napon";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
-"page-edit-history" = "Laptörténet megtekintése";
 "page-history-anonymous-edits" = "névtelen szerkesztés";
 "page-history-bot-edits" = "bot szerkesztés";
 "page-history-compare-title" = "Összehasonlít";
@@ -436,18 +428,11 @@
 "page-history-revision-size-diff-subtraction" = "Eltávolítva {{PLURAL:$1|$1 bájt|$1 bájt}}";
 "page-history-revision-time-accessibility-label" = "Változtatás közzétéve ekkor: $1";
 "page-history-stats-text" = "{{PLURAL:$1|$Egy szerkesztés|$1 szerkesztés}} $2-óta";
-"page-issues" = "A lap problémái";
-// Fuzzy
-"page-last-edited" = "Szerkesztve {{PLURAL:$1|0=ma|1=tegnap|$1 napja}}";
-"page-location" = "Megtekintés térképen";
 "page-protected-autoconfirmed" = "Ez a lap félig védett.";
 "page-protected-can-not-edit" = "Nincs jogosultságod a lap szerkesztéséhez";
 "page-protected-can-not-edit-title" = "Ez a lap védett";
 "page-protected-other" = "Ez a lap az alábbi szinten védett: $1";
 "page-protected-sysop" = "Ez a lap teljesen védett.";
-"page-read-in-other-languages" = "Elérhető $1 további nyelven";
-"page-similar-titles" = "Hasonló lapok";
-"page-talk-page" = "Vitalap megtekintése";
 "pictured" = "képpel";
 "places-accessibility-clear-saved-searches" = "Mentett keresések törlése";
 "places-accessibility-group" = "$1 szócikk";
@@ -606,7 +591,6 @@
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
-"table-title-other" = "További információk";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
 "talk-page-discussion-unread-accessibility-label" = "Olvasatlan";
 "talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";
@@ -630,7 +614,6 @@
 "two-factor-login-with-backup-code" = "Használd az egyik visszaállítási kódod";
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
 "unable-to-load-talk-page-title" = "Nem sikerült betölteni a vitalapot";
-"view-in-browser-footer-link" = "Szócikk olvasása böngészőben";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
 "welcome-exploration-explore-feed-title" = "Felfedezés csatorna";
 "welcome-exploration-on-this-day-description" = "Mi történt a mai napon a történelemben";

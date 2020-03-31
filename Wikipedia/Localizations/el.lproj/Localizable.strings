@@ -88,14 +88,12 @@
 "appearance-settings-reading-themes" = "Ανάγνωση θεμάτων";
 "appearance-settings-set-automatic-table-opening" = "Ρυθμίσεις πίνακα";
 "appearance-settings-theme-options" = "Ρυθμίσεις θεμάτων";
-"article-about-title" = "Σχετικά με αυτό το άρθρο";
 "article-delete" = "Διαγραφή";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|το λήμμα διαγράφηκε|τα λήμματα διαγράφηκαν}}";
 "article-languages-filter-placeholder" = "Εύρεση γλώσσας";
 "article-languages-label" = "Επιλέξτε γλώσσα";
 "article-languages-others" = "Άλλες γλώσσες";
 "article-languages-yours" = "Οι γλώσσες σας";
-"article-read-more-title" = "Διαβάστε περισσότερα";
 "article-share" = "Κοινοποίηση";
 "back-button-accessibility-label" = "Πίσω";
 "button-next" = "Επόμενο";
@@ -239,13 +237,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "in-the-news-sub-title-from-wikipedia" = "Από την Βικιπαίδεια";
 "in-the-news-title" = "Στις ειδήσεις";
-"info-box-close-text" = "Κλείσιμο";
-"info-box-title" = "Γρήγορες Πληροφορίες";
 "languages-settings-title" = "Γλώσσες";
 "languages-title" = "Αλλαγή γλώσσας";
 "languages-wikipedia" = "Γλώσσες Βικιπαίδειας";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Το περιεχόμενο είναι διαθέσιμο σύμφωνα με την $1 εκτός αν αναφέρεται διαφορετικά.";
 "login-forgot-password" = "Ξεχάσατε τον κωδικό σας;";
 "login-join-wikipedia" = "Εγγραφείτε στη Βικιπαίδεια.";
 "login-no-account" = "Δεν έχετε λογαριασμό; $1";
@@ -286,21 +280,11 @@
 "on-this-day-footer-with-event-count" = "$1 Περισσότερα ιστορικά γεγονότα αυτή την ημέρα";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 από $2 Βικιπαίδεια";
 "on-this-day-title" = "Αυτήν την μέρα";
-// Fuzzy
-"page-edit-history" = "Πλήρες ιστορικό επεξεργασίας";
-"page-issues" = "Ζητήματα με τη σελίδα";
-// Fuzzy
-"page-last-edited" = "Επεξεργάστηκε $1 ημέρες πριν";
-"page-location" = "Προβολή σε έναν χάρτη";
 "page-protected-autoconfirmed" = "Αυτή η σελίδα είναι ημιπροστατευμένη";
 "page-protected-can-not-edit" = "Δεν έχετε την άδεια να επεξεργαστείτε αυτή τη σελίδα";
 "page-protected-can-not-edit-title" = "Αυτή η σελίδα είναι προστατευμένη";
 "page-protected-other" = "Αυτή η σελίδα έχει προστατευτεί στα ακόλουθα επίπεδα: $1";
 "page-protected-sysop" = "Αυτή η σελίδα είναι πλήρως προσταστατευμένη.";
-// Fuzzy
-"page-read-in-other-languages" = "Διαθέσιμο σε $1 άλλες γλώσσες";
-"page-similar-titles" = "Παρόμοιες σελίδες";
-"page-talk-page" = "Προβολή σελίδας συζήτησης";
 "pictured" = "εικονογραφημένο";
 "places-accessibility-clear-saved-searches" = "Εκκαθάριση αποθηκευμένων αναζητήσεων";
 "places-accessibility-group" = "$1 άρθρα";
@@ -439,7 +423,6 @@
 "table-of-contents-close-accessibility-hint" = "Κλείσιμο";
 "table-of-contents-close-accessibility-label" = "Κλείσιμο του Πίνακα περιεχομένων";
 "table-of-contents-heading" = "Περιεχόμενα";
-"table-title-other" = "Περισσότερες πληροφορίες";
 "theme-black-display-name" = "Μαύρο";
 "theme-dark-display-name" = "Σκούρο";
 "theme-default-display-name" = "Προεπιλογή";
@@ -451,7 +434,6 @@
 "two-factor-login-title" = "Συνδεθείτε στο λογαριασμό σας.";
 "two-factor-login-with-backup-code" = "Χρησιμοποιήστε έναν από τους κωδικούς ασφαλείας σας";
 "two-factor-login-with-regular-code" = "Χρησιμοποίησε κωδικό επαλήθευσης";
-"view-in-browser-footer-link" = "Προβολή άρθρου στο φυλλομετρητή";
 "welcome-exploration-explore-feed-title" = "Εξερεύνηση της τροφοδότησης";
 "welcome-exploration-on-this-day-title" = "Αυτήν την μέρα";
 "welcome-exploration-places-title" = "Καρτέλα μερών";
