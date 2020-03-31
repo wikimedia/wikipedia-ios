@@ -88,14 +88,12 @@
 "appearance-settings-set-automatic-table-opening" = "သ္ၚိအင် ဒၞာဲမဖျေဟ်ဒၞာဲ";
 "appearance-settings-text-sizing-example-text" = "တံင်ဖျေဟ် လၟေင်ဂမၠိုင် သွက်ဂွံ လှာဲ ဇမၞော်မအက္ခရ် လိက်ပရေင်၊၊ ယဝ်ရ မိက်ဂွံပလေဝ် မလိက် ပ္ဍဲဒၞာဲ app မ္ဂး ပလေဝ် ပ္ဍဲ system ဇမၞော်မအက္ခရ်ညိ၊၊";
 "appearance-settings-theme-options" = "မရုဲစှ် ပရူပရာ";
-"article-about-title" = "ပရူ လိက်ပရေင် ဏအ်";
 "article-delete" = "ဇိုတ်";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|article|articles}} ဇိုတ်တုဲ";
 "article-languages-filter-placeholder" = "ဂၠာဲ အရေဝ်ဘာသာ";
 "article-languages-label" = "ရုဲစှ် အရေဝ်ဘာသာ";
 "article-languages-others" = "အရေဝ်ဘာသာ တၞဟ်";
 "article-languages-yours" = "အရေဝ်ဘာသာ မၞး";
-"article-read-more-title" = "ဆက် ဗှ်";
 "article-save-error-not-enough-space" = "ပ္ဍဲ device မ္ဂးဂှ် ဒၞာဲမရုံဂပ် ဟွံမွဲ သွက်ဂွံ ဂိုင်သိပ် လိက်ပရေင် ဏအ်၊၊";
 "article-share" = "ပါ်ပရအ်";
 "article-toolbar-reading-themes-controls-toolbar-item" = "မထိင်ဒဝ် ပရူပရာ သွက်ဂွံဗှ်";
@@ -117,7 +115,6 @@
 "compass-direction" = "ပ္ဍဲ $1 နာဍဳ";
 "continue-reading-empty-description" = "ဂၠာဲသ္ၚေဝ် လိက်ပရေင် ပ္ဍဲ ဝဳကဳပဳဒဳယာ သွက်ဂွံ ဗှ်";
 "continue-reading-empty-title" = "လိက်ပရေင် မဗှ်လဝ်တုဲ ပြဟ်ဟ်ဏအ် ဟွံမွဲ";
-"description-add-link-title" = "စုတ် က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
 "description-add-title" = "ထပ် မဗၟံက်ထ္ၜး";
 "description-edit-for-article" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး သွက်$1";
 "description-edit-learn-more" = "ဆက် လ္ၚတ်";
@@ -315,13 +312,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "နူ $1 ဝဳကဳဒဳပဳယာ";
 "in-the-news-sub-title-from-wikipedia" = "နူ ဝဳကဳဒဳပဳယာ";
 "in-the-news-title" = "ပ္ဍဲကဵု ပရိုင်";
-"info-box-close-text" = "ကၟာတ်";
-"info-box-title" = "တိတ်ထောအ်";
 "languages-settings-title" = "အရေဝ်ဘာသာဂမၠိုင်";
 "languages-title" = "သၠာဲ အရေဝ်ဘာသာ";
 "languages-wikipedia" = "အရေဝ်ဘာသာ ဝဳကဳပဳဒဳယာဂမၠိုင်";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "လိက်ဂှ် မံက် ပ္ဍဲ $1 ယဝ်ရတင်ယောင်ယာ မွဲမွဲ ဟွံမွဲမ္ဂး၊၊";
 "login-forgot-password" = "ဝိုတ်စ မလိက်ပၞုက် မၞးဟာ？";
 "login-join-wikipedia" = "ပံင်တောဲ ဝဳကဳပဳဒဳယာ";
 "login-no-account" = "ဟွံကလိဂွံ အကံက်ဏီ？";
@@ -363,21 +356,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 နူ $2 ဝဳကဳပဳဒဳယာ";
 "on-this-day-title" = "ပ္ဍဲ တ္ၚဲဏအ်";
 "original-tab-button-popover-description" = "ဍဵု လတူ W သွက်ဂွံ ပ္ဍဲတေပ် မၞးမစကၠုင်လဝ်";
-// Fuzzy
-"page-edit-history" = "ဗဵု လၟေင် မပလေဝ်ကၠုင်လဝ်";
-"page-issues" = "မုက်လိက် ပတိတ်တြး";
-// Fuzzy
-"page-last-edited" = "ပလေဝ်ဒါန်လဝ် နူကဵု $1 တ္ၚဲမတုဲကၠုင်";
-"page-location" = "ဗဵု ပ္ဍဲ ဗီုတိ";
 "page-protected-autoconfirmed" = "မုက်လိက်ဏအ် ဒးဒုင်ကၟာတ်လဒဵုလဝ် ၜိုတ်ကဝက်၊၊";
 "page-protected-can-not-edit" = "မၞး အခေါင် သွက်ဂွံ ပလေဝ်ဒါန် မုက်လိက်ဏအ် ဟွံမဲ";
 "page-protected-can-not-edit-title" = "မုက်လိက်ဏအ် စဵုဒၞာလဝ်၊၊";
 "page-protected-other" = "မုက်လိက်ဏအ် ဒးဒုင်ကၟာတ်လဒဵုလဝ် ၜိုတ်ကဆံင် $1";
 "page-protected-sysop" = "မုက်လိက်ဏအ် ဒးဒုင်ကၟာတ်လဒဵုလဝ် ပေင်င်၊၊";
-// Fuzzy
-"page-read-in-other-languages" = "ဟွံမွဲဏီ ပ္ဍဲ $1 ဘာသာတၞဟ်";
-"page-similar-titles" = "မုက်လိက် မတုပ်သၟဟ်";
-"page-talk-page" = "ဗဵု မုက်လိက် ဓရီုကျာ";
 "pictured" = "တက်လဝ်ဗီု";
 "places-accessibility-clear-saved-searches" = "ဖအးထောအ် တင်ဂၞင်မဂၠာဲတုဲ မဂိုင်သိပ်လဝ်";
 "places-accessibility-group" = "$1 လိက်ပရေင်ဂမၠိုင်";
@@ -583,7 +566,6 @@
 "table-of-contents-close-accessibility-hint" = "ကၟာတ်";
 "table-of-contents-close-accessibility-label" = "ကၟာတ သ္ၚိအင် မာတိကာ";
 "table-of-contents-heading" = "မာတိကာလိက်";
-"table-title-other" = "ဆက်ကဵု ပရိုင်တင်ဂၞင်";
 "theme-black-display-name" = "လမ္စံက်";
 "theme-dark-display-name" = "ဓလု";
 "theme-default-display-name" = "လီုလာ်";
@@ -596,7 +578,6 @@
 "two-factor-login-title" = "လုပ်လံက်အေန် ပ္ဍဲအကံက်မၞး";
 "two-factor-login-with-backup-code" = "သုင်စောဲ ကုတ် အရီုအဗင် မၞးညိ";
 "two-factor-login-with-regular-code" = "သုင်စောဲ ကုတ် ဍာံဍာံညိ";
-"view-in-browser-footer-link" = "ဗဵု လိက်ပရေင် ပ္ဍဲ browser";
 "welcome-exploration-explore-feed-description" = "လိက်ပရေင် လၟေင်တ္ၚဲ မကဵုကသပ် နကဵု ဂကောံပိုယ်";
 "welcome-exploration-explore-feed-title" = "ဒၞာဲမထ္ၜး";
 "welcome-exploration-on-this-day-description" = "ပ္ဍဲတ္ၚဲဏအ် ပ္ဍဲ ဝင် မုမကတဵုဒှ်လဝ်ဂှ် ကလေင်အာ ပ္ဍဲအခိင်အတိက်တေအ်၊၊";

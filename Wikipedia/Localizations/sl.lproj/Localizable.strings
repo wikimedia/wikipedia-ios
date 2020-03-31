@@ -64,13 +64,11 @@
 "app-store-subtitle" = "Prosta enciklopedija";
 "appearance-settings-adjust-text-sizing" = "Prilagodite velikost besedila članka";
 "appearance-settings-expand-tables" = "Razširite tabele";
-"article-about-title" = "O tem članku";
 "article-delete" = "Izbriši";
 "article-languages-filter-placeholder" = "Najdi jezik";
 "article-languages-label" = "Izberi jezik";
 "article-languages-others" = "Drugi jeziki";
 "article-languages-yours" = "Vaši jeziki";
-"article-read-more-title" = "Več o tem";
 "article-share" = "Deli";
 "back-button-accessibility-label" = "Nazaj";
 "back-button-popover-title" = "Tapnite, da se vrnete nazaj";
@@ -88,7 +86,6 @@
 "clear-title-accessibility-label" = "Počisti";
 "close-button-accessibility-label" = "Zapri";
 "compass-direction" = "ob $1 uri";
-"description-add-link-title" = "Dodaj opis naslova";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Dodaj opis za $1";
 "description-edit-learn-more" = "Več o tem";
@@ -174,7 +171,6 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "Deli...";
 "in-the-news-title" = "V novicah";
-"info-box-close-text" = "Zapri";
 "insert-action-title" = "Vstavi";
 "insert-link-title" = "Vstavi povezavo";
 "insert-media-alternative-text-title" = "Nadomestno besedilo";
@@ -199,7 +195,6 @@
 "languages-settings-title" = "Jeziki";
 "languages-title" = "Spremeni jezik";
 "languages-wikipedia" = "Jeziki Wikipedije";
-"license-footer-name" = "CC BY-SA 3.0";
 "login-join-wikipedia" = "Pridružite se Wikipediji.";
 "login-no-account" = "Še nimate uporabniškega računa? $1";
 "main-menu-account-login" = "Prijava";
@@ -220,9 +215,6 @@
 "new-password-title" = "Nastavite svoje geslo";
 "on-this-day-detail-header-date-range" = "od $1 – $2";
 "on-this-day-title" = "Na današnji dan";
-"page-location" = "Poglej na karti";
-"page-similar-titles" = "Podobne strani";
-"page-talk-page" = "Poglej pogovorno stran";
 "places-accessibility-group" = "$1 člankov";
 "places-accessibility-show-as-map" = "Prikaži na zemljevidu";
 "places-accessibility-show-more" = "Prikaži več člankov";

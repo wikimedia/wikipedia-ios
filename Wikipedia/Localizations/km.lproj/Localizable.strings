@@ -82,7 +82,6 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "អូសលើរបារខាងលើដើម្បីប្ដូរទំហំអក្សរអត្ថបទ។ ប្រើមុខងារកែប្រែទំហំអក្សរក្នុងប្រព័ន្ធឧបករណ៍របស់អ្នក ដើម្បីប្ដូរទំហំអក្សរក្នុងផ្នែកផ្សេងទៀតក្នុងកម្មវិធីនេះ។";
 "appearance-settings-theme-options" = "ជម្រើសសម្រាប់រចនាបថ";
-"article-about-title" = "អំពីអត្ថបទនេះ";
 "article-delete" = "លុបចោល";
 // Fuzzy
 "article-deleted-accessibility-notification" = "អត្ថបទលុបចោលរួច";
@@ -90,7 +89,6 @@
 "article-languages-label" = "ជ្រើសរើសភាសា";
 "article-languages-others" = "ភាសា​ដទៃ​ទៀត";
 "article-languages-yours" = "ភាសារបស់អ្នក";
-"article-read-more-title" = "អានបន្ថែម";
 "article-share" = "ចែកចាយ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "ការកំណត់រចនាបថអំណាន";
 "back-button-accessibility-label" = "ត្រឡប់ក្រោយ";
@@ -110,7 +108,6 @@
 "compass-direction" = "ចង្អុលទីតាំងម៉ោង$1";
 "continue-reading-empty-description" = "រុករកអត្ថបទសម្រាប់អានបន្ថែមតទៀតក្នុងវិគីភីឌា";
 "continue-reading-empty-title" = "គ្មានអត្ថបទទើបអានថ្មីៗទេ";
-"description-add-link-title" = "បន្ថែមចំណារពន្យល់អំពីចំណងជើង";
 "description-add-title" = "បន្ថែមចំណារពន្យល់";
 "description-edit-for-article" = "ចំណារពន្យល់អំពីចំណងជើង $1";
 "description-edit-learn-more" = "ស្វែងយល់បន្ថែម";
@@ -206,12 +203,8 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "ចែកចាយ...";
 "in-the-news-title" = "នៅក្នុងសារព័ត៌មាន";
-"info-box-close-text" = "បិទ";
-"info-box-title" = "ព័ត៌មានសង្ខេប";
 "languages-title" = "ប្ដូរភាសា";
 "languages-wikipedia" = "ភាសាវិគីភីឌា";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "ខ្លឹមសារអត្ថបទនេះផ្ដល់ជូនក្រោមអាជ្ញាប័ណ្ណ $1 លើកលែងមានការសម្គាល់ផ្សេងពីនេះ។";
 "login-forgot-password" = "អ្នកភ្លេចពាក្យសម្ងាត់ហើយ?";
 "login-join-wikipedia" = "ចូលរួមក្នុងវិគីភីឌា។";
 "login-no-account" = "​បើលោកអ្នក​មិនទាន់មាន​គណនី​​ទេ​ សូម'''$1''' ។";
@@ -247,21 +240,11 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ}}";
 "on-this-day-footer" = "ព្រឹត្រិការណ៍ប្រវត្តិសាស្ត្រនៅថ្ងៃនេះបន្ថែមទៀត";
 "on-this-day-title" = "នៅថ្ងៃនេះ";
-// Fuzzy
-"page-edit-history" = "ប្រវត្តិការកែប្រែទាំងអស់";
-"page-issues" = "បញ្ហាក្នុងទំព័រ";
-// Fuzzy
-"page-last-edited" = "បានកែប្រែ $1 ថ្ងៃមុន";
-"page-location" = "មើលនៅលើផែនទី";
 "page-protected-autoconfirmed" = "ទំព័រនេះត្រូវបានការពារពាក់កណ្ដាល។";
 "page-protected-can-not-edit" = "អ្នកគ្មានសិទ្ធិក្នុងការកែប្រែទំព័រនេះទេ";
 "page-protected-can-not-edit-title" = "ទំព័រនេះត្រូវបានការពាររួចហើយ";
 "page-protected-other" = "ទំព័រនេះត្រូវបានការពារត្រឹមកម្រិតដូចតទៅ៖ $1";
 "page-protected-sysop" = "ទំព័រនេះត្រូវបានការពារពេញលេញ។";
-// Fuzzy
-"page-read-in-other-languages" = "អាចប្រើបានជា$1ភាសាផ្សេងទៀត";
-"page-similar-titles" = "ទំព័រស្រដៀង";
-"page-talk-page" = "មើលទំព័រពិភាក្សា";
 "pictured" = "រូបគូរ";
 "places-accessibility-clear-saved-searches" = "សម្អាតពាក្យស្វែងរកដែលបានរក្សាទុក";
 "places-accessibility-group" = "$1 អត្ថបទ";
@@ -354,7 +337,6 @@
 "table-of-contents-close-accessibility-hint" = "បិទ";
 "table-of-contents-close-accessibility-label" = "បិទមាតិកា";
 "table-of-contents-heading" = "មាតិកា";
-"table-title-other" = "ព័ត៌មានបន្ថែម";
 "theme-black-display-name" = "ខ្មៅ";
 "theme-dark-display-name" = "ងងឹត";
 "theme-default-display-name" = "តាមលំនាំដើម";
@@ -367,7 +349,6 @@
 "two-factor-login-title" = "កត់ឈ្មោះចូលគណនីរបស់អ្នក";
 "two-factor-login-with-backup-code" = "ប្រើលេខកូដបម្រុងមួយរបស់អ្នក";
 "two-factor-login-with-regular-code" = "ប្រើលេខកូដបញ្ជាក់";
-"view-in-browser-footer-link" = "មើលអត្ថបទក្នុងកម្មវិធីរុករក";
 "welcome-exploration-explore-feed-description" = "អត្ថបទស្នើអានប្រចាំថ្ងៃពីសហគមយើងខ្ញុំ";
 "welcome-exploration-explore-feed-title" = "ហ្វីដរុករក";
 "welcome-exploration-on-this-day-description" = "សិក្សាពីអ្វីដែលបានកើតឡើងថ្ងៃនេះក្នុងប្រវត្តិសាស្ត្រ";

@@ -95,14 +95,12 @@
 "appearance-settings-set-automatic-table-opening" = "Podešavanja tabela";
 "appearance-settings-text-sizing-example-text" = "Promenite veličinu teksta klizačem. Podesite veličinu fonta u podešavanjima sistema da biste promenili tekst u celoj aplikaciji.";
 "appearance-settings-theme-options" = "Opcije teme";
-"article-about-title" = "O ovom članku";
 "article-delete" = "Izbriši";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Članak je izbrisan|Članci su izbrisani}}";
 "article-languages-filter-placeholder" = "Pronađite jezik";
 "article-languages-label" = "Odabir jezika";
 "article-languages-others" = "Drugi jezici";
 "article-languages-yours" = "Vaši jezici";
-"article-read-more-title" = "Pročitajte više";
 "article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali ovaj članak";
 "article-share" = "Deli";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Podešavanja tema za čitanje";
@@ -124,7 +122,6 @@
 "compass-direction" = "u $1 č.";
 "continue-reading-empty-description" = "Istražite Vikipediju da biste našli još članaka za čitanje";
 "continue-reading-empty-title" = "Nema nedavno pročitanih članaka";
-"description-add-link-title" = "Dodaj opis naslova";
 "description-add-title" = "Dodavanje opisa";
 "description-edit-for-article" = "Opis naslova za stranicu $1";
 "description-edit-learn-more" = "Saznajte više";
@@ -412,8 +409,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Jezik Vikipedije: $1";
 "in-the-news-sub-title-from-wikipedia" = "Sa Vikipedije";
 "in-the-news-title" = "Vesti";
-"info-box-close-text" = "Zatvori";
-"info-box-title" = "Kratke činjenice";
 "insert-action-title" = "Umetni";
 "insert-link-title" = "Umetni vezu";
 "insert-media-alternative-text-description" = "Opis teksta za čitaoce koji ne mogu videti sliku";
@@ -443,8 +438,6 @@
 "languages-settings-title" = "Jezici";
 "languages-title" = "Promena jezika";
 "languages-wikipedia" = "Jezici Vikipedije";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Sadržaj je dostupan pod licencom $1, osim ako je drugačije navedeno.";
 "logged-out-continue-without-logging-in-button-title" = "Nastavi bez prijave";
 "logged-out-log-back-in-button-title" = "Ponovo me prijavi na nalog";
 "logged-out-subtitle" = "Došlo je do greške pri potvrdi identiteta. Kako biste sinhronizovali liste za čitanje i uređivali pod korisničkim imenom, ponovo se prijavite.";
@@ -493,8 +486,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sa $2 Vikipedije";
 "on-this-day-title" = "Na današnji dan";
 "original-tab-button-popover-description" = "Dodirnite „W” da biste se vratili na početnu karticu";
-// Fuzzy
-"page-edit-history" = "Celokupna istorija izmena";
 "page-history-anonymous-edits" = "anonimne izmene";
 "page-history-bot-edits" = "botovske izmene";
 "page-history-compare-accessibility-hint" = "Tapnite kako bi odabrali dve izmene za upoređivanje";
@@ -511,19 +502,11 @@
 "page-history-revisions-comparison-warning" = "Samo dve izmene mogu biti odabrane";
 "page-history-stats-text" = "{{PLURAL:$1|$1 izmena|$1 izmene}} od $2";
 "page-history-user-edits" = "izmene korisnika";
-"page-issues" = "Problemi sa stranicom";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Uređeno danas|1=Uređeno juče|Uređeno pre $1 dana}}";
-"page-location" = "Prikaži na mapi";
 "page-protected-autoconfirmed" = "Ova stranica je poluzaštićena.";
 "page-protected-can-not-edit" = "Nemate prava da uređujete ovu stranicu";
 "page-protected-can-not-edit-title" = "Ova stranica je zaštićena";
 "page-protected-other" = "Ova stranica je zaštićena na sledećim nivoima: $1";
 "page-protected-sysop" = "Ova stranica je potpuno zaštićena.";
-// Fuzzy
-"page-read-in-other-languages" = "Dostupno na još $1 jezika";
-"page-similar-titles" = "Slične stranice";
-"page-talk-page" = "Prikaži stranicu za razgovor";
 "panel-compare-revisions-text" = "Upoređivanje izmena pomaže da se pokaže kako se članak vremenom menjao. Upoređivanje dve izmene članka pokazaće razliku između tih revizija isticanjem bilo kog sadržaja koji je promenjen.";
 "panel-compare-revisions-title" = "Upoređivanje izmena";
 "pictured" = "na slici";
@@ -750,7 +733,6 @@
 "table-of-contents-close-accessibility-hint" = "Zatvori";
 "table-of-contents-close-accessibility-label" = "Zatvori sadržaj";
 "table-of-contents-heading" = "Sadržaj";
-"table-title-other" = "Više informacija";
 "talk-page-add-discussion-accessibility-label" = "Dodaj diskusiju";
 "talk-page-discussion-accessibility-hint" = "Pritisnite dva puta da biste otvorili niz diskusije";
 "talk-page-discussion-read-accessibility-label" = "Pročitano";
@@ -795,7 +777,6 @@
 "two-factor-login-with-regular-code" = "Koristite kôd za verifikaciju";
 "unable-to-load-talk-page-title" = "Nije moguće učitati stranicu za razgovor";
 "unknown-generic-text" = "Nepoznato";
-"view-in-browser-footer-link" = "Prikaži članak u pregledaču";
 "welcome-exploration-explore-feed-description" = "Preporučeni i dnevni članci od naše zajednice";
 "welcome-exploration-explore-feed-title" = "Fid „Istraži“";
 "welcome-exploration-on-this-day-description" = "Vratite se nazad kroz vreme da biste saznali šta se odigralo na današnji dan";

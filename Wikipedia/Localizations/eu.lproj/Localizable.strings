@@ -97,14 +97,12 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "Arrastatu goiko kontrolatzailea testuaren tamaina aldatzeko. Erabili zure sistemaren testuaren tamaina aplikazioaren beste testu-eremu batzuk aldatzeko.";
 "appearance-settings-theme-options" = "Gaien aukerak";
-"article-about-title" = "Artikulu honi buruz";
 "article-delete" = "Ezabatu";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezabatuta";
 "article-languages-filter-placeholder" = "Aurkitu hizkuntza";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-others" = "Beste hizkuntzak";
 "article-languages-yours" = "Zure hizkuntzak";
-"article-read-more-title" = "Irakurri gehiago";
 "article-save-error-not-enough-space" = "Ez duzu espazio nahikorik gailuan artikulu hau gordetzeko";
 "article-share" = "Partekatu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Gaiak Irakurtzen";
@@ -125,7 +123,6 @@
 "compass-direction" = "ordu $1(e)tan";
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
 "continue-reading-empty-title" = "Ez dago azkenaldian irakurritako artikulurik";
-"description-add-link-title" = "Gehitu artikuluaren deskribapena";
 "description-add-title" = "Gehitu deskribapena";
 "description-edit-learn-more" = "Gehiago ikasi";
 "description-edit-length-warning" = "$1 / $2";
@@ -273,13 +270,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Wikipediatik";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediatik";
 "in-the-news-title" = "Albisteak";
-"info-box-close-text" = "Itxi";
-"info-box-title" = "Datu azkarrak";
 "languages-settings-title" = "Hizkuntzak";
 "languages-title" = "Hizkuntza aldatu";
 "languages-wikipedia" = "Wikipedia hizkuntzak";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Eduki guztia $1(r)en babespean dago, ez bada kontrakoa esaten.";
 "login-forgot-password" = "Zure pasahitza ahaztu duzu?";
 "login-join-wikipedia" = "Wikipediara batu";
 "login-no-account" = "Ez duzu erabiltzaile konturik? $1";
@@ -321,21 +314,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
-// Fuzzy
-"page-edit-history" = "Aldaketa guztien historia";
-"page-issues" = "Orriaren arazoak";
-// Fuzzy
-"page-last-edited" = "Orain dela $1 egun aldatu da";
-"page-location" = "Ikusi mapan";
 "page-protected-autoconfirmed" = "Orri hau erdi babestua dago.";
 "page-protected-can-not-edit" = "Ez duzu orrialde hau aldatzeko baimenik";
 "page-protected-can-not-edit-title" = "Orrialde hau babestuta dago";
 "page-protected-other" = "Orrialde hau ondoren mailetan babestu da: $1";
 "page-protected-sysop" = "Orri hau erabat babestua dago.";
-// Fuzzy
-"page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
-"page-similar-titles" = "Antzeko orriak";
-"page-talk-page" = "Elkarrizketa orrialdea ikusi";
 "pictured" = "Irudikatuta";
 "places-accessibility-clear-saved-searches" = "Garbitu gordetako bilaketak";
 "places-accessibility-group" = "$1 artikulu";
@@ -538,7 +521,6 @@
 "table-of-contents-close-accessibility-hint" = "Itxi";
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";
 "table-of-contents-heading" = "Edukiak";
-"table-title-other" = "Informazio gehiago";
 "talk-page-discussion-read-accessibility-label" = "Irakurri";
 "talk-page-discussion-unread-accessibility-label" = "irakurri gabe";
 "theme-black-display-name" = "Beltza";
@@ -553,7 +535,6 @@
 "two-factor-login-title" = "Zure kontuan sartu";
 "two-factor-login-with-backup-code" = "Erabil ezazu zure babeskopiarako kodeetako bat";
 "two-factor-login-with-regular-code" = "Berrespen kodea erabili";
-"view-in-browser-footer-link" = "Artikulua arakatzailean ikusi";
 "welcome-exploration-explore-feed-description" = "Gure komunitateko gomendaturiko irakurketak eta eguneko artikuluak";
 "welcome-exploration-explore-feed-title" = "Arakatze jarioa";
 "welcome-exploration-on-this-day-description" = "Iraganera bidaiatu ikasteko zer gertatu da gaurko egunean historian zehar";
