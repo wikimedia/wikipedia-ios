@@ -135,11 +135,9 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
         case backLink(referenceId: String, referenceText: String, backLinks: [ReferenceBackLink])
         case pronunciation(url: URL)
-        case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
         case addTitleDescription
         case footerItem(type: PageContentService.Footer.Menu.Item, payload: Any?)
-        case readMoreTitlesRetrieved
         case viewInBrowser
         case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
@@ -160,7 +158,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case edit = "edit_section"
         case addTitleDescription = "add_title_description"
         case footerItem = "footer_item"
-        case readMoreTitlesRetrieved = "read_more_titles_retrieved"
         case viewInBrowser = "view_in_browser"
         case leadImage
         case tableOfContents
@@ -189,8 +186,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return .addTitleDescription
             case .footerItem:
                 return getFooterItemAction(with: data)
-            case .readMoreTitlesRetrieved:
-                return .readMoreTitlesRetrieved
             case .viewInBrowser:
                 return .viewInBrowser
             case .link:
