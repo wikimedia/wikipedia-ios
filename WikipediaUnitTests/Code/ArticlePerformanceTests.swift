@@ -32,20 +32,13 @@ class ArticlePerformanceTests: XCTestCase {
         let _ = articleViewController.view
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
+    //represents the speed at which article content is seen on screen
+    func testArticleSetupTime() {
+        
         self.measure {
             
-            guard let measurableArticleVC = MeasurableArticleViewController(articleURL: url, dataStore: MWKDataStore.temporary(), theme: .light) else {
+            let dataStore = MWKDataStore.temporary()
+            guard let measurableArticleVC = MeasurableArticleViewController(articleURL: url, dataStore: dataStore, theme: .light) else {
                 XCTFail("Unable to instantiate MeasurableArticleViewController")
                 return
             }
@@ -55,20 +48,47 @@ class ArticlePerformanceTests: XCTestCase {
             loadArticle(articleViewController: measurableArticleVC) {
                 setupExpectation.fulfill()
                 UIApplication.shared.keyWindow?.rootViewController = nil
-                WKWebView.clear()
-                URLCache.shared.removeAllCachedResponses()
+                dataStore.clearTemporaryCache()
             }
         
-            wait(for: [setupExpectation], timeout: 5)
+            wait(for: [setupExpectation], timeout: 10)
+        }
+    }
+    
+    //represents the speed at which the article summary will show on screen from a 3D touch
+    func testContextMenuConfigTime() {
+        
+        self.measure {
+            
+            let dataStore = MWKDataStore.temporary()
+            guard let articleVC = ArticleViewController(articleURL: url, dataStore: dataStore, theme: .light) else {
+                XCTFail("Unable to instantiate MeasurableArticleViewController")
+                return
+            }
+            
+            let contextExpectation = expectation(description: "Waiting for context menu configuration call")
+            
+            let catURL = URL(string: "app://en.wikipedia.org/wiki/Cat")!
+            
+            if #available(iOS 13.0, *) {
+                articleVC.contextMenuConfigurationForLinkURL(catURL) { (completionType, menuConfig) in
+                    if completionType == .bail {
+                       print("bailed")
+                    }
+                    
+                    if completionType == .timeout {
+                        print("timed out")
+                    }
+                    
+                    contextExpectation.fulfill()
+                    dataStore.clearTemporaryCache()
+                }
+            } else {
+                contextExpectation.fulfill()
+            }
+        
+            wait(for: [contextExpectation], timeout: 1)
         }
     }
 
-}
-
-fileprivate extension WKWebView {
-    static func clear() {
-        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
-        let date = Date(timeIntervalSince1970: 0)
-        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date, completionHandler:{ })
-    }
 }
