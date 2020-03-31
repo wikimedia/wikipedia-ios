@@ -74,13 +74,11 @@
 "app-store-keywords" = "विकिपिडिया, सन्दर्भ, विकि, विश्वकाेश, जानकारी, ज्ञान, अनुसन्धान, जानकारी, अन्वेषण, सिक्नुहाेस्";
 "app-store-subtitle" = "एक स्वतन्त्र विश्वकोश";
 "appearance-settings-expand-tables" = "तालिकालाई खाेल्नुहाेस्";
-"article-about-title" = "यस लेखको बारेमा।";
 "article-delete" = "हटाउने";
 "article-languages-filter-placeholder" = "भाषा खोज्नुहोस्";
 "article-languages-label" = "भाषा छान्नुहोस्";
 "article-languages-others" = "अन्य भाषाहरू";
 "article-languages-yours" = "तपाईको भाषा";
-"article-read-more-title" = "थप पढ्ने";
 "article-reference-view-title" = "सन्दर्भ $1";
 "article-share" = "आदान-प्रदान गर्नुहोस्";
 "back-button-accessibility-label" = "पछाडि";
@@ -97,7 +95,6 @@
 "cancel" = "रद्द गर्नुहोस्";
 "clear-title-accessibility-label" = "खाली गर्नुहोस्";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
-"description-add-link-title" = "शीर्षकमा विवरण थप्नुहोस्";
 "description-add-title" = "विवरण थप्नुहोस्";
 "description-edit-for-article" = "$1का लागि शीर्षक जानकारी";
 "description-edit-learn-more" = "थप जान्नुहोस्";
@@ -209,8 +206,6 @@
 "in-the-news-notification-share-action-title" = "साझेदारी गर्नुहोस्...";
 "in-the-news-sub-title-from-wikipedia" = "विकिपिडियाबाट";
 "in-the-news-title" = "समाचारमा";
-"info-box-close-text" = "बन्द गर्नुहोस्";
-"info-box-title" = "छरितो तथ्यहरू";
 "insert-action-title" = "घुसाउनुहोस्";
 "insert-media-image-position-setting-center" = "केन्द्र";
 "insert-media-image-position-setting-left" = "बायाँ";
@@ -225,7 +220,6 @@
 "languages-settings-title" = "भाषाहरू";
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
-"license-footer-name" = "CC BY-SA 3.0";
 "logged-out-continue-without-logging-in-button-title" = "प्रवेश नगरीकन सम्पादन शुरु गर्नुहोस्";
 "logged-out-log-back-in-button-title" = "आफ्नो खातामा पुन प्रवेश गर्नुहोस्";
 "login-forgot-password" = "के पासवर्ड भुल्नुभयो?";
@@ -264,21 +258,12 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
-"page-edit-history" = "सम्पादन इतिहास हेर्नुहोस्";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
-"page-issues" = "पृष्ठका समस्याहरू";
-// Fuzzy
-"page-last-edited" = "$1 दिन पहिले सम्पादन गरिएको";
-"page-location" = "कुनै नक्सामा हेर्नुहोस्";
 "page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
 "page-protected-can-not-edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";
 "page-protected-can-not-edit-title" = "यो पृष्ठ सुरक्षण गरिएको छ";
 "page-protected-other" = "निम्न स्तरसम्म यस पृष्ठलाई सुरक्षण गरिएको छ: $1";
 "page-protected-sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
-// Fuzzy
-"page-read-in-other-languages" = " $1 अरु भाषाहरूमा उपलब्ध";
-"page-similar-titles" = "मिल्दोजुल्दो पृष्ठहरू";
-"page-talk-page" = "वार्तालाप पृष्ठ हेर्नुहोस्";
 "pictured" = "तस्विरमा";
 "places-accessibility-clear-saved-searches" = "सङ्ग्रह गरिएका खोजहरू हटाउनुहोस्";
 "places-accessibility-group" = "$1 लेखहरू";
@@ -355,7 +340,6 @@
 "table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";
 "table-of-contents-heading" = "सामग्रीहरू";
 "table-of-contents-hide-button-label" = "विषयसूची बन्द गर्नहोस्";
-"table-title-other" = "थप जानकारी";
 "talk-page-add-discussion-accessibility-label" = "छलफल थप्नुहोस्";
 "talk-page-discussion-read-accessibility-label" = "पढिएकाे";
 "talk-page-link-user-action-sheet-title" = "प्रयोगकर्ता पृष्ठहरू";
@@ -371,7 +355,6 @@
 "top-read-see-more" = "अरू धेरै धेरै पढिएकाहरू हेर्नुहोस्";
 "two-factor-login-continue" = "लग इन जारी राख्नुहोस् ।";
 "unknown-generic-text" = "अज्ञात";
-"view-in-browser-footer-link" = "यस पृष्ठ ब्राउजरमा खोल्नुहोस्";
 "welcome-exploration-on-this-day-title" = "आजको दिनमा";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-new-ways-title" = "अन्वेषण गर्ने नयाँ तरिका";

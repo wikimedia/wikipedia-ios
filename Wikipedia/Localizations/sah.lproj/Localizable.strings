@@ -89,7 +89,6 @@
 "appearance-settings-image-dimming-footer" = "Ойуу курдат көстөрүн хараҥа тиэмэҕэ кыччатар";
 "appearance-settings-set-automatic-table-opening" = "Таабыл нарылааһына";
 "appearance-settings-theme-options" = "Тиэмэ туруоруулара";
-"article-about-title" = "Бу ыстатыйа туһунан";
 "article-delete" = "Сот";
 // Fuzzy
 "article-deleted-accessibility-notification" = "Ыстатыйа сотулунна";
@@ -97,7 +96,6 @@
 "article-languages-label" = "Тылгын тал";
 "article-languages-others" = "Атын омук тылынан";
 "article-languages-yours" = "Эн тылларыҥ";
-"article-read-more-title" = "Бу туһунан сиһилии";
 "article-share" = "Тарҕат";
 "back-button-accessibility-label" = "Төнүн";
 "back-button-popover-title" = "Баттаан төнүн";
@@ -117,7 +115,6 @@
 "compass-direction" = "$1 чааска";
 "continue-reading-empty-description" = "Бикипиэдьийэни чинчийэн өссө элбэх сэргиир ыстатыйаҕын бул";
 "continue-reading-empty-title" = "Соторутааҕыта ааҕыллыбыт суох";
-"description-add-link-title" = "Аатын быһаар";
 "description-add-title" = "Быһааран суруй";
 "description-edit-for-article" = "Аатын быһаарыыта «$1»";
 "description-edit-learn-more" = "Бу туһунан сиһилии";
@@ -226,8 +223,6 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "Тарҕат...";
 "in-the-news-title" = "Сонуннарга ахтыллар";
-"info-box-close-text" = "Сап";
-"info-box-title" = "Кылгас чахчылар";
 "insert-action-title" = "Ук";
 "insert-link-title" = "Сигэни ук";
 "insert-media-alternative-text-description" = "Ойуу көстүбэтэҕинэ көстөр сурук";
@@ -250,8 +245,6 @@
 "insert-media-media-settings-title" = "Медиа-билэ туруоруулара";
 "languages-settings-title" = "Тыллар";
 "languages-title" = "Тылын уларыт";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Иһинээҕитэ $1 лиссиэнсийэнэн тарҕанар";
 "login-forgot-password" = "Аһарык тылгын санаттараҕын дуо?";
 "login-join-wikipedia" = "Бикипиэдьийэҕэ кыттыс.";
 "login-no-account" = "Бэлиэтэнэ иликкин дуо? '''$1'''.";
@@ -283,20 +276,11 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мөл.";
 "number-thousands" = "$1 тыһ.";
-// Fuzzy
-"page-edit-history" = "Уларытыы толору устуоруйата";
-"page-issues" = "Сирэйгэ ыйытыылар";
-// Fuzzy
-"page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
-"page-location" = "Каартаҕа көр";
 "page-protected-autoconfirmed" = "Бу сирэй сорҕото хатанна.";
 "page-protected-can-not-edit" = "Бу сирэйи уларытар кыаҕыҥ суох эбит";
 "page-protected-can-not-edit-title" = "Бу сирэй хатанан турар";
 "page-protected-other" = "Бу сирэй маннык таһымнарга хатанна: $1";
 "page-protected-sysop" = "Бу сирэй толору хатанна.";
-// Fuzzy
-"page-read-in-other-languages" = "Атын $1 тылынан ааҕыахха сөп";
-"page-similar-titles" = "Майгынныыр сирэйдэр";
 "pictured" = "ойууланна";
 "places-accessibility-clear-saved-searches" = "Тиһиликтэн бүтэһик көрдөөһүннэри соттор";
 "places-accessibility-group" = "$1 ыстатыйа";
@@ -371,7 +355,6 @@
 "table-of-contents-close-accessibility-hint" = "Сап";
 "table-of-contents-close-accessibility-label" = "Ис хоһоонун тиһилигин сап";
 "table-of-contents-heading" = "Иһинээҕитэ";
-"table-title-other" = "Сиһилии";
 "top-read-header-generic" = "Бикипиэдьийэ";
 "top-read-header-with-language" = "$1 Бикипиэдьийэ";
 "top-read-see-more" = "Элбэхтэ ааҕыллары көрүү";

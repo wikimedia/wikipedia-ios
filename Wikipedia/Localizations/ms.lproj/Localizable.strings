@@ -89,14 +89,12 @@
 "appearance-settings-set-automatic-table-opening" = "Tetapan Jadual";
 "appearance-settings-text-sizing-example-text" = "Seret gelangsar untuk mengubah ukuran teks rencana. Gunakan saiz teks sistem anda untuk mengubah saiz kawasan teks lain dalam aplikasi.";
 "appearance-settings-theme-options" = "Pilihan tema";
-"article-about-title" = "Mengenai rencana ini";
 "article-delete" = "Hapuskan";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|rencana|rencana}} dipadamkan";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-others" = "Bahasa lain";
 "article-languages-yours" = "Bahasa anda";
-"article-read-more-title" = "Selanjutnya";
 "article-save-error-not-enough-space" = "Anda tidak mempunyai ruang yang cukup pada peranti anda untuk menyimpan rencana ini";
 "article-share" = "Kongsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kawalan Tema Bacaan";
@@ -117,7 +115,6 @@
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak rencana yang ingin dibaca";
 "continue-reading-empty-title" = "Tiada rencana yang dibaca baru-baru ini";
-"description-add-link-title" = "Tambah huraian tajuk";
 "description-add-title" = "Tambah penerangan";
 "description-edit-for-article" = "Huraian tajuk untuk $1";
 "description-edit-learn-more" = "Ketahui lebih lanjut";
@@ -364,13 +361,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Berita terkini";
-"info-box-close-text" = "Tutup";
-"info-box-title" = "Fakta Segera";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Tukar bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Kandungan disediakan di bawah $1 melainkan dinyatakan sebaliknya.";
 "logged-out-continue-without-logging-in-button-title" = "Terus tanpa log masuk";
 "logged-out-log-back-in-button-title" = "Log masuk semula ke akaun anda";
 "logged-out-subtitle" = "Terdapat masalah mengesahkan akaun anda. Untuk menyegerakkan senarai bacaan anda dan menyunting di bawah nama pengguna anda sila log masuk semula.";
@@ -419,20 +412,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketik pada 'W' untuk kembali ke tab yang anda bermula";
-// Fuzzy
-"page-edit-history" = "Semua sejarah penyuntingan";
-"page-issues" = "Isu-isu laman";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Disunting hari ini|1=Disunting semalam|Disunting $1 hari lalu}}";
-"page-location" = "Paparkan di peta";
 "page-protected-autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
 "page-protected-can-not-edit" = "Anda tidak mempunyai izin untuk menyunting laman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "page-protected-other" = "Laman ini dilindungi kepada tahap-tahap berikut: $1";
 "page-protected-sysop" = "Laman ini telah diberi perlindungan penuh.";
-"page-read-in-other-languages" = "Tersedia dalam {{PLURAL:$1|$1 bahasa lain|$1 bahasa lain}}";
-"page-similar-titles" = "Laman-laman serupa";
-"page-talk-page" = "Lihat laman perbincangan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Padamkan carian tersimpan";
 "places-accessibility-group" = "$1 rencana";
@@ -641,7 +625,6 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup jadual isi kandungan";
 "table-of-contents-heading" = "Kandungan";
-"table-title-other" = "Maklumat lanjut";
 "talk-page-add-discussion-accessibility-label" = "Tambah perbincangan";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
@@ -655,7 +638,6 @@
 "two-factor-login-title" = "Log masuk ke akaun anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kod sandaran anda";
 "two-factor-login-with-regular-code" = "Gunakan kod pengesahan";
-"view-in-browser-footer-link" = "Lihat rencana dalam penyemak imbas";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disyorkan dan rencana harian dari komuniti kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajah";
 "welcome-exploration-on-this-day-description" = "Perjalanan kembali ke masa untuk mempelajari apa yang berlaku hari ini dalam sejarah";

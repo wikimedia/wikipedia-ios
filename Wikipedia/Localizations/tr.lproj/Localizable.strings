@@ -126,14 +126,12 @@
 "appearance-settings-set-automatic-table-opening" = "Tablo Ayarları";
 "appearance-settings-text-sizing-example-text" = "Madde metin boyutunu değiştirmek için kaydırıcıyı sürükleyin. Uygulamadaki diğer metin alanlarını yeniden boyutlandırmak için sisteminizin metin boyutundan yararlanın.";
 "appearance-settings-theme-options" = "Tema seçenekleri";
-"article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|madde|madde}} silindi";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
-"article-read-more-title" = "Devamını oku";
 "article-reference-view-title" = "$1 kaynağı";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
@@ -156,7 +154,6 @@
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
-"description-add-link-title" = "Başlık tanımı ekle";
 "description-add-title" = "Açıklama ekle";
 "description-edit-for-article" = "$1 için başlık açıklaması";
 "description-edit-learn-more" = "Daha fazla bilgi edinin";
@@ -459,8 +456,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Vikipedi'den";
 "in-the-news-sub-title-from-wikipedia" = "Vikipedi'den";
 "in-the-news-title" = "Haberlerde";
-"info-box-close-text" = "Kapat";
-"info-box-title" = "Pratik Bilgiler";
 "insert-action-title" = "Ekle";
 "insert-link-title" = "Bağlantı ekle";
 "insert-media-alternative-text-description" = "Görüntüyü göremeyen okuyucular için metin açıklaması";
@@ -497,8 +492,6 @@
 "languages-settings-title" = "Diller";
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
 "logged-out-continue-without-logging-in-button-title" = "Giriş yapmadan devam et";
 "logged-out-log-back-in-button-title" = "Hesabınıza tekrar giriş yapın";
 "logged-out-subtitle" = "Hesabınızı doğrulamada bir sorun oluştu. Okuma listelerinizi senkronize etmek ve kullanıcı adınızla düzenleme yapmak için lütfen tekrar giriş yapın.";
@@ -547,7 +540,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
-"page-edit-history" = "Düzenleme geçmişini görüntüle";
 "page-history-anonymous-edits" = "anon düzenlemeleri";
 "page-history-bot-edits" = "bot düzenlemeleri";
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
@@ -564,19 +556,11 @@
 "page-history-revisions-comparison-warning" = "Sadece iki revizyon seçilebilir";
 "page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
-"page-issues" = "Sayfa sorunları";
-"page-issues-subtitle" = "Alt bölüm veya sorunlu içerik hakkında uyarılar";
-"page-last-edited" = "{{PLURAL:$1|0=Bugün güncellendi|1=Dün güncellendi|$1 gün önce güncellendi}}";
-"page-location" = "Haritada görüntüle";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
 "page-protected-can-not-edit-title" = "Bu sayfa korumalı";
 "page-protected-other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
-"page-read-in-other-languages" = "{{PLURAL:$1|$1 farklı dilde|$1 farklı dilde}} mevcut";
-"page-similar-titles" = "Benzer sayfalar";
-"page-talk-page" = "Tartışma sayfasını görüntüle";
-"page-talk-page-subtitle" = "Bu maddedeki geliştirmeleri tartışın";
 "panel-compare-revisions-text" = "Revizyonları karşılaştırmak, bir makalenin zaman içinde nasıl değiştiğini göstermeye yardımcı olur. Bir makalenin iki revizyonunun karşılaştırılması, değiştirilen herhangi bir içeriği vurgulayarak bu revizyonlar arasındaki farkı gösterecektir.";
 "panel-compare-revisions-title" = "Düzeltmeleri karşılaştırma";
 "pictured" = "resimdeki";
@@ -807,7 +791,6 @@
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
 "table-of-contents-hide-button-label" = "İçindekiler tablosunu gizle";
-"table-title-other" = "Daha fazla bilgi";
 "talk-page-add-discussion-accessibility-label" = "Tartışma ekle";
 "talk-page-discussion-accessibility-hint" = "Tartışma başlığını açmak için iki kez hafifçe vurun";
 "talk-page-discussion-read-accessibility-label" = "Oku";
@@ -855,7 +838,6 @@
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
 "unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "unknown-generic-text" = "Bilinmiyor";
-"view-in-browser-footer-link" = "Maddeyi tarayıcıda görüntüle";
 "welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
 "welcome-exploration-on-this-day-description" = "Tarihte bugün neler olduğunu öğrenmek için geçmişe yolculuk yap";

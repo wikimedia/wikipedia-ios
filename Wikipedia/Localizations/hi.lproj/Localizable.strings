@@ -1,5 +1,6 @@
 // Messages for Hindi (हिन्दी)
 // Exported from translatewiki.net
+// Author: Abijeet Patro
 // Author: Adithyavr
 // Author: Anamdas
 // Author: JoeWalshWMF
@@ -67,6 +68,7 @@
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-title" = "एक नया खाता बनायें";
+"action-cancel" = "रद्द करें";
 // Fuzzy
 "action-find-in-page" = "पेज में ढूंढें";
 "action-read" = "पढ़ें";
@@ -85,7 +87,6 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "लेख में शब्दों के आकार को बदलने के लिए ऊपर दिए बटन को खिसकाएँ। एप के अन्य स्थानों पर शब्दों के आकार को बदलने के लिए अपने सिस्टम सेटिंग्स का प्रयोग करें।";
 "appearance-settings-theme-options" = "विषय विकल्प";
-"article-about-title" = "इस लेख के बारे में";
 "article-delete" = "हटाएँ";
 // Fuzzy
 "article-deleted-accessibility-notification" = "लेख डिलीट कर दिया गया";
@@ -93,7 +94,6 @@
 "article-languages-label" = "भाषा चुनें";
 "article-languages-others" = "अन्य भाषाएँ";
 "article-languages-yours" = "आपकी भाषाएँ";
-"article-read-more-title" = "और पढ़ें";
 "article-share" = "साझा करें";
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
 "back-button-accessibility-label" = "पीछे";
@@ -212,12 +212,8 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "साझा करें...";
 "in-the-news-title" = "समाचारों में";
-"info-box-close-text" = "बंद करें";
-"info-box-title" = "सामान्य तथ्य";
 "languages-title" = "भाषा बदलें";
 "languages-wikipedia" = "विकिपीडिया भाषाएँ";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "जब तक बताया न गया हो, सामग्री $1 के अंतर्गत उपलब्ध है";
 "login-forgot-password" = "अपना पासवर्ड भूल गए?";
 "login-join-wikipedia" = "विकिपीडिया से जुड़ें।";
 "login-no-account" = "खाता नहीं है? $1";
@@ -255,21 +251,11 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटना|$1 ऐतिहासिक घटनाओं}}";
 "on-this-day-footer" = "इस दिन की अधिक ऐतिहासिक घटनाएं";
 "on-this-day-title" = "आज के दिन";
-// Fuzzy
-"page-edit-history" = "पूर्ण संपादन इतिहास";
-"page-issues" = "पेज समस्याएं";
-// Fuzzy
-"page-last-edited" = "$1 दिन पहले सम्पादित किया गया";
-"page-location" = "नक्शे पर देखें";
 "page-protected-autoconfirmed" = "यह पृष्ठ अर्ध-सुरक्षित है।";
 "page-protected-can-not-edit" = "इस पेज को सम्पादित करने के लिए आपके पास अधिकार नहीं हैं";
 "page-protected-can-not-edit-title" = "यह पृष्ठ सुरक्षित है";
 "page-protected-other" = "इस पेज को निम्न स्तरों तक सुरक्षित किया गया है: $1";
 "page-protected-sysop" = "यह पृष्ठ पूर्ण सुरक्षित है।";
-// Fuzzy
-"page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
-"page-similar-titles" = "समान पृष्ठ";
-"page-talk-page" = "वार्ता पृष्ठ देखें";
 "pictured" = "चित्रित";
 "places-accessibility-clear-saved-searches" = "सहेजी गईं खोजों को साफ करें";
 "places-accessibility-group" = "$1 लेख";
@@ -385,7 +371,6 @@
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
 "table-of-contents-heading" = "सामग्री";
-"table-title-other" = "अधिक जानकारी";
 "theme-black-display-name" = "काला";
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
@@ -398,7 +383,6 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
-"view-in-browser-footer-link" = "ब्राउज़र में लेख देखें";
 "welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";
 "welcome-exploration-explore-feed-title" = "फीड में खोजें";
 "welcome-exploration-on-this-day-description" = "समय में वापस जाएं और जाने इतिहास में आज के दिन क्या हुआ";
