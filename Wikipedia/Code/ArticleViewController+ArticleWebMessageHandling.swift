@@ -30,7 +30,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showAudio(with: url)
         case .scrollToAnchor(let anchor, let rect):
             scrollToAnchorCompletions.popLast()?(anchor, rect)
-        default:
+        case .viewInBrowser:
+            navigate(to: self.articleURL, useSafari: true)
+        case .properties, .readMoreTitlesRetrieved:
             break
         }
     }

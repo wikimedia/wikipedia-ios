@@ -140,7 +140,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case addTitleDescription
         case footerItem(type: PageContentService.Footer.Menu.Item, payload: Any?)
         case readMoreTitlesRetrieved
-        case viewLicense
         case viewInBrowser
         case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
@@ -162,7 +161,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case addTitleDescription = "add_title_description"
         case footerItem = "footer_item"
         case readMoreTitlesRetrieved = "read_more_titles_retrieved"
-        case viewLicense = "view_license"
         case viewInBrowser = "view_in_browser"
         case leadImage
         case tableOfContents
@@ -193,8 +191,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getFooterItemAction(with: data)
             case .readMoreTitlesRetrieved:
                 return .readMoreTitlesRetrieved
-            case .viewLicense:
-                return .viewLicense
             case .viewInBrowser:
                 return .viewInBrowser
             case .link:
