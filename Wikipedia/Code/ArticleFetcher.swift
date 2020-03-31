@@ -83,7 +83,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     @discardableResult func fetchOfflineResourceURLs(with request: URLRequest, completion: @escaping (Result<[URL], Error>) -> Void) -> URLSessionTask? {
-        return jsonDecodableTask(with: request) { (result: Result<[String]?, Error>, response) in
+        return trackedJSONDecodableTask(with: request) { (result: Result<[String]?, Error>, response) in
             if let statusCode = response?.statusCode,
                 statusCode == 404 {
                 completion(.failure(ArticleFetcherError.doesNotExist))
@@ -113,7 +113,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     @discardableResult public func fetchMediaList(with request: URLRequest, completion: @escaping (Result<MediaList, Error>, HTTPURLResponse?) -> Void) -> URLSessionTask? {
-        return jsonDecodableTask(with: request) { (result: Result<MediaList?, Error>, response) in
+        return trackedJSONDecodableTask(with: request) { (result: Result<MediaList?, Error>, response) in
             switch result {
             case .success(let result):
                 guard let mediaList = result else {
