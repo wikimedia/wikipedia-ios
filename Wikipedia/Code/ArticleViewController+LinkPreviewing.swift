@@ -188,7 +188,10 @@ extension ArticleViewController: WKUIDelegate {
                     }
                 }
             } else {
-                completionHandler(config)
+                if (!didCallCompletion) {
+                    completionHandler(config)
+                    didCallCompletion = true;
+                }
             }
         }
         
