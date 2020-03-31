@@ -169,7 +169,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 closeActionPane()
             }
         }
-        guard let delegate = delegate else {
+        guard delegate != nil else {
             return shouldBegin
         }
         

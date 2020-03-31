@@ -47,8 +47,7 @@ public final class ArticleCacheController: CacheController {
                 //add new urls in file system
                 for urlRequest in syncResult.addURLRequests {
                     
-                    guard let uniqueKey = self.fileWriter.uniqueFileNameForURLRequest(urlRequest),
-                        let url = urlRequest.url else {
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForURLRequest(urlRequest), urlRequest.url != nil else {
                         continue
                     }
                     
@@ -56,7 +55,7 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
                         switch fileWriterResult {
-                        case .success(let response, let data):
+                        case .success(let response, _):
                             
                             self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (dbWriterResult) in
                             
