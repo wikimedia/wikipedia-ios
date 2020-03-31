@@ -101,14 +101,12 @@
 "appearance-settings-set-automatic-table-opening" = "Pengaturan Tabel";
 "appearance-settings-text-sizing-example-text" = "Seret penggeser untuk mengubah ukuran teks artikel. Manfaatkan ukuran teks sistem Anda untuk mengubah ukuran area teks lain di aplikasi.";
 "appearance-settings-theme-options" = "Opsi tema";
-"article-about-title" = "Mengenai artikel ini";
 "article-delete" = "Hapus";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artikel}} terhapus";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-others" = "Bahasa lainnya";
 "article-languages-yours" = "Bahasa Anda";
-"article-read-more-title" = "Baca lebih lanjut";
 "article-save-error-not-enough-space" = "Anda tidak memiliki cukup ruang di perangkat Anda untuk menyimpan artikel ini";
 "article-share" = "Bagikan";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Tema Bacaan";
@@ -129,7 +127,6 @@
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
-"description-add-link-title" = "Tambah deskripsi judul";
 "description-add-title" = "Tambahkan deskripsi";
 "description-edit-for-article" = "Deskripsi judul untuk $1";
 "description-edit-learn-more" = "Pelajari lebih lanjut";
@@ -376,13 +373,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Peristiwa terkini";
-"info-box-close-text" = "Tutup";
-"info-box-title" = "Fakta Singkat";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Ubah bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Konten tersedia di bawah $1 kecuali dinyatakan lain.";
 "logged-out-continue-without-logging-in-button-title" = "Lanjutkan tanpa masuk log";
 "logged-out-log-back-in-button-title" = "Masuk log kembali ke akun Anda";
 "logged-out-subtitle" = "Terjadi masalah saat mengautentikasi akun Anda. Untuk menyinkronkan daftar bacaan Anda dan menyunting di bawah nama pengguna Anda, silakan masuk log kembali.";
@@ -431,20 +424,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
-// Fuzzy
-"page-edit-history" = "Semua riwayat suntingan";
-"page-issues" = "Masalah halaman";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Disunting hari ini|1=Disunting kemarin|Disunting $1 hari yang lalu}}";
-"page-location" = "Lihat di peta";
 "page-protected-autoconfirmed" = "Halaman ini telah dilindungi sebagian.";
 "page-protected-can-not-edit" = "Anda tidak memiliki hak untuk menyunting halaman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "page-protected-other" = "Halaman ini telah dilindungi dengan tingkat sebagai berikut: $1";
 "page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
-"page-read-in-other-languages" = "Tersedia dalam {{PLURAL:$1|$1 bahasa lain|$1 bahasa lain}}";
-"page-similar-titles" = "Halaman serupa";
-"page-talk-page" = "Lihat halaman pembicaraan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
 "places-accessibility-group" = "$1 artikel";
@@ -653,7 +637,6 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-heading" = "Konten";
-"table-title-other" = "Informasi lebih lanjut";
 "talk-page-discussion-read-accessibility-label" = "Baca";
 "talk-page-discussion-unread-accessibility-label" = "Belum dibaca";
 "talk-page-new-reply-body-accessibility-label" = "Susun tanggapan";
@@ -669,7 +652,6 @@
 "two-factor-login-title" = "Masuk ke akun Anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kode cadangan Anda";
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
-"view-in-browser-footer-link" = "Lihat artikel di peramban";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajahi";
 "welcome-exploration-on-this-day-description" = "Berpergian kembali ke masa lalu untuk mempelajari apa yang terjadi hari ini dalam sejarah";

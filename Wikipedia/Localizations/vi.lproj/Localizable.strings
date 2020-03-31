@@ -99,14 +99,12 @@
 "appearance-settings-set-automatic-table-opening" = "Cài đặt Bảng";
 "appearance-settings-text-sizing-example-text" = "Kéo con trượt để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
 "appearance-settings-theme-options" = "Tùy chọn giao diện";
-"article-about-title" = "Thông tin về bài viết";
 "article-delete" = "Xóa";
 "article-deleted-accessibility-notification" = "đã xóa {{PLURAL:$1|bài|các bài}}";
 "article-languages-filter-placeholder" = "Tìm ngôn ngữ";
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-others" = "Ngôn ngữ khác";
 "article-languages-yours" = "Ngôn ngữ của bạn";
-"article-read-more-title" = "Đọc tiếp";
 "article-save-error-not-enough-space" = "Bạn không có đủ dung lượng trống trên bộ nhớ để lưu bài viết này";
 "article-share" = "Chia sẻ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
@@ -287,13 +285,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Từ Wikipedia tiếng $1";
 "in-the-news-sub-title-from-wikipedia" = "Từ Wikipedia";
 "in-the-news-title" = "Tin tức";
-"info-box-close-text" = "Đóng";
-"info-box-title" = "Thông tin Nhanh";
 "languages-settings-title" = "Ngôn ngữ";
 "languages-title" = "Thay đổi ngôn ngữ";
 "languages-wikipedia" = "Ngôn ngữ Wikipedia";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Nội dung được phát hành theo $1, trừ khi có ghi chú khác.";
 "login-forgot-password" = "Quên mật khẩu?";
 "login-join-wikipedia" = "Tham gia Wikipedia.";
 "login-no-account" = "Bạn chưa có tài khoản ở đây? $1.";
@@ -335,21 +329,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia tiếng $2";
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
-// Fuzzy
-"page-edit-history" = "Toàn bộ lịch sử sửa đổi";
-"page-issues" = "Vấn đề trang";
-// Fuzzy
-"page-last-edited" = "Sửa đổi lần cuối $1 ngày trước";
-"page-location" = "Xem trên bản đồ";
 "page-protected-autoconfirmed" = "Trang này đã bị bán khóa.";
 "page-protected-can-not-edit" = "Bạn không có quyền sửa đổi trang này.";
 "page-protected-can-not-edit-title" = "Trang này bị khóa";
 "page-protected-other" = "Trang này đã bị khóa ở các mức độ sau: $1";
 "page-protected-sysop" = "Trang này đã bị khóa hẳn.";
-// Fuzzy
-"page-read-in-other-languages" = "Có sẵn trong $1 ngôn ngữ khác";
-"page-similar-titles" = "Trang tương tự";
-"page-talk-page" = "Xem trang thảo luận";
 "pictured" = "hình";
 "places-accessibility-clear-saved-searches" = "Xóa các tìm kiếm đã lưu";
 "places-accessibility-group" = "$1 bài";
@@ -555,7 +539,6 @@
 "table-of-contents-close-accessibility-hint" = "Đóng";
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";
 "table-of-contents-heading" = "Mục lục";
-"table-title-other" = "Thêm thông tin";
 "theme-black-display-name" = "Đen";
 "theme-dark-display-name" = "Tối";
 "theme-default-display-name" = "Mặc định";
@@ -568,7 +551,6 @@
 "two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
 "two-factor-login-with-backup-code" = "Sử dụng một mã sao lưu của bạn";
 "two-factor-login-with-regular-code" = "Sử dụng mã xác nhận";
-"view-in-browser-footer-link" = "Xem bài trong trình duyệt";
 "welcome-exploration-explore-feed-description" = "Các bài đọc được cộng đồng gợi ý hằng ngày";
 "welcome-exploration-explore-feed-title" = "Nguồn cấp Thám hiểm";
 "welcome-exploration-on-this-day-description" = "Quay về quá khứ để tìm hiểu về các sự kiện ngày nay năm xưa";

@@ -117,14 +117,12 @@
 "appearance-settings-set-automatic-table-opening" = "تنظیمات جدول";
 "appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازه متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون برنامه باید در تنظیمات سیستم‌تان تغییر ایجاد کنید.";
 "appearance-settings-theme-options" = "تنظیمات پوسته";
-"article-about-title" = "دربارهٔ این مقاله";
 "article-delete" = "حذف";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|مقالهٔ|مقاله‌های}} حذف‌شده";
 "article-languages-filter-placeholder" = "یافتن زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-others" = "زبان‌های دیگر";
 "article-languages-yours" = "زبان‌های شما";
-"article-read-more-title" = "بیشتر بخوانید";
 "article-save-error-not-enough-space" = "حافظه کافی برای ذخیره این مقاله دارید؟";
 "article-share" = "به اشتراک گذاشتن";
 "article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوستهٔ خواندن";
@@ -146,7 +144,6 @@
 "compass-direction" = "در ساعت $1";
 "continue-reading-empty-description" = "کاوش ویکی‌پدیا برای خواندن مقالات بیشتر";
 "continue-reading-empty-title" = "مقالاتی که اخیراً خوانده نشده‌اند";
-"description-add-link-title" = "افزودن توضیحات عنوان";
 "description-add-title" = "افزودن توضیحات";
 "description-edit-for-article" = "توضیحات عنوان برای $1";
 "description-edit-learn-more" = "اطلاعات بیشتر";
@@ -358,8 +355,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "از $1 ویکی پدیا";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
 "in-the-news-title" = "در اخبار";
-"info-box-close-text" = "بستن";
-"info-box-title" = "اطلاعات اجمالی";
 "insert-action-title" = "افزودن";
 "insert-link-title" = "درج پیوند";
 "insert-media-alternative-text-title" = "متن جایگزین";
@@ -386,8 +381,6 @@
 "languages-settings-title" = "زبان‌ها";
 "languages-title" = "تغییر زبان";
 "languages-wikipedia" = "زبان ویکی‌پدیا";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "محتوا تحت $1 در دسترس است، مگر اینکه خلافش ذکر شده‌باشد.";
 "logged-out-continue-without-logging-in-button-title" = "ادامه بدون ورود به حساب کاربری";
 "logged-out-log-back-in-button-title" = "ورود به حساب کاربریتان";
 "logged-out-title" = "شما خارج شده‌اید.";
@@ -434,20 +427,11 @@
 "on-this-day-footer-with-event-count" = "$1 وقایع تاریخی بیشتر برای این روز";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از $2 ویکی‌پدیا";
 "on-this-day-title" = "در این روز";
-// Fuzzy
-"page-edit-history" = "تاریخچهٔ کامل ویرایش";
-"page-issues" = "موضوعات صفحه";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=ویرایش‌شده امروز|1=ویرایش‌شده دیروز|ویرایش‌شده $1 روز پیش}}";
-"page-location" = "دیدن در نقشه";
 "page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
 "page-protected-can-not-edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page-protected-can-not-edit-title" = "این صفحه محافظت شده‌است";
 "page-protected-other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
-"page-read-in-other-languages" = "موجود به {{PLURAL:$1|$1 زیان دیگر|$1 زبان دیگر}}";
-"page-similar-titles" = "صفحات مشابه";
-"page-talk-page" = "نمایش صفحه بحث";
 "pictured" = "تصویر شده";
 "places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
 "places-accessibility-group" = "$1 مقالات";
@@ -627,7 +611,6 @@
 "table-of-contents-close-accessibility-hint" = "بستن";
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
-"table-title-other" = "اطلاعات بیشتر";
 "talk-page-add-discussion-accessibility-label" = "اضافه کردن بحث";
 "talk-page-discussion-read-accessibility-label" = "خواندن";
 "talk-page-link-user-action-sheet-title" = "صفحه‌های کاربری";
@@ -652,7 +635,6 @@
 "two-factor-login-title" = "ورود به حساب کاربری";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
-"view-in-browser-footer-link" = "مقاله را در مرورگر ببینید";
 "welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اعضا";
 "welcome-exploration-explore-feed-title" = "مرور خوراک";
 "welcome-exploration-on-this-day-description" = "سفر به زمان برای دانستن رویدادهایی که در چنین روزی رخ داده‌است";

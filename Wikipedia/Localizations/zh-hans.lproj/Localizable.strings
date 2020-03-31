@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
+// Author: 500000000006城
 // Author: A Chinese Wikipedian
 // Author: A Retired User
 // Author: A2B4C
@@ -128,14 +129,12 @@
 "appearance-settings-set-automatic-table-opening" = "表格设置";
 "appearance-settings-text-sizing-example-text" = "拖动上方滑块以更改条目文本大小。利用您系统的文本大小以更改应用中其他文本区域的大小。";
 "appearance-settings-theme-options" = "主题选项";
-"article-about-title" = "关于此条目";
 "article-delete" = "删除";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|条目}}已删除";
 "article-languages-filter-placeholder" = "查找语言";
 "article-languages-label" = "选择语言";
 "article-languages-others" = "其他语言";
 "article-languages-yours" = "您的语言";
-"article-read-more-title" = "阅读更多";
 "article-save-error-not-enough-space" = "您的设备没有足够空间保存此条目";
 "article-share" = "分享";
 "article-toolbar-reading-themes-controls-toolbar-item" = "阅读主题控制";
@@ -157,7 +156,6 @@
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
 "continue-reading-empty-title" = "没有最近阅读条目";
-"description-add-link-title" = "添加标题描述";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的标题描述";
 "description-edit-learn-more" = "了解更多";
@@ -208,6 +206,7 @@
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1次编辑}}";
 "diff-single-header-editor-title" = "编辑者信息";
 "diff-single-header-summary-heading" = "编辑摘要";
+"diff-single-intro-title" = "导言";
 "diff-single-line-format" = "第$1行";
 "diff-thanks-anonymous-no-thanks" = "匿名用户不能被感谢";
 "diff-thanks-login-title" = "登录以发送感谢";
@@ -402,6 +401,7 @@
 "field-username-placeholder" = "输入用户名";
 "field-username-title" = "用户名";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-textfield-accessibility" = "查找";
 "forgot-password-button-title" = "重置";
 "forgot-password-email-sent" = "已发送一封带有密码重置说明的电子邮件";
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
@@ -435,11 +435,11 @@
 "in-the-news-sub-title-from-language-wikipedia" = "来自$1维基百科";
 "in-the-news-sub-title-from-wikipedia" = "来自维基百科";
 "in-the-news-title" = "新闻动态";
-"info-box-close-text" = "关闭";
-"info-box-title" = "快速预览";
+"insert-action-title" = "插入";
 "insert-link-title" = "插入链接";
 "insert-media-caption-description" = "显示在所有读者的项目旁边的标签。";
 "insert-media-image-position-setting-center" = "中心";
+"insert-media-image-position-setting-left" = "左";
 "insert-media-image-position-setting-none" = "无";
 "insert-media-image-position-setting-right" = "对";
 "insert-media-image-preview-select-image-action-title" = "选择图像";
@@ -448,8 +448,6 @@
 "languages-settings-title" = "语言";
 "languages-title" = "更改语言";
 "languages-wikipedia" = "维基百科语言";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "除非另有说明，内容基于$1授权。";
 "logged-out-continue-without-logging-in-button-title" = "在没有登入时继续";
 "logged-out-log-back-in-button-title" = "重新登录您的账户";
 "logged-out-subtitle" = "验证你的账户时出现了问题。请重新登录以同步或编辑你的阅读列表。";
@@ -498,8 +496,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "original-tab-button-popover-description" = "点按“W”以返回您开始来自的标签";
-// Fuzzy
-"page-edit-history" = "完整编辑历史";
 "page-history-anonymous-edits" = "匿名编辑";
 "page-history-bot-edits" = "机器人编辑";
 "page-history-compare-title" = "比较";
@@ -513,18 +509,11 @@
 "page-history-revisions-comparison-warning" = "您只能选择两个修订版本";
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次编辑}}";
 "page-history-user-edits" = "用户编辑数";
-"page-issues" = "页面问题";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=编辑于今天|1=编辑于昨天|编辑于 $1 天前}}";
-"page-location" = "在地图上查看";
 "page-protected-autoconfirmed" = "此页面已半保护。";
 "page-protected-can-not-edit" = "您没有权限编辑此页";
 "page-protected-can-not-edit-title" = "此页面受到保护";
 "page-protected-other" = "此页面已获以下保护：$1";
 "page-protected-sysop" = "此页面已全保护。";
-"page-read-in-other-languages" = "在$1种其他语言中可用";
-"page-similar-titles" = "相似页面";
-"page-talk-page" = "查看讨论页";
 // Fuzzy
 "panel-compare-revisions-text" = "通过比较不同修订版本，可以看到条目随时间的变化。如果您比较两个不同修订版本，可以看到两个版本之间的区别。";
 "panel-compare-revisions-title" = "比较不同修订版本";
@@ -744,14 +733,16 @@
 "table-of-contents-close-accessibility-label" = "关闭目录";
 "table-of-contents-heading" = "内容";
 "table-of-contents-hide-button-label" = "隐藏目录";
-"table-title-other" = "更多信息";
 "talk-page-add-discussion-accessibility-label" = "添加讨论";
 "talk-page-discussion-read-accessibility-label" = "已读";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "i˨˩˦tu˧˥";
 "talk-page-discussion-unread-accessibility-label" = "未读";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "weɪ˥˩tu˧˥";
 "talk-page-info-active-conversations-generic" = "维基百科上的积极对话";
+"talk-page-link-user-action-sheet-title" = "用户页";
 "talk-page-new-banner-subtitle" = "记住，我们在这里都是人类";
+"talk-page-new-banner-title" = "请善良一些";
+"talk-page-new-body-textfield-accessibility-label" = "讨论主体";
 "talk-page-new-reply-success-text" = "你的答复被成功地发表了";
 "talk-page-new-subject-placeholder-text" = "主题";
 "talk-page-new-subject-textfield-accessibility-label" = "主题";
@@ -775,7 +766,6 @@
 "two-factor-login-with-backup-code" = "使用您的任一备份代码";
 "two-factor-login-with-regular-code" = "使用验证码";
 "unknown-generic-text" = "未知";
-"view-in-browser-footer-link" = "在浏览器查看条目";
 "welcome-exploration-explore-feed-description" = "来自我们社群的推荐阅读和每日条目";
 "welcome-exploration-explore-feed-title" = "探索订阅";
 "welcome-exploration-on-this-day-description" = "穿越时间了解历史上的今天发生了什么";
