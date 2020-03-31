@@ -111,14 +111,12 @@
 "appearance-settings-set-automatic-table-opening" = "הגדרות טבלה";
 "appearance-settings-text-sizing-example-text" = "יש לגרור את המחלק כדי לשנות את גודל טקסט הערך. ניתן להשתמש בגודל הטקסט של המערכת כדי לקבוע את גודל הטקסט באזורים אחרים של היישום.";
 "appearance-settings-theme-options" = "אפשרויות ערכת נושא";
-"article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|הערך נמחק|הערכים נמחקו}}";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
-"article-read-more-title" = "לקרוא עוד";
 "article-reference-view-title" = "הערת שוליים $1";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
@@ -141,7 +139,6 @@
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
-"description-add-link-title" = "הוספת תיאור כותרת";
 "description-add-title" = "הוספת תיאור";
 "description-edit-for-article" = "תיאור כותרת עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
@@ -444,8 +441,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "in-the-news-sub-title-from-wikipedia" = "מתוך ויקיפדיה";
 "in-the-news-title" = "בחדשות";
-"info-box-close-text" = "סגירה";
-"info-box-title" = "עובדות מהירות";
 "insert-action-title" = "הוספה";
 "insert-link-title" = "הוספת קישור";
 "insert-media-alternative-text-description" = "תיאור טקסט לקוראים שלא יכולים לראות את התמונה";
@@ -482,8 +477,6 @@
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
-"license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "התוכן זמין לפי תנאי $1 אלא אם נאמר אחרת.";
 "logged-out-continue-without-logging-in-button-title" = "להמשיך בלי להיכנס לחשבון";
 "logged-out-log-back-in-button-title" = "להיכנס חזרה לחשבון שלך";
 "logged-out-subtitle" = "הייתה בעיה באימות החשבון שלך. כדי לסנכרן את רשימות הקריאה שלך ולערוך תחת שם המשתמש שלך נא להיכנס לחשבון מחדש.";
@@ -532,8 +525,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
-// Fuzzy
-"page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-anonymous-edits" = "עריכות אלמוניות";
 "page-history-bot-edits" = "עריכות של בוטים";
 "page-history-compare-accessibility-hint" = "נא ללחוץ כדי לבחור שתי גרסאות להשוואה";
@@ -550,18 +541,11 @@
 "page-history-revisions-comparison-warning" = "ניתן לבחור שתי גרסאות בלבד";
 "page-history-stats-text" = "{{PLURAL:$1|עריכה אחת|$1 עריכות}} מאז $2";
 "page-history-user-edits" = "עריכות משתמש";
-"page-issues" = "בעיות בדף";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
-"page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
 "page-protected-can-not-edit" = "אין לך הרשאה לערוך את הדף הזה";
 "page-protected-can-not-edit-title" = "הדף הזה מוגן";
 "page-protected-other" = "הדף הזה הוגן לרמות הבאות: $1";
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
-"page-read-in-other-languages" = "זמין ב{{PLURAL:$1|עוד שפה אחת|־$1 שפות נוספות}}";
-"page-similar-titles" = "דפים דומים";
-"page-talk-page" = "הצגת דף השיחה";
 "panel-compare-revisions-text" = "השוואת גרסאות עוזרת להראות איך ערך השתנה לאורך זמן. השוואת שתי גרסאות של ערך תציג את ההבדל בין שתי הגרסאות האלה באמצעות הדגשת התוכן שהשתנה.";
 "panel-compare-revisions-title" = "גרסאות מושוות";
 "pictured" = "בתמונה";
@@ -792,7 +776,6 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-hide-button-label" = "הסתרת תוכן העניינים";
-"table-title-other" = "מידע נוסף";
 "talk-page-add-discussion-accessibility-label" = "הוספת דיון";
 "talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
 "talk-page-discussion-read-accessibility-label" = "נקרא";
@@ -840,7 +823,6 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
-"view-in-browser-footer-link" = "הצגת הערך בדפדפן";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";
 "welcome-exploration-explore-feed-title" = "הזנת לחקור";
 "welcome-exploration-on-this-day-description" = "חזרו אחורה בזמן כדי ללמוד מה קרה היום בהיסטוריה";

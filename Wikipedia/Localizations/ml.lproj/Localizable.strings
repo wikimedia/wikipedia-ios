@@ -65,14 +65,12 @@
 "add-citation-title" = "അവലംബം ചേർക്കുക";
 "announcements-dismiss" = "ഒഴിവാക്കുക";
 "app-store-subtitle" = "സ്വതന്ത്ര വിജ്ഞാനകോശം";
-"article-about-title" = "ഈ ലേഖനത്തെക്കുറിച്ച്";
 "article-delete" = "മായ്ക്കുക";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|ലേഖനം|ലേഖനങ്ങൾ}} ഒഴിവാക്കി";
 "article-languages-filter-placeholder" = "ഭാഷ കണ്ടെത്തുക";
 "article-languages-label" = "ഭാഷ തിരഞ്ഞെടുക്കുക";
 "article-languages-others" = "മറ്റ് ഭാഷകൾ";
 "article-languages-yours" = "എന്റെ ഭാഷകൾ";
-"article-read-more-title" = "കൂടുതൽ വായിക്കുക";
 "article-save-error-not-enough-space" = "ഈ ലേഖനം സേവ് ചെയ്യുവാനുള്ള സ്ഥലം താങ്കളുടെ ഉപകരണത്തിനില്ല";
 "article-share" = "പങ്കുവയ്ക്കുക";
 "back-button-accessibility-label" = "പുറകോട്ട്";
@@ -89,7 +87,6 @@
 "close-button-accessibility-label" = "അടയ്ക്കുക";
 "compass-direction" = "$1 മണിക്ക്";
 "continue-reading-empty-title" = "അടുത്തിടെ വായിച്ച ലേഖനങ്ങൾ ഇല്ല";
-"description-add-link-title" = "തലക്കെട്ട് വിവരണം ചേർക്കുക";
 "description-add-title" = "വിവരണം ചേർക്കുക";
 "description-edit-for-article" = "$1നുള്ള തലക്കെട്ട് വിവരണം";
 "description-edit-learn-more" = "കൂടുതൽ അറിയുക";
@@ -194,9 +191,6 @@
 "history-clear-all" = "ശൂന്യമാക്കുക";
 "history-clear-cancel" = "റദ്ദാക്കുക";
 "history-clear-delete-all" = "അതെ, എല്ലാം മായ്ക്കുക";
-"info-box-close-text" = "അടയ്ക്കുക";
-// Fuzzy
-"info-box-title" = "വസ്തുതകൾ";
 "main-menu-about" = "ആപ്പിനെപ്പറ്റി";
 "main-menu-account-login" = "പ്രവേശിക്കുക";
 "main-menu-account-logout" = "ലോഗൗട്ട്";
@@ -229,7 +223,6 @@
 "settings-search-open-app-on-search" = "തിരയൽ ടാബിൽ അപ്ലിക്കേഷൻ തുറക്കുക";
 "settings-support" = "വിക്കിമീഡിയയ്ക്ക് പിന്തുണയേകുക";
 "settings-title" = "സജ്ജീകരണങ്ങൾ";
-"table-title-other" = "കൂടുതൽ വിവരങ്ങൾ";
 "wikitext-downloading" = "ഉള്ളടക്കം ശേഖരിക്കുന്നു...";
 "wikitext-preview-changes" = "താങ്കൾ വരുത്തിയ മാറ്റങ്ങളുടെ പ്രിവ്യൂ എടുക്കുന്നു...";
 "wikitext-preview-changes-none" = "എങ്ങനെയുണ്ടെന്ന് കാണാൻ മാറ്റങ്ങളൊന്നും വരുത്തിയിട്ടില്ല.";

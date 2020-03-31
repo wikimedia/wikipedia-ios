@@ -61,13 +61,11 @@
 "action-share" = "Podijeli";
 "action-unsave" = "Obriši";
 "announcements-dismiss" = "Odbaci";
-"article-about-title" = "O ovom članku";
 "article-delete" = "Obriši";
 "article-languages-filter-placeholder" = "Pronađi jezik";
 "article-languages-label" = "Izaberite jezik";
 "article-languages-others" = "Drugi jezici";
 "article-languages-yours" = "Vaši jezici";
-"article-read-more-title" = "Također pogledajte";
 "article-share" = "Podijeli";
 "back-button-accessibility-label" = "Nazad";
 "button-next" = "Sljedeće";
@@ -172,11 +170,7 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "Podijeli...";
 "in-the-news-title" = "Vijesti";
-"info-box-close-text" = "Zatvori";
-"info-box-title" = "Kratke činjenice";
 "languages-title" = "Promijeni jezik";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Sadržaj je dostupan pod $1 osim ako je drukčije navedeno.";
 "login-forgot-password" = "Zaboravili ste lozinku?";
 "login-join-wikipedia" = "Pridružite se Wikipediji.";
 "login-no-account" = "Nemate račun? $1";
@@ -212,20 +206,11 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historijski događaj|$1 historijska događaja|$1 historijskih događaja}}";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";
-// Fuzzy
-"page-edit-history" = "Cjelokupna historija izmjena";
-"page-issues" = "Problemi sa sadržajem";
-// Fuzzy
-"page-last-edited" = "Izmijenjeno prije $1 dana";
-"page-location" = "Pogledaj na karti";
 "page-protected-autoconfirmed" = "Ova stranica je poluzaštićena.";
 "page-protected-can-not-edit" = "Nemate pravo da uređujete ovu stranicu";
 "page-protected-can-not-edit-title" = "Ova stranica je zaštićena";
 "page-protected-other" = "Ova stranica je zaštićena na sljedećim nivoima: $1";
 "page-protected-sysop" = "Ova stranica je potpuno zaštićena.";
-// Fuzzy
-"page-read-in-other-languages" = "Dostupno na još $1 jezika";
-"page-similar-titles" = "Slične stranice";
 "pictured" = "na slici";
 "places-accessibility-clear-saved-searches" = "Očisti sačuvane pretrage";
 "places-accessibility-group" = "$1 članaka";
@@ -319,7 +304,6 @@
 "table-of-contents-close-accessibility-hint" = "Zatvori";
 "table-of-contents-close-accessibility-label" = "Zatvori sadržaj";
 "table-of-contents-heading" = "Sadržaj";
-"table-title-other" = "Više informacija";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia ($1)";
 "top-read-see-more" = "Pogledaj još najčitanijih članaka";

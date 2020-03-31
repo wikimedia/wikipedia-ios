@@ -109,14 +109,12 @@
 "appearance-settings-set-automatic-table-opening" = "Configurações de tabelas";
 "appearance-settings-text-sizing-example-text" = "Arraste o controlo deslizante para alterar o tamanho de texto dos artigos. Use o tamanho de texto do seu sistema para redimensionar outras áreas de texto da aplicação.";
 "appearance-settings-theme-options" = "Opções do tema";
-"article-about-title" = "Sobre este artigo";
 "article-delete" = "Eliminar";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artigo eliminado|artigos eliminados}}";
 "article-languages-filter-placeholder" = "Encontrar língua";
 "article-languages-label" = "Escolher língua";
 "article-languages-others" = "Outras línguas";
 "article-languages-yours" = "As suas línguas";
-"article-read-more-title" = "Ler mais";
 "article-save-error-not-enough-space" = "Não tem espaço suficiente no seu dispositivo para guardar este artigo";
 "article-share" = "Partilhar";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlos dos temas de leitura";
@@ -138,7 +136,6 @@
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explorar na Wikipédia mais artigos para ler";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
-"description-add-link-title" = "Adicionar título de descrição";
 "description-add-title" = "Adicionar descrição";
 "description-edit-for-article" = "Título de descrição para $1";
 "description-edit-learn-more" = "Saber mais";
@@ -441,8 +438,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipédia em $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipédia";
 "in-the-news-title" = "Nas notícias";
-"info-box-close-text" = "Fechar";
-"info-box-title" = "Factos rápidos";
 "insert-action-title" = "Inserir";
 "insert-link-title" = "Inserir hiperligação";
 "insert-media-alternative-text-description" = "Descrição em texto para leitores que não podem ver a imagem";
@@ -479,8 +474,6 @@
 "languages-settings-title" = "Línguas";
 "languages-title" = "Alterar língua";
 "languages-wikipedia" = "Línguas da Wikipédia";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação em contrário.";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem iniciar sessão";
 "logged-out-log-back-in-button-title" = "Entrar novamente na sua conta";
 "logged-out-subtitle" = "Ocorreu um problema na autenticação da sua conta. Para sincronizar as suas listas de leitura e editar com o seu nome de utilizador, volte a iniciar uma sessão.";
@@ -529,8 +522,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
-// Fuzzy
-"page-edit-history" = "Historial de edições completo";
 "page-history-anonymous-edits" = "edições de anónimos";
 "page-history-bot-edits" = "edições de robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões a comparar";
@@ -547,18 +538,11 @@
 "page-history-revisions-comparison-warning" = "Só podem ser selecionadas duas revisões";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edição|$1 edições}} desde $2";
 "page-history-user-edits" = "edições dos utilizadores";
-"page-issues" = "Problemas da página";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado há $1 dias}}";
-"page-location" = "Ver num mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Não tem permissão para editar esta página";
 "page-protected-can-not-edit-title" = "Esta página está protegida";
 "page-protected-other" = "Esta página está protegida para os seguintes níveis: $1";
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
-"page-read-in-other-languages" = "Disponível {{PLURAL:$1|noutra língua|em $1 outras línguas}}";
-"page-similar-titles" = "Páginas semelhantes";
-"page-talk-page" = "Ver página de discussão";
 "panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo foi modificado ao longo do tempo. Comparar duas revisões de um artigo mostra as diferenças entre essas revisões, salientando todo o conteúdo que foi modificado.";
 "panel-compare-revisions-title" = "Comparação de revisões";
 "pictured" = "retratado";
@@ -789,7 +773,6 @@
 "table-of-contents-close-accessibility-label" = "Fechar índice";
 "table-of-contents-heading" = "Índice";
 "table-of-contents-hide-button-label" = "Ocultar índice";
-"table-title-other" = "Mais informação";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Premir duas vezes para abrir o tópico de discussão";
 "talk-page-discussion-read-accessibility-label" = "Lido";
@@ -837,7 +820,6 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "unknown-generic-text" = "Desconhecido";
-"view-in-browser-footer-link" = "Ver artigo no browser";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "O feed \"Explorar\"";
 "welcome-exploration-on-this-day-description" = "Retroceda no tempo para saber o que aconteceu hoje na história";

@@ -113,14 +113,12 @@
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
 "appearance-settings-text-sizing-example-text" = "Dra i reglaget för att ändra textstorleken för artiklar. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
 "appearance-settings-theme-options" = "Temaalternativ";
-"article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artiklar}} raderades";
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
 "article-languages-yours" = "Dina språk";
-"article-read-more-title" = "Läs mer";
 "article-reference-view-title" = "Referens $1";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
@@ -143,7 +141,6 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
-"description-add-link-title" = "Lägg till titelbeskrivning";
 "description-add-title" = "Lägg till beskrivning";
 "description-edit-for-article" = "Titelbeskrivning för $1";
 "description-edit-learn-more" = "Läs mer";
@@ -446,8 +443,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Från Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Från Wikipedia";
 "in-the-news-title" = "Aktuella händelser";
-"info-box-close-text" = "Stäng";
-"info-box-title" = "Snabbfakta";
 "insert-action-title" = "Infoga";
 "insert-link-title" = "Infoga länk";
 "insert-media-alternative-text-description" = "Textbeskrivning för läsare som inte kan se bilden";
@@ -484,8 +479,6 @@
 "languages-settings-title" = "Språk";
 "languages-title" = "Ändra språk";
 "languages-wikipedia" = "Wikipediaspråk";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
 "logged-out-log-back-in-button-title" = "Logga in på ditt konto igen";
 "logged-out-subtitle" = "Ett problem uppstod när ditt konto autentiserades. Du måste logga in igen för att synkronisera dina läslistor och redigera under ditt användarnamn.";
@@ -534,7 +527,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
-"page-edit-history" = "Visa redigeringshistorik";
 "page-history-anonymous-edits" = "anonyma redigeringar";
 "page-history-bot-edits" = "botredigeringar";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
@@ -551,19 +543,11 @@
 "page-history-revisions-comparison-warning" = "Endast två versioner kan markeras";
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
 "page-history-user-edits" = "användarredigeringar";
-"page-issues" = "Sidproblem";
-"page-issues-subtitle" = "Meddelanden om bristfälligt eller problematiskt innehåll";
-"page-last-edited" = "{{PLURAL:$1|0=Uppdaterades idag|1=Uppdaterades igår|Uppdaterades $1 dygn sedan}}";
-"page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page-protected-can-not-edit-title" = "Denna sida är skrivskyddad";
 "page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
-"page-read-in-other-languages" = "Tillgänglig på {{PLURAL:$1|$1 annat|$1 andra}} språk";
-"page-similar-titles" = "Liknande sidor";
-"page-talk-page" = "Visa diskussionssidan";
-"page-talk-page-subtitle" = "Diskutera förbättringar av denna artikel";
 "panel-compare-revisions-text" = "Jämför versioner för att se hur en artikel har ändrats med tiden. När två versioner av en artikel jämförs kommer skillnaden mellan dessa version visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "pictured" = "i bild";
@@ -794,7 +778,6 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
-"table-title-other" = "Mer information";
 "talk-page-add-discussion-accessibility-label" = "Lägg till diskussion";
 "talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";
 "talk-page-discussion-read-accessibility-label" = "Läst";
@@ -842,7 +825,6 @@
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
 "unable-to-load-talk-page-title" = "Kan inte läsa in diskussionssida";
 "unknown-generic-text" = "Okänd";
-"view-in-browser-footer-link" = "Visa artikeln i webbläsaren";
 "welcome-exploration-explore-feed-description" = "Dagens artiklar och lästips från vår gemenskap";
 "welcome-exploration-explore-feed-title" = "Utforskarflöde";
 "welcome-exploration-on-this-day-description" = "Res bakåt i tiden för att ta reda på vad som hände idag i historien";

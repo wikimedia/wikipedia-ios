@@ -95,6 +95,7 @@
 "action-remove" = "Verwijderen";
 "action-replace" = "Vervangen";
 "action-replace-all" = "Alles vervangen";
+"action-retry" = "Opnieuw proberen";
 "action-save" = "Opslaan";
 "action-saved" = "Opgeslagen";
 "action-saved-accessibility" = "Bewaard. Activeer om ongedaan te maken.";
@@ -122,14 +123,12 @@
 "appearance-settings-set-automatic-table-opening" = "Tabelinstellingen";
 "appearance-settings-text-sizing-example-text" = "Versleep de schuifregelaar om de tekstgrootte van het artikel te wijzigen. Gebruik de tekstgrootte van uw systeem om het formaat van andere tekstgebieden in de app te wijzigen.";
 "appearance-settings-theme-options" = "Thema-opties";
-"article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artikelen}} verwijderd";
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-languages-label" = "Taal kiezen";
 "article-languages-others" = "Andere talen";
 "article-languages-yours" = "Uw talen";
-"article-read-more-title" = "Meer lezen";
 "article-save-error-not-enough-space" = "U hebt onvoldoende ruimte op uw apparaat om dit artikel op te slaan";
 "article-share" = "Deel";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Thema's bekijken";
@@ -151,7 +150,6 @@
 "compass-direction" = "op $1 uur";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
-"description-add-link-title" = "Titelbeschrijving toevoegen";
 "description-add-title" = "Beschrijving toevoegen";
 "description-edit-for-article" = "Titelbeschrijving voor $1";
 "description-edit-learn-more" = "Meer leren";
@@ -420,8 +418,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
-"info-box-close-text" = "Sluiten";
-"info-box-title" = "Snelle feiten";
 "insert-action-title" = "Invoegen";
 "insert-link-title" = "Koppeling invoegen";
 "insert-media-alternative-text-description" = "Beschrijving voor lezers die de afbeelding niet kunnen bekijken";
@@ -456,8 +452,6 @@
 "languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
 "languages-wikipedia" = "Wikipedia-talen";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "logged-out-continue-without-logging-in-button-title" = "Doorgaan zonder aan te melden";
 "logged-out-log-back-in-button-title" = "Opnieuw aanmelden bij uw account";
 "logged-out-subtitle" = "Er is een probleem opgetreden bij het verifiëren van uw account. Als u uw leeslijsten wilt synchroniseren en wilt bewerken onder uw gebruikersnaam, meldt u zich opnieuw aan.";
@@ -506,8 +500,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
-// Fuzzy
-"page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "page-history-anonymous-edits" = "anonieme bewerkingen";
 "page-history-bot-edits" = "botbewerkingen";
 "page-history-compare-title" = "Vergelijken";
@@ -520,18 +512,11 @@
 "page-history-revisions-comparison-warning" = "Slechts twee versies kunnen worden geselecteerd";
 "page-history-stats-text" = "{{PLURAL:$1|1 bewerking|$1 bewerkingen}} sinds $1";
 "page-history-user-edits" = "gebruikersbewerkingen";
-"page-issues" = "Paginaproblemen";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Vandaag bewerkt|1=Gisteren bewerkt|$1 dagen geleden bewerkt}}";
-"page-location" = "Op een kaart bekijken";
 "page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
 "page-protected-can-not-edit-title" = "Deze pagina is beveiligd";
 "page-protected-other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
 "page-protected-sysop" = "Deze pagina is volledig beveiligd.";
-"page-read-in-other-languages" = "Beschikbaar in {{PLURAL:$1|$1 andere taal|$1 andere talen}}";
-"page-similar-titles" = "Vergelijkbare pagina's";
-"page-talk-page" = "Overlegpagina bekijken";
 "panel-compare-revisions-title" = "Versies vergelijken";
 "pictured" = "afgebeeld";
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
@@ -753,7 +738,6 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-of-contents-hide-button-label" = "Inhoudsopgave verbergen";
-"table-title-other" = "Meer informatie";
 "talk-page-add-discussion-accessibility-label" = "Onderwerp toevoegen";
 "talk-page-discussion-read-accessibility-label" = "Lezen";
 "talk-page-discussion-unread-accessibility-label" = "Ongelezen";
@@ -790,7 +774,6 @@
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
 "unable-to-load-talk-page-title" = "Overlegpagina laden niet mogelijk";
 "unknown-generic-text" = "Onbekend";
-"view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";
 "welcome-exploration-on-this-day-description" = "Reis terug in de tijd om te leren wat er vandaag in de geschiedenis is gebeurd";

@@ -112,14 +112,12 @@
 "appearance-settings-set-automatic-table-opening" = "Параметри таблиць";
 "appearance-settings-text-sizing-example-text" = "Пересувайте повзунок, змінюючи розмір шрифту. Це призведе до зміни розмірів текстових блоків додатку.";
 "appearance-settings-theme-options" = "Налаштування теми оформлення";
-"article-about-title" = "Про цю статтю";
 "article-delete" = "Видалити";
 "article-deleted-accessibility-notification" = "Вилучено $1 {{PLURAL:$1|статтю|статті|статей}}";
 "article-languages-filter-placeholder" = "Знайти мову";
 "article-languages-label" = "Вибрати мову";
 "article-languages-others" = "Інші мови";
 "article-languages-yours" = "Ваші мови";
-"article-read-more-title" = "Детальніше";
 "article-reference-view-title" = "Посилання $1";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
@@ -142,7 +140,6 @@
 "compass-direction" = "на $1 годину";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
 "continue-reading-empty-title" = "Немає нещодавно прочитаних статей";
-"description-add-link-title" = "Додати опис назви";
 "description-add-title" = "Додати опис";
 "description-edit-for-article" = "Короткий опис «$1»";
 "description-edit-learn-more" = "Дізнатися більше";
@@ -445,8 +442,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "in-the-news-sub-title-from-wikipedia" = "З Вікіпедії";
 "in-the-news-title" = "У новинах";
-"info-box-close-text" = "Закрити";
-"info-box-title" = "Табличка основної інформації";
 "insert-action-title" = "Вставити";
 "insert-link-title" = "Вставити посилання";
 "insert-media-alternative-text-description" = "Текстовий опис для читачів, які не можуть побачити зображення";
@@ -483,8 +478,6 @@
 "languages-settings-title" = "Мови";
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
 "logged-out-continue-without-logging-in-button-title" = "Продовжити без входу";
 "logged-out-log-back-in-button-title" = "Назад до входу з обліковим записом";
 "logged-out-subtitle" = "Відбулася помилка при автентифікації вашого облікового запису. Вам потрібно повторно увійти, аби можна було узгодити читальні списки та редагувати під вашим ім'ям користувача.";
@@ -533,7 +526,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
-"page-edit-history" = "Переглянути історію редагувань";
 "page-history-anonymous-edits" = "анонімні редагування";
 "page-history-bot-edits" = "бото-редагування";
 "page-history-compare-accessibility-hint" = "Натисніть, аби порівняти дві версії";
@@ -550,19 +542,11 @@
 "page-history-revisions-comparison-warning" = "Можуть бути вибрані тільки дві версії";
 "page-history-stats-text" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}} з $2";
 "page-history-user-edits" = "редагування користувачів";
-"page-issues" = "Проблеми сторінки";
-"page-issues-subtitle" = "Звістки про незвичний чи проблематичний контент";
-"page-last-edited" = "{{PLURAL:$1|0=Оновлено сьогодні|one=Оновлено $1 день тому|few=Оновлено $1 дні тому|many=Оновлено $1 днів тому}}";
-"page-location" = "Переглянути на карті";
 "page-protected-autoconfirmed" = "Сторінка є частково захищена.";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";
 "page-protected-can-not-edit-title" = "Сторінку захищено";
 "page-protected-other" = "Цю сторінку захищено на таких рівнях: $1";
 "page-protected-sysop" = "Сторінка є повністю захищена.";
-"page-read-in-other-languages" = "Доступно в {{PLURAL:$1|іншій мові|$1 інших мовах}}";
-"page-similar-titles" = "Подібні сторінки";
-"page-talk-page" = "Сторінка обговорення";
-"page-talk-page-subtitle" = "Обговорити покращення цієї статті";
 "panel-compare-revisions-text" = "Порівняння версій допомагає показати, як стаття змінювалася з часом. Порівняння двох версій статті показує різницю між версіями завдяки підсвічуванню того вмісту, який змінився.";
 "panel-compare-revisions-title" = "Порівняння версій";
 "pictured" = "проілюстровано";
@@ -793,7 +777,6 @@
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
 "table-of-contents-hide-button-label" = "Приховати зміст";
-"table-title-other" = "Більше інформації";
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
 "talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
 "talk-page-discussion-read-accessibility-label" = "Прочитане";
@@ -841,7 +824,6 @@
 "two-factor-login-with-regular-code" = "Використати код верифікації";
 "unable-to-load-talk-page-title" = "Неможливо завантажити сторінку обговорення";
 "unknown-generic-text" = "Невідомо";
-"view-in-browser-footer-link" = "Переглянути статтю в браузері";
 "welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";
 "welcome-exploration-explore-feed-title" = "Стрічка";
 "welcome-exploration-on-this-day-description" = "Перенестися назад у часі, аби дізнатися, що сталося сьогодні в історії";
