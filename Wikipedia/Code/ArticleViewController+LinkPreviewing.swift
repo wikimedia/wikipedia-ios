@@ -143,8 +143,12 @@ extension ArticleViewController: WKUIDelegate {
             return nil
         }
         
+        var didCallCompletion = false
         let bail = {
-            completionHandler(nullConfig)
+            if (!didCallCompletion) {
+                completionHandler(nullConfig)
+                didCallCompletion = true;
+            }
         }
         
         guard let linkURL = elementInfo.linkURL else {
@@ -155,7 +159,6 @@ extension ArticleViewController: WKUIDelegate {
         // It's helpful if we can fetch the article before calling the completion
         // However, we need to timeout if it takes too long
         var config = nullConfig
-        var didCallCompletion = false
         dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
             if (!didCallCompletion) {
                 completionHandler(config)
