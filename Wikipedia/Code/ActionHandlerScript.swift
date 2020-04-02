@@ -66,7 +66,7 @@ final class PageContentService   {
         guard let string = String(data: data, encoding: .utf8) else {
             throw RequestError.invalidParameters
         }
-        return "JSON.parse('\(string)')"
+        return "JSON.parse(`\(string.sanitizedForJavaScriptTemplateLiterals)`)"
     }
     
     final class SetupScript: WKUserScript {
