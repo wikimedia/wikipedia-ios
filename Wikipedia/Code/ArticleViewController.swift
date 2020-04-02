@@ -945,6 +945,8 @@ extension ArticleViewController: WKNavigationDelegate {
     }
     
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        // On process did terminate, the WKWebView goes blank
+        // Re-load the content in this case to show it again
         webView.reload()
     }
 }
