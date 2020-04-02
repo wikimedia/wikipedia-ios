@@ -245,6 +245,7 @@ class ArticleViewController: ViewController {
         super.viewDidLoad()
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         apply(theme: theme)
+        setupForStateRestorationIfNecessary()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -407,6 +408,7 @@ class ArticleViewController: ViewController {
     
     // MARK: State Restoration
     
+    /// Save article scroll position for restoration later
     func saveArticleScrollPosition() {
         getVisibleSection { (sectionId, anchor) in
             assert(Thread.isMainThread)
@@ -417,28 +419,39 @@ class ArticleViewController: ViewController {
         }
     }
     
-    func restoreStateIfNecessary() {
+    /// Perform any necessary initial configuration for state restoration
+    func setupForStateRestorationIfNecessary() {
         guard isRestoringState else {
             return
         }
         setWebViewHidden(true, animated: false)
+    }
+    
+    /// If state needs to be restored, listen for content size changes and restore the scroll position when those changes stop occurring
+    func restoreStateIfNecessary() {
+        guard isRestoringState else {
+            return
+        }
         isRestoringState = false
         isRestoringStateOnNextContentSizeChange = true
         perform(#selector(restoreState), with: nil, afterDelay: 0.5) // failsafe, attempt to restore state after half a second regardless
     }
     
+    /// If state is supposed to be restored after the next content size change, restore that state
+    /// This should be called in a debounced manner when article content size changes
     func restoreStateIfNecessaryOnContentSizeChange() {
         guard isRestoringStateOnNextContentSizeChange else {
             return
         }
+        isRestoringStateOnNextContentSizeChange = false
         let scrollPosition = CGFloat(article.viewedScrollPosition)
         guard scrollPosition < webView.scrollView.bottomOffsetY else {
             return
         }
-        isRestoringStateOnNextContentSizeChange = false
         restoreState()
     }
     
+    /// Scroll to the state restoration scroll position now, canceling any previous attempts
     @objc func restoreState() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restoreState), object: nil)
         let scrollPosition = CGFloat(article.viewedScrollPosition)
@@ -449,7 +462,7 @@ class ArticleViewController: ViewController {
         }
         setWebViewHidden(false, animated: true)
     }
-    
+
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let block = {
             self.webView.alpha = hidden ? 0 : 1
