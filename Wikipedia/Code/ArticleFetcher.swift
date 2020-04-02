@@ -213,8 +213,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             urlComponents?.scheme = scheme
             url = urlComponents?.url ?? url
         }
-        let headers = ["Accept": "text/html; charset=utf-8"]
-        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: headers) {
+        let acceptUTF8HTML = ["Accept": "text/html; charset=utf-8"]
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest

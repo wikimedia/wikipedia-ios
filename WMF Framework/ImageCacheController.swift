@@ -96,8 +96,8 @@ public final class ImageCacheController: CacheController {
                 return
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
-            let headers = ["Accept": "*/*"]
-            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: headers) { (result) in
+            let acceptAnyContentType = ["Accept": "*/*"]
+            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { (result) in
                 switch result {
                 case .failure(let error):
                     guard !self.isCancellationError(error) else {
