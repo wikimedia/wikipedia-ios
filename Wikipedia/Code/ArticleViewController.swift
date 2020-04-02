@@ -943,6 +943,10 @@ extension ArticleViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         articleLoadDidFail(with: error)
     }
+    
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        webView.reload()
+    }
 }
 
 extension ViewController {
