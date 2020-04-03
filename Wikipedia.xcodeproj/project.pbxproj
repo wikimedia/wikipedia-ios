@@ -5351,13 +5351,6 @@
 			name = "Table of Contents";
 			sourceTree = "<group>";
 		};
-		0E52FD631DA4008A00587426 /* Content Display */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Content Display";
-			sourceTree = "<group>";
-		};
 		0E52FD651DA40EA200587426 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
@@ -5575,7 +5568,6 @@
 				83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */,
 				D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
-				0E52FD631DA4008A00587426 /* Content Display */,
 				B0B4235F1EF9D65F00D3DC4C /* On This Day */,
 			);
 			name = Feed;
