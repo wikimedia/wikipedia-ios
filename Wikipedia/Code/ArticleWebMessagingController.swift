@@ -40,7 +40,7 @@ class ArticleWebMessagingController: NSObject {
     }
     
     func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], lastModified: Date?) {
-        guard let title = articleURL.wmf_title else {
+        guard let title = articleURL.percentEncodedPageTitleForPathComponents else {
             return
         }
         var editedDaysAgo: Int?

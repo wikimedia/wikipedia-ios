@@ -87,4 +87,11 @@ class URLParsingAndRoutingTests: XCTestCase {
         }
     }
     
+    func testTitlesWithForwardSlashes() {
+        var url = URL(string: "https://en.wikipedia.org/wiki/G/O_Media")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("./Gizmodo")?.absoluteString, "https://en.wikipedia.org/wiki/Gizmodo")
+        url = URL(string: "https://en.wikipedia.org/wiki//dev/random")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref(".//dev/null")?.absoluteString, "https://en.wikipedia.org/wiki//dev/null")
+    }
+    
 }
