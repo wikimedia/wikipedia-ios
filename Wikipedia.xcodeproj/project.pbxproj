@@ -6224,7 +6224,6 @@
 			children = (
 				7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */,
 				7A0D4D41225EABFC00774A5A /* Insert */,
-				7AF8CEDE2265281F000B7676 /* Upload */,
 			);
 			name = Media;
 			sourceTree = "<group>";
@@ -6308,13 +6307,6 @@
 				7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */,
 			);
 			name = Settings;
-			sourceTree = "<group>";
-		};
-		7AF8CEDE2265281F000B7676 /* Upload */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Upload;
 			sourceTree = "<group>";
 		};
 		83023C1720E6581A00EC7592 /* Transitions */ = {
