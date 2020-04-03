@@ -19,7 +19,7 @@ public protocol CacheFetching {
     typealias DataCompletion = (Result<CacheFetchingResult, Error>) -> Void
     
     //internally populates urlRequest with cache header fields
-    func dataForURL(_ url: URL, persistType: Header.PersistItemType, completion: @escaping DataCompletion) -> URLSessionTask?
+    func dataForURL(_ url: URL, persistType: Header.PersistItemType, headers: [String: String], completion: @escaping DataCompletion) -> URLSessionTask?
     
     //assumes urlRequest is already populated with cache header fields
     func dataForURLRequest(_ urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask?
@@ -72,9 +72,9 @@ extension CacheFetching where Self:Fetcher {
         return task
     }
     
-    @discardableResult public func dataForURL(_ url: URL, persistType: Header.PersistItemType, completion: @escaping DataCompletion) -> URLSessionTask? {
+    @discardableResult public func dataForURL(_ url: URL, persistType: Header.PersistItemType, headers: [String: String] = [:], completion: @escaping DataCompletion) -> URLSessionTask? {
         
-        guard let urlRequest = session.urlRequestFromPersistence(with: url, persistType: persistType) else {
+        guard let urlRequest = session.urlRequestFromPersistence(with: url, persistType: persistType, headers: headers) else {
             completion(.failure(CacheFetchingError.unableToDetermineURLRequest))
             return nil
         }

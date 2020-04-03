@@ -117,7 +117,7 @@ public class ArticleSummaryFetcher: Fetcher {
         }
         
         let pathComponents = ["page", "summary", title]
-        return performMobileAppsServicesGET(for: articleURL, pathComponents: pathComponents, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
+        return performRESTBaseGET(for: articleURL, pathComponents: pathComponents, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
             completion(summary, response, error)
         }
     }
