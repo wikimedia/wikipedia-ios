@@ -6998,14 +6998,6 @@
 			name = Features;
 			sourceTree = "<group>";
 		};
-		BC45D58F1C32FEAF007C72F3 /* MediaWikiKit */ = {
-			isa = PBXGroup;
-			children = (
-				BCB58F401A890D8200465627 /* Categories */,
-			);
-			name = MediaWikiKit;
-			sourceTree = "<group>";
-		};
 		BC45D59F1C33018C007C72F3 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -7261,13 +7253,6 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		BCB58F401A890D8200465627 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
 		BCB669621A83DB8100C7B1FE /* Serializers */ = {
 			isa = PBXGroup;
 			children = (
@@ -7281,7 +7266,6 @@
 			isa = PBXGroup;
 			children = (
 				229C20D91CB08FA500BC17AD /* PageHistory */,
-				BC45D58F1C32FEAF007C72F3 /* MediaWikiKit */,
 			);
 			name = Model;
 			path = Wikipedia/Code;
