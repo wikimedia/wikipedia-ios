@@ -59,7 +59,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
         addToHistory()
-        fromNavStateRestoration = false
         syncCachedResourcesIfNeeded()
     }
     
