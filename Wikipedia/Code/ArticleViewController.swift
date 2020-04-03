@@ -24,6 +24,7 @@ class ArticleViewController: ViewController {
     
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
+    /// Also pull from cache so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
     /// Set internally to wait for content size changes to chill before restoring the scroll offset
     var isRestoringStateOnNextContentSizeChange: Bool = false
@@ -45,9 +46,6 @@ class ArticleViewController: ViewController {
 
     private var leadImageHeight: CGFloat = 210
 
-    //tells calls to try pulling from cache first so the user sees the article as quickly as possible
-    internal var fromNavStateRestoration: Bool = false
-
     private var contentSizeObservation: NSKeyValueObservation? = nil
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -55,7 +53,7 @@ class ArticleViewController: ViewController {
         return rc
     }()
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = ArticleCacheController.shared
@@ -70,8 +68,6 @@ class ArticleViewController: ViewController {
         self.dataStore = dataStore
 
         self.schemeHandler = SchemeHandler.shared
-        
-        self.fromNavStateRestoration = fromNavStateRestoration
 
         self.cacheController = cacheController
         
@@ -298,7 +294,7 @@ class ArticleViewController: ViewController {
         state = .loading
         
         setupPageContentServiceJavaScriptInterface {
-            let cachePolicy: WMFCachePolicy? = self.fromNavStateRestoration ? .foundation(.returnCacheDataElseLoad) : nil
+            let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
             self.loadPage(cachePolicy: cachePolicy)
         }
     }
