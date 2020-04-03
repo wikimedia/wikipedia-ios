@@ -7530,7 +7530,6 @@
 				D84DAA081EEEF527008E4B18 /* SWStepSlider */,
 				D8E27B9C1F82AFE600F9D2B3 /* RMessage */,
 				D8C4D3CF1FD5D9250089CEC2 /* TUSafariActivity */,
-				D82014811E68693600BA8579 /* HexColors */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -7585,13 +7584,6 @@
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		D82014811E68693600BA8579 /* HexColors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = HexColors;
 			sourceTree = "<group>";
 		};
 		D82E951A1F101D7D007BD960 /* Extensions */ = {
