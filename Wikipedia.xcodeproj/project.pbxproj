@@ -6751,13 +6751,6 @@
 			name = "RTL Utilities";
 			sourceTree = "<group>";
 		};
-		BC45D5551C31ED70007C72F3 /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Operations;
-			sourceTree = "<group>";
-		};
 		BC45D5561C31EEBE007C72F3 /* Error Handling */ = {
 			isa = PBXGroup;
 			children = (
@@ -6956,7 +6949,6 @@
 			children = (
 				67DB110822613EF700F789B0 /* SchemeHandler */,
 				04C43AB7183442FC006C643B /* Categories */,
-				BC45D5551C31ED70007C72F3 /* Operations */,
 				B08423DC2384E260005E93A0 /* URLTranslations */,
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
