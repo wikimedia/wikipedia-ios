@@ -8,8 +8,38 @@ extension URL {
         return components?.url
     }
     
+    /// Returns the percent encoded page title to handle titles with / characters
     public var percentEncodedPageTitleForPathComponents: String? {
         return wmf_title?.percentEncodedPageTitleForPathComponents
+    }
+    
+    /// Encodes the page title to handle titles with forward slash characters when splitting path components.
+    /// The callee should be a standardized page URL generated with wmf_databaseURL, non-article namespaces are OK
+    /// For example, https://en.wikipedia.org/wiki/G/O_Media becomes https://en.wikipedia.org/wiki/G%2FO_Media
+    public var encodedWikiURL: URL? {
+        guard let percentEncodedTitle = percentEncodedPageTitleForPathComponents else {
+            assert(false, "encodedWikiURL potentially called on a non-wiki URL")
+            return nil
+        }
+        let encodedPathComponents = ["wiki", percentEncodedTitle]
+        var encodedURLComponents = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        encodedURLComponents?.replacePercentEncodedPathWithPathComponents(encodedPathComponents)
+        return encodedURLComponents?.url
+    }
+    
+    /// Resolves a relative href from a wiki page against the callee.
+    /// The callee should be a standardized page URL generated with wmf_databaseURL, non-article namespaces are OK
+    public func resolvingRelativeWikiHref(_ href: String) -> URL? {
+        let urlComponentsString: String
+        if href.hasPrefix(".") || href.hasPrefix("/") {
+            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
+        } else {
+            urlComponentsString = href
+        }
+        let components = URLComponents(string: urlComponentsString)
+        // Encode this URL to handle titles with forward slashes, otherwise URLComponents thinks they're separate path components
+        let encodedBaseURL = encodedWikiURL
+        return components?.url(relativeTo: encodedBaseURL)?.absoluteURL
     }
     
     public var wmf_language: String? {
