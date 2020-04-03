@@ -5351,13 +5351,6 @@
 			name = "Table of Contents";
 			sourceTree = "<group>";
 		};
-		0E52FD631DA4008A00587426 /* Content Display */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Content Display";
-			sourceTree = "<group>";
-		};
 		0E52FD651DA40EA200587426 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
@@ -5575,7 +5568,6 @@
 				83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */,
 				D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
-				0E52FD631DA4008A00587426 /* Content Display */,
 				B0B4235F1EF9D65F00D3DC4C /* On This Day */,
 			);
 			name = Feed;
@@ -6224,7 +6216,6 @@
 			children = (
 				7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */,
 				7A0D4D41225EABFC00774A5A /* Insert */,
-				7AF8CEDE2265281F000B7676 /* Upload */,
 			);
 			name = Media;
 			sourceTree = "<group>";
@@ -6308,13 +6299,6 @@
 				7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */,
 			);
 			name = Settings;
-			sourceTree = "<group>";
-		};
-		7AF8CEDE2265281F000B7676 /* Upload */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Upload;
 			sourceTree = "<group>";
 		};
 		83023C1720E6581A00EC7592 /* Transitions */ = {
@@ -6751,13 +6735,6 @@
 			name = "RTL Utilities";
 			sourceTree = "<group>";
 		};
-		BC45D5551C31ED70007C72F3 /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Operations;
-			sourceTree = "<group>";
-		};
 		BC45D5561C31EEBE007C72F3 /* Error Handling */ = {
 			isa = PBXGroup;
 			children = (
@@ -6956,7 +6933,6 @@
 			children = (
 				67DB110822613EF700F789B0 /* SchemeHandler */,
 				04C43AB7183442FC006C643B /* Categories */,
-				BC45D5551C31ED70007C72F3 /* Operations */,
 				B08423DC2384E260005E93A0 /* URLTranslations */,
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
@@ -6996,14 +6972,6 @@
 				0E26B0541C0E28E60004D687 /* Welcome */,
 			);
 			name = Features;
-			sourceTree = "<group>";
-		};
-		BC45D58F1C32FEAF007C72F3 /* MediaWikiKit */ = {
-			isa = PBXGroup;
-			children = (
-				BCB58F401A890D8200465627 /* Categories */,
-			);
-			name = MediaWikiKit;
 			sourceTree = "<group>";
 		};
 		BC45D59F1C33018C007C72F3 /* User */ = {
@@ -7261,13 +7229,6 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		BCB58F401A890D8200465627 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
 		BCB669621A83DB8100C7B1FE /* Serializers */ = {
 			isa = PBXGroup;
 			children = (
@@ -7281,7 +7242,6 @@
 			isa = PBXGroup;
 			children = (
 				229C20D91CB08FA500BC17AD /* PageHistory */,
-				BC45D58F1C32FEAF007C72F3 /* MediaWikiKit */,
 			);
 			name = Model;
 			path = Wikipedia/Code;
@@ -7530,7 +7490,6 @@
 				D84DAA081EEEF527008E4B18 /* SWStepSlider */,
 				D8E27B9C1F82AFE600F9D2B3 /* RMessage */,
 				D8C4D3CF1FD5D9250089CEC2 /* TUSafariActivity */,
-				D82014811E68693600BA8579 /* HexColors */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -7585,13 +7544,6 @@
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		D82014811E68693600BA8579 /* HexColors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = HexColors;
 			sourceTree = "<group>";
 		};
 		D82E951A1F101D7D007BD960 /* Extensions */ = {
