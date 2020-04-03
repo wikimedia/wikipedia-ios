@@ -1,11 +1,11 @@
 import Foundation
 import XCTest
 
-let defaultHandler: XCWaitCompletionHandler = { (err: NSError?) -> Void in
+let defaultHandler: XCWaitCompletionHandler = { (err: Error?) -> Void in
     if let e = err {
         print("Timeout expired with error \(e)")
     }
-} as! XCWaitCompletionHandler
+}
 
 extension XCTestCase {
     public func wmf_waitForExpectations(_ timeout: TimeInterval = WMFDefaultExpectationTimeout,
