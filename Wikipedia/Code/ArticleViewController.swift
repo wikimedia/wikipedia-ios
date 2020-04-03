@@ -24,7 +24,7 @@ class ArticleViewController: ViewController {
     
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
-    /// Also pull from cache so the user sees the article as quickly as possible
+    /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
     /// Set internally to wait for content size changes to chill before restoring the scroll offset
     var isRestoringStateOnNextContentSizeChange: Bool = false
