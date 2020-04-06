@@ -6,7 +6,7 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
         self.announcement = announcement
         self.panelWidth = width
         super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
-        isUrgent = announcement.type == "fundraising"
+        isUrgent = announcement.announcementType == .fundraising
         self.footerLinkAction = footerLinkAction
     }
 

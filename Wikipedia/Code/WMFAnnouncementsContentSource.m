@@ -62,6 +62,7 @@
             }];
         }
         success:^(NSArray<WMFAnnouncement *> *announcements) {
+            
             [self saveAnnouncements:announcements
                 inManagedObjectContext:moc
                             completion:^{
@@ -97,6 +98,7 @@
             }
         }];
 
+        [WMFSurveyAnnouncementsController shared].announcements = announcements;
         if (completion) {
             completion();
         }
@@ -129,7 +131,7 @@
     // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
     NSArray *announcements = [moc contentGroupsOfKind:WMFContentGroupKindAnnouncement];
     for (WMFContentGroup *announcement in announcements) {
-        if (![announcement.key containsString:@"FUNDRAISING19"]) {
+        if (![announcement.key containsString:@"FUNDRAISING19"] && ![announcement.key containsString:@"SURVEY20"]) {
             continue;
         }
         [moc deleteObject:announcement];

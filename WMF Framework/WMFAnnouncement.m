@@ -24,7 +24,10 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, negativeText): @"negative_text",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, loggedIn): @"logged_in",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, readingListSyncEnabled): @"reading_list_sync_enabled",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, beta): @"beta"
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, beta): @"beta",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, domain): @"domain",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, articleTitles): @"articleTitles",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, displayDelay): @"displayDelay"
     };
 }
 

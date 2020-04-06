@@ -27,6 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSNumber *loggedIn;
 @property (nonatomic, copy, readonly, nullable) NSNumber *beta;
 
+@property (nonatomic, copy, readonly, nullable) NSString *domain;
+
+//only applies to survey types
+@property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *articleTitles;
+@property (nonatomic, strong, readonly, nullable) NSNumber *displayDelay;
+
 @end
 
 NS_ASSUME_NONNULL_END
