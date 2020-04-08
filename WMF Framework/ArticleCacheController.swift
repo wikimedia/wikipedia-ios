@@ -134,7 +134,7 @@ public final class ArticleCacheController: CacheController {
         }
     }
     
-    public func cacheFromMigration(desktopArticleURL: URL, content: String, mimeType: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
+    public func cacheFromMigration(desktopArticleURL: URL, content: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
             completionHandler(ArticleCacheControllerError.invalidDBWriterType)
@@ -145,7 +145,7 @@ public final class ArticleCacheController: CacheController {
             
             articleDBWriter.addMobileHtmlURLForMigration(desktopArticleURL: desktopArticleURL, success: { urlRequest in
                 
-                self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
+                self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, success: {
 
                     articleDBWriter.markDownloaded(urlRequest: urlRequest, response: nil) { (result) in
                         switch result {

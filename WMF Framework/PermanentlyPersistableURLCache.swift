@@ -330,7 +330,7 @@ public enum CacheResponseContentType {
 
 extension PermanentlyPersistableURLCache {
     
-    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         guard let url = urlRequest.url else {
             failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest)
@@ -371,7 +371,7 @@ extension PermanentlyPersistableURLCache {
         switch content {
         case .data((let data)):
             dispatchGroup.enter()
-            CacheFileWriterHelper.saveData(data: data, toNewFileWithKey: contentFileName, mimeType: mimeType) { (result) in
+            CacheFileWriterHelper.saveData(data: data, toNewFileWithKey: contentFileName) { (result) in
                 
                 defer {
                     dispatchGroup.leave()
@@ -386,7 +386,7 @@ extension PermanentlyPersistableURLCache {
             }
         case .string(let string):
             dispatchGroup.enter()
-            CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName, mimeType: mimeType) { (result) in
+            CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName) { (result) in
                 defer {
                     dispatchGroup.leave()
                 }
@@ -439,7 +439,7 @@ extension PermanentlyPersistableURLCache {
             return
         }
         
-        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName, mimeType: mimeType) { (result) in
+        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName) { (result) in
             switch result {
             case .success, .exists:
                  CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": mimeType], toNewFileName: headerFileName) { (result) in

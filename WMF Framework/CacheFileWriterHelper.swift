@@ -10,7 +10,7 @@ final class CacheFileWriterHelper {
         return CacheController.cacheURL.appendingPathComponent(key, isDirectory: false)
     }
     
-    static func saveData(data: Data, toNewFileWithKey key: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
+    static func saveData(data: Data, toNewFileWithKey key: String, completion: @escaping (FileSaveResult) -> Void) {
         do {
             let newFileURL = self.fileURL(for: key)
             try data.write(to: newFileURL)
@@ -26,7 +26,7 @@ final class CacheFileWriterHelper {
         }
     }
     
-    static func copyFile(from fileURL: URL, toNewFileWithKey key: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
+    static func copyFile(from fileURL: URL, toNewFileWithKey key: String, completion: @escaping (FileSaveResult) -> Void) {
         do {
             let newFileURL = self.fileURL(for: key)
             try FileManager.default.copyItem(at: fileURL, to: newFileURL)
@@ -115,7 +115,7 @@ final class CacheFileWriterHelper {
     }
 
     
-    static func saveContent(_ content: String, toNewFileName fileName: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
+    static func saveContent(_ content: String, toNewFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
         
         do {
             let newFileURL = self.fileURL(for: fileName)
