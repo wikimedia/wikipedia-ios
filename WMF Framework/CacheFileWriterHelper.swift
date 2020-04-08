@@ -14,9 +14,6 @@ final class CacheFileWriterHelper {
         do {
             let newFileURL = self.fileURL(for: key)
             try data.write(to: newFileURL)
-            if let mimeType = mimeType {
-                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
-            }
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
@@ -33,9 +30,6 @@ final class CacheFileWriterHelper {
         do {
             let newFileURL = self.fileURL(for: key)
             try FileManager.default.copyItem(at: fileURL, to: newFileURL)
-            if let mimeType = mimeType {
-                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
-            }
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
@@ -126,9 +120,6 @@ final class CacheFileWriterHelper {
         do {
             let newFileURL = self.fileURL(for: fileName)
             try content.write(to: newFileURL, atomically: true, encoding: .utf8)
-            if let mimeType = mimeType {
-                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
-            }
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
