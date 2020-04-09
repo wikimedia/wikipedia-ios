@@ -330,7 +330,7 @@ public enum CacheResponseContentType {
 
 extension PermanentlyPersistableURLCache {
     
-    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         guard let url = urlRequest.url else {
             failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest)
@@ -371,7 +371,7 @@ extension PermanentlyPersistableURLCache {
         switch content {
         case .data((let data)):
             dispatchGroup.enter()
-            CacheFileWriterHelper.saveData(data: data, toNewFileWithKey: contentFileName, mimeType: mimeType) { (result) in
+            CacheFileWriterHelper.saveData(data: data, toNewFileWithKey: contentFileName) { (result) in
                 
                 defer {
                     dispatchGroup.leave()
@@ -386,7 +386,7 @@ extension PermanentlyPersistableURLCache {
             }
         case .string(let string):
             dispatchGroup.enter()
-            CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName, mimeType: mimeType) { (result) in
+            CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName) { (result) in
                 defer {
                     dispatchGroup.leave()
                 }
@@ -439,7 +439,7 @@ extension PermanentlyPersistableURLCache {
             return
         }
         
-        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName, mimeType: mimeType) { (result) in
+        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName) { (result) in
             switch result {
             case .success, .exists:
                  CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": mimeType], toNewFileName: headerFileName) { (result) in
@@ -471,9 +471,7 @@ extension PermanentlyPersistableURLCache {
     }
     
     private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
-        
-        
-        
+
         let isArticleOrImageInfoRequest: Bool
         if let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
             let type = Header.PersistItemType(rawValue: typeRaw),
@@ -657,35 +655,38 @@ private extension PermanentlyPersistableURLCache {
         }
         
         //lookup fallback itemKey/variant in DB (language fallback logic for article item type, size fallback logic for image item type)
-        
-        var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc)
-        
-        switch type {
-        case .image:
-            allVariantItems.sortAsImageCacheItems()
-        case .article, .imageInfo:
-            break
-        }
-        
-        if let fallbackItemKey = allVariantItems.first?.key {
+
+        var response: CachedURLResponse? = nil
+        moc.performAndWait {
+            var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc)
             
-            let fallbackVariant = allVariantItems.first?.variant
-            
-            //migrated images do not have urls. defaulting to url passed in here.
-            let fallbackURL = allVariantItems.first?.url ?? url
-            
-            //first see if URLCache has the fallback
-            let quickCheckRequest = URLRequest(url: fallbackURL)
-            if let response = URLCache.shared.cachedResponse(for: quickCheckRequest) {
-                return response
+            switch type {
+            case .image:
+                allVariantItems.sortAsImageCacheItems()
+            case .article, .imageInfo:
+                break
             }
             
-            //then see if persistent cache has the fallback
-            let request = PersistedResponseRequest.fallbackItemKeyAndVariant(url: fallbackURL, itemKey: fallbackItemKey, variant: fallbackVariant)
-            return persistedResponseWithRequest(request)
+            if let fallbackItemKey = allVariantItems.first?.key {
+                
+                let fallbackVariant = allVariantItems.first?.variant
+                
+                //migrated images do not have urls. defaulting to url passed in here.
+                let fallbackURL = allVariantItems.first?.url ?? url
+                
+                //first see if URLCache has the fallback
+                let quickCheckRequest = URLRequest(url: fallbackURL)
+                if let systemCachedResponse = URLCache.shared.cachedResponse(for: quickCheckRequest) {
+                    response = systemCachedResponse
+                }
+                
+                //then see if persistent cache has the fallback
+                let request = PersistedResponseRequest.fallbackItemKeyAndVariant(url: fallbackURL, itemKey: fallbackItemKey, variant: fallbackVariant)
+                response = persistedResponseWithRequest(request)
+            }
         }
         
-        return nil
+        return response
     }
 }
 
