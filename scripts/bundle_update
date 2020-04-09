@@ -8,7 +8,7 @@ export GIT_STATUS=`git status --porcelain | grep ^\ [MAD]`
 if [ "$GIT_STATUS" ]; then
 	git commit -a -m "bundle update"
 	git push
-	if scripts/pr.rb bundle_update develop "Bundle update"; then
+	if scripts/pr.rb bundle_update master "Bundle update"; then
 		exit 0
 	else
 		exit 1
