@@ -292,21 +292,10 @@ fileprivate extension Error {
 @objc(WMFImageCacheControllerWrapper)
 public final class ImageCacheControllerWrapper: NSObject {
     
-    /// Performs any necessary library migrations on the cache controller managed object context.
-    /// Exists on this @objc wrapper so it can be accessed from WMFDataStore, ideally this would be on CacheController
+    /// Performs any necessary migrations on the CacheController's internal storage
+    /// Exists on this @objc ImageCacheControllerWrapper so it can be accessed from WMFDataStore
     @objc public static func performLibraryUpdates(_ completion: @escaping (Error?) -> Void) {
-        // Expensive file & db operations happen as a part of this migration, so async it to a non-main queue
-        DispatchQueue.global(qos: .default).async {
-            // Instantiating the moc will perform the migrations in CacheItemMigrationPolicy
-            guard let moc = CacheController.backgroundCacheContext else {
-                completion(CacheControllerError.unableToCreateBackgroundCacheContext)
-                return
-            }
-            // do a moc.perform in case anything else needs to be run before the context is ready
-            moc.perform {
-                completion(nil)
-            }
-        }
+        CacheController.performLibraryUpdates(completion)
     }
     
     private let imageCacheController = ImageCacheController.shared
