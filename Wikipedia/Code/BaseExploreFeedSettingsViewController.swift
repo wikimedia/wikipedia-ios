@@ -229,9 +229,6 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
 
     @objc private func exploreFeedPreferencesDidSave(_ notification: Notification) {
         updateFeedBeforeViewDisappears = true
-        guard displayType != .singleLanguage else {
-            return
-        }
         DispatchQueue.main.async {
             self.reload()
         }

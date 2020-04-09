@@ -24,6 +24,7 @@ class ArticleViewController: ViewController {
     
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
+    /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
     /// Set internally to wait for content size changes to chill before restoring the scroll offset
     var isRestoringStateOnNextContentSizeChange: Bool = false
@@ -45,9 +46,6 @@ class ArticleViewController: ViewController {
 
     private var leadImageHeight: CGFloat = 210
 
-    //tells calls to try pulling from cache first so the user sees the article as quickly as possible
-    internal var fromNavStateRestoration: Bool = false
-
     private var contentSizeObservation: NSKeyValueObservation? = nil
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -55,7 +53,7 @@ class ArticleViewController: ViewController {
         return rc
     }()
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = ArticleCacheController.shared
@@ -70,8 +68,6 @@ class ArticleViewController: ViewController {
         self.dataStore = dataStore
 
         self.schemeHandler = SchemeHandler.shared
-        
-        self.fromNavStateRestoration = fromNavStateRestoration
 
         self.cacheController = cacheController
         
@@ -245,6 +241,7 @@ class ArticleViewController: ViewController {
         super.viewDidLoad()
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         apply(theme: theme)
+        setupForStateRestorationIfNecessary()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -297,7 +294,7 @@ class ArticleViewController: ViewController {
         state = .loading
         
         setupPageContentServiceJavaScriptInterface {
-            let cachePolicy: WMFCachePolicy? = self.fromNavStateRestoration ? .foundation(.returnCacheDataElseLoad) : nil
+            let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
             self.loadPage(cachePolicy: cachePolicy)
         }
     }
@@ -407,6 +404,7 @@ class ArticleViewController: ViewController {
     
     // MARK: State Restoration
     
+    /// Save article scroll position for restoration later
     func saveArticleScrollPosition() {
         getVisibleSection { (sectionId, anchor) in
             assert(Thread.isMainThread)
@@ -417,28 +415,39 @@ class ArticleViewController: ViewController {
         }
     }
     
-    func restoreStateIfNecessary() {
+    /// Perform any necessary initial configuration for state restoration
+    func setupForStateRestorationIfNecessary() {
         guard isRestoringState else {
             return
         }
         setWebViewHidden(true, animated: false)
+    }
+    
+    /// If state needs to be restored, listen for content size changes and restore the scroll position when those changes stop occurring
+    func restoreStateIfNecessary() {
+        guard isRestoringState else {
+            return
+        }
         isRestoringState = false
         isRestoringStateOnNextContentSizeChange = true
         perform(#selector(restoreState), with: nil, afterDelay: 0.5) // failsafe, attempt to restore state after half a second regardless
     }
     
+    /// If state is supposed to be restored after the next content size change, restore that state
+    /// This should be called in a debounced manner when article content size changes
     func restoreStateIfNecessaryOnContentSizeChange() {
         guard isRestoringStateOnNextContentSizeChange else {
             return
         }
+        isRestoringStateOnNextContentSizeChange = false
         let scrollPosition = CGFloat(article.viewedScrollPosition)
         guard scrollPosition < webView.scrollView.bottomOffsetY else {
             return
         }
-        isRestoringStateOnNextContentSizeChange = false
         restoreState()
     }
     
+    /// Scroll to the state restoration scroll position now, canceling any previous attempts
     @objc func restoreState() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restoreState), object: nil)
         let scrollPosition = CGFloat(article.viewedScrollPosition)
@@ -449,7 +458,7 @@ class ArticleViewController: ViewController {
         }
         setWebViewHidden(false, animated: true)
     }
-    
+
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let block = {
             self.webView.alpha = hidden ? 0 : 1
@@ -529,15 +538,7 @@ class ArticleViewController: ViewController {
     // MARK: Overrideable functionality
     
     internal func handleLink(with href: String) {
-        let urlComponentsString: String
-        if href.hasPrefix(".") || href.hasPrefix("/") {
-            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
-        } else {
-            urlComponentsString = href
-        }
-        let components = URLComponents(string: urlComponentsString)
-        // Resolve relative URLs
-        guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
+        guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()
             return
         }
@@ -942,6 +943,12 @@ extension ArticleViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         articleLoadDidFail(with: error)
+    }
+    
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        // On process did terminate, the WKWebView goes blank
+        // Re-load the content in this case to show it again
+        webView.reload()
     }
 }
 

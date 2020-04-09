@@ -30,8 +30,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showAudio(with: url)
         case .scrollToAnchor(let anchor, let rect):
             scrollToAnchorCompletions.popLast()?(anchor, rect)
-        default:
-            break
+        case .viewInBrowser:
+            navigate(to: self.articleURL, useSafari: true)
         }
     }
     
@@ -59,7 +59,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
         addToHistory()
-        fromNavStateRestoration = false
         syncCachedResourcesIfNeeded()
     }
     

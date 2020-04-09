@@ -72,7 +72,7 @@ extension MWKDataStore {
                 return
             }
 
-            articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html"){ error in
+            articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML){ error in
                 // Conversion succeeded so can safely blast old mobileview folder.
                 //TODO: uncomment after 6.6 Beta releases if we decide to delete old data incrementally
                 //removeArticleMobileviewSavedDataFolder()
