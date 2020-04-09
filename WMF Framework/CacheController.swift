@@ -2,6 +2,7 @@
 import Foundation
 
 public enum CacheControllerError: Error {
+    case unableToCreateBackgroundCacheContext
     case atLeastOneItemFailedInFileWriter(Error)
     case failureToGenerateItemResult
     case atLeastOneItemFailedInSync(Error)
@@ -28,6 +29,22 @@ public class CacheController {
         return FileManager.default.sizeOfDirectory(at: cacheURL)
     }
     
+    /// Performs any necessary migrations on the CacheController's internal storage
+    static func performLibraryUpdates(_ completion: @escaping (CacheControllerError?) -> Void) {
+        // Expensive file & db operations happen as a part of this migration, so async it to a non-main queue
+        DispatchQueue.global(qos: .default).async {
+            // Instantiating the moc will perform the migrations in CacheItemMigrationPolicy
+            guard let moc = backgroundCacheContext else {
+                completion(.unableToCreateBackgroundCacheContext)
+                return
+            }
+            // do a moc.perform in case anything else needs to be run before the context is ready
+            moc.perform {
+                completion(nil)
+            }
+        }
+    }
+
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
         //create cacheURL directory
