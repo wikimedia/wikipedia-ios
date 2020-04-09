@@ -2,6 +2,7 @@
 import Foundation
 
 public enum CacheControllerError: Error {
+    case unableToCreateBackgroundCacheContext
     case atLeastOneItemFailedInFileWriter(Error)
     case failureToGenerateItemResult
     case atLeastOneItemFailedInSync(Error)

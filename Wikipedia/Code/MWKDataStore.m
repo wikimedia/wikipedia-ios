@@ -453,29 +453,34 @@ static uint64_t bundleHash() {
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
+    dispatch_block_t combinedCompletion = ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [WMFImageCacheControllerWrapper performLibraryMigrations:^(NSError * _Nullable error) {
+                if (error) {
+                    DDLogError(@"Error during cache controller migration: %@", error);
+                }
+                if (completion) {
+                    completion();
+                }
+            }];
+        });
+    };
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     // If the library value doesn't exist, it's a new library and can be set to the latest version
     if (!libraryVersionNumber) {
         [self performInitialLibrarySetup];
-        if (completion) {
-            completion();
-        }
+        combinedCompletion();
         return;
     }
     NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
     // If the library version is >= the current version, we can skip the migration
     if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
-        if (completion) {
-            completion();
-        }
+        combinedCompletion();
         return;
     }
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        dispatch_block_t done = ^{
-            dispatch_async(dispatch_get_main_queue(), completion);
-        };
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
-        done();
+        combinedCompletion();
     }];
 }
 
