@@ -454,16 +454,14 @@ static uint64_t bundleHash() {
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
     dispatch_block_t combinedCompletion = ^{
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            [WMFImageCacheControllerWrapper performLibraryMigrations:^(NSError * _Nullable error) {
-                if (error) {
-                    DDLogError(@"Error during cache controller migration: %@", error);
-                }
-                if (completion) {
-                    completion();
-                }
-            }];
-        });
+        [WMFImageCacheControllerWrapper performLibraryUpdates:^(NSError * _Nullable error) {
+            if (error) {
+                DDLogError(@"Error during cache controller migration: %@", error);
+            }
+            if (completion) {
+                completion();
+            }
+        }];
     };
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     // If the library value doesn't exist, it's a new library and can be set to the latest version
