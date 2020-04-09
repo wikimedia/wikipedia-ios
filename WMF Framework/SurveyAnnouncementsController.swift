@@ -34,7 +34,7 @@ public final class SurveyAnnouncementsController: NSObject {
     //Use for determining whether to show user a survey prompt or not.
     //Considers domain, campaign start/end dates, article title in campaign, and whether survey has already been acted upon or not.
     public func activeSurveyAnnouncementResultForTitle(_ articleTitle: String, siteURL: URL) -> SurveyAnnouncementResult? {
-        
+
         for announcement in announcements {
             
             guard let startTime = announcement.startTime,
@@ -42,11 +42,18 @@ public final class SurveyAnnouncementsController: NSObject {
                 let domain = announcement.domain,
                 let articleTitles = announcement.articleTitles,
                 let displayDelay = announcement.displayDelay,
-                let actionURL = announcement.actionURL,
                 let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
                 let host = components.host,
-                let identifier = announcement.identifier else {
+                let identifier = announcement.identifier,
+                let normalizedArticleTitle = articleTitle.normalizedPageTitle else {
                     continue
+            }
+            
+            let parameterizedArticleTitle = normalizedArticleTitle.replacingOccurrences(of: " ", with: "+")
+            let nonTemplateActionURLString = announcement.actionURLString?.replacingOccurrences(of: "{{articleTitle}}", with: parameterizedArticleTitle)
+            guard let actionURLString = nonTemplateActionURLString,
+            let actionURL = URL(string: actionURLString) else {
+                continue
             }
                 
             let now = Date()
@@ -56,7 +63,7 @@ public final class SurveyAnnouncementsController: NSObject {
                 continue
             }
             
-            if now > startTime && now < endTime && host == domain, articleTitles.contains(articleTitle) {
+            if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
                 return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
             }
         }

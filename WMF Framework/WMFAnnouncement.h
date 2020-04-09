@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly, nullable) NSString *actionTitle;
 @property (nonatomic, copy, readonly, nullable) NSURL *actionURL;
+@property (nonatomic, copy, readonly, nullable) NSString *actionURLString;
 
 @property (nonatomic, copy, readonly, nullable) NSString *captionHTML;
 @property (nonatomic, copy, readonly, nullable) NSString *negativeText;

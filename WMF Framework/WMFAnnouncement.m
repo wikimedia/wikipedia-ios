@@ -6,6 +6,8 @@
 
 @implementation WMFAnnouncement
 
+@synthesize actionURL = _actionURL;
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, identifier): @"id",
@@ -17,7 +19,7 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, placement): @"placement",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, text): @"text",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURLString): @"action.url",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @[@"image", @"image_url"],
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageHeight): @"image_height",
@@ -35,18 +37,12 @@
     return 4;
 }
 
-+ (NSValueTransformer *)actionURLJSONTransformer {
-    return [MTLValueTransformer
-        transformerUsingForwardBlock:^NSURL *(NSString *urlString,
-                                              BOOL *success,
-                                              NSError *__autoreleasing *error) {
-            return [NSURL wmf_optionalURLWithString:urlString];
-        }
-        reverseBlock:^NSString *(NSURL *URL,
-                                 BOOL *success,
-                                 NSError *__autoreleasing *error) {
-            return [URL absoluteString];
-        }];
+- (NSURL *)actionURL {
+    if (!_actionURL) {
+        _actionURL = [NSURL wmf_optionalURLWithString: self.actionURLString];
+    }
+    
+    return _actionURL;
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer {
