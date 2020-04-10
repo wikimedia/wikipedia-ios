@@ -9,7 +9,7 @@ class LoadingAnimationViewController: UIViewController {
     @IBOutlet private var backgroundView: UIView!
     @IBOutlet private var cancelButton: UIButton!
     @IBOutlet private var backgroundImageView: UIImageView!
-    @IBOutlet private var loadingPageLabel: UILabel!
+    @IBOutlet private var statusLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +17,7 @@ class LoadingAnimationViewController: UIViewController {
         apply(theme: theme)
         
         cancelButton.setTitle(CommonStrings.cancelActionTitle, for: .normal)
-        loadingPageLabel.text = WMFLocalizedString("link-loading-title", value: "Loading page...", comment: "Title displayed in loading overlay after link is tapped.")
+        statusLabel.text = WMFLocalizedString("data-migration-status", value: "Updating...", comment: "Message displayed during a long running data migration.")
         view.accessibilityViewIsModal = true
         
         updateFonts()
@@ -27,7 +27,7 @@ class LoadingAnimationViewController: UIViewController {
         super.viewDidAppear(animated)
         
         satelliteImageView.startRotating()
-        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: loadingPageLabel)
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: statusLabel)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -49,7 +49,7 @@ class LoadingAnimationViewController: UIViewController {
     
     private func updateFonts() {
         cancelButton.titleLabel?.font = UIFont.wmf_font(.semiboldTitle3, compatibleWithTraitCollection: traitCollection)
-        loadingPageLabel.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
+        statusLabel.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
     }
 }
 
@@ -90,6 +90,6 @@ extension LoadingAnimationViewController: Themeable {
         backgroundView.backgroundColor = theme.colors.paperBackground
         cancelButton.setTitleColor(theme.colors.link, for: .normal)
         backgroundImageView.tintColor = theme.colors.animationBackground
-        loadingPageLabel.textColor = theme.colors.primaryText
+        statusLabel.textColor = theme.colors.primaryText
     }
 }
