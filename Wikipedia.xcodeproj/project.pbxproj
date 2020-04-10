@@ -1235,6 +1235,14 @@
 		83DB0A5B23EEDE2D00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
 		83DB0A5C23EEDE2E00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
 		83DB0A5E23EEDE4400DA5F58 /* LegacyArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */; };
+		83E3E7252440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
+		83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
+		83E3E7272440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
+		83E3E7282440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
+		83E3E72A2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */; };
+		83E3E72B2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */; };
+		83E3E72C2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */; };
+		83E3E72D2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */; };
 		83E52BB41F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
 		83E52BB51F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
 		83E52BB61F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
@@ -3630,6 +3638,8 @@
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
 		83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileviewToMobileHTMLConverter.swift; sourceTree = "<group>"; };
 		83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyArticle.swift; sourceTree = "<group>"; };
+		83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationViewController.swift; sourceTree = "<group>"; };
+		83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingAnimationViewController.xib; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
 		83E52BB31F681F940045E776 /* ShareAFactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAFactViewController.xib; sourceTree = "<group>"; };
 		83E52BBE1F682E3E0045E776 /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
@@ -7541,6 +7551,8 @@
 				7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */,
 				7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */,
 				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
+				83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */,
+				83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -9082,6 +9094,7 @@
 				D8D92B681DF22E1700B95311 /* NotificationButtonBackground.png in Resources */,
 				B0C64A9621F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
 				B0E804181C0CDE480065EBC0 /* WMFSettingsViewController.storyboard in Resources */,
+				83E3E72A2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
 				7AC19E4A2301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.xib in Resources */,
 				B09B03F61CE0FB7700009083 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -9187,6 +9200,7 @@
 				6780D5C3237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172C2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8E23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
+				83E3E72D2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8A42BE41E815A9C00D8E281 /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -9311,6 +9325,7 @@
 				6780D5C1237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8C23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
+				83E3E72B2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8CE266B1E698E2400DAE2E0 /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -9435,6 +9450,7 @@
 				6780D5C2237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8D23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
+				83E3E72C2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8EC3F6B1E9BDA35006712EB /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -10011,6 +10027,7 @@
 				B0524B1F214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D80BF0A32347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				8330532E23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
+				83E3E7252440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D87914DD1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				67E0691B223B32F1008550AC /* FocusNavigationView.swift in Sources */,
 				83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
@@ -10681,6 +10698,7 @@
 				8350FC4F20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D8A42A761E815A9C00D8E281 /* NSDate+WMFPOTDTitle.m in Sources */,
+				83E3E7282440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				8382F8CA20D844C800AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				B0B423641EF9D6A400D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D8A42A771E815A9C00D8E281 /* WMFTableHeaderFooterLabelView.m in Sources */,
@@ -11136,6 +11154,7 @@
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
 				7A0FF2CD230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
 				7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */,
+				83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				7AF8CEEE22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
@@ -11583,6 +11602,7 @@
 				7AE99B3021CC53AB0092BE7F /* TextFontFormattingTableViewController.swift in Sources */,
 				7A0FF2CE230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
 				7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */,
+				83E3E7272440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				7AF8CEEF22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
