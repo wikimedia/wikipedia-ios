@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *articleTitles;
 @property (nonatomic, strong, readonly, nullable) NSNumber *displayDelay;
 
+- (nullable NSURL *)actionURLReplacingPlaceholder:(nonnull NSString *)placeholder withValue: (nonnull NSString *)value;
+
 @end
 
 NS_ASSUME_NONNULL_END

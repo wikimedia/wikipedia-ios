@@ -55,7 +55,7 @@
 		0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8380641D64989F0076EDE4 /* NotificationCenter.framework */; };
 		0E83806C1D64989F0076EDE4 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E83806A1D64989F0076EDE4 /* MainInterface.storyboard */; };
 		0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */; };
+		0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */; };
 		0E87683A1DDE00D600B8CACD /* WMFAnnouncementsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768381DDE00D600B8CACD /* WMFAnnouncementsFetcher.h */; };
 		0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8768391DDE00D600B8CACD /* WMFAnnouncementsFetcher.m */; };
@@ -8292,7 +8292,6 @@
 				D849D6501D6CC7D200D06FC8 /* WMFImageTagList+ImageURLs.h in Headers */,
 				D844D9A61D6CB7230042D692 /* MWKList.h in Headers */,
 				D83FA6B51D74CDE0008CAB00 /* EventLoggingFunnel.h in Headers */,
-				0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */,
 				D8FA18EF1E1BDA2F009675C3 /* UIImageView+WMFContentOffset.h in Headers */,
 				D8FA18B71E1BD891009675C3 /* NSDateFormatter+WMFExtensions.h in Headers */,
 				D844D9DD1D6CBBFE0042D692 /* NSString+WMFHTMLParsing.h in Headers */,
@@ -8339,6 +8338,7 @@
 				0E728D221DAEE2B50074EB4B /* WMFFeedNewsStory.h in Headers */,
 				D844482A1DDB632100425630 /* WMFArticle+CoreDataProperties.h in Headers */,
 				6779D45D24008654002840CA /* MWKImageInfoFetcher.h in Headers */,
+				0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */,
 				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
 				83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */,
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
@@ -16665,7 +16665,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL_ANNOUNCEMENTS -DWMF_LOCAL_PAGE_CONTENT_SERVICE";
+				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL_ANNOUNCEMENTS";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

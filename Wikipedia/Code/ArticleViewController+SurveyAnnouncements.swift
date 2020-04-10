@@ -23,6 +23,10 @@ extension ArticleViewController {
     
     private func showSurveyAnnouncementPanel(surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult) {
         
+        guard state == .loaded else {
+            return
+        }
+        
         wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, primaryButtonTapHandler: { (sender) in
             self.navigate(to: surveyAnnouncementResult.actionURL, useSafari: true)
             SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(true, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)

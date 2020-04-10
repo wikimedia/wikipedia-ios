@@ -49,23 +49,35 @@ public final class SurveyAnnouncementsController: NSObject {
                     continue
             }
             
-            let parameterizedArticleTitle = normalizedArticleTitle.replacingOccurrences(of: " ", with: "+")
-            let nonTemplateActionURLString = announcement.actionURLString?.replacingOccurrences(of: "{{articleTitle}}", with: parameterizedArticleTitle)
-            guard let actionURLString = nonTemplateActionURLString,
-            let actionURL = URL(string: actionURLString) else {
+            let googleFormattedArticleTitle = normalizedArticleTitle.replacingOccurrences(of: " ", with: "+")
+            
+            guard let actionURL = announcement.actionURLReplacingPlaceholder("{{articleTitle}}", withValue: googleFormattedArticleTitle) else {
                 continue
             }
                 
             let now = Date()
             
             //do not show if user has already seen and answered for this campaign
-            if let _ = UserDefaults.standard.object(forKey: identifier) as? Bool {
+            guard UserDefaults.standard.object(forKey: identifier) == nil else {
                 continue
             }
             
-            if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
-                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
-            }
+            //ignore startTime/endTime and reduce displayDelay for easier debug testing
+            #if DEBUG
+                
+                if host == domain, articleTitles.contains(normalizedArticleTitle) {
+                    
+                    return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: 10.0)
+                    
+                }
+            
+            #else
+            
+                if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
+                    return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
+                }
+            
+            #endif
         }
         
         return nil
