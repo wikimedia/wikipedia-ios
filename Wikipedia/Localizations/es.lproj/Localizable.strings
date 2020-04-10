@@ -135,6 +135,7 @@
 "appearance-settings-set-automatic-table-opening" = "Configuración de tablas";
 "appearance-settings-text-sizing-example-text" = "Arrastra el control deslizante para cambiar el tamaño del texto del artículo. Utiliza el tamaño de texto de tu sistema para redimensionar otras áreas de texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
+"article-about-title" = "Acerca de este artículo";
 "article-delete" = "Borrar";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artículo eliminado|artículos eliminados}}";
 "article-languages-filter-placeholder" = "Buscar idioma";
@@ -565,11 +566,13 @@
 "page-history-revisions-comparison-warning" = "Solo puede seleccionar dos revisiones";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edición|$1 ediciones}} desde $2";
 "page-history-user-edits" = "ediciones del usuario";
+"page-location" = "Ver en un mapa";
 "page-protected-autoconfirmed" = "Esta página está semiprotegida.";
 "page-protected-can-not-edit" = "No tienes permisos para editar esta página";
 "page-protected-can-not-edit-title" = "Esta página está protegida";
 "page-protected-other" = "Esta página ha sido protegida a los siguientes niveles: $1";
 "page-protected-sysop" = "Esta página está totalmente protegida.";
+"page-similar-titles" = "Páginas similares";
 "panel-compare-revisions-text" = "Comparar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Comparar dos revisiones de un artículo mostrará la diferencia entre esas revisiones al resaltar cualquier contenido que fue cambiado.";
 "panel-compare-revisions-title" = "Comparando revisiones";
 "pictured" = "retratado";

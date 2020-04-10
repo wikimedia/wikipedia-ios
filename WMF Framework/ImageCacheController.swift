@@ -292,6 +292,12 @@ fileprivate extension Error {
 @objc(WMFImageCacheControllerWrapper)
 public final class ImageCacheControllerWrapper: NSObject {
     
+    /// Performs any necessary migrations on the CacheController's internal storage
+    /// Exists on this @objc ImageCacheControllerWrapper so it can be accessed from WMFDataStore
+    @objc public static func performLibraryUpdates(_ completion: @escaping (Error?) -> Void) {
+        CacheController.performLibraryUpdates(completion)
+    }
+    
     private let imageCacheController = ImageCacheController.shared
     
     @objc public static let shared: ImageCacheControllerWrapper = {

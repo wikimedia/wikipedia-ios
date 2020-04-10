@@ -88,6 +88,7 @@
 "account-group-title" = "您的帐户";
 "account-talk-page-title" = "你的讨论页";
 "account-talk-preferences-auto-sign-discussions" = "自动签名讨论";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "自动签名的讨论将使用签名设置中定义的签名";
 "account-talk-preferences-title" = "讨论页面参数设置";
 "action-add-to" = "添加至…";
 "action-add-to-reading-list" = "添加至阅读列表";
