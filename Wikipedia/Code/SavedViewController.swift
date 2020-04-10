@@ -310,6 +310,14 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         actionButton.isEnabled = !isEditing
+        if (newEditingState == .open),
+            let batchEditToolbar = self.savedArticlesViewController?.editController.batchEditToolbarView,
+            let contentView = self.containerView,
+            let appTabBar = self.parent?.view.subviews.first(where: {($0 as? UITabBar) != nil}) {
+                self.accessibilityElements = [self.navigationBar, batchEditToolbar, contentView, appTabBar]
+        } else {
+            self.accessibilityElements = []
+        }
         guard isEditing else {
             return
         }
