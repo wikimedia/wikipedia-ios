@@ -39,6 +39,7 @@
 // Author: Ping08
 // Author: Redredsonia
 // Author: Saimongoltinio
+// Author: Stjn
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -354,7 +355,7 @@
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка «Настройки» будет заменена вкладкой «Лента». Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Включить «Ленту»?";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
-"explore-main-page-description" = "Главная страница проектов Викимедиа";
+"explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-most-read-footer" = "Все самые читаемые статьи";
 "explore-most-read-generic-heading" = "Самые читаемые";
