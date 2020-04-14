@@ -368,7 +368,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>לא ניתן לבטל את הפעולה הזו. כל הערכים שנשמרו %#@v1@ לא יישמרו.</string>
+		<string>לא ניתן לבטל את הפעולה הזאת. כל הערכים שנשמרו %#@v1@ לא יישמרו.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
