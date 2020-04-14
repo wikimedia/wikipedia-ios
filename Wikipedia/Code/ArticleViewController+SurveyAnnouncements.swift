@@ -27,7 +27,7 @@ extension ArticleViewController {
             return
         }
         
-        wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, primaryButtonTapHandler: { (sender) in
+        wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, style: .minimal, primaryButtonTapHandler: { (sender) in
             self.navigate(to: surveyAnnouncementResult.actionURL, useSafari: true)
             SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(true, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)
             // dismiss handler is called

@@ -33,6 +33,22 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var headingLabel: UILabel!
     @IBOutlet fileprivate weak var subheadingLabel: UILabel!
+    
+    let originalSubheadingTopConstraint = CGFloat(0)
+    let originalSubheadingBottomConstraint = CGFloat(0)
+    
+    @IBOutlet var subheadingTopConstraint: NSLayoutConstraint! {
+        didSet {
+            subheadingTopConstraint.constant = originalSubheadingTopConstraint
+        }
+    }
+    
+    @IBOutlet var subheadingBottomConstraint: NSLayoutConstraint! {
+       didSet {
+           subheadingBottomConstraint.constant = originalSubheadingBottomConstraint
+       }
+    }
+    
     @IBOutlet fileprivate weak var primaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var secondaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var footerTextView: UITextView!
@@ -110,9 +126,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
                     NSAttributedString.Key.foregroundColor: theme.colors.primaryText
                 ]
             ])
-            let pStyle = NSMutableParagraphStyle()
-            pStyle.lineHeightMultiple = 1.2
-            let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
+            
+            var attributes: [NSAttributedString.Key : Any] = [:]
+            if let subheadingParagraphStyle = subheadingParagraphStyle {
+                attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
+            }
             attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
             subheadingLabel.attributedText = attributedText
         }
@@ -168,6 +186,19 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     var footerLinkAction: ((URL) -> Void)? = nil
+    
+    var subheadingParagraphStyle: NSParagraphStyle? {
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineHeightMultiple = 1.2
+        return pStyle.copy() as? NSParagraphStyle
+    }
+    
+    var footerParagraphStyle: NSParagraphStyle? {
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineBreakMode = .byWordWrapping
+        pStyle.baseWritingDirection = .natural
+        return pStyle.copy() as? NSParagraphStyle
+    }
 
     private func updateFooterHTML() {
         guard let footerHTML = footerHTML else {
@@ -178,7 +209,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
+        var attributes: [NSAttributedString.Key : Any] = [:]
+        if let footerParagraphStyle = footerParagraphStyle {
+            attributes[NSAttributedString.Key.paragraphStyle] = footerParagraphStyle
+        }
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
         footerTextView.attributedText = attributedText
     }
