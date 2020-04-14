@@ -250,7 +250,9 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         }
         view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
-        tableView.reloadData()
+        if viewIfLoaded?.window != nil {
+            tableView.reloadData()
+        }
     }
 
 }
