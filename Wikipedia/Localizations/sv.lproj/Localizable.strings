@@ -19,6 +19,7 @@
 // Author: Pyscowicz
 // Author: Rockyfelle
 // Author: Skalman
+// Author: Technic2
 // Author: WikiPhoenix
 
 "about-content-license" = "Innehållslicens";
@@ -113,12 +114,14 @@
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
 "appearance-settings-text-sizing-example-text" = "Dra i reglaget för att ändra textstorleken för artiklar. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
 "appearance-settings-theme-options" = "Temaalternativ";
+"article-about-title" = "Om denna artikel";
 "article-delete" = "Radera";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artiklar}} raderades";
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
 "article-languages-yours" = "Dina språk";
+"article-read-more-title" = "Läs mer";
 "article-reference-view-title" = "Referens $1";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
@@ -543,11 +546,14 @@
 "page-history-revisions-comparison-warning" = "Endast två versioner kan markeras";
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
 "page-history-user-edits" = "användarredigeringar";
+"page-issues" = "Sidproblem";
+"page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page-protected-can-not-edit-title" = "Denna sida är skrivskyddad";
 "page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
+"page-similar-titles" = "Liknande sidor";
 "panel-compare-revisions-text" = "Jämför versioner för att se hur en artikel har ändrats med tiden. När två versioner av en artikel jämförs kommer skillnaden mellan dessa version visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "pictured" = "i bild";

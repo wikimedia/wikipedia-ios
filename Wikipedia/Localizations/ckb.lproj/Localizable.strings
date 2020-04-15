@@ -9,6 +9,7 @@
 // Author: Nemo bis
 // Author: Sarchia
 // Author: Épine
+// Author: ئارام بکر
 
 "about-content-license" = "مۆڵەتی ناوەڕۆک";
 "about-content-license-details" = "مەگەر بە پێچەوانەوە وترابێت، ناوەڕۆک بەردەستە لەژێر $1.";
@@ -256,6 +257,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ڕووداوی مێژوویی|$1 ڕووداوە مێژووییەکان}}";
 "on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
 "on-this-day-title" = "لەم ڕۆژەدا";
+"page-history-revision-history-title" = "مێژووی پێداچوونەوە";
 "page-protected-autoconfirmed" = "ئەم پەڕەیە نیمچە-پارێزراوە.";
 "page-protected-can-not-edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";
 "page-protected-can-not-edit-title" = "ئەم پەڕەیە پارێزراوە";

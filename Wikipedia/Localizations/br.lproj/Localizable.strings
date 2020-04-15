@@ -87,6 +87,7 @@
 "article-languages-label" = "Dibab ar yezh";
 "article-languages-others" = "Yezhoù all";
 "article-languages-yours" = "Ho yezhoù";
+"article-read-more-title" = "Lenn pelloc'h";
 "article-share" = "Rannañ";
 "back-button-accessibility-label" = "Distreiñ";
 "button-next" = "War-lerc'h";
@@ -280,6 +281,7 @@
 "page-protected-can-not-edit-title" = "Gwarezet eo ar bajenn-mañ";
 "page-protected-other" = "Gwarezet eo bet ar bajenn-mañ gant al liveoù-mañ : $1";
 "page-protected-sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
+"page-similar-titles" = "Pajennoù kar";
 "places-accessibility-clear-saved-searches" = "Riñsañ an enklaskoù enrollet";
 "places-accessibility-group" = "$1 pennadoù";
 "places-accessibility-recenter-map-on-user-location" = "Adkreizañ en ho lec'hiadur";

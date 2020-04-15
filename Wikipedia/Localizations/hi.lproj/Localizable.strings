@@ -69,8 +69,7 @@
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-title" = "एक नया खाता बनायें";
 "action-cancel" = "रद्द करें";
-// Fuzzy
-"action-find-in-page" = "पेज में ढूंढें";
+"action-find-in-page" = "पृष्ठ में ढूंढें";
 "action-read" = "पढ़ें";
 "action-save" = "सहेजें";
 "action-saved" = "सहेजा गया";
