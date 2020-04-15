@@ -40,8 +40,12 @@ extension ArticleViewController {
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
+        guard let wikidataID = article.wikidataID else {
+            showGenericError()
+            return
+        }
         editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
-        let editVC = DescriptionEditViewController.with(articleURL: articleURL, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
+        let editVC = DescriptionEditViewController.with(articleURL: articleURL, wikidataID: wikidataID, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
         editVC.delegate = self
         editVC.editFunnel = editFunnel
         editVC.editFunnelSource = funnelSource
