@@ -47,6 +47,10 @@ class ArticleViewController: ViewController {
     private var leadImageHeight: CGFloat = 210
 
     private var contentSizeObservation: NSKeyValueObservation? = nil
+
+    /// Used to delay reloading the web view to prevent `UIScrollView` jitter
+    fileprivate var shouldPerformWebRefreshAfterScrollViewDeceleration = false
+
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -528,6 +532,10 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
+        shouldPerformWebRefreshAfterScrollViewDeceleration = true
+    }
+
+    internal func performWebViewRefresh() {
         #if DEBUG // on debug builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -705,6 +713,14 @@ class ArticleViewController: ViewController {
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         dismissReferencesPopover()
+    }
+
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndDecelerating(scrollView)
+        if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            webView.scrollView.showsVerticalScrollIndicator = false
+            performWebViewRefresh()
+        }
     }
     
     // MARK: Analytics
@@ -950,6 +966,14 @@ extension ArticleViewController: WKNavigationDelegate {
         // Re-load the content in this case to show it again
         webView.reload()
     }
+
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            shouldPerformWebRefreshAfterScrollViewDeceleration = false
+            webView.scrollView.showsVerticalScrollIndicator = true
+        }
+    }
+
 }
 
 extension ViewController {
