@@ -96,6 +96,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
 #import <WMF/WMFRandomContentSource.h>
+#import <WMF/WMFAnnouncementsContentSource.h>
 
 #import <WMF/WMFFeedContentFetcher.h>
 #import <WMF/WMFFeedDayResponse.h>

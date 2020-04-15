@@ -900,6 +900,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         if (!NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
+        
+        [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class] force:YES completion:NULL];
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];

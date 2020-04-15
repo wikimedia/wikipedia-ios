@@ -50,6 +50,15 @@ public extension String {
         return replacingOccurrences(of: " ", with: "_").precomposedStringWithCanonicalMapping
      }
     
+    //assumes string is already normalized
+    var googleFormPercentEncodedPageTitle: String? {
+        return googleFormPageTitle?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    }
+    
+    var googleFormPageTitle: String? {
+        return replacingOccurrences(of: " ", with: "+").precomposedStringWithCanonicalMapping
+    }
+    
     var unescapedNormalizedPageTitle: String? {
         return removingPercentEncoding?.normalizedPageTitle
     }
