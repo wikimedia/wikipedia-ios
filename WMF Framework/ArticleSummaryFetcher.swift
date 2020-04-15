@@ -44,6 +44,7 @@ public class ArticleSummary: NSObject, Codable {
         }
     }
     let id: Int64?
+    let wikidataID: String?
     let revision: String?
     let timestamp: String?
     let index: Int?
@@ -72,6 +73,7 @@ public class ArticleSummary: NSObject, Codable {
         case original = "originalimage"
         case coordinates
         case contentURLs = "content_urls"
+        case wikidataID = "wikibase_item"
     }
     
     let contentURLs: ArticleSummaryContentURLs
