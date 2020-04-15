@@ -297,7 +297,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         switch settingsItemType {
         case .syncSavedArticlesAndLists where !WMFAuthenticationManager.sharedInstance.isLoggedIn:
             assert(!isSyncEnabled, "Sync cannot be enabled if user is not logged in")
-            let dismissHandler: ScrollableEducationPanelDismissHandler = {
+            let dismissHandler = {
                 sender.setOn(false, animated: true)
             }
             let loginSuccessCompletion: () -> Void = {
