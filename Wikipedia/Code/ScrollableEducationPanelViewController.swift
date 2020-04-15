@@ -2,6 +2,7 @@ import UIKit
 
 typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> ())
 typealias ScrollableEducationPanelDismissHandler = (() -> ())
+typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducationPanelViewController.LastAction) -> ())
 
 /*
  Education panels typically have the following items, from top to bottom:
@@ -29,10 +30,22 @@ typealias ScrollableEducationPanelDismissHandler = (() -> ())
  - Scrollview containment makes long translations or landscape on small phones scrollable when needed.
 */
 class ScrollableEducationPanelViewController: UIViewController, Themeable {
+    
+    enum LastAction {
+        case tappedPrimary
+        case tappedSecondary
+        case tappedClose
+        case tappedBackground
+        case none
+    }
+    
     @IBOutlet fileprivate weak var closeButton: UIButton!
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var headingLabel: UILabel!
     @IBOutlet fileprivate weak var subheadingLabel: UILabel!
+    
+    //use as an indication of what triggered a dismissal
+    private var lastAction: LastAction = .none
     
     let originalSubheadingTopConstraint = CGFloat(0)
     let originalSubheadingBottomConstraint = CGFloat(0)
@@ -59,7 +72,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
+    
+    //traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
+    fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
+    
     fileprivate var showCloseButton = true
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
@@ -259,6 +276,19 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.dismissHandler = dismissHandler
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
+    
+    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
+        super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
+        self.modalPresentationStyle = .overFullScreen
+        self.modalTransitionStyle = .crossDissolve
+        self.theme = theme
+        self.showCloseButton = showCloseButton
+        self.primaryButtonTapHandler = primaryButtonTapHandler
+        self.secondaryButtonTapHandler = secondaryButtonTapHandler
+        self.traceableDismissHandler = traceableDismissHandler
+        self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         return nil
     }
@@ -292,6 +322,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     var dismissWhenTappedOutside: Bool = false
     
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
+        lastAction = .tappedBackground
         if (showCloseButton || dismissWhenTappedOutside) && sender.view == view  {
             dismiss(animated: true, completion: nil)
         }
@@ -351,10 +382,12 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
     
     @IBAction fileprivate func close(_ sender: Any) {
+        lastAction = .tappedClose
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction fileprivate func primaryButtonTapped(_ sender: Any) {
+        lastAction = .tappedPrimary
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
@@ -363,6 +396,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     @IBAction fileprivate func secondaryButtonTapped(_ sender: Any) {
+        lastAction = .tappedSecondary
         guard let secondaryButtonTapHandler = secondaryButtonTapHandler else {
             return
         }
@@ -371,13 +405,22 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        guard let dismissHandler = dismissHandler else {
-            return
-        }
+        
+        callDismissHandler()
+    }
+    
+    func callDismissHandler() {
+        
         guard !(discardDismissHandlerOnPrimaryButtonTap && primaryButtonTapped) else {
             return
         }
-        dismissHandler()
+        
+        if let traceableDismissHandler = traceableDismissHandler {
+            traceableDismissHandler(lastAction)
+            return
+        }
+        
+        dismissHandler?()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -101,6 +101,7 @@ class StorageAndSyncingSettingsViewController: SubSettingsViewController {
         if isSyncEnabled {
             showReadingListsSyncAlert()
         } else { // user logged in to an account that has sync disabled, prompt them to enable sync
+            
             wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
                 self.shouldShowReadingListsSyncAlertWhenSyncEnabled = true
             }
@@ -296,7 +297,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         switch settingsItemType {
         case .syncSavedArticlesAndLists where !WMFAuthenticationManager.sharedInstance.isLoggedIn:
             assert(!isSyncEnabled, "Sync cannot be enabled if user is not logged in")
-            let dismissHandler = {
+            let dismissHandler: ScrollableEducationPanelDismissHandler = {
                 sender.setOn(false, animated: true)
             }
             let loginSuccessCompletion: () -> Void = {

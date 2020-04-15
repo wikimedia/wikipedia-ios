@@ -29,16 +29,22 @@ extension ArticleViewController {
         
         wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, style: .minimal, primaryButtonTapHandler: { (sender) in
             self.navigate(to: surveyAnnouncementResult.actionURL, useSafari: true)
-            SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(true, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)
             // dismiss handler is called
         }, secondaryButtonTapHandler: { (sender) in
             // dismiss handler is called
-            SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(false, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)
         }, footerLinkAction: { (url) in
              self.navigate(to: url, useSafari: true)
             // intentionally don't dismiss
-        }, dismissHandler: {
-            //no-op
+        }, traceableDismissHandler: { lastAction in
+            switch lastAction {
+            case .tappedBackground, .tappedClose, .tappedSecondary:
+                SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(false, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)
+            case .tappedPrimary:
+                SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(true, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)
+            case .none:
+                assertionFailure("Unexpected lastAction in Panel dismissHandler")
+                break
+            }
         }, theme: self.theme)
     }
     
