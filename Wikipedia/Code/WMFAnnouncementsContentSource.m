@@ -98,7 +98,7 @@
             }
         }];
 
-        [WMFSurveyAnnouncementsController shared].announcements = announcements;
+        [[WMFSurveyAnnouncementsController shared] setAnnouncements:announcements forSiteURL:self.siteURL];
         if (completion) {
             completion();
         }

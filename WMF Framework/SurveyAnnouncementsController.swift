@@ -8,21 +8,9 @@ public final class SurveyAnnouncementsController: NSObject {
     
     private let queue = DispatchQueue(label: "SurveyAnnouncementsQueue")
     
-    private var _announcements: [WMFAnnouncement] = []
-    @objc public var announcements: [WMFAnnouncement] {
-        get {
-            return queue.sync { _announcements }
-        }
-        set {
-            queue.sync {
-                _announcements = newValue.filter { $0.announcementType == .survey }
-            }
-        }
-    }
-    
-    private override init() {
-        super.init()
-    }
+    //ex: 'en.wikipedia.org'
+    typealias AnnouncementsHost = String
+    private var announcementsByHost: [AnnouncementsHost: [WMFAnnouncement]] = [:]
     
     public struct SurveyAnnouncementResult {
         public let campaignIdentifier: String
@@ -31,10 +19,40 @@ public final class SurveyAnnouncementsController: NSObject {
         public let displayDelay: TimeInterval
     }
     
+    @objc public func setAnnouncements(_ announcements: [WMFAnnouncement], forSiteURL siteURL: URL) {
+        
+        guard let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
+            let host = components.host else {
+                return
+        }
+        
+        queue.sync {
+            announcementsByHost[host] = announcements.filter { $0.announcementType == .survey }
+        }
+    }
+    
+    private func getAnnouncementsForSiteURL(_ siteURL: URL) -> [WMFAnnouncement]? {
+        guard let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
+            let host = components.host else {
+                return nil
+        }
+        
+        var announcements: [WMFAnnouncement]? = []
+        queue.sync {
+            announcements = announcementsByHost[host]
+        }
+        
+        return announcements
+    }
+    
     //Use for determining whether to show user a survey prompt or not.
     //Considers domain, campaign start/end dates, article title in campaign, and whether survey has already been acted upon or not.
     public func activeSurveyAnnouncementResultForTitle(_ articleTitle: String, siteURL: URL) -> SurveyAnnouncementResult? {
 
+        guard let announcements = getAnnouncementsForSiteURL(siteURL) else {
+            return nil
+        }
+        
         for announcement in announcements {
             
             guard let startTime = announcement.startTime,
