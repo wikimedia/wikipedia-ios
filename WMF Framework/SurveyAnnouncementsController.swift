@@ -75,7 +75,7 @@ public final class SurveyAnnouncementsController: NSObject {
                 
             let now = Date()
             
-            //do not show if user has already seen and answered for this campaign
+            //do not show if user has already seen and answered for this campaign, even if the value is an NSNumber set to false, any answer is an indication that it shouldn't be shown
             guard UserDefaults.standard.object(forKey: identifier) == nil else {
                 continue
             }
