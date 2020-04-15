@@ -63,11 +63,10 @@ public final class SurveyAnnouncementsController: NSObject {
                 let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
                 let host = components.host,
                 let identifier = announcement.identifier,
-                let normalizedArticleTitle = articleTitle.normalizedPageTitle else {
+                let normalizedArticleTitle = articleTitle.normalizedPageTitle,
+                let googleFormattedArticleTitle = normalizedArticleTitle.googleFormPercentEncodedPageTitle else {
                     continue
             }
-            
-            let googleFormattedArticleTitle = normalizedArticleTitle.replacingOccurrences(of: " ", with: "+")
             
             guard let actionURL = announcement.actionURLReplacingPlaceholder("{{articleTitle}}", withValue: googleFormattedArticleTitle) else {
                 continue
