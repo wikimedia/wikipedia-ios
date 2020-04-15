@@ -260,7 +260,6 @@ class ArticleViewController: ViewController {
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-        startSurveyAnnouncementTimer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
