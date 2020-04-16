@@ -176,6 +176,15 @@ class ArticleViewController: ViewController {
         containerView.addSubview(borderView)
         return containerView
     }()
+
+    lazy var refreshOverlay: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        view.backgroundColor = .black
+        view.isUserInteractionEnabled = false
+        return view
+    }()
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -532,6 +541,11 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
+        if !shouldPerformWebRefreshAfterScrollViewDeceleration {
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.15, delay: 0, options: [.curveEaseIn], animations: {
+                self.refreshOverlay.alpha = 0.30
+            })
+        }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
     }
 
@@ -718,8 +732,11 @@ class ArticleViewController: ViewController {
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         super.scrollViewDidEndDecelerating(scrollView)
         if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            webView.subviews.forEach { $0.isUserInteractionEnabled = false }
             webView.scrollView.showsVerticalScrollIndicator = false
-            performWebViewRefresh()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self.performWebViewRefresh()
+            })
         }
     }
     
@@ -802,6 +819,14 @@ private extension ArticleViewController {
         // Delegates
         webView.uiDelegate = self
         webView.navigationDelegate = self
+
+        webView.addSubview(refreshOverlay)
+        NSLayoutConstraint.activate([
+            refreshOverlay.topAnchor.constraint(equalTo: webView.topAnchor),
+            refreshOverlay.bottomAnchor.constraint(equalTo: webView.bottomAnchor),
+            refreshOverlay.leftAnchor.constraint(equalTo: webView.leftAnchor),
+            refreshOverlay.rightAnchor.constraint(equalTo: webView.rightAnchor),
+        ])
     }
     
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints
@@ -969,6 +994,10 @@ extension ArticleViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.1, delay: 0, options: [.curveEaseIn], animations: {
+                self.refreshOverlay.alpha = 0
+            })
+            webView.subviews.forEach { $0.isUserInteractionEnabled = true }
             shouldPerformWebRefreshAfterScrollViewDeceleration = false
             webView.scrollView.showsVerticalScrollIndicator = true
         }
