@@ -542,6 +542,7 @@ class ArticleViewController: ViewController {
     
     @objc public func refresh() {
         if !shouldPerformWebRefreshAfterScrollViewDeceleration {
+            toolbarController.setToolbarButtons(enabled: false)
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.15, delay: 0, options: [.curveEaseIn], animations: {
                 self.refreshOverlay.alpha = 0.30
             })
@@ -998,8 +999,9 @@ extension ArticleViewController: WKNavigationDelegate {
                 self.refreshOverlay.alpha = 0
             })
             webView.subviews.forEach { $0.isUserInteractionEnabled = true }
-            shouldPerformWebRefreshAfterScrollViewDeceleration = false
             webView.scrollView.showsVerticalScrollIndicator = true
+            toolbarController.setToolbarButtons(enabled: true)
+            shouldPerformWebRefreshAfterScrollViewDeceleration = false
         }
     }
 
