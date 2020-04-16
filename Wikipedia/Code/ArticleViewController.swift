@@ -182,7 +182,7 @@ class ArticleViewController: ViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0
         view.backgroundColor = .black
-        view.isUserInteractionEnabled = false
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -733,7 +733,6 @@ class ArticleViewController: ViewController {
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         super.scrollViewDidEndDecelerating(scrollView)
         if shouldPerformWebRefreshAfterScrollViewDeceleration {
-            webView.subviews.forEach { $0.isUserInteractionEnabled = false }
             webView.scrollView.showsVerticalScrollIndicator = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 self.performWebViewRefresh()
@@ -998,7 +997,6 @@ extension ArticleViewController: WKNavigationDelegate {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.1, delay: 0, options: [.curveEaseIn], animations: {
                 self.refreshOverlay.alpha = 0
             })
-            webView.subviews.forEach { $0.isUserInteractionEnabled = true }
             webView.scrollView.showsVerticalScrollIndicator = true
             toolbarController.setToolbarButtons(enabled: true)
             shouldPerformWebRefreshAfterScrollViewDeceleration = false
