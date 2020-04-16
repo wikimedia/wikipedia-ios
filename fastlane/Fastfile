@@ -221,6 +221,13 @@ platform :ios do
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
   end
   
+  desc "Deploys both the production and beta apps"
+  lane :deploy do |options|
+    build =  options[:build] || get_latest_alpha_or_beta_build_number + 1
+    push_beta_app(build: build)
+    push_beta(build: build)
+  end
+
   desc "updates version, builds, and pushes to TestFlight"
   lane :push_beta do |options|
     push(
