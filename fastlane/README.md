@@ -45,7 +45,7 @@ Runs tests on select platforms for verifying pull requests
 ```
 fastlane ios read_xcversion
 ```
-
+Reads Xcode version from the .xcversion file and sets it using xcversion()
 ### ios verify
 ```
 fastlane ios verify
@@ -101,6 +101,11 @@ Add a tag for the current version number push to repo.
 fastlane ios build
 ```
 Build the app for distibution
+### ios deploy
+```
+fastlane ios deploy
+```
+Deploys both the production and beta apps
 ### ios push_beta
 ```
 fastlane ios push_beta
