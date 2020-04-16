@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00841DE524477805003CF74A /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
+		00841DE724477806003CF74A /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		0E281A331DC263DE00FA1AB1 /* WMFLegacyReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E281A321DC263DE00FA1AB1 /* WMFLegacyReference.swift */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
@@ -55,7 +57,7 @@
 		0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8380641D64989F0076EDE4 /* NotificationCenter.framework */; };
 		0E83806C1D64989F0076EDE4 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E83806A1D64989F0076EDE4 /* MainInterface.storyboard */; };
 		0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */; };
+		0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */; };
 		0E87683A1DDE00D600B8CACD /* WMFAnnouncementsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768381DDE00D600B8CACD /* WMFAnnouncementsFetcher.h */; };
 		0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8768391DDE00D600B8CACD /* WMFAnnouncementsFetcher.m */; };
@@ -104,6 +106,12 @@
 		670F766022B0C48E00D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		670F766122B0C48F00D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		670F766222B0C49000D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
+		67146032243B885E008CE885 /* SurveyAnnouncementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146031243B885E008CE885 /* SurveyAnnouncementsController.swift */; };
+		67146034243B8B4F008CE885 /* AnnouncementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146033243B8B4F008CE885 /* AnnouncementType.swift */; };
+		67146036243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */; };
+		67146037243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */; };
+		67146038243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */; };
+		67146039243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */; };
 		671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */; };
 		671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
@@ -2886,6 +2894,7 @@
 		D8FAC7DD1D6F88AB00C2A6BC /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		E1CFD6E6210C103900D8E37C /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
+		FFE891462445150B0058B642 /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3265,6 +3274,9 @@
 		6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffRevisionTransition.swift; sourceTree = "<group>"; };
 		6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		670F765E22B0C10600D87545 /* FakeProgressLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressLoading.swift; sourceTree = "<group>"; };
+		67146031243B885E008CE885 /* SurveyAnnouncementsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyAnnouncementsController.swift; sourceTree = "<group>"; };
+		67146033243B8B4F008CE885 /* AnnouncementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementType.swift; sourceTree = "<group>"; };
+		67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+SurveyAnnouncements.swift"; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
 		671F5E0A236B8CAF00111116 /* EmptyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyViewController.xib; sourceTree = "<group>"; };
 		672428962362113400490629 /* DiffFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
@@ -4706,6 +4718,7 @@
 		D8FFF6922031CB3D00A028E0 /* my */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = my; path = my.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8FFF6932031CB3E00A028E0 /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cy; path = cy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8FFF6942031CB4000A028E0 /* tcy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tcy; path = tcy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		FFE891452445150B0058B642 /* AppTabBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5546,6 +5559,8 @@
 				0E8768391DDE00D600B8CACD /* WMFAnnouncementsFetcher.m */,
 				0E87683D1DDE012300B8CACD /* WMFAnnouncement.h */,
 				0E87683E1DDE012300B8CACD /* WMFAnnouncement.m */,
+				67146031243B885E008CE885 /* SurveyAnnouncementsController.swift */,
+				67146033243B8B4F008CE885 /* AnnouncementType.swift */,
 			);
 			name = Announcements;
 			sourceTree = "<group>";
@@ -5905,6 +5920,7 @@
 				D8E6FF6624054FA100686272 /* ArticleViewController+LinkPreviewing.swift */,
 				D8E6FF6B24056AC300686272 /* ArticleViewController+ContextMenu.swift */,
 				D8E6FF7B2405AAC400686272 /* ArticleViewController+Analytics.swift */,
+				67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */,
 				8361474A24223689003E49D3 /* ArticleViewController+Announcements.swift */,
 				D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */,
 				830C0DD923D9C218006471C4 /* Properties.js */,
@@ -6666,6 +6682,7 @@
 				B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */,
 				8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */,
 				B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */,
+				FFE891452445150B0058B642 /* AppTabBarDelegate.swift */,
 			);
 			name = "App View Controller";
 			sourceTree = "<group>";
@@ -8280,7 +8297,6 @@
 				D849D6501D6CC7D200D06FC8 /* WMFImageTagList+ImageURLs.h in Headers */,
 				D844D9A61D6CB7230042D692 /* MWKList.h in Headers */,
 				D83FA6B51D74CDE0008CAB00 /* EventLoggingFunnel.h in Headers */,
-				0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */,
 				D8FA18EF1E1BDA2F009675C3 /* UIImageView+WMFContentOffset.h in Headers */,
 				D8FA18B71E1BD891009675C3 /* NSDateFormatter+WMFExtensions.h in Headers */,
 				D844D9DD1D6CBBFE0042D692 /* NSString+WMFHTMLParsing.h in Headers */,
@@ -8327,6 +8343,7 @@
 				0E728D221DAEE2B50074EB4B /* WMFFeedNewsStory.h in Headers */,
 				D844482A1DDB632100425630 /* WMFArticle+CoreDataProperties.h in Headers */,
 				6779D45D24008654002840CA /* MWKImageInfoFetcher.h in Headers */,
+				0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */,
 				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
 				83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */,
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
@@ -10045,6 +10062,7 @@
 				7A19C64820DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				6782DBD32343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67059DB52260D034009811AA /* SchemeHandler.swift in Sources */,
+				FFE891462445150B0058B642 /* AppTabBarDelegate.swift in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A611E21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
@@ -10259,6 +10277,7 @@
 				B04AE84C21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */,
 				83927D811F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
+				67146036243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */,
 				7A82896821B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
 				B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */,
 				6734F052227B634900BDDB94 /* ActionButton.swift in Sources */,
@@ -10321,6 +10340,7 @@
 				D8FA18B61E1BD891009675C3 /* NSDictionary+WMFRequiredValueForKey.m in Sources */,
 				B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */,
 				D8FA18F81E1BDA4C009675C3 /* WMFArticlePreviewViewController.swift in Sources */,
+				67146032243B885E008CE885 /* SurveyAnnouncementsController.swift in Sources */,
 				7A0312F72153C4990095C953 /* RemoteNotificationsModelController.swift in Sources */,
 				D80A792A1F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m in Sources */,
 				D8543231218879D000E895B5 /* Configuration.swift in Sources */,
@@ -10370,6 +10390,7 @@
 				D84448291DDB632100425630 /* WMFArticle+CoreDataClass.m in Sources */,
 				7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */,
 				833D4FFB20A9E20800B44E7C /* String+HTML.swift in Sources */,
+				67146034243B8B4F008CE885 /* AnnouncementType.swift in Sources */,
 				B019FED02029347300BDE9C9 /* UIStackView+SubviewVerification.swift in Sources */,
 				83C643582239508600FC16BF /* RandomArticleFetcher.swift in Sources */,
 				D87647481F1F9C2500D02CA4 /* CommonStrings.swift in Sources */,
@@ -10638,6 +10659,7 @@
 				B01E54B2206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				83987AD320E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */,
+				67146039243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */,
 				678D79FF235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				7A420DB722A029780005689B /* EditFunnel.swift in Sources */,
@@ -11093,6 +11115,7 @@
 				D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				83F26B2B220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				D8CE24EC1E698E2400DAE2E0 /* PlacesViewController.swift in Sources */,
+				67146037243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */,
 				B0C7A07D1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */,
 				7AC19E332301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
@@ -11178,6 +11201,7 @@
 				6707C039237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
 				D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C7A0891F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
+				00841DE524477805003CF74A /* AppTabBarDelegate.swift in Sources */,
 				D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */,
 				D8B166861FD97A0500097D8B /* ViewController.swift in Sources */,
 				B0421AA3206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
@@ -11540,6 +11564,7 @@
 				B0CD9DE51F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				83F26B2C220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */,
+				67146038243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */,
 				83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				B0C7A0791F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				7AC19E342301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
@@ -11625,6 +11650,7 @@
 				6707C03A237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
 				D8EC3E191E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				D84DAA181EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
+				00841DE724477806003CF74A /* AppTabBarDelegate.swift in Sources */,
 				D8EC3E1A1E9BDA35006712EB /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				83E776A520FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				D8EC3E1B1E9BDA35006712EB /* (null) in Sources */,
@@ -16647,7 +16673,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL_PAGE_CONTENT_SERVICE -DWMF_LOCAL_ANNOUNCEMENTS";
+				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL_ANNOUNCEMENTS -DWMF_LOCAL_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

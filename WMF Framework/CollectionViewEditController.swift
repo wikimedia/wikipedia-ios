@@ -256,6 +256,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return batchEditToolbarViewController
     }()
     
+    public var batchEditToolbarView: UIView {
+        return self.batchEditToolbarViewController.view
+    }
+    
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
         guard let indexPath = activeIndexPath, let cell = activeCell else {
             return
