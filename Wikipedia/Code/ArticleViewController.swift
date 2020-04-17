@@ -815,18 +815,13 @@ private extension ArticleViewController {
         
         // Lead image
         setupLeadImageView()
+
+        // Add overlay to prevent interaction while reloading
+        webView.wmf_addSubviewWithConstraintsToEdges(refreshOverlay)
         
         // Delegates
         webView.uiDelegate = self
         webView.navigationDelegate = self
-
-        webView.addSubview(refreshOverlay)
-        NSLayoutConstraint.activate([
-            refreshOverlay.topAnchor.constraint(equalTo: webView.topAnchor),
-            refreshOverlay.bottomAnchor.constraint(equalTo: webView.bottomAnchor),
-            refreshOverlay.leftAnchor.constraint(equalTo: webView.leftAnchor),
-            refreshOverlay.rightAnchor.constraint(equalTo: webView.rightAnchor),
-        ])
     }
     
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints
