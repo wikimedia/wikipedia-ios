@@ -52,12 +52,26 @@ Points to the [Apps team's staging environment](https://mobileapps.wmflabs.org) 
 Points to the [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps+status:open) and [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds+status:open) repos running locally.
 #### Wikipedia (MediaWiki beta cluster)
 Points to the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster) for MediaWiki API calls and production for everything else.
+#### Wikipedia RTL
+Launches the app in an RTL locale using the -AppleLocale argument.
 #### Experimental
 For one off builds, can point to whatever is needed for the given experiment.
 #### User Testing
-For user testing
+For user testing. Has an alternate configuration so that it can be delivered ad hoc.
+#### Event Loggig Dev Debug
+For testing the events that the app sends to [Event Logging](https://wikitech.wikimedia.org/wiki/Analytics/Systems/EventLogging). Points to the Event Logging staging environment.
 #### Beta Cluster tests
 Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster), checking for upstream changes to MediaWiki that might break any assumptions we have.
+#### WikipediaUITests
+Runs automated screenshot tests.
+#### WMF
+Bundles up the app logic shared between the main app and the extensions (widgets, notifications).
+#### Localization
+Covered in the [localization document](docs/localization.md).
+#### *Widget, *Notification, *Stickers
+Extensions for widgets, notifications, and stickers.
+#### Codemirror-config
+Generates the [CodeMirror](https://codemirror.net) configuration files. CodeMirror is used in the section editor.
 
 ### Continuous integration
 Covered in the [ci document](docs/ci.md).
