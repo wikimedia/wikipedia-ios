@@ -1755,9 +1755,6 @@
 		D801C9301EB8E131001FA294 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8531EB8E131001FA294 /* Localizable.strings */; };
 		D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = D801C8611EB8E131001FA294 /* Localizable.stringsdict */; };
 		D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
-		D801C9371EB9344F001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
-		D801C9381EB9344F001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
-		D801C9391EB93450001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
 		D801C93C1EB9404A001FA294 /* WMFLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = D801C93A1EB9404A001FA294 /* WMFLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D801C93D1EB9404A001FA294 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = D801C93B1EB9404A001FA294 /* WMFLocalization.m */; };
 		D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
@@ -3615,7 +3612,7 @@
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Theme.swift"; sourceTree = "<group>"; };
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
-		83A422B422786E2000BA446A /* Wikipedia Local-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wikipedia Local-Info.plist"; sourceTree = "<group>"; };
+		83A422B422786E2000BA446A /* Local-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Local-Info.plist"; sourceTree = "<group>"; };
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
@@ -4345,7 +4342,6 @@
 		D80ED2581EE178A800CE8C50 /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesSearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacesSearchSuggestionTableViewCell.xib; sourceTree = "<group>"; };
-		D80ED43A1EE57FCA00CE8C50 /* Wikipedia OSM-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia OSM-Info.plist"; sourceTree = "<group>"; };
 		D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFExtendedFileAttributes.h"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.h"; sourceTree = SOURCE_ROOT; };
 		D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFExtendedFileAttributes.m"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.m"; sourceTree = SOURCE_ROOT; };
 		D810C3481DF1C0A4003427DA /* Tweaks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tweaks.framework; path = Carthage/Build/iOS/Tweaks.framework; sourceTree = SOURCE_ROOT; };
@@ -4562,8 +4558,8 @@
 		D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFKeyValue+CoreDataProperties.m"; sourceTree = "<group>"; };
 		D89927DC1ED310540008F54C /* yi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = yi; path = yi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D89927DD1ED310B60008F54C /* su */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = su; path = su.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		D8A42C2B1E815A9C00D8E281 /* Wikipedia User Testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia User Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8A42C2D1E815B0700D8E281 /* Wikipedia User Testing-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia User Testing-Info.plist"; sourceTree = "<group>"; };
+		D8A42C2B1E815A9C00D8E281 /* User Testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "User Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8A42C2D1E815B0700D8E281 /* User Testing-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "User Testing-Info.plist"; sourceTree = "<group>"; };
 		D8A42C2F1E815C1300D8E281 /* Wikipedia User Testing.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wikipedia User Testing.entitlements"; sourceTree = "<group>"; };
 		D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoIntrinsicContentSizeImageView.swift; sourceTree = "<group>"; };
 		D8A47C8923D728A4002AA823 /* ArticleTableOfContentsDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableOfContentsDisplayController.swift; sourceTree = "<group>"; };
@@ -4597,8 +4593,8 @@
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
 		D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
-		D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Wikipedia Alpha-Info.plist"; path = "Wikipedia/Wikipedia Alpha-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D8CE26AF1E698E2400DAE2E0 /* Experimental.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Experimental.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8CE26B01E698E2500DAE2E0 /* Experimental-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Experimental-Info.plist"; path = "Wikipedia/Experimental-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D8CE9AFD1FDEB14E00AE7D49 /* NavigationBarHider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationBarHider.swift; path = ../Wikipedia/Code/NavigationBarHider.swift; sourceTree = "<group>"; };
 		D8D0CC361DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+WMFDynamicType.swift"; sourceTree = "<group>"; };
 		D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopReadWidget.entitlements; sourceTree = "<group>"; };
@@ -4654,8 +4650,8 @@
 		D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1B91FBB16F700AA7DA9 /* Dictionary+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+JSON.swift"; sourceTree = "<group>"; };
-		D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8EC3FB61E9BDAAB006712EB /* Wikipedia Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wikipedia Beta-Info.plist"; sourceTree = "<group>"; };
+		D8EC3FB41E9BDA35006712EB /* Staging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Staging.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8EC3FB61E9BDAAB006712EB /* Staging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Staging-Info.plist"; sourceTree = "<group>"; };
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
 		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
@@ -7166,12 +7162,11 @@
 		BCA15AE01C0DFCC900D0A3EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D80ED43A1EE57FCA00CE8C50 /* Wikipedia OSM-Info.plist */,
-				D8EC3FB61E9BDAAB006712EB /* Wikipedia Beta-Info.plist */,
-				D8A42C2D1E815B0700D8E281 /* Wikipedia User Testing-Info.plist */,
+				D8EC3FB61E9BDAAB006712EB /* Staging-Info.plist */,
+				D8A42C2D1E815B0700D8E281 /* User Testing-Info.plist */,
 				0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */,
-				83A422B422786E2000BA446A /* Wikipedia Local-Info.plist */,
-				D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */,
+				83A422B422786E2000BA446A /* Local-Info.plist */,
+				D8CE26B01E698E2500DAE2E0 /* Experimental-Info.plist */,
 				0E10C4FD1C81046300CEB5C2 /* Wikipedia.entitlements */,
 				D8A42C2F1E815C1300D8E281 /* Wikipedia User Testing.entitlements */,
 				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
@@ -7436,9 +7431,9 @@
 				D844D96C1D6CB2600042D692 /* WMF.framework */,
 				D85D34C51D74D07500845125 /* TopReadWidget.appex */,
 				D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */,
-				D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */,
-				D8A42C2B1E815A9C00D8E281 /* Wikipedia User Testing.app */,
-				D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */,
+				D8CE26AF1E698E2400DAE2E0 /* Experimental.app */,
+				D8A42C2B1E815A9C00D8E281 /* User Testing.app */,
+				D8EC3FB41E9BDA35006712EB /* Staging.app */,
 				D87021601EBA63EE000D02D6 /* localization */,
 				D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */,
 				D88B929B1F02AD0F00F5DD40 /* WikipediaBetaClusterTests.xctest */,
@@ -8567,9 +8562,9 @@
 			productReference = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		D8A42A4D1E815A9C00D8E281 /* Wikipedia User Testing */ = {
+		D8A42A4D1E815A9C00D8E281 /* User Testing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8A42C211E815A9C00D8E281 /* Build configuration list for PBXNativeTarget "Wikipedia User Testing" */;
+			buildConfigurationList = D8A42C211E815A9C00D8E281 /* Build configuration list for PBXNativeTarget "User Testing" */;
 			buildPhases = (
 				D8A42A561E815A9C00D8E281 /* Sources */,
 				D8A42B9B1E815A9C00D8E281 /* Frameworks */,
@@ -8582,9 +8577,9 @@
 			dependencies = (
 				D8A42A4E1E815A9C00D8E281 /* PBXTargetDependency */,
 			);
-			name = "Wikipedia User Testing";
+			name = "User Testing";
 			productName = "Wikipedia-iOS";
-			productReference = D8A42C2B1E815A9C00D8E281 /* Wikipedia User Testing.app */;
+			productReference = D8A42C2B1E815A9C00D8E281 /* User Testing.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D8B589A421CD05070027083A /* codemirror-config */ = {
@@ -8604,9 +8599,9 @@
 			productReference = D8B589A521CD05070027083A /* codemirror-config */;
 			productType = "com.apple.product-type.tool";
 		};
-		D8CE24D71E698E2400DAE2E0 /* Wikipedia Alpha */ = {
+		D8CE24D71E698E2400DAE2E0 /* Experimental */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8CE26A81E698E2400DAE2E0 /* Build configuration list for PBXNativeTarget "Wikipedia Alpha" */;
+			buildConfigurationList = D8CE26A81E698E2400DAE2E0 /* Build configuration list for PBXNativeTarget "Experimental" */;
 			buildPhases = (
 				D8CE24E01E698E2400DAE2E0 /* Sources */,
 				D8CE261E1E698E2400DAE2E0 /* Frameworks */,
@@ -8624,14 +8619,14 @@
 				D8CE24DE1E698E2400DAE2E0 /* PBXTargetDependency */,
 				D83FD2AA1EF473E300532B15 /* PBXTargetDependency */,
 			);
-			name = "Wikipedia Alpha";
+			name = Experimental;
 			productName = "Wikipedia-iOS";
-			productReference = D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */;
+			productReference = D8CE26AF1E698E2400DAE2E0 /* Experimental.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D8EC3DCE1E9BDA35006712EB /* Wikipedia Beta */ = {
+		D8EC3DCE1E9BDA35006712EB /* Staging */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Wikipedia Beta" */;
+			buildConfigurationList = D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Staging" */;
 			buildPhases = (
 				D8EC3DD71E9BDA35006712EB /* Sources */,
 				D8EC3F1D1E9BDA35006712EB /* Frameworks */,
@@ -8649,9 +8644,9 @@
 				D8EC3DD51E9BDA35006712EB /* PBXTargetDependency */,
 				D83FD2AC1EF473E600532B15 /* PBXTargetDependency */,
 			);
-			name = "Wikipedia Beta";
+			name = Staging;
 			productName = "Wikipedia-iOS";
-			productReference = D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */;
+			productReference = D8EC3FB41E9BDA35006712EB /* Staging.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -8941,9 +8936,9 @@
 			projectRoot = "";
 			targets = (
 				D4991434181D51DE00E6073C /* Wikipedia */,
-				D8CE24D71E698E2400DAE2E0 /* Wikipedia Alpha */,
-				D8EC3DCE1E9BDA35006712EB /* Wikipedia Beta */,
-				D8A42A4D1E815A9C00D8E281 /* Wikipedia User Testing */,
+				D8EC3DCE1E9BDA35006712EB /* Staging */,
+				D8CE24D71E698E2400DAE2E0 /* Experimental */,
+				D8A42A4D1E815A9C00D8E281 /* User Testing */,
 				D895D0821D9C1EB8005418C1 /* InTheNewsNotification */,
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				D88B929A1F02AD0F00F5DD40 /* WikipediaBetaClusterTests */,
@@ -9174,7 +9169,6 @@
 				D8A42BC61E815A9C00D8E281 /* NotificationBackgroundErrorIcon.png in Resources */,
 				7AB20A1422FC8432006FECB4 /* PageHistoryCountsViewController.xib in Resources */,
 				D8A42BC71E815A9C00D8E281 /* WMFLanguageCell.xib in Resources */,
-				D801C9391EB93450001FA294 /* InfoPlist.strings in Resources */,
 				D8A42BCC1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8A42BCD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C320110D7900E957E7 /* HintViewController.xib in Resources */,
@@ -9298,7 +9292,6 @@
 				D8CE264D1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon.png in Resources */,
 				7AB20A1222FC8432006FECB4 /* PageHistoryCountsViewController.xib in Resources */,
 				D8CE264E1E698E2400DAE2E0 /* WMFLanguageCell.xib in Resources */,
-				D801C9371EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8CE26531E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8CE26541E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C120110D7900E957E7 /* HintViewController.xib in Resources */,
@@ -9422,7 +9415,6 @@
 				D8EC3F4D1E9BDA35006712EB /* NotificationBackgroundErrorIcon.png in Resources */,
 				7AB20A1322FC8432006FECB4 /* PageHistoryCountsViewController.xib in Resources */,
 				D8EC3F4E1E9BDA35006712EB /* WMFLanguageCell.xib in Resources */,
-				D801C9381EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8EC3F531E9BDA35006712EB /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8EC3F541E9BDA35006712EB /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C220110D7900E957E7 /* HintViewController.xib in Resources */,
@@ -12829,7 +12821,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12864,7 +12856,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12898,7 +12890,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13247,578 +13239,6 @@
 			};
 			name = UITest;
 		};
-		83B01F6023DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_MODULES_AUTOLINK = NO;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_NS_ASSERTIONS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
-					"$(inherited)",
-					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
-				SDKROOT = iphoneos;
-				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6123DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = Wikipedia;
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6223DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6323DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6423DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6523DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6623DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6723DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WikipediaBetaClusterTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6823DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6923DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6A23DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_ENTITLEMENTS = FeaturedArticleWidget/FeaturedArticleWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6B23DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6C23DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "WMF Framework/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6D23DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F6E23DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WikipediaUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
-			};
-			name = AppsLabsMobileHTML;
-		};
-		83B01F7023DA2058001185F4 /* AppsLabsMobileHTML */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
-			};
-			name = AppsLabsMobileHTML;
-		};
 		B050214E211CBB7200020BFA /* EventLoggingDevDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -13944,7 +13364,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13979,7 +13399,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14013,7 +13433,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14401,42 +13821,6 @@
 			};
 			name = Debug;
 		};
-		B0606EB620AA6FF0006EC6B9 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WikipediaUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
-			};
-			name = PageLibraryDevDebug;
-		};
 		B0606EB820AA6FF0006EC6B9 /* UserTestingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -14473,7 +13857,7 @@
 			};
 			name = UserTestingDebug;
 		};
-		B0606EB920AA6FF0006EC6B9 /* BetaDebug */ = {
+		B0606EB920AA6FF0006EC6B9 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14507,9 +13891,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		B0606EBA20AA6FF0006EC6B9 /* BetaClusterDebug */ = {
+		B0606EBA20AA6FF0006EC6B9 /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14543,9 +13927,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		B0606EBB20AA6FF0006EC6B9 /* AlphaDebug */ = {
+		B0606EBB20AA6FF0006EC6B9 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14579,7 +13963,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		B0606EBC20AA6FF0006EC6B9 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -14617,7 +14001,7 @@
 			};
 			name = Release;
 		};
-		B0606EBE20AA6FF0006EC6B9 /* UserTestingRelease */ = {
+		B0606EBE20AA6FF0006EC6B9 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14651,9 +14035,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		B0606EBF20AA6FF0006EC6B9 /* Beta */ = {
+		B0606EBF20AA6FF0006EC6B9 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14687,9 +14071,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		B0606EC020AA6FF0006EC6B9 /* BetaCluster */ = {
+		B0606EC020AA6FF0006EC6B9 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14723,7 +14107,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		B0606EC120AA6FF0006EC6B9 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -14761,7 +14145,7 @@
 			};
 			name = Test;
 		};
-		B0606EC220AA6FF0006EC6B9 /* Alpha */ = {
+		B0606EC220AA6FF0006EC6B9 /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14795,7 +14179,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
 		BC42735B1A7C736800068882 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -15096,7 +14480,7 @@
 			};
 			name = Release;
 		};
-		D829728D1E427C160061550A /* BetaClusterDebug */ = {
+		D829728D1E427C160061550A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -15165,9 +14549,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D829728E1E427C160061550A /* BetaClusterDebug */ = {
+		D829728E1E427C160061550A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -15200,9 +14584,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D829728F1E427C160061550A /* BetaClusterDebug */ = {
+		D829728F1E427C160061550A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -15232,9 +14616,9 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D82972901E427C160061550A /* BetaClusterDebug */ = {
+		D82972901E427C160061550A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -15278,9 +14662,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D82972911E427C160061550A /* BetaClusterDebug */ = {
+		D82972911E427C160061550A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -15311,9 +14695,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D82972921E427C160061550A /* BetaClusterDebug */ = {
+		D82972921E427C160061550A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -15344,9 +14728,9 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D82972931E427C160061550A /* BetaClusterDebug */ = {
+		D82972931E427C160061550A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -15382,539 +14766,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = BetaClusterDebug;
-		};
-		D82A52A023F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_MODULES_AUTOLINK = NO;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"NDEBUG=1",
-					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
-					"$(inherited)",
-					"NS_BLOCK_ASSERTIONS=1",
-					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
-				);
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
-				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A123F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = Wikipedia;
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A223F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A323F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A423F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A523F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A623F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A723F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WikipediaBetaClusterTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A823F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52A923F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52AA23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_ENTITLEMENTS = FeaturedArticleWidget/FeaturedArticleWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52AB23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52AC23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "WMF Framework/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52AD23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52AE23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WikipediaUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
-			};
-			name = AppsLabsMobileHTMLRelease;
-		};
-		D82A52AF23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
-			};
-			name = AppsLabsMobileHTMLRelease;
+			name = MediaWikiBetaClusterDebug;
 		};
 		D83FD2951EF4724800532B15 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -15976,7 +14828,7 @@
 			};
 			name = UserTestingDebug;
 		};
-		D83FD2981EF4724800532B15 /* BetaDebug */ = {
+		D83FD2981EF4724800532B15 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16002,9 +14854,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D83FD2991EF4724800532B15 /* BetaClusterDebug */ = {
+		D83FD2991EF4724800532B15 /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16030,9 +14882,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D83FD29A1EF4724800532B15 /* AlphaDebug */ = {
+		D83FD29A1EF4724800532B15 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16058,7 +14910,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D83FD29B1EF4724800532B15 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -16088,7 +14940,7 @@
 			};
 			name = Release;
 		};
-		D83FD29D1EF4724800532B15 /* UserTestingRelease */ = {
+		D83FD29D1EF4724800532B15 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16114,9 +14966,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D83FD29E1EF4724800532B15 /* Beta */ = {
+		D83FD29E1EF4724800532B15 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16142,9 +14994,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D83FD29F1EF4724800532B15 /* BetaCluster */ = {
+		D83FD29F1EF4724800532B15 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16170,7 +15022,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D83FD2A01EF4724800532B15 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -16200,7 +15052,7 @@
 			};
 			name = Test;
 		};
-		D83FD2A11EF4724800532B15 /* Alpha */ = {
+		D83FD2A11EF4724800532B15 /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16226,7 +15078,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
 		D844D9751D6CB2600042D692 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -16385,7 +15237,7 @@
 			};
 			name = UserTestingDebug;
 		};
-		D8479FB61F222FE90025FD7A /* BetaDebug */ = {
+		D8479FB61F222FE90025FD7A /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16402,9 +15254,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8479FB71F222FE90025FD7A /* BetaClusterDebug */ = {
+		D8479FB71F222FE90025FD7A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16421,9 +15273,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D8479FB81F222FE90025FD7A /* AlphaDebug */ = {
+		D8479FB81F222FE90025FD7A /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16440,7 +15292,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D8479FB91F222FE90025FD7A /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -16461,7 +15313,7 @@
 			};
 			name = Release;
 		};
-		D8479FBB1F222FE90025FD7A /* UserTestingRelease */ = {
+		D8479FBB1F222FE90025FD7A /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16478,9 +15330,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8479FBC1F222FE90025FD7A /* Beta */ = {
+		D8479FBC1F222FE90025FD7A /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16497,9 +15349,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8479FBD1F222FE90025FD7A /* BetaCluster */ = {
+		D8479FBD1F222FE90025FD7A /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16516,7 +15368,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D8479FBE1F222FE90025FD7A /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -16537,7 +15389,7 @@
 			};
 			name = Test;
 		};
-		D8479FBF1F222FE90025FD7A /* Alpha */ = {
+		D8479FBF1F222FE90025FD7A /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16554,9 +15406,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D84B224B1DAD7DE3007C44AA /* AlphaDebug */ = {
+		D84B224B1DAD7DE3007C44AA /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16582,9 +15434,9 @@
 				PRODUCT_NAME = InTheNewsNotification;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
-		D84B224C1DAD7DE3007C44AA /* Alpha */ = {
+		D84B224C1DAD7DE3007C44AA /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16612,7 +15464,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
 		D85432322188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -16704,7 +15556,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Local-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Local-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16739,7 +15591,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16774,7 +15626,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16808,7 +15660,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17156,7 +16008,7 @@
 			};
 			name = LocalDebug;
 		};
-		D858A7FA1DA6DBC8009C3DEB /* Alpha */ = {
+		D858A7FA1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -17222,9 +16074,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D858A7FB1DA6DBC8009C3DEB /* Alpha */ = {
+		D858A7FB1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -17247,7 +16099,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17266,9 +16118,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D858A7FC1DA6DBC8009C3DEB /* Alpha */ = {
+		D858A7FC1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -17305,9 +16157,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D858A7FD1DA6DBC8009C3DEB /* Alpha */ = {
+		D858A7FD1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -17333,9 +16185,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D858A7FE1DA6DBC8009C3DEB /* Alpha */ = {
+		D858A7FE1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -17361,9 +16213,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D858A8001DA6DBC8009C3DEB /* Alpha */ = {
+		D858A8001DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -17400,9 +16252,9 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D858A8021DA6DD00009C3DEB /* AlphaDebug */ = {
+		D858A8021DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -17472,9 +16324,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
-		D858A8031DA6DD00009C3DEB /* AlphaDebug */ = {
+		D858A8031DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -17495,7 +16347,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17515,9 +16367,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
-		D858A8041DA6DD00009C3DEB /* AlphaDebug */ = {
+		D858A8041DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -17561,9 +16413,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
-		D858A8051DA6DD00009C3DEB /* AlphaDebug */ = {
+		D858A8051DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -17594,9 +16446,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
-		D858A8061DA6DD00009C3DEB /* AlphaDebug */ = {
+		D858A8061DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -17627,9 +16479,9 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
-		D858A8081DA6DD00009C3DEB /* AlphaDebug */ = {
+		D858A8081DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -17665,7 +16517,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D85D34D21D74D07600845125 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -17799,7 +16651,7 @@
 			};
 			name = UserTestingDebug;
 		};
-		D87021661EBA63EF000D02D6 /* BetaDebug */ = {
+		D87021661EBA63EF000D02D6 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -17817,9 +16669,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D87021671EBA63EF000D02D6 /* BetaClusterDebug */ = {
+		D87021671EBA63EF000D02D6 /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -17837,9 +16689,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D87021681EBA63EF000D02D6 /* AlphaDebug */ = {
+		D87021681EBA63EF000D02D6 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -17857,7 +16709,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D87021691EBA63EF000D02D6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -17879,7 +16731,7 @@
 			};
 			name = Release;
 		};
-		D870216A1EBA63EF000D02D6 /* UserTestingRelease */ = {
+		D870216A1EBA63EF000D02D6 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -17897,9 +16749,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D870216B1EBA63EF000D02D6 /* Beta */ = {
+		D870216B1EBA63EF000D02D6 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -17917,9 +16769,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D870216C1EBA63EF000D02D6 /* BetaCluster */ = {
+		D870216C1EBA63EF000D02D6 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -17937,7 +16789,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D870216D1EBA63EF000D02D6 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -17959,7 +16811,7 @@
 			};
 			name = Test;
 		};
-		D870216E1EBA63EF000D02D6 /* Alpha */ = {
+		D870216E1EBA63EF000D02D6 /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -17977,7 +16829,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
 		D88B92A21F02AD0F00F5DD40 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -18042,7 +16894,7 @@
 			};
 			name = UserTestingDebug;
 		};
-		D88B92A51F02AD0F00F5DD40 /* BetaDebug */ = {
+		D88B92A51F02AD0F00F5DD40 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18070,9 +16922,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D88B92A61F02AD0F00F5DD40 /* BetaClusterDebug */ = {
+		D88B92A61F02AD0F00F5DD40 /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18100,9 +16952,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D88B92A71F02AD0F00F5DD40 /* AlphaDebug */ = {
+		D88B92A71F02AD0F00F5DD40 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18130,7 +16982,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D88B92A81F02AD0F00F5DD40 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -18162,7 +17014,7 @@
 			};
 			name = Release;
 		};
-		D88B92AA1F02AD0F00F5DD40 /* UserTestingRelease */ = {
+		D88B92AA1F02AD0F00F5DD40 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18190,9 +17042,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D88B92AB1F02AD0F00F5DD40 /* Beta */ = {
+		D88B92AB1F02AD0F00F5DD40 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18220,9 +17072,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D88B92AC1F02AD0F00F5DD40 /* BetaCluster */ = {
+		D88B92AC1F02AD0F00F5DD40 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18250,7 +17102,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D88B92AD1F02AD0F00F5DD40 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -18282,7 +17134,7 @@
 			};
 			name = Test;
 		};
-		D88B92AE1F02AD0F00F5DD40 /* Alpha */ = {
+		D88B92AE1F02AD0F00F5DD40 /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18310,7 +17162,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = Alpha;
+			name = Experimental;
 		};
 		D895D0921D9C1EB8005418C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -18398,508 +17250,7 @@
 			};
 			name = Test;
 		};
-		D8A1B5DC1FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_MODULES_AUTOLINK = NO;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_NS_ASSERTIONS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
-					"$(inherited)",
-					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG";
-				SDKROOT = iphoneos;
-				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5DD1FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = Wikipedia;
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5DE1FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5DF1FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E01FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E21FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E31FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-				);
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E41FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
-					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WikipediaBetaClusterTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E51FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E61FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E71FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_ENTITLEMENTS = FeaturedArticleWidget/FeaturedArticleWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E81FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5E91FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "WMF Framework/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A1B5EA1FACFCB0007773F8 /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-			};
-			name = PageLibraryDevDebug;
-		};
-		D8A42A3D1E814FAA00D8E281 /* Beta */ = {
+		D8A42A3D1E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -18965,9 +17316,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A3E1E814FAA00D8E281 /* Beta */ = {
+		D8A42A3E1E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18988,7 +17339,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19000,9 +17351,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A3F1E814FAA00D8E281 /* Beta */ = {
+		D8A42A3F1E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19023,7 +17374,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19035,9 +17386,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A401E814FAA00D8E281 /* Beta */ = {
+		D8A42A401E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -19062,9 +17413,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A411E814FAA00D8E281 /* Beta */ = {
+		D8A42A411E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19109,9 +17460,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A421E814FAA00D8E281 /* Beta */ = {
+		D8A42A421E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -19137,9 +17488,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A431E814FAA00D8E281 /* Beta */ = {
+		D8A42A431E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -19165,9 +17516,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A441E814FAA00D8E281 /* Beta */ = {
+		D8A42A441E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -19204,9 +17555,9 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42A451E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A451E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -19276,9 +17627,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42A461E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A461E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19297,7 +17648,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19311,9 +17662,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42A471E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A471E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19332,7 +17683,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19346,9 +17697,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42A481E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A481E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -19378,9 +17729,9 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42A491E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A491E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19424,9 +17775,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42A4A1E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A4A1E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -19457,9 +17808,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42A4B1E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A4B1E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -19490,9 +17841,9 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42A4C1E814FE000D8E281 /* BetaDebug */ = {
+		D8A42A4C1E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -19528,7 +17879,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
 		D8A42C221E815A9C00D8E281 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -19548,7 +17899,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19564,7 +17915,7 @@
 			};
 			name = Debug;
 		};
-		D8A42C231E815A9C00D8E281 /* BetaDebug */ = {
+		D8A42C231E815A9C00D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19582,7 +17933,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19596,9 +17947,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8A42C241E815A9C00D8E281 /* BetaClusterDebug */ = {
+		D8A42C241E815A9C00D8E281 /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19616,7 +17967,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19630,9 +17981,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D8A42C251E815A9C00D8E281 /* AlphaDebug */ = {
+		D8A42C251E815A9C00D8E281 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19652,7 +18003,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19672,7 +18023,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D8A42C261E815A9C00D8E281 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -19694,7 +18045,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19708,7 +18059,7 @@
 			};
 			name = Release;
 		};
-		D8A42C271E815A9C00D8E281 /* Beta */ = {
+		D8A42C271E815A9C00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19728,7 +18079,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19740,9 +18091,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8A42C281E815A9C00D8E281 /* BetaCluster */ = {
+		D8A42C281E815A9C00D8E281 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19762,7 +18113,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19774,7 +18125,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D8A42C291E815A9C00D8E281 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -19796,7 +18147,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19810,7 +18161,7 @@
 			};
 			name = Test;
 		};
-		D8A42C2A1E815A9C00D8E281 /* Alpha */ = {
+		D8A42C2A1E815A9C00D8E281 /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19832,7 +18183,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19851,9 +18202,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D8A42C301E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C301E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -19918,9 +18269,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C311E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C311E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19941,7 +18292,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19953,9 +18304,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C321E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C321E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -19976,7 +18327,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -19988,9 +18339,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C331E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C331E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -20010,7 +18361,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -20022,9 +18373,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C341E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C341E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20049,9 +18400,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C351E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C351E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -20096,9 +18447,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C361E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C361E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -20124,9 +18475,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C371E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C371E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -20152,9 +18503,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C381E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C381E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -20191,7 +18542,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D8A42C391E815C3200D8E281 /* UserTestingDebug */ = {
 			isa = XCBuildConfiguration;
@@ -20283,7 +18634,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -20318,7 +18669,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -20352,7 +18703,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -20655,31 +19006,6 @@
 			};
 			name = UITest;
 		};
-		D8B589AE21CD05080027083A /* PageLibraryDevDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
-			};
-			name = PageLibraryDevDebug;
-		};
 		D8B589B021CD05080027083A /* UserTestingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -20705,7 +19031,7 @@
 			};
 			name = UserTestingDebug;
 		};
-		D8B589B121CD05080027083A /* BetaDebug */ = {
+		D8B589B121CD05080027083A /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20728,9 +19054,9 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8B589B221CD05080027083A /* BetaClusterDebug */ = {
+		D8B589B221CD05080027083A /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20753,9 +19079,9 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D8B589B321CD05080027083A /* AlphaDebug */ = {
+		D8B589B321CD05080027083A /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20778,7 +19104,7 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D8B589B421CD05080027083A /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -20805,7 +19131,7 @@
 			};
 			name = Release;
 		};
-		D8B589B621CD05080027083A /* UserTestingRelease */ = {
+		D8B589B621CD05080027083A /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20828,9 +19154,9 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8B589B721CD05080027083A /* Beta */ = {
+		D8B589B721CD05080027083A /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20853,9 +19179,9 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8B589B821CD05080027083A /* BetaCluster */ = {
+		D8B589B821CD05080027083A /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20878,7 +19204,7 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D8B589B921CD05080027083A /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -20905,7 +19231,7 @@
 			};
 			name = Test;
 		};
-		D8B589BA21CD05080027083A /* Alpha */ = {
+		D8B589BA21CD05080027083A /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -20928,7 +19254,7 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
 		D8CE26A91E698E2400DAE2E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -20949,7 +19275,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -20965,7 +19291,7 @@
 			};
 			name = Debug;
 		};
-		D8CE26AA1E698E2400DAE2E0 /* BetaClusterDebug */ = {
+		D8CE26AA1E698E2400DAE2E0 /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -20984,7 +19310,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -20998,9 +19324,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D8CE26AB1E698E2400DAE2E0 /* AlphaDebug */ = {
+		D8CE26AB1E698E2400DAE2E0 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21021,7 +19347,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21041,7 +19367,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D8CE26AC1E698E2400DAE2E0 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -21064,7 +19390,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21099,7 +19425,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21113,7 +19439,7 @@
 			};
 			name = Test;
 		};
-		D8CE26AE1E698E2400DAE2E0 /* Alpha */ = {
+		D8CE26AE1E698E2400DAE2E0 /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21136,7 +19462,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21155,9 +19481,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
-		D8CE26C21E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C21E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -21222,9 +19548,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
-		D8CE26C31E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C31E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21257,9 +19583,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
-		D8CE26C41E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C41E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21280,7 +19606,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21292,9 +19618,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
-		D8CE26C51E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C51E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -21319,9 +19645,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
-		D8CE26C61E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C61E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21366,9 +19692,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
-		D8CE26C71E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C71E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -21394,9 +19720,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
-		D8CE26C81E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C81E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -21422,9 +19748,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
-		D8CE26C91E698F8E00DAE2E0 /* BetaCluster */ = {
+		D8CE26C91E698F8E00DAE2E0 /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -21461,7 +19787,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D8EC3FA91E9BDA35006712EB /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -21482,7 +19808,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21517,7 +19843,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21533,7 +19859,7 @@
 			};
 			name = UserTestingDebug;
 		};
-		D8EC3FAB1E9BDA35006712EB /* BetaDebug */ = {
+		D8EC3FAB1E9BDA35006712EB /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21552,7 +19878,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21566,9 +19892,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaDebug;
+			name = StagingDebug;
 		};
-		D8EC3FAC1E9BDA35006712EB /* BetaClusterDebug */ = {
+		D8EC3FAC1E9BDA35006712EB /* MediaWikiBetaClusterDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21587,7 +19913,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21601,9 +19927,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaClusterDebug;
+			name = MediaWikiBetaClusterDebug;
 		};
-		D8EC3FAD1E9BDA35006712EB /* AlphaDebug */ = {
+		D8EC3FAD1E9BDA35006712EB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21624,7 +19950,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21644,7 +19970,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = AlphaDebug;
+			name = ExperimentalDebug;
 		};
 		D8EC3FAE1E9BDA35006712EB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -21667,7 +19993,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21681,7 +20007,7 @@
 			};
 			name = Release;
 		};
-		D8EC3FAF1E9BDA35006712EB /* UserTestingRelease */ = {
+		D8EC3FAF1E9BDA35006712EB /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21702,7 +20028,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21714,9 +20040,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8EC3FB01E9BDA35006712EB /* Beta */ = {
+		D8EC3FB01E9BDA35006712EB /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21737,7 +20063,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21749,9 +20075,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Beta;
+			name = Staging;
 		};
-		D8EC3FB11E9BDA35006712EB /* BetaCluster */ = {
+		D8EC3FB11E9BDA35006712EB /* MediaWikiBetaCluster */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21772,7 +20098,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21784,7 +20110,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaCluster;
+			name = MediaWikiBetaCluster;
 		};
 		D8EC3FB21E9BDA35006712EB /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -21807,7 +20133,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21821,7 +20147,7 @@
 			};
 			name = Test;
 		};
-		D8EC3FB31E9BDA35006712EB /* Alpha */ = {
+		D8EC3FB31E9BDA35006712EB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -21844,7 +20170,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -21863,7 +20189,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Alpha;
+			name = Experimental;
 		};
 /* End XCBuildConfiguration section */
 
@@ -21872,22 +20198,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E8380711D64989F0076EDE4 /* Debug */,
-				83B01F6823DA2058001185F4 /* AppsLabsMobileHTML */,
 				D854323B2188CC1300E895B5 /* LocalDebug */,
 				B0502157211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4420DA7F0200C19D60 /* UITest */,
-				D8A1B5E51FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C3F1E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A4A1E814FE000D8E281 /* BetaDebug */,
-				D82972911E427C160061550A /* BetaClusterDebug */,
-				D858A8051DA6DD00009C3DEB /* AlphaDebug */,
+				D8A42A4A1E814FE000D8E281 /* StagingDebug */,
+				D82972911E427C160061550A /* MediaWikiBetaClusterDebug */,
+				D858A8051DA6DD00009C3DEB /* ExperimentalDebug */,
 				0E8380731D64989F0076EDE4 /* Release */,
-				D82A52A823F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C361E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A421E814FAA00D8E281 /* Beta */,
-				D8CE26C71E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C361E815C2800D8E281 /* UserTesting */,
+				D8A42A421E814FAA00D8E281 /* Staging */,
+				D8CE26C71E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0E8380741D64989F0076EDE4 /* Test */,
-				D858A7FD1DA6DBC8009C3DEB /* Alpha */,
+				D858A7FD1DA6DBC8009C3DEB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -21896,22 +20219,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B0606EB520AA6FF0006EC6B9 /* Debug */,
-				83B01F6E23DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432412188CC1300E895B5 /* LocalDebug */,
 				B050215D211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4A20DA7F0200C19D60 /* UITest */,
-				B0606EB620AA6FF0006EC6B9 /* PageLibraryDevDebug */,
 				B0606EB820AA6FF0006EC6B9 /* UserTestingDebug */,
-				B0606EB920AA6FF0006EC6B9 /* BetaDebug */,
-				B0606EBA20AA6FF0006EC6B9 /* BetaClusterDebug */,
-				B0606EBB20AA6FF0006EC6B9 /* AlphaDebug */,
+				B0606EB920AA6FF0006EC6B9 /* StagingDebug */,
+				B0606EBA20AA6FF0006EC6B9 /* MediaWikiBetaClusterDebug */,
+				B0606EBB20AA6FF0006EC6B9 /* ExperimentalDebug */,
 				B0606EBC20AA6FF0006EC6B9 /* Release */,
-				D82A52AE23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				B0606EBE20AA6FF0006EC6B9 /* UserTestingRelease */,
-				B0606EBF20AA6FF0006EC6B9 /* Beta */,
-				B0606EC020AA6FF0006EC6B9 /* BetaCluster */,
+				B0606EBE20AA6FF0006EC6B9 /* UserTesting */,
+				B0606EBF20AA6FF0006EC6B9 /* Staging */,
+				B0606EC020AA6FF0006EC6B9 /* MediaWikiBetaCluster */,
 				B0606EC120AA6FF0006EC6B9 /* Test */,
-				B0606EC220AA6FF0006EC6B9 /* Alpha */,
+				B0606EC220AA6FF0006EC6B9 /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -21920,22 +20240,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC42735B1A7C736800068882 /* Debug */,
-				83B01F6623DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432392188CC1300E895B5 /* LocalDebug */,
 				B0502155211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4220DA7F0200C19D60 /* UITest */,
-				D8A1B5E31FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C3E1E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A491E814FE000D8E281 /* BetaDebug */,
-				D82972901E427C160061550A /* BetaClusterDebug */,
-				D858A8041DA6DD00009C3DEB /* AlphaDebug */,
+				D8A42A491E814FE000D8E281 /* StagingDebug */,
+				D82972901E427C160061550A /* MediaWikiBetaClusterDebug */,
+				D858A8041DA6DD00009C3DEB /* ExperimentalDebug */,
 				BC42735C1A7C736800068882 /* Release */,
-				D82A52A623F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C351E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A411E814FAA00D8E281 /* Beta */,
-				D8CE26C61E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C351E815C2800D8E281 /* UserTesting */,
+				D8A42A411E814FAA00D8E281 /* Staging */,
+				D8CE26C61E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0EAB7A221D47AF8000E7CF8E /* Test */,
-				D858A7FC1DA6DBC8009C3DEB /* Alpha */,
+				D858A7FC1DA6DBC8009C3DEB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -21944,22 +20261,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4991468181D51DF00E6073C /* Debug */,
-				83B01F6023DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432322188CC1300E895B5 /* LocalDebug */,
 				B050214E211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC3B20DA7F0200C19D60 /* UITest */,
-				D8A1B5DC1FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C391E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A451E814FE000D8E281 /* BetaDebug */,
-				D829728D1E427C160061550A /* BetaClusterDebug */,
-				D858A8021DA6DD00009C3DEB /* AlphaDebug */,
+				D8A42A451E814FE000D8E281 /* StagingDebug */,
+				D829728D1E427C160061550A /* MediaWikiBetaClusterDebug */,
+				D858A8021DA6DD00009C3DEB /* ExperimentalDebug */,
 				D4991469181D51DF00E6073C /* Release */,
-				D82A52A023F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C301E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A3D1E814FAA00D8E281 /* Beta */,
-				D8CE26C21E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C301E815C2800D8E281 /* UserTesting */,
+				D8A42A3D1E814FAA00D8E281 /* Staging */,
+				D8CE26C21E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0EAB7A201D47AF8000E7CF8E /* Test */,
-				D858A7FA1DA6DBC8009C3DEB /* Alpha */,
+				D858A7FA1DA6DBC8009C3DEB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -21968,22 +20282,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D499146B181D51DF00E6073C /* Debug */,
-				83B01F6123DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432332188CC1300E895B5 /* LocalDebug */,
 				B050214F211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC3C20DA7F0200C19D60 /* UITest */,
-				D8A1B5DD1FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C3A1E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A461E814FE000D8E281 /* BetaDebug */,
-				D829728E1E427C160061550A /* BetaClusterDebug */,
-				D858A8031DA6DD00009C3DEB /* AlphaDebug */,
+				D8A42A461E814FE000D8E281 /* StagingDebug */,
+				D829728E1E427C160061550A /* MediaWikiBetaClusterDebug */,
+				D858A8031DA6DD00009C3DEB /* ExperimentalDebug */,
 				D499146C181D51DF00E6073C /* Release */,
-				D82A52A123F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C311E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A3E1E814FAA00D8E281 /* Beta */,
-				D8CE26C31E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C311E815C2800D8E281 /* UserTesting */,
+				D8A42A3E1E814FAA00D8E281 /* Staging */,
+				D8CE26C31E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0EAB7A211D47AF8000E7CF8E /* Test */,
-				D858A7FB1DA6DBC8009C3DEB /* Alpha */,
+				D858A7FB1DA6DBC8009C3DEB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -21992,22 +20303,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D83FD2951EF4724800532B15 /* Debug */,
-				83B01F6A23DA2058001185F4 /* AppsLabsMobileHTML */,
 				D854323D2188CC1300E895B5 /* LocalDebug */,
 				B0502159211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4620DA7F0200C19D60 /* UITest */,
-				D8A1B5E71FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D83FD2971EF4724800532B15 /* UserTestingDebug */,
-				D83FD2981EF4724800532B15 /* BetaDebug */,
-				D83FD2991EF4724800532B15 /* BetaClusterDebug */,
-				D83FD29A1EF4724800532B15 /* AlphaDebug */,
+				D83FD2981EF4724800532B15 /* StagingDebug */,
+				D83FD2991EF4724800532B15 /* MediaWikiBetaClusterDebug */,
+				D83FD29A1EF4724800532B15 /* ExperimentalDebug */,
 				D83FD29B1EF4724800532B15 /* Release */,
-				D82A52AA23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D83FD29D1EF4724800532B15 /* UserTestingRelease */,
-				D83FD29E1EF4724800532B15 /* Beta */,
-				D83FD29F1EF4724800532B15 /* BetaCluster */,
+				D83FD29D1EF4724800532B15 /* UserTesting */,
+				D83FD29E1EF4724800532B15 /* Staging */,
+				D83FD29F1EF4724800532B15 /* MediaWikiBetaCluster */,
 				D83FD2A01EF4724800532B15 /* Test */,
-				D83FD2A11EF4724800532B15 /* Alpha */,
+				D83FD2A11EF4724800532B15 /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -22016,22 +20324,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D844D9751D6CB2600042D692 /* Debug */,
-				83B01F6C23DA2058001185F4 /* AppsLabsMobileHTML */,
 				D854323F2188CC1300E895B5 /* LocalDebug */,
 				B050215B211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4820DA7F0200C19D60 /* UITest */,
-				D8A1B5E91FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C411E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A4C1E814FE000D8E281 /* BetaDebug */,
-				D82972931E427C160061550A /* BetaClusterDebug */,
-				D858A8081DA6DD00009C3DEB /* AlphaDebug */,
+				D8A42A4C1E814FE000D8E281 /* StagingDebug */,
+				D82972931E427C160061550A /* MediaWikiBetaClusterDebug */,
+				D858A8081DA6DD00009C3DEB /* ExperimentalDebug */,
 				D844D9781D6CB2600042D692 /* Release */,
-				D82A52AC23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C381E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A441E814FAA00D8E281 /* Beta */,
-				D8CE26C91E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C381E815C2800D8E281 /* UserTesting */,
+				D8A42A441E814FAA00D8E281 /* Staging */,
+				D8CE26C91E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D844D9791D6CB2600042D692 /* Test */,
-				D858A8001DA6DBC8009C3DEB /* Alpha */,
+				D858A8001DA6DBC8009C3DEB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -22040,22 +20345,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8479FB31F222FE90025FD7A /* Debug */,
-				83B01F6B23DA2058001185F4 /* AppsLabsMobileHTML */,
 				D854323E2188CC1300E895B5 /* LocalDebug */,
 				B050215A211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4720DA7F0200C19D60 /* UITest */,
-				D8A1B5E81FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8479FB51F222FE90025FD7A /* UserTestingDebug */,
-				D8479FB61F222FE90025FD7A /* BetaDebug */,
-				D8479FB71F222FE90025FD7A /* BetaClusterDebug */,
-				D8479FB81F222FE90025FD7A /* AlphaDebug */,
+				D8479FB61F222FE90025FD7A /* StagingDebug */,
+				D8479FB71F222FE90025FD7A /* MediaWikiBetaClusterDebug */,
+				D8479FB81F222FE90025FD7A /* ExperimentalDebug */,
 				D8479FB91F222FE90025FD7A /* Release */,
-				D82A52AB23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8479FBB1F222FE90025FD7A /* UserTestingRelease */,
-				D8479FBC1F222FE90025FD7A /* Beta */,
-				D8479FBD1F222FE90025FD7A /* BetaCluster */,
+				D8479FBB1F222FE90025FD7A /* UserTesting */,
+				D8479FBC1F222FE90025FD7A /* Staging */,
+				D8479FBD1F222FE90025FD7A /* MediaWikiBetaCluster */,
 				D8479FBE1F222FE90025FD7A /* Test */,
-				D8479FBF1F222FE90025FD7A /* Alpha */,
+				D8479FBF1F222FE90025FD7A /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -22064,22 +20366,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D85D34D21D74D07600845125 /* Debug */,
-				83B01F6923DA2058001185F4 /* AppsLabsMobileHTML */,
 				D854323C2188CC1300E895B5 /* LocalDebug */,
 				B0502158211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4520DA7F0200C19D60 /* UITest */,
-				D8A1B5E61FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C401E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A4B1E814FE000D8E281 /* BetaDebug */,
-				D82972921E427C160061550A /* BetaClusterDebug */,
-				D858A8061DA6DD00009C3DEB /* AlphaDebug */,
+				D8A42A4B1E814FE000D8E281 /* StagingDebug */,
+				D82972921E427C160061550A /* MediaWikiBetaClusterDebug */,
+				D858A8061DA6DD00009C3DEB /* ExperimentalDebug */,
 				D85D34D51D74D07600845125 /* Release */,
-				D82A52A923F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C371E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A431E814FAA00D8E281 /* Beta */,
-				D8CE26C81E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C371E815C2800D8E281 /* UserTesting */,
+				D8A42A431E814FAA00D8E281 /* Staging */,
+				D8CE26C81E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D85D34D61D74D07600845125 /* Test */,
-				D858A7FE1DA6DBC8009C3DEB /* Alpha */,
+				D858A7FE1DA6DBC8009C3DEB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -22088,22 +20387,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D87021641EBA63EF000D02D6 /* Debug */,
-				83B01F6D23DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432402188CC1300E895B5 /* LocalDebug */,
 				B050215C211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4920DA7F0200C19D60 /* UITest */,
-				D8A1B5EA1FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D87021651EBA63EF000D02D6 /* UserTestingDebug */,
-				D87021661EBA63EF000D02D6 /* BetaDebug */,
-				D87021671EBA63EF000D02D6 /* BetaClusterDebug */,
-				D87021681EBA63EF000D02D6 /* AlphaDebug */,
+				D87021661EBA63EF000D02D6 /* StagingDebug */,
+				D87021671EBA63EF000D02D6 /* MediaWikiBetaClusterDebug */,
+				D87021681EBA63EF000D02D6 /* ExperimentalDebug */,
 				D87021691EBA63EF000D02D6 /* Release */,
-				D82A52AD23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D870216A1EBA63EF000D02D6 /* UserTestingRelease */,
-				D870216B1EBA63EF000D02D6 /* Beta */,
-				D870216C1EBA63EF000D02D6 /* BetaCluster */,
+				D870216A1EBA63EF000D02D6 /* UserTesting */,
+				D870216B1EBA63EF000D02D6 /* Staging */,
+				D870216C1EBA63EF000D02D6 /* MediaWikiBetaCluster */,
 				D870216D1EBA63EF000D02D6 /* Test */,
-				D870216E1EBA63EF000D02D6 /* Alpha */,
+				D870216E1EBA63EF000D02D6 /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -22112,22 +20408,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D88B92A21F02AD0F00F5DD40 /* Debug */,
-				83B01F6723DA2058001185F4 /* AppsLabsMobileHTML */,
 				D854323A2188CC1300E895B5 /* LocalDebug */,
 				B0502156211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4320DA7F0200C19D60 /* UITest */,
-				D8A1B5E41FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D88B92A41F02AD0F00F5DD40 /* UserTestingDebug */,
-				D88B92A51F02AD0F00F5DD40 /* BetaDebug */,
-				D88B92A61F02AD0F00F5DD40 /* BetaClusterDebug */,
-				D88B92A71F02AD0F00F5DD40 /* AlphaDebug */,
+				D88B92A51F02AD0F00F5DD40 /* StagingDebug */,
+				D88B92A61F02AD0F00F5DD40 /* MediaWikiBetaClusterDebug */,
+				D88B92A71F02AD0F00F5DD40 /* ExperimentalDebug */,
 				D88B92A81F02AD0F00F5DD40 /* Release */,
-				D82A52A723F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D88B92AA1F02AD0F00F5DD40 /* UserTestingRelease */,
-				D88B92AB1F02AD0F00F5DD40 /* Beta */,
-				D88B92AC1F02AD0F00F5DD40 /* BetaCluster */,
+				D88B92AA1F02AD0F00F5DD40 /* UserTesting */,
+				D88B92AB1F02AD0F00F5DD40 /* Staging */,
+				D88B92AC1F02AD0F00F5DD40 /* MediaWikiBetaCluster */,
 				D88B92AD1F02AD0F00F5DD40 /* Test */,
-				D88B92AE1F02AD0F00F5DD40 /* Alpha */,
+				D88B92AE1F02AD0F00F5DD40 /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -22136,46 +20429,40 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D895D0921D9C1EB8005418C1 /* Debug */,
-				83B01F6523DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432382188CC1300E895B5 /* LocalDebug */,
 				B0502154211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC4120DA7F0200C19D60 /* UITest */,
-				D8A1B5E21FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C3D1E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A481E814FE000D8E281 /* BetaDebug */,
-				D829728F1E427C160061550A /* BetaClusterDebug */,
+				D8A42A481E814FE000D8E281 /* StagingDebug */,
+				D829728F1E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D895D0951D9C1EB8005418C1 /* Release */,
-				D82A52A523F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C341E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A401E814FAA00D8E281 /* Beta */,
-				D8CE26C51E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C341E815C2800D8E281 /* UserTesting */,
+				D8A42A401E814FAA00D8E281 /* Staging */,
+				D8CE26C51E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D895D0961D9C1EB8005418C1 /* Test */,
-				D84B224B1DAD7DE3007C44AA /* AlphaDebug */,
-				D84B224C1DAD7DE3007C44AA /* Alpha */,
+				D84B224B1DAD7DE3007C44AA /* ExperimentalDebug */,
+				D84B224C1DAD7DE3007C44AA /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8A42C211E815A9C00D8E281 /* Build configuration list for PBXNativeTarget "Wikipedia User Testing" */ = {
+		D8A42C211E815A9C00D8E281 /* Build configuration list for PBXNativeTarget "User Testing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8A42C221E815A9C00D8E281 /* Debug */,
-				83B01F6423DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432362188CC1300E895B5 /* LocalDebug */,
 				B0502152211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC3F20DA7F0200C19D60 /* UITest */,
-				D8A1B5E01FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C3C1E815C3200D8E281 /* UserTestingDebug */,
-				D8A42C231E815A9C00D8E281 /* BetaDebug */,
-				D8A42C241E815A9C00D8E281 /* BetaClusterDebug */,
-				D8A42C251E815A9C00D8E281 /* AlphaDebug */,
+				D8A42C231E815A9C00D8E281 /* StagingDebug */,
+				D8A42C241E815A9C00D8E281 /* MediaWikiBetaClusterDebug */,
+				D8A42C251E815A9C00D8E281 /* ExperimentalDebug */,
 				D8A42C261E815A9C00D8E281 /* Release */,
-				D82A52A423F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C331E815C2800D8E281 /* UserTestingRelease */,
-				D8A42C271E815A9C00D8E281 /* Beta */,
-				D8A42C281E815A9C00D8E281 /* BetaCluster */,
+				D8A42C331E815C2800D8E281 /* UserTesting */,
+				D8A42C271E815A9C00D8E281 /* Staging */,
+				D8A42C281E815A9C00D8E281 /* MediaWikiBetaCluster */,
 				D8A42C291E815A9C00D8E281 /* Test */,
-				D8A42C2A1E815A9C00D8E281 /* Alpha */,
+				D8A42C2A1E815A9C00D8E281 /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -22184,70 +20471,61 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8B589AA21CD05080027083A /* Debug */,
-				83B01F7023DA2058001185F4 /* AppsLabsMobileHTML */,
 				D8B589AB21CD05080027083A /* LocalDebug */,
 				D8B589AC21CD05080027083A /* EventLoggingDevDebug */,
 				D8B589AD21CD05080027083A /* UITest */,
-				D8B589AE21CD05080027083A /* PageLibraryDevDebug */,
 				D8B589B021CD05080027083A /* UserTestingDebug */,
-				D8B589B121CD05080027083A /* BetaDebug */,
-				D8B589B221CD05080027083A /* BetaClusterDebug */,
-				D8B589B321CD05080027083A /* AlphaDebug */,
+				D8B589B121CD05080027083A /* StagingDebug */,
+				D8B589B221CD05080027083A /* MediaWikiBetaClusterDebug */,
+				D8B589B321CD05080027083A /* ExperimentalDebug */,
 				D8B589B421CD05080027083A /* Release */,
-				D82A52AF23F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8B589B621CD05080027083A /* UserTestingRelease */,
-				D8B589B721CD05080027083A /* Beta */,
-				D8B589B821CD05080027083A /* BetaCluster */,
+				D8B589B621CD05080027083A /* UserTesting */,
+				D8B589B721CD05080027083A /* Staging */,
+				D8B589B821CD05080027083A /* MediaWikiBetaCluster */,
 				D8B589B921CD05080027083A /* Test */,
-				D8B589BA21CD05080027083A /* Alpha */,
+				D8B589BA21CD05080027083A /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8CE26A81E698E2400DAE2E0 /* Build configuration list for PBXNativeTarget "Wikipedia Alpha" */ = {
+		D8CE26A81E698E2400DAE2E0 /* Build configuration list for PBXNativeTarget "Experimental" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8CE26A91E698E2400DAE2E0 /* Debug */,
-				83B01F6223DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432342188CC1300E895B5 /* LocalDebug */,
 				B0502150211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC3D20DA7F0200C19D60 /* UITest */,
-				D8A1B5DE1FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8A42C3B1E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A471E814FE000D8E281 /* BetaDebug */,
-				D8CE26AA1E698E2400DAE2E0 /* BetaClusterDebug */,
-				D8CE26AB1E698E2400DAE2E0 /* AlphaDebug */,
+				D8A42A471E814FE000D8E281 /* StagingDebug */,
+				D8CE26AA1E698E2400DAE2E0 /* MediaWikiBetaClusterDebug */,
+				D8CE26AB1E698E2400DAE2E0 /* ExperimentalDebug */,
 				D8CE26AC1E698E2400DAE2E0 /* Release */,
-				D82A52A223F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8A42C321E815C2800D8E281 /* UserTestingRelease */,
-				D8A42A3F1E814FAA00D8E281 /* Beta */,
-				D8CE26C41E698F8E00DAE2E0 /* BetaCluster */,
+				D8A42C321E815C2800D8E281 /* UserTesting */,
+				D8A42A3F1E814FAA00D8E281 /* Staging */,
+				D8CE26C41E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D8CE26AD1E698E2400DAE2E0 /* Test */,
-				D8CE26AE1E698E2400DAE2E0 /* Alpha */,
+				D8CE26AE1E698E2400DAE2E0 /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Wikipedia Beta" */ = {
+		D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Staging" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8EC3FA91E9BDA35006712EB /* Debug */,
-				83B01F6323DA2058001185F4 /* AppsLabsMobileHTML */,
 				D85432352188CC1300E895B5 /* LocalDebug */,
 				B0502151211CBB7200020BFA /* EventLoggingDevDebug */,
 				8350FC3E20DA7F0200C19D60 /* UITest */,
-				D8A1B5DF1FACFCB0007773F8 /* PageLibraryDevDebug */,
 				D8EC3FAA1E9BDA35006712EB /* UserTestingDebug */,
-				D8EC3FAB1E9BDA35006712EB /* BetaDebug */,
-				D8EC3FAC1E9BDA35006712EB /* BetaClusterDebug */,
-				D8EC3FAD1E9BDA35006712EB /* AlphaDebug */,
+				D8EC3FAB1E9BDA35006712EB /* StagingDebug */,
+				D8EC3FAC1E9BDA35006712EB /* MediaWikiBetaClusterDebug */,
+				D8EC3FAD1E9BDA35006712EB /* ExperimentalDebug */,
 				D8EC3FAE1E9BDA35006712EB /* Release */,
-				D82A52A323F427AC001C66D3 /* AppsLabsMobileHTMLRelease */,
-				D8EC3FAF1E9BDA35006712EB /* UserTestingRelease */,
-				D8EC3FB01E9BDA35006712EB /* Beta */,
-				D8EC3FB11E9BDA35006712EB /* BetaCluster */,
+				D8EC3FAF1E9BDA35006712EB /* UserTesting */,
+				D8EC3FB01E9BDA35006712EB /* Staging */,
+				D8EC3FB11E9BDA35006712EB /* MediaWikiBetaCluster */,
 				D8EC3FB21E9BDA35006712EB /* Test */,
-				D8EC3FB31E9BDA35006712EB /* Alpha */,
+				D8EC3FB31E9BDA35006712EB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
