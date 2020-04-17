@@ -213,47 +213,26 @@ platform :ios do
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
   end
   
-  desc "Deploys both the production and beta apps"
+  desc "Pushes both the production and staging apps to test flight and tags the release. Only releases to internal testers."
   lane :deploy do |options|
     tag_prefix = "betas"
     build = options[:build] || get_latest_build_number(prefix: tag_prefix) + 1
-    push_beta_app(build: build)
-    push_beta(build: build)
-    tag(
-      prefix: tag_prefix,
-      build_number: build
-    )
+    push_production(build: build)
+    tag(prefix: tag_prefix, build_number: build)
+    push_staging(build: build)
   end
 
-  desc "updates version, builds, and pushes to TestFlight"
-  lane :push_beta do |options|
+  desc "updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers."
+  lane :push_production do |options|
     push(
       product_name: "Wikipedia",
       app_identifier: "org.wikimedia.wikipedia",
       build: options[:build]
     )
   end
-  
-  desc "updates version, builds, and pushes alpha to TestFlight"
-  lane :push_alpha do |options|
-    push(
-      product_name: "Alpha",
-      app_identifier: "org.wikimedia.wikipedia.tfalpha",
-      build: options[:build]
-    )
-  end
-  
-  desc "updates version, builds, and pushes beta cluster to TestFlight"
-  lane :push_beta_cluster do |options|
-    push(
-      product_name: "Beta Cluster",
-      app_identifier: "org.wikimedia.wikipedia.tfbeta",
-      build: options[:build]
-    )
-  end
-  
-  desc "updates version, builds, and pushes beta cluster to TestFlight"
-  lane :push_beta_app do |options|
+
+  desc "Updates version, builds, and pushes the staging build to TestFlight. Only releases to internal testers."
+  lane :push_staging do |options|
     push(
       product_name: "Beta (mobileapps.wmflabs.org pcs)",
       app_identifier: "org.wikimedia.wikipedia.tfbeta",
@@ -261,6 +240,15 @@ platform :ios do
     )
   end
   
+  desc "updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers."
+  lane :push_experimental do |options|
+    push(
+      product_name: "Alpha",
+      app_identifier: "org.wikimedia.wikipedia.tfalpha",
+      build: options[:build]
+    )
+  end
+
   lane :get_latest_tag_with_prefix do |options|
     prefix = options[:prefix] || "betas/"
     `git tag -l #{prefix}* --sort=-creatordate | head -n 1`
@@ -309,52 +297,11 @@ platform :ios do
     )
   end
 
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :test_and_push_beta do
-
-    verify_test_platforms
-    push_beta
-
-  end
-
   desc "Upload app store metadata"
   lane :upload_app_store_metadata do 
     deliver(skip_binary_upload: true, skip_screenshots: true)
   end
-  
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :submit_release do
-    build = ENV['BUILD']
-    raise "Must specifiy a BUILD." unless build.length > 0
-    
-    build_dir = "build"
-    product_name = "Wikipedia"
-    ipa_path = "#{build_dir}/#{product_name}.ipa"
-    
-    sh "git pull"
-    sh "git checkout betas/#{sha}"
 
-    app_review_information(
-      first_name: "Corey",
-      last_name: "Floyd",
-      phone_number: "+43 123123123",
-      email_address: "github@krausefx.com",
-      demo_user: "demoUser",
-      demo_password: "demoPass",
-      notes: "such notes, very text"
-    )
-
-    deliver(
-      ipa: ipa_path,
-      submit_for_review: true,
-      automatic_release: false,
-      build_number:build.to_i,
-    )
-
-    tag_release
-  end
-  
-  
   desc "Download dSYMs from iTunes Connect"
   lane :dsyms do |options|
     app_identifier = options[:app_identifier]

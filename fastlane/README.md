@@ -100,27 +100,22 @@ Build the app for distibution
 ```
 fastlane ios deploy
 ```
-Deploys both the production and beta apps
-### ios push_beta
+Pushes both the production and staging apps to test flight and tags the release. Only releases to internal testers.
+### ios push_production
 ```
-fastlane ios push_beta
+fastlane ios push_production
 ```
-updates version, builds, and pushes to TestFlight
-### ios push_alpha
+updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers.
+### ios push_staging
 ```
-fastlane ios push_alpha
+fastlane ios push_staging
 ```
-updates version, builds, and pushes alpha to TestFlight
-### ios push_beta_cluster
+Updates version, builds, and pushes the staging build to TestFlight. Only releases to internal testers.
+### ios push_experimental
 ```
-fastlane ios push_beta_cluster
+fastlane ios push_experimental
 ```
-updates version, builds, and pushes beta cluster to TestFlight
-### ios push_beta_app
-```
-fastlane ios push_beta_app
-```
-updates version, builds, and pushes beta cluster to TestFlight
+updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers.
 ### ios get_latest_tag_with_prefix
 ```
 fastlane ios get_latest_tag_with_prefix
@@ -136,21 +131,11 @@ fastlane ios get_latest_build_number
 fastlane ios push
 ```
 updates version, builds, and pushes to TestFlight
-### ios test_and_push_beta
-```
-fastlane ios test_and_push_beta
-```
-Runs tests, version, tag, and push to the beta branch
 ### ios upload_app_store_metadata
 ```
 fastlane ios upload_app_store_metadata
 ```
 Upload app store metadata
-### ios submit_release
-```
-fastlane ios submit_release
-```
-Runs tests, version, tag, and push to the beta branch
 ### ios dsyms
 ```
 fastlane ios dsyms
