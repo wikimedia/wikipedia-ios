@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController {    
+class ArticleViewController: ViewController, HintPresenting {
     enum ViewState {
         case initial
         case loading
@@ -105,6 +105,10 @@ class ArticleViewController: ViewController {
     lazy var webView: WKWebView = {
         return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
+    
+    // MARK: HintPresenting
+    
+    var hintController: HintController?
     
     // MARK: Find In Page
     
@@ -716,6 +720,7 @@ class ArticleViewController: ViewController {
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         dismissReferencesPopover()
+        hintController?.dismissHintDueToUserInteraction()
     }
     
     // MARK: Analytics
