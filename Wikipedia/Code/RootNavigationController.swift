@@ -1,7 +1,9 @@
 import UIKit
 
+/// Root view controller for the entire app. Handles splash screen presentation.
 @objc(WMFRootNavigationController)
 class RootNavigationController: WMFThemeableNavigationController {
+    
     var splashScreenViewController: SplashScreenViewController?
     
     @objc func showSplashView() {
@@ -36,5 +38,5 @@ class RootNavigationController: WMFThemeableNavigationController {
         }
         splashScreenViewController = nil
     }
-
+    
 }
