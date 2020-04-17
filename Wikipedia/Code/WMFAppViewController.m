@@ -731,7 +731,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
-    WMFThemeableNavigationController *articleNavigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self];
+    WMFRootNavigationController *articleNavigationController = [[WMFRootNavigationController alloc] initWithRootViewController:self];
     articleNavigationController.themeableNavigationControllerDelegate = self;
     articleNavigationController.delegate = self;
     articleNavigationController.interactivePopGestureRecognizer.delegate = self;
@@ -1431,11 +1431,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
-    [(WMFThemeableNavigationController *)self.navigationController showSplashView];
+    [(WMFRootNavigationController *)self.navigationController showSplashView];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
-    [(WMFThemeableNavigationController *)self.navigationController hideSplashViewAnimated:animated];
+    [(WMFRootNavigationController *)self.navigationController hideSplashViewAnimated:animated];
 }
 
 #pragma mark - Explore VC

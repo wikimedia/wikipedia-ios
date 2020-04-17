@@ -63,41 +63,6 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-#pragma mark - Splash
-
-- (void)showSplashView {
-    if (self.splashScreenViewController) {
-        return;
-    }
-    WMFSplashScreenViewController *splashVC = [[WMFSplashScreenViewController alloc] init];
-    // Explicit appearance transitions need to be used here because UINavigationController overrides
-    // a lot of behaviors when adding the VC as a child and causes layout issues for our use case.
-    [splashVC beginAppearanceTransition:YES animated:NO];
-    [self.view wmf_addSubviewWithConstraintsToEdges:splashVC.view];
-    [splashVC endAppearanceTransition];
-    self.splashScreenViewController = splashVC;
-}
-
-- (void)hideSplashViewAnimated:(BOOL)animated {
-    if (!self.splashScreenViewController) {
-        return;
-    }
-    WMFSplashScreenViewController *splashVC = self.splashScreenViewController;
-    [splashVC ensureMinimumShowDurationWithCompletion:^{
-        // Explicit appearance transitions need to be used here because UINavigationController overrides
-        // a lot of behaviors when adding the VC as a child and causes layout issues for our use case.
-        [splashVC beginAppearanceTransition:NO animated:YES];
-        NSTimeInterval duration = animated ? 0.15 : 0.0;
-        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            splashVC.view.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [splashVC.view removeFromSuperview];
-            [splashVC endAppearanceTransition];
-        }];
-    }];
-    self.splashScreenViewController = nil;
-}
-
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     [self.themeableNavigationControllerDelegate themeableNavigationControllerTraitCollectionDidChange:self];

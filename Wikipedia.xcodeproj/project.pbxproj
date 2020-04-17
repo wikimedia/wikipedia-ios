@@ -1243,6 +1243,10 @@
 		83DB0A5B23EEDE2D00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
 		83DB0A5C23EEDE2E00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
 		83DB0A5E23EEDE4400DA5F58 /* LegacyArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */; };
+		83DB4410244A57590046FABE /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB440F244A57590046FABE /* RootNavigationController.swift */; };
+		83DB4411244A57590046FABE /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB440F244A57590046FABE /* RootNavigationController.swift */; };
+		83DB4412244A57590046FABE /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB440F244A57590046FABE /* RootNavigationController.swift */; };
+		83DB4413244A57590046FABE /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB440F244A57590046FABE /* RootNavigationController.swift */; };
 		83DE45B92449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
 		83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
 		83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
@@ -3651,6 +3655,7 @@
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
 		83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileviewToMobileHTMLConverter.swift; sourceTree = "<group>"; };
 		83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyArticle.swift; sourceTree = "<group>"; };
+		83DB440F244A57590046FABE /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		83DE45B72449C09B00671878 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationViewController.swift; sourceTree = "<group>"; };
 		83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingAnimationViewController.xib; sourceTree = "<group>"; };
@@ -6723,6 +6728,7 @@
 				B0BCF0B02025087B00986F72 /* Popover */,
 				D896C7941D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h */,
 				D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */,
+				83DB440F244A57590046FABE /* RootNavigationController.swift */,
 				D850A5381F8686DE006FD295 /* WMFThemeableNavigationController.h */,
 				D850A5391F8686DE006FD295 /* WMFThemeableNavigationController.m */,
 				67E06918223B32DF008550AC /* FocusNavigationView.xib */,
@@ -9979,6 +9985,7 @@
 				7A6ED52120ADBF950001849F /* LoginFunnel.swift in Sources */,
 				670F765F22B0C10600D87545 /* FakeProgressLoading.swift in Sources */,
 				B0016CC321362DB300FA1096 /* SetupGradientView.swift in Sources */,
+				83DB4410244A57590046FABE /* RootNavigationController.swift in Sources */,
 				D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
 				B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */,
@@ -10776,6 +10783,7 @@
 				7AF0265922985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				83B01F7523DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
+				83DB4413244A57590046FABE /* RootNavigationController.swift in Sources */,
 				67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				670F766222B0C49000D87545 /* FakeProgressLoading.swift in Sources */,
 				B0016CC621362DB300FA1096 /* SetupGradientView.swift in Sources */,
@@ -11532,6 +11540,7 @@
 				678D79FD235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
+				83DB4412244A57590046FABE /* RootNavigationController.swift in Sources */,
 				7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				D8CE26121E698E2400DAE2E0 /* TableOfContentsPresentationController.swift in Sources */,
 				7ABE17012239B346006BA309 /* WelcomeViewController.swift in Sources */,
@@ -11983,6 +11992,7 @@
 				678D79FE235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBB21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
+				83DB4411244A57590046FABE /* RootNavigationController.swift in Sources */,
 				7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				D8EC3F111E9BDA35006712EB /* TableOfContentsPresentationController.swift in Sources */,
 				7ABE17022239B346006BA309 /* WelcomeViewController.swift in Sources */,
