@@ -115,7 +115,7 @@ Updates version, builds, and pushes the staging build to TestFlight. Only releas
 ```
 fastlane ios push_experimental
 ```
-updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers.
+Updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers.
 ### ios get_latest_tag_with_prefix
 ```
 fastlane ios get_latest_tag_with_prefix
