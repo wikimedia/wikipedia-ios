@@ -1235,6 +1235,10 @@
 		83DB0A5B23EEDE2D00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
 		83DB0A5C23EEDE2E00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */; };
 		83DB0A5E23EEDE4400DA5F58 /* LegacyArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */; };
+		83DE45B92449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
+		83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
+		83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
+		83DE45BC2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
 		83E3E7252440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
 		83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
 		83E3E7272440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
@@ -3638,6 +3642,7 @@
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
 		83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileviewToMobileHTMLConverter.swift; sourceTree = "<group>"; };
 		83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyArticle.swift; sourceTree = "<group>"; };
+		83DE45B72449C09B00671878 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationViewController.swift; sourceTree = "<group>"; };
 		83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingAnimationViewController.xib; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
@@ -7553,6 +7558,7 @@
 				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
 				83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */,
 				83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */,
+				83DE45B72449C09B00671878 /* SplashScreenViewController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -10219,6 +10225,7 @@
 				7A196F5A21BF199500D9E4B5 /* SectionEditorWebView.swift in Sources */,
 				83836ECC1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				B0C6BE4A1E42D19D0033BD6E /* WMFCaptchaViewController.swift in Sources */,
+				83DE45B92449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				67DC5BEF23A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				7A6ED51220ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				83B01F9523DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */,
@@ -10907,6 +10914,7 @@
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
 				B09CE59D222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				830C0DD823D9AFBE006471C4 /* UIViewController+Push.swift in Sources */,
+				83DE45BC2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				D8A42B271E815A9C00D8E281 /* ArticlePlace.swift in Sources */,
 				D87B13A81F276B1000B27227 /* ShareActivityController.swift in Sources */,
 				D8E6FF7F2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
@@ -11363,6 +11371,7 @@
 				83E776A420FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				D8CE25AD1E698E2400DAE2E0 /* ArticlePlace.swift in Sources */,
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
+				83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				7A9F2777225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D8E6FF7D2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
@@ -11811,6 +11820,7 @@
 				D8EC3EA81E9BDA35006712EB /* AppDelegate.m in Sources */,
 				D8EC3EAA1E9BDA35006712EB /* ArticlePlace.swift in Sources */,
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
+				83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				7A9F2778225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8E6FF7E2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,

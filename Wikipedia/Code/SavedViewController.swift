@@ -172,7 +172,7 @@ class SavedViewController: ViewController {
         navigationBar.isShadowHidingEnabled = false
         navigationBar.isShadowBelowUnderBarView = true
         
-        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        wmf_addHeightDetermining(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
         if activeEditableCollection == nil {
             currentView = .savedArticles

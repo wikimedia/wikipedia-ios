@@ -111,7 +111,7 @@ class HintController: NSObject {
         containerView.setContentHuggingPriority(.required, for: .vertical)
         containerView.setContentCompressionResistancePriority(.required, for: .vertical)
 
-        presenter.wmf_add(childController: hintViewController, andConstrainToEdgesOfContainerView: containerView)
+        presenter.wmf_addHeightDetermining(childController: hintViewController, andConstrainToEdgesOfContainerView: containerView)
 
         containerView.superview?.layoutIfNeeded()
     }

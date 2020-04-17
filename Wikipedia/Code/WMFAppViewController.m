@@ -60,7 +60,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
 @property (nonatomic, strong) WMFReachabilityNotifier *reachabilityNotifier;
 
-@property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
@@ -128,7 +127,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize placesViewController = _placesViewController;
-@synthesize splashView = _splashView;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -1431,10 +1429,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSplashView {
     [(WMFThemeableNavigationController *)self.navigationController showSplashView];
-}
-
-- (void)showSplashViewIfNotShowing {
-    [(WMFThemeableNavigationController *)self.navigationController showSplashViewIfNotShowing];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
