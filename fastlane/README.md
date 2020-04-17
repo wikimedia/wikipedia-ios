@@ -100,7 +100,7 @@ Build the app for distibution
 ```
 fastlane ios deploy
 ```
-Pushes both the production and staging apps to test flight and tags the release. Only releases to internal testers.
+Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers.
 ### ios push_production
 ```
 fastlane ios push_production

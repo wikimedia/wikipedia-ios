@@ -213,7 +213,7 @@ platform :ios do
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
   end
   
-  desc "Pushes both the production and staging apps to test flight and tags the release. Only releases to internal testers."
+  desc "Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers."
   lane :deploy do |options|
     tag_prefix = "betas"
     build = options[:build] || get_latest_build_number(prefix: tag_prefix) + 1
