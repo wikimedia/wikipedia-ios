@@ -356,7 +356,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-AppleLanguages (he)"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-WMFVisualTestBatchRecordMode NO"
