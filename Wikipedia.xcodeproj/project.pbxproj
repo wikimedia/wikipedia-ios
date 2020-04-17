@@ -14001,7 +14001,7 @@
 			};
 			name = Release;
 		};
-		B0606EBE20AA6FF0006EC6B9 /* UserTestingRelease */ = {
+		B0606EBE20AA6FF0006EC6B9 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14035,7 +14035,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		B0606EBF20AA6FF0006EC6B9 /* Staging */ = {
 			isa = XCBuildConfiguration;
@@ -14940,7 +14940,7 @@
 			};
 			name = Release;
 		};
-		D83FD29D1EF4724800532B15 /* UserTestingRelease */ = {
+		D83FD29D1EF4724800532B15 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14966,7 +14966,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D83FD29E1EF4724800532B15 /* Staging */ = {
 			isa = XCBuildConfiguration;
@@ -15313,7 +15313,7 @@
 			};
 			name = Release;
 		};
-		D8479FBB1F222FE90025FD7A /* UserTestingRelease */ = {
+		D8479FBB1F222FE90025FD7A /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -15330,7 +15330,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D8479FBC1F222FE90025FD7A /* Staging */ = {
 			isa = XCBuildConfiguration;
@@ -16731,7 +16731,7 @@
 			};
 			name = Release;
 		};
-		D870216A1EBA63EF000D02D6 /* UserTestingRelease */ = {
+		D870216A1EBA63EF000D02D6 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -16749,7 +16749,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D870216B1EBA63EF000D02D6 /* Staging */ = {
 			isa = XCBuildConfiguration;
@@ -17014,7 +17014,7 @@
 			};
 			name = Release;
 		};
-		D88B92AA1F02AD0F00F5DD40 /* UserTestingRelease */ = {
+		D88B92AA1F02AD0F00F5DD40 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -17042,7 +17042,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D88B92AB1F02AD0F00F5DD40 /* Staging */ = {
 			isa = XCBuildConfiguration;
@@ -18204,7 +18204,7 @@
 			};
 			name = Experimental;
 		};
-		D8A42C301E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C301E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -18269,9 +18269,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C311E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C311E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18304,9 +18304,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C321E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C321E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18339,9 +18339,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C331E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C331E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18373,9 +18373,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C341E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C341E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -18400,9 +18400,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C351E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C351E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -18447,9 +18447,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C361E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C361E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -18475,9 +18475,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C371E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C371E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -18503,9 +18503,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
-		D8A42C381E815C2800D8E281 /* UserTestingRelease */ = {
+		D8A42C381E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -18542,7 +18542,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D8A42C391E815C3200D8E281 /* UserTestingDebug */ = {
 			isa = XCBuildConfiguration;
@@ -19131,7 +19131,7 @@
 			};
 			name = Release;
 		};
-		D8B589B621CD05080027083A /* UserTestingRelease */ = {
+		D8B589B621CD05080027083A /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -19154,7 +19154,7 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D8B589B721CD05080027083A /* Staging */ = {
 			isa = XCBuildConfiguration;
@@ -20007,7 +20007,7 @@
 			};
 			name = Release;
 		};
-		D8EC3FAF1E9BDA35006712EB /* UserTestingRelease */ = {
+		D8EC3FAF1E9BDA35006712EB /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -20040,7 +20040,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = UserTestingRelease;
+			name = UserTesting;
 		};
 		D8EC3FB01E9BDA35006712EB /* Staging */ = {
 			isa = XCBuildConfiguration;
@@ -20206,7 +20206,7 @@
 				D82972911E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D858A8051DA6DD00009C3DEB /* ExperimentalDebug */,
 				0E8380731D64989F0076EDE4 /* Release */,
-				D8A42C361E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C361E815C2800D8E281 /* UserTesting */,
 				D8A42A421E814FAA00D8E281 /* Staging */,
 				D8CE26C71E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0E8380741D64989F0076EDE4 /* Test */,
@@ -20227,7 +20227,7 @@
 				B0606EBA20AA6FF0006EC6B9 /* MediaWikiBetaClusterDebug */,
 				B0606EBB20AA6FF0006EC6B9 /* ExperimentalDebug */,
 				B0606EBC20AA6FF0006EC6B9 /* Release */,
-				B0606EBE20AA6FF0006EC6B9 /* UserTestingRelease */,
+				B0606EBE20AA6FF0006EC6B9 /* UserTesting */,
 				B0606EBF20AA6FF0006EC6B9 /* Staging */,
 				B0606EC020AA6FF0006EC6B9 /* MediaWikiBetaCluster */,
 				B0606EC120AA6FF0006EC6B9 /* Test */,
@@ -20248,7 +20248,7 @@
 				D82972901E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D858A8041DA6DD00009C3DEB /* ExperimentalDebug */,
 				BC42735C1A7C736800068882 /* Release */,
-				D8A42C351E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C351E815C2800D8E281 /* UserTesting */,
 				D8A42A411E814FAA00D8E281 /* Staging */,
 				D8CE26C61E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0EAB7A221D47AF8000E7CF8E /* Test */,
@@ -20269,7 +20269,7 @@
 				D829728D1E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D858A8021DA6DD00009C3DEB /* ExperimentalDebug */,
 				D4991469181D51DF00E6073C /* Release */,
-				D8A42C301E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C301E815C2800D8E281 /* UserTesting */,
 				D8A42A3D1E814FAA00D8E281 /* Staging */,
 				D8CE26C21E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0EAB7A201D47AF8000E7CF8E /* Test */,
@@ -20290,7 +20290,7 @@
 				D829728E1E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D858A8031DA6DD00009C3DEB /* ExperimentalDebug */,
 				D499146C181D51DF00E6073C /* Release */,
-				D8A42C311E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C311E815C2800D8E281 /* UserTesting */,
 				D8A42A3E1E814FAA00D8E281 /* Staging */,
 				D8CE26C31E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				0EAB7A211D47AF8000E7CF8E /* Test */,
@@ -20311,7 +20311,7 @@
 				D83FD2991EF4724800532B15 /* MediaWikiBetaClusterDebug */,
 				D83FD29A1EF4724800532B15 /* ExperimentalDebug */,
 				D83FD29B1EF4724800532B15 /* Release */,
-				D83FD29D1EF4724800532B15 /* UserTestingRelease */,
+				D83FD29D1EF4724800532B15 /* UserTesting */,
 				D83FD29E1EF4724800532B15 /* Staging */,
 				D83FD29F1EF4724800532B15 /* MediaWikiBetaCluster */,
 				D83FD2A01EF4724800532B15 /* Test */,
@@ -20332,7 +20332,7 @@
 				D82972931E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D858A8081DA6DD00009C3DEB /* ExperimentalDebug */,
 				D844D9781D6CB2600042D692 /* Release */,
-				D8A42C381E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C381E815C2800D8E281 /* UserTesting */,
 				D8A42A441E814FAA00D8E281 /* Staging */,
 				D8CE26C91E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D844D9791D6CB2600042D692 /* Test */,
@@ -20353,7 +20353,7 @@
 				D8479FB71F222FE90025FD7A /* MediaWikiBetaClusterDebug */,
 				D8479FB81F222FE90025FD7A /* ExperimentalDebug */,
 				D8479FB91F222FE90025FD7A /* Release */,
-				D8479FBB1F222FE90025FD7A /* UserTestingRelease */,
+				D8479FBB1F222FE90025FD7A /* UserTesting */,
 				D8479FBC1F222FE90025FD7A /* Staging */,
 				D8479FBD1F222FE90025FD7A /* MediaWikiBetaCluster */,
 				D8479FBE1F222FE90025FD7A /* Test */,
@@ -20374,7 +20374,7 @@
 				D82972921E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D858A8061DA6DD00009C3DEB /* ExperimentalDebug */,
 				D85D34D51D74D07600845125 /* Release */,
-				D8A42C371E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C371E815C2800D8E281 /* UserTesting */,
 				D8A42A431E814FAA00D8E281 /* Staging */,
 				D8CE26C81E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D85D34D61D74D07600845125 /* Test */,
@@ -20395,7 +20395,7 @@
 				D87021671EBA63EF000D02D6 /* MediaWikiBetaClusterDebug */,
 				D87021681EBA63EF000D02D6 /* ExperimentalDebug */,
 				D87021691EBA63EF000D02D6 /* Release */,
-				D870216A1EBA63EF000D02D6 /* UserTestingRelease */,
+				D870216A1EBA63EF000D02D6 /* UserTesting */,
 				D870216B1EBA63EF000D02D6 /* Staging */,
 				D870216C1EBA63EF000D02D6 /* MediaWikiBetaCluster */,
 				D870216D1EBA63EF000D02D6 /* Test */,
@@ -20416,7 +20416,7 @@
 				D88B92A61F02AD0F00F5DD40 /* MediaWikiBetaClusterDebug */,
 				D88B92A71F02AD0F00F5DD40 /* ExperimentalDebug */,
 				D88B92A81F02AD0F00F5DD40 /* Release */,
-				D88B92AA1F02AD0F00F5DD40 /* UserTestingRelease */,
+				D88B92AA1F02AD0F00F5DD40 /* UserTesting */,
 				D88B92AB1F02AD0F00F5DD40 /* Staging */,
 				D88B92AC1F02AD0F00F5DD40 /* MediaWikiBetaCluster */,
 				D88B92AD1F02AD0F00F5DD40 /* Test */,
@@ -20436,7 +20436,7 @@
 				D8A42A481E814FE000D8E281 /* StagingDebug */,
 				D829728F1E427C160061550A /* MediaWikiBetaClusterDebug */,
 				D895D0951D9C1EB8005418C1 /* Release */,
-				D8A42C341E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C341E815C2800D8E281 /* UserTesting */,
 				D8A42A401E814FAA00D8E281 /* Staging */,
 				D8CE26C51E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D895D0961D9C1EB8005418C1 /* Test */,
@@ -20458,7 +20458,7 @@
 				D8A42C241E815A9C00D8E281 /* MediaWikiBetaClusterDebug */,
 				D8A42C251E815A9C00D8E281 /* ExperimentalDebug */,
 				D8A42C261E815A9C00D8E281 /* Release */,
-				D8A42C331E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C331E815C2800D8E281 /* UserTesting */,
 				D8A42C271E815A9C00D8E281 /* Staging */,
 				D8A42C281E815A9C00D8E281 /* MediaWikiBetaCluster */,
 				D8A42C291E815A9C00D8E281 /* Test */,
@@ -20479,7 +20479,7 @@
 				D8B589B221CD05080027083A /* MediaWikiBetaClusterDebug */,
 				D8B589B321CD05080027083A /* ExperimentalDebug */,
 				D8B589B421CD05080027083A /* Release */,
-				D8B589B621CD05080027083A /* UserTestingRelease */,
+				D8B589B621CD05080027083A /* UserTesting */,
 				D8B589B721CD05080027083A /* Staging */,
 				D8B589B821CD05080027083A /* MediaWikiBetaCluster */,
 				D8B589B921CD05080027083A /* Test */,
@@ -20500,7 +20500,7 @@
 				D8CE26AA1E698E2400DAE2E0 /* MediaWikiBetaClusterDebug */,
 				D8CE26AB1E698E2400DAE2E0 /* ExperimentalDebug */,
 				D8CE26AC1E698E2400DAE2E0 /* Release */,
-				D8A42C321E815C2800D8E281 /* UserTestingRelease */,
+				D8A42C321E815C2800D8E281 /* UserTesting */,
 				D8A42A3F1E814FAA00D8E281 /* Staging */,
 				D8CE26C41E698F8E00DAE2E0 /* MediaWikiBetaCluster */,
 				D8CE26AD1E698E2400DAE2E0 /* Test */,
@@ -20521,7 +20521,7 @@
 				D8EC3FAC1E9BDA35006712EB /* MediaWikiBetaClusterDebug */,
 				D8EC3FAD1E9BDA35006712EB /* ExperimentalDebug */,
 				D8EC3FAE1E9BDA35006712EB /* Release */,
-				D8EC3FAF1E9BDA35006712EB /* UserTestingRelease */,
+				D8EC3FAF1E9BDA35006712EB /* UserTesting */,
 				D8EC3FB01E9BDA35006712EB /* Staging */,
 				D8EC3FB11E9BDA35006712EB /* MediaWikiBetaCluster */,
 				D8EC3FB21E9BDA35006712EB /* Test */,
