@@ -46,8 +46,8 @@ The **Wikipedia** scheme is configured to execute the project's iOS unit tests, 
 ### Targets
 #### Wikipedia
 Points to production servers.
-#### Staging and Wikipedia (apps staging environment)
-Points to the [Apps team's staging environment](https://mobileapps.wmflabs.org) for page content and production for everything else. `Staging` has additional debugging menus and is pushed to TestFlight as a separate app bundle.
+#### Staging
+Points to the [Apps team's staging environment](https://mobileapps.wmflabs.org) for page content and production for everything else. Has additional debugging menus and is pushed to TestFlight as a separate app bundle.
 #### Wikipedia (local pcs & announcements)
 Points to the [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps) and [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds) repos running locally.
 #### Wikipedia (MediaWiki beta cluster)
