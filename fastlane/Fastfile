@@ -234,16 +234,16 @@ platform :ios do
   desc "Updates version, builds, and pushes the staging build to TestFlight. Only releases to internal testers."
   lane :push_staging do |options|
     push(
-      product_name: "Beta (mobileapps.wmflabs.org pcs)",
+      product_name: "Staging",
       app_identifier: "org.wikimedia.wikipedia.tfbeta",
       build: options[:build]
     )
   end
   
-  desc "updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers."
+  desc "Updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers."
   lane :push_experimental do |options|
     push(
-      product_name: "Alpha",
+      product_name: "Experimental",
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
       build: options[:build]
     )

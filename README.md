@@ -43,6 +43,22 @@ Covered in the [process document](docs/process.md).
 ### Testing
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. Screenshot tests will fail unless you are running on one of the configurations defined by `configurations_to_test_on_pull` in `fastlane/Fastfile`.
 
+### Targets
+#### Wikipedia
+Points to all production servers.
+#### Staging and Wikipedia (apps staging environment)
+Points to the [Apps team's staging environment](https://mobileapps.wmflabs.org) for page content and production for everything else.
+#### Wikipedia (local pcs & announcements)
+Points to the [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps+status:open) and [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds+status:open) repos running locally.
+#### Wikipedia (MediaWiki beta cluster)
+Points to the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster) for MediaWiki API calls and production for everything else.
+#### Experimental
+For one off builds, can point to whatever is needed for the given experiment.
+#### User Testing
+For user testing
+#### Beta Cluster tests
+Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster), checking for upstream changes to MediaWiki that might break any assumptions we have.
+
 ### Continuous integration
 Covered in the [ci document](docs/ci.md).
 
