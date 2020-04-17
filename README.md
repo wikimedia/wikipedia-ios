@@ -43,6 +43,36 @@ Covered in the [process document](docs/process.md).
 ### Testing
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. Screenshot tests will fail unless you are running on one of the configurations defined by `configurations_to_test_on_pull` in `fastlane/Fastfile`.
 
+### Targets
+#### Wikipedia
+Points to production servers.
+#### Staging
+Points to the [Apps team's staging environment](https://mobileapps.wmflabs.org) for page content and production for everything else. Has additional debugging menus and is pushed to TestFlight as a separate app bundle.
+#### Local Page Content Service and Announcements
+Points to the [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps) and [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds) repos running locally.
+#### MediaWiki Beta Cluster
+Points to the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster) for MediaWiki API calls and production for everything else.
+#### RTL
+Launches the app in an RTL locale using the -AppleLocale argument.
+#### Experimental
+For one off builds, can point to whatever is needed for the given experiment.
+#### User Testing
+For user testing. Has an alternate configuration so that it can be delivered ad hoc.
+#### Event Logging Dev Debug
+For testing the events that the app sends to [Event Logging](https://wikitech.wikimedia.org/wiki/Analytics/Systems/EventLogging). Points to the Event Logging staging environment.
+#### Beta Cluster tests
+Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster), checking for upstream changes to MediaWiki that might break any assumptions we have.
+#### UITests
+Runs automated screenshot tests.
+#### WMF
+Bundles up the app logic shared between the main app and the extensions (widgets, notifications).
+#### localization
+Covered in the [localization document](docs/localization.md).
+#### {{name}}Widget, {{name}}Notification, {{name}}Stickers
+Extensions for widgets, notifications, and stickers.
+#### codemirror-config
+Generates the [CodeMirror](https://codemirror.net) configuration files. CodeMirror is used in the section editor.
+
 ### Continuous integration
 Covered in the [ci document](docs/ci.md).
 
