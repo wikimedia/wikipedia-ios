@@ -58,7 +58,7 @@ Launches the app in an RTL locale using the -AppleLocale argument.
 For one off builds, can point to whatever is needed for the given experiment.
 #### User Testing
 For user testing. Has an alternate configuration so that it can be delivered ad hoc.
-#### Event Loggig Dev Debug
+#### Event Logging Dev Debug
 For testing the events that the app sends to [Event Logging](https://wikitech.wikimedia.org/wiki/Analytics/Systems/EventLogging). Points to the Event Logging staging environment.
 #### Beta Cluster tests
 Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster), checking for upstream changes to MediaWiki that might break any assumptions we have.
