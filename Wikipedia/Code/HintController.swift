@@ -185,12 +185,11 @@ class HintController: NSObject {
     private func adjustSpacingIfPresenterHasSecondToolbar(hintHidden: Bool) {
         guard
             let viewController = presenter as? ViewController,
-            !viewController.isSecondToolbarHidden
+            !viewController.isSecondToolbarHidden && !hintHidden
         else {
             return
         }
-        let spacing = hintHidden ? 0 : containerView.frame.height
-        viewController.setAdditionalSecondToolbarSpacing(spacing, animated: true)
+        viewController.setSecondToolbarHidden(true, animated: true)
     }
 }
 
