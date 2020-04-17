@@ -45,11 +45,11 @@ The **Wikipedia** scheme is configured to execute the project's iOS unit tests, 
 
 ### Targets
 #### Wikipedia
-Points to all production servers.
+Points to production servers.
 #### Staging and Wikipedia (apps staging environment)
 Points to the [Apps team's staging environment](https://mobileapps.wmflabs.org) for page content and production for everything else.
 #### Wikipedia (local pcs & announcements)
-Points to the [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps+status:open) and [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds+status:open) repos running locally.
+Points to the [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps) and [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds) repos running locally.
 #### Wikipedia (MediaWiki beta cluster)
 Points to the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster) for MediaWiki API calls and production for everything else.
 #### Wikipedia RTL
@@ -66,11 +66,11 @@ Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wi
 Runs automated screenshot tests.
 #### WMF
 Bundles up the app logic shared between the main app and the extensions (widgets, notifications).
-#### Localization
+#### localization
 Covered in the [localization document](docs/localization.md).
-#### *Widget, *Notification, *Stickers
+#### {{name}}Widget, {{name}}Notification, {{name}}Stickers
 Extensions for widgets, notifications, and stickers.
-#### Codemirror-config
+#### codemirror-config
 Generates the [CodeMirror](https://codemirror.net) configuration files. CodeMirror is used in the section editor.
 
 ### Continuous integration
