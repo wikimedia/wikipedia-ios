@@ -38,7 +38,7 @@ extension ArticleViewController {
         }, footerLinkAction: { (url) in
              self.navigate(to: url, useSafari: true)
             // intentionally don't dismiss
-        }, dismissHandler: {
+        }, traceableDismissHandler: { _ in
             dismiss()
         }, theme: theme)
     }
