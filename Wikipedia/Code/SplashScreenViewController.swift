@@ -62,7 +62,7 @@ class SplashScreenViewController: UIViewController {
         splashView.addSubview(wordmarkView)
         let centerXConstraint = splashView.centerXAnchor.constraint(equalTo: wordmarkView.centerXAnchor)
         let centerYConstraint = splashView.centerYAnchor.constraint(equalTo: wordmarkView.centerYAnchor, constant: 12)
-        splashView.addConstraints([centerXConstraint, centerYConstraint].compactMap { $0 })
+        splashView.addConstraints([centerXConstraint, centerYConstraint])
     }
     
     /// Matches launch xib
