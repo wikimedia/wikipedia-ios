@@ -43,6 +43,16 @@ class ArticleViewController: ViewController {
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
     internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
+    
+    lazy var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? = {
+        guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle,
+            let siteURL = articleURL.wmf_site else {
+                return nil
+        }
+        
+        return SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForTitle(articleTitle, siteURL: siteURL)
+    }()
+    var surveyAnnouncementTimer: Timer?
 
     private var leadImageHeight: CGFloat = 210
 
@@ -290,6 +300,7 @@ class ArticleViewController: ViewController {
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        stopSurveyAnnouncementTimer()
     }
     
     // MARK: Article load

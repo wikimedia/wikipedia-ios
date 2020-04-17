@@ -140,14 +140,6 @@ platform :ios do
     end
   end
   
-  desc "Increment the build number"
-  lane :bump_build do |options|
-    app_identifer = options[:app_identifier] || "org.wikimedia.wikipedia"
-    increment_build_number({
-      build_number: get_latest_alpha_or_beta_build_number + 1
-    })
-  end
-  
   desc "Set the build number"
   lane :set_build_number do |options|
     build = options[:build] || 0
@@ -221,59 +213,51 @@ platform :ios do
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
   end
   
-  desc "updates version, builds, and pushes to TestFlight"
-  lane :push_beta do |options|
+  desc "Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers."
+  lane :deploy do |options|
+    tag_prefix = "betas"
+    build = options[:build] || get_latest_build_number(prefix: tag_prefix) + 1
+    push_production(build: build)
+    tag(prefix: tag_prefix, build_number: build)
+    push_staging(build: build)
+  end
+
+  desc "updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers."
+  lane :push_production do |options|
     push(
       product_name: "Wikipedia",
       app_identifier: "org.wikimedia.wikipedia",
-      tag_prefix: "betas",
+      build: options[:build]
+    )
+  end
+
+  desc "Updates version, builds, and pushes the staging build to TestFlight. Only releases to internal testers."
+  lane :push_staging do |options|
+    push(
+      product_name: "Staging",
+      app_identifier: "org.wikimedia.wikipedia.tfbeta",
       build: options[:build]
     )
   end
   
-  desc "updates version, builds, and pushes alpha to TestFlight"
-  lane :push_alpha do |options|
+  desc "Updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers."
+  lane :push_experimental do |options|
     push(
-      product_name: "Alpha",
+      product_name: "Experimental",
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
-      tag_prefix: "alphas",
       build: options[:build]
     )
   end
-  
-  desc "updates version, builds, and pushes beta cluster to TestFlight"
-  lane :push_beta_cluster do |options|
-    push(
-      product_name: "Beta Cluster",
-      app_identifier: "org.wikimedia.wikipedia.tfbeta",
-      tag_prefix: "beta_clusters",
-      build: options[:build]
-    )
-  end
-  
-  desc "updates version, builds, and pushes beta cluster to TestFlight"
-  lane :push_beta_app do |options|
-    push(
-      product_name: "Beta (mobileapps.wmflabs.org pcs)",
-      app_identifier: "org.wikimedia.wikipedia.tfbeta",
-      tag_prefix: "beta_app",
-      build: options[:build]
-    )
-  end
-  
+
   lane :get_latest_tag_with_prefix do |options|
     prefix = options[:prefix] || "betas/"
     `git tag -l #{prefix}* --sort=-creatordate | head -n 1`
   end
   
-  lane :get_latest_build_for_stage do |options|
-    stage = options[:stage] || "beta"
-    prefix = "#{stage}s/"
+  lane :get_latest_build_number do |options|
+    prefix = options[:prefix] || "betas"
+    prefix = "#{prefix}/"
     get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
-  end
-  
-  lane :get_latest_alpha_or_beta_build_number do |options|
-    [get_latest_build_for_stage(stage: "beta"), get_latest_build_for_stage(stage: "alpha")].max
   end
 
   desc "updates version, builds, and pushes to TestFlight"
@@ -284,7 +268,6 @@ platform :ios do
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
     version = get_version_number_from_options(options)
-    tag_prefix = options[:tag_prefix]
 
     increment_build_number(
       build_number: build_number
@@ -303,12 +286,7 @@ platform :ios do
       number: build_number,
       version: version
     )
-    
-    tag(
-      prefix: tag_prefix,
-      build_number: build_number
-    )
-    
+
     pilot(
       ipa: ipa_path,
       skip_waiting_for_build_processing: true,
@@ -319,52 +297,11 @@ platform :ios do
     )
   end
 
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :test_and_push_beta do
-
-    verify_test_platforms
-    push_beta
-
-  end
-
   desc "Upload app store metadata"
   lane :upload_app_store_metadata do 
     deliver(skip_binary_upload: true, skip_screenshots: true)
   end
-  
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :submit_release do
-    build = ENV['BUILD']
-    raise "Must specifiy a BUILD." unless build.length > 0
-    
-    build_dir = "build"
-    product_name = "Wikipedia"
-    ipa_path = "#{build_dir}/#{product_name}.ipa"
-    
-    sh "git pull"
-    sh "git checkout betas/#{sha}"
 
-    app_review_information(
-      first_name: "Corey",
-      last_name: "Floyd",
-      phone_number: "+43 123123123",
-      email_address: "github@krausefx.com",
-      demo_user: "demoUser",
-      demo_password: "demoPass",
-      notes: "such notes, very text"
-    )
-
-    deliver(
-      ipa: ipa_path,
-      submit_for_review: true,
-      automatic_release: false,
-      build_number:build.to_i,
-    )
-
-    tag_release
-  end
-  
-  
   desc "Download dSYMs from iTunes Connect"
   lane :dsyms do |options|
     app_identifier = options[:app_identifier]
