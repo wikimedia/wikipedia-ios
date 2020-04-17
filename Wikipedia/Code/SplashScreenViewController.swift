@@ -43,7 +43,7 @@ class SplashScreenViewController: UIViewController {
             return
         }
         let delay = SplashScreenViewController.minimumBusyAnimationVisibleTimeInterval - busyAnimationVisibleTimeInterval
-        dispatchAfterDelayInSeconds(delay, DispatchQueue.main, completion)
+        dispatchOnMainQueueAfterDelayInSeconds(delay, completion)
     }
     
     // MARK: Constants
