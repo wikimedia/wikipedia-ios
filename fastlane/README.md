@@ -56,11 +56,6 @@ Runs unit tests, generates JUnit reports.
 fastlane ios record_visual_tests
 ```
 Records visual tests.
-### ios bump_build
-```
-fastlane ios bump_build
-```
-Increment the build number
 ### ios set_build_number
 ```
 fastlane ios set_build_number
@@ -131,14 +126,9 @@ updates version, builds, and pushes beta cluster to TestFlight
 fastlane ios get_latest_tag_with_prefix
 ```
 
-### ios get_latest_build_for_stage
+### ios get_latest_build_number
 ```
-fastlane ios get_latest_build_for_stage
-```
-
-### ios get_latest_alpha_or_beta_build_number
-```
-fastlane ios get_latest_alpha_or_beta_build_number
+fastlane ios get_latest_build_number
 ```
 
 ### ios push

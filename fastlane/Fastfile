@@ -269,7 +269,7 @@ platform :ios do
   lane :get_latest_build_number do |options|
     prefix = options[:prefix] || "betas"
     prefix = "#{prefix}/"
-    return get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
+    get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
   end
 
   desc "updates version, builds, and pushes to TestFlight"
