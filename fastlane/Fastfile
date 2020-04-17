@@ -140,14 +140,6 @@ platform :ios do
     end
   end
   
-  desc "Increment the build number"
-  lane :bump_build do |options|
-    app_identifer = options[:app_identifier] || "org.wikimedia.wikipedia"
-    increment_build_number({
-      build_number: get_latest_alpha_or_beta_build_number + 1
-    })
-  end
-  
   desc "Set the build number"
   lane :set_build_number do |options|
     build = options[:build] || 0
@@ -223,9 +215,14 @@ platform :ios do
   
   desc "Deploys both the production and beta apps"
   lane :deploy do |options|
-    build =  options[:build] || get_latest_alpha_or_beta_build_number + 1
+    tag_prefix = "betas"
+    build = options[:build] || get_latest_build_number(prefix: tag_prefix) + 1
     push_beta_app(build: build)
     push_beta(build: build)
+    tag(
+      prefix: tag_prefix,
+      build_number: build
+    )
   end
 
   desc "updates version, builds, and pushes to TestFlight"
@@ -233,7 +230,6 @@ platform :ios do
     push(
       product_name: "Wikipedia",
       app_identifier: "org.wikimedia.wikipedia",
-      tag_prefix: "betas",
       build: options[:build]
     )
   end
@@ -243,7 +239,6 @@ platform :ios do
     push(
       product_name: "Alpha",
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
-      tag_prefix: "alphas",
       build: options[:build]
     )
   end
@@ -253,7 +248,6 @@ platform :ios do
     push(
       product_name: "Beta Cluster",
       app_identifier: "org.wikimedia.wikipedia.tfbeta",
-      tag_prefix: "beta_clusters",
       build: options[:build]
     )
   end
@@ -263,7 +257,6 @@ platform :ios do
     push(
       product_name: "Beta (mobileapps.wmflabs.org pcs)",
       app_identifier: "org.wikimedia.wikipedia.tfbeta",
-      tag_prefix: "beta_app",
       build: options[:build]
     )
   end
@@ -273,14 +266,10 @@ platform :ios do
     `git tag -l #{prefix}* --sort=-creatordate | head -n 1`
   end
   
-  lane :get_latest_build_for_stage do |options|
-    stage = options[:stage] || "beta"
-    prefix = "#{stage}s/"
-    get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
-  end
-  
-  lane :get_latest_alpha_or_beta_build_number do |options|
-    [get_latest_build_for_stage(stage: "beta"), get_latest_build_for_stage(stage: "alpha")].max
+  lane :get_latest_build_number do |options|
+    prefix = options[:prefix] || "betas"
+    prefix = "#{prefix}/"
+    return get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
   end
 
   desc "updates version, builds, and pushes to TestFlight"
@@ -291,7 +280,6 @@ platform :ios do
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
     version = get_version_number_from_options(options)
-    tag_prefix = options[:tag_prefix]
 
     increment_build_number(
       build_number: build_number
@@ -310,12 +298,7 @@ platform :ios do
       number: build_number,
       version: version
     )
-    
-    tag(
-      prefix: tag_prefix,
-      build_number: build_number
-    )
-    
+
     pilot(
       ipa: ipa_path,
       skip_waiting_for_build_processing: true,
