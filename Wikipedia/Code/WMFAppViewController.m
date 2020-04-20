@@ -739,6 +739,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [articleNavigationController setNavigationBarHidden:YES animated:NO];
     [window setRootViewController:articleNavigationController];
     [window makeKeyAndVisible];
+    [articleNavigationController applyTheme:self.theme];
     [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:articleNavigationController];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -749,7 +750,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferredLanguagesDidChange:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
 
-    [self showSplashViewWithTheme:self.theme];
+    [self showSplashView];
 
     [self migrateIfNecessary];
 }
@@ -1430,8 +1431,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Splash
 
-- (void)showSplashViewWithTheme:(WMFTheme *)theme {
-    [(WMFRootNavigationController *)self.navigationController showSplashViewWithTheme:theme];
+- (void)showSplashView {
+    [(WMFRootNavigationController *)self.navigationController showSplashView];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {

@@ -6,7 +6,7 @@ class RootNavigationController: WMFThemeableNavigationController {
     
     @objc var splashScreenViewController: SplashScreenViewController?
     
-    @objc func showSplashViewWithTheme(_ theme: Theme) {
+    @objc func showSplashView() {
         guard splashScreenViewController == nil else {
             return
         }

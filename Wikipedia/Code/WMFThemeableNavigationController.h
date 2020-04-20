@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFThemeableNavigationController : UINavigationController <WMFThemeable>
 
+@property (nonatomic, readonly) WMFTheme *theme;
+
 @property (weak, nonatomic, nullable) NSObject<WMFThemeableNavigationControllerDelegate> *themeableNavigationControllerDelegate;
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController theme:(WMFTheme *)theme style:(WMFThemeableNavigationControllerStyle)style;
