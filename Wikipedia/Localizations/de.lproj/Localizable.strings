@@ -16,6 +16,7 @@
 // Author: Mirzali
 // Author: Nemo bis
 // Author: Purodha
+// Author: Ubahnverleih
 
 "about-content-license" = "Inhaltslizenz";
 "about-content-license-details" = "Sofern nicht anders angegeben, ist der Inhalt verfügbar unter einer $1.";
@@ -61,13 +62,20 @@
 "account-creation-passwords-mismatched" = "Die Passwortfelder stimmen nicht überein.";
 "account-creation-saving" = "Speichere …";
 "account-creation-title" = "Ein neues Benutzerkonto erstellen";
+"account-group-title" = "Dein Benutzerkonto";
+"account-talk-page-title" = "Deine Benutzerdiskussionsseite";
+"account-talk-preferences-auto-sign-discussions" = "Beiträge automatisch signieren";
+"account-talk-preferences-title" = "Diskussionsseiten Einstellungen";
 "action-add-to" = "Hinzufügen zu …";
 "action-add-to-reading-list" = "Zu Leseliste hinzufügen";
 "action-add-to-reading-list-short" = "Zu Liste hinzufügen";
 "action-cancel" = "Abbrechen";
 "action-find-in-page" = "In Seite finden";
+"action-language-accessibility" = "Sprache ändern";
 "action-move-to" = "Verschieben nach …";
 "action-move-to-reading-list" = "In Leseliste verschieben";
+"action-next-revision-accessibility" = "Nächste Version";
+"action-previous-revision-accessibility" = "Vorherige Version";
 "action-read" = "Lesen";
 "action-redo" = "Wiederholen";
 "action-remove" = "Entfernen";
@@ -100,12 +108,15 @@
 "appearance-settings-set-automatic-table-opening" = "Tabelleneinstellungen";
 "appearance-settings-text-sizing-example-text" = "Bewege den Schieber, um die Größe des Artikeltextes zu ändern. Verwende die Größe deines Systemtextes, um die Größe anderer Textbereiche in der App zu ändern.";
 "appearance-settings-theme-options" = "Farbschemaoptionen";
+"article-about-title" = "Über diesen Artikel";
 "article-delete" = "Löschen";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel}} gelöscht";
 "article-languages-filter-placeholder" = "Sprache finden";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-others" = "Andere Sprachen";
 "article-languages-yours" = "Deine Sprachen";
+"article-read-more-title" = "Mehr lesen";
+"article-reference-view-title" = "Einzelnachweis $1";
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
@@ -162,6 +173,23 @@
 "description-welcome-descriptions-title" = "Titelbeschreibungen";
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
+"diff-compare-header-from-info-heading" = "Von:";
+"diff-compare-header-heading" = "Versionen vergleichen";
+"diff-compare-header-to-info-heading" = "Zu:";
+"diff-compare-title" = "Versionsvergleich";
+"diff-context-lines-collapsed-button-title" = "Zeigen";
+"diff-context-lines-expanded-button-title" = "Ausblenden";
+"diff-multi-line-format" = "Zeilen $1 bis $2";
+"diff-paragraph-moved" = "Abschnitt verschoben";
+"diff-revision-error-title" = "Die Version konnten nicht geladen werden.";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}}";
+"diff-single-header-editor-title" = "Autoreninformationen";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte hinzugefügt|$1 Byte hinzugefügt}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 Byte entfernt|$1 Byte entfernt}}";
+"diff-single-header-summary-heading" = "Bearbeitungszusammenfassung";
+"diff-single-intro-title" = "Einleitung";
+"diff-single-line-format" = "Zeile $1";
+"diff-unedited-lines-format" = "$1 unbearbeitete {{PLURAL:$1|Zeile|Zeilen}}";
 "dim-images" = "Bilder dimmen";
 "edit-bold-accessibility-label" = "Fett-Formatierung hinzufügen";
 "edit-bold-remove-accessibility-label" = "Fett-Formatierung entfernen";
@@ -232,8 +260,7 @@
 "editing-welcome-set-knowledge-free-title" = "Wissen frei aufsetzen";
 "empty-diff-compare-title" = "Keine Unterschiede zwischen Versionen";
 "empty-diff-single-title" = "Keine sichtbaren Änderungen gemacht";
-// Fuzzy
-"empty-insert-media-title" = "Eine Datei auswählen";
+"empty-insert-media-title" = "Eine Datei von Wikimedia Commons auswählen";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
@@ -271,15 +298,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Auf allen";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Auf";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Auf $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Alle Karten des Typs %@ ausgeblendet";
+"explore-feed-preferences-feed-cards-hidden-title" = "Alle Karten des Typs $1 ausgeblendet";
 "explore-feed-preferences-global-card-footer-text" = "Diese Karte ist nicht sprachspezifisch. Das Ausschalten dieser Karte entfernt sie aus deinem Entdecken-Feed.";
 "explore-feed-preferences-global-cards-description" = "Nicht sprachspezifische Karten";
 "explore-feed-preferences-global-cards-subtitle" = "Nicht sprachspezifisch";
 "explore-feed-preferences-global-cards-title" = "Globale Karten";
 "explore-feed-preferences-hide-card-action-title" = "Diese Karte ausblenden";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Alle „%@“-Karten ausblenden";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Alle „$1“-Karten ausblenden";
 "explore-feed-preferences-in-the-news-description" = "Artikel über aktuelle Ereignisse";
 "explore-feed-preferences-languages-footer-text" = "Das Ausblenden aller Entdecken-Feed-Karten in all deinen Sprachen wird den Entdecken-Reiter ausschalten.";
 "explore-feed-preferences-on-this-day-description" = "Ereignisse in der Geschichte an diesem Tag";
@@ -481,6 +506,7 @@
 "page-history-bot-edits" = "Botbearbeitungen";
 "page-history-compare-accessibility-hint" = "Tippe, um zwei Versionen auszuwählen, um sie zu vergleichen";
 "page-history-compare-title" = "Vergleichen";
+"page-history-graph-accessibility-label" = "Diagramm mit der Anzahl der Bearbeitung über die Zeit";
 "page-history-minor-edits" = "Kleine Änderungen";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-comment-accessibility-label" = "Kommentar $1";
@@ -491,11 +517,13 @@
 "page-history-revisions-comparison-warning" = "Nur zwei Versionen können angezeigt werden";
 "page-history-stats-text" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}} seit $2";
 "page-history-user-edits" = "Benutzerbearbeitungen";
+"page-location" = "Auf einer Karte ansehen";
 "page-protected-autoconfirmed" = "Diese Seite wurde halbgesperrt.";
 "page-protected-can-not-edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
 "page-protected-can-not-edit-title" = "Diese Seite ist geschützt";
 "page-protected-other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
 "page-protected-sysop" = "Diese Seite wurde vollgesperrt.";
+"panel-compare-revisions-text" = "Der Versionsvergleich hilft dabei zu sehen, wie sich ein Artikel über die Zeit verändert hat. Der Vergleich zweier Versionen zeigt die Unterschiede zwischen den Versionen und hebt hervor was sich geändert hat.";
 "panel-compare-revisions-title" = "Versionen vergleichen";
 "pictured" = "Bild";
 "places-accessibility-clear-saved-searches" = "Gespeicherte Suchanfragen löschen";
@@ -602,8 +630,7 @@
 "reading-lists-default-list-title" = "Gespeichert";
 "reading-lists-delete-reading-list-alert-message" = "Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in {{PLURAL:$1|dieser Liste|diesen Listen}} gespeichert sind, werden gelöscht.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 Artikel und $2 Leselisten wurden von deinem Benutzerkonto synchronisiert";
+"reading-lists-large-sync-completed" = "$1 Artikel und {{PLURAL:$2|$2 Leseliste|$2 Leselisten}} wurden von deinem Benutzerkonto synchronisiert";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste nicht synchronisiert, Grenze überschritten";
 "reading-lists-sort-saved-articles" = "Gespeicherte Artikel sortieren";
 "reading-lists-split-notification" = "Es gibt eine Begrenzung von $1 Artikeln pro Leseliste. Vorhandene Listen mit mehr als dieser Anzahl wurden auf mehrere Listen aufgeteilt.";

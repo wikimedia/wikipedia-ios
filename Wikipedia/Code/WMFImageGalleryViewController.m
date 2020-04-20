@@ -213,7 +213,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didTapShareButton {
     id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
     MWKImageInfo *info = [photo bestImageInfo];
-    NSURL *url = [photo bestImageURL];
+    NSInteger targetWidth = [self.traitCollection wmf_galleryImageWidth];
+    NSURL *url = [info imageURLForTargetWidth:targetWidth];
 
     @weakify(self);
     [[WMFImageCacheControllerWrapper shared] fetchImageWithURL:url

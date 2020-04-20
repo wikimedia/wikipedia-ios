@@ -25,7 +25,8 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        guard let urlRequest = imageFetcher.urlRequestFromPersistence(with: url, persistType: .image) else {
+        let acceptAnyContentType = ["Accept": "*/*"]
+        guard let urlRequest = imageFetcher.urlRequestFromPersistence(with: url, persistType: .image, headers: acceptAnyContentType) else {
             completion(.failure(ImageCacheDBWriterError.unableToDetermineURLRequest))
             return
         }
@@ -35,7 +36,8 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        let urlRequests = urls.compactMap { imageFetcher.urlRequestFromPersistence(with: $0, persistType: .image) }
+        let acceptAnyContentType = ["Accept": "*/*"]
+        let urlRequests = urls.compactMap { imageFetcher.urlRequestFromPersistence(with: $0, persistType: .image, headers: acceptAnyContentType) }
         
         cacheImages(groupKey: groupKey, urlRequests: urlRequests, completion: completion)
     }

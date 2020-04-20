@@ -96,8 +96,8 @@ public final class ImageCacheController: CacheController {
                 return
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
-            
-            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image) { (result) in
+            let acceptAnyContentType = ["Accept": "*/*"]
+            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { (result) in
                 switch result {
                 case .failure(let error):
                     guard !self.isCancellationError(error) else {
@@ -291,6 +291,12 @@ fileprivate extension Error {
 
 @objc(WMFImageCacheControllerWrapper)
 public final class ImageCacheControllerWrapper: NSObject {
+    
+    /// Performs any necessary migrations on the CacheController's internal storage
+    /// Exists on this @objc ImageCacheControllerWrapper so it can be accessed from WMFDataStore
+    @objc public static func performLibraryUpdates(_ completion: @escaping (Error?) -> Void) {
+        CacheController.performLibraryUpdates(completion)
+    }
     
     private let imageCacheController = ImageCacheController.shared
     

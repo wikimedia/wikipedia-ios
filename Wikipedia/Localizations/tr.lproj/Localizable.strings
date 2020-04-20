@@ -28,6 +28,7 @@
 // Author: TmY e12
 // Author: ToprakM
 // Author: Trockya
+// Author: Tsevener
 // Author: Uğurkent
 // Author: Velg
 // Author: Violetanka
@@ -126,12 +127,14 @@
 "appearance-settings-set-automatic-table-opening" = "Tablo Ayarları";
 "appearance-settings-text-sizing-example-text" = "Madde metin boyutunu değiştirmek için kaydırıcıyı sürükleyin. Uygulamadaki diğer metin alanlarını yeniden boyutlandırmak için sisteminizin metin boyutundan yararlanın.";
 "appearance-settings-theme-options" = "Tema seçenekleri";
+"article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|madde|madde}} silindi";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
+"article-read-more-title" = "Devamını oku";
 "article-reference-view-title" = "$1 kaynağı";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
@@ -280,11 +283,11 @@
 "edit-unordered-list-remove-accessibility-label" = "Sırasız listeyi mevcut satırdan kaldır";
 "edit-watch-list-learn-more-text" = "İzleme listeleri hakkında daha fazla bilgi edinin";
 "edit-watch-this-page-text" = "Bu sayfayı izle";
-"editing-welcome-be-bold-subtitle" = "Maddeler güncellerken dikkatsiz değil cesur olun. Hata yapmaktan çekinmeyin: sayfanın her eski sürümü kaydedilir böylece hatalar topluluğumuz tarafından kolayca düzeltilebilir.";
+"editing-welcome-be-bold-subtitle" = "Maddeleri güncellerken dikkatsiz değil cesur olun. Hata yapmaktan çekinmeyin. Sayfanın her eski sürümü kaydedilir böylece hatalar topluluğumuz tarafından kolayca düzeltilebilir.";
 "editing-welcome-be-bold-title" = "Sizin sözünüz önemli";
 "editing-welcome-citations-subtitle" = "Bütün içerik doğrulanabilir olmalıdır. Katkı yapanlar, bir makaleye yeni bilgi eklerken, onu doğrudan destekleyen metin içi atıflar da sunmalıdır.";
-"editing-welcome-citations-title" = "Güvenilir kaynaklara atıp yap";
-"editing-welcome-impartial-tone-subtitle" = "Maddelerin tarafsız bir bakış açısıyla yazılması için gayret gösteriyoruz. Düzenlerken güvenilir bir kaynak olarak tanımladığı şekilde dünyanın adil bir şekilde temsil edilmesini sağlayın.";
+"editing-welcome-citations-title" = "Güvenilir kaynaklara atıf yapın";
+"editing-welcome-impartial-tone-subtitle" = "Maddelerin tarafsız bir bakış açısıyla yazılması için gayret gösteriyoruz. Düzenlerken güvenilir bir kaynak olarak tanımlandığı şekilde dünyanın adil bir şekilde temsil edilmesini sağlayın.";
 "editing-welcome-impartial-tone-title" = "Tarafsız bir bakış açısıyla yazın";
 "editing-welcome-set-knowledge-free-subtitle" = "Herkesin dünyadaki bilgiye erişimini sağlamak için en önemli olan konuları okumada, düzenlemede ve katkıda bulunmada size ihtiyacımız var.";
 "editing-welcome-set-knowledge-free-title" = "Bilgiyi özgür kıl";
@@ -556,11 +559,14 @@
 "page-history-revisions-comparison-warning" = "Sadece iki revizyon seçilebilir";
 "page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
+"page-issues" = "Sayfa sorunları";
+"page-location" = "Haritada görüntüle";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
 "page-protected-can-not-edit-title" = "Bu sayfa korumalı";
 "page-protected-other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
+"page-similar-titles" = "Benzer sayfalar";
 "panel-compare-revisions-text" = "Revizyonları karşılaştırmak, bir makalenin zaman içinde nasıl değiştiğini göstermeye yardımcı olur. Bir makalenin iki revizyonunun karşılaştırılması, değiştirilen herhangi bir içeriği vurgulayarak bu revizyonlar arasındaki farkı gösterecektir.";
 "panel-compare-revisions-title" = "Düzeltmeleri karşılaştırma";
 "pictured" = "resimdeki";

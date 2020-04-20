@@ -82,7 +82,11 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             }
         }) { [weak self] (download) in
             DispatchQueue.main.async {
-                photo.image = download.image.staticImage
+                if let animatedImage = download.image.animatedImage {
+                    photo.imageData = animatedImage.data
+                } else {
+                    photo.image = download.image.staticImage
+                }
                 self?.updateImageForPhoto(afterUserInteractionIsFinished: photo)
             }
         }

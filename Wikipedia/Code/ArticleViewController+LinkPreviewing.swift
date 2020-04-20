@@ -141,11 +141,13 @@ extension ArticleViewController: WKUIDelegate {
     }
     
     @available(iOS 13.0, *)
+
     func contextMenuConfigurationForLinkURL(_ linkURL: URL, completionHandler: @escaping (ContextMenuCompletionType, UIContextMenuConfiguration?) -> Void) {
         
         // It's helpful if we can fetch the article before calling the completion
         // However, we need to timeout if it takes too long
         var didCallCompletion = false
+
         dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
             if (!didCallCompletion) {
                 completionHandler(.timeout, nil)

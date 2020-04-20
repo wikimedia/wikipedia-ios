@@ -53,13 +53,13 @@ extension ArticleViewController: ArticleWebMessageHandling {
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
+        startSurveyAnnouncementTimer()
     }
     
     @objc func handlePCSDidFinishFinalSetup() {
         articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
         addToHistory()
-        fromNavStateRestoration = false
         syncCachedResourcesIfNeeded()
     }
     

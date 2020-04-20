@@ -163,4 +163,9 @@ class ArticleToolbarController: Themeable {
             UIBarButtonItem.flexibleSpaceToolbar()
         ]
     }
+
+    func setToolbarButtons(enabled: Bool) {
+        toolbar.items?.forEach { $0.isEnabled = enabled }
+    }
+
 }

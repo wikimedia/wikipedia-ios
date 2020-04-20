@@ -9,8 +9,8 @@ final class PageContentService   {
             let platform = "ios"
             let version = 1
             
-            let theme: String
-            let dimImages: Bool
+            var theme: String
+            var dimImages: Bool
 
             struct Margins: Codable {
                 // these values are strings to allow for units to be included
@@ -19,13 +19,13 @@ final class PageContentService   {
                 let bottom: String
                 let left: String
             }
-            let margins: Margins
-            let leadImageHeight: String // units are included
+            var margins: Margins
+            var leadImageHeight: String // units are included
 
-            let areTablesInitiallyExpanded: Bool
-            let textSizeAdjustmentPercentage: String // string like '125%'
+            var areTablesInitiallyExpanded: Bool
+            var textSizeAdjustmentPercentage: String // string like '125%'
             
-            let userGroups: [String]
+            var userGroups: [String]
         }
     }
     
@@ -66,7 +66,7 @@ final class PageContentService   {
         guard let string = String(data: data, encoding: .utf8) else {
             throw RequestError.invalidParameters
         }
-        return "JSON.parse('\(string)')"
+        return "JSON.parse(`\(string.sanitizedForJavaScriptTemplateLiterals)`)"
     }
     
     final class SetupScript: WKUserScript {
