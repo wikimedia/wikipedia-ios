@@ -507,7 +507,7 @@
 "reading-list-unable-to-create" = "یک خطای غیرمنتظره هنگام ساخت فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
 "reading-list-unable-to-delete" = "یک خطای غیرمنتظره هنگام حذف فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
 "reading-list-unable-to-remove-entry" = "یک خطای غیرمنتظره هنگام حذف یک ورودی از فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
-"reading-list-unable-to-update" = "یک خطای غیرمنتظره هنگام به‌روزرسانی فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
+"reading-list-unable-to-update" = "یک خطای نامنتظره در هنگام روزآمدسازی فهرست مطالعهٔ شما رخ داد. لطفاً بعداً دوباره تلاش کنید.";
 "reading-list-with-provided-name-not-found" = "فهرست خواندن با نام “$1” یافت نشد. لطفا مطمئن شوید که نام درست را وارد کرده‌اید.";
 "reading-lists-article-added-confirmation" = "مقاله به “$1” افزوده شد.";
 "reading-lists-article-not-synced" = "همگام سازی نشده";
@@ -542,7 +542,7 @@
 "reverted-edit-notification-read-more-action-title" = "بیشتر بخوانید";
 "reverted-edit-possible-reasons" = "- مشارکت شما از یکی از رویه‌ها تبعیت نکرد. $1\n\n- مشارکت شما شبیه یک آزمایش یا خرابکاری به نظر رسید.";
 "reverted-edit-possible-reasons-subtitle" = "می‌دانیم که شما بهترین تلاش‌تان را کردید، اما یکی از بازبین‌های ما یک نگرانی داشته است.\n\nدلایل احتمالی برگردانده شدن ویرایش شما شامل موارد زیر است:";
-"reverted-edit-thanks-for-editing-title" = "از بابت ویرایش در ویکی‌پدیا ممنونیم!";
+"reverted-edit-thanks-for-editing-title" = "سپاس بابت ویرایش در ویکی‌پدیا!";
 "reverted-edit-title" = "ویرایش‌های واگردانی‌شده";
 "reverted-edit-view-guidelines-text" = "مشاهده راهنماها";
 "saved-all-articles-title" = "همهٔ مقالات";
