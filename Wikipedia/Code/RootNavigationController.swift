@@ -4,9 +4,9 @@ import UIKit
 @objc(WMFRootNavigationController)
 class RootNavigationController: WMFThemeableNavigationController {
     
-    var splashScreenViewController: SplashScreenViewController?
+    @objc var splashScreenViewController: SplashScreenViewController?
     
-    @objc func showSplashView() {
+    @objc func showSplashViewWithTheme(_ theme: Theme) {
         guard splashScreenViewController == nil else {
             return
         }
@@ -14,6 +14,7 @@ class RootNavigationController: WMFThemeableNavigationController {
         // Explicit appearance transitions need to be used here because UINavigationController overrides
         // a lot of behaviors when adding the VC as a child and causes layout issues for our use case.
         splashVC.beginAppearanceTransition(true, animated: false)
+        splashVC.apply(theme: theme)
         view.wmf_addSubviewWithConstraintsToEdges(splashVC.view)
         splashVC.endAppearanceTransition()
         splashScreenViewController = splashVC
@@ -38,5 +39,4 @@ class RootNavigationController: WMFThemeableNavigationController {
         }
         splashScreenViewController = nil
     }
-    
 }

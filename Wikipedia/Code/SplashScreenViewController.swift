@@ -4,7 +4,7 @@ import UIKit
 /// Matches the appearance of the launch xib and shows while we do any setup or migrations that need to block user interaction.
 /// If this VC is shown for longer than `maximumNonInteractiveTimeInterval`, the view transitions to a loading animation.
 @objc (WMFSplashScreenViewController)
-class SplashScreenViewController: UIViewController {
+class SplashScreenViewController: ThemeableViewController {
     
     // MARK: Object Lifecycle
     
@@ -95,5 +95,17 @@ class SplashScreenViewController: UIViewController {
         UIView.animate(withDuration: SplashScreenViewController.crossFadeAnimationDuration) {
             self.splashView.alpha = 0
         }
+    }
+    
+    //MARK: Themable
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        loadingAnimationViewController.apply(theme: theme)
     }
 }

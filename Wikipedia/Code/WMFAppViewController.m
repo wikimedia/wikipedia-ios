@@ -749,7 +749,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferredLanguagesDidChange:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
 
-    [self showSplashView];
+    [self showSplashViewWithTheme:self.theme];
 
     [self migrateIfNecessary];
 }
@@ -1430,8 +1430,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Splash
 
-- (void)showSplashView {
-    [(WMFRootNavigationController *)self.navigationController showSplashView];
+- (void)showSplashViewWithTheme:(WMFTheme *)theme {
+    [(WMFRootNavigationController *)self.navigationController showSplashViewWithTheme:theme];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
