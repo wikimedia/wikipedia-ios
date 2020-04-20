@@ -79,22 +79,9 @@ public final class SurveyAnnouncementsController: NSObject {
                 continue
             }
             
-            //ignore startTime/endTime and reduce displayDelay for easier debug testing
-            #if DEBUG
-                
-                if host == domain, articleTitles.contains(normalizedArticleTitle) {
-                    
-                    return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: 10.0)
-                    
-                }
-            
-            #else
-            
-                if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
-                    return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
-                }
-            
-            #endif
+            if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
+                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
+            }
         }
         
         return nil
