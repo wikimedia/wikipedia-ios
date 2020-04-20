@@ -23,11 +23,16 @@ class LoadingAnimationViewController: UIViewController {
         updateFonts()
     }
     
+    @objc func applicationDidBecomeActive(_ notification: Notification) {
+        satelliteImageView.startRotating()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         satelliteImageView.startRotating()
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: statusLabel)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -35,8 +40,8 @@ class LoadingAnimationViewController: UIViewController {
         
         satelliteImageView.stopRotating()
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
-    
     
     @IBAction func tappedCancel(_ sender: UIButton) {
         cancelBlock?()
