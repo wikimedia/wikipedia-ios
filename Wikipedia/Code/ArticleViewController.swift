@@ -940,6 +940,7 @@ extension ArticleViewController {
         }
         showError(error)
         refreshControl.endRefreshing()
+        updateRefreshOverlay(visible: false)
     }
     
     func articleLoadDidFail(with error: Error) {
