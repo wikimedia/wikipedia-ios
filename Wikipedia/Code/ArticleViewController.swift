@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController {    
+class ArticleViewController: ViewController, HintPresenting {
     enum ViewState {
         case initial
         case loading
@@ -57,6 +57,10 @@ class ArticleViewController: ViewController {
     private var leadImageHeight: CGFloat = 210
 
     private var contentSizeObservation: NSKeyValueObservation? = nil
+
+    /// Used to delay reloading the web view to prevent `UIScrollView` jitter
+    fileprivate var shouldPerformWebRefreshAfterScrollViewDeceleration = false
+
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -105,6 +109,10 @@ class ArticleViewController: ViewController {
     lazy var webView: WKWebView = {
         return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
+    
+    // MARK: HintPresenting
+    
+    var hintController: HintController?
     
     // MARK: Find In Page
     
@@ -181,6 +189,15 @@ class ArticleViewController: ViewController {
         containerView.addSubview(leadImageView)
         containerView.addSubview(borderView)
         return containerView
+    }()
+
+    lazy var refreshOverlay: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        view.backgroundColor = .black
+        view.isUserInteractionEnabled = true
+        return view
     }()
     
     override func updateViewConstraints() {
@@ -539,6 +556,16 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
+        if !shouldPerformWebRefreshAfterScrollViewDeceleration {
+            toolbarController.setToolbarButtons(enabled: false)
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.15, delay: 0, options: [.curveEaseIn], animations: {
+                self.refreshOverlay.alpha = 0.30
+            })
+        }
+        shouldPerformWebRefreshAfterScrollViewDeceleration = true
+    }
+
+    internal func performWebViewRefresh() {
         #if DEBUG // on debug builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -716,6 +743,17 @@ class ArticleViewController: ViewController {
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         dismissReferencesPopover()
+        hintController?.dismissHintDueToUserInteraction()
+    }
+
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndDecelerating(scrollView)
+        if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            webView.scrollView.showsVerticalScrollIndicator = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self.performWebViewRefresh()
+            })
+        }
     }
     
     // MARK: Analytics
@@ -793,6 +831,9 @@ private extension ArticleViewController {
         
         // Lead image
         setupLeadImageView()
+
+        // Add overlay to prevent interaction while reloading
+        webView.wmf_addSubviewWithConstraintsToEdges(refreshOverlay)
         
         // Delegates
         webView.uiDelegate = self
@@ -961,6 +1002,18 @@ extension ArticleViewController: WKNavigationDelegate {
         // Re-load the content in this case to show it again
         webView.reload()
     }
+
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.1, delay: 0, options: [.curveEaseIn], animations: {
+                self.refreshOverlay.alpha = 0
+            })
+            webView.scrollView.showsVerticalScrollIndicator = true
+            toolbarController.setToolbarButtons(enabled: true)
+            shouldPerformWebRefreshAfterScrollViewDeceleration = false
+        }
+    }
+
 }
 
 extension ViewController {
