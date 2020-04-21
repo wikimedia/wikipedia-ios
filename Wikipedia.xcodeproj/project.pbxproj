@@ -3571,7 +3571,7 @@
 		8330531D23EF051900123141 /* NSArray+WMFMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+WMFMapping.m"; sourceTree = "<group>"; };
 		8330531E23EF051900123141 /* NSArray+WMFMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+WMFMapping.h"; sourceTree = "<group>"; };
 		8330532123EF05D000123141 /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBlocksKit.swift; sourceTree = "<group>"; };
-		8330532823EF0B4200123141 /* ArticleViewController+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Media.swift"; sourceTree = "<group>"; };
+		8330532823EF0B4200123141 /* ArticleViewController+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Media.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListGalleryViewController.swift; sourceTree = "<group>"; };
 		8330533223F0388E00123141 /* DataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreTests.swift; sourceTree = "<group>"; };
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
