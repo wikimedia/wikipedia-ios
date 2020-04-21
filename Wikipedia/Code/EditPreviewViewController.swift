@@ -128,11 +128,54 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             showGenericError()
             return
         }
-        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
+        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true, areEditingElementsRemoved: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
-            let request = try fetcher.mobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
+            #if WMF_LOCAL_PAGE_CONTENT_SERVICE
+            // If on local PCS, we need to split this call. On the server, wikitext-to-mobilehtml just puts together two other
+            // calls - wikitext-to-html, and html-to-mobilehtml. Since we have html-to-mobilehtml in local PCS but not the first call, if
+            // we're making PCS edits to mobilehtml we need this code in order to view them. This block splits the call on the local PCS scheme
+            // (similar to what the server does) routing the wikitext-to-html call to production, and html-to-mobilehtml to local PCS.
+            let htmlRequest = try fetcher.wikitextToHTMLRequest(articleURL: articleURL, wikitext: wikitext)
+            let htmlRequestCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
+                guard let data = data, let html = String(data: data, encoding: .utf8) else {
+                    DispatchQueue.main.async {
+                        self.showGenericError()
+                    }
+                    return
+                }
+                do {
+                    let mobileHtmlRequest = try self.fetcher.htmlToMobileHTMLRequest(articleURL: articleURL, html: html)
+                    DispatchQueue.main.async {
+                        let mobileHtmlCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
+                            guard let data = data, let html = String(data: data, encoding: .utf8) else {
+                                DispatchQueue.main.async {
+                                    self.showGenericError()
+                                }
+                                return
+                            }
+                            DispatchQueue.main.async {
+                                self.previewWebViewContainer.webView.loadHTMLString(html, baseURL: response?.url)
+                            }
+                        }
+                        // While we'd normally expect this second request to be able to loaded via `...webView.load(request)`, for unknown
+                        // reasons it wasn't working in that route - but was working when loaded via HTML string (in completion handler) -
+                        // despite both responses being identical when inspected via a proxy server.
+                        let mobileHtml = self.fetcher.session.dataTask(with: mobileHtmlRequest, completionHandler: mobileHtmlCompletionHandler)
+                        mobileHtml?.resume()
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.showGenericError()
+                    }
+                }
+            }
+            let htmlTask = fetcher.session.dataTask(with: htmlRequest, completionHandler: htmlRequestCompletionHandler)
+            htmlTask?.resume()
+            #else
+            let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
             previewWebViewContainer.webView.load(request)
+            #endif
         } catch {
             showGenericError()
         }

@@ -129,7 +129,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
-    public func mobileHTMLPreviewRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
+    public func wikitextToMobileHTMLPreviewRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -142,6 +142,50 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         var request = URLRequest(url: url)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = paramsJSON
+        request.httpMethod = "POST"
+        return request
+    }
+    
+    public func wikitextToHTMLRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents
+        else {
+            throw RequestError.invalidParameters
+        }
+        
+        #if WMF_LOCAL_PAGE_CONTENT_SERVICE
+         guard let url = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
+             throw RequestError.invalidParameters
+         }
+         #else
+         guard let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
+            throw RequestError.invalidParameters
+        }
+         #endif
+        
+        let params: [String: String] = ["wikitext": wikitext]
+        let paramsJSON = try JSONEncoder().encode(params)
+        var request = URLRequest(url: url)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = paramsJSON
+        request.httpMethod = "POST"
+        return request
+    }
+    
+    public func htmlToMobileHTMLRequest(articleURL: URL, html: String) throws -> URLRequest {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "html", "to", "mobile-html", percentEncodedTitle]).url
+        else {
+            throw RequestError.invalidParameters
+        }
+        
+        var request = URLRequest(url: url)
+        request.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Accept")
+        request.httpBody = html.data(using: .utf8)
         request.httpMethod = "POST"
         return request
     }
