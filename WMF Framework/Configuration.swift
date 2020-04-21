@@ -98,12 +98,6 @@ public class Configuration: NSObject {
         static let uploads = "upload.wikimedia.org"
     }
     
-    public struct File {
-        public struct Extensions {
-            public static let oggAudio = Set<String>(["ogg", "oga"])
-        }
-    }
-   
     struct Path {
         static let wikiResourceComponent = ["wiki"]
         static let restBaseAPIComponents = ["api", "rest_v1"]

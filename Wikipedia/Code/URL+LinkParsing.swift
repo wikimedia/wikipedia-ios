@@ -139,19 +139,20 @@ extension URL {
         return (self as NSURL).wmf_isPeekable
     }
     
+    /// Returns true if this is a URL for a media file hosted on Wikimedia Commons
     private var isHostedFileLink: Bool {
         return host?.lowercased() == Configuration.Domain.uploads
     }
     
+    /// Returns true if this is a URL with an extension indicating that it's ogg audio
+    private var hasOggAudioExtension: Bool {
+        let lowercasedExtension = pathExtension.lowercased()
+        return lowercasedExtension == "ogg" || lowercasedExtension == "oga"
+    }
+    
     /// Converts incompatible file links to compatible file links. Currently only translates ogg/oga links to m3 links.
     public var byMakingiOSCompatibilityAdjustments: URL {
-        guard isHostedFileLink else {
-            return self
-        }
-        
-        let lowercasedPathExtension = pathExtension.lowercased()
-        
-        guard Configuration.File.Extensions.oggAudio.contains(lowercasedPathExtension) else {
+        guard isHostedFileLink, hasOggAudioExtension else {
             return self
         }
         
