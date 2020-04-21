@@ -316,7 +316,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             if urlString.hasPrefix("//") {
                 urlString = "https:" + urlString
             }
-            guard let url = NSURL(string: urlString)?.wmf_URLByMakingiOSCompatibilityAdjustments else {
+            guard let url = URL(string: urlString)?.byMakingiOSCompatibilityAdjustments else {
                 return nil
             }
             return .pronunciation(url: url)

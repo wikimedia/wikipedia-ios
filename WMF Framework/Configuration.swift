@@ -95,6 +95,13 @@ public class Configuration: NSObject {
         static let wikimedia = "wikimedia.org"
         static let metaWiki = "meta.wikimedia.org"
         static let wikimediafoundation = "wikimediafoundation.org"
+        static let uploads = "upload.wikimedia.org"
+    }
+    
+    public struct File {
+        public struct Extensions {
+            public static let oggAudio = Set<String>(["ogg", "oga"])
+        }
     }
    
     struct Path {

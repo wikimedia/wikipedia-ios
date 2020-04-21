@@ -138,6 +138,42 @@ extension URL {
     public var isPreviewable: Bool {
         return (self as NSURL).wmf_isPeekable
     }
+    
+    private var isHostedFileLink: Bool {
+        return host?.lowercased() == Configuration.Domain.uploads
+    }
+    
+    /// Converts incompatible file links to compatible file links. Currently only translates ogg/oga links to m3 links.
+    public var byMakingiOSCompatibilityAdjustments: URL {
+        guard isHostedFileLink else {
+            return self
+        }
+        
+        let lowercasedPathExtension = pathExtension.lowercased()
+        
+        guard Configuration.File.Extensions.oggAudio.contains(lowercasedPathExtension) else {
+            return self
+        }
+        
+        var mutableComponents = pathComponents
+        
+        guard
+            let filename = mutableComponents.last,
+            let index = mutableComponents.firstIndex(of: "commons"),
+            index < mutableComponents.count - 1
+        else {
+            return self
+        }
+        
+        mutableComponents.insert("transcoded", at: index + 1)
+        
+        let mp3Filename = filename.appending(".mp3")
+        mutableComponents.append(mp3Filename)
+
+        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        urlComponents?.path = pathComponents.joined(separator: "/")
+        return urlComponents?.url ?? self
+    }
 }
 
 
