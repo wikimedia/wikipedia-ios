@@ -48,7 +48,7 @@ class SplashScreenViewController: ThemeableViewController {
     
     // MARK: Constants
     
-    static let maximumNonInteractiveTimeInterval: TimeInterval = 1
+    static let maximumNonInteractiveTimeInterval: TimeInterval = 7
     static let minimumBusyAnimationVisibleTimeInterval: TimeInterval = 0.6
     static let crossFadeAnimationDuration: TimeInterval = 0.3
     
