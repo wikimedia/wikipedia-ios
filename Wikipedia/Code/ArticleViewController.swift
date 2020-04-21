@@ -557,7 +557,6 @@ class ArticleViewController: ViewController, HintPresenting {
     
     @objc public func refresh() {
         if !shouldPerformWebRefreshAfterScrollViewDeceleration {
-            toolbarController.setToolbarButtons(enabled: false)
             updateRefreshOverlay(visible: true)
         }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
@@ -577,6 +576,7 @@ class ArticleViewController: ViewController, HintPresenting {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: [.curveEaseIn], animations: {
             self.refreshOverlay.alpha = alpha
         })
+        toolbarController.setToolbarButtons(enabled: !visible)
     }
     
     // MARK: Overrideable functionality
@@ -1014,7 +1014,6 @@ extension ArticleViewController: WKNavigationDelegate {
         if shouldPerformWebRefreshAfterScrollViewDeceleration {
             updateRefreshOverlay(visible: false)
             webView.scrollView.showsVerticalScrollIndicator = true
-            toolbarController.setToolbarButtons(enabled: true)
             shouldPerformWebRefreshAfterScrollViewDeceleration = false
         }
     }
