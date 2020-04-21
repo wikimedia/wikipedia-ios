@@ -14,43 +14,33 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4991434181D51DE00E6073C"
-               BuildableName = "Wikipedia.app"
-               BlueprintName = "Wikipedia"
+               BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+               BuildableName = "Staging.app"
+               BlueprintName = "Staging"
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "BetaClusterDebug"
+      buildConfiguration = "StagingDebug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+            BuildableName = "Staging.app"
+            BlueprintName = "Staging"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BC4273511A7C736800068882"
-               BuildableName = "WikipediaUnitTests.xctest"
-               BlueprintName = "WikipediaUnitTests"
-               ReferencedContainer = "container:Wikipedia.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "BetaClusterDebug"
+      buildConfiguration = "StagingDebug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -63,15 +53,15 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+            BuildableName = "Staging.app"
+            BlueprintName = "Staging"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "BetaCluster"
+      buildConfiguration = "Staging"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -80,18 +70,18 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+            BuildableName = "Staging.app"
+            BlueprintName = "Staging"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "BetaClusterDebug">
+      buildConfiguration = "Staging">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "BetaCluster"
+      buildConfiguration = "Staging"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

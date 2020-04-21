@@ -1,12 +1,18 @@
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
+    
+    enum Style {
+        case standard
+        case minimal
+    }
+    
     private let announcement: WMFAnnouncement
-    private let panelWidth: CGFloat
+    private let style: Style
 
-    init(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dismissHandler: ScrollableEducationPanelDismissHandler?, width: CGFloat, theme: Theme) {
+    init(announcement: WMFAnnouncement, style: Style = .standard, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme) {
         self.announcement = announcement
-        self.panelWidth = width
-        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
-        isUrgent = announcement.type == "fundraising"
+        self.style = style
+        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
+        isUrgent = announcement.announcementType == .fundraising
         self.footerLinkAction = footerLinkAction
     }
 
@@ -17,10 +23,9 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         subheadingHTML = announcement.text
-        subheadingTextAlignment = .left
+        subheadingTextAlignment = style == .minimal ? .center : .natural
         primaryButtonTitle = announcement.actionTitle
         secondaryButtonTitle = announcement.negativeText
-        width = panelWidth
         footerHTML = announcement.captionHTML
         secondaryButtonTextStyle = .mediumFootnote
         spacing = 20
@@ -30,6 +35,56 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
         primaryButtonBorderWidth = 0
         dismissWhenTappedOutside = true
         contentHorizontalPadding = 20
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        evaluateConstraintsOnNewSize(view.frame.size)
+    }
+
+    private func evaluateConstraintsOnNewSize(_ size: CGSize) {
+        let panelWidth = size.width * 0.9
+        if style == .minimal && traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
+            width = min(320, panelWidth)
+        } else {
+            width = panelWidth
+        }
+        
+        if style == .minimal {
+            //avoid scrolling on SE landscape, otherwise add a bit of padding
+            let subheadingExtraTopBottomSpacing = size.height <= 320 ? 0 : CGFloat(10)
+            subheadingTopConstraint.constant = originalSubheadingTopConstraint + CGFloat(subheadingExtraTopBottomSpacing)
+            subheadingBottomConstraint.constant = originalSubheadingTopConstraint + CGFloat(subheadingExtraTopBottomSpacing)
+        }
+    }
+    
+    override var footerParagraphStyle: NSParagraphStyle? {
+        
+        guard let paragraphStyle = super.footerParagraphStyle else {
+            return nil
+        }
+        
+        return modifiedParagraphStyleFromOriginalStyle(paragraphStyle)
+    }
+    
+    override var subheadingParagraphStyle: NSParagraphStyle? {
+        
+        guard let paragraphStyle = super.subheadingParagraphStyle else {
+            return nil
+        }
+        
+        return modifiedParagraphStyleFromOriginalStyle(paragraphStyle)
+    }
+    
+    private func modifiedParagraphStyleFromOriginalStyle(_ originalStyle: NSParagraphStyle) -> NSParagraphStyle? {
+        
+        if let mutParagraphStyle = originalStyle.mutableCopy() as? NSMutableParagraphStyle {
+            mutParagraphStyle.alignment = style == .minimal ? .center : .natural
+            return mutParagraphStyle.copy() as? NSParagraphStyle
+        }
+        
+        return originalStyle
     }
 }
 
@@ -236,8 +291,8 @@ extension UIViewController {
         return !fetchedObjects.isEmpty
     }
 
-    @objc func wmf_showAnnouncementPanel(announcement: WMFAnnouncement, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, dismissHandler: ScrollableEducationPanelDismissHandler?, theme: Theme) {
-        let panel = AnnouncementPanelViewController(announcement: announcement, primaryButtonTapHandler: { (sender: Any) in
+    func wmf_showAnnouncementPanel(announcement: WMFAnnouncement, style: AnnouncementPanelViewController.Style = .standard, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme) {
+        let panel = AnnouncementPanelViewController(announcement: announcement, style: style, primaryButtonTapHandler: { (sender: Any) in
             primaryButtonTapHandler?(sender)
             self.dismiss(animated: true)
             // dismissHandler is called on viewDidDisappear
@@ -245,9 +300,10 @@ extension UIViewController {
             secondaryButtonTapHandler?(sender)
             self.dismiss(animated: true)
             // dismissHandler is called on viewDidDisappear
-        }, footerLinkAction: footerLinkAction, dismissHandler: {
-            dismissHandler?()
-        }, width: view.frame.width * 0.9, theme: theme)
+        }, footerLinkAction: footerLinkAction
+        , traceableDismissHandler: { lastAction in
+            traceableDismissHandler?(lastAction)
+        }, theme: theme)
         present(panel, animated: true)
     }
         

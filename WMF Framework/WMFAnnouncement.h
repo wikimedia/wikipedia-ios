@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly, nullable) NSString *actionTitle;
 @property (nonatomic, copy, readonly, nullable) NSURL *actionURL;
+@property (nonatomic, copy, readonly, nullable) NSString *actionURLString;
 
 @property (nonatomic, copy, readonly, nullable) NSString *captionHTML;
 @property (nonatomic, copy, readonly, nullable) NSString *negativeText;
@@ -26,6 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSNumber *readingListSyncEnabled;
 @property (nonatomic, copy, readonly, nullable) NSNumber *loggedIn;
 @property (nonatomic, copy, readonly, nullable) NSNumber *beta;
+
+@property (nonatomic, copy, readonly, nullable) NSString *domain;
+
+//only applies to survey types
+@property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *articleTitles;
+@property (nonatomic, strong, readonly, nullable) NSNumber *displayDelay;
+
+- (nullable NSURL *)actionURLReplacingPlaceholder:(nonnull NSString *)placeholder withValue: (nonnull NSString *)value;
 
 @end
 

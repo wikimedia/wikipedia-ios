@@ -79,7 +79,7 @@
         if (![obj isKindOfClass:[WMFAnnouncement class]]) {
             return NO;
         }
-        if ([obj.platforms containsObject:@"iOSAppV2"]) {
+        if ([obj.platforms containsObject:@"iOSAppV3"]) {
             return YES;
         } else {
             return NO;

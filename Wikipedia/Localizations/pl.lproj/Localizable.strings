@@ -126,12 +126,14 @@
 "appearance-settings-set-automatic-table-opening" = "Ustawienia tabeli";
 "appearance-settings-text-sizing-example-text" = "Przeciągnij suwak, aby zmienić rozmiar tekstu artykułu. Użyj rozmiaru tekstu systemowego, aby zmienić rozmiar innych obszarów tekstu w aplikacji.";
 "appearance-settings-theme-options" = "Opcje motywu";
+"article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artykuł usunięty|artykuły usunięte}}";
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-languages-label" = "Wybierz język";
 "article-languages-others" = "Inne języki";
 "article-languages-yours" = "Twoje języki";
+"article-read-more-title" = "Czytaj więcej";
 "article-save-error-not-enough-space" = "Masz za mało miejsca na urządzeniu, by zapisać ten artykuł";
 "article-share" = "Udostępnij";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrolki motywów czytania";
@@ -538,6 +540,7 @@
 "page-history-minor-edits" = "drobne edycje";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Historia wersji";
+"page-history-revision-minor-edit-accessibility-label" = "Drobna zmiana";
 "page-history-revision-size-diff-addition" = "Dodano {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revision-size-diff-subtraction" = "Usunięto {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revisions-comparison-warning" = "Wybrane moga być tylko dwie wersje";
@@ -548,6 +551,7 @@
 "page-protected-can-not-edit-title" = "Ta strona jest zabezpieczona";
 "page-protected-other" = "Ta strona została zabezpieczona do następujących poziomów: $1";
 "page-protected-sysop" = "Ta strona jest całkowicie zabezpieczona.";
+"page-similar-titles" = "Podobne strony";
 // Fuzzy
 "panel-compare-revisions-text" = "Porównywanie wersji pomaga zobaczyć jak artykuł zmieniał się na przestrzeni czasu. Podczas porównywania dwóch wersji generowane są różnice pomiędzy nimi.";
 "panel-compare-revisions-title" = "Porównaj wersje";
