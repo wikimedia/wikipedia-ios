@@ -11,6 +11,7 @@
 // Author: Minh Nguyen
 // Author: Nemo bis
 // Author: Nguyên Lê
+// Author: Phjtieudoc
 // Author: Thanhtai2009
 // Author: Vinhtantran
 
@@ -79,7 +80,6 @@
 "action-saved-accessibility-notification" = "Đã lưu bài để đọc sau";
 "action-share" = "Chia sẻ";
 "action-sort" = "Sắp xếp";
-// Fuzzy
 "action-undo" = "Hoàn tác";
 "action-unsave" = "Bỏ lưu";
 "action-unsaved-accessibility-notification" = "Bài viết đã bị xóa khỏi thiết bị.";
@@ -454,8 +454,7 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Giao diện nâu";
 "reading-themes-controls-accessibility-text-size-slider" = "Con trượt kích thước văn bản";
 "reference-title" = "Chú thích $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Hôm nay|Hôm qua|Cách đây $1 ngày}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hôm nay|1=Hôm qua|$1 ngày trước}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 giờ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 phút}}";
 // Fuzzy

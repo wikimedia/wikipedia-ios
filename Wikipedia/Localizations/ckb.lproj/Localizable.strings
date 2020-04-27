@@ -3,6 +3,7 @@
 // Author: Arya sarhan
 // Author: Asoxor
 // Author: Diyariq
+// Author: Kushared
 // Author: Lost Whispers
 // Author: Macofe
 // Author: Mhurd
@@ -57,21 +58,33 @@
 "account-creation-passwords-mismatched" = "تێپەڕوشەکە ھەڵەیە";
 "account-creation-saving" = "پاشەکەوتکردن...";
 "account-creation-title" = "ھەژمارێکی نوێ دروست بکە";
+"account-group-title" = "هەژمارەکەت";
+"account-talk-page-title" = "پەڕەی لێدوانەکەت";
+"action-cancel" = "ھەڵوەشاندنەوە";
 "action-find-in-page" = "دۆزینەوە لەنێو پەڕە";
 "action-language-accessibility" = "گۆڕینی زمان";
 "action-move-to" = "لۆگی گواستنەوە...";
+"action-next-revision-accessibility" = "پێداچوونەوەی دواتر";
+"action-previous-revision-accessibility" = "پێداچوونەوەی پێشووتر";
 "action-read" = "خوێندنەوە";
+"action-remove" = "لابردن";
+"action-replace" = "جێگۆڕ بکە";
+"action-replace-all" = "ھەمووی جێگۆڕ بکە";
+"action-retry" = "ھەوڵداناوە";
 "action-save" = "پاشەکەوتکردن";
 "action-saved" = "پاشەکەوت کرا";
 "action-saved-accessibility" = "پاشەکەوتکرا. چالاکی بکە بۆ سڕینەوە.";
 "action-saved-accessibility-notification" = "وتارەکە بۆ دواتر پاشەکەوتکرا";
 "action-share" = "هاوبەشی کردن";
 "action-share-accessibility" = "ھاوبەشکردن";
+"action-sort" = "ڕیزکردن";
+"action-thank-user-accessibility" = "سوپاسکردنی بەکارهێنەر";
 "action-undo" = "پووچەڵکردنەوە";
 "action-unsave" = "سڕینەوە";
 "action-unsaved-accessibility-notification" = "وتارەکە سڕدرایەوە";
 "action-update" = "نوێکردنەوە";
 "add-articles-to-reading-list" = "زیادکردنی {{PLURAL:$1|$1 وتار|$1 وتار}} بۆ پێڕستی خوێندنەوە";
+"add-citation-title" = "زیادکردنی شرۆڤە";
 "announcements-dismiss" = "لێگەڕان";
 "app-store-subtitle" = "ئینسایکڵۆپیدیای ئازاد";
 "appearance-settings-adjust-text-sizing" = "ڕێکخستنی قەبارەی دەقی وتار";
@@ -84,6 +97,7 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "ئەم خزێنەرەی سەرەوە بەکارببە بۆ گۆڕینی قەبارەی دەقەکان. بۆ گۆڕینی قەبارەی ھەندێک لە دەقەکان، پێویستە لە سیستمی ئامێرەکەتەوە دەستکاری قەبارەی دەقەکان بکەیت.";
 "appearance-settings-theme-options" = "ھەڵبژاردەی بەرگەکان";
+"article-about-title" = "دەربارەی ئەم وتارە";
 "article-delete" = "سڕینەوە";
 // Fuzzy
 "article-deleted-accessibility-notification" = "وتارەکە سڕدرایەوە";
@@ -114,16 +128,24 @@
 "description-edit-for-article" = "وەسفی ناونیشان بۆ $1";
 "description-edit-learn-more" = "زیاتر بزانە";
 "description-edit-length-warning" = "$1 / $2";
+"description-edit-pencil-introduction" = "دەستکاریی پێشەکی";
+"description-edit-publish" = "پاشەکەوتکردنی دەربارە";
 "description-help-about-title" = "دەربارە";
 "description-help-about-wikidata" = "دەربارەی ویکیداتا";
 "description-help-more-info-title" = "زانیاریی زیاتر";
 "description-help-tips-for-example" = "بۆ نموونە:";
 "description-published-button-title" = "کرا";
+"description-welcome-concise-title" = "با کورت بێت";
+"description-welcome-descriptions-sub-title" = "وتارەکە کورت دەکاتەوە بۆ یارمەتیدانی خوێنەران لە تێگەیشتنی بابەتەکە بە سەیرکردنێکی";
 "diff-compare-header-from-info-heading" = "لە:";
 "diff-compare-header-to-info-heading" = "بۆ:";
 "diff-context-lines-collapsed-button-title" = "نیشان بدە";
 "diff-context-lines-expanded-button-title" = "بشارەوە";
+"diff-thanks-send-button-title" = "سوپاس بکە";
 "dim-images" = "وێنەی کز";
+"edit-link-remove-link-title" = "لابردنی بەستەر";
+"edit-link-title" = "بەستەرەکان دەستکاری بکە";
+"edit-menu-item" = "دەستکاری";
 "edit-summary-choice-fixed-grammar" = "چاککردنی ڕێزمان";
 "edit-summary-choice-fixed-typos" = "چاککردنی ھەڵەی ڕێنووس";
 "edit-summary-choice-linked-words" = "بەستەرەکان زیاد کرا";
