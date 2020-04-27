@@ -11,8 +11,9 @@ enum SchemeHandlerError: Error {
     }
 }
 
-final class SchemeHandler: NSObject {
+class SchemeHandler: NSObject {
     let scheme: String
+    open var didReceiveDataCallback: ((WKURLSchemeTask, Data) -> Void)?
     private let session: Session
     private var activeSessionTasks: [URLRequest: URLSessionTask] = [:]
     private var activeCacheOperations: [URLRequest: Operation] = [:]
@@ -191,6 +192,7 @@ private extension SchemeHandler {
                     return
                 }
                 urlSchemeTask.didReceive(data)
+                self.didReceiveDataCallback?(urlSchemeTask, data)
             }
         }, success: { [weak urlSchemeTask] in
             DispatchQueue.main.async {

@@ -42,7 +42,6 @@ class ArticleViewController: ViewController, HintPresenting {
     let configuration = Configuration.current
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
-    internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
     
     lazy var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? = {
         guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle,
@@ -67,7 +66,13 @@ class ArticleViewController: ViewController, HintPresenting {
         return rc
     }()
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+    @objc convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+        let schemeHandler = SchemeHandler.shared
+        
+        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme, schemeHandler: schemeHandler)
+    }
+    
+    init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler = SchemeHandler.shared) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = ArticleCacheController.shared
@@ -81,7 +86,7 @@ class ArticleViewController: ViewController, HintPresenting {
         
         self.dataStore = dataStore
 
-        self.schemeHandler = SchemeHandler.shared
+        self.schemeHandler = schemeHandler
 
         self.cacheController = cacheController
         
