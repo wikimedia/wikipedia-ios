@@ -562,20 +562,26 @@ class ArticleViewController: ViewController, HintPresenting {
     
     @objc public func refresh() {
         if !shouldPerformWebRefreshAfterScrollViewDeceleration {
-            toolbarController.setToolbarButtons(enabled: false)
-            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.15, delay: 0, options: [.curveEaseIn], animations: {
-                self.refreshOverlay.alpha = 0.30
-            })
+            updateRefreshOverlay(visible: true)
         }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
     }
 
     internal func performWebViewRefresh() {
-        #if DEBUG // on debug builds, reload everything including JS and CSS
+        #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
             loadPage(cachePolicy: .noPersistentCacheOnError)
         #endif
+    }
+
+    internal func updateRefreshOverlay(visible: Bool, animated: Bool = true) {
+        let duration = animated ? (visible ? 0.15 : 0.1) : 0.0
+        let alpha: CGFloat = visible ? 0.3 : 0.0
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: [.curveEaseIn], animations: {
+            self.refreshOverlay.alpha = alpha
+        })
+        toolbarController.setToolbarButtons(enabled: !visible)
     }
     
     // MARK: Overrideable functionality
@@ -939,6 +945,7 @@ extension ArticleViewController {
         }
         showError(error)
         refreshControl.endRefreshing()
+        updateRefreshOverlay(visible: false)
     }
     
     func articleLoadDidFail(with error: Error) {
@@ -1010,11 +1017,8 @@ extension ArticleViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         if shouldPerformWebRefreshAfterScrollViewDeceleration {
-            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.1, delay: 0, options: [.curveEaseIn], animations: {
-                self.refreshOverlay.alpha = 0
-            })
+            updateRefreshOverlay(visible: false)
             webView.scrollView.showsVerticalScrollIndicator = true
-            toolbarController.setToolbarButtons(enabled: true)
             shouldPerformWebRefreshAfterScrollViewDeceleration = false
         }
     }
