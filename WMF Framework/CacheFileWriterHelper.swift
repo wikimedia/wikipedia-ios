@@ -88,6 +88,11 @@ final class CacheFileWriterHelper {
         replaceFileWithData(headerData, fileName: fileName, completion: completion)
     }
     
+    static func dataForFileName(_ fileName: String) -> Data? {
+        let path = fileURL(for: fileName).path
+        return FileManager.default.contents(atPath: path)
+    }
+    
     static func replaceFileWithData(_ data: Data, fileName: String, completion: @escaping (FileSaveResult) -> Void) {
         let destinationURL = fileURL(for: fileName)
         do {
