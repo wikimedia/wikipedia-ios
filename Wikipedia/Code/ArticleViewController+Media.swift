@@ -42,6 +42,7 @@ extension ArticleViewController {
     }
     
     func showAudio(with url: URL) {
+        try? AVAudioSession.sharedInstance().setCategory(.playback)
         let vc = AVPlayerViewController()
         let player = AVPlayer(url: url)
         vc.player = player
