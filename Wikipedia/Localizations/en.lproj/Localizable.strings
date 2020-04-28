@@ -120,6 +120,7 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"data-migration-status" = "Updating...";
 "description-add-title" = "Add description";
 "description-edit-for-article" = "Title description for $1";
 "description-edit-learn-more" = "Learn more";
