@@ -650,11 +650,21 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
-        if let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 304 {
+        if let httpResponse = response as? HTTPURLResponse {
+            
+            var shouldCheckPersistentCache = false
+            if httpResponse.statusCode == 304 {
+                shouldCheckPersistentCache = true
+            }
+            
+            if let request = dataTask.originalRequest,
+                request.prefersPersistentCacheOverError && httpResponse.statusCode != 200 {
+                shouldCheckPersistentCache = true
+            }
             
             let taskIdentifier = dataTask.taskIdentifier
-            if let callback = callbacks[taskIdentifier],
+            if shouldCheckPersistentCache,
+                let callback = callbacks[taskIdentifier],
                 let request = dataTask.originalRequest,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                 callback.response?(cachedResponse.response)
