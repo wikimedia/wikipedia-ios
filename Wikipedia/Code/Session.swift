@@ -43,6 +43,7 @@ public enum WMFCachePolicy {
         public enum Encoding {
             case json
             case form
+            case html
         }
     }
     
@@ -171,7 +172,7 @@ public enum WMFCachePolicy {
         return request(with: requestURL, method: .get)
     }
 
-    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:]) -> URLRequest? {
+    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:]) -> URLRequest {
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
         let defaultHeaders = [
@@ -211,6 +212,12 @@ public enum WMFCachePolicy {
             let queryString = URLComponents.percentEncodedQueryStringFrom(bodyParametersDictionary)
             request.httpBody = queryString.data(using: String.Encoding.utf8)
             request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        case .html:
+            guard let body = bodyParameters as? String else {
+                break
+            }
+            request.httpBody = body.data(using: .utf8)
+            request.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
         return request
     }
@@ -219,10 +226,8 @@ public enum WMFCachePolicy {
         guard let url = url else {
             return nil
         }
-        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
-            return nil
-        }
-        return jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        let dictionaryRequest = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding)
+        return jsonDictionaryTask(with: dictionaryRequest, completionHandler: completionHandler)
     }
     
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
@@ -283,11 +288,8 @@ public enum WMFCachePolicy {
         guard let url = url else {
             return nil
         }
-        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers) else {
-            return nil
-        }
-        
-        let task = defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
+        let dataRequest = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers)
+        let task = defaultURLSession.dataTask(with: dataRequest, completionHandler: completionHandler)
         task.priority = priority
         return task
     }
@@ -497,14 +499,11 @@ public enum WMFCachePolicy {
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
-        guard var request = self.request(with: url, method: .get) else {
-            completionHandler(nil, nil, RequestError.invalidParameters)
-            return nil
-        }
+        var getRequest = request(with: url, method: .get)
         if ignoreCache {
-            request.cachePolicy = .reloadIgnoringLocalCacheData
+            getRequest.cachePolicy = .reloadIgnoringLocalCacheData
         }
-        let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        let task = jsonDictionaryTask(with: getRequest, completionHandler: completionHandler)
         task.resume()
         return task
     }
@@ -523,11 +522,8 @@ public enum WMFCachePolicy {
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
-        guard let request = self.request(with: url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form) else {
-            completionHandler(nil, nil, RequestError.invalidParameters)
-            return nil
-        }
-        let task = jsonDictionaryTask(with: request, reattemptLoginOn401Response: reattemptLoginOn401Response, completionHandler: completionHandler)
+        let postRequest = request(with: url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form)
+        let task = jsonDictionaryTask(with: postRequest, reattemptLoginOn401Response: reattemptLoginOn401Response, completionHandler: completionHandler)
         task.resume()
         return task
     }
@@ -551,7 +547,7 @@ extension Session {
         
         let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
         
-        if let headerFields = sessionRequest?.allHTTPHeaderFields {
+        if let headerFields = sessionRequest.allHTTPHeaderFields {
             for (key, value) in headerFields {
                 permanentCacheRequest.addValue(value, forHTTPHeaderField: key)
             }

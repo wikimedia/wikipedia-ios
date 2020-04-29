@@ -154,7 +154,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        #if WMF_LOCAL_PAGE_CONTENT_SERVICE
+        #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
+        // As of April 2020, the /transform/wikitext/to/html/{article} endpoint is only available on production, not local or staging PCS.
          guard let url = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
              throw RequestError.invalidParameters
          }
@@ -163,14 +164,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
          #endif
-        
+
         let params: [String: String] = ["wikitext": wikitext]
-        let paramsJSON = try JSONEncoder().encode(params)
-        var request = URLRequest(url: url)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = paramsJSON
-        request.httpMethod = "POST"
-        return request
+        return session.request(with: url, method: .post, bodyParameters: params, bodyEncoding: .json)
     }
     
     public func htmlToMobileHTMLRequest(articleURL: URL, html: String) throws -> URLRequest {
@@ -181,13 +177,33 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         else {
             throw RequestError.invalidParameters
         }
-        
-        var request = URLRequest(url: url)
-        request.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Accept")
-        request.httpBody = html.data(using: .utf8)
-        request.httpMethod = "POST"
-        return request
+        return session.request(with: url, method: .post, bodyParameters: html, bodyEncoding: .html)
+    }
+
+public func splitWikitextToMobileHTMLString(articleURL: URL, wikitext: String, completion: @escaping ((String?, URL?) -> Void)) throws {
+        let mobileHtmlCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
+            guard let data = data, let html = String(data: data, encoding: .utf8) else {
+                completion(nil, nil)
+                return
+            }
+            completion(html, response?.url)
+        }
+        let htmlRequestCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
+            guard let data = data, let html = String(data: data, encoding: .utf8) else {
+                completion(nil, nil)
+                return
+            }
+            do {
+                let mobileHtmlRequest = try self.htmlToMobileHTMLRequest(articleURL: articleURL, html: html)
+                let mobileHtml = self.session.dataTask(with: mobileHtmlRequest, completionHandler: mobileHtmlCompletionHandler)
+                mobileHtml?.resume()
+            } catch {
+                completion(nil, nil)
+            }
+        }
+        let htmlRequest = try wikitextToHTMLRequest(articleURL: articleURL, wikitext: wikitext)
+        let htmlTask = self.session.dataTask(with: htmlRequest, completionHandler: htmlRequestCompletionHandler)
+        htmlTask?.resume()
     }
     
     public func mobileHTMLURL(articleURL: URL) throws -> URL {
