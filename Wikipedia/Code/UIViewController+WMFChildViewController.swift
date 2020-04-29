@@ -24,7 +24,7 @@ extension UIViewController {
             return
         }
         addChild(childController)
-        containerView.wmf_addHeightDeterminingSubviewWithConstraintsToEdges(childController.view, belowSubview: belowSubview)
+        containerView.wmf_addSubview(childController.view, withConstraintsToEdgesWithInsets: .zero, belowSubview: belowSubview)
         childController.didMove(toParent: self)
     }
 }
