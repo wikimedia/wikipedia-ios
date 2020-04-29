@@ -189,14 +189,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewWillAppear(_ animated: Bool) {
         captchaViewController?.captchaDelegate = self
         captchaViewController?.apply(theme: theme)
-        wmf_addHeightDetermining(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
+        wmf_add(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         mode = .preview
         
         let vc = EditSummaryViewController(nibName: EditSummaryViewController.wmf_classStoryboardName(), bundle: nil)
         vc.delegate = self
         vc.apply(theme: theme)
-        wmf_addHeightDetermining(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
+        wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
         
         if WMFAuthenticationManager.sharedInstance.isLoggedIn {
             licenseLoginTextView.isHidden = true
