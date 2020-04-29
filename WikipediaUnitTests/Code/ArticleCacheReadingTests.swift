@@ -204,6 +204,7 @@ class ArticleCacheReadingTests: XCTestCase {
             case "app://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png":
                 imageExpectation.fulfill()
             default:
+                print("🧐\(urlString)")
                 XCTFail("Unexpected scheme task callback")
             }
         }
@@ -256,6 +257,7 @@ class ArticleCacheReadingTests: XCTestCase {
             case "app://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png":
                 imageExpectation.fulfill()
             default:
+                print("🧐\(urlString)")
                 XCTFail("Unexpected scheme task callback")
             }
         }
@@ -391,6 +393,7 @@ class ArticleCacheReadingTests: XCTestCase {
             case "app://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png":
                 imageExpectation.fulfill()
             default:
+                print("🧐\(urlString)")
                 XCTFail("Unexpected scheme task callback")
             }
         }
@@ -494,6 +497,7 @@ class ArticleCacheReadingTests: XCTestCase {
             case "app://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/960px-Flag_of_the_United_States_%28Pantone%29.svg.png":
                 imageExpectation.fulfill()
             default:
+                print("🧐\(urlString)")
                 XCTFail("Unexpected scheme task callback")
             }
         }
@@ -502,7 +506,7 @@ class ArticleCacheReadingTests: XCTestCase {
         let _ = basicVC.view
         
         wait(for: [htmlExpectation], timeout: 10)
-        wait(for: [imageExpectation], timeout: 100)
+        wait(for: [imageExpectation], timeout: 10)
         wait(for: [cssExpectation], timeout: 10)
         
         LSNocilla.sharedInstance().stop()
