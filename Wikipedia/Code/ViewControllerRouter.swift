@@ -1,4 +1,5 @@
 import UIKit
+import AVKit
 
 @objc(WMFViewControllerRouter)
 class ViewControllerRouter: NSObject {
@@ -16,7 +17,9 @@ class ViewControllerRouter: NSObject {
             return false
         }
 
-        if let presented = navigationController.presentedViewController {
+        if viewController is AVPlayerViewController {
+            navigationController.present(viewController, animated: true, completion: completion)
+        } else if let presented = navigationController.presentedViewController {
             let wrapper = WMFThemeableNavigationController(rootViewController: viewController, theme:appViewController.theme, style: .gallery)
             presented.present(wrapper, animated: true, completion: completion)
         } else {
@@ -61,6 +64,12 @@ class ViewControllerRouter: NSObject {
         case .inAppLink(let linkURL):
             let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
             return presentOrPush(singlePageVC, with: completion)
+        case .audio(let audioURL):
+            try? AVAudioSession.sharedInstance().setCategory(.playback)
+            let vc = AVPlayerViewController()
+            let player = AVPlayer(url: audioURL)
+            vc.player = player
+            return presentOrPush(vc, with: completion)
         case .userTalk(let linkURL):
             guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
                 completion()
