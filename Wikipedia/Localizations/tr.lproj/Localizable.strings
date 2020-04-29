@@ -294,7 +294,7 @@
 "empty-diff-compare-title" = "Düzeltmeler arasında fark yok";
 "empty-diff-single-title" = "Görüntülenebilir değişiklik yapılmadı";
 "empty-insert-media-title" = "Wikimedia Commons'tan bir dosya seç";
-"empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
+"empty-no-article-message" = "Üzgünüz, madde yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
@@ -327,7 +327,7 @@
 "explore-feed-preferences-customize-explore-feed-action-title" = "Keşif özet akışını özelleştirme";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Bir kart tipini gizlemek, bu kart türünün Keşfet akışınızda görünmesini engeller.";
 "explore-feed-preferences-explore-tab" = "Arama sekmesi";
-"explore-feed-preferences-featured-article-description" = "Vikipedi'de günlük özellikli makale";
+"explore-feed-preferences-featured-article-description" = "Vikipedi'de günlük özellikli madde";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Kapalı";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hepsinde";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Açık";
@@ -674,7 +674,7 @@
 "reading-lists-default-list-title" = "Kaydedildi";
 "reading-lists-delete-reading-list-alert-message" = "Bu eylem geri alınamaz. {{PLURAL:$1|bu listeye|bu listelere}} kaydedilen maddeler kaydedilmez.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Listeyi|Listeleri}} silinsin mi?";
-"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 makale|$1 makale}} ve {{PLURAL:$2|$2 okuma listesi|$2 okuma listesi}} hesabınızdan senkronize edildi";
+"reading-lists-large-sync-completed" = "$1 madde ve $2 okuma listesi hesabınızdan senkronize edildi";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste senkronize edilmedi, limit aşıldı";
 "reading-lists-sort-saved-articles" = "Kayıtlı maddeleri sırala";
 "reading-lists-split-notification" = "Okuma listesi başına $1 madde sınırı vardır. Bu sınırı aşan mevcut listeler birden fazla listeye ayrılmıştır.";
