@@ -424,6 +424,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
 
         guard let nonNilArticle = article else {
+            stop()
             // No more articles to convert, ensure the legacy folder is deleted
             //TODO: uncomment after 6.6 Beta releases once we no longer need backup of old data
 //            DispatchQueue.global(qos: .background).async {
