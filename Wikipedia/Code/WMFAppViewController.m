@@ -60,7 +60,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
 @property (nonatomic, strong) WMFReachabilityNotifier *reachabilityNotifier;
 
-@property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
@@ -128,7 +127,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize placesViewController = _placesViewController;
-@synthesize splashView = _splashView;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -733,7 +731,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
-    WMFThemeableNavigationController *articleNavigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self];
+    WMFRootNavigationController *articleNavigationController = [[WMFRootNavigationController alloc] initWithRootViewController:self];
     articleNavigationController.themeableNavigationControllerDelegate = self;
     articleNavigationController.delegate = self;
     articleNavigationController.interactivePopGestureRecognizer.delegate = self;
@@ -741,6 +739,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [articleNavigationController setNavigationBarHidden:YES animated:NO];
     [window setRootViewController:articleNavigationController];
     [window makeKeyAndVisible];
+    [articleNavigationController applyTheme:self.theme];
     [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:articleNavigationController];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -1433,15 +1432,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
-    [(WMFThemeableNavigationController *)self.navigationController showSplashView];
-}
-
-- (void)showSplashViewIfNotShowing {
-    [(WMFThemeableNavigationController *)self.navigationController showSplashViewIfNotShowing];
+    [(WMFRootNavigationController *)self.navigationController showSplashView];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
-    [(WMFThemeableNavigationController *)self.navigationController hideSplashViewAnimated:animated];
+    [(WMFRootNavigationController *)self.navigationController hideSplashViewAnimated:animated];
 }
 
 #pragma mark - Explore VC

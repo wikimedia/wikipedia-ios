@@ -71,7 +71,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         view.wmf_configureSubviewsForDynamicType()
         
         captchaViewController?.captchaDelegate = self
-        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
+        wmf_addHeightDetermining(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
     }
