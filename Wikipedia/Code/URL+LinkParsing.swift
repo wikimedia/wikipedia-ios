@@ -150,7 +150,7 @@ extension URL {
         return lowercasedExtension == "ogg" || lowercasedExtension == "oga"
     }
     
-    /// Converts incompatible file links to compatible file links. Currently only translates ogg/oga links to m3 links.
+    /// Converts incompatible file links to compatible file links. Currently only translates ogg/oga links to mp3 links.
     public var byMakingiOSCompatibilityAdjustments: URL {
         guard isHostedFileLink, hasOggAudioExtension else {
             return self
