@@ -150,29 +150,32 @@ extension URL {
         return lowercasedExtension == "ogg" || lowercasedExtension == "oga"
     }
     
+    /// Returns true if this is a URL for an audio file hosted on the Wikimedia uploads host
+    public var isWikimediaHostedAudioFileLink: Bool {
+        return isHostedFileLink && hasOggAudioExtension
+    }
+    
     /// Converts incompatible file links to compatible file links. Currently only translates ogg/oga links to mp3 links.
-    public var byMakingiOSCompatibilityAdjustments: URL {
-        guard isHostedFileLink, hasOggAudioExtension else {
-            return self
-        }
+    public var byMakingAudioFileCompatibilityAdjustments: URL {
+        assert(isWikimediaHostedAudioFileLink)
         
-        var mutableComponents = pathComponents
+        var mutableComponents = pathComponents.filter { $0 != "/" } // exclude forward slashes to prevent double-slashes when rebuilding the path
         
         guard
             let filename = mutableComponents.last,
-            let index = mutableComponents.firstIndex(of: "commons"),
-            index < mutableComponents.count - 1
+            let indexOfTranscoded = mutableComponents.firstIndex(of: "commons")?.advanced(by: 1) ?? mutableComponents.firstIndex(of: "wikipedia")?.advanced(by: 2), // + 2 for wikipedia links to put "transcoded" after the language path component
+            indexOfTranscoded < mutableComponents.count
         else {
             return self
         }
         
-        mutableComponents.insert("transcoded", at: index + 1)
-        
+        mutableComponents.insert("transcoded", at: indexOfTranscoded)
+    
         let mp3Filename = filename.appending(".mp3")
         mutableComponents.append(mp3Filename)
 
-        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: false)
-        urlComponents?.path = pathComponents.joined(separator: "/")
+        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)
+        urlComponents?.percentEncodedPath = "/" + mutableComponents.joined(separator: "/")
         return urlComponents?.url ?? self
     }
 }
