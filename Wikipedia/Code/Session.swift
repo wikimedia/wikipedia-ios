@@ -51,12 +51,14 @@ public enum WMFCachePolicy {
         let data: ((Data) -> Void)?
         let success: (() -> Void)
         let failure: ((Error) -> Void)
+        let cacheFallbackError: ((Error) -> Void)? //Extra handling block when session signals a success and returns data because it's leaning on cache, but actually reached a server error.
         
-        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void, cacheFallbackError: ((Error) -> Void)?) {
             self.response = response
             self.data = data
             self.success = success
             self.failure = failure
+            self.cacheFallbackError = cacheFallbackError
         }
     }
     
@@ -667,6 +669,11 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                 callback.response?(cachedResponse.response)
                 callback.data?(cachedResponse.data)
                 callback.success()
+                
+                if httpResponse.statusCode != 304 {
+                    callback.cacheFallbackError?(RequestError.http(httpResponse.statusCode))
+                }
+                
                 callbacks.removeValue(forKey: taskIdentifier)
             }
         }
