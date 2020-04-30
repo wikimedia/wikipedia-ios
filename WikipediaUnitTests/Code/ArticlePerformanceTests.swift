@@ -39,7 +39,7 @@ class ArticlePerformanceTests: XCTestCase {
 
     //represents the speed at which article content is seen on screen
     func testArticleSetupTime() {
-        
+
         self.measure {
             
             let dataStore = MWKDataStore.temporary()
