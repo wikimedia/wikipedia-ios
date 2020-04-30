@@ -138,6 +138,46 @@ extension URL {
     public var isPreviewable: Bool {
         return (self as NSURL).wmf_isPeekable
     }
+    
+    /// Returns true if this is a URL for a media file hosted on Wikimedia Commons
+    private var isHostedFileLink: Bool {
+        return host?.lowercased() == Configuration.Domain.uploads
+    }
+    
+    /// Returns true if this is a URL with an extension indicating that it's ogg audio
+    private var hasOggAudioExtension: Bool {
+        let lowercasedExtension = pathExtension.lowercased()
+        return lowercasedExtension == "ogg" || lowercasedExtension == "oga"
+    }
+    
+    /// Returns true if this is a URL for an audio file hosted on the Wikimedia uploads host
+    public var isWikimediaHostedAudioFileLink: Bool {
+        return isHostedFileLink && hasOggAudioExtension
+    }
+    
+    /// Converts incompatible file links to compatible file links. Currently only translates ogg/oga links to mp3 links.
+    public var byMakingAudioFileCompatibilityAdjustments: URL {
+        assert(isWikimediaHostedAudioFileLink)
+        
+        var mutableComponents = pathComponents.filter { $0 != "/" } // exclude forward slashes to prevent double-slashes when rebuilding the path
+        
+        guard
+            let filename = mutableComponents.last,
+            let indexOfTranscoded = mutableComponents.firstIndex(of: "commons")?.advanced(by: 1) ?? mutableComponents.firstIndex(of: "wikipedia")?.advanced(by: 2), // + 2 for wikipedia links to put "transcoded" after the language path component
+            indexOfTranscoded < mutableComponents.count
+        else {
+            return self
+        }
+        
+        mutableComponents.insert("transcoded", at: indexOfTranscoded)
+    
+        let mp3Filename = filename.appending(".mp3")
+        mutableComponents.append(mp3Filename)
+
+        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)
+        urlComponents?.percentEncodedPath = "/" + mutableComponents.joined(separator: "/")
+        return urlComponents?.url ?? self
+    }
 }
 
 

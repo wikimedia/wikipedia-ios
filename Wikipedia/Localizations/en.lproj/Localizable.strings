@@ -761,6 +761,7 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
+"table-of-contents-subheading-label" = "Subheading $1";
 "talk-page-add-discussion-accessibility-label" = "Add discussion";
 "talk-page-discussion-accessibility-hint" = "Double tap to open discussion thread";
 "talk-page-discussion-read-accessibility-label" = "Read";

@@ -162,7 +162,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
         case backLink(referenceId: String, referenceText: String, backLinks: [ReferenceBackLink])
-        case pronunciation(url: URL)
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
         case addTitleDescription
         case footerItem(type: PageContentService.Footer.Menu.Item, payload: Any?)
@@ -310,16 +309,10 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {
-            guard var urlString = data?["url"] as? String else {
+            guard let urlString = data?["url"] as? String else {
                 return nil
             }
-            if urlString.hasPrefix("//") {
-                urlString = "https:" + urlString
-            }
-            guard let url = NSURL(string: urlString)?.wmf_URLByMakingiOSCompatibilityAdjustments else {
-                return nil
-            }
-            return .pronunciation(url: url)
+            return .link(href: urlString, text: nil, title: nil)
         }
         
         func getFooterItemAction(with data: [String: Any]?) -> Action? {
