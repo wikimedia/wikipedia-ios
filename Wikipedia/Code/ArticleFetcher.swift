@@ -180,7 +180,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return session.request(with: url, method: .post, bodyParameters: html, bodyEncoding: .html)
     }
 
-public func splitWikitextToMobileHTMLString(articleURL: URL, wikitext: String, completion: @escaping ((String?, URL?) -> Void)) throws {
+    public func splitWikitextToMobileHTMLString(articleURL: URL, wikitext: String, completion: @escaping ((String?, URL?) -> Void)) throws {
         let mobileHtmlCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
             guard let data = data, let html = String(data: data, encoding: .utf8) else {
                 completion(nil, nil)
