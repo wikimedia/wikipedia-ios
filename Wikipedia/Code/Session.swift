@@ -358,10 +358,7 @@ public enum WMFCachePolicy {
                 handleErrorResponse()
                 return
             }
-//            #if DEBUG
-//                let stringData = String(data: data, encoding: .utf8)
-//                DDLogDebug("codable response:\n\(String(describing:response?.url)):\n\(String(describing: stringData))")
-//            #endif
+            
             do {
                 let result: T = try self.jsonDecodeData(data: data)
                 completionHandler(result, nil, response, error)
