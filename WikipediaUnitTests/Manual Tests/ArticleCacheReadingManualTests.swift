@@ -1,0 +1,121 @@
+@testable import Wikipedia
+@testable import WMF
+import XCTest
+
+class ArticleCacheReadingManualTests: XCTestCase {
+
+    override func setUp() {
+        super.setUp()
+        
+        ArticleTestHelpers.pullDataFromFixtures(inBundle: wmf_bundle())
+        ArticleTestHelpers.setupTemporaryCacheController()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        URLCache.shared.removeAllCachedResponses()
+    }
+    
+    func testBasicNetworkNoConnectionWithCachedArticle() {
+
+        //FLIP DEVICE TO AIRPLANE MODE BEFORE RUNNING THIS
+
+        ArticleTestHelpers.writeCachedPiecesToCachingSystem()
+
+        let basicVC = BasicCachingWebViewController()
+
+        let htmlExpectation = expectation(description: "Waiting for html content to return")
+        let imageExpectation = expectation(description: "Waiting for image load to return")
+        let cssExpectation = expectation(description: "Waiting for css load to return")
+
+        basicVC.didReceiveDataCallback = { urlSchemeTask, data in
+
+            guard let urlString = urlSchemeTask.request.url?.absoluteString else {
+                XCTFail("Unable to determine urlString from scheme task")
+                return
+            }
+
+            switch urlString {
+            case "app://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States":
+
+                htmlExpectation.fulfill()
+
+                let htmlString = String(decoding: data, as: UTF8.self)
+                let trimmedHTML = String(htmlString.filter { !"\n\t\r".contains($0) })
+                XCTAssertEqual(trimmedHTML, "<!DOCTYPE html><html><head><link rel=\"stylesheet\" href=\"//en.wikipedia.org/api/rest_v1/data/css/mobile/site\"></head><body><p>Testing Cached</p><img src=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png\"></body></html>")
+
+            case "app://en.wikipedia.org/api/rest_v1/data/css/mobile/site":
+
+                cssExpectation.fulfill()
+
+                let cssString = String(decoding: data, as: UTF8.self)
+                let trimmedCSS = String(cssString.filter { !"\n\t\r".contains($0) })
+                XCTAssertEqual(trimmedCSS, "body {background-color: red;}", "Unexpected basic HTML content")
+            case "app://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png":
+                imageExpectation.fulfill()
+            default:
+                XCTFail("Unexpected scheme task callback")
+            }
+        }
+
+        UIApplication.shared.keyWindow?.rootViewController = basicVC
+        let _ = basicVC.view
+
+        wait(for: [htmlExpectation], timeout: 10)
+        wait(for: [imageExpectation], timeout: 10)
+        wait(for: [cssExpectation], timeout: 10)
+    }
+    
+   func testVariantFallbacksUponConnectionFailure() {
+
+    //FLIP DEVICE TO AIRPLANE MODE BEFORE RUNNING THIS
+
+    ArticleTestHelpers.writeVariantPiecesToCachingSystem()
+
+        let basicVC = BasicCachingWebViewController()
+        basicVC.extraHeaders = ["Accept-Language": "zh-hant"]
+        basicVC.articleURL = URL(string: "app://zh.wikipedia.org/api/rest_v1/page/mobile-html/%E7%BE%8E%E5%9B%BD")!
+
+        let htmlExpectation = expectation(description: "Waiting for html content to return")
+        let imageExpectation = expectation(description: "Waiting for image load to return")
+        let cssExpectation = expectation(description: "Waiting for css load to return")
+
+        basicVC.didReceiveDataCallback = { urlSchemeTask, data in
+
+            guard let urlString = urlSchemeTask.request.url?.absoluteString else {
+                XCTFail("Unable to determine urlString from scheme task")
+                return
+            }
+
+            switch urlString {
+            case "app://zh.wikipedia.org/api/rest_v1/page/mobile-html/%E7%BE%8E%E5%9B%BD":
+
+                htmlExpectation.fulfill()
+
+                let htmlString = String(decoding: data, as: UTF8.self)
+                let trimmedHTML = String(htmlString.filter { !"\n\t\r".contains($0) })
+                XCTAssertEqual(trimmedHTML, "<!DOCTYPE html><html><head><link rel=\"stylesheet\" href=\"//zh.wikipedia.org/api/rest_v1/data/css/mobile/site\"></head><body><p>美国 (美洲北部国家)</p><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/960px-Flag_of_the_United_States_%28Pantone%29.svg.png\"></body></html>")
+
+            case "app://zh.wikipedia.org/api/rest_v1/data/css/mobile/site":
+
+                cssExpectation.fulfill()
+
+                let cssString = String(decoding: data, as: UTF8.self)
+                let trimmedCSS = String(cssString.filter { !"\n\t\r".contains($0) })
+                XCTAssertEqual(trimmedCSS, "body {background-color: blue;}", "Unexpected basic HTML content")
+            case "app://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/960px-Flag_of_the_United_States_%28Pantone%29.svg.png":
+                imageExpectation.fulfill()
+            default:
+                XCTFail("Unexpected scheme task callback")
+            }
+        }
+
+        UIApplication.shared.keyWindow?.rootViewController = basicVC
+        let _ = basicVC.view
+
+        wait(for: [htmlExpectation], timeout: 10)
+        wait(for: [imageExpectation], timeout: 100)
+        wait(for: [cssExpectation], timeout: 10)
+    }
+}

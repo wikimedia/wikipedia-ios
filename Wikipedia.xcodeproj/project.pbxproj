@@ -112,6 +112,9 @@
 		67146037243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */; };
 		67146038243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */; };
 		67146039243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */; };
+		6714D6CB245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714D6CA245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift */; };
+		6714D6CD245A2C1D00CE5A4A /* ArticleTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714D6CC245A2C1D00CE5A4A /* ArticleTestHelpers.swift */; };
+		6714D6CF245A7A7D00CE5A4A /* XCTestCase+WMFBundleConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714D6CE245A7A7D00CE5A4A /* XCTestCase+WMFBundleConvenience.swift */; };
 		671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */; };
 		671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
@@ -3293,6 +3296,9 @@
 		67146031243B885E008CE885 /* SurveyAnnouncementsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyAnnouncementsController.swift; sourceTree = "<group>"; };
 		67146033243B8B4F008CE885 /* AnnouncementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementType.swift; sourceTree = "<group>"; };
 		67146035243BCE51008CE885 /* ArticleViewController+SurveyAnnouncements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+SurveyAnnouncements.swift"; sourceTree = "<group>"; };
+		6714D6CA245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingManualTests.swift; sourceTree = "<group>"; };
+		6714D6CC245A2C1D00CE5A4A /* ArticleTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTestHelpers.swift; sourceTree = "<group>"; };
+		6714D6CE245A7A7D00CE5A4A /* XCTestCase+WMFBundleConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+WMFBundleConvenience.swift"; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
 		671F5E0A236B8CAF00111116 /* EmptyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyViewController.xib; sourceTree = "<group>"; };
 		672428962362113400490629 /* DiffFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
@@ -5780,6 +5786,14 @@
 			name = PageHistory;
 			sourceTree = "<group>";
 		};
+		6714D6C9245A2B6A00CE5A4A /* Manual Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6714D6CA245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift */,
+			);
+			path = "Manual Tests";
+			sourceTree = "<group>";
+		};
 		671AC2542226FB26005B37F8 /* Reading Themes Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -7161,6 +7175,7 @@
 		BC7C3A381C0FF9620057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				6714D6C9245A2B6A00CE5A4A /* Manual Tests */,
 				BCA6764F1AC05FE200A16160 /* Utilities */,
 				BCD67E7D1C1F12F2005179E1 /* Tests */,
 			);
@@ -7274,6 +7289,7 @@
 				BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */,
 				BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */,
 				BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */,
+				6714D6CC245A2C1D00CE5A4A /* ArticleTestHelpers.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -7323,6 +7339,7 @@
 				B0E808731C0D154C0065EBC0 /* NSBundle+TestAssets.m */,
 				B0E808751C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.h */,
 				B0E808761C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m */,
+				6714D6CE245A7A7D00CE5A4A /* XCTestCase+WMFBundleConvenience.swift */,
 			);
 			name = "Fixture Utilities";
 			sourceTree = "<group>";
@@ -9831,6 +9848,7 @@
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
 				B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */,
 				B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */,
+				6714D6CF245A7A7D00CE5A4A /* XCTestCase+WMFBundleConvenience.swift in Sources */,
 				D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */,
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */,
@@ -9852,8 +9870,10 @@
 				BC52D0F71C207D3300F625A9 /* TWNStringsTests.m in Sources */,
 				B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */,
 				BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
+				6714D6CB245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift in Sources */,
 				B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
+				6714D6CD245A2C1D00CE5A4A /* ArticleTestHelpers.swift in Sources */,
 				B0E8090B1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				D8396D1B22CF7052005625D8 /* WMFArticleTests.swift in Sources */,
 				D8B9DB032271E4A300B51F14 /* SecurityTests.swift in Sources */,
