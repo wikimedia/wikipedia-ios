@@ -51,7 +51,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
-        startSurveyAnnouncementTimer()
+        surveyTimerController.articleContentDidLoad()
     }
     
     @objc func handlePCSDidFinishFinalSetup() {

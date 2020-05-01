@@ -37,21 +37,12 @@ class ArticleViewController: ViewController, HintPresenting {
     
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: ArticleCacheController
+    let surveyTimerController: ArticleSurveyTimerController
     
     let session = Session.shared
     let configuration = Configuration.current
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
-    
-    lazy var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? = {
-        guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle,
-            let siteURL = articleURL.wmf_site else {
-                return nil
-        }
-        
-        return SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForTitle(articleTitle, siteURL: siteURL)
-    }()
-    var surveyAnnouncementTimer: Timer?
 
     private var leadImageHeight: CGFloat = 210
 
@@ -81,8 +72,9 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore = dataStore
 
         self.schemeHandler = schemeHandler
-
         self.cacheController = cacheController
+
+        self.surveyTimerController = ArticleSurveyTimerController(articleURL: articleURL, surveyController: SurveyAnnouncementsController.shared)
         
         super.init(theme: theme)
     }
@@ -237,7 +229,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     // MARK: Loading
     
-    internal var state: ViewState = .initial {
+    var state: ViewState = .initial {
         didSet {
             switch state {
             case .initial:
@@ -268,6 +260,9 @@ class ArticleViewController: ViewController, HintPresenting {
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         apply(theme: theme)
         setupForStateRestorationIfNecessary()
+        surveyTimerController.timerFireBlock = { [weak self] result in
+            self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -276,6 +271,7 @@ class ArticleViewController: ViewController, HintPresenting {
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
+        surveyTimerController.viewWillAppear(withState: state)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -303,7 +299,7 @@ class ArticleViewController: ViewController, HintPresenting {
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        stopSurveyAnnouncementTimer()
+        surveyTimerController.viewWillDisappear(withState: state)
     }
     
     // MARK: Article load
@@ -807,10 +803,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        surveyTimerController.willResignActive(withState: state)
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
+        surveyTimerController.didBecomeActive(withState: state)
     }
     
     func setupSearchButton() {
