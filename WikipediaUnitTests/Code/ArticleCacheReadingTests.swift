@@ -118,9 +118,9 @@ class ArticleCacheReadingTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = basicVC
         let _ = basicVC.view
         
-        wait(for: [htmlExpectation], timeout: 10)
-        wait(for: [imageExpectation], timeout: 10)
-        wait(for: [cssExpectation], timeout: 10)
+        wait(for: [htmlExpectation], timeout: 3)
+        wait(for: [imageExpectation], timeout: 3)
+        wait(for: [cssExpectation], timeout: 3)
         
         LSNocilla.sharedInstance().stop()
     }
@@ -170,9 +170,9 @@ class ArticleCacheReadingTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = basicVC
         let _ = basicVC.view
         
-        wait(for: [htmlExpectation], timeout: 10)
-        wait(for: [imageExpectation], timeout: 10)
-        wait(for: [cssExpectation], timeout: 10)
+        wait(for: [htmlExpectation], timeout: 3)
+        wait(for: [imageExpectation], timeout: 3)
+        wait(for: [cssExpectation], timeout: 3)
         
         LSNocilla.sharedInstance().stop()
     }
@@ -222,9 +222,9 @@ class ArticleCacheReadingTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = basicVC
         let _ = basicVC.view
         
-        wait(for: [htmlExpectation], timeout: 10)
-        wait(for: [imageExpectation], timeout: 10)
-        wait(for: [cssExpectation], timeout: 10)
+        wait(for: [htmlExpectation], timeout: 3)
+        wait(for: [imageExpectation], timeout: 3)
+        wait(for: [cssExpectation], timeout: 3)
         
         LSNocilla.sharedInstance().stop()
     }
@@ -275,9 +275,9 @@ class ArticleCacheReadingTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = basicVC
         let _ = basicVC.view
         
-        wait(for: [htmlExpectation], timeout: 10)
-        wait(for: [imageExpectation], timeout: 10)
-        wait(for: [cssExpectation], timeout: 10)
+        wait(for: [htmlExpectation], timeout: 3)
+        wait(for: [imageExpectation], timeout: 3)
+        wait(for: [cssExpectation], timeout: 3)
         
         LSNocilla.sharedInstance().stop()
     }
