@@ -20,10 +20,10 @@ class ArticleWebMessagingController: NSObject {
     var parameters: PageContentService.Setup.Parameters?
     var contentController: WKUserContentController?
     
-    func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
+    func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = [], areEditButtonsHidden: Bool = false) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
         let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.standard.wmf_articleFontSizeMultiplier() as? Int ?? 100
-        let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
+        let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups, areEditButtonsHidden: areEditButtonsHidden)
         self.parameters = parameters
         self.webView = webView
         let contentController = webView.configuration.userContentController
@@ -162,7 +162,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
         case backLink(referenceId: String, referenceText: String, backLinks: [ReferenceBackLink])
-        case pronunciation(url: URL)
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
         case addTitleDescription
         case footerItem(type: PageContentService.Footer.Menu.Item, payload: Any?)
@@ -310,16 +309,10 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {
-            guard var urlString = data?["url"] as? String else {
+            guard let urlString = data?["url"] as? String else {
                 return nil
             }
-            if urlString.hasPrefix("//") {
-                urlString = "https:" + urlString
-            }
-            guard let url = NSURL(string: urlString)?.wmf_URLByMakingiOSCompatibilityAdjustments else {
-                return nil
-            }
-            return .pronunciation(url: url)
+            return .link(href: urlString, text: nil, title: nil)
         }
         
         func getFooterItemAction(with data: [String: Any]?) -> Action? {
