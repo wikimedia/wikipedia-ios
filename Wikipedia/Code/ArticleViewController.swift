@@ -66,13 +66,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return rc
     }()
     
-    @objc convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
-        let schemeHandler = SchemeHandler.shared
-        
-        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme, schemeHandler: schemeHandler)
-    }
-    
-    init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler = SchemeHandler.shared) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler = SchemeHandler.shared) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = ArticleCacheController.shared
