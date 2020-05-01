@@ -128,11 +128,31 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             showGenericError()
             return
         }
-        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
+        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true, areEditButtonsHidden: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
-            let request = try fetcher.mobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
+            #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
+            // If on local or staging PCS, we need to split this call. On the server, wikitext-to-mobilehtml just puts together two other
+            // calls - wikitext-to-html, and html-to-mobilehtml. Since we have html-to-mobilehtml in local/staging PCS but not the first call, if
+            // we're making PCS edits to mobilehtml we need this code in order to view them. We split the call (similar to what the server dioes)
+            // routing the wikitext-to-html call to production, and html-to-mobilehtml to local or staging PCS.
+            let completion: ((String?, URL?) -> Void) = { [weak self] (html, responseUrl)  in
+                DispatchQueue.main.async {
+                    guard let html = html else {
+                        self?.showGenericError()
+                        return
+                    }
+                    // While we'd normally expect this second request to be able to loaded via `...webView.load(request)`, for unknown
+                    // reasons it wasn't working in that route - but was working when loaded via HTML string (in completion handler) -
+                    // despite both responses being identical when inspected via a proxy server.
+                    self?.previewWebViewContainer.webView.loadHTMLString(html, baseURL: responseUrl)
+                }
+            }
+            try fetcher.splitWikitextToMobileHTMLString(articleURL: articleURL, wikitext: wikitext, completion: completion)
+            #else
+            let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
             previewWebViewContainer.webView.load(request)
+            #endif
         } catch {
             showGenericError()
         }

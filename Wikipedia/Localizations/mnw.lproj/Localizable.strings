@@ -33,7 +33,8 @@
 "abuse-filter-warning-heading" = "လိက်ဏအ်ဂှ် ဒှ်အရာမပလေဝ်ဒါန် လပါ်ခိုဟ် ဟွံသေင်ရ၊၊ မၞး မိက်ဂွံတြးပတိတ် ကွေဟ်ဟ်ဟာ？";
 "abuse-filter-warning-irrelevant" = "လေန် ဟွံသေင်မ္ဂး ဗီုရုပ် နူမ္ၚး ဟွံလုပ်အဝေါင်";
 "abuse-filter-warning-repeat" = "မအက္ခရ်တုပ်ဒၟံင် ရေင်သကအ်";
-"abuse-filter-warning-subheading" = "အရာမပလေဝ်မၞးဂှ် ပါလုပ်ဒၟံင် အရာတအ်ဏအ် -";
+"abuse-filter-warning-spam" = "စုတ် သပါမ် ပ္ဍဲလိက်ပရေင်";
+"abuse-filter-warning-subheading" = "အရာမပလေဝ်မၞးဂှ် ပါလုပ်ဒၟံင် -";
 "account-creation-captcha-cannot-see-image" = "ဟွံဆဵု ဗီုရုပ်ဟာ $1";
 "account-creation-captcha-obtaining" = "CAPTCHA...တၟိ ပါလုပ်ဒၟံင်";
 "account-creation-captcha-request-account" = "အာတ်မိက် အကံက်";
@@ -59,9 +60,14 @@
 "action-language-accessibility" = "သၠာဲ အရေဝ်ဘာသာ";
 "action-move-to" = "ပြံင်ဏာ ဇရေင်";
 "action-move-to-reading-list" = "ပြံင်ဏာ ပ္ဍဲ စရင် လိက်ဗွဟ်";
+"action-next-revision-accessibility" = "မူတၟိ ဂတ";
+"action-previous-revision-accessibility" = "မူတၟိ မတုဲကၠုင်";
 "action-read" = "ဗှ်";
 "action-redo" = "ကလေင်ပ";
 "action-remove" = "ပတိတ်";
+"action-replace" = "စုတ်စၞး";
+"action-replace-all" = "စုတ်စၞး သီုဖအိုတ်";
+"action-retry" = "ကလေင်ကၠောန်";
 "action-save" = "ဂိုင်သိပ်";
 "action-saved" = "ဂိုင်သိပ်တုဲ";
 "action-saved-accessibility" = "ဂိုင်သိပ်တုဲ၊ ပချဳ စုတ် အရာဟွံဂိုင်သိပ်၊၊";
@@ -69,6 +75,7 @@
 "action-share" = "ပါ်ပရအ်";
 "action-share-accessibility" = "ပါ်ပရအ်";
 "action-sort" = "ဖျေဟ်ဒၞာဲ";
+"action-thank-user-accessibility" = "တင်ဂုန် ကုညးလွပ်";
 "action-undo" = "ဟွံပ";
 "action-unsave" = "လ္ပဂိုင်သိပ်";
 "action-unsaved-accessibility-notification" = "လိက်ပရေင် ဟွံဂိုင်သိပ်";
@@ -88,12 +95,15 @@
 "appearance-settings-set-automatic-table-opening" = "သ္ၚိအင် ဒၞာဲမဖျေဟ်ဒၞာဲ";
 "appearance-settings-text-sizing-example-text" = "တံင်ဖျေဟ် လၟေင်ဂမၠိုင် သွက်ဂွံ လှာဲ ဇမၞော်မအက္ခရ် လိက်ပရေင်၊၊ ယဝ်ရ မိက်ဂွံပလေဝ် မလိက် ပ္ဍဲဒၞာဲ app မ္ဂး ပလေဝ် ပ္ဍဲ system ဇမၞော်မအက္ခရ်ညိ၊၊";
 "appearance-settings-theme-options" = "မရုဲစှ် ပရူပရာ";
+"article-about-title" = "ပရူ လိက်ပရေင် ဏအ်";
 "article-delete" = "ဇိုတ်";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|article|articles}} ဇိုတ်တုဲ";
 "article-languages-filter-placeholder" = "ဂၠာဲ အရေဝ်ဘာသာ";
 "article-languages-label" = "ရုဲစှ် အရေဝ်ဘာသာ";
 "article-languages-others" = "အရေဝ်ဘာသာ တၞဟ်";
 "article-languages-yours" = "အရေဝ်ဘာသာ မၞး";
+"article-read-more-title" = "ဆက် ဗှ်";
+"article-reference-view-title" = "နိဿဲ $1";
 "article-save-error-not-enough-space" = "ပ္ဍဲ device မ္ဂးဂှ် ဒၞာဲမရုံဂပ် ဟွံမွဲ သွက်ဂွံ ဂိုင်သိပ် လိက်ပရေင် ဏအ်၊၊";
 "article-share" = "ပါ်ပရအ်";
 "article-toolbar-reading-themes-controls-toolbar-item" = "မထိင်ဒဝ် ပရူပရာ သွက်ဂွံဗှ်";
@@ -150,7 +160,43 @@
 "description-welcome-descriptions-title" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
 "description-welcome-promise-title" = "နပွစကေတ်, အဲကဵုကတိ ဟွံသ္ဂောအ်ကဵုသုၚ်စောဲလိက်ပရေၚ်ဏအ် ဒၞဲါဗၠေတ်";
 "description-welcome-start-editing-button" = "စပလေဝ်ဒါန်ဒၟံၚ်";
+"diff-compare-header-from-info-heading" = "နူ:";
+"diff-compare-header-heading" = "ပတောအ်ၜတ် မူတၟိဂမၠိုင်";
+"diff-compare-header-to-info-heading" = "ဗ္စိုပ်:";
+"diff-compare-title" = "ပတောအ်ၜတ် မူတၟိဂမၠိုင်";
+"diff-context-lines-collapsed-button-title" = "ထ္ၜး";
+"diff-context-lines-expanded-button-title" = "ဗဒန်";
+"diff-multi-line-format" = "ပၞောန် $1 - $2";
+"diff-paragraph-moved" = "ပတိတ် မွဲပိုဒ်";
+"diff-paragraph-moved-direction-down" = "စှ်ေ";
+"diff-paragraph-moved-direction-up" = "တိုန်";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1ပၞောန်|$1 ပၞောန်ဂမၠိုင်}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 ဒကုတ်|$1 ဒကုတ်ဂမၠိုင်}}";
+"diff-paragraph-moved-format" = "ပတိတ် မွဲပိုဒ် $1 $2";
+"diff-revision-error-title" = "မူတၟိဂှ် ပတိုန်ပၠုပ် ဟွံဂွံ";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 ပလေဝ်ဒါန်|$1 ပလေဝ်ဒါန်ဂမၠိုင်}}";
+"diff-single-header-editor-title" = "ပရူတင်ဂၞင် ညးမဒါန်ပလေဝ်";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 ဂလိုင်ဗာက်ဂမၠိုင် မစုတ်လဝ်|$1 ဂလိုင်ဗာက် မစုတ်လဝ်}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 ဂလိုင်ဗာက် မပလီုလဝ်|$1 ဂလိုင်ဗာက်ဂမၠိုင် မပလီုလဝ်}}";
+"diff-single-header-summary-heading" = "သကေမ် မပလေဝ်ဒါန်";
+"diff-single-intro-title" = "ဆက်မိတ်";
+"diff-single-line-format" = "ပၞောန် $1";
+"diff-thanks-anonymous-no-thanks" = "ညးလွပ် သက်ကုယၟု တင်ဂုန် ဟွံဂွံ";
+"diff-thanks-login-subtitle" = "'တင်ဂုန်' ဂှ် ဒှ်အရာမလောဲသွာအိုတ် သွက်မဂွံထ္ၜး အရာမရော်ဂုန် ကုညးဒါန်လိက်တအ် ပ္ဍဲဝဳကဳပဳဒဳယာ ရ။ မၞး သ္ဒးလုပ်လံက်အေန်ရောင် ဂွံ ပလံင် 'ဂလာန်တင်ဂုန်' ဂွံ။";
+"diff-thanks-login-title" = "လုပ်လံက်အေန် သွက်ဂွံ ပလံင် 'ဂလာန်တင်ဂုန်'";
+"diff-thanks-send-button-title" = "ပလံင် 'ဂလာန်တင်ဂုန်'";
+"diff-thanks-send-subtitle" = "'တင်ဂုန်' ဂှ် ဒှ်အရာ မလောဲသွာအိုတ် သွက်ဂွံ ရော်ဂုန် ကုညးမဒါန်လိက် ပ္ဍဲဝဳကဳပဳဒဳယာရ။ 'ဂလာန်တင်ဂုန်' ဂှ် ကလေင်ပ ဟွံသ္ပ ဟွံဂွံ တုဲပၠန် ဇၟာပ်မၞိဟ်မဆဵုမာန်ရ။";
+"diff-thanks-send-title" = "ပလံင် 'ဂလာန်တင်ဂုန်' နကဵုညးအဲမညာတ်";
+"diff-thanks-sent" = "'ဂလာန်တင်ဂုန်' မၞးဂှ် ပလံင်ဏာ ဇရေင် $1";
+"diff-thanks-sent-already" = "မၞးပလံင်လဝ် ‘ဂလာန်တင်ဂုန်’ ကုညးမဒါန်လိက်ဏအ် တုဲဒၟံင်ရ။";
+"diff-thanks-sent-cannot-unsend" = "ဂလာန်တင်ဂုန်ဂှ် ကလေင်ပ ဟွံပလံင် ဟွံဂွံ";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 ပၞောန် ဟွံပလေဝ်ဒါန်လဝ်|$1 ပၞောန် ဟွံပလေဝ်ဒါန်လဝ်ဂမၠိင်}}";
 "dim-images" = "ဓလုကၠုဖျေဟ် ဗီုရုပ်";
+"edit-bold-accessibility-label" = "စုတ် ပစံက် မလိက်";
+"edit-bold-remove-accessibility-label" = "ပတိတ် ပစံက် မလိက်";
+"edit-clear-formatting-accessibility-label" = "ပတိတ် ဖျေဟ်ဒၞာဲလိက်";
+"edit-comment-accessibility-label" = "စုတ် လညာတ် မပံင်နှဴ";
+"edit-comment-remove-accessibility-label" = "ပတိတ် လညာတ် မပံင်နှဴ";
 "edit-summary-choice-fixed-grammar" = "ပလေဝ်ပလေတ် သဒ္ဒါ";
 "edit-summary-choice-fixed-typos" = "ပလေဝ်ပလေတ် ဗီုပြင်";
 "edit-summary-choice-linked-words" = "စုတ် လေန်";
@@ -197,7 +243,6 @@
 "explore-feed-preferences-global-cards-subtitle" = "အရေဝ်ဘာသာလဵု ဟွံဆက်စပ်";
 "explore-feed-preferences-global-cards-title" = "ကာတ် အလုံလိုက်";
 "explore-feed-preferences-hide-card-action-title" = "ဗဒန် ကာတ် ဏအ်";
-// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ပၞုက်ဗဒန် “%@” ကာတ် သီုဖအိုတ်";
 "explore-feed-preferences-in-the-news-description" = "လိက်ပရေင် ပရူ အရာမဒှ်ဒၟံင် လၟုဟ်";
 "explore-feed-preferences-languages-footer-text" = "မၞး ပၞုက်ဗဒန်ထောအ် ပ္ဍဲဒၞာဲ ဘာသာမၞးမ္ဂး ဍေဟ်ကၟာတ်အာ ပ္ဍဲဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊၊";
@@ -256,7 +301,9 @@
 "featured-article-empty-title" = "လိက်ပရေင်တၟေင် ပ္ဍဲတ္ၚဲဏအ် ဟွံမဲ";
 "feed-news-notification-button-text" = "ပံက် နုတိဝှိကေရှေန်";
 "feed-news-notification-text" = "နကဵု ဝဳကဳပဳယာ ကဵု နု ပ္ဍဲနုတိဝှိကေရှေန် ဟွံဂွံ အခိင်လိက်ပရေင်ဂှ် မကတဵုဒှ်ဒၟံင် ပ္ဍဲပရိုင်၊၊";
-"field-alert-captcha-invalid" = "Invalid CAPTCHA";
+"fetcher-error-generic" = "အရာမွဲမွဲဗၠေတ်ဒၟံင်။ ပဂုန်တုဲ ကၠောန်မွဲတဲပၠန်။";
+"fetcher-error-unexpected-response" = "အာပ် စုက်လုက် ကုအရာမဟွံစၟဳမွဲမွဲ နူကဵု သာပါ။ ပဂုန်တုဲ ကၠောန်မွဲဝါပၠန်ညိ။";
+"field-alert-captcha-invalid" = "CAPTCHA ဟွံဍာံပြ";
 "field-alert-password-confirm-mismatch" = "မလိက်ပၞုက် ဟွံကိတ်";
 "field-alert-token-invalid" = "ကုဒ် ဟွံလုပ်အဝေါင်";
 "field-alert-username-unavailable" = "ယၟုမသုင်စောဲ ဟွံလုပ်အဝေါင်";
@@ -277,7 +324,13 @@
 "field-token-title" = "စဳစောတ် ကုဒ်";
 "field-username-placeholder" = "စုတ် ယၟုမသုင်စောဲ";
 "field-username-title" = "ယၟုမသုင်စောဲ";
+"find-clear-button-accessibility" = "ဂွံဆဵုကေတ် အရာဖအး";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "သွဟ် မဂွံဆဵုကေတ် ဗွဲဂတ";
+"find-previous-button-accessibility" = "သွဟ် မဂွံဆဵုကေတ် ကိုပ်ကၠာ";
+"find-replace-header" = "ဂၠာဲ တုဲ စုတ်စၞး";
+"find-replace-header-close-accessibility" = "ကၟာတ် အရာမဆဵု တုဲ စုတ်စၞး";
+"find-textfield-accessibility" = "ဂၠာဲ";
 "forgot-password-button-title" = "ကလေင်တၟိ";
 "forgot-password-email-sent" = "အဳမေလ် နကဵု မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိဂှ် ပလံင်ဏာရ";
 "forgot-password-instructions" = "ကျောဝ် ပ္ဍဲဝှာင် ဗွဲသၟဝ်ဏအ် သွက်ဂွံ ဒုင်တဲ မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိ နကဵု အဳမေလ်";
@@ -307,7 +360,6 @@
 "in-the-news-currently-trending" = "အဃော မပလေဝ်ပလေတ်ဒၟံင်";
 "in-the-news-notification-read-now-action-title" = "ဗှ် လၟုဟ်";
 "in-the-news-notification-save-for-later-action-title" = "ဂိုင်သိပ် သွက် လက္ကရဴ";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "ပါ်ပရအ်...";
 "in-the-news-sub-title-from-language-wikipedia" = "နူ $1 ဝဳကဳဒဳပဳယာ";
 "in-the-news-sub-title-from-wikipedia" = "နူ ဝဳကဳဒဳပဳယာ";
@@ -468,8 +520,7 @@
 "reading-lists-default-list-title" = "ဂိုင်သိပ်တုဲ";
 "reading-lists-delete-reading-list-alert-message" = "ပရေင်ချဳဓရာင်ဏအ် ပဒေါအ်ထောအ် ဟွံဂွံ၊၊ လိက်ပရေင်တအ်ဂှ်  ဂိုင်သိပ် ပ္ဍဲ {{PLURAL:$1|this list|these lists}} ဟွံဂွံ၊၊";
 "reading-lists-delete-reading-list-alert-title" = "ဇိုတ်ပလီုထောအ် {{PLURAL:$1|list|lists}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 လိက်ပရေင်တအ် ကဵု $2 စရင် လိက်ဗွဟ် ကချဳဓရာင် နူအကံက် မၞး";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 လိက်ပရေင်|$1 လိက်ပရေင်ဂမၠိုင်}} ကေုာံ {{PLURAL:$2|$2 စရင်သွက်ဂွံဗှ်|$2 စရင် သွက်ဂွံဗှ်ဂမၠိုင်}} ပကောံစုတ် နူကဵု အကံက်မၞး";
 "reading-lists-list-not-synced-limit-exceeded" = "စရင်ဂှ် ဟွံကချဳဓရာင်၊ ဟိုတ်မစိုပ်အာ လၟိဟ်မပိုင်ခြာလဝ်";
 "reading-lists-sort-saved-articles" = "ပြေင်ဖျေဟ်ဒၞာဲ လိက်ပရေင် မဂိုင်သိပ်လဝ်";
 "reading-lists-split-notification" = "$1 ဂှ် ဒှ်အပိုင်အခြာ လိက်ပရေင် သွက်မွဲ စရင် လိက်ဗွဟ်၊၊ ယဝ်ရ စရင်ဂှ် ဂၠိုင်နူ အပိုင်အခြာဂှ်မ္ဂး ဍေဟ်လုပ်အာ ပ္ဍဲစရင်နာနာ၊၊";
@@ -481,12 +532,12 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "ပသာန် ပရူပရာ";
 "reading-themes-controls-accessibility-text-size-slider" = "ပလေဝ် ဇၞော် မလိက်";
 "reference-title" = "စၞောန် $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=တ္ၚဲဏအ်|တ္ၚဲယး|$1 တ္ၚဲ တုဲကၠုင်}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=တ္ၚဲ|1=နူကဏေအ်|$1 တ္ၚဲ တုဲကၠုင်}}";
+"relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ပြဟ်ဟ်ဏအ်|$1 နာဍဳ တုဲကၠုင်|$1 နာဍဳ တုဲကၠုင်}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=လၟုဟ်ရ|$1 မိနေတ် တုဲကၠုင်|$1 မိနေတ် တုဲကၠုင်}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=သၞာံဏအ်|သၞာံတုဲကၠုင်ဏအ်|$1 သၞာံ တုဲကၠုင်}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=သၞာံဏအ်|1=သၞာံတုဲကၠုင်|$1 သၞာံ မတုဲကၠုင်}}";
+"replace-button-accessibility" = " $1 ရေင်တၠုင်ညိ။";
 "request-feedback-on-error" = "app ဒးစုက် ကုပြသၞာ ဟိုတ်ဂှ်ရ ပိုယ်မိက်ဂွံတီ ဟိုတ်ပြသၞာဂှ်ရ၊၊ ပဂုန်တုဲ ဍဵုဒၞာဲဏအ် သွက်ဂွံ ပလံင် တင်မဗၠေတ်ယောင်ယာဂှ် ကဵုပိုယ် နကဵု အဳမေဝ်၊၊";
 "saved-all-articles-title" = "လိက်ပရေင်ဂမၠိုင်";
 "saved-default-reading-list-tag" = "စရင်ဏအ် ဇိုတ်ပလီု ဟွံဂွံ";
