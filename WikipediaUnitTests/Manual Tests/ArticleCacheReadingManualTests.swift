@@ -19,7 +19,7 @@ class ArticleCacheReadingManualTests: XCTestCase {
     
     func testBasicNetworkNoConnectionWithCachedArticle() {
 
-        //FLIP DEVICE TO AIRPLANE MODE BEFORE RUNNING THIS
+        XCTFail("Reminder: these tests need to be on device and in airplane mode, otherwise they won't work. Comment out this failure once this is done and re-run.")
 
         ArticleTestHelpers.writeCachedPiecesToCachingSystem()
 
@@ -69,7 +69,7 @@ class ArticleCacheReadingManualTests: XCTestCase {
     
    func testVariantFallbacksUponConnectionFailure() {
 
-    //FLIP DEVICE TO AIRPLANE MODE BEFORE RUNNING THIS
+    XCTFail("Reminder: these tests need to be on device and in airplane mode, otherwise they won't work. Comment out this failure once this is done and re-run.")
 
     ArticleTestHelpers.writeVariantPiecesToCachingSystem()
 

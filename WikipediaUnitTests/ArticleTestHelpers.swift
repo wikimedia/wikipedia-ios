@@ -271,7 +271,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                XCTFail("Failure saving html data")
+                XCTFail("Failure saving image data")
             }
         }
         
@@ -280,7 +280,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                XCTFail("Failure saving html data")
+                XCTFail("Failure saving css data")
             }
         }
         
@@ -292,7 +292,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                break
+                XCTFail("Failure saving html header")
             }
         }
         
@@ -304,7 +304,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                break
+                XCTFail("Failure saving image header")
             }
         }
         
@@ -316,7 +316,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                break
+                XCTFail("Failure saving css header")
             }
         }
     }
@@ -397,7 +397,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                XCTFail("Failure saving html data")
+                XCTFail("Failure saving image data")
             }
         }
         
@@ -406,7 +406,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                XCTFail("Failure saving html data")
+                XCTFail("Failure saving css data")
             }
         }
         
@@ -419,7 +419,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                break
+                XCTFail("Failure saving html header")
             }
         }
         
@@ -431,7 +431,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                break
+                XCTFail("Failure saving image header")
             }
         }
         
@@ -443,7 +443,7 @@ class ArticleTestHelpers {
             case .success, .exists:
                 break
             case .failure:
-                break
+                XCTFail("Failure saving css header")
             }
         }
     }
