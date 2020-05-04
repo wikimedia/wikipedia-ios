@@ -60,7 +60,6 @@ class ArticleCacheReadingManualTests: XCTestCase {
         }
 
         UIApplication.shared.keyWindow?.rootViewController = basicVC
-        let _ = basicVC.view
 
         wait(for: [htmlExpectation], timeout: 3)
         wait(for: [imageExpectation], timeout: 3)
@@ -112,7 +111,6 @@ class ArticleCacheReadingManualTests: XCTestCase {
         }
 
         UIApplication.shared.keyWindow?.rootViewController = basicVC
-        let _ = basicVC.view
 
         wait(for: [htmlExpectation], timeout: 3)
         wait(for: [imageExpectation], timeout: 3)

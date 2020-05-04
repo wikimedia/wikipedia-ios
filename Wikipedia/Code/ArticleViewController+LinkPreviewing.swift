@@ -196,11 +196,7 @@ extension ArticleViewController: WKUIDelegate {
     @available(iOS 13.0, *)
     func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
         
-        let nullConfig = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
-            return nil
-        }) { (_) -> UIMenu? in
-            return nil
-        }
+        let nullConfig = UIContextMenuConfiguration(identifier: nil, previewProvider: nil)
         
         let nullCompletion = {
             completionHandler(nullConfig)
