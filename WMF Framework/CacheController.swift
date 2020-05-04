@@ -10,9 +10,9 @@ public enum CacheControllerError: Error {
 
 public class CacheController {
     
-        #if TEST
-        public static var temporaryCacheURL: URL? = nil
-        #endif
+    #if TEST
+    public static var temporaryCacheURL: URL? = nil
+    #endif
     
     static let cacheURL: URL = {
         
