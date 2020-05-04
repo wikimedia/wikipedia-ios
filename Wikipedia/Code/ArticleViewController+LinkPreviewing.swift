@@ -158,7 +158,10 @@ extension ArticleViewController: WKUIDelegate {
         getPeekViewControllerAsync(for: linkURL) { (peekParentVC) in
             assert(Thread.isMainThread)
             guard let peekParentVC = peekParentVC else {
-                completionHandler(.bail, nil)
+                if (!didCallCompletion) {
+                    completionHandler(.bail, nil)
+                    didCallCompletion = true;
+                }
                 return
             }
             
