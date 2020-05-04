@@ -133,35 +133,24 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: WKUIDelegate {
-    // MARK: Context menus
+    
+    enum ContextMenuCompletionType {
+        case bail
+        case timeout
+        case success
+    }
     
     @available(iOS 13.0, *)
-    func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
-        let nullConfig = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
-            return nil
-        }) { (_) -> UIMenu? in
-            return nil
-        }
-        
-        var didCallCompletion = false
-        let bail = {
-            if (!didCallCompletion) {
-                completionHandler(nullConfig)
-                didCallCompletion = true;
-            }
-        }
-        
-        guard let linkURL = elementInfo.linkURL else {
-            bail()
-            return
-        }
+
+    func contextMenuConfigurationForLinkURL(_ linkURL: URL, completionHandler: @escaping (ContextMenuCompletionType, UIContextMenuConfiguration?) -> Void) {
         
         // It's helpful if we can fetch the article before calling the completion
         // However, we need to timeout if it takes too long
-        var config = nullConfig
+        var didCallCompletion = false
+
         dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
             if (!didCallCompletion) {
-                completionHandler(config)
+                completionHandler(.timeout, nil)
                 didCallCompletion = true;
             }
         }
@@ -169,14 +158,17 @@ extension ArticleViewController: WKUIDelegate {
         getPeekViewControllerAsync(for: linkURL) { (peekParentVC) in
             assert(Thread.isMainThread)
             guard let peekParentVC = peekParentVC else {
-                bail()
+                if (!didCallCompletion) {
+                    completionHandler(.bail, nil)
+                    didCallCompletion = true;
+                }
                 return
             }
             
             let peekVC = peekParentVC.wmf_PeekableChildViewController
             
             self.hideFindInPage()
-            config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
+            let config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
                 return peekParentVC
             }) { (suggestedActions) -> UIMenu? in
                 return self.previewMenuElements(for: peekParentVC, suggestedActions: suggestedActions)
@@ -186,18 +178,44 @@ extension ArticleViewController: WKUIDelegate {
                 articlePeekVC.fetchArticle {
                     assert(Thread.isMainThread)
                     if (!didCallCompletion) {
-                        completionHandler(config)
+                        completionHandler(.success, config)
                         didCallCompletion = true
                     }
                 }
             } else {
                 if (!didCallCompletion) {
-                    completionHandler(config)
-                    didCallCompletion = true;
+                    completionHandler(.success, config)
+                    didCallCompletion = true
                 }
             }
         }
+    }
+    
+    // MARK: Context menus
+    
+    @available(iOS 13.0, *)
+    func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
         
+        let nullConfig = UIContextMenuConfiguration(identifier: nil, previewProvider: nil)
+        
+        let nullCompletion = {
+            completionHandler(nullConfig)
+        }
+        
+        guard let linkURL = elementInfo.linkURL else {
+            nullCompletion()
+            return
+        }
+        
+        //moving into separate function for easier testability
+        contextMenuConfigurationForLinkURL(linkURL) { (completionType, menuConfig) in
+            guard completionType != .bail && completionType != .timeout else {
+                nullCompletion()
+                return
+            }
+            
+            completionHandler(menuConfig)
+        }
     }
     
     @available(iOS 13.0, *)
