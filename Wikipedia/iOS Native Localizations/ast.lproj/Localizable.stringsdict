@@ -295,6 +295,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Ayeri</string>
 			<key>other</key>
 			<string>Hai %1$d díes</string>
 			<key>zero</key>
@@ -347,6 +349,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>L'añu pasáu</string>
 			<key>other</key>
 			<string>Hai %1$d años</string>
 			<key>zero</key>
