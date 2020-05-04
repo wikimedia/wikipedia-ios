@@ -7,7 +7,9 @@ default_platform :ios
 
 configurations_to_test_on_pull = [
   {device: 'iPhone X', os: '12.4'},
-  {device: 'iPad Air 2', os: '11.4'}
+  {device: 'iPad Air 2', os: '11.4'},
+  {device: 'iPhone 8', os: '13.4'},
+  {device: 'iPad Pro (12.9-inch)', os: '13.4'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
