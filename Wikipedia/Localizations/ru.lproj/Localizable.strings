@@ -111,6 +111,7 @@
 "action-remove" = "Удалить";
 "action-replace" = "Заменить";
 "action-replace-all" = "Заменить все";
+"action-retry" = "Повторить";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
@@ -652,8 +653,14 @@
 "reading-themes-controls-syntax-highlighting" = "Подсветка синтаксиса";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|1=Вчера|$1 дней назад|$1 дня назад}}";
+"relative-date-hours-abbreviated" = "$1ч";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
+"relative-date-hours-ago-abbreviated" = "$1ч назад";
+"relative-date-minutes-abbreviated" = "$1м";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
+"relative-date-minutes-ago-abbreviated" = "$1м назад";
+"relative-date-seconds-abbreviated" = "$1с";
+"relative-date-seconds-ago-abbreviated" = "$1с назад";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|one=$1 год назад|few=$1 года назад|many=$1 лет назад}}";
 "replace-button-accessibility" = "Выполнение операции \"$1\".";
 "replace-buttons-replace-accessibility" = "Заменить одно вхождение";
@@ -799,6 +806,7 @@
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
+"unknown-generic-text" = "Неизвестно";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";
