@@ -103,6 +103,10 @@ extension ArticleViewController {
 extension ArticleViewController: SectionEditorViewControllerDelegate {
     func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool) {
         dismiss(animated: true)
+        guard didChange else {
+            return
+        }
+        performWebViewRefresh()
     }
 
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
@@ -112,7 +116,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController) {
-        
+        performWebViewRefresh()
     }
 }
 
