@@ -434,6 +434,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Ontem</string>
 			<key>other</key>
 			<string>Há %1$d dias</string>
 			<key>zero</key>
@@ -486,6 +488,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>No mês passado passado</string>
 			<key>other</key>
 			<string>Há %1$d meses</string>
 			<key>zero</key>
@@ -502,6 +506,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>No ano passado</string>
 			<key>other</key>
 			<string>Há %1$d anos</string>
 			<key>zero</key>

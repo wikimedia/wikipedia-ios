@@ -414,6 +414,11 @@ let locales: Set<String> =  {
     return Set<String>(identifiers)
 }()
 
+// See supportsOneEquals documentation. Utilized this list: https://unicode-org.github.io/cldr-staging/charts/37/supplemental/language_plural_rules.html to verify languages where that applies for the cardinal -> one rule
+let localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne = {
+    return Set<String>(["be", "bs", "br", "ceb", "tzm", "hr", "fil", "is", "lv", "lt", "dsb", "mk", "gv", "prg", "ru", "gd", "sr", "sl", "uk", "hsb"]).intersection(locales)
+}()
+
 func localeIsAvailable(_ locale: String) -> Bool {
     let prefix = locale.components(separatedBy: "-").first ?? locale
     return locales.contains(prefix)
@@ -461,6 +466,7 @@ func importLocalizationsFromTWN(_ path: String) {
             "zh-hans": ["zh-hans"],
             "zh-hant": ["zh-hant"]
         ]
+        
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders
         var englishPluralDictionary: NSMutableDictionary?
@@ -496,7 +502,8 @@ func importLocalizationsFromTWN(_ path: String) {
                 if twnString.contains("{{PLURAL:") {
                     let lang = locale.components(separatedBy: "-").first ?? ""
                     let keys = keysByLanguage[lang] ?? defaultKeys
-                    stringsDict[key] = twnString.pluralDictionary(with: keys, tokens:enTokens, supportsOneEquals: locale == "en")
+                    let supportsOneEquals = !localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne.contains(lang)
+                    stringsDict[key] = twnString.pluralDictionary(with: keys, tokens:enTokens, supportsOneEquals: supportsOneEquals)
                     strings[key] = nativeLocalization
                 } else {
                     strings[key] = nativeLocalization

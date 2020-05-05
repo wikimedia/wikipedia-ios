@@ -329,6 +329,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Wczoraj</string>
 			<key>other</key>
 			<string>%1$d dni temu</string>
 			<key>zero</key>

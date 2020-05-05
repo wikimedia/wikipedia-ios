@@ -44,7 +44,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         }
     }
     
-    public func updatePreferredContentSize(for contentWidth: CGFloat) {
+    func updatePreferredContentSize(for contentWidth: CGFloat) {
         var updatedContentSize = expandedArticleView.sizeThatFits(CGSize(width: contentWidth, height: UIView.noIntrinsicMetric), apply: true)
         updatedContentSize.width = contentWidth // extra protection to ensure this stays == width
         parent?.preferredContentSize = updatedContentSize

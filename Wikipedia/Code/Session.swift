@@ -52,12 +52,14 @@ public enum WMFCachePolicy {
         let data: ((Data) -> Void)?
         let success: (() -> Void)
         let failure: ((Error) -> Void)
+        let cacheFallbackError: ((Error) -> Void)? //Extra handling block when session signals a success and returns data because it's leaning on cache, but actually reached a server error.
         
-        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void, cacheFallbackError: ((Error) -> Void)?) {
             self.response = response
             self.data = data
             self.success = success
             self.failure = failure
+            self.cacheFallbackError = cacheFallbackError
         }
     }
     
@@ -643,16 +645,31 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
-        if let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 304 {
+        if let httpResponse = response as? HTTPURLResponse {
+            
+            var shouldCheckPersistentCache = false
+            if httpResponse.statusCode == 304 {
+                shouldCheckPersistentCache = true
+            }
+            
+            if let request = dataTask.originalRequest,
+                request.prefersPersistentCacheOverError && httpResponse.statusCode != 200 {
+                shouldCheckPersistentCache = true
+            }
             
             let taskIdentifier = dataTask.taskIdentifier
-            if let callback = callbacks[taskIdentifier],
+            if shouldCheckPersistentCache,
+                let callback = callbacks[taskIdentifier],
                 let request = dataTask.originalRequest,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                 callback.response?(cachedResponse.response)
                 callback.data?(cachedResponse.data)
                 callback.success()
+                
+                if httpResponse.statusCode != 304 {
+                    callback.cacheFallbackError?(RequestError.http(httpResponse.statusCode))
+                }
+                
                 callbacks.removeValue(forKey: taskIdentifier)
             }
         }

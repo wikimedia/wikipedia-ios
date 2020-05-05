@@ -410,6 +410,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>上个月</string>
 			<key>other</key>
 			<string>%1$d个月前</string>
 			<key>zero</key>

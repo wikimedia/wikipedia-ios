@@ -54,7 +54,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         startSurveyAnnouncementTimer()
     }
     
-    func handlePCSDidFinishFinalSetup() {
+    @objc func handlePCSDidFinishFinalSetup() {
         articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
         addToHistory()
