@@ -70,6 +70,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Wingi</string>
 			<key>other</key>
 			<string>%1$d dina kapungkur</string>
 			<key>zero</key>
@@ -118,6 +120,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Taun wingi</string>
 			<key>other</key>
 			<string>%1$d taun kapungkur</string>
 			<key>zero</key>

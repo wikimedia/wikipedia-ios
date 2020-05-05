@@ -407,6 +407,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Dün</string>
 			<key>other</key>
 			<string>%1$d gün önce</string>
 			<key>zero</key>
@@ -459,6 +461,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Geçen ay</string>
 			<key>other</key>
 			<string>%1$d ay önce</string>
 			<key>zero</key>
@@ -475,6 +479,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Geçen yıl</string>
 			<key>other</key>
 			<string>%1$d yıl önce</string>
 			<key>zero</key>

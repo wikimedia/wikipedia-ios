@@ -434,6 +434,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>אתמול</string>
 			<key>other</key>
 			<string>לפני %1$d ימים</string>
 			<key>zero</key>
@@ -450,6 +452,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>לפני שעה</string>
 			<key>other</key>
 			<string>לפני %1$d שעות</string>
 			<key>zero</key>
@@ -466,6 +470,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>לפני דקה</string>
 			<key>other</key>
 			<string>לפני %1$d דקות</string>
 			<key>zero</key>
@@ -482,6 +488,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>בחודש שעבר</string>
 			<key>other</key>
 			<string>לפני %1$d חודשים</string>
 			<key>zero</key>
@@ -499,7 +507,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>לפני %1$d שנה</string>
+			<string>בשנה שעברה</string>
 			<key>other</key>
 			<string>לפני %1$d שנים</string>
 			<key>zero</key>
