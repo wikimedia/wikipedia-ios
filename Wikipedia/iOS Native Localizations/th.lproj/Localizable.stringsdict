@@ -98,6 +98,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>เมื่อวาน</string>
 			<key>other</key>
 			<string>%1$d วันที่ผ่านมา</string>
 			<key>zero</key>
@@ -150,6 +152,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>ปีที่ผ่านมา</string>
 			<key>other</key>
 			<string>%1$d ปีที่ผ่านมา</string>
 			<key>zero</key>
