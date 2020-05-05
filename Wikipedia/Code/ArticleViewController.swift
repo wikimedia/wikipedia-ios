@@ -56,6 +56,9 @@ class ArticleViewController: ViewController, HintPresenting {
     private var leadImageHeight: CGFloat = 210
 
     private var contentSizeObservation: NSKeyValueObservation? = nil
+    
+    /// Current Etag of the web content response. Used to verify when content has changed on the server.
+    var currentEtag: String?
 
     /// Used to delay reloading the web view to prevent `UIScrollView` jitter
     fileprivate var shouldPerformWebRefreshAfterScrollViewDeceleration = false
@@ -354,11 +357,14 @@ class ArticleViewController: ViewController, HintPresenting {
                     self.articleLoadWaitGroup?.leave()
                     self.updateMenuItems()
                 }
-                // Handle redirects
-                guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
+                guard let article = article else {
                     return
                 }
                 self.article = article
+                // Handle redirects
+                guard let newKey = article.key, newKey != key, let newURL = article.url else {
+                    return
+                }
                 self.articleURL = newURL
                 self.addToHistory()
             }
@@ -438,7 +444,6 @@ class ArticleViewController: ViewController, HintPresenting {
             self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
             self.article.viewedFragment = anchor
             try? self.article.managedObjectContext?.save()
-            
         }
     }
     
@@ -560,12 +565,36 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
     }
+    
+    /// Preserves the current scroll position, waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
+    internal func waitForNewContentAndRefresh() {
+        showNavigationBar()
+        fakeProgressController.start()
+        saveArticleScrollPosition()
+        isRestoringState = true
+        setupForStateRestorationIfNecessary()
+        guard let etag = currentEtag else {
+            performWebViewRefresh()
+            return
+        }
+        fetcher.waitForMobileHTMLChange(articleURL: articleURL, etag: etag, timeout: 7) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    self.showError(error)
+                    fallthrough
+                default:
+                    self.performWebViewRefresh()
+                }
+            }
+        }
+    }
 
     internal func performWebViewRefresh() {
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
-            webView.reloadFromOrigin()
+            self.webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
-            loadPage(cachePolicy: .noPersistentCacheOnError)
+            self.loadPage(cachePolicy: .noPersistentCacheOnError)
         #endif
     }
 
@@ -993,6 +1022,16 @@ extension ArticleViewController: WKNavigationDelegate {
         default:
             decisionHandler(.cancel, preferences)
         }
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        defer {
+            decisionHandler(.allow)
+        }
+        guard let response = navigationResponse.response as? HTTPURLResponse else {
+            return
+        }
+        currentEtag = response.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {

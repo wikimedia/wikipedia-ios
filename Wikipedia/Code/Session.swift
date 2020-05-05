@@ -23,6 +23,7 @@ public enum WMFCachePolicy {
             case post
             case put
             case delete
+            case head
 
             var stringValue: String {
                 switch self {
@@ -32,6 +33,8 @@ public enum WMFCachePolicy {
                     return "PUT"
                 case .delete:
                     return "DELETE"
+                case .head:
+                    return "HEAD"
                 case .get:
                     fallthrough
                 default:

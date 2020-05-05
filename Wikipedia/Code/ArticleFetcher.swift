@@ -281,6 +281,52 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
+    /// Makes periodic HEAD requests to the mobile-html endpoint until the etag no longer matches the one provided.
+    @discardableResult public func waitForMobileHTMLChange(articleURL: URL, etag: String, timeout: TimeInterval, cancellationKey: CancellationKey? = nil, completion: @escaping (Result<String, Error>) -> Void) -> CancellationKey? {
+        guard timeout > 0 else {
+            completion(.failure(RequestError.timeout))
+            return nil
+        }
+        let requestURL: URL
+        do {
+            requestURL = try mobileHTMLURL(articleURL: articleURL)
+        } catch let error {
+            completion(.failure(error))
+            return nil
+        }
+        let start = CFAbsoluteTimeGetCurrent()
+        let key = cancellationKey ?? UUID().uuidString
+        let maybeTask = session.dataTask(with: requestURL, method: .head, headers: [URLRequest.ifNoneMatchHeaderKey: etag]) { (_, response, error) in
+            defer {
+                self.untrack(taskFor: key)
+            }
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard
+                let httpURLResponse = response as? HTTPURLResponse,
+                httpURLResponse.statusCode == 200,
+                let updatedEtag = httpURLResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+            else {
+                dispatchOnMainQueueAfterDelayInSeconds(0.25) {
+                    let end = CFAbsoluteTimeGetCurrent()
+                    let duration = end - start
+                    self.waitForMobileHTMLChange(articleURL: articleURL, etag: etag, timeout: timeout - duration, cancellationKey: key, completion: completion)
+                }
+                return
+            }
+            completion(.success(updatedEtag))
+        }
+        guard let task = maybeTask else {
+            completion(.failure(RequestError.unknown))
+            return nil
+        }
+        track(task: task, for: key)
+        task.resume()
+        return key
+    }
+    
     public func isCached(articleURL: URL, scheme: String? = nil, completion: @escaping (Bool) -> Void) {
 
         guard let request = try? mobileHTMLRequest(articleURL: articleURL, scheme: scheme) else {

@@ -106,7 +106,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         guard didChange else {
             return
         }
-        performWebViewRefresh()
+        waitForNewContentAndRefresh()
     }
 
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
@@ -116,7 +116,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController) {
-        performWebViewRefresh()
+        waitForNewContentAndRefresh()
     }
 }
 
