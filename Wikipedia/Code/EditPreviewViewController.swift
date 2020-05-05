@@ -128,7 +128,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             showGenericError()
             return
         }
-        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true, areEditButtonsHidden: true)
+        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
             #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
@@ -148,7 +148,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
                     self?.previewWebViewContainer.webView.loadHTMLString(html, baseURL: responseUrl)
                 }
             }
-            try fetcher.splitWikitextToMobileHTMLString(articleURL: articleURL, wikitext: wikitext, completion: completion)
+            try fetcher.splitWikitextToMobileHTMLString(articleURL: articleURL, wikitext: wikitext, isEditPreview: true, completion: completion)
             #else
             let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
             previewWebViewContainer.webView.load(request)

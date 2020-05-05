@@ -146,7 +146,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return request
     }
     
-    public func wikitextToHTMLRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
+    public func wikitextToHTMLRequest(articleURL: URL, wikitext: String, isEditPreview: Bool) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents
@@ -166,10 +166,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
          #endif
 
         let params: [String: String] = ["wikitext": wikitext]
-        return session.request(with: url, method: .post, bodyParameters: params, bodyEncoding: .json)
+        let headers = ["isEditPreview": String(isEditPreview)]
+        return session.request(with: url, method: .post, bodyParameters: params, bodyEncoding: .json, headers: headers)
     }
     
-    public func htmlToMobileHTMLRequest(articleURL: URL, html: String) throws -> URLRequest {
+    public func htmlToMobileHTMLRequest(articleURL: URL, html: String, isEditPreview: Bool) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -177,10 +178,12 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         else {
             throw RequestError.invalidParameters
         }
-        return session.request(with: url, method: .post, bodyParameters: html, bodyEncoding: .html)
+
+        let headers = ["isEditPreview": String(isEditPreview)]
+        return session.request(with: url, method: .post, bodyParameters: html, bodyEncoding: .html, headers: headers)
     }
 
-    public func splitWikitextToMobileHTMLString(articleURL: URL, wikitext: String, completion: @escaping ((String?, URL?) -> Void)) throws {
+    public func splitWikitextToMobileHTMLString(articleURL: URL, wikitext: String, isEditPreview: Bool = false, completion: @escaping ((String?, URL?) -> Void)) throws {
         let mobileHtmlCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
             guard let data = data, let html = String(data: data, encoding: .utf8) else {
                 completion(nil, nil)
@@ -194,14 +197,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                 return
             }
             do {
-                let mobileHtmlRequest = try self.htmlToMobileHTMLRequest(articleURL: articleURL, html: html)
+                let mobileHtmlRequest = try self.htmlToMobileHTMLRequest(articleURL: articleURL, html: html, isEditPreview: isEditPreview)
                 let mobileHtml = self.session.dataTask(with: mobileHtmlRequest, completionHandler: mobileHtmlCompletionHandler)
                 mobileHtml?.resume()
             } catch {
                 completion(nil, nil)
             }
         }
-        let htmlRequest = try wikitextToHTMLRequest(articleURL: articleURL, wikitext: wikitext)
+        let htmlRequest = try wikitextToHTMLRequest(articleURL: articleURL, wikitext: wikitext, isEditPreview: isEditPreview)
         let htmlTask = self.session.dataTask(with: htmlRequest, completionHandler: htmlRequestCompletionHandler)
         htmlTask?.resume()
     }
