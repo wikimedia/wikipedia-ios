@@ -25,7 +25,7 @@ final class ArticleSurveyTimerController {
                     return nil
             }
 
-            return SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForTitle(articleTitle, siteURL: siteURL)
+            return surveyController.activeSurveyAnnouncementResultForTitle(articleTitle, siteURL: siteURL)
         }
     }
 
