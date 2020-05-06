@@ -555,7 +555,7 @@ extension Session {
         
         var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
         
-        let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
+        let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers, cachePolicy: permanentCacheRequest.cachePolicy)
         
         if let headerFields = sessionRequest.allHTTPHeaderFields {
             for (key, value) in headerFields {
