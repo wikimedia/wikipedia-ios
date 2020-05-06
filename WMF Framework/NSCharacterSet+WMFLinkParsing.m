@@ -2,15 +2,18 @@
 
 @implementation NSCharacterSet (WMFLinkParsing)
 
-+ (NSCharacterSet *)wmf_URLArticleTitlePathComponentAllowedCharacterSet {
++ (NSCharacterSet *)wmf_encodeURIComponentAllowedCharacterSet {
     static dispatch_once_t onceToken;
-    static NSCharacterSet *wmf_URLArticleTitleAllowedCharacterSet;
+    static NSCharacterSet *wmf_encodeURIComponentAllowedCharacterSet;
     dispatch_once(&onceToken, ^{
-        NSMutableCharacterSet *pathAllowedCharacterSet = [[NSCharacterSet URLPathAllowedCharacterSet] mutableCopy];
-        [pathAllowedCharacterSet removeCharactersInString:@"/.+"];
-        wmf_URLArticleTitleAllowedCharacterSet = [pathAllowedCharacterSet copy];
+        // Match the functionality of encodeURIComponent() in JavaScript, using this Mozilla reference:
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent#Description
+        // as per this comment: https://phabricator.wikimedia.org/T249284#6113747
+        NSString *encodeURIComponentAllowedCharacters = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.!~*'()";
+        NSCharacterSet *encodeURIComponentAllowedCharacterSet = [NSCharacterSet characterSetWithCharactersInString:encodeURIComponentAllowedCharacters];
+        wmf_encodeURIComponentAllowedCharacterSet = [encodeURIComponentAllowedCharacterSet copy];
     });
-    return wmf_URLArticleTitleAllowedCharacterSet;
+    return wmf_encodeURIComponentAllowedCharacterSet;
 }
 
 + (NSCharacterSet *)wmf_relativePathAndFragmentAllowedCharacterSet {
