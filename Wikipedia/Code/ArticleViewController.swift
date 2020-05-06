@@ -58,8 +58,8 @@ class ArticleViewController: ViewController, HintPresenting {
 
     private var contentSizeObservation: NSKeyValueObservation? = nil
     
-    /// Current Etag of the web content response. Used to verify when content has changed on the server.
-    var currentEtag: String?
+    /// Current ETag of the web content response. Used to verify when content has changed on the server.
+    var currentETag: String?
 
     /// Used to delay reloading the web view to prevent `UIScrollView` jitter
     fileprivate var shouldPerformWebRefreshAfterScrollViewDeceleration = false
@@ -355,6 +355,7 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup?.enter()
         // async to allow the page network requests some time to go through
         DispatchQueue.main.async {
+            // TODO: Remove this workaround when upstream bug is deployed: https://phabricator.wikimedia.org/T251956
             let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadIgnoringLocalAndRemoteCacheData : nil
             self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
                 defer {
@@ -578,11 +579,11 @@ class ArticleViewController: ViewController, HintPresenting {
         saveArticleScrollPosition()
         isRestoringState = true
         setupForStateRestorationIfNecessary()
-        guard let etag = currentEtag else {
+        guard let eTag = currentETag else {
             performWebViewRefresh()
             return
         }
-        fetcher.waitForMobileHTMLChange(articleURL: articleURL, etag: etag, timeout: 7) { (result) in
+        fetcher.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, timeout: 7) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
@@ -1036,7 +1037,7 @@ extension ArticleViewController: WKNavigationDelegate {
         guard let response = navigationResponse.response as? HTTPURLResponse else {
             return
         }
-        currentEtag = response.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+        currentETag = response.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {

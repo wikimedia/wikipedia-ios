@@ -282,7 +282,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     /// Makes periodic HEAD requests to the mobile-html endpoint until the etag no longer matches the one provided.
-    @discardableResult public func waitForMobileHTMLChange(articleURL: URL, etag: String, timeout: TimeInterval, cancellationKey: CancellationKey? = nil, completion: @escaping (Result<String, Error>) -> Void) -> CancellationKey? {
+    @discardableResult public func waitForMobileHTMLChange(articleURL: URL, eTag: String, timeout: TimeInterval, cancellationKey: CancellationKey? = nil, completion: @escaping (Result<String, Error>) -> Void) -> CancellationKey? {
         guard timeout > 0 else {
             completion(.failure(RequestError.timeout))
             return nil
@@ -296,7 +296,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
         let start = CFAbsoluteTimeGetCurrent()
         let key = cancellationKey ?? UUID().uuidString
-        let maybeTask = session.dataTask(with: requestURL, method: .head, headers: [URLRequest.ifNoneMatchHeaderKey: etag]) { (_, response, error) in
+        let maybeTask = session.dataTask(with: requestURL, method: .head, headers: [URLRequest.ifNoneMatchHeaderKey: eTag]) { (_, response, error) in
             defer {
                 self.untrack(taskFor: key)
             }
@@ -307,16 +307,18 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             guard
                 let httpURLResponse = response as? HTTPURLResponse,
                 httpURLResponse.statusCode == 200,
-                let updatedEtag = httpURLResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+                let updatedETag = httpURLResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String,
+                updatedETag != eTag
             else {
                 dispatchOnMainQueueAfterDelayInSeconds(0.25) {
                     let end = CFAbsoluteTimeGetCurrent()
                     let duration = end - start
-                    self.waitForMobileHTMLChange(articleURL: articleURL, etag: etag, timeout: timeout - duration, cancellationKey: key, completion: completion)
+                    self.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, timeout: timeout - duration, cancellationKey: key, completion: completion)
                 }
                 return
             }
-            completion(.success(updatedEtag))
+            DDLogDebug("ETag for \(requestURL) changed from \(eTag) to \(updatedETag)")
+            completion(.success(updatedETag))
         }
         guard let task = maybeTask else {
             completion(.failure(RequestError.unknown))
