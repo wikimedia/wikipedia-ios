@@ -6,6 +6,7 @@ class ArticleViewController: ViewController, HintPresenting {
     enum ViewState {
         case initial
         case loading
+        case reloading
         case loaded
         case error
     }
@@ -245,6 +246,8 @@ class ArticleViewController: ViewController, HintPresenting {
             switch state {
             case .initial:
                 break
+            case .reloading:
+                fallthrough
             case .loading:
                 fakeProgressController.start()
             case .loaded:
@@ -352,7 +355,8 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup?.enter()
         // async to allow the page network requests some time to go through
         DispatchQueue.main.async {
-            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadIgnoringLocalAndRemoteCacheData : nil
+            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
                 defer {
                     self.articleLoadWaitGroup?.leave()
                     self.updateMenuItems()
@@ -560,6 +564,7 @@ class ArticleViewController: ViewController, HintPresenting {
     // MARK: Refresh
     
     @objc public func refresh() {
+        state = .reloading
         if !shouldPerformWebRefreshAfterScrollViewDeceleration {
             updateRefreshOverlay(visible: true)
         }
@@ -569,7 +574,7 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Preserves the current scroll position, waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
     internal func waitForNewContentAndRefresh() {
         showNavigationBar()
-        fakeProgressController.start()
+        state = .reloading
         saveArticleScrollPosition()
         isRestoringState = true
         setupForStateRestorationIfNecessary()

@@ -93,11 +93,11 @@ public class ArticleSummary: NSObject, Codable {
 
 @objc(WMFArticleSummaryFetcher)
 public class ArticleSummaryFetcher: Fetcher {
-    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) -> [URLSessionTask] {
+    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) -> [URLSessionTask] {
         
         var tasks: [URLSessionTask] = []
         articleKeys.asyncMapToDictionary(block: { (articleKey, asyncMapCompletion) in
-            let task = fetchSummaryForArticle(with: articleKey, priority: priority, completion: { (responseObject, response, error) in
+            let task = fetchSummaryForArticle(with: articleKey, cachePolicy: cachePolicy, priority: priority, completion: { (responseObject, response, error) in
                 asyncMapCompletion(articleKey, responseObject)
             })
             if let task = task {
@@ -108,8 +108,7 @@ public class ArticleSummaryFetcher: Fetcher {
         return tasks
     }
     
-    @objc(fetchSummaryForArticleWithKey:priority:completion:)
-    @discardableResult public func fetchSummaryForArticle(with articleKey: String, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+    @discardableResult public func fetchSummaryForArticle(with articleKey: String, cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard
             let articleURL = URL(string: articleKey),
             let title = articleURL.percentEncodedPageTitleForPathComponents
@@ -119,7 +118,7 @@ public class ArticleSummaryFetcher: Fetcher {
         }
         
         let pathComponents = ["page", "summary", title]
-        return performRESTBaseGET(for: articleURL, pathComponents: pathComponents, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
+        return performRESTBaseGET(for: articleURL, pathComponents: pathComponents, cachePolicy: cachePolicy, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
             completion(summary, response, error)
         }
     }
