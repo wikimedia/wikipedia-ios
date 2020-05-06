@@ -2,7 +2,7 @@
 
 @interface NSCharacterSet (WMFLinkParsing)
 
-+ (NSCharacterSet *)wmf_URLArticleTitlePathComponentAllowedCharacterSet;
++ (NSCharacterSet *)wmf_encodeURIComponentAllowedCharacterSet;
 + (NSCharacterSet *)wmf_relativePathAndFragmentAllowedCharacterSet;
 
 @end

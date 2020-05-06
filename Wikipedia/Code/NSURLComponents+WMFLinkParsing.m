@@ -68,7 +68,7 @@
 }
 
 - (void)setWmf_titleWithUnderscores:(NSString *_Nullable)titleWithUnderscores {
-    NSString *path = [titleWithUnderscores stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLArticleTitlePathComponentAllowedCharacterSet]];
+    NSString *path = [titleWithUnderscores stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_encodeURIComponentAllowedCharacterSet]];
     if (path != nil && path.length > 0) {
         NSArray *pathComponents = @[@"/wiki/", path];
         self.percentEncodedPath = [NSString pathWithComponents:pathComponents];
