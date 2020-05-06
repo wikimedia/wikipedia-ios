@@ -22,7 +22,7 @@ final class ArticleSurveyTimerController {
     private var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? {
         get {
             guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle, let siteURL = articleURL.wmf_site else {
-                    return nil
+                return nil
             }
 
             return surveyController.activeSurveyAnnouncementResultForTitle(articleTitle, siteURL: siteURL)
