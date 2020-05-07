@@ -312,7 +312,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             }
             
             let retry = {
-                dispatchOnMainQueueAfterDelayInSeconds(1.0 / Double(maxAttempts)) {
+                // Each attempt should take a little longer
+                let delayTime = 2.0 / Double(maxAttempts)
+                dispatchOnMainQueueAfterDelayInSeconds(delayTime) {
                     self.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, maxAttempts: maxAttempts - 1, cancellationKey: key, completion: completion)
                 }
             }
