@@ -294,7 +294,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             completion(.failure(error))
             return nil
         }
-        let start = CFAbsoluteTimeGetCurrent()
+        let start = DispatchTime.now()
         let key = cancellationKey ?? UUID().uuidString
         let maybeTask = session.dataTask(with: requestURL, method: .head, headers: [URLRequest.ifNoneMatchHeaderKey: eTag], cachePolicy: .reloadIgnoringLocalCacheData) { (_, response, error) in
             defer {
@@ -314,8 +314,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             
             let retry = {
                 dispatchOnMainQueueAfterDelayInSeconds(0.25) {
-                    let end = CFAbsoluteTimeGetCurrent()
-                    let duration = end - start
+                    let end = DispatchTime.now()
+                    let duration = TimeInterval(end.uptimeNanoseconds - start.uptimeNanoseconds) / TimeInterval(NSEC_PER_SEC)
                     self.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, timeout: timeout - duration, cancellationKey: key, completion: completion)
                 }
                 
