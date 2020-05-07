@@ -39,7 +39,7 @@ extension String {
 /// Page title transformation
 public extension String {
     var percentEncodedPageTitleForPathComponents: String? {
-        return denormalizedPageTitle?.addingPercentEncoding(withAllowedCharacters: .articleTitlePathComponentAllowed)
+        return denormalizedPageTitle?.addingPercentEncoding(withAllowedCharacters: .encodeURIComponentAllowed)
     }
 
      var normalizedPageTitle: String? {
