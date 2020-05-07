@@ -161,7 +161,7 @@
 "description-edit-publish" = "انتشار توضیحات";
 "description-edit-title" = "ویرایش توضیحات";
 "description-help-about-title" = "درباره";
-"description-help-about-wikidata" = "درباره ویکی‌دیتا";
+"description-help-about-wikidata" = "دربارهٔ ویکی‌داده";
 "description-help-more-info-title" = "اطلاعات بیشتر";
 "description-help-tips-example-title-one" = "نقاشی اثر لئوناردو داوینچی";
 "description-help-tips-example-title-two" = "مرتفع‌ترین قلّهٔ زمین";
@@ -249,7 +249,7 @@
 "edit-unordered-list-remove-accessibility-label" = "تغییر فهرست غیرترتیبی به متن عادی";
 "edit-watch-list-learn-more-text" = "اطلاعات بیشتر در بارهٔ فهرست‌های پی‌گیری";
 "edit-watch-this-page-text" = "پی‌گیری این صفحه";
-"editing-welcome-be-bold-subtitle" = "جسور باشید اما در به روز رسانی مقالات شجاعت نداشته باشید. نگران ایجاد اشتباهات نباشید: هر نسخه قبلی از یک صفحه ذخیره می‌شود، بنابراین اشتباهات می‌توانند به راحتی توسط جامعه ما اصلاح شوند.";
+"editing-welcome-be-bold-subtitle" = "جسور باشید، اما در روزآمدسازی مقاله‌ها بی‌ملاحظه نباشید. نگران ایجاد اشتباهات نباشید: نسخه‌های قبلی هر صفحه ذخیره می‌شوند؛ بنابراین اشتباهات می‌توانند به‌راحتی توسط جامعهٔ ما اصلاح شوند.";
 "editing-welcome-be-bold-title" = "صدای شما مهم است";
 "editing-welcome-citations-subtitle" = "همه محتوا باید قابل رسیدگی باشند. هنگام افزودن اطلاعات جدید به یک مقاله، ویرایشگران باید یک ارجاع داخلی به یک منبع قابل‌اعتماد فراهم کنند که مستقیماً از کمک آن‌ها پشتیبانی کند.";
 "editing-welcome-citations-title" = "ارجاع‌دهی به منابع معتبر";
