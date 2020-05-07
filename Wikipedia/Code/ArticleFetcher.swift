@@ -318,7 +318,6 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                     let duration = TimeInterval(end.uptimeNanoseconds - start.uptimeNanoseconds) / TimeInterval(NSEC_PER_SEC)
                     self.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, timeout: timeout - duration, cancellationKey: key, completion: completion)
                 }
-                
             }
 
             // Check for 200. The server returns 304 when the ETag matches the value we provided for `If-None-Match` above
