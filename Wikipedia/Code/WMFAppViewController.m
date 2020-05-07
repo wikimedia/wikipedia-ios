@@ -775,7 +775,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 //    };
 
     self.migrationActive = YES;
-    [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
 
     [self.dataStore performLibraryUpdates:^{
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -787,6 +786,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             if (!self.isWaitingToResumeApp) {
                 [self resumeApp:NULL];
             }
+        });
+    } needsMigrateBlock: ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
         });
     }];
 }
