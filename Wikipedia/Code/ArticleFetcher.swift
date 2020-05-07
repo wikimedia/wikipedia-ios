@@ -296,7 +296,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
         let start = CFAbsoluteTimeGetCurrent()
         let key = cancellationKey ?? UUID().uuidString
-        let maybeTask = session.dataTask(with: requestURL, method: .head, headers: [URLRequest.ifNoneMatchHeaderKey: eTag]) { (_, response, error) in
+        let maybeTask = session.dataTask(with: requestURL, method: .head, headers: [URLRequest.ifNoneMatchHeaderKey: eTag], cachePolicy: .reloadIgnoringLocalCacheData) { (_, response, error) in
             defer {
                 self.untrack(taskFor: key)
             }
@@ -304,19 +304,44 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                 completion(.failure(error))
                 return
             }
-            guard
-                let httpURLResponse = response as? HTTPURLResponse,
-                httpURLResponse.statusCode == 200,
-                let updatedETag = httpURLResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String,
-                updatedETag != eTag
-            else {
+            let bail = {
+                completion(.failure(RequestError.unexpectedResponse))
+            }
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                bail()
+                return
+            }
+            
+            let retry = {
                 dispatchOnMainQueueAfterDelayInSeconds(0.25) {
                     let end = CFAbsoluteTimeGetCurrent()
                     let duration = end - start
                     self.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, timeout: timeout - duration, cancellationKey: key, completion: completion)
                 }
+                
+            }
+
+            // Check for 200. The server returns 304 when the ETag matches the value we provided for `If-None-Match` above
+            switch httpURLResponse.statusCode {
+            case 200:
+                break
+            case 304:
+                retry()
+                return
+            default:
+                bail()
                 return
             }
+            
+            guard
+                let updatedETag = httpURLResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String,
+                updatedETag != eTag // Technically redundant. With If-None-Match provided, we should only get a 200 response if the ETag has changed. Included here as an extra check against a server behaving incorrectly
+            else {
+                assert(false, "A 200 response from the server should indicate that the ETag has changed")
+                retry()
+                return
+            }
+            
             DDLogDebug("ETag for \(requestURL) changed from \(eTag) to \(updatedETag)")
             completion(.success(updatedETag))
         }
