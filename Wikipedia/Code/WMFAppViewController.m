@@ -845,7 +845,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self showExplore];
             done();
         } else {
-            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self hideSplashViewAnimated:true];
             done();
         }
     }];
