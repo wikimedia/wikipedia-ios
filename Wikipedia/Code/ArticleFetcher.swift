@@ -35,6 +35,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         case references = "references"
         case editPreview = "editPreview"
     }
+
+    private static let mobileHTMLOutputHeaderKey = "output-mode"
     
     struct MediaListItem {
         let imageURL: URL
@@ -173,7 +175,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
          #endif
 
         let params: [String: String] = ["wikitext": wikitext]
-        let headers = ["output-mode": mobileHTMLOutput.rawValue]
+        let headers = [ArticleFetcher.mobileHTMLOutputHeaderKey: mobileHTMLOutput.rawValue]
         return session.request(with: url, method: .post, bodyParameters: params, bodyEncoding: .json, headers: headers)
     }
     
@@ -186,11 +188,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
 
-        let headers = ["output-mode": mobileHTMLOutput.rawValue]
+        let headers = [ArticleFetcher.mobileHTMLOutputHeaderKey: mobileHTMLOutput.rawValue]
         return session.request(with: url, method: .post, bodyParameters: html, bodyEncoding: .html, headers: headers)
     }
 
-    public func wikitextToMobileHTMLRequest(articleURL: URL, wikitext: String, mobileHTMLOutput: MobileHTMLType = .contentAndReferences, completion: @escaping ((String?, URL?) -> Void)) throws {
+    public func fetchMobileHTMLFromWikitext(articleURL: URL, wikitext: String, mobileHTMLOutput: MobileHTMLType = .contentAndReferences, completion: @escaping ((String?, URL?) -> Void)) throws {
         let mobileHtmlCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
             guard let data = data, let html = String(data: data, encoding: .utf8) else {
                 completion(nil, nil)
