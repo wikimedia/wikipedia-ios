@@ -594,7 +594,7 @@ class ArticleViewController: ViewController, HintPresenting {
 
     internal func performWebViewRefresh() {
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
-            self.webView.reloadFromOrigin()
+            webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
             self.loadPage(cachePolicy: .noPersistentCacheOnError)
         #endif
