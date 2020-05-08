@@ -28,6 +28,13 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         case mobileHTML = "mobile-html"
         case references = "references"
     }
+
+    public enum MobileHTMLType: String {
+        case contentAndReferences = "contentAndReferences"
+        case content = "content"
+        case references = "references"
+        case editPreview = "editPreview"
+    }
     
     struct MediaListItem {
         let imageURL: URL
@@ -146,7 +153,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return request
     }
     
-    public func wikitextToHTMLRequest(articleURL: URL, wikitext: String, isEditPreview: Bool) throws -> URLRequest {
+    public func wikitextToHTMLRequest(articleURL: URL, wikitext: String, mobileHTMLOutput: MobileHTMLType) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents
@@ -166,11 +173,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
          #endif
 
         let params: [String: String] = ["wikitext": wikitext]
-        let headers = ["isEditPreview": String(isEditPreview)]
+        let headers = ["output-mode": mobileHTMLOutput.rawValue]
         return session.request(with: url, method: .post, bodyParameters: params, bodyEncoding: .json, headers: headers)
     }
     
-    public func htmlToMobileHTMLRequest(articleURL: URL, html: String, isEditPreview: Bool) throws -> URLRequest {
+    public func htmlToMobileHTMLRequest(articleURL: URL, html: String, mobileHTMLOutput: MobileHTMLType) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -179,11 +186,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
 
-        let headers = ["isEditPreview": String(isEditPreview)]
+        let headers = ["output-mode": mobileHTMLOutput.rawValue]
         return session.request(with: url, method: .post, bodyParameters: html, bodyEncoding: .html, headers: headers)
     }
 
-    public func splitWikitextToMobileHTMLString(articleURL: URL, wikitext: String, isEditPreview: Bool = false, completion: @escaping ((String?, URL?) -> Void)) throws {
+    public func wikitextToMobileHTMLRequest(articleURL: URL, wikitext: String, mobileHTMLOutput: MobileHTMLType = .contentAndReferences, completion: @escaping ((String?, URL?) -> Void)) throws {
         let mobileHtmlCompletionHandler = { (data: Data?, response: URLResponse?,  error: Error?) in
             guard let data = data, let html = String(data: data, encoding: .utf8) else {
                 completion(nil, nil)
@@ -197,14 +204,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                 return
             }
             do {
-                let mobileHtmlRequest = try self.htmlToMobileHTMLRequest(articleURL: articleURL, html: html, isEditPreview: isEditPreview)
+                let mobileHtmlRequest = try self.htmlToMobileHTMLRequest(articleURL: articleURL, html: html, mobileHTMLOutput: mobileHTMLOutput)
                 let mobileHtml = self.session.dataTask(with: mobileHtmlRequest, completionHandler: mobileHtmlCompletionHandler)
                 mobileHtml?.resume()
             } catch {
                 completion(nil, nil)
             }
         }
-        let htmlRequest = try wikitextToHTMLRequest(articleURL: articleURL, wikitext: wikitext, isEditPreview: isEditPreview)
+        let htmlRequest = try wikitextToHTMLRequest(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: mobileHTMLOutput)
         let htmlTask = self.session.dataTask(with: htmlRequest, completionHandler: htmlRequestCompletionHandler)
         htmlTask?.resume()
     }

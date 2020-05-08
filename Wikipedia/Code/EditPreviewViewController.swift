@@ -148,7 +148,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
                     self?.previewWebViewContainer.webView.loadHTMLString(html, baseURL: responseUrl)
                 }
             }
-            try fetcher.splitWikitextToMobileHTMLString(articleURL: articleURL, wikitext: wikitext, isEditPreview: true, completion: completion)
+            try fetcher.wikitextToMobileHTMLRequest(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview, completion: completion)
             #else
             let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
             previewWebViewContainer.webView.load(request)
