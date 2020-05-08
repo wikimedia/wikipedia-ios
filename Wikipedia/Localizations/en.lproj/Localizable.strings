@@ -93,7 +93,7 @@
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|article|articles}} deleted";
-"article-fetcher-error-updated-content-timeout" = "The app wasn't able to retrieve the updated content from the server in a reasonable amount of time. Please refresh the page later to see your changes reflected.";
+"article-fetcher-error-updated-content-timeout" = "The app wasn't able to retrieve the updated content in time. Please refresh this page later to see your changes reflected.";
 "article-languages-filter-placeholder" = "Find language";
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
