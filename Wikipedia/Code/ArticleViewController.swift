@@ -377,7 +377,7 @@ class ArticleViewController: ViewController, HintPresenting {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revision: revisionToLoad, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
             showGenericError()
             state = .error
             return
@@ -566,6 +566,13 @@ class ArticleViewController: ViewController, HintPresenting {
             updateRefreshOverlay(visible: true)
         }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
+    }
+    
+    var revisionToLoad: UInt64?
+    
+    internal func loadRevision(_ revisionID: UInt64) {
+        revisionToLoad = revisionID
+        performWebViewRefresh()
     }
     
     /// Preserves the current scroll position, waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position

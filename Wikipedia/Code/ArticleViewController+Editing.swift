@@ -103,12 +103,18 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: SectionEditorViewControllerDelegate {
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool) {
-        dismiss(animated: true)
-        guard didChange else {
-            return
+    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>) {
+        switch result {
+        case .failure(let error):
+            showError(error)
+        case .success(let changes):
+            dismiss(animated: true)
+            loadRevision(changes.newRevisionID)
         }
-        waitForNewContentAndRefresh()
+    }
+    
+    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController) {
+        dismiss(animated: true)
     }
 
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
