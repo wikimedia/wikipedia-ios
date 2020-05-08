@@ -109,7 +109,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
             showError(error)
         case .success(let changes):
             dismiss(animated: true)
-            loadRevision(changes.newRevisionID)
+            waitForNewContentAndRefresh(changes.newRevisionID)
         }
     }
     

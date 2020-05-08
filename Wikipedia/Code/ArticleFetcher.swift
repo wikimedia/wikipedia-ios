@@ -216,7 +216,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         htmlTask?.resume()
     }
     
-    public func mobileHTMLURL(articleURL: URL, revision: UInt64? = nil) throws -> URL {
+    public func mobileHTMLURL(articleURL: URL, revisionID: UInt64? = nil) throws -> URL {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents
@@ -226,8 +226,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         
         var pathComponents = ["page", "mobile-html", percentEncodedTitle]
         
-        if let revision = revision {
-            pathComponents.append("\(revision)")
+        if let revisionID = revisionID {
+            pathComponents.append("\(revisionID)")
         }
         
         guard let mobileHTMLURL = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url else {
@@ -283,9 +283,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL, revision: UInt64? = nil, scheme: String? = nil, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
+    public func mobileHTMLRequest(articleURL: URL, revisionID: UInt64? = nil, scheme: String? = nil, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         
-        var url = try mobileHTMLURL(articleURL: articleURL, revision: revision)
+        var url = try mobileHTMLURL(articleURL: articleURL, revisionID: revisionID)
         
         if let scheme = scheme {
             var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)

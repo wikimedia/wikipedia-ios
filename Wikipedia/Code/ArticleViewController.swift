@@ -372,17 +372,18 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     
-    func loadPage(cachePolicy: WMFCachePolicy? = nil) {
+    func loadPage(cachePolicy: WMFCachePolicy? = nil, revisionID: UInt64? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revision: revisionToLoad, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
             showGenericError()
             state = .error
             return
         }
-
+        
+        
         webView.load(request)
     }
     
@@ -568,20 +569,19 @@ class ArticleViewController: ViewController, HintPresenting {
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
     }
     
-    var revisionToLoad: UInt64?
-    
-    internal func loadRevision(_ revisionID: UInt64) {
-        revisionToLoad = revisionID
-        performWebViewRefresh()
-    }
-    
-    /// Preserves the current scroll position, waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
-    internal func waitForNewContentAndRefresh() {
+    /// Preserves the current scroll position, loads the provided revisionID or waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
+    internal func waitForNewContentAndRefresh(_ revisionID: UInt64? = nil) {
         showNavigationBar()
         state = .reloading
         saveArticleScrollPosition()
         isRestoringState = true
         setupForStateRestorationIfNecessary()
+        // If a revisionID was provided, just load that revision
+        if let revisionID = revisionID {
+            performWebViewRefresh(revisionID)
+            return
+        }
+        // If no revisionID was provided, wait for the ETag to change
         guard let eTag = currentETag else {
             performWebViewRefresh()
             return
@@ -599,11 +599,11 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
 
-    internal func performWebViewRefresh() {
+    internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
-            self.loadPage(cachePolicy: .noPersistentCacheOnError)
+            loadPage(cachePolicy: .noPersistentCacheOnError, revisionID: revisionID)
         #endif
     }
 
