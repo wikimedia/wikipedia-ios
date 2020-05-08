@@ -787,6 +787,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 [self resumeApp:NULL];
             }
         });
+    } needsMigrateBlock: ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
+        });
     }];
 }
 
