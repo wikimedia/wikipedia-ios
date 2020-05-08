@@ -579,7 +579,7 @@ class ArticleViewController: ViewController, HintPresenting {
             performWebViewRefresh()
             return
         }
-        fetcher.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, maxAttempts: 7) { (result) in
+        fetcher.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, maxAttempts: 5) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):

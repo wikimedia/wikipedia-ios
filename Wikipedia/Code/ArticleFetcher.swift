@@ -282,8 +282,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     /// Makes periodic HEAD requests to the mobile-html endpoint until the etag no longer matches the one provided.
-    @discardableResult public func waitForMobileHTMLChange(articleURL: URL, eTag: String, maxAttempts: Int, cancellationKey: CancellationKey? = nil, completion: @escaping (Result<String, Error>) -> Void) -> CancellationKey? {
-        guard maxAttempts > 0 else {
+    @discardableResult public func waitForMobileHTMLChange(articleURL: URL, eTag: String, attempt: Int = 0, maxAttempts: Int, cancellationKey: CancellationKey? = nil, completion: @escaping (Result<String, Error>) -> Void) -> CancellationKey? {
+        guard attempt < maxAttempts else {
             completion(.failure(RequestError.timeout))
             return nil
         }
@@ -312,10 +312,10 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             }
             
             let retry = {
-                // Each attempt should take a little longer
-                let delayTime = 2.0 / Double(maxAttempts)
+                // Exponential backoff
+                let delayTime = 0.25 * pow(2, Double(attempt))
                 dispatchOnMainQueueAfterDelayInSeconds(delayTime) {
-                    self.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, maxAttempts: maxAttempts - 1, cancellationKey: key, completion: completion)
+                    self.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, attempt: attempt + 1, maxAttempts: maxAttempts, cancellationKey: key, completion: completion)
                 }
             }
 
