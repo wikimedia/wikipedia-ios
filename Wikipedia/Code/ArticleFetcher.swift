@@ -1,12 +1,22 @@
 
 import UIKit
 
-enum ArticleFetcherError: Error {
+enum ArticleFetcherError: LocalizedError {
     case doesNotExist
     case failureToGenerateURL
     case missingData
     case invalidEndpointType
     case unableToGenerateURLRequest
+    case updatedContentRequestTimeout
+    
+    public var errorDescription: String? {
+        switch self {
+        case .updatedContentRequestTimeout:
+            return WMFLocalizedString("article-fetcher-error-updated-content-timeout", value: "The app wasn't able to retrieve the updated content from the server in a reasonable amount of time. Please refresh the page later to see your changes reflected.", comment: "Error shown to the user when the content doesn't update in a reasonable amount of time.")
+        default:
+            return CommonStrings.genericErrorDescription
+        }
+    }
 }
 
 @objc(WMFArticleFetcher)
@@ -284,7 +294,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     /// Makes periodic HEAD requests to the mobile-html endpoint until the etag no longer matches the one provided.
     @discardableResult public func waitForMobileHTMLChange(articleURL: URL, eTag: String, attempt: Int = 0, maxAttempts: Int, cancellationKey: CancellationKey? = nil, completion: @escaping (Result<String, Error>) -> Void) -> CancellationKey? {
         guard attempt < maxAttempts else {
-            completion(.failure(RequestError.timeout))
+            completion(.failure(ArticleFetcherError.updatedContentRequestTimeout))
             return nil
         }
         let requestURL: URL
