@@ -12,7 +12,7 @@ enum ArticleFetcherError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .updatedContentRequestTimeout:
-            return WMFLocalizedString("article-fetcher-error-updated-content-timeout", value: "The app wasn't able to retrieve the updated content from the server in a reasonable amount of time. Please refresh the page later to see your changes reflected.", comment: "Error shown to the user when the content doesn't update in a reasonable amount of time.")
+            return WMFLocalizedString("article-fetcher-error-updated-content-timeout", value: "The app wasn't able to retrieve the updated content in time. Please refresh this page later to see your changes reflected.", comment: "Error shown to the user when the content doesn't update in a reasonable amount of time.")
         default:
             return CommonStrings.genericErrorDescription
         }
