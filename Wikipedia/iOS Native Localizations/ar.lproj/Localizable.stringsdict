@@ -426,6 +426,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>أمس</string>
 			<key>other</key>
 			<string>قبل %1$d أيام</string>
 			<key>zero</key>
@@ -478,6 +480,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>الشهر الماضي</string>
 			<key>other</key>
 			<string>منذ %1$d أشهر</string>
 			<key>zero</key>
@@ -494,6 +498,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>العام الماضي</string>
 			<key>other</key>
 			<string>منذ %1$d سنوات</string>
 			<key>zero</key>

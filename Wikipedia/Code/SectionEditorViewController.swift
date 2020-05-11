@@ -286,12 +286,16 @@ class SectionEditorViewController: ViewController {
     }
 
     private func loadWikitext() {
-        if shouldFocusWebView {
+        let isShowingStatusMessage = shouldFocusWebView
+        if isShowingStatusMessage {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
         }
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
             DispatchQueue.main.async {
+                if isShowingStatusMessage {
+                    WMFAlertManager.sharedInstance.dismissAlert()
+                }
                 switch result {
                 case .failure(let error):
                     self.didFocusWebViewCompletion = {

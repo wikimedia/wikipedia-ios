@@ -418,6 +418,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>昨天</string>
 			<key>other</key>
 			<string>%1$d 天前</string>
 			<key>zero</key>
@@ -470,6 +472,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>上個月</string>
 			<key>other</key>
 			<string>%1$d 個月前</string>
 			<key>zero</key>
@@ -486,6 +490,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>去年</string>
 			<key>other</key>
 			<string>%1$d 年前</string>
 			<key>zero</key>

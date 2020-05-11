@@ -36,4 +36,8 @@
     [self.addButton setTitleColor:theme.colors.link forState:UIControlStateNormal];
 }
 
+- (IBAction)addLanguageButtonTapped:(id)sender {
+    [self.delegate addLanguageButtonTapped];
+}
+
 @end

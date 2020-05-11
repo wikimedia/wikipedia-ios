@@ -172,6 +172,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>မနေ့က</string>
 			<key>other</key>
 			<string>%1$d ရက်အကြာက</string>
 			<key>zero</key>
@@ -224,6 +226,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>ယခင်လ</string>
 			<key>other</key>
 			<string>%1$d လအကြာက</string>
 			<key>zero</key>
@@ -240,6 +244,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>ယခင်နှစ်</string>
 			<key>other</key>
 			<string>%1$d နှစ်အကြာက</string>
 			<key>zero</key>
