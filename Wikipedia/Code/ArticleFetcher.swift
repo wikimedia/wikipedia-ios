@@ -286,17 +286,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     public func mobileHTMLRequest(articleURL: URL, revisionID: UInt64? = nil, scheme: String? = nil, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         
         var url = try mobileHTMLURL(articleURL: articleURL, revisionID: revisionID)
+        
         if let scheme = scheme {
             var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
             urlComponents?.scheme = scheme
             url = urlComponents?.url ?? url
         }
-        let headers = ["Accept": "text/html; charset=utf-8"]
-        if var urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: headers) {
-            if revisionID != nil {
-                // Use the revisionless URL for cache persistance
-                urlRequest.customCacheURL = try mobileHTMLURL(articleURL: articleURL)
-            }
+        let acceptUTF8HTML = ["Accept": "text/html; charset=utf-8"]
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
