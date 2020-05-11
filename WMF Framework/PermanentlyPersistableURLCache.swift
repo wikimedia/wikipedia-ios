@@ -3,7 +3,7 @@ import Foundation
 public struct Header {
     public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
     //public static let persistentCacheETag = "Persistent-Cache-ETag"
-    
+
     //existence of a PersistItemType in a URLRequest header indicates to the system that we want to reference the persistent cache for the use of passing through Etags (If-None-Match) and falling back on a cached response (or other variant of) in the case of a urlSession error.
     //pass PersistItemType header value urlRequest headers to gain different behaviors on how a request interacts with the cache, such as:
         //for reading:
@@ -155,7 +155,7 @@ private extension PermanentlyPersistableURLCache {
 
 extension PermanentlyPersistableURLCache {
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
-        guard let url = urlRequest.url,
+        guard let url = urlRequest.cacheURL,
             let type = typeFromURLRequest(urlRequest: urlRequest) else {
             return nil
         }
@@ -164,7 +164,7 @@ extension PermanentlyPersistableURLCache {
     }
     
     func variantForURLRequest(_ urlRequest: URLRequest) -> String? {
-        guard let url = urlRequest.url,
+        guard let url = urlRequest.cacheURL,
             let type = typeFromURLRequest(urlRequest: urlRequest) else {
             return nil
         }
@@ -256,7 +256,7 @@ extension PermanentlyPersistableURLCache {
     
     func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String? {
         
-        guard let url = urlRequest.url,
+        guard let url = urlRequest.cacheURL,
             let type = typeFromURLRequest(urlRequest: urlRequest) else {
             return nil
         }
@@ -328,7 +328,7 @@ extension PermanentlyPersistableURLCache {
     
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
-        guard let url = urlRequest.url else {
+        guard let url = urlRequest.cacheURL else {
             failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest)
             return
         }
@@ -419,7 +419,7 @@ extension PermanentlyPersistableURLCache {
     //Bundled migration only - copies files into cache
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
         
-        guard let url = urlRequest.url else {
+        guard let url = urlRequest.cacheURL else {
             completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest))
             return
         }
@@ -547,7 +547,7 @@ extension PermanentlyPersistableURLCache {
 private extension PermanentlyPersistableURLCache {
     
     func permanentlyCachedHeaders(for request: URLRequest) -> [String: String]? {
-        guard let url = request.url,
+        guard let url = request.cacheURL,
             let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
             let type = Header.PersistItemType(rawValue: typeRaw) else {
                 return nil
@@ -582,7 +582,7 @@ private extension PermanentlyPersistableURLCache {
     
     func persistedResponseWithURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? {
         
-        guard let url = urlRequest.url,
+        guard let url = urlRequest.cacheURL,
             let typeRaw = urlRequest.allHTTPHeaderFields?[Header.persistentCacheItemType],
             let type = Header.PersistItemType(rawValue: typeRaw) else {
                 return nil
@@ -643,7 +643,7 @@ private extension PermanentlyPersistableURLCache {
     
     func fallbackPersistedResponse(urlRequest: URLRequest, moc: NSManagedObjectContext) -> CachedURLResponse? {
         
-        guard let url = urlRequest.url,
+        guard let url = urlRequest.cacheURL,
             let typeRaw = urlRequest.allHTTPHeaderFields?[Header.persistentCacheItemType],
             let type = Header.PersistItemType(rawValue: typeRaw),
             let itemKey = itemKeyForURL(url, type: type) else {
@@ -695,7 +695,8 @@ public extension HTTPURLResponse {
 public extension URLRequest {
     static let ifNoneMatchHeaderKey = "If-None-Match"
     static let customCachePolicyHeaderKey = "Custom-Cache-Policy"
-    
+    static let customCacheURL = "Custom-Cache-URL"
+
     var prefersPersistentCacheOverError: Bool {
         get {
             if let customCachePolicyValue = allHTTPHeaderFields?[URLRequest.customCachePolicyHeaderKey],
@@ -711,6 +712,22 @@ public extension URLRequest {
             setValue(value, forHTTPHeaderField: URLRequest.customCachePolicyHeaderKey)
         }
         
+    }
+    
+    var customCacheURL: URL? {
+        get {
+            guard let urlString = allHTTPHeaderFields?[URLRequest.customCacheURL] else {
+                return nil
+            }
+            return URL(string: urlString)
+        }
+        set {
+            setValue(newValue?.absoluteString, forHTTPHeaderField: URLRequest.customCacheURL)
+        }
+    }
+    
+    var cacheURL: URL? {
+        return customCacheURL ?? url
     }
 }
 
