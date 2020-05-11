@@ -520,8 +520,8 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     
-    func showError(_ error: Error) {
-        alertManager.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
+    func showError(_ error: Error, sticky: Bool = false) {
+        alertManager.showErrorAlert(error, sticky: sticky, dismissPreviousAlerts: false)
     }
     
     func showGenericError() {

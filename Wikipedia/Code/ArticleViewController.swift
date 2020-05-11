@@ -590,7 +590,7 @@ class ArticleViewController: ViewController, HintPresenting {
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    self.showError(error)
+                    self.showError(error, sticky: true)
                     fallthrough
                 default:
                     self.performWebViewRefresh()
