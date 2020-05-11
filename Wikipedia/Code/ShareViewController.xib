@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="ipad9_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -65,7 +62,7 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCO-jP-6OH">
-                    <rect key="frame" x="40" y="318.5" width="688" height="387.5"/>
+                    <rect key="frame" x="192" y="404" width="384" height="216"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="VCO-jP-6OH" secondAttribute="height" multiplier="640:360" priority="999" id="DEC-yr-Hkh"/>
                     </constraints>
@@ -73,17 +70,18 @@
             </subviews>
             <constraints>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3Fp-9h-943"/>
+                <constraint firstItem="VCO-jP-6OH" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" priority="900" id="74X-Oh-XuR"/>
                 <constraint firstItem="VCO-jP-6OH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="fOe-1X-u3N">
                     <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                 </constraint>
-                <constraint firstItem="VCO-jP-6OH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="pts-Rp-spr">
+                <constraint firstItem="VCO-jP-6OH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" priority="850" constant="20" id="pts-Rp-spr">
                     <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                 </constraint>
                 <constraint firstItem="wRv-BJ-5qn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qQ9-b1-NjJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wRv-BJ-5qn" secondAttribute="bottom" constant="27" id="qjr-7Q-Too"/>
                 <constraint firstItem="VCO-jP-6OH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ti2-dt-KuC"/>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wa7-w2-dmH"/>
-                <constraint firstAttribute="trailing" secondItem="VCO-jP-6OH" secondAttribute="trailing" constant="20" id="y1x-Ia-icC">
+                <constraint firstAttribute="trailing" secondItem="VCO-jP-6OH" secondAttribute="trailing" priority="850" constant="20" id="y1x-Ia-icC">
                     <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                 </constraint>
                 <constraint firstItem="VCO-jP-6OH" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="zjX-56-tnT"/>
@@ -91,7 +89,13 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="74X-Oh-XuR"/>
                     <exclude reference="fOe-1X-u3N"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=regular">
+                <mask key="constraints">
+                    <include reference="74X-Oh-XuR"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="33" y="54"/>

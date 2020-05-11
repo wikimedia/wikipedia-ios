@@ -106,7 +106,7 @@ class ShareViewController: UIViewController, Themeable {
         activityItems.append(itemProvider)
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = view
-        activityVC.popoverPresentationController?.sourceRect = imageView.frame
+        activityVC.popoverPresentationController?.permittedArrowDirections = .up
         activityVC.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
@@ -115,8 +115,9 @@ class ShareViewController: UIViewController, Themeable {
                 self.imageViewTopConstraint.isActive = true
                 self.imageViewVerticallyCenteredConstraint.isActive = false
                 self.view.layoutIfNeeded()
-            }, completion: nil)
-            self.present(activityVC, animated: true, completion: nil)
+            }, completion: { _ in
+                activityVC.popoverPresentationController?.sourceRect = self.imageView.frame
+                self.present(activityVC, animated: true, completion: nil)})
         })
     }
 
