@@ -206,6 +206,10 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
 
 extension ArticleViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        if gestureRecognizer === referenceWebViewBackgroundTapGestureRecognizer {
+            return true
+        }
+        
+        return false //default
     }
 }
