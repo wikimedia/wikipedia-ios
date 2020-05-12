@@ -166,7 +166,7 @@
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
 "description-add-title" = "Añadir descripción";
 "description-edit-for-article" = "Descripción de título para $1";
-"description-edit-learn-more" = "Aprende más";
+"description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Al cambiar la descripción del título, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
 "description-edit-pencil-introduction" = "Editar introducción";
@@ -273,7 +273,7 @@
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
-"edit-summary-learn-more-text" = "Aprende más";
+"edit-summary-learn-more-text" = "Más información";
 "edit-summary-placeholder-text" = "¿Cómo has mejorado el artículo?";
 "edit-superscript-accessibility-label" = "Añadir superíndice";
 "edit-superscript-remove-accessibility-label" = "Quitar superíndice";

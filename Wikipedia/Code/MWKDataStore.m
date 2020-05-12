@@ -452,7 +452,7 @@ static uint64_t bundleHash() {
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
-- (void)performLibraryUpdates:(dispatch_block_t)completion {
+- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
     dispatch_block_t combinedCompletion = ^{
         [WMFImageCacheControllerWrapper performLibraryUpdates:^(NSError * _Nullable error) {
             if (error) {
@@ -476,6 +476,8 @@ static uint64_t bundleHash() {
         combinedCompletion();
         return;
     }
+    
+    needsMigrateBlock();
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
         combinedCompletion();

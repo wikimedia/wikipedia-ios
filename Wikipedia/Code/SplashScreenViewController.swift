@@ -20,8 +20,7 @@ class SplashScreenViewController: ThemeableViewController {
         setupSplashView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func triggerMigratingAnimation() {
         perform(#selector(showLoadingAnimation), with: nil, afterDelay: SplashScreenViewController.maximumNonInteractiveTimeInterval)
     }
     
@@ -89,7 +88,7 @@ class SplashScreenViewController: ThemeableViewController {
        return LoadingAnimationViewController(nibName: "LoadingAnimationViewController", bundle: nil)
     }()
     
-    @objc func showLoadingAnimation() {
+    @objc private func showLoadingAnimation() {
         loadingAnimationShowTime = CFAbsoluteTimeGetCurrent()
         wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view, belowSubview: splashView)
         UIView.animate(withDuration: SplashScreenViewController.crossFadeAnimationDuration) {
