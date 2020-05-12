@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>FILEHEADER</key>
-	<string></string>
+	<string>~~~**DELETE THIS HEADER**~~~</string>
 </dict>
 </plist>
