@@ -51,9 +51,8 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 @property (readonly, strong, nonatomic) NSURL *containerURL;
 
-- (void)performLibraryUpdates:(dispatch_block_t)completion;
+- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock;
 - (void)performInitialLibrarySetup;
-- (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc;
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
