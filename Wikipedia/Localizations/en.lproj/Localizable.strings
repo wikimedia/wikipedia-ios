@@ -120,6 +120,7 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"data-migration-status" = "Updating...";
 "description-add-title" = "Add description";
 "description-edit-for-article" = "Title description for $1";
 "description-edit-learn-more" = "Learn more";
@@ -760,6 +761,7 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
+"table-of-contents-subheading-label" = "Subheading $1";
 "talk-page-add-discussion-accessibility-label" = "Add discussion";
 "talk-page-discussion-accessibility-hint" = "Double tap to open discussion thread";
 "talk-page-discussion-read-accessibility-label" = "Read";

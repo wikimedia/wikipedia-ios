@@ -26,8 +26,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showImage(src: src, href: href, width: width, height: height)
         case .addTitleDescription:
             showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
-        case .pronunciation(let url):
-            showAudio(with: url)
         case .scrollToAnchor(let anchor, let rect):
             scrollToAnchorCompletions.popLast()?(anchor, rect)
         case .viewInBrowser:
@@ -53,9 +51,10 @@ extension ArticleViewController: ArticleWebMessageHandling {
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
+        surveyTimerController.articleContentDidLoad()
     }
     
-    func handlePCSDidFinishFinalSetup() {
+    @objc func handlePCSDidFinishFinalSetup() {
         articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
         addToHistory()

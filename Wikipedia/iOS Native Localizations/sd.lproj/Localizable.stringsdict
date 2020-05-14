@@ -316,6 +316,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>ڪالھ</string>
 			<key>other</key>
 			<string>%1$d ڏينھن اڳ</string>
 			<key>zero</key>
@@ -368,6 +370,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>گذريل سال</string>
 			<key>other</key>
 			<string>%1$d سالَ اڳ</string>
 			<key>zero</key>

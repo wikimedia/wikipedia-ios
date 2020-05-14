@@ -95,8 +95,9 @@ public class Configuration: NSObject {
         static let wikimedia = "wikimedia.org"
         static let metaWiki = "meta.wikimedia.org"
         static let wikimediafoundation = "wikimediafoundation.org"
+        static let uploads = "upload.wikimedia.org"
     }
-   
+    
     struct Path {
         static let wikiResourceComponent = ["wiki"]
         static let restBaseAPIComponents = ["api", "rest_v1"]

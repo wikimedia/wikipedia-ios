@@ -1,6 +1,8 @@
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-        if let descriptionSource = descriptionSource {
+        // Only show the option sheet if the description is from Wikidata (descriptionSource == .central)
+        // Otherwise it needs to be changed in the section editor by editing the {{Short description}} template
+        if let descriptionSource = descriptionSource, descriptionSource == .central {
             showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
@@ -40,8 +42,12 @@ extension ArticleViewController {
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
+        guard let wikidataID = article.wikidataID else {
+            showGenericError()
+            return
+        }
         editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
-        let editVC = DescriptionEditViewController.with(articleURL: articleURL, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
+        let editVC = DescriptionEditViewController.with(articleURL: articleURL, wikidataID: wikidataID, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
         editVC.delegate = self
         editVC.editFunnel = editFunnel
         editVC.editFunnelSource = funnelSource

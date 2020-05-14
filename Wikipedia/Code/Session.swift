@@ -43,6 +43,7 @@ public enum WMFCachePolicy {
         public enum Encoding {
             case json
             case form
+            case html
         }
     }
     
@@ -51,12 +52,14 @@ public enum WMFCachePolicy {
         let data: ((Data) -> Void)?
         let success: (() -> Void)
         let failure: ((Error) -> Void)
+        let cacheFallbackError: ((Error) -> Void)? //Extra handling block when session signals a success and returns data because it's leaning on cache, but actually reached a server error.
         
-        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void, cacheFallbackError: ((Error) -> Void)?) {
             self.response = response
             self.data = data
             self.success = success
             self.failure = failure
+            self.cacheFallbackError = cacheFallbackError
         }
     }
     
@@ -171,7 +174,7 @@ public enum WMFCachePolicy {
         return request(with: requestURL, method: .get)
     }
 
-    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:]) -> URLRequest? {
+    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:]) -> URLRequest {
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
         let defaultHeaders = [
@@ -211,6 +214,12 @@ public enum WMFCachePolicy {
             let queryString = URLComponents.percentEncodedQueryStringFrom(bodyParametersDictionary)
             request.httpBody = queryString.data(using: String.Encoding.utf8)
             request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        case .html:
+            guard let body = bodyParameters as? String else {
+                break
+            }
+            request.httpBody = body.data(using: .utf8)
+            request.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
         return request
     }
@@ -219,10 +228,8 @@ public enum WMFCachePolicy {
         guard let url = url else {
             return nil
         }
-        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
-            return nil
-        }
-        return jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        let dictionaryRequest = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding)
+        return jsonDictionaryTask(with: dictionaryRequest, completionHandler: completionHandler)
     }
     
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
@@ -283,11 +290,8 @@ public enum WMFCachePolicy {
         guard let url = url else {
             return nil
         }
-        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers) else {
-            return nil
-        }
-        
-        let task = defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
+        let dataRequest = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers)
+        let task = defaultURLSession.dataTask(with: dataRequest, completionHandler: completionHandler)
         task.priority = priority
         return task
     }
@@ -358,10 +362,7 @@ public enum WMFCachePolicy {
                 handleErrorResponse()
                 return
             }
-//            #if DEBUG
-//                let stringData = String(data: data, encoding: .utf8)
-//                DDLogDebug("codable response:\n\(String(describing:response?.url)):\n\(String(describing: stringData))")
-//            #endif
+            
             do {
                 let result: T = try self.jsonDecodeData(data: data)
                 completionHandler(result, nil, response, error)
@@ -500,14 +501,11 @@ public enum WMFCachePolicy {
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
-        guard var request = self.request(with: url, method: .get) else {
-            completionHandler(nil, nil, RequestError.invalidParameters)
-            return nil
-        }
+        var getRequest = request(with: url, method: .get)
         if ignoreCache {
-            request.cachePolicy = .reloadIgnoringLocalCacheData
+            getRequest.cachePolicy = .reloadIgnoringLocalCacheData
         }
-        let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        let task = jsonDictionaryTask(with: getRequest, completionHandler: completionHandler)
         task.resume()
         return task
     }
@@ -526,11 +524,8 @@ public enum WMFCachePolicy {
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
-        guard let request = self.request(with: url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form) else {
-            completionHandler(nil, nil, RequestError.invalidParameters)
-            return nil
-        }
-        let task = jsonDictionaryTask(with: request, reattemptLoginOn401Response: reattemptLoginOn401Response, completionHandler: completionHandler)
+        let postRequest = request(with: url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form)
+        let task = jsonDictionaryTask(with: postRequest, reattemptLoginOn401Response: reattemptLoginOn401Response, completionHandler: completionHandler)
         task.resume()
         return task
     }
@@ -554,7 +549,7 @@ extension Session {
         
         let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
         
-        if let headerFields = sessionRequest?.allHTTPHeaderFields {
+        if let headerFields = sessionRequest.allHTTPHeaderFields {
             for (key, value) in headerFields {
                 permanentCacheRequest.addValue(value, forHTTPHeaderField: key)
             }
@@ -650,16 +645,31 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
-        if let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 304 {
+        if let httpResponse = response as? HTTPURLResponse {
+            
+            var shouldCheckPersistentCache = false
+            if httpResponse.statusCode == 304 {
+                shouldCheckPersistentCache = true
+            }
+            
+            if let request = dataTask.originalRequest,
+                request.prefersPersistentCacheOverError && httpResponse.statusCode != 200 {
+                shouldCheckPersistentCache = true
+            }
             
             let taskIdentifier = dataTask.taskIdentifier
-            if let callback = callbacks[taskIdentifier],
+            if shouldCheckPersistentCache,
+                let callback = callbacks[taskIdentifier],
                 let request = dataTask.originalRequest,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                 callback.response?(cachedResponse.response)
                 callback.data?(cachedResponse.data)
                 callback.success()
+                
+                if httpResponse.statusCode != 304 {
+                    callback.cacheFallbackError?(RequestError.http(httpResponse.statusCode))
+                }
+                
                 callbacks.removeValue(forKey: taskIdentifier)
             }
         }

@@ -39,6 +39,7 @@
 // Author: Ping08
 // Author: Redredsonia
 // Author: Saimongoltinio
+// Author: Stjn
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -105,11 +106,14 @@
 "action-language-accessibility" = "изменение языка";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
+"action-next-revision-accessibility" = "Следующая версия";
+"action-previous-revision-accessibility" = "Предыдущая версия";
 "action-read" = "Читать";
 "action-redo" = "Повторить";
 "action-remove" = "Удалить";
 "action-replace" = "Заменить";
 "action-replace-all" = "Заменить все";
+"action-retry" = "Повторить";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
@@ -117,6 +121,7 @@
 "action-share" = "Поделиться";
 "action-share-accessibility" = "Поделиться";
 "action-sort" = "Сортировать";
+"action-thank-user-accessibility" = "Поблагодарить участника";
 "action-undo" = "Отменить";
 "action-unsave" = "Не сохранено";
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
@@ -136,12 +141,14 @@
 "appearance-settings-set-automatic-table-opening" = "Настройки таблиц";
 "appearance-settings-text-sizing-example-text" = "Передвигайте ползунок, изменяя размер шрифта. Это приведёт к изменению размеров текстовых блоков приложения.";
 "appearance-settings-theme-options" = "Настройки темы оформления";
+"article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|статья|статьи}} удалена";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
 "article-languages-yours" = "Ваши языки";
+"article-read-more-title" = "Подробнее";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
@@ -204,6 +211,8 @@
 "diff-paragraph-moved-direction-up" = "вверх";
 "diff-single-header-editor-number-edits-format" = "$1 {{PLURAL:$1|правка|правки|правок}}";
 "diff-single-header-summary-heading" = "Описание изменений";
+"diff-single-line-format" = "Строка $1";
+"diff-thanks-anonymous-no-thanks" = "Анонимным участникам нельзя отправлять благодарности";
 "diff-thanks-send-button-title" = "Отправить благодарность";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
@@ -354,7 +363,7 @@
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка «Настройки» будет заменена вкладкой «Лента». Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Включить «Ленту»?";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
-"explore-main-page-description" = "Главная страница проектов Викимедиа";
+"explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-most-read-footer" = "Все самые читаемые статьи";
 "explore-most-read-generic-heading" = "Самые читаемые";
@@ -525,6 +534,8 @@
 "page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-history-title" = "История изменений";
 "page-history-revision-minor-edit-accessibility-label" = "Малая правка";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|Добавлен $1 байт|Добавлено $1 байта|Добавлено $1 байтов}}";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Удалён $1 байт|Удалено $1 байта|Удалено $1 байтов}}";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
@@ -651,8 +662,14 @@
 "reading-themes-controls-syntax-highlighting" = "Подсветка синтаксиса";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|1=Вчера|$1 дней назад|$1 дня назад}}";
+"relative-date-hours-abbreviated" = "$1ч";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
+"relative-date-hours-ago-abbreviated" = "$1ч назад";
+"relative-date-minutes-abbreviated" = "$1м";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
+"relative-date-minutes-ago-abbreviated" = "$1м назад";
+"relative-date-seconds-abbreviated" = "$1с";
+"relative-date-seconds-ago-abbreviated" = "$1с назад";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|one=$1 год назад|few=$1 года назад|many=$1 лет назад}}";
 "replace-button-accessibility" = "Выполнение операции \"$1\".";
 "replace-buttons-replace-accessibility" = "Заменить одно вхождение";
@@ -798,6 +815,7 @@
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
+"unknown-generic-text" = "Неизвестно";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";

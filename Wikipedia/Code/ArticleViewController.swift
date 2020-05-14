@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController {    
+class ArticleViewController: ViewController, HintPresenting {
     enum ViewState {
         case initial
         case loading
@@ -37,23 +37,35 @@ class ArticleViewController: ViewController {
     
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: ArticleCacheController
+    let surveyTimerController: ArticleSurveyTimerController
     
     let session = Session.shared
     let configuration = Configuration.current
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
-    internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
 
     private var leadImageHeight: CGFloat = 210
 
     private var contentSizeObservation: NSKeyValueObservation? = nil
+
+    /// Used to delay reloading the web view to prevent `UIScrollView` jitter
+    fileprivate var shouldPerformWebRefreshAfterScrollViewDeceleration = false
+
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
     }()
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+    lazy var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer = {
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(tappedWebViewBackground))
+        tapGR.delegate = self
+        webView.scrollView.addGestureRecognizer(tapGR)
+        tapGR.isEnabled = false
+        return tapGR
+    }()
+    
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler = SchemeHandler.shared) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = ArticleCacheController.shared
@@ -67,9 +79,10 @@ class ArticleViewController: ViewController {
         
         self.dataStore = dataStore
 
-        self.schemeHandler = SchemeHandler.shared
-
+        self.schemeHandler = schemeHandler
         self.cacheController = cacheController
+
+        self.surveyTimerController = ArticleSurveyTimerController(articleURL: articleURL, surveyController: SurveyAnnouncementsController.shared)
         
         super.init(theme: theme)
     }
@@ -95,6 +108,10 @@ class ArticleViewController: ViewController {
     lazy var webView: WKWebView = {
         return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
+    
+    // MARK: HintPresenting
+    
+    var hintController: HintController?
     
     // MARK: Find In Page
     
@@ -172,6 +189,15 @@ class ArticleViewController: ViewController {
         containerView.addSubview(borderView)
         return containerView
     }()
+
+    lazy var refreshOverlay: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        view.backgroundColor = .black
+        view.isUserInteractionEnabled = true
+        return view
+    }()
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -211,7 +237,7 @@ class ArticleViewController: ViewController {
     
     // MARK: Loading
     
-    internal var state: ViewState = .initial {
+    var state: ViewState = .initial {
         didSet {
             switch state {
             case .initial:
@@ -242,6 +268,9 @@ class ArticleViewController: ViewController {
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         apply(theme: theme)
         setupForStateRestorationIfNecessary()
+        surveyTimerController.timerFireBlock = { [weak self] result in
+            self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -250,6 +279,7 @@ class ArticleViewController: ViewController {
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
+        surveyTimerController.viewWillAppear(withState: state)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -277,6 +307,7 @@ class ArticleViewController: ViewController {
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        surveyTimerController.viewWillDisappear(withState: state)
     }
     
     // MARK: Article load
@@ -528,11 +559,27 @@ class ArticleViewController: ViewController {
     // MARK: Refresh
     
     @objc public func refresh() {
-        #if DEBUG // on debug builds, reload everything including JS and CSS
+        if !shouldPerformWebRefreshAfterScrollViewDeceleration {
+            updateRefreshOverlay(visible: true)
+        }
+        shouldPerformWebRefreshAfterScrollViewDeceleration = true
+    }
+
+    internal func performWebViewRefresh() {
+        #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
             loadPage(cachePolicy: .noPersistentCacheOnError)
         #endif
+    }
+
+    internal func updateRefreshOverlay(visible: Bool, animated: Bool = true) {
+        let duration = animated ? (visible ? 0.15 : 0.1) : 0.0
+        let alpha: CGFloat = visible ? 0.3 : 0.0
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: [.curveEaseIn], animations: {
+            self.refreshOverlay.alpha = alpha
+        })
+        toolbarController.setToolbarButtons(enabled: !visible)
     }
     
     // MARK: Overrideable functionality
@@ -705,6 +752,17 @@ class ArticleViewController: ViewController {
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         dismissReferencesPopover()
+        hintController?.dismissHintDueToUserInteraction()
+    }
+
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndDecelerating(scrollView)
+        if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            webView.scrollView.showsVerticalScrollIndicator = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self.performWebViewRefresh()
+            })
+        }
     }
     
     // MARK: Analytics
@@ -753,10 +811,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        surveyTimerController.willResignActive(withState: state)
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
+        surveyTimerController.didBecomeActive(withState: state)
     }
     
     func setupSearchButton() {
@@ -782,6 +842,9 @@ private extension ArticleViewController {
         
         // Lead image
         setupLeadImageView()
+
+        // Add overlay to prevent interaction while reloading
+        webView.wmf_addSubviewWithConstraintsToEdges(refreshOverlay)
         
         // Delegates
         webView.uiDelegate = self
@@ -882,6 +945,7 @@ extension ArticleViewController {
         }
         showError(error)
         refreshControl.endRefreshing()
+        updateRefreshOverlay(visible: false)
     }
     
     func articleLoadDidFail(with error: Error) {
@@ -950,6 +1014,15 @@ extension ArticleViewController: WKNavigationDelegate {
         // Re-load the content in this case to show it again
         webView.reload()
     }
+
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        if shouldPerformWebRefreshAfterScrollViewDeceleration {
+            updateRefreshOverlay(visible: false)
+            webView.scrollView.showsVerticalScrollIndicator = true
+            shouldPerformWebRefreshAfterScrollViewDeceleration = false
+        }
+    }
+
 }
 
 extension ViewController {

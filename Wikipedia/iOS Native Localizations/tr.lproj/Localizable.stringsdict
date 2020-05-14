@@ -397,33 +397,6 @@
 			<string>Listeleri</string>
 		</dict>
 	</dict>
-	<key>reading-lists-large-sync-completed</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ve %#@v2@ hesabınızdan senkronize edildi</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d makale</string>
-			<key>other</key>
-			<string>%1$d makale</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d okuma listesi</string>
-			<key>other</key>
-			<string>%2$d okuma listesi</string>
-		</dict>
-	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -434,6 +407,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Dün</string>
 			<key>other</key>
 			<string>%1$d gün önce</string>
 			<key>zero</key>
@@ -486,6 +461,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Geçen ay</string>
 			<key>other</key>
 			<string>%1$d ay önce</string>
 			<key>zero</key>
@@ -502,6 +479,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Geçen yıl</string>
 			<key>other</key>
 			<string>%1$d yıl önce</string>
 			<key>zero</key>

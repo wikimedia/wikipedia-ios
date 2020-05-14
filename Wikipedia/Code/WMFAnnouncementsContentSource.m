@@ -62,6 +62,7 @@
             }];
         }
         success:^(NSArray<WMFAnnouncement *> *announcements) {
+            
             [self saveAnnouncements:announcements
                 inManagedObjectContext:moc
                             completion:^{
@@ -97,6 +98,7 @@
             }
         }];
 
+        [[WMFSurveyAnnouncementsController shared] setAnnouncements:announcements forSiteURL:self.siteURL];
         if (completion) {
             completion();
         }
@@ -127,9 +129,10 @@
 
     // Workaround for the great fundraising mystery of 2019: https://phabricator.wikimedia.org/T247554
     // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
+    //also deleting SURVEY20 because we want to bypass persistence and only consider in online mode
     NSArray *announcements = [moc contentGroupsOfKind:WMFContentGroupKindAnnouncement];
     for (WMFContentGroup *announcement in announcements) {
-        if (![announcement.key containsString:@"FUNDRAISING19"]) {
+        if (![announcement.key containsString:@"FUNDRAISING19"] && ![announcement.key containsString:@"SURVEY20"]) {
             continue;
         }
         [moc deleteObject:announcement];

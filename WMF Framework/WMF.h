@@ -56,12 +56,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKRecentSearchEntry.h>
 #import <WMF/MWKRecentSearchList.h>
 
-#import <WMF/WMFImageTagParser.h>
-#import <WMF/WMFImageTag.h>
-#import <WMF/WMFImageTag+TargetImageWidthURL.h>
-#import <WMF/WMFImageTagList.h>
-#import <WMF/WMFImageTagList+ImageURLs.h>
-
 #import <WMF/MWLanguageInfo.h>
 
 #import <WMF/MWKImageInfo.h>
@@ -96,6 +90,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
 #import <WMF/WMFRandomContentSource.h>
+#import <WMF/WMFAnnouncementsContentSource.h>
 
 #import <WMF/WMFFeedContentFetcher.h>
 #import <WMF/WMFFeedDayResponse.h>

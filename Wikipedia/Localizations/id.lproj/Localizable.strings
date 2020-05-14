@@ -16,6 +16,7 @@
 // Author: Kenrick95
 // Author: Macofe
 // Author: Mas ady
+// Author: Naufal06
 // Author: Nemo bis
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
@@ -67,21 +68,26 @@
 "account-creation-passwords-mismatched" = "Kolom kata sandi tidak cocok.";
 "account-creation-saving" = "Sedang menyimpan...";
 "account-creation-title" = "Buat akun baru";
+"account-group-title" = "Akun Anda";
+"account-talk-page-title" = "Halaman pembicaraan Anda";
 "action-add-to" = "Tambahkan ke...";
 "action-add-to-reading-list" = "Tambahkan ke daftar bacaan";
 "action-add-to-reading-list-short" = "Tambah ke daftar";
 "action-cancel" = "Batal";
 "action-find-in-page" = "Cari di halaman";
+"action-language-accessibility" = "Ubah bahasa";
 "action-move-to" = "Pindahkan ke...";
 "action-move-to-reading-list" = "Pindahkan ke daftar bacaan";
 "action-read" = "Baca";
 "action-redo" = "Ulangi";
 "action-remove" = "Hapus";
+"action-retry" = "Coba lagi";
 "action-save" = "Simpan";
 "action-saved" = "Tersimpan";
 "action-saved-accessibility" = "Disimpan. Aktifkan untuk tidak menyimpannya.";
 "action-saved-accessibility-notification" = "Artikel tersimpan untuk nanti";
 "action-share" = "Bagikan";
+"action-share-accessibility" = "Bagikan";
 "action-sort" = "Urutkan";
 "action-undo" = "Urungkan";
 "action-unsave" = "Jangan simpan";
@@ -123,6 +129,7 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Hapus";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
@@ -162,6 +169,10 @@
 "description-welcome-descriptions-title" = "Deskripsi judul";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
+"diff-compare-header-from-info-heading" = "Dari:";
+"diff-paragraph-moved-direction-down" = "turun";
+"diff-paragraph-moved-direction-up" = "naik";
+"diff-paragraph-moved-distance-line" = "$1 baris";
 "dim-images" = "Redupkan gambar";
 "edit-bold-accessibility-label" = "Tambahkan pemformatan tebal";
 "edit-bold-remove-accessibility-label" = "Hapus pemformatan tebal";

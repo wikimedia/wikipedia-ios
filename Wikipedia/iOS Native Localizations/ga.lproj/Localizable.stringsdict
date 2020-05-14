@@ -44,6 +44,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Inné</string>
 			<key>other</key>
 			<string>%1$d lá ó shin</string>
 			<key>zero</key>
@@ -96,6 +98,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>I mbliana</string>
 			<key>other</key>
 			<string>%1$d bliana ó shin</string>
 			<key>zero</key>

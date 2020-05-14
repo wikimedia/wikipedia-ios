@@ -332,6 +332,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Eilen</string>
 			<key>other</key>
 			<string>%1$d päivää sitten</string>
 			<key>zero</key>
@@ -384,6 +386,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Viime kuussa</string>
 			<key>other</key>
 			<string>%1$d kuukautta sitten</string>
 			<key>zero</key>
@@ -400,6 +404,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Viime vuonna</string>
 			<key>other</key>
 			<string>%1$d vuotta sitten</string>
 			<key>zero</key>

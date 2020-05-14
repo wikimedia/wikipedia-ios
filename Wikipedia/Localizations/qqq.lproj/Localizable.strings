@@ -120,6 +120,7 @@
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"data-migration-status" = "Message displayed during a long running data migration.";
 "description-add-title" = "Title text for description addition screen";
 "description-edit-for-article" = "String describing which article title description is being edited. $1 is replaced with the article title";
 "description-edit-learn-more" = "Title text for description editing learn more button";
@@ -760,6 +761,7 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents {{Identical|Content}}";
 "table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
+"table-of-contents-subheading-label" = "VoiceOver label to indicate level of subheading in table of contents. $1 is replaced by the level of subheading.";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
 "talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that a discussion's contents have been read.";
