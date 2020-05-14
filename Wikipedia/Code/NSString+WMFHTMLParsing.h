@@ -65,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param color Text color
  * @param linkColor Link color
  * @param linkBaseURL Base URL for parsed links
+ * @param handlingLinks Whether or not link tags should be parsed
  * @param handlingLists Whether or not list tags should be parsed
  * @param handlingSuperSubscripts whether or not super and subscript should be parsed
  * @param withAdditionalBoldingForMatchingSubstring   String to match for additional bolding
@@ -78,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                      boldItalicFont:(nullable UIFont *)boldItalicFont
                                                               color:(nullable UIColor *)color
                                                           linkColor:(nullable UIColor *)color
+                                                      handlingLinks:(BOOL)handlingLinks
                                                       handlingLists:(BOOL)handlingLists
                                             handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
                           withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold
