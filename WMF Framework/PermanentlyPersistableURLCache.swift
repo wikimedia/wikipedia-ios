@@ -90,6 +90,7 @@ extension PermanentlyPersistableURLCache {
                 request.cachePolicy = cachePolicy
                 request.prefersPersistentCacheOverError = true
             case .noPersistentCacheOnError:
+                request.cachePolicy = .reloadIgnoringLocalCacheData
                 request.prefersPersistentCacheOverError = false
             }
         }
