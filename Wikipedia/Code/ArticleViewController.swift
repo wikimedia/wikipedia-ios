@@ -382,8 +382,7 @@ class ArticleViewController: ViewController, HintPresenting {
             state = .error
             return
         }
-        
-        
+                
         webView.load(request)
     }
     
