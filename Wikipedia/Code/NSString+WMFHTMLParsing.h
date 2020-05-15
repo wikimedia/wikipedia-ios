@@ -49,29 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nonnull NSString *)wmf_stringByRemovingHTML;
 
 /**
- *  Converts HTML string with <i></i> and <b></b> tags to NSAttributedString with the specified italic and bold fonts. Optionally bolds an additional string based on matching.
- *  Please don't remove this and convert to alloc/init'ing the attributed string with @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
- *  It's slower and was the source of crashes in the past. https://developer.apple.com/documentation/foundation/nsattributedstring/1524613-initwithdata
- */
-
-/**
- *  Converts HTML string with <i></i> and <b></b> tags to NSAttributedString with the specified italic and bold fonts. Optionally bolds an additional string based on matching.
- *  @discussion Please don't remove this and convert to alloc/init'ing the attributed string with @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} It's slower and was the source of crashes in the past. https://developer.apple.com/documentation/foundation/nsattributedstring/1524613-initwithdata
- *
- * @param font           Base font for the returned attributed string
- * @param boldFont       Bold font for the returned attribued string
- * @param italicFont     Italic font for the returned attributed string
- * @param boldItalicFont Bold & italic font for the returned attributed string
- * @param color Text color
- * @param linkColor Link color
- * @param linkBaseURL Base URL for parsed links
- * @param handlingLinks Whether or not link tags should be parsed
- * @param handlingLists Whether or not list tags should be parsed
- * @param handlingSuperSubscripts whether or not super and subscript should be parsed
- * @param withAdditionalBoldingForMatchingSubstring   String to match for additional bolding
- * @param tagMapping     Lowercase string tag name to another lowercase string tag name - converts tags, for example, @{@"a":@"b"} will turn <a></a> tags to <b></b> tags
- * @param additionalTagAttributes Additional text attributes for given tags - lowercase tag name to attribute key/value pairs
- * @return attributed string
+ * DEPRECATION WARNING: Utilize byAttributingString in String+HTML.swift for all new HTML --> NSAttributedString conversions. Only use this if absolutely necessary from Objective-C.
  */
 - (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font
                                                            boldFont:(nullable UIFont *)boldFont
@@ -82,14 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                       handlingLinks:(BOOL)handlingLinks
                                                       handlingLists:(BOOL)handlingLists
                                             handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
-                          withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold
                                                          tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
                                             additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
-
-/*
- * Convienence method for the method above.
- */
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
 
 @end
 
