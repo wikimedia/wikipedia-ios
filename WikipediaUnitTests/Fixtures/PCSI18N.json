@@ -1,0 +1,31 @@
+{
+  "locale": "en",
+  "messages": {
+    "en": {
+      "description-add-link-title": "Add title description",
+      "article-read-more-title": "Read more",
+      "table-title-other": "More information",
+      "page-edit-history": "View edit history",
+      "info-box-close-text": "Close",
+      "page-talk-page-subtitle": "Discuss improvements to this article",
+      "page-issues-subtitle": "Alerts about subpar or problematic content",
+      "page-talk-page": "View talk page",
+      "info-box-title": "Quick Facts",
+      "view-in-browser-footer-link": "View article in browser",
+      "page-location": "View on a map",
+      "page-similar-titles": "Similar pages",
+      "page-last-edited": "{{PLURAL:$1|Updated yesterday|Updated $1 days ago|0=Updated today}}",
+      "article-about-title": "About this article",
+      "page-issues": "Page issues",
+      "license-footer-name": "CC BY-SA 3.0",
+      "license-footer-text": "Content is available under $1 unless otherwise noted.",
+      "page-read-in-other-languages": "Available in {{PLURAL:$1|$1 other language|$1 other languages}}",
+      "article-edit-button": "Edit section",
+      "article-edit-protected-button": "Edit section on protected page",
+      "article-section-expand": "Expand section",
+      "article-section-collapse": "Collapse section",
+      "table-expand": "Expand table",
+      "table-collapse": "Collapse table"
+    }
+  }
+}

@@ -23,6 +23,7 @@ public enum WMFCachePolicy {
             case post
             case put
             case delete
+            case head
 
             var stringValue: String {
                 switch self {
@@ -32,6 +33,8 @@ public enum WMFCachePolicy {
                     return "PUT"
                 case .delete:
                     return "DELETE"
+                case .head:
+                    return "HEAD"
                 case .get:
                     fallthrough
                 default:
@@ -52,12 +55,14 @@ public enum WMFCachePolicy {
         let data: ((Data) -> Void)?
         let success: (() -> Void)
         let failure: ((Error) -> Void)
+        let cacheFallbackError: ((Error) -> Void)? //Extra handling block when session signals a success and returns data because it's leaning on cache, but actually reached a server error.
         
-        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void, cacheFallbackError: ((Error) -> Void)?) {
             self.response = response
             self.data = data
             self.success = success
             self.failure = failure
+            self.cacheFallbackError = cacheFallbackError
         }
     }
     
@@ -172,9 +177,12 @@ public enum WMFCachePolicy {
         return request(with: requestURL, method: .get)
     }
 
-    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:]) -> URLRequest {
+    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
+        if let cachePolicy = cachePolicy {
+            request.cachePolicy = cachePolicy
+        }
         let defaultHeaders = [
             "Accept": "application/json; charset=utf-8",
             "Accept-Encoding": "gzip",
@@ -196,7 +204,6 @@ public enum WMFCachePolicy {
         guard let bodyParameters = bodyParameters else {
             return request
         }
-        
         switch bodyEncoding {
         case .json:
             do {
@@ -284,11 +291,11 @@ public enum WMFCachePolicy {
         return defaultURLSession.downloadTask(with: urlRequest, completionHandler: completionHandler)
     }
     
-    public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+    public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let url = url else {
             return nil
         }
-        let dataRequest = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers)
+        let dataRequest = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers, cachePolicy: cachePolicy)
         let task = defaultURLSession.dataTask(with: dataRequest, completionHandler: completionHandler)
         task.priority = priority
         return task
@@ -341,8 +348,8 @@ public enum WMFCachePolicy {
          - response: The URLResponse
          - error: Any network or parsing error
      */
-    @discardableResult public func jsonDecodableTaskWithDecodableError<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+    @discardableResult public func jsonDecodableTaskWithDecodableError<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, cachePolicy: URLRequest.CachePolicy? = nil, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, cachePolicy: cachePolicy, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, nil, response, error)
@@ -378,17 +385,20 @@ public enum WMFCachePolicy {
     /**
      Creates a URLSessionTask that will handle the response by decoding it to the decodable type T.
      - parameters:
-     - url: The url for the request
-     - method: The HTTP method for the request
-     - bodyParameters: The body parameters for the request
-     - bodyEncoding: The body encoding for the request body parameters
-     - completionHandler: Called after the request completes
-     - result: The result object decoded from JSON
-     - response: The URLResponse
-     - error: Any network or parsing error
+        - url: The url for the request
+        - method: The HTTP method for the request
+        - bodyParameters: The body parameters for the request
+        - bodyEncoding: The body encoding for the request body parameters
+        - headers: headers for the request
+        - cachePolicy: cache policy for the request
+        - priority: priority for the request
+        - completionHandler: Called after the request completes
+        - result: The result object decoded from JSON
+        - response: The URLResponse
+        - error: Any network or parsing error
      */
-    @discardableResult public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers, priority: priority, completionHandler: { (data, response, error) in
+    @discardableResult public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers, cachePolicy: cachePolicy, priority: priority, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, response, error)
@@ -545,7 +555,7 @@ extension Session {
         
         var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
         
-        let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers)
+        let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers, cachePolicy: permanentCacheRequest.cachePolicy)
         
         if let headerFields = sessionRequest.allHTTPHeaderFields {
             for (key, value) in headerFields {
@@ -643,16 +653,31 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
-        if let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 304 {
+        if let httpResponse = response as? HTTPURLResponse {
+            
+            var shouldCheckPersistentCache = false
+            if httpResponse.statusCode == 304 {
+                shouldCheckPersistentCache = true
+            }
+            
+            if let request = dataTask.originalRequest,
+                request.prefersPersistentCacheOverError && httpResponse.statusCode != 200 {
+                shouldCheckPersistentCache = true
+            }
             
             let taskIdentifier = dataTask.taskIdentifier
-            if let callback = callbacks[taskIdentifier],
+            if shouldCheckPersistentCache,
+                let callback = callbacks[taskIdentifier],
                 let request = dataTask.originalRequest,
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                 callback.response?(cachedResponse.response)
                 callback.data?(cachedResponse.data)
                 callback.success()
+                
+                if httpResponse.statusCode != 304 {
+                    callback.cacheFallbackError?(RequestError.http(httpResponse.statusCode))
+                }
+                
                 callbacks.removeValue(forKey: taskIdentifier)
             }
         }

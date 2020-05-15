@@ -242,6 +242,33 @@
 			<string>فهرست‌ها</string>
 		</dict>
 	</dict>
+	<key>reading-lists-large-sync-completed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ و %#@v2@ از حساب کاربری شما همگام‌سازی شد</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d مقاله</string>
+			<key>other</key>
+			<string>%1$d مقاله</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d فهرست مطالعه</string>
+			<key>other</key>
+			<string>%2$d فهرست مطالعه</string>
+		</dict>
+	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -252,6 +279,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Yesterday</string>
 			<key>other</key>
 			<string>%1$d روز پیش</string>
 			<key>zero</key>
@@ -304,6 +333,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>ماه گذشته</string>
 			<key>other</key>
 			<string>%1$d ماه گذشته</string>
 			<key>zero</key>
@@ -320,6 +351,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>پارسال</string>
 			<key>other</key>
 			<string>%1$d سال پیش</string>
 			<key>zero</key>

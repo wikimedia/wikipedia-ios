@@ -5,7 +5,6 @@
 @interface WMFThemeableNavigationController ()
 
 @property (nonatomic, strong) WMFTheme *theme;
-@property (nonatomic, nullable) WMFSplashScreenViewController *splashScreenViewController;
 @property (nonatomic) WMFThemeableNavigationControllerStyle style;
 @end
 
