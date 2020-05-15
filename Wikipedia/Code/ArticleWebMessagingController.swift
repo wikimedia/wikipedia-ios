@@ -36,6 +36,10 @@ class ArticleWebMessagingController: NSObject {
         }
     }
     
+    func removeScriptMessageHandler() {
+        webView?.configuration.userContentController.removeScriptMessageHandler(forName: PageContentService.messageHandlerName)
+    }
+    
     /// Update the scripts that run on page load. Utilize this when any parameters change.
     func updateUserScripts(on contentController: WKUserContentController, with parameters: PageContentService.Setup.Parameters) throws {
         let pcsSetup = try PageContentService.SetupScript(parameters)

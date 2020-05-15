@@ -94,6 +94,7 @@ class ArticleViewController: ViewController, HintPresenting {
     deinit {
         NotificationCenter.default.removeObserver(self)
         contentSizeObservation?.invalidate()
+        messagingController.removeScriptMessageHandler()
     }
     
     // MARK: WebView
