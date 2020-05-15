@@ -188,6 +188,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Hieraŭ</string>
 			<key>other</key>
 			<string>Antaŭ %1$d tagoj</string>
 			<key>zero</key>
@@ -240,6 +242,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Pasintjare</string>
 			<key>other</key>
 			<string>$Antaŭ %1$d jaroj</string>
 			<key>zero</key>

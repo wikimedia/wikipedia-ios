@@ -422,6 +422,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Igår</string>
 			<key>other</key>
 			<string>%1$d dygn sedan</string>
 			<key>zero</key>
@@ -474,6 +476,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Senaste månaden</string>
 			<key>other</key>
 			<string>%1$d månader sedan</string>
 			<key>zero</key>
@@ -490,6 +494,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Senaste året</string>
 			<key>other</key>
 			<string>%1$d år sedan</string>
 			<key>zero</key>

@@ -90,6 +90,7 @@ extension PermanentlyPersistableURLCache {
                 request.cachePolicy = cachePolicy
                 request.prefersPersistentCacheOverError = true
             case .noPersistentCacheOnError:
+                request.cachePolicy = .reloadIgnoringLocalCacheData
                 request.prefersPersistentCacheOverError = false
             }
         }
@@ -245,22 +246,6 @@ private extension PermanentlyPersistableURLCache {
     }
 }
 
-//MARK: Unique file name and header file name creation
-
-private extension PermanentlyPersistableURLCache {
-
-    func uniqueHeaderFileNameForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        
-        guard let itemKey = itemKeyForURL(url, type: type) else {
-            return nil
-        }
-        
-        let variant = variantForURL(url, type: type)
-        
-        return uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-    }
-}
-
 extension PermanentlyPersistableURLCache {
     
     func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String {
@@ -299,6 +284,17 @@ extension PermanentlyPersistableURLCache {
         let variant = variantForURL(url, type: type)
         
         return uniqueFileNameForItemKey(itemKey, variant: variant)
+    }
+    
+    func uniqueHeaderFileNameForURL(_ url: URL, type: Header.PersistItemType) -> String? {
+        
+        guard let itemKey = itemKeyForURL(url, type: type) else {
+            return nil
+        }
+        
+        let variant = variantForURL(url, type: type)
+        
+        return uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
     }
 }
 

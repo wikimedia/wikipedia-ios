@@ -787,6 +787,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 [self resumeApp:NULL];
             }
         });
+    } needsMigrateBlock: ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
+        });
     }];
 }
 
@@ -845,7 +849,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self showExplore];
             done();
         } else {
-            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self hideSplashViewAnimated:true];
             done();
         }
     }];
@@ -1243,7 +1247,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler: [SchemeHandler sharedInstance]];
     articleVC.loadCompletion = completion;
     [nc pushViewController:articleVC animated:YES];
     return articleVC;

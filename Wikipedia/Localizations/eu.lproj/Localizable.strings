@@ -36,8 +36,7 @@
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "about-wikipedia" = "Wikipedia";
 "abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek potentzialki mingarria edo bandalismoa izan daitezkeen aldaketak identifikatu ditu.";
+"abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek edizio hau kaltegarria edo bandalismozkoa izan daitekeela  identifikatu du.";
 "abuse-filter-warning-blanking" = "Artikulu osoak edo atalak ezabatu";
 "abuse-filter-warning-caps" = "Testua letra larrietan bakarrik";
 "abuse-filter-warning-heading" = "Hau editatze ezezaguna izan daiteke. Ziur al zaude argitaratu nahi duzula?";
@@ -135,7 +134,7 @@
 "empty-no-article-message" = "Barkatu, ezin da artikulua kargatu";
 "empty-no-feed-action-message" = "Oraindik gordetako orrialdeak irakurri ditzakezu";
 "empty-no-feed-message" = "Interneta duzunean ikusi ahal izango dituzu iradokitutako artikuluak";
-"empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
+"empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena";
 "empty-no-history-title" = "Erakusteko historiarik ez";
 // Fuzzy
 "empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako irakurketa zerrendak sortzeko, gai gogokoenak eta askoz gehiago";

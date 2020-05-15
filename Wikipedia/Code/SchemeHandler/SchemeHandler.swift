@@ -11,8 +11,9 @@ enum SchemeHandlerError: Error {
     }
 }
 
-final class SchemeHandler: NSObject {
+class SchemeHandler: NSObject {
     let scheme: String
+    open var didReceiveDataCallback: ((WKURLSchemeTask, Data) -> Void)?
     private let session: Session
     private var activeSessionTasks: [URLRequest: URLSessionTask] = [:]
     private var activeCacheOperations: [URLRequest: Operation] = [:]
@@ -20,7 +21,8 @@ final class SchemeHandler: NSObject {
     
     private let cacheQueue: OperationQueue = OperationQueue()
     
-    @objc public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
+    @objc(sharedInstance)
+    public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
     
     required init(scheme: String, session: Session) {
         self.scheme = scheme
@@ -102,13 +104,8 @@ extension SchemeHandler: WKURLSchemeHandler {
 private extension SchemeHandler {
     
     func urlRequestWithoutCustomScheme(from originalRequest: URLRequest, newURL: URL) -> URLRequest? {
-        guard let mutableRequest = (originalRequest as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
-            return nil
-        }
-        
+        var mutableRequest = originalRequest
         mutableRequest.url = newURL
-        
-        let maybeRequest = mutableRequest.copy() as? URLRequest
         
         //set persistentCacheItemType in header if it doesn't already exist
         //set If-None-Match in header if it doesn't already exist
@@ -116,41 +113,36 @@ private extension SchemeHandler {
         let containsType = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
         let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[URLRequest.ifNoneMatchHeaderKey] != nil
 
-        if var request = maybeRequest {
-
-            if !containsType {
-                
-                let typeHeaders: [String: String]
-                if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
-                    typeHeaders = session.typeHeadersForType(.image)
-                } else {
-                    typeHeaders = session.typeHeadersForType(.article)
-                }
-                
-                for (key, value) in typeHeaders {
-                    request.setValue(value, forHTTPHeaderField: key)
-                }
-            }
+        if !containsType {
             
-            guard !containsIfNoneMatch else {
-                return request
-            }
-
-            let additionalHeaders: [String: String]
+            let typeHeaders: [String: String]
             if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
-                additionalHeaders = session.additionalHeadersForType(.image, urlRequest: request)
+                typeHeaders = session.typeHeadersForType(.image)
             } else {
-                additionalHeaders = session.additionalHeadersForType(.article, urlRequest: request)
+                typeHeaders = session.typeHeadersForType(.article)
             }
             
-            for (key, value) in additionalHeaders {
-                request.setValue(value, forHTTPHeaderField: key)
+            for (key, value) in typeHeaders {
+                mutableRequest.setValue(value, forHTTPHeaderField: key)
             }
-            
-            return request
+        }
+        
+        guard !containsIfNoneMatch else {
+            return mutableRequest
         }
 
-        return maybeRequest
+        let additionalHeaders: [String: String]
+        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+            additionalHeaders = session.additionalHeadersForType(.image, urlRequest: mutableRequest)
+        } else {
+            additionalHeaders = session.additionalHeadersForType(.article, urlRequest: mutableRequest)
+        }
+        
+        for (key, value) in additionalHeaders {
+            mutableRequest.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        return mutableRequest
     }
     
     func isMimeTypeImage(type: String) -> Bool {
@@ -191,6 +183,7 @@ private extension SchemeHandler {
                     return
                 }
                 urlSchemeTask.didReceive(data)
+                self.didReceiveDataCallback?(urlSchemeTask, data)
             }
         }, success: { [weak urlSchemeTask] in
             DispatchQueue.main.async {
@@ -204,7 +197,7 @@ private extension SchemeHandler {
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
             }
-        }) { [weak urlSchemeTask] error in
+        }, failure: { [weak urlSchemeTask] error in
             DispatchQueue.main.async {
                 
                 guard let urlSchemeTask = urlSchemeTask else {
@@ -217,7 +210,11 @@ private extension SchemeHandler {
                 urlSchemeTask.didFailWithError(error)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
             }
-        }
+        }, cacheFallbackError: { error in
+            DispatchQueue.main.async {
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
+            }
+        })
         
         if let dataTask = session.dataTask(with: request, callback: callback) {
             addSessionTask(request: request, dataTask: dataTask)

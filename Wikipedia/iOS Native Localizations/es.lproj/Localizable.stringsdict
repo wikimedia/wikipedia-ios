@@ -489,6 +489,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>El mes pasado</string>
 			<key>other</key>
 			<string>Hace %1$d meses</string>
 			<key>zero</key>

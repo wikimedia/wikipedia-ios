@@ -345,6 +345,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>어제</string>
 			<key>other</key>
 			<string>%1$d일 전</string>
 			<key>zero</key>
@@ -397,6 +399,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>지난 달</string>
 			<key>other</key>
 			<string>%1$d개월 전</string>
 			<key>zero</key>
@@ -413,6 +417,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>지난해</string>
 			<key>other</key>
 			<string>%1$d년 전</string>
 			<key>zero</key>

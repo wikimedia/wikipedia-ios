@@ -188,6 +188,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>I går</string>
 			<key>other</key>
 			<string>For %1$d dager siden</string>
 			<key>zero</key>
@@ -240,6 +242,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>I fjor</string>
 			<key>other</key>
 			<string>For %1$d år siden</string>
 			<key>zero</key>

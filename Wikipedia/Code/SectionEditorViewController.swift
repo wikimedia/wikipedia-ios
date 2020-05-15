@@ -1,6 +1,6 @@
-@objc(WMFSectionEditorViewControllerDelegate)
 protocol SectionEditorViewControllerDelegate: class {
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool)
+    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController)
+    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>)
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController)
 }
 
@@ -8,7 +8,7 @@ protocol SectionEditorViewControllerDelegate: class {
 class SectionEditorViewController: ViewController {
     @objc public static let editWasPublished = NSNotification.Name(rawValue: "EditWasPublished")
 
-    @objc weak var delegate: SectionEditorViewControllerDelegate?
+    weak var delegate: SectionEditorViewControllerDelegate?
     
     private let sectionID: Int
     private let articleURL: URL
@@ -286,12 +286,16 @@ class SectionEditorViewController: ViewController {
     }
 
     private func loadWikitext() {
-        if shouldFocusWebView {
+        let isShowingStatusMessage = shouldFocusWebView
+        if isShowingStatusMessage {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
         }
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
             DispatchQueue.main.async {
+                if isShowingStatusMessage {
+                    WMFAlertManager.sharedInstance.dismissAlert()
+                }
                 switch result {
                 case .failure(let error):
                     self.didFocusWebViewCompletion = {
@@ -326,7 +330,7 @@ class SectionEditorViewController: ViewController {
     // MARK: - Accessibility
     
     override func accessibilityPerformEscape() -> Bool {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
+        delegate?.sectionEditorDidCancelEditing(self)
         return true
     }
     
@@ -415,7 +419,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
+        delegate?.sectionEditorDidCancelEditing(self)
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -509,8 +513,8 @@ extension SectionEditorViewController: WKNavigationDelegate {
 // MARK - EditSaveViewControllerDelegate
 
 extension SectionEditorViewController: EditSaveViewControllerDelegate {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: true)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
+        delegate?.sectionEditorDidFinishEditing(self, result: result)
     }
 }
 
