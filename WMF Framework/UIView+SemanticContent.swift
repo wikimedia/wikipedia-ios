@@ -116,6 +116,10 @@ extension UIButton {
         var buttonAdjustedSize = maximumSize
         var heightAdjustment = contentEdgeInsets.top + contentEdgeInsets.bottom
         var widthAdjustment = contentEdgeInsets.left + contentEdgeInsets.right
+
+        // When iOS's Bold Text setting was turned on, labels on Explore feed buttons were moving to two lines,
+        // presumably due to rounding errors in this function. The extra 1 here allows them to layout as expected.
+        widthAdjustment += 1
         
         var imageHeight: CGFloat = 0
         if let image = image(for: .normal) {
