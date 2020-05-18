@@ -101,7 +101,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     static let webProcessPool = WKProcessPool()
     
-    private(set) var messagingController: ArticleWebMessagingController!
+    private(set) var messagingController = ArticleWebMessagingController()
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
@@ -867,7 +867,7 @@ private extension ArticleViewController {
     }
     
     func setupMessagingController() {
-        messagingController = ArticleWebMessagingController(delegate: self)
+        messagingController.delegate = self
     }
     
     func setupWebView() {

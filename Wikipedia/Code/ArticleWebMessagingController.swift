@@ -8,14 +8,10 @@ protocol ArticleWebMessageHandling: class {
 class ArticleWebMessagingController: NSObject {
     
     private weak var webView: WKWebView?
-    private weak var delegate: ArticleWebMessageHandling?
+    weak var delegate: ArticleWebMessageHandling?
     
     private let bodyActionKey = "action"
     private let bodyDataKey = "data"
-
-    init(delegate: ArticleWebMessageHandling?) {
-        self.delegate = delegate
-    }
     
     var parameters: PageContentService.Setup.Parameters?
     var contentController: WKUserContentController?
