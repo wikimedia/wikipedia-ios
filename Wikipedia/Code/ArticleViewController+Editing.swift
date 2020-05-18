@@ -103,7 +103,17 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: SectionEditorViewControllerDelegate {
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool) {
+    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>) {
+        switch result {
+        case .failure(let error):
+            showError(error)
+        case .success(let changes):
+            dismiss(animated: true)
+            waitForNewContentAndRefresh(changes.newRevisionID)
+        }
+    }
+    
+    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController) {
         dismiss(animated: true)
     }
 
@@ -114,7 +124,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController) {
-        
+        waitForNewContentAndRefresh()
     }
 }
 

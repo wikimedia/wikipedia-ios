@@ -1,0 +1,17 @@
+
+
+# fails commit if there's still the default header somewhere in the project directory
+
+header_file_list = ""
+
+header_detected = false
+`git grep -F "~~~**DELETE THIS HEADER**~~~" '*.swift' '*.m' '*.h'`.split('\n').each do |line|
+  header_detected = true
+  header_file_list.concat("\n" + line)
+end
+
+if header_detected
+  puts "Detected default header that should be deleted. Please fix and re-commit."
+  puts header_file_list
+  abort()
+end
