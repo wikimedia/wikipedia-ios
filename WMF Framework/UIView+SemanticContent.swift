@@ -119,7 +119,10 @@ extension UIButton {
 
         // When iOS's Bold Text setting was turned on, labels on Explore feed buttons were moving to two lines,
         // presumably due to rounding errors in this function. The extra 1 here allows them to layout as expected.
-        widthAdjustment += 1
+        // The buttons having problems were AlignedImageButtons and SaveButtons (which are subclasses of AlignedImageButtons).
+        if self is AlignedImageButton {
+            widthAdjustment += 1
+        }
         
         var imageHeight: CGFloat = 0
         if let image = image(for: .normal) {
