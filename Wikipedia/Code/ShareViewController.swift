@@ -55,6 +55,16 @@ class ShareViewController: UIViewController, Themeable {
             self.showActivityViewController(with: image)
         }
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { (context) in
+            if let presentedActivityVC = self.presentedViewController as? UIActivityViewController {
+                presentedActivityVC.popoverPresentationController?.sourceRect = self.imageView.frame
+            }
+        }, completion: nil)
+    }
     
     func loadImage() {
         if let imageURL = self.articleImageURL, let imageName = WMFParseUnescapedNormalizedImageNameFromSourceURL(imageURL), let siteURL = articleURL.wmf_site {
