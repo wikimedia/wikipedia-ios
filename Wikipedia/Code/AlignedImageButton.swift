@@ -55,6 +55,14 @@ public class AlignedImageButton: UIButton {
         updateSemanticContentAttribute()
         adjustInsets()
     }
+
+    public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
+        // When iOS's Bold Text setting was turned on, labels on Explore feed buttons were moving to two lines,
+        // presumably due to rounding errors in this function. The extra 1 here allows them to layout as expected.
+        // The buttons having problems were AlignedImageButtons and SaveButtons (which are subclasses of AlignedImageButtons).
+        let size = super.wmf_sizeThatFits(maximumSize)
+        return CGSize(width: size.width + 1, height: size.height)
+    }
     
     var layoutDirection: UIUserInterfaceLayoutDirection = .leftToRight
     fileprivate func updateSemanticContentAttribute() {
