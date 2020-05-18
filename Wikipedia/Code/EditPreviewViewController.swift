@@ -17,7 +17,12 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     
     weak var delegate: EditPreviewViewControllerDelegate?
     
-    lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
+    lazy var messagingController: ArticleWebMessagingController = {
+        let controller = ArticleWebMessagingController()
+        controller.delegate = self
+        return controller
+    }()
+    
     lazy var fetcher = ArticleFetcher()
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
