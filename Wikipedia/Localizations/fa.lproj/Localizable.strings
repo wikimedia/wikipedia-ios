@@ -123,6 +123,7 @@
 "appearance-settings-set-automatic-table-opening" = "تنظیمات جدول";
 "appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازه متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون برنامه باید در تنظیمات سیستم‌تان تغییر ایجاد کنید.";
 "appearance-settings-theme-options" = "تنظیمات پوسته";
+"article-about-title" = "دربارهٔ این مقاله";
 "article-delete" = "حذف";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|مقالهٔ|مقاله‌های}} حذف‌شده";
 "article-languages-filter-placeholder" = "یافتن زبان";
@@ -168,10 +169,13 @@
 "description-help-tips-example-title-two" = "مرتفع‌ترین قلّهٔ زمین";
 "description-help-tips-for-example" = "برای مثال:";
 "description-help-title" = "کمک توضیحات عنوان";
+"description-help-wikidata-guide" = "راهنمای ویکی‌داده برای نوشتن توضیحات";
 "description-published-button-title" = "انجام شد";
 "description-published-subtitle" = "شما ویکی پدیا را برای همه بهتر کردید";
 "description-published-title" = "توضیحات منتشر شد!";
+"description-welcome-concise-sub-title" = "به طور ایده‌آل یک خط، بین دو تا دوازده کلمه";
 "description-welcome-concise-title" = "کوتاهش کنید";
+"description-welcome-descriptions-sub-title" = "مقاله را برای مطالعهٔ سریع‌تر خواننده‌ها خلاصه کنید.";
 "description-welcome-descriptions-title" = "توضیحات عنوان";
 "description-welcome-promise-title" = "با آغاز ویرایش، تعهد می‌دهم که از این ویژگی، سوءاستفاده نکنم";
 "description-welcome-start-editing-button" = "ویرایش را آغاز کنید";
@@ -189,9 +193,10 @@
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 ویرایش|$1 ویرایش}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 بایت حذف شد|$1 بایت حذف شد}}";
 "diff-single-header-summary-heading" = "خلاصهٔ ویرایش";
+"diff-single-intro-title" = "مقدمه";
 "diff-single-line-format" = "سطر $1";
 "diff-thanks-anonymous-no-thanks" = "از کاربران ناشناس نمی‌توان تشکر کرد";
-"diff-thanks-login-title" = "برای فرستادن «تشکر» وارد شوید";
+"diff-thanks-login-title" = "برای ارسال «تشکر» وارد شوید";
 "diff-thanks-send-button-title" = "ارسال تشکر";
 "diff-thanks-sent" = "«تشکر» شما برای $1 فرستاده شد";
 "dim-images" = "تغییر نور تصاویر";
@@ -475,7 +480,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 ویرایش|$1 ویرایش}} از $2";
 "page-history-user-edits" = "ویرایش‌های کاربر";
 "page-issues" = "مشکلات صفحه";
-"page-location" = "دیدن در نقشه";
+"page-location" = "مشاهده بر روی نقشه";
 "page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
 "page-protected-can-not-edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page-protected-can-not-edit-title" = "این صفحه محافظت شده‌است";
@@ -566,7 +571,7 @@
 "reading-lists-article-api-failure" = "ناتوان از همگام‌سازی مقاله";
 "reading-lists-article-not-synced" = "همگام سازی نشده";
 "reading-lists-article-queued-to-be-downloaded" = "مقاله در صف دانلود قرار گرفت";
-"reading-lists-conflicting-reading-list-name-updated" = "فهرست '$1' شما به '$2' تغییر نام یافت.";
+"reading-lists-conflicting-reading-list-name-updated" = "فهرست '$1' شما تغییر نام یافت به '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 فهرست خواندن|$1 فهرست‌های خواندن}}";
 "reading-lists-default-list-description" = "فهرست پیش‌فرض برای مقاله‌های ذخیره‌شده";
 "reading-lists-default-list-title" = "ذخیره‌شده";
@@ -579,7 +584,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "پوسته تیره";
 "reading-themes-controls-accessibility-light-theme-button" = "پوسته روشن";
 "reading-themes-controls-accessibility-sepia-theme-button" = "پوسته قهوه‌ای";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "پررنگ کردن دستور";
 "reading-themes-controls-accessibility-text-size-slider" = "لغزنده اندازهٔ متن";
+"reading-themes-controls-syntax-highlighting" = "پررنگ کردن دستور";
 "reference-title" = "منبع $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=امروز|1=Yesterday|$1 روز پیش}}";
 "relative-date-hours-abbreviated" = "$1 ساعت";

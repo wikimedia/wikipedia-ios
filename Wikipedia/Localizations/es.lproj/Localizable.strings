@@ -10,6 +10,7 @@
 // Author: Dschultz
 // Author: Elisardojm
 // Author: Fitoschido
+// Author: Geryescalier
 // Author: Hasley
 // Author: Ihojose
 // Author: Indiralena
@@ -142,6 +143,7 @@
 "article-languages-label" = "Elegir un idioma";
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
+"article-read-more-title" = "Lee más";
 "article-reference-view-title" = "Referencia $1";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
