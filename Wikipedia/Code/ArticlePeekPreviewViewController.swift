@@ -33,7 +33,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
             completion?()
             return
         }
-        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
+        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: .returnCacheDataElseLoad) { (article, _) in
             defer {
                 completion?()
             }
