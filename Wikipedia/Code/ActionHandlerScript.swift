@@ -26,7 +26,6 @@ final class PageContentService   {
             var textSizeAdjustmentPercentage: String // string like '125%'
             
             var userGroups: [String]
-            var areEditButtonsHidden: Bool
         }
     }
     
