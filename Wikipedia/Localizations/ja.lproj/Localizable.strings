@@ -128,6 +128,7 @@
 "appearance-settings-set-automatic-table-opening" = "表の書式設定";
 "appearance-settings-text-sizing-example-text" = "スライダーをドラッグして記事のテキストサイズを変更します。アプリ内の他のテキスト領域のサイズを変更するには、システムのテキストサイズをご利用ください。";
 "appearance-settings-theme-options" = "テーマオプション";
+"article-about-title" = "この記事について";
 "article-delete" = "削除";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|article|記事}}を削除しました";
 "article-languages-filter-placeholder" = "言語の絞り込み";
@@ -194,8 +195,17 @@
 "diff-compare-title" = "版を比較";
 "diff-context-lines-collapsed-button-title" = "表示";
 "diff-context-lines-expanded-button-title" = "隠す";
+"diff-multi-line-format" = "$1 - $2行目";
+"diff-paragraph-moved" = "段落移動";
 "diff-paragraph-moved-direction-down" = "下へ";
 "diff-paragraph-moved-direction-up" = "上へ";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1行}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1節}}";
+"diff-paragraph-moved-format" = "段落が$1に$2移動";
+"diff-revision-error-title" = "版を読み込めませんでした。";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1編集}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1バイト追加}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1バイト除去}}";
 "diff-single-header-summary-heading" = "編集の要約";
 "diff-single-line-format" = "$1行目:";
 "diff-thanks-anonymous-no-thanks" = "匿名利用者に感謝することはできません";

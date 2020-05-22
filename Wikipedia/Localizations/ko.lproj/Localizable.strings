@@ -25,6 +25,7 @@
 // Author: Ykhwong
 // Author: Ysjbserver
 // Author: 고솜
+// Author: 그냥기여자
 // Author: 렌즈
 // Author: 밥풀떼기
 // Author: 아라
@@ -121,12 +122,15 @@
 "appearance-settings-set-automatic-table-opening" = "테이블 설정";
 "appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
 "appearance-settings-theme-options" = "테마 옵션";
+"article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|문서}}가 삭제됨";
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-languages-label" = "언어 선택";
 "article-languages-others" = "다른 언어";
 "article-languages-yours" = "사용자 언어";
+"article-read-more-title" = "더 읽어보기";
+"article-reference-view-title" = "각주 $1";
 "article-save-error-not-enough-space" = "장치에 이 문서를 저장할 공간이 충분하지 않습니다";
 "article-share" = "공유";
 "article-toolbar-reading-themes-controls-toolbar-item" = "읽기 테마 제어";
@@ -379,10 +383,10 @@
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 위키백과에서의 내 위치";
 "explore-potd-heading" = "오늘의 이미지";
 "explore-potd-sub-heading" = "위키미디어 공용에서";
-"explore-random-article-heading" = "임의 문서";
+"explore-random-article-heading" = "임의의 문서";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
 "explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
-"explore-randomizer" = "임의 문서 보기";
+"explore-randomizer" = "임의의 문서 보기";
 "featured-article-empty-title" = "오늘 볼 수 있는 알찬 글 없음";
 "feed-news-notification-button-text" = "알림 켜기";
 "feed-news-notification-text" = "위키백과 문서의 소식 동향이 있을 경우에 알림을 받을 수 있습니다.";
@@ -439,7 +443,7 @@
 "home-title" = "탐색";
 "home-title-accessibility-label" = "위키백과, 탐색의 맨 위로 스크롤";
 "icon-shortcut-nearby-title" = "주변에 관한 문서";
-"icon-shortcut-random-title" = "임의 문서";
+"icon-shortcut-random-title" = "임의의 문서";
 "icon-shortcut-search-title" = "위키백과 검색";
 "image-gallery-unknown-owner" = "저자 알 수 없음.";
 "in-the-news-currently-trending" = "지금의 화제";
@@ -547,11 +551,14 @@
 "page-history-revisions-comparison-warning" = "판 2개만 선택할 수 있습니다";
 "page-history-stats-text" = "$2 이후 {{PLURAL:$1|편집 $1회}}";
 "page-history-user-edits" = "사용자 편집";
+"page-issues" = "문서 이슈";
+"page-location" = "지도에서 보기";
 "page-protected-autoconfirmed" = "이 문서는 준보호되어 있습니다.";
 "page-protected-can-not-edit" = "이 문서를 편집할 권한이 없습니다";
 "page-protected-can-not-edit-title" = "이 문서는 보호되어 있습니다";
 "page-protected-other" = "이 문서는 다음 수준으로 보호되어 있습니다: $1";
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
+"page-similar-titles" = "비슷한 문서";
 "panel-compare-revisions-title" = "판 비교";
 "pictured" = "사진";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";

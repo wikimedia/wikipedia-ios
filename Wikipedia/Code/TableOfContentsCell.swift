@@ -33,7 +33,7 @@ class TableOfContentsCell: UITableViewCell {
     
     func updateTitle() {
         let color = isTitleLabelHighlighted ? titleSelectionColor : titleColor
-        titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection, color: color)
+        titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection, color: color, handlingLinks: false)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
