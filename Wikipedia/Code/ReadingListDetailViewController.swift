@@ -93,7 +93,7 @@ class ReadingListDetailViewController: ViewController {
             title = readingList.name
         }
         
-        wmf_addHeightDetermining(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
     }
     
     private func addExtendedView() {
