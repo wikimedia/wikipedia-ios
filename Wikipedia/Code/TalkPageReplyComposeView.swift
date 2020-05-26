@@ -32,7 +32,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
             "</a>"
         )
         
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, withBoldedString: nil, color: colorTheme.colors.secondaryText, linkColor: colorTheme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: colorTheme.colors.secondaryText, linkColor: colorTheme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
         
         return attributedString
     }
