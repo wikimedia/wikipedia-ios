@@ -944,7 +944,7 @@ private extension DiffContainerViewController {
                     diffListViewController.didMove(toParent: self)
                 }
             case .compare:
-                wmf_addHeightDetermining(childController: diffListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+                wmf_add(childController: diffListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             }
             
             
