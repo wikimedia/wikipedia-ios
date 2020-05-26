@@ -1,24 +1,6 @@
 import UIKit
 
 @objc public extension UIView {
-    fileprivate func wmf_deactivateHeightConstraint() {
-        let containerViewHeight = constraints.first(where: {constraint in
-            return (constraint.firstAttribute == .height)
-        })
-        containerViewHeight?.isActive = false
-    }
-    
-    /// Configures the view to expand vertically dynamically to encompass the height of the subview even if the subview's height changes as a result of AutoLayout changes. Details: http://stackoverflow.com/a/35431534/135557
-    @objc func wmf_addHeightDeterminingSubviewWithConstraintsToEdges(_ subview: UIView, belowSubview: UIView? = nil) {
-        wmf_addHeightDeterminingSubview(subview, withConstraintsToEdgesWithInsets: .zero, belowSubview: belowSubview)
-    }
-    
-    @objc func wmf_addHeightDeterminingSubview(_ subview: UIView, withConstraintsToEdgesWithInsets insets: UIEdgeInsets, priority: UILayoutPriority = .required, belowSubview: UIView? = nil) {
-        wmf_deactivateHeightConstraint()
-        subview.translatesAutoresizingMaskIntoConstraints = false
-        wmf_addSubview(subview, withConstraintsToEdgesWithInsets: insets, priority: priority, belowSubview: belowSubview)
-    }
-    
     func addCenteredSubview(_ subview: UIView) {
         addSubview(subview)
         subview.translatesAutoresizingMaskIntoConstraints = false

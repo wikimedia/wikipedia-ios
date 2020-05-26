@@ -79,7 +79,7 @@ class PageHistoryCountsViewController: UIViewController {
         sparklineView.showsVerticalGridlines = true
 
         filterCountsViewController.delegate = self
-        wmf_addHeightDetermining(childController: filterCountsViewController, andConstrainToEdgesOfContainerView: filterCountsContainerView)
+        wmf_add(childController: filterCountsViewController, andConstrainToEdgesOfContainerView: filterCountsContainerView)
 
         sparklineView.isAccessibilityElement = true
         sparklineView.accessibilityLabel = WMFLocalizedString("page-history-graph-accessibility-label", value: "Graph of edits over time", comment: "Accessibility label text used for edits graph")
