@@ -65,6 +65,9 @@
                   Identifier = "ArticleCacheReadingManualTests">
                </Test>
                <Test
+                  Identifier = "ArticleManualPerformanceTests">
+               </Test>
+               <Test
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
                <Test
@@ -75,6 +78,12 @@
                </Test>
                <Test
                   Identifier = "NSString_FormattedAttributedStringTests/testPerformanceExample">
+               </Test>
+               <Test
+                  Identifier = "ReadingListManualPerformanceTests">
+               </Test>
+               <Test
+                  Identifier = "TalkPageManualPerformanceTests">
                </Test>
                <Test
                   Identifier = "WMFSearchFetcherTests">

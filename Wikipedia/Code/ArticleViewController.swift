@@ -33,6 +33,9 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
     
+    /// Called when initial JS setup is complete
+    @objc public var initialSetupCompletion: (() -> Void)?
+    
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
     

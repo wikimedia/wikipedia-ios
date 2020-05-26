@@ -28,12 +28,50 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            useTestSelectionWhitelist = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BC4273511A7C736800068882"
+               BuildableName = "WikipediaUnitTests.xctest"
+               BlueprintName = "WikipediaUnitTests"
+               ReferencedContainer = "container:Wikipedia.xcodeproj">
+            </BuildableReference>
+            <SelectedTests>
+               <Test
+                  Identifier = "ArticleCacheReadingManualTests/testBasicNetworkNoConnectionWithCachedArticle()">
+               </Test>
+               <Test
+                  Identifier = "ArticleCacheReadingManualTests/testVariantFallbacksUponConnectionFailure()">
+               </Test>
+               <Test
+                  Identifier = "ArticleManualPerformanceTests/testArticlePeekPreviewControllerDisplayTime()">
+               </Test>
+               <Test
+                  Identifier = "ArticleManualPerformanceTests/testArticleSetupTime()">
+               </Test>
+               <Test
+                  Identifier = "ArticleManualPerformanceTests/testContextMenuConfigTime()">
+               </Test>
+               <Test
+                  Identifier = "ReadingListManualPerformanceTests/testPerformanceCreatingReadingList()">
+               </Test>
+               <Test
+                  Identifier = "TalkPageManualPerformanceTests/testPerformanceLargeToLargeUpdateTalkPages()">
+               </Test>
+               <Test
+                  Identifier = "TalkPageManualPerformanceTests/testPerformanceSmallToLargeUpdateTalkPages()">
+               </Test>
+            </SelectedTests>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      disableMainThreadChecker = "YES"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

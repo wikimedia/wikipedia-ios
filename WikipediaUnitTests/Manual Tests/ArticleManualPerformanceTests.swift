@@ -1,16 +1,6 @@
 import XCTest
 @testable import Wikipedia
 
-class MeasurableArticleViewController: ArticleViewController {
-    
-    var initialLoadCompletion: (() -> Void)?
-    
-    override func handlePCSDidFinishFinalSetup() {
-        super.handlePCSDidFinishFinalSetup()
-        initialLoadCompletion?()
-    }
-}
-
 class MeasurableArticlePeekPreviewViewController: ArticlePeekPreviewViewController {
     var displayCompletion: (() -> Void)?
     
@@ -20,7 +10,7 @@ class MeasurableArticlePeekPreviewViewController: ArticlePeekPreviewViewControll
     }
 }
 
-class ArticlePerformanceTests: XCTestCase {
+class ArticleManualPerformanceTests: XCTestCase {
     
     private var articleURL: URL! = URL(string: "https://en.wikipedia.org/wiki/Dog")
     private var appSchemeArticleURL: URL! = URL(string: "app://en.wikipedia.org/wiki/Dog")
@@ -43,20 +33,20 @@ class ArticlePerformanceTests: XCTestCase {
         self.measure {
             
             let dataStore = MWKDataStore.temporary()
-            guard let measurableArticleVC = MeasurableArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light) else {
+            guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light) else {
                 XCTFail("Unable to instantiate MeasurableArticleViewController")
                 return
             }
             
             let setupExpectation = expectation(description: "Waiting for article initial setup call")
             
-            measurableArticleVC.initialLoadCompletion = {
+            articleVC.initialSetupCompletion = {
                 setupExpectation.fulfill()
                 UIApplication.shared.keyWindow?.rootViewController = nil
                 dataStore.clearTemporaryCache()
             }
             
-            UIApplication.shared.keyWindow?.rootViewController = measurableArticleVC
+            UIApplication.shared.keyWindow?.rootViewController = articleVC
         
             wait(for: [setupExpectation], timeout: 3)
         }
