@@ -76,9 +76,7 @@ class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotific
             if let dictionary = info[WMFNotificationInfoFeedNewsStoryKey] as? [String: AnyObject],
                 let newsStory = try MTLJSONAdapter.model(of: WMFFeedNewsStory.self, fromJSONDictionary: dictionary) as? WMFFeedNewsStory,
                 let html = newsStory.storyHTML  {
-                let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote, compatibleWith: nil)
-                let linkFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-                let attributedString = html.wmf_attributedStringFromHTML(with: font, boldFont: linkFont, italicFont: font, boldItalicFont: linkFont, color:nil, linkColor:nil, handlingLists: false, handlingSuperSubscripts: false, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a":"b"], additionalTagAttributes:nil)
+                let attributedString = html.byAttributingHTML(with: .footnote, boldWeight: .bold, matching: traitCollection, color: nil, linkColor: nil, tagMapping: ["a":"b"])
                 summaryLabel.attributedText = attributedString
             }
         } catch let error as NSError {
