@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: 1233qwer1234qwer4
 // Author: BodminPill
+// Author: DraconicDark
 // Author: Envlh
 // Author: Ferdinand0101
 // Author: Fitoschido
@@ -65,6 +66,7 @@
 "account-group-title" = "Dein Benutzerkonto";
 "account-talk-page-title" = "Deine Benutzerdiskussionsseite";
 "account-talk-preferences-auto-sign-discussions" = "Beiträge automatisch signieren";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Beim automatischen Signieren von Diskussionen wird die in den Signatur-Einstellungen definierte Signatur verwendet.";
 "account-talk-preferences-title" = "Diskussionsseiten Einstellungen";
 "action-add-to" = "Hinzufügen zu …";
 "action-add-to-reading-list" = "Zu Leseliste hinzufügen";
@@ -89,6 +91,7 @@
 "action-share" = "Teilen";
 "action-share-accessibility" = "Teilen";
 "action-sort" = "Sortieren";
+"action-thank-user-accessibility" = "Benutzer danken";
 "action-undo" = "Rückgängig";
 "action-unsave" = "Löschen";
 "action-unsaved-accessibility-notification" = "Artikel gelöscht";
@@ -189,6 +192,8 @@
 "diff-single-header-summary-heading" = "Bearbeitungszusammenfassung";
 "diff-single-intro-title" = "Einleitung";
 "diff-single-line-format" = "Zeile $1";
+"diff-thanks-login-subtitle" = "'Danken' sind eine einfache Möglichkeit, die Arbeit eines Editors bei Wikipedia zu würdigen. Du must eingeloggt sein, um 'Danken' zu senden.";
+"diff-thanks-login-title" = "Anmelden, um 'Danken' zu senden";
 "diff-unedited-lines-format" = "$1 unbearbeitete {{PLURAL:$1|Zeile|Zeilen}}";
 "dim-images" = "Bilder dimmen";
 "edit-bold-accessibility-label" = "Fett-Formatierung hinzufügen";

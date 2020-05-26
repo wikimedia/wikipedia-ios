@@ -52,7 +52,7 @@ class InsertLinkViewController: UIViewController {
         navigationItem.leftBarButtonItem = closeButton
         let navigationController = WMFThemeableNavigationController(rootViewController: searchViewController)
         navigationController.isNavigationBarHidden = true
-        wmf_addHeightDetermining(childController: navigationController, andConstrainToEdgesOfContainerView: view)
+        wmf_add(childController: navigationController, andConstrainToEdgesOfContainerView: view)
         apply(theme: theme)
     }
 

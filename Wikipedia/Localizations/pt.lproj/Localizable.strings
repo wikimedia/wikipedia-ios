@@ -82,7 +82,7 @@
 "action-remove" = "Remover";
 "action-replace" = "Substituir";
 "action-replace-all" = "Substituir todas";
-"action-retry" = "Repetir";
+"action-retry" = "Tentar novamente";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-saved-accessibility" = "Guardado. Ativar para não guardar.";
@@ -549,7 +549,7 @@
 "page-protected-can-not-edit-title" = "Esta página está protegida";
 "page-protected-other" = "Esta página está protegida para os seguintes níveis: $1";
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
-"page-similar-titles" = "Páginas similares";
+"page-similar-titles" = "Páginas semelhantes";
 "panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo foi modificado ao longo do tempo. Comparar duas revisões de um artigo mostra as diferenças entre essas revisões, salientando todo o conteúdo que foi modificado.";
 "panel-compare-revisions-title" = "Comparação de revisões";
 "pictured" = "retratado";

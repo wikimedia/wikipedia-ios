@@ -25,6 +25,7 @@
 // Author: ديفيد
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
+// Author: مصعب
 // Author: يونس
 
 "about-content-license" = "رخصة المحتوى";
@@ -119,12 +120,14 @@
 "appearance-settings-set-automatic-table-opening" = "إعدادات الجداول";
 "appearance-settings-text-sizing-example-text" = "اسحب شريط التمرير لتغيير حجم نص المقالة، استخدم حجم نص النظام لتغيير حجم مناطق النص الأخرى في التطبيق.";
 "appearance-settings-theme-options" = "خيارات الموضوع";
+"article-about-title" = "حول هذه المقالة";
 "article-delete" = "حذف";
 "article-deleted-accessibility-notification" = "تم حذف {{PLURAL:$1|مقالة|مقالات}}";
 "article-languages-filter-placeholder" = "ابحث عن لغة";
 "article-languages-label" = "اختر لغة";
 "article-languages-others" = "لغات اخرى";
 "article-languages-yours" = "لغاتك";
+"article-read-more-title" = "إقرأ أيضا";
 "article-reference-view-title" = "$1 مرجع";
 "article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
@@ -549,11 +552,14 @@
 "page-history-revisions-comparison-warning" = "يمكن تحديد مراجعتين فقط";
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
+"page-issues" = "مشاكل الصفحة";
+"page-location" = "أظهر على الخريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
 "page-protected-can-not-edit-title" = "هذه الصفحة محمية";
 "page-protected-other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
+"page-similar-titles" = "صفحات مشابهة";
 "panel-compare-revisions-text" = "تساعد مقارنة المراجعات في إظهار كيف تم تغيير مقالة بمرور الوقت، ستوضح المقارنة بين مراجعتين لمقالة ما الفرق بين تلك المراجعات من خلال إبراز أي محتوى تم تغييره.";
 "panel-compare-revisions-title" = "مقارنة المراجعات";
 "pictured" = "مصوّر";

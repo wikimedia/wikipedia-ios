@@ -6,6 +6,7 @@ class ArticleViewController: ViewController, HintPresenting {
     enum ViewState {
         case initial
         case loading
+        case reloading
         case loaded
         case error
     }
@@ -47,6 +48,9 @@ class ArticleViewController: ViewController, HintPresenting {
     private var leadImageHeight: CGFloat = 210
 
     private var contentSizeObservation: NSKeyValueObservation? = nil
+    
+    /// Current ETag of the web content response. Used to verify when content has changed on the server.
+    var currentETag: String?
 
     /// Used to delay reloading the web view to prevent `UIScrollView` jitter
     fileprivate var shouldPerformWebRefreshAfterScrollViewDeceleration = false
@@ -55,6 +59,14 @@ class ArticleViewController: ViewController, HintPresenting {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
+    }()
+    
+    lazy var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer = {
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(tappedWebViewBackground))
+        tapGR.delegate = self
+        webView.scrollView.addGestureRecognizer(tapGR)
+        tapGR.isEnabled = false
+        return tapGR
     }()
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler = SchemeHandler.shared) {
@@ -234,6 +246,8 @@ class ArticleViewController: ViewController, HintPresenting {
             switch state {
             case .initial:
                 break
+            case .reloading:
+                fallthrough
             case .loading:
                 fakeProgressController.start()
             case .loaded:
@@ -345,33 +359,38 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup?.enter()
         // async to allow the page network requests some time to go through
         DispatchQueue.main.async {
-            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            // TODO: Remove this workaround when upstream bug is deployed: https://phabricator.wikimedia.org/T251956
+            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadIgnoringLocalAndRemoteCacheData : nil
+            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
                 defer {
                     self.articleLoadWaitGroup?.leave()
                     self.updateMenuItems()
                 }
-                // Handle redirects
-                guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
+                guard let article = article else {
                     return
                 }
                 self.article = article
+                // Handle redirects
+                guard let newKey = article.key, newKey != key, let newURL = article.url else {
+                    return
+                }
                 self.articleURL = newURL
                 self.addToHistory()
             }
         }
     }
     
-    func loadPage(cachePolicy: WMFCachePolicy? = nil) {
+    func loadPage(cachePolicy: WMFCachePolicy? = nil, revisionID: UInt64? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
             showGenericError()
             state = .error
             return
         }
-
+                
         webView.load(request)
     }
     
@@ -434,7 +453,6 @@ class ArticleViewController: ViewController, HintPresenting {
             self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
             self.article.viewedFragment = anchor
             try? self.article.managedObjectContext?.save()
-            
         }
     }
     
@@ -551,17 +569,48 @@ class ArticleViewController: ViewController, HintPresenting {
     // MARK: Refresh
     
     @objc public func refresh() {
+        state = .reloading
         if !shouldPerformWebRefreshAfterScrollViewDeceleration {
             updateRefreshOverlay(visible: true)
         }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
     }
+    
+    /// Preserves the current scroll position, loads the provided revisionID or waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
+    internal func waitForNewContentAndRefresh(_ revisionID: UInt64? = nil) {
+        showNavigationBar()
+        state = .reloading
+        saveArticleScrollPosition()
+        isRestoringState = true
+        setupForStateRestorationIfNecessary()
+        // If a revisionID was provided, just load that revision
+        if let revisionID = revisionID {
+            performWebViewRefresh(revisionID)
+            return
+        }
+        // If no revisionID was provided, wait for the ETag to change
+        guard let eTag = currentETag else {
+            performWebViewRefresh()
+            return
+        }
+        fetcher.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, maxAttempts: 5) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    self.showError(error, sticky: true)
+                    fallthrough
+                default:
+                    self.performWebViewRefresh()
+                }
+            }
+        }
+    }
 
-    internal func performWebViewRefresh() {
+    internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
-            loadPage(cachePolicy: .noPersistentCacheOnError)
+            loadPage(cachePolicy: .noPersistentCacheOnError, revisionID: revisionID)
         #endif
     }
 
@@ -991,6 +1040,16 @@ extension ArticleViewController: WKNavigationDelegate {
         default:
             decisionHandler(.cancel, preferences)
         }
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        defer {
+            decisionHandler(.allow)
+        }
+        guard let response = navigationResponse.response as? HTTPURLResponse else {
+            return
+        }
+        currentETag = response.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
