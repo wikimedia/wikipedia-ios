@@ -115,6 +115,10 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         super.viewWillDisappear(animated)
     }
     
+    deinit {
+        messagingController.removeScriptMessageHandler()
+    }
+    
     func wmf_editedSectionLanguageInfo() -> MWLanguageInfo? {
         guard let lang = language else {
             return nil
