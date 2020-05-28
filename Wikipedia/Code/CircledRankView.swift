@@ -2,7 +2,7 @@ class CircledRankView: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
     let padding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
     
-    public var rankColor: UIColor = .blue50 {
+    public var rankColor: UIColor = .accent50 {
         didSet {
             guard !label.textColor.isEqual(rankColor) else {
                 return

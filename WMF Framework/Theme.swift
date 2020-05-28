@@ -45,13 +45,15 @@ public extension UIColor {
     static let base90 = UIColor(0xF8F9FA)
     static let base100 = UIColor(0xFFFFFF)
     
-    // These are defined as blue instead of accent
-    // because we define the semantic meanings below
-    // instead of in the name of the color
     static let blue30 = UIColor(0x2A4B8D)
     static let blue50 = UIColor(0x3366CC)
     static let blue70 = UIColor(0x6699FF) // app-specific, formerly stratosphere
     static let blue90 = UIColor(0xEAF3FF)
+    
+    static let accent30 = blue30
+    static let accent50 = blue50
+    static let accent70 = blue70
+    static let accent90 = blue90
     
     static let red30 = UIColor(0xB32424)
     static let red50 = UIColor(0xDD3333)
@@ -66,14 +68,7 @@ public extension UIColor {
     static let yellow90 = UIColor(0xFEF6E7)
     
     // App specific colors
-    
-    static let purple50 = UIColor(0x7F4AB3)
-    static let purple90 = UIColor(0xF3E6FF)
-    
-    static let orange50 = UIColor(0xFF9500)
-    
-    static let defaultShadow = UIColor(white: 0, alpha: 0.25)
-    
+
     static let darkBase05 = UIColor(0x101418) // pitchBlack
     static let darkBase10 = UIColor(0x27292D) // exosphere
     static let darkBase20 = UIColor(0x2E3136) // thermosphere
@@ -89,8 +84,15 @@ public extension UIColor {
     static let sepiaGray40 = UIColor(0x646059) // masi
     static let sepiaGray80 = UIColor(0xCBC8C1) // kraft
     
+    static let purple50 = UIColor(0x7F4AB3)
+    static let purple90 = UIColor(0xF3E6FF)
+    
+    static let orange50 = UIColor(0xFF9500)
+    
     static let paleNavy = UIColor(0xEEF2FB)
     
+    static let defaultShadow = UIColor(white: 0, alpha: 0.25)
+
     static let darkSearchFieldBackground = UIColor(0x8E8E93, alpha: 0.12)
     static let lightSearchFieldBackground = UIColor(0xFFFFFF, alpha: 0.15)
     
@@ -103,8 +105,8 @@ public extension UIColor {
     static let white40PercentAlpha = UIColor(white: 1, alpha:0.4)
     
     static let base70At55PercentAlpha = base70.withAlphaComponent(0.55)
-    static let blue50At10PercentAlpha = blue50.withAlphaComponent(0.1)
-    static let blue50At25PercentAlpha = blue50.withAlphaComponent(0.25)
+    static let accent50At10PercentAlpha = accent50.withAlphaComponent(0.1)
+    static let accent50At25PercentAlpha = accent50.withAlphaComponent(0.25)
     
     @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
@@ -136,9 +138,9 @@ public class Colors: NSObject {
         popoverBackground: .base100,
         subCellBackground: .base100,
         overlayBackground: .black50PercentAlpha,
-        batchSelectionBackground: .blue90,
+        batchSelectionBackground: .accent90,
         referenceHighlightBackground: .clear,
-        hintBackground: .blue90,
+        hintBackground: .accent90,
         hintWarningBackground: .yellow90,
         animationBackground: .paleNavy,
         overlayText: .base20,
@@ -150,7 +152,7 @@ public class Colors: NSObject {
         disabledText: .base80,
         disabledLink: .base30,
         chromeText: .base10,
-        link: .blue50,
+        link: .accent50,
         accent: .green50,
         border: .base80,
         shadow: .base80,
@@ -160,7 +162,7 @@ public class Colors: NSObject {
         cardBorder: .base90,
         cardShadow: .base10,
         cardButtonBackground: .base90,
-        secondaryAction: .blue30,
+        secondaryAction: .accent30,
         icon: nil,
         iconBackground: nil,
         destructive: .red50,
@@ -169,18 +171,18 @@ public class Colors: NSObject {
         unselected: .base50,
         blurEffectStyle: .extraLight,
         blurEffectBackground: .clear,
-        tagText: .blue50,
-        tagBackground: .blue50At10PercentAlpha,
-        tagSelectedBackground: .blue50At25PercentAlpha,
-        rankGradientStart: .blue50,
+        tagText: .accent50,
+        tagBackground: .accent50At10PercentAlpha,
+        tagSelectedBackground: .accent50At25PercentAlpha,
+        rankGradientStart: .accent50,
         rankGradientEnd: .green50,
         distanceBorder: .base50,
         descriptionBackground: .yellow50,
         descriptionWarning: .orange50,
         inputAccessoryBackground: .base100,
         inputAccessoryButtonTint: .base20,
-        pageIndicator: .blue90,
-        pageIndicatorCurrent: .blue50,
+        pageIndicator: .accent90,
+        pageIndicatorCurrent: .accent50,
         unreadIndicator: .green50,
         depthMarker: .base70,
         diffTextAdd: .base10,
@@ -202,9 +204,9 @@ public class Colors: NSObject {
         popoverBackground: .base100,
         subCellBackground: .sepiaBase90,
         overlayBackground: UIColor.sepiaGray40.withAlphaComponent(0.6),
-        batchSelectionBackground: .blue90,
+        batchSelectionBackground: .accent90,
         referenceHighlightBackground: .clear,
-        hintBackground: .blue90,
+        hintBackground: .accent90,
         hintWarningBackground: .sepiaBase85,
         animationBackground: .paleNavy,
         overlayText: .base20,
@@ -216,7 +218,7 @@ public class Colors: NSObject {
         disabledText: .base80,
         disabledLink: .sepiaGray40,
         chromeText: .base10,
-        link: .blue50,
+        link: .accent50,
         accent: .green50,
         border: .sepiaGray80,
         shadow: .sepiaGray80,
@@ -226,7 +228,7 @@ public class Colors: NSObject {
         cardBorder: .sepiaBorder,
         cardShadow: .clear,
         cardButtonBackground: .sepiaBase85,
-        secondaryAction: .blue30,
+        secondaryAction: .accent30,
         icon: .sepiaGray40,
         iconBackground: .sepiaBase85,
         destructive: .red30,
@@ -236,17 +238,17 @@ public class Colors: NSObject {
         blurEffectStyle: .extraLight,
         blurEffectBackground: .clear,
         tagText: .base100,
-        tagBackground: .blue70,
-        tagSelectedBackground: .blue50,
-        rankGradientStart: .blue50,
-        rankGradientEnd: .blue50,
+        tagBackground: .accent70,
+        tagSelectedBackground: .accent50,
+        rankGradientStart: .accent50,
+        rankGradientEnd: .accent50,
         distanceBorder: .sepiaGray40,
         descriptionBackground: .orange50,
         descriptionWarning: .orange50,
         inputAccessoryBackground: .sepiaBase90,
         inputAccessoryButtonTint: .base20,
-        pageIndicator: .blue90,
-        pageIndicatorCurrent: .blue50,
+        pageIndicator: .accent90,
+        pageIndicatorCurrent: .accent50,
         unreadIndicator: .green50,
         depthMarker: .sepiaGray40,
         diffTextAdd: .green50,
@@ -268,7 +270,7 @@ public class Colors: NSObject {
         popoverBackground: .base10,
         subCellBackground: .darkBase10,
         overlayBackground: .black75PercentAlpha,
-        batchSelectionBackground: .blue30,
+        batchSelectionBackground: .accent30,
         referenceHighlightBackground: .clear,
         hintBackground: .darkBase05,
         hintWarningBackground: .base10,
@@ -282,7 +284,7 @@ public class Colors: NSObject {
         disabledText: .base70,
         disabledLink: .base70,
         chromeText: .base90,
-        link: .blue70,
+        link: .accent70,
         accent: .green50,
         border: .darkBase30,
         shadow: .base10,
@@ -292,7 +294,7 @@ public class Colors: NSObject {
         cardBorder: .darkBase20,
         cardShadow: .clear,
         cardButtonBackground: .darkBase30,
-        secondaryAction: .blue30,
+        secondaryAction: .accent30,
         icon: .base70,
         iconBackground: .darkBase10,
         destructive: .red90,
@@ -302,17 +304,17 @@ public class Colors: NSObject {
         blurEffectStyle: .dark,
         blurEffectBackground: .base70At55PercentAlpha,
         tagText: .base100,
-        tagBackground: .blue70,
-        tagSelectedBackground: .blue50,
-        rankGradientStart: .blue70,
+        tagBackground: .accent70,
+        tagSelectedBackground: .accent50,
+        rankGradientStart: .accent70,
         rankGradientEnd: .green50,
         distanceBorder: .base70,
-        descriptionBackground: .blue70,
+        descriptionBackground: .accent70,
         descriptionWarning: .yellow50,
         inputAccessoryBackground: .darkBase10,
         inputAccessoryButtonTint: .base90,
-        pageIndicator: .blue90,
-        pageIndicatorCurrent: .blue70,
+        pageIndicator: .accent90,
+        pageIndicatorCurrent: .accent70,
         unreadIndicator: .green50,
         depthMarker: .base70,
         diffTextAdd: .green50,
@@ -334,7 +336,7 @@ public class Colors: NSObject {
         popoverBackground: .base10,
         subCellBackground: .base10,
         overlayBackground: .black75PercentAlpha,
-        batchSelectionBackground: .blue30,
+        batchSelectionBackground: .accent30,
         referenceHighlightBackground: .white20PercentAlpha,
         hintBackground: .darkBase05,
         hintWarningBackground: .darkBase05,
@@ -348,7 +350,7 @@ public class Colors: NSObject {
         disabledText: .base70,
         disabledLink: .base70,
         chromeText: .base90,
-        link: .blue70,
+        link: .accent70,
         accent: .green50,
         border: .darkBase30,
         shadow: .base10,
@@ -358,7 +360,7 @@ public class Colors: NSObject {
         cardBorder: .darkBase10,
         cardShadow: .clear,
         cardButtonBackground: .darkBase20,
-        secondaryAction: .blue30,
+        secondaryAction: .accent30,
         icon: .base70,
         iconBackground: .darkBase10,
         destructive: .red90,
@@ -368,17 +370,17 @@ public class Colors: NSObject {
         blurEffectStyle: .dark,
         blurEffectBackground: .base70At55PercentAlpha,
         tagText: .base100,
-        tagBackground: .blue70,
-        tagSelectedBackground: .blue50,
-        rankGradientStart: .blue70,
+        tagBackground: .accent70,
+        tagSelectedBackground: .accent50,
+        rankGradientStart: .accent70,
         rankGradientEnd: .green50,
         distanceBorder: .base70,
-        descriptionBackground: .blue70,
+        descriptionBackground: .accent70,
         descriptionWarning: .yellow50,
         inputAccessoryBackground: .darkBase10,
         inputAccessoryButtonTint: .base90,
-        pageIndicator: .blue90,
-        pageIndicatorCurrent: .blue70,
+        pageIndicator: .accent90,
+        pageIndicatorCurrent: .accent70,
         unreadIndicator: .green50,
         depthMarker: .base70,
         diffTextAdd: .green50,
@@ -400,7 +402,7 @@ public class Colors: NSObject {
         popoverBackground: .clear,
         subCellBackground: .clear,
         overlayBackground: UIColor(white: 1.0, alpha: 0.4),
-        batchSelectionBackground: .blue90,
+        batchSelectionBackground: .accent90,
         referenceHighlightBackground: .clear,
         hintBackground: .clear,
         hintWarningBackground: .clear,
@@ -414,7 +416,7 @@ public class Colors: NSObject {
         disabledText: .base30,
         disabledLink: .base70,
         chromeText: .base10,
-        link: .blue30,
+        link: .accent30,
         accent: .green50,
         border: UIColor(white: 0, alpha: 0.15),
         shadow: .base80,
@@ -424,7 +426,7 @@ public class Colors: NSObject {
         cardBorder: .clear,
         cardShadow: .black,
         cardButtonBackground: .black,
-        secondaryAction: .blue30,
+        secondaryAction: .accent30,
         icon: nil,
         iconBackground: nil,
         destructive: .red50,
@@ -436,15 +438,15 @@ public class Colors: NSObject {
         tagText: .clear,
         tagBackground: .clear,
         tagSelectedBackground: .clear,
-        rankGradientStart: .blue30,
+        rankGradientStart: .accent30,
         rankGradientEnd: .green50,
         distanceBorder: .base50,
         descriptionBackground: .orange50,
         descriptionWarning: .orange50,
         inputAccessoryBackground: .black,
         inputAccessoryButtonTint: .base90,
-        pageIndicator: .blue90,
-        pageIndicatorCurrent: .blue30,
+        pageIndicator: .accent90,
+        pageIndicatorCurrent: .accent30,
         unreadIndicator: .green50,
         depthMarker: .base20)
     
@@ -456,7 +458,7 @@ public class Colors: NSObject {
         popoverBackground: .clear,
         subCellBackground: .clear,
         overlayBackground: .black40PercentAlpha,
-        batchSelectionBackground: .blue30,
+        batchSelectionBackground: .accent30,
         referenceHighlightBackground: .white20PercentAlpha,
         hintBackground: .darkBase20,
         hintWarningBackground: .clear,
@@ -470,7 +472,7 @@ public class Colors: NSObject {
         disabledText: .base70,
         disabledLink: .base70,
         chromeText: .base90,
-        link: .blue70,
+        link: .accent70,
         accent: .green50,
         border: .white15PercentAlpha,
         shadow: .base10,
@@ -480,7 +482,7 @@ public class Colors: NSObject {
         cardBorder: .darkBase10,
         cardShadow: .clear,
         cardButtonBackground: .darkBase20,
-        secondaryAction: .blue30,
+        secondaryAction: .accent30,
         icon: .base70,
         iconBackground: .darkBase10,
         destructive: .red90,
@@ -490,17 +492,17 @@ public class Colors: NSObject {
         blurEffectStyle: .dark,
         blurEffectBackground: .base70At55PercentAlpha,
         tagText: .base100,
-        tagBackground: .blue70,
-        tagSelectedBackground: .blue50,
-        rankGradientStart: .blue70,
+        tagBackground: .accent70,
+        tagSelectedBackground: .accent50,
+        rankGradientStart: .accent70,
         rankGradientEnd: .green50,
         distanceBorder: .base70,
-        descriptionBackground: .blue70,
+        descriptionBackground: .accent70,
         descriptionWarning: .yellow50,
         inputAccessoryBackground: .darkBase10,
         inputAccessoryButtonTint: .base90,
-        pageIndicator: .blue90,
-        pageIndicatorCurrent: .blue70,
+        pageIndicator: .accent90,
+        pageIndicatorCurrent: .accent70,
         unreadIndicator: .green50,
         depthMarker: .base70)
     

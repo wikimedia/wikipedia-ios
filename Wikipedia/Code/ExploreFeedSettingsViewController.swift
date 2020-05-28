@@ -28,8 +28,8 @@ private class FeedCard: ExploreFeedSettingsItem {
             title = CommonStrings.onThisDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-on-this-day-description", value: "Events in history on this day", comment: "Description of On this day section of Explore feed")
             iconName = "on-this-day-mini"
-            iconColor = .blue30
-            iconBackgroundColor = .blue90
+            iconColor = .accent30
+            iconBackgroundColor = .accent90
         case .featuredArticle:
             title = CommonStrings.featuredArticleTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-featured-article-description", value: "Daily featured article on Wikipedia", comment: "Description of Featured article section of Explore feed")
@@ -40,8 +40,8 @@ private class FeedCard: ExploreFeedSettingsItem {
             title = CommonStrings.topReadTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-top-read-description", value: "Daily most read articles", comment: "Description of Top read section of Explore feed")
             iconName = "trending-mini"
-            iconColor = .blue50
-            iconBackgroundColor = .blue90
+            iconColor = .accent50
+            iconBackgroundColor = .accent90
         case .location:
             fallthrough
         case .locationPlaceholder:

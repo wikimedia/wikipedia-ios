@@ -546,7 +546,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             backgroundColor = theme.colors.link.withAlphaComponent(0.2)
             timeColor = theme.colors.tertiaryText
         } else {
-            backgroundColor = .blue90
+            backgroundColor = .accent90
             timeColor = .base30
         }
         return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link, backgroundColor: backgroundColor, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
