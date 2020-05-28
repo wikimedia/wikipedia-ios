@@ -107,7 +107,7 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        tintColor = UIColor.wmf_darkGray
+        tintColor = .base20
     }
     
     override func awakeFromNib() {

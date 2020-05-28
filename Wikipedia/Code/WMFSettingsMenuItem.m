@@ -61,7 +61,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:[WMFCommonStrings searchTitle]
                                                  iconName:@"settings-search"
-                                                iconColor:[UIColor wmf_green]
+                                                iconColor:[UIColor wmf_green50]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];

@@ -40,8 +40,8 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
     }
     
     open override func viewDidLoad() {
-        rankLabel.textColor = .wmf_darkGray
-        separatorView.backgroundColor = .wmf_darkGray
+        rankLabel.textColor = .base20
+        separatorView.backgroundColor = .base20
         imageView.accessibilityIgnoresInvertColors = true
         updateFonts()
     }
