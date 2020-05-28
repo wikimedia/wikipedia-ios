@@ -167,7 +167,6 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     }
 }
 
-
 extension EditPreviewViewController: ArticleWebMessageHandling {
     func didRecieve(action: ArticleWebMessagingController.Action) {
         switch action {
@@ -189,5 +188,15 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         default:
             break
         }
+    }
+
+    internal func updateArticleMargins() {
+        messagingController.updateMargins(with: articleMargins, leadImageHeight: 0)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
+        coordinator.animate(alongsideTransition: marginUpdater)
     }
 }

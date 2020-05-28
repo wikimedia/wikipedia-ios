@@ -17,11 +17,13 @@ extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegat
     func hideTableOfContents() {
         tableOfContentsController.hide(animated: true)
         toolbarController.update()
+        updateArticleMargins()
     }
     
     func showTableOfContents() {
         tableOfContentsController.show(animated: true)
         toolbarController.update()
+        updateArticleMargins()
     }
     
     var tableOfContentsDisplaySide: TableOfContentsDisplaySide {

@@ -235,8 +235,14 @@ class ArticleViewController: ViewController, HintPresenting {
         updateArticleMargins()
     }
     
-    private func updateArticleMargins() {
+    internal func updateArticleMargins() {
         messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
+        coordinator.animate(alongsideTransition: marginUpdater)
     }
     
     // MARK: Loading
@@ -1076,12 +1082,21 @@ extension ArticleViewController: WKNavigationDelegate {
 
 }
 
-extension ViewController {
-    /// Allows for re-use by edit preview VC
+extension ViewController  { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
+
     var articleMargins: UIEdgeInsets {
-        var margins = navigationController?.view.layoutMargins ?? view.layoutMargins // view.layoutMargins is zero here so check nav controller first
-        margins.top = 8
-        margins.bottom = 0
-        return margins
+        let readableMargin: CGFloat
+        let viewForCalculation: UIView = navigationController?.view ?? view
+
+        if let tableOfContentsVC = (self as? ArticleViewController)?.tableOfContentsController.viewController, tableOfContentsVC.isVisible {
+            // full width
+            readableMargin = viewForCalculation.layoutMargins.left
+        } else {
+            // If (is EditPreviewVC) or (is TOC OffScreen) then use readableContentGuide to make text inset from screen edges.
+            // Since readableContentGuide has no effect on compact width, both paths of this `if` statement result in an identical result for smaller screens.
+            readableMargin = viewForCalculation.readableContentGuide.layoutFrame.minX
+        }
+
+        return UIEdgeInsets(top: 8, left: readableMargin, bottom: 0, right: readableMargin)
     }
 }
