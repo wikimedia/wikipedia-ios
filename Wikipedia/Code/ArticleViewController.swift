@@ -237,6 +237,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     internal func updateArticleMargins() {
         messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+        updateLeadImageMargins()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -841,7 +842,6 @@ private extension ArticleViewController {
     }
     
     func contentSizeDidChange() {
-        tableOfContentsController.restoreOffsetPercentageIfNecessary()
         // debounce
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedContentSizeDidChange), object: nil)
         perform(#selector(debouncedContentSizeDidChange), with: nil, afterDelay: 0.1)

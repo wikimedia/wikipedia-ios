@@ -101,9 +101,15 @@ class ArticleWebMessagingController: NSObject {
         guard let marginsJSON = try? PageContentService.getJavascriptFor(margins) else {
             return
         }
+
+        let scrollView = webView?.scrollView
+        let stashedOffsetPercentage = scrollView?.verticalOffsetPercentage
+
         webView?.evaluateJavaScript("pcs.c1.Page.setMargins(\(marginsJSON))")
         parameters?.margins = margins
         updateSetupParameters()
+
+        scrollView?.verticalOffsetPercentage = stashedOffsetPercentage ?? 0
     }
     
     func updateTextSizeAdjustmentPercentage(_ percentage: Int) {

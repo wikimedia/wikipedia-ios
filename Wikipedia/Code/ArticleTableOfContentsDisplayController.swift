@@ -100,34 +100,18 @@ class ArticleTableOfContentsDisplayController: Themeable {
         delegate?.dismiss(animated: animated)
     }
     
-    var verticalOffsetPercentageToRestore: CGFloat?
-    
-    func restoreOffsetPercentageIfNecessary() {
-        guard let verticalOffsetPercentage = verticalOffsetPercentageToRestore else {
-            return
-        }
-        verticalOffsetPercentageToRestore = nil
-        articleView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
-    }
-    
     func showInline() {
-        let scrollView = articleView.scrollView
-        let offsetPercentage = scrollView.verticalOffsetPercentage
         viewController.isVisible = true
         UserDefaults.standard.wmf_setTableOfContentsIsVisibleInline(true)
         inlineContainerView.isHidden = false
         separatorView.isHidden = false
-        verticalOffsetPercentageToRestore = offsetPercentage
     }
     
     func hideInline() {
-        let scrollView = articleView.scrollView
-        let offsetPercentage = scrollView.verticalOffsetPercentage
         viewController.isVisible = false
         UserDefaults.standard.wmf_setTableOfContentsIsVisibleInline(false)
         inlineContainerView.isHidden = true
         separatorView.isHidden = true
-        verticalOffsetPercentageToRestore = offsetPercentage
     }
     
     func setup(with traitCollection:UITraitCollection) {
