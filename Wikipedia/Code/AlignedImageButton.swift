@@ -61,12 +61,13 @@ public class AlignedImageButton: UIButton {
         // presumably due to rounding errors in this function. The extra 1 here allows them to layout as expected.
         // The buttons having problems were AlignedImageButtons and SaveButtons (which are subclasses of AlignedImageButtons).
         // (Details: The button image's width is calculated as 12, however on screen the image takes a width of 13.)
+        let defaultSize = super.wmf_sizeThatFits(maximumSize)
+
         guard let _ = self.image(for: .normal) else {
             // If image, it should layout fine.
-            return maximumSize
+            return defaultSize
         }
-        let size = super.wmf_sizeThatFits(maximumSize)
-        return CGSize(width: size.width + 1, height: size.height)
+        return CGSize(width: defaultSize.width + 1, height: defaultSize.height)
     }
     
     var layoutDirection: UIUserInterfaceLayoutDirection = .leftToRight
