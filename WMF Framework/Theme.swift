@@ -91,12 +91,10 @@ public extension UIColor {
     
     static let paleNavy = UIColor(0xEEF2FB)
     
-    static let defaultShadow = UIColor(white: 0, alpha: 0.25)
-
     static let darkSearchFieldBackground = UIColor(0x8E8E93, alpha: 0.12)
     static let lightSearchFieldBackground = UIColor(0xFFFFFF, alpha: 0.15)
     
-    static let black15PercentAlpha = UIColor(white: 0, alpha:0.15)
+    static let black25PercentAlpha = UIColor(white: 0, alpha: 0.25)
     static let black40PercentAlpha = UIColor(white: 0, alpha:0.4)
     static let black50PercentAlpha = UIColor(white: 0, alpha:0.5)
     static let black75PercentAlpha = UIColor(white: 0, alpha:0.75)
@@ -105,6 +103,7 @@ public extension UIColor {
     static let white40PercentAlpha = UIColor(white: 1, alpha:0.4)
     
     static let base70At55PercentAlpha = base70.withAlphaComponent(0.55)
+    
     static let accent50At10PercentAlpha = accent50.withAlphaComponent(0.1)
     static let accent50At25PercentAlpha = accent50.withAlphaComponent(0.25)
     
@@ -156,7 +155,7 @@ public class Colors: NSObject {
         accent: .green50,
         border: .base80,
         shadow: .base80,
-        chromeShadow: .defaultShadow,
+        chromeShadow: .black25PercentAlpha,
         cardBackground: .base100,
         selectedCardBackground: .base90,
         cardBorder: .base90,
@@ -189,12 +188,12 @@ public class Colors: NSObject {
         diffTextDelete: .base10,
         diffHighlightAdd: .green90,
         diffHighlightDelete: .red90,
-        diffStrikethroughColor: .black,
+        diffStrikethroughColor: .base0,
         diffContextItemBackground: .base90,
         diffContextItemBorder: .darkBase90,
         diffMoveParagraphBackground: .base90,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .white)
+        diffCompareChangeHeading: .base100)
     
     fileprivate static let sepia = Colors(
         baseBackground: .sepiaBase85,
@@ -260,7 +259,7 @@ public class Colors: NSObject {
         diffContextItemBorder: .sepiaBorder,
         diffMoveParagraphBackground: .sepiaBase90,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .white)
+        diffCompareChangeHeading: .base100)
     
     fileprivate static let dark = Colors(
         baseBackground: .base10,
@@ -326,12 +325,12 @@ public class Colors: NSObject {
         diffContextItemBorder: .darkBase10,
         diffMoveParagraphBackground: .darkBase30,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .black)
+        diffCompareChangeHeading: .base0)
     
     fileprivate static let black = Colors(
         baseBackground: .darkBase05,
         midBackground: .base10,
-        paperBackground: .black,
+        paperBackground: .base0,
         chromeBackground: .base10,
         popoverBackground: .base10,
         subCellBackground: .base10,
@@ -392,7 +391,7 @@ public class Colors: NSObject {
         diffContextItemBorder: .base10,
         diffMoveParagraphBackground: .darkBase20,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .black)
+        diffCompareChangeHeading: .base0)
     
     fileprivate static let widgetLight = Colors(
         baseBackground: .clear,
@@ -421,11 +420,11 @@ public class Colors: NSObject {
         border: UIColor(white: 0, alpha: 0.15),
         shadow: .base80,
         chromeShadow: .base80,
-        cardBackground: .black,
+        cardBackground: .base0,
         selectedCardBackground: .base10,
         cardBorder: .clear,
-        cardShadow: .black,
-        cardButtonBackground: .black,
+        cardShadow: .base0,
+        cardButtonBackground: .base0,
         secondaryAction: .accent30,
         icon: nil,
         iconBackground: nil,
@@ -443,7 +442,7 @@ public class Colors: NSObject {
         distanceBorder: .base50,
         descriptionBackground: .orange50,
         descriptionWarning: .orange50,
-        inputAccessoryBackground: .black,
+        inputAccessoryBackground: .base0,
         inputAccessoryButtonTint: .base90,
         pageIndicator: .accent90,
         pageIndicatorCurrent: .accent30,
@@ -600,7 +599,7 @@ public class Colors: NSObject {
     public let diffCompareChangeHeading: UIColor
     
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .black, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .white) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
