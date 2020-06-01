@@ -294,7 +294,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
             guard let link = result as? [String: Any] else {
                 return
             }
-            let page = link["page"] as? String
+            let rawPage = link["page"] as? String
+            let page = (rawPage?.wmf_hasAlphanumericText == true) ? rawPage : ""
             let label = link["label"] as? String
             let exists = link["hasMarkup"] as? Bool
             completion(Link(page: page, label: label, exists: exists))
