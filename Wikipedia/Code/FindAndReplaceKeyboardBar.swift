@@ -105,11 +105,6 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        tintColor = .base20
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         hideUndoRedoIcons()
