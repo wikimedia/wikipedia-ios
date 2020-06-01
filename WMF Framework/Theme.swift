@@ -80,6 +80,8 @@ public extension UIColor {
     static let sepiaBase100 = UIColor(0xF8F1E3) // parchment
 
     static let sepiaBorder = UIColor(0xE8DCCA) // sand
+    
+    static let lightBorder = UIColor(0xF5F5F5) // wmf_lightestGray
 
     static let sepiaGray40 = UIColor(0x646059) // masi
     static let sepiaGray80 = UIColor(0xCBC8C1) // kraft
@@ -158,9 +160,9 @@ public class Colors: NSObject {
         chromeShadow: .black25PercentAlpha,
         cardBackground: .base100,
         selectedCardBackground: .base90,
-        cardBorder: .base90,
+        cardBorder: .lightBorder,
         cardShadow: .base10,
-        cardButtonBackground: .base90,
+        cardButtonBackground: .lightBorder,
         secondaryAction: .accent30,
         icon: nil,
         iconBackground: nil,
@@ -189,9 +191,9 @@ public class Colors: NSObject {
         diffHighlightAdd: .green90,
         diffHighlightDelete: .red90,
         diffStrikethroughColor: .base0,
-        diffContextItemBackground: .base90,
+        diffContextItemBackground: .lightBorder,
         diffContextItemBorder: .darkBase90,
-        diffMoveParagraphBackground: .base90,
+        diffMoveParagraphBackground: .lightBorder,
         diffCompareAccent: .orange50,
         diffCompareChangeHeading: .base100)
     
