@@ -222,7 +222,8 @@ extension ArticleViewController: WKUIDelegate {
     func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
         guard
             animator.preferredCommitStyle != .dismiss,
-            let vc = animator.previewViewController
+            let vc = animator.previewViewController,
+			elementInfo.linkURL != nil
             else {
                 return
         }
