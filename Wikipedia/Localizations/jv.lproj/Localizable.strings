@@ -48,7 +48,7 @@
 "account-creation-log-in" = "Mlebu log.";
 "account-creation-logging-in" = "Mlebu log...";
 "account-creation-missing-fields" = "Panjenengan kudu ngisi jeneng naraguna, tembung sandi, lan konfirmasi tembung sandi saperlu nggawé akun.";
-"account-creation-passwords-mismatched" = "Babagan tembung wadiné ora cocog.";
+"account-creation-passwords-mismatched" = "Babagan tembung sandiné ora cocog.";
 "account-creation-saving" = "Nyimpen...";
 "account-creation-title" = "Gawé akun anyar";
 "account-group-title" = "Akun";
@@ -117,7 +117,7 @@
 "description-edit-publish" = "Babar wedharan";
 "description-edit-title" = "Besut wedharan";
 "description-help-about-title" = "Bab";
-"description-help-about-wikidata" = "Bab Wikidata";
+"description-help-about-wikidata" = "Bab Wikidhata";
 "description-help-tips-for-example" = "Contoné:";
 "description-published-button-title" = "Rampung";
 "description-welcome-start-editing-button" = "Wiwit mbesut";
@@ -159,8 +159,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Ora mirunggan marang basa tinamtu";
 "explore-feed-preferences-global-cards-title" = "Kertu sajagat";
 "explore-feed-preferences-hide-card-action-title" = "Dhelikaké kertu iki";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Dhelikaké kabèh kertu “%@”";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Dhelikaké kabèh kertu “$1”";
 "explore-feed-preferences-in-the-news-description" = "Artikel bab kadadéan dinané iki";
 "explore-feed-preferences-languages-footer-text" = "Ndhelikaké kabèh kertu pakan Dlajah ing kabèh basa bakal matèni tab Dlajah.";
 "explore-feed-preferences-on-this-day-description" = "Kadadéan duk nguni ing tanggal iki";
@@ -190,7 +189,7 @@
 "feed-news-notification-text" = "Urubaké wara-wara supaya panjenengan dikabari Wikipédia yèn artikelé mumbul dadi pawarta.";
 "fetcher-error-generic" = "Ana masalah. Mangga jajal manèh mengko.";
 "field-alert-captcha-invalid" = "CAPTCHA ora trep";
-"field-alert-password-confirm-mismatch" = "Tembung wadiné ora mathuk";
+"field-alert-password-confirm-mismatch" = "Tembung sandiné ora mathuk";
 "field-alert-token-invalid" = "Kodhe ora trep";
 "field-alert-username-unavailable" = "Jeneng naraguna ora ana";
 "field-backup-token-title" = "Kodhe sèrep";
@@ -199,13 +198,13 @@
 "field-email-placeholder" = "conto@conto.org";
 "field-email-title" = "Layang-èl";
 "field-email-title-optional" = "Layang-èl (manasuka)";
-"field-new-password-confirm-placeholder" = "isi manèh tembung wadi anyar";
+"field-new-password-confirm-placeholder" = "isi manèh tembung sandi anyar";
 "field-new-password-confirm-title" = "Konfirmasi tembung sandi anyar";
 "field-new-password-placeholder" = "isi tembung sandi anyar";
-"field-new-password-title" = "Tembung wadi anyar";
-"field-password-confirm-placeholder" = "isi manèh tembung wadi";
+"field-new-password-title" = "Tembung sandi anyar";
+"field-password-confirm-placeholder" = "isi manèh tembung sandi";
 "field-password-confirm-title" = "Konfirmasi tembung sandi";
-"field-password-placeholder" = "isi tembung wadi";
+"field-password-placeholder" = "isi tembung sandi";
 "field-password-title" = "Tembung sandi";
 "field-token-title" = "Kodhe vèrifikasi";
 "field-username-placeholder" = "lebokaké jeneng naraguna";
@@ -214,9 +213,9 @@
 "find-replace-header" = "Golèk lan ganti";
 "find-textfield-accessibility" = "Golèk";
 "forgot-password-button-title" = "Balèni setèl";
-"forgot-password-email-sent" = "Layang-èl sing isiné panuntun setèl-ulang tembung wadi wis dikirim";
-"forgot-password-instructions" = "Isi ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung-wadi lumantar layang-èl";
-"forgot-password-title" = "Ambali nyetèl tembung wadi";
+"forgot-password-email-sent" = "Layang-èl sing isiné panuntun setèl-ulang tembung sandi wis dikirim";
+"forgot-password-instructions" = "Isi ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung sandi lumantar layang-èl";
+"forgot-password-title" = "Ambali nyetèl tembung sandi";
 "forgot-password-username-or-email-title" = "Utawa";
 "history-clear-all" = "Resiki";
 "history-clear-cancel" = "Wurung";
@@ -241,15 +240,14 @@
 "in-the-news-currently-trending" = "Lagi mumbul";
 "in-the-news-notification-read-now-action-title" = "Waca Saiki";
 "in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Ngedum...";
+"in-the-news-notification-share-action-title" = "Ngedum…";
 "in-the-news-sub-title-from-language-wikipedia" = "Saka Wikipédia $1";
 "in-the-news-sub-title-from-wikipedia" = "Saka Wikipédia";
 "in-the-news-title" = "Lagi dadi warta";
 "languages-settings-title" = "Basa";
 "languages-title" = "Ganti basa";
 "languages-wikipedia" = "Basa-basa ing Wikipédia";
-"login-forgot-password" = "Lali tembung wadimu?";
+"login-forgot-password" = "Lali tembung sandimu?";
 "login-join-wikipedia" = "Mèlu Wikipédia.";
 "login-no-account" = "Durung duwé akun? $1";
 "login-title" = "Mlebu log ing akun panjenengan";
@@ -274,8 +272,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
-"new-password-instructions" = "Panjenengan wis mlebu log mawa tembung wadi sawetara. Saperlu ngrampungaké olèhé panjenengan mlebu log, setèlen tembung wadi anyar ing kéné.";
-"new-password-title" = "Setèl tembung wadiné panjenengan";
+"new-password-instructions" = "Panjenengan wis mlebu log mawa tembung sandi sadhéla. Saperlu ngrampungaké olèhé panjenengan mlebu log, setèlen tembung sandi anyar ing kéné.";
+"new-password-title" = "Setèl tembung sandiné panjenengan";
 "no-email-account-alert" = "Mangga setèlen akun layang-èl ing pirantiné panjenengan lan ambali njajal.";
 "number-billions" = "$1 milyar";
 "number-millions" = "$1 yuta";
@@ -364,7 +362,7 @@
 "settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing telih bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";
 "settings-clear-cache-are-you-sure-title" = "Resiki dhata ing telih?";
 "settings-clear-cache-cancel" = "Wurung";
-"settings-clear-cache-ok" = "Busak cache";
+"settings-clear-cache-ok" = "Busak telih";
 "settings-help-and-feedback" = "Pitulung lan pamrayoga";
 "settings-language-bar" = "Tuduhaké basa ing panggolèkan";
 "settings-my-languages" = "Basa-basaku";
