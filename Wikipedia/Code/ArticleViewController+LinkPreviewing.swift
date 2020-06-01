@@ -58,7 +58,7 @@ extension ArticleContextMenuPresenting {
         dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
             if (!didCallCompletion) {
                 completionHandler(.timeout, nil)
-                didCallCompletion = true;
+                didCallCompletion = true
             }
         }
 
@@ -67,7 +67,7 @@ extension ArticleContextMenuPresenting {
             guard let peekParentVC = peekParentVC else {
                 if (!didCallCompletion) {
                     completionHandler(.bail, nil)
-                    didCallCompletion = true;
+                    didCallCompletion = true
                 }
                 return
             }
