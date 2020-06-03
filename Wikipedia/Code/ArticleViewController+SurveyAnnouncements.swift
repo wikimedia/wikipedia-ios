@@ -3,8 +3,8 @@ import Foundation
 extension ArticleViewController {
 
     func showSurveyAnnouncementPanel(surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult) {
-        
-        guard state == .loaded else {
+        let currentDate = Date()
+        guard state == .loaded, let surveyEndTime = surveyAnnouncementResult.announcement.endTime, currentDate.isBefore(surveyEndTime) else {
             return
         }
         
