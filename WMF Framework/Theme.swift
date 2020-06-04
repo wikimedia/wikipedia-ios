@@ -257,7 +257,7 @@ public class Colors: NSObject {
         diffTextDelete: .red30,
         diffHighlightAdd: nil,
         diffHighlightDelete: nil,
-        diffStrikethroughColor: .red75,
+        diffStrikethroughColor: .red30,
         diffContextItemBackground: .sepiaBase90,
         diffContextItemBorder: .sepiaBorder,
         diffMoveParagraphBackground: .sepiaBase90,
