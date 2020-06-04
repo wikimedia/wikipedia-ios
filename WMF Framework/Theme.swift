@@ -254,7 +254,7 @@ public class Colors: NSObject {
         unreadIndicator: .green50,
         depthMarker: .sepiaGray40,
         diffTextAdd: .green50,
-        diffTextDelete: .red75,
+        diffTextDelete: .red30,
         diffHighlightAdd: nil,
         diffHighlightDelete: nil,
         diffStrikethroughColor: .red75,
