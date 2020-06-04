@@ -94,13 +94,14 @@ class ArticleViewController: ViewController, HintPresenting {
     deinit {
         NotificationCenter.default.removeObserver(self)
         contentSizeObservation?.invalidate()
+        messagingController.removeScriptMessageHandler()
     }
     
     // MARK: WebView
     
     static let webProcessPool = WKProcessPool()
     
-    lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
+    private(set) var messagingController = ArticleWebMessagingController()
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
@@ -828,6 +829,7 @@ private extension ArticleViewController {
         setupSearchButton()
         addNotificationHandlers()
         setupWebView()
+        setupMessagingController()
     }
     
     // MARK: Notifications
@@ -868,6 +870,10 @@ private extension ArticleViewController {
     
     func setupSearchButton() {
         navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+    }
+    
+    func setupMessagingController() {
+        messagingController.delegate = self
     }
     
     func setupWebView() {

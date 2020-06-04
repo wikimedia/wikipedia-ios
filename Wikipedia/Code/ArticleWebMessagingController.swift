@@ -8,14 +8,10 @@ protocol ArticleWebMessageHandling: class {
 class ArticleWebMessagingController: NSObject {
     
     private weak var webView: WKWebView?
-    private weak var delegate: ArticleWebMessageHandling?
+    weak var delegate: ArticleWebMessageHandling?
     
     private let bodyActionKey = "action"
     private let bodyDataKey = "data"
-
-    init(delegate: ArticleWebMessageHandling?) {
-        self.delegate = delegate
-    }
     
     var parameters: PageContentService.Setup.Parameters?
     var contentController: WKUserContentController?
@@ -34,6 +30,10 @@ class ArticleWebMessagingController: NSObject {
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }
+    }
+    
+    func removeScriptMessageHandler() {
+        webView?.configuration.userContentController.removeScriptMessageHandler(forName: PageContentService.messageHandlerName)
     }
     
     /// Update the scripts that run on page load. Utilize this when any parameters change.
