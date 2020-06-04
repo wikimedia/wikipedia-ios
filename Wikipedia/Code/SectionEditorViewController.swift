@@ -55,6 +55,13 @@ class SectionEditorViewController: ViewController {
         }
     }
     
+    struct ScriptMessageHandler {
+        let handler: WKScriptMessageHandler
+        let name: String
+    }
+    
+    private var scriptMessageHandlers: [ScriptMessageHandler] = []
+    
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
     init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
@@ -98,6 +105,10 @@ class SectionEditorViewController: ViewController {
         super.viewWillDisappear(animated)
     }
     
+    deinit {
+        removeScriptMessageHandlers()
+    }
+    
     @objc func keyboardDidHide() {
         inputViewsController.resetFormattingAndStyleSubmenus()
     }
@@ -136,6 +147,31 @@ class SectionEditorViewController: ViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
+    private func removeScriptMessageHandlers() {
+        
+        guard let userContentController = webView?.configuration.userContentController,
+            !scriptMessageHandlers.isEmpty else {
+                return
+        }
+        
+        for handler in scriptMessageHandlers {
+            userContentController.removeScriptMessageHandler(forName: handler.name)
+        }
+        
+        scriptMessageHandlers.removeAll()
+    }
+    
+    private func addScriptMessageHandlers(to contentController: WKUserContentController) {
+        
+        guard !scriptMessageHandlers.isEmpty else {
+            return
+        }
+        
+        for handler in scriptMessageHandlers {
+            contentController.add(handler.handler, name: handler.name)
+        }
+    }
+    
     private func configureWebView() {
         let configuration = WKWebViewConfiguration()
         configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
@@ -153,15 +189,20 @@ class SectionEditorViewController: ViewController {
         }
         
         contentController.addUserScript(setupUserScript)
-        contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
+        scriptMessageHandlers.append(ScriptMessageHandler(handler: setupUserScript, name: setupUserScript.messageHandlerName))
 
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
+        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage))
         
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.didSetWikitextMessage)
+        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage))
+        
+        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage))
+        
+        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage))
+
+        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.didSetWikitextMessage))
+        
+        addScriptMessageHandlers(to: contentController)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
