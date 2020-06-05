@@ -2,8 +2,6 @@
 // MARK:- Context Menu for ArticleVC (iOS 13 and later)
 // All functions in this extension are for Context Menus (used in iOS 13 and later)
 extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
-    static let peekableImageExtensions: Set<String> = ["jpg", "jpeg", "gif", "png", "svg"]
-
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void) {
         switch destination {
         case .inAppLink(let linkURL):
