@@ -4663,7 +4663,7 @@
 		D8E27BA01F82AFE600F9D2B3 /* RMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMessageView.h; sourceTree = "<group>"; };
 		D8E27BAC1F82B4FF00F9D2B3 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RMessageDefaultDesign.json; sourceTree = "<group>"; };
 		D8E27BB21F82B5CB00F9D2B3 /* RMessageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RMessageView.xib; sourceTree = "<group>"; };
-		D8E6FF6624054FA100686272 /* ArticleViewController+LinkPreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+LinkPreviewing.swift"; sourceTree = "<group>"; };
+		D8E6FF6624054FA100686272 /* ArticleViewController+LinkPreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+LinkPreviewing.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		D8E6FF6B24056AC300686272 /* ArticleViewController+ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ContextMenu.swift"; sourceTree = "<group>"; };
 		D8E6FF7524058AC600686272 /* WMFWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		D8E6FF7624058AC600686272 /* WMFWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
