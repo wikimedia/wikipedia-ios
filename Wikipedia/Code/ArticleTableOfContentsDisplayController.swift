@@ -5,6 +5,7 @@
 protocol ArticleTableOfContentsDisplayControllerDelegate : TableOfContentsViewControllerDelegate {
     func tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
     func getVisibleSection(with: @escaping (Int, String) -> Void)
+    func stashOffsetPercentage()
 }
 
 class ArticleTableOfContentsDisplayController: Themeable {
@@ -101,6 +102,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
     }
     
     func showInline() {
+        delegate?.stashOffsetPercentage()
         viewController.isVisible = true
         UserDefaults.standard.wmf_setTableOfContentsIsVisibleInline(true)
         inlineContainerView.isHidden = false
@@ -108,6 +110,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
     }
     
     func hideInline() {
+        delegate?.stashOffsetPercentage()
         viewController.isVisible = false
         UserDefaults.standard.wmf_setTableOfContentsIsVisibleInline(false)
         inlineContainerView.isHidden = true

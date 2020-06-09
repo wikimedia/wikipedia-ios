@@ -113,6 +113,8 @@ class ArticleViewController: ViewController, HintPresenting {
     lazy var webView: WKWebView = {
         return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
+
+    private var verticalOffsetPercentageToRestore: CGFloat?
     
     // MARK: HintPresenting
     
@@ -241,7 +243,24 @@ class ArticleViewController: ViewController, HintPresenting {
         updateLeadImageMargins()
     }
 
+    internal func stashOffsetPercentage() {
+        let offset = webView.scrollView.verticalOffsetPercentage
+        // negative and 0 offsets make small errors in scrolling, allow it to automatically handle those cases
+        if offset > 0 {
+            verticalOffsetPercentageToRestore = offset
+        }
+    }
+
+    private func restoreOffsetPercentageIfNecessary() {
+        guard let verticalOffsetPercentage = verticalOffsetPercentageToRestore else {
+            return
+        }
+        verticalOffsetPercentageToRestore = nil
+        webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
+    }
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        stashOffsetPercentage()
         super.viewWillTransition(to: size, with: coordinator)
         let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
         coordinator.animate(alongsideTransition: marginUpdater)
@@ -850,6 +869,7 @@ private extension ArticleViewController {
     }
     
     @objc func debouncedContentSizeDidChange() {
+        restoreOffsetPercentageIfNecessary()
         restoreStateIfNecessaryOnContentSizeChange()
     }
     
