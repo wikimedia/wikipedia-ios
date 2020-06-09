@@ -149,9 +149,8 @@ class SectionEditorViewController: ViewController {
     
     private func removeScriptMessageHandlers() {
         
-        guard let userContentController = webView?.configuration.userContentController,
-            !scriptMessageHandlers.isEmpty else {
-                return
+        guard let userContentController = webView?.configuration.userContentController else {
+            return
         }
         
         for handler in scriptMessageHandlers {
@@ -162,10 +161,6 @@ class SectionEditorViewController: ViewController {
     }
     
     private func addScriptMessageHandlers(to contentController: WKUserContentController) {
-        
-        guard !scriptMessageHandlers.isEmpty else {
-            return
-        }
         
         for handler in scriptMessageHandlers {
             contentController.add(handler.handler, name: handler.name)
