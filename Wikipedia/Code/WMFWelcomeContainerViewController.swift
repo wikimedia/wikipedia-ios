@@ -39,6 +39,7 @@ class WMFWelcomeContainerViewController: ThemeableViewController {
             view.wmf_fadeInAndUpWithDuration(0.4, delay: 0.1)
             hasAlreadyFadedInAndUp = true
         }
+        UIAccessibility.post(notification: .screenChanged, argument: view)
     }
     
     private func shouldFadeInAndUp() -> Bool {
