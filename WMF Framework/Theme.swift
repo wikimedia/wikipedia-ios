@@ -340,7 +340,7 @@ public class Colors: NSObject {
         overlayBackground: .black75PercentAlpha,
         batchSelectionBackground: .accent30,
         referenceHighlightBackground: .white20PercentAlpha,
-        hintBackground: .darkBase05,
+        hintBackground: .darkBase20,
         hintWarningBackground: .darkBase05,
         animationBackground: .base10,
         overlayText: .base20,

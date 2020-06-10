@@ -28,7 +28,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             title = CommonStrings.onThisDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-on-this-day-description", value: "Events in history on this day", comment: "Description of On this day section of Explore feed")
             iconName = "on-this-day-mini"
-            iconColor = .accent30
+            iconColor = .accent50
             iconBackgroundColor = .accent90
         case .featuredArticle:
             title = CommonStrings.featuredArticleTitle
