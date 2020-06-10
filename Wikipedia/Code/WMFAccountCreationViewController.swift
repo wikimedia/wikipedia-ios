@@ -94,7 +94,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         view.wmf_configureSubviewsForDynamicType()
         
         captchaViewController?.captchaDelegate = self
-        wmf_addHeightDetermining(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
+        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
     }

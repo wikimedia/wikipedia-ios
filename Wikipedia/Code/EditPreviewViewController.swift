@@ -17,7 +17,12 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     
     weak var delegate: EditPreviewViewControllerDelegate?
     
-    lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
+    lazy var messagingController: ArticleWebMessagingController = {
+        let controller = ArticleWebMessagingController()
+        controller.delegate = self
+        return controller
+    }()
+    
     lazy var fetcher = ArticleFetcher()
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
@@ -109,6 +114,10 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+    }
+    
+    deinit {
+        messagingController.removeScriptMessageHandler()
     }
     
     func wmf_editedSectionLanguageInfo() -> MWLanguageInfo? {

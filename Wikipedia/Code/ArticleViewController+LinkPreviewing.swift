@@ -92,6 +92,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     @available(iOS 13.0, *)
     func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
         guard
+            elementInfo.linkURL != nil,
             animator.preferredCommitStyle != .dismiss,
             let vc = animator.previewViewController
             else {
@@ -133,7 +134,6 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
 // MARK: Peek/Pop for ArticleVC (iOS 12 and earlier, on devices w/ 3D Touch)
 // All functions in this extension are for 3D Touch menus. (Can be removed when the oldest supported version is iOS 13.)
 extension ArticleViewController {
-
     func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
         return self.shouldPreview(linkURL: elementInfo.linkURL)
     }
