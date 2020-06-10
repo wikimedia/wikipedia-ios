@@ -1331,6 +1331,8 @@
 		83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
 		83FBE9771F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
 		83FBE9781F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
+		98165A6324917C1A00ED8178 /* EventPlatformClientProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98165A6224917C1A00ED8178 /* EventPlatformClientProtocols.swift */; };
+		98165A6524917C2C00ED8178 /* EventPlatformClientLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98165A6424917C2C00ED8178 /* EventPlatformClientLibrary.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B0016CB921354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
 		B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
@@ -3691,6 +3693,8 @@
 		83F26B29220B62EC002D87A4 /* SectionEditorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorButton.swift; sourceTree = "<group>"; };
 		83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityTextItemProvider.swift; sourceTree = "<group>"; };
 		83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityImageItemProvider.swift; sourceTree = "<group>"; };
+		98165A6224917C1A00ED8178 /* EventPlatformClientProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlatformClientProtocols.swift; sourceTree = "<group>"; };
+		98165A6424917C2C00ED8178 /* EventPlatformClientLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlatformClientLibrary.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayoutSafeMultiLineButton.swift; sourceTree = "<group>"; };
 		B0016CBE2136105900FA1096 /* SetupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupButton.swift; sourceTree = "<group>"; };
@@ -6374,6 +6378,15 @@
 			name = Fetchers;
 			sourceTree = "<group>";
 		};
+		98165A6124917BC500ED8178 /* Event Platform Client */ = {
+			isa = PBXGroup;
+			children = (
+				98165A6224917C1A00ED8178 /* EventPlatformClientProtocols.swift */,
+				98165A6424917C2C00ED8178 /* EventPlatformClientLibrary.swift */,
+			);
+			path = "Event Platform Client";
+			sourceTree = "<group>";
+		};
 		B011FA471D470F4700AD7C5E /* FindInPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -7708,6 +7721,7 @@
 		D844D96D1D6CB2600042D692 /* WMF Framework */ = {
 			isa = PBXGroup;
 			children = (
+				98165A6124917BC500ED8178 /* Event Platform Client */,
 				D844D96E1D6CB2600042D692 /* WMF.h */,
 				8330531E23EF051900123141 /* NSArray+WMFMapping.h */,
 				8330532123EF05D000123141 /* WMFBlocksKit.swift */,
@@ -9916,6 +9930,7 @@
 				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
+				98165A6524917C2C00ED8178 /* EventPlatformClientLibrary.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* TableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -10278,6 +10293,7 @@
 				B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				B0408C552127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				B0E805911C0CE2C60065EBC0 /* WMFLoginFunnel.m in Sources */,
+				98165A6324917C1A00ED8178 /* EventPlatformClientProtocols.swift in Sources */,
 				7AF56C3521DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				83C0656B23D23220001821BC /* TableOfContentsItem.swift in Sources */,
 				672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */,
