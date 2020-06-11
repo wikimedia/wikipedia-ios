@@ -360,9 +360,7 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup?.enter()
         // async to allow the page network requests some time to go through
         DispatchQueue.main.async {
-            // TODO: Remove this workaround when upstream bug is deployed: https://phabricator.wikimedia.org/T251956
-            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadIgnoringLocalAndRemoteCacheData : nil
-            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
+            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
                 defer {
                     self.articleLoadWaitGroup?.leave()
                     self.updateMenuItems()
