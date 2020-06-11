@@ -2,8 +2,12 @@
 import UIKit
 import WMF
 
+struct SectionEditorChanges {
+    let newRevisionID: UInt64
+}
+
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>)
 }
 
 private enum NavigationMode : Int {
@@ -189,14 +193,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewWillAppear(_ animated: Bool) {
         captchaViewController?.captchaDelegate = self
         captchaViewController?.apply(theme: theme)
-        wmf_addHeightDetermining(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
+        wmf_add(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         mode = .preview
         
         let vc = EditSummaryViewController(nibName: EditSummaryViewController.wmf_classStoryboardName(), bundle: nil)
         vc.delegate = self
         vc.apply(theme: theme)
-        wmf_addHeightDetermining(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
+        wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
         
         if WMFAuthenticationManager.sharedInstance.isLoggedIn {
             licenseLoginTextView.isHidden = true
@@ -263,18 +267,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
-        let notifyDelegate = {
+        let notifyDelegate: (Result<SectionEditorChanges, Error>) -> Void = { result in
             DispatchQueue.main.async {
-                self.delegate?.editSaveViewControllerDidSave(self)
+                self.delegate?.editSaveViewControllerDidSave(self, result: result)
             }
         }
-        guard let fetchedData = result as? [String: Any], let newRevID = fetchedData["newrevid"] as? Int else {
+        guard let fetchedData = result as? [String: Any], let newRevID = fetchedData["newrevid"] as? UInt64 else {
             assertionFailure("Could not extract rev id as Int")
-            notifyDelegate()
+            notifyDelegate(.failure(RequestError.unexpectedResponse))
             return
         }
         editFunnel?.logSectionSaved(source: editFunnelSource, revision: newRevID, language: language)
-        notifyDelegate()
+        notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
     }
     
     private func handleEditFailure(with error: Error) {

@@ -39,4 +39,8 @@ class RootNavigationController: WMFThemeableNavigationController {
         }
         splashScreenViewController = nil
     }
+    
+    @objc func triggerMigratingAnimation() {
+        splashScreenViewController?.triggerMigratingAnimation()
+    }
 }

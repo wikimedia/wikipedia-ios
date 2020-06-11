@@ -58,7 +58,7 @@ final class InsertMediaViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(searchViewController.view)
         searchViewController.didMove(toParent: self)
 
-        wmf_addHeightDetermining(childController: searchResultsCollectionViewController, andConstrainToEdgesOfContainerView: view)
+        wmf_add(childController: searchResultsCollectionViewController, andConstrainToEdgesOfContainerView: view)
 
         additionalSafeAreaInsets = searchResultsCollectionViewController.additionalSafeAreaInsets
         scrollView = searchResultsCollectionViewController.collectionView

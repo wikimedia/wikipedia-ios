@@ -5,7 +5,7 @@ This document describes the dependencies for working on continuous-integration-r
 
 [fastlane](https://fastlane.tools) automates common development tasks - for example bumping version numbers, running tests on multiple configurations, or submitting to the App Store. You can list the available lanes (our project-specific scripts) using `bundle exec fastlane lanes`. You can list available actions (all actions available to be scripted via lanes) using `bundle exec fastlane actions`. The fastlane configuration and scripts are in the `fastlane` folder.
 
-Fastlane isn't necessary for normal development, but will be necessary if you need to automate tasks locally or you'll be updating the lanes run on our CI sever.
+Fastlane isn't necessary for normal development, but will be necessary if you need to automate tasks locally or you'll be updating the lanes run on our CI server.
 
 Similar to the [project's node setup for web dev](web_dev.md), we recommend using a Ruby version manager to install node and manage multiple versions of Ruby on the same machine.
 

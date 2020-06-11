@@ -8,22 +8,18 @@ protocol ArticleWebMessageHandling: class {
 class ArticleWebMessagingController: NSObject {
     
     private weak var webView: WKWebView?
-    private weak var delegate: ArticleWebMessageHandling?
+    weak var delegate: ArticleWebMessageHandling?
     
     private let bodyActionKey = "action"
     private let bodyDataKey = "data"
-
-    init(delegate: ArticleWebMessageHandling?) {
-        self.delegate = delegate
-    }
     
     var parameters: PageContentService.Setup.Parameters?
     var contentController: WKUserContentController?
     
-    func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = [], areEditButtonsHidden: Bool = false) {
+    func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
         let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.standard.wmf_articleFontSizeMultiplier() as? Int ?? 100
-        let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups, areEditButtonsHidden: areEditButtonsHidden)
+        let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
         self.parameters = parameters
         self.webView = webView
         let contentController = webView.configuration.userContentController
@@ -34,6 +30,10 @@ class ArticleWebMessagingController: NSObject {
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }
+    }
+    
+    func removeScriptMessageHandler() {
+        webView?.configuration.userContentController.removeScriptMessageHandler(forName: PageContentService.messageHandlerName)
     }
     
     /// Update the scripts that run on page load. Utilize this when any parameters change.

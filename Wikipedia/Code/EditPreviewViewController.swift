@@ -17,7 +17,12 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     
     weak var delegate: EditPreviewViewControllerDelegate?
     
-    lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
+    lazy var messagingController: ArticleWebMessagingController = {
+        let controller = ArticleWebMessagingController()
+        controller.delegate = self
+        return controller
+    }()
+    
     lazy var fetcher = ArticleFetcher()
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
@@ -110,6 +115,10 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         super.viewWillDisappear(animated)
     }
     
+    deinit {
+        messagingController.removeScriptMessageHandler()
+    }
+    
     func wmf_editedSectionLanguageInfo() -> MWLanguageInfo? {
         guard let lang = language else {
             return nil
@@ -128,7 +137,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             showGenericError()
             return
         }
-        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true, areEditButtonsHidden: true)
+        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
             #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
@@ -148,7 +157,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
                     self?.previewWebViewContainer.webView.loadHTMLString(html, baseURL: responseUrl)
                 }
             }
-            try fetcher.splitWikitextToMobileHTMLString(articleURL: articleURL, wikitext: wikitext, completion: completion)
+            try fetcher.fetchMobileHTMLFromWikitext(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview, completion: completion)
             #else
             let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
             previewWebViewContainer.webView.load(request)
