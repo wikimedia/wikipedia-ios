@@ -60,6 +60,8 @@ class ShareViewController: UIViewController, Themeable {
         super.viewWillTransition(to: size, with: coordinator)
 
         coordinator.animate(alongsideTransition: { (context) in
+            self.imageViewTopConstraint.isActive = true
+            self.imageViewVerticallyCenteredConstraint.isActive = false
             if let presentedActivityVC = self.presentedViewController as? UIActivityViewController {
                 presentedActivityVC.popoverPresentationController?.sourceRect = self.imageView.frame
             }
