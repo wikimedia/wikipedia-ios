@@ -488,7 +488,7 @@ extension PermanentlyPersistableURLCache {
             
             if let customCacheUpdatingURL = urlRequest.customCacheUpdatingURL {
                 let updatingRequest = URLRequest(url: customCacheUpdatingURL)
-                self.removeCachedResponse(for: updatingRequest)
+                removeCachedResponse(for: updatingRequest)
             }
         }
 
