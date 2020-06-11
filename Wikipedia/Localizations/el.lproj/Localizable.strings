@@ -10,6 +10,7 @@
 // Author: KATRINE1993
 // Author: Nemo bis
 // Author: Nikosgranturismogt
+// Author: Norhorn
 // Author: Protnet
 // Author: Stam.nikos
 // Author: SucreRouge
@@ -34,17 +35,12 @@
 "about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
 "about-wikimedia-foundation" = "Ίδρυμα Wikimedia";
 "about-wikipedia" = "Βικιπαίδεια";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Δεν μπορείτε να αποθηκεύσετε αυτή την επεξεργασία. Παρακαλούμε πηγαίνετε πίσω και αλλάξτε την.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Ένα αυτόματο φίλτρο έχει αναγνωρίσει αυτή την επεξεργασία ως πιθανώς μη εποικοδομητική ή προσπάθεια βανδαλισμού.";
-// Fuzzy
-"abuse-filter-warning-caps" = "Πληκτρολογώντας με κεφαλαία γράμματα";
+"abuse-filter-disallow-heading" = "Δεν μπορείτε να αποθηκεύσετε αυτή την επεξεργασία.";
+"abuse-filter-disallow-unconstructive" = "Ένα αυτόματο φίλτρο έχει αναγνωρίσει αυτή την επεξεργασία ως πιθανώς μη εποικοδομητική ή ως προσπάθεια βανδαλισμού. Παρακαλούμε πηγαίνετε πίσω και αλλάξτε την επεξεργασία σας.";
+"abuse-filter-warning-caps" = "Όλο το κείμενο με κεφαλαία";
 "abuse-filter-warning-heading" = "Αυτή μπορεί να είναι μια μη εποικοδομητική επεξεργασία, είσαι σίγουρος ότι θέλεις να την δημοσιεύσεις;";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Επαναλααααμβανόμενοι χαρακτήρες";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Η επεξεργασία σας μπορεί να περιέχει ένα ή περισσότερα από τα παρακάτω:";
+"abuse-filter-warning-repeat" = "Επαναλαμβανόμενοι χαρακτήρες";
+"abuse-filter-warning-subheading" = "Η επεξεργασία σας μπορεί να περιέχει:";
 "account-creation-captcha-cannot-see-image" = "Δεν μπορείτε να δείτε την εικόνα; $1";
 "account-creation-captcha-request-account" = "Αίτημα λογαριασμού.";
 "account-creation-captcha-title" = "Έλεγχος ασφαλείας CAPTCHA";
@@ -59,7 +55,6 @@
 "action-add-to" = "Πρόσθεση σε...";
 "action-add-to-reading-list" = "Πρόσθεση στην λίστα ανάγνωσης";
 "action-cancel" = "Ακύρωση";
-// Fuzzy
 "action-find-in-page" = "Βρείτε στην σελίδα";
 "action-move-to" = "Μετακίνηση σε...";
 "action-move-to-reading-list" = "Μετακίνηση στη λίστα ανάγνωσης";
@@ -71,7 +66,6 @@
 "action-saved-accessibility-notification" = "Το άρθρο αποθηκεύτηκε για αργότερα";
 "action-share" = "Κοινοποίηση";
 "action-sort" = "Ταξινόμηση";
-// Fuzzy
 "action-undo" = "Αναίρεση";
 "action-unsave" = "Ξεαποθήκευση";
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
@@ -360,19 +354,16 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Φωτεινό θέμα";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Θέμα Σέπια";
 "reference-title" = "Αναφορά $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Σήμερα|Χθες|$1 ημέρες πριν}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Σήμερα|1=Χθες|$1 ημέρες πριν}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=πρόσφατα|$1 ώρα πριν|$1 ώρες πριν}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=μόλις τώρα|$1 λεπτό πριν|$1 λεπτά πριν}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Αυτό το έτος|το προηγούμενο έτος|$1 χρόνια πριν}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Αυτό το έτος|1=το προηγούμενο έτος|$1 χρόνια πριν}}";
 "saved-all-articles-title" = "Όλα τα άρθρα";
 "saved-default-reading-list-tag" = "Η λίστα δεν μπορεί να διαγραφεί";
 "saved-pages-image-download-error" = "Αποτυχία στην λήψη εικόνων για αυτή την αποθηκευμένη σελίδα.";
 "saved-pages-progress-syncing" = "Η λήψη λήμματος είναι σε εξέλιξη...";
 "saved-reading-lists-title" = "Λίστες ανάγνωσης";
-// Fuzzy
-"saved-search-default-text" = "Αναζήτηση";
+"saved-search-default-text" = "Αναζήτηση αποθηκευμένων άρθρων";
 "saved-title" = "Αποθηκεύθηκε";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ξεαποθήκευση {{PLURAL:$1|λήμμα|λημμάτων}};";
 "search-button-accessibility-label" = "Αυτό δεν είναι έγκυρο url MediaWiki";
