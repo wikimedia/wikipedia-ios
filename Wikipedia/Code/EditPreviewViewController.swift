@@ -199,6 +199,16 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
             break
         }
     }
+
+    internal func updateArticleMargins() {
+        messagingController.updateMargins(with: articleMargins, leadImageHeight: 0)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
+        coordinator.animate(alongsideTransition: marginUpdater)
+    }
 }
 
 // MARK:- Context Menu (iOS 13 and later)
