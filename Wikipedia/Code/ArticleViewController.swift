@@ -360,7 +360,8 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup?.enter()
         // async to allow the page network requests some time to go through
         DispatchQueue.main.async {
-            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
+            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
                 defer {
                     self.articleLoadWaitGroup?.leave()
                     self.updateMenuItems()
