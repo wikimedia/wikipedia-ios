@@ -54,7 +54,8 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         button?.setImage(nil, for: .normal)
         button?.backgroundColor = theme.colors.paperBackground
         button?.borderWidth = 1
-        button?.borderColor = theme.isDark ? UIColor.wmf_gray : theme.colors.border
+        // themeTODO: define a semantic color for this instead of checking isDark
+        button?.borderColor = theme.isDark ? .base70 : theme.colors.border
     }
 
     public func resetSelectionButton(_ selectionOrder: SelectionOrder) {
