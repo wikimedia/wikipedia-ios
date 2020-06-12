@@ -221,10 +221,10 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         let dataStore = MWKDataStore.shared()
         switch destination {
-            case .article(let articleURL):
+        case .article(let articleURL):
             return ArticlePeekPreviewViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-            default:
-                return nil
+        default:
+            return nil
         }
     }
 
