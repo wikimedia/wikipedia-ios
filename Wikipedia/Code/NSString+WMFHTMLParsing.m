@@ -242,7 +242,7 @@
     static NSDictionary *entityReplacements;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        entityReplacements = @{@"amp": @"&", @"nbsp": @" ", @"gt": @">", @"lt": @"<", @"apos": @"'", @"quot": @"\"", @"ndash": @"\u2013", @"mdash": @"\u2014"};
+        entityReplacements = @{@"amp": @"&", @"nbsp": @" ", @"gt": @">", @"lt": @"<", @"apos": @"'", @"quot": @"\"", @"ndash": @"\u2013", @"mdash": @"\u2014", @"#8722": @"\u2212"};
     });
     NSMutableString *mutableSelf = [self mutableCopy];
     __block NSInteger offset = 0;
