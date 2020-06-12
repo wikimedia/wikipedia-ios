@@ -192,6 +192,8 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
                 currentlySelectedSearchLanguage = languageBarLanguages().first
                 // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because
                 // that would undo the dragging the user just did and would also not work for changes made from settings.
+            } else {
+                updateLanguageBarLanguageButtons()
             }
         }
     }

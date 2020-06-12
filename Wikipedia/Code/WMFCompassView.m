@@ -24,7 +24,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
-    self.lineColor = [UIColor wmf_green];
+    self.lineColor = [UIColor wmf_green50];
 }
 
 - (void)setAngleRadians:(double)angleRadians {
