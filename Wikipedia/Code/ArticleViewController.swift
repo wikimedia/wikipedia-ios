@@ -212,11 +212,10 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     func updateLeadImageMargins() {
-        let imageSize = leadImageView.image?.size ?? .zero
-        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
+        let doesArticleUseLargeMargin = (tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible)
         var marginWidth: CGFloat = 0
-        if isImageNarrow && tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible {
-            marginWidth = 32
+        if doesArticleUseLargeMargin {
+            marginWidth = articleHorizontalMargin
         }
         leadImageLeadingMarginConstraint.constant = marginWidth
         leadImageTrailingMarginConstraint.constant = marginWidth
@@ -1111,18 +1110,19 @@ extension ArticleViewController: WKNavigationDelegate {
 extension ViewController  { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
 
     var articleMargins: UIEdgeInsets {
-        let readableMargin: CGFloat
+        return UIEdgeInsets(top: 8, left: articleHorizontalMargin, bottom: 0, right: articleHorizontalMargin)
+    }
+
+    var articleHorizontalMargin: CGFloat {
         let viewForCalculation: UIView = navigationController?.view ?? view
 
         if let tableOfContentsVC = (self as? ArticleViewController)?.tableOfContentsController.viewController, tableOfContentsVC.isVisible {
             // full width
-            readableMargin = viewForCalculation.layoutMargins.left
+            return viewForCalculation.layoutMargins.left
         } else {
             // If (is EditPreviewVC) or (is TOC OffScreen) then use readableContentGuide to make text inset from screen edges.
             // Since readableContentGuide has no effect on compact width, both paths of this `if` statement result in an identical result for smaller screens.
-            readableMargin = viewForCalculation.readableContentGuide.layoutFrame.minX
+            return viewForCalculation.readableContentGuide.layoutFrame.minX
         }
-
-        return UIEdgeInsets(top: 8, left: readableMargin, bottom: 0, right: readableMargin)
     }
 }
