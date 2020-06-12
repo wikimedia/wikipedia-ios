@@ -130,7 +130,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             }
             
             if let dimming = vc as? ImageDimmingExampleViewController {
-                dimming.view.backgroundColor = self.theme.isDark ? self.theme.colors.paperBackground : .thermosphere
+                // themeTODO: define a semantic color for this instead of checking isDark
+                dimming.view.backgroundColor = self.theme.isDark ? self.theme.colors.paperBackground : .darkBase20
                 dimming.isImageDimmed = UserDefaults.standard.wmf_isImageDimmingEnabled
             }
             
@@ -161,7 +162,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             cell.disclosureSwitch.isOn = UserDefaults.standard.wmf_isImageDimmingEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-image-dimming"
-            cell.iconBackgroundColor = .wmf_lightGray
+            cell.iconBackgroundColor = .base50
             cell.iconColor = .white
             cell.selectionStyle = .none
         }
