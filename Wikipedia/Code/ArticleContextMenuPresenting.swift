@@ -21,9 +21,9 @@ enum ContextMenuCompletionType {
 
 // MARK:- Context Menu for Protocol (iOS 13 and later)
 // All functions in this extension are for Context Menus (used in iOS 13 and later)
-/// The ArticleContextMenuPresenting protocol extension has functions that are called by various classes'  WKUIDelegate functions, but the WKUIDelegate functions themselves
-/// reside within the actual classes. This is because in testing, the degate methods were never called when they lived in the protocol extension - there would just be a silent failure.
-/// Thus, there is some dupicated code in the actual classes for receiving the delegate calls, and those functions in turn call the shared code within this protocol extension.
+/// The ArticleContextMenuPresenting protocol extension has functions that are called by various classes' WKUIDelegate functions, but the WKUIDelegate functions themselves
+/// reside within the actual classes. This is because in testing, the delegate methods were never called when they lived in the protocol extension - there would just be a silent failure.
+/// Thus, there is some duplicated code in the actual classes for receiving the delegate calls, and those functions in turn call the shared code within this protocol extension.
 /// More details: https://phabricator.wikimedia.org/T253891#6173598
 @available(iOS 13.0, *)
 extension ArticleContextMenuPresenting {
