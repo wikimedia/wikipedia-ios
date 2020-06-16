@@ -515,14 +515,14 @@
 "main-menu-nearby" = "Yakınındakiler";
 "main-menu-privacy-policy" = "Gizlilik politikası";
 "main-menu-rate-app" = "Uygulamayı puanla";
-"main-menu-terms-of-use" = "Kullanım Koşulları";
+"main-menu-terms-of-use" = "Kullanım Şartları";
 "main-menu-title" = "Daha fazla";
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
 "menu-cancel-accessibility-label" = "İptal";
 "more-languages-tooltip-description" = "Yaklaşık 300 dilde ara";
 "more-languages-tooltip-title" = "Dil ekle";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine taşıyın";
-"navbar-title-mode-edit-wikitext-preview" = "Ön izleme";
+"navbar-title-mode-edit-wikitext-preview" = "Önizleme";
 "nearby-distance-label-feet" = "$1 fit";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
@@ -552,7 +552,7 @@
 "page-history-revision-author-accessibility-label" = "Yazar: $1";
 "page-history-revision-comment-accessibility-label" = "$1 yorum";
 "page-history-revision-history-title" = "Değişiklik geçmişi";
-"page-history-revision-minor-edit-accessibility-label" = "Küçük düzenleme";
+"page-history-revision-minor-edit-accessibility-label" = "Küçük değişiklik";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 bayt|$1 bayt}} eklendi";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 bayt|$1 bayt}} kaldırıldı";
 "page-history-revision-time-accessibility-label" = "$1 revizyon yapıldı";

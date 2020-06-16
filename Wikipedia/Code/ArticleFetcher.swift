@@ -305,7 +305,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             url = urlComponents?.url ?? url
         }
         let acceptUTF8HTML = ["Accept": "text/html; charset=utf-8"]
-        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
+        if var urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
+            if revisionID != nil {
+                // Enables the caching system to update the revisionless url cache when this call goes through
+                urlRequest.customCacheUpdatingURL = try mobileHTMLURL(articleURL: articleURL)
+            }
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest

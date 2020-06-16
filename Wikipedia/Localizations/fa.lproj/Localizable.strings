@@ -524,7 +524,7 @@
 "potd-description-prefix" = "تصویر روز برای $1";
 "potd-empty-error-description" = "خطا در دریافت تصویر روز برای $1";
 "preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این اپلیکیشن برای بهتر ساختن اپلیکیشن اجازه دهید";
-"preference-title-eventlogging-opt-in" = "ارسال گزارش‌های استفاده";
+"preference-title-eventlogging-opt-in" = "ارسال گزارش‌های نحوهٔ استفاده";
 "rank-accessibility-label" = "عدد $1";
 "readers-accessibility-label" = "$1 خواننده";
 "reading-list-add-generic-hint-title" = "افزودن این مقاله به فهرست مطالعه؟";

@@ -97,13 +97,14 @@ class ArticleViewController: ViewController, HintPresenting {
     deinit {
         NotificationCenter.default.removeObserver(self)
         contentSizeObservation?.invalidate()
+        messagingController.removeScriptMessageHandler()
     }
     
     // MARK: WebView
     
     static let webProcessPool = WKProcessPool()
     
-    lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
+    private(set) var messagingController = ArticleWebMessagingController()
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
@@ -115,6 +116,8 @@ class ArticleViewController: ViewController, HintPresenting {
     lazy var webView: WKWebView = {
         return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
+
+    private var verticalOffsetPercentageToRestore: CGFloat?
     
     // MARK: HintPresenting
     
@@ -212,11 +215,10 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     func updateLeadImageMargins() {
-        let imageSize = leadImageView.image?.size ?? .zero
-        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
+        let doesArticleUseLargeMargin = (tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible)
         var marginWidth: CGFloat = 0
-        if isImageNarrow && tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible {
-            marginWidth = 32
+        if doesArticleUseLargeMargin {
+            marginWidth = articleHorizontalMargin
         }
         leadImageLeadingMarginConstraint.constant = marginWidth
         leadImageTrailingMarginConstraint.constant = marginWidth
@@ -238,8 +240,32 @@ class ArticleViewController: ViewController, HintPresenting {
         updateArticleMargins()
     }
     
-    private func updateArticleMargins() {
+    internal func updateArticleMargins() {
         messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+        updateLeadImageMargins()
+    }
+
+    internal func stashOffsetPercentage() {
+        let offset = webView.scrollView.verticalOffsetPercentage
+        // negative and 0 offsets make small errors in scrolling, allow it to automatically handle those cases
+        if offset > 0 {
+            verticalOffsetPercentageToRestore = offset
+        }
+    }
+
+    private func restoreOffsetPercentageIfNecessary() {
+        guard let verticalOffsetPercentage = verticalOffsetPercentageToRestore else {
+            return
+        }
+        verticalOffsetPercentageToRestore = nil
+        webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        stashOffsetPercentage()
+        super.viewWillTransition(to: size, with: coordinator)
+        let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
+        coordinator.animate(alongsideTransition: marginUpdater)
     }
     
     // MARK: Loading
@@ -362,8 +388,7 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup?.enter()
         // async to allow the page network requests some time to go through
         DispatchQueue.main.async {
-            // TODO: Remove this workaround when upstream bug is deployed: https://phabricator.wikimedia.org/T251956
-            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadIgnoringLocalAndRemoteCacheData : nil
+            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
             self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
                 defer {
                     self.articleLoadWaitGroup?.leave()
@@ -824,6 +849,7 @@ private extension ArticleViewController {
         setupSearchButton()
         addNotificationHandlers()
         setupWebView()
+        setupMessagingController()
     }
     
     // MARK: Notifications
@@ -838,13 +864,13 @@ private extension ArticleViewController {
     }
     
     func contentSizeDidChange() {
-        tableOfContentsController.restoreOffsetPercentageIfNecessary()
         // debounce
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedContentSizeDidChange), object: nil)
         perform(#selector(debouncedContentSizeDidChange), with: nil, afterDelay: 0.1)
     }
     
     @objc func debouncedContentSizeDidChange() {
+        restoreOffsetPercentageIfNecessary()
         restoreStateIfNecessaryOnContentSizeChange()
     }
     
@@ -865,6 +891,10 @@ private extension ArticleViewController {
     
     func setupSearchButton() {
         navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+    }
+    
+    func setupMessagingController() {
+        messagingController.delegate = self
     }
     
     func setupWebView() {
@@ -1079,12 +1109,22 @@ extension ArticleViewController: WKNavigationDelegate {
 
 }
 
-extension ViewController {
-    /// Allows for re-use by edit preview VC
+extension ViewController  { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
+
     var articleMargins: UIEdgeInsets {
-        var margins = navigationController?.view.layoutMargins ?? view.layoutMargins // view.layoutMargins is zero here so check nav controller first
-        margins.top = 8
-        margins.bottom = 0
-        return margins
+        return UIEdgeInsets(top: 8, left: articleHorizontalMargin, bottom: 0, right: articleHorizontalMargin)
+    }
+
+    var articleHorizontalMargin: CGFloat {
+        let viewForCalculation: UIView = navigationController?.view ?? view
+
+        if let tableOfContentsVC = (self as? ArticleViewController)?.tableOfContentsController.viewController, tableOfContentsVC.isVisible {
+            // full width
+            return viewForCalculation.layoutMargins.left
+        } else {
+            // If (is EditPreviewVC) or (is TOC OffScreen) then use readableContentGuide to make text inset from screen edges.
+            // Since readableContentGuide has no effect on compact width, both paths of this `if` statement result in an identical result for smaller screens.
+            return viewForCalculation.readableContentGuide.layoutFrame.minX
+        }
     }
 }

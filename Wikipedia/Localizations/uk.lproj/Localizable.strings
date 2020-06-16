@@ -203,7 +203,7 @@
 "diff-thanks-login-title" = "Увійдіть до системи, аби надіслати подяку";
 "diff-thanks-send-button-title" = "Подякувати";
 "diff-thanks-send-subtitle" = "«Подяка» — це легкий спосіб висловити вдячність за внесок редактора у Вікіпедії. Вона не може бути відкликана і є видимою публічно.";
-"diff-thanks-send-title" = "Публічне висловлення подяки";
+"diff-thanks-send-title" = "Висловлення подяки";
 "diff-thanks-sent" = "Ваша подяка надіслана до $1";
 "diff-thanks-sent-already" = "Ви вже подякували за це редагування";
 "diff-thanks-sent-cannot-unsend" = "Подяка не може бути відкликана";
