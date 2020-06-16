@@ -148,7 +148,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
-    public func wikitextToMobileHTMLPreviewRequest(articleURL: URL, wikitext: String) throws -> URLRequest {
+    public func wikitextToMobileHTMLPreviewRequest(articleURL: URL, wikitext: String, mobileHTMLOutput: MobileHTMLType = .contentAndReferences) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
@@ -160,6 +160,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         let paramsJSON = try JSONEncoder().encode(params)
         var request = URLRequest(url: url)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue(mobileHTMLOutput.rawValue, forHTTPHeaderField: ArticleFetcher.mobileHTMLOutputHeaderKey)
         request.httpBody = paramsJSON
         request.httpMethod = "POST"
         return request
@@ -175,14 +176,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
         // As of April 2020, the /transform/wikitext/to/html/{article} endpoint is only available on production, not local or staging PCS.
-         guard let url = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
-             throw RequestError.invalidParameters
-         }
-         #else
-         guard let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
+        guard let url = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
             throw RequestError.invalidParameters
         }
-         #endif
+        #else
+        guard let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
+            throw RequestError.invalidParameters
+        }
+        #endif
 
         let params: [String: String] = ["wikitext": wikitext]
         let headers = [ArticleFetcher.mobileHTMLOutputHeaderKey: mobileHTMLOutput.rawValue]
