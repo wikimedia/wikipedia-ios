@@ -135,6 +135,7 @@
 "article-languages-label" = "言語を選択";
 "article-languages-others" = "他の言語で読む";
 "article-languages-yours" = "お使いの言語";
+"article-read-more-title" = "さらに読む";
 "article-save-error-not-enough-space" = "デバイスの空き容量不足でこの記事を保存できません";
 "article-share" = "共有";
 "article-toolbar-reading-themes-controls-toolbar-item" = "テーマのコントロールを読み込む";
