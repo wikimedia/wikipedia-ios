@@ -46,7 +46,7 @@ extension SchemeHandler: WKURLSchemeHandler {
         }
         
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE
-        components.scheme = components.host == "localhost" ? "http" : "https"
+        components.scheme = components.host == Configuration.Domain.localhost ? "http" : "https"
         #else
         components.scheme =  "https"
         #endif
