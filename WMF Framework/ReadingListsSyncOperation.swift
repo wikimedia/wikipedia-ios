@@ -94,8 +94,13 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         if syncState.contains(.needsRandomEntries) {
-            try executeRandomArticlePopulation(in: moc)
+            try executeRandomArticlePopulation(in: moc, englishOnly: false)
             syncState.remove(.needsRandomEntries)
+            moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+            try moc.save()
+        } else if syncState.contains(.needsRandomEnEntries) {
+            try executeRandomArticlePopulation(in: moc, englishOnly: true)
+            syncState.remove(.needsRandomEnEntries)
             moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
             try moc.save()
         }
@@ -366,11 +371,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         try moc.save()
     }
         
-    func executeRandomArticlePopulation(in moc: NSManagedObjectContext) throws {
-        guard let siteURL = URL(string: "https://en.wikipedia.org") else {
-            return
-        }
+    func executeRandomArticlePopulation(in moc: NSManagedObjectContext, englishOnly: Bool) throws {
+ 
         let countOfEntriesToCreate = moc.wmf_numberValue(forKey: "WMFCountOfEntriesToCreate")?.int64Value ?? 10
+        
+        var maybeSiteURL = URL(string: "https://en.wikipedia.org")
         
         let randomArticleFetcher = RandomArticleFetcher()
         let taskGroup = WMFTaskGroup()
@@ -381,6 +386,17 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             do {
                 var summaryResponses: [String: ArticleSummary] = [:]
                 for i in 1...countOfEntriesToCreate {
+                    
+                    if !englishOnly {
+                        if let randomLanguage = MWKLanguageLinkController.sharedInstance().allLanguages.randomElement() {
+                            maybeSiteURL = randomLanguage.siteURL()
+                        }
+                    }
+                    
+                    guard let siteURL = maybeSiteURL else {
+                        continue
+                    }
+                    
                     taskGroup.enter()
                     randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
                         if let key = result?.wmf_databaseKey, let summary = summary {

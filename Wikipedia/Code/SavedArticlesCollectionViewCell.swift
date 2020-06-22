@@ -35,6 +35,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 return
             }
             var alertLabelText: String? = nil
+            let alertImage: UIImage? = UIImage(named: "error-icon")
+            
             switch alertType {
             case .listLimitExceeded:
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-list-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
@@ -48,11 +50,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 alertLabelText = articleError.localizedDescription
             }
             
-            alertLabel.text = alertLabelText
-
-            if !isAlertIconHidden {
-                alertIcon.image = UIImage(named: "error-icon")
-            }
+            alertButton.setTitle(alertLabelText, for: .normal)
+            alertButton.setImage(alertImage, for: .normal)
+            setNeedsLayout()
         }
     }
     
@@ -204,31 +204,14 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             yAlignedWithImageBottom -= layoutMargins.bottom
         }
         
-        if (apply && !isAlertIconHidden) {
-            var x = origin.x
-            if isArticleRTL {
-                x = size.width - layoutMargins.right - alertIconDimension
-            }
-            alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
-            origin.y += alertIcon.frame.layoutHeight(with: 0)
-        }
-        
-        if (apply && !isAlertLabelHidden) {
-            let xPosition: CGFloat
-            if isAlertIconHidden {
-                xPosition = origin.x
-            } else if isArticleRTL {
-                xPosition = alertIcon.frame.origin.x - widthMinusMargins + alertIconDimension
-            } else {
-                xPosition = alertIcon.frame.maxX + spacing
-            }
-            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
-            var availableWidth = widthMinusMargins - alertIconDimension - spacing
-            if isAlertIconHidden {
-                yPosition = yAlignedWithImageBottom
-                availableWidth = widthMinusMargins
-            }
-            _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), maximumWidth: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+        if (apply && !isAlertButtonHidden) {
+            let effectiveImageDimension = isImageViewHidden ? 0 : imageViewDimension + spacing
+            let xPosition = isArticleRTL ? layoutMargins.right + effectiveImageDimension : layoutMargins.left
+            let maxButtonHeight: CGFloat = 44
+            let yPosition = height - layoutMargins.bottom - maxButtonHeight
+            let availableWidth = layoutWidth(for: size) - spacing - effectiveImageDimension // don't reuse widthMinusMargins
+            let origin = CGPoint(x: xPosition, y: yPosition)
+            alertButton.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: availableWidth, height: maxButtonHeight), minimumSize: .zero, horizontalAlignment: isArticleRTL ? .right : .left, verticalAlignment: .bottom, apply: apply)
         }
         
         if (apply && !isTagsViewHidden) {
@@ -244,24 +227,20 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         if let error = entry.APIError {
             switch error {
             case .entryLimit where isInDefaultReadingList:
-                isAlertLabelHidden = false
-                isAlertIconHidden = false
+                isAlertButtonHidden = false
                 alertType = .genericNotSynced
             case .entryLimit:
-                isAlertLabelHidden = false
-                isAlertIconHidden = false
+                isAlertButtonHidden = false
                 alertType = .entryLimitExceeded(limit: entryLimit)
             default:
-                isAlertLabelHidden = true
-                isAlertIconHidden = true
+                isAlertButtonHidden = true
             }
         }
         
         if let error = readingList?.APIError {
             switch error {
             case .listLimit:
-                isAlertLabelHidden = false
-                isAlertIconHidden = false
+                isAlertButtonHidden = false
                 alertType = .listLimitExceeded(limit: listLimit)
             default:
                 break
@@ -273,16 +252,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             fallthrough
         case .articleError:
             if article.error != .none {
-                isAlertLabelHidden = false
-                isAlertIconHidden = false
+                isAlertButtonHidden = false
                 alertType = .articleError(article.error)
             } else if !article.isDownloaded {
-                isAlertLabelHidden = false
-                isAlertIconHidden = false
+                isAlertButtonHidden = false
                 alertType = .downloading
             } else {
-                isAlertLabelHidden = true
-                isAlertIconHidden = true
+                isAlertButtonHidden = true
                 alertType = nil
             }
         default:
@@ -313,7 +289,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         isStatusViewHidden = article.isDownloaded
         
-        isTagsViewHidden = tags.readingLists.isEmpty || !isAlertLabelHidden
+        isTagsViewHidden = tags.readingLists.isEmpty || !isAlertButtonHidden
         
         if shouldShowSeparators {
             topSeparator.isHidden = index != 0

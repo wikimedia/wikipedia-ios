@@ -9,7 +9,6 @@
 @class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
-@class WMFCacheControllerWrapper;
 @class MobileviewToMobileHTMLConverter;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -52,8 +51,8 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 @property (readonly, strong, nonatomic) NSURL *containerURL;
 
-- (void)performLibraryUpdates:(dispatch_block_t)completion;
-- (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock;
+- (void)performInitialLibrarySetup;
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
@@ -70,9 +69,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
 
 #pragma mark - Caching
-
-@property (readonly, strong, nonatomic) WMFCacheControllerWrapper *imageCacheControllerWrapper;
-@property (readonly, strong, nonatomic) WMFCacheControllerWrapper *articleCacheControllerWrapper;
 
 @property (readonly, strong, nonatomic) MobileviewToMobileHTMLConverter *mobileviewConverter;
 

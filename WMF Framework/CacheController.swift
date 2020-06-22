@@ -1,15 +1,28 @@
 
 import Foundation
 
-enum CacheControllerError: Error {
-    case atLeastOneItemFailedInFileWriter
+public enum CacheControllerError: Error {
+    case unableToCreateBackgroundCacheContext
+    case atLeastOneItemFailedInFileWriter(Error)
     case failureToGenerateItemResult
+    case atLeastOneItemFailedInSync(Error)
 }
 
 public class CacheController {
     
+    #if TEST
+    public static var temporaryCacheURL: URL? = nil
+    #endif
+    
     static let cacheURL: URL = {
-        var url = FileManager.default.wmf_containerURL().appendingPathComponent("PersistentCache", isDirectory: true)
+        
+        #if TEST
+        if let temporaryCacheURL = temporaryCacheURL {
+            return temporaryCacheURL
+        }
+        #endif
+        
+        var url = FileManager.default.wmf_containerURL().appendingPathComponent("Permanent Cache", isDirectory: true)
         
         var values = URLResourceValues()
         values.isExcludedFromBackup = true
@@ -27,24 +40,48 @@ public class CacheController {
         return FileManager.default.sizeOfDirectory(at: cacheURL)
     }
     
+    /// Performs any necessary migrations on the CacheController's internal storage
+    static func performLibraryUpdates(_ completion: @escaping (CacheControllerError?) -> Void) {
+        // Expensive file & db operations happen as a part of this migration, so async it to a non-main queue
+        DispatchQueue.global(qos: .default).async {
+            // Instantiating the moc will perform the migrations in CacheItemMigrationPolicy
+            guard let moc = backgroundCacheContext else {
+                completion(.unableToCreateBackgroundCacheContext)
+                return
+            }
+            // do a moc.perform in case anything else needs to be run before the context is ready
+            moc.perform {
+                completion(nil)
+            }
+        }
+    }
+
     static let backgroundCacheContext: NSManagedObjectContext? = {
         
+        //create cacheURL directory
+        do {
+            try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
+        } catch let error {
+            assertionFailure("Error creating permanent cache: \(error)")
+            return nil
+        }
+        
         //create ManagedObjectModel based on Cache.momd
-        guard let modelURL = Bundle.wmf.url(forResource: "PersistentCache", withExtension: "momd"),
+        guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
         }
-                
+
         //create persistent store coordinator / persistent store
-        let dbURL = cacheURL.deletingLastPathComponent().appendingPathComponent("PersistentCache.sqlite", isDirectory: false)
+        let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        
+
         let options = [
             NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true),
             NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)
         ]
-        
+
         do {
             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
         } catch {
@@ -52,7 +89,6 @@ public class CacheController {
                 try FileManager.default.removeItem(at: dbURL)
             } catch {
                 assertionFailure("Failure to remove old db file")
-                return nil
             }
 
             do {
@@ -65,7 +101,7 @@ public class CacheController {
 
         let cacheBackgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
-                
+
         return cacheBackgroundContext
     }()
     
@@ -75,7 +111,7 @@ public class CacheController {
     public typealias IndividualCompletionBlock = (FinalIndividualResult) -> Void
     public typealias GroupCompletionBlock = (FinalGroupResult) -> Void
     
-    public struct ItemKeyAndVariant {
+    public struct ItemKeyAndVariant: Hashable {
         let itemKey: CacheController.ItemKey
         let variant: String?
         
@@ -102,8 +138,7 @@ public class CacheController {
     
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriter
-    private let cacheKeyGenerator: CacheKeyGenerating.Type = ArticleCacheKeyGenerator.self
-    private let gatekeeper = CacheGatekeeper()
+    let gatekeeper = CacheGatekeeper()
     
     init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
         self.dbWriter = dbWriter
@@ -138,6 +173,10 @@ public class CacheController {
         fileWriter.cancelTasks(for: groupKey)
     }
     
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        return dbWriter.shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
+    }
+    
     func finishDBAdd(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock, result: CacheDBWritingResultWithURLRequests) {
         
         let groupCompleteBlock = { (groupResult: FinalGroupResult) in
@@ -150,18 +189,15 @@ public class CacheController {
             case .success(let urlRequests):
                 
                 var successfulKeys: [CacheController.UniqueKey] = []
-                var failedKeys: [CacheController.UniqueKey] = []
+                var failedKeys: [(CacheController.UniqueKey, Error)] = []
                 
                 let group = DispatchGroup()
                 for urlRequest in urlRequests {
                     
-                    guard let url = urlRequest.url,
-                        let itemKey =  urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
-                            continue
+                    guard let uniqueKey = fileWriter.uniqueFileNameForURLRequest(urlRequest),
+                        let url = urlRequest.url else {
+                        continue
                     }
-                    
-                    let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
-                    let uniqueKey = cacheKeyGenerator.uniqueFileNameForItemKey(itemKey, variant: variant)
                     
                     group.enter()
                     
@@ -175,7 +211,7 @@ public class CacheController {
                     
                     gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
                     
-                    guard dbWriter.shouldDownloadVariant(itemKey: itemKey, variant: variant) else {
+                    guard dbWriter.shouldDownloadVariant(urlRequest: urlRequest) else {
                         group.leave()
                         continue
                     }
@@ -187,9 +223,9 @@ public class CacheController {
                         }
                         
                         switch result {
-                        case .success:
+                        case .success(let response, let data):
                             
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest) { (result) in
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
                                 
                                 defer {
                                     group.leave()
@@ -203,12 +239,14 @@ public class CacheController {
                                     individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
                                     
                                 case .failure(let error):
-                                    failedKeys.append(uniqueKey)
+                                    failedKeys.append((uniqueKey, error))
                                     individualResult = FinalIndividualResult.failure(error: error)
                                 }
                                 
                                 self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             }
+                            
+                            self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
                             
                         case .failure(let error):
                             
@@ -216,16 +254,19 @@ public class CacheController {
                                 group.leave()
                             }
                             
-                            failedKeys.append(uniqueKey)
+                            failedKeys.append((uniqueKey, error))
                             let individualResult = FinalIndividualResult.failure(error: error)
                             self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                         }
                     }
                     
                     group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                        
-                        let groupResult = failedKeys.count > 0 ? FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter) : FinalGroupResult.success(uniqueKeys: successfulKeys)
-                        
+                        let groupResult: FinalGroupResult
+                        if let error = failedKeys.first?.1 {
+                            groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
+                        } else {
+                            groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
+                        }
                         groupCompleteBlock(groupResult)
                     }
                 }
@@ -234,6 +275,10 @@ public class CacheController {
                 let groupResult = FinalGroupResult.failure(error: error)
                 groupCompleteBlock(groupResult)
         }
+    }
+    
+    func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
+        //hook to allow subclasses to do any additional work with data
     }
     
     public func remove(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -272,12 +317,14 @@ public class CacheController {
             case .success(let keys):
                 
                 var successfulKeys: [CacheController.UniqueKey] = []
-                var failedKeys: [CacheController.UniqueKey] = []
+                var failedKeys: [(CacheController.UniqueKey, Error)] = []
                 
                 let group = DispatchGroup()
                 for key in keys {
                     
-                    let uniqueKey = self.cacheKeyGenerator.uniqueFileNameForItemKey(key.itemKey, variant: key.variant)
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForItemKey(key.itemKey, variant: key.variant) else {
+                        continue
+                    }
                     
                     group.enter()
                     
@@ -291,7 +338,7 @@ public class CacheController {
                     
                     self.gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
                     
-                    self.fileWriter.remove(fileName: uniqueKey) { (result) in
+                    self.fileWriter.remove(itemKey: key.itemKey, variant: key.variant) { (result) in
                         
                         switch result {
                         case .success:
@@ -307,7 +354,7 @@ public class CacheController {
                                     successfulKeys.append(uniqueKey)
                                     individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
                                 case .failure(let error):
-                                    failedKeys.append(uniqueKey)
+                                    failedKeys.append((uniqueKey, error))
                                     individualResult = FinalIndividualResult.failure(error: error)
                                 }
                                 
@@ -315,7 +362,7 @@ public class CacheController {
                             }
                             
                         case .failure(let error):
-                            failedKeys.append(uniqueKey)
+                            failedKeys.append((uniqueKey, error))
                             let individualResult = FinalIndividualResult.failure(error: error)
                             self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                             group.leave()
@@ -324,26 +371,23 @@ public class CacheController {
                 }
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                    
-                    if failedKeys.count == 0 {
-                        
-                        self.dbWriter.remove(groupKey: groupKey, completion: { (result) in
-                            
-                            var groupResult: FinalGroupResult
-                            switch result {
-                            case .success:
-                                groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
-                                
-                            case .failure(let error):
-                                groupResult = FinalGroupResult.failure(error: error)
-                            }
-                            
-                           groupCompleteBlock(groupResult)
-                        })
-                    } else {
-                        let groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter)
+                    if let error = failedKeys.first?.1 {
+                        let groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
                         groupCompleteBlock(groupResult)
+                        return
                     }
+                    self.dbWriter.remove(groupKey: groupKey, completion: { (result) in
+                        var groupResult: FinalGroupResult
+                        switch result {
+                        case .success:
+                            groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
+                            
+                        case .failure(let error):
+                            groupResult = FinalGroupResult.failure(error: error)
+                        }
+                        
+                        groupCompleteBlock(groupResult)
+                    })
                 }
                 
             case .failure(let error):

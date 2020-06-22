@@ -6,6 +6,7 @@ guard count > 1 else {
 }
 
 let path = CommandLine.arguments[1]
+
 Process.launchedProcess(launchPath: "\(path)/scripts/localization_extract", arguments: [path]).waitUntilExit()
 exportLocalizationsFromSourceCode(path)
 importLocalizationsFromTWN(path)

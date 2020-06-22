@@ -56,12 +56,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKRecentSearchEntry.h>
 #import <WMF/MWKRecentSearchList.h>
 
-#import <WMF/WMFImageTagParser.h>
-#import <WMF/WMFImageTag.h>
-#import <WMF/WMFImageTag+TargetImageWidthURL.h>
-#import <WMF/WMFImageTagList.h>
-#import <WMF/WMFImageTagList+ImageURLs.h>
-
 #import <WMF/MWLanguageInfo.h>
 
 #import <WMF/MWKImageInfo.h>
@@ -77,15 +71,12 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageFilter.h>
-#import <WMF/WMFNetworkUtilities.h>
 
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/NSURL+WMFMainPage.h>
 #import <WMF/WMFAssetsFile.h>
 
 #import <WMF/WMFNotificationsController.h>
-
-#import <WMF/MWNetworkActivityIndicatorManager.h>
 
 #import <WMF/MWKLanguageLinkController_Private.h>
 #import <WMF/WMFFaceDetectionCache.h>
@@ -99,6 +90,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
 #import <WMF/WMFRandomContentSource.h>
+#import <WMF/WMFAnnouncementsContentSource.h>
 
 #import <WMF/WMFFeedContentFetcher.h>
 #import <WMF/WMFFeedDayResponse.h>
@@ -119,7 +111,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/EventLoggingFunnel.h>
 #import <WMF/MWKSearchResult.h>
-#import <WMF/NSDictionary+WMFCommonParams.h>
 
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFContentGroup+Extensions.h>
@@ -128,8 +119,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/NSManagedObjectContext+WMFKeyValue.h>
 #import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
-
-#import <WMF/WMFFIFOCache.h>
 
 //UI
 #import <WMF/UIImageView+WMFImageFetching.h>

@@ -1,5 +1,4 @@
 #import "WMFArticleRevisionFetcher.h"
-@import WMF.WMFNetworkUtilities;
 @import WMF.NSURL_WMFLinkParsing;
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"
@@ -23,7 +22,7 @@
                                                                                         @"redirects": @1,
                                                                                         @"titles": articleURL.wmf_title,
                                                                                         @"rvlimit": @(numberOfResults),
-                                                                                        @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
+                                                                                        @"rvprop": [@[@"ids", @"size", @"flags"] componentsJoinedByString:@"|"],
                                                                                         //@"pilicense": @"any"
                                                                                         }];
     

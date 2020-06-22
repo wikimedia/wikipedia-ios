@@ -3,12 +3,14 @@
 // Author: Agusbou2015
 // Author: Andru1013
 // Author: Astroemi
+// Author: Canaan9801
 // Author: Carlosmg.dg
 // Author: David.novella
 // Author: Dgstranz
 // Author: Dschultz
 // Author: Elisardojm
 // Author: Fitoschido
+// Author: Geryescalier
 // Author: Hasley
 // Author: Ihojose
 // Author: Indiralena
@@ -106,6 +108,7 @@
 "action-remove" = "Quitar";
 "action-replace" = "Reemplazar";
 "action-replace-all" = "Reemplazar todo";
+"action-retry" = "Reintentar";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-saved-accessibility" = "Guardado. Activar para deshacer.";
@@ -140,8 +143,8 @@
 "article-languages-label" = "Elegir un idioma";
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
-"article-read-more-title" = "Seguir leyendo";
-"article-reference-title" = "Ver referencias";
+"article-read-more-title" = "Más información";
+"article-reference-view-title" = "Referencia $1";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
@@ -163,10 +166,9 @@
 "compass-direction" = "a las $1 en punto";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
-"description-add-link-title" = "Añade descripción de título";
 "description-add-title" = "Añadir descripción";
 "description-edit-for-article" = "Descripción de título para $1";
-"description-edit-learn-more" = "Aprende más";
+"description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Al cambiar la descripción del título, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
 "description-edit-pencil-introduction" = "Editar introducción";
@@ -273,7 +275,7 @@
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
-"edit-summary-learn-more-text" = "Aprende más";
+"edit-summary-learn-more-text" = "Más información";
 "edit-summary-placeholder-text" = "¿Cómo has mejorado el artículo?";
 "edit-superscript-accessibility-label" = "Añadir superíndice";
 "edit-superscript-remove-accessibility-label" = "Quitar superíndice";
@@ -466,8 +468,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
-"info-box-close-text" = "Cerrar";
-"info-box-title" = "Datos rápidos";
 "insert-action-title" = "Insertar";
 "insert-link-title" = "Insertar enlace";
 "insert-media-alternative-text-description" = "Descripción de texto para lectores quiénes no pueden ver la imagen";
@@ -504,8 +504,6 @@
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Cambiar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
-"license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "El contenido está disponible bajo la licencia $1, salvo que se indique lo contrario.";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sin acceder";
 "logged-out-log-back-in-button-title" = "Volver a acceder a tu cuenta";
 "logged-out-subtitle" = "Hubo un problema al autenticar tu cuenta. Para poder sincronizar tus listas de lectura y editar bajo tu nombre de usuario, por favor, vuelve a acceder.";
@@ -554,7 +552,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, de Wikipedia en $2";
 "on-this-day-title" = "Un día como hoy";
 "original-tab-button-popover-description" = "Pulsa en la 'W' para volver a la pestaña desde la que comenzaste";
-"page-edit-history" = "Historial de edición completo";
 "page-history-anonymous-edits" = "ediciones anónimas";
 "page-history-bot-edits" = "ediciones de bots";
 "page-history-compare-accessibility-hint" = "Toca para seleccionar dos revisiones para comparar";
@@ -571,18 +568,13 @@
 "page-history-revisions-comparison-warning" = "Solo puede seleccionar dos revisiones";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edición|$1 ediciones}} desde $2";
 "page-history-user-edits" = "ediciones del usuario";
-"page-issues" = "Problemas de la página";
-"page-last-edited" = "\n\n{{PLURAL:$1|0=Editado hoy|1=Editado ayer|Editado hace $1 días}}";
-"page-last-edited-unknown" = "Editado hace algún tiempo";
-"page-location" = "Ver en mapa";
+"page-location" = "Ver en un mapa";
 "page-protected-autoconfirmed" = "Esta página está semiprotegida.";
 "page-protected-can-not-edit" = "No tienes permisos para editar esta página";
 "page-protected-can-not-edit-title" = "Esta página está protegida";
 "page-protected-other" = "Esta página ha sido protegida a los siguientes niveles: $1";
 "page-protected-sysop" = "Esta página está totalmente protegida.";
-"page-read-in-other-languages" = "\nDisponible en {{PLURAL:$1|$1 idioma más|otros $1 idiomas}}";
 "page-similar-titles" = "Páginas similares";
-"page-talk-page" = "Ver página de discusión";
 "panel-compare-revisions-text" = "Comparar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Comparar dos revisiones de un artículo mostrará la diferencia entre esas revisiones al resaltar cualquier contenido que fue cambiado.";
 "panel-compare-revisions-title" = "Comparando revisiones";
 "pictured" = "retratado";
@@ -813,7 +805,6 @@
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
 "table-of-contents-heading" = "Sumario";
 "table-of-contents-hide-button-label" = "Ocultar sumario";
-"table-title-other" = "Más información";
 "talk-page-add-discussion-accessibility-label" = "Añadir discusión";
 "talk-page-discussion-accessibility-hint" = "Toca dos veces para abrir el hilo de discusión";
 "talk-page-discussion-read-accessibility-label" = "Leer";
@@ -859,7 +850,6 @@
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "unable-to-load-talk-page-title" = "No se puede cargar la página de discusión";
 "unknown-generic-text" = "Desconocido";
-"view-in-browser-footer-link" = "Ver artículo en el navegador";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
 "welcome-exploration-explore-feed-title" = "Canal Explorar";
 "welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";

@@ -1038,6 +1038,8 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
+        EditHistoryCompareFunnel.shared.logRevisionView(language: siteURL.wmf_language)
+        
         let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision)
         push(singleDiffVC, animated: true)
     }
@@ -1158,12 +1160,16 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
+        EditHistoryCompareFunnel.shared.logThankTry(language: siteURL.wmf_language)
+        
         guard !isAlreadySelected else {
+            EditHistoryCompareFunnel.shared.logThankFail(language: siteURL.wmf_language)
             self.show(hintViewController: AuthorAlreadyThankedHintVC())
             return
         }
         
         guard !toModel.isAnon else {
+            EditHistoryCompareFunnel.shared.logThankFail(language: siteURL.wmf_language)
             self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
             return
         }
@@ -1174,24 +1180,25 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }, loginDismissedCompletion: nil)
             return
         }
+        
+        let thankCompletion: (Error?) -> Void = { (error) in
+            if error == nil {
+                self.diffToolbarView?.isThankSelected = true
+                EditHistoryCompareFunnel.shared.logThankSuccess(language: self.siteURL.wmf_language)
+            } else {
+                EditHistoryCompareFunnel.shared.logThankFail(language: self.siteURL.wmf_language)
+            }
+        }
 
         guard !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() else {
-            thankRevisionAuthor { (error) in
-                if error == nil {
-                    self.diffToolbarView?.isThankSelected = true
-                    }
-                }
+            thankRevisionAuthor(completion: thankCompletion)
             return
         }
 
         wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
             UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
             self.dismiss(animated: true, completion: {
-                self.thankRevisionAuthor { (error) in
-                    if error == nil {
-                        self.diffToolbarView?.isThankSelected = true
-                        }
-                    }
+                self.thankRevisionAuthor(completion: thankCompletion)
             })
         })
     }

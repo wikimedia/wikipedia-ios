@@ -97,6 +97,9 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
+        cell.alertButtonCallback = { [weak self] in
+            self?.presentArticleErrorRecovery(with: article)
+        }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
@@ -131,7 +134,38 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     override func refresh() {
         dataStore.readingListsController.fullSync {
-            self.endRefreshing()
+            assert(Thread.isMainThread)
+            self.retryFailedArticleDownloads {
+                DispatchQueue.main.async {
+                    self.endRefreshing()
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func retryFailedArticleDownloads(_ completion: @escaping () -> Void) {
+        guard let predicate = fetchedResultsController?.fetchRequest.predicate else {
+            completion()
+            return
+        }
+        dataStore.performBackgroundCoreDataOperation { (moc) in
+            defer {
+                completion()
+            }
+            let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            request.predicate = predicate
+            request.propertiesToFetch = ["articleKey"]
+            do {
+                let entries = try moc.fetch(request)
+                let keys = entries.compactMap { $0.articleKey }
+                guard !keys.isEmpty else {
+                    return
+                }
+                try moc.retryFailedArticleDownloads(with: keys)
+            } catch let error {
+                DDLogError("Error retrying failed articles: \(error)")
+            }
         }
     }
     

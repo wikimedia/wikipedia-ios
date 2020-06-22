@@ -3,6 +3,7 @@
 // Author: Bugoslav
 // Author: Hmxhmx
 // Author: Ivi104
+// Author: JoeWalshWMF
 // Author: MaGa
 // Author: Neptune, the Mystic
 // Author: Npavcec
@@ -56,6 +57,7 @@
 "action-remove" = "Ukloni";
 "action-replace" = "Zamijeni";
 "action-replace-all" = "Zamijeni sve";
+"action-retry" = "Pokušaj ponovno";
 "action-save" = "Spremi";
 "action-saved" = "Spremljeno";
 "action-saved-accessibility-notification" = "Članak je spremljen za kasnije";
@@ -73,15 +75,13 @@
 "appearance-settings-reading-themes" = "Teme za čitanje";
 "appearance-settings-set-automatic-table-opening" = "Postavke tablica";
 "appearance-settings-theme-options" = "Opcije tema";
-"article-about-title" = "O ovom članku";
 "article-delete" = "Izbriši";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Članak je izbrisan|Članci su izbrisani}}";
 "article-languages-filter-placeholder" = "Pronađi jezik";
 "article-languages-label" = "Odaberite jezik";
 "article-languages-others" = "Drugi jezici";
 "article-languages-yours" = "Vaši jezici";
-"article-read-more-title" = "Pročitajte više";
-"article-reference-title" = "Vidi izvore";
+"article-reference-view-title" = "Izvor $1";
 "article-save-error-not-enough-space" = "Na uređaju nemate dovoljno prostora da biste mogli sačuvati ovaj članak";
 "article-share" = "Podijeli";
 "back-button-accessibility-label" = "Natrag";
@@ -122,7 +122,7 @@
 "description-published-title" = "Opis je objavljen!";
 "description-welcome-concise-title" = "Budite kratki";
 "description-welcome-descriptions-title" = "Opisi naslova";
-"description-welcome-promise-title" = "Obećavam da neću zloupotrijebiti ovu mogućnost kad počnem.";
+"description-welcome-promise-title" = "Započinjanjem radnje izvršenja obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počnite uređivati";
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Usporedi izmjene";
@@ -172,12 +172,20 @@
 "explore-continue-reading-heading" = "Nastavite čitati";
 "explore-featured-article-heading" = "Izabrani članak";
 "explore-featured-article-sub-heading-from-wikipedia" = "S Wikipedije";
+"explore-feed-customize-accessibility-title" = "Prilagodi";
 "explore-feed-preferences-card-hidden-title" = "Kartica je sakrivena";
 "explore-feed-preferences-explore-tab" = "Kartica istraživanja";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Isključeno";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Uključeno";
+"explore-feed-preferences-in-the-news-description" = "Članci o trenutačnim događajima";
+"explore-feed-preferences-on-this-day-description" = "Povijesni događaji na današnji dan";
+"explore-feed-preferences-places-description" = "Wikipedijini članci o temama u Vašoj blizini";
+"explore-main-page-heading" = "Danas na Wikipediji";
+"explore-most-read-footer" = "Svi najčitaniji članci";
 "explore-nearby-heading" = "Mjesta u blizini";
 "explore-nearby-placeholder-heading" = "Mjesta";
+"explore-potd-heading" = "Slika dana";
+"explore-potd-sub-heading" = "Sa Zajedničkog poslužitelja";
 "explore-random-article-heading" = "Slučajni članak";
 "explore-random-article-sub-heading-from-wikipedia" = "S Wikipedije";
 "feed-news-notification-button-text" = "Uključi obavijesti";
@@ -215,8 +223,6 @@
 "in-the-news-notification-share-action-title" = "Podijeli...";
 "in-the-news-sub-title-from-wikipedia" = "S Wikipedije";
 "in-the-news-title" = "U vijestima";
-"info-box-close-text" = "Zatvori";
-"info-box-title" = "Kratke činjenice";
 "insert-action-title" = "Umetni";
 "insert-link-title" = "Umetni poveznicu";
 "insert-media-alternative-text-title" = "Alternativni tekst";
@@ -233,7 +239,6 @@
 "insert-media-image-type-setting-basic" = "Osnovno";
 "languages-settings-title" = "Jezici";
 "languages-title" = "Odaberite jezik";
-"license-footer-name" = "CC BY-SA 3.0";
 "main-menu-account-logout-cancel" = "Odustani";
 "main-menu-nearby" = "U blizini";
 "main-menu-privacy-policy" = "Pravila privatnosti";
@@ -243,7 +248,6 @@
 "menu-cancel-accessibility-label" = "Odustani";
 "more-languages-tooltip-title" = "Dodajte jezike";
 "on-this-day-title" = "Na današnji dan";
-"page-last-edited-unknown" = "Uređeno prije nekog vremena";
 "places-filter-button-title" = "Filtar";
 "places-filter-saved-articles" = "Spremljeni članci";
 "reading-list-keep-title" = "Zadržati spremljene članke na uređaju?";
@@ -252,6 +256,5 @@
 "search-clear-title" = "Očisti";
 "search-recent-clear-cancel" = "Odustani";
 "settings-account" = "Račun";
-"table-title-other" = "Više informacija";
 "talk-page-link-user-action-sheet-title" = "Suradničke stranice";
 "wikitext-upload-save-anonymously-warning" = "Uređivanja će biti pripisana IP-adresi Vašega uređaja. Ako pritisnete $1, ostvarit ćete više privatnosti.";

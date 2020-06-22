@@ -5,7 +5,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Add %#@v1@ to reading list</string>
+		<string>Adaugă %#@v1@ la lista de citire</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d article</string>
+			<string>%1$d articol</string>
 			<key>other</key>
-			<string>%1$d articles</string>
+			<string>%1$d articole</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ deleted</string>
+		<string>%#@v1@ șterse</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>article</string>
+			<string>articol</string>
 			<key>other</key>
-			<string>articles</string>
+			<string>articole</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d line</string>
+			<string>%1$d linie</string>
 			<key>other</key>
-			<string>%1$d lines</string>
+			<string>%1$d linii</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-section</key>
@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d section</string>
+			<string>%1$d secțiune</string>
 			<key>other</key>
-			<string>%1$d sections</string>
+			<string>%1$d secțiuni</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d edit</string>
+			<string>%1$d modificare</string>
 			<key>other</key>
-			<string>%1$d edits</string>
+			<string>%1$d modificări</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-added</key>
@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d byte added</string>
+			<string>%1$d bit adăugat</string>
 			<key>other</key>
-			<string>%1$d bytes added</string>
+			<string>%1$d biți adăugat</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -109,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d byte removed</string>
+			<string>%1$d bit șters</string>
 			<key>other</key>
-			<string>%1$d bytes removed</string>
+			<string>%1$d biți șterși</string>
 		</dict>
 	</dict>
 	<key>diff-unedited-lines-format</key>
@@ -125,15 +125,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d line unedited</string>
+			<string>%1$d linie nemodificată</string>
 			<key>other</key>
-			<string>%1$d lines unedited</string>
+			<string>%1$d linii nemodificate</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ not shown</string>
+		<string>%#@v1@ nu sunt arătate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -141,15 +141,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d intermediate revision</string>
+			<string>%1$d versiune intermediară</string>
 			<key>other</key>
-			<string>%1$d intermediate revisions</string>
+			<string>%1$d versiuni intermediare</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-editors-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ by %#@v2@ not shown</string>
+		<string>%#@v1@ de %#@v2@ nu sunt afișate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -157,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d intermediate revision</string>
+			<string>%1$d versiune intermediară</string>
 			<key>other</key>
-			<string>%1$d intermediate revisions</string>
+			<string>%1$d versiuni intermediare</string>
 		</dict>
 		<key>v2</key>
 		<dict>
@@ -168,15 +168,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d user</string>
+			<string>%2$d utilizator</string>
 			<key>other</key>
-			<string>%2$d users</string>
+			<string>%2$d utilizatori</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-editors-limited-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ by %2$d+ users not shown</string>
+		<string>%#@v1@ de %2$d+ utilizatori nu sunt afișate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -184,15 +184,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d intermediate revision</string>
+			<string>%1$d versiune intermediară</string>
 			<key>other</key>
-			<string>%1$d intermediate revisions</string>
+			<string>%1$d versiuni intermediare</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-limited-editors-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d+ intermediate revisions by %#@v2@ not shown</string>
+		<string>%1$d+ versiuni intermediare de %#@v2@ nu sunt afișate</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -200,15 +200,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d user</string>
+			<string>%2$d utilizator</string>
 			<key>other</key>
-			<string>%2$d users</string>
+			<string>%2$d utilizatori</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Move %#@v1@ to reading list</string>
+		<string>Mută %#@v1@ la lista de citit</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -216,9 +216,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d article</string>
+			<string>%1$d articol</string>
 			<key>other</key>
-			<string>%1$d articles</string>
+			<string>%1$d articole</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -232,15 +232,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d historical event</string>
+			<string>%1$d eveniment istoric</string>
 			<key>other</key>
-			<string>%1$d historical events</string>
+			<string>%1$d evenimente istorice</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Added %#@v1@</string>
+		<string>Adăugat %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -248,15 +248,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d byte</string>
+			<string>%1$d bit</string>
 			<key>other</key>
-			<string>%1$d bytes</string>
+			<string>%1$d biți</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Removed %#@v1@</string>
+		<string>Șters %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -264,15 +264,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d byte</string>
+			<string>%1$d bit</string>
 			<key>other</key>
-			<string>%1$d bytes</string>
+			<string>%1$d biți</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ since %2$@</string>
+		<string>%#@v1@ din %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -280,43 +280,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d edit</string>
+			<string>%1$d modificare</string>
 			<key>other</key>
-			<string>%1$d edits</string>
-		</dict>
-	</dict>
-	<key>page-last-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Edited yesterday</string>
-			<key>other</key>
-			<string>Edited %1$d days ago</string>
-			<key>zero</key>
-			<string>Edited today</string>
-		</dict>
-	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Available in %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d other language</string>
-			<key>other</key>
-			<string>%1$d other languages</string>
+			<string>%1$d modificări</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -330,15 +296,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d article</string>
+			<string>%1$d articol</string>
 			<key>other</key>
-			<string>%1$d articles</string>
+			<string>%1$d articole</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>You have exceeded the limit of %#@v1@ per account.</string>
+		<string>Ați depășit limita de %#@v1@ pentru fiecare cont.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -346,15 +312,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d article</string>
+			<string>%1$d articol</string>
 			<key>other</key>
-			<string>%1$d articles</string>
+			<string>%1$d articole</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ cannot be added to this list. You have reached the limit of %2$d articles per reading list for %3$@</string>
+		<string>%#@v1@ nu poate fi adăugat la această listă. Ați atins limita de %2$d articole pe listă de lectură pentru %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -362,15 +328,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Article</string>
+			<string>Articol</string>
 			<key>other</key>
-			<string>Articles</string>
+			<string>Articole</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>You have exceeded the limit of %#@v1@ per account.</string>
+		<string>Ați depășit limita de %#@v1@ per cont.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -378,9 +344,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d reading list</string>
+			<string>%1$d listă de citit</string>
 			<key>other</key>
-			<string>%1$d reading lists</string>
+			<string>%1$d liste de citire</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -394,31 +360,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d reading list</string>
+			<string>%1$d lista de citire</string>
 			<key>other</key>
-			<string>%1$d reading lists</string>
-		</dict>
-	</dict>
-	<key>reading-lists-delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>This action cannot be undone. Any articles saved only to %#@v1@ will be unsaved.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>this list</string>
-			<key>other</key>
-			<string>these lists</string>
+			<string>%1$d liste de citire</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Delete %#@v1@?</string>
+		<string>Șterge %#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -426,15 +376,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>list</string>
+			<string>listă</string>
 			<key>other</key>
-			<string>lists</string>
+			<string>liste</string>
 		</dict>
 	</dict>
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ and %#@v2@ synced from your account</string>
+		<string>%#@v1@ și %#@v2@ sincronizate din cont</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -442,9 +392,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d article</string>
+			<string>%1$d articol</string>
 			<key>other</key>
-			<string>%1$d articles</string>
+			<string>%1$d articole</string>
 		</dict>
 		<key>v2</key>
 		<dict>
@@ -453,9 +403,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d reading list</string>
+			<string>%2$d lista de citit</string>
 			<key>other</key>
-			<string>%2$d reading lists</string>
+			<string>%2$d liste de citit</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -469,11 +419,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Yesterday</string>
+			<string>Ieri</string>
 			<key>other</key>
-			<string>%1$d days ago</string>
+			<string>%1$d zile în urmă</string>
 			<key>zero</key>
-			<string>Today</string>
+			<string>Astăzi</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>
@@ -487,11 +437,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d hour ago</string>
+			<string>%1$d acum o oră</string>
 			<key>other</key>
-			<string>%1$d hours ago</string>
+			<string>%1$d ore în urmă</string>
 			<key>zero</key>
-			<string>Recently</string>
+			<string>Recent</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
@@ -505,11 +455,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d minute ago</string>
+			<string>%1$d acum un minut</string>
 			<key>other</key>
-			<string>%1$d minutes ago</string>
+			<string>%1$d acum câteva minute</string>
 			<key>zero</key>
-			<string>Just now</string>
+			<string>Chiar acum</string>
 		</dict>
 	</dict>
 	<key>relative-date-months-ago</key>
@@ -523,11 +473,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Last month</string>
+			<string>Luna trecută</string>
 			<key>other</key>
-			<string>%1$d months ago</string>
+			<string>%1$d luni în urmă</string>
 			<key>zero</key>
-			<string>This month</string>
+			<string>Luna aceasta</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
@@ -541,11 +491,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Last year</string>
+			<string>Anul trecut</string>
 			<key>other</key>
-			<string>%1$d years ago</string>
+			<string>%1$d ani în urmă</string>
 			<key>zero</key>
-			<string>This year</string>
+			<string>Anul acesta</string>
 		</dict>
 	</dict>
 	<key>replace-replace-all-results-count</key>
@@ -559,15 +509,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d item replaced</string>
+			<string>%1$d element înlocuit</string>
 			<key>other</key>
-			<string>%1$d items replaced</string>
+			<string>%1$d elemente înlocuite</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Unsaving %#@v1@ from all associated reading lists</string>
+		<string>Desalvarea %#@v1@ din toate listele de citire asociate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -575,15 +525,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>this article will remove it</string>
+			<string>acestui articol îl va elimina</string>
 			<key>other</key>
-			<string>these articles will remove them</string>
+			<string>acestor articole le va elimina</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Unsave %#@v1@?</string>
+		<string>Desalvează %#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -591,9 +541,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>article</string>
+			<string>articol</string>
 			<key>other</key>
-			<string>articles</string>
+			<string>articole</string>
 		</dict>
 	</dict>
 </dict>

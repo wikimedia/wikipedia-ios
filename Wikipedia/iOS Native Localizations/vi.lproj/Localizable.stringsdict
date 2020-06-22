@@ -79,7 +79,7 @@
 			<key>one</key>
 			<string>Hôm qua</string>
 			<key>other</key>
-			<string>Cách đây %1$d ngày</string>
+			<string>%1$d ngày trước</string>
 			<key>zero</key>
 			<string>Hôm nay</string>
 		</dict>

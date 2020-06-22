@@ -98,14 +98,12 @@
 "appearance-settings-set-automatic-table-opening" = "Configuración de tables";
 "appearance-settings-text-sizing-example-text" = "Arrastra el control pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
 "appearance-settings-theme-options" = "Opciones de temes";
-"article-about-title" = "Tocante a esti artículu";
 "article-delete" = "Desaniciar";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artículu desaniciáu|artículos desaniciaos}}";
 "article-languages-filter-placeholder" = "Alcontrar llingua";
 "article-languages-label" = "Escoyer llingua";
 "article-languages-others" = "Otres llingües";
 "article-languages-yours" = "Les tos llingües";
-"article-read-more-title" = "Lleer más";
 "article-save-error-not-enough-space" = "Nun hai espaciu bastante nel preséu pa guardar esti artículu";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de llectura de les temes";
@@ -127,7 +125,6 @@
 "compass-direction" = "a les $1 en puntu";
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
-"description-add-link-title" = "Amestar una descripción del títulu";
 "description-add-title" = "Amestar descripción";
 "description-edit-for-article" = "Descripción de títulu pa $1";
 "description-edit-learn-more" = "Más información";
@@ -321,18 +318,13 @@
 "in-the-news-currently-trending" = "Tendencia agora";
 "in-the-news-notification-read-now-action-title" = "Lleer agora";
 "in-the-news-notification-save-for-later-action-title" = "Guardar pa después";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Compartir...";
+"in-the-news-notification-share-action-title" = "Compartir…";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidá";
-"info-box-close-text" = "Zarrar";
-"info-box-title" = "Datos rápidos";
 "languages-settings-title" = "Llingües";
 "languages-title" = "Camudar llingua";
 "languages-wikipedia" = "Llingües de Wikipedia";
-"license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "El conteníu ta disponible baxo llicencia $1 si nun s'indica otra cosa.";
 "login-forgot-password" = "¿Escaecisti la contraseña?";
 "login-join-wikipedia" = "Xunise a Wikipedia.";
 "login-no-account" = "¿Nun tienes una cuenta? $1";
@@ -374,18 +366,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 na Wikipedia en $1";
 "on-this-day-title" = "Tal día como güei";
 "original-tab-button-popover-description" = "Toca na «W» pa volver a la llingüeta na que principiasti";
-"page-edit-history" = "Historial d'edición completu";
-"page-issues" = "Problemes de la páxina";
-"page-last-edited" = "{{PLURAL:$1|0=Editáu güei|1=Editáu ayeri|Editáu hai $1 díes}}";
-"page-location" = "Ver nun mapa";
 "page-protected-autoconfirmed" = "Esta páxina ta semiprotexida.";
 "page-protected-can-not-edit" = "Nun tienes los permisos pa editar esta páxina";
 "page-protected-can-not-edit-title" = "Esta páxina ta protexida";
 "page-protected-other" = "Esta páxina ta protexida colos siguientes niveles: $1";
 "page-protected-sysop" = "Esta páxina ta protexida dafechu.";
-"page-read-in-other-languages" = "Disponible'n {{PLURAL:$1|$1 idioma más|$1 idiomes más}}";
-"page-similar-titles" = "Páxines asemeyaes";
-"page-talk-page" = "Ver la páxina d'alderique";
 "pictured" = "con semeya";
 "places-accessibility-clear-saved-searches" = "Llimpiar les guetes guardaes";
 "places-accessibility-group" = "$1 artículos";
@@ -582,7 +567,6 @@
 "table-of-contents-close-accessibility-hint" = "Zarrar";
 "table-of-contents-close-accessibility-label" = "Zarrar la tabla de conteníu";
 "table-of-contents-heading" = "Conteníu";
-"table-title-other" = "Más información";
 "theme-black-display-name" = "Prietu";
 "theme-dark-display-name" = "Escuru";
 "theme-default-display-name" = "Predetermináu";
@@ -595,7 +579,6 @@
 "two-factor-login-title" = "Anicia sesión na to cuenta";
 "two-factor-login-with-backup-code" = "Usar unu de los códigos de respaldu";
 "two-factor-login-with-regular-code" = "Usar códigu de comprobación";
-"view-in-browser-footer-link" = "Ver artículu nel navegador";
 "welcome-exploration-explore-feed-description" = "Llectures recomendaes y artículos diarios de la nuesa comunidá";
 "welcome-exploration-explore-feed-title" = "Canal Esplorar";
 "welcome-exploration-on-this-day-description" = "Viaxa al pasáu pa saber qué asocedió na hestoria tal día como güei";

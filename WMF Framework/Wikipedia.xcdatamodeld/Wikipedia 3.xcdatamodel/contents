@@ -105,6 +105,8 @@
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String"/>
         <attribute name="displayTitleHTMLString" optional="YES" attributeType="String"/>
+        <attribute name="downloadAttemptCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="downloadRetryDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="errorCodeNumber" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -142,11 +144,12 @@
         <fetchIndex name="bySignedQuadKeyIndex">
             <fetchIndexElement property="signedQuadKey" type="Binary" order="ascending"/>
         </fetchIndex>
-        <fetchIndex name="compoundIndex">
+        <fetchIndex name="housekeeperIndex">
             <fetchIndexElement property="viewedDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
+            <fetchIndexElement property="placesSortOrder" type="Binary" order="ascending"/>
             <fetchIndexElement property="isExcludedFromFeed" type="Binary" order="ascending"/>
-            <fetchIndexElement property="key" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="compoundIndex1">
             <fetchIndexElement property="viewedDateWithoutTime" type="Binary" order="ascending"/>
@@ -155,6 +158,7 @@
         <fetchIndex name="compoundIndex2">
             <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
+            <fetchIndexElement property="downloadRetryDate" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="compoundIndex3">
             <fetchIndexElement property="readingLists" type="Binary" order="ascending"/>
@@ -225,7 +229,7 @@
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
         <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="538"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="568"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="358"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>

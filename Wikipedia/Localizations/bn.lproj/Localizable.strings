@@ -80,14 +80,12 @@
 // Fuzzy
 "appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
 "appearance-settings-theme-options" = "থিমের বিকল্প";
-"article-about-title" = "এই নিবন্ধ সম্পর্কে";
 "article-delete" = "অপসারণ";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|নিবন্ধ}} অপসারিত হয়েছে";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
 "article-languages-yours" = "আপনার ভাষাসমূহ";
-"article-read-more-title" = "আরো পড়ুন";
 "article-share" = "শেয়ার করুন";
 "back-button-accessibility-label" = "পিছনে";
 "back-button-popover-title" = "পেছনে যেতে আলতো চাপুন";
@@ -213,13 +211,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "in-the-news-sub-title-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "in-the-news-title" = "সংবাদে";
-"info-box-close-text" = "বন্ধ";
-"info-box-title" = "দ্রুত তথ্য";
 "languages-settings-title" = "ভাষাসমূহ";
 "languages-title" = "ভাষা পরিবর্তন করুন";
 "languages-wikipedia" = "উইকিপিডিয়ার ভাষা";
-"license-footer-name" = "সিসি বাই-এসএ ৩.০";
-"license-footer-text" = "বিষয়বস্তু $1-এর আওতায় প্রকাশিত যদি না অন্য কিছু নির্ধারিত থাকে।";
 "login-forgot-password" = "পাসওয়ার্ড ভুলে গেছেন?";
 "login-join-wikipedia" = "উইকিপিডিয়ায় যোগ দিন।";
 "login-no-account" = "কোন অ্যাকাউন্ট নেই? $1";
@@ -256,21 +250,12 @@
 "on-this-day-detail-header-date-range" = "$1 - $2 থেকে";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 উইকিপিডিয়া থেকে $1";
 "on-this-day-title" = "আজকের এই দিনে";
-"page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
 "page-history-minor-edits" = "অনুল্লেখ্য সম্পাদনা";
-"page-issues" = "পাতার সমস্যা";
-// Fuzzy
-"page-last-edited" = "$1 দিন আগে সম্পাদিত";
-"page-location" = "একটি মানচিত্রে দেখুন";
 "page-protected-autoconfirmed" = "এই পাতাটি অর্ধ-সুরক্ষিত।";
 "page-protected-can-not-edit" = "এই পাতা সম্পাদনা করার অধিকার আপনার নেই।";
 "page-protected-can-not-edit-title" = "এই পাতাটি সুরক্ষিত";
 "page-protected-other" = "এই পাতাটি নিম্নের মাত্রা অনুযায়ী সুরক্ষিত: $1";
 "page-protected-sysop" = "এই পাতটি সম্পূর্ণ সুরক্ষিত।";
-// Fuzzy
-"page-read-in-other-languages" = "আরো $1টি ভাষায় উপলব্ধ";
-"page-similar-titles" = "অনুরূপ পাতাগুলি";
-"page-talk-page" = "আলাপ পাতা দেখুন";
 "places-accessibility-clear-saved-searches" = "সংরক্ষিত অনুসন্ধানগুলি সাফ করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
 "places-accessibility-recenter-map-on-user-location" = "আপনার অবস্থান পুন:চিহ্নিত করুন";
@@ -361,7 +346,6 @@
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
-"table-title-other" = "আরও তথ্য";
 "theme-dark-display-name" = "আঁধার";
 "theme-default-display-name" = "পূর্বনির্ধারিত";
 "theme-sepia-display-name" = "কালচে-বাদামি";
@@ -373,7 +357,6 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
-"view-in-browser-footer-link" = "ব্রাউজারে নিবন্ধ দেখুন";
 "welcome-exploration-explore-feed-description" = "আমাদের সম্প্রদায়ের প্রস্তাবিত পাঠ এবং দৈনিক নিবন্ধ";
 "welcome-exploration-explore-feed-title" = "ফিড অন্বেষণ করুন";
 "welcome-exploration-on-this-day-title" = "আজকের এই দিনে";

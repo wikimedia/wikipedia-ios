@@ -49,12 +49,10 @@
 "action-find-in-page" = "Rasti puslapyje";
 "action-language-accessibility" = "Keisti kalbą";
 "action-saved" = "Išsaugota";
-"article-about-title" = "Apie šį straipsnį";
 "article-languages-filter-placeholder" = "Rasti kalbą";
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-others" = "Kitos kalbos";
 "article-languages-yours" = "Jūsų kalbos";
-"article-read-more-title" = "Skaityti daugiau";
 "back-button-accessibility-label" = "Atgal";
 "button-next" = "Kitas";
 "button-ok" = "Gerai";
@@ -131,11 +129,7 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "Dalintis...";
 "in-the-news-title" = "Naujienos";
-"info-box-close-text" = "Uždaryti";
-"info-box-title" = "Trumpi faktai";
 "languages-title" = "Keisti kalbą";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Turinys pateikiamas pagal $1, jei nėra nurodyta kitaip.";
 "login-join-wikipedia" = "Prisijunkite prie Vikipedijos.";
 "login-title" = "Prisijunkite prie savo paskyros";
 "main-menu-about" = "Apie programėlę";
@@ -166,17 +160,10 @@
 "on-this-day-detail-header-date-range" = "nuo $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "on-this-day-title" = "Šią dieną";
-"page-edit-history" = "Pilna keitimų istorija";
 "page-history-revision-minor-edit-accessibility-label" = "Smulkus keitimas";
-"page-issues" = "Puslapio klausimai";
-"page-last-edited" = "{{PLURAL:$1|0=Redaguota šiandien|1=Redaguota vakar|Redaguota prieš $1 dienas}}";
-"page-location" = "Žiūrėti žemėlapyje";
 "page-protected-autoconfirmed" = "Šis puslapis buvo pusiau apsaugotas.";
 "page-protected-can-not-edit-title" = "Šis puslapis užrakintas";
 "page-protected-sysop" = "Šis puslapis buvo pilnai užrakintas.";
-"page-read-in-other-languages" = "Prieinama {{PLURAL:$1|$1 kita kalba|$1 kitų kalbų}}";
-"page-similar-titles" = "Panašūs puslapiai";
-"page-talk-page" = "Žiūrėti aptarimo puslapį";
 "places-accessibility-group" = "$1 straipsniai";
 "places-accessibility-show-as-list" = "Rodyti kaip sąrašą";
 "places-accessibility-show-as-map" = "Rodyti kaip žemėlapį";
@@ -232,7 +219,6 @@
 "table-of-contents-close-accessibility-hint" = "Uždaryti";
 "table-of-contents-close-accessibility-label" = "Uždaryti Turinio lentelę";
 "table-of-contents-heading" = "Turinys";
-"table-title-other" = "Daugiau informacijos";
 "talk-page-discussion-read-accessibility-label" = "Skaitytas";
 "talk-page-discussion-unread-accessibility-label" = "Neskaitytas";
 "talk-page-new-reply-body-accessibility-label" = "Rašyti atsakymą";
@@ -245,7 +231,6 @@
 "two-factor-login-continue" = "Tęsti prisijungimą";
 "two-factor-login-title" = "Prisijunkite prie savo paskyros";
 "two-factor-login-with-regular-code" = "Naudoti patvirtinimo kodą";
-"view-in-browser-footer-link" = "Rodyti straipsnį naršyklėje";
 "welcome-exploration-explore-feed-title" = "Naršyti srautą";
 "welcome-exploration-on-this-day-title" = "Šią dieną";
 "welcome-explore-continue-button" = "Pradėti";

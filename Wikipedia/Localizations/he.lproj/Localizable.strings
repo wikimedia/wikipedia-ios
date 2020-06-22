@@ -83,6 +83,7 @@
 "action-remove" = "הסרה";
 "action-replace" = "החלפה";
 "action-replace-all" = "להחליף הכול";
+"action-retry" = "לנסות שוב";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
@@ -118,7 +119,7 @@
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
 "article-read-more-title" = "לקרוא עוד";
-"article-reference-title" = "הצגת הערות שוליים";
+"article-reference-view-title" = "הערת שוליים $1";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";
@@ -140,7 +141,6 @@
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
-"description-add-link-title" = "הוספת תיאור כותרת";
 "description-add-title" = "הוספת תיאור";
 "description-edit-for-article" = "תיאור כותרת עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
@@ -443,12 +443,10 @@
 "in-the-news-sub-title-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "in-the-news-sub-title-from-wikipedia" = "מתוך ויקיפדיה";
 "in-the-news-title" = "בחדשות";
-"info-box-close-text" = "סגירה";
-"info-box-title" = "עובדות מהירות";
 "insert-action-title" = "הוספה";
 "insert-link-title" = "הוספת קישור";
 "insert-media-alternative-text-description" = "תיאור טקסט לקוראים שלא יכולים לראות את התמונה";
-"insert-media-alternative-text-placeholder" = "תיאור התמונה הזו";
+"insert-media-alternative-text-placeholder" = "תיאור התמונה הזאת";
 "insert-media-alternative-text-title" = "טקסט חלופי";
 "insert-media-caption-caption-placeholder" = "איך תמונה זו קשורה לערך?";
 "insert-media-caption-description" = "תווית שמופיעה לצד הפריט לטובת כל הקוראים";
@@ -481,8 +479,6 @@
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
-"license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "התוכן זמין לפי תנאי $1 אלא אם נאמר אחרת.";
 "logged-out-continue-without-logging-in-button-title" = "להמשיך בלי להיכנס לחשבון";
 "logged-out-log-back-in-button-title" = "להיכנס חזרה לחשבון שלך";
 "logged-out-subtitle" = "הייתה בעיה באימות החשבון שלך. כדי לסנכרן את רשימות הקריאה שלך ולערוך תחת שם המשתמש שלך נא להיכנס לחשבון מחדש.";
@@ -531,7 +527,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
-"page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-anonymous-edits" = "עריכות אלמוניות";
 "page-history-bot-edits" = "עריכות של בוטים";
 "page-history-compare-accessibility-hint" = "נא ללחוץ כדי לבחור שתי גרסאות להשוואה";
@@ -549,17 +544,13 @@
 "page-history-stats-text" = "{{PLURAL:$1|עריכה אחת|$1 עריכות}} מאז $2";
 "page-history-user-edits" = "עריכות משתמש";
 "page-issues" = "בעיות בדף";
-"page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
-"page-last-edited-unknown" = "נערך לפני זמן־מה";
 "page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
 "page-protected-can-not-edit" = "אין לך הרשאה לערוך את הדף הזה";
 "page-protected-can-not-edit-title" = "הדף הזה מוגן";
 "page-protected-other" = "הדף הזה הוגן לרמות הבאות: $1";
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
-"page-read-in-other-languages" = "זמין ב{{PLURAL:$1|עוד שפה אחת|־$1 שפות נוספות}}";
 "page-similar-titles" = "דפים דומים";
-"page-talk-page" = "הצגת דף השיחה";
 "panel-compare-revisions-text" = "השוואת גרסאות עוזרת להראות איך ערך השתנה לאורך זמן. השוואת שתי גרסאות של ערך תציג את ההבדל בין שתי הגרסאות האלה באמצעות הדגשת התוכן שהשתנה.";
 "panel-compare-revisions-title" = "גרסאות מושוות";
 "pictured" = "בתמונה";
@@ -608,7 +599,7 @@
 "reading-list-add-saved-title" = "נמצאו ערכים שמורים";
 "reading-list-api-error-entry-limit" = "הערך הזה לא סונכרן משום שהגעת למגבלה של מספר הערכים שניתן לשמור ברשימה זו.";
 "reading-list-api-error-generic" = "שגיאה בלתי צפויה אירעה בזמן סינכרון רשימות הקריאה שלך";
-"reading-list-api-error-list-limit" = "הרשימה הזו לא סונכרנה משום שהגעת למגבלה של מספר הרשימות שניתן לסנכרן.";
+"reading-list-api-error-list-limit" = "הרשימה הזאת לא סונכרנה משום שהגעת למגבלה של מספר הרשימות שניתן לסנכרן.";
 "reading-list-create-new-list-button-title" = "יצירת רשימת קריאה";
 "reading-list-create-new-list-description" = "תיאור";
 "reading-list-create-new-list-reading-list-name" = "שם רשימת הקריאה";
@@ -618,7 +609,7 @@
 "reading-list-entry-limit-exceeded-message" = "נא לצמצם את מספר הערכים ברשימה זו ל־$1, כדי שניתן יהיה להמשיך לסנכרן את כל הערכים ברשימה.";
 "reading-list-entry-limit-exceeded-title" = "חרגת ממגבלת {{PLURAL:$1|ערך אחד|$1 ערכים}} לחשבון.";
 "reading-list-entry-limit-reached" = "לא ניתן להוסיף {{PLURAL:$1|ערך|ערכים}} לרשימה זו. הגעת למגבלה של $2 ערכים ברשימת קריאה עבור $3";
-"reading-list-exists-with-same-name" = "השם של רשימת הקריאה הזו כבר נמצא בשימוש";
+"reading-list-exists-with-same-name" = "השם של רשימת הקריאה הזאת כבר בשימוש";
 "reading-list-generic-error" = "אירעה שגיאה בלתי־צפויה בעת עדכון רשימות הקריאה שלך.";
 "reading-list-keep-button-title" = "כן, לשמור את הערכים במכשיר";
 "reading-list-keep-subtitle" = "יש ערכים שסונכרנו לחשבון הוויקיפדיה שלך. האם ברצונך לשמור אותם במכשיר זה לאחר היציאה מהחשבון?";
@@ -628,7 +619,7 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "מיון ערכים";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "ישנה מגבלה של 5000 ערכים שאינם ממוינים. נא למיין את הערכים הקיימים שלך לפי רשימות, כדי שניתן יהיה להמשיך בסנכרון הערכים שאינם ממוינים.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "מגבלה על ערכים שאינם ממוינים";
-"reading-list-list-limit-exceeded-message" = "רשימת הקריאה הזו והערכים השמורים בה לא יסונכרנו, נא לצמצם את מספר הרשימות ל־$1 כדי שניתן יהיה להמשיך לסנכרן את הרשימה הזו.";
+"reading-list-list-limit-exceeded-message" = "רשימת הקריאה הזאת והערכים השמורים בה לא יסונכרנו, נא לצמצם את מספר הרשימות ל־$1 כדי שניתן יהיה להמשיך לסנכרן את הרשימה הזאת.";
 "reading-list-list-limit-exceeded-title" = "חרגת ממגבלת {{PLURAL:$1|רשימת קריאה אחת|$1 רשימות קריאה}} לחשבון.";
 "reading-list-list-limit-reached" = "הגעת למגבלה של $1 רשימות קריאה לחשבון אחד";
 "reading-list-login-button-title" = "יש להיכנס לחשבון כדי לסנכרן את הערכים השמורים שלך";
@@ -665,12 +656,12 @@
 "reading-lists-count" = "{{PLURAL:$1|רשימת קריאה אחת|$1 רשימות קריאה}}";
 "reading-lists-default-list-description" = "רשימת ברירת מחדל לערכים השמורים שלך";
 "reading-lists-default-list-title" = "נשמר";
-"reading-lists-delete-reading-list-alert-message" = "לא ניתן לבטל את הפעולה הזו. כל הערכים שנשמרו {{PLURAL:$1|ברשימה זו בלבד|ברשימות אלה בלבד}} לא יישמרו.";
+"reading-lists-delete-reading-list-alert-message" = "לא ניתן לבטל את הפעולה הזאת. כל הערכים שנשמרו {{PLURAL:$1|ברשימה זו בלבד|ברשימות אלה בלבד}} לא יישמרו.";
 "reading-lists-delete-reading-list-alert-title" = "למחוק את {{PLURAL:$1|הרשימה|הרשימות}}?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|ערך אחד|$1 ערכים}} {{PLURAL:$2|ורשימת קריאה אחת|ו־$2 רשימות קריאה}} סונכרנו מהחשבון שלך";
 "reading-lists-list-not-synced-limit-exceeded" = "הרשימה לא סונכרנה משום שעברת את המגבלה";
 "reading-lists-sort-saved-articles" = "מיון ערכים שמורים";
-"reading-lists-split-notification" = "ישנה מגבלה של $1 ערכים ברשימת קריאה אחת. רשימות קיימות עם מספר ערכים גבוה מהמגבלה הזו פוצלו למספר רשימות.";
+"reading-lists-split-notification" = "ישנה מגבלה של $1 ערכים ברשימת קריאה אחת. רשימות קיימות עם מספר ערכים גבוה מהמגבלה הזאת פוצלו למספר רשימות.";
 "reading-lists-sync-error-no-internet-connection" = "הסנכרון ימשיך כשניתן יהיה להתחבר לאינטרנט";
 "reading-themes-controls-accessibility-black-theme-button" = "ערכת נושא שחורה";
 "reading-themes-controls-accessibility-brightness-slider" = "מחלק בהירות";
@@ -756,7 +747,7 @@
 "settings-search-open-app-on-search" = "פתיחת היישום בלשונית החיפוש";
 "settings-storage-and-syncing-enable-sync-footer-text" = "מתן אפשרות לוויקימדיה לשמור את הערכים השמורים ואת רשימות הקריאה שלך להעדפות המשתמש שלך בעת הכניסה וסנכרון.";
 "settings-storage-and-syncing-enable-sync-title" = "סנכרון ערכים שמורים ורשימות";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך והן ממכשיר זה. לא ניתן לבטל את הפעולה הזו.";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך והן ממכשיר זה. לא ניתן לבטל את הפעולה הזאת.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "למחוק את כל הערכים השמורים?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "מחיקה";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך וגם מהמכשיר הזה.\n\nמחיקת הערכים השמורים שלך תנקה עד $1 של שטח אחסון.";
@@ -790,7 +781,6 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-hide-button-label" = "הסתרת תוכן העניינים";
-"table-title-other" = "מידע נוסף";
 "talk-page-add-discussion-accessibility-label" = "הוספת דיון";
 "talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
 "talk-page-discussion-read-accessibility-label" = "נקרא";
@@ -838,7 +828,6 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
-"view-in-browser-footer-link" = "הצגת הערך בדפדפן";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";
 "welcome-exploration-explore-feed-title" = "הזנת לחקור";
 "welcome-exploration-on-this-day-description" = "חזרו אחורה בזמן כדי ללמוד מה קרה היום בהיסטוריה";

@@ -9,8 +9,8 @@ class ProminentSwitch: UISwitch {
     
     override var isEnabled: Bool {
         didSet {
-            backgroundColor = isEnabled ? nil : UIColor.wmf_gray
-            tintColor = isEnabled ? nil : UIColor.wmf_lighterGray
+            backgroundColor = isEnabled ? nil : .base70
+            tintColor = isEnabled ? nil : .base80
         }
     }
 }

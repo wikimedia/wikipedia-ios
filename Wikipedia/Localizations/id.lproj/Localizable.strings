@@ -10,12 +10,14 @@
 // Author: C5st4wr6ch
 // Author: Fate Kage
 // Author: Gombang
+// Author: Hanif Al Husaini
 // Author: Hendra ibaraki1
 // Author: Hidayatsrf
 // Author: Iwan Novirion
 // Author: Kenrick95
 // Author: Macofe
 // Author: Mas ady
+// Author: Naufal06
 // Author: Nemo bis
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
@@ -67,22 +69,33 @@
 "account-creation-passwords-mismatched" = "Kolom kata sandi tidak cocok.";
 "account-creation-saving" = "Sedang menyimpan...";
 "account-creation-title" = "Buat akun baru";
+"account-group-title" = "Akun Anda";
+"account-talk-page-title" = "Halaman pembicaraan Anda";
+"account-talk-preferences-title" = "Preferensi halaman pembicaraan";
 "action-add-to" = "Tambahkan ke...";
 "action-add-to-reading-list" = "Tambahkan ke daftar bacaan";
 "action-add-to-reading-list-short" = "Tambah ke daftar";
 "action-cancel" = "Batal";
 "action-find-in-page" = "Cari di halaman";
+"action-language-accessibility" = "Ubah bahasa";
 "action-move-to" = "Pindahkan ke...";
 "action-move-to-reading-list" = "Pindahkan ke daftar bacaan";
+"action-next-revision-accessibility" = "Revisi Selanjutnya";
+"action-previous-revision-accessibility" = "Revisi Sebelumnya";
 "action-read" = "Baca";
 "action-redo" = "Ulangi";
 "action-remove" = "Hapus";
+"action-replace" = "Ganti";
+"action-replace-all" = "Ganti semua";
+"action-retry" = "Coba lagi";
 "action-save" = "Simpan";
 "action-saved" = "Tersimpan";
 "action-saved-accessibility" = "Disimpan. Aktifkan untuk tidak menyimpannya.";
 "action-saved-accessibility-notification" = "Artikel tersimpan untuk nanti";
 "action-share" = "Bagikan";
+"action-share-accessibility" = "Bagikan";
 "action-sort" = "Urutkan";
+"action-thank-user-accessibility" = "Beri Terima Kasih";
 "action-undo" = "Urungkan";
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
@@ -109,6 +122,7 @@
 "article-languages-others" = "Bahasa lainnya";
 "article-languages-yours" = "Bahasa Anda";
 "article-read-more-title" = "Baca lebih lanjut";
+"article-reference-view-title" = "Referensi $1";
 "article-save-error-not-enough-space" = "Anda tidak memiliki cukup ruang di perangkat Anda untuk menyimpan artikel ini";
 "article-share" = "Bagikan";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Tema Bacaan";
@@ -125,11 +139,11 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Hapus";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
-"description-add-link-title" = "Tambah deskripsi judul";
 "description-add-title" = "Tambahkan deskripsi";
 "description-edit-for-article" = "Deskripsi judul untuk $1";
 "description-edit-learn-more" = "Pelajari lebih lanjut";
@@ -165,6 +179,14 @@
 "description-welcome-descriptions-title" = "Deskripsi judul";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
+"diff-compare-header-from-info-heading" = "Dari:";
+"diff-compare-header-heading" = "Bandingkan Revisi";
+"diff-compare-title" = "Bandingkan Revisi";
+"diff-context-lines-collapsed-button-title" = "Tampilkan";
+"diff-context-lines-expanded-button-title" = "Sembunyikan";
+"diff-paragraph-moved-direction-down" = "turun";
+"diff-paragraph-moved-direction-up" = "naik";
+"diff-paragraph-moved-distance-line" = "$1 baris";
 "dim-images" = "Redupkan gambar";
 "edit-bold-accessibility-label" = "Tambahkan pemformatan tebal";
 "edit-bold-remove-accessibility-label" = "Hapus pemformatan tebal";
@@ -181,6 +203,7 @@
 "edit-italic-remove-accessibility-label" = "Hapus pemformatan miring";
 "edit-link-accessibility-label" = "Tambahkan sintaks pranala";
 "edit-link-remove-accessibility-label" = "Hapus sintaks pranala";
+"edit-menu-item" = "Sunting";
 "edit-minor-learn-more-text" = "Pelajari lebih lanjut tentang suntingan kecil";
 "edit-minor-text" = "Ini adalah suntingan kecil";
 "edit-ordered-list-accessibility-label" = "Buat daftar urutan baris saat ini";
@@ -216,6 +239,7 @@
 "edit-unordered-list-remove-accessibility-label" = "Hapus daftar tidak terurut dari baris saat ini";
 "edit-watch-list-learn-more-text" = "Pelajari lebih lanjut tentang daftar pantauan";
 "edit-watch-this-page-text" = "Pantau halaman ini";
+"editing-welcome-citations-title" = "Kutip sumber tepercaya";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
@@ -376,13 +400,12 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Peristiwa terkini";
-"info-box-close-text" = "Tutup";
-"info-box-title" = "Fakta Singkat";
+"insert-media-image-position-setting-center" = "Tengah";
+"insert-media-image-position-setting-left" = "Kiri";
+"insert-media-image-position-setting-right" = "Kanan";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Ubah bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Konten tersedia di bawah $1 kecuali dinyatakan lain.";
 "logged-out-continue-without-logging-in-button-title" = "Lanjutkan tanpa masuk log";
 "logged-out-log-back-in-button-title" = "Masuk log kembali ke akun Anda";
 "logged-out-subtitle" = "Terjadi masalah saat mengautentikasi akun Anda. Untuk menyinkronkan daftar bacaan Anda dan menyunting di bawah nama pengguna Anda, silakan masuk log kembali.";
@@ -431,18 +454,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
-"page-edit-history" = "Semua riwayat suntingan";
-"page-issues" = "Masalah halaman";
-"page-last-edited" = "{{PLURAL:$1|0=Disunting hari ini|1=Disunting kemarin|Disunting $1 hari yang lalu}}";
-"page-location" = "Lihat di peta";
 "page-protected-autoconfirmed" = "Halaman ini telah dilindungi sebagian.";
 "page-protected-can-not-edit" = "Anda tidak memiliki hak untuk menyunting halaman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "page-protected-other" = "Halaman ini telah dilindungi dengan tingkat sebagai berikut: $1";
 "page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
-"page-read-in-other-languages" = "Tersedia dalam {{PLURAL:$1|$1 bahasa lain|$1 bahasa lain}}";
-"page-similar-titles" = "Halaman serupa";
-"page-talk-page" = "Lihat halaman pembicaraan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
 "places-accessibility-group" = "$1 artikel";
@@ -565,6 +581,10 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lalu|$1 tahun yang lalu}}";
+"replace-infolabel-method-replace" = "Ganti";
+"replace-infolabel-method-replace-all" = "Ganti semua";
+"replace-textfield-accessibility" = "Ganti";
+"replace-textfield-placeholder" = "Ganti dengan...";
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke artikel";
 "reverted-edit-notification-body" = "Suntingan yang Anda buat dari artikel $1 dikembalikan oleh $2";
@@ -651,7 +671,7 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-heading" = "Konten";
-"table-title-other" = "Informasi lebih lanjut";
+"table-of-contents-hide-button-label" = "Sembunyikan daftar isi.";
 "talk-page-discussion-read-accessibility-label" = "Baca";
 "talk-page-discussion-unread-accessibility-label" = "Belum dibaca";
 "talk-page-new-reply-body-accessibility-label" = "Susun tanggapan";
@@ -667,7 +687,6 @@
 "two-factor-login-title" = "Masuk ke akun Anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kode cadangan Anda";
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
-"view-in-browser-footer-link" = "Lihat artikel di peramban";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajahi";
 "welcome-exploration-on-this-day-description" = "Berpergian kembali ke masa lalu untuk mempelajari apa yang terjadi hari ini dalam sejarah";

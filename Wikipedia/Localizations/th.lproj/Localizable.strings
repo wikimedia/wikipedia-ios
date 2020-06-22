@@ -97,14 +97,12 @@
 "appearance-settings-set-automatic-table-opening" = "การตั้งค่าตาราง";
 "appearance-settings-text-sizing-example-text" = "ลากตัวเลื่อนเพื่อปรับเปลี่ยนขนาดข้อความของบทความ ปรับขนาดข้อความระบบของคุณเพื่อปรับขนาดพื้นที่ข้อความส่วนอื่นภายในแอป";
 "appearance-settings-theme-options" = "ตัวเลือกธีม";
-"article-about-title" = "เกี่ยวกับบทความนี้";
 "article-delete" = "ลบ";
 "article-deleted-accessibility-notification" = "ลบ{{PLURAL:$1|บทความ}}แล้ว";
 "article-languages-filter-placeholder" = "ค้นหาภาษา";
 "article-languages-label" = "เลือกภาษา";
 "article-languages-others" = "ภาษาอื่น";
 "article-languages-yours" = "ภาษาของคุณ";
-"article-read-more-title" = "อ่านเพิ่มเติม";
 "article-save-error-not-enough-space" = "คุณมีพื้นที่บนอุปกรณ์ของคุณไม่เพียงพอที่จะบันทึกบทความนี้";
 "article-share" = "แชร์";
 "article-toolbar-reading-themes-controls-toolbar-item" = "กำลังอ่านการควบคุมธีม";
@@ -126,7 +124,6 @@
 "compass-direction" = "ที่ $1 นาฬิกา";
 "continue-reading-empty-description" = "สำรวจบทความเพิ่มเติมที่คุณอยากอ่านในวิกิพีเดีย";
 "continue-reading-empty-title" = "ไม่มีบทความที่อ่านล่าสุด";
-"description-add-link-title" = "เพิ่มคำอธิบายชื่อเรื่อง";
 "description-add-title" = "เพิ่มคำอธิบาย";
 "description-edit-for-article" = "คำอธิบายชื่อเรื่องสำหรับ $1";
 "description-edit-learn-more" = "เรียนรู้เพิ่มเติม";
@@ -379,8 +376,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "in-the-news-sub-title-from-wikipedia" = "จากวิกิพีเดีย";
 "in-the-news-title" = "เรื่องจากข่าว";
-"info-box-close-text" = "ปิด";
-"info-box-title" = "ข้อมูลเบื้องต้น";
 "insert-action-title" = "แทรก";
 "insert-link-title" = "แทรกลิงก์";
 "insert-media-alternative-text-description" = "คำอธิบายข้อความสำหรับผู้อ่านที่ไม่สามารถเห็นภาพได้";
@@ -411,8 +406,6 @@
 "languages-settings-title" = "ภาษา";
 "languages-title" = "เปลี่ยนภาษา";
 "languages-wikipedia" = "ภาษาของวิกิพีเดีย";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "เนื้อหาอนุญาตให้เผยแพร่ภายใต้ $1 เว้นแต่ระบุไว้เป็นอย่างอื่น";
 "logged-out-continue-without-logging-in-button-title" = "ดำเนินการต่อโดยไม่เข้าสู่ระบบ";
 "logged-out-log-back-in-button-title" = "เข้าสู่ระบบกลับไปยังบัญชีของคุณ";
 "logged-out-subtitle" = "มีปัญหาในการรับรองความถูกต้องของบัญชีของคุณ หากต้องการซิงค์รายการอ่านและแก้ไขภายใต้ชื่อผู้ใช้ของคุณ โปรดเข้าสู่ระบบอีกครั้ง";
@@ -461,18 +454,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 จากวิกิพีเดียภาษา$2";
 "on-this-day-title" = "วันนี้ในอดีต";
 "original-tab-button-popover-description" = "แตะบน 'W' เพื่อกลับไปยังแท็บที่คุณเปิดก่อนหน้านี้";
-"page-edit-history" = "ประวัติการแก้ไขแบบเต็ม";
-"page-issues" = "ปัญหาในหน้า";
-"page-last-edited" = "{{PLURAL:$1|0=แก้ไขเมื่อวันนี้|1=แก้ไขเมื่อวาน|แก้ไขเมื่อ $1 วันที่ผ่านมา}}";
-"page-location" = "ดูบนแผนที่";
 "page-protected-autoconfirmed" = "หน้านี้ถูกล็อกแบบกึ่งล็อก";
 "page-protected-can-not-edit" = "คุณไม่มีสิทธิ์แก้ไขหน้านี้";
 "page-protected-can-not-edit-title" = "หน้านี้ถูกล็อก";
 "page-protected-other" = "หน้านี้ถูกป้องกันในระดับ: $1";
 "page-protected-sysop" = "หน้านี้ถูกล็อกแบบสมบูรณ์";
-"page-read-in-other-languages" = "มีใน {{PLURAL:$1|$1 ภาษาอื่น}}";
-"page-similar-titles" = "หน้าที่คล้ายกัน";
-"page-talk-page" = "ดูหน้าคุย";
 "pictured" = "ในภาพ";
 "places-accessibility-clear-saved-searches" = "ล้างการค้นหาที่บันทึก";
 "places-accessibility-group" = "$1 บทความ";
@@ -622,7 +608,6 @@
 "table-of-contents-close-accessibility-hint" = "ปิด";
 "table-of-contents-close-accessibility-label" = "ปิดสารบัญ";
 "table-of-contents-heading" = "เนื้อหา";
-"table-title-other" = "ข้อมูลเพิ่มเติม";
 "talk-page-error-unable-to-post-reply" = "ไม่มีอินเทอร์เน็ต พิมไม่ติด";
 "talk-page-new-subject-placeholder-text" = "หัวเรื่อง";
 "talk-page-new-subject-textfield-accessibility-label" = "หัวเรื่อง";
@@ -638,7 +623,6 @@
 "two-factor-login-continue" = "เข้าสู่ระบบต่อ";
 "two-factor-login-title" = "เข้าสู่ระบบบัญชีของคุณ";
 "two-factor-login-with-regular-code" = "ใช้รหัสการยืนยัน";
-"view-in-browser-footer-link" = "ดูบทความในเบราว์เซอร์";
 "welcome-exploration-explore-feed-description" = "บทความแนะนำประจำวันจากชุมชนของเรา";
 "welcome-exploration-explore-feed-title" = "ฟีดสำรวจ";
 "welcome-exploration-on-this-day-description" = "ย้อนเวลากลับไปเพื่อเรียนรู้ว่าเกิดอะไรขึ้นในเวลาที่ผ่านมา";

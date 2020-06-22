@@ -86,15 +86,12 @@
 "appearance-settings-adjust-text-sizing" = "ဆောင်းပါး စာသားအရွယ်အစား ချိန်ညှိရန်";
 "appearance-settings-expand-tables" = "ဇယားများကို ချဲ့ကားရန်";
 "appearance-settings-set-automatic-table-opening" = "ဇယား အပြင်အဆင်များ";
-"article-about-title" = "ဤဆောင်းပါးအကြောင်း";
 "article-delete" = "ဖျက်​ပါ​";
 "article-deleted-accessibility-notification" = "ဆောင်းပါး {{PLURAL:$1|ခု|ခု}} ဖျက်ပစ်ခဲ့သည်";
 "article-languages-filter-placeholder" = "ဘာသာစကား ရှာဖွေရန်";
 "article-languages-label" = "ဘာသာစကားရွေးချယ်ရန်";
 "article-languages-others" = "အခြားဘာသာစကားများ";
 "article-languages-yours" = "သင့်ဘာသာစကားများ";
-"article-read-more-title" = "ဆက်ဖတ်ပါ";
-"article-reference-title" = "ကိုးကားချက်များ ကြည့်ရှုရန်";
 "article-save-error-not-enough-space" = "ဤဆောင်းပါးကို သိမ်းဆည်းရန် သင်၏စက်ပစ္စည်းတွင် သိုလှောင်လက်ကျန် မလုံလောက်ပါ";
 "article-share" = "မျှဝေ";
 "back-button-accessibility-label" = "နောက်သို့";
@@ -114,7 +111,6 @@
 "compass-direction" = "$1 နာရီတွင်";
 "continue-reading-empty-description" = "ဆောင်းပါးများပိုမိုဖတ်ရှုရန် ဝီကီပီးဒီးယားကို စူးစမ်းပါ";
 "continue-reading-empty-title" = "လတ်တလော ဖတ်ရှုစာမျက်နှာများ မရှိပါ";
-"description-add-link-title" = "ဖော်ပြချက်အတို ပေါင်းထည့်ရန်";
 "description-add-title" = "ဖော်ပြချက်ထည့်သွင်းပါ";
 "description-edit-for-article" = "$1အတွက် ခေါင်းစဉ်ဖော်ပြချက်";
 "description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
@@ -318,8 +314,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "in-the-news-sub-title-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "in-the-news-title" = "သတင်းထဲတွင်";
-"info-box-close-text" = "ပိတ်ရန်";
-"info-box-title" = "အချက်တိုများ";
 "insert-action-title" = "ထည့်သွင်းရန်";
 "insert-link-title" = "လင့်ခ်ထည့်သွင်းရန်";
 "insert-media-alternative-text-description" = "ရုပ်ပုံကိုမမြင်ရသည့် စာဖတ်သူများအတွက် စာသားဖော်ပြချက်";
@@ -344,8 +338,6 @@
 "languages-settings-title" = "ဘာသာစကားများ";
 "languages-title" = "ဘာသာစကား ပြောင်းလဲရန်";
 "languages-wikipedia" = "ဝီကီပီဒီးယား ဘာသာစကားများ";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "အကြောင်းအရာများကို အခြားမှတ်ချက်မရှိပါက $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
 "logged-out-continue-without-logging-in-button-title" = "လော့ဂ်အင်မဝင်ဘဲ ဆက်သုံးမည်";
 "logged-out-log-back-in-button-title" = "သင်၏အကောင့်သို့ ပြန်သွားရန်";
 "logged-out-title" = "သင် အကောင့်မှ ထွက်သွားပြီးဖြစ်သည်";
@@ -388,7 +380,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 သမိုင်းဝင်ဖြစ်ရပ်|$1 သမိုင်းဝင်ဖြစ်ရပ်များ}}";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
-"page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
 "page-history-anonymous-edits" = "အမည်မသိ တည်းဖြတ်မှုများ";
 "page-history-bot-edits" = "ဘော တည်းဖြတ်မှုများ";
 "page-history-compare-title" = "နှိုင်းယှဉ်ရန်";
@@ -398,18 +389,11 @@
 "page-history-revision-minor-edit-accessibility-label" = "အရေးမကြီးသည့် တည်းဖြတ်မှု";
 "page-history-stats-text" = "$2 ကတည်းက {{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
 "page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
-"page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
-"page-last-edited" = "{{PLURAL:$1|0=ယနေ့တည်းဖြတ်ခဲ့သည်|1=မနေ့ကတည်းဖြတ်ခဲ့သည်|$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်}}";
-"page-last-edited-unknown" = "အချို့သောအချိန်တုန်းက တည်းဖြတ်ခဲ့သည်";
-"page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
 "page-protected-can-not-edit-title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
 "page-protected-other" = "ဤစာမျက်နှာအား အောက်ပါအဆင့်များသို့ ကာကွယ်ထားသည်: $1";
 "page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
-"page-read-in-other-languages" = "{{PLURAL:$1|$1 အခြားဘာသာစကား|$1 အခြားဘာသာစကားများ}}တွင် ရရှိနိုင်သည်";
-"page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
-"page-talk-page" = "ဆွေးနွေးချက်စာမျက်နှာကို ကြည့်ရန်";
 "places-accessibility-clear-saved-searches" = "သိမ်းဆည်းခဲ့သော ရှာဖွေမှုများကို ရှင်းရန်";
 "places-accessibility-group" = "ဆောင်းပါး $1 များ";
 "places-accessibility-show-as-list" = "စာရင်းအဖြစ် ပြရန်။";
@@ -577,7 +561,6 @@
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";
 "table-of-contents-heading" = "မာတိကာ";
 "table-of-contents-hide-button-label" = "မာတိကာ ဝှက်ရန်";
-"table-title-other" = "နောက်ထပ် အချက်အလက်များ";
 "talk-page-add-discussion-accessibility-label" = "ဆွေးနွေးချက် ပေါင်းထည့်ရန်";
 "talk-page-discussion-read-accessibility-label" = "ဖတ်ရန်";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ဖတ်ပြီး";
@@ -610,7 +593,6 @@
 "two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
 "unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
-"view-in-browser-footer-link" = "ဆောင်းပါးကို ဘရောက်ဆာတွင် ကြည့်ရန်";
 "welcome-exploration-explore-feed-description" = "ကျွန်ုပ်တို့၏အသိုင်းအဝိုင်းမှ အကြံပြု‌ထောက်ခံထားသော ဖတ်ရှုရန်နေ့စဉ်ဆောင်းပါးများ";
 "welcome-exploration-on-this-day-title" = "ယနေ့";
 "welcome-explore-continue-button" = "စတင်ပါ";

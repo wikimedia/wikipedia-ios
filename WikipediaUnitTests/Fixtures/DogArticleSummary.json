@@ -1,0 +1,57 @@
+{
+	"type": "standard",
+	"title": "Dog",
+	"displaytitle": "Dog",
+	"namespace": {
+		"id": 0,
+		"text": ""
+	},
+	"wikibase_item": "Q144",
+	"titles": {
+		"canonical": "Dog",
+		"normalized": "Dog",
+		"display": "Dog"
+	},
+	"pageid": 4269567,
+	"thumbnail": {
+		"source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/320px-Collage_of_Nine_Dogs.jpg",
+		"width": 320,
+		"height": 281
+	},
+	"originalimage": {
+		"source": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg",
+		"width": 1665,
+		"height": 1463
+	},
+	"lang": "en",
+	"dir": "ltr",
+	"revision": "951433760",
+	"tid": "12aa1ec0-832c-11ea-a492-43b553484720",
+	"timestamp": "2020-04-17T04:11:48Z",
+	"description": "Domestic animal",
+	"description_source": "local",
+	"content_urls": {
+		"desktop": {
+			"page": "https://en.wikipedia.org/wiki/Dog",
+			"revisions": "https://en.wikipedia.org/wiki/Dog?action=history",
+			"edit": "https://en.wikipedia.org/wiki/Dog?action=edit",
+			"talk": "https://en.wikipedia.org/wiki/Talk:Dog"
+		},
+		"mobile": {
+			"page": "https://en.m.wikipedia.org/wiki/Dog",
+			"revisions": "https://en.m.wikipedia.org/wiki/Special:History/Dog",
+			"edit": "https://en.m.wikipedia.org/wiki/Dog?action=edit",
+			"talk": "https://en.m.wikipedia.org/wiki/Talk:Dog"
+		}
+	},
+	"api_urls": {
+		"summary": "https://en.wikipedia.org/api/rest_v1/page/summary/Dog",
+		"metadata": "https://en.wikipedia.org/api/rest_v1/page/metadata/Dog",
+		"references": "https://en.wikipedia.org/api/rest_v1/page/references/Dog",
+		"media": "https://en.wikipedia.org/api/rest_v1/page/media/Dog",
+		"edit_html": "https://en.wikipedia.org/api/rest_v1/page/html/Dog",
+		"talk_page_html": "https://en.wikipedia.org/api/rest_v1/page/html/Talk:Dog"
+	},
+	"extract": "The dog is a member of the genus Canis (canines), which forms part of the wolf-like canids, and is the most widely abundant terrestrial carnivore. The dog and the extant gray wolf are sister taxa as modern wolves are not closely related to the wolves that were first domesticated, which implies that the direct ancestor of the dog is extinct. The dog was the first species to be domesticated, and has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes.",
+	"extract_html": "<p>The <b>dog</b> is a member of the genus <i>Canis</i> (canines), which forms part of the wolf-like canids, and is the most widely abundant terrestrial carnivore. The dog and the extant gray wolf are sister taxa as modern wolves are not closely related to the wolves that were first domesticated, which implies that the direct ancestor of the dog is extinct. The dog was the first species to be domesticated, and has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes.</p>"
+}

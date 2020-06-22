@@ -34,38 +34,6 @@
 			<string>%1$d வரலாற்று நிகழ்வுகள்</string>
 		</dict>
 	</dict>
-	<key>page-last-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d நாட்களுக்கு முன் தொகுக்கப்பட்டது</string>
-			<key>zero</key>
-			<string>இன்று தொகுக்கப்பட்டது</string>
-		</dict>
-	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ கிடைக்கத்தக்கது</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d மற்ற மொழியில்</string>
-			<key>other</key>
-			<string>%1$d மற்ற மொழிகளில்</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -92,6 +60,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>நேற்று</string>
 			<key>other</key>
 			<string>%1$d நாட்களுக்கு முன்</string>
 			<key>zero</key>
@@ -144,6 +114,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>சென்ற வருடம்</string>
 			<key>other</key>
 			<string>%1$d வருடங்களுக்கு முன்பு</string>
 			<key>zero</key>

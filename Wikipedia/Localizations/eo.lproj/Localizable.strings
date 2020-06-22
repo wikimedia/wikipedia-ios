@@ -102,14 +102,12 @@
 "appearance-settings-set-automatic-table-opening" = "Tabelaj agordoj";
 "appearance-settings-text-sizing-example-text" = "Trenu la ŝovilon por ŝanĝi la tekstograndon de artikolo. Uzu la tekstgrandon de via sistemo por aligrandigi aliaj tekstareoj en tiu ĉi aplikaĵo.";
 "appearance-settings-theme-options" = "Etosaj opcioj";
-"article-about-title" = "Pri ĉi tiu artikolo";
 "article-delete" = "Forigi";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikolo forigita|artikoloj forigitaj}}";
 "article-languages-filter-placeholder" = "Trovi lingvon";
 "article-languages-label" = "Elekti lingvon";
 "article-languages-others" = "Aliaj lingvoj";
 "article-languages-yours" = "Viaj lingvoj";
-"article-read-more-title" = "Legi plu";
 "article-save-error-not-enough-space" = "Vi ne havas sufiĉan spacon sur via aparato por konservi ĉi tiun artikolon";
 "article-share" = "Konigi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Legas etosajn agordojn";
@@ -131,7 +129,6 @@
 "compass-direction" = "je la $1 horo";
 "continue-reading-empty-description" = "Esploru Vikipedion por legi pliajn artikolojn";
 "continue-reading-empty-title" = "Neniuj laste legitaj artikoloj";
-"description-add-link-title" = "Aldoni titolan priskribon";
 "description-add-title" = "Aldoni priskribon";
 "description-edit-for-article" = "Titola priskribo por $1";
 "description-edit-learn-more" = "Ekscii pli";
@@ -404,8 +401,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "De $1 Vikipedio";
 "in-the-news-sub-title-from-wikipedia" = "De Vikipedio";
 "in-the-news-title" = "En la novaĵoj";
-"info-box-close-text" = "Fermi";
-"info-box-title" = "Rapidaj faktoj";
 "insert-action-title" = "Enŝovi";
 "insert-link-title" = "Enmeti ligilon";
 "insert-media-alternative-text-description" = "Teksta priskribo por legantoj kiuj ne povas vidi la bildon";
@@ -436,8 +431,6 @@
 "languages-settings-title" = "Lingvoj";
 "languages-title" = "Ŝanĝi lingvon";
 "languages-wikipedia" = "Vikipediaj lingvoj";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "La enhavo estas disponebla laŭ $1, se ne estas alia indiko.";
 "logged-out-continue-without-logging-in-button-title" = "Daŭrigi sen ensaluti";
 "logged-out-log-back-in-button-title" = "Denove ensaluti en vian konton";
 "logged-out-subtitle" = "Estis problemo aŭtentigante vian konton. Por povi sinkronigi viajn legolistojn kaj redakti sub via uzantnomo, bonvolu denove ensaluti.";
@@ -486,18 +479,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de $2 Vikipedio";
 "on-this-day-title" = "En ĉi tiu tago";
 "original-tab-button-popover-description" = "Tuŝetu sur 'W' por reveni al la taba folio de kiu vi startis";
-"page-edit-history" = "Plena redakto-historion";
-"page-issues" = "Problemoj pri paĝo";
-"page-last-edited" = "Redaktita {{PLURAL:$1|0=hodiaŭ|1=hieraŭ|antaŭ $1 tagoj}}";
-"page-location" = "Montri sur mapo";
 "page-protected-autoconfirmed" = "Ĉi tiu paĝo estas duon-protektita.";
 "page-protected-can-not-edit" = "Vi ne rajtas redakti ĉi tiun paĝon";
 "page-protected-can-not-edit-title" = "Ĉi tiu paĝo estas protektita";
 "page-protected-other" = "Ĉi tiu paĝo estas protektita je la jenaj niveloj: $1";
 "page-protected-sysop" = "Ĉi tiu paĝo estas tut-protektita.";
-"page-read-in-other-languages" = "Havebla en {{PLURAL:$1|$1 alia lingvo|$1 aliaj lingvoj}}";
-"page-similar-titles" = "Similaj paĝoj";
-"page-talk-page" = "Montri diskutpaĝon";
 "pictured" = "bildigita";
 "places-accessibility-clear-saved-searches" = "Forigi la konservitajn serĉojn";
 "places-accessibility-group" = "$1 artikoloj";
@@ -719,7 +705,6 @@
 "table-of-contents-close-accessibility-hint" = "Fermi";
 "table-of-contents-close-accessibility-label" = "Fermi enhavtabelon";
 "table-of-contents-heading" = "Enhavaĵoj";
-"table-title-other" = "Pliaj informoj";
 "talk-page-add-discussion-accessibility-label" = "Aldoni diskuton";
 "talk-page-discussion-accessibility-hint" = "Duoble frapetu por malfermi diskutan fadenon";
 "talk-page-discussion-read-accessibility-label" = "Legita";
@@ -754,6 +739,7 @@
 "theme-black-display-name" = "Nigra";
 "theme-dark-display-name" = "Malhela";
 "theme-default-display-name" = "Defaŭlta";
+"theme-light-display-name" = "Hela";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Vikipedio";
 "top-read-header-with-language" = "$1 Vikipedio";
@@ -764,7 +750,6 @@
 "two-factor-login-with-backup-code" = "Uzi unu el viaj rezervaj kodoj";
 "two-factor-login-with-regular-code" = "Uzi la kontrolkodon";
 "unable-to-load-talk-page-title" = "Ne povas ŝargi diskutpaĝon";
-"view-in-browser-footer-link" = "Vidi la artikolon en retumilo";
 "welcome-exploration-explore-feed-description" = "Rekomendataj legaĵoj kaj ĉiutagaj artikoloj de nia komunumo";
 "welcome-exploration-explore-feed-title" = "Esplorfluo";
 "welcome-exploration-on-this-day-description" = "Vojaĝu al la pasinteco por ekscii kio okazis hodiaŭ en historio";

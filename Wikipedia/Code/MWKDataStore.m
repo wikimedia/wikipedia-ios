@@ -34,9 +34,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 
-@property (nonatomic, strong) WMFCacheControllerWrapper *imageCacheControllerWrapper;
-@property (nonatomic, strong) WMFCacheControllerWrapper *articleCacheControllerWrapper;
-
 @property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
@@ -106,8 +103,6 @@ static uint64_t bundleHash() {
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
-        self.imageCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithType:WMFCacheControllerTypeImage];
-        self.articleCacheControllerWrapper = [[WMFCacheControllerWrapper alloc] initWithArticleCacheWithImageCacheControllerWrapper:self.imageCacheControllerWrapper];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
@@ -416,21 +411,6 @@ static uint64_t bundleHash() {
         }
     }
 
-    if (currentLibraryVersion < 7) {
-        NSError *fileProtectionError = nil;
-        if ([self.containerURL setResourceValue:NSURLFileProtectionCompleteUntilFirstUserAuthentication forKey:NSURLFileProtectionKey error:&fileProtectionError]) {
-            [moc wmf_setValue:@(7) forKey:WMFLibraryVersionKey];
-            NSError *migrationSaveError = nil;
-            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
-                DDLogError(@"Error saving during migration: %@", migrationSaveError);
-                return;
-            }
-        } else {
-            DDLogError(@"Error enabling file protection: %@", fileProtectionError);
-            return;
-        }
-    }
-
     if (currentLibraryVersion < 8) {
         NSUserDefaults *ud = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
@@ -459,6 +439,12 @@ static uint64_t bundleHash() {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
         }
+        
+        [self moveImageControllerCacheFolderWithError:&migrationError];
+        if (migrationError) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
     }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
@@ -466,30 +452,35 @@ static uint64_t bundleHash() {
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
-- (void)performLibraryUpdates:(dispatch_block_t)completion {
+- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
+    dispatch_block_t combinedCompletion = ^{
+        [WMFImageCacheControllerWrapper performLibraryUpdates:^(NSError * _Nullable error) {
+            if (error) {
+                DDLogError(@"Error during cache controller migration: %@", error);
+            }
+            if (completion) {
+                completion();
+            }
+        }];
+    };
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     // If the library value doesn't exist, it's a new library and can be set to the latest version
     if (!libraryVersionNumber) {
         [self performInitialLibrarySetup];
-        if (completion) {
-            completion();
-        }
+        combinedCompletion();
         return;
     }
     NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
     // If the library version is >= the current version, we can skip the migration
     if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
-        if (completion) {
-            completion();
-        }
+        combinedCompletion();
         return;
     }
+    
+    needsMigrateBlock();
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        dispatch_block_t done = ^{
-            dispatch_async(dispatch_get_main_queue(), completion);
-        };
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
-        done();
+        combinedCompletion();
     }];
 }
 
@@ -549,6 +540,15 @@ static uint64_t bundleHash() {
         [userDefaults setObject:value forKey:key];
         [wmfDefaults removeObjectForKey:value];
     }
+}
+
+- (void)moveImageControllerCacheFolderWithError: (NSError **)error {
+    
+    NSURL *legacyDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Image Cache" isDirectory:YES];
+    NSURL *newDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Cache" isDirectory:YES];
+    
+    //move legacy image cache to new non-image path name
+    [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
 }
 
 - (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
@@ -854,7 +854,7 @@ static uint64_t bundleHash() {
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
 
     // Site info
-    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:@{@"action": @"query", @"format": @"json", @"meta": @"siteinfo"}];
+    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
     [taskGroup enter];
     [[WMFSession shared] getJSONDictionaryFromURL:components.URL
                                       ignoreCache:YES

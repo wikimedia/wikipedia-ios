@@ -307,6 +307,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     @objc private func compare(_ sender: UIBarButtonItem) {
+        EditHistoryCompareFunnel.shared.logCompare1(articleURL: pageURL)
         state = .editing
     }
 
@@ -325,6 +326,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     
     private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
         if let siteURL = pageURL.wmf_site {
+            
+            if type == .single {
+                EditHistoryCompareFunnel.shared.logRevisionView(language: pageURL.wmf_language)
+            }
+            
             let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision)
             push(diffContainerVC, animated: true)
         }
@@ -521,31 +527,33 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private lazy var firstSelectionThemeModel: SelectionThemeModel = {
         let backgroundColor: UIColor
         let timeColor: UIColor
+        // themeTODO: define a semantic color for this instead of checking isDark
         if theme.isDark {
-            backgroundColor = UIColor.osage15PercentAlpha
+            backgroundColor = UIColor.orange50.withAlphaComponent(0.15)
             timeColor = theme.colors.tertiaryText
         } else {
-            backgroundColor = UIColor.wmf_lightYellow
-            timeColor = .battleshipGray
+            backgroundColor = .yellow90
+            timeColor = .base30
         }
-        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.osage.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.osage, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.orange50.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.orange50, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var secondSelectionThemeModel: SelectionThemeModel = {
         let backgroundColor: UIColor
         let timeColor: UIColor
+        // themeTODO: define a semantic color for this instead of checking isDark
         if theme.isDark {
             backgroundColor = theme.colors.link.withAlphaComponent(0.2)
             timeColor = theme.colors.tertiaryText
         } else {
-            backgroundColor = UIColor.wmf_lightBlue
-            timeColor = .battleshipGray
+            backgroundColor = .accent90
+            timeColor = .base30
         }
         return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link, backgroundColor: backgroundColor, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var disabledSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, timeColor: .battleshipGray, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, timeColor: .base30, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
     }()
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -743,6 +751,9 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
     }
 
     func pageHistoryComparisonSelectionViewControllerDidTapCompare(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController) {
+        
+        EditHistoryCompareFunnel.shared.logCompare2(articleURL: pageURL)
+        
         guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.second.rawValue] else {
             return
         }

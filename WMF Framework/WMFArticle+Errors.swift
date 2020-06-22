@@ -42,19 +42,6 @@ extension ArticleError: LocalizedError {
 
 
 extension WMFArticle {
-    @objc public func updatePropertiesForError(_ nsError: NSError?) {
-        guard let nsError = nsError else {
-            error = .none
-            return
-        }
-        if nsError.domain == NSCocoaErrorDomain && nsError.code == NSFileWriteOutOfSpaceError {
-            error = .saveToDiskFailed
-        }
-        if nsError.domain == WMFNetworkingErrorDomain && nsError.code == WMFNetworkingError.apiError.rawValue {
-            error = .apiFailed
-        }
-    }
-    
     public var error: ArticleError {
         get {
             return ArticleError(rawValue: errorCodeNumber?.int32Value ?? 0) ?? .none
@@ -67,4 +54,30 @@ extension WMFArticle {
             errorCodeNumber = NSNumber(value: newValue.rawValue)
         }
     }
+    
+    public func retryDownload() {
+        guard savedDate != nil else {
+            return
+        }
+        isDownloaded = false
+        errorCodeNumber = nil
+        downloadAttemptCount = 0
+        downloadRetryDate = nil
+    }
 }
+
+extension NSManagedObjectContext {
+    public func retryFailedArticleDownloads(with keys: [String]) throws {
+        let batches = keys.chunked(into: 500)
+        for batch in batches {
+            let articleFetch = WMFArticle.fetchRequest()
+            articleFetch.predicate = NSPredicate(format: "errorCodeNumber != NULL && key IN %@", batch)
+            let articles = try fetch(articleFetch)
+            for article in articles {
+                article.retryDownload()
+            }
+            try save()
+        }
+    }
+}
+

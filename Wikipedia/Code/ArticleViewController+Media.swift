@@ -1,11 +1,11 @@
 import Foundation
-import AVKit
 
 extension ArticleViewController {
     func getMediaList(_ completion: @escaping (Result<MediaList, Error>) -> Void) {
         assert(Thread.isMainThread)
         if let mediaList = mediaList {
             completion(.success(mediaList))
+            return
         }
         
         let request: URLRequest
@@ -39,14 +39,7 @@ extension ArticleViewController {
             }
         }
     }
-    
-    func showAudio(with url: URL) {
-        let vc = AVPlayerViewController()
-        let player = AVPlayer(url: url)
-        vc.player = player
-        present(vc, animated: true)
-    }
-    
+
     func showLeadImage() {
         getMediaList { (result) in
             switch result {
@@ -69,7 +62,11 @@ extension ArticleViewController {
     }
     
     func showImage(in mediaList: MediaList, item: MediaListItem?) {
-        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, initialItem: item, theme: theme)
+        let gallery = getGalleryViewController(for: item, in: mediaList)
         present(gallery, animated: true)
+    }
+    
+    func getGalleryViewController(for item: MediaListItem?, in mediaList: MediaList) -> MediaListGalleryViewController {
+        return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, initialItem: item, theme: theme)
     }
 }

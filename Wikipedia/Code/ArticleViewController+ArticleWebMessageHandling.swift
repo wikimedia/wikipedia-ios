@@ -18,18 +18,18 @@ extension ArticleViewController: ArticleWebMessageHandling {
             handleFooterItem(type: type, payload: payload)
         case .edit(let sectionID, let descriptionSource):
             showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
-        case .backLink(let referenceId, let backLinks):
-            showReferenceBackLinks(backLinks, referenceId: referenceId)
+        case .backLink(let referenceId, let referenceText, let backLinks):
+            showReferenceBackLinks(backLinks, referenceId: referenceId, referenceText: referenceText)
         case .reference(let index, let group):
             showReferences(group, selectedIndex: index, animated: true)
         case .image(let src, let href, let width, let height):
             showImage(src: src, href: href, width: width, height: height)
         case .addTitleDescription:
             showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
-        case .pronunciation(let url):
-            showAudio(with: url)
-        default:
-            break
+        case .scrollToAnchor(let anchor, let rect):
+            scrollToAnchorCompletions.popLast()?(anchor, rect)
+        case .viewInBrowser:
+            navigate(to: self.articleURL, useSafari: true)
         }
     }
     
@@ -51,13 +51,14 @@ extension ArticleViewController: ArticleWebMessageHandling {
         webView.becomeFirstResponder()
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
+        surveyTimerController.articleContentDidLoad()
     }
     
-    func handlePCSDidFinishFinalSetup() {
-        footerLoadGroup?.leave()
+    @objc func handlePCSDidFinishFinalSetup() {
+        articleLoadWaitGroup?.leave()
         restoreStateIfNecessary()
-        try? article.addToReadHistory()
-        forceCache = false
+        addToHistory()
+        syncCachedResourcesIfNeeded()
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {
@@ -68,8 +69,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showCoordinate()
         case .disambiguation:
             showDisambiguation(with: payload)
-        case .languages:
-            showLanguages()
         case .lastEdited:
             showEditHistory()
         case .pageIssues:
@@ -91,16 +90,13 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func setupFooter() {
         // Always use Configuration.production for related articles
-        guard let baseURL = Configuration.production.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: []).url else {
+        guard let baseURL = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: []).url else {
             return
         }
         var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
-        if languageCount > 0 {
-            menuItems.append(.languages)
-        }
         if article.coordinate != nil {
             menuItems.append(.coordinate)
         }
-        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, languageCount:languageCount, lastModified: article.lastModifiedDate)
+        messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, lastModified: article.lastModifiedDate)
     }
 }

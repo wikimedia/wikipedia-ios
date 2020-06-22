@@ -1,6 +1,7 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
 // Author: Agilight
+// Author: Alexander Yukal
 // Author: Alexandr Efremov
 // Author: Av6
 // Author: BadDog
@@ -38,6 +39,7 @@
 // Author: Ping08
 // Author: Redredsonia
 // Author: Saimongoltinio
+// Author: Stjn
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -87,7 +89,7 @@
 "account-creation-have-account" = "Вы уже зарегистрированы? $1";
 "account-creation-log-in" = "Войти";
 "account-creation-logging-in" = "Вход в систему…";
-"account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
+"account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя участника, пароль и подтверждение пароля.";
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
 "account-creation-title" = "Создайте новую учётную запись";
@@ -104,11 +106,14 @@
 "action-language-accessibility" = "изменение языка";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
+"action-next-revision-accessibility" = "Следующая версия";
+"action-previous-revision-accessibility" = "Предыдущая версия";
 "action-read" = "Читать";
 "action-redo" = "Повторить";
 "action-remove" = "Удалить";
 "action-replace" = "Заменить";
 "action-replace-all" = "Заменить все";
+"action-retry" = "Повторить";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
@@ -116,6 +121,7 @@
 "action-share" = "Поделиться";
 "action-share-accessibility" = "Поделиться";
 "action-sort" = "Сортировать";
+"action-thank-user-accessibility" = "Поблагодарить участника";
 "action-undo" = "Отменить";
 "action-unsave" = "Не сохранено";
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
@@ -164,7 +170,6 @@
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
-"description-add-link-title" = "Добавление краткого описания";
 "description-add-title" = "Добавить описание";
 "description-edit-for-article" = "Краткое описание «$1»";
 "description-edit-learn-more" = "Подробнее";
@@ -175,7 +180,7 @@
 "description-edit-placeholder-title" = "Краткие описания лучше всего";
 "description-edit-publish" = "Записать описание";
 "description-edit-title" = "Править описание";
-"description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы пользователи могли понимать предмет статьи с одного взгляда";
+"description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы участники могли понимать предмет статьи с одного взгляда";
 "description-help-about-description" = "Краткие описания помогают читателям понять тему статьи с первого взгляда.";
 "description-help-about-title" = "О приложении";
 "description-help-about-wikidata" = "О Викиданных";
@@ -206,6 +211,8 @@
 "diff-paragraph-moved-direction-up" = "вверх";
 "diff-single-header-editor-number-edits-format" = "$1 {{PLURAL:$1|правка|правки|правок}}";
 "diff-single-header-summary-heading" = "Описание изменений";
+"diff-single-line-format" = "Строка $1";
+"diff-thanks-anonymous-no-thanks" = "Анонимным участникам нельзя отправлять благодарности";
 "diff-thanks-send-button-title" = "Отправить благодарность";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
@@ -383,7 +390,7 @@
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
 "field-alert-token-invalid" = "Неверный код";
-"field-alert-username-unavailable" = "Имя пользователя не доступно";
+"field-alert-username-unavailable" = "Имя участника не доступно";
 "field-backup-token-title" = "Сделать резервную копию кода";
 "field-captcha-placeholder" = "Текст CAPTCHA";
 "field-captcha-title" = "Введите текст, который вы видите выше";
@@ -399,7 +406,7 @@
 "field-password-placeholder" = "введите пароль";
 "field-password-title" = "Пароль";
 "field-token-title" = "Код подтверждения";
-"field-username-placeholder" = "введите имя пользователя";
+"field-username-placeholder" = "введите имя участника";
 "field-username-title" = "Имя участника";
 "find-clear-button-accessibility" = "Очистить поиск";
 "find-infolabel-number-matches" = "$1 из $2";
@@ -427,7 +434,7 @@
 "home-news-footer" = "Больше новостей";
 "home-reading-list-prompt" = "Ваши сохранённые статьи теперь могут быть организованы в списки чтения и синхронизированы между устройствами. Войдите в систему, чтобы ваши списки чтения были сохранены в пользовательских настройках.";
 "home-themes-action-title" = "Управление настройками";
-"home-themes-prompt" = "Для более комфортного чтения установите настройки чтения (в том числе размер текста и тему оформления) в панели управления статьи или в ваших настройках пользователя.";
+"home-themes-prompt" = "Для более комфортного чтения установите настройки чтения (в том числе размер текста и тему оформления) в панели управления статьи или в ваших пользовательских настройках.";
 "home-title" = "Лента";
 "home-title-accessibility-label" = "Промотать к верхней части ленты";
 "icon-shortcut-nearby-title" = "Статьи о том, что есть поблизости";
@@ -437,13 +444,10 @@
 "in-the-news-currently-trending" = "В настоящее время популярные";
 "in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Поделиться...";
+"in-the-news-notification-share-action-title" = "Поделиться…";
 "in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
 "in-the-news-title" = "В новостях";
-"info-box-close-text" = "Закрыть";
-"info-box-title" = "Краткие факты";
 "insert-action-title" = "Вставить";
 "insert-link-title" = "Вставить ссылку";
 "insert-media-alternative-text-description" = "Текстовое описание для читателей, которые не могут увидеть изображения";
@@ -475,8 +479,6 @@
 "languages-settings-title" = "Языки";
 "languages-title" = "Изменить язык";
 "languages-wikipedia" = "Языки Википедии";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Содержимое доступно по лицензии $1";
 "logged-out-continue-without-logging-in-button-title" = "Продолжить без входа";
 "logged-out-log-back-in-button-title" = "Войдите повторно в свою учётную запись";
 "logged-out-subtitle" = "Произошла ошибка при аутентификации вашей учётной записи. Вам нужно повторно войти, чтобы была возможность синхронизировать списки для чтения и редактировать под вашим именем участника.";
@@ -525,7 +527,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
-"page-edit-history" = "Полная история редактирования";
 "page-history-anonymous-edits" = "анонимные правки";
 "page-history-bot-edits" = "правки ботов";
 "page-history-compare-title" = "Сравнить";
@@ -533,19 +534,14 @@
 "page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-history-title" = "История изменений";
 "page-history-revision-minor-edit-accessibility-label" = "Малая правка";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|Добавлен $1 байт|Добавлено $1 байта|Добавлено $1 байтов}}";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Удалён $1 байт|Удалено $1 байта|Удалено $1 байтов}}";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
-"page-issues" = "Вопросы по странице";
-"page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
-"page-last-edited-unknown" = "Отредактировано какое-то время назад";
-"page-location" = "Посмотреть на карте";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
 "page-protected-can-not-edit-title" = "Эта страница защищена";
 "page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
 "page-protected-sysop" = "Эта страница была полностью защищена.";
-"page-read-in-other-languages" = "Доступно на {{PLURAL:$1|другом языке|$1 других языках}}";
-"page-similar-titles" = "Похожие страницы";
-"page-talk-page" = "Страница обсуждения";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-group" = "$1 статьи";
@@ -666,8 +662,14 @@
 "reading-themes-controls-syntax-highlighting" = "Подсветка синтаксиса";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|1=Вчера|$1 дней назад|$1 дня назад}}";
+"relative-date-hours-abbreviated" = "$1 ч.";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
+"relative-date-hours-ago-abbreviated" = "$1 ч. назад";
+"relative-date-minutes-abbreviated" = "$1 мин.";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
+"relative-date-minutes-ago-abbreviated" = "$1 мин. назад";
+"relative-date-seconds-abbreviated" = "$1 с.";
+"relative-date-seconds-ago-abbreviated" = "$1 с. назад";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|one=$1 год назад|few=$1 года назад|many=$1 лет назад}}";
 "replace-button-accessibility" = "Выполнение операции \"$1\".";
 "replace-buttons-replace-accessibility" = "Заменить одно вхождение";
@@ -766,7 +768,7 @@
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
-"table-title-other" = "Подробнее";
+"table-of-contents-hide-button-label" = "Скрывает содержание";
 "talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
 "talk-page-discussion-accessibility-hint" = "Нажмите дважды, чтобы открыть ветку обсуждения";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
@@ -779,7 +781,7 @@
 "talk-page-info-active-conversations-generic" = "Активные обсуждения в Википедии";
 "talk-page-link-user-action-sheet-app" = "Показывать страницу обсуждения участника";
 "talk-page-link-user-action-sheet-safari" = "Показать в Safari страницу участника";
-"talk-page-link-user-action-sheet-title" = "страницы пользователя";
+"talk-page-link-user-action-sheet-title" = "страницы участника";
 "talk-page-new-banner-subtitle" = "И не забывайте - вы общаетесь с живыми людьми, со всеми вытекающими отсюда последствиями :-)";
 "talk-page-new-banner-title" = "Будьте вежливы";
 "talk-page-new-body-textfield-accessibility-label" = "Текст обсуждения";
@@ -801,7 +803,7 @@
 "theme-black-display-name" = "Чёрное";
 "theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";
-"theme-default-explanation" = "Матчи системной темы";
+"theme-default-explanation" = "Соответствует системной теме оформления";
 "theme-light-display-name" = "Свет";
 "theme-sepia-display-name" = "Сепия";
 "top-read-header-generic" = "Википедия";
@@ -813,7 +815,7 @@
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
-"view-in-browser-footer-link" = "Просмотреть статью в браузере";
+"unknown-generic-text" = "Неизвестно";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";

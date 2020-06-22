@@ -14,6 +14,7 @@
 // Author: Mhurd
 // Author: Mido
 // Author: Musab Moahmmed
+// Author: NEHAOUA
 // Author: Nemo bis
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
@@ -24,6 +25,7 @@
 // Author: ديفيد
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
+// Author: مصعب
 // Author: يونس
 
 "about-content-license" = "رخصة المحتوى";
@@ -90,6 +92,7 @@
 "action-remove" = "إزالة";
 "action-replace" = "استبدال";
 "action-replace-all" = "استبدل الكل";
+"action-retry" = "إعادة المحاولة";
 "action-save" = "حفظ";
 "action-saved" = "محفوظة";
 "action-saved-accessibility" = "تم الحفظ، تفعيل لعدم الحفظ.";
@@ -117,14 +120,15 @@
 "appearance-settings-set-automatic-table-opening" = "إعدادات الجداول";
 "appearance-settings-text-sizing-example-text" = "اسحب شريط التمرير لتغيير حجم نص المقالة، استخدم حجم نص النظام لتغيير حجم مناطق النص الأخرى في التطبيق.";
 "appearance-settings-theme-options" = "خيارات الموضوع";
-"article-about-title" = "حول المقال";
+"article-about-title" = "حول هذه المقالة";
 "article-delete" = "حذف";
 "article-deleted-accessibility-notification" = "تم حذف {{PLURAL:$1|مقالة|مقالات}}";
 "article-languages-filter-placeholder" = "ابحث عن لغة";
 "article-languages-label" = "اختر لغة";
 "article-languages-others" = "لغات اخرى";
 "article-languages-yours" = "لغاتك";
-"article-read-more-title" = "قراءة المزيد";
+"article-read-more-title" = "إقرأ أيضا";
+"article-reference-view-title" = "$1 مرجع";
 "article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
@@ -146,7 +150,6 @@
 "compass-direction" = "عند الساعة $1";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
-"description-add-link-title" = "إضافة وصف للعنوان";
 "description-add-title" = "إضافة الوصف";
 "description-edit-for-article" = "وصف العنوان ل$1";
 "description-edit-learn-more" = "معرفة المزيد";
@@ -445,13 +448,10 @@
 "in-the-news-currently-trending" = "الأكثر زيارة حاليا";
 "in-the-news-notification-read-now-action-title" = "اقرأ الآن";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "شارك...";
 "in-the-news-sub-title-from-language-wikipedia" = "من ويكيبيديا $1";
 "in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
 "in-the-news-title" = "في الأخبار";
-"info-box-close-text" = "إغلاق";
-"info-box-title" = "معلومات سريعة";
 "insert-action-title" = "إدراج";
 "insert-link-title" = "إدراج وصلة";
 "insert-media-alternative-text-description" = "وصف النص للقراء الذين لا يستطيعون رؤية الصورة";
@@ -488,8 +488,6 @@
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "المحتوى متاح بموجب رخصة $1 إلا في حالة ذكر خلاف ذلك.";
 "logged-out-continue-without-logging-in-button-title" = "المتابعة بدون تسجيل الدخول";
 "logged-out-log-back-in-button-title" = "العودة لتسجيل الدخول إلى حسابك";
 "logged-out-subtitle" = "حدثت مشكلة في مصادقة حسابك، لمزامنة قوائم القراءة الخاصة بك وتعديلها تحت اسم المستخدم الخاص بك الرجاء تسجيل الدخول مرة أخرى.";
@@ -538,7 +536,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
-"page-edit-history" = "تاريخ التعديل الكامل";
 "page-history-anonymous-edits" = "تعديلات المجهولين";
 "page-history-bot-edits" = "تعديلات البوتات";
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
@@ -555,17 +552,14 @@
 "page-history-revisions-comparison-warning" = "يمكن تحديد مراجعتين فقط";
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
 "page-history-user-edits" = "تعديلات المستخدم";
-"page-issues" = "مشاكل في الصفحة";
-"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
-"page-location" = "شاهده على خريطة";
+"page-issues" = "مشاكل الصفحة";
+"page-location" = "أظهر على الخريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
 "page-protected-can-not-edit-title" = "هذه الصفحة محمية";
 "page-protected-other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
-"page-read-in-other-languages" = "متاحة {{PLURAL:$1|بـ$1 لغة أخرى|بـ$1 لغات أخرى}}";
 "page-similar-titles" = "صفحات مشابهة";
-"page-talk-page" = "اعرض صفحة النقاش";
 "panel-compare-revisions-text" = "تساعد مقارنة المراجعات في إظهار كيف تم تغيير مقالة بمرور الوقت، ستوضح المقارنة بين مراجعتين لمقالة ما الفرق بين تلك المراجعات من خلال إبراز أي محتوى تم تغييره.";
 "panel-compare-revisions-title" = "مقارنة المراجعات";
 "pictured" = "مصوّر";
@@ -795,7 +789,7 @@
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
-"table-title-other" = "مزيد من المعلومات";
+"table-of-contents-hide-button-label" = "إخفاء جدول المحتويات.";
 "talk-page-add-discussion-accessibility-label" = "أضف نقاشا";
 "talk-page-discussion-accessibility-hint" = "انقر نقرًا مزدوجًا لفتح موضوع نقاش";
 "talk-page-discussion-read-accessibility-label" = "قراءة";
@@ -843,7 +837,6 @@
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
 "unable-to-load-talk-page-title" = "غير قادر على تحميل صفحة النقاش";
 "unknown-generic-text" = "غير معروف";
-"view-in-browser-footer-link" = "اعرض المقالة في المتصفح";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
 "welcome-exploration-explore-feed-title" = "خلاصة الاستكشاف";
 "welcome-exploration-on-this-day-description" = "سافر عائدا في الزمن لمعرفة ما حدث اليوم في التاريخ";

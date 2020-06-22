@@ -229,9 +229,6 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
 
     @objc private func exploreFeedPreferencesDidSave(_ notification: Notification) {
         updateFeedBeforeViewDisappears = true
-        guard displayType != .singleLanguage else {
-            return
-        }
         DispatchQueue.main.async {
             self.reload()
         }
@@ -253,7 +250,9 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         }
         view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
-        tableView.reloadData()
+        if viewIfLoaded?.window != nil {
+            tableView.reloadData()
+        }
     }
 
 }

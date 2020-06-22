@@ -1,18 +1,19 @@
 
 import Foundation
 
+enum CacheFileWriterHelperError: Error {
+    case unexpectedHeaderFieldsType
+}
+
 final class CacheFileWriterHelper {
     static func fileURL(for key: String) -> URL {
         return CacheController.cacheURL.appendingPathComponent(key, isDirectory: false)
     }
     
-    static func moveFile(from fileURL: URL, toNewFileWithKey key: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
+    static func saveData(data: Data, toNewFileWithKey key: String, completion: @escaping (FileSaveResult) -> Void) {
         do {
             let newFileURL = self.fileURL(for: key)
-            try FileManager.default.moveItem(at: fileURL, to: newFileURL)
-            if let mimeType = mimeType {
-                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
-            }
+            try data.write(to: newFileURL)
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
@@ -25,9 +26,35 @@ final class CacheFileWriterHelper {
         }
     }
     
-    static func saveResponseHeader(urlResponse: HTTPURLResponse, toNewFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
+    static func copyFile(from fileURL: URL, toNewFileWithKey key: String, completion: @escaping (FileSaveResult) -> Void) {
+        do {
+            let newFileURL = self.fileURL(for: key)
+            try FileManager.default.copyItem(at: fileURL, to: newFileURL)
+            completion(.success)
+        } catch let error as NSError {
+            if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
+                completion(.exists)
+            } else {
+                completion(.failure(error))
+            }
+        } catch let error {
+            completion(.failure(error))
+        }
+    }
+    
+    static func saveResponseHeader(httpUrlResponse: HTTPURLResponse, toNewFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
         
-        let contentData: Data = NSKeyedArchiver.archivedData(withRootObject: urlResponse.allHeaderFields)
+        guard let headerFields = httpUrlResponse.allHeaderFields as? [String: String] else {
+            completion(.failure(CacheFileWriterHelperError.unexpectedHeaderFieldsType))
+            return
+        }
+            
+        saveResponseHeader(headerFields: headerFields, toNewFileName: fileName, completion: completion)
+    }
+    
+    static func saveResponseHeader(headerFields: [String: String], toNewFileName fileName: String, completion: (FileSaveResult) -> Void) {
+        
+        let contentData: Data = NSKeyedArchiver.archivedData(withRootObject: headerFields)
         
         do {
             let newFileURL = self.fileURL(for: fileName)
@@ -44,14 +71,55 @@ final class CacheFileWriterHelper {
         }
     }
     
-    static func saveContent(_ content: String, toNewFileName fileName: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
+    static func replaceResponseHeaderWithURLResponse(_ httpUrlResponse: HTTPURLResponse, atFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
+        
+        guard let headerFields = httpUrlResponse.allHeaderFields as? [String: String] else {
+            completion(.failure(CacheFileWriterHelperError.unexpectedHeaderFieldsType))
+            return
+        }
+        
+        replaceResponseHeaderWithHeaderFields(headerFields, atFileName: fileName, completion: completion)
+    }
+    
+    static func replaceResponseHeaderWithHeaderFields(_ headerFields:[String: String], atFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
+        
+        let headerData: Data = NSKeyedArchiver.archivedData(withRootObject: headerFields)
+        
+        replaceFileWithData(headerData, fileName: fileName, completion: completion)
+    }
+    
+    static func replaceFileWithData(_ data: Data, fileName: String, completion: @escaping (FileSaveResult) -> Void) {
+        let destinationURL = fileURL(for: fileName)
+        do {
+            let temporaryDirectoryURL = try FileManager.default.url(for: .itemReplacementDirectory,
+                                    in: .userDomainMask,
+                                    appropriateFor: destinationURL,
+                                    create: true)
+            
+            let temporaryFileName = UUID().uuidString
+            
+            let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(temporaryFileName)
+            
+            try data.write(to: temporaryFileURL,
+            options: .atomic)
+            
+            let _ = try FileManager.default.replaceItemAt(destinationURL, withItemAt: temporaryFileURL)
+            
+            try FileManager.default.removeItem(at: temporaryDirectoryURL)
+            
+            completion(.success)
+            
+        } catch (let error) {
+            completion(.failure(error))
+        }
+    }
+
+    
+    static func saveContent(_ content: String, toNewFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
         
         do {
             let newFileURL = self.fileURL(for: fileName)
             try content.write(to: newFileURL, atomically: true, encoding: .utf8)
-            if let mimeType = mimeType {
-                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
-            }
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {

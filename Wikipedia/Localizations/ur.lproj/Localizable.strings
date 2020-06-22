@@ -86,14 +86,12 @@
 "appearance-settings-expand-tables" = "جدول کھولیں";
 "appearance-settings-set-automatic-table-opening" = "جدول کی ترتیبات";
 "appearance-settings-theme-options" = "پوشاک کے اختیارات";
-"article-about-title" = "اس مضمون کے بارے میں";
 "article-delete" = "حذف کریں";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|مضمون حذف کر دیا گیا|مضامین حذف کر دیے گئے}}";
 "article-languages-filter-placeholder" = "زبان کو تلاش کریں";
 "article-languages-label" = "زبان منتخب کریں";
 "article-languages-others" = "دیگر زبانیں";
 "article-languages-yours" = "آپ کی زبانیں";
-"article-read-more-title" = "مزید پڑھیں";
 "article-save-error-not-enough-space" = "آپ کے ڈیوائس میں اس مضمون کو محفوظ کرنے کی جگہ نہیں ہے۔";
 "article-share" = "دوسروں کو بھیجیں";
 "back-button-accessibility-label" = "واپس";
@@ -113,7 +111,6 @@
 "compass-direction" = "$1 بجے پر";
 "continue-reading-empty-description" = "مطالعہ کے لیے مزید مضامین تلاش کریں";
 "continue-reading-empty-title" = "کوئی حالیہ پڑھا گیا مضمون نہیں";
-"description-add-link-title" = "عنوان کی وضاحت درج کریں";
 "description-add-title" = "وضاحت شامل کریں";
 "description-edit-for-article" = "$1 کے لیے عنوان وضاحت";
 "description-edit-learn-more" = "مزید پڑھیے";
@@ -236,13 +233,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "in-the-news-sub-title-from-wikipedia" = "ویکیپیڈیا سے";
 "in-the-news-title" = "خبروں میں";
-"info-box-close-text" = "بند کریں";
-"info-box-title" = "اجمالی معلومات";
 "languages-settings-title" = "زبانیں";
 "languages-title" = "زبان تبدیل کریں";
 "languages-wikipedia" = "ویکیپیڈیا کی زبانیں";
-"license-footer-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
-"license-footer-text" = "تمام مواد $1 کے تحت میسر ہے، جب تک کوئی دوسری وجہ نا ہو۔";
 "login-forgot-password" = "اپنا پاس ورڈ بھول گئے؟";
 "login-join-wikipedia" = "ویکیپیڈیا میں شامل ہوں";
 "login-no-account" = "کیا آپ نے کھاتہ نہیں بنایا ہوا؟ $1";
@@ -282,19 +275,11 @@
 "on-this-day-footer" = "اس دن کے مزید تاریخی واقعات";
 "on-this-day-footer-with-event-count" = "اس دن کے مزید $1 تاریخی واقعات";
 "on-this-day-title" = "آج کے دن";
-"page-edit-history" = "مکمل ترمیمی تاریخچہ";
-"page-issues" = "تبصرہ تحریر";
-// Fuzzy
-"page-last-edited" = "$1 دن پہلے ترمیم کیا گیا.";
 "page-protected-autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
 "page-protected-can-not-edit" = "آپ کے پاس اس صفحہ کو ترمیم کرنے کے حقوق نہیں ہیں";
 "page-protected-can-not-edit-title" = "یہ محفوظ کردہ صفحہ ہے";
 "page-protected-other" = "یہ صفحہ مندرجہ سطح تک محفوظ کیا گیا ہے:$1";
 "page-protected-sysop" = "یہ صفحہ مکمل طور پر محفوظ رہا ہے۔";
-// Fuzzy
-"page-read-in-other-languages" = "$1 دیگر زبانوں ميں دستیاب";
-"page-similar-titles" = "یکساں صفحات";
-"page-talk-page" = "تبادلۂ خیال صفحہ دیکھیں";
 "pictured" = "تصویر";
 "places-accessibility-clear-saved-searches" = "محقوظ شدہ تلاش مضامین صاف کر دیں";
 "places-accessibility-group" = "$1 مضامین";
@@ -365,7 +350,6 @@
 "table-of-contents-close-accessibility-hint" = "بند کریں";
 "table-of-contents-close-accessibility-label" = "فہرست بند کریں";
 "table-of-contents-heading" = "مندرجات";
-"table-title-other" = "دیگر معلومات";
 "theme-black-display-name" = "سیاہ";
 "theme-dark-display-name" = "تاریک";
 "theme-default-display-name" = "طے شدہ";

@@ -39,5 +39,7 @@
 @dynamic ns;
 @dynamic pageID;
 @dynamic lastModifiedDate;
+@dynamic downloadRetryDate;
+@dynamic downloadAttemptCount;
 
 @end

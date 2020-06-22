@@ -25,12 +25,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
      * Register default application preferences.
      * @note This must be loaded before application launch so unit tests can run
      */
-    NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-        @"CurrentArticleDomain": defaultLanguage,
-        @"Domain": defaultLanguage,
-        @"LastHousekeepingDate": [NSDate date],
-        @"AccessSavedPagesMessageShown": @NO,
         @"WMFAutoSignTalkPageDiscussions": @YES
     }];
 }
@@ -67,9 +62,8 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
-    NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
-          [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
-    NSLog(@"\n\nSimulator container directory:\n\t%@\n\n",
+    // Use NSLog so we can break and copy/paste. DDLogDebug is async.
+    NSLog(@"\nSimulator container directory:\n\t%@\n",
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
 
@@ -137,7 +131,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
-    [self.appViewController showSplashViewIfNotShowing];
+    [self.appViewController showSplashView];
 
     BOOL result = [self.appViewController processUserActivity:userActivity
                                                      animated:NO
@@ -166,7 +160,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
             options:(NSDictionary<NSString *, id> *)options {
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url] ?: [NSUserActivity wmf_activityForURL:url];
     if (activity) {
-        [self.appViewController showSplashViewIfNotShowing];
+        [self.appViewController showSplashView];
         BOOL result = [self.appViewController processUserActivity:activity
                                                          animated:NO
                                                        completion:^{

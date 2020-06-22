@@ -4,12 +4,17 @@ import Foundation
 enum ImageCacheDBWriterError: Error {
     case batchURLInsertFailure
     case missingExpectedItemsOutOfRequestHeader
+    case unableToDetermineURLRequest
 }
 
 final class ImageCacheDBWriter: CacheDBWriting {
 
     private let cacheBackgroundContext: NSManagedObjectContext
     private let imageFetcher: ImageFetcher
+    
+    var fetcher: CacheFetching {
+        return imageFetcher
+    }
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
@@ -20,16 +25,52 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        let urlRequest = imageFetcher.request(for: url, forceCache: false)
+        let acceptAnyContentType = ["Accept": "*/*"]
+        guard let urlRequest = imageFetcher.urlRequestFromPersistence(with: url, persistType: .image, headers: acceptAnyContentType) else {
+            completion(.failure(ImageCacheDBWriterError.unableToDetermineURLRequest))
+            return
+        }
         
         cacheImages(groupKey: groupKey, urlRequests: [urlRequest], completion: completion)
     }
     
     func add(urls: [URL], groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
         
-        let urlRequests = urls.map { imageFetcher.request(for: $0, forceCache: false) }
+        let acceptAnyContentType = ["Accept": "*/*"]
+        let urlRequests = urls.compactMap { imageFetcher.urlRequestFromPersistence(with: $0, persistType: .image, headers: acceptAnyContentType) }
         
         cacheImages(groupKey: groupKey, urlRequests: urlRequests, completion: completion)
+    }
+    
+    func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
+        
+        guard let context = CacheController.backgroundCacheContext else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
+            return
+        }
+        
+        guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
+            completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
+            return
+        }
+        
+        let variant = fetcher.variantForURLRequest(urlRequest)
+    
+        context.perform {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: context) else {
+                completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
+                return
+            }
+            cacheItem.isDownloaded = true
+            CacheDBWriterHelper.save(moc: context) { (result) in
+                switch result {
+                case .success:
+                    completion(.success)
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
     }
     
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
@@ -42,50 +83,45 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
         var result: Bool = false
         context.performAndWait {
-
-            var allVariantItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: context)
-
-            allVariantItems.sort { (lhs, rhs) -> Bool in
-
-                guard let lhsVariant = lhs.variant,
-                    let lhsSize = Int64(lhsVariant),
-                    let rhsVariant = rhs.variant,
-                    let rhsSize = Int64(rhsVariant) else {
-                        return true
-                }
-
-                return lhsSize < rhsSize
-            }
-
-            switch (UIScreen.main.scale, allVariantItems.count) {
-            case (1.0, _), (_, 1):
-                guard let firstVariant = allVariantItems.first?.variant else {
-                    result = true
-                    return
-                }
-                result = variant == firstVariant
-            case (2.0, _):
-                guard let secondVariant = allVariantItems[safeIndex: 1]?.variant else {
-                    result = true
-                    return
-                }
-                result = variant == secondVariant
-            case (3.0, _):
-                guard let lastVariant = allVariantItems.last?.variant else {
-                    result = true
-                    return
-                }
-                result = variant == lastVariant
-            default:
-                result = false
-            }
+        
+            let allVariantCacheItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: context)
+                let allVariantItems = allVariantCacheItems.compactMap { return CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }
+                
+                result = shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
         }
 
         return result
     }
     
-    func migratedCacheItemFile(cacheItem: PersistentCacheItem) {
-        //tonitodo
+    func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
+        
+        guard let variant = variant else {
+            return true
+        }
+        
+        var sortableVariantItems = allVariantItems
+            
+        sortableVariantItems.sortAsImageItemKeyAndVariants()
+        
+        switch (UIScreen.main.scale, sortableVariantItems.count) {
+        case (1.0, _), (_, 1):
+            guard let firstVariant = sortableVariantItems.first?.variant else {
+                return true
+            }
+            return variant == firstVariant
+        case (2.0, _):
+            guard let secondVariant = sortableVariantItems[safeIndex: 1]?.variant else {
+                return true
+            }
+            return variant == secondVariant
+        case (3.0, _):
+            guard let lastVariant = sortableVariantItems.last?.variant else {
+                return true
+            }
+            return variant == lastVariant
+        default:
+            return false
+        }
     }
 }
 
@@ -105,13 +141,13 @@ private extension ImageCacheDBWriter {
                 dispatchGroup.enter()
                 
                 guard let url = urlRequest.url,
-                    let itemKey = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemKey] else {
+                    let itemKey = self.imageFetcher.itemKeyForURLRequest(urlRequest) else {
                         errorRequests.append(urlRequest)
                         dispatchGroup.leave()
                         continue
                 }
                 
-                let variant = urlRequest.allHTTPHeaderFields?[Session.Header.persistentCacheItemVariant]
+                let variant = self.imageFetcher.variantForURLRequest(urlRequest)
                     
                 guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
                     errorRequests.append(urlRequest)

@@ -100,11 +100,8 @@
 }
 
 - (void)updateWithArticleURL: (NSURL *)articleURL parameters: (NSDictionary<NSString *, NSString *> *)parameters captchaWord: (nullable NSString *)captchaWord completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
-
-    [[MWNetworkActivityIndicatorManager sharedManager] push];
     
     [self performMediaWikiAPIPOSTWithCSRFTokenForURL:articleURL withBodyParameters:parameters completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         if (networkError) {
             completion(nil, networkError);

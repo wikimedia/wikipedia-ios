@@ -9,12 +9,33 @@ public class Router: NSObject {
         case articleDiffSingle(_: URL, fromRevID: Int?, toRevID: Int?)
         case userTalk(_: URL)
         case search(_: URL, term: String?)
+        case audio(_: URL)
     }
     
     unowned let configuration: Configuration
     required init(configuration: Configuration) {
         self.configuration = configuration
     }
+    
+    // MARK: Public
+    
+    /// Gets the appropriate in-app destination for a given URL
+    public func destination(for url: URL) -> Destination {
+        guard configuration.isWikipediaHost(url.host) else {
+            guard configuration.isInAppLinkHost(url.host) else {
+                return .externalLink(url)
+            }
+            guard url.isWikimediaHostedAudioFileLink else {
+                return .inAppLink(url)
+            }
+            return .audio(url.byMakingAudioFileCompatibilityAdjustments)
+        }
+        
+        return destinationForWikipediaHostURL(url)
+    }
+    
+    
+    // MARK: Internal and Private
     
     private let mobilediffRegexCompare = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)\\.\\.\\.([0-9]+)", options: .caseInsensitive)
     private let mobilediffRegexSingle = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
@@ -142,20 +163,5 @@ public class Router: NSObject {
         }
         
         return .inAppLink(canonicalURL)
-    }
-    
-    public func destination(for url: URL?) throws -> Destination {
-        guard let url = url else {
-            throw RequestError.invalidParameters
-        }
-        
-        guard configuration.isWikipediaHost(url.host) else {
-            guard configuration.isInAppLinkHost(url.host) else {
-                return .externalLink(url)
-            }
-            return .inAppLink(url)
-        }
-        
-        return destinationForWikipediaHostURL(url)
     }
 }

@@ -55,7 +55,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     fileprivate var previouslySelectedArticlePlaceIdentifier: Int?
     fileprivate var didYouMeanSearch: PlaceSearch?
     fileprivate var searching: Bool = false
-    fileprivate let imageController = ImageController.shared
+    fileprivate let imageController = ImageCacheController.shared
 
     fileprivate var _displayCountForTopPlaces: Int?
     fileprivate var displayCountForTopPlaces: Int {
@@ -569,8 +569,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         hideDidYouMeanButton()
         
         let siteURL = search.siteURL ?? self.siteURL
-        var searchTerm: String? = nil
-        let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
         currentSearchRegion = region
 
@@ -586,9 +584,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         } else if mapRegion == nil {
             mapRegion = region
         }
-        
-        searchTerm = search.string
-        
+                
         self.fakeProgressController.start()
         
         switch search.filter {
@@ -1471,7 +1467,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                     nextCoordinate = coordinate
                     coordinate = previousPlace.coordinate
                     if let thumbnailURL = article.thumbnailURL {
-                        imageController.prefetch(withURL: thumbnailURL)
+                        imageController?.prefetch(withURL: thumbnailURL)
                     }
                 }
                 

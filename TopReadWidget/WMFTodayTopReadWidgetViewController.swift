@@ -24,11 +24,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     @IBOutlet weak var headerLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-    #if DEBUG
     let skipCache = false
-    #else
-    let skipCache = false
-    #endif
     
     // Views & View State
     @IBOutlet weak var headerView: UIView!

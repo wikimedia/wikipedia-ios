@@ -30,6 +30,7 @@ extension ArticleViewController {
     /// Show references that were tapped in the article as a panel
     func showReferencesPanel(with references: [WMFLegacyReference], referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, selectedIndex: Int, animated: Bool) {
         let vc = WMFReferencePageViewController.wmf_viewControllerFromReferencePanelsStoryboard()
+        vc.delegate = self
         vc.pageViewController.delegate = self
         vc.appearanceDelegate = self
         vc.apply(theme: theme)
@@ -80,22 +81,28 @@ extension ArticleViewController {
         dismiss(animated: true)
     }
     
-    func showReferenceBackLinks(_ backLinks: [ReferenceBackLink], referenceId: String) {
-        guard let vc = ReferenceBackLinksViewController(referenceId: referenceId, backLinks: backLinks, delegate: self, theme: theme) else {
+    @objc func tappedWebViewBackground() {
+        dismissReferenceBackLinksViewController()
+    }
+    
+    func showReferenceBackLinks(_ backLinks: [ReferenceBackLink], referenceId: String, referenceText: String) {
+        guard let vc = ReferenceBackLinksViewController(referenceId: referenceId, referenceText: referenceText, backLinks: backLinks, delegate: self, theme: theme) else {
             showGenericError()
             return
         }
         addChild(vc)
         view.wmf_addSubviewWithConstraintsToEdges(vc.view)
         vc.didMove(toParent: self)
+        referenceWebViewBackgroundTapGestureRecognizer.isEnabled = true
     }
     
     func dismissReferenceBackLinksViewController() {
         let vc = children.first { $0 is ReferenceBackLinksViewController }
-       vc?.willMove(toParent: nil)
-       vc?.view.removeFromSuperview()
-       vc?.removeFromParent()
-       messagingController.removeElementHighlights()
+        vc?.willMove(toParent: nil)
+        vc?.view.removeFromSuperview()
+        vc?.removeFromParent()
+        messagingController.removeElementHighlights()
+        referenceWebViewBackgroundTapGestureRecognizer.isEnabled = false
     }
 }
 
@@ -142,11 +149,13 @@ extension ArticleViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard
             let firstRefVC = pageViewController.viewControllers?.first as? WMFReferencePanelViewController,
-            let refId = firstRefVC.reference?.refId
+            let ref = firstRefVC.reference
             else {
                 return
         }
-        webView.wmf_highlightLinkID(refId)
+        (presentedViewController as? WMFReferencePageViewController)?.currentReference = ref
+        webView.wmf_unHighlightAllLinkIDs()
+        webView.wmf_highlightLinkID(ref.refId)
     }
 }
 
@@ -158,34 +167,49 @@ extension ArticleViewController: WMFReferencePageViewAppearanceDelegate {
             else {
                 return
         }
+        webView.wmf_unHighlightAllLinkIDs()
         webView.wmf_highlightLinkID(refId)
     }
     
     func referencePageViewControllerWillDisappear(_ referencePageViewController: WMFReferencePageViewController) {
-        for vc in referencePageViewController.pageViewController.viewControllers ?? [] {
-            guard
-                let panel = vc as? WMFReferencePanelViewController,
-                let refId = panel.reference?.refId
-                else {
-                    continue
-            }
-            webView.wmf_unHighlightLinkID(refId)
-        }
+        webView.wmf_unHighlightAllLinkIDs()
     }
 }
 
 
 extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
-    func referenceBackLinksViewControllerUserDidTapClose(_ referenceBackLinksViewController: ReferenceBackLinksViewController) {
-       dismissReferenceBackLinksViewController()
+    func referenceViewControllerUserDidTapClose(_ vc: ReferenceViewController) {
+        if vc is ReferenceBackLinksViewController {
+            dismissReferenceBackLinksViewController()
+        } else {
+            dismissReferencesPopover()
+        }
     }
     
     func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController) {
         scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true)
     }
     
-    func referenceBackLinksViewControllerUserDidNavigateBackToReference(_ referenceBackLinksViewController: ReferenceBackLinksViewController) {
-        dismissReferenceBackLinksViewController()
-        scroll(to: referenceBackLinksViewController.referenceId, animated: true)
+    func referenceViewControllerUserDidNavigateBackToReference(_ vc: ReferenceViewController) {
+        referenceViewControllerUserDidTapClose(vc)
+        guard let referenceId = vc.referenceId else {
+            showGenericError()
+            return
+        }
+        scroll(to: "back_link_\(referenceId)", highlighted: true, animated: true) { [weak self] in
+            dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
+                self?.messagingController.removeElementHighlights()
+            }
+        }
+    }
+}
+
+extension ArticleViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer === referenceWebViewBackgroundTapGestureRecognizer {
+            return true
+        }
+        
+        return false //default
     }
 }
