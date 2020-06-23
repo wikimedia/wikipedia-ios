@@ -25,6 +25,7 @@
 // Author: Viral
 // Author: Ykhwong
 // Author: Ysjbserver
+// Author: YuzaTea
 // Author: 고솜
 // Author: 그냥기여자
 // Author: 렌즈
@@ -103,7 +104,7 @@
 "action-share" = "공유";
 "action-share-accessibility" = "공유";
 "action-sort" = "정렬";
-"action-thank-user-accessibility" = "사용자에게 감사 표하기";
+"action-thank-user-accessibility" = "사용자에게 감사 표현하기";
 "action-undo" = "실행 취소";
 "action-unsave" = "저장하지 않음";
 "action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
@@ -111,7 +112,7 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록에 추가";
 "add-citation-title" = "인용 추가";
 "announcements-dismiss" = "숨기기";
-"app-store-keywords" = "위키백과, 참고문헌, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
+"app-store-keywords" = "위키백과, 각주, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
 "app-store-release-notes" = "탐색 피드를 온전히 사용자에 맞추어 지정하고 더 쉽게 읽습니다. 지역화, 성능 개선, 버그 수정.";
 "app-store-short-description" = "주변 장소를 찾아보고, 오프라인에서 읽기 위해 문서를 동기화하고, 읽기 경험을 자신에 맞게 변경하려면 위키백과 앱을 다운로드하세요.";
 "app-store-subtitle" = "우리 모두의 백과사전";
@@ -551,6 +552,7 @@
 "page-history-revision-minor-edit-accessibility-label" = "사소한 편집";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1바이트}} 추가됨";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1바이트}} 제거됨";
+"page-history-revision-time-accessibility-label" = "수정본 \"$1\"";
 "page-history-revisions-comparison-warning" = "판 2개만 선택할 수 있습니다";
 "page-history-stats-text" = "$2 이후 {{PLURAL:$1|편집 $1회}}";
 "page-history-user-edits" = "사용자 편집";
