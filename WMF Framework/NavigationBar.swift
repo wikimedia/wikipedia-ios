@@ -170,8 +170,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
             barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
         } else if let customView = item.customView {
-            let customViewData = NSKeyedArchiver.archivedData(withRootObject: customView)
-            if let copiedView = NSKeyedUnarchiver.unarchiveObject(with: customViewData) as? UIView {
+            if let customViewData = try? NSKeyedArchiver.archivedData(withRootObject: customView, requiringSecureCoding: false),
+                let copiedView = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIView.self, from: customViewData) {
                 if let button = customView as? UIButton, let copiedButton = copiedView as? UIButton {
                     for target in button.allTargets {
                         guard let actions = button.actions(forTarget: target, forControlEvent: .touchUpInside) else {
