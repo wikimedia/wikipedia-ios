@@ -304,7 +304,7 @@
 "main-menu-nearby" = "Lân cận";
 "main-menu-privacy-policy" = "Quy định về quyền riêng tư";
 "main-menu-rate-app" = "Đánh giá ứng dụng";
-"main-menu-terms-of-use" = "Điều khoản Sử dụng";
+"main-menu-terms-of-use" = "Điều khoản sử dụng";
 "main-menu-title" = "Khác";
 "main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
 "menu-cancel-accessibility-label" = "Hủy bỏ";
@@ -586,4 +586,4 @@
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
-"wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";
+"wikitext-upload-save-terms-name" = "Điều khoản sử dụng";
