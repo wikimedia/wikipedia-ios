@@ -1,22 +1,10 @@
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-
-        let wasCalledViaContextMenuOnSelectedText = (selectedTextEditInfo != nil)
-        let wasCalledViaContextMenuOnSelectedTitleDescription = (selectedTextEditInfo?.isSelectedTextInTitleDescription == true)
-        let isFirstSection = (id == 0)
-        let isPossiblyTitleDescription = wasCalledViaContextMenuOnSelectedTitleDescription || (!wasCalledViaContextMenuOnSelectedText && isFirstSection)
-
-        if isPossiblyTitleDescription, let descriptionSource = descriptionSource, descriptionSource == .central {
-            // If the description is from Wikidata (descriptionSource == .central), description is edited via editor.
-            if wasCalledViaContextMenuOnSelectedTitleDescription {
-                // Then present the description editor...
-                self.showTitleDescriptionEditor(with: .unknown, funnelSource: .highlight)
-            } else {
-                // ...otherwise give choice.
-                showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
-            }
+        // Only show the option sheet if the description is from Wikidata (descriptionSource == .central)
+        // Otherwise it needs to be changed in the section editor by editing the {{Short description}} template
+        if let descriptionSource = descriptionSource, descriptionSource == .central {
+            showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         } else {
-            // Otherwise article description needs to be changed in the section editor by editing the {{Short description}} template
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         }
     }

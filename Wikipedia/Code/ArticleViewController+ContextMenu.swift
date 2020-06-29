@@ -20,7 +20,14 @@ extension ArticleViewController {
                 self.showError(error ?? RequestError.unexpectedResponse)
                 return
             }
-            self.showEditorForSectionOrTitleDescription(with: editInfo.sectionID, descriptionSource: editInfo.descriptionSource, selectedTextEditInfo: editInfo, funnelSource: .highlight)
+
+            if editInfo.isSelectedTextInTitleDescription, let descriptionSource = editInfo.descriptionSource, descriptionSource == .central {
+                // Only show the description editor if the description is from Wikidata (descriptionSource == .central)
+                self.showTitleDescriptionEditor(with: .unknown, funnelSource: .highlight)
+            } else {
+                // Otherwise it needs to be changed in the section editor by editing the {{Short description}} template
+                self.showEditorForSection(with: editInfo.sectionID, selectedTextEditInfo: editInfo, funnelSource: .highlight)
+            }
         }
     }
 }
