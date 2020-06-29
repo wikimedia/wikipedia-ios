@@ -115,7 +115,13 @@
 "diff-compare-header-from-info-heading" = "देखि:";
 "diff-context-lines-collapsed-button-title" = "देखाउनुहोस्";
 "diff-context-lines-expanded-button-title" = "लुकाउनुहोस्";
+"diff-single-header-editor-title" = "सम्पादक जानकारी";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 बाइट हटाइयाे|$1 बाइटहरू हटाइयाे}}";
+"diff-single-header-summary-heading" = "सम्पादन सारांश";
+"diff-single-intro-title" = "परिचय";
+"diff-single-line-format" = "पङ्क्ति $1";
+"diff-thanks-send-button-title" = "धन्यवाद पठाउनुहोस्";
+"edit-menu-item" = "सम्पादन";
 "edit-published-subtitle" = "तपाईले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
 "edit-style-table-view-title" = "शैली";
 "edit-summary-add-summary-text" = "सम्पादन साशंस थप्नुहोस्";
