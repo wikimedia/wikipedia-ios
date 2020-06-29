@@ -20,11 +20,7 @@ extension ArticleViewController {
                 self.showError(error ?? RequestError.unexpectedResponse)
                 return
             }
-            guard !editInfo.isSelectedTextInTitleDescription else {
-                self.showTitleDescriptionEditor(with: .unknown, funnelSource: .highlight)
-                return
-            }
-            self.showEditorForSection(with: editInfo.sectionID, selectedTextEditInfo: editInfo, funnelSource: .highlight)
+            self.showEditorForSectionOrTitleDescription(with: editInfo.sectionID, descriptionSource: editInfo.descriptionSource, selectedTextEditInfo: editInfo, funnelSource: .highlight)
         }
     }
 }

@@ -14,8 +14,14 @@ extension WKWebView {
                 DDLogError("Error converting dictionary to SelectedTextEditInfo")
                 return nil
         }
+        let descriptionSource: ArticleDescriptionSource?
+        if let descriptionSourceString = dictionary["descriptionSource"] as? String {
+            descriptionSource = ArticleDescriptionSource(rawValue: descriptionSourceString)
+        } else {
+            descriptionSource = nil
+        }
         let selectedAndAdjacentText = SelectedAndAdjacentText(selectedText: selectedText, textAfterSelectedText: textAfterSelectedText, textBeforeSelectedText: textBeforeSelectedText)
-        return SelectedTextEditInfo(selectedAndAdjacentText: selectedAndAdjacentText, isSelectedTextInTitleDescription: isSelectedTextInTitleDescription, sectionID: sectionID)
+        return SelectedTextEditInfo(selectedAndAdjacentText: selectedAndAdjacentText, isSelectedTextInTitleDescription: isSelectedTextInTitleDescription, sectionID: sectionID, descriptionSource: descriptionSource)
     }
     
     @objc func wmf_getSelectedTextEditInfo(completionHandler: ((SelectedTextEditInfo?, Error?) -> Void)? = nil) {
@@ -55,9 +61,11 @@ class SelectedAndAdjacentText  {
     public let selectedAndAdjacentText: SelectedAndAdjacentText
     public let isSelectedTextInTitleDescription: Bool
     public let sectionID: Int
-    init(selectedAndAdjacentText: SelectedAndAdjacentText, isSelectedTextInTitleDescription: Bool, sectionID: Int) {
+    public let descriptionSource: ArticleDescriptionSource?
+    init(selectedAndAdjacentText: SelectedAndAdjacentText, isSelectedTextInTitleDescription: Bool, sectionID: Int, descriptionSource: ArticleDescriptionSource?) {
         self.selectedAndAdjacentText = selectedAndAdjacentText
         self.isSelectedTextInTitleDescription = isSelectedTextInTitleDescription
         self.sectionID = sectionID
+        self.descriptionSource = descriptionSource
     }
 }
