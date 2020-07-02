@@ -60,6 +60,7 @@
 "action-retry" = "पुनः प्रयास गर्नुहोस्";
 "action-save" = "संग्रह गर्नुहोस्";
 "action-saved" = "सुरक्षित गरिएको";
+"action-saved-accessibility-notification" = "पछिको लागि लेख साँचियो";
 "action-share" = "आदान-प्रदान गर्नुहोस्";
 "action-share-accessibility" = "साझेदारी गर्नुहोस्";
 "action-sort" = "क्रम मिलाउनुहोस्";
@@ -73,7 +74,10 @@
 "announcements-dismiss" = "खारेज गर्नुहोस्";
 "app-store-keywords" = "विकिपिडिया, सन्दर्भ, विकि, विश्वकाेश, जानकारी, ज्ञान, अनुसन्धान, जानकारी, अन्वेषण, सिक्नुहाेस्";
 "app-store-subtitle" = "एक स्वतन्त्र विश्वकोश";
+"appearance-settings-adjust-text-sizing" = "लेखको पाठ आकार मिलाउने";
 "appearance-settings-expand-tables" = "तालिकालाई खाेल्नुहाेस्";
+"appearance-settings-theme-options" = "थीम विकल्पहरू";
+"article-about-title" = "यस लेखको बारेमा";
 "article-delete" = "हटाउने";
 "article-languages-filter-placeholder" = "भाषा खोज्नुहोस्";
 "article-languages-label" = "भाषा छान्नुहोस्";
@@ -113,9 +117,16 @@
 "description-published-subtitle" = "तपाईले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
 "description-welcome-start-editing-button" = "सम्पादन शुरुवात गर्नुहोस्";
 "diff-compare-header-from-info-heading" = "देखि:";
+"diff-compare-header-to-info-heading" = "लाई:";
+"diff-compare-title" = "संशोधनहरू तुलना गर्नुहोस्";
 "diff-context-lines-collapsed-button-title" = "देखाउनुहोस्";
 "diff-context-lines-expanded-button-title" = "लुकाउनुहोस्";
+"diff-paragraph-moved-direction-down" = "तल";
+"diff-paragraph-moved-direction-up" = "माथि";
+"diff-revision-error-title" = "संशोधन खोल्न सकिएन";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 सम्पादन|$1 सम्पादनहरू}}";
 "diff-single-header-editor-title" = "सम्पादक जानकारी";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 बाइट थपियो|$1 बाइटहरू थपिए}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 बाइट हटाइयाे|$1 बाइटहरू हटाइयाे}}";
 "diff-single-header-summary-heading" = "सम्पादन सारांश";
 "diff-single-intro-title" = "परिचय";
