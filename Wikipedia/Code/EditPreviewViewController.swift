@@ -27,6 +27,17 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
 
+    var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
+    var scrollViewAnimationCompletions: [() -> Void] = []
+
+    lazy var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer = {
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(tappedWebViewBackground))
+        tapGR.delegate = self
+        webView.scrollView.addGestureRecognizer(tapGR)
+        tapGR.isEnabled = false
+        return tapGR
+    }()
+
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL) {
         let isExternal = url.host != articleURL?.host
         if isExternal {
@@ -175,6 +186,22 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         }
         previewWebViewContainer.apply(theme: theme)
     }
+
+    @objc func tappedWebViewBackground() {
+        dismissReferenceBackLinksViewController()
+    }
+}
+
+extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate {
+    var webView: WKWebView {
+        return previewWebViewContainer.webView
+    }
+}
+
+extension EditPreviewViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return shouldRecognizeSimultaneousGesture(recognizer: gestureRecognizer)
+    }
 }
 
 extension EditPreviewViewController: ArticleWebMessageHandling {
@@ -182,6 +209,8 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         switch action {
         case .unknown(let href):
             showExternalLinkInAlert(link: href)
+        case .backLink(let referenceId, let referenceText, let backLinks):
+            showReferenceBackLinks(backLinks, referenceId: referenceId, referenceText: referenceText)
         case .link(let href, _, let title):
             if let title = title {
                 guard
@@ -195,6 +224,8 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
             } else {
                 showExternalLinkInAlert(link: href)
             }
+        case .scrollToAnchor(let anchor, let rect):
+            scrollToAnchorCompletions.popLast()?(anchor, rect)
         default:
             break
         }
