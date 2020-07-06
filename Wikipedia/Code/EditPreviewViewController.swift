@@ -7,7 +7,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 
 class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
     var sectionID: Int?
-    var articleURL: URL?
+    var articleURL: URL
     var language: String?
     var wikitext = ""
     var editFunnel: EditFunnel?
@@ -24,8 +24,8 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     }()
     
     lazy var fetcher = ArticleFetcher()
-    
-    @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
+
+    private let previewWebViewContainer: PreviewWebViewContainer
 
     var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
     var scrollViewAnimationCompletions: [() -> Void] = []
@@ -38,8 +38,18 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         return tapGR
     }()
 
+    init(articleURL: URL) {
+        self.articleURL = articleURL
+        self.previewWebViewContainer = PreviewWebViewContainer()
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL) {
-        let isExternal = url.host != articleURL?.host
+        let isExternal = url.host != articleURL.host
         if isExternal {
             showExternalLinkInAlert(link: url.absoluteString)
         } else {
@@ -100,6 +110,11 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.addSubview(previewWebViewContainer)
+        view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
+        previewWebViewContainer.previewAnchorTapAlertDelegate = self
+        previewWebViewContainer.previewSectionLanguageInfoDelegate = self
         
         navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
                 
@@ -145,10 +160,6 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             return
         }
         hasPreviewed = true
-        guard let articleURL = articleURL else {
-            showGenericError()
-            return
-        }
         messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
@@ -214,7 +225,7 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         case .link(let href, _, let title):
             if let title = title {
                 guard
-                    let host = articleURL?.host,
+                    let host = articleURL.host,
                     let encodedTitle = title.percentEncodedPageTitleForPathComponents,
                     let newArticleURL = Configuration.current.articleURLForHost(host, appending: [encodedTitle]).url else {
                     showInternalLinkInAlert(link: href)

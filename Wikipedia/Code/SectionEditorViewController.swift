@@ -431,13 +431,10 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                 return
             } else if let wikitext = result {
                 if wikitext != self.wikitext {
-                    guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
-                        return
-                    }
+                    let vc = EditPreviewViewController(articleURL: self.articleURL)
                     self.inputViewsController.resetFormattingAndStyleSubmenus()
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
-                    vc.articleURL = self.articleURL
                     vc.sectionID = self.sectionID
                     vc.language = self.language
                     vc.wikitext = wikitext
