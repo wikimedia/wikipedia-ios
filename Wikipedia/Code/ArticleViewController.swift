@@ -719,11 +719,6 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     // MARK: Scroll
-    
-    func isBoundingClientRectVisible(_ rect: CGRect) -> Bool {
-        let scrollView = webView.scrollView
-        return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
-    }
 
     var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
     var scrollViewAnimationCompletions: [() -> Void] = []

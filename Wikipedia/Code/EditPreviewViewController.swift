@@ -203,7 +203,14 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     }
 }
 
-extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate {
+// MARK:- References
+extension EditPreviewViewController: WMFReferencePageViewAppearanceDelegate, ReferenceViewControllerDelegate, UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        didFinishAnimating(pageViewController)
+    }
+}
+
+extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, ReferenceShowing {
     var webView: WKWebView {
         return previewWebViewContainer.webView
     }
@@ -222,6 +229,8 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
             showExternalLinkInAlert(link: href)
         case .backLink(let referenceId, let referenceText, let backLinks):
             showReferenceBackLinks(backLinks, referenceId: referenceId, referenceText: referenceText)
+        case .reference(let index, let group):
+            showReferences(group, selectedIndex: index, animated: true)
         case .link(let href, _, let title):
             if let title = title {
                 guard

@@ -82,4 +82,9 @@ extension ArticleScrolling where Self: ViewController {
         }
         scrollView.setContentOffset(boundedOffset, animated: true)
     }
+
+    func isBoundingClientRectVisible(_ rect: CGRect) -> Bool {
+        let scrollView = webView.scrollView
+        return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
+    }
 }
