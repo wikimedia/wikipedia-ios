@@ -920,6 +920,9 @@ private extension ArticleViewController {
         // Delegates
         webView.uiDelegate = self
         webView.navigationDelegate = self
+        
+        // User Agent
+        webView.customUserAgent = WikipediaAppUtils.versionedUserAgent()
     }
     
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints
