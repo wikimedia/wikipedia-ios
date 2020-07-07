@@ -410,12 +410,16 @@ class ArticleViewController: ViewController, HintPresenting {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
             showGenericError()
             state = .error
             return
         }
-                
+        
+        // Declare that this request is a pageview
+        // https://phabricator.wikimedia.org/T256507
+        request.setValue("pageview=1", forHTTPHeaderField: "X-Analytics")
+
         webView.load(request)
     }
     
