@@ -34,8 +34,10 @@ class ReferenceBackLinksViewController: ReferenceViewController {
     lazy var countItem = UIBarButtonItem(customView: countContainer)
 
     func setupToolbar() {
+        /// `fakeButton`'s existance allows `nextButton` to work. Analysis - with a diagnosis of "likely iOS 13.5 bug" - here: https://phabricator.wikimedia.org/T255283
+        let fakeButton = UIBarButtonItem(image: UIImage(named: "transparent-pixel"), landscapeImagePhone: nil, style: .plain, target: nil, action: nil)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.items = [countItem, flexibleSpace, previousButton, nextButton]
+        toolbar.items = [countItem, flexibleSpace, previousButton, nextButton, fakeButton]
         if backLinks.count <= 1 {
             previousButton.isEnabled = false
             nextButton.isEnabled = false
