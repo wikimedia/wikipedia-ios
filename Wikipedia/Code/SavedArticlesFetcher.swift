@@ -221,7 +221,9 @@ private extension SavedArticlesFetcher {
             
             if let articleToDelete = articleToDelete {
                 
-                guard let articleKey = articleToDelete.key else {
+                guard let originalArticleKey = articleToDelete.key,
+                    let articleURL = articleToDelete.url,
+                    let articleKey = articleURL.wmf_databaseKey else {
                     noArticleToDeleteCompletion()
                     return
                 }
@@ -245,7 +247,7 @@ private extension SavedArticlesFetcher {
                         // Ignoring failures to ensure the DB doesn't get stuck trying
                         // to remove a cache group that doesn't exist.
                         // TODO: Clean up these DB inconsistencies in the DatabaseHousekeeper
-                        self.didRemoveArticle(with: articleKey)
+                        self.didRemoveArticle(with: originalArticleKey, standardizedKey: articleKey)
                         self.updateCountOfFetchesInProcess()
                         updateAgain()
                     }
@@ -265,14 +267,14 @@ private extension SavedArticlesFetcher {
     }
     
     func didFetchArticle(with key: String, standardizedKey: String) {
-        operateOnArticles(with: key) { (article) in
+        operateOnArticles(with: key, standardizedKey: standardizedKey) { (article) in
             standardizeArticle(article, with: standardizedKey)
             article.isDownloaded = true
         }
     }
     
     func didFailToFetchArticle(with key: String, standardizedKey: String, error: Error) {
-        operateOnArticles(with: key) { (article) in
+        operateOnArticles(with: key, standardizedKey: standardizedKey) { (article) in
             standardizeArticle(article, with: standardizedKey)
             handleFailure(with: article, error: error)
         }
@@ -350,15 +352,24 @@ private extension SavedArticlesFetcher {
         article.downloadRetryDate = Date(timeIntervalSinceNow: TimeInterval(integerLiteral: secondsFromNowToAttempt))
     }
 
-    func didRemoveArticle(with key: String) {
-        operateOnArticles(with: key) { (article) in
+    func didRemoveArticle(with key: String, standardizedKey: String) {
+        operateOnArticles(with: key, standardizedKey: standardizedKey) { (article) in
             article.isDownloaded = false
         }
     }
     
-    func operateOnArticles(with key: String, articleBlock: (WMFArticle) -> Void) {
+    func operateOnArticles(with key: String, standardizedKey: String, articleBlock: (WMFArticle) -> Void) {
         do {
-            let articles = try dataStore.viewContext.fetchArticles(withKey: key)
+            let articles: [WMFArticle]
+            if key == standardizedKey {
+                articles  = try dataStore.viewContext.fetchArticles(withKey: key)
+            } else {
+                let predicate = NSPredicate(format:"key IN %@", [key, standardizedKey])
+                let request = WMFArticle.fetchRequest()
+                request.predicate = predicate
+                articles  = try dataStore.viewContext.fetch(request)
+            }
+               
             guard let article = articles.first else {
                 return
             }
