@@ -174,8 +174,7 @@ private extension SavedArticlesFetcher {
             }
         }
         
-        if let articleURL = article?.url,
-            let articleKey = articleURL.wmf_databaseKey {
+        if let articleURL = article?.key {
             
             articleCacheController.add(url: articleURL, groupKey: articleKey, individualCompletion: { (itemResult) in
                 switch itemResult {
@@ -221,7 +220,7 @@ private extension SavedArticlesFetcher {
             
             if let articleToDelete = articleToDelete {
                 
-                guard let articleKey = articleToDelete.url?.wmf_databaseKey else {
+                guard let articleKey = articleToDelete.key else {
                     noArticleToDeleteCompletion()
                     return
                 }
