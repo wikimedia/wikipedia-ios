@@ -359,9 +359,18 @@ private extension SavedArticlesFetcher {
     func operateOnArticles(with key: String, articleBlock: (WMFArticle) -> Void) {
         do {
             let articles = try dataStore.viewContext.fetchArticles(withKey: key)
-            for article in articles {
-                articleBlock(article)
+            guard let article = articles.first else {
+                return
             }
+            for (index, duplicateArticle) in articles.enumerated() {
+                if index == 0 {
+                    continue
+                }
+                article.merge(duplicateArticle)
+                dataStore.viewContext.delete(duplicateArticle)
+            }
+            articleBlock(article)
+
         } catch (let error) {
             DDLogError("Error fetching WMFArticles after caching: \(error)");
         }

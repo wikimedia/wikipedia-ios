@@ -1,5 +1,5 @@
 extension WMFArticle {
-    func merge(_ article: WMFArticle) {
+    public func merge(_ article: WMFArticle) {
         guard article.objectID != objectID else {
             return
         }
