@@ -174,7 +174,9 @@ private extension SavedArticlesFetcher {
             }
         }
         
-        if let articleKey = article?.key, let articleURL = article?.url {
+        if let originalArticleKey = article?.key,
+            let articleURL = article?.url,
+            let articleKey = articleURL.wmf_databaseKey {
             articleCacheController.add(url: articleURL, groupKey: articleKey, individualCompletion: { (itemResult) in
                 switch itemResult {
                 case .success(let itemKey):
@@ -187,13 +189,13 @@ private extension SavedArticlesFetcher {
                     switch groupResult {
                     case .success(let itemKeys):
                         DDLogDebug("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
-                        self.didFetchArticle(with: articleKey)
+                        self.didFetchArticle(with: originalArticleKey, standardizedKey: articleKey)
                         self.spotlightManager.addToIndex(url: articleURL as NSURL)
                         self.updateCountOfFetchesInProcess()
                     case .failure(let error):
                         DDLogDebug("🥶failure in groupCompletion of \(articleKey): \(error)")
                         self.updateCountOfFetchesInProcess()
-                        self.didFailToFetchArticle(with: articleKey, error: error)
+                        self.didFailToFetchArticle(with: originalArticleKey, standardizedKey: articleKey, error: error)
                     }
                     updateAgain()
                 }
@@ -254,14 +256,24 @@ private extension SavedArticlesFetcher {
         }
     }
     
-    func didFetchArticle(with key: String) {
+    /// Ensures article.key matches the standardized key format
+    /// Fixes an issue where older versions of the app might have saved articles with percent encoded keys
+    func standardizeArticle(_ article: WMFArticle, with standardizedKey: String) {
+        if article.key != standardizedKey {
+            article.key = standardizedKey
+        }
+    }
+    
+    func didFetchArticle(with key: String, standardizedKey: String) {
         operateOnArticles(with: key) { (article) in
+            standardizeArticle(article, with: standardizedKey)
             article.isDownloaded = true
         }
     }
     
-    func didFailToFetchArticle(with key: String, error: Error) {
+    func didFailToFetchArticle(with key: String, standardizedKey: String, error: Error) {
         operateOnArticles(with: key) { (article) in
+            standardizeArticle(article, with: standardizedKey)
             handleFailure(with: article, error: error)
         }
     }
