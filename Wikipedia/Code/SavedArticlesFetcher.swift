@@ -267,14 +267,14 @@ private extension SavedArticlesFetcher {
     }
     
     func didFetchArticle(with key: String, standardizedKey: String) {
-        operateOnArticles(with: key, standardizedKey: standardizedKey) { (article) in
+        mergeAndOperateOnArticle(with: key, standardizedKey: standardizedKey) { (article) in
             standardizeArticle(article, with: standardizedKey)
             article.isDownloaded = true
         }
     }
     
     func didFailToFetchArticle(with key: String, standardizedKey: String, error: Error) {
-        operateOnArticles(with: key, standardizedKey: standardizedKey) { (article) in
+        mergeAndOperateOnArticle(with: key, standardizedKey: standardizedKey) { (article) in
             standardizeArticle(article, with: standardizedKey)
             handleFailure(with: article, error: error)
         }
@@ -353,12 +353,13 @@ private extension SavedArticlesFetcher {
     }
 
     func didRemoveArticle(with key: String, standardizedKey: String) {
-        operateOnArticles(with: key, standardizedKey: standardizedKey) { (article) in
+        mergeAndOperateOnArticle(with: key, standardizedKey: standardizedKey) { (article) in
+            standardizeArticle(article, with: standardizedKey)
             article.isDownloaded = false
         }
     }
     
-    func operateOnArticles(with key: String, standardizedKey: String, articleBlock: (WMFArticle) -> Void) {
+    func mergeAndOperateOnArticle(with key: String, standardizedKey: String, articleBlock: (WMFArticle) -> Void) {
         do {
             let articles: [WMFArticle]
             if key == standardizedKey {
