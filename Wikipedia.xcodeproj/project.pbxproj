@@ -1095,6 +1095,10 @@
 		8336F1432119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */; };
 		8338AF8D21F7B33E000C4055 /* WMFLegacyFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8338AF8E21F7B33E000C4055 /* WMFLegacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */; };
+		833D43E124B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D43E024B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift */; };
+		833D43E224B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D43E024B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift */; };
+		833D43E324B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D43E024B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift */; };
+		833D43E424B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D43E024B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift */; };
 		833D4FFB20A9E20800B44E7C /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D4FFA20A9E20800B44E7C /* String+HTML.swift */; };
 		833D6B48229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
 		833D6B49229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
@@ -3611,6 +3615,7 @@
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
 		8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLegacyFetcher.h; sourceTree = "<group>"; };
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
+		833D43E024B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileViewToMobileHTMLMigrationController.swift; sourceTree = "<group>"; };
 		833D4FFA20A9E20800B44E7C /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageTopic+Extensions.swift"; sourceTree = "<group>"; };
 		834C269B24042DBF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -6371,6 +6376,14 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
+		833D43DF24B6677B00A63A53 /* Migration */ = {
+			isa = PBXGroup;
+			children = (
+				833D43E024B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift */,
+			);
+			name = Migration;
+			sourceTree = "<group>";
+		};
 		83D3FC11223A8BB70048384B /* Fetchers */ = {
 			isa = PBXGroup;
 			children = (
@@ -7396,6 +7409,7 @@
 		BCD67E7E1C1F1433005179E1 /* Saved Pages */ = {
 			isa = PBXGroup;
 			children = (
+				833D43DF24B6677B00A63A53 /* Migration */,
 				BCD67E821C1F14C5005179E1 /* Event Logging */,
 				BCD67E801C1F1471005179E1 /* Fetchers */,
 			);
@@ -9915,6 +9929,7 @@
 				B0ACB13321265B930078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
+				833D43E124B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				83F1096E23D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
@@ -10712,6 +10727,7 @@
 				678D79ED235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */,
 				B0432347210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
+				833D43E424B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */,
 				7A20AE0B2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				D8A42A651E815A9C00D8E281 /* WMFReferencePanelViewController.swift in Sources */,
 				83F1097123D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
@@ -11416,6 +11432,7 @@
 				D8CE25AB1E698E2400DAE2E0 /* AppDelegate.m in Sources */,
 				83E776A420FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				D8CE25AD1E698E2400DAE2E0 /* ArticlePlace.swift in Sources */,
+				833D43E324B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */,
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
 				83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				7A9F2777225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
@@ -11871,6 +11888,7 @@
 				D82E95871F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				D8EC3EA81E9BDA35006712EB /* AppDelegate.m in Sources */,
 				D8EC3EAA1E9BDA35006712EB /* ArticlePlace.swift in Sources */,
+				833D43E224B6678E00A63A53 /* MobileViewToMobileHTMLMigrationController.swift in Sources */,
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
 				83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				7A9F2778225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
