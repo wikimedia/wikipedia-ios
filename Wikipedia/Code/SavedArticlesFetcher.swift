@@ -174,8 +174,7 @@ private extension SavedArticlesFetcher {
             }
         }
         
-        if let articleURL = article?.key {
-            
+        if let articleKey = article?.key, let articleURL = article?.url {
             articleCacheController.add(url: articleURL, groupKey: articleKey, individualCompletion: { (itemResult) in
                 switch itemResult {
                 case .success(let itemKey):
