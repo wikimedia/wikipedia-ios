@@ -258,24 +258,14 @@ private extension SavedArticlesFetcher {
         }
     }
     
-    /// Ensures article.key matches the standardized key format
-    /// Fixes an issue where older versions of the app might have saved articles with percent encoded keys
-    func standardizeArticle(_ article: WMFArticle, with standardizedKey: String) {
-        if article.key != standardizedKey {
-            article.key = standardizedKey
-        }
-    }
-    
     func didFetchArticle(with key: String, standardizedKey: String) {
         mergeAndOperateOnArticle(with: key, standardizedKey: standardizedKey) { (article) in
-            standardizeArticle(article, with: standardizedKey)
             article.isDownloaded = true
         }
     }
     
     func didFailToFetchArticle(with key: String, standardizedKey: String, error: Error) {
         mergeAndOperateOnArticle(with: key, standardizedKey: standardizedKey) { (article) in
-            standardizeArticle(article, with: standardizedKey)
             handleFailure(with: article, error: error)
         }
     }
@@ -354,7 +344,6 @@ private extension SavedArticlesFetcher {
 
     func didRemoveArticle(with key: String, standardizedKey: String) {
         mergeAndOperateOnArticle(with: key, standardizedKey: standardizedKey) { (article) in
-            standardizeArticle(article, with: standardizedKey)
             article.isDownloaded = false
         }
     }
@@ -381,8 +370,12 @@ private extension SavedArticlesFetcher {
                 article.merge(duplicateArticle)
                 dataStore.viewContext.delete(duplicateArticle)
             }
+            /// Ensures article.key matches the standardized key format
+            /// Fixes an issue where older versions of the app might have saved articles with percent encoded keys
+            if article.key != standardizedKey {
+                article.key = standardizedKey
+            }
             articleBlock(article)
-
         } catch (let error) {
             DDLogError("Error fetching WMFArticles after caching: \(error)");
         }
