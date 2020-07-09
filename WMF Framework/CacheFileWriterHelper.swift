@@ -53,10 +53,8 @@ final class CacheFileWriterHelper {
     }
     
     static func saveResponseHeader(headerFields: [String: String], toNewFileName fileName: String, completion: (FileSaveResult) -> Void) {
-        
-        let contentData: Data = NSKeyedArchiver.archivedData(withRootObject: headerFields)
-        
         do {
+            let contentData: Data = try NSKeyedArchiver.archivedData(withRootObject: headerFields, requiringSecureCoding: false)
             let newFileURL = self.fileURL(for: fileName)
             try contentData.write(to: newFileURL)
             completion(.success)
@@ -82,10 +80,12 @@ final class CacheFileWriterHelper {
     }
     
     static func replaceResponseHeaderWithHeaderFields(_ headerFields:[String: String], atFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
-        
-        let headerData: Data = NSKeyedArchiver.archivedData(withRootObject: headerFields)
-        
-        replaceFileWithData(headerData, fileName: fileName, completion: completion)
+        do {
+            let headerData: Data = try NSKeyedArchiver.archivedData(withRootObject: headerFields, requiringSecureCoding:false)
+            replaceFileWithData(headerData, fileName: fileName, completion: completion)
+        } catch let error {
+            completion(.failure(error))
+        }
     }
     
     static func replaceFileWithData(_ data: Data, fileName: String, completion: @escaping (FileSaveResult) -> Void) {

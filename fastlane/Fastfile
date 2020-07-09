@@ -7,7 +7,6 @@ default_platform :ios
 
 configurations_to_test_on_pull = [
   {device: 'iPhone X', os: '12.4'},
-  {device: 'iPad Air 2', os: '11.4'},
   {device: 'iPhone 8', os: '13.4'},
   {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13.4'}
 ]
@@ -21,12 +20,12 @@ beta_cluster_configurations_to_test = [
 ]
 
 def get_devices_by_scheme_from_options(options)
-  configs = options[:configurations] || [{device: 'iPhone X', os: '11.4'}]
+  configs = options[:configurations] || [{device: 'iPhone X', os: '12.4'}]
   devices_by_scheme = {}
   configs.each do |options|
     scheme = options[:scheme] || 'Wikipedia'
     device = options[:device] || 'iPhone X'
-    os = options[:os]         || '11.4'
+    os = options[:os]         || '12.4'
     sim = "#{device} (#{os})"
     devices = devices_by_scheme[scheme] || []
     devices << sim
@@ -73,7 +72,7 @@ platform :ios do
       scheme: "Wikipedia",
       configuration: "Debug",
       sdk: 'iphonesimulator',
-      destination: 'platform=iOS Simulator,OS=11.4,name=iPhone 6',
+      destination: 'platform=iOS Simulator,OS=12.4,name=iPhone X',
       analyze: true
     )
   end
