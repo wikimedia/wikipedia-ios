@@ -1,6 +1,7 @@
 osx_image: xcode11.5
 language: swift
 install:
+    - gem install bundler:2.0.1
     - bundle install
 script:
     - bundle exec fastlane verify_pull_request
