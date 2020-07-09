@@ -111,7 +111,8 @@ platform :ios do
         output_style: 'basic',
         configuration: 'Test',
         output_files: "#{scheme}.junit",
-        output_types: 'junit'
+        output_types: 'junit',
+        disable_concurrent_testing: true,
       }
       scan(opts)
     end
