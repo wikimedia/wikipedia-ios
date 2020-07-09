@@ -13,6 +13,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
  * List of unsupported language codes.
  *
  * As of iOS 8, the system font doesn't support these languages, e.g. "arc" (Aramaic, Syriac font). [0]
+ * As of iOS 9, it appears that Syriac languages are now natively supported in iOS.
  *
  * 0: http://syriaca.org/documentation/view-syriac.html
  */
