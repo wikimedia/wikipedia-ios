@@ -183,7 +183,7 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         case .unknown(let href):
             showExternalLinkInAlert(link: href)
         case .link(let href, _, let title):
-            if let title = title {
+            if let title = title, !title.isEmpty {
                 guard
                     let host = articleURL?.host,
                     let encodedTitle = title.percentEncodedPageTitleForPathComponents,
