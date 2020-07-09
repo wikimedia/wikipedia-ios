@@ -222,10 +222,12 @@ private extension SavedArticlesFetcher {
             
             if let articleToDelete = articleToDelete {
                 
-                guard let articleKey = articleToDelete.key, let articleObjectID = article?.objectID else {
+                guard let articleKey = articleToDelete.key else {
                     noArticleToDeleteCompletion()
                     return
                 }
+                
+                let articleObjectID = articleToDelete.objectID
                 
                 articleCacheController.remove(groupKey: articleKey, individualCompletion: { (itemResult) in
                     switch itemResult {
