@@ -1,6 +1,0 @@
-osx_image: xcode11.6
-language: swift
-install:
-    - bundle install
-script:
-    - bundle exec fastlane verify_pull_request
