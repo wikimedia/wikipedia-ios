@@ -42,6 +42,8 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         self.articleURL = articleURL
         self.previewWebViewContainer = PreviewWebViewContainer()
         super.init()
+
+        webView.scrollView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
