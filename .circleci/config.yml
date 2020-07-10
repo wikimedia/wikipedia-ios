@@ -4,19 +4,18 @@
 version: 2.1
 
 jobs:
-  build:
-
-    macos:
-      xcode: 11.5.0 # Specify the Xcode version to use
-
-    steps:
-      - checkout
-      - run: fastlane verify_pull_request # Run tests using Fastlane
-
-      # Collect XML test results data to show in the UI, and save the same XML
-      # files under test-results folder in the Artifacts tab
-      - store_test_results:
-          path: test_output
-      - store_artifacts:
-          path: test_output
-          destination: scan-output
+    build-and-test:
+      macos:
+        xcode: 11.3.0
+      environment:
+        FL_OUTPUT_DIR: output
+        FASTLANE_LANE: verify_pull_request
+      steps:
+        - checkout
+        - run:
+            name: Fastlane
+            command: bundle exec fastlane $FASTLANE_LANE
+        - store_artifacts:
+            path: output
+        - store_test_results:
+            path: output/scan
