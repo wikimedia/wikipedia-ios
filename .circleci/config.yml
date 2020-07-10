@@ -2,20 +2,23 @@
 # https://circleci.com/docs/2.0/testing-ios/
 
 version: 2.1
-
 jobs:
-    build-and-test:
-      macos:
-        xcode: 11.3.0
-      environment:
-        FL_OUTPUT_DIR: output
-        FASTLANE_LANE: verify_pull_request
-      steps:
-        - checkout
-        - run:
-            name: Fastlane
-            command: bundle exec fastlane $FASTLANE_LANE
-        - store_artifacts:
-            path: output
-        - store_test_results:
-            path: output/scan
+  build-and-test-pr:
+    macos:
+      xcode: 11.3.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: verify_pull_request
+    steps:
+      - checkout
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
+      - store_test_results:
+          path: output/scan
+workflows:
+  build-and-test-pr:
+    jobs:
+      - build-and-test-pr
