@@ -55,11 +55,11 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypeOnThisDay
 };
 
-typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
-    WMFFeedBlacklistOptionNone = 0,
-    WMFFeedBlacklistOptionContent = 1 << 0,    //blacklist specific section content
-    WMFFeedBlacklistOptionSection = 1 << 1,    //blacklist this section
-    WMFFeedBlacklistOptionAllSections = 1 << 2 // blacklist all sections of this type
+typedef NS_OPTIONS(NSInteger, WMFFeedBlocklistOption) {
+    WMFFeedBlocklistOptionNone = 0,
+    WMFFeedBlocklistOptionContent = 1 << 0,    //blocklist specific section content
+    WMFFeedBlocklistOptionSection = 1 << 1,    //blocklist this section
+    WMFFeedBlocklistOptionAllSections = 1 << 2 // blocklist all sections of this type
 };
 
 @protocol WMFFeedContentDisplaying
@@ -99,9 +99,9 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
 @property (nonatomic, readonly) WMFFeedHeaderActionType headerActionType;
 
 /*
- * Options for the blacklist menu
+ * Options for the blocklist menu
  */
-@property (nonatomic, readonly) WMFFeedBlacklistOption blackListOptions;
+@property (nonatomic, readonly) WMFFeedBlocklistOption blockListOptions;
 
 /**
  *  How to display the content of the section.
