@@ -564,6 +564,7 @@
 "page-protected-other" = "이 문서는 다음 수준으로 보호되어 있습니다: $1";
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
 "page-similar-titles" = "비슷한 문서";
+"panel-compare-revisions-text" = "판 비교는 시간이 지남에 따라 문서가 어떻게 바뀌었는지 보여줍니다. 문서의 두 판을 비교하는 경우 변경된 내용을 강조함으로써 해당 판들 사이의 차이를 보여줍니다.";
 "panel-compare-revisions-title" = "판 비교";
 "pictured" = "사진";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";

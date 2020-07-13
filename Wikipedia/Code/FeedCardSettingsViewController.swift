@@ -48,7 +48,7 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
     }()
 
     private lazy var mainSection: ExploreFeedSettingsSection = {
-        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [ExploreFeedSettingsMaster(for: .singleFeedCard(contentGroupKind))])
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [ExploreFeedSettingsPrimary(for: .singleFeedCard(contentGroupKind))])
     }()
 
     private lazy var languagesSection: ExploreFeedSettingsSection = {
@@ -75,7 +75,7 @@ extension FeedCardSettingsViewController {
             assertionFailure("feedContentController is nil")
             return
         }
-        guard controlTag != -1 else { // master switch
+        guard controlTag != -1 else { // main switch
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
             return
         }

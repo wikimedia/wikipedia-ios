@@ -135,16 +135,16 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedHeaderActionTypeOpenFirstItem;
 }
 
-- (WMFFeedBlacklistOption)blackListOptions {
+- (WMFFeedBlocklistOption)blockListOptions {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindRelatedPages:
-            return WMFFeedBlacklistOptionContent;
+            return WMFFeedBlocklistOptionContent;
         case WMFContentGroupKindLocationPlaceholder:
-            return WMFFeedBlacklistOptionSection;
+            return WMFFeedBlocklistOptionSection;
         default:
             break;
     }
-    return WMFFeedBlacklistOptionNone;
+    return WMFFeedBlocklistOptionNone;
 }
 
 - (WMFFeedDisplayType)displayTypeForItemAtIndex:(NSInteger)index {
