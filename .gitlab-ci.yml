@@ -1,0 +1,22 @@
+stages:
+  - verify_pull_request
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+before_script:
+  - gem install bundler
+  - bundle install
+
+verify_pull_request:
+  dependencies: []
+  stage: verify_pull_request
+  artifacts:
+    paths:
+      - fastlane/screenshots
+      - fastlane/logs
+  script:
+    - fastlane verify_pull_request
+  tags:
+    - ios
