@@ -97,7 +97,7 @@ platform :ios do
     xcversion(version: `cat ../.xcversion`)
   end
 
-  desc "Runs unit tests, generates JUnit reports."
+  desc "Runs unit tests, generates reports."
   lane :verify do |options|
     read_xcversion
     devices_by_scheme = get_devices_by_scheme_from_options(options)
@@ -108,11 +108,7 @@ platform :ios do
         project: 'Wikipedia.xcodeproj',
         buildlog_path: './build',
         output_directory: './build/reports',
-        output_style: 'basic',
-        configuration: 'Test',
-        output_files: "#{scheme}.junit",
-        output_types: 'junit',
-        disable_concurrent_testing: true,
+        configuration: 'Test'
       }
       scan(opts)
     end
