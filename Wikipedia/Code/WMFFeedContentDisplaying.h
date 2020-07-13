@@ -55,13 +55,6 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypeOnThisDay
 };
 
-typedef NS_OPTIONS(NSInteger, WMFFeedBlocklistOption) {
-    WMFFeedBlocklistOptionNone = 0,
-    WMFFeedBlocklistOptionContent = 1 << 0,    //blocklist specific section content
-    WMFFeedBlocklistOptionSection = 1 << 1,    //blocklist this section
-    WMFFeedBlocklistOptionAllSections = 1 << 2 // blocklist all sections of this type
-};
-
 @protocol WMFFeedContentDisplaying
 
 /**
@@ -97,11 +90,6 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlocklistOption) {
  * The action that shoud be performed when a user taps on the header.
  */
 @property (nonatomic, readonly) WMFFeedHeaderActionType headerActionType;
-
-/*
- * Options for the blocklist menu
- */
-@property (nonatomic, readonly) WMFFeedBlocklistOption blockListOptions;
 
 /**
  *  How to display the content of the section.
