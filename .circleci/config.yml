@@ -3,12 +3,9 @@
 
 version: 2.1
 jobs:
-  build-and-test-pr:
+  checkout-and-install-deps:
     macos:
       xcode: 11.5.0
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: verify_pull_request
     steps:
       - checkout
       - restore_cache:
@@ -18,6 +15,13 @@ jobs:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+  build-and-test-pr:
+    macos:
+      xcode: 11.5.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: verify_pull_request
+    steps:
       - run:
           name: Fastlane
           command: bundle exec fastlane $FASTLANE_LANE
@@ -25,7 +29,17 @@ jobs:
           path: output
       - store_test_results:
           path: output/scan
+  run-localization-script:
+    macos:
+        xcode: 11.5.0
+    steps:
+      - run: ruby scripts/twn.rb
 workflows:
-  build-and-test-pr:
+  test-pr:
     jobs:
+      - checkout-and-install-deps
       - build-and-test-pr
+  localization:
+    jobs:
+      - checkout-and-install-deps
+      - run-localization-script
