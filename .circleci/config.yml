@@ -6,7 +6,6 @@ jobs:
   build-and-test-pr:
     macos:
       xcode: 11.5.0
-    working_directory: /Users/distiller/project
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: verify_pull_request
