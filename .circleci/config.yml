@@ -38,8 +38,19 @@ workflows:
   test-pr:
     jobs:
       - checkout-and-install-deps
-      - build-and-test-pr
+      - build-and-test-pr:
+          requires:
+            - checkout-and-install-deps
   localization:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - twn
     jobs:
       - checkout-and-install-deps
-      - run-localization-script
+      - run-localization-script:
+          requires:
+            - checkout-and-install-deps
