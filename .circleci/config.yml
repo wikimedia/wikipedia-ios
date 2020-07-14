@@ -5,12 +5,13 @@ version: 2.1
 jobs:
   build-and-test-pr:
     macos:
-      xcode: 11.3.0
+      xcode: 11.5.0
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: verify_pull_request
     steps:
       - checkout
+      - run: bundle check || bundle install --path vendor/bundle
       - run:
           name: Fastlane
           command: bundle exec fastlane $FASTLANE_LANE
