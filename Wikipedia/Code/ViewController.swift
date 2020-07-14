@@ -162,8 +162,12 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     var isFirstAppearance = true
     
+    /// ViewController isActive from viewWillAppear through viewWillDisappear
+    var isActive = true
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isActive = true
         setupGestureRecognizerDependencies()
         guard navigationMode == .bar || navigationMode == .forceBar else {
             if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
@@ -225,6 +229,11 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
                 navigationBar.removeFromSuperview()
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        isActive = false
     }
  
     override func viewDidLayoutSubviews() {
