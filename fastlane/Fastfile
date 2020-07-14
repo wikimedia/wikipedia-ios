@@ -106,8 +106,6 @@ platform :ios do
         devices: devices,
         scheme: scheme,
         project: 'Wikipedia.xcodeproj',
-        buildlog_path: './build',
-        output_directory: './build/reports',
         configuration: 'Test'
       }
       scan(opts)
