@@ -55,13 +55,6 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypeOnThisDay
 };
 
-typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
-    WMFFeedBlacklistOptionNone = 0,
-    WMFFeedBlacklistOptionContent = 1 << 0,    //blacklist specific section content
-    WMFFeedBlacklistOptionSection = 1 << 1,    //blacklist this section
-    WMFFeedBlacklistOptionAllSections = 1 << 2 // blacklist all sections of this type
-};
-
 @protocol WMFFeedContentDisplaying
 
 /**
@@ -97,11 +90,6 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  * The action that shoud be performed when a user taps on the header.
  */
 @property (nonatomic, readonly) WMFFeedHeaderActionType headerActionType;
-
-/*
- * Options for the blacklist menu
- */
-@property (nonatomic, readonly) WMFFeedBlacklistOption blackListOptions;
 
 /**
  *  How to display the content of the section.
