@@ -6,6 +6,11 @@ public struct MediaListItemSource: Codable {
         case urlString = "src"
         case scale
     }
+
+    public init (urlString: String, scale: String) {
+        self.urlString = urlString
+        self.scale = scale
+    }
 }
 
 public enum MediaListItemType: String {
@@ -29,6 +34,15 @@ public struct MediaListItem: Codable {
         case type
         case audioType
     }
+
+    public init(title: String?, sectionID: Int, type: String, showInGallery: Bool, sources: [MediaListItemSource]?, audioType: String? = nil) {
+        self.title = title
+        self.sectionID = sectionID
+        self.type = type
+        self.showInGallery = showInGallery
+        self.sources = sources
+        self.audioType = audioType
+    }
 }
 
 extension MediaListItem {
@@ -39,4 +53,8 @@ extension MediaListItem {
 
 public struct MediaList: Codable {
     public let items: [MediaListItem]
+
+    public init(items: [MediaListItem]) {
+        self.items = items
+    }
 }
