@@ -135,18 +135,6 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedHeaderActionTypeOpenFirstItem;
 }
 
-- (WMFFeedBlacklistOption)blackListOptions {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindRelatedPages:
-            return WMFFeedBlacklistOptionContent;
-        case WMFContentGroupKindLocationPlaceholder:
-            return WMFFeedBlacklistOptionSection;
-        default:
-            break;
-    }
-    return WMFFeedBlacklistOptionNone;
-}
-
 - (WMFFeedDisplayType)displayTypeForItemAtIndex:(NSInteger)index {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:

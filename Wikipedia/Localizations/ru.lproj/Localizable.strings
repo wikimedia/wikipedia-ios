@@ -149,6 +149,7 @@
 "article-languages-others" = "Другие языки";
 "article-languages-yours" = "Ваши языки";
 "article-read-more-title" = "Подробнее";
+"article-reference-view-title" = "Примечание $1";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
@@ -205,6 +206,7 @@
 "description-welcome-descriptions-title" = "Краткие описания";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+"diff-compare-title" = "Сравнить версии";
 "diff-context-lines-collapsed-button-title" = "Показать";
 "diff-context-lines-expanded-button-title" = "Скрыть";
 "diff-paragraph-moved-direction-down" = "вниз";
@@ -282,6 +284,8 @@
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
+"empty-diff-compare-title" = "Нет различий между версиями";
+"empty-diff-single-title" = "Нет видимых изменений";
 "empty-insert-media-title" = "Выберите файл на Викискладе";
 "empty-no-article-message" = "К сожалению, не удалось скачать статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
@@ -532,16 +536,22 @@
 "page-history-compare-title" = "Сравнить";
 "page-history-minor-edits" = "малые правки";
 "page-history-revision-author-accessibility-label" = "Автор: $1";
+"page-history-revision-comment-accessibility-label" = "Комментарий $1";
 "page-history-revision-history-title" = "История изменений";
 "page-history-revision-minor-edit-accessibility-label" = "Малая правка";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Добавлен $1 байт|Добавлено $1 байта|Добавлено $1 байтов}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Удалён $1 байт|Удалено $1 байта|Удалено $1 байтов}}";
+"page-history-revisions-comparison-warning" = "Можно выбрать только две версии";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
+"page-issues" = "Проблемы страницы";
+"page-location" = "Посмотреть на карте";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
 "page-protected-can-not-edit-title" = "Эта страница защищена";
 "page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
 "page-protected-sysop" = "Эта страница была полностью защищена.";
+"page-similar-titles" = "Похожие страницы";
+"panel-compare-revisions-title" = "Сравнение версий";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-group" = "$1 статьи";

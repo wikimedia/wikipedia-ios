@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
 #import "NSURL+WMFExtras.h"
 
-static NSURL *dummyURLWithExtension(NSString *extension) {
+static NSURL *testURLWithExtension(NSString *extension) {
     return [NSURL URLWithString:[@"http://foo.org/bar." stringByAppendingString:extension]];
 }
 
@@ -21,8 +21,8 @@ static NSURL *dummyURLWithExtension(NSString *extension) {
 
 - (void)testMimeTypeWithPNGExtension {
     NSArray *testURLMimeTypes =
-        [@[dummyURLWithExtension(@"png"),
-           dummyURLWithExtension(@"PNG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
+        [@[testURLWithExtension(@"png"),
+           testURLWithExtension(@"PNG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
     for (NSString *mimeType in testURLMimeTypes){
         XCTAssertEqualObjects(mimeType, @"image/png");
     }
@@ -30,10 +30,10 @@ static NSURL *dummyURLWithExtension(NSString *extension) {
 
 - (void)testMimeTypeWithJPEGExtension {
     NSArray *testURLMimeTypes =
-        [@[dummyURLWithExtension(@"jpg"),
-           dummyURLWithExtension(@"jpeg"),
-           dummyURLWithExtension(@"JPG"),
-           dummyURLWithExtension(@"JPEG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
+        [@[testURLWithExtension(@"jpg"),
+           testURLWithExtension(@"jpeg"),
+           testURLWithExtension(@"JPG"),
+           testURLWithExtension(@"JPEG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
     for (NSString *mimeType in testURLMimeTypes){
         XCTAssertEqualObjects(mimeType, @"image/jpeg");
     }
@@ -41,8 +41,8 @@ static NSURL *dummyURLWithExtension(NSString *extension) {
 
 - (void)testMimeTypeWithGIFExtension {
     NSArray *testURLMimeTypes =
-        [@[dummyURLWithExtension(@"gif"),
-           dummyURLWithExtension(@"GIF")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
+        [@[testURLWithExtension(@"gif"),
+           testURLWithExtension(@"GIF")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
     for (NSString *mimeType in testURLMimeTypes){
         XCTAssertEqualObjects(mimeType, @"image/gif");
     }

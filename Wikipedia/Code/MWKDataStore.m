@@ -111,11 +111,19 @@ static uint64_t bundleHash() {
 - (NSDictionary *)loadSharedInfoDictionaryWithContainerURL:(NSURL *)containerURL {
     NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
     NSData *infoDictionaryData = [NSData dataWithContentsOfURL:infoDictionaryURL];
-    NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:infoDictionaryData];
+    NSError *unarchiveError = nil;
+    NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDictionary class] fromData:infoDictionaryData error:&unarchiveError];
+    if (unarchiveError) {
+        DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
+    }
     if (!infoDictionary[@"CrossProcessNotificiationChannelName"]) {
         NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
         infoDictionary = @{@"CrossProcessNotificiationChannelName": channelName};
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary];
+        NSError *archiveError = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary requiringSecureCoding:false error:&archiveError];
+        if (archiveError) {
+            DDLogError(@"Error archiving shared info dictionary: %@", archiveError);
+        }
         [data writeToURL:infoDictionaryURL atomically:YES];
     }
     return infoDictionary;
@@ -144,7 +152,12 @@ static uint64_t bundleHash() {
     NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
     NSData *data = [NSData dataWithContentsOfURL:fileURL];
-    NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSError *unarchiveError = nil;
+    NSDictionary *userInfo = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDictionary class] fromData:data error:&unarchiveError];
+    if (unarchiveError) {
+        DDLogError(@"Error unarchiving cross process core data notification: %@", unarchiveError);
+        return;
+    }
     [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
 }
 
@@ -229,7 +242,14 @@ static uint64_t bundleHash() {
     uint64_t state = bundleHash();
 
     NSDictionary *archiveableUserInfo = [self archivableNotificationUserInfoForUserInfo:userInfo];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:archiveableUserInfo];
+    
+    NSError *archiveError = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:archiveableUserInfo requiringSecureCoding:NO error:&archiveError];
+    if (archiveError) {
+        DDLogError(@"Error archiving cross process changes: %@", archiveError);
+        return;
+    }
+    
     NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
     NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
