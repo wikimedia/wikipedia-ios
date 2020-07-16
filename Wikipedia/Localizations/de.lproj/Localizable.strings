@@ -184,6 +184,7 @@
 "diff-context-lines-expanded-button-title" = "Ausblenden";
 "diff-multi-line-format" = "Zeilen $1 bis $2";
 "diff-paragraph-moved" = "Abschnitt verschoben";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 Zeile|$1 Zeilen}}";
 "diff-revision-error-title" = "Die Version konnten nicht geladen werden.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}}";
 "diff-single-header-editor-title" = "Autoreninformationen";
@@ -194,6 +195,7 @@
 "diff-single-line-format" = "Zeile $1";
 "diff-thanks-login-subtitle" = "'Danken' sind eine einfache Möglichkeit, die Arbeit eines Editors bei Wikipedia zu würdigen. Du must eingeloggt sein, um 'Danken' zu senden.";
 "diff-thanks-login-title" = "Anmelden, um 'Danken' zu senden";
+"diff-thanks-send-button-title" = "Für diese Bearbeitung danken";
 "diff-unedited-lines-format" = "$1 unbearbeitete {{PLURAL:$1|Zeile|Zeilen}}";
 "dim-images" = "Bilder dimmen";
 "edit-bold-accessibility-label" = "Fett-Formatierung hinzufügen";

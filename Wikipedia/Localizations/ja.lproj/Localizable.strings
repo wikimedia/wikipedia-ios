@@ -20,6 +20,7 @@
 // Author: Phantomize
 // Author: Ridmevo
 // Author: Shirayuki
+// Author: Siglite3
 // Author: SkyDaisy9
 // Author: Suchichi02
 // Author: Sujiniku
@@ -43,10 +44,10 @@
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-complete-list" = "完全なリスト";
 "about-libraries-license" = "ライセンス";
-"about-libraries-licenses-title" = "オープンソースソフトウェア$1を愛しています";
+"about-libraries-licenses-title" = "オープンソースソフトウェアを愛しています$1";
 "about-places-maps-license" = "付近のスポットで使用される地図のライセンス";
 "about-places-maps-license-details" = "付近のスポットの地図は Apple Maps により提供されています。$1。";
-"about-places-maps-license-details-link-text" = "ライセンスの詳細はこちらをご覧ください。";
+"about-places-maps-license-details-link-text" = "ライセンスの詳細はこちらをご覧ください";
 "about-product-of" = "あなたのようなボランティアの手助けのもと、$1 によって作られました";
 "about-repositories" = "リポジトリについて";
 "about-repositories-app-source-license" = "ソースコードは $1 で利用可能です。";
@@ -130,12 +131,14 @@
 "appearance-settings-theme-options" = "テーマオプション";
 "article-about-title" = "この記事について";
 "article-delete" = "削除";
-"article-deleted-accessibility-notification" = "{{PLURAL:$1|article|記事}}を削除しました";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|記事}}を削除しました";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-languages-label" = "言語を選択";
 "article-languages-others" = "他の言語で読む";
 "article-languages-yours" = "お使いの言語";
-"article-save-error-not-enough-space" = "デバイスの空き容量不足でこの記事を保存できません";
+"article-read-more-title" = "さらに読む";
+"article-reference-view-title" = "情報源 $1";
+"article-save-error-not-enough-space" = "デバイスの空き容量が不足しているため、この記事を保存できません";
 "article-share" = "共有";
 "article-toolbar-reading-themes-controls-toolbar-item" = "テーマのコントロールを読み込む";
 "back-button-accessibility-label" = "戻る";
@@ -191,7 +194,9 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
+"diff-compare-header-from-info-heading" = "差出人:";
 "diff-compare-header-heading" = "版を比較";
+"diff-compare-header-to-info-heading" = "宛先:";
 "diff-compare-title" = "版を比較";
 "diff-context-lines-collapsed-button-title" = "表示";
 "diff-context-lines-expanded-button-title" = "隠す";
@@ -531,6 +536,7 @@
 "page-history-compare-title" = "比較";
 "page-history-minor-edits" = "細部の編集";
 "page-history-revision-author-accessibility-label" = "作者: $1";
+"page-history-revision-comment-accessibility-label" = "コメント $1";
 "page-history-revision-history-title" = "変更履歴";
 "page-history-revision-minor-edit-accessibility-label" = "細部の編集";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1バイト}}の追加";

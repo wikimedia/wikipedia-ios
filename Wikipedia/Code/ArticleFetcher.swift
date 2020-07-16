@@ -296,7 +296,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return request
     }
     
-    public func mobileHTMLRequest(articleURL: URL, revisionID: UInt64? = nil, scheme: String? = nil, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
+    public func mobileHTMLRequest(articleURL: URL, revisionID: UInt64? = nil, scheme: String? = nil, cachePolicy: WMFCachePolicy? = nil, isPageView: Bool = false) throws -> URLRequest {
         
         var url = try mobileHTMLURL(articleURL: articleURL, revisionID: revisionID)
         
@@ -310,6 +310,10 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             if revisionID != nil {
                 // Enables the caching system to update the revisionless url cache when this call goes through
                 urlRequest.customCacheUpdatingURL = try mobileHTMLURL(articleURL: articleURL)
+            }
+            if isPageView {
+                // https://phabricator.wikimedia.org/T256507
+                urlRequest.setValue("pageview=1", forHTTPHeaderField: "X-Analytics")
             }
             return urlRequest
         } else {
