@@ -2,7 +2,7 @@
 # opens a PR when the twn branch changes. used by jenkins.
 
 pr_branch = 'twn'
-base_branch = 'master'
+base_branch = 'main'
 time_string = Time.now.strftime("%m/%d/%Y")
 title = "TWN sync on #{time_string}"
 

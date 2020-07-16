@@ -117,6 +117,7 @@
 "article-languages-label" = "Valitse kieli";
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
+"article-read-more-title" = "Lue lisää";
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
@@ -388,8 +389,7 @@
 "in-the-news-currently-trending" = "Tällä hetkellä suosittuja";
 "in-the-news-notification-read-now-action-title" = "Lue nyt";
 "in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Jaa...";
+"in-the-news-notification-share-action-title" = "Jaa…";
 "in-the-news-sub-title-from-language-wikipedia" = "Wikipedian kieliversiossa $1";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediasta";
 "in-the-news-title" = "Uutisissa";
@@ -397,6 +397,7 @@
 "insert-link-title" = "Lisää linkki";
 "insert-media-alternative-text-placeholder" = "Kuvaile tätä kuvaa";
 "insert-media-alternative-text-title" = "Vaihtoehtoinen teksti";
+"insert-media-caption-caption-placeholder" = "Kuinka tämä kuva liittyy artikkeliin?";
 "insert-media-caption-title" = "Kuvateksti";
 "insert-media-image-position-setting-center" = "Keski";
 "insert-media-image-position-setting-left" = "Vasen";
@@ -477,8 +478,11 @@
 "page-history-revision-minor-edit-accessibility-label" = "Pieni muutos";
 "page-history-revision-size-diff-addition" = "Lisätty {{PLURAL:$1|$1 tavu|$1 tavua}}";
 "page-history-revision-size-diff-subtraction" = "Poistettu {{PLURAL:$1|$1 tavu|$1 tavua}}";
+"page-history-revisions-comparison-warning" = "Vain kaksi versiota voidaan valita";
 "page-history-stats-text" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}} vuoden $2 jälkeen";
 "page-history-user-edits" = "käyttäjiltä";
+"page-issues" = "Sivun ongelmat";
+"page-location" = "Tarkastele kartalla";
 "page-protected-autoconfirmed" = "Tämä sivu on osittain suojattu.";
 "page-protected-can-not-edit" = "Sinulla ei ole oikeuksia muokata tätä sivua";
 "page-protected-can-not-edit-title" = "Tämä sivu on suojattu";
@@ -715,6 +719,7 @@
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
 "talk-page-info-active-conversations" = "Keskustelut kieliversion $1 Wikipediassa";
+"talk-page-info-active-conversations-generic" = "Aktiiviset keskustelut Wikipediassa";
 "talk-page-link-user-action-sheet-safari" = "Näytä käyttäjäsivu Safarissa";
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-banner-subtitle" = "Olemme kaikki tavallisia ihmisiä";
