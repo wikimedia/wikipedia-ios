@@ -349,6 +349,7 @@
 "insert-media-alternative-text-placeholder" = "Írd le a képet";
 "insert-media-alternative-text-title" = "Alternatív szöveg";
 "insert-media-caption-caption-placeholder" = "Hogyan kapcsolódik ez a kép a szócikkhez?";
+"insert-media-caption-title" = "Képaláírás";
 "insert-media-image-position-setting-center" = "Középre";
 "insert-media-image-position-setting-left" = "Balra";
 "insert-media-image-position-setting-right" = "Jobbra";
@@ -413,6 +414,7 @@
 "on-this-day-detail-header-date-range" = "$1 és $2 között";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 történelmi esemény|$1 történelmi esemény}}";
 "on-this-day-footer" = "Több történelmi esemény ezen a napon";
+"on-this-day-footer-with-event-count" = "$1 további történelmi esemény ezen a napon";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
 "page-history-anonymous-edits" = "névtelen szerkesztés";
@@ -428,6 +430,7 @@
 "page-history-revision-size-diff-subtraction" = "Eltávolítva {{PLURAL:$1|$1 bájt|$1 bájt}}";
 "page-history-revision-time-accessibility-label" = "Változtatás közzétéve ekkor: $1";
 "page-history-stats-text" = "{{PLURAL:$1|$Egy szerkesztés|$1 szerkesztés}} $2-óta";
+"page-location" = "Megtekintés térképen";
 "page-protected-autoconfirmed" = "Ez a lap félig védett.";
 "page-protected-can-not-edit" = "Nincs jogosultságod a lap szerkesztéséhez";
 "page-protected-can-not-edit-title" = "Ez a lap védett";

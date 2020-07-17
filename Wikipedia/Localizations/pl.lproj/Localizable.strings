@@ -26,6 +26,7 @@
 // Author: Rail
 // Author: Railfail536
 // Author: Stojex
+// Author: Strebski
 // Author: The Polish
 // Author: Ty221
 // Author: Vesihiisi
@@ -639,12 +640,15 @@
 "reading-list-unable-to-update" = "Wystąpił nieoczekiwany błąd podczas aktualizowania listy czytelniczej. Spróbuj ponownie później.";
 "reading-lists-article-added-confirmation" = "Artykuł dodany do “$1”";
 "reading-lists-article-api-failure" = "Nie można zsynchronizować artykułu";
+"reading-lists-article-not-synced" = "Nie zsynchronizowane";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limit artykułów przekroczony, nie można zsynchronizować artykułu";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limit list przekroczony, nie można zsynchronizować artykułu";
 "reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";
 "reading-lists-articles-not-synced-limit-exceeded" = "Nie można było zsynchronizować niektórych artykułów, limit przekroczony";
+"reading-lists-default-list-description" = "Domyślna lista dla Twoich zapisanych artykułów";
 "reading-lists-default-list-title" = "Zapisane";
 "reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
+"reading-lists-list-not-synced-limit-exceeded" = "Listy nie zostały zsynchronizowane, przekroczono limit";
 "reading-lists-sort-saved-articles" = "Sortuj zapisane artykuły";
 "reading-themes-controls-accessibility-black-theme-button" = "Czarny motyw";
 "reading-themes-controls-accessibility-dark-theme-button" = "Ciemny motyw";
@@ -673,6 +677,7 @@
 "reverted-edit-back-to-article-button-title" = "Wróć do artykułu";
 "reverted-edit-notification-read-more-action-title" = "Czytaj więcej";
 "reverted-edit-possible-reasons-subtitle" = "Wiemy, że starałeś się jak najlepiej, ale jeden z recenzentów miał obawy. \n\nMożliwe przyczyny cofnięcia edycji obejmują:";
+"reverted-edit-thanks-for-editing-title" = "Dziękujemy za edytowanie Wikipedii!";
 "reverted-edit-title" = "Cofnięto edycję";
 "reverted-edit-view-guidelines-text" = "Zobacz wytyczne";
 "saved-all-articles-title" = "Wszystkie artykuły";
@@ -694,6 +699,7 @@
 "search-result-redirected-from" = "Przekierowanie z: $1";
 "search-title" = "Wyszukiwanie";
 "settings-account" = "Konto";
+"settings-clear-cache" = "Wyczyść dane z pamięci podręcznej";
 "settings-clear-cache-are-you-sure-title" = "Czy wyczyścić dane z pamięci podręcznej?";
 "settings-clear-cache-cancel" = "Anuluj";
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";

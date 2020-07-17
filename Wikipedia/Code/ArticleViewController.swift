@@ -413,12 +413,12 @@ class ArticleViewController: ViewController, HintPresenting {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy, isPageView: true) else {
             showGenericError()
             state = .error
             return
         }
-                
+
         webView.load(request)
     }
     
@@ -923,6 +923,9 @@ private extension ArticleViewController {
         // Delegates
         webView.uiDelegate = self
         webView.navigationDelegate = self
+        
+        // User Agent
+        webView.customUserAgent = WikipediaAppUtils.versionedUserAgent()
     }
     
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints

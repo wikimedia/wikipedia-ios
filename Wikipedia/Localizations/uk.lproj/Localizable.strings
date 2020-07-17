@@ -20,7 +20,7 @@
 // Author: Ата
 // Author: Дар'я Козлова
 
-"about-content-license" = "Ліцензія на контент";
+"about-content-license" = "Ліцензія на вміст";
 "about-content-license-details" = "Якщо не вказано інше, вміст доступний під ліцензією $1.";
 "about-content-license-details-share-alike-license" = "Ліцензія Creative Commons Attribution-ShareAlike";
 "about-contributors" = "Співавтори";
@@ -781,7 +781,7 @@
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
-"table-of-contents-hide-button-label" = "Приховати зміст";
+"table-of-contents-hide-button-label" = "Приховати вміст";
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
 "talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
 "talk-page-discussion-read-accessibility-label" = "Прочитане";
