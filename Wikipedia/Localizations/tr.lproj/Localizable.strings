@@ -73,7 +73,7 @@
 "account-creation-captcha-title" = "CAPTCHA güvenlik kontrolü";
 "account-creation-create-account" = "Hesabınızı oluşturun";
 "account-creation-have-account" = "Zaten bir hesabınız var mı? $1";
-"account-creation-log-in" = "Oturum aç.";
+"account-creation-log-in" = "Oturum açın.";
 "account-creation-logging-in" = "Oturum açılıyor...";
 "account-creation-missing-fields" = "Bir hesap oluşturmak için kullanıcı adı, parola ve parola onayı girmeniz gerekir.";
 "account-creation-passwords-mismatched" = "Parola alanları uyuşmuyor.";
@@ -114,7 +114,7 @@
 "action-update" = "Güncelle";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "add-citation-title" = "Kaynak ekle";
-"announcements-dismiss" = "Reddet";
+"announcements-dismiss" = "Kapat";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
 "app-store-short-description" = "Size yakın yerler keşfetmek, çevrimdışı makaleler okumak ve okuma deneyiminizi özelleştirmek için Vikipedi uygulamasını indirin.";
@@ -556,7 +556,7 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 bayt|$1 bayt}} eklendi";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 bayt|$1 bayt}} kaldırıldı";
 "page-history-revision-time-accessibility-label" = "$1 revizyon yapıldı";
-"page-history-revisions-comparison-warning" = "Sadece iki revizyon seçilebilir";
+"page-history-revisions-comparison-warning" = "Yalnızca iki revizyon seçilebilir";
 "page-history-stats-text" = "$2'den beri {{PLURAL:$1|$1 düzenleme|$1 düzenleme}} yapıyor";
 "page-history-user-edits" = "kullanıcı düzenlemeleri";
 "page-issues" = "Sayfa sorunları";

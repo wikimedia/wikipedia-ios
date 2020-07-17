@@ -18,6 +18,7 @@
 // Author: Platinawolf
 // Author: Pyscowicz
 // Author: Rockyfelle
+// Author: Sabelöga
 // Author: Skalman
 // Author: Technic2
 // Author: WikiPhoenix
@@ -63,7 +64,7 @@
 "account-creation-log-in" = "Logga in.";
 "account-creation-logging-in" = "Loggar in...";
 "account-creation-missing-fields" = "Du måste ange ett användarnamn, lösenord och en lösenordsbekräftelse för att skapa ett konto.";
-"account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
+"account-creation-passwords-mismatched" = "Lösenorden stämmer inte överens.";
 "account-creation-saving" = "Sparar...";
 "account-creation-title" = "Skapa ett nytt konto";
 "account-group-title" = "Ditt konto";
@@ -79,7 +80,7 @@
 "action-language-accessibility" = "Byt språk";
 "action-move-to" = "Flytta till...";
 "action-move-to-reading-list" = "Flytta till läslista";
-"action-next-revision-accessibility" = "Nästa version";
+"action-next-revision-accessibility" = "Nästa sidversion";
 "action-previous-revision-accessibility" = "Föregående sidversion";
 "action-read" = "Läs";
 "action-redo" = "Gör om";

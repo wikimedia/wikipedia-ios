@@ -7,6 +7,7 @@
 // Author: Geonuch
 // Author: Horus
 // Author: Karit
+// Author: Korrawit
 // Author: Nemo bis
 // Author: Patsagorn Y.
 // Author: Pon44695
@@ -415,7 +416,7 @@
 "login-no-account" = "ไม่มีบัญชีหรือ $1";
 "login-title" = "เข้าสู่ระบบบัญชีของคุณ";
 "main-menu-about" = "เกี่ยวกับแอป";
-"main-menu-account-login" = "ลงชื่อเข้า";
+"main-menu-account-login" = "เข้าสู่ระบบ";
 "main-menu-account-logout" = "ลงชื่อออก";
 "main-menu-account-logout-are-you-sure" = "คุณแน่ใจว่าต้องการออกจากระบบหรือไม่";
 "main-menu-account-logout-cancel" = "ยกเลิก";

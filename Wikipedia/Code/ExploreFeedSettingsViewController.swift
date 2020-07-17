@@ -213,7 +213,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }()
 
     private lazy var mainSection: ExploreFeedSettingsSection = {
-        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: WMFLocalizedString("explore-feed-preferences-turn-off-feed-disclosure", value: "Turning off the Explore tab will replace the Explore tab with a Settings tab.", comment: "Text for explaining the effects of turning off the Explore tab"), items: [ExploreFeedSettingsMaster(for: .entireFeed)])
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: WMFLocalizedString("explore-feed-preferences-turn-off-feed-disclosure", value: "Turning off the Explore tab will replace the Explore tab with a Settings tab.", comment: "Text for explaining the effects of turning off the Explore tab"), items: [ExploreFeedSettingsPrimary(for: .entireFeed)])
     }()
 
     private lazy var languagesSection: ExploreFeedSettingsSection? = {
@@ -295,7 +295,7 @@ extension ExploreFeedSettingsViewController {
             assertionFailure("feedContentController is nil")
             return
         }
-        guard controlTag != -1 else { // master switch
+        guard controlTag != -1 else { // main switch
             if sender.isOn {
                 present(turnOnExploreAlertController(turnedOn: {
                     self.dataStore?.feedContentController.toggleAllContentGroupKinds(true, updateFeed: false)
