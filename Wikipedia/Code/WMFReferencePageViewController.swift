@@ -75,6 +75,7 @@ class WMFReferencePageViewController: ReferenceViewController, UIPageViewControl
         }
         
         apply(theme: theme)
+        accessibilityElements = [backToReferenceButton as Any, navigationItem.title as Any, closeButton as Any, pageControllers as Any]
     }
     
     fileprivate func addBackgroundView() {

@@ -185,9 +185,12 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
             dismissReferencesPopover()
         }
     }
-    
+
     func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController) {
         scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true)
+        dispatchOnMainQueueAfterDelayInSeconds(1.0) {
+            self.webView.wmf_accessibilityCursor(toFragment: referenceBackLink.id)
+        }
     }
     
     func referenceViewControllerUserDidNavigateBackToReference(_ vc: ReferenceViewController) {
@@ -196,9 +199,11 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate {
             showGenericError()
             return
         }
-        scroll(to: "back_link_\(referenceId)", highlighted: true, animated: true) { [weak self] in
+        let backLink = "back_link_\(referenceId)"
+        scroll(to: backLink, highlighted: true, animated: true) { [weak self] in
             dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
                 self?.messagingController.removeElementHighlights()
+                self?.webView.wmf_accessibilityCursor(toFragment: backLink)
             }
         }
     }
