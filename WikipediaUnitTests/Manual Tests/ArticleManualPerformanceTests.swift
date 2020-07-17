@@ -34,7 +34,7 @@ class ArticleManualPerformanceTests: XCTestCase {
             
             let dataStore = MWKDataStore.temporary()
             guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light) else {
-                XCTFail("Unable to instantiate MeasurableArticleViewController")
+                XCTFail("Unable to instantiate ArticleViewController")
                 return
             }
             
@@ -59,7 +59,7 @@ class ArticleManualPerformanceTests: XCTestCase {
         self.measure {
             
             guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light) else {
-                XCTFail("Unable to instantiate MeasurableArticleViewController")
+                XCTFail("Unable to instantiate ArticleViewController")
                 return
             }
             
