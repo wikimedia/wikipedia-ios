@@ -113,6 +113,7 @@ final public class LocationManager: NSObject {
 
     deinit {
         stopMonitoringLocation()
+        locationManager.delegate = nil
     }
 
     // MARK: - Private
