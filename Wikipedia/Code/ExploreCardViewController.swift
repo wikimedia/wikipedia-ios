@@ -643,7 +643,7 @@ extension ExploreCardViewController: ArticlePreviewingDelegate {
 extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewCellDelegate {
     func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell) {
         UserDefaults.standard.wmf_setExploreDidPromptForLocationAuthorization(true)
-        if locationManager.autorizationStatus == .notDetermined {
+        if locationManager.authorizationStatus == .notDetermined {
             locationManager.startMonitoringLocation()
             return
         }

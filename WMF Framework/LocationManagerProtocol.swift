@@ -14,7 +14,7 @@ import CoreLocation
     /// Delegate for update location manager
     var delegate: LocationManagerDelegate? { get set }
     /// Get current locationManager permission state
-    var autorizationStatus: CLAuthorizationStatus { get }
+    var authorizationStatus: CLAuthorizationStatus { get }
     /// Return `true` if user is aurthorized or authorized always
     var isAuthorized: Bool { get }
 
@@ -31,5 +31,6 @@ import CoreLocation
 }
 
 extension LocationManager: LocationManagerProtocol {
-    public var isAuthorized: Bool { autorizationStatus.isAuthorized }
+    
+    public var isAuthorized: Bool { authorizationStatus.isAuthorized }
 }

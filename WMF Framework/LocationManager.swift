@@ -47,20 +47,25 @@ final public class LocationManager: NSObject {
     public private(set) var isUpdating = false
 
     /// Set the delegate if you want to receive location and heading updates.
-    public var delegate: LocationManagerDelegate?
+    public weak var delegate: LocationManagerDelegate?
 
     /// Returns the current locationManager permission state.
-    public var autorizationStatus: CLAuthorizationStatus { type(of: locationManager).authorizationStatus() }
+    public var authorizationStatus: CLAuthorizationStatus { type(of: locationManager).authorizationStatus() }
 
     /// Starts monitoring location and heading updates.
     public func startMonitoringLocation() {
-        guard autorizationStatus != .notDetermined else {
-            authorize(succcess: startMonitoringLocation)
-            DDLogVerbose("LocationManager - skip monitoring location because status is \(autorizationStatus.rawValue).")
+        
+        guard isUpdating == false else {
+            return
+        }
+        
+        guard authorizationStatus != .notDetermined else {
+            authorize(success: startMonitoringLocation)
+            DDLogVerbose("LocationManager - skip monitoring location because status is \(authorizationStatus.rawValue).")
             return
         }
 
-        guard autorizationStatus.isAuthorized else {
+        guard authorizationStatus.isAuthorized else {
             // Start monitoring location in case the authorization status ever changes to authorized.
             authorizedCompletion = startMonitoringLocation
             return
@@ -121,8 +126,8 @@ final public class LocationManager: NSObject {
     /// or `authorizedWhenInUse`.
     private var authorizedCompletion: (() -> Void)?
 
-    private func authorize(succcess: (() -> Void)? = nil) {
-        authorizedCompletion = succcess
+    private func authorize(success: (() -> Void)? = nil) {
+        authorizedCompletion = success
         locationManager.requestWhenInUseAuthorization()
         DDLogInfo("LocationManager - requesting authorization to access location when in use.")
     }
@@ -154,6 +159,7 @@ final public class LocationManager: NSObject {
 
         if let observer = orientationObserver {
             NotificationCenter.default.removeObserver(observer)
+            orientationObserver = nil
         }
     }
 
@@ -175,7 +181,7 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
-        guard isUpdating else { return }
+        guard isUpdating, heading.headingAccuracy > 0 else { return }
 
         self.heading = heading
         delegate?.locationManager?(self, didUpdate: heading)
