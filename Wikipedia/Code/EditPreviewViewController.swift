@@ -142,7 +142,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
             #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
-            // If on local or staging PCS, we need to split this call. On the server, wikitext-to-mobilehtml just puts together two other
+            // If on local or staging PCS, we need to split this call. On the RESTBase server, wikitext-to-mobilehtml just puts together two other
             // calls - wikitext-to-html, and html-to-mobilehtml. Since we have html-to-mobilehtml in local/staging PCS but not the first call, if
             // we're making PCS edits to mobilehtml we need this code in order to view them. We split the call (similar to what the server dioes)
             // routing the wikitext-to-html call to production, and html-to-mobilehtml to local or staging PCS.
@@ -160,7 +160,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             }
             try fetcher.fetchMobileHTMLFromWikitext(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview, completion: completion)
             #else
-            let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
+            let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview)
             previewWebViewContainer.webView.load(request)
             #endif
         } catch {
