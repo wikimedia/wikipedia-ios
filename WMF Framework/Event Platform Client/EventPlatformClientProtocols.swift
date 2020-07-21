@@ -9,10 +9,6 @@
  *     Designed for use with Wikipedia iOS application producing events to the
  *     EventGate intake service.
  *
- * AUTHORS
- *     Mikhail Popov <mpopov@wikimedia.org>
- *     Jason Linehan <jlinehan@wikimedia.org>
- *
  * LICENSE NOTICE
  *     Copyright 2019 Wikimedia Foundation
  *
@@ -47,14 +43,17 @@ import Foundation
  *
  * The storage manager needs to be able to handle persistent storage of any type of value. When storing a
  * session identifier, for example, it needs to store a `String`. When storing queued-up, to-be-sent events
- * when entering background, it needs to store `[(String, String)]`. When storing raw logged events,
- * they can look like dictionaries-within-dictionaries. Fortunately, the types within those dictionaries are always
+ * when entering background, it needs to store `[Event]`. When storing raw logged events, they can look
+ * be dictionaries-within-dictionaries. Fortunately, the types within those dictionaries are always
  * encodable/decodable (e.g. `String`, `Int`, `Bool`, `Double` and arrays of those types).
+ *
+ * Additionally, it makes the app's install ID available as the device identifier (`deviceID`).
  */
 public protocol StorageManager {
-    func set_persisted(_ key: String, _ value: Any)
-    func del_persisted(_ key: String)
-    func get_persisted(_ key: String, completion: (Any?) -> Void)
+    func setPersisted(_ key: String, _ value: Any)
+    func deletePersisted(_ key: String)
+    func getPersisted(_ key: String, completion: (Any?) -> Void)
+    var deviceID: String { get }
 }
 
 /**
@@ -76,6 +75,9 @@ public protocol StorageManager {
  *   and the app is closed
  * - be smart about queuing up outgoing HTTP requests and sending them in bursts at some prespecified
  *   interval, to not wake up the radio for every individual request whenever possible
+ * - technically, EventGate can accept batches of bundled events (up to a certain POST body byte length), so
+ *   it is possible to make fewer overall requests by sending them in batches at the expense of a heavier
+ *   payload in each request
  * - when being used to download (e.g. fetch the stream configuration from MediaWiki API), the network
  *   manager should retry if there is an error, except if the response has a 404 status code (e.g. EPC is
  *   misconfigured, the stream config URI needs to be fixed/updated, and, optionally/preferably, the error
@@ -89,7 +91,7 @@ public protocol NetworkManager {
     /**
      * For fire-and-forget via `HTTP POST` (e.g. for sending events to EventGate endpoint)
      */
-    func http_post(url: String, body: String)
+    func httpPost(url: String, body: String)
     /**
      * For downloading data
      *
@@ -97,5 +99,5 @@ public protocol NetworkManager {
      * HTTP response is 200 or 304. It is up to the implementation to print an informational error in case
      * of any problems downloading.
      */
-    func http_download(url: String, completion: (Data?) -> Void)
+    func httpDownload(url: String, completion: (Data?) -> Void)
 }
