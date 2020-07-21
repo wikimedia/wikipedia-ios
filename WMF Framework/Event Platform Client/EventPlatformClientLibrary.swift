@@ -9,10 +9,6 @@
  *     Designed for use with Wikipedia iOS application producing events to the
  *     EventGate intake service.
  *
- * AUTHORS
- *     Mikhail Popov <mpopov@wikimedia.org>
- *     Jason Linehan <jlinehan@wikimedia.org>
- *
  * LICENSE NOTICE
  *     Copyright 2019 Wikimedia Foundation
  *
@@ -41,53 +37,6 @@
  */
 
 import Foundation
-
-/**
- * **Note**: have not been able to get this into Dictionary+JSON.swift without getting "inaccessible due to
- * 'internal' protection level" error when actually trying to use these methods.
- */
-extension Dictionary {
-    /**
-     * This enables us to pass a `[String: Any]` dictionary to`EPC.shared.log()` from anywhere
-     * in the app.
-     *  - Returns: JSON string representation of the object
-     */
-    var jsonDescription: String {
-        get {
-            let jsonData = try? JSONSerialization.data(withJSONObject: self, options: [])
-            let jsonString = String(data: jsonData!, encoding: .utf8)!
-            return jsonString
-        }
-    }
-    var prettyPrintJSON: String {
-        get {
-            let jsonData = try? JSONSerialization.data(
-                withJSONObject: self,
-                options: [JSONSerialization.WritingOptions.prettyPrinted]
-            )
-            let jsonString = String(data: jsonData!, encoding: .utf8)!
-            return jsonString
-        }
-    }
-}
-
-extension Dictionary where Key == String, Value == [String] {
-    /**
-     * Convenience function that appends `value` to an existing string array, but only if that value does not
-     * already exist in the array
-     * - Parameter key: key under which to find or create the string array
-     * - Parameter value: value to append to the string array or use as the first value of a new one
-     */
-    mutating func append_if_new(key: String, value: String) {
-        if self.keys.contains(key) {
-            if !self[key]!.contains(value) {
-                self[key]!.append(value)
-            }
-        } else {
-            self[key] = [value]
-        }
-    }
-}
 
 /**
  * Event Platform Client (EPC)
@@ -121,39 +70,58 @@ extension Dictionary where Key == String, Value == [String] {
  */
 public class EPC {
 
+    struct Event {
+        let stream: String
+        let schema: String
+        let data: [String: Any]
+        let domain: String?
+    }
+
     // MARK: - Properties
 
-    public static let shared = EPC() // singleton
+    // public static let shared = EPC() // singleton
+
+    /**
+     * Serial dispatch queue that makes `inputBuffer` and `samplingCache` thread-safe.
+     */
+    private let queue = DispatchQueue(label: "EventPlatformClient-" + UUID().uuidString)
 
     /**
      * See [wikitech:Event Platform/EventGate](https://wikitech.wikimedia.org/wiki/Event_Platform/EventGate)
      * for more information. Specifically, the section on **eventgate-analytics-external**.
      */
-    private let EVENTGATE_URI: String
-    private let CONFIG_URI: String
+    private let wmf_eventGateURI: String
+    private let wmf_configURI: String
     /**
-     * `ENABLED` is a safeguard against logging events while the app is in background state.
+     * A safeguard against logging events while the app is in background state.
      */
-    private var ENABLED: Bool
-    private var CONFIG: [String: [String: Any]]? = nil
-    private var COPIED = [String: [String]]()
+    private var loggingEnabled: Bool
     /**
-     * Updated with every `log` call, used for determining if session expired.
+     * Holds each stream's configuration.
      */
-    private var LAST_TS: Date = Date()
-    private var SESSION_ID: String? = nil
-    private var DEVICE_ID: String? = nil
-    private let ISO8601_FORMATTER: ISO8601DateFormatter
+    private var streamConfigurations: [String: [String: Any]]? = nil
+    /**
+     * Holds a map of which streams should be cc-ed when an event is logged to a particular stream.
+     * See section on stream cc-ing in [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
+     */
+    private var streamCopy = [String: [String]]()
+    /**
+     * Updated with every `log` call and when app enters background, used for determining if the
+     * session has expired.
+     */
+    private var lastTimestamp: Date = Date()
+    private var _sessionID: String? = nil
+    private let iso8601Formatter: ISO8601DateFormatter
 
     /**
      * For persistent storage
      */
-    private var storage_manager: StorageManager?
+    private let storageManager: StorageManager
 
     /**
      * For handling HTTP requests
      */
-    private var network_manager: NetworkManager?
+    private let networkManager: NetworkManager
 
     /**
      * Store events until the library is finished initializing
@@ -161,8 +129,10 @@ public class EPC {
      * The EPC library makes an HTTP request to a remote stream configuration service for information
      * about how to evaluate incoming event data. Until this initialization is complete, we store any incoming
      * events in this buffer.
+     *
+     * Only modify (append events to, remove events from) asynchronously via `queue.async`
      */
-    private var input_buffer = [(stream: String, schema: String, data: [String: Any], domain: String?)]()
+    private var inputBuffer = [Event]()
 
     /**
      * Cache of "in sample" / "out of sample" determination for each stream
@@ -170,60 +140,54 @@ public class EPC {
      * The process of determining only has to happen the first time an event is logged to a stream for
      * which stream configuration is available. All other times `in_sample` simply returns the cached
      * determination.
+     *
+     * Only cache determinations asynchronously via `queue.async`
      */
-    private var cache: [String: Bool] = [String: Bool]()
+    private var samplingCache: [String: Bool] = [String: Bool]()
 
     // MARK: - Methods
 
-    private init() {
-        EVENTGATE_URI = "https://intake-analytics.wikimedia.org/v1/events"
-        CONFIG_URI = "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json"
-        ISO8601_FORMATTER = ISO8601DateFormatter()
-        ENABLED = true
-    }
+    public init(network_manager: NetworkManager, storage_manager: StorageManager) {
+        self.networkManager = network_manager
+        self.storageManager = storage_manager
 
-    /**
-     * Tell which storage manager EPC should use
-     *
-     * ERROR: Method cannot be declared public because its parameter uses an internal type
-     */
-    public func set_storage_manager(_ sm: StorageManager) {
-        storage_manager = sm
-        recall_buffer()
-    }
+        wmf_eventGateURI = "https://intake-analytics.wikimedia.org/v1/events"
+        wmf_configURI = "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json"
+        /* TODO: instead of baking in where to fetch stream configs from, fetch
+         * from every language that the user has in their preferences, since
+         * stream configurations can be deployed to all wikis and on a per-wiki
+         * basis. Not sure how to merge configs for streams, though
+         */
+        iso8601Formatter = ISO8601DateFormatter()
+        loggingEnabled = true
 
-    /**
-     * Tell which network manager EPC should use
-     *
-     * ERROR: Method cannot be declared public because its parameter uses an internal type
-     */
-    public func set_network_manager(_ nm: NetworkManager) {
-        network_manager = nm
+        recallBuffer()
         configure()
     }
 
     /**
      * Stores the input buffer of generated events in persistent storage and clears it
      */
-    private func persist_buffer() {
-        storage_manager?.set_persisted("epc_input_buffer", input_buffer)
+    private func persistBuffer() {
+        storageManager.setPersisted("epc_input_buffer", inputBuffer)
     }
 
     /**
      * Retrieves persisted input buffer and deletes it from storage
      *
-     * Merges retrieved events with any existing events in `input_buffer`.
+     * Merges retrieved events with any existing events in `inputBuffer`.
      */
-    private func recall_buffer() {
-        storage_manager?.get_persisted("epc_input_buffer", completion: {
-            value in
-            if value != nil {
-                let ib = value as! [(stream: String, schema: String, domain: String, data: [String: Any])]
-                for e in ib {
-                    input_buffer.append(e)
-                }
-                storage_manager!.del_persisted("epc_input_buffer")
+    private func recallBuffer() {
+        storageManager.getPersisted("epc_input_buffer", completion: { value in
+            guard let ib = value as? [Event] else {
+                return
             }
+            for event in ib {
+                queue.async {
+                    self.inputBuffer.append(event)
+                }
+            }
+            storageManager.deletePersisted("epc_input_buffer")
         })
     }
 
@@ -231,8 +195,9 @@ public class EPC {
      * This method is called by the application delegate in `applicationWillResignActive()` and
      * disables event logging.
      */
-    public func app_in_background() {
-        ENABLED = false
+    public func appInBackground() {
+        loggingEnabled = false
+        lastTimestamp = Date()
     }
     /**
      * This method is called by the application delegate in `applicationDidBecomeActive()` and
@@ -240,10 +205,10 @@ public class EPC {
      *
      * If it has been more than 15 minutes since the app entered background state, a new session is started.
      */
-    public func app_in_foreground() {
-        ENABLED = true
-        if session_timed_out() {
-            begin_new_session()
+    public func appInForeground() {
+        loggingEnabled = true
+        if sessionTimedOut() {
+            beginNewSession()
         }
     }
     /**
@@ -252,15 +217,15 @@ public class EPC {
      * We do not persist session ID on app close because we have decided that a session ends when the
      * user (or the OS) has closed the app or when 15 minutes of inactivity have assed.
      */
-    public func app_will_close() {
-        ENABLED = false
-        persist_buffer()
+    public func appWillClose() {
+        loggingEnabled = false
+        persistBuffer()
     }
 
     /**
      * Generates a new identifier using the same algorithm as EPC libraries for web and Android
      */
-    private func generate_id() -> String {
+    private func generateID() -> String {
         var id: String = ""
         for _ in 1...8 {
             id += String(format: "%04x", arc4random_uniform(65535))
@@ -271,33 +236,30 @@ public class EPC {
     /**
      * Unset the session
      */
-    private func begin_new_session() -> Void {
-        SESSION_ID = nil
-        cache.removeAll()
+    private func beginNewSession() -> Void {
+        _sessionID = nil
+        queue.async {
+            self.samplingCache.removeAll()
+        }
     }
 
     /**
-     * Generate a session identifier
-     * - Returns: session ID
-     *
-     * The identifier is a string of 20 zero-padded hexadecimal digits representing a uniformly random
-     * 80-bit integer.
-     */
-    public func session_id() -> String {
-        if SESSION_ID == nil {
-            SESSION_ID = generate_id()
-        }
-        return SESSION_ID!
-    }
+    * Return a session identifier
+    * - Returns: session ID
+    *
+    * The identifier is a string of 20 zero-padded hexadecimal digits representing a uniformly random
+    * 80-bit integer.
+    */
+    private var sessionID: String {
+        get {
+            guard let sID = _sessionID else {
+                let newID = generateID()
+                _sessionID = newID
+                return newID
+            }
 
-    /**
-     * Returns the app install ID stored on the device
-     */
-    public func device_id() -> String {
-        if DEVICE_ID == nil {
-            DEVICE_ID = EventLoggingService.shared?.appInstallID!
+            return sID
         }
-        return DEVICE_ID!
     }
 
     /**
@@ -306,11 +268,11 @@ public class EPC {
      * A new session ID is required if it has been more than 15 minutes since the user was last active
      * (e.g. when app entered background).
      */
-    private func session_timed_out() -> Bool {
+    private func sessionTimedOut() -> Bool {
         /*
          * A TimeInterval value is always specified in seconds.
          */
-        return LAST_TS.timeIntervalSinceNow < -900
+        return lastTimestamp.timeIntervalSinceNow < -900
     }
 
     /**
@@ -323,15 +285,15 @@ public class EPC {
          * stream configuration and that it will hold off on trying to download
          * if there is no connectivity.
          */
-        if CONFIG == nil {
-            network_manager!.http_download(url: CONFIG_URI, completion: {
+        if streamConfigurations == nil {
+            networkManager.httpDownload(url: wmf_configURI, completion: {
                 data in
-                let from_json = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: [String: Any]]
-                if from_json != nil {
-                    self.set_stream_config(from_json!)
-                } else {
-                    print("Problem processing stream config from response")
+                guard let data = data,
+                    let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: [String: Any]] else {
+                        DDLogWarn("[EPC] Problem processing stream config from response")
+                        return
                 }
+                setStreamConfig(from: json)
             })
         }
     }
@@ -340,9 +302,18 @@ public class EPC {
      * Called by `configure`'s completion handler after stream configuration has been downloaded and
      * processed into a dictionary
      */
-    private func set_stream_config(_ config: [String : [String : Any]]) -> Void {
-        print("[EPC] Loaded stream configuration:\n\(config.prettyPrintJSON)")
-        CONFIG = config
+    private func setStreamConfig(from config: [String : [String : Any]]) -> Void {
+
+        #if DEBUG
+        do {
+            let jsonString = try config.toPrettyPrintJSONString()
+            DDLogDebug("[EPC] Loaded stream configurations:\n\(jsonString)")
+        } catch let error {
+            DDLogError("[EPC] \(error.localizedDescription)")
+        }
+        #endif
+
+        streamConfigurations = config
         /*
          * Figure out which streams can be cc'd (e.g. edit ~> edit.growth).
          *
@@ -361,25 +332,37 @@ public class EPC {
          */
         for stream in config.keys {
             let s = stream.split(separator: ".")
-            let n_prefixes = s.count - 1
-            if n_prefixes > 1 {
-                for i in 1...n_prefixes {
+            let nPrefixes = s.count - 1
+            if nPrefixes > 1 {
+                for i in 1...nPrefixes {
                     let child = s[0...i].joined(separator: ".")
                     let parent = s[0..<i].joined(separator: ".")
-                    COPIED.append_if_new(key: parent, value: child)
+                    streamCopy.appendIfNew(key: parent, value: child)
                 }
-            } else if n_prefixes == 1 {
-                COPIED.append_if_new(key: String(s[0]), value: stream)
+            } else if nPrefixes == 1 {
+                streamCopy.appendIfNew(key: String(s[0]), value: stream)
             }
         }
-        print("[EPC] Stream cc-ing:\n\(COPIED.prettyPrintJSON)")
-        if CONFIG != nil && input_buffer.count > 0 {
-            var cached_event: (stream: String, schema: String, data: [String: Any], domain: String?)? = input_buffer.remove(at: 0)
-            while cached_event != nil {
-                log(stream: cached_event!.stream,
-                    schema: cached_event!.schema,
-                    data: cached_event!.data, domain: cached_event!.domain)
-                cached_event = input_buffer.remove(at: 0) // next
+
+        #if DEBUG
+        do {
+            let jsonString = try streamCopy.toPrettyPrintJSONString()
+            DDLogDebug("[EPC] Map of streams to CC:\n\(jsonString)")
+        } catch let error {
+            DDLogError("[EPC] \(error.localizedDescription)")
+        }
+        #endif
+
+        queue.async {
+            if self.inputBuffer.count > 0 {
+                var cachedEvent: Event
+                while !self.inputBuffer.isEmpty {
+                    cachedEvent = self.inputBuffer.remove(at: 0)
+                    self.log(stream: cachedEvent.stream,
+                             schema: cachedEvent.schema,
+                             data: cachedEvent.data,
+                             domain: cachedEvent.domain)
+                }
             }
         }
     }
@@ -387,7 +370,7 @@ public class EPC {
     /**
      * Yields a deterministic (not stochastic) determination of whether the provided `id` is
      * in-sample or out-of-sample according to the `acceptance` rate
-     * - Parameter id: either session ID generated with `generate_id` or the app install ID
+     * - Parameter id: either session ID generated with `generateID` or the app install ID
      * generated with `UUID().uuidString`
      * - Parameter acceptance: the desired proportion of many `token`-s being accepted
      *
@@ -397,7 +380,9 @@ public class EPC {
      * and its events will show up in tables "A" and "B".
      */
     private func determine(_ id: String, _ acceptance: Double) -> Bool {
-        let token: UInt32 = UInt32(id.prefix(8), radix: 16)!
+        guard let token = UInt32(id.prefix(8), radix: 16) else {
+            return false
+        }
         return (Double(token) / Double(UInt32.max)) < acceptance
     }
 
@@ -413,49 +398,67 @@ public class EPC {
      * [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
      * for more information.
      */
-    private func in_sample(stream: String) -> Bool {
+    private func inSample(stream: String) -> Bool {
 
-        if !cache.keys.contains(stream) {
-            let stream_entry: [String: Any] = CONFIG![stream]!
-            if stream_entry.keys.contains("config") {
-                let stream_config = stream_entry["config"] as! [String: Any]
-                if stream_config.keys.contains("sampling") {
-                    let sampling_config = stream_config["sampling"] as! [String: Any]
-                    /*
-                     * If cache does not have a determination for stream,
-                     * generate one.
-                     */
-                    if !sampling_config.keys.contains("rate") {
-                        /*
-                         * If stream doesn't have a rate, assume 1.0 (always
-                         * in-sample). Cache this determination for any future
-                         * use.
-                         */
-                        cache[stream] = true
-                    } else {
-                        /*
-                         * All platforms use session ID as the default
-                         * identifier for determining in- vs out-of-sample of
-                         * events sent to streams. On the web, streams can be
-                         * set to use pageview token instead. On the apps,
-                         * streams can be set to use device token instead.
-                         */
-                        var identifier = "session"
-                        if sampling_config.keys.contains("identifier") {
-                            identifier = sampling_config["identifier"] as! String
-                            if identifier != "session" && identifier != "device" {
-                                cache[stream] = false
-                                return false
-                            }
-                            identifier = identifier == "session" ? session_id() : device_id()
-                            let rate = sampling_config["rate"]! as! Double
-                            cache[stream] = determine(identifier, rate)
-                        } // end if there's identifier in sampling config
-                    } // end if there's rate in sampling config
-                } // end if there's a sampling config
-            } // end if there's a config
-        } // end if there's no cached determination
-        return cache[stream]!
+        guard let configs = streamConfigurations else {
+            DDLogDebug("[EPC] Invalid state, must have streamConfigurations to check for inSample")
+            return false
+        }
+        if let cachedValue = samplingCache[stream] {
+            return cachedValue
+        }
+
+        guard let config = configs[stream] else {
+            DDLogError("[EPC] Invalid state, stream '\(stream)' must be present in streamConfigurations to check for inSample")
+            return false
+        }
+
+        guard let samplingConfig = config["sampling"] as? [String: Any] else {
+            /*
+             * If stream is present in streamConfigurations but doesn't have
+             * sampling settings, it is always in-sample.
+             */
+            queue.async {
+                self.samplingCache[stream] = true
+            }
+            return true
+        }
+
+        /*
+         * If cache does not have a determination for stream, generate one.
+         */
+        guard let rate = samplingConfig["rate"] as? Double else {
+            /*
+             * If stream doesn't have a rate, assume 1.0 (always in-sample).
+             * Cache this determination for any future use.
+             */
+            queue.async {
+                self.samplingCache[stream] = true
+            }
+            return true
+        }
+
+        /*
+         * All platforms use session ID as the default identifier for
+         * determining in- vs out-of-sample of events sent to streams. On the
+         * web, streams can be set to use pageview token instead. On the apps,
+         * streams can be set to use device token instead.
+         */
+        let identifierType = samplingConfig["identifier"] as? String ?? "session"
+
+        guard identifierType == "session" || identifierType == "device" else {
+            queue.async {
+                self.samplingCache[stream] = false
+            }
+            return false
+        }
+
+        let identifier = identifierType == "session" ? sessionID : storageManager.deviceID
+        let result = determine(identifier, rate)
+        queue.async {
+            self.samplingCache[stream] = result
+        }
+        return result
     }
 
     /**
@@ -497,18 +500,16 @@ public class EPC {
      *   `MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()!.host!`
      */
     public func log(stream: String, schema: String, data: [String: Any], domain: String? = nil) -> Void {
-        if !ENABLED {
+        guard loggingEnabled else {
             return
         }
-        var meta: [String: String]
-        if data.keys.contains("meta") {
-            meta = data["meta"]! as! [String: String]
-        } else {
-            meta = [String: String]()
+
+        var meta: [String: String] = data["meta"] as? [String: String] ?? [:]
+
+        if let domain = domain {
+            meta["domain"] = domain
         }
-        if domain != nil {
-            meta["domain"] = domain!
-        }
+
         var data = data
         data["meta"] = meta
 
@@ -520,8 +521,9 @@ public class EPC {
          * for more information.
          */
         if !data.keys.contains("client_dt") {
-            LAST_TS = Date()
-            data["client_dt"] = ISO8601_FORMATTER.string(from: LAST_TS)
+            let clientDateTime = Date()
+            data["client_dt"] = iso8601Formatter.string(from: clientDateTime)
+            lastTimestamp = clientDateTime
         }
 
         /*
@@ -530,29 +532,43 @@ public class EPC {
          * they're cc'd to any other streams (once config is available).
          */
         if !data.keys.contains("session_id") {
-            data["session_id"] = session_id()
+            data["session_id"] = sessionID
         }
 
-        if CONFIG == nil {
-            input_buffer.append((stream, schema, data, domain))
-            return
-        } else {
-            // CC to other streams, even if this stream does not exist
-            if COPIED.keys.contains(stream) {
-                for cc_stream in COPIED[stream]! {
-                    log(stream: cc_stream, schema: schema, data: data, domain: domain)
-                }
-            }
-            if !(CONFIG!.keys.contains(stream)) {
-                return
-            }
+        #if DEBUG
+        do {
+            let jsonString = try data.toPrettyPrintJSONString()
+            DDLogDebug("[EPC] Event logged to stream '\(stream)' (schema: \(schema):\n\(jsonString)")
+        } catch let error {
+            DDLogError("[EPC] \(error.localizedDescription)")
         }
+        #endif
 
-        if !in_sample(stream: stream) {
+        guard let streamConfigs = streamConfigurations else {
+            let event = Event(stream: stream, schema: schema, data: data, domain: domain)
+            queue.async {
+                self.inputBuffer.append(event)
+            }
             return
         }
 
-        data["device_id"] = device_id()
+        // CC to other streams, even if this stream does not exist
+        if let copiedStreams = streamCopy[stream] {
+            for ccStream in copiedStreams {
+                DDLogDebug("[EPC] CC-ing stream '\(ccStream)' from stream '\(stream)'")
+                log(stream: ccStream, schema: schema, data: data, domain: domain)
+            }
+        }
+
+        if !(streamConfigs.keys.contains(stream)) {
+            return
+        }
+
+        if !inSample(stream: stream) {
+            return
+        }
+
+        data["device_id"] = storageManager.deviceID
         /*
          * EventGate needs to know which version of the schema to validate
          * against (e.g. '/mediawiki/client/error/1.0.0')
@@ -561,15 +577,20 @@ public class EPC {
 
         meta["stream"] = stream
         /*
-         * meta.id is optional and should only be done in case the client is
+         * meta.id is *optional* and should only be done in case the client is
          * known to send duplicates of events, otherwise we don't need to
          * make the payload any heavier than it already is
          */
         meta["id"] = UUID().uuidString // UUID with RFC 4122 v4 random bytes
         data["meta"] = meta // update metadata
 
-        network_manager!.http_post(url: EVENTGATE_URI, body: data.jsonDescription)
-
+        do {
+            let jsonString = try data.toJSONString()
+            DDLogDebug("[EPC] Sending HTTP request to \(wmf_eventGateURI) with POST body: \(jsonString)")
+            networkManager.httpPost(url: wmf_eventGateURI, body: jsonString)
+        } catch let error {
+            DDLogError("[EPC] \(error.localizedDescription)")
+        }
     }
 
     /**

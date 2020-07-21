@@ -1331,8 +1331,8 @@
 		83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
 		83FBE9771F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
 		83FBE9781F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
-		98165A6324917C1A00ED8178 /* EventPlatformClientProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98165A6224917C1A00ED8178 /* EventPlatformClientProtocols.swift */; };
-		98165A6524917C2C00ED8178 /* EventPlatformClientLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98165A6424917C2C00ED8178 /* EventPlatformClientLibrary.swift */; };
+		985FBF9A24C72B6D00961926 /* EventPlatformClientProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98165A6224917C1A00ED8178 /* EventPlatformClientProtocols.swift */; };
+		985FBF9B24C72B7400961926 /* EventPlatformClientLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98165A6424917C2C00ED8178 /* EventPlatformClientLibrary.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B0016CB921354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
 		B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
@@ -9930,7 +9930,6 @@
 				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				98165A6524917C2C00ED8178 /* EventPlatformClientLibrary.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* TableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -10293,7 +10292,6 @@
 				B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				B0408C552127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				B0E805911C0CE2C60065EBC0 /* WMFLoginFunnel.m in Sources */,
-				98165A6324917C1A00ED8178 /* EventPlatformClientProtocols.swift in Sources */,
 				7AF56C3521DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				83C0656B23D23220001821BC /* TableOfContentsItem.swift in Sources */,
 				672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */,
@@ -10350,6 +10348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6779D45A2400822B002840CA /* MWKImageInfoFetcher.h in Sources */,
+				985FBF9A24C72B6D00961926 /* EventPlatformClientProtocols.swift in Sources */,
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
 				832A7A6023EAE03200D0A750 /* String+JavaScript.swift in Sources */,
@@ -10560,6 +10559,7 @@
 				D8FA18E71E1BD8AF009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
 				7A3159CF206458B000143119 /* ReadingListAlertType.swift in Sources */,
 				7A3AD05820ADB1A900C92E04 /* WMFAuthenticationManager.swift in Sources */,
+				985FBF9B24C72B7400961926 /* EventPlatformClientLibrary.swift in Sources */,
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
 				D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */,
 				D8FA18BA1E1BD891009675C3 /* NSDate+WMFRelativeDate.m in Sources */,
