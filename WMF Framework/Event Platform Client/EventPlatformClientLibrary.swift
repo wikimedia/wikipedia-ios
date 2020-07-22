@@ -352,15 +352,14 @@ public class EPC {
         }
         #endif
 
-        //might be able to change this to sync so most of this runs on the regular thread.
-            var cachedEvent: Event
-            while !inputBufferIsEmpty() {
-                cachedEvent = removeInputBufferAtIndex(0)
-                self.log(stream: cachedEvent.stream,
-                         schema: cachedEvent.schema,
-                         data: cachedEvent.data,
-                         domain: cachedEvent.domain)
-            }
+        var cachedEvent: Event
+        while !inputBufferIsEmpty() {
+            cachedEvent = removeInputBufferAtIndex(0)
+            self.log(stream: cachedEvent.stream,
+                     schema: cachedEvent.schema,
+                     data: cachedEvent.data,
+                     domain: cachedEvent.domain)
+        }
     }
 
     /**
