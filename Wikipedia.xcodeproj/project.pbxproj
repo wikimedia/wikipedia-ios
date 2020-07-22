@@ -1174,6 +1174,7 @@
 		8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
 		8386BDFD2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
 		8386BDFE2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		8387CE8824C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */; };
 		83927D7B1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
@@ -3641,6 +3642,8 @@
 		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
 		8386BDF02386D3E1007EE89D /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageWebViewController.swift; sourceTree = "<group>"; };
+		8387CE8624C8C6CF00439D93 /* Wikipedia 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 4.xcdatamodel"; sourceTree = "<group>"; };
+		8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFSecureUnarchiveFromDataTransformer.swift; sourceTree = "<group>"; };
 		83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationPagesViewController.swift; sourceTree = "<group>"; };
 		83927D801F705B7B00051890 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
@@ -8083,6 +8086,7 @@
 				D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */,
 				D85BD2441F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h */,
 				D85BD2451F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m */,
+				8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */,
 				D84448541DDCE49D00425630 /* WMFContentGroup+CoreDataClass.h */,
 				D84448551DDCE49D00425630 /* WMFContentGroup+CoreDataClass.m */,
 				D84448561DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.h */,
@@ -10557,6 +10561,7 @@
 				D8B29B8C1D77251F00161291 /* ImageController.swift in Sources */,
 				D844D99D1D6CB61B0042D692 /* NSString+WMFExtras.m in Sources */,
 				D837B5B21F0D68B800DCB9CD /* URL+LinkParsing.swift in Sources */,
+				8387CE8824C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift in Sources */,
 				67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */,
 				67D6C00A240581ED005709B1 /* CacheItemMigrationPolicy.swift in Sources */,
 				D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */,
@@ -20622,11 +20627,12 @@
 		D844480D1DDA33D900425630 /* Wikipedia.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8387CE8624C8C6CF00439D93 /* Wikipedia 4.xcdatamodel */,
 				D834DAA823E8538700B7B0E9 /* Wikipedia 3.xcdatamodel */,
 				67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */,
 				D844480E1DDA33D900425630 /* Wikipedia.xcdatamodel */,
 			);
-			currentVersion = D834DAA823E8538700B7B0E9 /* Wikipedia 3.xcdatamodel */;
+			currentVersion = 8387CE8624C8C6CF00439D93 /* Wikipedia 4.xcdatamodel */;
 			path = Wikipedia.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
