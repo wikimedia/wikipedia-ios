@@ -110,10 +110,8 @@ static uint64_t bundleHash() {
 
 - (NSDictionary *)loadSharedInfoDictionaryWithContainerURL:(NSURL *)containerURL {
     NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
-    NSData *infoDictionaryData = [NSData dataWithContentsOfURL:infoDictionaryURL];
     NSError *unarchiveError = nil;
-    NSSet *allowedClasses = [NSSet setWithObjects:[NSDictionary class], [NSString class], nil];
-    NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:infoDictionaryData error:&unarchiveError];
+    NSDictionary *infoDictionary = [self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError];
     if (unarchiveError) {
         DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
     }
@@ -148,14 +146,18 @@ static uint64_t bundleHash() {
     });
 }
 
+- (NSDictionary *)unarchivedDictionaryFromFileURL:(NSURL *)fileURL error:(NSError **)error {
+    NSData *data = [NSData dataWithContentsOfURL:fileURL];
+    NSSet *allowedClasses = [NSSet setWithArray:[NSSecureUnarchiveFromDataTransformer allowedTopLevelClasses]];
+    return [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:error];
+}
+
 - (void)handleCrossProcessCoreDataNotificationWithState:(uint64_t)state {
     NSURL *baseURL = self.containerURL;
     NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
-    NSData *data = [NSData dataWithContentsOfURL:fileURL];
     NSError *unarchiveError = nil;
-    NSSet *allowedClasses = [NSSet setWithObjects:[NSDictionary class], [NSString class], nil];
-    NSDictionary *userInfo = [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:&unarchiveError];
+    NSDictionary *userInfo = [self unarchivedDictionaryFromFileURL:fileURL error:&unarchiveError];
     if (unarchiveError) {
         DDLogError(@"Error unarchiving cross process core data notification: %@", unarchiveError);
         return;
