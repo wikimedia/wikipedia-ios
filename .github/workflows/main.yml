@@ -8,7 +8,5 @@ jobs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Install Dependencies
-      run: bundle install
     - name: Running Tests
       run: bundle exec fastlane verify_pull_request
