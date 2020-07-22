@@ -303,6 +303,7 @@ class ArticleViewController: ViewController, HintPresenting {
         surveyTimerController.timerFireBlock = { [weak self] result in
             self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
         }
+        self.navigationItem.backButtonTitle = article.displayTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {
