@@ -24,6 +24,7 @@
     return cache;
 }
 
+/// We allow other WMFMTLModels to be decoded as values for properties on our model objects, so WMFMTLModel needs to be added to allowedSecureCodingClassesByPropertyKey. It seemed simpler to implement in one place and allow it for any property rather than re-implementing on every class.
 + (NSDictionary *)allowedSecureCodingClassesByPropertyKey {
     NSString *className = NSStringFromClass([self class]);
     NSMutableDictionary *cache = [self allowedSecureCodingClassesByPropertyKeyCache];
