@@ -46,7 +46,6 @@ const addSearchTermHighlights = (textNode, searchTerm) => {
 }
 
 const searchTermIndex = (textNode, searchTerm) => textNode.nodeValue.toLowerCase().indexOf(searchTerm)
-const isHidden = element => element.offsetParent === null
 
 const searchTermHighlightFilter = node => {
   if (node.tagName !== 'SPAN') {
@@ -78,7 +77,7 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
 
   // const startTime = new Date()
   const matchMarker = node => addSearchTermHighlights(node, searchTerm.toLowerCase())
-  const matchFilter = node => !tagsToIgnore.has(node.parentElement.tagName) && !isHidden(node.parentElement)
+  const matchFilter = node => !tagsToIgnore.has(node.parentElement.tagName)
   walkBackwards(document.body, NodeFilter.SHOW_TEXT, matchFilter, matchMarker)
 
   const orderedMatchIDsToReport = [...document.querySelectorAll('span.findInPageMatch')].map(element => element.id)

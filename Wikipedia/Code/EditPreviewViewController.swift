@@ -103,6 +103,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             loggedEditActions.add(EditFunnel.Action.preview)
         }
         apply(theme: theme)
+        previewWebViewContainer.webView.uiDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,7 +142,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
             #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
-            // If on local or staging PCS, we need to split this call. On the server, wikitext-to-mobilehtml just puts together two other
+            // If on local or staging PCS, we need to split this call. On the RESTBase server, wikitext-to-mobilehtml just puts together two other
             // calls - wikitext-to-html, and html-to-mobilehtml. Since we have html-to-mobilehtml in local/staging PCS but not the first call, if
             // we're making PCS edits to mobilehtml we need this code in order to view them. We split the call (similar to what the server dioes)
             // routing the wikitext-to-html call to production, and html-to-mobilehtml to local or staging PCS.
@@ -159,7 +160,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             }
             try fetcher.fetchMobileHTMLFromWikitext(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview, completion: completion)
             #else
-            let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext)
+            let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview)
             previewWebViewContainer.webView.load(request)
             #endif
         } catch {
@@ -176,14 +177,13 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     }
 }
 
-
 extension EditPreviewViewController: ArticleWebMessageHandling {
     func didRecieve(action: ArticleWebMessagingController.Action) {
         switch action {
         case .unknown(let href):
             showExternalLinkInAlert(link: href)
         case .link(let href, _, let title):
-            if let title = title {
+            if let title = title, !title.isEmpty {
                 guard
                     let host = articleURL?.host,
                     let encodedTitle = title.percentEncodedPageTitleForPathComponents,
@@ -198,5 +198,74 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         default:
             break
         }
+    }
+
+    internal func updateArticleMargins() {
+        messagingController.updateMargins(with: articleMargins, leadImageHeight: 0)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
+        coordinator.animate(alongsideTransition: marginUpdater)
+    }
+}
+
+// MARK:- Context Menu (iOS 13 and later)
+// All functions in this extension are for Context Menus (used in iOS 13 and later)
+extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate {
+    func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void) {
+        completion(getPeekViewController(for: destination))
+    }
+
+    @available(iOS 13.0, *)
+    func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
+
+        self.contextMenuConfigurationForElement(elementInfo, completionHandler: completionHandler)
+    }
+
+//    func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating)
+//    No function with this signature, as we don't want to have any context menu elements in preview - and we get that behavior by default by not implementing this.
+
+    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
+    func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
+        let dataStore = MWKDataStore.shared()
+        switch destination {
+        case .article(let articleURL):
+            return ArticlePeekPreviewViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        default:
+            return nil
+        }
+    }
+
+    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
+    // This function needed is for ArticleContextMenuPresenting, but not applicable to EditPreviewVC
+    func hideFindInPage(_ completion: (() -> Void)? = nil) {
+    }
+}
+
+// MARK: Peek/Pop (iOS 12 and earlier, on devices w/ 3D Touch)
+// All functions in this extension are for 3D Touch menus. (Can be removed when the oldest supported version is iOS 13.)
+extension EditPreviewViewController {
+    var configuration: Configuration {
+        return Configuration.current
+    }
+
+    func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
+        return self.shouldPreview(linkURL: elementInfo.linkURL)
+    }
+
+    func webView(_ webView: WKWebView, previewingViewControllerForElement elementInfo: WKPreviewElementInfo, defaultActions previewActions: [WKPreviewActionItem]) -> UIViewController? {
+        return self.previewingViewController(for: elementInfo.linkURL)
+    }
+
+    func webView(_ webView: WKWebView, commitPreviewingViewController previewingViewController: UIViewController) {
+        // If EditPreviewInternalLinkViewController ever gets refactored, would be nice to break apart it's internal containerView so that here we could wrap
+        // previewingViewController in an EditPreviewInternalLinkViewController. (For now, just loading a new EditPreviewInternalLinkVC would load the articleURL in
+        // viewDidLoad - before we could hijack it - and so we're just reloading our preview again.)
+        guard let url = (previewingViewController as? ArticlePeekPreviewViewController)?.articleURL else {
+            return
+        }
+        showInternalLink(url: url)
     }
 }
