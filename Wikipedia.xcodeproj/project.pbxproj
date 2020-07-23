@@ -1175,6 +1175,8 @@
 		8386BDFD2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
 		8386BDFE2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
 		8387CE8824C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */; };
+		8387CE8F24C99C2600439D93 /* WMFMTLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 8387CE8D24C99C2600439D93 /* WMFMTLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8387CE9024C99C2600439D93 /* WMFMTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8E24C99C2600439D93 /* WMFMTLModel.m */; };
 		83927D7B1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
@@ -3644,6 +3646,8 @@
 		8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageWebViewController.swift; sourceTree = "<group>"; };
 		8387CE8624C8C6CF00439D93 /* Wikipedia 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 4.xcdatamodel"; sourceTree = "<group>"; };
 		8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFSecureUnarchiveFromDataTransformer.swift; sourceTree = "<group>"; };
+		8387CE8D24C99C2600439D93 /* WMFMTLModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFMTLModel.h; sourceTree = "<group>"; };
+		8387CE8E24C99C2600439D93 /* WMFMTLModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFMTLModel.m; sourceTree = "<group>"; };
 		83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationPagesViewController.swift; sourceTree = "<group>"; };
 		83927D801F705B7B00051890 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
@@ -5182,6 +5186,8 @@
 		0E19B9AC1DA7DBE300239F3A /* Feed Models */ = {
 			isa = PBXGroup;
 			children = (
+				8387CE8D24C99C2600439D93 /* WMFMTLModel.h */,
+				8387CE8E24C99C2600439D93 /* WMFMTLModel.m */,
 				0E19B99D1DA7CAC200239F3A /* WMFFeedDayResponse.h */,
 				0E19B99E1DA7CAC200239F3A /* WMFFeedDayResponse.m */,
 				0E19B9A31DA7CE4400239F3A /* WMFFeedTopReadResponse.h */,
@@ -8368,6 +8374,7 @@
 				D844D9C31D6CB7D40042D692 /* MWKImageInfo.h in Headers */,
 				D84448281DDB632100425630 /* WMFArticle+CoreDataClass.h in Headers */,
 				0E728D1E1DAEE2B50074EB4B /* WMFFeedArticlePreview.h in Headers */,
+				8387CE8F24C99C2600439D93 /* WMFMTLModel.h in Headers */,
 				D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */,
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
@@ -10624,6 +10631,7 @@
 				0E728D441DAEEE880074EB4B /* CLLocationManager+WMFLocationManagers.m in Sources */,
 				8380753B20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift in Sources */,
 				D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */,
+				8387CE9024C99C2600439D93 /* WMFMTLModel.m in Sources */,
 				7AD5D453223874F600C01164 /* RelatedSearchFetcher.swift in Sources */,
 				8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */,
 				D844D9F31D6CC0220042D692 /* MWKLicense.m in Sources */,

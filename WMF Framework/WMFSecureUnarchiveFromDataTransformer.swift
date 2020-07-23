@@ -1,7 +1,8 @@
 import UIKit
 
-class WMFSecureUnarchiveFromDataTransformer: NSSecureUnarchiveFromDataTransformer {
+@objc(WMFSecureUnarchiveFromDataTransformer)
+class SecureUnarchiveFromDataTransformer: NSSecureUnarchiveFromDataTransformer {
     override class var allowedTopLevelClasses: [AnyClass] {
-        return super.allowedTopLevelClasses + [MTLModel.self]
+        return  super.allowedTopLevelClasses + [WMFMTLModel.self]
     }
 }
