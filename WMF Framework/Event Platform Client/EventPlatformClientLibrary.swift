@@ -111,7 +111,6 @@ public class EPC {
      */
     private var lastTimestamp: Date = Date()
     private var _sessionID: String? = nil
-    
     private let iso8601Formatter: ISO8601DateFormatter
 
     /**
@@ -170,7 +169,6 @@ public class EPC {
      * Stores the input buffer of generated events in persistent storage and clears it
      */
     private func persistBuffer() {
-        let inputBuffer = getInputBuffer()
         storageManager.setPersisted("epc_input_buffer", inputBuffer)
     }
 
@@ -185,7 +183,9 @@ public class EPC {
                 return
             }
             for event in ib {
-                appendEventToInputBuffer(event)
+                queue.async {
+                    self.inputBuffer.append(event)
+                }
             }
             storageManager.deletePersisted("epc_input_buffer")
         })
@@ -238,9 +238,11 @@ public class EPC {
      */
     private func beginNewSession() -> Void {
         _sessionID = nil
-        removeAllSamplingCache()
+        queue.async {
+            self.samplingCache.removeAll()
+        }
     }
-    
+
     /**
     * Return a session identifier
     * - Returns: session ID
@@ -283,7 +285,6 @@ public class EPC {
          * stream configuration and that it will hold off on trying to download
          * if there is no connectivity.
          */
-        
         if streamConfigurations == nil {
             networkManager.httpDownload(url: wmf_configURI, completion: {
                 data in
@@ -352,13 +353,17 @@ public class EPC {
         }
         #endif
 
-        var cachedEvent: Event
-        while !inputBufferIsEmpty() {
-            cachedEvent = removeInputBufferAtIndex(0)
-            self.log(stream: cachedEvent.stream,
-                     schema: cachedEvent.schema,
-                     data: cachedEvent.data,
-                     domain: cachedEvent.domain)
+        queue.async {
+            if self.inputBuffer.count > 0 {
+                var cachedEvent: Event
+                while !self.inputBuffer.isEmpty {
+                    cachedEvent = self.inputBuffer.remove(at: 0)
+                    self.log(stream: cachedEvent.stream,
+                             schema: cachedEvent.schema,
+                             data: cachedEvent.data,
+                             domain: cachedEvent.domain)
+                }
+            }
         }
     }
 
@@ -399,8 +404,7 @@ public class EPC {
             DDLogDebug("[EPC] Invalid state, must have streamConfigurations to check for inSample")
             return false
         }
-        
-        if let cachedValue = getSamplingCacheForKey(stream) {
+        if let cachedValue = samplingCache[stream] {
             return cachedValue
         }
 
@@ -414,7 +418,9 @@ public class EPC {
              * If stream is present in streamConfigurations but doesn't have
              * sampling settings, it is always in-sample.
              */
-            setSamplingCacheForKey(stream, value: true)
+            queue.async {
+                self.samplingCache[stream] = true
+            }
             return true
         }
 
@@ -426,7 +432,9 @@ public class EPC {
              * If stream doesn't have a rate, assume 1.0 (always in-sample).
              * Cache this determination for any future use.
              */
-            setSamplingCacheForKey(stream, value: true)
+            queue.async {
+                self.samplingCache[stream] = true
+            }
             return true
         }
 
@@ -439,13 +447,17 @@ public class EPC {
         let identifierType = samplingConfig["identifier"] as? String ?? "session"
 
         guard identifierType == "session" || identifierType == "device" else {
-            setSamplingCacheForKey(stream, value: false)
+            queue.async {
+                self.samplingCache[stream] = false
+            }
             return false
         }
 
         let identifier = identifierType == "session" ? sessionID : storageManager.deviceID
         let result = determine(identifier, rate)
-        setSamplingCacheForKey(stream, value: result)
+        queue.async {
+            self.samplingCache[stream] = result
+        }
         return result
     }
 
@@ -534,7 +546,9 @@ public class EPC {
 
         guard let streamConfigs = streamConfigurations else {
             let event = Event(stream: stream, schema: schema, data: data, domain: domain)
-            appendEventToInputBuffer(event)
+            queue.async {
+                self.inputBuffer.append(event)
+            }
             return
         }
 
@@ -608,48 +622,5 @@ public class EPC {
         }
         return l
     }
-    
-    // input buffer helpers
-    func getInputBuffer() -> [Event] {
-        queue.sync {
-            return self.inputBuffer
-        }
-    }
-    
-    func appendEventToInputBuffer(_ event: Event) {
-        queue.async {
-            self.inputBuffer.append(event)
-        }
-    }
-    
-    func inputBufferIsEmpty() -> Bool {
-        queue.sync {
-            return self.inputBuffer.isEmpty
-        }
-    }
-    
-    func removeInputBufferAtIndex(_ index: Int) -> Event {
-        queue.sync {
-            return self.inputBuffer.remove(at: index)
-        }
-    }
-    
-    //sampling cache helpers
-    func setSamplingCacheForKey(_ key: String, value: Bool) {
-        queue.async {
-            self.samplingCache[key] = value
-        }
-    }
-    
-    func getSamplingCacheForKey(_ key: String) -> Bool? {
-        queue.sync {
-            return self.samplingCache[key]
-        }
-    }
-    
-    func removeAllSamplingCache() {
-        queue.async {
-            self.samplingCache.removeAll()
-        }
-    }
+
 }
