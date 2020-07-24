@@ -312,7 +312,6 @@ public class EPC {
         }
         #endif
 
-        streamConfigurations = config
         /*
          * Figure out which streams can be cc'd (e.g. edit ~> edit.growth).
          *
@@ -329,6 +328,7 @@ public class EPC {
          * Refer to mw:Wikimedia_Product/Analytics_Infrastructure/Stream_configuration#Stream_cc-ing
          * for additional documentation.
          */
+        var copies = [String: [String]]()
         for stream in config.keys {
             let s = stream.split(separator: ".")
             let nPrefixes = s.count - 1
@@ -336,10 +336,10 @@ public class EPC {
                 for i in 1...nPrefixes {
                     let child = s[0...i].joined(separator: ".")
                     let parent = s[0..<i].joined(separator: ".")
-                    streamCopy.appendIfNew(key: parent, value: child)
+                    copies.appendIfNew(key: parent, value: child)
                 }
             } else if nPrefixes == 1 {
-                streamCopy.appendIfNew(key: String(s[0]), value: stream)
+                copies.appendIfNew(key: String(s[0]), value: stream)
             }
         }
 
@@ -352,6 +352,12 @@ public class EPC {
         }
         #endif
 
+        // Make them available to any newly logged events before flushing buffer
+        queue.sync {
+            self.streamConfigurations = config
+            self.streamCopy = copies
+        }
+        // Process event buffer after making stream configs and cc map available
         var cachedEvent: Event
         while !inputBufferIsEmpty() {
             cachedEvent = removeInputBufferAtIndex(0)
@@ -359,6 +365,12 @@ public class EPC {
                      schema: cachedEvent.schema,
                      data: cachedEvent.data,
                      domain: cachedEvent.domain)
+        }
+    }
+
+    func getStreamConfig() -> [String: [String: Any]]? {
+        queue.sync {
+            return self.streamConfigurations
         }
     }
 
@@ -400,7 +412,7 @@ public class EPC {
             return false
         }
         
-        if let cachedValue = getSamplingCacheForKey(stream) {
+        if let cachedValue = getSamplingForStream(stream) {
             return cachedValue
         }
 
@@ -414,7 +426,7 @@ public class EPC {
              * If stream is present in streamConfigurations but doesn't have
              * sampling settings, it is always in-sample.
              */
-            setSamplingCacheForKey(stream, value: true)
+            cacheSamplingForStream(stream, inSample: true)
             return true
         }
 
@@ -426,7 +438,7 @@ public class EPC {
              * If stream doesn't have a rate, assume 1.0 (always in-sample).
              * Cache this determination for any future use.
              */
-            setSamplingCacheForKey(stream, value: true)
+            cacheSamplingForStream(stream, inSample: true)
             return true
         }
 
@@ -439,13 +451,13 @@ public class EPC {
         let identifierType = samplingConfig["identifier"] as? String ?? "session"
 
         guard identifierType == "session" || identifierType == "device" else {
-            setSamplingCacheForKey(stream, value: false)
+            cacheSamplingForStream(stream, inSample: false)
             return false
         }
 
         let identifier = identifierType == "session" ? sessionID : storageManager.deviceID
         let result = determine(identifier, rate)
-        setSamplingCacheForKey(stream, value: result)
+        cacheSamplingForStream(stream, inSample: result)
         return result
     }
 
@@ -532,17 +544,17 @@ public class EPC {
         }
         #endif
 
-        guard let streamConfigs = streamConfigurations else {
+        guard let streamConfigs = getStreamConfig() else {
             let event = Event(stream: stream, schema: schema, data: data, domain: domain)
             appendEventToInputBuffer(event)
             return
         }
 
         // CC to other streams, even if this stream does not exist
-        if let copiedStreams = streamCopy[stream] {
-            for ccStream in copiedStreams {
-                DDLogDebug("[EPC] CC-ing stream '\(ccStream)' from stream '\(stream)'")
-                log(stream: ccStream, schema: schema, data: data, domain: domain)
+        if let copiedStreams = getCopyStreamsForStream(stream) {
+            for copyStream in copiedStreams {
+                DDLogDebug("[EPC] CC-ing stream '\(copyStream)' from stream '\(stream)'")
+                log(stream: copyStream, schema: schema, data: data, domain: domain)
             }
         }
 
@@ -634,22 +646,29 @@ public class EPC {
         }
     }
     
-    //sampling cache helpers
-    func setSamplingCacheForKey(_ key: String, value: Bool) {
+    // sampling cache helpers
+    func cacheSamplingForStream(_ stream: String, inSample: Bool) {
         queue.async {
-            self.samplingCache[key] = value
+            self.samplingCache[stream] = inSample
         }
     }
     
-    func getSamplingCacheForKey(_ key: String) -> Bool? {
+    func getSamplingForStream(_ stream: String) -> Bool? {
         queue.sync {
-            return self.samplingCache[key]
+            return self.samplingCache[stream]
         }
     }
     
     func removeAllSamplingCache() {
         queue.async {
             self.samplingCache.removeAll()
+        }
+    }
+
+    // stream copy helpers
+    func getCopyStreamsForStream(_ stream: String) -> [String]? {
+        queue.sync {
+            return self.streamCopy[stream]
         }
     }
 }
