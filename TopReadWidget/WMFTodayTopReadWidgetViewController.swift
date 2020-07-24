@@ -159,21 +159,8 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         guard count > 0 else {
             return
         }
-        
-        var language: String? = nil
-        let siteURL = self.siteURL as NSURL
-        if let languageCode = siteURL.wmf_language {
-            language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(languageCode)
-        }
-        
-        var headerText = ""
-        
-        if let language = language {
-            headerText = String.localizedStringWithFormat(WMFLocalizedString("top-read-header-with-language", value:"%1$@ Wikipedia", comment: "%1$@ Wikipedia - for example English Wikipedia {{Identical|Wikipedia}}"), language)
-        } else {
-            headerText = WMFLocalizedString("top-read-header-generic", value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
-        }
 
+        let headerText = topReadHeaderStringWithLocalizedCurrentSiteLanguageOrGenericFallback()
 
         headerLabel.text = headerText.uppercased()
         headerLabel.isAccessibilityElement = false
@@ -300,6 +287,14 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         
         preferredContentSize = rowCount == 1 ? articlePreviewViewControllers[0].view.frame.size : size
         activityIndicatorHidden = true
+    }
+
+    func topReadHeaderStringWithLocalizedCurrentSiteLanguageOrGenericFallback() -> String {
+        if let language = siteURL.wmf_language, let localizedString = CommonStrings.topReadHeader[language] {
+            return localizedString
+        }
+
+        return WMFLocalizedString("top-read-header-generic", value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
     }
     
     var activityIndicatorHidden: Bool = false {

@@ -442,13 +442,9 @@ private extension TalkPageContainerViewController {
         case .article:
             headerText = WMFLocalizedString("talk-page-title-article-talk", value: "article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.").localizedUppercase
         }
-        
-        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@ Wikipedia", comment: "This information label is displayed at the top of a talk page discussion list. %1$@ is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.")
-        
-        let genericInfoText = WMFLocalizedString("talk-page-info-active-conversations-generic", value: "Active conversations on Wikipedia", comment: "This information label is displayed at the top of a talk page discussion list. This is fallback text in case a specific wiki language cannot be determined.")
-        
-        let infoText = stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: languageTextFormat, fallbackGenericString: genericInfoText)
-        
+
+        let infoText = activeConversationsStringWithLocalizedCurrentSiteLanguageOrGenericFallback()
+
         var introText: String?
         let sortDescriptor = NSSortDescriptor(key: "sort", ascending: true)
         if let first5IntroReplies = introTopic?.replies?.sortedArray(using: [sortDescriptor]).prefix(5) {
@@ -463,17 +459,15 @@ private extension TalkPageContainerViewController {
         header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
     }
-    
-    func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: String, fallbackGenericString: String) -> String {
-        
-        if let code = siteURL.wmf_language,
-            let language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(code) {
-            return NSString.localizedStringWithFormat(string as NSString, language) as String
-        } else {
-            return fallbackGenericString
+
+    func activeConversationsStringWithLocalizedCurrentSiteLanguageOrGenericFallback() -> String {
+        if let language = siteURL.wmf_language, let localizedString = CommonStrings.talkPageActiveConversations[language] {
+            return localizedString
         }
+
+        return WMFLocalizedString("talk-page-info-active-conversations-generic", value: "Active conversations on Wikipedia", comment: "This information label is displayed at the top of a talk page discussion list. This is fallback text in case a specific wiki language cannot be determined.")
     }
-    
+
     func absoluteURL(for url: URL) -> URL? {
         
         var absoluteUrl: URL?
