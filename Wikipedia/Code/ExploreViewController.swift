@@ -59,7 +59,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         restoreScrollPositionIfNeeded()
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the text on WMFAppViewController. Set before navigating away, cleared on viewDidAppear.
-        self.parent?.navigationItem.backButtonTitle = nil
+        parent?.navigationItem.backButtonTitle = title
     }
 
     private func restoreScrollPositionIfNeeded() {
@@ -577,8 +577,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - ExploreCardViewControllerDelegate
     
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
-        // Terrible hack to make back button text appropriate for iOS 14 - need to set the text on WMFAppViewController. Set before navigating away, cleared on viewDidAppear.
-        self.parent?.navigationItem.backButtonTitle = self.title
         guard
             let contentGroup = exploreCardViewController.contentGroup,
             let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {

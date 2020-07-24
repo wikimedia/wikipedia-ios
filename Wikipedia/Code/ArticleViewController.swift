@@ -303,7 +303,7 @@ class ArticleViewController: ViewController, HintPresenting {
         surveyTimerController.timerFireBlock = { [weak self] result in
             self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
         }
-        self.navigationItem.backButtonTitle = article.displayTitle
+        self.navigationItem.backButtonTitle = articleURL.wmf_title
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -317,6 +317,9 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
+        setupWButton()
         guard isFirstAppearance else {
             return
         }
