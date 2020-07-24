@@ -510,7 +510,7 @@
 "main-menu-account-logout-cancel" = "İptal";
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı";
 "main-menu-debug-tweaks" = "Geliştirici ayarları";
-"main-menu-heading-debug" = "Hata ayıklama";
+"main-menu-heading-debug" = "Ayıkla";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";
 "main-menu-nearby" = "Yakınındakiler";
 "main-menu-privacy-policy" = "Gizlilik politikası";
