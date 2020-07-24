@@ -594,8 +594,7 @@
 "reading-lists-default-list-title" = "Tallennetut";
 "reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
 "reading-lists-delete-reading-list-alert-title" = "Poista {{PLURAL:$1|lista|listaa}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artikkelia ja $2 lukulistaa synkronoitu tunnukseltasi";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artikkeli|$1 artikkelia}} ja {{PLURAL:$2|$2 lukulista|$2 lukulistaa}} synkronoitu tililtäsi";
 "reading-lists-list-not-synced-limit-exceeded" = "Luettelo ei synkronoitu, raja saavutettu";
 "reading-lists-sort-saved-articles" = "Lajittele tallennetut artikkelit";
 "reading-lists-split-notification" = "On olemassa $1 artikkelin raja lukulistaa kohden. Nykyiset tämän rajan ylittävät listat on jaettu moniin listoihin.";
