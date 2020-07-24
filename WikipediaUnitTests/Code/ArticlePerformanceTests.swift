@@ -58,7 +58,7 @@ class ArticlePerformanceTests: XCTestCase {
             
             UIApplication.shared.keyWindow?.rootViewController = measurableArticleVC
         
-            wait(for: [setupExpectation], timeout: 3)
+            wait(for: [setupExpectation], timeout: 10)
         }
     }
     
@@ -92,7 +92,7 @@ class ArticlePerformanceTests: XCTestCase {
                 contextExpectation.fulfill()
             }
         
-            wait(for: [contextExpectation], timeout: 3)
+            wait(for: [contextExpectation], timeout: 10)
         }
     }
     
@@ -114,7 +114,7 @@ class ArticlePerformanceTests: XCTestCase {
             
             UIApplication.shared.keyWindow?.rootViewController = peekVC
             
-            wait(for: [displayExpectation], timeout: 3)
+            wait(for: [displayExpectation], timeout: 10)
         }
     }
 }

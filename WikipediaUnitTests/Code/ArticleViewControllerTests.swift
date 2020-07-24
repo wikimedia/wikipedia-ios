@@ -51,7 +51,7 @@ class ArticleViewControllerTests: XCTestCase {
             
         UIApplication.shared.keyWindow?.rootViewController = measurableArticleVC
     
-        wait(for: [setupExpectation], timeout: 3)
+        wait(for: [setupExpectation], timeout: 10)
     }
 
 }

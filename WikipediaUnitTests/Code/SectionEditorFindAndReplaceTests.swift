@@ -226,7 +226,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [findExpectation], timeout: 5)
+        wait(for: [findExpectation], timeout: 10)
         
         let webView = sectionEditorViewController.webViewForTesting
         let userContentController = webView.configuration.userContentController
