@@ -186,9 +186,9 @@
         <attribute name="featuredContentIdentifier" optional="YES" attributeType="String"/>
         <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="key" attributeType="String"/>
-        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLLocation"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer" customClassName="CLLocation"/>
         <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="placemark" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLPlacemark"/>
+        <attribute name="placemark" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer" customClassName="CLPlacemark"/>
         <attribute name="placement" optional="YES" attributeType="String"/>
         <attribute name="siteURLString" optional="YES" attributeType="String"/>
         <attribute name="undoTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -214,7 +214,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="group" optional="YES" attributeType="String"/>
         <attribute name="key" attributeType="String"/>
-        <attribute name="value" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer"/>
         <fetchIndex name="compoundIndex">
             <fetchIndexElement property="key" type="Binary" order="ascending"/>
             <fetchIndexElement property="group" type="Binary" order="ascending"/>
