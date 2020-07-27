@@ -6,16 +6,47 @@ extension UIViewController {
     }
 }
 
-@objc protocol WMFReferencePageViewAppearanceDelegate : NSObjectProtocol {
+protocol WMFReferencePageViewAppearanceDelegate : NSObjectProtocol {
     func referencePageViewControllerWillAppear(_ referencePageViewController: WMFReferencePageViewController)
     func referencePageViewControllerWillDisappear(_ referencePageViewController: WMFReferencePageViewController)
 }
 
+extension WMFReferencePageViewAppearanceDelegate where Self: ArticleScrolling {
+    func referencePageViewControllerWillAppear(_ referencePageViewController: WMFReferencePageViewController) {
+        guard
+            let firstRefVC = referencePageViewController.pageViewController.viewControllers?.first as? WMFReferencePanelViewController,
+            let refId = firstRefVC.reference?.refId
+            else {
+                return
+        }
+        webView.wmf_unHighlightAllLinkIDs()
+        webView.wmf_highlightLinkID(refId)
+    }
+
+    func referencePageViewControllerWillDisappear(_ referencePageViewController: WMFReferencePageViewController) {
+        webView.wmf_unHighlightAllLinkIDs()
+    }
+}
+
+extension UIPageViewControllerDelegate where Self: ArticleScrolling & ViewController {
+    /// This function needs to be called by `pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool)`. Due to objc issues, the delegate's cannot have a default extension with this actual method that is called.
+    func didFinishAnimating(_ pageViewController: UIPageViewController) {
+        guard
+            let firstRefVC = pageViewController.viewControllers?.first as? WMFReferencePanelViewController,
+            let ref = firstRefVC.reference
+            else {
+                return
+        }
+        (presentedViewController as? WMFReferencePageViewController)?.currentReference = ref
+        webView.wmf_unHighlightAllLinkIDs()
+        webView.wmf_highlightLinkID(ref.refId)
+    }
+}
 
 class WMFReferencePageViewController: ReferenceViewController, UIPageViewControllerDataSource {
     @objc var lastClickedReferencesIndex:Int = 0
     @objc var lastClickedReferencesGroup = [WMFLegacyReference]()
-    @objc weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
+    weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     
     @objc public var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     @IBOutlet fileprivate var containerView: UIView!
