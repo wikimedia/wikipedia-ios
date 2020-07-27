@@ -608,6 +608,11 @@ extension ViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
+
+        if let scrollableArticle = self as? ArticleScrolling {
+            // call the first completion
+            scrollableArticle.scrollViewAnimationCompletions.popLast()?()
+        }
     }
 
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {

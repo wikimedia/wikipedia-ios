@@ -1,7 +1,3 @@
-protocol ReferenceBackLinksViewControllerDelegate: ReferenceViewControllerDelegate {
-    func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController)
-}
-
 class ReferenceBackLinksViewController: ReferenceViewController {    
     var index = 0
     let backLinks: [ReferenceBackLink]
