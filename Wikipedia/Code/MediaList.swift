@@ -57,4 +57,22 @@ public struct MediaList: Codable {
     public init(items: [MediaListItem]) {
         self.items = items
     }
+
+    // This failable initializer is used for a single-image MediaList, given via a URL.
+    public init?(from url: URL?) {
+        guard let imageURL = url,
+            let imageName = WMFParseUnescapedNormalizedImageNameFromSourceURL(imageURL) else {
+            return nil
+        }
+        let filename = "File:" + imageName
+        let urlString = imageURL.absoluteString
+        let sources: [MediaListItemSource] = [
+            MediaListItemSource(urlString: urlString, scale: "1x"),
+            MediaListItemSource(urlString: urlString, scale: "2x"),
+            MediaListItemSource(urlString: urlString, scale: "1.5x")
+        ]
+
+        let mediaListItem = MediaListItem(title: filename, sectionID: 0, type: "image", showInGallery: true, sources: sources, audioType: nil)
+        self = MediaList(items: [mediaListItem])
+    }
 }

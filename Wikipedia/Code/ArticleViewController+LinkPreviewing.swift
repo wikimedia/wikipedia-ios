@@ -151,12 +151,12 @@ extension ArticleViewController {
 @available(iOS 13.0, *)
 extension ArticleViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        // If gallery has not been opened on that article, self.mediaList is nil - and we need to fake the media list
-        guard let mediaList = self.mediaList ?? oneImageMediaList(from: leadImageView.wmf_imageURLToFetch) else {
+        // If gallery has not been opened on that article, self.mediaList is nil - and we need to create the media list
+        guard let mediaList = self.mediaList ?? MediaList(from: leadImageView.wmf_imageURLToFetch) else {
             return nil
         }
         let previewProvider: UIContextMenuContentPreviewProvider = {
-            let galleryVC = self.getGalleryViewController(for: nil, in: mediaList)
+            let galleryVC = self.getGalleryViewController(for: mediaList.items.first, in: mediaList)
             galleryVC.setOverlayViewTopBarHidden(true)
             return galleryVC
         }
@@ -167,22 +167,5 @@ extension ArticleViewController: UIContextMenuInteractionDelegate {
         animator.addCompletion {
             self.showLeadImage()
         }
-    }
-
-    private func oneImageMediaList(from url: URL?) -> MediaList? {
-        guard let imageURL = url,
-            let imageName = WMFParseUnescapedNormalizedImageNameFromSourceURL(imageURL) else {
-            return nil
-        }
-        let filename = "File:" + imageName
-        let urlString = imageURL.absoluteString
-        let sources: [MediaListItemSource] = [
-            MediaListItemSource(urlString: urlString, scale: "1x"),
-            MediaListItemSource(urlString: urlString, scale: "2x"),
-            MediaListItemSource(urlString: urlString, scale: "1.5x")
-        ]
-
-        let mediaListItem = MediaListItem(title: filename, sectionID: 0, type: "image", showInGallery: true, sources: sources, audioType: nil)
-        return MediaList(items: [mediaListItem])
     }
 }
