@@ -1,6 +1,7 @@
 import Foundation
 
 protocol ReferenceViewControllerDelegate: class {
+    var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer { get }
     func referenceViewControllerUserDidTapClose(_ vc: ReferenceViewController)
     func referenceViewControllerUserDidNavigateBackToReference(_ vc: ReferenceViewController)
 }
