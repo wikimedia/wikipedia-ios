@@ -6,8 +6,8 @@ import WebKit
 final class PageContentService   {
     struct Setup {
         struct Parameters: Codable {
-            let platform = "ios"
-            let version = 1
+            var platform = "ios"
+            var version = 1
             
             var theme: String
             var dimImages: Bool
