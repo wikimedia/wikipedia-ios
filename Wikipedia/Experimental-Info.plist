@@ -52,6 +52,8 @@
 	<string>Get article recommendations based on your location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Opt-in user testing</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>
@@ -99,7 +101,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save photos from Wikipedia to your photo library</string>
 </dict>
 </plist>
