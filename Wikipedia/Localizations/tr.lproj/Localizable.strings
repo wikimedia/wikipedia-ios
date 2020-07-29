@@ -131,7 +131,7 @@
 "article-delete" = "Sil";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|madde|madde}} silindi";
 "article-languages-filter-placeholder" = "Dil bul";
-"article-languages-label" = "Dil seçin";
+"article-languages-label" = "Dil seç";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamını oku";
@@ -882,7 +882,7 @@
 "wikitext-upload-captcha-error" = "CAPTCHA doğrulama hatası.";
 "wikitext-upload-captcha-needed" = "CAPTCHA doğrulaması gerekli.";
 "wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";
-"wikitext-upload-save" = "Paylaşılıyor...";
+"wikitext-upload-save" = "Yayımlanıyor...";
 "wikitext-upload-save-anonymously-or-login" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1'lık $2 giriş yaparsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-sign-in" = "Oturum aç";
