@@ -6,7 +6,37 @@ extension ArticleViewController: UIPageViewControllerDelegate {
     }
 }
 
-extension ArticleViewController: WMFReferencePageViewAppearanceDelegate, ReferenceBackLinksViewControllerDelegate, ReferenceShowing {
+
+extension ArticleViewController: ReferenceBackLinksViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, ReferenceShowing {
+    func referenceViewControllerUserDidTapClose(_ vc: ReferenceViewController) {
+        if vc is ReferenceBackLinksViewController {
+            dismissReferenceBackLinksViewController()
+        } else {
+            dismissReferencesPopover()
+        }
+    }
+
+    func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController) {
+        scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true) { [weak self] in
+            self?.webView.wmf_accessibilityCursor(toFragment: referenceBackLink.id)
+        }
+    }
+    
+    func referenceViewControllerUserDidNavigateBackToReference(_ vc: ReferenceViewController) {
+        referenceViewControllerUserDidTapClose(vc)
+        guard let referenceId = vc.referenceId else {
+            showGenericError()
+            return
+        }
+        let backLink = "back_link_\(referenceId)"
+        scroll(to: backLink, highlighted: true, animated: true) { [weak self] in
+            self?.webView.wmf_accessibilityCursor(toFragment: backLink)
+            dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
+                self?.messagingController.removeElementHighlights()
+            }
+        }
+    }
+    
     @objc func tappedWebViewBackground() {
         dismissReferenceBackLinksViewController()
     }
