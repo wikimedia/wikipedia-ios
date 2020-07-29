@@ -22,7 +22,7 @@ class SinglePageWebViewController: ViewController {
             style.innerHTML = '.header-chrome { display: none; }'
             document.head.appendChild(style)
         """
-        controller.addUserScript(WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        controller.addUserScript(PageUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         config.userContentController = controller
         config.applicationNameForUserAgent = "WikipediaApp"
         return config

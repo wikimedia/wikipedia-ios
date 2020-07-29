@@ -61,9 +61,9 @@ class ArticleCacheReadingManualTests: XCTestCase {
 
         UIApplication.shared.keyWindow?.rootViewController = basicVC
 
-        wait(for: [htmlExpectation], timeout: 3)
-        wait(for: [imageExpectation], timeout: 3)
-        wait(for: [cssExpectation], timeout: 3)
+        wait(for: [htmlExpectation], timeout: 10)
+        wait(for: [imageExpectation], timeout: 10)
+        wait(for: [cssExpectation], timeout: 10)
     }
     
    func testVariantFallbacksUponConnectionFailure() {
@@ -112,8 +112,8 @@ class ArticleCacheReadingManualTests: XCTestCase {
 
         UIApplication.shared.keyWindow?.rootViewController = basicVC
 
-        wait(for: [htmlExpectation], timeout: 3)
-        wait(for: [imageExpectation], timeout: 3)
-        wait(for: [cssExpectation], timeout: 3)
+        wait(for: [htmlExpectation], timeout: 10)
+        wait(for: [imageExpectation], timeout: 10)
+        wait(for: [cssExpectation], timeout: 10)
     }
 }

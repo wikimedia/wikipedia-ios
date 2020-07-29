@@ -1,6 +1,7 @@
 import Foundation
 
 protocol ReferenceViewControllerDelegate: class {
+    var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer { get }
     func referenceViewControllerUserDidTapClose(_ vc: ReferenceViewController)
     func referenceViewControllerUserDidNavigateBackToReference(_ vc: ReferenceViewController)
 }
@@ -40,8 +41,16 @@ class ReferenceViewController: ViewController {
     
     // MARK: Actions
     
-    lazy var backToReferenceButton = UIBarButtonItem(image: UIImage(named: "references"), style: .plain, target: self, action: #selector(goBackToReference))
-    lazy var closeButton = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(closeButtonPressed))
+    lazy var backToReferenceButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "references"), style: .plain, target: self, action: #selector(goBackToReference))
+        button.accessibilityLabel = WMFLocalizedString("reference-section-button-accessibility-label", value: "Jump to reference section", comment: "Voiceover label for the top button (that jumps to article's reference section) when viewing a reference's details")
+        return button
+    }()
+    lazy var closeButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(closeButtonPressed))
+        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        return button
+    }()
 
     @objc func closeButtonPressed() {
         delegate?.referenceViewControllerUserDidTapClose(self)

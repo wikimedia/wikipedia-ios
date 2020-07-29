@@ -42,12 +42,19 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>
@@ -65,6 +72,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
+		<string>processing</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
@@ -95,12 +103,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save photos from Wikipedia to your photo library</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 </dict>
 </plist>
