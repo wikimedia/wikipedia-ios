@@ -5,9 +5,9 @@ import CoreLocation
 // `LocationManagerDelegate` declaration.
 
 @objc public protocol LocationManagerProtocol {
-    /// Last know location
+    /// Last known location
     var location: CLLocation? { get }
-    /// Last know heading
+    /// Last known heading
     var heading: CLHeading? { get }
     /// Return `true` in case when monitoring location, in other case return `false`
     var isUpdating: Bool { get }
@@ -22,15 +22,4 @@ import CoreLocation
     func startMonitoringLocation()
     /// Stop monitoring location and heading updates.
     func stopMonitoringLocation()
-}
-
-@objc final class LocationManagerFactory: NSObject {
-    @objc static func coarseLocationManager() -> LocationManagerProtocol {
-        return LocationManager(configuration: .coarse)
-    }
-}
-
-extension LocationManager: LocationManagerProtocol {
-    
-    public var isAuthorized: Bool { authorizationStatus.isAuthorized }
 }

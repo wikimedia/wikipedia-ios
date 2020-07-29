@@ -220,6 +220,13 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 }
 
+//MARK: LocationManagerProtocol
+
+extension LocationManager: LocationManagerProtocol {
+    
+    public var isAuthorized: Bool { authorizationStatus.isAuthorized }
+}
+
 public extension CLAuthorizationStatus {
     var isAuthorized: Bool {
         self == .authorizedAlways || self == .authorizedWhenInUse
