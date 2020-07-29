@@ -7,7 +7,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 
 class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
     var sectionID: Int?
-    var articleURL: URL?
+    var articleURL: URL
     var language: String?
     var wikitext = ""
     var editFunnel: EditFunnel?
@@ -24,11 +24,34 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     }()
     
     lazy var fetcher = ArticleFetcher()
-    
-    @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
 
+    private let previewWebViewContainer: PreviewWebViewContainer
+
+    var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
+    var scrollViewAnimationCompletions: [() -> Void] = []
+
+    lazy var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer = {
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(tappedWebViewBackground))
+        tapGR.delegate = self
+        webView.scrollView.addGestureRecognizer(tapGR)
+        tapGR.isEnabled = false
+        return tapGR
+    }()
+
+    init(articleURL: URL) {
+        self.articleURL = articleURL
+        self.previewWebViewContainer = PreviewWebViewContainer()
+        super.init()
+
+        webView.scrollView.delegate = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL) {
-        let isExternal = url.host != articleURL?.host
+        let isExternal = url.host != articleURL.host
         if isExternal {
             showExternalLinkInAlert(link: url.absoluteString)
         } else {
@@ -89,6 +112,11 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.addSubview(previewWebViewContainer)
+        view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
+        previewWebViewContainer.previewAnchorTapAlertDelegate = self
+        previewWebViewContainer.previewSectionLanguageInfoDelegate = self
         
         navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
                 
@@ -134,10 +162,6 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
             return
         }
         hasPreviewed = true
-        guard let articleURL = articleURL else {
-            showGenericError()
-            return
-        }
         messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
@@ -175,6 +199,29 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         }
         previewWebViewContainer.apply(theme: theme)
     }
+
+    @objc func tappedWebViewBackground() {
+        dismissReferenceBackLinksViewController()
+    }
+}
+
+// MARK:- References
+extension EditPreviewViewController: WMFReferencePageViewAppearanceDelegate, ReferenceViewControllerDelegate, UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        didFinishAnimating(pageViewController)
+    }
+}
+
+extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, ReferenceShowing {
+    var webView: WKWebView {
+        return previewWebViewContainer.webView
+    }
+}
+
+extension EditPreviewViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return shouldRecognizeSimultaneousGesture(recognizer: gestureRecognizer)
+    }
 }
 
 extension EditPreviewViewController: ArticleWebMessageHandling {
@@ -182,10 +229,14 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         switch action {
         case .unknown(let href):
             showExternalLinkInAlert(link: href)
+        case .backLink(let referenceId, let referenceText, let backLinks):
+            showReferenceBackLinks(backLinks, referenceId: referenceId, referenceText: referenceText)
+        case .reference(let index, let group):
+            showReferences(group, selectedIndex: index, animated: true)
         case .link(let href, _, let title):
             if let title = title, !title.isEmpty {
                 guard
-                    let host = articleURL?.host,
+                    let host = articleURL.host,
                     let encodedTitle = title.percentEncodedPageTitleForPathComponents,
                     let newArticleURL = Configuration.current.articleURLForHost(host, appending: [encodedTitle]).url else {
                     showInternalLinkInAlert(link: href)
@@ -195,6 +246,8 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
             } else {
                 showExternalLinkInAlert(link: href)
             }
+        case .scrollToAnchor(let anchor, let rect):
+            scrollToAnchorCompletions.popLast()?(anchor, rect)
         default:
             break
         }

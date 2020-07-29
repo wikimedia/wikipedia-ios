@@ -1,7 +1,3 @@
-protocol ReferenceBackLinksViewControllerDelegate: ReferenceViewControllerDelegate {
-    func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController)
-}
-
 class ReferenceBackLinksViewController: ReferenceViewController {    
     var index = 0
     let backLinks: [ReferenceBackLink]
@@ -41,6 +37,7 @@ class ReferenceBackLinksViewController: ReferenceViewController {
             /// `fakeButton`'s existance allows `nextButton` to work. Analysis - with a diagnosis of "likely iOS 13.5 bug" - here: https://phabricator.wikimedia.org/T255283
             /// As of early betas of iOS 14, this bug has been fixed, and thus higher versions of iOS can use the typical code path.
             let fakeButton = UIBarButtonItem(image: UIImage(named: "transparent-pixel"), landscapeImagePhone: nil, style: .plain, target: nil, action: nil)
+            fakeButton.isAccessibilityElement = false
             toolbar.items = [countItem, flexibleSpace, previousButton, nextButton, fakeButton]
         } else {
             toolbar.items = [countItem, flexibleSpace, previousButton, nextButton]
@@ -70,13 +67,20 @@ class ReferenceBackLinksViewController: ReferenceViewController {
         super.viewDidLoad()
         setupToolbar()
         notifyDelegateOfNavigationToReference()
+
+        countLabel.isAccessibilityElement = true
+        nextButton.isAccessibilityElement = true
+        previousButton.isAccessibilityElement = true
+        accessibilityElements = [backToReferenceButton as Any, navigationItem.title as Any, closeButton as Any, countLabel as Any, previousButton as Any, nextButton as Any]
     }
     
     // MARK: Actions
 
     func notifyDelegateOfNavigationToReference() {
 
-        countLabel.text = "\(index + 1)/\(backLinks.count)"
+        let refNumber = index + 1
+        let totalRef = backLinks.count
+        countLabel.text = "\(refNumber)/\(totalRef)"
         let backLink = backLinks[index]
         (delegate as? ReferenceBackLinksViewControllerDelegate)?.referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: backLink, referenceBackLinksViewController: self)
     }
