@@ -1,4 +1,4 @@
-#import <Mantle/Mantle.h>
+#import <WMF/WMFMTLModel.h>
 
 @class WMFFeedArticlePreview;
 @class WMFFeedTopReadResponse;
@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFeedDayResponse : MTLModel <MTLJSONSerializing>
+@interface WMFFeedDayResponse : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic) NSInteger maxAge;
 + (NSString *)WMFFeedDayResponseMaxAgeKey;
