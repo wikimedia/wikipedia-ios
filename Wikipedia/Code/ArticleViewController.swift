@@ -307,6 +307,10 @@ class ArticleViewController: ViewController, HintPresenting {
             self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
         }
         self.navigationItem.backButtonTitle = articleURL.wmf_title
+//        if #available(iOS 14.0, *) {
+//            // NEED TO PUT THIS ON MAIN PAGE TOO!!!
+//            self.navigationItem.backButtonDisplayMode = .generic
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

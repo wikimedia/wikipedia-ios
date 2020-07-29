@@ -108,7 +108,6 @@ final class PageContentService   {
             }
             return jsString
         }()
-        
         init() {
             super.init(source: UtilitiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
@@ -126,7 +125,6 @@ final class PageContentService   {
             }
             return "const style = document.createElement('style'); style.innerHTML = `\(cssString)`; document.head.appendChild(style);"
         }()
-        
         init() {
             super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
