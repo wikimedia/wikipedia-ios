@@ -123,7 +123,7 @@
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="ns" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="pageID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary"/>
+        <attribute name="pageViews" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer" customClassName="NSDictionary"/>
         <attribute name="placesSortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="signedQuadKey" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
