@@ -30,9 +30,9 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate, WMFRe
         }
         let backLink = "back_link_\(referenceId)"
         scroll(to: backLink, highlighted: true, animated: true) { [weak self] in
+            self?.webView.wmf_accessibilityCursor(toFragment: backLink)
             dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
                 self?.messagingController.removeElementHighlights()
-                self?.webView.wmf_accessibilityCursor(toFragment: backLink)
             }
         }
     }
