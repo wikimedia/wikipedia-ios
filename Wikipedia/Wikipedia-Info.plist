@@ -95,6 +95,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>org.wikimedia.wikipedia.appRefresh</string>
+	</array>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>
 </dict>

@@ -101,5 +101,9 @@
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>org.wikimedia.wikipedia.appRefresh</string>
+	</array>
 </dict>
 </plist>

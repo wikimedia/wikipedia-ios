@@ -102,5 +102,9 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>org.wikimedia.wikipedia.appRefresh</string>
+	</array>
 </dict>
 </plist>

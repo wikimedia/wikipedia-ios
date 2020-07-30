@@ -1203,6 +1203,10 @@
 		83AE1C861F34BB64004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
+		83AF34F724D3341E000046D6 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AF34F624D3341D000046D6 /* BackgroundTasks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		83AF34F824D33428000046D6 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AF34F624D3341D000046D6 /* BackgroundTasks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		83AF34F924D33432000046D6 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AF34F624D3341D000046D6 /* BackgroundTasks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		83AF34FA24D3343B000046D6 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AF34F624D3341D000046D6 /* BackgroundTasks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		83B01F7223DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
 		83B01F7323DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
 		83B01F7423DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
@@ -3660,6 +3664,7 @@
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
+		83AF34F624D3341D000046D6 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = System/Library/Frameworks/BackgroundTasks.framework; sourceTree = SDKROOT; };
 		83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleWebMessageHandling.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		83B01F7623DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleToolbarHandling.swift"; sourceTree = "<group>"; };
 		83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Editing.swift"; sourceTree = "<group>"; };
@@ -4795,6 +4800,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AF34F724D3341E000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
@@ -4889,6 +4895,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AF34FA24D3343B000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
 				D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */,
@@ -4918,6 +4925,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AF34F924D33432000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */,
@@ -4941,6 +4949,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AF34F824D33428000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */,
@@ -7500,6 +7509,7 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83AF34F624D3341D000046D6 /* BackgroundTasks.framework */,
 				B09BE6A01FB3DA45007F52E3 /* WebKit.framework */,
 				D8CD975F1E83F68400ECCA9D /* SafariServices.framework */,
 				D8D906931DF58D1800853BFD /* libsqlite3.tbd */,
