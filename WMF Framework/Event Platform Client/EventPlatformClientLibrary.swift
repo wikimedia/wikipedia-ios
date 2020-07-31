@@ -68,14 +68,44 @@ import Foundation
  *
  * We describe the desired behaviors for both of those in EventPlatformClientProtocols.swift
  */
-public class EPC {
 
-    struct Event {
-        let stream: String
-        let schema: String
-        let data: [String: Any]
-        let domain: String?
+class EPCEvent: NSObject, NSCoding {
+    
+    func encode(with coder: NSCoder) {
+        
+        coder.encode(self.stream, forKey: "stream")
+        coder.encode(self.schema, forKey: "schema")
+        coder.encode(self.data, forKey: "data")
+        coder.encode(self.domain, forKey: "domain")
     }
+    
+    required convenience init?(coder: NSCoder) {
+        guard let stream = coder.decodeObject(forKey: "stream") as? String,
+            let schema = coder.decodeObject(forKey: "schema") as? String,
+            let data = coder.decodeObject(forKey: "data") as? [String : NSCoding]
+            else {
+                return nil
+        }
+        
+        let domain = coder.decodeObject(forKey: "domain") as? String
+        
+        self.init(stream: stream, schema: schema, data: data, domain: domain)
+    }
+    
+    let stream: String
+    let schema: String
+    let data: [String: NSCoding]
+    let domain: String?
+    
+    init(stream: String, schema: String, data: [String: NSCoding], domain: String?) {
+        self.stream = stream
+        self.schema = schema
+        self.data = data
+        self.domain = domain
+    }
+}
+
+public class EPC {
 
     // MARK: - Properties
 
@@ -117,7 +147,7 @@ public class EPC {
     /**
      * For persistent storage
      */
-    private let storageManager: StorageManager
+    private let storageManager: EPCStorageManaging
 
     /**
      * For handling HTTP requests
@@ -133,7 +163,7 @@ public class EPC {
      *
      * Only modify (append events to, remove events from) asynchronously via `queue.async`
      */
-    private var inputBuffer = [Event]()
+    private var inputBuffer: NSArray = []
 
     /**
      * Cache of "in sample" / "out of sample" determination for each stream
@@ -148,9 +178,9 @@ public class EPC {
 
     // MARK: - Methods
 
-    public init(network_manager: NetworkManager, storage_manager: StorageManager) {
-        self.networkManager = network_manager
-        self.storageManager = storage_manager
+    public init(networkManager: NetworkManager, storageManager: EPCStorageManaging) {
+        self.networkManager = networkManager
+        self.storageManager = storageManager
 
         wmf_eventGateURI = "https://intake-analytics.wikimedia.org/v1/events"
         wmf_configURI = "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json"
@@ -180,15 +210,16 @@ public class EPC {
      * Merges retrieved events with any existing events in `inputBuffer`.
      */
     private func recallBuffer() {
-        storageManager.getPersisted("epc_input_buffer", completion: { value in
-            guard let ib = value as? [Event] else {
-                return
-            }
-            for event in ib {
-                appendEventToInputBuffer(event)
-            }
-            storageManager.deletePersisted("epc_input_buffer")
-        })
+        
+        guard let events = storageManager.getPersisted("epc_input_buffer") as? [EPCEvent] else {
+            return
+        }
+        
+        for event in events {
+            appendEventToInputBuffer(event)
+        }
+        
+        storageManager.deletePersisted("epc_input_buffer")
     }
 
     /**
@@ -358,13 +389,15 @@ public class EPC {
             self.streamCopy = copies
         }
         // Process event buffer after making stream configs and cc map available
-        var cachedEvent: Event
+        var cachedEvent: EPCEvent?
         while !inputBufferIsEmpty() {
             cachedEvent = removeInputBufferAtIndex(0)
-            self.log(stream: cachedEvent.stream,
-                     schema: cachedEvent.schema,
-                     data: cachedEvent.data,
-                     domain: cachedEvent.domain)
+            if let cachedEvent = cachedEvent {
+                self.log(stream: cachedEvent.stream,
+                schema: cachedEvent.schema,
+                data: cachedEvent.data,
+                domain: cachedEvent.domain)
+            }
         }
     }
 
@@ -405,7 +438,7 @@ public class EPC {
      * [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
      * for more information.
      */
-    private func inSample(stream: String) -> Bool {
+    private func inSample(stream: String, deviceID: String) -> Bool {
 
         guard let configs = getStreamConfig() else {
             DDLogDebug("[EPC] Invalid state, must have streamConfigurations to check for inSample")
@@ -455,7 +488,7 @@ public class EPC {
             return false
         }
 
-        let identifier = identifierType == "session" ? sessionID : storageManager.deviceID
+        let identifier = identifierType == "session" ? sessionID : deviceID
         let result = determine(identifier, rate)
         cacheSamplingForStream(stream, inSample: result)
         return result
@@ -499,19 +532,19 @@ public class EPC {
      *   associated with the user's 1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()!.host!`
      */
-    public func log(stream: String, schema: String, data: [String: Any], domain: String? = nil) -> Void {
+    public func log(stream: String, schema: String, data: [String: NSCoding], domain: String? = nil) -> Void {
         guard loggingEnabled else {
             return
         }
 
-        var meta: [String: String] = data["meta"] as? [String: String] ?? [:]
+        var meta: [String: NSCoding] = data["meta"] as? [String: NSCoding] ?? [:]
 
         if let domain = domain {
-            meta["domain"] = domain
+            meta["domain"] = domain as NSCoding
         }
 
         var data = data
-        data["meta"] = meta
+        data["meta"] = meta as NSCoding
 
         /*
          * The top-level field `client_dt` is for recording the time the event
@@ -522,7 +555,7 @@ public class EPC {
          */
         if !data.keys.contains("client_dt") {
             let clientDateTime = Date()
-            data["client_dt"] = iso8601Formatter.string(from: clientDateTime)
+            data["client_dt"] = iso8601Formatter.string(from: clientDateTime) as NSCoding
             lastTimestamp = clientDateTime
         }
 
@@ -532,7 +565,7 @@ public class EPC {
          * they're cc'd to any other streams (once config is available).
          */
         if !data.keys.contains("session_id") {
-            data["session_id"] = sessionID
+            data["session_id"] = sessionID as NSCoding
         }
 
         #if DEBUG
@@ -545,7 +578,7 @@ public class EPC {
         #endif
 
         guard let streamConfigs = getStreamConfig() else {
-            let event = Event(stream: stream, schema: schema, data: data, domain: domain)
+            let event = EPCEvent(stream: stream, schema: schema, data: data, domain: domain)
             appendEventToInputBuffer(event)
             return
         }
@@ -562,30 +595,35 @@ public class EPC {
             return
         }
 
-        if !inSample(stream: stream) {
+        guard let deviceID = storageManager.deviceID else {
+            DDLogError("EPCStorageManager is missing it's deviceID. Fallbacking to not in sample.")
+            return
+        }
+        
+        if !inSample(stream: stream, deviceID: deviceID) {
             return
         }
 
-        data["device_id"] = storageManager.deviceID
+        data["device_id"] = deviceID as NSCoding
         /*
          * EventGate needs to know which version of the schema to validate
          * against (e.g. '/mediawiki/client/error/1.0.0')
          */
-        data["$schema"] = schema
+        data["$schema"] = schema as NSCoding
 
-        meta["stream"] = stream
+        meta["stream"] = stream as NSCoding
         /*
          * meta.id is *optional* and should only be done in case the client is
          * known to send duplicates of events, otherwise we don't need to
          * make the payload any heavier than it already is
          */
-        meta["id"] = UUID().uuidString // UUID with RFC 4122 v4 random bytes
-        data["meta"] = meta // update metadata
+        meta["id"] = UUID().uuidString as NSCoding // UUID with RFC 4122 v4 random bytes
+        data["meta"] = meta as NSCoding // update metadata
 
         do {
             let jsonString = try data.toJSONString()
             DDLogDebug("[EPC] Sending HTTP request to \(wmf_eventGateURI) with POST body: \(jsonString)")
-            networkManager.httpPost(url: wmf_eventGateURI, body: jsonString)
+            networkManager.httpPost(url: wmf_eventGateURI, body: data as NSDictionary)
         } catch let error {
             DDLogError("[EPC] \(error.localizedDescription)")
         }
@@ -598,8 +636,8 @@ public class EPC {
      * `domain` (optional string). This is just a shortcut to `EPC.shared.log()` but without having to
      * specify the schema name and version in every call.
      */
-    public func logger(schema: String) -> (String, [String: Any], String?) -> Void {
-        func l(stream: String, data: [String: Any], domain: String? = nil) -> Void {
+    public func logger(schema: String) -> (String, [String: NSCoding], String?) -> Void {
+        func l(stream: String, data: [String: NSCoding], domain: String? = nil) -> Void {
             self.log(stream: stream, schema: schema, data: data, domain: domain)
         }
         return l
@@ -614,35 +652,41 @@ public class EPC {
      * (optional string). This is just a shortcut to `EPC.shared.log()` but without having to specify the
      * stream, schema name, and schema version in every call.
     */
-    public func logger(stream: String, schema: String, version: String) -> ([String: Any], String?) -> Void {
-        func l(data: [String: Any], domain: String? = nil) -> Void {
+    public func logger(stream: String, schema: String, version: String) -> ([String: NSCoding], String?) -> Void {
+        func l(data: [String: NSCoding], domain: String? = nil) -> Void {
             self.log(stream: stream, schema: schema, data: data, domain: domain)
         }
         return l
     }
 
     // input buffer helpers
-    func getInputBuffer() -> [Event] {
+    func getInputBuffer() -> NSArray {
         queue.sync {
             return self.inputBuffer
         }
     }
 
-    func appendEventToInputBuffer(_ event: Event) {
+    func appendEventToInputBuffer(_ event: EPCEvent) {
         queue.async {
-            self.inputBuffer.append(event)
+            let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
+            mutableInputBuffer.add(event)
+            self.inputBuffer = NSArray(array: mutableInputBuffer)
         }
     }
 
     func inputBufferIsEmpty() -> Bool {
         queue.sync {
-            return self.inputBuffer.isEmpty
+            return self.inputBuffer.count == 0
         }
     }
 
-    func removeInputBufferAtIndex(_ index: Int) -> Event {
+    func removeInputBufferAtIndex(_ index: Int) -> EPCEvent? {
         queue.sync {
-            return self.inputBuffer.remove(at: index)
+            let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
+            let object = mutableInputBuffer.object(at: index) as? EPCEvent
+            mutableInputBuffer.removeObject(at: index)
+            self.inputBuffer = NSArray(array: mutableInputBuffer)
+            return object
         }
     }
 

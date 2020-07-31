@@ -175,6 +175,11 @@
 		674E8ABA2382DF020053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABC2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
+		67540CAC24D34527008B2894 /* EventPlatformClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67540CAA24D34527008B2894 /* EventPlatformClient.xcdatamodeld */; };
+		67540CAE24D348F0008B2894 /* EPCStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CAD24D348F0008B2894 /* EPCStorageManager.swift */; };
+		67540CBF24D37AAF008B2894 /* EPCStorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CBE24D37AAF008B2894 /* EPCStorageManagerTests.swift */; };
+		67540CC624D4741E008B2894 /* EPCPost+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CC424D4741E008B2894 /* EPCPost+CoreDataClass.swift */; };
+		67540CC724D4741E008B2894 /* EPCPost+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CC524D4741E008B2894 /* EPCPost+CoreDataProperties.swift */; };
 		6754E44922773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		6754E44A22773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		6754E44B22773588005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
@@ -3328,6 +3333,11 @@
 		6734116F22773122005B31DA /* TalkPageReplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyCell.swift; sourceTree = "<group>"; };
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
+		67540CAB24D34527008B2894 /* EventPlatformClient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventPlatformClient.xcdatamodel; sourceTree = "<group>"; };
+		67540CAD24D348F0008B2894 /* EPCStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPCStorageManager.swift; sourceTree = "<group>"; };
+		67540CBE24D37AAF008B2894 /* EPCStorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPCStorageManagerTests.swift; sourceTree = "<group>"; };
+		67540CC424D4741E008B2894 /* EPCPost+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EPCPost+CoreDataClass.swift"; sourceTree = "<group>"; };
+		67540CC524D4741E008B2894 /* EPCPost+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EPCPost+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
@@ -5819,6 +5829,14 @@
 			name = "Reading Themes Controls";
 			sourceTree = "<group>";
 		};
+		67540CBB24D37A78008B2894 /* Event Platform Client Tests */ = {
+			isa = PBXGroup;
+			children = (
+				67540CBE24D37AAF008B2894 /* EPCStorageManagerTests.swift */,
+			);
+			name = "Event Platform Client Tests";
+			sourceTree = "<group>";
+		};
 		6782DB8F2343B691003FA21B /* Diff */ = {
 			isa = PBXGroup;
 			children = (
@@ -6402,8 +6420,12 @@
 		982800D424D3028E004B1850 /* Event Platform Client */ = {
 			isa = PBXGroup;
 			children = (
+				67540CC424D4741E008B2894 /* EPCPost+CoreDataClass.swift */,
+				67540CC524D4741E008B2894 /* EPCPost+CoreDataProperties.swift */,
 				982800D524D302BF004B1850 /* EventPlatformClientLibrary.swift */,
 				982800D724D302D4004B1850 /* EventPlatformClientProtocols.swift */,
+				67540CAA24D34527008B2894 /* EventPlatformClient.xcdatamodeld */,
+				67540CAD24D348F0008B2894 /* EPCStorageManager.swift */,
 			);
 			path = "Event Platform Client";
 			sourceTree = "<group>";
@@ -7368,6 +7390,7 @@
 		BCD67E7D1C1F12F2005179E1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				67540CBB24D37A78008B2894 /* Event Platform Client Tests */,
 				679FA102242E64FC0095F3C6 /* Article Tests */,
 				67E8B0AA226A6DB000537BC9 /* TalkPageTests */,
 				8330533223F0388E00123141 /* DataStoreTests.swift */,
@@ -9828,6 +9851,7 @@
 				B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */,
 				D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */,
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
+				67540CBF24D37AAF008B2894 /* EPCStorageManagerTests.swift in Sources */,
 				D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
@@ -10423,6 +10447,7 @@
 				67D6C01C2405A4FB005709B1 /* CacheItem+CoreDataClass.swift in Sources */,
 				7A630F71217A400200FC93FC /* Array+Chunked.swift in Sources */,
 				67F9AE4923AD2F38003D4F5E /* Array+SafeIndex.swift in Sources */,
+				67540CC724D4741E008B2894 /* EPCPost+CoreDataProperties.swift in Sources */,
 				D826C51B217741C50012F940 /* ReachabilityNotifier.swift in Sources */,
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
 				8380753920DC7684000D222C /* ColumarCollectionViewLayoutSection.swift in Sources */,
@@ -10501,6 +10526,7 @@
 				7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */,
 				6779D45323F6EC2D002840CA /* CacheFetching.swift in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
+				67540CAE24D348F0008B2894 /* EPCStorageManager.swift in Sources */,
 				67D6C01D2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift in Sources */,
 				D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */,
 				8359BAC721E4C9C1009B5E6C /* Fetcher.swift in Sources */,
@@ -10557,6 +10583,7 @@
 				D8FA18C91E1BD891009675C3 /* WMFGeometry.c in Sources */,
 				D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */,
 				D84C36201F32404700895FA1 /* OnThisDayExploreCollectionViewCell.swift in Sources */,
+				67540CAC24D34527008B2894 /* EventPlatformClient.xcdatamodeld in Sources */,
 				D84C361C1F32403D00895FA1 /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */,
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
@@ -10589,6 +10616,7 @@
 				D8B29B8C1D77251F00161291 /* ImageController.swift in Sources */,
 				D844D99D1D6CB61B0042D692 /* NSString+WMFExtras.m in Sources */,
 				D837B5B21F0D68B800DCB9CD /* URL+LinkParsing.swift in Sources */,
+				67540CC624D4741E008B2894 /* EPCPost+CoreDataClass.swift in Sources */,
 				67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */,
 				67D6C00A240581ED005709B1 /* CacheItemMigrationPolicy.swift in Sources */,
 				D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */,
@@ -20639,6 +20667,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		67540CAA24D34527008B2894 /* EventPlatformClient.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				67540CAB24D34527008B2894 /* EventPlatformClient.xcdatamodel */,
+			);
+			currentVersion = 67540CAB24D34527008B2894 /* EventPlatformClient.xcdatamodel */;
+			path = EventPlatformClient.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

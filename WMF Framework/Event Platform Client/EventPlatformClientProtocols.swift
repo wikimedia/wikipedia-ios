@@ -49,11 +49,17 @@ import Foundation
  *
  * Additionally, it makes the app's install ID available as the device identifier (`deviceID`).
  */
-public protocol StorageManager {
-    func setPersisted(_ key: String, _ value: Any)
+public protocol EPCStorageManaging {
+    
+    func setPersisted(_ key: String, _ value: NSCoding)
     func deletePersisted(_ key: String)
-    func getPersisted(_ key: String, completion: (Any?) -> Void)
-    var deviceID: String { get }
+    func getPersisted(_ key: String) -> NSCoding?
+    var deviceID: String? { get }
+    
+    func createAndSavePostItem(with url: URL, body: NSDictionary)
+    func updatePostItem(postItem: EPCPost, result: Result<Date, Error>)
+    func deleteStalePostItems()
+    func fetchPostItemsToPost() -> [EPCPost]
 }
 
 /**
@@ -91,7 +97,7 @@ public protocol NetworkManager {
     /**
      * For fire-and-forget via `HTTP POST` (e.g. for sending events to EventGate endpoint)
      */
-    func httpPost(url: String, body: String)
+    func httpPost(url: String, body: NSDictionary)
     /**
      * For downloading data
      *
