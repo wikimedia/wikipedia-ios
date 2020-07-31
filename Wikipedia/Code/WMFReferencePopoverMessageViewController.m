@@ -46,6 +46,13 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     [self.widthConstraint setConstant:self.width];
 
     [self applyTheme:self.theme];
+
+    self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.view);
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
