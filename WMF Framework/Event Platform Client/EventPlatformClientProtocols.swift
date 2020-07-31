@@ -93,11 +93,13 @@ public protocol EPCStorageManaging {
  * its internal queue. Events are not submitted to the network manager if there is no stream configuration
  * (which needs to be downloaded separately).
  */
-public protocol NetworkManager {
+public protocol EPCNetworkManaging {
     /**
      * For fire-and-forget via `HTTP POST` (e.g. for sending events to EventGate endpoint)
+     * This needs to be called from the library each time new events are logged
+     * Note posting may not happen right away when calling this
      */
-    func httpPost(url: String, body: NSDictionary)
+    func httpPost(url: URL, body: NSDictionary)
     /**
      * For downloading data
      *
@@ -105,5 +107,11 @@ public protocol NetworkManager {
      * HTTP response is 200 or 304. It is up to the implementation to print an informational error in case
      * of any problems downloading.
      */
-    func httpDownload(url: String, completion: (Data?) -> Void)
+    func httpDownload(url: URL, completion: @escaping (Data?) -> Void)
+    
+    /**
+    * This method kicks off the posting of events queued from the httpPost method.
+    * It is meant to be periodically called, i.e. PeriodicWorker.
+    */
+    func httpTryPost()
 }

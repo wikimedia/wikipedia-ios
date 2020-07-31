@@ -120,8 +120,8 @@ public class EPC {
      * See [wikitech:Event Platform/EventGate](https://wikitech.wikimedia.org/wiki/Event_Platform/EventGate)
      * for more information. Specifically, the section on **eventgate-analytics-external**.
      */
-    private let wmf_eventGateURI: String
-    private let wmf_configURI: String
+    private let eventGateURI: URL
+    private let configURI: URL
     /**
      * A safeguard against logging events while the app is in background state.
      */
@@ -152,7 +152,7 @@ public class EPC {
     /**
      * For handling HTTP requests
      */
-    private let networkManager: NetworkManager
+    private let networkManager: EPCNetworkManaging
 
     /**
      * Store events until the library is finished initializing
@@ -178,12 +178,19 @@ public class EPC {
 
     // MARK: - Methods
 
-    public init(networkManager: NetworkManager, storageManager: EPCStorageManaging) {
+    public init?(networkManager: EPCNetworkManaging, storageManager: EPCStorageManaging) {
         self.networkManager = networkManager
         self.storageManager = storageManager
+        
+        guard let eventGateURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events"),
+            let configURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json") else {
+                DDLogError("EventPlatformClientLibrary - Unable to instantiate uris")
+                return nil
+        }
 
-        wmf_eventGateURI = "https://intake-analytics.wikimedia.org/v1/events"
-        wmf_configURI = "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json"
+        self.eventGateURI = eventGateURI
+        self.configURI = configURI
+        
         /* TODO: instead of baking in where to download stream configs from, we
          * may need to download from every language that the user has in their
          * preferences, since stream configurations can be deployed to all wikis
@@ -316,14 +323,14 @@ public class EPC {
          */
 
         if getStreamConfig() == nil {
-            networkManager.httpDownload(url: wmf_configURI, completion: {
+            networkManager.httpDownload(url: configURI, completion: {
                 data in
                 guard let data = data,
                     let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: [String: Any]] else {
                         DDLogWarn("[EPC] Problem processing stream config from response")
                         return
                 }
-                setStreamConfig(from: json)
+                self.setStreamConfig(from: json)
             })
         }
     }
@@ -622,8 +629,8 @@ public class EPC {
 
         do {
             let jsonString = try data.toJSONString()
-            DDLogDebug("[EPC] Sending HTTP request to \(wmf_eventGateURI) with POST body: \(jsonString)")
-            networkManager.httpPost(url: wmf_eventGateURI, body: data as NSDictionary)
+            DDLogDebug("[EPC] Sending HTTP request to \(eventGateURI) with POST body: \(jsonString)")
+            networkManager.httpPost(url: eventGateURI, body: data as NSDictionary)
         } catch let error {
             DDLogError("[EPC] \(error.localizedDescription)")
         }
