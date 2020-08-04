@@ -105,11 +105,19 @@ class EPCEvent: NSObject, NSCoding {
     }
 }
 
-public class EPC {
+@objc (WMFEventPlatformClient)
+public class EPC: NSObject {
 
     // MARK: - Properties
 
-    // public static let shared = EPC() // singleton
+    @objc(sharedInstance) public static let shared: EPC? = {
+        guard let storageManager = EPCStorageManager.shared else {
+            return nil
+        }
+        
+        let networkManager = EPCNetworkManager(storageManager: storageManager)
+        return EPC(networkManager: networkManager, storageManager: storageManager)
+    }()
 
     /**
      * Serial dispatch queue that makes `inputBuffer` and `samplingCache` thread-safe.
@@ -123,9 +131,9 @@ public class EPC {
     private let eventGateURI: URL
     private let configURI: URL
     /**
-     * A safeguard against logging events while the app is in background state.
+     * A safeguard against logging events while the app is in background state OR user has permissions turned off in Settings.
      */
-    private var loggingEnabled: Bool
+    @objc public var loggingEnabled: Bool
     /**
      * Holds each stream's configuration.
      */
@@ -178,7 +186,7 @@ public class EPC {
 
     // MARK: - Methods
 
-    public init?(networkManager: EPCNetworkManaging, storageManager: EPCStorageManaging) {
+    private init?(networkManager: EPCNetworkManaging, storageManager: EPCStorageManaging) {
         self.networkManager = networkManager
         self.storageManager = storageManager
         
@@ -198,6 +206,8 @@ public class EPC {
          */
         iso8601Formatter = ISO8601DateFormatter()
         loggingEnabled = true
+        
+        super.init()
 
         recallBuffer()
         configure()
@@ -233,7 +243,7 @@ public class EPC {
      * This method is called by the application delegate in `applicationWillResignActive()` and
      * disables event logging.
      */
-    public func appInBackground() {
+    @objc public func appInBackground() {
         loggingEnabled = false
         lastTimestamp = Date()
     }
@@ -243,10 +253,10 @@ public class EPC {
      *
      * If it has been more than 15 minutes since the app entered background state, a new session is started.
      */
-    public func appInForeground() {
+    @objc public func appInForeground() {
         loggingEnabled = true
         if sessionTimedOut() {
-            beginNewSession()
+            resetSession()
         }
     }
     /**
@@ -255,7 +265,7 @@ public class EPC {
      * We do not persist session ID on app close because we have decided that a session ends when the
      * user (or the OS) has closed the app or when 15 minutes of inactivity have assed.
      */
-    public func appWillClose() {
+    @objc public func appWillClose() {
         loggingEnabled = false
         persistBuffer()
     }
@@ -270,11 +280,19 @@ public class EPC {
         }
         return id
     }
+    
+    /**
+    * Called when user toggles logging permissions in Settings.
+    * This assumes storageManager's deviceID will be reset separately by a different owner (EventLoggingService's reset method)
+    */
+    @objc public func reset() {
+        resetSession()
+    }
 
     /**
      * Unset the session
      */
-    private func beginNewSession() -> Void {
+    private func resetSession() -> Void {
         _sessionID = nil
         removeAllSamplingCache()
     }
@@ -408,12 +426,6 @@ public class EPC {
         }
     }
 
-    func getStreamConfig() -> [String: [String: Any]]? {
-        queue.sync {
-            return self.streamConfigurations
-        }
-    }
-
     /**
      * Yields a deterministic (not stochastic) determination of whether the provided `id` is
      * in-sample or out-of-sample according to the `acceptance` rate
@@ -539,7 +551,7 @@ public class EPC {
      *   associated with the user's 1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()!.host!`
      */
-    public func log(stream: String, schema: String, data: [String: NSCoding], domain: String? = nil) -> Void {
+    @objc public func log(stream: String, schema: String, data: [String: NSCoding], domain: String? = nil) -> Void {
         guard loggingEnabled else {
             return
         }
@@ -643,7 +655,7 @@ public class EPC {
      * `domain` (optional string). This is just a shortcut to `EPC.shared.log()` but without having to
      * specify the schema name and version in every call.
      */
-    public func logger(schema: String) -> (String, [String: NSCoding], String?) -> Void {
+    @objc public func logger(schema: String) -> (String, [String: NSCoding], String?) -> Void {
         func l(stream: String, data: [String: NSCoding], domain: String? = nil) -> Void {
             self.log(stream: stream, schema: schema, data: data, domain: domain)
         }
@@ -659,14 +671,26 @@ public class EPC {
      * (optional string). This is just a shortcut to `EPC.shared.log()` but without having to specify the
      * stream, schema name, and schema version in every call.
     */
-    public func logger(stream: String, schema: String, version: String) -> ([String: NSCoding], String?) -> Void {
+    @objc public func logger(stream: String, schema: String, version: String) -> ([String: NSCoding], String?) -> Void {
         func l(data: [String: NSCoding], domain: String? = nil) -> Void {
             self.log(stream: stream, schema: schema, data: data, domain: domain)
         }
         return l
     }
+    
+    /**
+     * Passthrough method to tell networkManager to attempt to post it's queued events
+     * - Parameters:
+     *      - completion: Completion block to be called once posts complete
+    */
+    @objc public func httpTryPost(completion: (() -> Void)?) {
+        networkManager.httpTryPost(completion)
+    }
 
-    // input buffer helpers
+}
+
+private extension EPC {
+//MARK: input buffer helpers
     func getInputBuffer() -> NSArray {
         queue.sync {
             return self.inputBuffer
@@ -696,8 +720,15 @@ public class EPC {
             return object
         }
     }
+    
+//MARK: stream configuration helpers
+    func getStreamConfig() -> [String: [String: Any]]? {
+        queue.sync {
+            return self.streamConfigurations
+        }
+    }
 
-    // sampling cache helpers
+//MARK: sampling cache helpers
     func cacheSamplingForStream(_ stream: String, inSample: Bool) {
         queue.async {
             self.samplingCache[stream] = inSample
@@ -720,6 +751,20 @@ public class EPC {
     func getCopyStreamsForStream(_ stream: String) -> [String]? {
         queue.sync {
             return self.streamCopy[stream]
+        }
+    }
+}
+
+extension EPC: PeriodicWorker {
+    public func doPeriodicWork(_ completion: @escaping () -> Void) {
+        networkManager.httpTryPost(completion)
+    }
+}
+
+extension EPC: BackgroundFetcher {
+    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        doPeriodicWork {
+            completion(.noData)
         }
     }
 }

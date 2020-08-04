@@ -29,7 +29,8 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         updateToggleLabelTitleForUsageReportsIsOn(false)
         
         //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
-        if (EventLoggingService.shared?.isEnabled ?? false) {
+        let loggingEnabled = (EventLoggingService.shared?.isEnabled ?? false) && (EPC.shared?.loggingEnabled ?? false)
+        if (loggingEnabled) {
             toggle.isOn = true
         } else {
             toggle.isOn = false
@@ -49,8 +50,10 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     @IBAction func toggleAnalytics(withSender sender: UISwitch){
         if(sender.isOn){
             EventLoggingService.shared?.isEnabled = true
+            EPC.shared?.loggingEnabled = true
         }else{
             EventLoggingService.shared?.isEnabled = false
+            EPC.shared?.loggingEnabled = false
         }
         updateToggleLabelTitleForUsageReportsIsOn(sender.isOn)
     }
