@@ -307,9 +307,15 @@ public class EPC {
         }
         #endif
 
+        // example retrieved config: {"streams":{"test.event":[],"test.event.sampled":{"sampling":{"rate":0.1}}}}
+        guard let streams = config["streams"] as? [String: [String: Any]] else {
+            DDLogWarn("[EPC] Problem processing downloaded stream configurations")
+            return;
+        }
+
         // Make them available to any newly logged events before flushing buffer
         queue.sync {
-            self.streamConfigurations = config
+            self.streamConfigurations = streams
         }
         // Process event buffer after making stream configs and cc map available
         var cachedEvent: Event
