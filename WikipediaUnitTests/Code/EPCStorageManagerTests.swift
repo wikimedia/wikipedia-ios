@@ -315,7 +315,11 @@ class EPCStorageManagerTests: XCTestCase {
         XCTAssertNil(firstItem.posted)
         XCTAssertFalse(firstItem.failed)
         
-        temporaryStorageManager.updatePostItem(postItem: firstItem, result: .success(Date()))
+        var completedIDs = Set<NSManagedObjectID>()
+        let failedIDs = Set<NSManagedObjectID>()
+        completedIDs.insert(firstItem.objectID)
+        
+        temporaryStorageManager.updatePostItems(completedRecordIDs: completedIDs, failedRecordIDs: failedIDs)
         
         let moc = temporaryStorageManager.managedObjectContextToTest
         
@@ -344,8 +348,10 @@ class EPCStorageManagerTests: XCTestCase {
         XCTAssertNil(firstItem.posted)
         XCTAssertFalse(firstItem.failed)
         
-        let stockError = NSError(domain: "wikipedia.org", code: 1, userInfo: nil)
-        temporaryStorageManager.updatePostItem(postItem: firstItem, result: .failure(stockError))
+        let completedIDs = Set<NSManagedObjectID>()
+        var failedIDs = Set<NSManagedObjectID>()
+        failedIDs.insert(firstItem.objectID)
+        temporaryStorageManager.updatePostItems(completedRecordIDs: completedIDs, failedRecordIDs: failedIDs)
         
         let moc = temporaryStorageManager.managedObjectContextToTest
         
@@ -377,22 +383,27 @@ class EPCStorageManagerTests: XCTestCase {
         
         moc.performAndWait {
             let results = temporaryStorageManager.fetchPostItemsToPost()
+            
+            var completedIDs = Set<NSManagedObjectID>()
+            var failedIDs = Set<NSManagedObjectID>()
+            
             for (i, post) in results.enumerated() {
                 if i < 5 {
                     switch i % 3 {
                     case 0:
-                        let stockError = NSError(domain: "wikipedia.org", code: 1, userInfo: nil)
-                        temporaryStorageManager.updatePostItem(postItem: post, result: .failure(stockError))
+                        failedIDs.insert(post.objectID)
                     case 1:
                         //artificially move recorded date 31 days in the past so it is purged
                         let pruneInterval = 60*60*24*31
                         post.recorded = Date(timeIntervalSinceNow: -Double(pruneInterval))
                         temporaryStorageManager.testSave(moc)
                     default:
-                        temporaryStorageManager.updatePostItem(postItem: post, result: .success(Date()))
+                        completedIDs.insert(post.objectID)
                     }
                 }
             }
+            
+            temporaryStorageManager.updatePostItems(completedRecordIDs: completedIDs, failedRecordIDs: failedIDs)
         }
         
         //now purge

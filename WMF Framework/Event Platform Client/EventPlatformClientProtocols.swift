@@ -57,9 +57,10 @@ public protocol EPCStorageManaging {
     var deviceID: String? { get }
     
     func createAndSavePostItem(with url: URL, body: NSDictionary)
-    func updatePostItem(postItem: EPCPost, result: Result<Date, Error>)
+    func updatePostItems(completedRecordIDs: Set<NSManagedObjectID>, failedRecordIDs: Set<NSManagedObjectID>)
     func deleteStalePostItems()
     func fetchPostItemsToPost() -> [EPCPost]
+    func urlAndBodyOfPostItem(_ postItem: EPCPost) -> (url: URL, body: NSDictionary)?
 }
 
 /**
@@ -113,5 +114,5 @@ public protocol EPCNetworkManaging {
     * This method kicks off the posting of events queued from the httpPost method.
     * It is meant to be periodically called, i.e. PeriodicWorker.
     */
-    func httpTryPost()
+    func httpTryPost(_ completion: (() -> Void)?)
 }

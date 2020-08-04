@@ -1,7 +1,7 @@
 
 import Foundation
 
-class EPCStorageManager {
+class EPCStorageManager: EPCStorageManaging {
     
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let managedObjectContext: NSManagedObjectContext
@@ -73,11 +73,8 @@ class EPCStorageManager {
         self.legacyEventLoggingService = legacyEventLoggingService
         self.postBatchSize = postBatchSize
     }
-}
-
-//MARK: EPCStorageManaging
-
-extension EPCStorageManager: EPCStorageManaging {
+    
+    //MARK: EPCStorageManaging
     
     func setPersisted(_ key: String, _ value: NSCoding) {
         setLibraryValue(value, for: key)
@@ -112,19 +109,44 @@ extension EPCStorageManager: EPCStorageManaging {
         }
     }
     
-    func updatePostItem(postItem: EPCPost, result: Result<Date, Error>) {
+    func updatePostItems(completedRecordIDs: Set<NSManagedObjectID>, failedRecordIDs: Set<NSManagedObjectID>) {
         
         perform { moc in
-            switch result {
-            case .success(let date):
-                postItem.posted = date
-            case .failure:
-                postItem.failed = true
+            for moid in completedRecordIDs {
+                let mo = try? moc.existingObject(with: moid)
+                guard let record = mo as? EPCPost else {
+                    continue
+                }
+                
+                record.posted = Date()
+            }
+            
+            for moid in failedRecordIDs {
+                let mo = try? moc.existingObject(with: moid)
+                guard let record = mo as? EPCPost else {
+                    continue
+                }
+                
+                record.failed = true
             }
             
             self.save(moc)
         }
         
+    }
+    
+    func urlAndBodyOfPostItem(_ postItem: EPCPost) -> (url: URL, body: NSDictionary)? {
+        var result: (url: URL, body: NSDictionary)?
+        performAndWait { moc in
+            guard let url = postItem.url,
+                let body = postItem.body as? NSDictionary else {
+                    return
+            }
+            
+            result = (url: url, body: body)
+        }
+        
+        return result
     }
     
     func deleteStalePostItems() {

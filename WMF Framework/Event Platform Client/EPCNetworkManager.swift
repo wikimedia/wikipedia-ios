@@ -5,10 +5,14 @@ class EPCNetworkManager: EPCNetworkManaging {
     
     private let storageManager: EPCStorageManaging
     private let session: Session
+    private let operationQueue: OperationQueue
     
     init(storageManager: EPCStorageManaging, session: Session = Session.shared) {
         self.storageManager = storageManager
         self.session = session
+        
+        operationQueue = OperationQueue()
+        operationQueue.maxConcurrentOperationCount = 1
     }
     
     func httpPost(url: URL, body: NSDictionary) {
@@ -55,9 +59,83 @@ class EPCNetworkManager: EPCNetworkManaging {
         task?.resume()
     }
     
-    func httpTryPost() {
+    func httpTryPost(_ completion: (() -> Void)? = nil) {
+        let operation = AsyncBlockOperation { (operation) in
+            
+            self.storageManager.deleteStalePostItems()
+            let postItems = self.storageManager.fetchPostItemsToPost()
+            
+            self.postItems(postItems) {
+                operation.finish()
+            }
+        }
         
+        operationQueue.addOperation(operation)
+        guard let completion = completion else {
+            return
+        }
+        let completionBlockOp = BlockOperation(block: completion)
+        completionBlockOp.addDependency(operation)
+        operationQueue.addOperation(completion)
     }
     
+    private func postItems(_ items: [EPCPost], completion: @escaping () -> Void) {
+        
+        let taskGroup = WMFTaskGroup()
+        
+        var completedRecordIDs = Set<NSManagedObjectID>()
+        var failedRecordIDs = Set<NSManagedObjectID>()
+        
+        for item in items {
+            let moid = item.objectID
+            guard let urlAndBody = storageManager.urlAndBodyOfPostItem(item) else {
+                failedRecordIDs.insert(moid)
+                continue
+            }
+            taskGroup.enter()
+            let userAgent = item.userAgent ?? WikipediaAppUtils.versionedUserAgent()
+            submit(url: urlAndBody.url, payload: urlAndBody.body, userAgent: userAgent) { (error) in
+                if let error = error {
+                    if error != .network {
+                        failedRecordIDs.insert(moid)
+                    }
+                } else {
+                    completedRecordIDs.insert(moid)
+                }
+                taskGroup.leave()
+            }
+        }
+        
+        if (completedRecordIDs.count == items.count) {
+            DDLogDebug("EPCNetworkManager: All records succeeded")
+        } else {
+            DDLogDebug("EPCNetworkManager: Some records failed")
+        }
+        
+        taskGroup.waitInBackground {
+            self.storageManager.updatePostItems(completedRecordIDs: completedRecordIDs, failedRecordIDs: failedRecordIDs)
+            completion()
+        }
+    }
+    
+    private func submit(url: URL, payload: NSDictionary, userAgent: String, completion: @escaping (EventLoggingError?) -> Void) {
+
+        var request = session.request(with: url, method: .post, bodyParameters: payload, bodyEncoding: .json)
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
+            guard error == nil,
+                let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode / 100 == 2 else {
+                    if let error = error as NSError?, error.domain == NSURLErrorDomain {
+                        completion(EventLoggingError.network)
+                    } else {
+                        completion(EventLoggingError.generic)
+                    }
+                    return
+            }
+            completion(nil)
+        })
+        task?.resume()
+    }
     
 }
