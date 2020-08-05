@@ -171,24 +171,6 @@ public class EPC: NSObject {
     private var _streamConfigurations: [String: [String: Any]]? = nil
     
     /**
-     * Holds a map of which streams should be cc-ed when an event is logged to a particular stream.
-     * See section on stream cc-ing in [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
-     */
-    private var streamCopy: [String: [String]] {
-        get {
-            queue.sync {
-                return _streamCopy
-            }
-        }
-        set {
-            queue.async {
-                self._streamCopy = newValue
-            }
-        }
-    }
-    private var _streamCopy = [String: [String]]()
-    
-    /**
      * Updated with every `log` call and when app enters background, used for determining if the
      * session has expired.
      */
@@ -429,49 +411,14 @@ public class EPC: NSObject {
         }
         #endif
 
-        /*
-         * Figure out which streams can be cc'd (e.g. edit ~> edit.growth).
-         *
-         * Stream cc-ing should be done only 1 level deep to avoid duplication.
-         * For example, edits shouldn't cc edits.growth AND edits.growth.test,
-         * since edits.growth.test would be cc'd by edits.growth.
-         *
-         * Instead of working stream by stream to find children streams for each
-         * parent stream, we work backwards by constructing parent streams from
-         * children streams. This enables children streams such as
-         * 'edits.growth' to be cc'd when logging events to 'edits' even when
-         * parent stream 'edits' is not present in the stream configuration.
-         *
-         * Refer to mw:Wikimedia_Product/Analytics_Infrastructure/Stream_configuration#Stream_cc-ing
-         * for additional documentation.
-         */
-        var copies = [String: [String]]()
-        for stream in config.keys {
-            let s = stream.split(separator: ".")
-            let nPrefixes = s.count - 1
-            if nPrefixes > 1 {
-                for i in 1...nPrefixes {
-                    let child = s[0...i].joined(separator: ".")
-                    let parent = s[0..<i].joined(separator: ".")
-                    copies.appendIfNew(key: parent, value: child)
-                }
-            } else if nPrefixes == 1 {
-                copies.appendIfNew(key: String(s[0]), value: stream)
-            }
+        // example retrieved config: {"streams":{"test.event":[],"test.event.sampled":{"sampling":{"rate":0.1}}}}
+        guard let _ = config["streams"] as? [String: [String: Any]] else {
+            DDLogWarn("[EPC] Problem processing downloaded stream configurations")
+            return;
         }
-
-        #if DEBUG
-        do {
-            let jsonString = try streamCopy.toPrettyPrintJSONString()
-            DDLogDebug("[EPC] Map of streams to CC:\n\(jsonString)")
-        } catch let error {
-            DDLogError("[EPC] \(error.localizedDescription)")
-        }
-        #endif
 
         // Make them available to any newly logged events before flushing buffer
         self.streamConfigurations = config
-        self.streamCopy = copies
         
         // Process event buffer after making stream configs and cc map available
         var cachedEvent: EPCBufferEvent?
@@ -667,14 +614,6 @@ public class EPC: NSObject {
             return
         }
 
-        // CC to other streams, even if this stream does not exist
-        if let copiedStreams = getCopyStreamsForStream(stream) {
-            for copyStream in copiedStreams {
-                DDLogDebug("[EPC] CC-ing stream '\(copyStream)' from stream '\(stream)'")
-                log(stream: copyStream, schema: schema, data: data, domain: domain)
-            }
-        }
-
         if !(streamConfigs.keys.contains(stream)) {
             return
         }
@@ -803,12 +742,6 @@ private extension EPC {
     func removeAllSamplingCache() {
         queue.async {
             self.samplingCache.removeAll()
-        }
-    }
-    
-    func getCopyStreamsForStream(_ stream: String) -> [String]? {
-        queue.sync {
-            return self._streamCopy[stream]
         }
     }
 }
