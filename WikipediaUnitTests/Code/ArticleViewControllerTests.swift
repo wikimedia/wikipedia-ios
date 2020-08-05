@@ -35,21 +35,21 @@ class ArticleViewControllerTests: XCTestCase {
         let theme = Theme.light
         let url = URL(string: "https://en.wikipedia.org/wiki/Dog")!
         let schemeHandler = MockSchemeHandler(scheme: "app", session: Session.shared)
-        guard let measurableArticleVC = MeasurableArticleViewController(articleURL: url, dataStore: dataStore, theme: theme, schemeHandler: schemeHandler) else {
+        guard let articleVC = ArticleViewController(articleURL: url, dataStore: dataStore, theme: theme, schemeHandler: schemeHandler) else {
             XCTFail("Failure initializing Article View Controller")
             return
         }
         
         let setupExpectation = expectation(description: "Waiting for article initial setup call")
         
-        measurableArticleVC.initialLoadCompletion = {
+        articleVC.initialSetupCompletion = {
             setupExpectation.fulfill()
             XCTAssert(schemeHandler.accessed, "SchemeHandler was not accessed during article load.")
             UIApplication.shared.keyWindow?.rootViewController = nil
             dataStore.clearTemporaryCache()
         }
             
-        UIApplication.shared.keyWindow?.rootViewController = measurableArticleVC
+        UIApplication.shared.keyWindow?.rootViewController = articleVC
     
         wait(for: [setupExpectation], timeout: 10)
     }
