@@ -127,7 +127,7 @@
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SendUsageReports: {
-            BOOL loggingEnabled = [WMFEventLoggingService sharedInstance].isEnabled && [WMFEventPlatformClient sharedInstance].loggingEnabled;
+            BOOL loggingEnabled = [WMFEventLoggingService sharedInstance].isEnabled;
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"preference-title-eventlogging-opt-in", nil, nil, @"Send usage reports", @"Title of preference that when checked enables data collection of user behavior.")

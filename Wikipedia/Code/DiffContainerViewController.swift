@@ -1039,7 +1039,6 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         }
         
         EditHistoryCompareFunnel.shared.logRevisionView(language: siteURL.wmf_language)
-        EPC.shared?.log(stream: "testStream", schema: "testSchema", data: ["testKey": "testValueSwift" as NSCoding])
         
         let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision)
         push(singleDiffVC, animated: true)

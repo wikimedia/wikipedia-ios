@@ -92,7 +92,11 @@ class EPCStorageManager: EPCStorageManaging {
         return legacyEventLoggingService.appInstallID
     }
     
-    func createAndSavePostItem(with url: URL, body: NSDictionary) {
+    var sharingUsageData: Bool {
+        return legacyEventLoggingService.isEnabled
+    }
+    
+    func createAndSavePost(with url: URL, body: NSDictionary) {
         
         let now = Date()
         perform { moc in
@@ -109,25 +113,25 @@ class EPCStorageManager: EPCStorageManaging {
         }
     }
     
-    func updatePostItems(completedRecordIDs: Set<NSManagedObjectID>, failedRecordIDs: Set<NSManagedObjectID>) {
+    func updatePosts(completedIDs: Set<NSManagedObjectID>, failedIDs: Set<NSManagedObjectID>) {
         
         perform { moc in
-            for moid in completedRecordIDs {
+            for moid in completedIDs {
                 let mo = try? moc.existingObject(with: moid)
-                guard let record = mo as? EPCPost else {
+                guard let post = mo as? EPCPost else {
                     continue
                 }
                 
-                record.posted = Date()
+                post.posted = Date()
             }
             
-            for moid in failedRecordIDs {
+            for moid in failedIDs {
                 let mo = try? moc.existingObject(with: moid)
-                guard let record = mo as? EPCPost else {
+                guard let post = mo as? EPCPost else {
                     continue
                 }
                 
-                record.failed = true
+                post.failed = true
             }
             
             self.save(moc)
@@ -135,11 +139,11 @@ class EPCStorageManager: EPCStorageManaging {
         
     }
     
-    func urlAndBodyOfPostItem(_ postItem: EPCPost) -> (url: URL, body: NSDictionary)? {
+    func urlAndBodyOfPost(_ post: EPCPost) -> (url: URL, body: NSDictionary)? {
         var result: (url: URL, body: NSDictionary)?
         performAndWait { moc in
-            guard let url = postItem.url,
-                let body = postItem.body as? NSDictionary else {
+            guard let url = post.url,
+                let body = post.body as? NSDictionary else {
                     return
             }
             
@@ -149,7 +153,7 @@ class EPCStorageManager: EPCStorageManaging {
         return result
     }
     
-    func deleteStalePostItems() {
+    func deleteStalePosts() {
         
         perform { (moc) in
             
@@ -181,7 +185,7 @@ class EPCStorageManager: EPCStorageManaging {
         }
     }
     
-    func fetchPostItemsToPost() -> [EPCPost] {
+    func fetchPostsForPosting() -> [EPCPost] {
         
         var events: [EPCPost] = []
         performAndWait { (moc) in

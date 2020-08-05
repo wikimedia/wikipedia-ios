@@ -16,7 +16,7 @@ class EPCNetworkManager: EPCNetworkManaging {
     }
     
     func httpPost(url: URL, body: NSDictionary) {
-        storageManager.createAndSavePostItem(with: url, body: body)
+        storageManager.createAndSavePost(with: url, body: body)
     }
     
     func httpDownload(url: URL, completion: @escaping (Data?) -> Void) {
@@ -62,8 +62,8 @@ class EPCNetworkManager: EPCNetworkManaging {
     func httpTryPost(_ completion: (() -> Void)? = nil) {
         let operation = AsyncBlockOperation { (operation) in
             
-            self.storageManager.deleteStalePostItems()
-            let postItems = self.storageManager.fetchPostItemsToPost()
+            self.storageManager.deleteStalePosts()
+            let postItems = self.storageManager.fetchPostsForPosting()
             
             self.postItems(postItems) {
                 operation.finish()
@@ -83,13 +83,13 @@ class EPCNetworkManager: EPCNetworkManaging {
         
         let taskGroup = WMFTaskGroup()
         
-        var completedRecordIDs = Set<NSManagedObjectID>()
-        var failedRecordIDs = Set<NSManagedObjectID>()
+        var completedIDs = Set<NSManagedObjectID>()
+        var failedIDs = Set<NSManagedObjectID>()
         
         for item in items {
             let moid = item.objectID
-            guard let urlAndBody = storageManager.urlAndBodyOfPostItem(item) else {
-                failedRecordIDs.insert(moid)
+            guard let urlAndBody = storageManager.urlAndBodyOfPost(item) else {
+                failedIDs.insert(moid)
                 continue
             }
             taskGroup.enter()
@@ -97,23 +97,23 @@ class EPCNetworkManager: EPCNetworkManaging {
             submit(url: urlAndBody.url, payload: urlAndBody.body, userAgent: userAgent) { (error) in
                 if let error = error {
                     if error != .network {
-                        failedRecordIDs.insert(moid)
+                        failedIDs.insert(moid)
                     }
                 } else {
-                    completedRecordIDs.insert(moid)
+                    completedIDs.insert(moid)
                 }
                 taskGroup.leave()
             }
         }
         
-        if (completedRecordIDs.count == items.count) {
+        if (completedIDs.count == items.count) {
             DDLogDebug("EPCNetworkManager: All records succeeded")
         } else {
             DDLogDebug("EPCNetworkManager: Some records failed")
         }
         
         taskGroup.waitInBackground {
-            self.storageManager.updatePostItems(completedRecordIDs: completedRecordIDs, failedRecordIDs: failedRecordIDs)
+            self.storageManager.updatePosts(completedIDs: completedIDs, failedIDs: failedIDs)
             completion()
         }
     }

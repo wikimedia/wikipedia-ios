@@ -4,9 +4,9 @@ import XCTest
 
 fileprivate class MockStorageManager: EPCStorageManager {
     
-    var createAndSavePostItemCalled = false
-    var deleteStalePostItemsCalled = false
-    var updatePostItemsCalled = false
+    var createAndSavePostCalled = false
+    var deleteStalePostsCalled = false
+    var updatePostsCalled = false
     var expectedCompletedPosts: [EPCPost] = []
     var expectedFailedPosts: [EPCPost] = []
     var completedPosts: [EPCPost] = []
@@ -24,41 +24,41 @@ fileprivate class MockStorageManager: EPCStorageManager {
         return nil
     }
     
-    override func createAndSavePostItem(with url: URL, body: NSDictionary) {
-        createAndSavePostItemCalled = true
+    override func createAndSavePost(with url: URL, body: NSDictionary) {
+        createAndSavePostCalled = true
     }
     
-    override func updatePostItems(completedRecordIDs: Set<NSManagedObjectID>, failedRecordIDs: Set<NSManagedObjectID>) {
+    override func updatePosts(completedIDs: Set<NSManagedObjectID>, failedIDs: Set<NSManagedObjectID>) {
         
         let moc = self.managedObjectContextToTest
         moc.performAndWait {
-            for moid in completedRecordIDs {
+            for moid in completedIDs {
                 let mo = try? moc.existingObject(with: moid)
-                guard let record = mo as? EPCPost else {
+                guard let post = mo as? EPCPost else {
                     continue
                 }
                 
-                completedPosts.append(record)
+                completedPosts.append(post)
             }
             
-            for moid in failedRecordIDs {
+            for moid in failedIDs {
                 let mo = try? moc.existingObject(with: moid)
-                guard let record = mo as? EPCPost else {
+                guard let post = mo as? EPCPost else {
                     continue
                 }
                 
-                failedPosts.append(record)
+                failedPosts.append(post)
             }
         }
         
-        updatePostItemsCalled = true
+        updatePostsCalled = true
     }
     
-    override func deleteStalePostItems() {
-        deleteStalePostItemsCalled = true
+    override func deleteStalePosts() {
+        deleteStalePostsCalled = true
     }
     
-    override func fetchPostItemsToPost() -> [EPCPost] {
+    override func fetchPostsForPosting() -> [EPCPost] {
         
         let moc = self.managedObjectContextToTest
         var posts: [EPCPost] = []
@@ -211,7 +211,7 @@ class EPCNetworkManagerTests: XCTestCase {
     func testHttpPostCallsStorageManager() {
         let networkManager = EPCNetworkManager(storageManager: storageManager, session: session)
         networkManager.httpPost(url: URL(string: "https://en.wikipedia.org")!, body: [:] as NSDictionary)
-        XCTAssert(storageManager.createAndSavePostItemCalled, "Expected networkManager's httpPost to pass on through to storageManager's createAndSavePostItemCalled.")
+        XCTAssert(storageManager.createAndSavePostCalled, "Expected networkManager's httpPost to pass on through to storageManager's createAndSavePostItemCalled.")
     }
     
     func testHTTPTryPostMakesADeleteStaleCall() {
@@ -225,7 +225,7 @@ class EPCNetworkManagerTests: XCTestCase {
         
         waitForExpectations(timeout: 3, handler: nil)
         
-        XCTAssert(storageManager.deleteStalePostItemsCalled, "Expected httpTryPost to call storageManager's deleteStalePostItems")
+        XCTAssert(storageManager.deleteStalePostsCalled, "Expected httpTryPost to call storageManager's deleteStalePostItems")
     }
     
     func testHttpTryPostFunnelsToStorageManagerUpdatePostItems() {
@@ -239,7 +239,7 @@ class EPCNetworkManagerTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 3, handler: nil)
-        XCTAssert(storageManager.updatePostItemsCalled, "Expected httpTryPost to call storageManager's updatePostItemsCalled")
+        XCTAssert(storageManager.updatePostsCalled, "Expected httpTryPost to call storageManager's updatePostItemsCalled")
         
         let sortedBlock: ((EPCPost, EPCPost) -> Bool) = { lhs, rhs in
             guard let leftBody = lhs.body as? [String: AnyObject],
@@ -273,7 +273,7 @@ class EPCNetworkManagerTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 3, handler: nil)
-        XCTAssert(storageManager.updatePostItemsCalled, "Expected httpTryPost to call storageManager's updatePostItemsCalled")
+        XCTAssert(storageManager.updatePostsCalled, "Expected httpTryPost to call storageManager's updatePostItemsCalled")
         
         let sortedBlock: ((EPCPost, EPCPost) -> Bool) = { lhs, rhs in
             guard let leftBody = lhs.body as? [String: AnyObject],

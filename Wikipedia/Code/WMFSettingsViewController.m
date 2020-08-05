@@ -180,7 +180,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             WMFEventLoggingService *eventLoggingService = [WMFEventLoggingService sharedInstance];
             WMFEventPlatformClient *epc = [WMFEventPlatformClient sharedInstance];
             eventLoggingService.isEnabled = isOn;
-            epc.loggingEnabled = isOn;
             if (isOn) {
                 [eventLoggingService reset];
                 [epc reset];
@@ -319,7 +318,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [loginVC applyTheme:self.theme];
         [self presentViewControllerWrappedInNavigationController:loginVC];
         [[LoginFunnel shared] logLoginStartInSettings];
-        [[WMFEventPlatformClient sharedInstance] logWithStream:@"testStream" schema:@"testSchema" data:@{@"testKey": @"testValueObjC"} domain:nil];
     }
 }
 

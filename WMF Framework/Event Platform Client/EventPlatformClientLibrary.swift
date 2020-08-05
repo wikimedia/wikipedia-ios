@@ -69,7 +69,7 @@ import Foundation
  * We describe the desired behaviors for both of those in EventPlatformClientProtocols.swift
  */
 
-class EPCEvent: NSObject, NSCoding {
+class EPCBufferEvent: NSObject, NSCoding {
     
     func encode(with coder: NSCoder) {
         
@@ -120,7 +120,7 @@ public class EPC: NSObject {
     }()
 
     /**
-     * Serial dispatch queue that makes `inputBuffer` and `samplingCache` thread-safe.
+     * Serial dispatch queue that properties thread-safe
      */
     private let queue = DispatchQueue(label: "EventPlatformClient-" + UUID().uuidString)
 
@@ -130,25 +130,103 @@ public class EPC: NSObject {
      */
     private let eventGateURI: URL
     private let configURI: URL
+    
     /**
-     * A safeguard against logging events while the app is in background state OR user has permissions turned off in Settings.
+    * Key constants
+    */
+    private let inputBufferKey = "epc_input_buffer"
+    
+    /**
+     * A safeguard against logging events while the app is in background state
      */
-    @objc public var loggingEnabled: Bool
+    private var loggingEnabled: Bool {
+           get {
+               queue.sync {
+                   return _loggingEnabled
+               }
+           }
+        set {
+            queue.async {
+                self._loggingEnabled = newValue
+            }
+        }
+    }
+    private var _loggingEnabled: Bool = true
+    
     /**
      * Holds each stream's configuration.
      */
-    private var streamConfigurations: [String: [String: Any]]? = nil
+    private var streamConfigurations: [String: [String: Any]]? {
+        get {
+            queue.sync {
+                return _streamConfigurations
+            }
+        }
+        set {
+            queue.async {
+                self._streamConfigurations = newValue
+            }
+        }
+    }
+    private var _streamConfigurations: [String: [String: Any]]? = nil
+    
     /**
      * Holds a map of which streams should be cc-ed when an event is logged to a particular stream.
      * See section on stream cc-ing in [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
      */
-    private var streamCopy = [String: [String]]()
+    private var streamCopy: [String: [String]] {
+        get {
+            queue.sync {
+                return _streamCopy
+            }
+        }
+        set {
+            queue.async {
+                self._streamCopy = newValue
+            }
+        }
+    }
+    private var _streamCopy = [String: [String]]()
+    
     /**
      * Updated with every `log` call and when app enters background, used for determining if the
      * session has expired.
      */
-    private var lastTimestamp: Date = Date()
-    private var _sessionID: String? = nil
+    private var lastTimestamp: Date {
+        get {
+            queue.sync {
+                return _lastTimeStamp
+            }
+        }
+        set {
+            queue.async {
+                self._lastTimeStamp = newValue
+            }
+        }
+    }
+    private var _lastTimeStamp: Date = Date()
+    
+    /**
+    * Return a session identifier
+    * - Returns: session ID
+    *
+    * The identifier is a string of 20 zero-padded hexadecimal digits representing a uniformly random
+    * 80-bit integer.
+    */
+    private var sessionID: String {
+        get {
+            queue.sync {
+                guard let sID = _sessionID else {
+                    let newID = generateID()
+                    _sessionID = newID
+                    return newID
+                }
+
+                return sID
+            }
+        }
+    }
+    private var _sessionID: String?
 
     private let iso8601Formatter: ISO8601DateFormatter
 
@@ -205,10 +283,10 @@ public class EPC: NSObject {
          * and on a per-wiki basis. Would need to merge somehow, though!
          */
         iso8601Formatter = ISO8601DateFormatter()
-        loggingEnabled = true
         
         super.init()
 
+        loggingEnabled = true
         recallBuffer()
         configure()
     }
@@ -218,7 +296,7 @@ public class EPC: NSObject {
      */
     private func persistBuffer() {
         let inputBuffer = getInputBuffer()
-        storageManager.setPersisted("epc_input_buffer", inputBuffer)
+        storageManager.setPersisted(inputBufferKey, inputBuffer)
     }
 
     /**
@@ -228,7 +306,7 @@ public class EPC: NSObject {
      */
     private func recallBuffer() {
         
-        guard let events = storageManager.getPersisted("epc_input_buffer") as? [EPCEvent] else {
+        guard let events = storageManager.getPersisted(inputBufferKey) as? [EPCBufferEvent] else {
             return
         }
         
@@ -236,7 +314,7 @@ public class EPC: NSObject {
             appendEventToInputBuffer(event)
         }
         
-        storageManager.deletePersisted("epc_input_buffer")
+        storageManager.deletePersisted(inputBufferKey)
     }
 
     /**
@@ -293,27 +371,10 @@ public class EPC: NSObject {
      * Unset the session
      */
     private func resetSession() -> Void {
-        _sessionID = nil
-        removeAllSamplingCache()
-    }
-
-    /**
-    * Return a session identifier
-    * - Returns: session ID
-    *
-    * The identifier is a string of 20 zero-padded hexadecimal digits representing a uniformly random
-    * 80-bit integer.
-    */
-    private var sessionID: String {
-        get {
-            guard let sID = _sessionID else {
-                let newID = generateID()
-                _sessionID = newID
-                return newID
-            }
-
-            return sID
+        queue.async {
+            self._sessionID = nil
         }
+        removeAllSamplingCache()
     }
 
     /**
@@ -340,7 +401,7 @@ public class EPC: NSObject {
          * if there is no connectivity.
          */
 
-        if getStreamConfig() == nil {
+        if streamConfigurations == nil {
             networkManager.httpDownload(url: configURI, completion: {
                 data in
                 guard let data = data,
@@ -409,12 +470,11 @@ public class EPC: NSObject {
         #endif
 
         // Make them available to any newly logged events before flushing buffer
-        queue.sync {
-            self.streamConfigurations = config
-            self.streamCopy = copies
-        }
+        self.streamConfigurations = config
+        self.streamCopy = copies
+        
         // Process event buffer after making stream configs and cc map available
-        var cachedEvent: EPCEvent?
+        var cachedEvent: EPCBufferEvent?
         while !inputBufferIsEmpty() {
             cachedEvent = removeInputBufferAtIndex(0)
             if let cachedEvent = cachedEvent {
@@ -459,7 +519,7 @@ public class EPC: NSObject {
      */
     private func inSample(stream: String, deviceID: String) -> Bool {
 
-        guard let configs = getStreamConfig() else {
+        guard let configs = streamConfigurations else {
             DDLogDebug("[EPC] Invalid state, must have streamConfigurations to check for inSample")
             return false
         }
@@ -500,14 +560,16 @@ public class EPC: NSObject {
          * web, streams can be set to use pageview token instead. On the apps,
          * streams can be set to use device token instead.
          */
-        let identifierType = samplingConfig["identifier"] as? String ?? "session"
+        let sessionIdentifierType = "session"
+        let deviceIdentifierType = "device"
+        let identifierType = samplingConfig["identifier"] as? String ?? sessionIdentifierType
 
-        guard identifierType == "session" || identifierType == "device" else {
+        guard identifierType == sessionIdentifierType || identifierType == deviceIdentifierType else {
             cacheSamplingForStream(stream, inSample: false)
             return false
         }
 
-        let identifier = identifierType == "session" ? sessionID : deviceID
+        let identifier = identifierType == sessionIdentifierType ? sessionID : deviceID
         let result = determine(identifier, rate)
         cacheSamplingForStream(stream, inSample: result)
         return result
@@ -552,18 +614,19 @@ public class EPC: NSObject {
      *   `MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()!.host!`
      */
     @objc public func log(stream: String, schema: String, data: [String: NSCoding], domain: String? = nil) -> Void {
-        guard loggingEnabled else {
+        guard loggingEnabled, storageManager.sharingUsageData else {
             return
         }
 
-        var meta: [String: NSCoding] = data["meta"] as? [String: NSCoding] ?? [:]
+        let metaKey = "meta"
+        var meta: [String: NSCoding] = data[metaKey] as? [String: NSCoding] ?? [:]
 
         if let domain = domain {
             meta["domain"] = domain as NSCoding
         }
 
         var data = data
-        data["meta"] = meta as NSCoding
+        data[metaKey] = meta as NSCoding
 
         /*
          * The top-level field `client_dt` is for recording the time the event
@@ -572,9 +635,10 @@ public class EPC: NSObject {
          * is used for partitioning the events in the database. See Phab:T240460
          * for more information.
          */
-        if !data.keys.contains("client_dt") {
+        let clientDtKey = "client_dt"
+        if !data.keys.contains(clientDtKey) {
             let clientDateTime = Date()
-            data["client_dt"] = iso8601Formatter.string(from: clientDateTime) as NSCoding
+            data[clientDtKey] = iso8601Formatter.string(from: clientDateTime) as NSCoding
             lastTimestamp = clientDateTime
         }
 
@@ -583,8 +647,9 @@ public class EPC: NSObject {
          * config is available (in case they're generated offline) and before
          * they're cc'd to any other streams (once config is available).
          */
-        if !data.keys.contains("session_id") {
-            data["session_id"] = sessionID as NSCoding
+        let sessionIDKey = "session_id"
+        if !data.keys.contains(sessionIDKey) {
+            data[sessionIDKey] = sessionID as NSCoding
         }
 
         #if DEBUG
@@ -596,8 +661,8 @@ public class EPC: NSObject {
         }
         #endif
 
-        guard let streamConfigs = getStreamConfig() else {
-            let event = EPCEvent(stream: stream, schema: schema, data: data, domain: domain)
+        guard let streamConfigs = streamConfigurations else {
+            let event = EPCBufferEvent(stream: stream, schema: schema, data: data, domain: domain)
             appendEventToInputBuffer(event)
             return
         }
@@ -637,7 +702,7 @@ public class EPC: NSObject {
          * make the payload any heavier than it already is
          */
         meta["id"] = UUID().uuidString as NSCoding // UUID with RFC 4122 v4 random bytes
-        data["meta"] = meta as NSCoding // update metadata
+        data[metaKey] = meta as NSCoding // update metadata
 
         do {
             let jsonString = try data.toJSONString()
@@ -689,15 +754,17 @@ public class EPC: NSObject {
 
 }
 
+//MARK: Thread-safe accessors for collection properties
+
 private extension EPC {
-//MARK: input buffer helpers
+    
     func getInputBuffer() -> NSArray {
         queue.sync {
             return self.inputBuffer
         }
     }
 
-    func appendEventToInputBuffer(_ event: EPCEvent) {
+    func appendEventToInputBuffer(_ event: EPCBufferEvent) {
         queue.async {
             let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
             mutableInputBuffer.add(event)
@@ -711,24 +778,16 @@ private extension EPC {
         }
     }
 
-    func removeInputBufferAtIndex(_ index: Int) -> EPCEvent? {
+    func removeInputBufferAtIndex(_ index: Int) -> EPCBufferEvent? {
         queue.sync {
             let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
-            let object = mutableInputBuffer.object(at: index) as? EPCEvent
+            let object = mutableInputBuffer.object(at: index) as? EPCBufferEvent
             mutableInputBuffer.removeObject(at: index)
             self.inputBuffer = NSArray(array: mutableInputBuffer)
             return object
         }
     }
     
-//MARK: stream configuration helpers
-    func getStreamConfig() -> [String: [String: Any]]? {
-        queue.sync {
-            return self.streamConfigurations
-        }
-    }
-
-//MARK: sampling cache helpers
     func cacheSamplingForStream(_ stream: String, inSample: Bool) {
         queue.async {
             self.samplingCache[stream] = inSample
@@ -746,20 +805,23 @@ private extension EPC {
             self.samplingCache.removeAll()
         }
     }
-
-    // stream copy helpers
+    
     func getCopyStreamsForStream(_ stream: String) -> [String]? {
         queue.sync {
-            return self.streamCopy[stream]
+            return self._streamCopy[stream]
         }
     }
 }
+
+//MARK: PeriodicWorker
 
 extension EPC: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
         networkManager.httpTryPost(completion)
     }
 }
+
+//MARK: BackgroundFetcher
 
 extension EPC: BackgroundFetcher {
     public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {

@@ -67,15 +67,15 @@ class EPCStorageManagerTests: XCTestCase {
             "question3": "answer3" as NSCoding,
             "question4": 2 as NSCoding]
         
-        let event1 = EPCEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
+        let event1 = EPCBufferEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
         
-        let event2 = EPCEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
+        let event2 = EPCBufferEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
         
         let buffer = NSArray(array: [event1, event2])
         temporaryStorageManager.setPersisted(key, buffer)
         
         guard let result = temporaryStorageManager.getPersisted(key),
-            let events = result as? [EPCEvent] else {
+            let events = result as? [EPCBufferEvent] else {
             XCTFail("Unrecognized format of WMFKeyValue value")
             return
         }
@@ -107,15 +107,15 @@ class EPCStorageManagerTests: XCTestCase {
             "question3": "answer3" as NSCoding,
             "question4": 2 as NSCoding]
         
-        let event1 = EPCEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
+        let event1 = EPCBufferEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
         
-        let event2 = EPCEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
+        let event2 = EPCBufferEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
         
         let buffer = NSArray(array: [event1, event2])
         temporaryNonCachingStorageManager.setPersisted(key, buffer)
         
         guard let result = temporaryNonCachingStorageManager.getPersisted(key),
-            let events = result as? [EPCEvent] else {
+            let events = result as? [EPCBufferEvent] else {
             XCTFail("Unrecognized format of WMFKeyValue value")
             return
         }
@@ -147,15 +147,15 @@ class EPCStorageManagerTests: XCTestCase {
             "question3": "answer3" as NSCoding,
             "question4": 2 as NSCoding]
         
-        let event1 = EPCEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
+        let event1 = EPCBufferEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
         
-        let event2 = EPCEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
+        let event2 = EPCBufferEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
         
         let buffer = NSArray(array: [event1, event2])
         temporaryStorageManager.setPersisted(key, buffer)
         
         guard let result = temporaryStorageManager.getPersisted(key),
-            let events = result as? [EPCEvent] else {
+            let events = result as? [EPCBufferEvent] else {
             XCTFail("Unrecognized format of WMFKeyValue value")
             return
         }
@@ -178,15 +178,15 @@ class EPCStorageManagerTests: XCTestCase {
             "question3": "answer3" as NSCoding,
             "question4": 2 as NSCoding]
         
-        let event1 = EPCEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
+        let event1 = EPCBufferEvent(stream: "stream1", schema: "schema1", data: dict1, domain: nil)
         
-        let event2 = EPCEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
+        let event2 = EPCBufferEvent(stream: "stream2", schema: "schema2", data: dict2, domain: "es")
         
         let buffer = NSArray(array: [event1, event2])
         temporaryNonCachingStorageManager.setPersisted(key, buffer)
         
         guard let result = temporaryNonCachingStorageManager.getPersisted(key),
-            let events = result as? [EPCEvent] else {
+            let events = result as? [EPCBufferEvent] else {
             XCTFail("Unrecognized format of WMFKeyValue value")
             return
         }
@@ -231,7 +231,7 @@ class EPCStorageManagerTests: XCTestCase {
         return body
     }
     
-    func testSavePostItem() {
+    func testSavePost() {
         
         guard let deviceID = temporaryStorageManager.deviceID else {
             XCTFail("Missing Device ID")
@@ -240,7 +240,7 @@ class EPCStorageManagerTests: XCTestCase {
 
         let body: [String: NSCoding] = generatePostBody(index: 1)
         
-        temporaryStorageManager.createAndSavePostItem(with: self.eventGateURI, body: body as NSDictionary)
+        temporaryStorageManager.createAndSavePost(with: self.eventGateURI, body: body as NSDictionary)
         
         let moc = temporaryStorageManager.managedObjectContextToTest
         
@@ -279,17 +279,17 @@ class EPCStorageManagerTests: XCTestCase {
         }
     }
     
-    func testFetchPostItems() {
+    func testFetchPosts() {
         
         for i in 0..<10 {
             
             let body = generatePostBody(index: i)
-            temporaryStorageManager.createAndSavePostItem(with: self.eventGateURI, body: body as NSDictionary)
+            temporaryStorageManager.createAndSavePost(with: self.eventGateURI, body: body as NSDictionary)
         }
         
         let moc = temporaryStorageManager.managedObjectContextToTest
         
-        let results = temporaryStorageManager.fetchPostItemsToPost()
+        let results = temporaryStorageManager.fetchPostsForPosting()
         XCTAssertEqual(results.count, 5)
         
         moc.performAndWait {
@@ -304,12 +304,12 @@ class EPCStorageManagerTests: XCTestCase {
         }
     }
     
-    func testUpdatePostItemWithSuccess() {
+    func testUpdatePostWithSuccess() {
         let body: [String: NSCoding] = generatePostBody(index: 1)
         
-        temporaryStorageManager.createAndSavePostItem(with: self.eventGateURI, body: body as NSDictionary)
+        temporaryStorageManager.createAndSavePost(with: self.eventGateURI, body: body as NSDictionary)
         
-        let results = temporaryStorageManager.fetchPostItemsToPost()
+        let results = temporaryStorageManager.fetchPostsForPosting()
         let firstItem = results.first!
         
         XCTAssertNil(firstItem.posted)
@@ -319,7 +319,7 @@ class EPCStorageManagerTests: XCTestCase {
         let failedIDs = Set<NSManagedObjectID>()
         completedIDs.insert(firstItem.objectID)
         
-        temporaryStorageManager.updatePostItems(completedRecordIDs: completedIDs, failedRecordIDs: failedIDs)
+        temporaryStorageManager.updatePosts(completedIDs: completedIDs, failedIDs: failedIDs)
         
         let moc = temporaryStorageManager.managedObjectContextToTest
         
@@ -337,12 +337,12 @@ class EPCStorageManagerTests: XCTestCase {
         }
     }
     
-    func testUpdatePostItemWithFailure() {
+    func testUpdatePostWithFailure() {
         let body: [String: NSCoding] = generatePostBody(index: 1)
         
-        temporaryStorageManager.createAndSavePostItem(with: self.eventGateURI, body: body as NSDictionary)
+        temporaryStorageManager.createAndSavePost(with: self.eventGateURI, body: body as NSDictionary)
         
-        let results = temporaryStorageManager.fetchPostItemsToPost()
+        let results = temporaryStorageManager.fetchPostsForPosting()
         let firstItem = results.first!
         
         XCTAssertNil(firstItem.posted)
@@ -351,7 +351,7 @@ class EPCStorageManagerTests: XCTestCase {
         let completedIDs = Set<NSManagedObjectID>()
         var failedIDs = Set<NSManagedObjectID>()
         failedIDs.insert(firstItem.objectID)
-        temporaryStorageManager.updatePostItems(completedRecordIDs: completedIDs, failedRecordIDs: failedIDs)
+        temporaryStorageManager.updatePosts(completedIDs: completedIDs, failedIDs: failedIDs)
         
         let moc = temporaryStorageManager.managedObjectContextToTest
         
@@ -375,14 +375,14 @@ class EPCStorageManagerTests: XCTestCase {
         for i in 0..<20 {
             
             let body = generatePostBody(index: i)
-            temporaryStorageManager.createAndSavePostItem(with: self.eventGateURI, body: body as NSDictionary)
+            temporaryStorageManager.createAndSavePost(with: self.eventGateURI, body: body as NSDictionary)
         }
         
         //grab first batch and mark as successes or failures (batch size is 5 for test storage manager)
         let moc = temporaryStorageManager.managedObjectContextToTest
         
         moc.performAndWait {
-            let results = temporaryStorageManager.fetchPostItemsToPost()
+            let results = temporaryStorageManager.fetchPostsForPosting()
             
             var completedIDs = Set<NSManagedObjectID>()
             var failedIDs = Set<NSManagedObjectID>()
@@ -403,11 +403,11 @@ class EPCStorageManagerTests: XCTestCase {
                 }
             }
             
-            temporaryStorageManager.updatePostItems(completedRecordIDs: completedIDs, failedRecordIDs: failedIDs)
+            temporaryStorageManager.updatePosts(completedIDs: completedIDs, failedIDs: failedIDs)
         }
         
         //now purge
-        temporaryStorageManager.deleteStalePostItems()
+        temporaryStorageManager.deleteStalePosts()
         
         //confirm 15 post items remain
         moc.performAndWait {
