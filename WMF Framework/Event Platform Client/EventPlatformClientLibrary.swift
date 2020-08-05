@@ -250,7 +250,7 @@ public class EPC: NSObject {
         self.networkManager = networkManager
         self.storageManager = storageManager
         
-        guard let eventGateURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events"),
+        guard let eventGateURI = URL(string: "https://pai-test.wmflabs.org/log"), //https://intake-analytics.wikimedia.org/v1/events
             let configURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json") else {
                 DDLogError("EventPlatformClientLibrary - Unable to instantiate uris")
                 return nil

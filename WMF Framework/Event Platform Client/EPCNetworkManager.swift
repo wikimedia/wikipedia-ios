@@ -106,13 +106,12 @@ class EPCNetworkManager: EPCNetworkManaging {
             }
         }
         
-        if (completedIDs.count == items.count) {
-            DDLogDebug("EPCNetworkManager: All records succeeded")
-        } else {
-            DDLogDebug("EPCNetworkManager: Some records failed")
-        }
-        
         taskGroup.waitInBackground {
+            if (completedIDs.count == items.count) {
+                DDLogDebug("EPCNetworkManager: All records succeeded")
+            } else {
+                DDLogDebug("EPCNetworkManager: Some records failed")
+            }
             self.storageManager.updatePosts(completedIDs: completedIDs, failedIDs: failedIDs)
             completion()
         }

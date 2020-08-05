@@ -2002,6 +2002,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             }
             break;
         default:
+            [[WMFEventPlatformClient sharedInstance] logWithStream:@"test.event" schema:@"/test/event/1.0.0" data:@{@"test": @"hello world!",
+                                                                                                                    @"test_map":@{@"key1": @"val1", @"key2": @"val2"}} domain: nil];
             [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
             break;
     }
