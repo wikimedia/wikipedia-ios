@@ -568,6 +568,7 @@
 "page-history-revisions-comparison-warning" = "Solo puede seleccionar dos revisiones";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edición|$1 ediciones}} desde $2";
 "page-history-user-edits" = "ediciones del usuario";
+"page-issues" = "Problemas de la página";
 "page-location" = "Ver en un mapa";
 "page-protected-autoconfirmed" = "Esta página está semiprotegida.";
 "page-protected-can-not-edit" = "No tienes permisos para editar esta página";
