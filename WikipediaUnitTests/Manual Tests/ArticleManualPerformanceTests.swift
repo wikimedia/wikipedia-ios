@@ -11,6 +11,7 @@ class MeasurableArticlePeekPreviewViewController: ArticlePeekPreviewViewControll
 }
 
 class ArticleManualPerformanceTests: XCTestCase {
+    let timeout: TimeInterval = 10
     
     private var articleURL: URL! = URL(string: "https://en.wikipedia.org/wiki/Dog")
     private var appSchemeArticleURL: URL! = URL(string: "app://en.wikipedia.org/wiki/Dog")
@@ -48,7 +49,7 @@ class ArticleManualPerformanceTests: XCTestCase {
             
             UIApplication.shared.keyWindow?.rootViewController = articleVC
         
-            wait(for: [setupExpectation], timeout: 3)
+            wait(for: [setupExpectation], timeout: timeout)
         }
     }
     
@@ -82,7 +83,7 @@ class ArticleManualPerformanceTests: XCTestCase {
                 contextExpectation.fulfill()
             }
         
-            wait(for: [contextExpectation], timeout: 3)
+            wait(for: [contextExpectation], timeout: timeout)
         }
     }
     
@@ -104,7 +105,7 @@ class ArticleManualPerformanceTests: XCTestCase {
             
             UIApplication.shared.keyWindow?.rootViewController = peekVC
             
-            wait(for: [displayExpectation], timeout: 3)
+            wait(for: [displayExpectation], timeout: timeout)
         }
     }
 }
