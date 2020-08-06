@@ -1,0 +1,21 @@
+name: Localization
+
+on:
+  push:
+    branches:
+        - twn
+
+jobs:
+  update-localizations:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update localizations
+      run: |
+        $GITHUB_WORKSPACE/scripts/localization $GITHUB_WORKSPACE
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Update localizations"
+        git push
