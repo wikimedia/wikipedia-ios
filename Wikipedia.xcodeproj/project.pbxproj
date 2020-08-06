@@ -3639,6 +3639,8 @@
 		8361AEC721949670006B00B0 /* ga */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ga; path = ga.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutManager.swift; sourceTree = "<group>"; };
 		8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ArticleErrorHandling.swift"; sourceTree = "<group>"; };
+		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
+		83703A7824DC44CD00EE98EA /* EventLogging 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EventLogging 2.xcdatamodel"; sourceTree = "<group>"; };
 		8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutInfo.swift; sourceTree = "<group>"; };
 		8380753820DC7684000D222C /* ColumarCollectionViewLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumarCollectionViewLayoutSection.swift; sourceTree = "<group>"; };
 		8380753A20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutMetrics.swift; sourceTree = "<group>"; };
@@ -20639,9 +20641,10 @@
 		7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */,
 				7A9133A922B162E8002AEBCF /* RemoteNotifications.xcdatamodel */,
 			);
-			currentVersion = 7A9133A922B162E8002AEBCF /* RemoteNotifications.xcdatamodel */;
+			currentVersion = 83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */;
 			path = RemoteNotifications.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
@@ -20649,9 +20652,10 @@
 		B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83703A7824DC44CD00EE98EA /* EventLogging 2.xcdatamodel */,
 				B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */,
 			);
-			currentVersion = B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */;
+			currentVersion = 83703A7824DC44CD00EE98EA /* EventLogging 2.xcdatamodel */;
 			path = EventLogging.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
