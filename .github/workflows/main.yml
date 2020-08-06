@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+    
+jobs:
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache bundle install
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-bundle-install
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install ruby gems for fastlane
+      run: |
+        bundle config path vendor/bundle
+        bundle install
+
+    - name: Run tests
+      run: bundle exec fastlane verify_pull_request
