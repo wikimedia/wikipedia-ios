@@ -1,0 +1,40 @@
+# Imports localizations from TranslateWiki.net
+#
+# Commits are periodically made to the twn branch with new translations from 
+# TranslateWiki. This workflow is activated by those commits. It runs the 
+# script that reads the localizations from TranslateWiki and imports them 
+# into the app. The workflow then commits the result and opens a PR.
+#
+name: Localization
+
+on:
+  push:
+    branches:
+        - twn-test
+
+jobs:
+  update-localizations:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update localizations
+      run: |
+        ${{ github.workspace }}/scripts/localization ${{ github.workspace }}
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Import translations from TranslateWiki"
+        git push
+
+    - name: Open pull request
+      run: |
+        curl --request POST \
+        --url https://api.github.com/repos/${{ github.repository }}/pulls \
+        --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+        --header 'content-type: application/json' \
+        --data '{
+        "title": "Import translations from TranslateWiki",
+        "head": "${{ github.ref }}",
+        "base": "main"
+        }'
