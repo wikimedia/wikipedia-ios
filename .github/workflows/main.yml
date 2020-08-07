@@ -29,14 +29,9 @@ jobs:
     - name: Run tests
       run: bundle exec fastlane verify_pull_request
 
-    - name: Upload test report html
+    - name: Upload test results
+      if: ${{ success() || failure() }} # always run even if the tests fail
       uses: actions/upload-artifact@v2
       with:
-        name: test-report-html
+        name: test-results
         path: fastlane/test_output/report.html
-
-    - name: Upload test report junit
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-report-junit
-        path: fastlane/test_output/report.junit
