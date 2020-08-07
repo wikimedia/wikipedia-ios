@@ -29,6 +29,10 @@ import Foundation
                     break
                 }
             }
+
+            // TODO: Move this somewhere more appropriate
+            WidgetController.shared.reloadAllWidgets()
+
             completion(combinedResult)
             guard let strongSelf = self else {
                 return
