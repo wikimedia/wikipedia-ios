@@ -84,6 +84,7 @@
 "action-remove" = "Poista";
 "action-replace" = "Korvaa";
 "action-replace-all" = "Korvaa kaikki";
+"action-retry" = "Yritä uudelleen";
 "action-save" = "Tallenna";
 "action-saved" = "Tallennettu";
 "action-saved-accessibility" = "Tallennettu. Aktivoi poistaaksesi.";
@@ -111,6 +112,7 @@
 "appearance-settings-set-automatic-table-opening" = "Luetteloasetukset";
 "appearance-settings-text-sizing-example-text" = "Muuta artikkelin tekstin kokoa vetämällä liukusäädintä. Sovelluksen käyttöliittymän tekstin kokoa muutetaan käyttöjärjestelmän asetuksista.";
 "appearance-settings-theme-options" = "Teeman asetukset";
+"article-about-title" = "Tietoa tästä artikkelista";
 "article-delete" = "Poista";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikkeli|artikkelia}} poistettu";
 "article-languages-filter-placeholder" = "Löydä kieli";
@@ -118,6 +120,7 @@
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
 "article-read-more-title" = "Lue lisää";
+"article-reference-view-title" = "Lähde $1";
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
@@ -191,6 +194,7 @@
 "diff-thanks-login-title" = "Kirjaudu sisään lähettääksesi kiitokset";
 "diff-thanks-send-button-title" = "Lähetä kiitokset";
 "diff-thanks-sent" = "Kiitoksesi lähetettiin käyttäjälle $1";
+"diff-thanks-sent-already" = "Olet jo lähettänyt kiitokset tälle muokkaukselle";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 rivi ilman muutoksia|$1 riviä ilman muutoksia}}";
 "dim-images" = "Himmennä kuvia";
 "edit-bold-accessibility-label" = "Lisää lihavoitu muotoilu";
@@ -357,6 +361,8 @@
 "field-username-title" = "Käyttäjänimi";
 "find-clear-button-accessibility" = "Tyhjennä etsintä";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Seuraava hakutulos";
+"find-previous-button-accessibility" = "Edellinen hakutulos";
 "find-replace-header" = "Etsi ja korvaa";
 "find-replace-header-close-accessibility" = "Sulje etsi ja korvaa";
 "find-textfield-accessibility" = "Etsi";
@@ -395,6 +401,7 @@
 "in-the-news-title" = "Uutisissa";
 "insert-action-title" = "Lisää";
 "insert-link-title" = "Lisää linkki";
+"insert-media-alternative-text-description" = "Tekstin kuvaus lukijoille, jotka eivät näe kuvaa";
 "insert-media-alternative-text-placeholder" = "Kuvaile tätä kuvaa";
 "insert-media-alternative-text-title" = "Vaihtoehtoinen teksti";
 "insert-media-caption-caption-placeholder" = "Kuinka tämä kuva liittyy artikkeliin?";
@@ -488,6 +495,7 @@
 "page-protected-can-not-edit-title" = "Tämä sivu on suojattu";
 "page-protected-other" = "Sivun suojaustaso on: $1";
 "page-protected-sysop" = "Tämä sivu on täysin suojattu.";
+"page-similar-titles" = "Samankaltaiset sivut";
 "panel-compare-revisions-text" = "Muutosten vertailulla on helppo saada kuva artikkeliin tehdyistä muutoksista. Toiminto korostaa artikkelista kohdat, joihin on tehty muutoksia.";
 "pictured" = "kuvassa";
 "places-accessibility-clear-saved-searches" = "Tyhjennä tallennetut haut";
@@ -717,8 +725,11 @@
 "talk-page-add-discussion-accessibility-label" = "Lisää keskustelu";
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
+"talk-page-error-unable-to-post-reply" = "Ei Internet-yhteyttä. Vastausta ei voi lähettää.";
+"talk-page-error-unable-to-post-topic" = "Ei Internet-yhteyttä. Keskustelua ei voi lähettää.";
 "talk-page-info-active-conversations" = "Keskustelut kieliversion $1 Wikipediassa";
 "talk-page-info-active-conversations-generic" = "Aktiiviset keskustelut Wikipediassa";
+"talk-page-link-user-action-sheet-app" = "Näytä käyttäjän keskustelusivu sovelluksessa";
 "talk-page-link-user-action-sheet-safari" = "Näytä käyttäjäsivu Safarissa";
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-banner-subtitle" = "Olemme kaikki tavallisia ihmisiä";
@@ -730,9 +741,11 @@
 "talk-page-new-subject-placeholder-text" = "Aihe";
 "talk-page-new-subject-textfield-accessibility-label" = "Aihe";
 "talk-page-new-topic-body-placeholder-text" = "Kirjoita uusi keskusteluviesti";
+"talk-page-new-topic-success-text" = "Keskustelusi julkaistiin onnistuneesti";
 "talk-page-new-topic-title" = "Uusi keskustelu";
 "talk-page-publish-terms-and-licenses" = "Tallentamalla hyväksyt $1Käyttöehdot$2 sekä kirjoituksen julkaisemisen $3CC BY-SA 3.0$4 ja $5GFDL$6 -lisensseillä.";
 "talk-page-reply-title" = "Vastaa";
+"talk-page-title-article-talk" = "artikkelikeskustelu";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";
 "talk-page-topic-title" = "Keskustelu";
 "talk-pages-reply-button-title" = "Vastaa tähän keskusteluun";
