@@ -28,3 +28,15 @@ jobs:
 
     - name: Run tests
       run: bundle exec fastlane verify_pull_request
+
+    - name: Upload test report html
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-report-html
+      path: fastlane/test_output/report.html
+
+    - name: Upload test report junit
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-report-junit
+      path: fastlane/test_output/report.junit
