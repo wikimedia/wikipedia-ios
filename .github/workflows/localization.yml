@@ -1,3 +1,10 @@
+# Imports localizations from TranslateWiki.net
+#
+# Commits are periodically made to the twn branch with new translations from 
+# TranslateWiki. This workflow is activated by those commits. It runs the 
+# script that reads the localizations from TranslateWiki and imports them 
+# into the app. The workflow then commits the result and opens a PR.
+#
 name: Localization
 
 on:
