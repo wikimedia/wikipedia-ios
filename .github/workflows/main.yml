@@ -33,10 +33,10 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-report-html
-      path: fastlane/test_output/report.html
+        path: fastlane/test_output/report.html
 
     - name: Upload test report junit
       uses: actions/upload-artifact@v2
       with:
         name: test-report-junit
-      path: fastlane/test_output/report.junit
+        path: fastlane/test_output/report.junit
