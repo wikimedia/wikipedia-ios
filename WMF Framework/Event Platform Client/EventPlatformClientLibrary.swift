@@ -39,40 +39,11 @@
 import Foundation
 
 /**
- * Event Platform Client (EPC)
- *
- * The static public API via the `shared` singleton allows callers to log events. Use `log` to submit an
- * event to a specific stream, cc'ing derivative streams automatically. For additional information on
- * instrumentation with the Modern Event Platform and the Event Platform Client libraries, please refer to the
- * following resources:
- * - [mw:Wikimedia Product/Analytics Infrastructure/Event Platform Client](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Event_Platform_Client)
- * - [wikitech:Event Platform/Instrumentation How To](https://wikitech.wikimedia.org/wiki/Event_Platform/Instrumentation_How_To)
- *
- * **Note**: Events generated while offline are persisted between sessions until stream configuration has
- * been downloaded and the events can be properly processed.
- *
- * ## Logging API
- *
- * - `log(stream, schema, version, data, domain?)` to log events; can be called before
- *   configuration is available or even offline
- * - `logger(schema, version)` to generate a shortcut to `log` for logging multiple events using the
- *   same schema version, without having to specify those in every call
- * - `logger(stream, schema, version)` to generate a shortcut to `log` for logging multiple
- *   events using the same stream name and schema version, without having to specify those in every call
- *
- * ## Dependencies
- *
- * EPC relies on some functionality to be made available to it by the rest of the application. It depends on:
- * - a `NetworkManager` which can `HTTP POST` requests and download data
- * - a `StorageManager` which can persist data and recall or delete persisted data
- *
- * We describe the desired behaviors for both of those in EventPlatformClientProtocols.swift
+ * Holds all components of a logged event, for storing in EPC's persistable input buffer
  */
-
 class EPCBufferEvent: NSObject, NSCoding {
     
     func encode(with coder: NSCoder) {
-        
         coder.encode(self.stream, forKey: "stream")
         coder.encode(self.schema, forKey: "schema")
         coder.encode(self.data, forKey: "data")
@@ -105,6 +76,36 @@ class EPCBufferEvent: NSObject, NSCoding {
     }
 }
 
+/**
+ * Event Platform Client (EPC)
+ *
+ * The static public API via the `shared` singleton allows callers to log events. Use `log` to submit an
+ * event to a specific stream, cc'ing derivative streams automatically. For additional information on
+ * instrumentation with the Modern Event Platform and the Event Platform Client libraries, please refer to the
+ * following resources:
+ * - [mw:Wikimedia Product/Analytics Infrastructure/Event Platform Client](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Event_Platform_Client)
+ * - [wikitech:Event Platform/Instrumentation How To](https://wikitech.wikimedia.org/wiki/Event_Platform/Instrumentation_How_To)
+ *
+ * **Note**: Events generated while offline are persisted between sessions until stream configuration has
+ * been downloaded and the events can be properly processed.
+ *
+ * ## Logging API
+ *
+ * - `log(stream, schema, version, data, domain?)` to log events; can be called before
+ *   configuration is available or even offline
+ * - `logger(schema, version)` to generate a shortcut to `log` for logging multiple events using the
+ *   same schema version, without having to specify those in every call
+ * - `logger(stream, schema, version)` to generate a shortcut to `log` for logging multiple
+ *   events using the same stream name and schema version, without having to specify those in every call
+ *
+ * ## Dependencies
+ *
+ * `EPC` relies on some functionality to be made available to it by the rest of the application. It depends on:
+ * - an `EPCNetworkManager` which can `HTTP POST` requests and download data
+ * - an `EPCStorageManager` which can persist data and recall or delete persisted data
+ *
+ * Desired behaviors for both of those are described in EventPlatformClientProtocols.swift
+ */
 @objc (WMFEventPlatformClient)
 public class EPC: NSObject {
 
@@ -120,7 +121,7 @@ public class EPC: NSObject {
     }()
 
     /**
-     * Serial dispatch queue that properties thread-safe
+     * Serial dispatch queue that enables working with properties in a thread-safe way
      */
     private let queue = DispatchQueue(label: "EventPlatformClient-" + UUID().uuidString)
 
@@ -129,6 +130,16 @@ public class EPC: NSObject {
      * for more information. Specifically, the section on **eventgate-analytics-external**.
      */
     private let eventGateURI: URL
+    /**
+     * Endpoint which returns stream configurations as JSON
+     *
+     * Streams are configured via [mediawiki-config/wmf-config/InitialiseSettings.php](https://gerrit.wikimedia.org/r/plugins/gitiles/operations/mediawiki-config/+/master/wmf-config/InitialiseSettings.php), deployed in a
+     * [backport window](https://wikitech.wikimedia.org/wiki/Backport_windows)
+     * and made available for external consumption via MediaWiki API via
+     * [Extension:EventStreamConfig](https://gerrit.wikimedia.org/g/mediawiki/extensions/EventStreamConfig/)
+     *
+     * In production, we use [Meta wiki](https://meta.wikimedia.org/wiki/Main_Page)'s [streamconfigs endpoint](https://meta.wikimedia.org/w/api.php?action=help&modules=streamconfigs)
+     */
     private let configURI: URL
     
     /**
@@ -140,11 +151,11 @@ public class EPC: NSObject {
      * A safeguard against logging events while the app is in background state
      */
     private var loggingEnabled: Bool {
-           get {
-               queue.sync {
-                   return _loggingEnabled
-               }
-           }
+        get {
+            queue.sync {
+                return _loggingEnabled
+            }
+        }
         set {
             queue.async {
                 self._loggingEnabled = newValue
@@ -249,9 +260,9 @@ public class EPC: NSObject {
     private init?(networkManager: EPCNetworkManaging, storageManager: EPCStorageManaging) {
         self.networkManager = networkManager
         self.storageManager = storageManager
-        
-        guard let eventGateURI = URL(string: "https://pai-test.wmflabs.org/log"), //https://intake-analytics.wikimedia.org/v1/events
-            let configURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json") else {
+
+        guard let eventGateURI = URL(string: "https://pai-test.wmflabs.org/log"), // https://intake-analytics.wikimedia.org/v1/events
+            let configURI = URL(string: "https://pai-test.wmflabs.org/streams") else { // https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json
                 DDLogError("EventPlatformClientLibrary - Unable to instantiate uris")
                 return nil
         }
@@ -387,11 +398,21 @@ public class EPC: NSObject {
             networkManager.httpDownload(url: configURI, completion: {
                 data in
                 guard let data = data,
-                    let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: [String: Any]] else {
-                        DDLogWarn("[EPC] Problem processing stream config from response")
+                    let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: [String: [String: Any]]] else {
+                        DDLogWarn("EPC: Problem processing JSON payload from response")
                         return
                 }
-                self.setStreamConfig(from: json)
+                #if DEBUG
+                if let raw = String.init(data: data, encoding: String.Encoding.utf8) {
+                    DDLogDebug("EPC: Downloaded stream configs (raw): \(raw)")
+                }
+                #endif
+                // example retrieved config: {"streams":{"test.event":[],"test.event.sampled":{"sampling":{"rate":0.1}}}}
+                guard let streamConfigs = json["streams"] else {
+                    DDLogWarn("EPC: Problem extracting stream configs")
+                    return
+                }
+                self.setStreamConfig(from: streamConfigs)
             })
         }
     }
@@ -400,25 +421,19 @@ public class EPC: NSObject {
      * Called by `configure`'s completion handler after stream configuration has been downloaded and
      * processed into a dictionary
      */
-    private func setStreamConfig(from config: [String : [String : Any]]) -> Void {
+    private func setStreamConfig(from config: [String: [String: Any]]) -> Void {
 
         #if DEBUG
         do {
             let jsonString = try config.toPrettyPrintJSONString()
-            DDLogDebug("[EPC] Loaded stream configurations:\n\(jsonString)")
+            DDLogDebug("EPC: Processed stream configurations:\n\(jsonString)")
         } catch let error {
-            DDLogError("[EPC] \(error.localizedDescription)")
+            DDLogError("EPC: \(error.localizedDescription)")
         }
         #endif
 
-        // example retrieved config: {"streams":{"test.event":[],"test.event.sampled":{"sampling":{"rate":0.1}}}}
-        guard let streams = config["streams"] as? [String: [String: Any]] else {
-            DDLogWarn("[EPC] Problem processing downloaded stream configurations")
-            return;
-        }
-
         // Make them available to any newly logged events before flushing buffer
-        self.streamConfigurations = streams
+        self.streamConfigurations = config
         
         // Process event buffer after making stream configs and cc map available
         var cachedEvent: EPCBufferEvent?
@@ -455,6 +470,7 @@ public class EPC: NSObject {
     /**
      * Compute a boolean function on a random identifier
      * - Parameter stream: name of the stream
+     * - Parameter deviceID: device identifier (aka app install ID), found in `EPCStorageManager`
      * - Returns: `true` if in sample or `false` otherwise
      *
      * The determinations are lazy and cached, so each stream's in-sample vs out-of-sample determination
@@ -467,7 +483,7 @@ public class EPC: NSObject {
     private func inSample(stream: String, deviceID: String) -> Bool {
 
         guard let configs = streamConfigurations else {
-            DDLogDebug("[EPC] Invalid state, must have streamConfigurations to check for inSample")
+            DDLogDebug("EPC: Invalid state, must have streamConfigurations to check for inSample")
             return false
         }
 
@@ -476,7 +492,11 @@ public class EPC: NSObject {
         }
 
         guard let config = configs[stream] else {
-            DDLogError("[EPC] Invalid state, stream '\(stream)' must be present in streamConfigurations to check for inSample")
+            let error = """
+            EPC: Invalid state, stream '\(stream)' must be present in streamConfigurations to check for inSample
+            but found only: \(configs.keys.joined(separator: ", "))
+            """
+            DDLogError(error)
             return false
         }
 
@@ -602,9 +622,9 @@ public class EPC: NSObject {
         #if DEBUG
         do {
             let jsonString = try data.toPrettyPrintJSONString()
-            DDLogDebug("[EPC] Event logged to stream '\(stream)' (schema: \(schema):\n\(jsonString)")
+            DDLogDebug("EPC: Event logged to stream '\(stream)' (schema: '\(schema)'):\n\(jsonString)")
         } catch let error {
-            DDLogError("[EPC] \(error.localizedDescription)")
+            DDLogError("EPC: \(error.localizedDescription)")
         }
         #endif
 
@@ -615,11 +635,12 @@ public class EPC: NSObject {
         }
 
         if !(streamConfigs.keys.contains(stream)) {
+            DDLogDebug("EPC: Event logged to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.joined(separator: ", "))")
             return
         }
 
         guard let deviceID = storageManager.deviceID else {
-            DDLogError("EPCStorageManager is missing it's deviceID. Fallbacking to not in sample.")
+            DDLogError("EPCStorageManager is missing its deviceID. Fallbacking to not in sample.")
             return
         }
         
@@ -644,11 +665,13 @@ public class EPC: NSObject {
         data[metaKey] = meta as NSCoding // update metadata
 
         do {
+            #if DEBUG
             let jsonString = try data.toJSONString()
-            DDLogDebug("[EPC] Sending HTTP request to \(eventGateURI) with POST body: \(jsonString)")
+            DDLogDebug("EPC: Sending HTTP request to \(eventGateURI) with POST body: \(jsonString)")
+            #endif
             networkManager.httpPost(url: eventGateURI, body: data as NSDictionary)
         } catch let error {
-            DDLogError("[EPC] \(error.localizedDescription)")
+            DDLogError("EPC: \(error.localizedDescription)")
         }
     }
 
@@ -683,7 +706,7 @@ public class EPC: NSObject {
     }
     
     /**
-     * Passthrough method to tell networkManager to attempt to post it's queued events
+     * Passthrough method to tell `networkManager` to attempt to post its queued events
      * - Parameters:
      *      - completion: Completion block to be called once posts complete
     */
@@ -696,13 +719,20 @@ public class EPC: NSObject {
 //MARK: Thread-safe accessors for collection properties
 
 private extension EPC {
-    
+
+    /**
+     * Thread-safe synchronous retrieval of buffered events
+     */
     func getInputBuffer() -> NSArray {
         queue.sync {
             return self.inputBuffer
         }
     }
 
+    /**
+     * Thread-safe asynchronous buffering of an event
+     * - Parameter event: event to be buffered
+     */
     func appendEventToInputBuffer(_ event: EPCBufferEvent) {
         queue.async {
             let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
@@ -711,12 +741,21 @@ private extension EPC {
         }
     }
 
+    /**
+     * Thread-safe synchronous check if any events have been buffered
+     * - Returns: `true` if there are no buffered events, `false` if there are
+     */
     func inputBufferIsEmpty() -> Bool {
         queue.sync {
             return self.inputBuffer.count == 0
         }
     }
 
+    /**
+     * Thread-safe synchronous removal of buffered event at index
+     * - Parameter index: The index from which to remove the buffered event in the event buffer.
+     * - Returns: a previously buffered event
+     */
     func removeInputBufferAtIndex(_ index: Int) -> EPCBufferEvent? {
         queue.sync {
             let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
@@ -726,19 +765,32 @@ private extension EPC {
             return object
         }
     }
-    
+
+    /**
+     * Thread-safe asynchronous caching of a stream's in-vs-out-of-sample determination
+     * - Parameter stream: name of stream to cache determination for
+     * - Parameter inSample: whether the stream was determined to be in-sample this session
+     */
     func cacheSamplingForStream(_ stream: String, inSample: Bool) {
         queue.async {
             self.samplingCache[stream] = inSample
         }
     }
 
+    /**
+     * Thread-safe synchronous retrieval of a stream's cached in-vs-out-of-sample determination
+     * - Parameter stream: name of stream to retrieve determination for from the cache
+     * - Returns: `true` if stream was determined to be in-sample this session, `false` otherwise
+     */
     func getSamplingForStream(_ stream: String) -> Bool? {
         queue.sync {
             return self.samplingCache[stream]
         }
     }
 
+    /**
+     * Thread-safe asynchronous clearance of cached stream in-vs-out-of-sample determinations
+     */
     func removeAllSamplingCache() {
         queue.async {
             self.samplingCache.removeAll()

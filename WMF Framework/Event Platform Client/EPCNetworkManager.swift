@@ -20,12 +20,20 @@ class EPCNetworkManager: EPCNetworkManaging {
     }
     
     func httpDownload(url: URL, completion: @escaping (Data?) -> Void) {
-        httpDownload(url: url, attempt: 0, maxAttempts: 5, attemptDelay: 2, completion: completion)
+        httpDownload(url: url, maxAttempts: 5, attemptDelay: 2, completion: completion)
     }
-    
-    private func httpDownload(url: URL, attempt: Int, maxAttempts: Int, attemptDelay: TimeInterval, completion: @escaping (Data?) -> Void) {
-        
-        guard attempt < maxAttempts else {
+
+    /**
+     * Download data over HTTP with capacity for retries
+     * - Parameters:
+     *   - url: where to request data from
+     *   - maxAttempts: maximum number of retries allowed for this download operation
+     *   - attemptDelay: time between each retry
+     *   - completion: what to do with the downloaded data
+     */
+    private func httpDownload(url: URL, maxAttempts: Int, attemptDelay: TimeInterval, completion: @escaping (Data?) -> Void) {
+
+        guard maxAttempts > 0 else {
             completion(nil)
             return
         }
@@ -34,17 +42,19 @@ class EPCNetworkManager: EPCNetworkManaging {
             
             let failureBlock = {
                 dispatchOnMainQueueAfterDelayInSeconds(attemptDelay) {
-                    self.httpDownload(url: url, attempt: attempt + 1, maxAttempts: maxAttempts, attemptDelay: attemptDelay, completion: completion)
+                    self.httpDownload(url: url, maxAttempts: maxAttempts - 1, attemptDelay: attemptDelay, completion: completion)
                 }
             }
             
             guard let httpResponse = response as? HTTPURLResponse,
                 let data = data else {
+                    DDLogWarn("EPCNetworkManager: server did not respond adequately, will try \(url.absoluteString) again")
                 failureBlock()
                 return
             }
             
             guard httpResponse.statusCode == 200 else {
+                DDLogWarn("EPCNetworkManager: HTTP status of response was \(httpResponse.statusCode), will try \(url.absoluteString) again")
                 failureBlock()
                 return
             }
@@ -60,6 +70,7 @@ class EPCNetworkManager: EPCNetworkManaging {
     }
     
     func httpTryPost(_ completion: (() -> Void)? = nil) {
+
         let operation = AsyncBlockOperation { (operation) in
             
             self.storageManager.deleteStalePosts()
@@ -80,7 +91,7 @@ class EPCNetworkManager: EPCNetworkManaging {
     }
     
     private func postItems(_ items: [EPCPost], completion: @escaping () -> Void) {
-        
+
         let taskGroup = WMFTaskGroup()
         
         var completedIDs = Set<NSManagedObjectID>()

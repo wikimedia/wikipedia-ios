@@ -50,7 +50,6 @@ import Foundation
  * Additionally, it makes the app's install ID available as the device identifier (`deviceID`).
  */
 public protocol EPCStorageManaging {
-    
     //used by EPC
     func setPersisted(_ key: String, _ value: NSCoding)
     func deletePersisted(_ key: String)
