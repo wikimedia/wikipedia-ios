@@ -3263,13 +3263,13 @@
 		00021DE124D48EFD00476F97 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		00021DE224D48EFD00476F97 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		00021DE424D48EFD00476F97 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		00021DE724D48EFD00476F97 /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
+		00021DE724D48EFD00476F97 /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; usesTabs = 0; };
 		00021DE924D48EFE00476F97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00021DEB24D48EFE00476F97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureOfTheDayWidget.swift; sourceTree = "<group>"; };
+		00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureOfTheDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0062597224DE0A2500C95037 /* WidgetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetController.swift; sourceTree = "<group>"; usesTabs = 0; };
-		006D273424D8BAFB00947551 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		006D273624D8D8D100947551 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		006D273424D8BAFB00947551 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
+		006D273624D8D8D100947551 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSurveyTimerController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ExtensionTests.swift"; sourceTree = "<group>"; usesTabs = 0; };
