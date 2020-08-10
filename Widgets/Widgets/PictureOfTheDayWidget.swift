@@ -6,7 +6,7 @@ import UIKit
 // MARK: - Widget
 
 struct PictureOfTheDayWidget: Widget {
-	private let kind: String = "org.wikipedia.widgets.potd"
+	private let kind: String = WidgetController.SupportedWidget.pictureOfTheDay.identifier
 
 	public var body: some WidgetConfiguration {
 		StaticConfiguration(kind: kind, provider: PictureOfTheDayProvider(), content: { entry in
