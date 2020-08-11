@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="RemoteNotification" representedClassName="RemoteNotification" syncable="YES">
+        <attribute name="affectedPageID" optional="YES" attributeType="String"/>
+        <attribute name="agent" optional="YES" attributeType="String"/>
+        <attribute name="categoryString" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="message" optional="YES" attributeType="String"/>
+        <attribute name="stateNumber" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="typeString" optional="YES" attributeType="String"/>
+        <attribute name="wiki" optional="YES" attributeType="String"/>
+        <fetchIndex name="byPropertyIndex">
+            <fetchIndexElement property="stateNumber" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="group" optional="YES" attributeType="String"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer"/>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+            <fetchIndexElement property="group" type="Binary" order="ascending"/>
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <elements>
+        <element name="RemoteNotification" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="54" width="128" height="103"/>
+    </elements>
+</model>

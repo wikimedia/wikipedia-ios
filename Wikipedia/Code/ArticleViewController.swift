@@ -145,12 +145,17 @@ class ArticleViewController: ViewController, HintPresenting {
     
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
-        
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
             DDLogError("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
             self.updateArticleMargins()
+            
+            if #available(iOS 13.0, *) {
+                /// see implementation in `extension ArticleViewController: UIContextMenuInteractionDelegate`
+                let interaction = UIContextMenuInteraction(delegate: self)
+                self.leadImageView.addInteraction(interaction)
+            }
         }
     }
     
