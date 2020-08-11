@@ -146,3 +146,42 @@ extension ArticleViewController {
         commitPreview(of: previewingViewController)
     }
 }
+
+// MARK: Peek/Pop for Lead Image of ArticleVC (iOS 13 and later - no equivalent functionality on iOS 12 and prior)
+@available(iOS 13.0, *)
+extension ArticleViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        // If gallery has not been opened on that article, self.mediaList is nil - and we need to create the media list
+        guard let mediaList = self.mediaList ?? MediaList(from: leadImageView.wmf_imageURLToFetch) else {
+            return nil
+        }
+        let previewProvider: UIContextMenuContentPreviewProvider = {
+
+            let completion: ((Result<MediaList, Error>) -> Void) = { _ in
+                // Nothing - We preload the medialist (if needed) to provide better performance in the likely case the user pops into image gallery.
+            }
+            self.getMediaList(completion)
+
+            let galleryVC = self.getGalleryViewController(for: mediaList.items.first, in: mediaList)
+            galleryVC.setOverlayViewTopBarHidden(true)
+            return galleryVC
+        }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider, actionProvider: nil)
+    }
+
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        animator.addCompletion {
+            if let _ = self.mediaList {
+                self.showLeadImage()
+            } else {
+                // fetchAndDisplayGalleryViewController() is very similar to showLeadImage(). In both cases, if self.mediaList doesn't exist, we make
+                // a network request to load it. When that mediaList network fetch is happening in showLeadImage, we don't do anything - so when
+                // transitioning from peek to pop, we are back to the main article with no indication we are in the process of popping. This
+                // only happens on very slow networks (especially since we try to preload the mediaList when peeking - see above), but when it happens
+                // it is not great for the user. Solution: If a mediaList needs to be fetched, fetchAndDisplayGalleryViewController() fakes the loading
+                // photo screen while loading that mediaList - providing a much smoother user experience.
+                self.fetchAndDisplayGalleryViewController()
+            }
+        }
+    }
+}
