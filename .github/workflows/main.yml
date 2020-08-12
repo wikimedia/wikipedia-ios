@@ -8,7 +8,7 @@ jobs:
     runs-on: macOS-latest
     strategy:
       matrix:
-        destination: ['platform=iOS Simulator,OS=13.4 name=iPhone 8', 'platform=iOS Simulator,OS=12.4,name=iPhone X']
+        destination: ['platform=iOS Simulator,OS=13.4 name=iPhone 8', 'platform=iOS Simulator,OS=12.4,name=iPhone X', 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (4th generation)']
     
     steps:
     - uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
 
     - name: Run tests
       run: |
-        bundle exec fastlane test --destination "${{ matrix.destination }}" --scheme Wikipedia
+        bundle exec fastlane test destination:"${{ matrix.destination }}" scheme:Wikipedia
 
     - name: Upload test output
       if: ${{ success() || failure() }} # always run even if the tests fail
