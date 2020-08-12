@@ -33,7 +33,7 @@ jobs:
     - name: Run tests
       run: |
         bundle exec fastlane read_xcversion
-        bundle exec fastlane scan --destination "${{ matrix.destination }}"
+        bundle exec fastlane scan --destination "${{ matrix.destination }}" --scheme Wikipedia
 
     - name: Upload test output
       if: ${{ success() || failure() }} # always run even if the tests fail
