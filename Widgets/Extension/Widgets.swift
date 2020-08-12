@@ -7,7 +7,8 @@ struct WikipediaWidgets: WidgetBundle {
 	@WidgetBundleBuilder
 	var body: some Widget {
 		PictureOfTheDayWidget()
-		// We can support more widgets just by adding them here
+		OnThisDayWidget()
+        // We can support more widgets just by adding them here
 	}
 
 }

@@ -7,6 +7,7 @@ public final class WidgetController {
 
     public enum SupportedWidget: String {
         case pictureOfTheDay = "org.wikipedia.widgets.potd"
+        case onThisDay = "org.wikipedia.widgets.onThisDay"
 
         public var identifier: String {
             return self.rawValue

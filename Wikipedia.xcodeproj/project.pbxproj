@@ -2932,6 +2932,8 @@
 		D8FAC7DD1D6F88AB00C2A6BC /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		E1CFD6E6210C103900D8E37C /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
+		FF9416D824E203030070FEE7 /* OnThisDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */; };
+		FF9416DE24E2098C0070FEE7 /* OnThisDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */; };
 		FFD7B84624AEAB3F005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84724AEB049005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84824AEB04A005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
@@ -4812,6 +4814,8 @@
 		D8FFF6922031CB3D00A028E0 /* my */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = my; path = my.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8FFF6932031CB3E00A028E0 /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cy; path = cy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8FFF6942031CB4000A028E0 /* tcy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tcy; path = tcy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayWidget.swift; sourceTree = "<group>"; };
+		FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayView.swift; sourceTree = "<group>"; };
 		FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleScrolling.swift; sourceTree = "<group>"; };
 		FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewControllerDelegate.swift; sourceTree = "<group>"; };
 		FFD7B85824B3CA7A005C2471 /* ReferenceShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceShowing.swift; sourceTree = "<group>"; };
@@ -5049,6 +5053,8 @@
 			isa = PBXGroup;
 			children = (
 				00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */,
+				FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */,
+				FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -7575,9 +7581,9 @@
 				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
 				D87021611EBA63EF000D02D6 /* Localization */,
+				D8479FAC1F222FE90025FD7A /* Wikipedia Stickers */,
 				D83FD28B1EF4724700532B15 /* FeaturedArticleWidget */,
 				D88B929C1F02AD0F00F5DD40 /* WikipediaBetaClusterTests */,
-				D8479FAC1F222FE90025FD7A /* Wikipedia Stickers */,
 				B0606EAF20AA6FF0006EC6B9 /* WikipediaUITests */,
 				D8B589A621CD05070027083A /* codemirror-config */,
 				00021DE624D48EFD00476F97 /* Widgets */,
@@ -9943,7 +9949,9 @@
 			files = (
 				00021DE824D48EFD00476F97 /* Widgets.swift in Sources */,
 				006D273724D8D8D100947551 /* Date+Extensions.swift in Sources */,
+				FF9416D824E203030070FEE7 /* OnThisDayWidget.swift in Sources */,
 				006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */,
+				FF9416DE24E2098C0070FEE7 /* OnThisDayView.swift in Sources */,
 				00021E0424D4A42A00476F97 /* PictureOfTheDayWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
