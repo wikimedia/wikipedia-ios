@@ -8,7 +8,7 @@ jobs:
     runs-on: macOS-latest
     strategy:
       matrix:
-        destination: ['platform=iOS Simulator,OS=13.4 name=iPhone 8', 'platform=iOS Simulator,OS=12.4,name=iPhone X', 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (4th generation)']
+        destination: ['platform=iOS Simulator,OS=13.4 name=iPhone 8', 'platform=iOS Simulator,OS=12.4,name=iPhone X']
     
     steps:
     - uses: actions/checkout@v2
