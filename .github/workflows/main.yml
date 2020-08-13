@@ -4,30 +4,38 @@ on:
   pull_request:
     
 jobs:
-  test:
+  build:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout source
+      uses: actions/checkout@v2
+    
+    - name: Build for testing
+      run: xcodebuild build-for-testing -sdk iphonesimulator -scheme Wikipedia -derivedDataPath DerivedData
 
-    - name: Cache bundle install
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-bundle-install
+    - name: Upload derived data
+      uses: actions/upload-artifact@v2
       with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+        name: DerivedData
+        path: DerivedData
 
-    - name: Install ruby gems for fastlane
-      run: |
-        bundle config path vendor/bundle
-        bundle install
+  test:
+    needs: build
+    runs-on: macOS-latest
+    strategy:		
+       matrix:		
+         destination: ['platform=iOS Simulator,OS=13.5,name=iPhone 8', 'platform=iOS Simulator,OS=12.4,name=iPhone X', 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (4th generation)']
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
 
+    - name: Download build
+      uses: actions/download-artifact@v2
+      with:
+        name: DerivedData
+  
     - name: Run tests
-      run: bundle exec fastlane verify_pull_request
+      run: xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination ${{ matrix.destination }}
 
     - name: Upload test output
       if: ${{ success() || failure() }} # always run even if the tests fail
