@@ -17,7 +17,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: DerivedData
-        path: DerivedData/
+        path: DerivedData/Build/Products/
 
   test:
     needs: build
@@ -33,6 +33,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: DerivedData
+        path: DerivedData/Build/Products/
   
     - name: Run tests
       run: xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination ${{ matrix.destination }}
