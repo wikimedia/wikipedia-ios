@@ -111,12 +111,6 @@ platform :ios do
       scan(opts)
     end
   end
-
-  desc "Runs unit tests, generates reports."
-  lane :test do |options|
-    read_xcversion
-    scan(options)
-  end
   
   desc "Records visual tests."
   lane :record_visual_tests do |options|
