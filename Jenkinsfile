@@ -7,7 +7,8 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh '''rm -rf build/reports
+        sh '''
+        rm -rf build/reports
         export LANG=en_US.UTF-8
         export LANGUAGE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
@@ -18,7 +19,10 @@ pipeline {
       }
       post {
         always {
-          sh 'bundle exec danger'
+          sh '''
+          eval "$(rbenv init -)"
+          bundle exec danger
+          '''
           junit '**/fastlane/test_output/*.junit'
         }
       }
