@@ -7,8 +7,8 @@ default_platform :ios
 
 configurations_to_test_on_pull = [
   {device: 'iPhone X', os: '12.4'},
-  {device: 'iPhone 8', os: '13.4'},
-  {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13.4'}
+  {device: 'iPhone 8', os: '13.5'},
+  {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13.5'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
@@ -100,13 +100,17 @@ platform :ios do
   desc "Runs unit tests, generates reports."
   lane :verify do |options|
     read_xcversion
+    reset_simulator_contents
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
         devices: devices,
         scheme: scheme,
         project: 'Wikipedia.xcodeproj',
-        configuration: 'Test'
+        configuration: 'Test',
+        disable_concurrent_testing: true,
+        output_files: "#{scheme}.junit",		
+        output_types: 'junit'
       }
       scan(opts)
     end
