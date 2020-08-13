@@ -51,11 +51,6 @@ Reads Xcode version from the .xcversion file and sets it using xcversion()
 fastlane ios verify
 ```
 Runs unit tests, generates reports.
-### ios test
-```
-fastlane ios test
-```
-Runs unit tests, generates reports.
 ### ios record_visual_tests
 ```
 fastlane ios record_visual_tests
