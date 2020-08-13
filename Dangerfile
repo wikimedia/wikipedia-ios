@@ -1,2 +1,2 @@
-  junit.parse "fastlane/test_output/report.junit"
+  junit.parse "fastlane/test_output/Wikipedia.junit"
   junit.report
