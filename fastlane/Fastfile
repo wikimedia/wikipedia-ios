@@ -100,6 +100,7 @@ platform :ios do
   desc "Runs unit tests, generates reports."
   lane :verify do |options|
     read_xcversion
+    reset_simulator_contents
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
