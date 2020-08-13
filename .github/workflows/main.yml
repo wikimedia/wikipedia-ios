@@ -14,7 +14,9 @@ jobs:
       run: xcodebuild build-for-testing -sdk iphonesimulator -scheme Wikipedia -derivedDataPath DerivedData
 
     - name: Run tests
-      run: xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "platform=iOS Simulator,OS=13.6,name=iPhone 11 Pro"
+      run: |
+        xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "platform=iOS Simulator,OS=13.6,name=iPhone 11 Pro"
+        xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "platform=iOS Simulator,OS=13.6,name=iPad Pro (12.9-inch) (4th generation)"
 
     - name: Upload test output
       if: ${{ success() || failure() }} # always run even if the tests fail
