@@ -30,7 +30,7 @@ class ArticleViewControllerTests: XCTestCase {
     }
 
     func testArticleVCAccessesSchemeHandler() throws {
-        XCTFail("Test failure for danger")
+        
         //test that articleVC converts articleURL to proper scheme and sets up SchemeHandler to ensure it is accessed during a load
         let dataStore = MWKDataStore.temporary()
         let theme = Theme.light
