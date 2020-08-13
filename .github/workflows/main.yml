@@ -7,20 +7,28 @@ jobs:
   test:
     runs-on: macOS-latest
     steps:
-    - name: Checkout source
-      uses: actions/checkout@v2
-    
-    - name: Build for testing
-      run: xcodebuild build-for-testing -sdk iphonesimulator -scheme Wikipedia -derivedDataPath DerivedData
+    - uses: actions/checkout@v2
+
+    - name: Cache bundle install
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-bundle-install
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install ruby gems for fastlane
+      run: |
+        bundle config path vendor/bundle
+        bundle install
 
     - name: Run tests
-      run: |
-        xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "platform=iOS Simulator,OS=13.6,name=iPhone 11 Pro"
-        xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "platform=iOS Simulator,OS=13.6,name=iPad Pro (12.9-inch) (4th generation)"
-
-    - name: Upload test output
-      if: ${{ success() || failure() }} # always run even if the tests fail
-      uses: actions/upload-artifact@v2
-      with:
-        name: TestResults
-        path: DerivedData/Logs/Test/
+      run: bundle exec fastlane verify_pull_request
+    
+    - name: Run danger
+      if: ${{ success() || failure() }}
+      uses: danger/danger
