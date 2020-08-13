@@ -17,7 +17,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: DerivedData
-        path: DerivedData
+        path: DerivedData/
 
   test:
     needs: build
@@ -41,12 +41,5 @@ jobs:
       if: ${{ success() || failure() }} # always run even if the tests fail
       uses: actions/upload-artifact@v2
       with:
-        name: test-output
-        path: fastlane/test_output/
-
-    - name: Report jUnit Annotations as Github Actions Annotations
-      if: ${{ success() || failure() }}
-      uses: shyim/junit-report-annotations-action@0.2.0
-      with:
-        accessToken: ${{ secrets.GITHUB_TOKEN }}
-        path: fastlane/test_output/report.junit
+        name: TestResults
+        path: DerivedData/Logs/Test/
