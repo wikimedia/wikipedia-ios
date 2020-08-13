@@ -4,7 +4,7 @@ on:
   pull_request:
     
 jobs:
-  build:
+  test:
     runs-on: macOS-latest
     steps:
     - name: Checkout source
@@ -13,30 +13,10 @@ jobs:
     - name: Build for testing
       run: xcodebuild build-for-testing -sdk iphonesimulator -scheme Wikipedia -derivedDataPath DerivedData
 
-    - name: Upload derived data
-      uses: actions/upload-artifact@v2
-      with:
-        name: DerivedData
-        path: DerivedData/Build/Products/
-
-  test:
-    needs: build
-    runs-on: macOS-latest
-    strategy:		
-       matrix:		
-         destination: ['platform=iOS Simulator,OS=13.5,name=iPhone 8', 'platform=iOS Simulator,OS=12.4,name=iPhone X', 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (4th generation)']
-    steps:
-    - name: Checkout source
-      uses: actions/checkout@v2
-
-    - name: Download build
-      uses: actions/download-artifact@v2
-      with:
-        name: DerivedData
-        path: DerivedData/Build/Products/
-  
     - name: Run tests
-      run: xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "${{ matrix.destination }}"
+      run: |
+        xcrun simctl list --json
+        xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "platform=iOS Simulator,OS=13.5,name=iPhone 8"
 
     - name: Upload test output
       if: ${{ success() || failure() }} # always run even if the tests fail
