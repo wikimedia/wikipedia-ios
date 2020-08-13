@@ -107,7 +107,9 @@ platform :ios do
         devices: devices,
         scheme: scheme,
         project: 'Wikipedia.xcodeproj',
-        configuration: 'Test'
+        configuration: 'Test',
+        output_files: "#{scheme}.junit",		
+        output_types: 'junit'
       }
       scan(opts)
     end
