@@ -31,4 +31,4 @@ jobs:
     
     - name: Run danger
       if: ${{ success() || failure() }}
-      uses: danger/danger
+      run: bundle exec danger --verbose
