@@ -31,4 +31,6 @@ jobs:
     
     - name: Run danger
       if: ${{ success() || failure() }}
-      run: bundle exec danger --verbose
+      run: bundle exec danger --base=main --verbose
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
