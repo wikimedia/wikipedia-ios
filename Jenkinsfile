@@ -14,11 +14,11 @@ pipeline {
         eval "$(rbenv init -)"
         bundle install
         bundle exec fastlane verify_pull_request
-        bundle exec danger
         '''
       }
       post {
         always {
+          sh 'bundle exec danger'
           junit '**/fastlane/test_output/*.junit'
         }
       }
