@@ -36,7 +36,7 @@ jobs:
         path: DerivedData/Build/Products/
   
     - name: Run tests
-      run: xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination ${{ matrix.destination }}
+      run: xcodebuild test-without-building -scheme Wikipedia -derivedDataPath DerivedData -destination "${{ matrix.destination }}"
 
     - name: Upload test output
       if: ${{ success() || failure() }} # always run even if the tests fail
