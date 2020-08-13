@@ -108,6 +108,7 @@ platform :ios do
         scheme: scheme,
         project: 'Wikipedia.xcodeproj',
         configuration: 'Test',
+        disable_concurrent_testing: true,
         output_files: "#{scheme}.junit",		
         output_types: 'junit'
       }
