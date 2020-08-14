@@ -59,7 +59,9 @@ func getOutputFileURL(with components: [String]) -> URL {
 
 func writeCodable<T: Codable>(_ codable: T, to pathComponents: [String]) {
     do {
-        let data = try JSONEncoder().encode(codable)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        let data = try encoder.encode(codable)
         let outputFileURL = getOutputFileURL(with:  pathComponents)
         try data.write(to: outputFileURL)
     } catch let error {

@@ -1,1 +1,35 @@
-{"namespace":{"":0,"PROJECT":4,"TEMPLATE":10,"HELP":12,"MEDIAWIKI TALK":9,"GADGET DEFINITION TALK":2303,"USER TALK":3,"WIKIPEDIA TALK":5,"GADGET TALK":2301,"GADGET":2300,"MEDIAWIKI":8,"HELP TALK":13,"模組討論":829,"MEDIA":-2,"FILE TALK":7,"模組":828,"TEMPLATE TALK":11,"FILE":6,"MODULE":828,"GADGET DEFINITION":2302,"WIKIPEDIA":4,"PROJECT TALK":5,"SPECIAL":-1,"USER":2,"TALK":1,"MODULE TALK":829,"PORTAL TALK":101,"CATEGORY TALK":15,"PORTAL":100,"CATEGORY":14},"mainpage":"頭版"}
+{
+  "mainpage" : "頭版",
+  "namespace" : {
+    "" : 0,
+    "CATEGORY" : 14,
+    "CATEGORY TALK" : 15,
+    "FILE" : 6,
+    "FILE TALK" : 7,
+    "GADGET" : 2300,
+    "GADGET DEFINITION" : 2302,
+    "GADGET DEFINITION TALK" : 2303,
+    "GADGET TALK" : 2301,
+    "HELP" : 12,
+    "HELP TALK" : 13,
+    "MEDIA" : -2,
+    "MEDIAWIKI" : 8,
+    "MEDIAWIKI TALK" : 9,
+    "MODULE" : 828,
+    "MODULE TALK" : 829,
+    "PORTAL" : 100,
+    "PORTAL TALK" : 101,
+    "PROJECT" : 4,
+    "PROJECT TALK" : 5,
+    "SPECIAL" : -1,
+    "TALK" : 1,
+    "TEMPLATE" : 10,
+    "TEMPLATE TALK" : 11,
+    "USER" : 2,
+    "USER TALK" : 3,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
+    "模組" : 828,
+    "模組討論" : 829
+  }
+}
