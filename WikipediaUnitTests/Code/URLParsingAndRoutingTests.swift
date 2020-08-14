@@ -75,7 +75,7 @@ class URLParsingAndRoutingTests: XCTestCase {
             XCTAssertTrue(false)
         }
         
-        components.host = "za.m.wikipedia.org"
+        components.host = "zh.m.wikipedia.org"
         components.path = "/wiki/特殊:MobileDiff/24601"
         dest = router.destination(for: components.url!)
         switch dest {
