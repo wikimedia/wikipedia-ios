@@ -73,8 +73,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKLanguageFilter.h>
 
 #import <WMF/UIScreen+WMFImageWidth.h>
-#import <WMF/NSURL+WMFMainPage.h>
-#import <WMF/WMFAssetsFile.h>
 
 #import <WMF/WMFNotificationsController.h>
 

@@ -58,29 +58,7 @@ static id _sharedInstance;
 #pragma mark - Loading
 
 - (void)loadLanguagesFromFile {
-    WMFAssetsFile *assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
-    NSParameterAssert(assetsFile.array);
-    self.allLanguages = [assetsFile.array wmf_map:^id(NSDictionary *langAsset) {
-        NSString *code = langAsset[@"code"];
-        NSString *localizedName = langAsset[@"canonical_name"];
-        if (![self isCompoundLanguageCode:code]) {
-            // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
-            // should be "Cantonese". It looks like iOS ignores anything after the "-".
-            NSString *iOSLocalizedName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:code];
-            if (iOSLocalizedName) {
-                localizedName = iOSLocalizedName;
-            }
-        }
-        return [[MWKLanguageLink alloc] initWithLanguageCode:code
-                                               pageTitleText:@""
-                                                        name:langAsset[@"name"]
-                                               localizedName:localizedName];
-    }];
-    NSParameterAssert(self.allLanguages.count);
-}
-
-- (BOOL)isCompoundLanguageCode:(NSString *)code {
-    return [code containsString:@"-"];
+    self.allLanguages = [WikipediaLookup allLanguageLinks];
 }
 
 #pragma mark - Getters & Setters
