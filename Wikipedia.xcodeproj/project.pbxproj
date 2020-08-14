@@ -1194,6 +1194,7 @@
 		83A642762226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
 		83A642772226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
 		83A642782226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
+		83A72BBF24E70BB200732493 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A72BBE24E70BB200732493 /* localization.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
 		83ACAA9824E6BE7B003B3035 /* WikipediaLanguageUtilityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAA9724E6BE7B003B3035 /* WikipediaLanguageUtilityAPI.swift */; };
@@ -2072,7 +2073,6 @@
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
 		D8650B7B20350FEE0044DFFA /* NSString+SHA256.h in Headers */ = {isa = PBXBuildFile; fileRef = D8650B7920350FEE0044DFFA /* NSString+SHA256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7A20350FEE0044DFFA /* NSString+SHA256.m */; };
-		D87021711EBA6400000D02D6 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021701EBA6400000D02D6 /* localization.swift */; };
 		D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
 		D8703DC01EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
 		D8703DC11EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
@@ -3657,6 +3657,7 @@
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
 		83A422B422786E2000BA446A /* Local-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Local-Info.plist"; sourceTree = "<group>"; };
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
+		83A72BBE24E70BB200732493 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = "Command Line Tools/Update Localizations/localization.swift"; sourceTree = SOURCE_ROOT; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
 		83ACAA9724E6BE7B003B3035 /* WikipediaLanguageUtilityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageUtilityAPI.swift; sourceTree = "<group>"; };
@@ -4551,7 +4552,6 @@
 		D8650B7920350FEE0044DFFA /* NSString+SHA256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA256.h"; sourceTree = "<group>"; };
 		D8650B7A20350FEE0044DFFA /* NSString+SHA256.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA256.m"; sourceTree = "<group>"; };
 		D87021601EBA63EE000D02D6 /* localization */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = localization; sourceTree = BUILT_PRODUCTS_DIR; };
-		D87021701EBA6400000D02D6 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = scripts/localization.swift; sourceTree = SOURCE_ROOT; };
 		D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewingViewController.swift; sourceTree = "<group>"; };
 		D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
@@ -7967,7 +7967,7 @@
 		D87021611EBA63EF000D02D6 /* Update Localizations */ = {
 			isa = PBXGroup;
 			children = (
-				D87021701EBA6400000D02D6 /* localization.swift */,
+				83A72BBE24E70BB200732493 /* localization.swift */,
 				83ACAAA624E6E655003B3035 /* main.swift */,
 			);
 			name = "Update Localizations";
@@ -10645,7 +10645,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D87021711EBA6400000D02D6 /* localization.swift in Sources */,
+				83A72BBF24E70BB200732493 /* localization.swift in Sources */,
 				83ACAAA724E6E655003B3035 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
