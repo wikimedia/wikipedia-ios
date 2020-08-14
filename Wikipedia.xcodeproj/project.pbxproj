@@ -1208,6 +1208,7 @@
 		83ACAAAB24E6E745003B3035 /* WikipediaLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */; };
 		83ACAAAD24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */; };
 		83ACAAAE24E6EF0B003B3035 /* WikipediaSiteInfoLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */; };
+		83ACAAB024E6F8FF003B3035 /* WikipediaLanguageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAF24E6F8FF003B3035 /* WikipediaLanguageUtility.swift */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
@@ -3665,6 +3666,7 @@
 		83ACAAA624E6E655003B3035 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = "Command Line Tools/Update Localizations/main.swift"; sourceTree = SOURCE_ROOT; };
 		83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLookup.swift; sourceTree = "<group>"; };
 		83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaSiteInfoLookup.swift; sourceTree = "<group>"; };
+		83ACAAAF24E6F8FF003B3035 /* WikipediaLanguageUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageUtility.swift; sourceTree = "<group>"; };
 		83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleWebMessageHandling.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		83B01F7623DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleToolbarHandling.swift"; sourceTree = "<group>"; };
 		83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Editing.swift"; sourceTree = "<group>"; };
@@ -8049,6 +8051,7 @@
 			children = (
 				D8B589A721CD05070027083A /* main.swift */,
 				83ACAA9724E6BE7B003B3035 /* WikipediaLanguageUtilityAPI.swift */,
+				83ACAAAF24E6F8FF003B3035 /* WikipediaLanguageUtility.swift */,
 			);
 			path = "Update Languages";
 			sourceTree = "<group>";
@@ -11117,6 +11120,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8B589A821CD05070027083A /* main.swift in Sources */,
+				83ACAAB024E6F8FF003B3035 /* WikipediaLanguageUtility.swift in Sources */,
 				83ACAAA524E6E47D003B3035 /* Wikipedia.swift in Sources */,
 				83ACAA9824E6BE7B003B3035 /* WikipediaLanguageUtilityAPI.swift in Sources */,
 				83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */,

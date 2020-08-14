@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 
 /// **THIS IS NOT PART OF THE MAIN APP - IT'S A COMMAND LINE UTILITY**
 ///
@@ -14,44 +13,52 @@ class WikipediaLanguageUtilityAPI {
     //      "name": "Qaf\u00e1r af",
     //       "localname": "Afar"
     //     },
-    func getSites() -> AnyPublisher<[Wikipedia], Error> {
+    func getSites(completion: @escaping (Result<[Wikipedia], Error>) -> Void) {
         let sitematrixURL = URL(string: "https://meta.wikimedia.org/w/api.php?action=sitematrix&format=json&formatversion=2&origin=*")!
-        return URLSession.shared
-            .dataTaskPublisher(for: sitematrixURL)
-            .tryMap { result -> [String: Any] in
+        URLSession.shared.dataTask(with: sitematrixURL) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            do {
+                guard
+                    let data = data,
+                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                else {
+                     throw WikipediaLanguageUtilityAPIError.generic
+                }
                 /// See above as to why all of this is necessary instead of using codable
-                guard let jsonObject = try JSONSerialization.jsonObject(with: result.data, options: .allowFragments) as? [String: Any] else {
+                guard let sitematrix = jsonObject["sitematrix"] as? [String: Any] else {
                     throw WikipediaLanguageUtilityAPIError.generic
                 }
-                return jsonObject
-        }
-        .map { jsonObject -> [Wikipedia] in
-            /// See above as to why all of this is necessary instead of using codable
-            guard let sitematrix = jsonObject["sitematrix"] as? [String: Any] else {
-                return []
-            }
-            return sitematrix.compactMap { (kv) -> Wikipedia? in
-                guard
-                    let result = kv.value as? [String: Any],
-                    let code = result["code"] as? String,
-                    let name = result["name"] as? String,
-                    let localname = result["localname"] as? String,
-                    let sites = result["site"] as? [[String: Any]]
+                var wikipedias =  sitematrix.compactMap { (kv) -> Wikipedia? in
+                    guard
+                        let result = kv.value as? [String: Any],
+                        let code = result["code"] as? String,
+                        let name = result["name"] as? String,
+                        let localname = result["localname"] as? String,
+                        let sites = result["site"] as? [[String: Any]]
+                        else {
+                            return nil
+                    }
+                    guard
+                        let wikipedia = sites.first(where: { (site) -> Bool in
+                            site["code"] as? String == "wiki"
+                        }),
+                        let sitename = wikipedia["sitename"] as? String,
+                        let dbname = wikipedia["dbname"] as? String
                     else {
                         return nil
+                    }
+                    return Wikipedia(languageCode: code, languageName: name, localName: localname, siteName: sitename, dbName:dbname)
                 }
-                guard
-                    let wikipedia = sites.first(where: { (site) -> Bool in
-                        site["code"] as? String == "wiki"
-                    }),
-                    let sitename = wikipedia["sitename"] as? String,
-                    let dbname = wikipedia["dbname"] as? String
-                else {
-                    return nil
-                }
-                return Wikipedia(languageCode: code, languageName: name, localName: localname, siteName: sitename, dbName:dbname)
+                // Add testwiki, it's not returned by the site matrix
+                wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", siteName: "Test Wikipedia", dbName: "testwiki"))
+                completion(.success(wikipedias))
+            } catch let error {
+                completion(.failure(error))
             }
-        }.eraseToAnyPublisher()
+        }.resume()
     }
     
     func getSiteInfo(with languageCode: String, completion: @escaping (Result<SiteInfo, Error>) -> Void) {
