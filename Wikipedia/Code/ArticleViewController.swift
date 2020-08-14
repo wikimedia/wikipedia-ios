@@ -366,31 +366,30 @@ class ArticleViewController: ViewController, HintPresenting {
             self?.restoreScrollStateIfNecessary()
             self?.articleLoadWaitGroup = nil
         }
-        
+    }
+    
+    internal func loadSummary() {
         guard let key = article.key else {
             return
         }
         
         articleLoadWaitGroup?.enter()
-        // async to allow the page network requests some time to go through
-        DispatchQueue.main.async {
-            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
-            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
-                defer {
-                    self.articleLoadWaitGroup?.leave()
-                    self.updateMenuItems()
-                }
-                guard let article = article else {
-                    return
-                }
-                self.article = article
-                // Handle redirects
-                guard let newKey = article.key, newKey != key, let newURL = article.url else {
-                    return
-                }
-                self.articleURL = newURL
-                self.addToHistory()
+        let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
+            defer {
+                self.articleLoadWaitGroup?.leave()
+                self.updateMenuItems()
             }
+            guard let article = article else {
+                return
+            }
+            self.article = article
+            // Handle redirects
+            guard let newKey = article.key, newKey != key, let newURL = article.url else {
+                return
+            }
+            self.articleURL = newURL
+            self.addToHistory()
         }
     }
     
