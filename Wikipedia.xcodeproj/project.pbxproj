@@ -1984,7 +1984,7 @@
 		D844DA061D6CC4C90042D692 /* MWKLanguageFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806B51C0CEB160065EBC0 /* MWKLanguageLinkController.m */; };
 		D844DA091D6CC4D40042D692 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
-		D844DA0A1D6CC5240042D692 /* Locale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804971C0CE0B40065EBC0 /* Locale+WMFExtras.swift */; };
+		D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */; };
 		D84649AD1D4514F7009DB4A0 /* WMFTaskGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */; };
 		D84692E01D5E1E3F000A7058 /* TableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* TableOfContentsHeader.swift */; };
 		D84692E11D5E1E3F000A7058 /* TableOfContentsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84692DF1D5E1E3F000A7058 /* TableOfContentsHeader.xib */; };
@@ -3921,7 +3921,7 @@
 		B0E804921C0CE0B40065EBC0 /* NSError+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+WMFExtensions.m"; path = "Wikipedia/Code/NSError+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		B0E804951C0CE0B40065EBC0 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSIndexSet+BKReduce.h"; path = "Wikipedia/Code/NSIndexSet+BKReduce.h"; sourceTree = SOURCE_ROOT; };
 		B0E804961C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+BKReduce.m"; path = "Wikipedia/Code/NSIndexSet+BKReduce.m"; sourceTree = SOURCE_ROOT; };
-		B0E804971C0CE0B40065EBC0 /* Locale+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Locale+WMFExtras.swift"; path = "Wikipedia/Code/Locale+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
+		B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLocale+WMFExtras.swift"; path = "Wikipedia/Code/NSLocale+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		B0E8049E1C0CE0B40065EBC0 /* NSObject+WMFExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+WMFExtras.h"; path = "Wikipedia/Code/NSObject+WMFExtras.h"; sourceTree = SOURCE_ROOT; };
 		B0E8049F1C0CE0B40065EBC0 /* NSObject+WMFExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+WMFExtras.m"; path = "Wikipedia/Code/NSObject+WMFExtras.m"; sourceTree = SOURCE_ROOT; };
 		B0E804A21C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSProcessInfo+WMFOperatingSystemVersionChecks.h"; path = "Wikipedia/Code/NSProcessInfo+WMFOperatingSystemVersionChecks.h"; sourceTree = SOURCE_ROOT; };
@@ -7814,7 +7814,7 @@
 				B0E8078A1C0CEF660065EBC0 /* MWKUser.h */,
 				B0E8078B1C0CEF660065EBC0 /* MWKUser.m */,
 				0E728D181DAEE2210074EB4B /* Sharing */,
-				B0E804971C0CE0B40065EBC0 /* Locale+WMFExtras.swift */,
+				B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */,
 				8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */,
 				0E728D171DAEE1200074EB4B /* Recent Searches */,
 				B0E804A41C0CE0B40065EBC0 /* NSString+WMFExtras.h */,
@@ -10554,7 +10554,7 @@
 				67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */,
 				67D6C00A240581ED005709B1 /* CacheItemMigrationPolicy.swift in Sources */,
 				D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */,
-				D844DA0A1D6CC5240042D692 /* Locale+WMFExtras.swift in Sources */,
+				D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */,
 				830177FA1FBF3E490005681C /* ReadingListsAPIController.swift in Sources */,
 				D84C35F61F323CF000895FA1 /* AlignedImageButton.swift in Sources */,
 				D84C361A1F32403D00895FA1 /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
