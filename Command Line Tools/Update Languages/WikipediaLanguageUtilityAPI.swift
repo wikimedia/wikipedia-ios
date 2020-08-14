@@ -45,15 +45,14 @@ class WikipediaLanguageUtilityAPI {
                         let wikipedia = sites.first(where: { (site) -> Bool in
                             site["code"] as? String == "wiki"
                         }),
-                        let sitename = wikipedia["sitename"] as? String,
-                        let dbname = wikipedia["dbname"] as? String
+                        let sitename = wikipedia["sitename"] as? String
                     else {
                         return nil
                     }
-                    return Wikipedia(languageCode: code, languageName: name, localName: localname, siteName: sitename, dbName:dbname)
+                    return Wikipedia(languageCode: code, languageName: name, localName: localname, siteName: sitename)
                 }
                 // Add testwiki, it's not returned by the site matrix
-                wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", siteName: "Test Wikipedia", dbName: "testwiki"))
+                wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", siteName: "Test Wikipedia"))
                 completion(.success(wikipedias))
             } catch let error {
                 completion(.failure(error))

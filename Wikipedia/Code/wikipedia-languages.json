@@ -1,2190 +1,1877 @@
 [
   {
-    "dbName" : "aawiki",
     "languageCode" : "aa",
     "languageName" : "Qafár af",
     "localName" : "Afar",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "abwiki",
     "languageCode" : "ab",
     "languageName" : "Аҧсшәа",
     "localName" : "Abkhazian",
     "siteName" : "Авикипедиа"
   },
   {
-    "dbName" : "acewiki",
     "languageCode" : "ace",
     "languageName" : "Acèh",
     "localName" : "Achinese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "adywiki",
     "languageCode" : "ady",
     "languageName" : "адыгабзэ",
     "localName" : "Adyghe",
     "siteName" : "Википедие"
   },
   {
-    "dbName" : "afwiki",
     "languageCode" : "af",
     "languageName" : "Afrikaans",
     "localName" : "Afrikaans",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "akwiki",
     "languageCode" : "ak",
     "languageName" : "Akan",
     "localName" : "Akan",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "alswiki",
     "languageCode" : "als",
     "languageName" : "Alemannisch",
     "localName" : "Alemannisch",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "amwiki",
     "languageCode" : "am",
     "languageName" : "አማርኛ",
     "localName" : "Amharic",
     "siteName" : "ውክፔዲያ"
   },
   {
-    "dbName" : "anwiki",
     "languageCode" : "an",
     "languageName" : "aragonés",
     "localName" : "Aragonese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "angwiki",
     "languageCode" : "ang",
     "languageName" : "Ænglisc",
     "localName" : "Old English",
     "siteName" : "Wikipǣdia"
   },
   {
-    "dbName" : "arwiki",
     "languageCode" : "ar",
     "languageName" : "العربية",
     "localName" : "Arabic",
     "siteName" : "ويكيبيديا"
   },
   {
-    "dbName" : "arcwiki",
     "languageCode" : "arc",
     "languageName" : "ܐܪܡܝܐ",
     "localName" : "Aramaic",
     "siteName" : "ܘܝܩܝܦܕܝܐ"
   },
   {
-    "dbName" : "arywiki",
     "languageCode" : "ary",
     "languageName" : "الدارجة",
     "localName" : "Moroccan Arabic",
     "siteName" : "ويكيپيديا"
   },
   {
-    "dbName" : "arzwiki",
     "languageCode" : "arz",
     "languageName" : "مصرى",
     "localName" : "Egyptian Arabic",
     "siteName" : "ويكيبيديا"
   },
   {
-    "dbName" : "aswiki",
     "languageCode" : "as",
     "languageName" : "অসমীয়া",
     "localName" : "Assamese",
     "siteName" : "অসমীয়া ৱিকিপিডিয়া"
   },
   {
-    "dbName" : "astwiki",
     "languageCode" : "ast",
     "languageName" : "asturianu",
     "localName" : "Asturian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "atjwiki",
     "languageCode" : "atj",
     "languageName" : "Atikamekw",
     "localName" : "Atikamekw",
     "siteName" : "Wikipetcia"
   },
   {
-    "dbName" : "avwiki",
     "languageCode" : "av",
     "languageName" : "авар",
     "localName" : "Avaric",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "avkwiki",
     "languageCode" : "avk",
     "languageName" : "Kotava",
     "localName" : "Kotava",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "awawiki",
     "languageCode" : "awa",
     "languageName" : "अवधी",
     "localName" : "Awadhi",
     "siteName" : "विकिपीडिया"
   },
   {
-    "dbName" : "aywiki",
     "languageCode" : "ay",
     "languageName" : "Aymar aru",
     "localName" : "Aymara",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "azwiki",
     "languageCode" : "az",
     "languageName" : "azərbaycanca",
     "localName" : "Azerbaijani",
     "siteName" : "Vikipediya"
   },
   {
-    "dbName" : "azbwiki",
     "languageCode" : "azb",
     "languageName" : "تۆرکجه",
     "localName" : "South Azerbaijani",
     "siteName" : "ویکی‌پدیا"
   },
   {
-    "dbName" : "bawiki",
     "languageCode" : "ba",
     "languageName" : "башҡортса",
     "localName" : "Bashkir",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "banwiki",
     "languageCode" : "ban",
     "languageName" : "Bali",
     "localName" : "Balinese",
     "siteName" : "Wikipédia"
   },
   {
-    "dbName" : "barwiki",
     "languageCode" : "bar",
     "languageName" : "Boarisch",
     "localName" : "Bavarian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bat_smgwiki",
     "languageCode" : "bat-smg",
     "languageName" : "žemaitėška",
     "localName" : "Samogitian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bclwiki",
     "languageCode" : "bcl",
     "languageName" : "Bikol Central",
     "localName" : "Central Bikol",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bewiki",
     "languageCode" : "be",
     "languageName" : "беларуская",
     "localName" : "Belarusian",
     "siteName" : "Вікіпедыя"
   },
   {
-    "dbName" : "be_x_oldwiki",
     "languageCode" : "be-x-old",
     "languageName" : "беларуская (тарашкевіца)‎",
     "localName" : "Belarusian (Taraškievica orthography)",
     "siteName" : "Вікіпэдыя"
   },
   {
-    "dbName" : "bgwiki",
     "languageCode" : "bg",
     "languageName" : "български",
     "localName" : "Bulgarian",
     "siteName" : "Уикипедия"
   },
   {
-    "dbName" : "bhwiki",
     "languageCode" : "bh",
     "languageName" : "भोजपुरी",
     "localName" : "Bhojpuri",
     "siteName" : "विकिपीडिया"
   },
   {
-    "dbName" : "biwiki",
     "languageCode" : "bi",
     "languageName" : "Bislama",
     "localName" : "Bislama",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bjnwiki",
     "languageCode" : "bjn",
     "languageName" : "Banjar",
     "localName" : "Banjar",
     "siteName" : "Wikipidia"
   },
   {
-    "dbName" : "bmwiki",
     "languageCode" : "bm",
     "languageName" : "bamanankan",
     "localName" : "Bambara",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bnwiki",
     "languageCode" : "bn",
     "languageName" : "বাংলা",
     "localName" : "Bangla",
     "siteName" : "উইকিপিডিয়া"
   },
   {
-    "dbName" : "bowiki",
     "languageCode" : "bo",
     "languageName" : "བོད་ཡིག",
     "localName" : "Tibetan",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bpywiki",
     "languageCode" : "bpy",
     "languageName" : "বিষ্ণুপ্রিয়া মণিপুরী",
     "localName" : "Bishnupriya",
     "siteName" : "উইকিপিডিয়া"
   },
   {
-    "dbName" : "brwiki",
     "languageCode" : "br",
     "languageName" : "brezhoneg",
     "localName" : "Breton",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bswiki",
     "languageCode" : "bs",
     "languageName" : "bosanski",
     "localName" : "Bosnian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bugwiki",
     "languageCode" : "bug",
     "languageName" : "ᨅᨔ ᨕᨘᨁᨗ",
     "localName" : "Buginese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "bxrwiki",
     "languageCode" : "bxr",
     "languageName" : "буряад",
     "localName" : "Russia Buriat",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "cawiki",
     "languageCode" : "ca",
     "languageName" : "català",
     "localName" : "Catalan",
     "siteName" : "Viquipèdia"
   },
   {
-    "dbName" : "cbk_zamwiki",
     "languageCode" : "cbk-zam",
     "languageName" : "Chavacano de Zamboanga",
     "localName" : "Chavacano",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "cdowiki",
     "languageCode" : "cdo",
     "languageName" : "Mìng-dĕ̤ng-ngṳ̄",
     "localName" : "Min Dong Chinese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "cewiki",
     "languageCode" : "ce",
     "languageName" : "нохчийн",
     "localName" : "Chechen",
     "siteName" : "Википеди"
   },
   {
-    "dbName" : "cebwiki",
     "languageCode" : "ceb",
     "languageName" : "Cebuano",
     "localName" : "Cebuano",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "chwiki",
     "languageCode" : "ch",
     "languageName" : "Chamoru",
     "localName" : "Chamorro",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "chowiki",
     "languageCode" : "cho",
     "languageName" : "Choctaw",
     "localName" : "Choctaw",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "chrwiki",
     "languageCode" : "chr",
     "languageName" : "ᏣᎳᎩ",
     "localName" : "Cherokee",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "chywiki",
     "languageCode" : "chy",
     "languageName" : "Tsetsêhestâhese",
     "localName" : "Cheyenne",
     "siteName" : "Tsétsêhéstâhese Wikipedia"
   },
   {
-    "dbName" : "ckbwiki",
     "languageCode" : "ckb",
     "languageName" : "کوردی",
     "localName" : "Central Kurdish",
     "siteName" : "ویکیپیدیا"
   },
   {
-    "dbName" : "cowiki",
     "languageCode" : "co",
     "languageName" : "corsu",
     "localName" : "Corsican",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "crwiki",
     "languageCode" : "cr",
     "languageName" : "Nēhiyawēwin \/ ᓀᐦᐃᔭᐍᐏᐣ",
     "localName" : "Cree",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "crhwiki",
     "languageCode" : "crh",
     "languageName" : "qırımtatarca",
     "localName" : "Crimean Turkish",
     "siteName" : "Vikipediya"
   },
   {
-    "dbName" : "cswiki",
     "languageCode" : "cs",
     "languageName" : "čeština",
     "localName" : "Czech",
     "siteName" : "Wikipedie"
   },
   {
-    "dbName" : "csbwiki",
     "languageCode" : "csb",
     "languageName" : "kaszëbsczi",
     "localName" : "Kashubian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "cuwiki",
     "languageCode" : "cu",
     "languageName" : "словѣньскъ \/ ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ",
     "localName" : "Church Slavic",
     "siteName" : "Википєдїꙗ"
   },
   {
-    "dbName" : "cvwiki",
     "languageCode" : "cv",
     "languageName" : "Чӑвашла",
     "localName" : "Chuvash",
     "siteName" : "Википеди"
   },
   {
-    "dbName" : "cywiki",
     "languageCode" : "cy",
     "languageName" : "Cymraeg",
     "localName" : "Welsh",
     "siteName" : "Wicipedia"
   },
   {
-    "dbName" : "dawiki",
     "languageCode" : "da",
     "languageName" : "dansk",
     "localName" : "Danish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "dewiki",
     "languageCode" : "de",
     "languageName" : "Deutsch",
     "localName" : "German",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "dinwiki",
     "languageCode" : "din",
     "languageName" : "Thuɔŋjäŋ",
     "localName" : "Dinka",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "diqwiki",
     "languageCode" : "diq",
     "languageName" : "Zazaki",
     "localName" : "Zazaki",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "dsbwiki",
     "languageCode" : "dsb",
     "languageName" : "dolnoserbski",
     "localName" : "Lower Sorbian",
     "siteName" : "Wikipedija"
   },
   {
-    "dbName" : "dtywiki",
     "languageCode" : "dty",
     "languageName" : "डोटेली",
     "localName" : "Doteli",
     "siteName" : "विकिपिडिया"
   },
   {
-    "dbName" : "dvwiki",
     "languageCode" : "dv",
     "languageName" : "ދިވެހިބަސް",
     "localName" : "Divehi",
     "siteName" : "ވިކިޕީޑިއާ"
   },
   {
-    "dbName" : "dzwiki",
     "languageCode" : "dz",
     "languageName" : "ཇོང་ཁ",
     "localName" : "Dzongkha",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "eewiki",
     "languageCode" : "ee",
     "languageName" : "eʋegbe",
     "localName" : "Ewe",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "elwiki",
     "languageCode" : "el",
     "languageName" : "Ελληνικά",
     "localName" : "Greek",
     "siteName" : "Βικιπαίδεια"
   },
   {
-    "dbName" : "emlwiki",
     "languageCode" : "eml",
     "languageName" : "emiliàn e rumagnòl",
     "localName" : "Emiliano-Romagnolo",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "enwiki",
     "languageCode" : "en",
     "languageName" : "English",
     "localName" : "English",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "eowiki",
     "languageCode" : "eo",
     "languageName" : "Esperanto",
     "localName" : "Esperanto",
     "siteName" : "Vikipedio"
   },
   {
-    "dbName" : "eswiki",
     "languageCode" : "es",
     "languageName" : "español",
     "localName" : "Spanish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "etwiki",
     "languageCode" : "et",
     "languageName" : "eesti",
     "localName" : "Estonian",
     "siteName" : "Vikipeedia"
   },
   {
-    "dbName" : "euwiki",
     "languageCode" : "eu",
     "languageName" : "euskara",
     "localName" : "Basque",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "extwiki",
     "languageCode" : "ext",
     "languageName" : "estremeñu",
     "localName" : "Extremaduran",
     "siteName" : "Güiquipeya"
   },
   {
-    "dbName" : "fawiki",
     "languageCode" : "fa",
     "languageName" : "فارسی",
     "localName" : "Persian",
     "siteName" : "ویکی‌پدیا"
   },
   {
-    "dbName" : "ffwiki",
     "languageCode" : "ff",
     "languageName" : "Fulfulde",
     "localName" : "Fulah",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "fiwiki",
     "languageCode" : "fi",
     "languageName" : "suomi",
     "localName" : "Finnish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "fiu_vrowiki",
     "languageCode" : "fiu-vro",
     "languageName" : "Võro",
     "localName" : "Võro",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "fjwiki",
     "languageCode" : "fj",
     "languageName" : "Na Vosa Vakaviti",
     "localName" : "Fijian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "fowiki",
     "languageCode" : "fo",
     "languageName" : "føroyskt",
     "localName" : "Faroese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "frwiki",
     "languageCode" : "fr",
     "languageName" : "français",
     "localName" : "French",
     "siteName" : "Wikipédia"
   },
   {
-    "dbName" : "frpwiki",
     "languageCode" : "frp",
     "languageName" : "arpetan",
     "localName" : "Arpitan",
     "siteName" : "Vouiquipèdia"
   },
   {
-    "dbName" : "frrwiki",
     "languageCode" : "frr",
     "languageName" : "Nordfriisk",
     "localName" : "Northern Frisian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "furwiki",
     "languageCode" : "fur",
     "languageName" : "furlan",
     "localName" : "Friulian",
     "siteName" : "Vichipedie"
   },
   {
-    "dbName" : "fywiki",
     "languageCode" : "fy",
     "languageName" : "Frysk",
     "localName" : "Western Frisian",
     "siteName" : "Wikipedy"
   },
   {
-    "dbName" : "gawiki",
     "languageCode" : "ga",
     "languageName" : "Gaeilge",
     "localName" : "Irish",
     "siteName" : "Vicipéid"
   },
   {
-    "dbName" : "gagwiki",
     "languageCode" : "gag",
     "languageName" : "Gagauz",
     "localName" : "Gagauz",
     "siteName" : "Vikipediya"
   },
   {
-    "dbName" : "ganwiki",
     "languageCode" : "gan",
     "languageName" : "贛語",
     "localName" : "Gan Chinese",
     "siteName" : "維基百科"
   },
   {
-    "dbName" : "gcrwiki",
     "languageCode" : "gcr",
     "languageName" : "kriyòl gwiyannen",
     "localName" : "Guianan Creole",
     "siteName" : "Wikipédja"
   },
   {
-    "dbName" : "gdwiki",
     "languageCode" : "gd",
     "languageName" : "Gàidhlig",
     "localName" : "Scottish Gaelic",
     "siteName" : "Uicipeid"
   },
   {
-    "dbName" : "glwiki",
     "languageCode" : "gl",
     "languageName" : "galego",
     "localName" : "Galician",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "glkwiki",
     "languageCode" : "glk",
     "languageName" : "گیلکی",
     "localName" : "Gilaki",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "gnwiki",
     "languageCode" : "gn",
     "languageName" : "Avañe'ẽ",
     "localName" : "Guarani",
     "siteName" : "Vikipetã"
   },
   {
-    "dbName" : "gomwiki",
     "languageCode" : "gom",
     "languageName" : "गोंयची कोंकणी \/ Gõychi Konknni",
     "localName" : "Goan Konkani",
     "siteName" : "विकिपीडिया"
   },
   {
-    "dbName" : "gorwiki",
     "languageCode" : "gor",
     "languageName" : "Bahasa Hulontalo",
     "localName" : "Gorontalo",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "gotwiki",
     "languageCode" : "got",
     "languageName" : "𐌲𐌿𐍄𐌹𐍃𐌺",
     "localName" : "Gothic",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "guwiki",
     "languageCode" : "gu",
     "languageName" : "ગુજરાતી",
     "localName" : "Gujarati",
     "siteName" : "વિકિપીડિયા"
   },
   {
-    "dbName" : "gvwiki",
     "languageCode" : "gv",
     "languageName" : "Gaelg",
     "localName" : "Manx",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "hawiki",
     "languageCode" : "ha",
     "languageName" : "Hausa",
     "localName" : "Hausa",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "hakwiki",
     "languageCode" : "hak",
     "languageName" : "客家語\/Hak-kâ-ngî",
     "localName" : "Hakka Chinese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "hawwiki",
     "languageCode" : "haw",
     "languageName" : "Hawaiʻi",
     "localName" : "Hawaiian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "hewiki",
     "languageCode" : "he",
     "languageName" : "עברית",
     "localName" : "Hebrew",
     "siteName" : "ויקיפדיה"
   },
   {
-    "dbName" : "hiwiki",
     "languageCode" : "hi",
     "languageName" : "हिन्दी",
     "localName" : "Hindi",
     "siteName" : "विकिपीडिया"
   },
   {
-    "dbName" : "hifwiki",
     "languageCode" : "hif",
     "languageName" : "Fiji Hindi",
     "localName" : "Fiji Hindi",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "howiki",
     "languageCode" : "ho",
     "languageName" : "Hiri Motu",
     "localName" : "Hiri Motu",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "hrwiki",
     "languageCode" : "hr",
     "languageName" : "hrvatski",
     "localName" : "Croatian",
     "siteName" : "Wikipedija"
   },
   {
-    "dbName" : "hsbwiki",
     "languageCode" : "hsb",
     "languageName" : "hornjoserbsce",
     "localName" : "Upper Sorbian",
     "siteName" : "Wikipedija"
   },
   {
-    "dbName" : "htwiki",
     "languageCode" : "ht",
     "languageName" : "Kreyòl ayisyen",
     "localName" : "Haitian Creole",
     "siteName" : "Wikipedya"
   },
   {
-    "dbName" : "huwiki",
     "languageCode" : "hu",
     "languageName" : "magyar",
     "localName" : "Hungarian",
     "siteName" : "Wikipédia"
   },
   {
-    "dbName" : "hywiki",
     "languageCode" : "hy",
     "languageName" : "հայերեն",
     "localName" : "Armenian",
     "siteName" : "Վիքիպեդիա"
   },
   {
-    "dbName" : "hywwiki",
     "languageCode" : "hyw",
     "languageName" : "Արեւմտահայերէն",
     "localName" : "Western Armenian",
     "siteName" : "Ուիքիփետիա"
   },
   {
-    "dbName" : "hzwiki",
     "languageCode" : "hz",
     "languageName" : "Otsiherero",
     "localName" : "Herero",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "iawiki",
     "languageCode" : "ia",
     "languageName" : "interlingua",
     "localName" : "Interlingua",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "idwiki",
     "languageCode" : "id",
     "languageName" : "Bahasa Indonesia",
     "localName" : "Indonesian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "iewiki",
     "languageCode" : "ie",
     "languageName" : "Interlingue",
     "localName" : "Interlingue",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "igwiki",
     "languageCode" : "ig",
     "languageName" : "Igbo",
     "localName" : "Igbo",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "iiwiki",
     "languageCode" : "ii",
     "languageName" : "ꆇꉙ",
     "localName" : "Sichuan Yi",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ikwiki",
     "languageCode" : "ik",
     "languageName" : "Iñupiak",
     "localName" : "Inupiaq",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ilowiki",
     "languageCode" : "ilo",
     "languageName" : "Ilokano",
     "localName" : "Iloko",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "inhwiki",
     "languageCode" : "inh",
     "languageName" : "ГӀалгӀай",
     "localName" : "Ingush",
     "siteName" : "Википеди"
   },
   {
-    "dbName" : "iowiki",
     "languageCode" : "io",
     "languageName" : "Ido",
     "localName" : "Ido",
     "siteName" : "Wikipedio"
   },
   {
-    "dbName" : "iswiki",
     "languageCode" : "is",
     "languageName" : "íslenska",
     "localName" : "Icelandic",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "itwiki",
     "languageCode" : "it",
     "languageName" : "italiano",
     "localName" : "Italian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "iuwiki",
     "languageCode" : "iu",
     "languageName" : "ᐃᓄᒃᑎᑐᑦ\/inuktitut",
     "localName" : "Inuktitut",
     "siteName" : "ᐅᐃᑭᐱᑎᐊ"
   },
   {
-    "dbName" : "jawiki",
     "languageCode" : "ja",
     "languageName" : "日本語",
     "localName" : "Japanese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "jamwiki",
     "languageCode" : "jam",
     "languageName" : "Patois",
     "localName" : "Jamaican Creole English",
     "siteName" : "Wikipidia"
   },
   {
-    "dbName" : "jbowiki",
     "languageCode" : "jbo",
     "languageName" : "la .lojban.",
     "localName" : "Lojban",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "jvwiki",
     "languageCode" : "jv",
     "languageName" : "Jawa",
     "localName" : "Javanese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kawiki",
     "languageCode" : "ka",
     "languageName" : "ქართული",
     "localName" : "Georgian",
     "siteName" : "ვიკიპედია"
   },
   {
-    "dbName" : "kaawiki",
     "languageCode" : "kaa",
     "languageName" : "Qaraqalpaqsha",
     "localName" : "Kara-Kalpak",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kabwiki",
     "languageCode" : "kab",
     "languageName" : "Taqbaylit",
     "localName" : "Kabyle",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kbdwiki",
     "languageCode" : "kbd",
     "languageName" : "Адыгэбзэ",
     "localName" : "Kabardian",
     "siteName" : "Уикипедиэ"
   },
   {
-    "dbName" : "kbpwiki",
     "languageCode" : "kbp",
     "languageName" : "Kabɩyɛ",
     "localName" : "Kabiye",
     "siteName" : "Wikipediya"
   },
   {
-    "dbName" : "kgwiki",
     "languageCode" : "kg",
     "languageName" : "Kongo",
     "localName" : "Kongo",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kiwiki",
     "languageCode" : "ki",
     "languageName" : "Gĩkũyũ",
     "localName" : "Kikuyu",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kjwiki",
     "languageCode" : "kj",
     "languageName" : "Kwanyama",
     "localName" : "Kuanyama",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kkwiki",
     "languageCode" : "kk",
     "languageName" : "қазақша",
     "localName" : "Kazakh",
     "siteName" : "Уикипедия"
   },
   {
-    "dbName" : "klwiki",
     "languageCode" : "kl",
     "languageName" : "kalaallisut",
     "localName" : "Kalaallisut",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kmwiki",
     "languageCode" : "km",
     "languageName" : "ភាសាខ្មែរ",
     "localName" : "Khmer",
     "siteName" : "វិគីភីឌា"
   },
   {
-    "dbName" : "knwiki",
     "languageCode" : "kn",
     "languageName" : "ಕನ್ನಡ",
     "localName" : "Kannada",
     "siteName" : "ವಿಕಿಪೀಡಿಯ"
   },
   {
-    "dbName" : "kowiki",
     "languageCode" : "ko",
     "languageName" : "한국어",
     "localName" : "Korean",
     "siteName" : "위키백과"
   },
   {
-    "dbName" : "koiwiki",
     "languageCode" : "koi",
     "languageName" : "Перем Коми",
     "localName" : "Komi-Permyak",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "krwiki",
     "languageCode" : "kr",
     "languageName" : "Kanuri",
     "localName" : "Kanuri",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "krcwiki",
     "languageCode" : "krc",
     "languageName" : "къарачай-малкъар",
     "localName" : "Karachay-Balkar",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "kswiki",
     "languageCode" : "ks",
     "languageName" : "कॉशुर \/ کٲشُر",
     "localName" : "Kashmiri",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kshwiki",
     "languageCode" : "ksh",
     "languageName" : "Ripoarisch",
     "localName" : "Colognian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kuwiki",
     "languageCode" : "ku",
     "languageName" : "kurdî",
     "localName" : "Kurdish",
     "siteName" : "Wîkîpediya"
   },
   {
-    "dbName" : "kvwiki",
     "languageCode" : "kv",
     "languageName" : "коми",
     "localName" : "Komi",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kwwiki",
     "languageCode" : "kw",
     "languageName" : "kernowek",
     "localName" : "Cornish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "kywiki",
     "languageCode" : "ky",
     "languageName" : "Кыргызча",
     "localName" : "Kyrgyz",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "lawiki",
     "languageCode" : "la",
     "languageName" : "Latina",
     "localName" : "Latin",
     "siteName" : "Vicipaedia"
   },
   {
-    "dbName" : "ladwiki",
     "languageCode" : "lad",
     "languageName" : "Ladino",
     "localName" : "Ladino",
     "siteName" : "Vikipedya"
   },
   {
-    "dbName" : "lbwiki",
     "languageCode" : "lb",
     "languageName" : "Lëtzebuergesch",
     "localName" : "Luxembourgish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "lbewiki",
     "languageCode" : "lbe",
     "languageName" : "лакку",
     "localName" : "Lak",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "lezwiki",
     "languageCode" : "lez",
     "languageName" : "лезги",
     "localName" : "Lezghian",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "lfnwiki",
     "languageCode" : "lfn",
     "languageName" : "Lingua Franca Nova",
     "localName" : "Lingua Franca Nova",
     "siteName" : "Vicipedia"
   },
   {
-    "dbName" : "lgwiki",
     "languageCode" : "lg",
     "languageName" : "Luganda",
     "localName" : "Ganda",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "liwiki",
     "languageCode" : "li",
     "languageName" : "Limburgs",
     "localName" : "Limburgish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "lijwiki",
     "languageCode" : "lij",
     "languageName" : "Ligure",
     "localName" : "Ligurian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "lmowiki",
     "languageCode" : "lmo",
     "languageName" : "lumbaart",
     "localName" : "Lombard",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "lnwiki",
     "languageCode" : "ln",
     "languageName" : "lingála",
     "localName" : "Lingala",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "lowiki",
     "languageCode" : "lo",
     "languageName" : "ລາວ",
     "localName" : "Lao",
     "siteName" : "ວິກິພີເດຍ"
   },
   {
-    "dbName" : "lrcwiki",
     "languageCode" : "lrc",
     "languageName" : "لۊری شومالی",
     "localName" : "Northern Luri",
     "siteName" : "ڤیکیپئدیا"
   },
   {
-    "dbName" : "ltwiki",
     "languageCode" : "lt",
     "languageName" : "lietuvių",
     "localName" : "Lithuanian",
     "siteName" : "Vikipedija"
   },
   {
-    "dbName" : "ltgwiki",
     "languageCode" : "ltg",
     "languageName" : "latgaļu",
     "localName" : "Latgalian",
     "siteName" : "Vikipedeja"
   },
   {
-    "dbName" : "lvwiki",
     "languageCode" : "lv",
     "languageName" : "latviešu",
     "localName" : "Latvian",
     "siteName" : "Vikipēdija"
   },
   {
-    "dbName" : "maiwiki",
     "languageCode" : "mai",
     "languageName" : "मैथिली",
     "localName" : "Maithili",
     "siteName" : "विकिपिडिया"
   },
   {
-    "dbName" : "map_bmswiki",
     "languageCode" : "map-bms",
     "languageName" : "Basa Banyumasan",
     "localName" : "Basa Banyumasan",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "mdfwiki",
     "languageCode" : "mdf",
     "languageName" : "мокшень",
     "localName" : "Moksha",
     "siteName" : "Википедиесь"
   },
   {
-    "dbName" : "mgwiki",
     "languageCode" : "mg",
     "languageName" : "Malagasy",
     "localName" : "Malagasy",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "mhwiki",
     "languageCode" : "mh",
     "languageName" : "Ebon",
     "localName" : "Marshallese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "mhrwiki",
     "languageCode" : "mhr",
     "languageName" : "олык марий",
     "localName" : "Eastern Mari",
     "siteName" : "Википедий"
   },
   {
-    "dbName" : "miwiki",
     "languageCode" : "mi",
     "languageName" : "Māori",
     "localName" : "Maori",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "minwiki",
     "languageCode" : "min",
     "languageName" : "Minangkabau",
     "localName" : "Minangkabau",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "mkwiki",
     "languageCode" : "mk",
     "languageName" : "македонски",
     "localName" : "Macedonian",
     "siteName" : "Википедија"
   },
   {
-    "dbName" : "mlwiki",
     "languageCode" : "ml",
     "languageName" : "മലയാളം",
     "localName" : "Malayalam",
     "siteName" : "വിക്കിപീഡിയ"
   },
   {
-    "dbName" : "mnwiki",
     "languageCode" : "mn",
     "languageName" : "монгол",
     "localName" : "Mongolian",
     "siteName" : "Википедиа"
   },
   {
-    "dbName" : "mnwwiki",
     "languageCode" : "mnw",
     "languageName" : "ဘာသာ မန်",
     "localName" : "Mon",
     "siteName" : "ဝဳကဳပဳဒဳယာ"
   },
   {
-    "dbName" : "mrwiki",
     "languageCode" : "mr",
     "languageName" : "मराठी",
     "localName" : "Marathi",
     "siteName" : "विकिपीडिया"
   },
   {
-    "dbName" : "mrjwiki",
     "languageCode" : "mrj",
     "languageName" : "кырык мары",
     "localName" : "Western Mari",
     "siteName" : "Википеди"
   },
   {
-    "dbName" : "mswiki",
     "languageCode" : "ms",
     "languageName" : "Bahasa Melayu",
     "localName" : "Malay",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "mtwiki",
     "languageCode" : "mt",
     "languageName" : "Malti",
     "localName" : "Maltese",
     "siteName" : "Wikipedija"
   },
   {
-    "dbName" : "muswiki",
     "languageCode" : "mus",
     "languageName" : "Mvskoke",
     "localName" : "Muscogee",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "mwlwiki",
     "languageCode" : "mwl",
     "languageName" : "Mirandés",
     "localName" : "Mirandese",
     "siteName" : "Biquipédia"
   },
   {
-    "dbName" : "mywiki",
     "languageCode" : "my",
     "languageName" : "မြန်မာဘာသာ",
     "localName" : "Burmese",
     "siteName" : "ဝီကီပီးဒီးယား"
   },
   {
-    "dbName" : "myvwiki",
     "languageCode" : "myv",
     "languageName" : "эрзянь",
     "localName" : "Erzya",
     "siteName" : "Википедиясь"
   },
   {
-    "dbName" : "mznwiki",
     "languageCode" : "mzn",
     "languageName" : "مازِرونی",
     "localName" : "Mazanderani",
     "siteName" : "ویکی‌پدیا"
   },
   {
-    "dbName" : "nawiki",
     "languageCode" : "na",
     "languageName" : "Dorerin Naoero",
     "localName" : "Nauru",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nahwiki",
     "languageCode" : "nah",
     "languageName" : "Nāhuatl",
     "localName" : "Nāhuatl",
     "siteName" : "Huiquipedia"
   },
   {
-    "dbName" : "napwiki",
     "languageCode" : "nap",
     "languageName" : "Napulitano",
     "localName" : "Neapolitan",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ndswiki",
     "languageCode" : "nds",
     "languageName" : "Plattdüütsch",
     "localName" : "Low German",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nds_nlwiki",
     "languageCode" : "nds-nl",
     "languageName" : "Nedersaksies",
     "localName" : "Low Saxon",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "newiki",
     "languageCode" : "ne",
     "languageName" : "नेपाली",
     "localName" : "Nepali",
     "siteName" : "विकिपिडिया"
   },
   {
-    "dbName" : "newwiki",
     "languageCode" : "new",
     "languageName" : "नेपाल भाषा",
     "localName" : "Newari",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ngwiki",
     "languageCode" : "ng",
     "languageName" : "Oshiwambo",
     "localName" : "Ndonga",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nlwiki",
     "languageCode" : "nl",
     "languageName" : "Nederlands",
     "localName" : "Dutch",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nnwiki",
     "languageCode" : "nn",
     "languageName" : "norsk nynorsk",
     "localName" : "Norwegian Nynorsk",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nowiki",
     "languageCode" : "no",
     "languageName" : "norsk",
     "localName" : "Norwegian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "novwiki",
     "languageCode" : "nov",
     "languageName" : "Novial",
     "localName" : "Novial",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nqowiki",
     "languageCode" : "nqo",
     "languageName" : "ߒߞߏ",
     "localName" : "N’Ko",
     "siteName" : "ߥߞߌߔߘߋߞߎ"
   },
   {
-    "dbName" : "nrmwiki",
     "languageCode" : "nrm",
     "languageName" : "Nouormand",
     "localName" : "Norman",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nsowiki",
     "languageCode" : "nso",
     "languageName" : "Sesotho sa Leboa",
     "localName" : "Northern Sotho",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nvwiki",
     "languageCode" : "nv",
     "languageName" : "Diné bizaad",
     "localName" : "Navajo",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "nywiki",
     "languageCode" : "ny",
     "languageName" : "Chi-Chewa",
     "localName" : "Nyanja",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ocwiki",
     "languageCode" : "oc",
     "languageName" : "occitan",
     "localName" : "Occitan",
     "siteName" : "Wikipèdia"
   },
   {
-    "dbName" : "olowiki",
     "languageCode" : "olo",
     "languageName" : "Livvinkarjala",
     "localName" : "Livvi-Karelian",
     "siteName" : "Wikipedii"
   },
   {
-    "dbName" : "omwiki",
     "languageCode" : "om",
     "languageName" : "Oromoo",
     "localName" : "Oromo",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "orwiki",
     "languageCode" : "or",
     "languageName" : "ଓଡ଼ିଆ",
     "localName" : "Odia",
     "siteName" : "ଉଇକିପିଡ଼ିଆ"
   },
   {
-    "dbName" : "oswiki",
     "languageCode" : "os",
     "languageName" : "Ирон",
     "localName" : "Ossetic",
     "siteName" : "Википеди"
   },
   {
-    "dbName" : "pawiki",
     "languageCode" : "pa",
     "languageName" : "ਪੰਜਾਬੀ",
     "localName" : "Punjabi",
     "siteName" : "ਵਿਕੀਪੀਡੀਆ"
   },
   {
-    "dbName" : "pagwiki",
     "languageCode" : "pag",
     "languageName" : "Pangasinan",
     "localName" : "Pangasinan",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "pamwiki",
     "languageCode" : "pam",
     "languageName" : "Kapampangan",
     "localName" : "Pampanga",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "papwiki",
     "languageCode" : "pap",
     "languageName" : "Papiamentu",
     "localName" : "Papiamento",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "pcdwiki",
     "languageCode" : "pcd",
     "languageName" : "Picard",
     "localName" : "Picard",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "pdcwiki",
     "languageCode" : "pdc",
     "languageName" : "Deitsch",
     "localName" : "Pennsylvania German",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "pflwiki",
     "languageCode" : "pfl",
     "languageName" : "Pälzisch",
     "localName" : "Palatine German",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "piwiki",
     "languageCode" : "pi",
     "languageName" : "पालि",
     "localName" : "Pali",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "pihwiki",
     "languageCode" : "pih",
     "languageName" : "Norfuk \/ Pitkern",
     "localName" : "Norfuk \/ Pitkern",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "plwiki",
     "languageCode" : "pl",
     "languageName" : "polski",
     "localName" : "Polish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "pmswiki",
     "languageCode" : "pms",
     "languageName" : "Piemontèis",
     "localName" : "Piedmontese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "pnbwiki",
     "languageCode" : "pnb",
     "languageName" : "پنجابی",
     "localName" : "Western Punjabi",
     "siteName" : "وکیپیڈیا"
   },
   {
-    "dbName" : "pntwiki",
     "languageCode" : "pnt",
     "languageName" : "Ποντιακά",
     "localName" : "Pontic",
     "siteName" : "Βικιπαίδεια"
   },
   {
-    "dbName" : "pswiki",
     "languageCode" : "ps",
     "languageName" : "پښتو",
     "localName" : "Pashto",
     "siteName" : "ويکيپېډيا"
   },
   {
-    "dbName" : "ptwiki",
     "languageCode" : "pt",
     "languageName" : "português",
     "localName" : "Portuguese",
     "siteName" : "Wikipédia"
   },
   {
-    "dbName" : "quwiki",
     "languageCode" : "qu",
     "languageName" : "Runa Simi",
     "localName" : "Quechua",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "rmwiki",
     "languageCode" : "rm",
     "languageName" : "rumantsch",
     "localName" : "Romansh",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "rmywiki",
     "languageCode" : "rmy",
     "languageName" : "romani čhib",
     "localName" : "Vlax Romani",
     "siteName" : "Vikipidiya"
   },
   {
-    "dbName" : "rnwiki",
     "languageCode" : "rn",
     "languageName" : "Kirundi",
     "localName" : "Rundi",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "rowiki",
     "languageCode" : "ro",
     "languageName" : "română",
     "localName" : "Romanian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "roa_rupwiki",
     "languageCode" : "roa-rup",
     "languageName" : "armãneashti",
     "localName" : "Aromanian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "roa_tarawiki",
     "languageCode" : "roa-tara",
     "languageName" : "tarandíne",
     "localName" : "Tarantino",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ruwiki",
     "languageCode" : "ru",
     "languageName" : "русский",
     "localName" : "Russian",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "ruewiki",
     "languageCode" : "rue",
     "languageName" : "русиньскый",
     "localName" : "Rusyn",
     "siteName" : "Вікіпедія"
   },
   {
-    "dbName" : "rwwiki",
     "languageCode" : "rw",
     "languageName" : "Kinyarwanda",
     "localName" : "Kinyarwanda",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "sawiki",
     "languageCode" : "sa",
     "languageName" : "संस्कृतम्",
     "localName" : "Sanskrit",
     "siteName" : "विकिपीडिया"
   },
   {
-    "dbName" : "sahwiki",
     "languageCode" : "sah",
     "languageName" : "саха тыла",
     "localName" : "Sakha",
     "siteName" : "Бикипиэдьийэ"
   },
   {
-    "dbName" : "satwiki",
     "languageCode" : "sat",
     "languageName" : "ᱥᱟᱱᱛᱟᱲᱤ",
     "localName" : "Santali",
     "siteName" : "ᱣᱤᱠᱤᱯᱤᱰᱤᱭᱟ"
   },
   {
-    "dbName" : "scwiki",
     "languageCode" : "sc",
     "languageName" : "sardu",
     "localName" : "Sardinian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "scnwiki",
     "languageCode" : "scn",
     "languageName" : "sicilianu",
     "localName" : "Sicilian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "scowiki",
     "languageCode" : "sco",
     "languageName" : "Scots",
     "localName" : "Scots",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "sdwiki",
     "languageCode" : "sd",
     "languageName" : "سنڌي",
     "localName" : "Sindhi",
     "siteName" : "وڪيپيڊيا"
   },
   {
-    "dbName" : "sewiki",
     "languageCode" : "se",
     "languageName" : "davvisámegiella",
     "localName" : "Northern Sami",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "sgwiki",
     "languageCode" : "sg",
     "languageName" : "Sängö",
     "localName" : "Sango",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "shwiki",
     "languageCode" : "sh",
     "languageName" : "srpskohrvatski \/ српскохрватски",
     "localName" : "Serbo-Croatian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "shnwiki",
     "languageCode" : "shn",
     "languageName" : "ၽႃႇသႃႇတႆး ",
     "localName" : "Shan",
     "siteName" : "ဝီႇၶီႇၽီးတီးယႃး"
   },
   {
-    "dbName" : "siwiki",
     "languageCode" : "si",
     "languageName" : "සිංහල",
     "localName" : "Sinhala",
     "siteName" : "විකිපීඩියා"
   },
   {
-    "dbName" : "simplewiki",
     "languageCode" : "simple",
     "languageName" : "Simple English",
     "localName" : "Simple English",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "skwiki",
     "languageCode" : "sk",
     "languageName" : "slovenčina",
     "localName" : "Slovak",
     "siteName" : "Wikipédia"
   },
   {
-    "dbName" : "slwiki",
     "languageCode" : "sl",
     "languageName" : "slovenščina",
     "localName" : "Slovenian",
     "siteName" : "Wikipedija"
   },
   {
-    "dbName" : "smwiki",
     "languageCode" : "sm",
     "languageName" : "Gagana Samoa",
     "localName" : "Samoan",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "snwiki",
     "languageCode" : "sn",
     "languageName" : "chiShona",
     "localName" : "Shona",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "sowiki",
     "languageCode" : "so",
     "languageName" : "Soomaaliga",
     "localName" : "Somali",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "sqwiki",
     "languageCode" : "sq",
     "languageName" : "shqip",
     "localName" : "Albanian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "srwiki",
     "languageCode" : "sr",
     "languageName" : "српски \/ srpski",
     "localName" : "Serbian",
     "siteName" : "Википедија"
   },
   {
-    "dbName" : "srnwiki",
     "languageCode" : "srn",
     "languageName" : "Sranantongo",
     "localName" : "Sranan Tongo",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "sswiki",
     "languageCode" : "ss",
     "languageName" : "SiSwati",
     "localName" : "Swati",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "stwiki",
     "languageCode" : "st",
     "languageName" : "Sesotho",
     "localName" : "Southern Sotho",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "stqwiki",
     "languageCode" : "stq",
     "languageName" : "Seeltersk",
     "localName" : "Saterland Frisian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "suwiki",
     "languageCode" : "su",
     "languageName" : "Sunda",
     "localName" : "Sundanese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "svwiki",
     "languageCode" : "sv",
     "languageName" : "svenska",
     "localName" : "Swedish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "swwiki",
     "languageCode" : "sw",
     "languageName" : "Kiswahili",
     "localName" : "Swahili",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "szlwiki",
     "languageCode" : "szl",
     "languageName" : "ślůnski",
     "localName" : "Silesian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "szywiki",
     "languageCode" : "szy",
     "languageName" : "Sakizaya",
     "localName" : "Sakizaya",
     "siteName" : "Wikipitiya"
   },
   {
-    "dbName" : "tawiki",
     "languageCode" : "ta",
     "languageName" : "தமிழ்",
     "localName" : "Tamil",
     "siteName" : "விக்கிப்பீடியா"
   },
   {
-    "dbName" : "tcywiki",
     "languageCode" : "tcy",
     "languageName" : "ತುಳು",
     "localName" : "Tulu",
     "siteName" : "ವಿಕಿಪೀಡಿಯ"
   },
   {
-    "dbName" : "tewiki",
     "languageCode" : "te",
     "languageName" : "తెలుగు",
     "localName" : "Telugu",
     "siteName" : "వికీపీడియా"
   },
   {
-    "dbName" : "testwiki",
     "languageCode" : "test",
     "languageName" : "Test",
     "localName" : "Test",
     "siteName" : "Test Wikipedia"
   },
   {
-    "dbName" : "tetwiki",
     "languageCode" : "tet",
     "languageName" : "tetun",
     "localName" : "Tetum",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "tgwiki",
     "languageCode" : "tg",
     "languageName" : "тоҷикӣ",
     "localName" : "Tajik",
     "siteName" : "Википедиа"
   },
   {
-    "dbName" : "thwiki",
     "languageCode" : "th",
     "languageName" : "ไทย",
     "localName" : "Thai",
     "siteName" : "วิกิพีเดีย"
   },
   {
-    "dbName" : "tiwiki",
     "languageCode" : "ti",
     "languageName" : "ትግርኛ",
     "localName" : "Tigrinya",
     "siteName" : "ዊኪፔዲያ"
   },
   {
-    "dbName" : "tkwiki",
     "languageCode" : "tk",
     "languageName" : "Türkmençe",
     "localName" : "Turkmen",
     "siteName" : "Wikipediýa"
   },
   {
-    "dbName" : "tlwiki",
     "languageCode" : "tl",
     "languageName" : "Tagalog",
     "localName" : "Tagalog",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "tnwiki",
     "languageCode" : "tn",
     "languageName" : "Setswana",
     "localName" : "Tswana",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "towiki",
     "languageCode" : "to",
     "languageName" : "lea faka-Tonga",
     "localName" : "Tongan",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "tpiwiki",
     "languageCode" : "tpi",
     "languageName" : "Tok Pisin",
     "localName" : "Tok Pisin",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "trwiki",
     "languageCode" : "tr",
     "languageName" : "Türkçe",
     "localName" : "Turkish",
     "siteName" : "Vikipedi"
   },
   {
-    "dbName" : "tswiki",
     "languageCode" : "ts",
     "languageName" : "Xitsonga",
     "localName" : "Tsonga",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ttwiki",
     "languageCode" : "tt",
     "languageName" : "татарча\/tatarça",
     "localName" : "Tatar",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "tumwiki",
     "languageCode" : "tum",
     "languageName" : "chiTumbuka",
     "localName" : "Tumbuka",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "twwiki",
     "languageCode" : "tw",
     "languageName" : "Twi",
     "localName" : "Twi",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "tywiki",
     "languageCode" : "ty",
     "languageName" : "reo tahiti",
     "localName" : "Tahitian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "tyvwiki",
     "languageCode" : "tyv",
     "languageName" : "тыва дыл",
     "localName" : "Tuvinian",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "udmwiki",
     "languageCode" : "udm",
     "languageName" : "удмурт",
     "localName" : "Udmurt",
     "siteName" : "Википедия"
   },
   {
-    "dbName" : "ugwiki",
     "languageCode" : "ug",
     "languageName" : "ئۇيغۇرچە \/ Uyghurche",
     "localName" : "Uyghur",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "ukwiki",
     "languageCode" : "uk",
     "languageName" : "українська",
     "localName" : "Ukrainian",
     "siteName" : "Вікіпедія"
   },
   {
-    "dbName" : "urwiki",
     "languageCode" : "ur",
     "languageName" : "اردو",
     "localName" : "Urdu",
     "siteName" : "ویکیپیڈیا"
   },
   {
-    "dbName" : "uzwiki",
     "languageCode" : "uz",
     "languageName" : "oʻzbekcha\/ўзбекча",
     "localName" : "Uzbek",
     "siteName" : "Vikipediya"
   },
   {
-    "dbName" : "vewiki",
     "languageCode" : "ve",
     "languageName" : "Tshivenda",
     "localName" : "Venda",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "vecwiki",
     "languageCode" : "vec",
     "languageName" : "vèneto",
     "localName" : "Venetian",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "vepwiki",
     "languageCode" : "vep",
     "languageName" : "vepsän kel’",
     "localName" : "Veps",
     "siteName" : "Vikipedii"
   },
   {
-    "dbName" : "viwiki",
     "languageCode" : "vi",
     "languageName" : "Tiếng Việt",
     "localName" : "Vietnamese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "vlswiki",
     "languageCode" : "vls",
     "languageName" : "West-Vlams",
     "localName" : "West Flemish",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "vowiki",
     "languageCode" : "vo",
     "languageName" : "Volapük",
     "localName" : "Volapük",
     "siteName" : "Vükiped"
   },
   {
-    "dbName" : "wawiki",
     "languageCode" : "wa",
     "languageName" : "walon",
     "localName" : "Walloon",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "warwiki",
     "languageCode" : "war",
     "languageName" : "Winaray",
     "localName" : "Waray",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "wowiki",
     "languageCode" : "wo",
     "languageName" : "Wolof",
     "localName" : "Wolof",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "wuuwiki",
     "languageCode" : "wuu",
     "languageName" : "吴语",
     "localName" : "Wu Chinese",
     "siteName" : "维基百科"
   },
   {
-    "dbName" : "xalwiki",
     "languageCode" : "xal",
     "languageName" : "хальмг",
     "localName" : "Kalmyk",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "xhwiki",
     "languageCode" : "xh",
     "languageName" : "isiXhosa",
     "localName" : "Xhosa",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "xmfwiki",
     "languageCode" : "xmf",
     "languageName" : "მარგალური",
     "localName" : "Mingrelian",
     "siteName" : "ვიკიპედია"
   },
   {
-    "dbName" : "yiwiki",
     "languageCode" : "yi",
     "languageName" : "ייִדיש",
     "localName" : "Yiddish",
     "siteName" : "װיקיפּעדיע"
   },
   {
-    "dbName" : "yowiki",
     "languageCode" : "yo",
     "languageName" : "Yorùbá",
     "localName" : "Yoruba",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "zawiki",
     "languageCode" : "za",
     "languageName" : "Vahcuengh",
     "localName" : "Zhuang",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "zeawiki",
     "languageCode" : "zea",
     "languageName" : "Zeêuws",
     "localName" : "Zeelandic",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "zhwiki",
     "languageCode" : "zh",
     "languageName" : "中文",
     "localName" : "Chinese",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "zh_classicalwiki",
     "languageCode" : "zh-classical",
     "languageName" : "文言",
     "localName" : "Classical Chinese",
     "siteName" : "維基大典"
   },
   {
-    "dbName" : "zh_min_nanwiki",
     "languageCode" : "zh-min-nan",
     "languageName" : "Bân-lâm-gú",
     "localName" : "Chinese (Min Nan)",
     "siteName" : "Wikipedia"
   },
   {
-    "dbName" : "zh_yuewiki",
     "languageCode" : "zh-yue",
     "languageName" : "粵語",
     "localName" : "Cantonese",
     "siteName" : "維基百科"
   },
   {
-    "dbName" : "zuwiki",
     "languageCode" : "zu",
     "languageName" : "isiZulu",
     "localName" : "Zulu",

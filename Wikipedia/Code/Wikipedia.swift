@@ -5,5 +5,4 @@ struct Wikipedia: Codable {
     let languageName: String
     let localName: String
     let siteName: String
-    let dbName: String
 }
