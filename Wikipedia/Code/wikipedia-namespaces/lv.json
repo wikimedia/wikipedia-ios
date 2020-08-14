@@ -6,6 +6,8 @@
     "ATTĒLS" : 6,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
+    "DALĪBNIECE" : 2,
+    "DALĪBNIECES DISKUSIJA" : 3,
     "DALĪBNIEKA DISKUSIJA" : 3,
     "DALĪBNIEKS" : 2,
     "DISKUSIJA" : 1,
@@ -19,8 +21,12 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIJA" : 14,
     "KATEGORIJAS DISKUSIJA" : 15,
+    "LIETOTĀJA DISKUSIJA" : 3,
+    "LIETOTĀJS" : 2,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI DISKUSIJA" : 9,
@@ -48,6 +54,10 @@
     "VIKIPĒDIJA" : 4,
     "VIKIPĒDIJAS DISKUSIJA" : 5,
     "VIKIPROJEKTA DISKUSIJA" : 103,
-    "VIKIPROJEKTS" : 102
+    "VIKIPROJEKTS" : 102,
+    "VP" : 4,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

@@ -13,11 +13,14 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "JÄRJESTELMÄVIESTI" : 8,
     "KÄYTTÄJÄ" : 2,
     "KESKUSTELU" : 1,
     "KESKUSTELU JÄRJESTELMÄVIESTISTÄ" : 9,
     "KESKUSTELU KÄYTTÄJÄSTÄ" : 3,
+    "KESKUSTELU KUVASTA" : 7,
     "KESKUSTELU LUOKASTA" : 15,
     "KESKUSTELU MALLINEESTA" : 11,
     "KESKUSTELU METASIVUSTA" : 103,
@@ -28,6 +31,7 @@
     "KESKUSTELU TEEMASIVUSTA" : 101,
     "KESKUSTELU TIEDOSTOSTA" : 7,
     "KESKUSTELU WIKIPEDIASTA" : 5,
+    "KUVA" : 6,
     "LUOKKA" : 14,
     "MALLINE" : 10,
     "MEDIA" : -2,
@@ -52,6 +56,8 @@
     "TOPIC" : 2600,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

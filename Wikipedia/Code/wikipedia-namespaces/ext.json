@@ -11,7 +11,9 @@
     "AYUA" : 12,
     "AYUA CARABA" : 13,
     "CARABA" : 1,
+    "CATEGORIA" : 14,
     "CATEGORÍA" : 14,
+    "CATEGORIA CARABA" : 15,
     "CATEGORÍA CARABA" : 15,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
@@ -26,6 +28,10 @@
     "GÜIQUIPEYA CARABA" : 5,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMAGEN" : 6,
+    "IMAGEN DISCUSIÓN" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI CARABA" : 9,
@@ -45,7 +51,11 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
+    "USUARIA" : 2,
+    "USUARIA CARABA" : 3,
     "USUARIO" : 2,
-    "USUARIO CARABA" : 3
+    "USUARIO CARABA" : 3,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

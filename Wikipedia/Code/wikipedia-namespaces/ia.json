@@ -12,6 +12,7 @@
     "DISCUSSION APPENDICE" : 103,
     "DISCUSSION CATEGORIA" : 15,
     "DISCUSSION FILE" : 7,
+    "DISCUSSION IMAGINE" : 7,
     "DISCUSSION MEDIAWIKI" : 9,
     "DISCUSSION PATRONO" : 11,
     "DISCUSSION PORTAL" : 101,
@@ -25,6 +26,9 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMAGINE" : 6,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
@@ -42,6 +46,7 @@
     "USATOR" : 2,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

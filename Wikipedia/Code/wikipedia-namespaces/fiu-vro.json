@@ -13,6 +13,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATÕGOORIA" : 14,
     "KATÕGOORIA AROTUS" : 15,
     "MEDIA" : -2,
@@ -29,6 +31,7 @@
     "OPPUS" : 12,
     "OPPUSÕ AROTUS" : 13,
     "PILDI AROTUS" : 7,
+    "PILDI ARUTELU" : 7,
     "PILT" : 6,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
@@ -46,6 +49,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA AROTUS" : 5
+    "WIKIPEDIA AROTUS" : 5,
+    "WIKIPEDIA ARUTELU" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

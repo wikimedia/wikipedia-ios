@@ -2,6 +2,7 @@
   "mainpage" : "HOOFDPAGINA",
   "namespace" : {
     "" : 0,
+    "AFBEELDING" : 6,
     "BESTAND" : 6,
     "CATEGORIE" : 14,
     "CATEGORY" : 14,
@@ -13,14 +14,18 @@
     "GADGET DEFINITION TALK" : 2303,
     "GADGET TALK" : 2301,
     "GEBRUIKER" : 2,
+    "H" : 12,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "OVERLEG" : 1,
+    "OVERLEG AFBEELDING" : 7,
     "OVERLEG BESTAND" : 7,
     "OVERLEG CATEGORIE" : 15,
     "OVERLEG GEBRUIKER" : 3,
@@ -32,6 +37,7 @@
     "OVERLEG UITBREIDING" : 2301,
     "OVERLEG UITBREIDINGSDEFINITIE" : 2303,
     "OVERLEG WIKIPEDIA" : 5,
+    "P" : 100,
     "PORTAAL" : 100,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
@@ -45,6 +51,8 @@
     "UITBREIDINGSDEFINITIE" : 2302,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

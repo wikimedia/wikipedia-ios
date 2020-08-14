@@ -16,6 +16,10 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMAGEN" : 6,
+    "IMAGEN DISCUSIÓN" : 7,
     "KATIGURIYA" : 14,
     "KATIGURIYA RIMANAKUY" : 15,
     "MEDIA" : -2,
@@ -45,6 +49,7 @@
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA RIMANAKUY" : 5,
+    "WIKIPEDIA TALK" : 5,
     "YANAPA" : 12,
     "YANAPA RIMANAKUY" : 13
   }

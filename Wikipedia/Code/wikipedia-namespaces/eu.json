@@ -2,6 +2,7 @@
   "mainpage" : "AZALA",
   "namespace" : {
     "" : 0,
+    "APARTEKO" : -1,
     "ATARI" : 100,
     "ATARI EZTABAIDA" : 101,
     "BEREZI" : -1,
@@ -21,6 +22,10 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IRUDI" : 6,
+    "IRUDI EZTABAIDA" : 7,
     "KATEGORIA" : 14,
     "KATEGORIA EZTABAIDA" : 15,
     "LAGUNTZA" : 12,
@@ -48,6 +53,7 @@
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA EZTABAIDA" : 5,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPROIEKTU" : 102,
     "WIKIPROIEKTU EZTABAIDA" : 103
   }

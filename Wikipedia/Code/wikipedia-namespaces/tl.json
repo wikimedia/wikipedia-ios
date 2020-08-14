@@ -12,7 +12,10 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORYA" : 14,
+    "KAURIAN" : 14,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
@@ -25,6 +28,7 @@
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "SPECIAL" : -1,
+    "SULERAS" : 10,
     "TAGAGAMIT" : 2,
     "TALAKSAN" : 6,
     "TALK" : 1,
@@ -33,15 +37,18 @@
     "TULONG" : 12,
     "USAPAN" : 1,
     "USAPANG KATEGORYA" : 15,
+    "USAPANG KAURIAN" : 15,
     "USAPANG MEDIAWIKI" : 9,
     "USAPANG PADRON" : 11,
     "USAPANG PORTADA" : 101,
+    "USAPANG SULERAS" : 11,
     "USAPANG TAGAGAMIT" : 3,
     "USAPANG TALAKSAN" : 7,
     "USAPANG TULONG" : 13,
     "USAPANG WIKIPEDIA" : 5,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

@@ -13,6 +13,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIJA" : 14,
     "KATEGORIJOS APTARIMAS" : 15,
     "MEDIA" : -2,
@@ -22,8 +24,10 @@
     "MEDIJA" : -2,
     "MODULE" : 828,
     "MODULE TALK" : 829,
+    "NAUDOTOJA" : 2,
     "NAUDOTOJAS" : 2,
     "NAUDOTOJO APTARIMAS" : 3,
+    "NAUDOTOJOS APTARIMAS" : 3,
     "PAGALBA" : 12,
     "PAGALBOS APTARIMAS" : 13,
     "PROJECT" : 4,
@@ -44,6 +48,9 @@
     "VIKIPROJEKTAS" : 102,
     "VIKIPROJEKTO APTARIMAS" : 103,
     "VIKISRITIES APTARIMAS" : 101,
-    "VIKISRITIS" : 100
+    "VIKISRITIS" : 100,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA APTARIMAS" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

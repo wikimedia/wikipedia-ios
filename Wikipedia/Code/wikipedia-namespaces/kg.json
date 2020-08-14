@@ -19,6 +19,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KALASI" : 14,
     "KISADI" : 2,
     "LUSADISU" : 12,
@@ -35,6 +37,7 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

@@ -90,13 +90,16 @@ func writeNamespaceFiles(with sites: [Wikipedia], completion: @escaping () -> Vo
         actionAPI.getSiteInfo(with: site.languageCode) { (result) in
             switch result {
             case .success(let siteInfo):
-                var namespaces = [String: PageNamespace].init(minimumCapacity: siteInfo.query.namespaces.count)
-                for namespace in siteInfo.query.namespaces {
-                    namespaces[namespace.value.name.uppercased()] = PageNamespace(rawValue: Int(namespace.key)!)
-                    guard let canonical = namespace.value.canonical else {
+                var namespaces = [String: PageNamespace].init(minimumCapacity: siteInfo.query.namespaces.count + siteInfo.query.namespacealiases.count)
+                for (_, namespace) in siteInfo.query.namespaces {
+                    namespaces[namespace.name.uppercased()] = PageNamespace(rawValue: namespace.id)
+                    guard let canonical = namespace.canonical else {
                         continue
                     }
-                    namespaces[canonical.uppercased()] = PageNamespace(rawValue: Int(namespace.key)!)
+                    namespaces[canonical.uppercased()] = PageNamespace(rawValue: namespace.id)
+                }
+                for namespaceAlias in siteInfo.query.namespacealiases {
+                    namespaces[namespaceAlias.alias.uppercased()] = PageNamespace(rawValue: namespaceAlias.id)
                 }
                 let siteInfoLookup = WikipediaSiteInfoLookup(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
                 writeCodable(siteInfoLookup, to: ["Wikipedia", "Code", "wikipedia-namespaces", "\(site.languageCode).json"])

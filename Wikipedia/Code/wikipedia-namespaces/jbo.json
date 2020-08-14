@@ -21,6 +21,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KLESI" : 14,
     "MEDI'AUIKIS" : 8,
     "MEDIA" : -2,
@@ -41,6 +43,8 @@
     "UIKIPEDI'AS" : 4,
     "USER" : 2,
     "USER TALK" : 3,
-    "VELSKU" : -2
+    "VELSKU" : -2,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

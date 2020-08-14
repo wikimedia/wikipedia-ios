@@ -12,6 +12,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "İSTIFADƏÇI" : 2,
     "İSTIFADƏÇI MÜZAKIRƏSI" : 3,
     "KATEQORIYA" : 14,
@@ -22,6 +24,9 @@
     "MEDIAWIKI" : 8,
     "MEDIAWIKI MÜZAKIRƏSI" : 9,
     "MEDIAWIKI TALK" : 9,
+    "MEDIYA" : -2,
+    "MEDIYAVIKI" : 8,
+    "MEDIYAVIKI MÜZAKIRƏSI" : 9,
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "MÜZAKIRƏ" : 1,
@@ -41,6 +46,8 @@
     "USER TALK" : 3,
     "VIKIPEDIYA" : 4,
     "VIKIPEDIYA MÜZAKIRƏSI" : 5,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "XÜSUSI" : -1
   }
 }

@@ -2,6 +2,7 @@
   "mainpage" : "VÒBLAD",
   "namespace" : {
     "" : 0,
+    "AFBEELDING" : 6,
     "CATEGORIE" : 14,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
@@ -14,12 +15,15 @@
     "GEBRUKER" : 2,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "OVERLEG" : 1,
+    "OVERLEG AFBEELDING" : 7,
     "OVERLEG CATEGORIE" : 15,
     "OVERLEG GEBRUKER" : 3,
     "OVERLEG MEDIAWIKI" : 9,
@@ -44,6 +48,7 @@
     "ULPE" : 12,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

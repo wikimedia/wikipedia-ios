@@ -13,9 +13,13 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "KIʻI" : 6,
     "KŌKUA" : 12,
     "KŪKĀKŪKĀ" : 1,
     "KŪKĀKŪKĀ O ANAKUHI" : 11,
+    "KŪKĀKŪKĀ O KIʻI" : 7,
     "KŪKĀKŪKĀ O KŌKUA" : 13,
     "KŪKĀKŪKĀ O MĀHELE" : 15,
     "KŪKĀKŪKĀ O MEA HOʻOHANA" : 3,
@@ -40,6 +44,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WAIHONA" : 6,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

@@ -4,6 +4,9 @@
     "" : 0,
     "ÀDÀKỌ" : 10,
     "AMÓHÙNMÁWÒRÁN" : -2,
+    "ÀWÒRÁN" : 6,
+    "BOOK" : 108,
+    "BOOK TALK" : 109,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "ÈBÚTÉ" : 100,
@@ -17,6 +20,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "ÌRÀNLỌ́WỌ́" : 12,
     "ÌWÉ" : 108,
     "MEDIA" : -2,
@@ -27,6 +32,7 @@
     "ONÍṢE" : 2,
     "Ọ̀RỌ̀" : 1,
     "Ọ̀RỌ̀ ÀDÀKỌ" : 11,
+    "Ọ̀RỌ̀ ÀWÒRÁN" : 7,
     "Ọ̀RỌ̀ ÈBÚTÉ" : 101,
     "Ọ̀RỌ̀ Ẹ̀KA" : 15,
     "Ọ̀RỌ̀ FÁÌLÌ" : 7,
@@ -36,6 +42,8 @@
     "Ọ̀RỌ̀ ONÍṢE" : 3,
     "Ọ̀RỌ̀ WIKIPEDIA" : 5,
     "PÀTÀKÌ" : -1,
+    "PORTAL" : 100,
+    "PORTAL TALK" : 101,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "SPECIAL" : -1,
@@ -44,6 +52,7 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

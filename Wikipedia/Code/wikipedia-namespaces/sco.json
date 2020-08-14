@@ -18,6 +18,8 @@
     "HELP" : 12,
     "HELP COLLOGUE" : 13,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI COLLOGUE" : 9,
@@ -38,6 +40,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA COLLOGUE" : 5
+    "WIKIPEDIA COLLOGUE" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

@@ -14,6 +14,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORII" : 14,
     "KÄVUTAI" : 2,
     "LODU" : 1,
@@ -31,6 +33,8 @@
     "MOODUL" : 828,
     "MOODULI ARUTELU" : 829,
     "PAGINAD VIKIPEDII" : 5,
+    "PILDI ARUTELU" : 7,
+    "PILT" : 6,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "ŠABLON" : 10,
@@ -45,6 +49,9 @@
     "TÖÖRIISTA MÄÄRATLUSE ARUTELU" : 2303,
     "USER" : 2,
     "USER TALK" : 3,
-    "VIKIPEDII" : 4
+    "VIKIPEDII" : 4,
+    "VIKIPEDII ARUTELU" : 5,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

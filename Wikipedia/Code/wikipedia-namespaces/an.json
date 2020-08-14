@@ -18,9 +18,11 @@
     "DESCUSIÓN MÓDULO" : 829,
     "DESCUSIÓN PLANTILLA" : 11,
     "DESCUSIÓN PORTAL" : 101,
+    "DESCUSIÓN USUARIA" : 3,
     "DESCUSIÓN USUARIO" : 3,
     "DESCUSIÓN WIKIPEDIA" : 5,
     "ESPECIAL" : -1,
+    "ESPEZIAL" : -1,
     "FILE" : 6,
     "FILE TALK" : 7,
     "GADGET" : 2300,
@@ -30,6 +32,10 @@
     "HELP" : 12,
     "HELP TALK" : 13,
     "IMACHEN" : 6,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMAGEN" : 6,
+    "IMAGEN DISCUSIÓN" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
@@ -46,7 +52,9 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
+    "USUARIA" : 2,
     "USUARIO" : 2,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

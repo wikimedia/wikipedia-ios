@@ -13,6 +13,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIJA" : 14,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -44,6 +46,8 @@
     "UPORABNIŠKI POGOVOR" : 3,
     "USER" : 2,
     "USER TALK" : 3,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPEDIJA" : 4
   }
 }

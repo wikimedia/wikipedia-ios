@@ -18,6 +18,8 @@
     "HELP TALK" : 13,
     "HJÁLP" : 12,
     "HJÁLPARSPJALL" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KERFISSÍÐA" : -1,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -47,6 +49,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPEDIASPJALL" : 5
   }
 }

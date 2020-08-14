@@ -2,13 +2,17 @@
   "mainpage" : "VEURBLAAD",
   "namespace" : {
     "" : 0,
+    "AAFBEILDING" : 6,
+    "AFBEELDING" : 6,
     "CATEGORIE" : 14,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "EUVERLÈK" : 1,
+    "EUVERLÈK AFBEELDING" : 7,
     "EUVERLÈK CATEGORIE" : 15,
     "EUVERLÈK GEBROEKER" : 3,
     "EUVERLÈK HELP" : 13,
+    "EUVERLÈK KATEGORIE" : 15,
     "EUVERLÈK MEDIAWIKI" : 9,
     "EUVERLÈK PLAETJE" : 7,
     "EUVERLÈK PORTAOL" : 101,
@@ -23,11 +27,15 @@
     "GEBROEKER" : 2,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "KATEGORIE" : 14,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
     "MODULE" : 828,
     "MODULE TALK" : 829,
+    "OVERLEG AFBEELDING" : 7,
     "OVERLEG MODULE" : 829,
     "OVERLEG UITBREIDING" : 2301,
     "OVERLEG UITBREIDINGSDEFINITIE" : 2303,
@@ -45,6 +53,7 @@
     "UITBREIDINGSDEFINITIE" : 2302,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

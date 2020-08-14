@@ -19,6 +19,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI DISCUSSIUN" : 9,
@@ -40,6 +42,7 @@
     "UTILISADER" : 2,
     "UTILISADER DISCUSSIUN" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA DISCUSSIUN" : 5
+    "WIKIPEDIA DISCUSSIUN" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

@@ -10,9 +10,16 @@
     "CATEGORY TALK" : 15,
     "COPENE" : 1,
     "DÉFINITION DE GADGET" : 2302,
+    "DISCUSSION AIDE" : 13,
+    "DISCUSSION CATÉGORIE" : 15,
     "DISCUSSION DÉFINITION DE GADGET" : 2303,
+    "DISCUSSION FICHIER" : 7,
     "DISCUSSION GADGET" : 2301,
+    "DISCUSSION IMAGE" : 7,
+    "DISCUSSION MODÈLE" : 11,
     "DISCUSSION MODULE" : 829,
+    "DISCUSSION UTILISATEUR" : 3,
+    "DISCUTER" : 1,
     "FILE" : 6,
     "FILE TALK" : 7,
     "GADGET" : 2300,
@@ -23,6 +30,8 @@
     "HELP TALK" : 13,
     "IMÅDJE" : 6,
     "IMÅDJE COPENE" : 7,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI COPENE" : 9,
@@ -45,6 +54,7 @@
     "UZEU" : 2,
     "UZEU COPENE" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA COPENE" : 5
+    "WIKIPEDIA COPENE" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

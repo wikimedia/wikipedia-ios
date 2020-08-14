@@ -14,6 +14,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KHAAS" : -1,
     "MADAT" : 12,
     "MADAT KE BAAT" : 13,
@@ -38,6 +40,7 @@
     "VIBHAG" : 14,
     "VOIBHAG KE BAAT" : 15,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA BAAT" : 5
+    "WIKIPEDIA BAAT" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

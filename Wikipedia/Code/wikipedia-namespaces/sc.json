@@ -6,6 +6,7 @@
     "CATEGORIA" : 14,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
+    "CONTIÈNDHA" : 1,
     "CUNTIERRA" : 1,
     "CUNTIERRA AGIUDU" : 13,
     "CUNTIERRA CATEGORIA" : 15,
@@ -22,6 +23,10 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMMÀGINI" : 6,
+    "IMMÀGINI CONTIÈNDHA" : 7,
     "ISPETZIALE" : -1,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -31,12 +36,17 @@
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "SPECIAL" : -1,
+    "SPECIALE" : -1,
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
     "USUÀRIU" : 2,
-    "WIKIPEDIA" : 4
+    "UTENTE" : 2,
+    "UTENTE DISCUSSIONI" : 3,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA DISCUSSIONI" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

@@ -13,11 +13,13 @@
     "DISCUSSION DÉFINITION DE GADGET" : 2303,
     "DISCUSSION FICHIER" : 7,
     "DISCUSSION GADGET" : 2301,
+    "DISCUSSION IMAGE" : 7,
     "DISCUSSION MEDIAWIKI" : 9,
     "DISCUSSION MODÈLE" : 11,
     "DISCUSSION MODULE" : 829,
     "DISCUSSION UTILISATEUR" : 3,
     "DISCUSSION WIKIPEDIA" : 5,
+    "DISCUTER" : 1,
     "FICHIER" : 6,
     "FILE" : 6,
     "FILE TALK" : 7,
@@ -27,6 +29,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEDIA" : -2,
     "MÉDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -44,6 +48,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "UTILISATEUR" : 2,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

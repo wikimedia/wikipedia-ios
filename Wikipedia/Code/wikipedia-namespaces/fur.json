@@ -17,6 +17,7 @@
     "DISCUSSION VICHIPEDIE" : 5,
     "DISCUSSIONI ACCESSORIO" : 2301,
     "DISCUSSIONI DEFINIZIONE ACCESSORIO" : 2303,
+    "DISCUSSIONI IMMAGINE" : 7,
     "DISCUSSIONI MODULO" : 829,
     "FIGURE" : 6,
     "FILE" : 6,
@@ -27,6 +28,9 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMMAGINE" : 6,
     "JUTORI" : 12,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -45,6 +49,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "UTENT" : 2,
-    "VICHIPEDIE" : 4
+    "VICHIPEDIE" : 4,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

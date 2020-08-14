@@ -4,6 +4,9 @@
     "" : 0,
     "BENOTZER" : 2,
     "BENOTZER DISKUSSIOUN" : 3,
+    "BILD" : 6,
+    "BILD DISKUSSION" : 7,
+    "BILD DISKUSSIOUN" : 7,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "DISKUSSIOUN" : 1,
@@ -22,6 +25,8 @@
     "HËLLEF DISKUSSIOUN" : 13,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIE" : 14,
     "KATEGORIE DISKUSSIOUN" : 15,
     "MEDIA" : -2,
@@ -44,6 +49,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA DISKUSSIOUN" : 5
+    "WIKIPEDIA DISKUSSIOUN" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

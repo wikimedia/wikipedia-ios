@@ -18,6 +18,7 @@
     "DISCUSSION DLË STAMP" : 11,
     "DISCUSSIONI ACCESSORIO" : 2301,
     "DISCUSSIONI DEFINIZIONE ACCESSORIO" : 2303,
+    "DISCUSSIONI IMMAGINE" : 7,
     "DISCUSSIONI MODULO" : 829,
     "FIGURA" : 6,
     "FILE" : 6,
@@ -28,6 +29,9 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMMAGINE" : 6,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
@@ -44,6 +48,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "UTENT" : 2,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

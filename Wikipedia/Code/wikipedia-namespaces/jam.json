@@ -12,6 +12,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
@@ -27,6 +29,8 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPIDIA" : 4,
     "WIKIPIDIA DISKOSHAN" : 5
   }

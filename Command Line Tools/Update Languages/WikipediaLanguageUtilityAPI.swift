@@ -85,12 +85,17 @@ struct SiteInfo: Codable {
         let name: String
         let canonical: String?
     }
+    struct NamespaceAlias: Codable {
+        let id: Int
+        let alias: String
+    }
     struct General: Codable {
         let mainpage: String
     }
     struct Query: Codable {
         let general: General
         let namespaces: [String: Namespace]
+        let namespacealiases: [NamespaceAlias]
     }
     let query: Query
 }

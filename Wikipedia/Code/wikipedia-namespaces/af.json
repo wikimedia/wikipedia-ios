@@ -2,6 +2,8 @@
   "mainpage" : "TUISBLAD",
   "namespace" : {
     "" : 0,
+    "BEELD" : 6,
+    "BEELDBESPREKING" : 7,
     "BESPREKING" : 1,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
@@ -17,6 +19,8 @@
     "HELP TALK" : 13,
     "HULP" : 12,
     "HULPBESPREKING" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIE" : 14,
     "KATEGORIEBESPREKING" : 15,
     "LÊER" : 6,
@@ -41,6 +45,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPEDIABESPREKING" : 5
   }
 }

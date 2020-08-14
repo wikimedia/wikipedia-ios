@@ -2,6 +2,8 @@
   "mainpage" : "PORTAL:FORSIDE",
   "namespace" : {
     "" : 0,
+    "BILDE" : 6,
+    "BILDEDISKUSJON" : 7,
     "BRUKER" : 2,
     "BRUKERDISKUSJON" : 3,
     "CATEGORY" : 14,
@@ -19,6 +21,8 @@
     "HELP TALK" : 13,
     "HJELP" : 12,
     "HJELPDISKUSJON" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORI" : 14,
     "KATEGORIDISKUSJON" : 15,
     "MAL" : 10,
@@ -46,6 +50,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA-DISKUSJON" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WIKIPEDIA-DISKUSJON" : 5,
+    "WP" : 4
   }
 }

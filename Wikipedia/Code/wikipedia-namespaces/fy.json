@@ -4,6 +4,8 @@
     "" : 0,
     "BERJOCHT" : 10,
     "BERJOCHT OERLIS" : 11,
+    "BRÛKER" : 2,
+    "BRÛKER OERLIS" : 3,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "FILE" : 6,
@@ -16,6 +18,8 @@
     "HELP TALK" : 13,
     "HULP" : 12,
     "HULP OERLIS" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORY" : 14,
     "KATEGORY OERLIS" : 15,
     "MEDIA" : -2,
@@ -38,6 +42,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKI" : -1,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPEDY" : 4,
     "WIKIPEDY OERLIS" : 5
   }

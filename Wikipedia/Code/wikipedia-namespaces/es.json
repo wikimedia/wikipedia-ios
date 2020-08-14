@@ -10,6 +10,7 @@
     "ARCHIVO DISCUSIÓN" : 7,
     "AYUDA" : 12,
     "AYUDA DISCUSIÓN" : 13,
+    "CAT" : 14,
     "CATEGORÍA" : 14,
     "CATEGORÍA DISCUSIÓN" : 15,
     "CATEGORY" : 14,
@@ -26,6 +27,10 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMAGEN" : 6,
+    "IMAGEN DISCUSIÓN" : 7,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI DISCUSIÓN" : 9,
@@ -39,6 +44,7 @@
     "PLANTILLA DISCUSIÓN" : 11,
     "PORTAL" : 100,
     "PORTAL DISCUSIÓN" : 101,
+    "PR" : 102,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "SPECIAL" : -1,
@@ -47,11 +53,15 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
+    "USUARIA" : 2,
+    "USUARIA DISCUSIÓN" : 3,
     "USUARIO" : 2,
     "USUARIO DISCUSIÓN" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA DISCUSIÓN" : 5,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPROYECTO" : 102,
-    "WIKIPROYECTO DISCUSIÓN" : 103
+    "WIKIPROYECTO DISCUSIÓN" : 103,
+    "WP" : 4
   }
 }

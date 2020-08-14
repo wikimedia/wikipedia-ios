@@ -4,6 +4,10 @@
     "" : 0,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
+    "DALĪBNIECE" : 2,
+    "DALĪBNIECES DISKUSIJA" : 3,
+    "DALĪBNIEKA DISKUSIJA" : 3,
+    "DALĪBNIEKS" : 2,
     "FAILS" : 6,
     "FILE" : 6,
     "FILE TALK" : 7,
@@ -13,7 +17,11 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGOREJA" : 14,
+    "LIETOTĀJA DISKUSIJA" : 3,
+    "LIETOTĀJS" : 2,
     "LĪTUOTUOJS" : 2,
     "MEDEJA" : -2,
     "MEDIA" : -2,
@@ -42,6 +50,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "VIKIPEDEJA" : 4,
-    "VIKIPEDEJIS SPRĪŽA" : 5
+    "VIKIPEDEJIS SPRĪŽA" : 5,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

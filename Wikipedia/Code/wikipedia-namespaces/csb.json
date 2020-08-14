@@ -16,7 +16,10 @@
     "DISKÙSËJÔ WIKI" : 5,
     "DYSKUSJA DEFINICJI GADŻETU" : 2303,
     "DYSKUSJA GADŻETU" : 2301,
+    "DYSKUSJA GRAFIKI" : 7,
     "DYSKUSJA MODUŁU" : 829,
+    "DYSKUSJA UŻYTKOWNICZKI" : 3,
+    "DYSKUSJA UŻYTKOWNIKA" : 3,
     "FILE" : 6,
     "FILE TALK" : 7,
     "GADGET" : 2300,
@@ -24,8 +27,11 @@
     "GADGET DEFINITION TALK" : 2303,
     "GADGET TALK" : 2301,
     "GADŻET" : 2300,
+    "GRAFIKA" : 6,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGÒRËJÔ" : 14,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -45,6 +51,10 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
-    "WIKI" : 4
+    "UŻYTKOWNICZKA" : 2,
+    "UŻYTKOWNIK" : 2,
+    "WIKI" : 4,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

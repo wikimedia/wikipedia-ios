@@ -24,6 +24,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "MEADHAN" : -2,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -42,6 +44,8 @@
     "TEMPLATE TALK" : 11,
     "UICIPEID" : 4,
     "USER" : 2,
-    "USER TALK" : 3
+    "USER TALK" : 3,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

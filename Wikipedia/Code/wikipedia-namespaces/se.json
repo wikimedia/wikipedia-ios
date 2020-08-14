@@ -4,6 +4,7 @@
     "" : 0,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
+    "DOAIMMAT" : -1,
     "ERENOAMÁŠ" : -1,
     "FIILA" : 6,
     "FIILASÁGASTALLAN" : 7,
@@ -17,6 +18,8 @@
     "GEAVAHEADDJI" : 2,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIIJA" : 14,
     "KATEGORIIJASÁGASTALLAN" : 15,
     "MÁLLE" : 10,
@@ -36,6 +39,8 @@
     "SÁGASTALLAN" : 1,
     "SPECIAL" : -1,
     "TALK" : 1,
+    "TEMASIIDOSÁGASTALLAN" : 101,
+    "TEMASIIDU" : 100,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
     "USER" : 2,
@@ -43,6 +48,8 @@
     "VEAHKKESÁGASTALLAN" : 13,
     "VEAHKKI" : 12,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA-SÁGASTALLAN" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WIKIPEDIA-SÁGASTALLAN" : 5,
+    "WP" : 4
   }
 }

@@ -5,6 +5,8 @@
     "ARUTELU" : 1,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
+    "DRAFT" : 102,
+    "DRAFT TALK" : 103,
     "ERI" : -1,
     "FAIL" : 6,
     "FAILI ARUTELU" : 7,
@@ -16,6 +18,8 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "JUHEND" : 12,
     "JUHENDI ARUTELU" : 13,
     "KASUTAJA" : 2,
@@ -35,8 +39,12 @@
     "MOODULI ARUTELU" : 829,
     "MUSTAND" : 102,
     "MUSTANDI ARUTELU" : 103,
+    "PILDI ARUTELU" : 7,
+    "PILT" : 6,
     "PORTAAL" : 100,
     "PORTAALI ARUTELU" : 101,
+    "PORTAL" : 100,
+    "PORTAL TALK" : 101,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "SPECIAL" : -1,
@@ -50,6 +58,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "VIKIPEEDIA" : 4,
-    "VIKIPEEDIA ARUTELU" : 5
+    "VIKIPEEDIA ARUTELU" : 5,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

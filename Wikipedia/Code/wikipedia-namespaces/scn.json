@@ -14,7 +14,9 @@
     "DISCUSSIONI CATIGURÌA" : 15,
     "DISCUSSIONI DEFINIZIONE ACCESSORIO" : 2303,
     "DISCUSSIONI FILE" : 7,
+    "DISCUSSIONI IMMAGINE" : 7,
     "DISCUSSIONI MEDIAWIKI" : 9,
+    "DISCUSSIONI MMÀGGINI" : 7,
     "DISCUSSIONI MODULO" : 829,
     "DISCUSSIONI PRUGGETTU" : 103,
     "DISCUSSIONI PURTALI" : 101,
@@ -29,10 +31,14 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMMAGINE" : 6,
     "MEDIA" : -2,
     "MÈDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
+    "MMÀGGINI" : 6,
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "MODULO" : 828,
@@ -48,6 +54,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "UTENTI" : 2,
-    "WIKIPEDIA" : 4
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

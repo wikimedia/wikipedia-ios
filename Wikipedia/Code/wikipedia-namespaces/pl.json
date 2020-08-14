@@ -8,6 +8,7 @@
     "DYSKUSJA" : 1,
     "DYSKUSJA DEFINICJI GADŻETU" : 2303,
     "DYSKUSJA GADŻETU" : 2301,
+    "DYSKUSJA GRAFIKI" : 7,
     "DYSKUSJA KATEGORII" : 15,
     "DYSKUSJA MEDIAWIKI" : 9,
     "DYSKUSJA MODUŁU" : 829,
@@ -16,6 +17,7 @@
     "DYSKUSJA PORTALU" : 101,
     "DYSKUSJA SZABLONU" : 11,
     "DYSKUSJA WIKIPEDII" : 5,
+    "DYSKUSJA WIKIPEDYSTKI" : 3,
     "DYSKUSJA WIKIPEDYSTY" : 3,
     "DYSKUSJA WIKIPROJEKTU" : 103,
     "FILE" : 6,
@@ -25,8 +27,11 @@
     "GADGET DEFINITION TALK" : 2303,
     "GADGET TALK" : 2301,
     "GADŻET" : 2300,
+    "GRAFIKA" : 6,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIA" : 14,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -50,7 +55,10 @@
     "USER TALK" : 3,
     "WĄTEK" : 2600,
     "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPEDYSTA" : 2,
-    "WIKIPROJEKT" : 102
+    "WIKIPEDYSTKA" : 2,
+    "WIKIPROJEKT" : 102,
+    "WP" : 4
   }
 }

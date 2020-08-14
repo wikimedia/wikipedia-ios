@@ -5,6 +5,8 @@
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "DISKUTIM" : 1,
+    "FIGURA" : 6,
+    "FIGURA DISKUTIM" : 7,
     "FILE" : 6,
     "FILE TALK" : 7,
     "GADGET" : 2300,
@@ -13,6 +15,10 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "KATEGORI" : 14,
+    "KATEGORI DISKUTIM" : 15,
     "KATEGORIA" : 14,
     "KATEGORIA DISKUTIM" : 15,
     "MEDIA" : -2,
@@ -25,8 +31,12 @@
     "MODULI DISKUTIM" : 829,
     "NDIHMË" : 12,
     "NDIHMË DISKUTIM" : 13,
+    "PERDORUESI" : 2,
     "PËRDORUESI" : 2,
+    "PERDORUESI DISKUTIM" : 3,
     "PËRDORUESI DISKUTIM" : 3,
+    "PËRDORUESJA" : 2,
+    "PËRDORUESJA DISKUTIM" : 3,
     "PORTAL" : 100,
     "PORTAL DISKUTIM" : 101,
     "PROJECT" : 4,
@@ -43,6 +53,7 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA DISKUTIM" : 5
+    "WIKIPEDIA DISKUTIM" : 5,
+    "WIKIPEDIA TALK" : 5
   }
 }

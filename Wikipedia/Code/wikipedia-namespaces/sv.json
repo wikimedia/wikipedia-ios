@@ -5,6 +5,8 @@
     "ÄMNE" : 2600,
     "ANVÄNDARDISKUSSION" : 3,
     "ANVÄNDARE" : 2,
+    "BILD" : 6,
+    "BILDDISKUSSION" : 7,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "DISKUSSION" : 1,
@@ -21,13 +23,17 @@
     "HELP" : 12,
     "HELP TALK" : 13,
     "HJÄLP" : 12,
+    "HJÄLP DISKUSSION" : 13,
     "HJÄLPDISKUSSION" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORI" : 14,
     "KATEGORIDISKUSSION" : 15,
     "MALL" : 10,
     "MALLDISKUSSION" : 11,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
+    "MEDIAWIKI DISKUSSION" : 9,
     "MEDIAWIKI TALK" : 9,
     "MEDIAWIKI-DISKUSSION" : 9,
     "MODUL" : 828,
@@ -46,6 +52,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIADISKUSSION" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WIKIPEDIADISKUSSION" : 5,
+    "WP" : 4
   }
 }

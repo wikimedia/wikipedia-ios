@@ -11,10 +11,12 @@
     "DISPUTATIO CATEGORIAE" : 15,
     "DISPUTATIO FASCICULI" : 7,
     "DISPUTATIO FORMULAE" : 11,
+    "DISPUTATIO IMAGINIS" : 7,
     "DISPUTATIO MEDIAWIKI" : 9,
     "DISPUTATIO PORTAE" : 101,
     "DISPUTATIO USORIS" : 3,
     "DISPUTATIO VICIPAEDIAE" : 5,
+    "DISPUTATIO WIKIPEDIA" : 5,
     "FASCICULUS" : 6,
     "FILE" : 6,
     "FILE TALK" : 7,
@@ -25,6 +27,9 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
+    "IMAGO" : 6,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
@@ -41,6 +46,8 @@
     "USER" : 2,
     "USER TALK" : 3,
     "USOR" : 2,
-    "VICIPAEDIA" : 4
+    "VICIPAEDIA" : 4,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5
   }
 }

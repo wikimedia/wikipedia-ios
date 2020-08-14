@@ -2,14 +2,19 @@
   "mainpage" : "HŁOWNA STRONA",
   "namespace" : {
     "" : 0,
+    "BILD" : 6,
+    "BILD DISKUSSION" : 7,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "DATAJA" : 6,
     "DISKUSIJA" : 1,
     "DISKUSIJA K DATAJI" : 7,
     "DISKUSIJA K PŘEDŁOZE" : 11,
+    "DISKUSIJA K WOBRAZEJ" : 7,
     "DISKUSIJA KE KATEGORIJI" : 15,
+    "DISKUSIJA WÓ WOBRAZU" : 7,
     "DISKUSIJA Z WUŽIWARJOM" : 3,
+    "DISKUSIJA Z WUŽIWARKU" : 3,
     "FILE" : 6,
     "FILE TALK" : 7,
     "GADGET" : 2300,
@@ -21,6 +26,8 @@
     "GADGET-DEFINITION DISKUSSION" : 2303,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IMAGE" : 6,
+    "IMAGE TALK" : 7,
     "KATEGORIJA" : 14,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
@@ -42,8 +49,12 @@
     "TEMPLATE TALK" : 11,
     "USER" : 2,
     "USER TALK" : 3,
+    "WIKIPEDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
     "WIKIPEDIJA" : 4,
     "WIKIPEDIJA DISKUSIJA" : 5,
-    "WUŽIWAR" : 2
+    "WOBRAZ" : 6,
+    "WUŽIWAR" : 2,
+    "WUŽIWARKA" : 2
   }
 }
