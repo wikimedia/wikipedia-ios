@@ -18,10 +18,10 @@ class WikipediaLanguageUtility {
                 print("Error fetching sites: \(error)")
                 abort()
             case .success(let sites):
-                let sitesByCode = sites.reduce(into: [String: Wikipedia]()) { (result, wikipedia) in
-                    result[wikipedia.languageCode] = wikipedia
+                let sortedSites = sites.sorted { (a, b) -> Bool in
+                    return a.languageCode < b.languageCode
                 }
-                self.writeCodable(sitesByCode, to: ["Wikipedia", "Code", "wikipedia-languages.json"])
+                self.writeCodable(sortedSites, to: ["Wikipedia", "Code", "wikipedia-languages.json"])
                 group.enter()
                 self.writeNamespaceFiles(with: sites) {
                     self.writeCodemirrorConfig(with: sites) {

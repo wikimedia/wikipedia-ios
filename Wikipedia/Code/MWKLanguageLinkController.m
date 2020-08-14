@@ -43,7 +43,7 @@ static id _sharedInstance;
 #pragma mark - Loading
 
 - (void)loadLanguagesFromFile {
-    self.allLanguages = [[WikipediaLookup allLanguageLinks] sortedArrayUsingSelector:@selector(compare:)];
+    self.allLanguages = [WikipediaLookup allLanguageLinks];
 }
 
 #pragma mark - Getters & Setters

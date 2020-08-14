@@ -2,22 +2,21 @@ import Foundation
 import WMF.WMFLogging
 
 @objc class WikipediaLookup: NSObject {
-    static let byCode: [String: Wikipedia] = {
+    static let allWikipedias: [Wikipedia] = {
         guard let languagesFileURL = Bundle.wmf.url(forResource: "wikipedia-languages", withExtension: "json") else {
-            return [:]
+            return []
         }
         do {
             let data = try Data(contentsOf: languagesFileURL)
-            return try JSONDecoder().decode([String: Wikipedia].self, from: data)
+            return try JSONDecoder().decode([Wikipedia].self, from: data)
         } catch let error {
             DDLogError("Error decoding language list \(error)")
-            return [:]
+            return []
         }
     }()
     
     @objc static let allLanguageLinks: [MWKLanguageLink] = {
-        return byCode.compactMap { (kv) -> MWKLanguageLink in
-            let wikipedia = kv.value
+        return allWikipedias.compactMap { (wikipedia) -> MWKLanguageLink in
             var localizedName = wikipedia.languageName
             if !wikipedia.languageCode.contains("-") {
                 // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
