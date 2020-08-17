@@ -110,12 +110,19 @@ static uint64_t bundleHash() {
 
 - (NSDictionary *)loadSharedInfoDictionaryWithContainerURL:(NSURL *)containerURL {
     NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
-    NSData *infoDictionaryData = [NSData dataWithContentsOfURL:infoDictionaryURL];
-    NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:infoDictionaryData];
+    NSError *unarchiveError = nil;
+    NSDictionary *infoDictionary = [self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError];
+    if (unarchiveError) {
+        DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
+    }
     if (!infoDictionary[@"CrossProcessNotificiationChannelName"]) {
         NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
         infoDictionary = @{@"CrossProcessNotificiationChannelName": channelName};
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary];
+        NSError *archiveError = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary requiringSecureCoding:false error:&archiveError];
+        if (archiveError) {
+            DDLogError(@"Error archiving shared info dictionary: %@", archiveError);
+        }
         [data writeToURL:infoDictionaryURL atomically:YES];
     }
     return infoDictionary;
@@ -139,12 +146,22 @@ static uint64_t bundleHash() {
     });
 }
 
+- (NSDictionary *)unarchivedDictionaryFromFileURL:(NSURL *)fileURL error:(NSError **)error {
+    NSData *data = [NSData dataWithContentsOfURL:fileURL];
+    NSSet *allowedClasses = [NSSet setWithArray:[NSSecureUnarchiveFromDataTransformer allowedTopLevelClasses]];
+    return [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:error];
+}
+
 - (void)handleCrossProcessCoreDataNotificationWithState:(uint64_t)state {
     NSURL *baseURL = self.containerURL;
     NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
-    NSData *data = [NSData dataWithContentsOfURL:fileURL];
-    NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSError *unarchiveError = nil;
+    NSDictionary *userInfo = [self unarchivedDictionaryFromFileURL:fileURL error:&unarchiveError];
+    if (unarchiveError) {
+        DDLogError(@"Error unarchiving cross process core data notification: %@", unarchiveError);
+        return;
+    }
     [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
 }
 
@@ -229,7 +246,14 @@ static uint64_t bundleHash() {
     uint64_t state = bundleHash();
 
     NSDictionary *archiveableUserInfo = [self archivableNotificationUserInfoForUserInfo:userInfo];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:archiveableUserInfo];
+    
+    NSError *archiveError = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:archiveableUserInfo requiringSecureCoding:NO error:&archiveError];
+    if (archiveError) {
+        DDLogError(@"Error archiving cross process changes: %@", archiveError);
+        return;
+    }
+    
     NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
     NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
@@ -385,17 +409,6 @@ static uint64_t bundleHash() {
 
 - (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSError *migrationError = nil;
-    if (currentLibraryVersion < 1) {
-        if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
-            [moc wmf_setValue:@(1) forKey:WMFLibraryVersionKey];
-            if ([moc hasChanges] && ![moc save:&migrationError]) {
-                DDLogError(@"Error saving during migration: %@", migrationError);
-                return;
-            }
-        } else {
-            return;
-        }
-    }
 
     if (currentLibraryVersion < 5) {
         if (![self migrateToReadingListsInManagedObjectContext:moc error:&migrationError]) {
@@ -407,21 +420,6 @@ static uint64_t bundleHash() {
     if (currentLibraryVersion < 6) {
         if (![self migrateMainPageContentGroupInManagedObjectContext:moc error:&migrationError]) {
             DDLogError(@"Error during migration: %@", migrationError);
-            return;
-        }
-    }
-
-    if (currentLibraryVersion < 7) {
-        NSError *fileProtectionError = nil;
-        if ([self.containerURL setResourceValue:NSURLFileProtectionCompleteUntilFirstUserAuthentication forKey:NSURLFileProtectionKey error:&fileProtectionError]) {
-            [moc wmf_setValue:@(7) forKey:WMFLibraryVersionKey];
-            NSError *migrationSaveError = nil;
-            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
-                DDLogError(@"Error saving during migration: %@", migrationSaveError);
-                return;
-            }
-        } else {
-            DDLogError(@"Error enabling file protection: %@", fileProtectionError);
             return;
         }
     }
@@ -467,30 +465,35 @@ static uint64_t bundleHash() {
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
-- (void)performLibraryUpdates:(dispatch_block_t)completion {
+- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
+    dispatch_block_t combinedCompletion = ^{
+        [WMFImageCacheControllerWrapper performLibraryUpdates:^(NSError * _Nullable error) {
+            if (error) {
+                DDLogError(@"Error during cache controller migration: %@", error);
+            }
+            if (completion) {
+                completion();
+            }
+        }];
+    };
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     // If the library value doesn't exist, it's a new library and can be set to the latest version
     if (!libraryVersionNumber) {
         [self performInitialLibrarySetup];
-        if (completion) {
-            completion();
-        }
+        combinedCompletion();
         return;
     }
     NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
     // If the library version is >= the current version, we can skip the migration
     if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
-        if (completion) {
-            completion();
-        }
+        combinedCompletion();
         return;
     }
+    
+    needsMigrateBlock();
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        dispatch_block_t done = ^{
-            dispatch_async(dispatch_get_main_queue(), completion);
-        };
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
-        done();
+        combinedCompletion();
     }];
 }
 
@@ -559,69 +562,6 @@ static uint64_t bundleHash() {
     
     //move legacy image cache to new non-image path name
     [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
-}
-
-- (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
-    NSFetchRequest *request = [WMFContentGroup fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"content != NULL"];
-    request.fetchLimit = 500;
-    NSError *fetchError = nil;
-    NSArray *contentGroups = [moc executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
-        if (error) {
-            *error = fetchError;
-        }
-        return false;
-    }
-
-    while (contentGroups.count > 0) {
-        @autoreleasepool {
-            NSMutableArray *toDelete = [NSMutableArray arrayWithCapacity:1];
-            for (WMFContentGroup *contentGroup in contentGroups) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                NSArray *content = contentGroup.content;
-                if (!content) {
-                    continue;
-                }
-                contentGroup.fullContentObject = content;
-                contentGroup.featuredContentIdentifier = contentGroup.articleURLString;
-                [contentGroup updateContentPreviewWithContent:content];
-                contentGroup.content = nil;
-#pragma clang diagnostic pop
-                if (contentGroup.contentPreview == nil) {
-                    [toDelete addObject:contentGroup];
-                }
-            }
-            for (WMFContentGroup *group in toDelete) {
-                [moc deleteObject:group];
-            }
-
-            if ([moc hasChanges]) {
-                NSError *saveError = nil;
-                [moc save:&saveError];
-                if (saveError) {
-                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
-                    if (error) {
-                        *error = saveError;
-                    }
-                    return false;
-                }
-                [moc reset];
-            }
-        }
-
-        contentGroups = [moc executeFetchRequest:request error:&fetchError];
-        if (fetchError) {
-            DDLogError(@"Error fetching content groups: %@", fetchError);
-            if (error) {
-                *error = fetchError;
-            }
-            return false;
-        }
-    }
-    return true;
 }
 
 - (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {

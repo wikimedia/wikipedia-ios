@@ -112,7 +112,7 @@
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-others" = "Ostatné jazyky";
 "article-languages-yours" = "Vaše jazyky";
-"article-read-more-title" = "Ďalšie informácie";
+"article-read-more-title" = "Čítať viac";
 "article-reference-view-title" = "Referencia $1";
 "article-save-error-not-enough-space" = "Na vašom zariadení nemáte dostatok miesta na uloženie tohto článku";
 "article-share" = "Zdieľať";
@@ -135,7 +135,6 @@
 "compass-direction" = "na $1. hodine";
 "continue-reading-empty-description" = "Prehľadávať ďalšie články na Wikipédii";
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
-"description-add-link-title" = "Pridať popis článku";
 "description-add-title" = "Pridať popis";
 "description-edit-for-article" = "Popis článku $1";
 "description-edit-learn-more" = "Ďalšie informácie";
@@ -438,8 +437,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
 "in-the-news-title" = "Správy";
-"info-box-close-text" = "Zavrieť";
-"info-box-title" = "Rýchle fakty";
 "insert-action-title" = "Vložiť";
 "insert-link-title" = "Vložiť odkaz";
 "insert-media-alternative-text-description" = "Popis, ktorý sa zobrazí čitateľom, ktorí neuvidia obrázok";
@@ -476,8 +473,6 @@
 "languages-settings-title" = "Jazyky";
 "languages-title" = "Zmeniť jazyk";
 "languages-wikipedia" = "Jazyky Wikipédie";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "logged-out-continue-without-logging-in-button-title" = "Pokračovať bez prihlásenia";
 "logged-out-log-back-in-button-title" = "Prihlásiť sa späť do vášho účtu";
 "logged-out-subtitle" = "Pri overovaní účtu došlo k chybe. Pokiaľ chcete synchronizovať zoznamy na prečítanie a upravovať pod svojím používateľským menom, prosím, prihláste sa znovu.";
@@ -526,8 +521,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
-// Fuzzy
-"page-edit-history" = "Úplná história úprav";
 "page-history-anonymous-edits" = "úpravy anonymných používateľov";
 "page-history-bot-edits" = "úpravy botov";
 "page-history-compare-accessibility-hint" = "Ťuknite pre vybratie dvoch revízií na porovnanie";
@@ -544,18 +537,14 @@
 "page-history-revisions-comparison-warning" = "Vybrané môžu byť len dve revízie";
 "page-history-stats-text" = "{{PLURAL:$1|$1 úprava|$1 úpravy|$1 úprav}} od $2";
 "page-history-user-edits" = "úpravy používateľa";
-"page-issues" = "Problémy stránky";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Upravené dnes|1=Upravené včera|2=Upravené predvčerom|Upravené pred $1 dňami}}";
+"page-issues" = "Nedostatky stránky";
 "page-location" = "Zobraziť na mape";
 "page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
 "page-protected-can-not-edit" = "Nemáte právo upraviť túto stránku";
 "page-protected-can-not-edit-title" = "Táto stránka je zamknutá";
 "page-protected-other" = "Táto stránka je zamknutá na nasledujúcu úroveň: $1";
 "page-protected-sysop" = "Táto stránka je zamknutá.";
-"page-read-in-other-languages" = "Dostupné v {{PLURAL:$1|$1 ďalšom jazyku|$1 dalších jazykoch}}";
 "page-similar-titles" = "Podobné stránky";
-"page-talk-page" = "Zobraziť diskusiu";
 "panel-compare-revisions-text" = "Porovnávanie revízií pomáha zobraziť, ako sa článok menil v závislosti od času. Porovnávanie dvoch revízií článku ukáže rozdiel medzi danými revíziami zvýraznením akéhokoľvek obsahu, ktorý bol zmenený.";
 "panel-compare-revisions-title" = "Porovnávanie revízií";
 "pictured" = "na obrázku";
@@ -786,7 +775,6 @@
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
 "table-of-contents-heading" = "Obsah";
 "table-of-contents-hide-button-label" = "Skryť tabuľku s obsahom";
-"table-title-other" = "Viac informácií";
 "talk-page-add-discussion-accessibility-label" = "Pridať diskusiu";
 "talk-page-discussion-accessibility-hint" = "Ťuknite dvakrát pre založenie nového vlákna";
 "talk-page-discussion-read-accessibility-label" = "Prečítané";
@@ -832,7 +820,6 @@
 "two-factor-login-with-regular-code" = "Použite overovací kód";
 "unable-to-load-talk-page-title" = "Nedá sa načítať diskusnú stránku";
 "unknown-generic-text" = "Neznáme";
-"view-in-browser-footer-link" = "Zobraziť článok v prehliadači";
 "welcome-exploration-explore-feed-description" = "Odporúčané čítanie a denné články z našej komunity";
 "welcome-exploration-explore-feed-title" = "Objaviť";
 "welcome-exploration-on-this-day-description" = "Cestujte späť v čase, aby ste sa dozvedeli, čo sa dialo v histórii";

@@ -100,7 +100,7 @@
 "appearance-settings-set-automatic-table-opening" = "Поставки за табели";
 "appearance-settings-text-sizing-example-text" = "Изменете ја големината на текстот со лизгачот. Користете ја големината зададена во вашиот систем за да го прилагодите текстот во другите подрачја на прилогот.";
 "appearance-settings-theme-options" = "Можности за изгледот";
-"article-about-title" = "Уреди ја статијава";
+"article-about-title" = "За статијава";
 "article-delete" = "Избриши";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Статијата е избришана|Статиите се избришани}}";
 "article-languages-filter-placeholder" = "Најди јазик";
@@ -130,7 +130,6 @@
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
-"description-add-link-title" = "Додај опис на насловот";
 "description-add-title" = "Додај опис";
 "description-edit-for-article" = "Опис на насловот „$1“";
 "description-edit-learn-more" = "Дознајте повеќе";
@@ -433,8 +432,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Од Википедија на $1";
 "in-the-news-sub-title-from-wikipedia" = "Од Википедија";
 "in-the-news-title" = "Вести";
-"info-box-close-text" = "Затвори";
-"info-box-title" = "Кратки факти";
 "insert-action-title" = "Вметни";
 "insert-link-title" = "Вметни врска";
 "insert-media-alternative-text-description" = "Писмен опис за читателите кои не можат да ја видат сликата";
@@ -471,8 +468,6 @@
 "languages-settings-title" = "Јазици";
 "languages-title" = "Смени јазик";
 "languages-wikipedia" = "Јазици на Википедија";
-"license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
 "logged-out-continue-without-logging-in-button-title" = "Продолжи без најава";
 "logged-out-log-back-in-button-title" = "Назад на најава со сметката";
 "logged-out-subtitle" = "Се јави проблем при заверката на вашата сметка. Ќе треба повторно да се најавите за може да се усогласат списоците за читање и да уредувате под вашето корисничко име.";
@@ -521,8 +516,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
-// Fuzzy
-"page-edit-history" = "Цела историја на уредувања";
 "page-history-anonymous-edits" = "анон. уредувања";
 "page-history-bot-edits" = "ботовски уредувања";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
@@ -540,17 +533,13 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 уредување|$1 уредувања}} од $2 наваму";
 "page-history-user-edits" = "кориснички уредувања";
 "page-issues" = "Проблеми со страницата";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
 "page-protected-can-not-edit-title" = "Оваа страница е заштитена";
 "page-protected-other" = "Оваа страница е заштитена во следниве степени: $1";
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
-"page-read-in-other-languages" = "Достапно на {{PLURAL:$1|уште $1 јазик|уште $1 јазици}}";
 "page-similar-titles" = "Слични страници";
-"page-talk-page" = "Разговорна страница";
 "panel-compare-revisions-text" = "Споредувањето на преработките дава слика за тоа како една статија се менувала со текот на времето. Споредувањето на две преработки на една статија ги прикажува разликите помеѓу нив со истакнување на променетата содржина.";
 "panel-compare-revisions-title" = "Споредба на преработки";
 "pictured" = "на сликата";
@@ -781,7 +770,6 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-of-contents-hide-button-label" = "Скриј содржина";
-"table-title-other" = "Повеќе информации";
 "talk-page-add-discussion-accessibility-label" = "Додај расправа";
 "talk-page-discussion-accessibility-hint" = "Допрете двапати за да ја отворите расправата";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
@@ -829,7 +817,6 @@
 "two-factor-login-with-regular-code" = "Користи потврден код";
 "unable-to-load-talk-page-title" = "Не можам да ја вчитам разговорната страница";
 "unknown-generic-text" = "Непознато";
-"view-in-browser-footer-link" = "Отвори во прелистувач";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
 "welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратете се во времето за да дознаете што се случило на денешен ден во минатото";

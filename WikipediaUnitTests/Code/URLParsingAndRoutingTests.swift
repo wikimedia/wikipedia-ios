@@ -87,4 +87,32 @@ class URLParsingAndRoutingTests: XCTestCase {
         }
     }
     
+    func testTitlesWithForwardSlashes() {
+        var url = URL(string: "https://en.wikipedia.org/wiki/G/O_Media")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("./Gizmodo")?.absoluteString, "https://en.wikipedia.org/wiki/Gizmodo")
+        url = URL(string: "https://en.wikipedia.org/wiki//dev/random")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref(".//dev/null")?.absoluteString, "https://en.wikipedia.org/wiki//dev/null")
+    }
+    
+    /// Ensure the 'transcoded' path component is inserted after the language path component for audio hosted on Wikipedia
+    func testWikipediaCompatibilityAdjustments() {
+        let url = URL(string: "https://upload.wikimedia.org/wikipedia/en/3/3f/DeanScream.ogg")!
+        let expected = URL(string: "https://upload.wikimedia.org/wikipedia/en/transcoded/3/3f/DeanScream.ogg/DeanScream.ogg.mp3")!
+        XCTAssertEqual(url.byMakingAudioFileCompatibilityAdjustments, expected)
+    }
+    
+    /// Ensure the 'transcoded' path component is inserted after the 'commons' path component for audio hosted on Commons
+    func testCommonsCompatibilityAdjustments() {
+        let url = URL(string: "https://upload.wikimedia.org/wikipedia/commons/8/8a/En-Paprika_%28American%29.oga")!
+        let expected = URL(string: "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/8a/En-Paprika_(American).oga/En-Paprika_(American).oga.mp3")!
+        XCTAssertEqual(url.byMakingAudioFileCompatibilityAdjustments, expected)
+    }
+    
+    /// Ensure non audio and non-upload.wikimedia.org links aren't transcoded and don't break in unexpected ways
+    func testInvalidCompatibilityAdjustment() {
+        var url = URL(string: "https://upload.wikimedia.org/commons/3/3f/DeanScream.ogv")!
+        XCTAssertFalse(url.isWikimediaHostedAudioFileLink)
+        url = URL(string: "https://en.wikipedia.org/commons/3/3f/DeanScream.ogg")!
+        XCTAssertFalse(url.isWikimediaHostedAudioFileLink)
+    }
 }

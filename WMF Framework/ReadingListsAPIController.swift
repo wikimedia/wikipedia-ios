@@ -117,7 +117,7 @@ extension APIReadingListEntry {
 }
 
 class ReadingListsAPIController: Fetcher {
-    private let api = Configuration.current.mobileAppsServicesAPIURLComponentsBuilderForHost("en.wikipedia.org")
+    private let api = Configuration.current.pageContentServiceAPIURLComponentsBuilderFactory("en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
     public var lastRequestType: APIReadingListRequestType?
 

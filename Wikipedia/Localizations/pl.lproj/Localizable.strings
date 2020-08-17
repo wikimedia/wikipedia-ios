@@ -26,6 +26,7 @@
 // Author: Rail
 // Author: Railfail536
 // Author: Stojex
+// Author: Strebski
 // Author: The Polish
 // Author: Ty221
 // Author: Vesihiisi
@@ -155,7 +156,6 @@
 "compass-direction" = "O $1 godzinie";
 "continue-reading-empty-description" = "Przeglądaj Wikipedię, aby przeczytać więcej artykułów";
 "continue-reading-empty-title" = "Brak ostatnio czytanych artykułów";
-"description-add-link-title" = "Dodaj opis tytułu";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis tytułu dla $1";
 "description-edit-learn-more" = "Dowiedz się więcej";
@@ -454,8 +454,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "in-the-news-title" = "W wiadomościach";
-"info-box-close-text" = "Zamknij";
-"info-box-title" = "Szybkie fakty";
 "insert-action-title" = "Wstaw";
 "insert-link-title" = "Wstaw link";
 "insert-media-alternative-text-description" = "Opis tekstu dla czytelników którzy nie widzą grafiki";
@@ -488,8 +486,6 @@
 "languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";
 "languages-wikipedia" = "Języki Wikipedii";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Treść udostępniana na licencji $1, jeśli nie podano inaczej.";
 "logged-out-continue-without-logging-in-button-title" = "Kontynuuj bez logowania";
 "logged-out-log-back-in-button-title" = "Zaloguj się ponownie na swoje konto";
 "logged-out-subtitle" = "Wystąpił problem z uwierzytelnieniem Twojego konta. Aby zsynchronizować listy czytelnicze i edytować je pod nazwą użytkownika, zaloguj się ponownie.";
@@ -538,8 +534,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z $2 Wikipedii";
 "on-this-day-title" = "W tym dniu...";
 "original-tab-button-popover-description" = "Stuknij w 'W' żeby powrócić to początkowej karty";
-// Fuzzy
-"page-edit-history" = "Pełna historia edycji";
 "page-history-anonymous-edits" = "anonimowe edycje";
 "page-history-bot-edits" = "edycje bota";
 "page-history-compare-accessibility-hint" = "Stuknij, aby wybrać dwie wersje do porównania";
@@ -547,23 +541,18 @@
 "page-history-minor-edits" = "drobne edycje";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Historia wersji";
+"page-history-revision-minor-edit-accessibility-label" = "Drobna zmiana";
 "page-history-revision-size-diff-addition" = "Dodano {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revision-size-diff-subtraction" = "Usunięto {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revisions-comparison-warning" = "Wybrane moga być tylko dwie wersje";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edycja|$1 edycji}} od $2";
 "page-history-user-edits" = "edycje użytkownika";
-"page-issues" = "Problemy ze stroną";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Edytowane dzisiaj|1=Edytowane wczoraj|Edytowane $1 dni temu}}";
-"page-location" = "Zobacz na mapie";
 "page-protected-autoconfirmed" = "Ta strona została częściowo zabezpieczona.";
 "page-protected-can-not-edit" = "Nie masz uprawnień do edytowania tej strony";
 "page-protected-can-not-edit-title" = "Ta strona jest zabezpieczona";
 "page-protected-other" = "Ta strona została zabezpieczona do następujących poziomów: $1";
 "page-protected-sysop" = "Ta strona jest całkowicie zabezpieczona.";
-"page-read-in-other-languages" = "Dostępne w {{PLURAL:$1|$1 innym języku|$1 innych językach}}";
 "page-similar-titles" = "Podobne strony";
-"page-talk-page" = "Zobacz stronę dyskusji";
 // Fuzzy
 "panel-compare-revisions-text" = "Porównywanie wersji pomaga zobaczyć jak artykuł zmieniał się na przestrzeni czasu. Podczas porównywania dwóch wersji generowane są różnice pomiędzy nimi.";
 "panel-compare-revisions-title" = "Porównaj wersje";
@@ -651,12 +640,15 @@
 "reading-list-unable-to-update" = "Wystąpił nieoczekiwany błąd podczas aktualizowania listy czytelniczej. Spróbuj ponownie później.";
 "reading-lists-article-added-confirmation" = "Artykuł dodany do “$1”";
 "reading-lists-article-api-failure" = "Nie można zsynchronizować artykułu";
+"reading-lists-article-not-synced" = "Nie zsynchronizowane";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limit artykułów przekroczony, nie można zsynchronizować artykułu";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limit list przekroczony, nie można zsynchronizować artykułu";
 "reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";
 "reading-lists-articles-not-synced-limit-exceeded" = "Nie można było zsynchronizować niektórych artykułów, limit przekroczony";
+"reading-lists-default-list-description" = "Domyślna lista dla Twoich zapisanych artykułów";
 "reading-lists-default-list-title" = "Zapisane";
 "reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
+"reading-lists-list-not-synced-limit-exceeded" = "Listy nie zostały zsynchronizowane, przekroczono limit";
 "reading-lists-sort-saved-articles" = "Sortuj zapisane artykuły";
 "reading-themes-controls-accessibility-black-theme-button" = "Czarny motyw";
 "reading-themes-controls-accessibility-dark-theme-button" = "Ciemny motyw";
@@ -685,6 +677,7 @@
 "reverted-edit-back-to-article-button-title" = "Wróć do artykułu";
 "reverted-edit-notification-read-more-action-title" = "Czytaj więcej";
 "reverted-edit-possible-reasons-subtitle" = "Wiemy, że starałeś się jak najlepiej, ale jeden z recenzentów miał obawy. \n\nMożliwe przyczyny cofnięcia edycji obejmują:";
+"reverted-edit-thanks-for-editing-title" = "Dziękujemy za edytowanie Wikipedii!";
 "reverted-edit-title" = "Cofnięto edycję";
 "reverted-edit-view-guidelines-text" = "Zobacz wytyczne";
 "saved-all-articles-title" = "Wszystkie artykuły";
@@ -706,6 +699,7 @@
 "search-result-redirected-from" = "Przekierowanie z: $1";
 "search-title" = "Wyszukiwanie";
 "settings-account" = "Konto";
+"settings-clear-cache" = "Wyczyść dane z pamięci podręcznej";
 "settings-clear-cache-are-you-sure-title" = "Czy wyczyścić dane z pamięci podręcznej?";
 "settings-clear-cache-cancel" = "Anuluj";
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
@@ -748,7 +742,6 @@
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
 "table-of-contents-heading" = "Zawartości";
-"table-title-other" = "Więcej informacji";
 "talk-page-add-discussion-accessibility-label" = "Dodaj nowy wątek w dyskusji";
 "talk-page-discussion-accessibility-hint" = "Kliknij dwukrotnie, aby otworzyć wątek dyskusji";
 "talk-page-discussion-read-accessibility-label" = "Czytaj";
@@ -790,7 +783,6 @@
 "two-factor-login-title" = "Zaloguj się na swoje konto";
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
 "unknown-generic-text" = "Nieznany";
-"view-in-browser-footer-link" = "Zobacz artykuł w przeglądarce";
 "welcome-exploration-on-this-day-title" = "W tym dniu";
 "welcome-explore-continue-button" = "Rozpocznij";
 "welcome-explore-new-ways-title" = "Nowe metody eksploracji";

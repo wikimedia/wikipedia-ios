@@ -169,7 +169,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 closeActionPane()
             }
         }
-        guard let delegate = delegate else {
+        guard delegate != nil else {
             return shouldBegin
         }
         
@@ -255,6 +255,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         batchEditToolbarViewController.items = self.batchEditToolbarItems
         return batchEditToolbarViewController
     }()
+    
+    public var batchEditToolbarView: UIView {
+        return self.batchEditToolbarViewController.view
+    }
     
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
         guard let indexPath = activeIndexPath, let cell = activeCell else {

@@ -93,6 +93,7 @@
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Title of the action that deletes the selected articles article.";
 "article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list. $1 will be replaced with the number of deleted articles.";
+"article-fetcher-error-updated-content-timeout" = "Error shown to the user when the content doesn't update in a reasonable amount of time.";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-languages-label" = "Header label for per-article language selector screen. {{Identical|Choose language}}";
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
@@ -120,7 +121,7 @@
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"description-add-link-title" = "Text for link for adding a title description";
+"data-migration-status" = "Message displayed during a long running data migration.";
 "description-add-title" = "Title text for description addition screen";
 "description-edit-for-article" = "String describing which article title description is being edited. $1 is replaced with the article title";
 "description-edit-learn-more" = "Title text for description editing learn more button";
@@ -423,8 +424,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Subtext beneath the 'In the news' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "in-the-news-sub-title-from-wikipedia" = "Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
-"info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it {{Identical|Close}}";
-"info-box-title" = "The title of infoboxes – in collapsed and expanded form";
 "insert-action-title" = "Title for insert action";
 "insert-link-title" = "Title for the Insert link screen";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
@@ -461,8 +460,6 @@
 "languages-settings-title" = "Title for the 'Languages' section in Settings";
 "languages-title" = "Title for language picker {{Identical|Language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
-"license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0 {{Identical|CC BY-SA}}";
-"license-footer-text" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
 "logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
 "logged-out-log-back-in-button-title" = "Title for button allowing user to log back in to their account";
 "logged-out-subtitle" = "Subtitle for letting user know there was a problem authenticating their account.";
@@ -511,7 +508,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
-"page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-anonymous-edits" = "Text for view that shows many edits were made by anonymous users";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
@@ -529,18 +525,13 @@
 "page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with they year when the first edit was made.";
 "page-history-user-edits" = "Text for view that shows many edits were made by logged-in users";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}";
-"page-issues-subtitle" = "Subtitle for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).";
-"page-last-edited" = "Relative days since an article was last edited. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
 "page-location" = "Label for button used to show an article on the map";
 "page-protected-autoconfirmed" = "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.";
 "page-protected-can-not-edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
 "page-protected-can-not-edit-title" = "Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
 "page-protected-other" = "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. $1 will refer to a list of protection levels.";
 "page-protected-sysop" = "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.";
-"page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
-"page-talk-page" = "Label for button linking out to an article's talk page";
-"page-talk-page-subtitle" = "Subtitle for button linking out to an article's talk page";
 "panel-compare-revisions-text" = "Text for educational panel about comparing revisions";
 "panel-compare-revisions-title" = "Title for educational panel about comparing revisions";
 "pictured" = "Indicates the person or item is pictured (as in a news story).";
@@ -661,6 +652,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider that adjusts article text size.";
 "reading-themes-controls-syntax-highlighting" = "Text for syntax highlighting label in the Reading Themes Controls popover";
+"reference-section-button-accessibility-label" = "Voiceover label for the top button (that jumps to article's reference section) when viewing a reference's details";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]' {{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
 "relative-date-hours-abbreviated" = "Relative hours, abbreviated. $1 will be replaced with the number of hours.";
@@ -771,7 +763,7 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents {{Identical|Content}}";
 "table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
-"table-title-other" = "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}";
+"table-of-contents-subheading-label" = "VoiceOver label to indicate level of subheading in table of contents. $1 is replaced by the level of subheading.";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
 "talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that a discussion's contents have been read.";
@@ -819,7 +811,6 @@
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
 "unable-to-load-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
 "unknown-generic-text" = "Default text used in places where no contextual information is provided";
-"view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
 "welcome-exploration-explore-feed-title" = "Title for Explore feed";
 "welcome-exploration-on-this-day-description" = "Description for On this day";

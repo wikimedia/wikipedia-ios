@@ -12,7 +12,7 @@ Install _fastlane_ using
 ```
 [sudo] gem install fastlane -NV
 ```
-or alternatively using `brew cask install fastlane`
+or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
@@ -45,22 +45,17 @@ Runs tests on select platforms for verifying pull requests
 ```
 fastlane ios read_xcversion
 ```
-
+Reads Xcode version from the .xcversion file and sets it using xcversion()
 ### ios verify
 ```
 fastlane ios verify
 ```
-Runs unit tests, generates JUnit reports.
+Runs unit tests, generates reports.
 ### ios record_visual_tests
 ```
 fastlane ios record_visual_tests
 ```
 Records visual tests.
-### ios bump_build
-```
-fastlane ios bump_build
-```
-Increment the build number
 ### ios set_build_number
 ```
 fastlane ios set_build_number
@@ -101,39 +96,34 @@ Add a tag for the current version number push to repo.
 fastlane ios build
 ```
 Build the app for distibution
-### ios push_beta
+### ios deploy
 ```
-fastlane ios push_beta
+fastlane ios deploy
 ```
-updates version, builds, and pushes to TestFlight
-### ios push_alpha
+Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers.
+### ios push_production
 ```
-fastlane ios push_alpha
+fastlane ios push_production
 ```
-updates version, builds, and pushes alpha to TestFlight
-### ios push_beta_cluster
+updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers.
+### ios push_staging
 ```
-fastlane ios push_beta_cluster
+fastlane ios push_staging
 ```
-updates version, builds, and pushes beta cluster to TestFlight
-### ios push_beta_app
+Updates version, builds, and pushes the staging build to TestFlight. Only releases to internal testers.
+### ios push_experimental
 ```
-fastlane ios push_beta_app
+fastlane ios push_experimental
 ```
-updates version, builds, and pushes beta cluster to TestFlight
+Updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers.
 ### ios get_latest_tag_with_prefix
 ```
 fastlane ios get_latest_tag_with_prefix
 ```
 
-### ios get_latest_build_for_stage
+### ios get_latest_build_number
 ```
-fastlane ios get_latest_build_for_stage
-```
-
-### ios get_latest_alpha_or_beta_build_number
-```
-fastlane ios get_latest_alpha_or_beta_build_number
+fastlane ios get_latest_build_number
 ```
 
 ### ios push
@@ -141,21 +131,11 @@ fastlane ios get_latest_alpha_or_beta_build_number
 fastlane ios push
 ```
 updates version, builds, and pushes to TestFlight
-### ios test_and_push_beta
-```
-fastlane ios test_and_push_beta
-```
-Runs tests, version, tag, and push to the beta branch
 ### ios upload_app_store_metadata
 ```
 fastlane ios upload_app_store_metadata
 ```
 Upload app store metadata
-### ios submit_release
-```
-fastlane ios submit_release
-```
-Runs tests, version, tag, and push to the beta branch
 ### ios dsyms
 ```
 fastlane ios dsyms

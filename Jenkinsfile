@@ -1,5 +1,3 @@
-def IS_BETA = false
-
 pipeline {
   agent any
   
@@ -20,7 +18,7 @@ pipeline {
       }
       post {
         always {
-          junit '**/build/reports/*.junit'
+          junit '**/fastlane/test_output/*.junit'
         }
       }
     }

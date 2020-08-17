@@ -252,7 +252,13 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         cell.titleIndentationLevel = item.indentationLevel
         let color = item.itemType == .primary ? theme.colors.primaryText : theme.colors.secondaryText
         let selectionColor = theme.colors.link
-        cell.setTitleHTML(item.titleHTML, with: item.itemType.titleTextStyle, highlighted: index == indexOfSelectedItem, color: color, selectionColor: selectionColor)
+        let isHighlighted = index == indexOfSelectedItem
+        cell.setTitleHTML(item.titleHTML, with: item.itemType.titleTextStyle, highlighted: isHighlighted, color: color, selectionColor: selectionColor)
+
+        if (isHighlighted) {
+            // This makes no difference to sighted users; it allows VoiceOver to read highlighted cell as selected.
+            cell.accessibilityTraits = .selected
+        }
         
         cell.setNeedsLayout()
 

@@ -331,6 +331,12 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: 0 - scrollView.contentInset.top), animated: true)
     }
     
+    // MARK: - NavigationBar
+    
+    func showNavigationBar() {
+        navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
+    }
+    
     // MARK: - WMFNavigationBarHiderDelegate
     
     func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
@@ -514,8 +520,8 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
     
-    func showError(_ error: Error) {
-        alertManager.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
+    func showError(_ error: Error, sticky: Bool = false) {
+        alertManager.showErrorAlert(error, sticky: sticky, dismissPreviousAlerts: false, viewController: self)
     }
     
     func showGenericError() {
@@ -602,6 +608,11 @@ extension ViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
+
+        if let scrollableArticle = self as? ArticleScrolling {
+            // call the first completion
+            scrollableArticle.scrollViewAnimationCompletions.popLast()?()
+        }
     }
 
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {

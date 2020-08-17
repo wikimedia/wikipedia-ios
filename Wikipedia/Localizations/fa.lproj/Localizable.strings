@@ -4,6 +4,7 @@
 // Author: Alifakoor
 // Author: Alirezaaa
 // Author: Alp Er Tunqa
+// Author: Amir1arch
 // Author: Amirsara
 // Author: Arash.pt
 // Author: Arian Ar
@@ -87,13 +88,17 @@
 "action-add-to-reading-list-short" = "افزودن به فهرست";
 "action-cancel" = "لغو";
 "action-find-in-page" = "پیدا کردن در صفحه";
+"action-language-accessibility" = "تغییر زبان";
 "action-move-to" = "منتقل شد به...";
 "action-move-to-reading-list" = "انتقال به فهرست خواندن";
+"action-next-revision-accessibility" = "نسخهٔ بعدی";
+"action-previous-revision-accessibility" = "نسخهٔ قبلی";
 "action-read" = "خواندن";
 "action-redo" = "انجام دوباره";
 "action-remove" = "حذف";
 "action-replace" = "جایگزینی";
 "action-replace-all" = "جایگزینی در کلّ صفحه";
+"action-retry" = "تلاش دوباره";
 "action-save" = "ذخیره";
 "action-saved" = "ذخیره شد";
 "action-saved-accessibility" = "ذخیره شد. به صورت ذخیره نشده فعال شد.";
@@ -101,6 +106,7 @@
 "action-share" = "به اشتراک گذاشتن";
 "action-share-accessibility" = "اشتراک‌گذاری";
 "action-sort" = "مرتب‌سازی";
+"action-thank-user-accessibility" = "تشکر از کاربر";
 "action-undo" = "واگردانی";
 "action-unsave" = "ذخیره‌نشده";
 "action-unsaved-accessibility-notification" = "مقالهٔ ذخیره نشده";
@@ -125,6 +131,7 @@
 "article-languages-others" = "زبان‌های دیگر";
 "article-languages-yours" = "زبان‌های شما";
 "article-read-more-title" = "بیشتر بخوانید";
+"article-reference-view-title" = "مرجع $1";
 "article-save-error-not-enough-space" = "حافظه کافی برای ذخیره این مقاله دارید؟";
 "article-share" = "به اشتراک گذاشتن";
 "article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوستهٔ خواندن";
@@ -146,7 +153,6 @@
 "compass-direction" = "در ساعت $1";
 "continue-reading-empty-description" = "کاوش ویکی‌پدیا برای خواندن مقالات بیشتر";
 "continue-reading-empty-title" = "مقالاتی که اخیراً خوانده نشده‌اند";
-"description-add-link-title" = "افزودن توضیحات عنوان";
 "description-add-title" = "افزودن توضیحات";
 "description-edit-for-article" = "توضیحات عنوان برای $1";
 "description-edit-learn-more" = "اطلاعات بیشتر";
@@ -157,19 +163,42 @@
 "description-edit-publish" = "انتشار توضیحات";
 "description-edit-title" = "ویرایش توضیحات";
 "description-help-about-title" = "درباره";
-"description-help-about-wikidata" = "درباره ویکی‌دیتا";
+"description-help-about-wikidata" = "دربارهٔ ویکی‌داده";
 "description-help-more-info-title" = "اطلاعات بیشتر";
 "description-help-tips-example-title-one" = "نقاشی اثر لئوناردو داوینچی";
 "description-help-tips-example-title-two" = "مرتفع‌ترین قلّهٔ زمین";
 "description-help-tips-for-example" = "برای مثال:";
 "description-help-title" = "کمک توضیحات عنوان";
+"description-help-wikidata-guide" = "راهنمای ویکی‌داده برای نوشتن توضیحات";
 "description-published-button-title" = "انجام شد";
 "description-published-subtitle" = "شما ویکی پدیا را برای همه بهتر کردید";
 "description-published-title" = "توضیحات منتشر شد!";
+"description-welcome-concise-sub-title" = "به طور ایده‌آل یک خط، بین دو تا دوازده کلمه";
 "description-welcome-concise-title" = "کوتاهش کنید";
+"description-welcome-descriptions-sub-title" = "مقاله را برای مطالعهٔ سریع‌تر خواننده‌ها خلاصه کنید.";
 "description-welcome-descriptions-title" = "توضیحات عنوان";
 "description-welcome-promise-title" = "با آغاز ویرایش، تعهد می‌دهم که از این ویژگی، سوءاستفاده نکنم";
 "description-welcome-start-editing-button" = "ویرایش را آغاز کنید";
+"diff-compare-header-from-info-heading" = "از:";
+"diff-compare-header-heading" = "مقایسهٔ نسخه‌ها";
+"diff-compare-header-to-info-heading" = "به:";
+"diff-compare-title" = "مقایسهٔ نسخه‌ها";
+"diff-context-lines-collapsed-button-title" = "نشان بده";
+"diff-context-lines-expanded-button-title" = "پنهان کن";
+"diff-multi-line-format" = "سطرهای $1 تا $2";
+"diff-paragraph-moved-direction-down" = "پایین";
+"diff-paragraph-moved-direction-up" = "بالا";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 سطر|$1 سطر}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 بخش|$1 بخش}}";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 ویرایش|$1 ویرایش}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 بایت حذف شد|$1 بایت حذف شد}}";
+"diff-single-header-summary-heading" = "خلاصهٔ ویرایش";
+"diff-single-intro-title" = "مقدمه";
+"diff-single-line-format" = "سطر $1";
+"diff-thanks-anonymous-no-thanks" = "از کاربران ناشناس نمی‌توان تشکر کرد";
+"diff-thanks-login-title" = "برای ارسال «تشکر» وارد شوید";
+"diff-thanks-send-button-title" = "ارسال تشکر";
+"diff-thanks-sent" = "«تشکر» شما برای $1 فرستاده شد";
 "dim-images" = "تغییر نور تصاویر";
 "edit-bold-accessibility-label" = "پررنگ کردن متن";
 "edit-bold-remove-accessibility-label" = "کم‌رنگ کردن متن";
@@ -228,7 +257,7 @@
 "edit-unordered-list-remove-accessibility-label" = "تغییر فهرست غیرترتیبی به متن عادی";
 "edit-watch-list-learn-more-text" = "اطلاعات بیشتر در بارهٔ فهرست‌های پی‌گیری";
 "edit-watch-this-page-text" = "پی‌گیری این صفحه";
-"editing-welcome-be-bold-subtitle" = "جسور باشید اما در به روز رسانی مقالات شجاعت نداشته باشید. نگران ایجاد اشتباهات نباشید: هر نسخه قبلی از یک صفحه ذخیره می‌شود، بنابراین اشتباهات می‌توانند به راحتی توسط جامعه ما اصلاح شوند.";
+"editing-welcome-be-bold-subtitle" = "جسور باشید، اما در روزآمدسازی مقاله‌ها بی‌ملاحظه نباشید. نگران ایجاد اشتباهات نباشید: نسخه‌های قبلی هر صفحه ذخیره می‌شوند؛ بنابراین اشتباهات می‌توانند به‌راحتی توسط جامعهٔ ما اصلاح شوند.";
 "editing-welcome-be-bold-title" = "صدای شما مهم است";
 "editing-welcome-citations-subtitle" = "همه محتوا باید قابل رسیدگی باشند. هنگام افزودن اطلاعات جدید به یک مقاله، ویرایشگران باید یک ارجاع داخلی به یک منبع قابل‌اعتماد فراهم کنند که مستقیماً از کمک آن‌ها پشتیبانی کند.";
 "editing-welcome-citations-title" = "ارجاع‌دهی به منابع معتبر";
@@ -236,6 +265,7 @@
 "editing-welcome-impartial-tone-title" = "به صورت پرنگ بنویس";
 "editing-welcome-set-knowledge-free-subtitle" = "به منظور دسترسی به دانش جهان، ما به شما نیاز داریم که با خواندن، ویرایش، و مشارکت در موضوعاتی که بیش‌ترین اهمیت را برای شما دارند، در ایجاد آن مشارکت کنید.";
 "editing-welcome-set-knowledge-free-title" = "داشتن دانش آزاد";
+"empty-diff-compare-title" = "تفاوتی بین نسخه‌ها وجود ندارد";
 "empty-no-article-message" = "متاسفانه امکان بارگیری مقاله نیست";
 "empty-no-feed-action-message" = "فعلاً می توانید صفحه‌های ذخیره شده را مطالعه کنید";
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
@@ -260,6 +290,7 @@
 "explore-feed-customize-accessibility-title" = "سفارشی‌کردن";
 "explore-feed-preferences-card-hidden-title" = "کارت مخفی شده‌است";
 "explore-feed-preferences-explore-tab" = "تب جستجو";
+"explore-feed-preferences-featured-article-description" = "مقالهٔ برگزیدهٔ روزانه در ویکی‌پدیا";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "خاموش";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "روشن کردن همه";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "روشن";
@@ -268,6 +299,7 @@
 "explore-feed-preferences-hide-card-action-title" = "مخفی کردن این کارت";
 "explore-feed-preferences-on-this-day-description" = "رویدادهای تاریخی در این روز";
 "explore-feed-preferences-randomizer-description" = "تولید مقالاتی تصادفی برای خواندن";
+"explore-feed-preferences-top-read-description" = "مقاله‌های پربازدید روزانه";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "خاموش کردن جستجو";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "خاموش کردن جستجو؟";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "خاموش کردن جستجو";
@@ -293,6 +325,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "از ویکی‌پدیا $1";
 "explore-random-article-sub-heading-from-wikipedia" = "از ویکی‌پدیا";
 "explore-randomizer" = "تصادفی";
+"featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای نیست";
 "feed-news-notification-button-text" = "روشن کردن آگاه‌سازی‌ها";
 "feed-news-notification-text" = "فعال‌کردن آگاه‌سازی برای آگاه‌شدن توسط ویکی‌پدیا زمانی که مقالات در اخبار پربازدید هستند.";
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
@@ -358,10 +391,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "از $1 ویکی پدیا";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
 "in-the-news-title" = "در اخبار";
-"info-box-close-text" = "بستن";
-"info-box-title" = "اطلاعات اجمالی";
 "insert-action-title" = "افزودن";
 "insert-link-title" = "درج پیوند";
+"insert-media-alternative-text-placeholder" = "این تصویر را توصیف کنید";
 "insert-media-alternative-text-title" = "متن جایگزین";
 "insert-media-caption-title" = "عنوان";
 "insert-media-image-position-setting-center" = "مرکز";
@@ -383,11 +415,10 @@
 "insert-media-media-settings-title" = "تنظیمات رسانه";
 "insert-media-title" = "افزودن رسانه";
 "insert-media-uploaded-image-title" = "تصویر بارگذاری‌شده";
+"intermediate-edits-count-limited" = "+$1 نسخهٔ میانی نشان داده نشده است";
 "languages-settings-title" = "زبان‌ها";
 "languages-title" = "تغییر زبان";
 "languages-wikipedia" = "زبان ویکی‌پدیا";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "محتوا تحت $1 در دسترس است، مگر اینکه خلافش ذکر شده‌باشد.";
 "logged-out-continue-without-logging-in-button-title" = "ادامه بدون ورود به حساب کاربری";
 "logged-out-log-back-in-button-title" = "ورود به حساب کاربریتان";
 "logged-out-title" = "شما خارج شده‌اید.";
@@ -434,20 +465,29 @@
 "on-this-day-footer-with-event-count" = "$1 وقایع تاریخی بیشتر برای این روز";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از $2 ویکی‌پدیا";
 "on-this-day-title" = "در این روز";
-// Fuzzy
-"page-edit-history" = "تاریخچهٔ کامل ویرایش";
-"page-issues" = "موضوعات صفحه";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=ویرایش‌شده امروز|1=ویرایش‌شده دیروز|ویرایش‌شده $1 روز پیش}}";
-"page-location" = "دیدن در نقشه";
+"page-history-anonymous-edits" = "ویرایش‌های ناشناس";
+"page-history-bot-edits" = "ویرایش‌های ربات";
+"page-history-compare-title" = "مقایسه";
+"page-history-graph-accessibility-label" = "نمودار ویرایش‌ها در طول زمان";
+"page-history-minor-edits" = "ویرایش‌های جزئی";
+"page-history-revision-author-accessibility-label" = "پدیدآور: $1";
+"page-history-revision-comment-accessibility-label" = "نظر $1";
+"page-history-revision-history-title" = "تاریخچهٔ ویرایش‌ها";
+"page-history-revision-minor-edit-accessibility-label" = "ویرایش جزئی";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 بایت|$1 بایت}} افزود";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 بایت|$1 بایت}} حذف کرد";
+"page-history-revisions-comparison-warning" = "فقط دو نسخه را می‌توان انتخاب کرد";
+"page-history-stats-text" = "{{PLURAL:$1|$1 ویرایش|$1 ویرایش}} از $2";
+"page-history-user-edits" = "ویرایش‌های کاربر";
+"page-issues" = "مشکلات صفحه";
+"page-location" = "مشاهده بر روی نقشه";
 "page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
 "page-protected-can-not-edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page-protected-can-not-edit-title" = "این صفحه محافظت شده‌است";
 "page-protected-other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
-"page-read-in-other-languages" = "موجود به {{PLURAL:$1|$1 زیان دیگر|$1 زبان دیگر}}";
-"page-similar-titles" = "صفحات مشابه";
-"page-talk-page" = "نمایش صفحه بحث";
+"page-similar-titles" = "صفحه‌های مشابه";
+"panel-compare-revisions-title" = "مقایسه کردن نسخه‌ها";
 "pictured" = "تصویر شده";
 "places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
 "places-accessibility-group" = "$1 مقالات";
@@ -484,7 +524,7 @@
 "potd-description-prefix" = "تصویر روز برای $1";
 "potd-empty-error-description" = "خطا در دریافت تصویر روز برای $1";
 "preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این اپلیکیشن برای بهتر ساختن اپلیکیشن اجازه دهید";
-"preference-title-eventlogging-opt-in" = "ارسال گزارش‌های استفاده";
+"preference-title-eventlogging-opt-in" = "ارسال گزارش‌های نحوهٔ استفاده";
 "rank-accessibility-label" = "عدد $1";
 "readers-accessibility-label" = "$1 خواننده";
 "reading-list-add-generic-hint-title" = "افزودن این مقاله به فهرست مطالعه؟";
@@ -505,6 +545,7 @@
 "reading-list-generic-error" = "یک خطای غیرمنتظره در هنگام بارگذاری فهرست‌های خواندن شما روی داد.";
 "reading-list-keep-button-title" = "بله، مقالات را بر روی دستگاه نگهدار";
 "reading-list-keep-subtitle" = "چند مقاله همسان‌سازی‌شده در حساب کاربری ویکی‌پدیای شما وجود دارد. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "نه؛ مقاله‌ها را از این دستگاه و از حساب ویکی‌پدیای من حذف کن";
 "reading-list-keep-title" = "مقاله‌های ذخیره‌شده روی دستگاه نگهداری شوند؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مرتب‌کردن مقالات";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفا مقالاتتان را در فهرست‌ها مرتب کنید تا امکان همگام‌سازی مقالات مرتب‌نشده وجود داشته باشد.";
@@ -516,6 +557,7 @@
 "reading-list-login-title" = "مقالات ذخیره‌شده شما همسان‌سازی شود؟";
 "reading-list-new-list-description-placeholder" = "توضیح کوتاه اختیاری";
 "reading-list-new-list-name-placeholder" = "عنوان فهرست خواندن";
+"reading-list-sync-disabled-panel-title" = "همگام‌سازی غیر فعال شد";
 "reading-list-sync-enable-button-title" = "فعال‌کردن همسان‌سازی";
 "reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره و در سراسر پروژه‌های ویکی‌پدیا همگام‌سازی شود.";
 "reading-list-sync-enable-title" = "همسان‌سازی فهرست خواندن فعال شود؟";
@@ -523,27 +565,39 @@
 "reading-list-unable-to-create" = "یک خطای غیرمنتظره هنگام ساخت فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
 "reading-list-unable-to-delete" = "یک خطای غیرمنتظره هنگام حذف فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
 "reading-list-unable-to-remove-entry" = "یک خطای غیرمنتظره هنگام حذف یک ورودی از فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
-"reading-list-unable-to-update" = "یک خطای غیرمنتظره هنگام به‌روزرسانی فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
+"reading-list-unable-to-update" = "یک خطای نامنتظره در هنگام روزآمدسازی فهرست مطالعهٔ شما رخ داد. لطفاً بعداً دوباره تلاش کنید.";
 "reading-list-with-provided-name-not-found" = "فهرست خواندن با نام “$1” یافت نشد. لطفا مطمئن شوید که نام درست را وارد کرده‌اید.";
 "reading-lists-article-added-confirmation" = "مقاله به “$1” افزوده شد.";
+"reading-lists-article-api-failure" = "ناتوان از همگام‌سازی مقاله";
 "reading-lists-article-not-synced" = "همگام سازی نشده";
 "reading-lists-article-queued-to-be-downloaded" = "مقاله در صف دانلود قرار گرفت";
+"reading-lists-conflicting-reading-list-name-updated" = "فهرست '$1' شما تغییر نام یافت به '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 فهرست خواندن|$1 فهرست‌های خواندن}}";
 "reading-lists-default-list-description" = "فهرست پیش‌فرض برای مقاله‌های ذخیره‌شده";
 "reading-lists-default-list-title" = "ذخیره‌شده";
 "reading-lists-delete-reading-list-alert-message" = "این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در {{PLURAL:$1|این فهرست|این فهرست‌ها}} دخیره شده، به صورت دخیره‌ نشده خواهد ماند.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فهرستt|فهرست‌ها}} حذف شود؟";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}} و {{PLURAL:$2|$2 فهرست مطالعه|$2 فهرست مطالعه}} از حساب کاربری شما همگام‌سازی شد";
 "reading-lists-sort-saved-articles" = "مرتب‌سازی مقاله‌های ذخیره‌شده";
 "reading-themes-controls-accessibility-black-theme-button" = "تِم سیاه";
 "reading-themes-controls-accessibility-brightness-slider" = "لغزندهٔ درخشندگی";
 "reading-themes-controls-accessibility-dark-theme-button" = "پوسته تیره";
 "reading-themes-controls-accessibility-light-theme-button" = "پوسته روشن";
 "reading-themes-controls-accessibility-sepia-theme-button" = "پوسته قهوه‌ای";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "پررنگ کردن دستور";
 "reading-themes-controls-accessibility-text-size-slider" = "لغزنده اندازهٔ متن";
+"reading-themes-controls-syntax-highlighting" = "پررنگ کردن دستور";
 "reference-title" = "منبع $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=امروز|1=Yesterday|$1 روز پیش}}";
+"relative-date-hours-abbreviated" = "$1 ساعت";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش|$1 ساعت پیش}}";
+"relative-date-hours-ago-abbreviated" = "$1 ساعت پیش";
+"relative-date-minutes-abbreviated" = "$1 دقیقه";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
+"relative-date-minutes-ago-abbreviated" = "$1 دقیقه پیش";
+"relative-date-months-ago" = "{{PLURAL:$1|0=این ماه|1=ماه گذشته|$1 ماه گذشته}}";
+"relative-date-seconds-abbreviated" = "$1 ثانیه";
+"relative-date-seconds-ago-abbreviated" = "$1 ثانیه پیش";
 "relative-date-years-ago" = "{{PLURAL:$1|0=امسال|1=پارسال|$1 سال پیش}}";
 "replace-buttons-replace-accessibility" = "جایگزینی یک مورد";
 "replace-buttons-replace-all-accessibility" = "جایگزینی همهٔ موارد";
@@ -558,7 +612,7 @@
 "reverted-edit-notification-read-more-action-title" = "بیشتر بخوانید";
 "reverted-edit-possible-reasons" = "- مشارکت شما از یکی از رویه‌ها تبعیت نکرد. $1\n\n- مشارکت شما شبیه یک آزمایش یا خرابکاری به نظر رسید.";
 "reverted-edit-possible-reasons-subtitle" = "می‌دانیم که شما بهترین تلاش‌تان را کردید، اما یکی از بازبین‌های ما یک نگرانی داشته است.\n\nدلایل احتمالی برگردانده شدن ویرایش شما شامل موارد زیر است:";
-"reverted-edit-thanks-for-editing-title" = "از بابت ویرایش در ویکی‌پدیا ممنونیم!";
+"reverted-edit-thanks-for-editing-title" = "سپاس بابت ویرایش در ویکی‌پدیا!";
 "reverted-edit-title" = "ویرایش‌های واگردانی‌شده";
 "reverted-edit-view-guidelines-text" = "مشاهده راهنماها";
 "saved-all-articles-title" = "همهٔ مقالات";
@@ -627,10 +681,13 @@
 "table-of-contents-close-accessibility-hint" = "بستن";
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
-"table-title-other" = "اطلاعات بیشتر";
+"table-of-contents-hide-button-label" = "جدول محتویات را پنهان کن";
 "talk-page-add-discussion-accessibility-label" = "اضافه کردن بحث";
 "talk-page-discussion-read-accessibility-label" = "خواندن";
+"talk-page-discussion-unread-accessibility-label" = "خوانده‌نشده";
 "talk-page-link-user-action-sheet-title" = "صفحه‌های کاربری";
+"talk-page-new-banner-subtitle" = "فراموش نکنید که در این‌جا همهٔ ما انسانیم";
+"talk-page-new-banner-title" = "لطفاً مهربان باشید";
 "talk-page-new-subject-placeholder-text" = "موضوع";
 "talk-page-new-subject-textfield-accessibility-label" = "عنوان";
 "talk-page-new-topic-title" = "بحث تازه";
@@ -652,7 +709,6 @@
 "two-factor-login-title" = "ورود به حساب کاربری";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
-"view-in-browser-footer-link" = "مقاله را در مرورگر ببینید";
 "welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اعضا";
 "welcome-exploration-explore-feed-title" = "مرور خوراک";
 "welcome-exploration-on-this-day-description" = "سفر به زمان برای دانستن رویدادهایی که در چنین روزی رخ داده‌است";

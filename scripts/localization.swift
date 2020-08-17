@@ -414,6 +414,11 @@ let locales: Set<String> =  {
     return Set<String>(identifiers)
 }()
 
+// See supportsOneEquals documentation. Utilized this list: https://unicode-org.github.io/cldr-staging/charts/37/supplemental/language_plural_rules.html to verify languages where that applies for the cardinal -> one rule
+let localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne = {
+    return Set<String>(["be", "bs", "br", "ceb", "tzm", "hr", "fil", "is", "lv", "lt", "dsb", "mk", "gv", "prg", "ru", "gd", "sr", "sl", "uk", "hsb"]).intersection(locales)
+}()
+
 func localeIsAvailable(_ locale: String) -> Bool {
     let prefix = locale.components(separatedBy: "-").first ?? locale
     return locales.contains(prefix)
@@ -461,6 +466,7 @@ func importLocalizationsFromTWN(_ path: String) {
             "zh-hans": ["zh-hans"],
             "zh-hant": ["zh-hant"]
         ]
+        
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders
         var englishPluralDictionary: NSMutableDictionary?
@@ -496,7 +502,8 @@ func importLocalizationsFromTWN(_ path: String) {
                 if twnString.contains("{{PLURAL:") {
                     let lang = locale.components(separatedBy: "-").first ?? ""
                     let keys = keysByLanguage[lang] ?? defaultKeys
-                    stringsDict[key] = twnString.pluralDictionary(with: keys, tokens:enTokens, supportsOneEquals: locale == "en")
+                    let supportsOneEquals = !localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne.contains(lang)
+                    stringsDict[key] = twnString.pluralDictionary(with: keys, tokens:enTokens, supportsOneEquals: supportsOneEquals)
                     strings[key] = nativeLocalization
                 } else {
                     strings[key] = nativeLocalization
@@ -552,70 +559,6 @@ func importLocalizationsFromTWN(_ path: String) {
     } catch let error {
         print("Error importing localizations: \(error)")
         abort()
-    }
-}
-
-// Sync to PCS strings for https://phabricator.wikimedia.org/T246529
-// Remove once is https://phabricator.wikimedia.org/T246659 resolved
-
-let pcsi18nKeys = [
-    "article-about-title",
-    "article-read-more-title",
-    "description-add-link-title",
-    "info-box-title",
-    "table-title-other",
-    "info-box-close-text",
-    "license-footer-text",
-    "license-footer-name",
-    "view-in-browser-footer-link",
-    "page-read-in-other-languages",
-    "page-last-edited",
-    "page-edit-history",
-    "page-talk-page",
-    "page-talk-page-subtitle",
-    "page-issues",
-    "page-issues-subtitle",
-    "page-similar-titles",
-    "page-location"
-]
-
-func exportPCSi18nJSON(localizationFileURL: URL, outputFileURL: URL) {
-    guard let dictionary = NSDictionary(contentsOf: localizationFileURL) else {
-        print("Unable to read \(localizationFileURL)")
-        return
-    }
-    var output: [String: String] = [:]
-    for key in pcsi18nKeys {
-        output[key] = dictionary[key] as? String
-    }
-    guard !output.isEmpty else {
-        return
-    }
-    let encoder = JSONEncoder()
-    encoder.outputFormatting = .prettyPrinted
-    guard let data = try? encoder.encode(output) else {
-        return
-    }
-    try? data.write(to: outputFileURL)
-}
-
-func exportPageContentServiceStrings(_ path: String) throws {
-    let iOSENPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
-
-    let fm = FileManager.default
-    let outputFolderURL = URL(fileURLWithPath: path).appendingPathComponent("pcs").appendingPathComponent("i18n")
-    try fm.createDirectory(at: outputFolderURL, withIntermediateDirectories: true, attributes: nil)
-    
-    exportPCSi18nJSON(localizationFileURL: URL(fileURLWithPath: iOSENPath), outputFileURL: outputFolderURL.appendingPathComponent("en.json"))
-    
-    let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
-    for filename in contents {
-        guard let locale = filename.components(separatedBy: ".").first?.lowercased() else {
-            continue
-        }
-        
-        let fileURL = URL(fileURLWithPath: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings")
-        exportPCSi18nJSON(localizationFileURL: fileURL, outputFileURL: outputFolderURL.appendingPathComponent("\(locale).json"))
     }
 }
 

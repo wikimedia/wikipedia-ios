@@ -218,8 +218,8 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 completion(.failure(RequestError.invalidParameters))
                 return
             }
-            let pathComponents = ["metrics", "edits", "per-page", project, title, "all-editor-types", "monthly", from, to]
-            let components =  self.configuration.wikimediaMobileAppsServicesAPIURLComponents(appending: pathComponents)
+            let pathComponents = ["edits", "per-page", project, title, "all-editor-types", "monthly", from, to]
+            let components =  self.configuration.metricsAPIURLComponents(appending: pathComponents)
             guard let url = components.url else {
                 completion(.failure(RequestError.invalidParameters))
                 return

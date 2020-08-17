@@ -149,7 +149,6 @@
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
-"description-add-link-title" = "增加標題描述";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的標題描述";
 "description-edit-learn-more" = "了解更多";
@@ -426,7 +425,7 @@
 "forgot-password-username-or-email-title" = "或";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
-"history-clear-confirmation-heading" = "您確定要刪除所有近期項目嗎？";
+"history-clear-confirmation-heading" = "您確定要刪除您所有的近期項目嗎？";
 "history-clear-delete-all" = "是的，刪除全部";
 "history-title" = "歷史";
 "home-button-explore-accessibility-label" = "維基百科，返回探索";
@@ -452,8 +451,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "來自$1維基百科";
 "in-the-news-sub-title-from-wikipedia" = "來自維基百科";
 "in-the-news-title" = "新聞動態";
-"info-box-close-text" = "關閉";
-"info-box-title" = "快速預覽";
 "insert-action-title" = "插入";
 "insert-link-title" = "插入連結";
 "insert-media-alternative-text-description" = "圖片沒辦法正常顯示給讀者查看時用的文字描述";
@@ -490,8 +487,6 @@
 "languages-settings-title" = "語言";
 "languages-title" = "變更語言";
 "languages-wikipedia" = "維基百科語言";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "除非另有註明，否則頁面內容均以 $1 條款授權";
 "logged-out-continue-without-logging-in-button-title" = "以不登入來繼續";
 "logged-out-log-back-in-button-title" = "重新登入您的帳號";
 "logged-out-subtitle" = "在驗證您的帳號時發生一些問題。要同步您的閱讀清單，和以您的使用者名稱名義來編輯，請重新登入。";
@@ -540,8 +535,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
-// Fuzzy
-"page-edit-history" = "完整編輯歷史";
 "page-history-anonymous-edits" = "匿名編輯";
 "page-history-bot-edits" = "機器人編輯";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
@@ -559,17 +552,13 @@
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
 "page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
 "page-protected-can-not-edit-title" = "此頁面受到保護";
 "page-protected-other" = "此頁面已受到以下層級的保護：$1";
 "page-protected-sysop" = "此頁面已受全保護。";
-"page-read-in-other-languages" = "在 {{PLURAL:$1|$1 種其它語言}}中可用";
 "page-similar-titles" = "相似的頁面";
-"page-talk-page" = "檢視對話頁";
 "panel-compare-revisions-text" = "比較修訂能協助顯示出條目隨著時間的內容變化，比較條目裡的兩個修訂時，會透過凸顯出所更改過的內容，來顯示出這些修訂間的差異。";
 "panel-compare-revisions-title" = "比較修訂";
 "pictured" = "如圖";
@@ -800,7 +789,6 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
 "table-of-contents-hide-button-label" = "隱藏目錄";
-"table-title-other" = "更多資訊";
 "talk-page-add-discussion-accessibility-label" = "新增討論";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
 "talk-page-discussion-read-accessibility-label" = "已讀";
@@ -848,7 +836,6 @@
 "two-factor-login-with-regular-code" = "使用驗證代碼";
 "unable-to-load-talk-page-title" = "無法載入對話頁";
 "unknown-generic-text" = "未知";
-"view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
 "welcome-exploration-explore-feed-title" = "探索摘要";
 "welcome-exploration-on-this-day-description" = "返回時間來了解在歷史上的今天發生了什麼事";

@@ -1,8 +1,8 @@
-#import <Mantle/Mantle.h>
+#import <WMF/WMFMTLModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFeedImage : MTLModel <MTLJSONSerializing>
+@interface WMFFeedImage : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *canonicalPageTitle;
 

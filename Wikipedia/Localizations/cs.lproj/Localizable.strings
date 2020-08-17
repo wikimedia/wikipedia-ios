@@ -119,14 +119,12 @@
 "appearance-settings-set-automatic-table-opening" = "Nastavení tabulek";
 "appearance-settings-text-sizing-example-text" = "Chcete-li změnit velikost textu článku, přetáhněte jezdce. Pro změnu velikosti textu v ostatních částech aplikace použijte prosím změnu v systémovém nastavení.";
 "appearance-settings-theme-options" = "Možnosti motivu";
-"article-about-title" = "O tomto článku";
 "article-delete" = "Odstranit";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Článek odstraněn|Články odstraněny}}";
 "article-languages-filter-placeholder" = "Najít jazyk";
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-others" = "Jiné jazyky";
 "article-languages-yours" = "Vaše jazyky";
-"article-read-more-title" = "Číst dál";
 "article-reference-view-title" = "Reference $1";
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
@@ -149,7 +147,6 @@
 "compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
-"description-add-link-title" = "Přidat popis článku";
 "description-add-title" = "Přidat popis";
 "description-edit-for-article" = "Popis článku pro článek $1";
 "description-edit-learn-more" = "Více informací";
@@ -452,8 +449,6 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedie";
 "in-the-news-title" = "Aktuality";
-"info-box-close-text" = "Zavřít";
-"info-box-title" = "Stručná fakta";
 "insert-action-title" = "Vložit";
 "insert-link-title" = "Vložit odkaz";
 "insert-media-alternative-text-description" = "Popis, který se zobrazí čtenářům, kteří neuvidí obrázek";
@@ -490,8 +485,6 @@
 "languages-settings-title" = "Jazyky";
 "languages-title" = "Změnit jazyk";
 "languages-wikipedia" = "Jazyk Wikipedie";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
 "logged-out-continue-without-logging-in-button-title" = "Dokončit bez přihlášení";
 "logged-out-log-back-in-button-title" = "Přihlásit se zpět do vašeho účtu";
 "logged-out-subtitle" = "Při ověřování účtu došlo k chybě. Chcete-li synchronizovat seznamy k přečtení a editovat pod svým uživatelským jménem, prosíme, přihlaste se znovu.";
@@ -540,9 +533,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";
-// Fuzzy
-"page-edit-history" = "Celá historie editací";
-"page-history-anonymous-edits" = "anonymní editace";
+"page-history-anonymous-edits" = "editace neregistrovaných uživatelů";
 "page-history-bot-edits" = "editace robotů";
 "page-history-compare-accessibility-hint" = "Klepněte pro vybrání dvou revizí k porovnání";
 "page-history-compare-title" = "Porovnat";
@@ -558,18 +549,11 @@
 "page-history-revisions-comparison-warning" = "Můžete vybrat pouze dvě revize";
 "page-history-stats-text" = "{{PLURAL:$1|$1 editace|$1 editace|$1 editací}} od $2";
 "page-history-user-edits" = "editace uživatelů";
-"page-issues" = "Nedostatky stránky";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";
-"page-location" = "Zobrazit na mapě";
 "page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
 "page-protected-can-not-edit-title" = "Tato stránka je zamčena";
 "page-protected-other" = "Tato stránka je zamčena pro následující úrovně: $1";
 "page-protected-sysop" = "Tato stránka je zamčena.";
-"page-read-in-other-languages" = "Dostupné v {{PLURAL:$1|$1 dalším jazyce|$1 dalších jazycích}}";
-"page-similar-titles" = "Podobné stránky";
-"page-talk-page" = "Zobrazit diskusní stránku";
 "panel-compare-revisions-text" = "Porovnávání revizí zobrazuje, jak se článek měnil v průběhu času. Porovnávání dvou revizí článku zobrazí rozdíl mezi danými revizemi se zvýrazněním jakéhokoliv obsahu, který byl změněn.";
 "panel-compare-revisions-title" = "Porovnávání revizí";
 "pictured" = "na obrázku";
@@ -800,7 +784,6 @@
 "table-of-contents-close-accessibility-label" = "Schovat obsah";
 "table-of-contents-heading" = "Obsah";
 "table-of-contents-hide-button-label" = "Skrýt tabulku s obsahem";
-"table-title-other" = "Další informace";
 "talk-page-add-discussion-accessibility-label" = "Přidat diskusi";
 "talk-page-discussion-accessibility-hint" = "Dvakrát poklepejte pro založení nového vlákna";
 "talk-page-discussion-read-accessibility-label" = "Přečteno";
@@ -848,7 +831,6 @@
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
 "unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
 "unknown-generic-text" = "Neznámé";
-"view-in-browser-footer-link" = "Zobrazit článek v prohlížeči";
 "welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";
 "welcome-exploration-on-this-day-description" = "Cestujte zpět v čase, abyste se dozvěděli, co se dělo v historii";

@@ -3,6 +3,7 @@
 // Author: Amaia
 // Author: An13sa
 // Author: Asierog
+// Author: BaRaN6161 TURK
 // Author: Envlh
 // Author: EukeneFL
 // Author: Fitoschido
@@ -36,8 +37,7 @@
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "about-wikipedia" = "Wikipedia";
 "abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek potentzialki mingarria edo bandalismoa izan daitezkeen aldaketak identifikatu ditu.";
+"abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek edizio hau kaltegarria edo bandalismozkoa izan daitekeela  identifikatu du.";
 "abuse-filter-warning-blanking" = "Artikulu osoak edo atalak ezabatu";
 "abuse-filter-warning-caps" = "Testua letra larrietan bakarrik";
 "abuse-filter-warning-heading" = "Hau editatze ezezaguna izan daiteke. Ziur al zaude argitaratu nahi duzula?";
@@ -97,14 +97,12 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "Arrastatu goiko kontrolatzailea testuaren tamaina aldatzeko. Erabili zure sistemaren testuaren tamaina aplikazioaren beste testu-eremu batzuk aldatzeko.";
 "appearance-settings-theme-options" = "Gaien aukerak";
-"article-about-title" = "Artikulu honi buruz";
 "article-delete" = "Ezabatu";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezabatuta";
 "article-languages-filter-placeholder" = "Aurkitu hizkuntza";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-others" = "Beste hizkuntzak";
 "article-languages-yours" = "Zure hizkuntzak";
-"article-read-more-title" = "Irakurri gehiago";
 "article-save-error-not-enough-space" = "Ez duzu espazio nahikorik gailuan artikulu hau gordetzeko";
 "article-share" = "Partekatu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Gaiak Irakurtzen";
@@ -125,7 +123,6 @@
 "compass-direction" = "ordu $1(e)tan";
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
 "continue-reading-empty-title" = "Ez dago azkenaldian irakurritako artikulurik";
-"description-add-link-title" = "Gehitu artikuluaren deskribapena";
 "description-add-title" = "Gehitu deskribapena";
 "description-edit-learn-more" = "Gehiago ikasi";
 "description-edit-length-warning" = "$1 / $2";
@@ -138,7 +135,7 @@
 "empty-no-article-message" = "Barkatu, ezin da artikulua kargatu";
 "empty-no-feed-action-message" = "Oraindik gordetako orrialdeak irakurri ditzakezu";
 "empty-no-feed-message" = "Interneta duzunean ikusi ahal izango dituzu iradokitutako artikuluak";
-"empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
+"empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena";
 "empty-no-history-title" = "Erakusteko historiarik ez";
 // Fuzzy
 "empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako irakurketa zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
@@ -273,13 +270,9 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Wikipediatik";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediatik";
 "in-the-news-title" = "Albisteak";
-"info-box-close-text" = "Itxi";
-"info-box-title" = "Datu azkarrak";
 "languages-settings-title" = "Hizkuntzak";
 "languages-title" = "Hizkuntza aldatu";
 "languages-wikipedia" = "Wikipedia hizkuntzak";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Eduki guztia $1(r)en babespean dago, ez bada kontrakoa esaten.";
 "login-forgot-password" = "Zure pasahitza ahaztu duzu?";
 "login-join-wikipedia" = "Wikipediara batu";
 "login-no-account" = "Ez duzu erabiltzaile konturik? $1";
@@ -315,27 +308,17 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "$1tik $2ra";
-"on-this-day-detail-header-title" = "{{PLURALA:$1|$1 gertakizun historikoa|$1 gertakizun historikoak}}";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 gertakizun historikoa|$1 gertakizun historikoak}}";
 "on-this-day-footer" = "Egun honetako ekintza historiko gehiago";
 "on-this-day-footer-with-event-count" = "Egun honetako $1 gertaera historiko gehiago";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
-// Fuzzy
-"page-edit-history" = "Aldaketa guztien historia";
-"page-issues" = "Orriaren arazoak";
-// Fuzzy
-"page-last-edited" = "Orain dela $1 egun aldatu da";
-"page-location" = "Ikusi mapan";
 "page-protected-autoconfirmed" = "Orri hau erdi babestua dago.";
 "page-protected-can-not-edit" = "Ez duzu orrialde hau aldatzeko baimenik";
 "page-protected-can-not-edit-title" = "Orrialde hau babestuta dago";
 "page-protected-other" = "Orrialde hau ondoren mailetan babestu da: $1";
 "page-protected-sysop" = "Orri hau erabat babestua dago.";
-// Fuzzy
-"page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
-"page-similar-titles" = "Antzeko orriak";
-"page-talk-page" = "Elkarrizketa orrialdea ikusi";
 "pictured" = "Irudikatuta";
 "places-accessibility-clear-saved-searches" = "Garbitu gordetako bilaketak";
 "places-accessibility-group" = "$1 artikulu";
@@ -460,8 +443,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Gaur|Atzo|Orain dela $1 egun}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Aurreko batean|Orain dela ordu $1|Orain dela $1 ordu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Oraintxe|Orain dela minutu $1|Orain dela $1 minutu}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURALA:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
@@ -538,7 +520,6 @@
 "table-of-contents-close-accessibility-hint" = "Itxi";
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";
 "table-of-contents-heading" = "Edukiak";
-"table-title-other" = "Informazio gehiago";
 "talk-page-discussion-read-accessibility-label" = "Irakurri";
 "talk-page-discussion-unread-accessibility-label" = "irakurri gabe";
 "theme-black-display-name" = "Beltza";
@@ -553,7 +534,6 @@
 "two-factor-login-title" = "Zure kontuan sartu";
 "two-factor-login-with-backup-code" = "Erabil ezazu zure babeskopiarako kodeetako bat";
 "two-factor-login-with-regular-code" = "Berrespen kodea erabili";
-"view-in-browser-footer-link" = "Artikulua arakatzailean ikusi";
 "welcome-exploration-explore-feed-description" = "Gure komunitateko gomendaturiko irakurketak eta eguneko artikuluak";
 "welcome-exploration-explore-feed-title" = "Arakatze jarioa";
 "welcome-exploration-on-this-day-description" = "Iraganera bidaiatu ikasteko zer gertatu da gaurko egunean historian zehar";

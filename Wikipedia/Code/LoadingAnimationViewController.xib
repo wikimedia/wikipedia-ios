@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingAnimationViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundImageView" destination="uSf-gW-LsC" id="nKB-TF-Of1"/>
+                <outlet property="backgroundView" destination="ccB-rU-eQK" id="Okt-Hn-jVf"/>
+                <outlet property="cancelButton" destination="OLC-wp-pya" id="TME-hK-vLJ"/>
+                <outlet property="satelliteImageView" destination="Jkm-da-NjX" id="Yzd-WY-vO5"/>
+                <outlet property="statusLabel" destination="IXD-Pd-cu9" id="n7P-R7-rRe"/>
+                <outlet property="view" destination="iN0-l3-epB" id="pBN-Gy-ehO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccB-rU-eQK">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLC-wp-pya">
+                    <rect key="frame" x="175" y="800" width="64" height="36"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="tappedCancel:" destination="-1" eventType="touchUpInside" id="bWw-Fd-QFu"/>
+                    </connections>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="jXR-7v-nXK">
+                    <rect key="frame" x="10" y="328" width="394" height="240.5"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVa-aM-5gx">
+                            <rect key="frame" x="100" y="0.0" width="194" height="194"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/bg" translatesAutoresizingMaskIntoConstraints="NO" id="uSf-gW-LsC">
+                                    <rect key="frame" x="0.0" y="0.0" width="194" height="194"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" priority="999" constant="194" id="ZtV-HN-CQa"/>
+                                        <constraint firstAttribute="width" secondItem="uSf-gW-LsC" secondAttribute="height" multiplier="1:1" id="gc1-E4-Ga0"/>
+                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="194" id="yjy-mv-IlV"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/earth" translatesAutoresizingMaskIntoConstraints="NO" id="sXi-qv-zuE">
+                                    <rect key="frame" x="47.5" y="47.5" width="99" height="99"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="sXi-qv-zuE" secondAttribute="height" multiplier="1:1" id="fAo-q1-5Pa"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/satellite" translatesAutoresizingMaskIntoConstraints="NO" id="Jkm-da-NjX">
+                                    <rect key="frame" x="0.0" y="0.0" width="194" height="194"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="width" secondItem="uSf-gW-LsC" secondAttribute="width" multiplier="99:194" id="4t6-wm-h5p"/>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerY" secondItem="Jkm-da-NjX" secondAttribute="centerY" id="CUU-Dd-4Pq"/>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerY" secondItem="uSf-gW-LsC" secondAttribute="centerY" id="EHh-lu-fKB"/>
+                                <constraint firstItem="Jkm-da-NjX" firstAttribute="height" secondItem="uSf-gW-LsC" secondAttribute="height" id="Efq-IW-0Ra"/>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerX" secondItem="uSf-gW-LsC" secondAttribute="centerX" id="Fbv-hY-e4k"/>
+                                <constraint firstItem="Jkm-da-NjX" firstAttribute="width" secondItem="uSf-gW-LsC" secondAttribute="width" id="IuX-xl-A7v"/>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerX" secondItem="Jkm-da-NjX" secondAttribute="centerX" id="Pok-yT-Hh7"/>
+                                <constraint firstAttribute="bottom" secondItem="uSf-gW-LsC" secondAttribute="bottom" id="Ptv-ee-bZN"/>
+                                <constraint firstItem="uSf-gW-LsC" firstAttribute="top" secondItem="IVa-aM-5gx" secondAttribute="top" id="l1Q-uf-4R1"/>
+                                <constraint firstItem="uSf-gW-LsC" firstAttribute="leading" secondItem="IVa-aM-5gx" secondAttribute="leading" id="mth-a1-FA2"/>
+                                <constraint firstAttribute="trailing" secondItem="uSf-gW-LsC" secondAttribute="trailing" id="vrm-N3-eyX"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Loading page..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IXD-Pd-cu9">
+                            <rect key="frame" x="134" y="220" width="126.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="OLC-wp-pya" secondAttribute="bottom" constant="26" id="2IL-MI-xVO"/>
+                <constraint firstItem="ccB-rU-eQK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4sM-F7-MNu"/>
+                <constraint firstItem="OLC-wp-pya" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CyU-Du-1X8"/>
+                <constraint firstItem="jXR-7v-nXK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Hbz-Bo-g0p"/>
+                <constraint firstAttribute="trailing" secondItem="ccB-rU-eQK" secondAttribute="trailing" id="PYb-OG-Zgf"/>
+                <constraint firstItem="jXR-7v-nXK" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="999" id="Tkc-lI-cz0"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jXR-7v-nXK" secondAttribute="trailing" constant="10" id="Wbh-9p-TWK"/>
+                <constraint firstItem="jXR-7v-nXK" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="X9E-Bo-Cmj"/>
+                <constraint firstItem="OLC-wp-pya" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jXR-7v-nXK" secondAttribute="bottom" constant="30" id="bP9-Ie-xPv"/>
+                <constraint firstAttribute="bottom" secondItem="ccB-rU-eQK" secondAttribute="bottom" id="gga-6Q-3Xn"/>
+                <constraint firstItem="ccB-rU-eQK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kIw-re-pGv"/>
+                <constraint firstItem="jXR-7v-nXK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="sCF-vZ-IfP"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="136" y="78"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="loading/bg" width="194" height="194"/>
+        <image name="loading/earth" width="99" height="99"/>
+        <image name="loading/satellite" width="194" height="194"/>
+    </resources>
+</document>

@@ -4,7 +4,7 @@ import WMF
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
+class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
 
     fileprivate var mapView: MapView!
 
@@ -32,7 +32,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     fileprivate let locationSearchFetcher = WMFLocationSearchFetcher()
     fileprivate let searchFetcher = WMFSearchFetcher()
     fileprivate let wikidataFetcher = WikidataFetcher(session: Session.shared, configuration: Configuration.current)
-    fileprivate let locationManager = WMFLocationManager.fine()
+    fileprivate let locationManager = LocationManager()
     fileprivate let animationDuration = 0.6
     fileprivate let animationScale = CGFloat(0.6)
     fileprivate let popoverFadeDuration = 0.25
@@ -231,7 +231,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
 
         
-        guard WMFLocationManager.isAuthorized() else {
+        guard locationManager.isAuthorized else {
             if !defaults.wmf_placesDidPromptForLocationAuthorization() {
                 defaults.wmf_setPlacesDidPromptForLocationAuthorization(true)
                 promptForLocationAccess()
@@ -569,8 +569,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         hideDidYouMeanButton()
         
         let siteURL = search.siteURL ?? self.siteURL
-        var searchTerm: String? = nil
-        let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
         currentSearchRegion = region
 
@@ -586,9 +584,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         } else if mapRegion == nil {
             mapRegion = region
         }
-        
-        searchTerm = search.string
-        
+                
         self.fakeProgressController.start()
         
         switch search.filter {
@@ -1211,7 +1207,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
             self.presentedViewController?.dismiss(animated: true, completion: {
-                guard WMFLocationManager.isAuthorizationNotDetermined() else {
+                guard self.locationManager.authorizationStatus == .notDetermined else {
                     UIApplication.shared.wmf_openAppSpecificSystemSettings()
                     return
                 }
@@ -2148,34 +2144,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     var panMapToNextLocationUpdate = true
     
-    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
-        guard panMapToNextLocationUpdate else {
-            return
-        }
-        panMapToNextLocationUpdate = false
-        zoomAndPanMapView(toLocation: location)
-    }
-    
-    func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
-    }
-    
-    func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
-        updateUserLocationAnnotationViewHeading(heading)
-    }
-    
-    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        if enabled {
-            panMapToNextLocationUpdate = currentSearch == nil
-            locationManager.startMonitoringLocation()
-        } else {
-            panMapToNextLocationUpdate = false
-            locationManager.stopMonitoringLocation()
-            performDefaultSearchIfNecessary(withRegion: nil)
-        }
-    }
-    
     @IBAction fileprivate func recenterOnUserLocation(_ sender: Any) {
-        guard WMFLocationManager.isAuthorized(), let userLocation = locationManager.location else {
+        guard locationManager.isAuthorized, let userLocation = locationManager.location else {
             promptForLocationAccess()
             return
         }
@@ -2406,6 +2376,32 @@ extension PlacesViewController: MKMapViewDelegate {
         }
         
         return viewFor(place: place)
+    }
+}
+
+// MARK: - LocationManagerDelegate
+extension PlacesViewController: LocationManagerDelegate {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation) {
+        guard panMapToNextLocationUpdate else {
+            return
+        }
+        panMapToNextLocationUpdate = false
+        zoomAndPanMapView(toLocation: location)
+    }
+
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading) {
+        updateUserLocationAnnotationViewHeading(heading)
+    }
+
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdateAuthorized authorized: Bool) {
+        if authorized {
+            panMapToNextLocationUpdate = currentSearch == nil
+            locationManager.startMonitoringLocation()
+        } else {
+            panMapToNextLocationUpdate = false
+            locationManager.stopMonitoringLocation()
+            performDefaultSearchIfNecessary(withRegion: nil)
+        }
     }
 }
 

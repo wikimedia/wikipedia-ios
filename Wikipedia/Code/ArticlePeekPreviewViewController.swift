@@ -4,7 +4,7 @@ import WMF
 @objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
-    fileprivate let articleURL: URL
+    let articleURL: URL
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme
     fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
@@ -44,7 +44,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         }
     }
     
-    public func updatePreferredContentSize(for contentWidth: CGFloat) {
+    func updatePreferredContentSize(for contentWidth: CGFloat) {
         var updatedContentSize = expandedArticleView.sizeThatFits(CGSize(width: contentWidth, height: UIView.noIntrinsicMetric), apply: true)
         updatedContentSize.width = contentWidth // extra protection to ensure this stays == width
         parent?.preferredContentSize = updatedContentSize
@@ -66,14 +66,9 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = theme.colors.paperBackground
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.style = theme.isDark ? .white : .gray
         activityIndicatorView.startAnimating()
         view.addSubview(activityIndicatorView)
-        
-        expandedArticleView.translatesAutoresizingMaskIntoConstraints = false
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
         expandedArticleView.updateFonts(with: traitCollection)
