@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1266,6 +1266,8 @@
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83D05189246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */; };
+		83D1C08F24EAB2580097AC6A /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = 83D1C08E24EAB2580097AC6A /* CombineExt */; };
+		83D1C09124EAB2BE0097AC6A /* Publisher+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D1C09024EAB2BE0097AC6A /* Publisher+UserInfo.swift */; };
 		83D3FC13223A8BCD0048384B /* ArticleSummaryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
@@ -3687,6 +3689,7 @@
 		83CF71432326D47E009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		83CF71442326D48A009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Mutations.swift"; sourceTree = "<group>"; };
+		83D1C09024EAB2BE0097AC6A /* Publisher+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+UserInfo.swift"; sourceTree = "<group>"; };
 		83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummaryFetcher.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
@@ -4901,6 +4904,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83D1C08F24EAB2580097AC6A /* CombineExt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8052,6 +8056,7 @@
 				D8B589A721CD05070027083A /* main.swift */,
 				83ACAA9724E6BE7B003B3035 /* WikipediaLanguageUtilityAPI.swift */,
 				83ACAAAF24E6F8FF003B3035 /* WikipediaLanguageUtility.swift */,
+				83D1C09024EAB2BE0097AC6A /* Publisher+UserInfo.swift */,
 			);
 			path = "Update Languages";
 			sourceTree = "<group>";
@@ -8634,6 +8639,9 @@
 			dependencies = (
 			);
 			name = languages;
+			packageProductDependencies = (
+				83D1C08E24EAB2580097AC6A /* CombineExt */,
+			);
 			productName = "codemirror-config";
 			productReference = D8B589A521CD05070027083A /* languages */;
 			productType = "com.apple.product-type.tool";
@@ -8965,6 +8973,9 @@
 				hr,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
+			packageReferences = (
+				83D1C08D24EAB2580097AC6A /* XCRemoteSwiftPackageReference "CombineExt" */,
+			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -11124,6 +11135,7 @@
 				83ACAAA524E6E47D003B3035 /* Wikipedia.swift in Sources */,
 				83ACAA9824E6BE7B003B3035 /* WikipediaLanguageUtilityAPI.swift in Sources */,
 				83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */,
+				83D1C09124EAB2BE0097AC6A /* Publisher+UserInfo.swift in Sources */,
 				83ACAAAE24E6EF0B003B3035 /* WikipediaSiteInfoLookup.swift in Sources */,
 				83ACAA9924E6D112003B3035 /* Collection+AsyncMap.swift in Sources */,
 			);
@@ -20135,6 +20147,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		83D1C08D24EAB2580097AC6A /* XCRemoteSwiftPackageReference "CombineExt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wikimedia/CombineExt";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		83D1C08E24EAB2580097AC6A /* CombineExt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83D1C08D24EAB2580097AC6A /* XCRemoteSwiftPackageReference "CombineExt" */;
+			productName = CombineExt;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */ = {
