@@ -972,6 +972,12 @@
     "siteName" : "Wikipedia"
   },
   {
+    "languageCode" : "lld",
+    "languageName" : "Ladin",
+    "localName" : "Ladin",
+    "siteName" : "Wikipedia"
+  },
+  {
     "languageCode" : "lmo",
     "languageName" : "lumbaart",
     "localName" : "Lombard",
