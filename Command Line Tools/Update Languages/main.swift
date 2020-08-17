@@ -9,7 +9,7 @@ guard count > 1 else {
 }
 
 let path = CommandLine.arguments[1]
-let utility = WikipediaLanguageUtility(path: path)
+let utility = WikipediaLanguageCommandLineUtility(path: path)
 utility.run {
     exit(0)
 }

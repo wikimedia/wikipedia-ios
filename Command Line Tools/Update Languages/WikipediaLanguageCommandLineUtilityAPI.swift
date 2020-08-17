@@ -1,11 +1,9 @@
 import Foundation
 import Combine
 
-/// **THIS IS NOT PART OF THE MAIN APP - IT'S A COMMAND LINE UTILITY**
-///
 /// Utility for making API calls that update prebuilt lists of information about different language Wikipedias
-class WikipediaLanguageUtilityAPI {
-    // We can't use codable becuase this API's resposne format has no concrete type structure
+class WikipediaLanguageCommandLineUtilityAPI {
+    // We can't use codable becuase this API's response format has no concrete type structure
     // For example, the mixing of ints and dictionaries here:
     // "sitematrix": {
     //    "count": 951,

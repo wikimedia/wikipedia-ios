@@ -2,15 +2,19 @@ import Foundation
 import Combine
 import CombineExt
 
-class WikipediaLanguageUtility {
+/// Command line tool for updating prebuilt language lists and lookup tables used in the app
+class WikipediaLanguageCommandLineUtility {
     let pathComponents: [String]
-    let api = WikipediaLanguageUtilityAPI()
+    let api = WikipediaLanguageCommandLineUtilityAPI()
 
+    /// - Parameter path: the path to the wikipedia-ios project folder
     init(path: String) {
         pathComponents = path.components(separatedBy: "/")
     }
     
     var cancellable: AnyCancellable?
+    
+    /// Generates all the necessary files
     func run(_ completion: @escaping () -> Void) {
         cancellable = api.getSites().sink(receiveCompletion: { (result) in
             switch result {
@@ -34,13 +38,13 @@ class WikipediaLanguageUtility {
     
     }
     
-    func getOutputFileURL(with components: [String]) -> URL {
+    private func getOutputFileURL(with components: [String]) -> URL {
         let outputComponents = pathComponents + components
         let outputPath = outputComponents.joined(separator: "/")
         return URL(fileURLWithPath: outputPath)
     }
 
-    func writeCodable<T: Codable>(_ codable: T, to pathComponents: [String]) {
+    private func writeCodable<T: Codable>(_ codable: T, to pathComponents: [String]) {
         do {
             let encoder = JSONEncoder()
             encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
@@ -52,7 +56,7 @@ class WikipediaLanguageUtility {
         }
     }
 
-    func writeCodemirrorConfig(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable {
+    private func writeCodemirrorConfig(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable {
         sites
             .map { api.getCodeMirrorConfigJSON(for: $0.languageCode).add(userInfo: $0) }
             .merge()
@@ -70,7 +74,7 @@ class WikipediaLanguageUtility {
             }
     }
 
-    func writeNamespaceFiles(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable? {
+    private func writeNamespaceFiles(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable? {
         return sites
             .map { api.getSiteInfo(with: $0.languageCode).add(userInfo: $0) }
             .merge()
@@ -84,7 +88,7 @@ class WikipediaLanguageUtility {
             }
     }
     
-    func getSiteInfoLookup(with siteInfo: SiteInfo) -> WikipediaSiteInfoLookup {
+    private func getSiteInfoLookup(with siteInfo: SiteInfo) -> WikipediaSiteInfoLookup {
         var namespaces = [String: PageNamespace].init(minimumCapacity: siteInfo.query.namespaces.count + siteInfo.query.namespacealiases.count)
         for (_, namespace) in siteInfo.query.namespaces {
             namespaces[namespace.name.uppercased()] = PageNamespace(rawValue: namespace.id)
