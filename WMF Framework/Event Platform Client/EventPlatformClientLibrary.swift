@@ -346,7 +346,7 @@ public class EPC: NSObject {
      */
     private func generateID() -> String {
         var id: String = ""
-        for _ in 1...8 {
+        for _ in 1...5 {
             id += String(format: "%04x", arc4random_uniform(65535))
         }
         return id
