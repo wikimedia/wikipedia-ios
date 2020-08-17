@@ -239,6 +239,8 @@
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-title" = "Äänesi on tärkeä";
 "editing-welcome-impartial-tone-title" = "Kirjoita puolueettomaan sävyyn";
+"editing-welcome-set-knowledge-free-title" = "Vapauta tieto";
+"empty-diff-compare-title" = "Ei eroavaisuuksia versioiden välillä";
 "empty-insert-media-title" = "Valitse tiedosto";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
@@ -335,9 +337,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediasta";
 "explore-randomizer" = "Satunnaistaminen";
+"featured-article-empty-title" = "Ei saatavilla olevaa suositeltua artikkelia tälle päivälle";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
 "feed-news-notification-text" = "Kytke ilmoitukset päälle saadaksesi ilmoituksen artikkeleista jotka ovat nousussa uutisissa.";
 "fetcher-error-generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin";
+"fetcher-error-unexpected-response" = "Sovellus vastaanotti odottamattoman vastauksen palvelimelta. Yritä myöhemmin uudelleen.";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
 "field-alert-token-invalid" = "Koodi ei kelpaa";
@@ -425,11 +429,18 @@
 "insert-media-media-settings-title" = "Media-asetukset";
 "insert-media-title" = "Lisää media";
 "insert-media-uploaded-image-title" = "Tallennettu kuva";
+"intermediate-edits-count" = "{{PLURAL:$1|Yhtä välissä olevaa versiota|$1 välissä olevaa versiota}} ei näytetä";
+"intermediate-edits-count-limited" = "$1+ välissä olevaa versiota ei näytetä";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|Yhtä välissä olevaa versiota|$1 välissä olevaa versiota}} {{PLURAL:$2|toisen käyttäjän tekemänä|$2 käyttäjän tekeminä}} ei näytetä";
+"intermediate-edits-editors-count-limited" = "$1+ välissä olevaa versiota $2+ käyttäjän tekeminä ei näytetä";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Yhtä välissä olevaa versiota|$1 välissä olevaa versiota}} $2+ käyttäjän tekeminä ei näytetä";
+"intermediate-edits-limited-editors-count" = "$1+ välissä olevaa versiota {{PLURAL:$2|toisen käyttäjän tekemänä|$2 käyttäjän tekeminä}} ei näytetä";
 "languages-settings-title" = "Kielet";
 "languages-title" = "Kielenvaihto";
 "languages-wikipedia" = "Wikipedian kielet";
 "logged-out-continue-without-logging-in-button-title" = "Jatka kirjautumatta";
 "logged-out-log-back-in-button-title" = "Kirjaudu takaisin tunnuksellesi";
+"logged-out-subtitle" = "Tunnistauduttaessa tapahtui virhe. Kirjaudu takaisin sisään synkronoidaksesi lukulistasi sekä muokataksesi käyttäjätunnuksellasi.";
 "logged-out-title" = "Olet kirjautunut ulos";
 "login-forgot-password" = "Unohditko salasanasi?";
 "login-join-wikipedia" = "Liity Wikipediaan.";
@@ -477,6 +488,7 @@
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
 "page-history-anonymous-edits" = "tunnistautumattomilta";
 "page-history-bot-edits" = "boteilta";
+"page-history-compare-accessibility-hint" = "Napauta valitaksesi kaksi vertailtavaa versiota";
 "page-history-compare-title" = "Vertaa";
 "page-history-minor-edits" = "pienet muutokset";
 "page-history-revision-author-accessibility-label" = "Tekijä: $1";
@@ -497,6 +509,7 @@
 "page-protected-sysop" = "Tämä sivu on täysin suojattu.";
 "page-similar-titles" = "Samankaltaiset sivut";
 "panel-compare-revisions-text" = "Muutosten vertailulla on helppo saada kuva artikkeliin tehdyistä muutoksista. Toiminto korostaa artikkelista kohdat, joihin on tehty muutoksia.";
+"panel-compare-revisions-title" = "Versioiden vertailu";
 "pictured" = "kuvassa";
 "places-accessibility-clear-saved-searches" = "Tyhjennä tallennetut haut";
 "places-accessibility-group" = "$1 artikkelia";
@@ -722,7 +735,9 @@
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
+"table-of-contents-hide-button-label" = "Piilota sisällysluettelo";
 "talk-page-add-discussion-accessibility-label" = "Lisää keskustelu";
+"talk-page-discussion-accessibility-hint" = "Kaksoisnapauta avataksesi keskusteluketjun";
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
 "talk-page-error-unable-to-post-reply" = "Ei Internet-yhteyttä. Vastausta ei voi lähettää.";
