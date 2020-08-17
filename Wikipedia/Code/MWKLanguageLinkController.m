@@ -9,28 +9,13 @@ NSString *const WMFAppLanguageDidChangeNotification = @"WMFAppLanguageDidChangeN
 
 static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
 
-/**
- * List of unsupported language codes.
- *
- * As of iOS 8, the system font doesn't support these languages, e.g. "arc" (Aramaic, Syriac font). [0]
- * As of iOS 9, it appears that Syriac languages are now natively supported in iOS.
- *
- * 0: http://syriaca.org/documentation/view-syriac.html
- */
-static NSArray *WMFUnsupportedLanguages() {
-    static NSArray *unsupportedLanguageCodes;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        unsupportedLanguageCodes = @[@"lez"];
-    });
-    return unsupportedLanguageCodes;
-}
-
 @interface MWKLanguageLinkController ()
 
 @property (copy, nonatomic) NSArray *preferredLanguages;
 
 @property (copy, nonatomic) NSArray *otherLanguages;
+
+@property (copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 
 @end
 
@@ -58,43 +43,10 @@ static id _sharedInstance;
 #pragma mark - Loading
 
 - (void)loadLanguagesFromFile {
-    WMFAssetsFile *assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
-    NSParameterAssert(assetsFile.array);
-    self.allLanguages = [assetsFile.array wmf_map:^id(NSDictionary *langAsset) {
-        NSString *code = langAsset[@"code"];
-        NSString *localizedName = langAsset[@"canonical_name"];
-        if (![self isCompoundLanguageCode:code]) {
-            // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
-            // should be "Cantonese". It looks like iOS ignores anything after the "-".
-            NSString *iOSLocalizedName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:code];
-            if (iOSLocalizedName) {
-                localizedName = iOSLocalizedName;
-            }
-        }
-        return [[MWKLanguageLink alloc] initWithLanguageCode:code
-                                               pageTitleText:@""
-                                                        name:langAsset[@"name"]
-                                               localizedName:localizedName];
-    }];
-    NSParameterAssert(self.allLanguages.count);
-}
-
-- (BOOL)isCompoundLanguageCode:(NSString *)code {
-    return [code containsString:@"-"];
+    self.allLanguages = [WikipediaLookup allLanguageLinks];
 }
 
 #pragma mark - Getters & Setters
-
-- (void)setAllLanguages:(NSArray *)allLanguages {
-    NSArray *unsupportedLanguages = WMFUnsupportedLanguages();
-    NSArray *supportedLanguageLinks = [allLanguages wmf_reject:^BOOL(MWKLanguageLink *languageLink) {
-        return [unsupportedLanguages containsObject:languageLink.languageCode];
-    }];
-
-    supportedLanguageLinks = [supportedLanguageLinks sortedArrayUsingSelector:@selector(compare:)];
-
-    _allLanguages = supportedLanguageLinks;
-}
 
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
     return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {

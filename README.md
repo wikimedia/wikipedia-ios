@@ -66,8 +66,10 @@ Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wi
 Runs automated screenshot tests.
 #### WMF
 Bundles up the app logic shared between the main app and the extensions (widgets, notifications).
-#### localization
+#### Updating localizations
 Covered in the [localization document](docs/localization.md).
+#### Adding new Wikipedia languages or updating language configurations
+Covered in the [languages document](docs/languages.md).
 #### {{name}}Widget, {{name}}Notification, {{name}}Stickers
 Extensions for widgets, notifications, and stickers.
 #### codemirror-config

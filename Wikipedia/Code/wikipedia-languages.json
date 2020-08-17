@@ -1,0 +1,1886 @@
+[
+  {
+    "languageCode" : "aa",
+    "languageName" : "Qafár af",
+    "localName" : "Afar",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ab",
+    "languageName" : "Аҧсшәа",
+    "localName" : "Abkhazian",
+    "siteName" : "Авикипедиа"
+  },
+  {
+    "languageCode" : "ace",
+    "languageName" : "Acèh",
+    "localName" : "Achinese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ady",
+    "languageName" : "адыгабзэ",
+    "localName" : "Adyghe",
+    "siteName" : "Википедие"
+  },
+  {
+    "languageCode" : "af",
+    "languageName" : "Afrikaans",
+    "localName" : "Afrikaans",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ak",
+    "languageName" : "Akan",
+    "localName" : "Akan",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "als",
+    "languageName" : "Alemannisch",
+    "localName" : "Alemannisch",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "am",
+    "languageName" : "አማርኛ",
+    "localName" : "Amharic",
+    "siteName" : "ውክፔዲያ"
+  },
+  {
+    "languageCode" : "an",
+    "languageName" : "aragonés",
+    "localName" : "Aragonese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ang",
+    "languageName" : "Ænglisc",
+    "localName" : "Old English",
+    "siteName" : "Wikipǣdia"
+  },
+  {
+    "languageCode" : "ar",
+    "languageName" : "العربية",
+    "localName" : "Arabic",
+    "siteName" : "ويكيبيديا"
+  },
+  {
+    "languageCode" : "arc",
+    "languageName" : "ܐܪܡܝܐ",
+    "localName" : "Aramaic",
+    "siteName" : "ܘܝܩܝܦܕܝܐ"
+  },
+  {
+    "languageCode" : "ary",
+    "languageName" : "الدارجة",
+    "localName" : "Moroccan Arabic",
+    "siteName" : "ويكيپيديا"
+  },
+  {
+    "languageCode" : "arz",
+    "languageName" : "مصرى",
+    "localName" : "Egyptian Arabic",
+    "siteName" : "ويكيبيديا"
+  },
+  {
+    "languageCode" : "as",
+    "languageName" : "অসমীয়া",
+    "localName" : "Assamese",
+    "siteName" : "অসমীয়া ৱিকিপিডিয়া"
+  },
+  {
+    "languageCode" : "ast",
+    "languageName" : "asturianu",
+    "localName" : "Asturian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "atj",
+    "languageName" : "Atikamekw",
+    "localName" : "Atikamekw",
+    "siteName" : "Wikipetcia"
+  },
+  {
+    "languageCode" : "av",
+    "languageName" : "авар",
+    "localName" : "Avaric",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "avk",
+    "languageName" : "Kotava",
+    "localName" : "Kotava",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "awa",
+    "languageName" : "अवधी",
+    "localName" : "Awadhi",
+    "siteName" : "विकिपीडिया"
+  },
+  {
+    "languageCode" : "ay",
+    "languageName" : "Aymar aru",
+    "localName" : "Aymara",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "az",
+    "languageName" : "azərbaycanca",
+    "localName" : "Azerbaijani",
+    "siteName" : "Vikipediya"
+  },
+  {
+    "languageCode" : "azb",
+    "languageName" : "تۆرکجه",
+    "localName" : "South Azerbaijani",
+    "siteName" : "ویکی‌پدیا"
+  },
+  {
+    "languageCode" : "ba",
+    "languageName" : "башҡортса",
+    "localName" : "Bashkir",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "ban",
+    "languageName" : "Bali",
+    "localName" : "Balinese",
+    "siteName" : "Wikipédia"
+  },
+  {
+    "languageCode" : "bar",
+    "languageName" : "Boarisch",
+    "localName" : "Bavarian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bat-smg",
+    "languageName" : "žemaitėška",
+    "localName" : "Samogitian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bcl",
+    "languageName" : "Bikol Central",
+    "localName" : "Central Bikol",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "be",
+    "languageName" : "беларуская",
+    "localName" : "Belarusian",
+    "siteName" : "Вікіпедыя"
+  },
+  {
+    "languageCode" : "be-x-old",
+    "languageName" : "беларуская (тарашкевіца)‎",
+    "localName" : "Belarusian (Taraškievica orthography)",
+    "siteName" : "Вікіпэдыя"
+  },
+  {
+    "languageCode" : "bg",
+    "languageName" : "български",
+    "localName" : "Bulgarian",
+    "siteName" : "Уикипедия"
+  },
+  {
+    "languageCode" : "bh",
+    "languageName" : "भोजपुरी",
+    "localName" : "Bhojpuri",
+    "siteName" : "विकिपीडिया"
+  },
+  {
+    "languageCode" : "bi",
+    "languageName" : "Bislama",
+    "localName" : "Bislama",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bjn",
+    "languageName" : "Banjar",
+    "localName" : "Banjar",
+    "siteName" : "Wikipidia"
+  },
+  {
+    "languageCode" : "bm",
+    "languageName" : "bamanankan",
+    "localName" : "Bambara",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bn",
+    "languageName" : "বাংলা",
+    "localName" : "Bangla",
+    "siteName" : "উইকিপিডিয়া"
+  },
+  {
+    "languageCode" : "bo",
+    "languageName" : "བོད་ཡིག",
+    "localName" : "Tibetan",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bpy",
+    "languageName" : "বিষ্ণুপ্রিয়া মণিপুরী",
+    "localName" : "Bishnupriya",
+    "siteName" : "উইকিপিডিয়া"
+  },
+  {
+    "languageCode" : "br",
+    "languageName" : "brezhoneg",
+    "localName" : "Breton",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bs",
+    "languageName" : "bosanski",
+    "localName" : "Bosnian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bug",
+    "languageName" : "ᨅᨔ ᨕᨘᨁᨗ",
+    "localName" : "Buginese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "bxr",
+    "languageName" : "буряад",
+    "localName" : "Russia Buriat",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ca",
+    "languageName" : "català",
+    "localName" : "Catalan",
+    "siteName" : "Viquipèdia"
+  },
+  {
+    "languageCode" : "cbk-zam",
+    "languageName" : "Chavacano de Zamboanga",
+    "localName" : "Chavacano",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "cdo",
+    "languageName" : "Mìng-dĕ̤ng-ngṳ̄",
+    "localName" : "Min Dong Chinese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ce",
+    "languageName" : "нохчийн",
+    "localName" : "Chechen",
+    "siteName" : "Википеди"
+  },
+  {
+    "languageCode" : "ceb",
+    "languageName" : "Cebuano",
+    "localName" : "Cebuano",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ch",
+    "languageName" : "Chamoru",
+    "localName" : "Chamorro",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "cho",
+    "languageName" : "Choctaw",
+    "localName" : "Choctaw",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "chr",
+    "languageName" : "ᏣᎳᎩ",
+    "localName" : "Cherokee",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "chy",
+    "languageName" : "Tsetsêhestâhese",
+    "localName" : "Cheyenne",
+    "siteName" : "Tsétsêhéstâhese Wikipedia"
+  },
+  {
+    "languageCode" : "ckb",
+    "languageName" : "کوردی",
+    "localName" : "Central Kurdish",
+    "siteName" : "ویکیپیدیا"
+  },
+  {
+    "languageCode" : "co",
+    "languageName" : "corsu",
+    "localName" : "Corsican",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "cr",
+    "languageName" : "Nēhiyawēwin \/ ᓀᐦᐃᔭᐍᐏᐣ",
+    "localName" : "Cree",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "crh",
+    "languageName" : "qırımtatarca",
+    "localName" : "Crimean Turkish",
+    "siteName" : "Vikipediya"
+  },
+  {
+    "languageCode" : "cs",
+    "languageName" : "čeština",
+    "localName" : "Czech",
+    "siteName" : "Wikipedie"
+  },
+  {
+    "languageCode" : "csb",
+    "languageName" : "kaszëbsczi",
+    "localName" : "Kashubian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "cu",
+    "languageName" : "словѣньскъ \/ ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ",
+    "localName" : "Church Slavic",
+    "siteName" : "Википєдїꙗ"
+  },
+  {
+    "languageCode" : "cv",
+    "languageName" : "Чӑвашла",
+    "localName" : "Chuvash",
+    "siteName" : "Википеди"
+  },
+  {
+    "languageCode" : "cy",
+    "languageName" : "Cymraeg",
+    "localName" : "Welsh",
+    "siteName" : "Wicipedia"
+  },
+  {
+    "languageCode" : "da",
+    "languageName" : "dansk",
+    "localName" : "Danish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "de",
+    "languageName" : "Deutsch",
+    "localName" : "German",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "din",
+    "languageName" : "Thuɔŋjäŋ",
+    "localName" : "Dinka",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "diq",
+    "languageName" : "Zazaki",
+    "localName" : "Zazaki",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "dsb",
+    "languageName" : "dolnoserbski",
+    "localName" : "Lower Sorbian",
+    "siteName" : "Wikipedija"
+  },
+  {
+    "languageCode" : "dty",
+    "languageName" : "डोटेली",
+    "localName" : "Doteli",
+    "siteName" : "विकिपिडिया"
+  },
+  {
+    "languageCode" : "dv",
+    "languageName" : "ދިވެހިބަސް",
+    "localName" : "Divehi",
+    "siteName" : "ވިކިޕީޑިއާ"
+  },
+  {
+    "languageCode" : "dz",
+    "languageName" : "ཇོང་ཁ",
+    "localName" : "Dzongkha",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ee",
+    "languageName" : "eʋegbe",
+    "localName" : "Ewe",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "el",
+    "languageName" : "Ελληνικά",
+    "localName" : "Greek",
+    "siteName" : "Βικιπαίδεια"
+  },
+  {
+    "languageCode" : "eml",
+    "languageName" : "emiliàn e rumagnòl",
+    "localName" : "Emiliano-Romagnolo",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "en",
+    "languageName" : "English",
+    "localName" : "English",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "eo",
+    "languageName" : "Esperanto",
+    "localName" : "Esperanto",
+    "siteName" : "Vikipedio"
+  },
+  {
+    "languageCode" : "es",
+    "languageName" : "español",
+    "localName" : "Spanish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "et",
+    "languageName" : "eesti",
+    "localName" : "Estonian",
+    "siteName" : "Vikipeedia"
+  },
+  {
+    "languageCode" : "eu",
+    "languageName" : "euskara",
+    "localName" : "Basque",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ext",
+    "languageName" : "estremeñu",
+    "localName" : "Extremaduran",
+    "siteName" : "Güiquipeya"
+  },
+  {
+    "languageCode" : "fa",
+    "languageName" : "فارسی",
+    "localName" : "Persian",
+    "siteName" : "ویکی‌پدیا"
+  },
+  {
+    "languageCode" : "ff",
+    "languageName" : "Fulfulde",
+    "localName" : "Fulah",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "fi",
+    "languageName" : "suomi",
+    "localName" : "Finnish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "fiu-vro",
+    "languageName" : "Võro",
+    "localName" : "Võro",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "fj",
+    "languageName" : "Na Vosa Vakaviti",
+    "localName" : "Fijian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "fo",
+    "languageName" : "føroyskt",
+    "localName" : "Faroese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "fr",
+    "languageName" : "français",
+    "localName" : "French",
+    "siteName" : "Wikipédia"
+  },
+  {
+    "languageCode" : "frp",
+    "languageName" : "arpetan",
+    "localName" : "Arpitan",
+    "siteName" : "Vouiquipèdia"
+  },
+  {
+    "languageCode" : "frr",
+    "languageName" : "Nordfriisk",
+    "localName" : "Northern Frisian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "fur",
+    "languageName" : "furlan",
+    "localName" : "Friulian",
+    "siteName" : "Vichipedie"
+  },
+  {
+    "languageCode" : "fy",
+    "languageName" : "Frysk",
+    "localName" : "Western Frisian",
+    "siteName" : "Wikipedy"
+  },
+  {
+    "languageCode" : "ga",
+    "languageName" : "Gaeilge",
+    "localName" : "Irish",
+    "siteName" : "Vicipéid"
+  },
+  {
+    "languageCode" : "gag",
+    "languageName" : "Gagauz",
+    "localName" : "Gagauz",
+    "siteName" : "Vikipediya"
+  },
+  {
+    "languageCode" : "gan",
+    "languageName" : "贛語",
+    "localName" : "Gan Chinese",
+    "siteName" : "維基百科"
+  },
+  {
+    "languageCode" : "gcr",
+    "languageName" : "kriyòl gwiyannen",
+    "localName" : "Guianan Creole",
+    "siteName" : "Wikipédja"
+  },
+  {
+    "languageCode" : "gd",
+    "languageName" : "Gàidhlig",
+    "localName" : "Scottish Gaelic",
+    "siteName" : "Uicipeid"
+  },
+  {
+    "languageCode" : "gl",
+    "languageName" : "galego",
+    "localName" : "Galician",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "glk",
+    "languageName" : "گیلکی",
+    "localName" : "Gilaki",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "gn",
+    "languageName" : "Avañe'ẽ",
+    "localName" : "Guarani",
+    "siteName" : "Vikipetã"
+  },
+  {
+    "languageCode" : "gom",
+    "languageName" : "गोंयची कोंकणी \/ Gõychi Konknni",
+    "localName" : "Goan Konkani",
+    "siteName" : "विकिपीडिया"
+  },
+  {
+    "languageCode" : "gor",
+    "languageName" : "Bahasa Hulontalo",
+    "localName" : "Gorontalo",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "got",
+    "languageName" : "𐌲𐌿𐍄𐌹𐍃𐌺",
+    "localName" : "Gothic",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "gu",
+    "languageName" : "ગુજરાતી",
+    "localName" : "Gujarati",
+    "siteName" : "વિકિપીડિયા"
+  },
+  {
+    "languageCode" : "gv",
+    "languageName" : "Gaelg",
+    "localName" : "Manx",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ha",
+    "languageName" : "Hausa",
+    "localName" : "Hausa",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "hak",
+    "languageName" : "客家語\/Hak-kâ-ngî",
+    "localName" : "Hakka Chinese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "haw",
+    "languageName" : "Hawaiʻi",
+    "localName" : "Hawaiian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "he",
+    "languageName" : "עברית",
+    "localName" : "Hebrew",
+    "siteName" : "ויקיפדיה"
+  },
+  {
+    "languageCode" : "hi",
+    "languageName" : "हिन्दी",
+    "localName" : "Hindi",
+    "siteName" : "विकिपीडिया"
+  },
+  {
+    "languageCode" : "hif",
+    "languageName" : "Fiji Hindi",
+    "localName" : "Fiji Hindi",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ho",
+    "languageName" : "Hiri Motu",
+    "localName" : "Hiri Motu",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "hr",
+    "languageName" : "hrvatski",
+    "localName" : "Croatian",
+    "siteName" : "Wikipedija"
+  },
+  {
+    "languageCode" : "hsb",
+    "languageName" : "hornjoserbsce",
+    "localName" : "Upper Sorbian",
+    "siteName" : "Wikipedija"
+  },
+  {
+    "languageCode" : "ht",
+    "languageName" : "Kreyòl ayisyen",
+    "localName" : "Haitian Creole",
+    "siteName" : "Wikipedya"
+  },
+  {
+    "languageCode" : "hu",
+    "languageName" : "magyar",
+    "localName" : "Hungarian",
+    "siteName" : "Wikipédia"
+  },
+  {
+    "languageCode" : "hy",
+    "languageName" : "հայերեն",
+    "localName" : "Armenian",
+    "siteName" : "Վիքիպեդիա"
+  },
+  {
+    "languageCode" : "hyw",
+    "languageName" : "Արեւմտահայերէն",
+    "localName" : "Western Armenian",
+    "siteName" : "Ուիքիփետիա"
+  },
+  {
+    "languageCode" : "hz",
+    "languageName" : "Otsiherero",
+    "localName" : "Herero",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ia",
+    "languageName" : "interlingua",
+    "localName" : "Interlingua",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "id",
+    "languageName" : "Bahasa Indonesia",
+    "localName" : "Indonesian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ie",
+    "languageName" : "Interlingue",
+    "localName" : "Interlingue",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ig",
+    "languageName" : "Igbo",
+    "localName" : "Igbo",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ii",
+    "languageName" : "ꆇꉙ",
+    "localName" : "Sichuan Yi",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ik",
+    "languageName" : "Iñupiak",
+    "localName" : "Inupiaq",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ilo",
+    "languageName" : "Ilokano",
+    "localName" : "Iloko",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "inh",
+    "languageName" : "ГӀалгӀай",
+    "localName" : "Ingush",
+    "siteName" : "Википеди"
+  },
+  {
+    "languageCode" : "io",
+    "languageName" : "Ido",
+    "localName" : "Ido",
+    "siteName" : "Wikipedio"
+  },
+  {
+    "languageCode" : "is",
+    "languageName" : "íslenska",
+    "localName" : "Icelandic",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "it",
+    "languageName" : "italiano",
+    "localName" : "Italian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "iu",
+    "languageName" : "ᐃᓄᒃᑎᑐᑦ\/inuktitut",
+    "localName" : "Inuktitut",
+    "siteName" : "ᐅᐃᑭᐱᑎᐊ"
+  },
+  {
+    "languageCode" : "ja",
+    "languageName" : "日本語",
+    "localName" : "Japanese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "jam",
+    "languageName" : "Patois",
+    "localName" : "Jamaican Creole English",
+    "siteName" : "Wikipidia"
+  },
+  {
+    "languageCode" : "jbo",
+    "languageName" : "la .lojban.",
+    "localName" : "Lojban",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "jv",
+    "languageName" : "Jawa",
+    "localName" : "Javanese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ka",
+    "languageName" : "ქართული",
+    "localName" : "Georgian",
+    "siteName" : "ვიკიპედია"
+  },
+  {
+    "languageCode" : "kaa",
+    "languageName" : "Qaraqalpaqsha",
+    "localName" : "Kara-Kalpak",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "kab",
+    "languageName" : "Taqbaylit",
+    "localName" : "Kabyle",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "kbd",
+    "languageName" : "Адыгэбзэ",
+    "localName" : "Kabardian",
+    "siteName" : "Уикипедиэ"
+  },
+  {
+    "languageCode" : "kbp",
+    "languageName" : "Kabɩyɛ",
+    "localName" : "Kabiye",
+    "siteName" : "Wikipediya"
+  },
+  {
+    "languageCode" : "kg",
+    "languageName" : "Kongo",
+    "localName" : "Kongo",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ki",
+    "languageName" : "Gĩkũyũ",
+    "localName" : "Kikuyu",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "kj",
+    "languageName" : "Kwanyama",
+    "localName" : "Kuanyama",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "kk",
+    "languageName" : "қазақша",
+    "localName" : "Kazakh",
+    "siteName" : "Уикипедия"
+  },
+  {
+    "languageCode" : "kl",
+    "languageName" : "kalaallisut",
+    "localName" : "Kalaallisut",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "km",
+    "languageName" : "ភាសាខ្មែរ",
+    "localName" : "Khmer",
+    "siteName" : "វិគីភីឌា"
+  },
+  {
+    "languageCode" : "kn",
+    "languageName" : "ಕನ್ನಡ",
+    "localName" : "Kannada",
+    "siteName" : "ವಿಕಿಪೀಡಿಯ"
+  },
+  {
+    "languageCode" : "ko",
+    "languageName" : "한국어",
+    "localName" : "Korean",
+    "siteName" : "위키백과"
+  },
+  {
+    "languageCode" : "koi",
+    "languageName" : "Перем Коми",
+    "localName" : "Komi-Permyak",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "kr",
+    "languageName" : "Kanuri",
+    "localName" : "Kanuri",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "krc",
+    "languageName" : "къарачай-малкъар",
+    "localName" : "Karachay-Balkar",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "ks",
+    "languageName" : "कॉशुर \/ کٲشُر",
+    "localName" : "Kashmiri",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ksh",
+    "languageName" : "Ripoarisch",
+    "localName" : "Colognian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ku",
+    "languageName" : "kurdî",
+    "localName" : "Kurdish",
+    "siteName" : "Wîkîpediya"
+  },
+  {
+    "languageCode" : "kv",
+    "languageName" : "коми",
+    "localName" : "Komi",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "kw",
+    "languageName" : "kernowek",
+    "localName" : "Cornish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ky",
+    "languageName" : "Кыргызча",
+    "localName" : "Kyrgyz",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "la",
+    "languageName" : "Latina",
+    "localName" : "Latin",
+    "siteName" : "Vicipaedia"
+  },
+  {
+    "languageCode" : "lad",
+    "languageName" : "Ladino",
+    "localName" : "Ladino",
+    "siteName" : "Vikipedya"
+  },
+  {
+    "languageCode" : "lb",
+    "languageName" : "Lëtzebuergesch",
+    "localName" : "Luxembourgish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "lbe",
+    "languageName" : "лакку",
+    "localName" : "Lak",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "lez",
+    "languageName" : "лезги",
+    "localName" : "Lezghian",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "lfn",
+    "languageName" : "Lingua Franca Nova",
+    "localName" : "Lingua Franca Nova",
+    "siteName" : "Vicipedia"
+  },
+  {
+    "languageCode" : "lg",
+    "languageName" : "Luganda",
+    "localName" : "Ganda",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "li",
+    "languageName" : "Limburgs",
+    "localName" : "Limburgish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "lij",
+    "languageName" : "Ligure",
+    "localName" : "Ligurian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "lld",
+    "languageName" : "Ladin",
+    "localName" : "Ladin",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "lmo",
+    "languageName" : "lumbaart",
+    "localName" : "Lombard",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ln",
+    "languageName" : "lingála",
+    "localName" : "Lingala",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "lo",
+    "languageName" : "ລາວ",
+    "localName" : "Lao",
+    "siteName" : "ວິກິພີເດຍ"
+  },
+  {
+    "languageCode" : "lrc",
+    "languageName" : "لۊری شومالی",
+    "localName" : "Northern Luri",
+    "siteName" : "ڤیکیپئدیا"
+  },
+  {
+    "languageCode" : "lt",
+    "languageName" : "lietuvių",
+    "localName" : "Lithuanian",
+    "siteName" : "Vikipedija"
+  },
+  {
+    "languageCode" : "ltg",
+    "languageName" : "latgaļu",
+    "localName" : "Latgalian",
+    "siteName" : "Vikipedeja"
+  },
+  {
+    "languageCode" : "lv",
+    "languageName" : "latviešu",
+    "localName" : "Latvian",
+    "siteName" : "Vikipēdija"
+  },
+  {
+    "languageCode" : "mai",
+    "languageName" : "मैथिली",
+    "localName" : "Maithili",
+    "siteName" : "विकिपिडिया"
+  },
+  {
+    "languageCode" : "map-bms",
+    "languageName" : "Basa Banyumasan",
+    "localName" : "Basa Banyumasan",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "mdf",
+    "languageName" : "мокшень",
+    "localName" : "Moksha",
+    "siteName" : "Википедиесь"
+  },
+  {
+    "languageCode" : "mg",
+    "languageName" : "Malagasy",
+    "localName" : "Malagasy",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "mh",
+    "languageName" : "Ebon",
+    "localName" : "Marshallese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "mhr",
+    "languageName" : "олык марий",
+    "localName" : "Eastern Mari",
+    "siteName" : "Википедий"
+  },
+  {
+    "languageCode" : "mi",
+    "languageName" : "Māori",
+    "localName" : "Maori",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "min",
+    "languageName" : "Minangkabau",
+    "localName" : "Minangkabau",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "mk",
+    "languageName" : "македонски",
+    "localName" : "Macedonian",
+    "siteName" : "Википедија"
+  },
+  {
+    "languageCode" : "ml",
+    "languageName" : "മലയാളം",
+    "localName" : "Malayalam",
+    "siteName" : "വിക്കിപീഡിയ"
+  },
+  {
+    "languageCode" : "mn",
+    "languageName" : "монгол",
+    "localName" : "Mongolian",
+    "siteName" : "Википедиа"
+  },
+  {
+    "languageCode" : "mnw",
+    "languageName" : "ဘာသာ မန်",
+    "localName" : "Mon",
+    "siteName" : "ဝဳကဳပဳဒဳယာ"
+  },
+  {
+    "languageCode" : "mr",
+    "languageName" : "मराठी",
+    "localName" : "Marathi",
+    "siteName" : "विकिपीडिया"
+  },
+  {
+    "languageCode" : "mrj",
+    "languageName" : "кырык мары",
+    "localName" : "Western Mari",
+    "siteName" : "Википеди"
+  },
+  {
+    "languageCode" : "ms",
+    "languageName" : "Bahasa Melayu",
+    "localName" : "Malay",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "mt",
+    "languageName" : "Malti",
+    "localName" : "Maltese",
+    "siteName" : "Wikipedija"
+  },
+  {
+    "languageCode" : "mus",
+    "languageName" : "Mvskoke",
+    "localName" : "Muscogee",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "mwl",
+    "languageName" : "Mirandés",
+    "localName" : "Mirandese",
+    "siteName" : "Biquipédia"
+  },
+  {
+    "languageCode" : "my",
+    "languageName" : "မြန်မာဘာသာ",
+    "localName" : "Burmese",
+    "siteName" : "ဝီကီပီးဒီးယား"
+  },
+  {
+    "languageCode" : "myv",
+    "languageName" : "эрзянь",
+    "localName" : "Erzya",
+    "siteName" : "Википедиясь"
+  },
+  {
+    "languageCode" : "mzn",
+    "languageName" : "مازِرونی",
+    "localName" : "Mazanderani",
+    "siteName" : "ویکی‌پدیا"
+  },
+  {
+    "languageCode" : "na",
+    "languageName" : "Dorerin Naoero",
+    "localName" : "Nauru",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nah",
+    "languageName" : "Nāhuatl",
+    "localName" : "Nāhuatl",
+    "siteName" : "Huiquipedia"
+  },
+  {
+    "languageCode" : "nap",
+    "languageName" : "Napulitano",
+    "localName" : "Neapolitan",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nds",
+    "languageName" : "Plattdüütsch",
+    "localName" : "Low German",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nds-nl",
+    "languageName" : "Nedersaksies",
+    "localName" : "Low Saxon",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ne",
+    "languageName" : "नेपाली",
+    "localName" : "Nepali",
+    "siteName" : "विकिपिडिया"
+  },
+  {
+    "languageCode" : "new",
+    "languageName" : "नेपाल भाषा",
+    "localName" : "Newari",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ng",
+    "languageName" : "Oshiwambo",
+    "localName" : "Ndonga",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nl",
+    "languageName" : "Nederlands",
+    "localName" : "Dutch",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nn",
+    "languageName" : "norsk nynorsk",
+    "localName" : "Norwegian Nynorsk",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "no",
+    "languageName" : "norsk",
+    "localName" : "Norwegian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nov",
+    "languageName" : "Novial",
+    "localName" : "Novial",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nqo",
+    "languageName" : "ߒߞߏ",
+    "localName" : "N’Ko",
+    "siteName" : "ߥߞߌߔߘߋߞߎ"
+  },
+  {
+    "languageCode" : "nrm",
+    "languageName" : "Nouormand",
+    "localName" : "Norman",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nso",
+    "languageName" : "Sesotho sa Leboa",
+    "localName" : "Northern Sotho",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "nv",
+    "languageName" : "Diné bizaad",
+    "localName" : "Navajo",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ny",
+    "languageName" : "Chi-Chewa",
+    "localName" : "Nyanja",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "oc",
+    "languageName" : "occitan",
+    "localName" : "Occitan",
+    "siteName" : "Wikipèdia"
+  },
+  {
+    "languageCode" : "olo",
+    "languageName" : "Livvinkarjala",
+    "localName" : "Livvi-Karelian",
+    "siteName" : "Wikipedii"
+  },
+  {
+    "languageCode" : "om",
+    "languageName" : "Oromoo",
+    "localName" : "Oromo",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "or",
+    "languageName" : "ଓଡ଼ିଆ",
+    "localName" : "Odia",
+    "siteName" : "ଉଇକିପିଡ଼ିଆ"
+  },
+  {
+    "languageCode" : "os",
+    "languageName" : "Ирон",
+    "localName" : "Ossetic",
+    "siteName" : "Википеди"
+  },
+  {
+    "languageCode" : "pa",
+    "languageName" : "ਪੰਜਾਬੀ",
+    "localName" : "Punjabi",
+    "siteName" : "ਵਿਕੀਪੀਡੀਆ"
+  },
+  {
+    "languageCode" : "pag",
+    "languageName" : "Pangasinan",
+    "localName" : "Pangasinan",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pam",
+    "languageName" : "Kapampangan",
+    "localName" : "Pampanga",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pap",
+    "languageName" : "Papiamentu",
+    "localName" : "Papiamento",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pcd",
+    "languageName" : "Picard",
+    "localName" : "Picard",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pdc",
+    "languageName" : "Deitsch",
+    "localName" : "Pennsylvania German",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pfl",
+    "languageName" : "Pälzisch",
+    "localName" : "Palatine German",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pi",
+    "languageName" : "पालि",
+    "localName" : "Pali",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pih",
+    "languageName" : "Norfuk \/ Pitkern",
+    "localName" : "Norfuk \/ Pitkern",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pl",
+    "languageName" : "polski",
+    "localName" : "Polish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pms",
+    "languageName" : "Piemontèis",
+    "localName" : "Piedmontese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "pnb",
+    "languageName" : "پنجابی",
+    "localName" : "Western Punjabi",
+    "siteName" : "وکیپیڈیا"
+  },
+  {
+    "languageCode" : "pnt",
+    "languageName" : "Ποντιακά",
+    "localName" : "Pontic",
+    "siteName" : "Βικιπαίδεια"
+  },
+  {
+    "languageCode" : "ps",
+    "languageName" : "پښتو",
+    "localName" : "Pashto",
+    "siteName" : "ويکيپېډيا"
+  },
+  {
+    "languageCode" : "pt",
+    "languageName" : "português",
+    "localName" : "Portuguese",
+    "siteName" : "Wikipédia"
+  },
+  {
+    "languageCode" : "qu",
+    "languageName" : "Runa Simi",
+    "localName" : "Quechua",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "rm",
+    "languageName" : "rumantsch",
+    "localName" : "Romansh",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "rmy",
+    "languageName" : "romani čhib",
+    "localName" : "Vlax Romani",
+    "siteName" : "Vikipidiya"
+  },
+  {
+    "languageCode" : "rn",
+    "languageName" : "Kirundi",
+    "localName" : "Rundi",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ro",
+    "languageName" : "română",
+    "localName" : "Romanian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "roa-rup",
+    "languageName" : "armãneashti",
+    "localName" : "Aromanian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "roa-tara",
+    "languageName" : "tarandíne",
+    "localName" : "Tarantino",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ru",
+    "languageName" : "русский",
+    "localName" : "Russian",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "rue",
+    "languageName" : "русиньскый",
+    "localName" : "Rusyn",
+    "siteName" : "Вікіпедія"
+  },
+  {
+    "languageCode" : "rw",
+    "languageName" : "Kinyarwanda",
+    "localName" : "Kinyarwanda",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sa",
+    "languageName" : "संस्कृतम्",
+    "localName" : "Sanskrit",
+    "siteName" : "विकिपीडिया"
+  },
+  {
+    "languageCode" : "sah",
+    "languageName" : "саха тыла",
+    "localName" : "Sakha",
+    "siteName" : "Бикипиэдьийэ"
+  },
+  {
+    "languageCode" : "sat",
+    "languageName" : "ᱥᱟᱱᱛᱟᱲᱤ",
+    "localName" : "Santali",
+    "siteName" : "ᱣᱤᱠᱤᱯᱤᱰᱤᱭᱟ"
+  },
+  {
+    "languageCode" : "sc",
+    "languageName" : "sardu",
+    "localName" : "Sardinian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "scn",
+    "languageName" : "sicilianu",
+    "localName" : "Sicilian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sco",
+    "languageName" : "Scots",
+    "localName" : "Scots",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sd",
+    "languageName" : "سنڌي",
+    "localName" : "Sindhi",
+    "siteName" : "وڪيپيڊيا"
+  },
+  {
+    "languageCode" : "se",
+    "languageName" : "davvisámegiella",
+    "localName" : "Northern Sami",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sg",
+    "languageName" : "Sängö",
+    "localName" : "Sango",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sh",
+    "languageName" : "srpskohrvatski \/ српскохрватски",
+    "localName" : "Serbo-Croatian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "shn",
+    "languageName" : "ၽႃႇသႃႇတႆး ",
+    "localName" : "Shan",
+    "siteName" : "ဝီႇၶီႇၽီးတီးယႃး"
+  },
+  {
+    "languageCode" : "si",
+    "languageName" : "සිංහල",
+    "localName" : "Sinhala",
+    "siteName" : "විකිපීඩියා"
+  },
+  {
+    "languageCode" : "simple",
+    "languageName" : "Simple English",
+    "localName" : "Simple English",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sk",
+    "languageName" : "slovenčina",
+    "localName" : "Slovak",
+    "siteName" : "Wikipédia"
+  },
+  {
+    "languageCode" : "sl",
+    "languageName" : "slovenščina",
+    "localName" : "Slovenian",
+    "siteName" : "Wikipedija"
+  },
+  {
+    "languageCode" : "sm",
+    "languageName" : "Gagana Samoa",
+    "localName" : "Samoan",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sn",
+    "languageName" : "chiShona",
+    "localName" : "Shona",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "so",
+    "languageName" : "Soomaaliga",
+    "localName" : "Somali",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sq",
+    "languageName" : "shqip",
+    "localName" : "Albanian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sr",
+    "languageName" : "српски \/ srpski",
+    "localName" : "Serbian",
+    "siteName" : "Википедија"
+  },
+  {
+    "languageCode" : "srn",
+    "languageName" : "Sranantongo",
+    "localName" : "Sranan Tongo",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ss",
+    "languageName" : "SiSwati",
+    "localName" : "Swati",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "st",
+    "languageName" : "Sesotho",
+    "localName" : "Southern Sotho",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "stq",
+    "languageName" : "Seeltersk",
+    "localName" : "Saterland Frisian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "su",
+    "languageName" : "Sunda",
+    "localName" : "Sundanese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sv",
+    "languageName" : "svenska",
+    "localName" : "Swedish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "sw",
+    "languageName" : "Kiswahili",
+    "localName" : "Swahili",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "szl",
+    "languageName" : "ślůnski",
+    "localName" : "Silesian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "szy",
+    "languageName" : "Sakizaya",
+    "localName" : "Sakizaya",
+    "siteName" : "Wikipitiya"
+  },
+  {
+    "languageCode" : "ta",
+    "languageName" : "தமிழ்",
+    "localName" : "Tamil",
+    "siteName" : "விக்கிப்பீடியா"
+  },
+  {
+    "languageCode" : "tcy",
+    "languageName" : "ತುಳು",
+    "localName" : "Tulu",
+    "siteName" : "ವಿಕಿಪೀಡಿಯ"
+  },
+  {
+    "languageCode" : "te",
+    "languageName" : "తెలుగు",
+    "localName" : "Telugu",
+    "siteName" : "వికీపీడియా"
+  },
+  {
+    "languageCode" : "test",
+    "languageName" : "Test",
+    "localName" : "Test",
+    "siteName" : "Test Wikipedia"
+  },
+  {
+    "languageCode" : "tet",
+    "languageName" : "tetun",
+    "localName" : "Tetum",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tg",
+    "languageName" : "тоҷикӣ",
+    "localName" : "Tajik",
+    "siteName" : "Википедиа"
+  },
+  {
+    "languageCode" : "th",
+    "languageName" : "ไทย",
+    "localName" : "Thai",
+    "siteName" : "วิกิพีเดีย"
+  },
+  {
+    "languageCode" : "ti",
+    "languageName" : "ትግርኛ",
+    "localName" : "Tigrinya",
+    "siteName" : "ዊኪፔዲያ"
+  },
+  {
+    "languageCode" : "tk",
+    "languageName" : "Türkmençe",
+    "localName" : "Turkmen",
+    "siteName" : "Wikipediýa"
+  },
+  {
+    "languageCode" : "tl",
+    "languageName" : "Tagalog",
+    "localName" : "Tagalog",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tn",
+    "languageName" : "Setswana",
+    "localName" : "Tswana",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "to",
+    "languageName" : "lea faka-Tonga",
+    "localName" : "Tongan",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tpi",
+    "languageName" : "Tok Pisin",
+    "localName" : "Tok Pisin",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tr",
+    "languageName" : "Türkçe",
+    "localName" : "Turkish",
+    "siteName" : "Vikipedi"
+  },
+  {
+    "languageCode" : "ts",
+    "languageName" : "Xitsonga",
+    "localName" : "Tsonga",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tt",
+    "languageName" : "татарча\/tatarça",
+    "localName" : "Tatar",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tum",
+    "languageName" : "chiTumbuka",
+    "localName" : "Tumbuka",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tw",
+    "languageName" : "Twi",
+    "localName" : "Twi",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "ty",
+    "languageName" : "reo tahiti",
+    "localName" : "Tahitian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "tyv",
+    "languageName" : "тыва дыл",
+    "localName" : "Tuvinian",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "udm",
+    "languageName" : "удмурт",
+    "localName" : "Udmurt",
+    "siteName" : "Википедия"
+  },
+  {
+    "languageCode" : "ug",
+    "languageName" : "ئۇيغۇرچە \/ Uyghurche",
+    "localName" : "Uyghur",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "uk",
+    "languageName" : "українська",
+    "localName" : "Ukrainian",
+    "siteName" : "Вікіпедія"
+  },
+  {
+    "languageCode" : "ur",
+    "languageName" : "اردو",
+    "localName" : "Urdu",
+    "siteName" : "ویکیپیڈیا"
+  },
+  {
+    "languageCode" : "uz",
+    "languageName" : "oʻzbekcha\/ўзбекча",
+    "localName" : "Uzbek",
+    "siteName" : "Vikipediya"
+  },
+  {
+    "languageCode" : "ve",
+    "languageName" : "Tshivenda",
+    "localName" : "Venda",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "vec",
+    "languageName" : "vèneto",
+    "localName" : "Venetian",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "vep",
+    "languageName" : "vepsän kel’",
+    "localName" : "Veps",
+    "siteName" : "Vikipedii"
+  },
+  {
+    "languageCode" : "vi",
+    "languageName" : "Tiếng Việt",
+    "localName" : "Vietnamese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "vls",
+    "languageName" : "West-Vlams",
+    "localName" : "West Flemish",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "vo",
+    "languageName" : "Volapük",
+    "localName" : "Volapük",
+    "siteName" : "Vükiped"
+  },
+  {
+    "languageCode" : "wa",
+    "languageName" : "walon",
+    "localName" : "Walloon",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "war",
+    "languageName" : "Winaray",
+    "localName" : "Waray",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "wo",
+    "languageName" : "Wolof",
+    "localName" : "Wolof",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "wuu",
+    "languageName" : "吴语",
+    "localName" : "Wu Chinese",
+    "siteName" : "维基百科"
+  },
+  {
+    "languageCode" : "xal",
+    "languageName" : "хальмг",
+    "localName" : "Kalmyk",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "xh",
+    "languageName" : "isiXhosa",
+    "localName" : "Xhosa",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "xmf",
+    "languageName" : "მარგალური",
+    "localName" : "Mingrelian",
+    "siteName" : "ვიკიპედია"
+  },
+  {
+    "languageCode" : "yi",
+    "languageName" : "ייִדיש",
+    "localName" : "Yiddish",
+    "siteName" : "װיקיפּעדיע"
+  },
+  {
+    "languageCode" : "yo",
+    "languageName" : "Yorùbá",
+    "localName" : "Yoruba",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "za",
+    "languageName" : "Vahcuengh",
+    "localName" : "Zhuang",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "zea",
+    "languageName" : "Zeêuws",
+    "localName" : "Zeelandic",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "zh",
+    "languageName" : "中文",
+    "localName" : "Chinese",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "zh-classical",
+    "languageName" : "文言",
+    "localName" : "Classical Chinese",
+    "siteName" : "維基大典"
+  },
+  {
+    "languageCode" : "zh-min-nan",
+    "languageName" : "Bân-lâm-gú",
+    "localName" : "Chinese (Min Nan)",
+    "siteName" : "Wikipedia"
+  },
+  {
+    "languageCode" : "zh-yue",
+    "languageName" : "粵語",
+    "localName" : "Cantonese",
+    "siteName" : "維基百科"
+  },
+  {
+    "languageCode" : "zu",
+    "languageName" : "isiZulu",
+    "localName" : "Zulu",
+    "siteName" : "Wikipedia"
+  }
+]
