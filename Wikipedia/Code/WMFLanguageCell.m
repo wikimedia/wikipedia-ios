@@ -1,5 +1,4 @@
 #import "WMFLanguageCell.h"
-#import "UILabel+WMFStyling.h"
 #import "Wikipedia-Swift.h"
 
 @interface WMFLanguageCell ()

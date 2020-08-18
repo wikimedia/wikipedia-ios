@@ -28,23 +28,23 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
 
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        addSubview(imageView)
+        contentView.addSubview(imageView)
         
         messageTextView.isScrollEnabled = false
         messageTextView.isEditable = false
         messageTextView.delegate = self
-        addSubview(messageTextView)
+        contentView.addSubview(messageTextView)
         
-        addSubview(actionButton)
+        contentView.addSubview(actionButton)
         
-        addSubview(dismissButton)
+        contentView.addSubview(dismissButton)
         
-        addSubview(captionSeparatorView)
+        contentView.addSubview(captionSeparatorView)
         
         captionTextView.isScrollEnabled = false
         captionTextView.isEditable = false
         captionTextView.delegate = self
-        addSubview(captionTextView)
+        contentView.addSubview(captionTextView)
         
         actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         actionButton.titleLabel?.numberOfLines = 0
