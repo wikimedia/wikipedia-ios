@@ -34,7 +34,7 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     override open func setup() {
         super.setup()
         timelineView.isOpaque = true
-        insertSubview(timelineView, belowSubview: collectionView)
+        contentView.insertSubview(timelineView, belowSubview: collectionView)
     }
     
     public var pauseDotsAnimation: Bool = true {
