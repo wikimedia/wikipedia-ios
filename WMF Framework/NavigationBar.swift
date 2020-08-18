@@ -710,6 +710,8 @@ extension NavigationBar: UINavigationBarDelegate {
     public func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
         // During iOS 14's long press to access back history, this function is called *after* the unneeded navigationItems have been popped off.
         // However, with our custom navBar the actual articleVC isn't changed. So we need to find the articleVC for the top navItem, and pop to it.
+        // This should be in shouldPop, but as of iOS 14.0 beta 5, shouldPop isn't called when long pressing a back button. Once this is fixed by Apple,
+        // we should move this to shouldPop to improve animations.
         if let topNavigationItem = navigationBar.items?.last,
            let navController = delegate?.navigationController,
            let tappedViewController = navController.viewControllers.first(where: {$0.navigationItem == topNavigationItem}) {
