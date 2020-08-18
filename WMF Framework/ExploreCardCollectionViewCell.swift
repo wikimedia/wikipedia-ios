@@ -253,7 +253,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         let totalSize = CGSize(width: size.width, height: ceil(origin.y))
         
         if apply {
-            layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: totalSize), cornerRadius: cardCornerRadius).cgPath
+            cardBackgroundView.layer.shadowPath = UIBezierPath(roundedRect: cardBackgroundView.bounds, cornerRadius: cardBackgroundView.layer.cornerRadius).cgPath
         }
 
         return totalSize
