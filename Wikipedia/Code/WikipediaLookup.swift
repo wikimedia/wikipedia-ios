@@ -16,8 +16,8 @@ import WMF.WMFLogging
     }()
     
     @objc static let allLanguageLinks: [MWKLanguageLink] = {
-        return allWikipedias.compactMap { (wikipedia) -> MWKLanguageLink in
-            var localizedName = wikipedia.languageName
+        return allWikipedias.map { (wikipedia) -> MWKLanguageLink in
+            var localizedName = wikipedia.localName
             if !wikipedia.languageCode.contains("-") {
                 // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
                 // should be "Cantonese". It looks like iOS ignores anything after the "-".
