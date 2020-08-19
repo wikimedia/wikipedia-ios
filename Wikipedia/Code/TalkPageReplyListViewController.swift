@@ -331,7 +331,9 @@ private extension TalkPageReplyListViewController {
 
             let titleWithoutHTML = title.removingHTML
             navigationBar.title = titleWithoutHTML
-            navigationItem.backButtonTitle = titleWithoutHTML
+            if !titleWithoutHTML.isEmpty {
+                navigationItem.backButtonTitle = titleWithoutHTML
+            }
             updateScrollViewInsets()
         }
     }
