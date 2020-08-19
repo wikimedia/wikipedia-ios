@@ -3,7 +3,6 @@
 #import "WMFSearchResults_Internal.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
-#import "MWKSite+Random.h"
 #import "LSStubResponseDSL+WithJSON.h"
 #import "XCTestCase+WMFBundleConvenience.h"
 #import "NSBundle+TestAssets.h"
