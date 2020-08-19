@@ -311,8 +311,8 @@ class ArticleViewController: ViewController, HintPresenting {
         surveyTimerController.timerFireBlock = { [weak self] result in
             self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
         }
-        self.navigationItem.backButtonTitle = articleURL.wmf_title
         if #available(iOS 14.0, *) {
+            self.navigationItem.backButtonTitle = articleURL.wmf_title
             self.navigationItem.backButtonDisplayMode = .generic
         }
     }

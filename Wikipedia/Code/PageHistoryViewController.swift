@@ -157,7 +157,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
         hintController = PageHistoryHintController()
         title = CommonStrings.historyTabTitle
-        navigationItem.backButtonTitle = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view")
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonTitle = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view")
+            navigationItem.backButtonDisplayMode = .generic
+        }
         navigationItem.rightBarButtonItem = compareButton
         addChild(countsViewController)
         navigationBar.addUnderNavigationBarView(countsViewController.view)
