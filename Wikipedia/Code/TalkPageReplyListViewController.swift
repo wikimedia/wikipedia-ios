@@ -70,6 +70,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 publishButton.isEnabled = false
                 navigationItem.rightBarButtonItem = publishButton
                 navigationItem.title = replyString
+                navigationItem.backButtonTitle = replyString
                 navigationBar.updateNavigationItems()
             } else {
                 navigationItem.rightBarButtonItem = replyBarButtonItem
@@ -327,7 +328,10 @@ private extension TalkPageReplyListViewController {
             useNavigationBarVisibleHeightForScrollViewInsets = false
             navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-            navigationBar.title = title.removingHTML
+
+            let titleWithoutHTML = title.removingHTML
+            navigationBar.title = titleWithoutHTML
+            navigationItem.backButtonTitle = titleWithoutHTML
             updateScrollViewInsets()
         }
     }

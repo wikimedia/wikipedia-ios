@@ -17,7 +17,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         didSet {
             timeLabel.text = displayTime
             if let displayTime = displayTime {
-                timeLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Accessibility label text telling the user what time revision was made - %@ is replaced with the time"), displayTime)
+                timeLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Label text telling the user what time revision was made - %@ is replaced with the time"), displayTime)
             } else {
                 timeLabel.accessibilityLabel = nil
             }
