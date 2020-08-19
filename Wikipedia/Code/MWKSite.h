@@ -1,4 +1,4 @@
-@import Mantle;
+#import <WMF/WMFMTLModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWKUser;
 
 /// Represents a mediawiki instance dedicated to a specific language.
-@interface MWKSite : MTLModel <NSCopying>
+@interface MWKSite : WMFMTLModel <NSCopying>
 
 @property (nonatomic, copy, readonly) NSURL *URL;
 

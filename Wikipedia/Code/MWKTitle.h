@@ -1,9 +1,9 @@
-#import <Mantle/MTLModel.h>
+#import <WMF/WMFMTLModel.h>
 #import <WMF/MWKSite.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKTitle : MTLModel
+@interface MWKTitle : WMFMTLModel
 
 #pragma mark - Permanent Properties
 
