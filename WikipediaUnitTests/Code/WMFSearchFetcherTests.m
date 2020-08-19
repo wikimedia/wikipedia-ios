@@ -35,7 +35,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for articles"];
 
     [self.fetcher fetchArticlesForSearchTerm:@"foo"
-        siteURL:[NSURL wmf_randomSiteURL]
+        siteURL:[NSURL URLWithString:@"https://en.wikipedia.org"]
         resultLimit:15
         failure:^(NSError *error) {
             XCTFail(@"Error");
@@ -63,7 +63,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for articles"];
 
     [self.fetcher fetchArticlesForSearchTerm:@"foo"
-        siteURL:[NSURL wmf_randomSiteURL]
+        siteURL:[NSURL URLWithString:@"https://en.wikipedia.org"]
         resultLimit:15
         failure:^(NSError *error) {
             XCTFail(@"Error");
