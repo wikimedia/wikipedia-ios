@@ -17,7 +17,6 @@
 @dynamic location;
 @dynamic placemark;
 @dynamic siteURLString;
-@dynamic content;
 @dynamic isVisible;
 @dynamic wasDismissed;
 @dynamic fullContent;

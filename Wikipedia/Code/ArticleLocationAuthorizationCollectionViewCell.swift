@@ -41,9 +41,6 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
     }
 
     public func updateForLocationEnabled() {
-        guard WMFLocationManager.isAuthorized() else {
-            return
-        }
         authorizeButton.setTitle(WMFLocalizedString("places-location-enabled", value: "Location enabled", comment: "Title for button informing user that they successfully enabled location services"), for: .normal)
         authorizeButton.removeTarget(self, action: #selector(authorizeButtonPressed(_:)), for: .touchUpInside)
         authorizeButton.isEnabled = false
