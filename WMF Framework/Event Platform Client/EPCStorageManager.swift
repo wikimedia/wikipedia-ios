@@ -88,7 +88,7 @@ class EPCStorageManager: EPCStorageManaging {
         return libraryValue(for: key)
     }
     
-    var deviceID: String? {
+    var installID: String? {
         return legacyEventLoggingService.appInstallID
     }
     

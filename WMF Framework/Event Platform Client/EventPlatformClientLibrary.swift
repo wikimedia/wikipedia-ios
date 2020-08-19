@@ -261,8 +261,17 @@ public class EPC: NSObject {
         self.networkManager = networkManager
         self.storageManager = storageManager
 
+        /* The streams that will be retrieved from the API will be the ones that
+         * specify "eventgate-analytics-external" for destination_event_service
+         * in the config. This serves two purposes: (1) lightens the payload, as
+         * the full stream config includes irrelevant streams (e.g. MediaWiki
+         * events and client-side error logging), and (2) we ensure that only
+         * streams with that destination are logged to, since eventgate-analytics-external
+         * is set up as a public endpoint at intake-analytics.wikimedia.org,
+         * where both EventLogging and this library send analytics events to.
+         */
         guard let eventGateURI = URL(string: "https://pai-test.wmflabs.org/log"), // https://intake-analytics.wikimedia.org/v1/events
-            let configURI = URL(string: "https://pai-test.wmflabs.org/streams") else { // https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json
+            let configURI = URL(string: "https://pai-test.wmflabs.org/streams") else { // https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external
                 DDLogError("EventPlatformClientLibrary - Unable to instantiate uris")
                 return nil
         }
@@ -614,7 +623,7 @@ public class EPC: NSObject {
          * config is available (in case they're generated offline) and before
          * they're cc'd to any other streams (once config is available).
          */
-        let sessionIDKey = "session_id"
+        let sessionIDKey = "app_session_id"
         if !data.keys.contains(sessionIDKey) {
             data[sessionIDKey] = sessionID as NSCoding
         }
@@ -639,16 +648,16 @@ public class EPC: NSObject {
             return
         }
 
-        guard let deviceID = storageManager.deviceID else {
+        guard let installID = storageManager.installID else {
             DDLogError("EPCStorageManager is missing its deviceID. Fallbacking to not in sample.")
             return
         }
         
-        if !inSample(stream: stream, deviceID: deviceID) {
+        if !inSample(stream: stream, deviceID: installID) {
             return
         }
 
-        data["device_id"] = deviceID as NSCoding
+        data["app_install_id"] = installID as NSCoding
         /*
          * EventGate needs to know which version of the schema to validate
          * against (e.g. '/mediawiki/client/error/1.0.0')

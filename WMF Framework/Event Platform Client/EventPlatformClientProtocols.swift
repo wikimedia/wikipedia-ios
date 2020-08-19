@@ -47,14 +47,16 @@ import Foundation
  * be dictionaries-within-dictionaries. Fortunately, the types within those dictionaries are always
  * encodable/decodable (e.g. `String`, `Int`, `Bool`, `Double` and arrays of those types).
  *
- * Additionally, it makes the app's install ID available as the device identifier (`deviceID`).
+ * Additionally, it makes the app's install ID available to EPC as `installID` for including in events and
+ * determining sampling for streams configured to use the "device" identifier (as opposed to those configured
+ * to use the "session" identifier).
  */
 public protocol EPCStorageManaging {
     //used by EPC
     func setPersisted(_ key: String, _ value: NSCoding)
     func deletePersisted(_ key: String)
     func getPersisted(_ key: String) -> NSCoding?
-    var deviceID: String? { get }
+    var installID: String? { get }
     var sharingUsageData: Bool { get }
     
     //used by EPCNetworkManager
