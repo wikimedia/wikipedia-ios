@@ -58,7 +58,10 @@ class WikipediaLanguageCommandLineUtility {
 
     private func writeCodemirrorConfig(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable {
         sites
-            .map { api.getCodeMirrorConfigJSON(for: $0.languageCode).add(userInfo: $0) }
+            .map { site in
+                api.getCodeMirrorConfigJSON(for: site.languageCode)
+                    .map { ($0, site) }
+            }
             .merge()
             .sink(receiveCompletion: { (result) in
                 switch result {
@@ -76,7 +79,10 @@ class WikipediaLanguageCommandLineUtility {
 
     private func writeNamespaceFiles(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable? {
         return sites
-            .map { api.getSiteInfo(with: $0.languageCode).add(userInfo: $0) }
+            .map { site in
+                api.getSiteInfo(with: site.languageCode)
+                    .map { ($0, site) }
+            }
             .merge()
             .map {
                 (self.getSiteInfoLookup(with: $0.0), $0.1)
