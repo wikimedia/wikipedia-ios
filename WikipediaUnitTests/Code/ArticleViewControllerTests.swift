@@ -15,7 +15,8 @@ private class MockSchemeHandler: SchemeHandler {
 }
 
 class ArticleViewControllerTests: XCTestCase {
-
+    let timeout: TimeInterval = 10
+    
     override func setUp() {
        super.setUp()
        
@@ -51,7 +52,7 @@ class ArticleViewControllerTests: XCTestCase {
             
         UIApplication.shared.keyWindow?.rootViewController = articleVC
     
-        wait(for: [setupExpectation], timeout: 10)
+        wait(for: [setupExpectation], timeout: timeout)
     }
 
 }

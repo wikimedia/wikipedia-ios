@@ -62,7 +62,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         undoButton.titleLabel?.textAlignment = .right
         contentView.addSubview(undoButton)
     }
-    
+
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
@@ -249,8 +249,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
 
         origin.y += layoutMargins.bottom
+        
+        let totalSize = CGSize(width: size.width, height: ceil(origin.y))
+        
+        if apply {
+            cardBackgroundView.layer.shadowPath = UIBezierPath(roundedRect: cardBackgroundView.bounds, cornerRadius: cardBackgroundView.layer.cornerRadius).cgPath
+        }
 
-        return CGSize(width: size.width, height: ceil(origin.y))
+        return totalSize
     }
     
     public override func updateFonts(with traitCollection: UITraitCollection) {

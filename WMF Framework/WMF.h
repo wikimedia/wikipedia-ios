@@ -49,8 +49,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKDataObject.h>
 #import <WMF/MWKSiteDataObject.h>
 
-#import <WMF/MWKUser.h>
-
 #import <WMF/MWKSavedPageList.h>
 
 #import <WMF/MWKRecentSearchEntry.h>
@@ -136,6 +134,4 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 //Deprecated
 #import <WMF/MWKList.h>
 #import <WMF/MWKList+Subclass.h>
-#import <WMF/MWKSite.h>
-#import <WMF/MWKTitle.h>
 #import <WMF/WMFLegacyImageCache.h>
