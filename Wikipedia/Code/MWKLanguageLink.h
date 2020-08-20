@@ -1,4 +1,4 @@
-#import "WMFContentGroup+Extensions.h"
+#import <WMF/WMFContentGroup+Extensions.h>
 @import Foundation;
 
 @class WMFLanguageLinkNamespace;
