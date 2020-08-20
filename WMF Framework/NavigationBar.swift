@@ -92,26 +92,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
-        if displayType == .backVisible {
-            
-            if let vc = delegate, let nc = vc.navigationController {
-                
-                var indexToAppend: Int = 0
-                if let index = nc.viewControllers.firstIndex(of: vc), index > 0 {
-                    indexToAppend = index
-                } else if let parentVC = vc.parent,
-                    let index = nc.viewControllers.firstIndex(of: parentVC),
-                    index > 0 {
-                    indexToAppend = index
-                }
-                
-                if indexToAppend > 0 {
-                    items.append(nc.viewControllers[indexToAppend].navigationItem)
-                }
-            }
-        }
-        
-        if let item = delegate?.navigationItem {
+        if displayType == .backVisible, let vc = delegate, let nc = vc.navigationController {
+            nc.viewControllers.forEach({ items.append($0.navigationItem) })
+        } else if let item = delegate?.navigationItem {
             items.append(item)
         }
         
@@ -722,5 +705,17 @@ extension NavigationBar: UINavigationBarDelegate {
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
         delegate?.navigationController?.popViewController(animated: true)
         return false
+    }
+
+    public func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
+        // During iOS 14's long press to access back history, this function is called *after* the unneeded navigationItems have been popped off.
+        // However, with our custom navBar the actual articleVC isn't changed. So we need to find the articleVC for the top navItem, and pop to it.
+        // This should be in shouldPop, but as of iOS 14.0 beta 5, shouldPop isn't called when long pressing a back button. Once this is fixed by Apple,
+        // we should move this to shouldPop to improve animations.
+        if let topNavigationItem = navigationBar.items?.last,
+           let navController = delegate?.navigationController,
+           let tappedViewController = navController.viewControllers.first(where: {$0.navigationItem == topNavigationItem}) {
+            delegate?.navigationController?.popToViewController(tappedViewController, animated: true)
+        }
     }
 }
