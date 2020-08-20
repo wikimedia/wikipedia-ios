@@ -260,13 +260,13 @@ class DiffContainerViewController: ViewController, HintPresenting {
         if #available(iOS 14.0, *) {
             let buttonTitle: String
             switch type {
-            case .compare: buttonTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
+            case .compare: buttonTitle = CommonStrings.compareRevisionsTitle
             case .single:
                 guard let toDate = toModel?.revisionDate as NSDate? else {
                     return
                 }
                 let dateString = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
-                buttonTitle = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Label text telling the user what time revision was made - %@ is replaced with the time"), dateString.lowercased())
+                buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
             }
             navigationItem.backButtonTitle = buttonTitle
             navigationItem.backButtonDisplayMode = .generic
