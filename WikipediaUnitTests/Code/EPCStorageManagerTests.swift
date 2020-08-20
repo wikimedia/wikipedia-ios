@@ -198,18 +198,18 @@ class EPCStorageManagerTests: XCTestCase {
         XCTAssertNil(temporaryNonCachingStorageManager.getPersisted(key),"WMFKeyValue has value after deletion")
     }
     
-    func testDeviceIDMatchesLegacyDeviceID() {
+    func testInstallIDMatchesLegacyInstallID() {
         
-        let deviceID = temporaryStorageManager.deviceID
-        let legacyDeviceID = LegacyService.shared.appInstallID
+        let installID = temporaryStorageManager.installID
+        let legacyInstallID = LegacyService.shared.appInstallID
         
-        XCTAssertNotNil(deviceID)
-        XCTAssertNotNil(legacyDeviceID)
-        XCTAssertEqual(deviceID, legacyDeviceID)
+        XCTAssertNotNil(installID)
+        XCTAssertNotNil(legacyInstallID)
+        XCTAssertEqual(installID, legacyInstallID)
     }
     
     private func generatePostBody(index: Int) -> [String: NSCoding] {
-        guard let deviceID = temporaryStorageManager.deviceID else {
+        guard let installID = temporaryStorageManager.installID else {
             XCTFail("Missing Device ID")
             return [:]
         }
@@ -223,7 +223,7 @@ class EPCStorageManagerTests: XCTestCase {
             "meta": meta as NSCoding,
             "client_dt": ISO8601DateFormatter().string(from: Date()) as NSCoding,
             "session_id": "\(index)" as NSCoding,
-            "device_id": deviceID as NSCoding,
+            "install_id": installID as NSCoding,
             "schema": "schemaValue\(index)" as NSCoding,
             "stream": "streamValue\(index)" as NSCoding,
             "id": UUID().uuidString as NSCoding
@@ -233,7 +233,7 @@ class EPCStorageManagerTests: XCTestCase {
     
     func testSavePost() {
         
-        guard let deviceID = temporaryStorageManager.deviceID else {
+        guard let installID = temporaryStorageManager.installID else {
             XCTFail("Missing Device ID")
             return
         }
@@ -272,7 +272,7 @@ class EPCStorageManagerTests: XCTestCase {
             XCTAssertEqual(meta["domain"] as? String, "en")
             XCTAssertNotNil(body["client_dt"])
             XCTAssertEqual(body["session_id"] as? String, "1")
-            XCTAssertEqual(body["device_id"] as? String, deviceID)
+            XCTAssertEqual(body["install_id"] as? String, installID)
             XCTAssertEqual(body["schema"] as? String, "schemaValue1")
             XCTAssertEqual(body["stream"] as? String, "streamValue1")
             XCTAssertNotNil(body["id"])
