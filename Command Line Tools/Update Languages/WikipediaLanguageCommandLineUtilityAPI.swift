@@ -3,7 +3,7 @@ import Combine
 
 /// Utility for making API calls that update prebuilt lists of information about different language Wikipedias
 class WikipediaLanguageCommandLineUtilityAPI {
-    // We can't use codable becuase this API's response format has no concrete type structure
+    // We can't use codable because this API's response format has no concrete type structure
     // For example, the mixing of ints and dictionaries here:
     // "sitematrix": {
     //    "count": 951,
