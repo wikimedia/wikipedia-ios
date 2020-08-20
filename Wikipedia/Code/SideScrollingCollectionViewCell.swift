@@ -49,13 +49,13 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         descriptionLabel.isOpaque = true
         imageView.isOpaque = true
         
-        addSubview(titleLabel)
-        addSubview(subTitleLabel)
-        addSubview(descriptionLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subTitleLabel)
+        contentView.addSubview(descriptionLabel)
     
-        addSubview(imageView)
-        addSubview(collectionView)
-        addSubview(prototypeCell)
+        contentView.addSubview(imageView)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(prototypeCell)
         
         wmf_configureSubviewsForDynamicType()
 

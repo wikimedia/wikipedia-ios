@@ -1,6 +1,6 @@
-#import <Mantle/Mantle.h>
+#import <WMF/WMFMTLModel.h>
 
-@interface MWKDataObject : MTLModel
+@interface MWKDataObject : WMFMTLModel
 
 - (id)dataExport;
 

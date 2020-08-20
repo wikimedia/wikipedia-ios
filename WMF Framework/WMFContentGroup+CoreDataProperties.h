@@ -1,4 +1,4 @@
-#import "WMFContentGroup+CoreDataClass.h"
+#import <WMF/WMFContentGroup+CoreDataClass.h>
 @import CoreLocation;
 
 NS_ASSUME_NONNULL_BEGIN

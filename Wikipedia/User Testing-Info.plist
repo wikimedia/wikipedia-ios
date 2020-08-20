@@ -48,6 +48,8 @@
 	<string>Get article recommendations based on your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>
@@ -66,8 +68,6 @@
 	<array>
 		<string>fetch</string>
 	</array>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save photos from Wikipedia to your photo library</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
