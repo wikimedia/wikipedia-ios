@@ -1,8 +1,8 @@
-#import <Mantle/Mantle.h>
+#import <WMF/WMFMTLModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleRevision : MTLModel <MTLJSONSerializing>
+@interface WMFArticleRevision : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic, strong, readonly) NSNumber *revisionId;
 

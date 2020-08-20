@@ -87,7 +87,13 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        return CGSize(width: size.width, height: height)
+        let totalSize = CGSize(width: size.width, height: height)
+        
+        if apply {
+            layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: totalSize), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
+        }
+        
+        return totalSize
     }
 }
 

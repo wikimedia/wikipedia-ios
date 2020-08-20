@@ -1,10 +1,10 @@
-@import Mantle;
+#import <WMF/WMFMTLModel.h>
 
 @class MWKSearchResult, MWKSearchRedirectMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSearchResults : MTLModel <MTLJSONSerializing>
+@interface WMFSearchResults : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy, readonly) NSString *searchTerm;
 @property (nonatomic, strong, nullable, readonly) NSArray<MWKSearchResult *> *results;
