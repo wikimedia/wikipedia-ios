@@ -29,15 +29,12 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
         return wholeEvent(with: eventData)
     }
 
-    private func newLog(_ action: Action, _ domain: String?) {
+    private func newLog(action: Action, domain: String?) {
         /*
          * TODO: The following still need to be resolved before this
          * instrumentation upgrade can be called done:
          *   - Finalize stream name to what will be deployed in mediawiki-config/wmf-config
          *   - Finalize the schema (TBD in Gerrit patch to schemas/event/secondary repo)
-         *   - Decide if this approach is preferable to explicit EPC.shared?.log()
-         *     - PROS: less verbose; see logShowHistory() below for comparison
-         *     - CONS: have to do this step to ensure that newLog isn't Optional
          */
         EPC.shared?.log(
             stream: "ios.edit_history_compare",
@@ -54,20 +51,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     public func logShowHistory(articleURL: URL) {
         log(event(action: .showHistory), language: articleURL.wmf_language)
 
-        // Approach 1
-        EPC.shared?.log(
-            stream: "ios.edit_history_compare",
-            schema: "/analytics/mobile_apps/ios/edit_history_compare/1.0.0",
-            data: [
-                "action": Action.showHistory.rawValue as NSCoding,
-                "primary_language": primaryLanguage() as NSCoding,
-                "is_anon": (isAnon == 1) as NSCoding
-            ],
-            domain: articleURL.wmf_site?.absoluteString
-        )
-
-        // Approach 2
-        newLog(.showHistory, articleURL.wmf_site?.absoluteString)
+        newLog(action: .showHistory, domain: articleURL.wmf_site?.absoluteString)
     }
 
     /**
@@ -78,36 +62,36 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     public func logRevisionView(url: URL) {
         log(event(action: .revisionView), language: url.wmf_language)
 
-        newLog(.revisionView, url.wmf_site?.absoluteString)
+        newLog(action: .revisionView, domain: url.wmf_site?.absoluteString)
     }
     
     public func logCompare1(articleURL: URL) {
         log(event(action: .compare1), language: articleURL.wmf_language)
 
-        newLog(.compare1, articleURL.wmf_site?.absoluteString)
+        newLog(action: .compare1, domain: articleURL.wmf_site?.absoluteString)
     }
     
     public func logCompare2(articleURL: URL) {
         log(event(action: .compare2), language: articleURL.wmf_language)
 
-        newLog(Action.compare2, articleURL.wmf_site?.absoluteString)
+        newLog(action: .compare2, domain: articleURL.wmf_site?.absoluteString)
     }
 
     public func logThankTry(siteURL: URL) {
         log(event(action: .thankTry), language: siteURL.wmf_language)
 
-        newLog(Action.thankTry, siteURL.absoluteString)
+        newLog(action: .thankTry, domain: siteURL.absoluteString)
     }
 
     public func logThankSuccess(siteURL: URL) {
         log(event(action: .thankSuccess), language: siteURL.wmf_language)
 
-        newLog(Action.thankSuccess, siteURL.absoluteString)
+        newLog(action: .thankSuccess, domain: siteURL.absoluteString)
     }
 
     public func logThankFail(siteURL: URL) {
         log(event(action: .thankFail), language: siteURL.wmf_language)
 
-        newLog(Action.thankFail, siteURL.absoluteString)
+        newLog(action: .thankFail, domain: siteURL.absoluteString)
     }
 }
