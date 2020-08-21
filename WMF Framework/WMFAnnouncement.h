@@ -1,8 +1,8 @@
-#import <Mantle/Mantle.h>
+#import <WMF/WMFMTLModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFAnnouncement : MTLModel <MTLJSONSerializing>
+@interface WMFAnnouncement : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy, readonly, nullable) NSString *identifier;
 @property (nonatomic, copy, readonly, nullable) NSString *type;

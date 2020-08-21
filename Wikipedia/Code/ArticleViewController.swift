@@ -145,12 +145,17 @@ class ArticleViewController: ViewController, HintPresenting {
     
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
-        
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
             DDLogError("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
             self.updateArticleMargins()
+            
+            if #available(iOS 13.0, *) {
+                /// see implementation in `extension ArticleViewController: UIContextMenuInteractionDelegate`
+                let interaction = UIContextMenuInteraction(delegate: self)
+                self.leadImageView.addInteraction(interaction)
+            }
         }
     }
     
@@ -306,6 +311,10 @@ class ArticleViewController: ViewController, HintPresenting {
         surveyTimerController.timerFireBlock = { [weak self] result in
             self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
         }
+        if #available(iOS 14.0, *) {
+            self.navigationItem.backButtonTitle = articleURL.wmf_title
+            self.navigationItem.backButtonDisplayMode = .generic
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -319,6 +328,9 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
+        setupWButton()
         guard isFirstAppearance else {
             return
         }

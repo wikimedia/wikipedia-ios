@@ -8,6 +8,8 @@ The official Wikipedia iOS app.
 * Planning (bugs & features): https://phabricator.wikimedia.org/project/view/782/
 * Team page: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
+**Note: As of August 20, 2020, the latest main branch is set up to build with Xcode 12, Beta 5.**
+
 ## Building and Running
 
 In the directory, run `./scripts/setup`.  Note: going to `scripts` directory and running `setup` will not work due to relative paths.
@@ -66,8 +68,10 @@ Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wi
 Runs automated screenshot tests.
 #### WMF
 Bundles up the app logic shared between the main app and the extensions (widgets, notifications).
-#### localization
+#### Updating localizations
 Covered in the [localization document](docs/localization.md).
+#### Adding new Wikipedia languages or updating language configurations
+Covered in the [languages document](docs/languages.md).
 #### {{name}}Widget, {{name}}Notification, {{name}}Stickers
 Extensions for widgets, notifications, and stickers.
 #### codemirror-config

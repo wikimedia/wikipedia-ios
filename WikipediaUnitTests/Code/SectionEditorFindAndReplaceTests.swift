@@ -19,6 +19,7 @@ private struct Location {
 }
 
 class SectionEditorFindAndReplaceTests: XCTestCase {
+    let timeout: TimeInterval = 10
     
     private var sectionEditorViewController: SectionEditorViewController!
     private var focusedSectionEditorExpectation: XCTestExpectation!
@@ -87,7 +88,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = sectionEditorViewController
         let _ = sectionEditorViewController.view
         
-        wait(for: [focusedSectionEditorExpectation], timeout: 5)
+        wait(for: [focusedSectionEditorExpectation], timeout: timeout)
     }
     
     func testFindResultsUpdateToMatchLabel() {
@@ -103,7 +104,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-         wait(for: [findExpectation], timeout: 5)
+         wait(for: [findExpectation], timeout: timeout)
         
         let matchPlacement = findAndReplaceView.matchPlacementForTesting
         XCTAssertEqual(matchPlacement.index, 1, "Unexpected match placement index")
@@ -124,7 +125,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             
         }
         
-        wait(for: [findExpectation], timeout: 5)
+        wait(for: [findExpectation], timeout: timeout)
         
         let matchPlacement = findAndReplaceView.matchPlacementForTesting
         XCTAssertEqual(matchPlacement.index,0, "Unexpected match placement index")
@@ -151,7 +152,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
                 print(error)
         }
         
-        wait(for: [cursorExpectation], timeout: 5)
+        wait(for: [cursorExpectation], timeout: timeout)
         
         //kickoff find
         sectionEditorViewController.openFindAndReplaceForTesting()
@@ -165,7 +166,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [findExpectation], timeout: 5)
+        wait(for: [findExpectation], timeout: timeout)
         
         //confirm match index later in the article (i.e. not 1)
         let matchPlacement = findAndReplaceView.matchPlacementForTesting
@@ -187,7 +188,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [findExpectation], timeout: 5)
+        wait(for: [findExpectation], timeout: timeout)
         
         //confirm match placement is set to first match
         var matchPlacement = findAndReplaceView.matchPlacementForTesting
@@ -204,7 +205,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [nextExpectation], timeout: 5)
+        wait(for: [nextExpectation], timeout: timeout)
         
         //confirm match placement increments
         matchPlacement = findAndReplaceView.matchPlacementForTesting
@@ -226,7 +227,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [findExpectation], timeout: 5)
+        wait(for: [findExpectation], timeout: timeout)
         
         let webView = sectionEditorViewController.webViewForTesting
         let userContentController = webView.configuration.userContentController
@@ -251,7 +252,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
                 print(error)
         }
         
-        wait(for: [currentSearchLocationExpectation], timeout: 5)
+        wait(for: [currentSearchLocationExpectation], timeout: timeout)
         
         //tap next
         let nextExpectation = expectation(description: "Waiting for tapped next message callback")
@@ -263,7 +264,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [nextExpectation], timeout: 5)
+        wait(for: [nextExpectation], timeout: timeout)
         
         //get next search cursor
         let nextSearchLocationExpectation = expectation(description: "Waiting for next search location callback")
@@ -285,7 +286,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
                 print(error)
         }
         
-        wait(for: [nextSearchLocationExpectation], timeout: 5)
+        wait(for: [nextSearchLocationExpectation], timeout: timeout)
         
         //confirm the search cursor is on a later match by checking line
         guard let currentSearchLocation = currentSearchLocation,
@@ -310,7 +311,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [findExpectation], timeout: 5)
+        wait(for: [findExpectation], timeout: timeout)
         
         let webView = sectionEditorViewController.webViewForTesting
         let userContentController = webView.configuration.userContentController
@@ -335,7 +336,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
                 print(error)
         }
         
-        wait(for: [currentSearchLocationExpectation], timeout: 5)
+        wait(for: [currentSearchLocationExpectation], timeout: timeout)
         
         //add replace text
         findAndReplaceView.setReplaceTextForTesting(replaceText)
@@ -350,7 +351,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             }
         }
         
-        wait(for: [replaceExpectation], timeout: 5)
+        wait(for: [replaceExpectation], timeout: timeout)
         
         //calculate new replace range
         guard let currentSearchLocation = currentSearchLocation else {
@@ -380,7 +381,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
                 print(error)
         }
         
-        wait(for: [replacedTextExpectation], timeout: 5)
+        wait(for: [replacedTextExpectation], timeout: timeout)
         
         XCTAssertEqual(self.replacedText, replaceText, "Expected replaced text from web land to equal replace text from find & replace view")
         

@@ -1,3 +1,5 @@
+import Foundation
+
 // Emum for namespaces common amongst most Wikipedia languages.
 @objc public enum PageNamespace: Int, Codable {
     case media = -2
@@ -68,11 +70,5 @@ extension PageNamespace {
             return nil
         }
         self.init(rawValue: rawValue)
-    }
-}
-
-extension MWKSearchResult {
-    public var pageNamespace: PageNamespace? {
-        return PageNamespace(namespaceValue: titleNamespace?.intValue)
     }
 }

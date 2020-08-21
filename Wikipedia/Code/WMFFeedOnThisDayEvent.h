@@ -1,11 +1,10 @@
-@import Mantle.MTLModel;
-@import Mantle.MTLJSONAdapter;
+#import <WMF/WMFMTLModel.h>
 
 @class WMFFeedArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFeedOnThisDayEvent : MTLModel <MTLJSONSerializing>
+@interface WMFFeedOnThisDayEvent : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy, nullable, readonly) NSString *text;
 

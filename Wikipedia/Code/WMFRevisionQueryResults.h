@@ -1,10 +1,10 @@
-#import <Mantle/Mantle.h>
+#import <WMF/WMFMTLModel.h>
 
 @class WMFArticleRevision;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRevisionQueryResults : MTLModel <MTLJSONSerializing>
+@interface WMFRevisionQueryResults : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic, strong) NSString *titleText;
 
