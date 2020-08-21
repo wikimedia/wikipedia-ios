@@ -58,6 +58,8 @@
 "account-creation-passwords-mismatched" = "پاسورڈ غلط ہے۔";
 "account-creation-saving" = "محفوظ ہورہا ہے...";
 "account-creation-title" = "نیا کھاتہ بنائیں";
+"account-group-title" = "آپ کا کھاتہ";
+"account-talk-page-title" = "آپ کا تبادلۂ خیال صفحہ";
 "action-add-to" = "جمح کریں۔۔۔۔";
 "action-add-to-reading-list" = "فہرست مطالعہ میں شامل کریں";
 "action-add-to-reading-list-short" = "فہرست میں شامل کریں";
@@ -163,8 +165,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سب آن کریں";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 زبانیں";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "تمام %@ کارڈ پوشیدہ";
+"explore-feed-preferences-feed-cards-hidden-title" = "تمام $1 کارڈ پوشیدہ";
 "explore-hide-card-prompt" = "یہ کارڈ پوشیدہ کریں";
 "explore-main-page-description" = "ویکیمیڈیا منصوبوں کا صفحہ اول";
 "explore-main-page-heading" = "ویکیپیڈیا پر آج";
@@ -228,11 +229,23 @@
 "in-the-news-currently-trending" = "حالیہ رجحان";
 "in-the-news-notification-read-now-action-title" = "ابھی پڑھیں";
 "in-the-news-notification-save-for-later-action-title" = "بعد کے لیے محفوظ کریں";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "شیئر۔۔۔";
+"in-the-news-notification-share-action-title" = "اشتراک۔ ۔ ۔";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "in-the-news-sub-title-from-wikipedia" = "ویکیپیڈیا سے";
 "in-the-news-title" = "خبروں میں";
+"insert-media-caption-title" = "وضاحت";
+"insert-media-image-position-setting-center" = "وسط";
+"insert-media-image-position-setting-left" = "بائیں";
+"insert-media-image-position-setting-none" = "کوئی نہیں";
+"insert-media-image-position-setting-right" = "دائیں";
+"insert-media-image-preview-more-information-action-title" = "مزید معلومات";
+"insert-media-image-preview-select-image-action-title" = "تصویر منتخب کریں";
+"insert-media-image-size-setting-custom" = "حسب ضرورت";
+"insert-media-image-size-setting-default" = "طے شدہ";
+"insert-media-image-size-settings-px-unit-name" = "پک";
+"insert-media-image-size-settings-title" = "تصویر کا حجم";
+"insert-media-image-type-setting-basic" = "ابتدائی";
+"insert-media-image-type-setting-frame" = "چوکٹھا";
 "languages-settings-title" = "زبانیں";
 "languages-title" = "زبان تبدیل کریں";
 "languages-wikipedia" = "ویکیپیڈیا کی زبانیں";
@@ -330,8 +343,7 @@
 "settings-language-bar" = "تلاش ميں زبانوں کو دکھائیں";
 "settings-my-languages" = "میری زبانیں";
 "settings-primary-language" = "ابتدائی";
-// Fuzzy
-"settings-primary-language-details" = "اس فہرست کی پہلی زبان ایپ کی ابتدائی زبان کے طور پر استعمال کی گئی ہے۔ اس زبان کو بدلنے سے روزانہ کا مواد بدل سکتا ہے (جیسے کہ منتخب مضمون) جو کہ ایکسپلور (Explore) پر دکھایا جاتا ہے۔";
+"settings-primary-language-details" = "اس فہرست کی پہلی زبان ایپ کی بنیادی زبان کے طور پر استعمال کی گئی ہے۔";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "متائیں";
 "settings-support" = "ویکیپیڈیا سے تعاون کریں";
 "settings-title" = "ترجیحات";
