@@ -1,5 +1,7 @@
 import Foundation
 
+/// **THIS IS NOT PART OF THE MAIN APP - IT'S A COMMAND LINE UTILITY**
+
 fileprivate var dictionaryRegex: NSRegularExpression? = {
     do {
         return try NSRegularExpression(pattern: "(?:[{][{])(:?[^{]*)(?:[}][}])", options: [])
