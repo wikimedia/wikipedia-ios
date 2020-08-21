@@ -1,7 +1,5 @@
 #import <WMF/MWKDataObject.h>
 
-@class MWKUser;
-
 @interface MWKSiteDataObject : MWKDataObject
 
 @property (readonly, strong, nonatomic) NSURL *url;
@@ -13,8 +11,5 @@
 - (NSURL *)optionalURL:(NSString *)key dict:(NSDictionary *)dict;
 - (NSURL *)requiredURL:(NSString *)key dict:(NSDictionary *)dict;
 - (NSURL *)requiredURL:(NSString *)key dict:(NSDictionary *)dict allowEmpty:(BOOL)allowEmpty;
-
-- (MWKUser *)optionalUser:(NSString *)key dict:(NSDictionary *)dict;
-- (MWKUser *)requiredUser:(NSString *)key dict:(NSDictionary *)dict;
 
 @end

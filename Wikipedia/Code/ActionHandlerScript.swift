@@ -6,8 +6,8 @@ import WebKit
 final class PageContentService   {
     struct Setup {
         struct Parameters: Codable {
-            let platform = "ios"
-            let version = 1
+            var platform = "ios"
+            var version = 1
             
             var theme: String
             var dimImages: Bool
@@ -69,20 +69,19 @@ final class PageContentService   {
         return "JSON.parse(`\(string.sanitizedForJavaScriptTemplateLiterals)`)"
     }
     
-    final class SetupScript: WKUserScript {
+    final class SetupScript: PageUserScript {
         required init(_ parameters: Setup.Parameters) throws {
-
-               let source = """
+            let source = """
                document.pcsActionHandler = (action) => {
                 window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage(action)
                };
                document.pcsSetupSettings = \(try PageContentService.getJavascriptFor(parameters));
                """
-               super.init(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+            super.init(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
         }
     }
     
-    final class PropertiesScript: WKUserScript {
+    final class PropertiesScript: PageUserScript {
         static let source: String = {
             guard
                 let fileURL = Bundle.main.url(forResource: "Properties", withExtension: "js"),
@@ -93,12 +92,12 @@ final class PageContentService   {
             }
             return jsString
         }()
-        required override init() {
+        init() {
             super.init(source: PropertiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
     
-    final class UtilitiesScript: WKUserScript {
+    final class UtilitiesScript: PageUserScript {
         static let source: String = {
             guard
                 let fileURL = Bundle.wmf.url(forResource: "index", withExtension: "js", subdirectory: "assets"),
@@ -110,13 +109,13 @@ final class PageContentService   {
             return jsString
         }()
         
-        required override init() {
+        init() {
             super.init(source: UtilitiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
     
     
-    final class StyleScript: WKUserScript {
+    final class StyleScript: PageUserScript {
         static let source: String = {
             guard
                 let fileURL = Bundle.wmf.url(forResource: "styleoverrides", withExtension: "css", subdirectory: "assets"),
@@ -128,7 +127,7 @@ final class PageContentService   {
             return "const style = document.createElement('style'); style.innerHTML = `\(cssString)`; document.head.appendChild(style);"
         }()
         
-        required override init() {
+        init() {
             super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }

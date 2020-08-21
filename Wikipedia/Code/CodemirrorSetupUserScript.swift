@@ -1,7 +1,7 @@
 import Foundation
 
 // sets the theme using wmf.applyTheme atDocumentEnd
-class CodemirrorSetupUserScript: WKUserScript, WKScriptMessageHandler {
+class CodemirrorSetupUserScript: PageUserScript, WKScriptMessageHandler {
     public enum CodemirrorDirection: String {
         case ltr
         case rtl

@@ -37,32 +37,32 @@ public class OnThisDayTimelineView: UIView {
     
     override public func tintColorDidChange() {
         super.tintColorDidChange()
-        outerDotShapeLayer.strokeColor = tintColor.cgColor
-        innerDotShapeLayer.fillColor = tintColor.cgColor
-        innerDotShapeLayer.strokeColor = tintColor.cgColor
+        outerDotShapeLayer.borderColor = tintColor.cgColor
+        innerDotShapeLayer.backgroundColor = tintColor.cgColor
+        innerDotShapeLayer.borderColor = tintColor.cgColor
         setNeedsDisplay()
     }
     
     override public var backgroundColor: UIColor? {
         didSet {
-            outerDotShapeLayer.fillColor = backgroundColor?.cgColor
+            outerDotShapeLayer.backgroundColor = backgroundColor?.cgColor
         }
     }
 
-    private lazy var outerDotShapeLayer: CAShapeLayer = {
-        let shape = CAShapeLayer()
-        shape.fillColor = UIColor.white.cgColor
-        shape.strokeColor = UIColor.blue.cgColor
-        shape.lineWidth = 1.0
+    private lazy var outerDotShapeLayer: CALayer = {
+        let shape = CALayer()
+        shape.backgroundColor = UIColor.white.cgColor
+        shape.borderColor = UIColor.blue.cgColor
+        shape.borderWidth = 1.0
         self.layer.addSublayer(shape)
         return shape
     }()
 
-    private lazy var innerDotShapeLayer: CAShapeLayer = {
-        let shape = CAShapeLayer()
-        shape.fillColor = UIColor.blue.cgColor
-        shape.strokeColor = UIColor.blue.cgColor
-        shape.lineWidth = 1.0
+    private lazy var innerDotShapeLayer: CALayer = {
+        let shape = CALayer()
+        shape.backgroundColor = UIColor.blue.cgColor
+        shape.borderColor = UIColor.blue.cgColor
+        shape.borderWidth = 1.0
         self.layer.addSublayer(shape)
         return shape
     }()
@@ -147,17 +147,20 @@ public class OnThisDayTimelineView: UIView {
     }
     
     private func updateDotsRadii(to radiusNormal: CGFloat, at center: CGPoint){
-        outerDotShapeLayer.updateDotRadius(dotRadius * max(radiusNormal, dotMinRadiusNormal), center: center)
-        innerDotShapeLayer.updateDotRadius(dotRadius * max((radiusNormal - dotMinRadiusNormal), 0.0), center: center)
+        let outerDotRadius = dotRadius * max(radiusNormal, dotMinRadiusNormal)
+        let outerDotOrigin = center.applying(CGAffineTransform(translationX: -outerDotRadius, y: -outerDotRadius))
+        let outerDotSize = CGSize(width: 2 * outerDotRadius, height: 2 * outerDotRadius)
+        outerDotShapeLayer.frame = CGRect(origin: outerDotOrigin, size: outerDotSize)
+        outerDotShapeLayer.cornerRadius = outerDotRadius
+        
+        let innerDotRadius = dotRadius * max((radiusNormal - dotMinRadiusNormal), 0.0)
+        let innerDotOrigin = center.applying(CGAffineTransform(translationX: -innerDotRadius, y: -innerDotRadius))
+        let innerDotSize = CGSize(width: 2 * innerDotRadius, height: 2 * innerDotRadius)
+        innerDotShapeLayer.frame = CGRect(origin: innerDotOrigin, size: innerDotSize)
+        innerDotShapeLayer.cornerRadius = innerDotRadius
     }
     
     private func easeInOutQuart(number:Float) -> Float {
         return number < 0.5 ? 8.0 * pow(number, 4) : 1.0 - 8.0 * (number - 1.0) * pow(number, 3)
-    }
-}
-
-extension CAShapeLayer {
-    fileprivate func updateDotRadius(_ radius: CGFloat, center: CGPoint) {
-        path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle:CGFloat.pi * 2.0, clockwise: true).cgPath
     }
 }

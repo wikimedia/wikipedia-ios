@@ -8,6 +8,8 @@ The official Wikipedia iOS app.
 * Planning (bugs & features): https://phabricator.wikimedia.org/project/view/782/
 * Team page: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
+**Note: As of August 20, 2020, the latest main branch is set up to build with Xcode 12, Beta 5.**
+
 ## Building and Running
 
 In the directory, run `./scripts/setup`.  Note: going to `scripts` directory and running `setup` will not work due to relative paths.
