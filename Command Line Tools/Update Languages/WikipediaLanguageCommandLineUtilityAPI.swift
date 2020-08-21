@@ -3,15 +3,22 @@ import Combine
 
 /// Utility for making API calls that update prebuilt lists of information about different language Wikipedias
 class WikipediaLanguageCommandLineUtilityAPI {
-    // We can't use codable because this API's response format has no concrete type structure
-    // For example, the mixing of ints and dictionaries here:
+    // We can't use codable because this API's response has a dictionary with arbitrary keys mapped to values of mixed type.
+    // For example, the mixing of ints and dictionaries in "sitematrix":
     // "sitematrix": {
     //    "count": 951,
     //    "0": {
     //      "code": "aa",
     //      "name": "Qaf\u00e1r af",
-    //       "localname": "Afar"
+    //      ...
     //     },
+    //    "1":  {
+    //      "code": "ab",
+    //      "name":"Аҧсшәа",
+    //      ...
+    //     },
+    //     ...
+    // }
     func getSites() -> AnyPublisher<[Wikipedia], Error> {
         let sitematrixURL = URL(string: "https://meta.wikimedia.org/w/api.php?action=sitematrix&format=json&formatversion=2&origin=*")!
         return URLSession.shared
