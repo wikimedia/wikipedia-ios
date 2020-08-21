@@ -40,23 +40,14 @@ class WikipediaLanguageCommandLineUtilityAPI {
                     let result = kv.value as? [String: Any],
                     let code = result["code"] as? String,
                     let name = result["name"] as? String,
-                    let localname = result["localname"] as? String,
-                    let sites = result["site"] as? [[String: Any]]
+                    let localname = result["localname"] as? String
                     else {
                         return nil
                 }
-                guard
-                    let wikipedia = sites.first(where: { (site) -> Bool in
-                        site["code"] as? String == "wiki"
-                    }),
-                    let sitename = wikipedia["sitename"] as? String
-                    else {
-                        return nil
-                }
-                return Wikipedia(languageCode: code, languageName: name, localName: localname, siteName: sitename)
+                return Wikipedia(languageCode: code, languageName: name, localName: localname)
             }
             // Add testwiki, it's not returned by the site matrix
-            wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", siteName: "Test Wikipedia"))
+            wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test"))
             return wikipedias
         }.eraseToAnyPublisher()
     }
