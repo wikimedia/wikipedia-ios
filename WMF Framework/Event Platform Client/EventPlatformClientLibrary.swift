@@ -553,7 +553,7 @@ public class EPC: NSObject {
      *      - stream: Name of the event stream to send the event to
      *      - schema: Name and version of schema that the instrumentation conforms to
      *      - data: A dictionary of event data, appropriate for schema version
-     *      - domain: An optional domain to include for the even
+     *      - domain: An optional domain to include for the event, without protocol
      *
      * Regarding `schema`, the instrumentation needs to specify which schema (and specifically which
      * version of that schema) it conforms to. Analytics schemas can be found in the jsonschema directory of
@@ -568,6 +568,7 @@ public class EPC: NSObject {
      * NOT relevant in the context, `domain` can be safely omitted. Using "domain" rather than "language"
      * is consistent with the other platforms and allows for the possibility of setting a non-Wikipedia domain
      * like "commons.wikimedia.org" and "wikidata.org" for multimedia/metadata-related in-app analytics.
+     * Instrumentation code should use the `host` property of a `URL` as the value for this parameter.
      *
      * Cases where instrumentation would set a `domain`:
      * - reading or editing an article
