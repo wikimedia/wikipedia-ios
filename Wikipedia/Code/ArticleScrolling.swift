@@ -12,10 +12,17 @@ protocol ArticleScrolling: class {
 
 extension ArticleScrolling where Self: ViewController {
     /// Must set `webView.scrollView.delegate = self` in `viewDidLoad`, as it is not permitted to override functions in extensions.
+    /// There is also some related code in ViewController.scrollViewDidEndScrollingAnimation
+    /// It's a tad hacky, but we need to call something on it and the function can't be overridden here.
 
-    // There is also some related code in ViewController.scrollViewDidEndScrollingAnimation
-    // It's a tad hacky, but we need to call something on it and the function can't be overridden here.
-
+    
+    /// Scroll to a given offset in the article
+    ///
+    /// - Parameters:
+    ///   - anchor: The anchor to scroll to. The anchor corresponds to an `id` attribute on a HTML tag in the article.
+    ///   - centered: If this parameter is true, the element will be centered in the visible area of the article view after scrolling. If this parameter is false, theelement will be at the top of the visible area of the article view.
+    ///   - animated: Whether or not to animate the scroll change.
+    ///   - completion: A completion that is called when the scroll change is complete. The Boolean pased into the completion is `true` if the point was successfully found and scrolled to or `false` if the point was invalid.
     func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
@@ -41,6 +48,12 @@ extension ArticleScrolling where Self: ViewController {
         }
     }
 
+    /// Scroll to a given offset in the article
+    /// - Parameters:
+    ///   - offset: The content offset point to scroll to.
+    ///   - centered: If this parameter is true, the content offset point will be centered in the visible area of the article view after scrolling. If this parameter is false, the content offset point will be at the top of the visible area of the article view.
+    ///   - animated: Whether or not to animate the scroll change.
+    ///   - completion: A completion that is called when the scroll change is complete. The Boolean pased into the completion is `true` if the point was successfully found and scrolled to or `false` if the point was invalid.
     func scroll(to offset: CGPoint, centered: Bool = false, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         assert(Thread.isMainThread)
         let scrollView = webView.scrollView
