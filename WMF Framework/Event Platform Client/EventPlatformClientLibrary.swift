@@ -91,12 +91,8 @@ class EPCBufferEvent: NSObject, NSCoding {
  *
  * ## Logging API
  *
- * - `log(stream, schema, version, data, domain?)` to log events; can be called before
+ * - `log(stream, schema, data, domain?)` to log events; can be called before
  *   configuration is available or even offline
- * - `logger(schema, version)` to generate a shortcut to `log` for logging multiple events using the
- *   same schema version, without having to specify those in every call
- * - `logger(stream, schema, version)` to generate a shortcut to `log` for logging multiple
- *   events using the same stream name and schema version, without having to specify those in every call
  *
  * ## Dependencies
  *
@@ -682,36 +678,6 @@ public class EPC: NSObject {
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
-    }
-
-    /**
-     * Generate a reusable event logger with a specific schema version
-     * - Parameter schema: Versioned name of the schema the stream (and any cc'd streams) conforms to
-     * - Returns: A function with the following parameters: `stream` (string),  `data` (dictionary), and
-     * `domain` (optional string). This is just a shortcut to `EPC.shared.log()` but without having to
-     * specify the schema name and version in every call.
-     */
-    @objc public func logger(schema: String) -> (String, [String: NSCoding], String?) -> Void {
-        func l(stream: String, data: [String: NSCoding], domain: String? = nil) -> Void {
-            self.log(stream: stream, schema: schema, data: data, domain: domain)
-        }
-        return l
-    }
-
-    /**
-     * Generate a reusable event logger with a specific schema version and stream
-     * - Parameters:
-     *      - stream: Name of the event stream to send the event to
-     *      - schema: Versioned name of the schema the stream (and any cc'd streams) conforms to
-     * - Returns: A function with the following parameters: `data` (dictionary), and `domain`
-     * (optional string). This is just a shortcut to `EPC.shared.log()` but without having to specify the
-     * stream, schema name, and schema version in every call.
-    */
-    @objc public func logger(stream: String, schema: String, version: String) -> ([String: NSCoding], String?) -> Void {
-        func l(data: [String: NSCoding], domain: String? = nil) -> Void {
-            self.log(stream: stream, schema: schema, data: data, domain: domain)
-        }
-        return l
     }
     
     /**
