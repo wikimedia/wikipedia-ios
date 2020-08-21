@@ -466,45 +466,46 @@ class ArticleViewController: ViewController, HintPresenting {
     
     // MARK: Scroll State Restoration
     
-    /// Tracks restoring scroll position, either through state restoration, rotating the article, or opening an article to a particular section
+    /// Tracks desired scroll restoration.
+    /// This occurs when a user is re-opening the app and expects the article to be scrolled to the last position they were reading at or when a user taps on a link that goes to a particular section in another article.
+    /// The state needs to be preserved because the given offset or anchor will not be availble until after the page fully loads.
+    /// `scrollToOffset` and `scrollToAnchor` will track attempts made after each `webView.contentSize` change, hoping the requested offset or anchor is available. After a certain number of attempts, it's assumed that the value is invalid and the restoration logic gives up.
     private enum ScrollRestorationState {
         case none
         /// Scroll to absolute Y offset
-        case scrollToOffset(_ offsetY: CGFloat, animated: Bool, attempt: Int = 1, completion: (() -> Void)? = nil)
+        case scrollToOffset(_ offsetY: CGFloat, animated: Bool, attempt: Int = 1, maxAttempts: Int = 5, completion: (() -> Void)? = nil)
         /// Scroll to percentage Y offset
         case scrollToPercentage(_ percentageOffsetY: CGFloat)
         /// Scroll to anchor, an id of an element on the page
-        case scrollToAnchor(_ anchor: String, attempt: Int = 1)
+        case scrollToAnchor(_ anchor: String, attempt: Int = 1, maxAttempts: Int = 5)
     }
     
     private var scrollRestorationState: ScrollRestorationState = .none
     
-    /// Checks scrollRestorationState and performs the neessary scroll restoration
+    /// Checks scrollRestorationState and performs the necessary scroll restoration
     private func restoreScrollStateIfNecessary() {
         switch scrollRestorationState {
         case .none:
             break
-        case .scrollToOffset(let offset, let animated, let attempt, let completion):
+        case .scrollToOffset(let offset, let animated, let attempt, let maxAttempts, let completion):
             scrollRestorationState = .none
             self.scroll(to: CGPoint(x: 0, y: offset), animated: animated) { [weak self] (success) in
-                // Retry on failure up to 5 times
-                guard !success, attempt < 5 else {
+                guard !success, attempt < maxAttempts else {
                     return
                 }
                 completion?()
-                self?.scrollRestorationState = .scrollToOffset(offset, animated: animated, attempt: attempt + 1, completion: completion)
+                self?.scrollRestorationState = .scrollToOffset(offset, animated: animated, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
             }
         case .scrollToPercentage(let verticalOffsetPercentage):
             scrollRestorationState = .none
             webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
-        case .scrollToAnchor(let anchor, let attempt):
+        case .scrollToAnchor(let anchor, let attempt, let maxAttempts):
             scrollRestorationState = .none
             self.scroll(to: anchor, animated: true) { [weak self] (success) in
-                // Retry on failure up to 5 times
-                guard !success, attempt < 5 else {
+                guard !success, attempt < maxAttempts else {
                     return
                 }
-                self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1)
+                self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts)
             }
         }
     }
@@ -813,6 +814,7 @@ private extension ArticleViewController {
         }
     }
     
+    /// Track and debounce `contentSize` changes to wait for a desired scroll position to become available. See `ScrollRestorationState` for more information.
     func contentSizeDidChange() {
         // debounce
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedContentSizeDidChange), object: nil)
