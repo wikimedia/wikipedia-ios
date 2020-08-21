@@ -92,6 +92,7 @@
 "action-remove" = "Odebrat";
 "action-replace" = "Nahradit";
 "action-replace-all" = "Nahradit vše";
+"action-retry" = "Zkusit znovu";
 "action-save" = "Uložit";
 "action-saved" = "Uloženo";
 "action-saved-accessibility" = "Uloženo. Aktivujte pro odstranění z uložených.";
@@ -119,12 +120,14 @@
 "appearance-settings-set-automatic-table-opening" = "Nastavení tabulek";
 "appearance-settings-text-sizing-example-text" = "Chcete-li změnit velikost textu článku, přetáhněte jezdce. Pro změnu velikosti textu v ostatních částech aplikace použijte prosím změnu v systémovém nastavení.";
 "appearance-settings-theme-options" = "Možnosti motivu";
+"article-about-title" = "O tomto článku";
 "article-delete" = "Odstranit";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Článek odstraněn|Články odstraněny}}";
 "article-languages-filter-placeholder" = "Najít jazyk";
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-others" = "Jiné jazyky";
 "article-languages-yours" = "Vaše jazyky";
+"article-read-more-title" = "Číst dál";
 "article-reference-view-title" = "Reference $1";
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
@@ -549,11 +552,14 @@
 "page-history-revisions-comparison-warning" = "Můžete vybrat pouze dvě revize";
 "page-history-stats-text" = "{{PLURAL:$1|$1 editace|$1 editace|$1 editací}} od $2";
 "page-history-user-edits" = "editace uživatelů";
+"page-issues" = "Nedostatky stránky";
+"page-location" = "Zobrazit na mapě";
 "page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
 "page-protected-can-not-edit-title" = "Tato stránka je zamčena";
 "page-protected-other" = "Tato stránka je zamčena pro následující úrovně: $1";
 "page-protected-sysop" = "Tato stránka je zamčena.";
+"page-similar-titles" = "Podobné stránky";
 "panel-compare-revisions-text" = "Porovnávání revizí zobrazuje, jak se článek měnil v průběhu času. Porovnávání dvou revizí článku zobrazí rozdíl mezi danými revizemi se zvýrazněním jakéhokoliv obsahu, který byl změněn.";
 "panel-compare-revisions-title" = "Porovnávání revizí";
 "pictured" = "na obrázku";

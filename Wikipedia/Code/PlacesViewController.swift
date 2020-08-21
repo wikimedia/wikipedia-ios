@@ -243,6 +243,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
+
+        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewDidAppear`.
+        parent?.navigationItem.backButtonTitle = title
     }
 
     override func viewWillDisappear(_ animated: Bool) {

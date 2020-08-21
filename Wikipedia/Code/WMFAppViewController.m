@@ -238,6 +238,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
+    if (@available(iOS 14.0, *)) {
+        self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

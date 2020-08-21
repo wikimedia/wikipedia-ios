@@ -7,6 +7,10 @@ class SinglePageWebViewController: ViewController {
         self.url = url
         super.init()
         self.theme = theme
+        if #available(iOS 14.0, *) {
+            self.navigationItem.backButtonTitle = url.lastPathComponent
+            self.navigationItem.backButtonDisplayMode = .generic
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
