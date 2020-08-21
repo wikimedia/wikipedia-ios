@@ -42,7 +42,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
             data: [
                 "action": action.rawValue as NSCoding,
                 "primary_language": self.primaryLanguage() as NSCoding,
-                "is_anon": (self.isAnon == 1) as NSCoding
+                "is_anon": (self.isAnon) as NSCoding
             ],
             domain: domain
         )
