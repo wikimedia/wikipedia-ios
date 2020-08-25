@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D8B589A421CD05070027083A"
-               BuildableName = "codemirror-config"
-               BlueprintName = "codemirror-config"
+               BuildableName = "languages"
+               BlueprintName = "languages"
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,6 +27,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D8B589A421CD05070027083A"
+            BuildableName = "languages"
+            BlueprintName = "languages"
+            ReferencedContainer = "container:Wikipedia.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
@@ -45,8 +54,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D8B589A421CD05070027083A"
-            BuildableName = "codemirror-config"
-            BlueprintName = "codemirror-config"
+            BuildableName = "languages"
+            BlueprintName = "languages"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -68,8 +77,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D8B589A421CD05070027083A"
-            BuildableName = "codemirror-config"
-            BlueprintName = "codemirror-config"
+            BuildableName = "languages"
+            BlueprintName = "languages"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
