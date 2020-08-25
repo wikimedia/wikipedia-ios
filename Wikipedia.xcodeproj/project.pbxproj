@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1270,7 +1270,6 @@
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83D05189246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */; };
-		83D1C08F24EAB2580097AC6A /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = 83D1C08E24EAB2580097AC6A /* CombineExt */; };
 		83D3FC13223A8BCD0048384B /* ArticleSummaryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
@@ -4883,7 +4882,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83D1C08F24EAB2580097AC6A /* CombineExt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8588,7 +8586,6 @@
 			);
 			name = languages;
 			packageProductDependencies = (
-				83D1C08E24EAB2580097AC6A /* CombineExt */,
 			);
 			productName = "codemirror-config";
 			productReference = D8B589A521CD05070027083A /* languages */;
@@ -8922,7 +8919,6 @@
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
-				83D1C08D24EAB2580097AC6A /* XCRemoteSwiftPackageReference "CombineExt" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -20103,25 +20099,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		83D1C08D24EAB2580097AC6A /* XCRemoteSwiftPackageReference "CombineExt" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/wikimedia/CombineExt";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		83D1C08E24EAB2580097AC6A /* CombineExt */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83D1C08D24EAB2580097AC6A /* XCRemoteSwiftPackageReference "CombineExt" */;
-			productName = CombineExt;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */ = {
