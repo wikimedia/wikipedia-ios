@@ -1384,7 +1384,6 @@
 		B018501820BC84E300A508F1 /* WMF.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B018501B20BC861300A508F1 /* CocoaLumberjackSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B018501C20BC864200A508F1 /* FLAnimatedImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B018501D20BC866B00A508F1 /* hpple.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B018501E20BC869700A508F1 /* CocoaLumberjack.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B018501F20BC86B900A508F1 /* Mantle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B018502120BC86F400A508F1 /* (null) in CopyFiles */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1923,7 +1922,6 @@
 		D83FD2A61EF473B300532B15 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D83FD2B01EF4744700532B15 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
-		D83FD2B21EF4745E00532B15 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D83FD2B41EF4746F00532B15 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
 		D83FD2B51EF4746F00532B15 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8421B51203CC8420040F50B /* DebugReadingListsViewController.swift */; };
@@ -2255,7 +2253,6 @@
 		D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
-		D8A42BA51E815A9C00D8E281 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D8A42BA71E815A9C00D8E281 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D8A42BA81E815A9C00D8E281 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D8A42BA91E815A9C00D8E281 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
@@ -2499,7 +2496,6 @@
 		D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
-		D8CE26291E698E2400DAE2E0 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D8CE262C1E698E2400DAE2E0 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D8CE262D1E698E2400DAE2E0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
@@ -2565,11 +2561,6 @@
 		D8D3651A1E955C9000593A38 /* WMFLegacyImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */; };
 		D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */; };
-		D8D5519F1DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
-		D8D551A01DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
-		D8D551A11DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
-		D8D551A21DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
-		D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
@@ -2771,7 +2762,6 @@
 		D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
-		D8EC3F2C1E9BDA35006712EB /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D8EC3F2E1E9BDA35006712EB /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D8EC3F2F1E9BDA35006712EB /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
@@ -3097,10 +3087,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B018502120BC86F400A508F1 /* (null) in CopyFiles */,
 				B018501F20BC86B900A508F1 /* Mantle.framework in CopyFiles */,
 				B018501E20BC869700A508F1 /* CocoaLumberjack.framework in CopyFiles */,
-				B018501D20BC866B00A508F1 /* hpple.framework in CopyFiles */,
 				B018501C20BC864200A508F1 /* FLAnimatedImage.framework in CopyFiles */,
 				B018501B20BC861300A508F1 /* CocoaLumberjackSwift.framework in CopyFiles */,
 				B018501820BC84E300A508F1 /* WMF.framework in CopyFiles */,
@@ -4627,7 +4615,6 @@
 		D8D551411DF1A33D00B90177 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
 		D8D551421DF1A33D00B90177 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
 		D8D551431DF1A33D00B90177 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
-		D8D5519E1DF1AE4B00B90177 /* hpple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hpple.framework; path = Carthage/Build/iOS/hpple.framework; sourceTree = SOURCE_ROOT; };
 		D8D551A61DF1AE9B00B90177 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		D8D553611DF1B63200B90177 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D8D906931DF58D1800853BFD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -4745,7 +4732,6 @@
 				D8FA190A1E1BDB79009675C3 /* WMF.framework in Frameworks */,
 				D82FDB3F1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
-				D8D551A11DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D8CE211E1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
 				D82FDB361DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
@@ -4780,7 +4766,6 @@
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D8D5519F1DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D844D9731D6CB2600042D692 /* WMF.framework in Frameworks */,
 				D82FDB331DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
@@ -4802,7 +4787,6 @@
 				D83FD28A1EF4724700532B15 /* NotificationCenter.framework in Frameworks */,
 				D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */,
 				D83FD2B01EF4744700532B15 /* FLAnimatedImage.framework in Frameworks */,
-				D83FD2B21EF4745E00532B15 /* hpple.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4814,7 +4798,6 @@
 				D8CE21201E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8D906951DF58D2C00853BFD /* libsqlite3.tbd in Frameworks */,
 				D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
-				D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDB391DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 			);
@@ -4827,7 +4810,6 @@
 				D8FA190B1E1BDB7D009675C3 /* WMF.framework in Frameworks */,
 				D82FDB401DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
-				D8D551A21DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D8CE211F1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 				D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
@@ -4850,7 +4832,6 @@
 				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
 				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
 				D8CE211D1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D8D551A01DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDB3D1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDAE41DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 			);
@@ -4866,7 +4847,6 @@
 				D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */,
 				D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */,
 				D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D8A42BA51E815A9C00D8E281 /* hpple.framework in Frameworks */,
 				D8A42BA71E815A9C00D8E281 /* CoreData.framework in Frameworks */,
 				D8A42BA81E815A9C00D8E281 /* WMF.framework in Frameworks */,
 				D8A42BA91E815A9C00D8E281 /* CocoaLumberjack.framework in Frameworks */,
@@ -4895,7 +4875,6 @@
 				D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */,
 				D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D8CE26291E698E2400DAE2E0 /* hpple.framework in Frameworks */,
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
 				D8CE262C1E698E2400DAE2E0 /* WMF.framework in Frameworks */,
 				D8CE262D1E698E2400DAE2E0 /* CocoaLumberjack.framework in Frameworks */,
@@ -4918,7 +4897,6 @@
 				D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */,
 				D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */,
 				D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */,
-				D8EC3F2C1E9BDA35006712EB /* hpple.framework in Frameworks */,
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
 				D8EC3F2E1E9BDA35006712EB /* WMF.framework in Frameworks */,
 				D8EC3F2F1E9BDA35006712EB /* CocoaLumberjack.framework in Frameworks */,
@@ -7604,7 +7582,6 @@
 			isa = PBXGroup;
 			children = (
 				D810C3481DF1C0A4003427DA /* Tweaks.framework */,
-				D8D5519E1DF1AE4B00B90177 /* hpple.framework */,
 				D85F000C1DF0C55E00A56797 /* Nocilla.framework */,
 				D85F000A1DF0C54000A56797 /* FBSnapshotTestCase.framework */,
 				D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */,
@@ -9533,7 +9510,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = "Embed Frameworks from Carthage";
@@ -9542,7 +9518,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9589,7 +9564,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = "Embed Frameworks from Carthage";
@@ -9598,7 +9572,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9635,7 +9608,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
@@ -9645,7 +9617,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Tweaks.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
@@ -9693,7 +9664,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
@@ -9703,7 +9673,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Tweaks.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
