@@ -1,6 +1,7 @@
 #import <XCTest/XCTest.h>
 #import "MWKLanguageLinkController_Private.h"
 #import "MWKLanguageLink.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 #import "NSString+WMFExtras.h"
 #import "NSUserDefaults+WMFReset.h"
 
@@ -24,7 +25,7 @@
              [NSLocale preferredLanguages]);
 
     // all tests must start w/ a clean slate
-    self.controller = [MWKLanguageLinkController sharedInstance];
+    self.controller = MWKDataStore.temporaryDataStore.languageLinkController;
     self.filter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:self.controller];
     [self.controller resetPreferredLanguages];
 }
@@ -67,7 +68,7 @@
 }
 
 - (void)testLanguagesPropertiesAreNonnull {
-    self.controller = [MWKLanguageLinkController sharedInstance];
+    self.controller = MWKDataStore.temporaryDataStore.languageLinkController;
     XCTAssertTrue(self.controller.allLanguages.count > 0);
     XCTAssertTrue(self.controller.otherLanguages.count > 0);
     XCTAssertTrue(self.controller.preferredLanguages.count > 0);

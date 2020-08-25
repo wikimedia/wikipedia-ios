@@ -111,7 +111,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate func getCaptcha() {
         let failure: WMFErrorHandler = {error in }
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+        let siteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL()
         accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
             DispatchQueue.main.async {
                 self.captchaViewController?.captcha = info.captcha
@@ -204,7 +204,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     public func captchaSiteURL() -> URL {
-        return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
+        return (MWKDataStore.shared().languageLinkController.appLanguage?.siteURL())!
     }
     
     public func captchaHideSubtitle() -> Bool {
@@ -322,7 +322,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+        let siteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL()
         accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
             DispatchQueue.main.async {
                 self.login()
