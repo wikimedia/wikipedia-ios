@@ -103,6 +103,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
     [self loadSections];
+
+    /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewDidAppear`.
+    self.parentViewController.navigationItem.backButtonTitle = self.title;
 }
 
 - (void)configureBackButton {

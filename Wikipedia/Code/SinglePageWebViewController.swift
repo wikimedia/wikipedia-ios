@@ -7,6 +7,10 @@ class SinglePageWebViewController: ViewController {
         self.url = url
         super.init()
         self.theme = theme
+        if #available(iOS 14.0, *) {
+            self.navigationItem.backButtonTitle = url.lastPathComponent
+            self.navigationItem.backButtonDisplayMode = .generic
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -22,7 +26,7 @@ class SinglePageWebViewController: ViewController {
             style.innerHTML = '.header-chrome { display: none; }'
             document.head.appendChild(style)
         """
-        controller.addUserScript(WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        controller.addUserScript(PageUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         config.userContentController = controller
         config.applicationNameForUserAgent = "WikipediaApp"
         return config

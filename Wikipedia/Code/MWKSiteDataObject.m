@@ -1,6 +1,5 @@
 #import <WMF/MWKSiteDataObject.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/MWKUser.h>
 
 @interface MWKSiteDataObject ()
 
@@ -41,31 +40,6 @@
 - (NSURL *)requiredURL:(NSString *)key dict:(NSDictionary *)dict allowEmpty:(BOOL)allowEmpty {
     NSString *str = [self requiredString:key dict:dict allowEmpty:allowEmpty];
     return [self.url wmf_URLWithTitle:str];
-}
-
-#pragma mark - user methods
-
-- (MWKUser *)optionalUser:(NSString *)key dict:(NSDictionary *)dict {
-    id user = dict[key];
-    if (user == nil) {
-        return nil;
-    } else {
-        return [[MWKUser alloc] initWithSiteURL:self.url data:user];
-    }
-}
-
-- (MWKUser *)requiredUser:(NSString *)key dict:(NSDictionary *)dict {
-    MWKUser *user = [self optionalUser:key dict:dict];
-    if (user == nil) {
-        return [self optionalUser:key dict:@{key: [NSNull null]}];
-        /*
-           @throw [NSException exceptionWithName:@"MWKDataObjectException"
-                                       reason:@"missing required user field"
-                                     userInfo:@{@"key": key}];
-         */
-    } else {
-        return user;
-    }
 }
 
 @end
