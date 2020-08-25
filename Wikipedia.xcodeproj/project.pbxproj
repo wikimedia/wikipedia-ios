@@ -2249,7 +2249,6 @@
 		D8A42B9A1E815A9C00D8E281 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -2492,7 +2491,6 @@
 		D8CE261D1E698E2400DAE2E0 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -2561,7 +2559,6 @@
 		D8D3651A1E955C9000593A38 /* WMFLegacyImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */; };
 		D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */; };
-		D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8D906951DF58D2C00853BFD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
@@ -2758,7 +2755,6 @@
 		D8EC3F1C1E9BDA35006712EB /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -4615,7 +4611,6 @@
 		D8D551411DF1A33D00B90177 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
 		D8D551421DF1A33D00B90177 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
 		D8D551431DF1A33D00B90177 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
-		D8D551A61DF1AE9B00B90177 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		D8D553611DF1B63200B90177 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D8D906931DF58D1800853BFD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D8D92B491DF22E1700B95311 /* NotificationBackgroundError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundError.png; sourceTree = "<group>"; };
@@ -4762,7 +4757,6 @@
 			files = (
 				D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
-				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -4843,7 +4837,6 @@
 			files = (
 				D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
-				D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */,
 				D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */,
 				D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */,
 				D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -4871,7 +4864,6 @@
 			files = (
 				D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
-				D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */,
 				D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */,
 				D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -4893,7 +4885,6 @@
 			files = (
 				D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
-				D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */,
 				D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */,
 				D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */,
 				D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -7458,7 +7449,6 @@
 				D8D906931DF58D1800853BFD /* libsqlite3.tbd */,
 				D82FDAD81DF0A96E00DDF311 /* Carthage */,
 				D8D553611DF1B63200B90177 /* QuartzCore.framework */,
-				D8D551A61DF1AE9B00B90177 /* libxml2.tbd */,
 				D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */,
 				041EFC361996A1F800B2CB28 /* MapKit.framework */,
 				040E5C4E184566F4007AFE6F /* CoreData.framework */,
