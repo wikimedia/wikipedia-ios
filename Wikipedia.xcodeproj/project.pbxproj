@@ -1212,7 +1212,6 @@
 		83A72BBF24E70BB200732493 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A72BBE24E70BB200732493 /* localization.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
-		83ACAA9824E6BE7B003B3035 /* WikipediaLanguageCommandLineUtilityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAA9724E6BE7B003B3035 /* WikipediaLanguageCommandLineUtilityAPI.swift */; };
 		83ACAA9924E6D112003B3035 /* Collection+AsyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51421766E570012F940 /* Collection+AsyncMap.swift */; };
 		83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
 		83ACAA9E24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAA9D24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift */; };
@@ -1224,7 +1223,6 @@
 		83ACAAAB24E6E745003B3035 /* WikipediaLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */; };
 		83ACAAAD24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */; };
 		83ACAAAE24E6EF0B003B3035 /* WikipediaSiteInfoLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */; };
-		83ACAAB024E6F8FF003B3035 /* WikipediaLanguageCommandLineUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAF24E6F8FF003B3035 /* WikipediaLanguageCommandLineUtility.swift */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
@@ -1232,6 +1230,9 @@
 		83AE1C861F34BB64004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
+		83B019D024F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B019CD24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift */; };
+		83B019D124F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B019CE24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift */; };
+		83B019D224F6ACAA0014B5EF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B019CF24F6ACAA0014B5EF /* main.swift */; };
 		83B01F7223DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
 		83B01F7323DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
 		83B01F7423DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
@@ -2353,7 +2354,6 @@
 		D8B3D7671EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8B3D7691EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
-		D8B589A821CD05070027083A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B589A721CD05070027083A /* main.swift */; };
 		D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */; };
 		D8BD029F1F3A389F007AE7B2 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BD63BE1EA7E28700BBC082 /* SummaryExtensions.swift */; };
@@ -3701,14 +3701,15 @@
 		83A72BBE24E70BB200732493 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = "Command Line Tools/Update Localizations/localization.swift"; sourceTree = SOURCE_ROOT; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
-		83ACAA9724E6BE7B003B3035 /* WikipediaLanguageCommandLineUtilityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtilityAPI.swift; sourceTree = "<group>"; };
 		83ACAA9D24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKSearchResult+PageNamespace.swift"; sourceTree = "<group>"; };
 		83ACAAA124E6E38A003B3035 /* Wikipedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wikipedia.swift; sourceTree = "<group>"; };
 		83ACAAA324E6E42A003B3035 /* wikipedia-languages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-languages.json"; sourceTree = "<group>"; };
 		83ACAAA624E6E655003B3035 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = "Command Line Tools/Update Localizations/main.swift"; sourceTree = SOURCE_ROOT; };
 		83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLookup.swift; sourceTree = "<group>"; };
 		83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaSiteInfoLookup.swift; sourceTree = "<group>"; };
-		83ACAAAF24E6F8FF003B3035 /* WikipediaLanguageCommandLineUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtility.swift; sourceTree = "<group>"; };
+		83B019CD24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtility.swift; sourceTree = "<group>"; };
+		83B019CE24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtilityAPI.swift; sourceTree = "<group>"; };
+		83B019CF24F6ACAA0014B5EF /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleWebMessageHandling.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		83B01F7623DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleToolbarHandling.swift"; sourceTree = "<group>"; };
 		83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Editing.swift"; sourceTree = "<group>"; };
@@ -3908,8 +3909,6 @@
 		B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+WMFButton.m"; path = "Wikipedia/Code/UIButton+WMFButton.m"; sourceTree = SOURCE_ROOT; };
 		B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAppViewController.h; path = Wikipedia/Code/WMFAppViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAppViewController.m; path = Wikipedia/Code/WMFAppViewController.m; sourceTree = SOURCE_ROOT; usesTabs = 0; };
-		B0E802F91C0CD4EC0065EBC0 /* WMFLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationManager.h; path = Wikipedia/Code/WMFLocationManager.h; sourceTree = SOURCE_ROOT; };
-		B0E802FA1C0CD4EC0065EBC0 /* WMFLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationManager.m; path = Wikipedia/Code/WMFLocationManager.m; sourceTree = SOURCE_ROOT; };
 		B0E802FC1C0CD5000065EBC0 /* WMFLocationSearchFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchFetcher.h; path = Wikipedia/Code/WMFLocationSearchFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E802FD1C0CD5000065EBC0 /* WMFLocationSearchFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationSearchFetcher.m; path = Wikipedia/Code/WMFLocationSearchFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E802FE1C0CD5000065EBC0 /* WMFLocationSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchResults.h; path = Wikipedia/Code/WMFLocationSearchResults.h; sourceTree = SOURCE_ROOT; };
@@ -4646,7 +4645,6 @@
 		D8B1668B1FD97FE000097D8B /* WMFViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFViewController.m; sourceTree = "<group>"; };
 		D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButtonsController.swift; sourceTree = "<group>"; };
 		D8B589A521CD05070027083A /* languages */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = languages; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8B589A721CD05070027083A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFLocaleTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D8BD63BE1EA7E28700BBC082 /* SummaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryExtensions.swift; sourceTree = "<group>"; };
 		D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBlocksKitTests.m; sourceTree = "<group>"; };
@@ -6457,8 +6455,8 @@
 		83ACAA9F24E6DC8E003B3035 /* Command Line Tools */ = {
 			isa = PBXGroup;
 			children = (
+				83B019CC24F6ACAA0014B5EF /* Update Languages */,
 				D87021611EBA63EF000D02D6 /* Update Localizations */,
-				D8B589A621CD05070027083A /* Update Languages */,
 			);
 			path = "Command Line Tools";
 			sourceTree = "<group>";
@@ -6471,6 +6469,16 @@
 				83ACAAA324E6E42A003B3035 /* wikipedia-languages.json */,
 			);
 			name = Wikipedia;
+			sourceTree = "<group>";
+		};
+		83B019CC24F6ACAA0014B5EF /* Update Languages */ = {
+			isa = PBXGroup;
+			children = (
+				83B019CD24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift */,
+				83B019CE24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift */,
+				83B019CF24F6ACAA0014B5EF /* main.swift */,
+			);
+			path = "Update Languages";
 			sourceTree = "<group>";
 		};
 		83D3FC11223A8BB70048384B /* Fetchers */ = {
@@ -7543,7 +7551,6 @@
 				D8479FAC1F222FE90025FD7A /* Wikipedia Stickers */,
 				83ACAA9F24E6DC8E003B3035 /* Command Line Tools */,
 				B0606EAF20AA6FF0006EC6B9 /* WikipediaUITests */,
-				D8B589A621CD05070027083A /* codemirror-config */,
 				00021DE624D48EFD00476F97 /* Widgets */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
@@ -7567,7 +7574,6 @@
 				D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */,
 				D8479FAB1F222FE80025FD7A /* Wikipedia Stickers.appex */,
 				B0606EAE20AA6FF0006EC6B9 /* WikipediaUITests.xctest */,
-				D8B589A521CD05070027083A /* codemirror-config */,
 				00021DE124D48EFD00476F97 /* WidgetsExtension.appex */,
 				D8B589A521CD05070027083A /* languages */,
 			);
@@ -8031,7 +8037,6 @@
 				83ACAAA624E6E655003B3035 /* main.swift */,
 			);
 			name = "Update Localizations";
-			path = localization;
 			sourceTree = "<group>";
 		};
 		D87233FC1E1FF05800751E83 /* Places */ = {
@@ -8104,16 +8109,6 @@
 			);
 			name = Controllers;
 			path = ../Wikipedia/Code;
-			sourceTree = "<group>";
-		};
-		D8B589A621CD05070027083A /* Update Languages */ = {
-			isa = PBXGroup;
-			children = (
-				D8B589A721CD05070027083A /* main.swift */,
-				83ACAA9724E6BE7B003B3035 /* WikipediaLanguageCommandLineUtilityAPI.swift */,
-				83ACAAAF24E6F8FF003B3035 /* WikipediaLanguageCommandLineUtility.swift */,
-			);
-			path = "Update Languages";
 			sourceTree = "<group>";
 		};
 		D8BA1F1F1DF1E19700502877 /* Resources */ = {
@@ -9065,9 +9060,8 @@
 				D844D96B1D6CB2600042D692 /* WMF */,
 				D870215F1EBA63EE000D02D6 /* localization */,
 				B0606EAD20AA6FF0006EC6B9 /* WikipediaUITests */,
-				D8B589A421CD05070027083A /* codemirror-config */,
-				00021DE024D48EFD00476F97 /* WidgetsExtension */,
 				D8B589A421CD05070027083A /* languages */,
+				00021DE024D48EFD00476F97 /* WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -11219,10 +11213,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8B589A821CD05070027083A /* main.swift in Sources */,
-				83ACAAB024E6F8FF003B3035 /* WikipediaLanguageCommandLineUtility.swift in Sources */,
+				83B019D024F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift in Sources */,
+				83B019D224F6ACAA0014B5EF /* main.swift in Sources */,
+				83B019D124F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift in Sources */,
 				83ACAAA524E6E47D003B3035 /* Wikipedia.swift in Sources */,
-				83ACAA9824E6BE7B003B3035 /* WikipediaLanguageCommandLineUtilityAPI.swift in Sources */,
 				83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */,
 				83ACAAAE24E6EF0B003B3035 /* WikipediaSiteInfoLookup.swift in Sources */,
 				83ACAA9924E6D112003B3035 /* Collection+AsyncMap.swift in Sources */,
