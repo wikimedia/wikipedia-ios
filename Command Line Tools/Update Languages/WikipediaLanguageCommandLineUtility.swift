@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import CombineExt
 
 /// Command line tool for updating prebuilt language lists and lookup tables used in the app
 class WikipediaLanguageCommandLineUtility {
