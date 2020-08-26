@@ -199,7 +199,7 @@ static id _sharedInstance;
     }];
 }
 
-// This method can only be safely called from the main app target, as extension's standard `NSUserDefaults` are independent from the main app's.
+// This method can only be safely called from the main app target, as an extension's standard `NSUserDefaults` are independent from the main app and other targets.
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc {
     NSArray *preferredLanguages = [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey];
     [moc wmf_setValue:preferredLanguages forKey:WMFPreviousLanguagesKey];
