@@ -7881,7 +7881,6 @@
 				83ACAAA624E6E655003B3035 /* main.swift */,
 			);
 			name = "Update Localizations";
-			path = localization;
 			sourceTree = "<group>";
 		};
 		D87233FC1E1FF05800751E83 /* Places */ = {
