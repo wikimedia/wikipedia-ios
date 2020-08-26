@@ -238,6 +238,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
+    if (@available(iOS 14.0, *)) {
+        self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -891,7 +894,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
 
-    BOOL locationAuthorized = [WMFLocationManager isAuthorized];
+    BOOL locationAuthorized = [LocationManagerFactory coarseLocationManager].isAuthorized;
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesWithDate:nil
                                                 userInitiated:NO

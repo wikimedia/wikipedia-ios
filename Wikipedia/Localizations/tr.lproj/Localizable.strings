@@ -60,7 +60,7 @@
 "about-wikipedia" = "Vikipedi";
 "abuse-filter-disallow-heading" = "Bu düzenlemeyi yayınlayamazsınız";
 "abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi. Lütfen geri dönün ve düzenlemenizi değiştirin.";
-"abuse-filter-warning-blanking" = "Bölümler veya makaleler silindi";
+"abuse-filter-warning-blanking" = "Bölümleri veya tüm maddeleri silme";
 "abuse-filter-warning-caps" = "Tümü büyük harfle yazım";
 "abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; yayınlamak istediğinize emin misiniz?";
 "abuse-filter-warning-irrelevant" = "Konu dışı dış bağlantılar veya resimler";
@@ -581,7 +581,7 @@
 "places-enable-location-action-button-title" = "Konumu etkinleştir";
 "places-enable-location-description" = "Sadece uygulama veya uygulamanın bir özelliği ekranda açıkken konumunuza erişim imkanı olacaktır.";
 "places-enable-location-title" = "Konum erişimini etkinleştirerek yakınınızdaki maddeleri keşfedin";
-"places-filter-articles-action-sheet-title" = "Filtrelenen Makaleler";
+"places-filter-articles-action-sheet-title" = "Filtrelenen Maddeler";
 "places-filter-button-title" = "Filtre";
 "places-filter-no-saved-places" = "Kaydedilmiş yeriniz yok";
 "places-filter-saved-articles" = "Kaydedilmiş maddeler";
@@ -612,7 +612,7 @@
 "reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";
 "reading-list-add-saved-button-title" = "Evet, bunları okuma listeme ekleye";
 "reading-list-add-saved-subtitle" = "Vikipedi uygulamanıza kaydedilmiş makaleler var. Bunları saklamak ve hesabınıza senkronize edilen okuma listeleri ile birleştirmek ister misiniz?";
-"reading-list-add-saved-title" = "Kaydedilen makaleler bulundu";
+"reading-list-add-saved-title" = "Kaydedilen maddeler bulundu";
 "reading-list-api-error-entry-limit" = "Bu liste, bu listedeki girişlerin sayısına sınırlamış olduğunuz için senkronize edilmiyor.";
 "reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
 "reading-list-api-error-list-limit" = "Senkronize edilen liste sayısı limitine ulaştığınız için bu liste senkronize edilmiyor.";
