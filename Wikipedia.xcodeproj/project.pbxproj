@@ -1233,6 +1233,7 @@
 		83B019D024F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B019CD24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift */; };
 		83B019D124F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B019CE24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift */; };
 		83B019D224F6ACAA0014B5EF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B019CF24F6ACAA0014B5EF /* main.swift */; };
+		83B019D624F6C31B0014B5EF /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B019D524F6C31B0014B5EF /* WidgetKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		83B01F7223DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
 		83B01F7323DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
 		83B01F7423DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */; };
@@ -3710,6 +3711,7 @@
 		83B019CD24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtility.swift; sourceTree = "<group>"; };
 		83B019CE24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtilityAPI.swift; sourceTree = "<group>"; };
 		83B019CF24F6ACAA0014B5EF /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		83B019D524F6C31B0014B5EF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.0.sdk/System/iOSSupport/System/Library/Frameworks/WidgetKit.framework; sourceTree = DEVELOPER_DIR; };
 		83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleWebMessageHandling.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		83B01F7623DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleToolbarHandling.swift"; sourceTree = "<group>"; };
 		83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Editing.swift"; sourceTree = "<group>"; };
@@ -4868,6 +4870,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B019D624F6C31B0014B5EF /* WidgetKit.framework in Frameworks */,
 				D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */,
 				D8CE21201E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8D906951DF58D2C00853BFD /* libsqlite3.tbd in Frameworks */,
@@ -7583,6 +7586,7 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83B019D524F6C31B0014B5EF /* WidgetKit.framework */,
 				B09BE6A01FB3DA45007F52E3 /* WebKit.framework */,
 				D8CD975F1E83F68400ECCA9D /* SafariServices.framework */,
 				D8D906931DF58D1800853BFD /* libsqlite3.tbd */,
