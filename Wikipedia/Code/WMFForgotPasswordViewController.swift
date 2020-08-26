@@ -89,7 +89,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
     }
     
     func sendPasswordResetEmail(userName: String?, email: String?) {
-        guard let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() else {
+        guard let siteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL() else {
             WMFAlertManager.sharedInstance.showAlert("No site url", sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
