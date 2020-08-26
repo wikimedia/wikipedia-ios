@@ -86,7 +86,7 @@ EventLoggingLabel const EventLoggingLabelPictureOfTheDay = @"picture_of_the_day"
 
 - (NSString *)primaryLanguage {
     NSString *primaryLanguage = @"en";
-    MWKLanguageLink *appLanguage = [MWKLanguageLinkController sharedInstance].appLanguage;
+    MWKLanguageLink *appLanguage = [MWKDataStore shared].languageLinkController.appLanguage;
     if (appLanguage) {
         primaryLanguage = appLanguage.languageCode;
     }

@@ -33,11 +33,11 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
-            if let siteURL = UserDefaults.standard.wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
+            if let siteURL = UserDefaults.standard.wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKDataStore.shared().languageLinkController.language(forSiteURL: siteURL) {
                 return selectedLanguage
             } else {
                 
-                if let appLang = MWKLanguageLinkController.sharedInstance().appLanguage {
+                if let appLang = MWKDataStore.shared().languageLinkController.appLanguage {
                     self.currentlySelectedSearchLanguage = appLang
                     return appLang
                 } else {
@@ -106,7 +106,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
-        return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
+        return Array(MWKDataStore.shared().languageLinkController.preferredLanguages.prefix(3))
     }
     
     fileprivate func updateLanguageBarLanguageButtons(){
@@ -169,7 +169,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
         // If the selected language will not be displayed because we only display max 3 languages, move it to index 2
         if(languageBarLanguages().firstIndex(of: language) == nil && languageBarLanguages().count > 2){
-            MWKLanguageLinkController.sharedInstance().reorderPreferredLanguage(language, to: 2)
+            MWKDataStore.shared().languageLinkController.reorderPreferredLanguage(language, to: 2)
         }
         
         currentlySelectedSearchLanguage = language

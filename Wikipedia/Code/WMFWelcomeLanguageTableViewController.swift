@@ -43,17 +43,17 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.standard.wmf_setShowSearchLanguageBar(MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1)
+        UserDefaults.standard.wmf_setShowSearchLanguageBar(MWKDataStore.shared().languageLinkController.preferredLanguages.count > 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MWKLanguageLinkController.sharedInstance().preferredLanguages.count
+        return MWKDataStore.shared().languageLinkController.preferredLanguages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WMFLanguageCell.wmf_nibName(), for: indexPath) as! WMFLanguageCell
         cell.collapseSideSpacing()
-        let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
+        let langLink = MWKDataStore.shared().languageLinkController.preferredLanguages[indexPath.row]
         cell.languageName = langLink.name
         cell.isPrimary = indexPath.row == 0
         (cell as Themeable).apply(theme: theme)
