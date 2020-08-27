@@ -401,7 +401,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (NSSet <NSURL *> *)preferredSiteURLs {
-    return [NSSet setWithArray:[MWKLanguageLinkController sharedInstance].preferredSiteURLs];
+    return [NSSet setWithArray:self.dataStore.languageLinkController.preferredSiteURLs];
 }
 
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {

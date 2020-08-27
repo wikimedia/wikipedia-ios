@@ -133,7 +133,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)showAuthorizationPlaceholderInManagedObjectContext:(NSManagedObjectContext *)moc completion:(nonnull dispatch_block_t)completion {
-    NSString *preferredSiteURLString = [[MWKLanguageLinkController.sharedInstance.preferredSiteURLs firstObject] wmf_databaseKey];
+    NSString *preferredSiteURLString = [[self.dataStore.languageLinkController.preferredSiteURLs firstObject] wmf_databaseKey];
     NSString *mySiteURLString = self.siteURL.wmf_databaseKey;
     if (preferredSiteURLString && mySiteURLString && ![mySiteURLString isEqualToString:preferredSiteURLString]) {
         if (completion) {

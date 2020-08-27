@@ -131,7 +131,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
 
 private extension WMFContentGroupKind {
     var offLanguageCodes: Set<String> {
-        let preferredLangCodes = MWKLanguageLinkController.sharedInstance().preferredLanguages.map{$0.languageCode}
+        let preferredLangCodes = MWKDataStore.shared().languageLinkController.preferredLanguages.map{$0.languageCode}
         return Set(preferredLangCodes).subtracting(languageCodes)
     }
     
