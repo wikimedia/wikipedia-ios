@@ -38,7 +38,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
          */
         EPC.shared?.log(
             stream: "ios.edit_history_compare",
-            schema: "/analytics/mobile_apps/ios/edit_history_compare/1.0.0",
+            schema: "/analytics/mobile_apps/ios_edit_history_compare/1.0.0",
             data: [
                 "action": action.rawValue as NSCoding,
                 "primary_language": self.primaryLanguage() as NSCoding,

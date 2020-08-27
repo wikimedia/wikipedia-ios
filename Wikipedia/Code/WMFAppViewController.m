@@ -2005,7 +2005,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             }
             break;
         default:
-            [[WMFEventPlatformClient sharedInstance] logWithStream:@"test.event" schema:@"/test/event/1.0.0" data:@{@"test": @"hello world!", @"test_map":@{@"file": @"Application/App View Controller/WMFAppViewController.m", @"method": @"showSettingsWithSubViewController()"}} domain: nil];
+            [[WMFEventPlatformClient sharedInstance] logWithStream:@"test.instrumentation" schema:@"/analytics/test/1.0.0" data:@{@"test_string": @"Opened Settings screen", @"test_map":@{@"file": @"Application/App View Controller/WMFAppViewController.m", @"method": @"showSettingsWithSubViewController()"}} domain: nil];
             [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
             break;
     }
