@@ -1,5 +1,3 @@
-def IS_BETA = false
-
 pipeline {
   agent any
   
@@ -9,7 +7,8 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh '''rm -rf build/reports
+        sh '''
+        rm -rf build/reports
         export LANG=en_US.UTF-8
         export LANGUAGE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
@@ -20,7 +19,11 @@ pipeline {
       }
       post {
         always {
-          junit '**/build/reports/*.junit'
+          sh '''
+          eval "$(rbenv init -)"
+          bundle exec danger
+          '''
+          junit '**/fastlane/test_output/*.junit'
         }
       }
     }

@@ -81,6 +81,10 @@ class ReadingListDetailViewController: ViewController {
         setUpArticlesViewController()
         
         navigationBar.title = readingList.name
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonTitle = readingList.name
+            navigationItem.backButtonDisplayMode = .generic
+        }
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
         navigationBar.isBarHidingEnabled = false

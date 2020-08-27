@@ -51,7 +51,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil, hidesHistoryBackTitle: true)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil)
             return presentOrPush(diffContainerVC, with: completion)
         case .articleDiffSingle(let linkURL, let fromRevID, let toRevID):
             guard let siteURL = linkURL.wmf_site,
@@ -59,7 +59,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil, hidesHistoryBackTitle: true)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
             let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)

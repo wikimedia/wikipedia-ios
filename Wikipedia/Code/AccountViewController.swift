@@ -113,7 +113,7 @@ class AccountViewController: SubSettingsViewController {
             showLogoutAlert()
         case .talkPage:
             if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername,
-                let language = MWKLanguageLinkController.sharedInstance().appLanguage {
+                let language = MWKDataStore.shared().languageLinkController.appLanguage {
                 let siteURL = language.siteURL()
                 let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
                 

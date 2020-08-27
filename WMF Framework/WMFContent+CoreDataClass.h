@@ -11,4 +11,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "WMFContent+CoreDataProperties.h"
+#import <WMF/WMFContent+CoreDataProperties.h>

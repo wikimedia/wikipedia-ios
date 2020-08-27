@@ -1,8 +1,8 @@
-#import <Mantle/Mantle.h>
+#import <WMF/WMFMTLModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKSearchRedirectMapping : MTLModel <MTLJSONSerializing>
+@interface MWKSearchRedirectMapping : WMFMTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy, readonly) NSString *redirectFromTitle;
 @property (nonatomic, copy, readonly) NSString *redirectToTitle;

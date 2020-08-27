@@ -89,7 +89,7 @@ final class DiffHeaderViewModel: Themeable {
     }
     
     static func generateTitleViewModelForCompare(articleTitle: String, editCounts: EditCountsGroupedByType?) -> DiffHeaderTitleViewModel {
-        let heading = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
+        let heading = CommonStrings.compareRevisionsTitle
         let subtitle: String?
 
         if let editCounts = editCounts {

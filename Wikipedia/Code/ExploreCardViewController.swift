@@ -24,10 +24,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return ColumnarCollectionViewLayout()
     }()
     
-    lazy var locationManager: WMFLocationManager = {
-        let lm = WMFLocationManager.fine()
-        lm.delegate = self
-        return lm
+    lazy var locationManager: LocationManagerProtocol = {
+        let locationManager = LocationManager()
+        locationManager.delegate = self
+        return locationManager
     }()
     
     deinit {
@@ -230,7 +230,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
-            if WMFLocationManager.isAuthorized() {
+            if locationManager.isAuthorized {
                 authCell.updateForLocationEnabled()
             } else {
                 authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
@@ -243,7 +243,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         cell.articleLocation = article.location
-        if WMFLocationManager.isAuthorized() {
+        if locationManager.isAuthorized {
             locationManager.startMonitoringLocation()
             cell.update(userLocation: locationManager.location, heading: locationManager.heading)
         } else {
@@ -371,7 +371,18 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.layoutMargins = layout.itemLayoutMargins
     }
-    
+
+    func updateLocationCells() {
+        let userLocation = locationManager.location
+        let heading = locationManager.heading
+        for cell in collectionView.visibleCells {
+            guard let cell = cell as? ArticleLocationExploreCollectionViewCell else {
+                return
+            }
+            cell.update(userLocation: userLocation, heading: heading)
+        }
+    }
+
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -387,7 +398,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         if cell is ArticleLocationExploreCollectionViewCell {
             visibleLocationCellCount += 1
-            if WMFLocationManager.isAuthorized() {
+            if locationManager.isAuthorized {
                 locationManager.startMonitoringLocation()
             }
         }
@@ -632,7 +643,7 @@ extension ExploreCardViewController: ArticlePreviewingDelegate {
 extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewCellDelegate {
     func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell) {
         UserDefaults.standard.wmf_setExploreDidPromptForLocationAuthorization(true)
-        if WMFLocationManager.isAuthorizationNotDetermined() {
+        if locationManager.authorizationStatus == .notDetermined {
             locationManager.startMonitoringLocation()
             return
         }
@@ -640,30 +651,20 @@ extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewC
     }
 }
 
-extension ExploreCardViewController: WMFLocationManagerDelegate {
-    func updateLocationCells() {
-        let userLocation = locationManager.location
-        let heading = locationManager.heading
-        for cell in collectionView.visibleCells {
-            guard let cell = cell as? ArticleLocationExploreCollectionViewCell else {
-                return
-            }
-            cell.update(userLocation: userLocation, heading: heading)
-        }
-    }
-    
-    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+extension ExploreCardViewController: LocationManagerDelegate {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation) {
         updateLocationCells()
     }
-    
-    func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
+
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading) {
         updateLocationCells()
     }
-    
-    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        UserDefaults.standard.wmf_setLocationAuthorized(enabled)
+
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdateAuthorized authorized: Bool) {
+        UserDefaults.standard.wmf_setLocationAuthorized(authorized)
+
         for cell in collectionView.visibleCells {
-            guard let cell = cell as? ArticleLocationAuthorizationCollectionViewCell else {
+            guard let cell = cell as? ArticleLocationAuthorizationCollectionViewCell, locationManager.isAuthorized else {
                 return
             }
             cell.updateForLocationEnabled()
