@@ -226,7 +226,7 @@ struct TopReadView: View {
 					}
 				}
 				Spacer()
-				elementImageOrPlaceholder(index)
+				elementImageOrEmptyView(index)
 					.frame(width: proxy.size.height / 1.1, height: proxy.size.height / 1.1, alignment: .trailing)
 					.mask(
 						RoundedRectangle(cornerRadius: 5, style: .continuous)
@@ -236,13 +236,13 @@ struct TopReadView: View {
 	}
 
 	@ViewBuilder
-	func elementImageOrPlaceholder(_ elementIndex: Int) -> some View {
+	func elementImageOrEmptyView(_ elementIndex: Int) -> some View {
 		if let image = entry?.rankedElements[elementIndex].image {
 			Image(uiImage: image)
 				.resizable()
 				.aspectRatio(contentMode: .fill)
 		} else {
-			Rectangle().fill(Color.gray)
+			EmptyView()
 		}
 	}
 }
