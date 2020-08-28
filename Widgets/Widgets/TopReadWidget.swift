@@ -262,6 +262,12 @@ struct TopReadOverlayView: View {
 			: Theme.dark.colors.rankGradientEnd.asColor
 	}
 
+	var primaryTextColor: Color {
+		isExpandedStyle
+			? colorScheme == .dark ? Color.white : Color.black
+			: .white
+	}
+
 	private var currentViewCountOrEmpty: String {
 		guard let currentViewCount = rankedElement?.viewCounts.last else {
 			return "–"
@@ -319,12 +325,12 @@ struct TopReadOverlayView: View {
 				.font(.caption2)
 				.fontWeight(.heavy)
 				.aspectRatio(contentMode: .fit)
-				.foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+				.foregroundColor(primaryTextColor)
 				.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
 			Text("\(rankedElement?.title ?? "–")")
 				.lineLimit(nil)
 				.font(.headline)
-				.foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+				.foregroundColor(primaryTextColor)
 				.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
 			if includeReaderCount {
 				// TODO: Localize
