@@ -64,7 +64,7 @@ final class TopReadData {
 			group.enter()
 			guard let thumbnailURL = element.thumbnailURL, let fetcher = ImageCacheController.shared else {
 				group.leave()
-				return
+				continue
 			}
 
 			fetcher.fetchImage(withURL: thumbnailURL, failure: { _ in
