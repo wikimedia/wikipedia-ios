@@ -169,7 +169,8 @@ struct TopReadView: View {
 		if let image = entry?.rankedElements.first?.image {
 			Image(uiImage: image).resizable().scaledToFill()
 		} else {
-			Rectangle().foregroundColor(Color(.systemFill)).scaledToFill()
+			Rectangle()
+				.foregroundColor(colorScheme == .dark ? Color.black : Color.white)
 		}
 	}
 
@@ -219,7 +220,7 @@ struct TopReadView: View {
 						.font(.caption)
 						.foregroundColor(Color(.secondaryLabel))
 					if showSparkline {
-						Sparkline(style: .compactWithViewCount, timeSeries: entry?.rankedElements[index].viewCounts, containerBackgroundColor: UIColor.gray.withAlphaComponent(0.05).asColor)
+						Sparkline(style: .compactWithViewCount, timeSeries: entry?.rankedElements[index].viewCounts)
 							.cornerRadius(4)
 							.frame(height: proxy.size.height / 3.0, alignment: .leading)
 					}
@@ -318,18 +319,21 @@ struct TopReadOverlayView: View {
 				.font(.caption2)
 				.fontWeight(.heavy)
 				.aspectRatio(contentMode: .fit)
-				.readableShadow()
+				.foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+				.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
 			Text("\(rankedElement?.title ?? "–")")
 				.lineLimit(nil)
 				.font(.headline)
-				.readableShadow()
+				.foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+				.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
 			if includeReaderCount {
 				// TODO: Localize
 				Text("\(currentViewCountOrEmpty) Readers")
+					.fontWeight(.bold)
 					.lineLimit(nil)
 					.font(.caption)
 					.foregroundColor(readersForegroundColor)
-					.readableShadow()
+					.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
 			}
 		}
 		.padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))

@@ -68,7 +68,33 @@ struct SparklineGrid: View {
 
 	var body: some View {
 		// TODO
-		Rectangle()
+		switch gridStyle {
+		case .horizontal:
+			Rectangle().foregroundColor(.clear)
+		case .horizontalAndVertical:
+			ZStack {
+				VStack {
+					Spacer()
+					Rectangle().frame(height: 1)
+					Spacer()
+					Rectangle().frame(height: 1)
+					Spacer()
+					Rectangle().frame(height: 1)
+					Spacer()
+					Rectangle().frame(height: 1)
+					Spacer()
+				}
+				HStack {
+					Spacer()
+					Rectangle().frame(width: 1)
+					Spacer()
+					Rectangle().frame(width: 1)
+					Spacer()
+					Rectangle().frame(width: 1)
+					Spacer()
+				}
+			}
+		}
 	}
 }
 
@@ -92,10 +118,21 @@ struct Sparkline: View {
 
 	var style: Style = .compact
     var gridStyle: GridStyle = .horizontal
-    var lineWidth: CGFloat = 1.5
+	var lineWidth: CGFloat {
+		return style == .expanded ? 2.25 : 1.5
+	}
     
 	var timeSeries: [NSNumber]? = []
-	var containerBackgroundColor: Color = Color.white
+	var containerBackgroundColor: Color {
+		switch style {
+		case .compactWithViewCount:
+			return colorScheme == .dark ? Color.white.opacity(0.12) : Color(.sRGB, red: 250/255.0, green: 250/255.0, blue: 250/255.0, opacity: 1)
+		case .compact:
+			return colorScheme == .dark ? .black : .white
+		case .expanded:
+			return colorScheme == .dark ? .black : .white
+		}
+	}
     
     var gradientStartColor: Color {
         colorScheme == .light
@@ -133,8 +170,15 @@ struct Sparkline: View {
 			.background(containerBackgroundColor)
 		} else {
 			ZStack {
-				Rectangle()
-				Rectangle().inset(by: 5).fill(Color.secondary)
+				SparklineGrid(gridStyle: .horizontalAndVertical)
+					.foregroundColor(colorScheme == .dark
+						? Color(.sRGB, red: 55/255.0, green: 55/255.0, blue: 55/255.0, opacity: 1)
+						: Color(.sRGB, red: 235/255.0, green: 235/255.0, blue: 235/255.0, opacity: 1)
+					)
+				SparklineShape(data: timeSeries)
+					.stroke(
+						LinearGradient(gradient: Gradient(colors: [gradientStartColor, gradientEndColor]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
+					.padding([.top, .bottom, .leading, .trailing], 8)
 			}
 			.background(containerBackgroundColor)
 		}
