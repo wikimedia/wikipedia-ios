@@ -53,18 +53,8 @@ import Foundation
  */
 public protocol EPCStorageManaging {
     //used by EPC
-    func setPersisted(_ key: String, _ value: NSCoding)
-    func deletePersisted(_ key: String)
-    func getPersisted(_ key: String) -> NSCoding?
     var installID: String? { get }
     var sharingUsageData: Bool { get }
-    
-    //used by EPCNetworkManager
-    func createAndSavePost(with url: URL, body: NSDictionary)
-    func updatePosts(completedIDs: Set<NSManagedObjectID>, failedIDs: Set<NSManagedObjectID>)
-    func deleteStalePosts()
-    func fetchPostsForPosting() -> [EPCPost]
-    func urlAndBodyOfPost(_ post: EPCPost) -> (url: URL, body: NSDictionary)?
 }
 
 /**
@@ -104,7 +94,7 @@ public protocol EPCNetworkManaging {
      * This needs to be called from the library each time new events are logged
      * Note posting may not happen right away when calling this
      */
-    func httpPost(url: URL, body: NSDictionary)
+    func schedulePost(url: URL, body: NSDictionary)
     /**
      * For downloading data
      *
@@ -118,5 +108,5 @@ public protocol EPCNetworkManaging {
     * This method kicks off the posting of events queued from the httpPost method.
     * It is meant to be periodically called in the app lifecycle, i.e. through a PeriodicWorker.
     */
-    func httpTryPost(_ completion: (() -> Void)?)
+    func httpTryPost()
 }

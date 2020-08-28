@@ -39,7 +39,8 @@
 import Foundation
 
 /**
- * Holds all components of a logged event, for storing in EPC's persistable input buffer
+ * Holds all components of a logged event, for storing in EPC's persistable input
+ * buffer
  */
 class EPCBufferEvent: NSObject, NSCoding {
     
@@ -79,15 +80,17 @@ class EPCBufferEvent: NSObject, NSCoding {
 /**
  * Event Platform Client (EPC)
  *
- * The static public API via the `shared` singleton allows callers to log events. Use `log` to submit an
- * event to a specific stream, cc'ing derivative streams automatically. For additional information on
- * instrumentation with the Modern Event Platform and the Event Platform Client libraries, please refer to the
+ * The static public API via the `shared` singleton allows callers to log events.
+ * Use `log` to submit an event to a specific stream, cc'ing derivative streams
+ * automatically. For additional information on instrumentation with the Modern
+ * Event Platform and the Event Platform Client libraries, please refer to the
  * following resources:
  * - [mw:Wikimedia Product/Analytics Infrastructure/Event Platform Client](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Event_Platform_Client)
  * - [wikitech:Event Platform/Instrumentation How To](https://wikitech.wikimedia.org/wiki/Event_Platform/Instrumentation_How_To)
  *
- * **Note**: Events generated while offline are persisted between sessions until stream configuration has
- * been downloaded and the events can be properly processed.
+ * **Note**: Events generated while offline are persisted between sessions until
+ * stream configuration has been downloaded and the events can be properly
+ * processed.
  *
  * ## Logging API
  *
@@ -96,7 +99,8 @@ class EPCBufferEvent: NSObject, NSCoding {
  *
  * ## Dependencies
  *
- * `EPC` relies on some functionality to be made available to it by the rest of the application. It depends on:
+ * `EPC` relies on some functionality to be made available to it by the rest of
+ * the application. It depends on:
  * - an `EPCNetworkManager` which can `HTTP POST` requests and download data
  * - an `EPCStorageManager` which can persist data and recall or delete persisted data
  *
@@ -112,12 +116,13 @@ public class EPC: NSObject {
             return nil
         }
         
-        let networkManager = EPCNetworkManager(storageManager: storageManager)
+        let networkManager = EPCNetworkManager()
         return EPC(networkManager: networkManager, storageManager: storageManager)
     }()
 
     /**
-     * Serial dispatch queue that enables working with properties in a thread-safe way
+     * Serial dispatch queue that enables working with properties in a thread-safe
+     * way
      */
     private let queue = DispatchQueue(label: "EventPlatformClient-" + UUID().uuidString)
 
@@ -134,7 +139,8 @@ public class EPC: NSObject {
      * and made available for external consumption via MediaWiki API via
      * [Extension:EventStreamConfig](https://gerrit.wikimedia.org/g/mediawiki/extensions/EventStreamConfig/)
      *
-     * In production, we use [Meta wiki](https://meta.wikimedia.org/wiki/Main_Page)'s [streamconfigs endpoint](https://meta.wikimedia.org/w/api.php?action=help&modules=streamconfigs)
+     * In production, we use [Meta wiki](https://meta.wikimedia.org/wiki/Main_Page)'s
+     * [streamconfigs endpoint](https://meta.wikimedia.org/w/api.php?action=help&modules=streamconfigs)
      */
     private let configURI: URL
     
@@ -142,6 +148,7 @@ public class EPC: NSObject {
     * Key constants
     */
     private let inputBufferKey = "epc_input_buffer"
+    private let inbutBufferLimit = 128
     
     /**
      * A safeguard against logging events while the app is in background state
@@ -265,9 +272,22 @@ public class EPC: NSObject {
          * streams with that destination are logged to, since eventgate-analytics-external
          * is set up as a public endpoint at intake-analytics.wikimedia.org,
          * where both EventLogging and this library send analytics events to.
+         *
+         * = URIs =
+         * eventGateURIs:
+         *  - Production: https://intake-analytics.wikimedia.org/v1/events
+         *  - Test 1: https://pai-test.wmflabs.org/events
+         *  - Test 2: https://epc-test.wmcloud.org/v1/events
+         *
+         * Note: events sent to 'Test 1' can be viewed at https://pai-test.wmflabs.org/view
+         *
+         * configURIs:
+         *  - Production: https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external
+         *  - Test 1: https://pai-test.wmflabs.org/streams
+         *  - Test 2: https://epc-test.wmcloud.org/w/api.php?action=streamconfigs&format=json
          */
-        guard let eventGateURI = URL(string: "https://pai-test.wmflabs.org/log"), // https://intake-analytics.wikimedia.org/v1/events
-            let configURI = URL(string: "https://pai-test.wmflabs.org/streams") else { // https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external
+        guard let eventGateURI = URL(string: "https://pai-test.wmflabs.org/events"),
+            let configURI = URL(string: "https://pai-test.wmflabs.org/streams") else {
                 DDLogError("EventPlatformClientLibrary - Unable to instantiate uris")
                 return nil
         }
@@ -285,34 +305,7 @@ public class EPC: NSObject {
         super.init()
 
         loggingEnabled = true
-        recallBuffer()
         configure()
-    }
-
-    /**
-     * Stores the input buffer of generated events in persistent storage and clears it
-     */
-    private func persistBuffer() {
-        let inputBuffer = getInputBuffer()
-        storageManager.setPersisted(inputBufferKey, inputBuffer)
-    }
-
-    /**
-     * Retrieves persisted input buffer and deletes it from storage
-     *
-     * Merges retrieved events with any existing events in `inputBuffer`.
-     */
-    private func recallBuffer() {
-        
-        guard let events = storageManager.getPersisted(inputBufferKey) as? [EPCBufferEvent] else {
-            return
-        }
-        
-        for event in events {
-            appendEventToInputBuffer(event)
-        }
-        
-        storageManager.deletePersisted(inputBufferKey)
     }
 
     /**
@@ -343,7 +336,6 @@ public class EPC: NSObject {
      */
     @objc public func appWillClose() {
         loggingEnabled = false
-        persistBuffer()
     }
 
     /**
@@ -454,16 +446,17 @@ public class EPC: NSObject {
     }
 
     /**
-     * Yields a deterministic (not stochastic) determination of whether the provided `id` is
-     * in-sample or out-of-sample according to the `acceptance` rate
-     * - Parameter id: either session ID generated with `generateID` or the app install ID
-     * generated with `UUID().uuidString`
+     * Yields a deterministic (not stochastic) determination of whether the
+     * provided `id` is in-sample or out-of-sample according to the `acceptance`
+     * rate
+     * - Parameter id: identifier to use for determining sampling
      * - Parameter acceptance: the desired proportion of many `token`-s being accepted
      *
-     * The algorithm works in a "widen the net on frozen fish" fashion -- tokens continue evaluating to
-     * true as the acceptance rate increases. For example, a device determined to be in-sample for a
-     * stream "A" having rate 0.1 will be determined to be in-sample for a stream "B" having rate 0.2,
-     * and its events will show up in tables "A" and "B".
+     * The algorithm works in a "widen the net on frozen fish" fashion -- tokens
+     * continue evaluating to true as the acceptance rate increases. For example,
+     * a device determined to be in-sample for a stream "A" having rate 0.1 will
+     * be determined to be in-sample for a stream "B" having rate 0.2, and its
+     * events will show up in tables "A" and "B".
      */
     private func determine(_ id: String, _ acceptance: Double) -> Bool {
         guard let token = UInt32(id.prefix(8), radix: 16) else {
@@ -478,8 +471,9 @@ public class EPC: NSObject {
      * - Parameter deviceID: device identifier (aka app install ID), found in `EPCStorageManager`
      * - Returns: `true` if in sample or `false` otherwise
      *
-     * The determinations are lazy and cached, so each stream's in-sample vs out-of-sample determination
-     * is computed only once, the first time an event is logged to that stream.
+     * The determinations are lazy and cached, so each stream's in-sample vs
+     * out-of-sample determination is computed only once, the first time an event
+     * is logged to that stream.
      *
      * Refer to sampling settings section in
      * [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
@@ -519,18 +513,18 @@ public class EPC: NSObject {
          */
         guard let rate = samplingConfig["rate"] as? Double else {
             /*
-             * If stream doesn't have a rate, assume 1.0 (always in-sample).
-             * Cache this determination for any future use.
+             * If stream doesn't have a rate, assume 1.0 (always in-sample). Cache
+             * this determination for any future use.
              */
             cacheSamplingForStream(stream, inSample: true)
             return true
         }
 
         /*
-         * All platforms use session ID as the default identifier for
-         * determining in- vs out-of-sample of events sent to streams. On the
-         * web, streams can be set to use pageview token instead. On the apps,
-         * streams can be set to use device token instead.
+         * All platforms use session ID as the default identifier for determining
+         * in- vs out-of-sample of events sent to streams. On the web, streams can
+         * be set to use pageview token instead. On the apps, streams can be set
+         * to use device token instead.
          */
         let sessionIdentifierType = "session"
         let deviceIdentifierType = "device"
@@ -551,24 +545,29 @@ public class EPC: NSObject {
      * Log an event to a stream
      * - Parameters:
      *      - stream: Name of the event stream to send the event to
-     *      - schema: Name and version of schema that the instrumentation conforms to
+     *      - schema: Version of schema that the instrumentation conforms to
      *      - data: A dictionary of event data, appropriate for schema version
-     *      - domain: An optional domain to include for the event, without protocol
+     *      - domain: Optional domain to include for the event (without protocol)
      *
-     * Regarding `schema`, the instrumentation needs to specify which schema (and specifically which
-     * version of that schema) it conforms to. Analytics schemas can be found in the jsonschema directory of
+     * Regarding `schema`, the instrumentation needs to specify which schema (and
+     * specifically which version of that schema) it conforms to. Analytics
+     * schemas can be found in the jsonschema directory of
      * [secondary repo](https://gerrit.wikimedia.org/r/plugins/gitiles/schemas/event/secondary/)
      *
-     * As an example, if instrumenting client-side error logging, a possible `schema` would be
-     * `/mediawiki/client/error/1.0.0`. For the most part, the `schema` will start with
-     * `/analytics`, since there's where analytics-related schemas are collected.
+     * As an example, if instrumenting client-side error logging, a possible
+     * `schema` would be `/mediawiki/client/error/1.0.0`. For the most part, the
+     * `schema` will start with `/analytics`, since there's where
+     * analytics-related schemas are collected.
      *
-     * Regarding `domain`: this is *optional* and should be used when event needs to be attrributed to a
-     * particular wiki (Wikidata, Wikimedia Commons, a specific edition of Wikipedia, etc.). If the language is
-     * NOT relevant in the context, `domain` can be safely omitted. Using "domain" rather than "language"
-     * is consistent with the other platforms and allows for the possibility of setting a non-Wikipedia domain
-     * like "commons.wikimedia.org" and "wikidata.org" for multimedia/metadata-related in-app analytics.
-     * Instrumentation code should use the `host` property of a `URL` as the value for this parameter.
+     * Regarding `domain`: this is *optional* and should be used when event needs
+     * to be attrributed to a particular wiki (Wikidata, Wikimedia Commons, a
+     * specific edition of Wikipedia, etc.). If the language is NOT relevant in
+     * the context, `domain` can be safely omitted. Using "domain" rather than
+     * "language" is consistent with the other platforms and allows for the
+     * possibility of setting a non-Wikipedia domain like "commons.wikimedia.org"
+     * and "wikidata.org" for multimedia/metadata-related in-app analytics.
+     * Instrumentation code should use the `host` property of a `URL` as the value
+     * for this parameter.
      *
      * Cases where instrumentation would set a `domain`:
      * - reading or editing an article
@@ -576,15 +575,16 @@ public class EPC: NSObject {
      * - interacting with feed
      * - searching
      *
-     * Cases where it might not be necessary for instrumentation to set a `domain`:
+     * Cases where it might not be necessary for the instrument to set a `domain`:
      * - changing settings
      * - managing reading lists
      * - navigating map of nearby articles
      * - multi-lingual features like Suggested Edits
-     * - marking session start/end; in which case schema and `data` should have a `languages` field
-     *   where user's list of languages can be stored, although it might make sense to set it to the domain
-     *   associated with the user's 1st preferred language – in which case use
-     *   `MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()!.host!`
+     * - marking session start/end; in which case schema and `data` should have a
+     *   `languages` field where user's list of languages can be stored, although
+     *   it might make sense to set it to the domain associated with the user's
+     *   1st preferred language – in which case use
+     *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
     @objc public func log(stream: String, schema: String, data: [String: NSCoding], domain: String? = nil) -> Void {
         guard loggingEnabled, storageManager.sharingUsageData else {
@@ -657,7 +657,7 @@ public class EPC: NSObject {
         data["app_install_id"] = installID as NSCoding
         /*
          * EventGate needs to know which version of the schema to validate
-         * against (e.g. '/mediawiki/client/error/1.0.0')
+         * against (e.g. '/analytics/test/1.0.0')
          */
         data["$schema"] = schema as NSCoding
 
@@ -667,7 +667,7 @@ public class EPC: NSObject {
          * known to send duplicates of events, otherwise we don't need to
          * make the payload any heavier than it already is
          */
-        meta["id"] = UUID().uuidString as NSCoding // UUID with RFC 4122 v4 random bytes
+        meta["id"] = UUID().uuidString as NSCoding
         data[metaKey] = meta as NSCoding // update metadata
 
         do {
@@ -675,19 +675,20 @@ public class EPC: NSObject {
             let jsonString = try data.toJSONString()
             DDLogDebug("EPC: Sending HTTP request to \(eventGateURI) with POST body: \(jsonString)")
             #endif
-            networkManager.httpPost(url: eventGateURI, body: data as NSDictionary)
+            networkManager.schedulePost(url: eventGateURI, body: data as NSDictionary)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
     }
     
     /**
-     * Passthrough method to tell `networkManager` to attempt to post its queued events
+     * Passthrough method to tell `networkManager` to attempt to post its queued
+     * events
      * - Parameters:
      *      - completion: Completion block to be called once posts complete
     */
-    @objc public func httpTryPost(completion: (() -> Void)?) {
-        networkManager.httpTryPost(completion)
+    @objc public func httpTryPost() {
+        networkManager.httpTryPost()
     }
 
 }
@@ -712,6 +713,17 @@ private extension EPC {
     func appendEventToInputBuffer(_ event: EPCBufferEvent) {
         queue.async {
             let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
+            /*
+             * Check if input buffer has reached maximum allowed size. Practically
+             * speaking, there should not have been over a hundred events
+             * generated when the user first launches the app and before the
+             * stream configuration has been downloaded and becomes available. In
+             * such a case we're just going to start clearing out the oldest
+             * events to make room for new ones.
+             */
+            if mutableInputBuffer.count == self.inbutBufferLimit {
+                mutableInputBuffer.removeObject(at: 0)
+            }
             mutableInputBuffer.add(event)
             self.inputBuffer = NSArray(array: mutableInputBuffer)
         }
@@ -778,7 +790,7 @@ private extension EPC {
 
 extension EPC: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
-        networkManager.httpTryPost(completion)
+        networkManager.httpTryPost()
     }
 }
 

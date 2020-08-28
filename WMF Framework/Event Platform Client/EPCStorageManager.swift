@@ -11,7 +11,7 @@ class EPCStorageManager: EPCStorageManaging {
     private var libraryValueCache: [String: NSCoding] = [:]
     private let cachesLibraryValues: Bool
     
-    private let pruningAge: TimeInterval = 60*60*24*30 // 30 days
+    private let pruningAge: TimeInterval = 60*60*12 // 12 hours
     private let postBatchSize: Int
     
     private let legacyEventLoggingService: EventLoggingService
@@ -95,120 +95,11 @@ class EPCStorageManager: EPCStorageManaging {
     var sharingUsageData: Bool {
         return legacyEventLoggingService.isEnabled
     }
-    
-    func createAndSavePost(with url: URL, body: NSDictionary) {
-        
-        let now = Date()
-        perform { moc in
-            if let post = NSEntityDescription.insertNewObject(forEntityName: "EPCPost", into: self.managedObjectContext) as? EPCPost {
-                post.body = body
-                post.recorded = now
-                post.userAgent = WikipediaAppUtils.versionedUserAgent()
-                post.url = url
-                
-                DDLogDebug("EPCStorageManaager: \(post.objectID) recorded!")
-                
-                self.save(moc)
-            }
-        }
-    }
-    
-    func updatePosts(completedIDs: Set<NSManagedObjectID>, failedIDs: Set<NSManagedObjectID>) {
-        
-        perform { moc in
-            for moid in completedIDs {
-                let mo = try? moc.existingObject(with: moid)
-                guard let post = mo as? EPCPost else {
-                    continue
-                }
-                
-                post.posted = Date()
-            }
-            
-            for moid in failedIDs {
-                let mo = try? moc.existingObject(with: moid)
-                guard let post = mo as? EPCPost else {
-                    continue
-                }
-                
-                post.failed = true
-            }
-            
-            self.save(moc)
-        }
-        
-    }
-    
-    func urlAndBodyOfPost(_ post: EPCPost) -> (url: URL, body: NSDictionary)? {
-        var result: (url: URL, body: NSDictionary)?
-        performAndWait { moc in
-            guard let url = post.url,
-                let body = post.body as? NSDictionary else {
-                    return
-            }
-            
-            result = (url: url, body: body)
-        }
-        
-        return result
-    }
-    
-    func deleteStalePosts() {
-        
-        perform { (moc) in
-            
-            let pruneFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "EPCPost")
-            pruneFetch.returnsObjectsAsFaults = false
-            
-            let pruneDate = Date().addingTimeInterval(-(self.pruningAge)) as NSDate
-            pruneFetch.predicate = NSPredicate(format: "(recorded < %@) OR (posted != nil) OR (failed == TRUE)", pruneDate)
-            let delete = NSBatchDeleteRequest(fetchRequest: pruneFetch)
-            delete.resultType = .resultTypeCount
-            
-            do {
-                let result = try self.managedObjectContext.execute(delete)
-                guard let deleteResult = result as? NSBatchDeleteResult else {
-                    DDLogError("EPCStorageManager: Could not read NSBatchDeleteResult")
-                    return
-                }
-                
-                guard let count = deleteResult.result as? Int else {
-                    DDLogError("EPCStorageManager: Could not read NSBatchDeleteResult count")
-                    return
-                }
-                DDLogInfo("EPCStorageManager: Pruned \(count) events")
-                
-            } catch let error {
-                DDLogError("EPCStorageManager: Error pruning events: \(error.localizedDescription)")
-            }
-            
-        }
-    }
-    
-    func fetchPostsForPosting() -> [EPCPost] {
-        
-        var events: [EPCPost] = []
-        performAndWait { (moc) in
-            let fetch: NSFetchRequest<EPCPost> = EPCPost.fetchRequest()
-            fetch.sortDescriptors = [NSSortDescriptor(keyPath: \EPCPost.recorded, ascending: true)]
-            fetch.predicate = NSPredicate(format: "(posted == nil) AND (failed != TRUE)")
-            fetch.fetchLimit = self.postBatchSize
-
-            do {
-                events = try moc.fetch(fetch)
-            } catch let error {
-                DDLogError(error.localizedDescription)
-            }
-        }
-        
-        return events
-    }
 }
 
 //MARK: Utility methods duplicated from EventLoggingService
 
 private extension EPCStorageManager {
-    
     func save(_ moc: NSManagedObjectContext) {
         guard moc.hasChanges else {
             return

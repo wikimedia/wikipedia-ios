@@ -2,38 +2,38 @@
 import Foundation
 
 class EPCNetworkManager: EPCNetworkManaging {
-    
-    private let storageManager: EPCStorageManaging
+
     private let session: Session
     private let operationQueue: OperationQueue
+
+    private var outputQueue = [(url: URL, body: NSDictionary)]()
     
-    init(storageManager: EPCStorageManaging, session: Session = Session.shared) {
-        self.storageManager = storageManager
+    init(session: Session = Session.shared) {
         self.session = session
         
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
     }
-    
-    func httpPost(url: URL, body: NSDictionary) {
-        storageManager.createAndSavePost(with: url, body: body)
+
+    func schedulePost(url: URL, body: NSDictionary) {
+        outputQueue.append((url: url, body: body))
     }
     
     func httpDownload(url: URL, completion: @escaping (Data?) -> Void) {
-        httpDownload(url: url, maxAttempts: 5, attemptDelay: 2, completion: completion)
+        httpDownload(url: url, retriesRemaining: 5, attemptDelay: 2, completion: completion)
     }
 
     /**
      * Download data over HTTP with capacity for retries
      * - Parameters:
      *   - url: where to request data from
-     *   - maxAttempts: maximum number of retries allowed for this download operation
+     *   - maxRetries: maximum number of retries allowed for this download operation
      *   - attemptDelay: time between each retry
      *   - completion: what to do with the downloaded data
      */
-    private func httpDownload(url: URL, maxAttempts: Int, attemptDelay: TimeInterval, completion: @escaping (Data?) -> Void) {
+    private func httpDownload(url: URL, retriesRemaining: Int, attemptDelay: TimeInterval, completion: @escaping (Data?) -> Void) {
 
-        guard maxAttempts > 0 else {
+        if retriesRemaining < 0 {
             completion(nil)
             return
         }
@@ -42,7 +42,7 @@ class EPCNetworkManager: EPCNetworkManaging {
             
             let failureBlock = {
                 dispatchOnMainQueueAfterDelayInSeconds(attemptDelay) {
-                    self.httpDownload(url: url, maxAttempts: maxAttempts - 1, attemptDelay: attemptDelay, completion: completion)
+                    self.httpDownload(url: url, retriesRemaining: retriesRemaining - 1, attemptDelay: attemptDelay, completion: completion)
                 }
             }
             
@@ -69,83 +69,32 @@ class EPCNetworkManager: EPCNetworkManaging {
         task?.resume()
     }
     
-    func httpTryPost(_ completion: (() -> Void)? = nil) {
+    func httpTryPost() {
 
         let operation = AsyncBlockOperation { (operation) in
-            
-            self.storageManager.deleteStalePosts()
-            let postItems = self.storageManager.fetchPostsForPosting()
-            
-            self.postItems(postItems) {
-                operation.finish()
+
+            var queuedEvent: (url: URL, body: NSDictionary)?
+            while !self.outputQueue.isEmpty {
+                queuedEvent = self.outputQueue.remove(at: 0)
+                if let queuedEvent = queuedEvent {
+                    self.submit(url: queuedEvent.url, payload: queuedEvent.body)
+                }
             }
+
+            operation.finish()
         }
         
         operationQueue.addOperation(operation)
-        guard let completion = completion else {
-            return
-        }
-        let completionBlockOp = BlockOperation(block: completion)
-        completionBlockOp.addDependency(operation)
-        operationQueue.addOperation(completion)
     }
-    
-    private func postItems(_ items: [EPCPost], completion: @escaping () -> Void) {
 
-        let taskGroup = WMFTaskGroup()
-        
-        var completedIDs = Set<NSManagedObjectID>()
-        var failedIDs = Set<NSManagedObjectID>()
-        
-        for item in items {
-            let moid = item.objectID
-            guard let urlAndBody = storageManager.urlAndBodyOfPost(item) else {
-                failedIDs.insert(moid)
-                continue
-            }
-            taskGroup.enter()
-            let userAgent = item.userAgent ?? WikipediaAppUtils.versionedUserAgent()
-            submit(url: urlAndBody.url, payload: urlAndBody.body, userAgent: userAgent) { (error) in
-                if let error = error {
-                    if error != .network {
-                        failedIDs.insert(moid)
-                    }
-                } else {
-                    completedIDs.insert(moid)
-                }
-                taskGroup.leave()
-            }
-        }
-        
-        taskGroup.waitInBackground {
-            if (completedIDs.count == items.count) {
-                DDLogDebug("EPCNetworkManager: All records succeeded")
-            } else {
-                DDLogDebug("EPCNetworkManager: Some records failed")
-            }
-            self.storageManager.updatePosts(completedIDs: completedIDs, failedIDs: failedIDs)
-            completion()
-        }
-    }
-    
-    private func submit(url: URL, payload: NSDictionary, userAgent: String, completion: @escaping (EventLoggingError?) -> Void) {
-
-        var request = session.request(with: url, method: .post, bodyParameters: payload, bodyEncoding: .json)
-        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+    private func submit(url: URL, payload: Any? = nil) {
+        let request = session.request(with: url, method: .post, bodyParameters: payload, bodyEncoding: .json)
         let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
-            guard error == nil,
-                let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode / 100 == 2 else {
-                    if let error = error as NSError?, error.domain == NSURLErrorDomain {
-                        completion(EventLoggingError.network)
-                    } else {
-                        completion(EventLoggingError.generic)
-                    }
-                    return
+            if error != nil {
+                DDLogError("EPCNetworkManager: An error occurred sending the request")
             }
-            completion(nil)
         })
         task?.resume()
     }
-    
+
 }
