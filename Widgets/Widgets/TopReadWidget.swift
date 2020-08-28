@@ -76,7 +76,7 @@ final class TopReadData {
 		}
 
 		group.notify(queue: .main) {
-			completion(TopReadEntry(date: Date(), rankedElements: rankedElements))
+			completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url))
 		}
 	}
 
@@ -98,6 +98,7 @@ struct TopReadEntry: TimelineEntry {
 
 	let date: Date // for Timeline Entry
 	var rankedElements: [RankedElement] = Array(repeating: RankedElement.init(title: "–", description: "–", image: nil, viewCounts: [.init(floatLiteral: 0)]), count: 4)
+	var groupURL: URL? = nil
 }
 
 // MARK: - TimelineProvider
@@ -148,8 +149,10 @@ struct TopReadView: View {
 			switch family {
 			case .systemMedium:
 				rowBasedWidget(.systemMedium)
+					.widgetURL(entry?.groupURL)
 			case .systemLarge:
 				rowBasedWidget(.systemLarge)
+					.widgetURL(entry?.groupURL)
 			default:
 				smallWidget
 					.frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
