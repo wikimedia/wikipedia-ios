@@ -67,10 +67,18 @@ struct SparklineGrid: View {
 	// MARK: View
 
 	var body: some View {
-		// TODO
 		switch gridStyle {
 		case .horizontal:
-			Rectangle().foregroundColor(.clear)
+			// TODO: Fix this
+			VStack {
+				Spacer()
+				Rectangle().frame(height: 1)
+				Spacer()
+				Rectangle().frame(height: 1)
+				Spacer()
+				Rectangle().frame(height: 1)
+				Spacer()
+			}
 		case .horizontalAndVertical:
 			ZStack {
 				VStack {
@@ -152,13 +160,19 @@ struct Sparkline: View {
 		if style == .compact || style == .compactWithViewCount {
 			HStack {
 				Spacer().frame(width: 4)
-				SparklineShape(data: timeSeries)
-					.stroke(
-						LinearGradient(gradient: Gradient(colors: [gradientStartColor, gradientEndColor]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
-					.frame(width: 30, alignment: .leading)
-					.padding([.top, .bottom], 3)
-					// TODO
-					// .background(SparklineGrid(gridStyle: gridStyle).frame(height: proxy.size.height / 2))
+				ZStack {
+					SparklineGrid(gridStyle: .horizontal)
+						.foregroundColor(colorScheme == .dark
+							? Color(.sRGB, red: 55/255.0, green: 55/255.0, blue: 55/255.0, opacity: 1)
+							: Color(.sRGB, red: 235/255.0, green: 235/255.0, blue: 235/255.0, opacity: 1)
+						)
+						.layoutPriority(-1)
+					SparklineShape(data: timeSeries)
+						.stroke(
+							LinearGradient(gradient: Gradient(colors: [gradientStartColor, gradientEndColor]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
+						.frame(width: 30, alignment: .leading)
+						.padding([.top, .bottom], 3)
+				}
 				if style == .compactWithViewCount {
 					Text("\(currentViewCountOrEmpty)")
 						.font(.system(size: 12))
