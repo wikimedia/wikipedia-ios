@@ -1,0 +1,70 @@
+{
+    "nextRvStartId": 972790429,
+    "sha": null,
+    "timeline": [{
+        "count": 10,
+        "outputType": "small-change"
+    }, {
+        "revid": 973550989,
+        "timestamp": "2020-08-17T21:10:06Z",
+        "outputType": "large-change",
+        "user": "Dhtwiki",
+        "userid": 9475572,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'>used</span> them <span class='highlight-start'>on</span> <span class='highlight-start'>Japan</span> <span class='highlight-start'>in</span>...",
+            "snippetType": 3,
+            "characterCount": 47,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 559,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 31337
+    }, {
+        "count": 1,
+        "outputType": "small-change"
+    }, {
+        "revid": 973409110,
+        "timestamp": "2020-08-17T01:53:04Z",
+        "outputType": "large-change",
+        "user": "EpicRice",
+        "userid": 39847828,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'> worked on a secret project, known as the <a href=\"./Manhattan_Project\" title=\"Manhattan Project\">Manhattan Project</a>. They</span> eventually developed the <a href=\"./Manhattan_Project\" title=\"Manhattan Project\">first nuclear weapons<span class='highlight-start'></a>,</span> and <span class='highlight-start'>tested</span> them <span class='highlight-start'>in</span> <span class='highlight-start'>the</span> <span class='highlight-start'>Jornada</span> <span class='highlight-start'>del Muerto desert about 35 miles (56 km) southeast</span> of <span class='highlight-start'><span class='highlight-start'>Socorro, New Mexico. <sup class=\"mw-ref\" id=\"cite_ref-4\"><a href=\"./United_States#cite_note-4\" style=\"counter-reset: mw-Ref 4;\">[4]</a></sup> The test was successful, which eventually led to</span> the<span class='highlight-start'> bombing of Japanese</span> cities<span class='highlight-start'> </span>...",
+            "snippetType": 3,
+            "characterCount": 496,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 47,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }],
+        "userGroups": ["*", "user", "autoconfirmed"],
+        "userEditCount": 30
+    }, {
+        "count": 3,
+        "outputType": "small-change"
+    }, {
+        "revid": 973092925,
+        "timestamp": "2020-08-15T09:23:08Z",
+        "outputType": "new-talk-page-topic",
+        "snippet": "I miss a category of (political) geographical areas composed of multiple topologically separate parts on the continuous land (others would be e.g. <a href=\"./Azerbaijan\" title=\"Azerbaijan\">Azerbaijan</a>, <a href=\"./Puducherry\" title=\"Puducherry\">Puducherry</a>), i.e. region that has exclaves, in principle. Could some geographer gnostic of the corresponding terminus technicus do that&nbsp;? —<a href=\"./User:Mykhal\" title=\"User:Mykhal\">Mykhal</a> (<a href=\"./User_talk:Mykhal\" title=\"User talk:Mykhal\">talk</a>) 09:23, 15 August 2020 (UTC)",
+        "user": "Mykhal",
+        "userid": 88116,
+        "section": "== Discontinuous region category ==",
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 3640
+    }, {
+        "count": 4,
+        "outputType": "small-change"
+    }],
+    "summary": {
+        "earliestTimestamp": "2020-08-13T20:44:28Z",
+        "numChanges": 40,
+        "numUsers": 24
+    }
+}
