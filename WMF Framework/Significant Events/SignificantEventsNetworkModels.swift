@@ -5,11 +5,11 @@ enum SignificantEventsDecodeError: Error {
 }
 
 public struct SignificantEvents: Decodable {
-    let nextRvStartId: UInt?
-    let sha: String?
-    private let untypedTimeline: [UntypedTimelineItem]
-    let typedTimeline: [TimelineEvent]
-    let summary: Summary
+    public let nextRvStartId: UInt?
+    public let sha: String?
+    private let untypedEvents: [UntypedTimelineEvent]
+    public let typedEvents: [TimelineEvent]
+    public let summary: Summary
     
     enum SnippetType: Int, Decodable {
         case addedLine = 1
@@ -17,8 +17,8 @@ public struct SignificantEvents: Decodable {
         case addedAndDeletedInMovedLine = 5
     }
     
-    struct UntypedSignificantChangeItem: Decodable {
-        let outputType: InnerOutputType
+    struct UntypedChange: Decodable {
+        let outputType: LargeChangeOutputType
         let sections: [String]
         let snippet: String?
         let snippetType: SnippetType?
@@ -35,8 +35,8 @@ public struct SignificantEvents: Decodable {
         }
     }
     
-    struct UntypedTimelineItem: Decodable {
-        let outputType: OutputType
+    struct UntypedTimelineEvent: Decodable {
+        let outputType: TimelineEventOutputType
         let revId: UInt?
         let timestampString: String?
         let user: String?
@@ -47,7 +47,7 @@ public struct SignificantEvents: Decodable {
         let sections: [String]?
         let section: String?
         let snippet: String?
-        let untypedSignificantChanges: [UntypedSignificantChangeItem]?
+        let untypedChanges: [UntypedChange]?
         
         enum CodingKeys: String, CodingKey {
                 case revId = "revid"
@@ -61,37 +61,37 @@ public struct SignificantEvents: Decodable {
                 case sections
                 case section
                 case snippet
-                case untypedSignificantChanges = "significantChanges"
+                case untypedChanges = "significantChanges"
             }
     }
     
-    enum OutputType: String, Decodable {
+    public enum TimelineEventOutputType: String, Decodable {
         case largeChange = "large-change"
         case smallChange = "small-change"
         case newTalkPageTopic = "new-talk-page-topic"
         case vandalismRevert = "vandalism-revert"
     }
     
-    enum InnerOutputType: String, Decodable {
+    public enum LargeChangeOutputType: String, Decodable {
         case addedText = "added-text"
         case deletedText = "deleted-text"
         case newTemplate = "new-template"
     }
     
-    enum TimelineEvent {
+    public enum TimelineEvent {
         case largeChange(LargeChange)
         case smallChange(SmallChange)
         case vandalismRevert(VandalismRevert)
         case newTalkPageTopic(NewTalkPageTopic)
     }
     
-    enum SignificantChange {
-        case addedText(AddedText)
-        case deletedText(DeletedText)
-        case newTemplate(NewTemplate)
+    public enum Change {
+        case addedText(AddedTextChange)
+        case deletedText(DeletedTextChange)
+        case newTemplate(NewTemplatesChange)
     }
     
-    enum Template {
+    public enum Template {
         case bookCitation(BookCitation)
         case articleDescription(ArticleDescription)
         case journalCitation(JournalCitation)
@@ -99,84 +99,84 @@ public struct SignificantEvents: Decodable {
         case websiteCitation(WebsiteCitation)
     }
     
-    struct AddedText {
-        let outputType: InnerOutputType
+    public struct AddedTextChange {
+        let outputType: LargeChangeOutputType
         let sections: [String]
         let snippet: String
         let snippetType: SnippetType
         let characterCount: UInt
         
-        init?(significantChangeItem: UntypedSignificantChangeItem) {
-            guard let snippet = significantChangeItem.snippet,
-                  let snippetType = significantChangeItem.snippetType,
-                  let characterCount = significantChangeItem.characterCount else {
+        init?(untypedChange: UntypedChange) {
+            guard let snippet = untypedChange.snippet,
+                  let snippetType = untypedChange.snippetType,
+                  let characterCount = untypedChange.characterCount else {
                 return nil
             }
             
-            self.outputType = significantChangeItem.outputType
-            self.sections = significantChangeItem.sections
+            self.outputType = untypedChange.outputType
+            self.sections = untypedChange.sections
             self.snippet = snippet
             self.snippetType = snippetType
             self.characterCount = characterCount
         }
     }
     
-    struct DeletedText {
-        let outputType: InnerOutputType
+    public struct DeletedTextChange {
+        let outputType: LargeChangeOutputType
         let sections: [String]
         let characterCount: UInt
         
-        init?(significantChangeItem: UntypedSignificantChangeItem) {
-            guard let characterCount = significantChangeItem.characterCount else {
+        init?(untypedChange: UntypedChange) {
+            guard let characterCount = untypedChange.characterCount else {
                 return nil
             }
             
-            self.outputType = significantChangeItem.outputType
-            self.sections = significantChangeItem.sections
+            self.outputType = untypedChange.outputType
+            self.sections = untypedChange.sections
             self.characterCount = characterCount
         }
     }
     
-    struct NewTemplate {
-        let outputType: InnerOutputType
+    public struct NewTemplatesChange {
+        let outputType: LargeChangeOutputType
         let sections: [String]
         private let untypedTemplates: [[String: String]]
         let typedTemplates: [Template]
         
-        init?(significantChangeItem: UntypedSignificantChangeItem) {
-            guard let untypedTemplates = significantChangeItem.untypedTemplates else {
+        init?(untypedChange: UntypedChange) {
+            guard let untypedTemplates = untypedChange.untypedTemplates else {
                 return nil
             }
             
             var typedTemplates: [Template] = []
-            self.outputType = significantChangeItem.outputType
-            self.sections = significantChangeItem.sections
+            self.outputType = untypedChange.outputType
+            self.sections = untypedChange.sections
             self.untypedTemplates = untypedTemplates
             
             for untypedTemplate in untypedTemplates {
                 guard let name = untypedTemplate["name"] else {
                     continue
                 }
-                
-                if name.contains("cite") {
-                    if name.contains("book") {
+                let lowercaseName = name.lowercased()
+                if lowercaseName.contains("cite") {
+                    if lowercaseName.contains("book") {
                         if let bookCitation = BookCitation(dict: untypedTemplate) {
                             typedTemplates.append(.bookCitation(bookCitation))
                         }
-                    } else if name.contains("journal") {
+                    } else if lowercaseName.contains("journal") {
                         if let journalCitation = JournalCitation(dict: untypedTemplate) {
                             typedTemplates.append(.journalCitation(journalCitation))
                         }
-                    } else if name.contains("web") {
+                    } else if lowercaseName.contains("web") {
                         if let webCitation = WebsiteCitation(dict: untypedTemplate) {
                             typedTemplates.append(.websiteCitation(webCitation))
                         }
-                    } else if name.contains("news") {
+                    } else if lowercaseName.contains("news") {
                         if let newsCitation = NewsCitation(dict: untypedTemplate) {
                             typedTemplates.append(.newsCitation(newsCitation))
                         }
                     }
-                } else if name.contains("short description") {
+                } else if lowercaseName.contains("short description") {
                     if let articleDescription = ArticleDescription(dict: untypedTemplate) {
                         typedTemplates.append(.articleDescription(articleDescription))
                     }
@@ -187,28 +187,28 @@ public struct SignificantEvents: Decodable {
         }
     }
     
-    struct LargeChange {
-        let outputType: OutputType
+    public struct LargeChange {
+        let outputType: TimelineEventOutputType
         let revId: UInt
         let timestampString: String
         let user: String
         let userId: UInt
         let userGroups: [String]
         let userEditCount: UInt
-        let typedSignificantChanges: [SignificantChange]
+        let typedChanges: [Change]
         
-        init?(timelineItem: UntypedTimelineItem) {
-            guard let revId = timelineItem.revId,
-                  let timestampString = timelineItem.timestampString,
-                  let user = timelineItem.user,
-                  let userId = timelineItem.userId,
-                  let userGroups = timelineItem.userGroups,
-                  let userEditCount = timelineItem.userEditCount,
-                  let untypedSignificantChanges = timelineItem.untypedSignificantChanges else {
+        init?(untypedEvent: UntypedTimelineEvent) {
+            guard let revId = untypedEvent.revId,
+                  let timestampString = untypedEvent.timestampString,
+                  let user = untypedEvent.user,
+                  let userId = untypedEvent.userId,
+                  let userGroups = untypedEvent.userGroups,
+                  let userEditCount = untypedEvent.userEditCount,
+                  let untypedChanges = untypedEvent.untypedChanges else {
                 return nil
             }
             
-            self.outputType = timelineItem.outputType
+            self.outputType = untypedEvent.outputType
             self.revId = revId
             self.timestampString = timestampString
             self.user = user
@@ -216,49 +216,49 @@ public struct SignificantEvents: Decodable {
             self.userGroups = userGroups
             self.userEditCount = userEditCount
             
-            var significantChanges: [SignificantChange] = []
+            var changes: [Change] = []
             
-            for untypedSignificantChange in untypedSignificantChanges {
-                switch untypedSignificantChange.outputType {
+            for untypedChange in untypedChanges {
+                switch untypedChange.outputType {
                 case .addedText:
-                    if let change = AddedText(significantChangeItem: untypedSignificantChange) {
-                        significantChanges.append(.addedText(change))
+                    if let change = AddedTextChange(untypedChange: untypedChange) {
+                        changes.append(.addedText(change))
                     }
                 case .deletedText:
-                    if let change = DeletedText(significantChangeItem: untypedSignificantChange) {
-                        significantChanges.append(.deletedText(change))
+                    if let change = DeletedTextChange(untypedChange: untypedChange) {
+                        changes.append(.deletedText(change))
                     }
                 case .newTemplate:
-                    if let change = NewTemplate(significantChangeItem: untypedSignificantChange) {
-                        significantChanges.append(.newTemplate(change))
+                    if let change = NewTemplatesChange(untypedChange: untypedChange) {
+                        changes.append(.newTemplate(change))
                     }
                 }
             }
             
-            guard significantChanges.count == untypedSignificantChanges.count else {
+            guard changes.count == untypedChanges.count else {
                 return nil
             }
             
-            self.typedSignificantChanges = significantChanges
+            self.typedChanges = changes
         }
     }
     
-    struct SmallChange {
-        let outputType: OutputType
-        let count: UInt
+    public struct SmallChange {
+        let outputType: TimelineEventOutputType
+        public let count: UInt
         
-        init?(timelineItem: UntypedTimelineItem) {
-            guard let count = timelineItem.count else {
+        init?(untypedEvent: UntypedTimelineEvent) {
+            guard let count = untypedEvent.count else {
                 return nil
             }
             
-            self.outputType = timelineItem.outputType
+            self.outputType = untypedEvent.outputType
             self.count = count
         }
     }
     
-    struct VandalismRevert {
-        let outputType: OutputType
+    public struct VandalismRevert {
+        let outputType: TimelineEventOutputType
         let revId: UInt
         let timestampString: String
         let user: String
@@ -267,18 +267,18 @@ public struct SignificantEvents: Decodable {
         let userGroups: [String]
         let userEditCount: UInt
         
-        init?(timelineItem: UntypedTimelineItem) {
-            guard let revId = timelineItem.revId,
-                  let timestampString = timelineItem.timestampString,
-                  let user = timelineItem.user,
-                  let userId = timelineItem.userId,
-                  let sections = timelineItem.sections,
-                  let userGroups = timelineItem.userGroups,
-                  let userEditCount = timelineItem.userEditCount else {
+        init?(untypedEvent: UntypedTimelineEvent) {
+            guard let revId = untypedEvent.revId,
+                  let timestampString = untypedEvent.timestampString,
+                  let user = untypedEvent.user,
+                  let userId = untypedEvent.userId,
+                  let sections = untypedEvent.sections,
+                  let userGroups = untypedEvent.userGroups,
+                  let userEditCount = untypedEvent.userEditCount else {
                 return nil
             }
             
-            self.outputType = timelineItem.outputType
+            self.outputType = untypedEvent.outputType
             self.revId = revId
             self.timestampString = timestampString
             self.user = user
@@ -289,8 +289,8 @@ public struct SignificantEvents: Decodable {
         }
     }
     
-    struct NewTalkPageTopic {
-        let outputType: OutputType
+    public struct NewTalkPageTopic {
+        let outputType: TimelineEventOutputType
         let revId: UInt
         let timestampString: String
         let user: String
@@ -300,19 +300,19 @@ public struct SignificantEvents: Decodable {
         let userGroups: [String]
         let userEditCount: UInt
         
-        init?(timelineItem: UntypedTimelineItem) {
-            guard let revId = timelineItem.revId,
-                  let timestampString = timelineItem.timestampString,
-                  let user = timelineItem.user,
-                  let userId = timelineItem.userId,
-                  let section = timelineItem.section,
-                  let snippet = timelineItem.snippet,
-                  let userGroups = timelineItem.userGroups,
-                  let userEditCount = timelineItem.userEditCount else {
+        init?(untypedEvent: UntypedTimelineEvent) {
+            guard let revId = untypedEvent.revId,
+                  let timestampString = untypedEvent.timestampString,
+                  let user = untypedEvent.user,
+                  let userId = untypedEvent.userId,
+                  let section = untypedEvent.section,
+                  let snippet = untypedEvent.snippet,
+                  let userGroups = untypedEvent.userGroups,
+                  let userEditCount = untypedEvent.userEditCount else {
                 return nil
             }
             
-            self.outputType = timelineItem.outputType
+            self.outputType = untypedEvent.outputType
             self.revId = revId
             self.timestampString = timestampString
             self.user = user
@@ -329,36 +329,36 @@ public struct SignificantEvents: Decodable {
         nextRvStartId = try? container.decode(UInt.self, forKey: .nextRvStartId)
         sha = try? container.decode(String.self, forKey: .sha)
         summary = try container.decode(Summary.self, forKey: .summary)
-        untypedTimeline = try container.decode([UntypedTimelineItem].self, forKey: .untypedTimeline)
+        untypedEvents = try container.decode([UntypedTimelineEvent].self, forKey: .untypedTimeline)
         
-        var timelineEvents: [TimelineEvent] = []
+        var typedEvents: [TimelineEvent] = []
         
-        for timelineItem in untypedTimeline {
-            switch timelineItem.outputType {
+        for untypedEvent in untypedEvents {
+            switch untypedEvent.outputType {
             case .smallChange:
-                if let change = SmallChange(timelineItem: timelineItem) {
-                    timelineEvents.append(.smallChange(change))
+                if let change = SmallChange(untypedEvent: untypedEvent) {
+                    typedEvents.append(.smallChange(change))
                 }
             case .largeChange:
-                if let change = LargeChange(timelineItem: timelineItem) {
-                    timelineEvents.append(.largeChange(change))
+                if let change = LargeChange(untypedEvent: untypedEvent) {
+                    typedEvents.append(.largeChange(change))
                 }
             case .vandalismRevert:
-                if let change = VandalismRevert(timelineItem: timelineItem) {
-                    timelineEvents.append(.vandalismRevert(change))
+                if let change = VandalismRevert(untypedEvent: untypedEvent) {
+                    typedEvents.append(.vandalismRevert(change))
                 }
             case .newTalkPageTopic:
-                if let change = NewTalkPageTopic(timelineItem: timelineItem) {
-                    timelineEvents.append(.newTalkPageTopic(change))
+                if let change = NewTalkPageTopic(untypedEvent: untypedEvent) {
+                    typedEvents.append(.newTalkPageTopic(change))
                 }
             }
         }
 
-        guard timelineEvents.count == untypedTimeline.count else {
+        guard typedEvents.count == untypedEvents.count else {
             throw SignificantEventsDecodeError.unableToParseIntoTimelineEvents
         }
         
-        self.typedTimeline = timelineEvents
+        self.typedEvents = typedEvents
     }
     
     enum GenericTimelineCodingKeys: String, CodingKey {
@@ -373,10 +373,10 @@ public struct SignificantEvents: Decodable {
             case summary
     }
     
-    struct Summary: Decodable {
-        let earliestTimestampString: String
-        let numChanges: UInt
-        let numUsers: UInt
+    public struct Summary: Decodable {
+        public let earliestTimestampString: String
+        public let numChanges: UInt
+        public let numUsers: UInt
         
         enum CodingKeys: String, CodingKey {
                 case earliestTimestampString = "earliestTimestamp"
@@ -386,7 +386,7 @@ public struct SignificantEvents: Decodable {
     }
     
     //https://en.wikipedia.org/wiki/Template:Cite_book/TemplateData
-    struct BookCitation {
+    public struct BookCitation {
         let title: String
         let lastName: String?
         let firstName: String?
@@ -397,59 +397,59 @@ public struct SignificantEvents: Decodable {
         let isbn: String?
         
         init?(dict: [String: String]) {
-            guard let title = dict["title"] else {
+            guard let title = dict.nonEmptyValueForKey(key: "title") else {
                 return nil
             }
             
             self.title = title
             
-            let batch1 = dict["last"] ??
-                dict["last1"] ??
-                dict["author"] ??
-                dict["author1"] ??
-                dict["author1-last"]
-            let batch2 = dict["author-last"] ??
-                dict["surname1"] ??
-                dict["author-last1"] ??
-                dict["subject1"] ??
-                dict["surname"]
-            let batch3 = dict["author-last"] ??
-                dict["subject"]
+            let batch1 = dict.nonEmptyValueForKey(key: "last") ??
+                dict.nonEmptyValueForKey(key: "last1") ??
+                dict.nonEmptyValueForKey(key: "author") ??
+                dict.nonEmptyValueForKey(key: "author1") ??
+                dict.nonEmptyValueForKey(key: "author1-last")
+            let batch2 = dict.nonEmptyValueForKey(key: "author-last") ??
+                dict.nonEmptyValueForKey(key: "surname1") ??
+                dict.nonEmptyValueForKey(key: "author-last1") ??
+                dict.nonEmptyValueForKey(key: "subject1") ??
+                dict.nonEmptyValueForKey(key: "surname")
+            let batch3 = dict.nonEmptyValueForKey(key: "author-last") ??
+                dict.nonEmptyValueForKey(key: "subject")
             
             self.lastName = batch1 ?? batch2 ?? batch3
             
-            self.firstName = dict["first"] ??
-                            dict["given"] ??
-                            dict["author-first"] ??
-                            dict["first1"] ??
-                            dict["given1"] ??
-                            dict["author-first1"] ??
-                            dict["author1-first"]
+            self.firstName = dict.nonEmptyValueForKey(key: "first") ??
+                            dict.nonEmptyValueForKey(key: "given") ??
+                            dict.nonEmptyValueForKey(key: "author-first") ??
+                            dict.nonEmptyValueForKey(key: "first1") ??
+                            dict.nonEmptyValueForKey(key: "given1") ??
+                            dict.nonEmptyValueForKey(key: "author-first1") ??
+                            dict.nonEmptyValueForKey(key: "author1-first")
             
-            self.yearPublished = dict["year"]
-            self.locationPublished = dict["location"] ??
-                                        dict["place"]
+            self.yearPublished = dict.nonEmptyValueForKey(key: "year")
+            self.locationPublished = dict.nonEmptyValueForKey(key: "location") ??
+                                        dict.nonEmptyValueForKey(key: "place")
             
-            self.publisher = dict["publisher"] ??
-                            dict["distributor"] ??
-                            dict["institution"] ??
-                            dict["newsgroup"]
+            self.publisher = dict.nonEmptyValueForKey(key: "publisher") ??
+                            dict.nonEmptyValueForKey(key: "distributor") ??
+                            dict.nonEmptyValueForKey(key: "institution") ??
+                            dict.nonEmptyValueForKey(key: "newsgroup")
             
-            self.pagesCited = dict["pages"] ??
-                dict["pp"]
+            self.pagesCited = dict.nonEmptyValueForKey(key: "pages") ??
+                dict.nonEmptyValueForKey(key: "pp")
             
-            self.isbn = dict["isbn"] ??
-                        dict["ISBN13"] ??
-                        dict["isbn13"] ??
-                        dict["ISBN"]
+            self.isbn = dict.nonEmptyValueForKey(key: "isbn") ??
+                        dict.nonEmptyValueForKey(key: "ISBN13") ??
+                        dict.nonEmptyValueForKey(key: "isbn13") ??
+                        dict.nonEmptyValueForKey(key: "ISBN")
         }
     }
     
-    struct ArticleDescription {
+    public struct ArticleDescription {
         let description: String
         
         init?(dict: [String: String]) {
-            guard let description = dict["1"] else {
+            guard let description = dict.nonEmptyValueForKey(key: "1") else {
                 return nil
             }
             
@@ -458,7 +458,7 @@ public struct SignificantEvents: Decodable {
     }
     
     //https://en.wikipedia.org/wiki/Template:Cite_journal#TemplateData
-    struct JournalCitation {
+    public struct JournalCitation {
         let lastName: String?
         let firstName: String?
         let sourceDateString: String?
@@ -470,33 +470,33 @@ public struct SignificantEvents: Decodable {
         let database: String?
         
         init?(dict: [String: String]) {
-            guard let title = dict["title"],
-            let journal = dict["journal"] else {
+            guard let title = dict.nonEmptyValueForKey(key: "title"),
+            let journal = dict.nonEmptyValueForKey(key: "journal") else {
                 return nil
             }
             
             self.title = title
             self.journal = journal
             
-            self.lastName = dict["last"] ??
-            dict["author"] ??
-            dict["author1"] ??
-            dict["authors"] ??
-            dict["last1"]
+            self.lastName = dict.nonEmptyValueForKey(key: "last") ??
+            dict.nonEmptyValueForKey(key: "author") ??
+            dict.nonEmptyValueForKey(key: "author1") ??
+            dict.nonEmptyValueForKey(key: "authors") ??
+            dict.nonEmptyValueForKey(key: "last1")
             
-            self.firstName = dict["first"] ??
-            dict["first1"]
+            self.firstName = dict.nonEmptyValueForKey(key: "first") ??
+            dict.nonEmptyValueForKey(key: "first1")
             
-            self.sourceDateString = dict["date"]
-            self.urlString = dict["url"]
-            self.volumeNumber = dict["volume"]
-            self.pages = dict["pages"]
-            self.database = dict["via"]
+            self.sourceDateString = dict.nonEmptyValueForKey(key: "date")
+            self.urlString = dict.nonEmptyValueForKey(key: "url")
+            self.volumeNumber = dict.nonEmptyValueForKey(key: "volume")
+            self.pages = dict.nonEmptyValueForKey(key: "pages")
+            self.database = dict.nonEmptyValueForKey(key: "via")
         }
     }
     
     //https://en.wikipedia.org/wiki/Template:Cite_news#TemplateData
-    struct NewsCitation {
+    public struct NewsCitation {
         let lastName: String?
         let firstName: String?
         let sourceDateString: String?
@@ -506,35 +506,35 @@ public struct SignificantEvents: Decodable {
         let accessDateString: String?
         
         init?(dict: [String: String]) {
-            guard let title = dict["title"] else {
+            guard let title = dict.nonEmptyValueForKey(key: "title") else {
                 return nil
             }
             
             self.title = title
-            self.lastName = dict["last"] ??
-                            dict["last1"] ??
-                            dict["author"] ??
-                            dict["author1"] ??
-                            dict["authors"]
+            self.lastName = dict.nonEmptyValueForKey(key: "last") ??
+                            dict.nonEmptyValueForKey(key: "last1") ??
+                            dict.nonEmptyValueForKey(key: "author") ??
+                            dict.nonEmptyValueForKey(key: "author1") ??
+                            dict.nonEmptyValueForKey(key: "authors")
             
-            self.firstName = dict["first"] ??
-                            dict["first1"]
+            self.firstName = dict.nonEmptyValueForKey(key: "first") ??
+                            dict.nonEmptyValueForKey(key: "first1")
             
-            self.sourceDateString = dict["date"]
-            self.publication = dict["work"] ??
-                                dict["journal"] ??
-                                dict["magazine"] ??
-                                dict["periodical"] ??
-                                dict["newspaper"] ??
-                                dict["website"]
+            self.sourceDateString = dict.nonEmptyValueForKey(key: "date")
+            self.publication = dict.nonEmptyValueForKey(key: "work") ??
+                                dict.nonEmptyValueForKey(key: "journal") ??
+                                dict.nonEmptyValueForKey(key: "magazine") ??
+                                dict.nonEmptyValueForKey(key: "periodical") ??
+                                dict.nonEmptyValueForKey(key: "newspaper") ??
+                                dict.nonEmptyValueForKey(key: "website")
             
-            self.urlString = dict["url"]
-            self.accessDateString = dict["access-date"] ?? dict["accessdate"]
+            self.urlString = dict.nonEmptyValueForKey(key: "url")
+            self.accessDateString = dict.nonEmptyValueForKey(key: "access-date") ?? dict.nonEmptyValueForKey(key: "accessdate")
         }
     }
     
     //https://en.wikipedia.org/wiki/Template:Cite_web#TemplateData
-    struct WebsiteCitation {
+    public struct WebsiteCitation {
         
         let urlString: String
         let title: String
@@ -544,21 +544,31 @@ public struct SignificantEvents: Decodable {
         let archiveDotOrgUrlString: String?
         
         init?(dict: [String: String]) {
-            guard let title = dict["title"],
-                  let urlString = dict["url"] else {
+            guard let title = dict.nonEmptyValueForKey(key: "title"),
+                  let urlString = dict.nonEmptyValueForKey(key: "url") else {
                 return nil
             }
             
             self.title = title
             self.urlString = urlString
             
-            self.publisher = dict["publisher"] ??
-                            dict["website"] ??
-                            dict["work"]
+            self.publisher = dict.nonEmptyValueForKey(key: "publisher") ??
+                            dict.nonEmptyValueForKey(key: "website") ??
+                            dict.nonEmptyValueForKey(key: "work")
             
-            self.accessDateString = dict["access-date"] ?? dict["accessdate"]
-            self.archiveDateString = dict["archive-date"] ?? dict["archivedate"]
-            self.archiveDotOrgUrlString = dict["archive-url"] ?? dict["archiveurl"]
+            self.accessDateString = dict.nonEmptyValueForKey(key: "access-date") ?? dict.nonEmptyValueForKey(key: "accessdate")
+            self.archiveDateString = dict.nonEmptyValueForKey(key: "archive-date") ?? dict.nonEmptyValueForKey(key: "archivedate")
+            self.archiveDotOrgUrlString = dict.nonEmptyValueForKey(key: "archive-url") ?? dict.nonEmptyValueForKey(key: "archiveurl")
         }
+    }
+}
+
+private extension Dictionary where Key == String, Value == String {
+    func nonEmptyValueForKey(key: String) -> String? {
+        if let value = self[key], !value.isEmpty {
+            return value
+        }
+        
+        return nil
     }
 }
