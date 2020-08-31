@@ -81,30 +81,15 @@ class EPCBufferEvent: NSObject, NSCoding {
  * Event Platform Client (EPC)
  *
  * The static public API via the `shared` singleton allows callers to log events.
- * Use `log` to submit an event to a specific stream, cc'ing derivative streams
- * automatically. For additional information on instrumentation with the Modern
- * Event Platform and the Event Platform Client libraries, please refer to the
- * following resources:
+ * Use `log` to submit an event to a specific stream. For additional information
+ * on instrumentation with the Modern Event Platform and the Event Platform Client
+ * libraries, please refer to the following resources:
  * - [mw:Wikimedia Product/Analytics Infrastructure/Event Platform Client](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Event_Platform_Client)
  * - [wikitech:Event Platform/Instrumentation How To](https://wikitech.wikimedia.org/wiki/Event_Platform/Instrumentation_How_To)
  *
- * **Note**: Events generated while offline are persisted between sessions until
- * stream configuration has been downloaded and the events can be properly
- * processed.
- *
  * ## Logging API
  *
- * - `log(stream, schema, data, domain?)` to log events; can be called before
- *   configuration is available or even offline
- *
- * ## Dependencies
- *
- * `EPC` relies on some functionality to be made available to it by the rest of
- * the application. It depends on:
- * - an `EPCNetworkManager` which can `HTTP POST` requests and download data
- * - an `EPCStorageManager` which can persist data and recall or delete persisted data
- *
- * Desired behaviors for both of those are described in EventPlatformClientProtocols.swift
+ * Use `EPC.shared?.log(stream, schema, data, domain?)` to log events
  */
 @objc (WMFEventPlatformClient)
 public class EPC: NSObject {
@@ -143,12 +128,6 @@ public class EPC: NSObject {
      * [streamconfigs endpoint](https://meta.wikimedia.org/w/api.php?action=help&modules=streamconfigs)
      */
     private let configURI: URL
-    
-    /**
-    * Key constants
-    */
-    private let inputBufferKey = "epc_input_buffer"
-    private let inbutBufferLimit = 128
     
     /**
      * A safeguard against logging events while the app is in background state
@@ -248,6 +227,11 @@ public class EPC: NSObject {
     private var inputBuffer: NSArray = []
 
     /**
+     * Maximum number of events allowed in the input buffer
+     */
+    private let inbutBufferLimit = 128
+
+    /**
      * Cache of "in sample" / "out of sample" determination for each stream
      *
      * The process of determining only has to happen the first time an event is logged to a stream for
@@ -286,7 +270,7 @@ public class EPC: NSObject {
          *  - Test 1: https://pai-test.wmflabs.org/streams
          *  - Test 2: https://epc-test.wmcloud.org/w/api.php?action=streamconfigs&format=json
          */
-        guard let eventGateURI = URL(string: "https://pai-test.wmflabs.org/events"),
+        guard let eventGateURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events"),
             let configURI = URL(string: "https://pai-test.wmflabs.org/streams") else {
                 DDLogError("EventPlatformClientLibrary - Unable to instantiate uris")
                 return nil
@@ -309,18 +293,19 @@ public class EPC: NSObject {
     }
 
     /**
-     * This method is called by the application delegate in `applicationWillResignActive()` and
-     * disables event logging.
+     * This method is called by the application delegate in
+     * `applicationWillResignActive()` and disables event logging.
      */
     @objc public func appInBackground() {
         loggingEnabled = false
         lastTimestamp = Date()
     }
     /**
-     * This method is called by the application delegate in `applicationDidBecomeActive()` and
-     * re-enables event logging.
+     * This method is called by the application delegate in
+     * `applicationDidBecomeActive()` and re-enables event logging.
      *
-     * If it has been more than 15 minutes since the app entered background state, a new session is started.
+     * If it has been more than 15 minutes since the app entered background state,
+     * a new session is started.
      */
     @objc public func appInForeground() {
         loggingEnabled = true
@@ -329,17 +314,20 @@ public class EPC: NSObject {
         }
     }
     /**
-     * This method is called by the application delegate in `applicationWillTerminate()`
+     * This method is called by the application delegate in
+     * `applicationWillTerminate()`
      *
-     * We do not persist session ID on app close because we have decided that a session ends when the
-     * user (or the OS) has closed the app or when 15 minutes of inactivity have assed.
+     * We do not persist session ID on app close because we have decided that a
+     * session ends when the user (or the OS) has closed the app or when 15
+     * minutes of inactivity have passed.
      */
     @objc public func appWillClose() {
         loggingEnabled = false
     }
 
     /**
-     * Generates a new identifier using the same algorithm as EPC libraries for web and Android
+     * Generates a new identifier using the same algorithm as EPC libraries for
+     * web and Android
      */
     private func generateID() -> String {
         var id: String = ""
@@ -350,9 +338,11 @@ public class EPC: NSObject {
     }
     
     /**
-    * Called when user toggles logging permissions in Settings.
-    * This assumes storageManager's deviceID will be reset separately by a different owner (EventLoggingService's reset method)
-    */
+     * Called when user toggles logging permissions in Settings
+     *
+     * This assumes storageManager's deviceID will be reset separately by a
+     * different owner (EventLoggingService's `reset()` method)
+     */
     @objc public func reset() {
         resetSession()
     }
@@ -370,8 +360,8 @@ public class EPC: NSObject {
     /**
      * Check if session expired, based on last active timestamp
      *
-     * A new session ID is required if it has been more than 15 minutes since the user was last active
-     * (e.g. when app entered background).
+     * A new session ID is required if it has been more than 15 minutes since the
+     * user was last active (e.g. when app entered background).
      */
     private func sessionTimedOut() -> Bool {
         /*
@@ -381,8 +371,8 @@ public class EPC: NSObject {
     }
 
     /**
-     * Download stream configuration and use it to instantiate `CONFIG` asynchronously when a network
-     * manager is available
+     * Download stream configuration and use it to instantiate
+     * `streamConfigurations` asynchronously when a network manager is available
      */
     private func configure() -> Void {
         /*
@@ -404,7 +394,7 @@ public class EPC: NSObject {
                     DDLogDebug("EPC: Downloaded stream configs (raw): \(raw)")
                 }
                 #endif
-                // example retrieved config: {"streams":{"test.event":[],"test.event.sampled":{"sampling":{"rate":0.1}}}}
+                // example retrieved config: {"streams":{"test.event":{},"test.event.sampled":{"sampling":{"rate":0.1}}}}
                 guard let streamConfigs = json["streams"] else {
                     DDLogWarn("EPC: Problem extracting stream configs")
                     return
@@ -415,8 +405,8 @@ public class EPC: NSObject {
     }
 
     /**
-     * Called by `configure`'s completion handler after stream configuration has been downloaded and
-     * processed into a dictionary
+     * Called by `configure`'s completion handler after stream configuration has
+     * been downloaded and processed into a dictionary
      */
     private func setStreamConfig(from config: [String: [String: Any]]) -> Void {
 
@@ -450,7 +440,8 @@ public class EPC: NSObject {
      * provided `id` is in-sample or out-of-sample according to the `acceptance`
      * rate
      * - Parameter id: identifier to use for determining sampling
-     * - Parameter acceptance: the desired proportion of many `token`-s being accepted
+     * - Parameter acceptance: the desired proportion of many `token`-s being
+     *   accepted
      *
      * The algorithm works in a "widen the net on frozen fish" fashion -- tokens
      * continue evaluating to true as the acceptance rate increases. For example,
@@ -673,7 +664,7 @@ public class EPC: NSObject {
         do {
             #if DEBUG
             let jsonString = try data.toJSONString()
-            DDLogDebug("EPC: Sending HTTP request to \(eventGateURI) with POST body: \(jsonString)")
+            DDLogDebug("EPC: Scheduling event to be sent to \(eventGateURI) with POST body: \(jsonString)")
             #endif
             networkManager.schedulePost(url: eventGateURI, body: data as NSDictionary)
         } catch let error {
@@ -707,11 +698,11 @@ private extension EPC {
     }
 
     /**
-     * Thread-safe asynchronous buffering of an event
+     * Thread-safe synchronous buffering of an event
      * - Parameter event: event to be buffered
      */
     func appendEventToInputBuffer(_ event: EPCBufferEvent) {
-        queue.async {
+        queue.sync {
             let mutableInputBuffer = NSMutableArray(array: self.inputBuffer)
             /*
              * Check if input buffer has reached maximum allowed size. Practically
@@ -741,7 +732,8 @@ private extension EPC {
 
     /**
      * Thread-safe synchronous removal of buffered event at index
-     * - Parameter index: The index from which to remove the buffered event in the event buffer.
+     * - Parameter index: The index from which to remove the buffered event in
+     *   the event buffer.
      * - Returns: a previously buffered event
      */
     func removeInputBufferAtIndex(_ index: Int) -> EPCBufferEvent? {
@@ -755,9 +747,11 @@ private extension EPC {
     }
 
     /**
-     * Thread-safe asynchronous caching of a stream's in-vs-out-of-sample determination
+     * Thread-safe asynchronous caching of a stream's in-vs-out-of-sample
+     * determination
      * - Parameter stream: name of stream to cache determination for
-     * - Parameter inSample: whether the stream was determined to be in-sample this session
+     * - Parameter inSample: whether the stream was determined to be in-sample
+     *   this session
      */
     func cacheSamplingForStream(_ stream: String, inSample: Bool) {
         queue.async {
