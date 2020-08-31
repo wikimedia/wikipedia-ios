@@ -1531,7 +1531,7 @@
 		B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		B0B423471EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */; };
-		B0B4234C1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */; };
+		B0B4234C1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0B4234D1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */; };
 		B0B423501EF32D2700D3DC4C /* WMFOnThisDayContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */; };
 		B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */; };

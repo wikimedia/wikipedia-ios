@@ -5,7 +5,7 @@ public final class WidgetController {
 
     // MARK: Nested Types
 
-    public enum SupportedWidget: String {
+public enum SupportedWidget: String {
         case pictureOfTheDay = "org.wikipedia.widgets.potd"
         case onThisDay = "org.wikipedia.widgets.onThisDay"
 
