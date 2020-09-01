@@ -69,13 +69,15 @@ NS_ASSUME_NONNULL_BEGIN
     double imageHeight = self.imageHeight.doubleValue;
     double widthScale = width / imageWidth;
     double heightScale = height / imageHeight;
-    NSInteger targetWidth;
-    if (widthScale > heightScale) {
-        targetWidth = imageWidth * widthScale;
-    } else {
-        targetWidth = imageWidth * heightScale;
+    double maxScale = MAX(widthScale, heightScale);
+    NSInteger targetWidth = imageWidth * maxScale;
+    NSInteger targetHeight = imageHeight * maxScale;
+    if (targetHeight > WMFImageWidthExtraExtraLarge) {
+        double scaleDownForTooTallImage = (double)WMFImageWidthExtraLarge / targetHeight;
+        targetWidth = targetWidth * scaleDownForTooTallImage;
     }
     if (targetWidth > imageWidth) {
+        // We can't request a width larger than the original width, so return the original image URL
         return self.imageURL;
     }
     NSInteger thumbnailBucketSize;
