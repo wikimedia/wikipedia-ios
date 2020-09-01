@@ -35,6 +35,7 @@ class SignificantEventsFetcherTests: XCTestCase {
     fileprivate var maxCacheSession: MockSession!
     fileprivate var beginningSession: MockSession!
     fileprivate var templateSession: MockSession!
+    fileprivate var manyVariationsSession: MockSession!
     
     override func setUpWithError() throws {
         
@@ -42,32 +43,34 @@ class SignificantEventsFetcherTests: XCTestCase {
            let subsequentPageData = wmf_bundle().wmf_data(fromContentsOfFile: "SignificantEvents-SubsequentPage", ofType: "json"),
            let maxCacheData = wmf_bundle().wmf_data(fromContentsOfFile: "SignificantEvents-MaxCache", ofType: "json"),
            let beginningData = wmf_bundle().wmf_data(fromContentsOfFile: "SignificantEvents-Beginning", ofType: "json"),
-           let templateData = wmf_bundle().wmf_data(fromContentsOfFile: "SignificantEvents-Templates", ofType: "json") {
+           let templateData = wmf_bundle().wmf_data(fromContentsOfFile: "SignificantEvents-Templates", ofType: "json"),
+           let manyVariationsData = wmf_bundle().wmf_data(fromContentsOfFile: "SignificantEvents-ViewModelVariations", ofType: "json") {
             firstPageSession = MockSession(configuration: Configuration.current, data: firstPageData)
             subsequentPageSession = MockSession(configuration: Configuration.current, data: subsequentPageData)
             maxCacheSession = MockSession(configuration: Configuration.current, data: maxCacheData)
             beginningSession = MockSession(configuration: Configuration.current, data: beginningData)
             templateSession = MockSession(configuration: Configuration.current, data: templateData)
+            manyVariationsSession = MockSession(configuration: Configuration.current, data: manyVariationsData)
         } else {
             XCTFail("Failure setting up MockSession for SignificantEvents")
         }
     }
     
-    func fetchFirstPageResult(title: String, siteURL: URL, completion: @escaping (Result<SignificantEvents, Error>) -> Void) {
-        let fetcher = SignificantEventsFetcher(session: firstPageSession, configuration: Configuration.current)
+    func fetchManyVariationsResult(title: String, siteURL: URL, completion: @escaping (Result<SignificantEvents, Error>) -> Void) {
+        let fetcher = SignificantEventsFetcher(session: manyVariationsSession, configuration: Configuration.current)
         fetcher.fetchSignificantEvents(title: title, siteURL: siteURL, completion: completion)
     }
 
     func testFetchFirstPageProducesSignificantEvents() throws {
-
+        
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
         let siteURL = URL(string: "https://en.wikipedia.org")!
-        
         let title = "United_States"
-        
-        fetchFirstPageResult(title: title, siteURL: siteURL) { (result) in
-            
+
+        let fetcher = SignificantEventsFetcher(session: firstPageSession, configuration: Configuration.current)
+        fetcher.fetchSignificantEvents(title: title, siteURL: siteURL) { (result) in
+
             switch result {
             case .success(let significantEvents):
                 XCTAssertEqual(significantEvents.nextRvStartId, 973922738)

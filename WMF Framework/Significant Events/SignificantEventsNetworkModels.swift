@@ -291,14 +291,14 @@ public struct SignificantEvents: Decodable {
     
     public struct NewTalkPageTopic {
         let outputType: TimelineEventOutputType
-        let revId: UInt
-        let timestampString: String
-        let user: String
-        let userId: UInt
+        public let revId: UInt
+        public let timestampString: String
+        public let user: String
+        public let userId: UInt
         let section: String
-        let snippet: String
-        let userGroups: [String]
-        let userEditCount: UInt
+        public let snippet: String
+        public let userGroups: [String]
+        public let userEditCount: UInt
         
         init?(untypedEvent: UntypedTimelineEvent) {
             guard let revId = untypedEvent.revId,

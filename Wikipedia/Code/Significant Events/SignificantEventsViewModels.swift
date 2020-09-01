@@ -53,9 +53,9 @@ enum TimelineEventViewModel {
     case largeEvent(LargeEventViewModel)
 }
 
-struct SmallEventViewModel {
+class SmallEventViewModel {
     
-    private var attributedText: NSAttributedString?
+    private(set) var eventDescription: NSAttributedString?
     private var lastTraitCollection: UITraitCollection?
     private let smallChange: SignificantEvents.SmallChange
     
@@ -69,37 +69,109 @@ struct SmallEventViewModel {
         }
     }
     
-    mutating func attributedTextForTraitCollection(_ traitCollection: UITraitCollection) -> NSAttributedString {
+    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         if let lastTraitCollection = lastTraitCollection,
-           let attributedText = attributedText {
+           let eventDescription = eventDescription {
             if lastTraitCollection == traitCollection {
-                return attributedText
+                return eventDescription
             }
         }
         
-        let font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        let attributes = [NSAttributedString.Key.font: font]
+        let font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
+        let attributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
         let localizedString = String.localizedStringWithFormat(
             WMFLocalizedString(
-                "significant-events-small-change-title",
+                "significant-events-small-change-description",
                 value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}} made",
                 comment:"Describes how many small changes are batched together in the significant events timeline view."
             ),
             smallChange.count)
         
-        let attributedText = NSAttributedString(string: localizedString, attributes: attributes)
+        let eventDescription = NSAttributedString(string: localizedString, attributes: attributes)
         
         self.lastTraitCollection = traitCollection
-        self.attributedText = attributedText
-        return attributedText
+        self.eventDescription = eventDescription
+        return eventDescription
     }
 }
 
-struct LargeEventViewModel {
-    private let largeChange: SignificantEvents.LargeChange
+class LargeEventViewModel {
+    
+    enum ChangeDetail {
+        case newTalkPageTopic(NewTalkPageTopicChange)
+    }
+    
+    struct NewTalkPageTopicChange {
+        let snippet: NSAttributedString
+    }
+    
+    private let timelineEvent: SignificantEvents.TimelineEvent
+    private(set) var eventDescription: NSAttributedString?
+    private(set) var changeDetails: [ChangeDetail]?
+    private var lastTraitCollection: UITraitCollection?
     
     init?(timelineEvent: SignificantEvents.TimelineEvent) {
-        return nil
+        switch timelineEvent {
+        case .newTalkPageTopic:
+            break
+        default:
+            return nil
+        }
+        
+        self.timelineEvent = timelineEvent
+    }
+    
+    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+        
+        if let lastTraitCollection = lastTraitCollection,
+           let eventDescription = eventDescription {
+            if lastTraitCollection == traitCollection {
+                return eventDescription
+            }
+        }
+        
+        let font = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        let attributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
+        
+        let eventDescription: NSAttributedString
+        switch timelineEvent {
+        case .newTalkPageTopic:
+            let localizedString = WMFLocalizedString("significant-events-new-talk-topic-description", value: "New discussion about this article", comment: "Title displayed in a significant events timeline cell explaining that a new article talk page topic has been posted.")
+            eventDescription = NSAttributedString(string: localizedString, attributes: attributes)
+        default:
+            assertionFailure("Unexpected timeline event type")
+            eventDescription = NSAttributedString(string: "")
+        }
+        
+        self.lastTraitCollection = traitCollection
+        self.eventDescription = eventDescription
+        return eventDescription
+    }
+    
+    func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
+        if let lastTraitCollection = lastTraitCollection,
+           let changeDetails = changeDetails {
+            if lastTraitCollection == traitCollection {
+                return changeDetails
+            }
+        }
+        
+        var changeDetails: [ChangeDetail] = []
+        
+        switch timelineEvent {
+        case .newTalkPageTopic(let newTalkPageTopic):
+            let attributedString = newTalkPageTopic.snippet.byAttributingHTML(with: .subheadline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+            let newTopicChangeDetail = ChangeDetail.newTalkPageTopic(NewTalkPageTopicChange(snippet: attributedString))
+            changeDetails.append(newTopicChangeDetail)
+        default:
+            break
+        }
+        
+        self.lastTraitCollection = traitCollection
+        self.changeDetails = changeDetails
+        return changeDetails
     }
 }
