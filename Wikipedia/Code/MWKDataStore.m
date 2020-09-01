@@ -13,7 +13,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 10;
+static const NSInteger WMFCurrentLibraryVersion = 11;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -33,6 +33,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
+@property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
 
 @property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
@@ -95,12 +96,13 @@ static uint64_t bundleHash() {
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [self setupHistoryAndSavedPageLists];
+        self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
         self.feedContentController.dataStore = self;
-        self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+        self.feedContentController.siteURLs = self.languageLinkController.preferredSiteURLs;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current] preferredLanguageCodesProvider:self.languageLinkController];
         WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
@@ -110,9 +112,8 @@ static uint64_t bundleHash() {
 
 - (NSDictionary *)loadSharedInfoDictionaryWithContainerURL:(NSURL *)containerURL {
     NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
-    NSData *infoDictionaryData = [NSData dataWithContentsOfURL:infoDictionaryURL];
     NSError *unarchiveError = nil;
-    NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDictionary class] fromData:infoDictionaryData error:&unarchiveError];
+    NSDictionary *infoDictionary = [self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError];
     if (unarchiveError) {
         DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
     }
@@ -147,13 +148,18 @@ static uint64_t bundleHash() {
     });
 }
 
+- (NSDictionary *)unarchivedDictionaryFromFileURL:(NSURL *)fileURL error:(NSError **)error {
+    NSData *data = [NSData dataWithContentsOfURL:fileURL];
+    NSSet *allowedClasses = [NSSet setWithArray:[NSSecureUnarchiveFromDataTransformer allowedTopLevelClasses]];
+    return [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:error];
+}
+
 - (void)handleCrossProcessCoreDataNotificationWithState:(uint64_t)state {
     NSURL *baseURL = self.containerURL;
     NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
-    NSData *data = [NSData dataWithContentsOfURL:fileURL];
     NSError *unarchiveError = nil;
-    NSDictionary *userInfo = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDictionary class] fromData:data error:&unarchiveError];
+    NSDictionary *userInfo = [self unarchivedDictionaryFromFileURL:fileURL error:&unarchiveError];
     if (unarchiveError) {
         DDLogError(@"Error unarchiving cross process core data notification: %@", unarchiveError);
         return;
@@ -405,17 +411,6 @@ static uint64_t bundleHash() {
 
 - (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSError *migrationError = nil;
-    if (currentLibraryVersion < 1) {
-        if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
-            [moc wmf_setValue:@(1) forKey:WMFLibraryVersionKey];
-            if ([moc hasChanges] && ![moc save:&migrationError]) {
-                DDLogError(@"Error saving during migration: %@", migrationError);
-                return;
-            }
-        } else {
-            return;
-        }
-    }
 
     if (currentLibraryVersion < 5) {
         if (![self migrateToReadingListsInManagedObjectContext:moc error:&migrationError]) {
@@ -467,6 +462,15 @@ static uint64_t bundleHash() {
         }
     }
 
+    if (currentLibraryVersion < 11) {
+        [MWKLanguageLinkController migratePreferredLanguagesToManagedObjectContext:moc];
+        [moc wmf_setValue:@(11) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+    
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
@@ -569,69 +573,6 @@ static uint64_t bundleHash() {
     
     //move legacy image cache to new non-image path name
     [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
-}
-
-- (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
-    NSFetchRequest *request = [WMFContentGroup fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"content != NULL"];
-    request.fetchLimit = 500;
-    NSError *fetchError = nil;
-    NSArray *contentGroups = [moc executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
-        if (error) {
-            *error = fetchError;
-        }
-        return false;
-    }
-
-    while (contentGroups.count > 0) {
-        @autoreleasepool {
-            NSMutableArray *toDelete = [NSMutableArray arrayWithCapacity:1];
-            for (WMFContentGroup *contentGroup in contentGroups) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                NSArray *content = contentGroup.content;
-                if (!content) {
-                    continue;
-                }
-                contentGroup.fullContentObject = content;
-                contentGroup.featuredContentIdentifier = contentGroup.articleURLString;
-                [contentGroup updateContentPreviewWithContent:content];
-                contentGroup.content = nil;
-#pragma clang diagnostic pop
-                if (contentGroup.contentPreview == nil) {
-                    [toDelete addObject:contentGroup];
-                }
-            }
-            for (WMFContentGroup *group in toDelete) {
-                [moc deleteObject:group];
-            }
-
-            if ([moc hasChanges]) {
-                NSError *saveError = nil;
-                [moc save:&saveError];
-                if (saveError) {
-                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
-                    if (error) {
-                        *error = saveError;
-                    }
-                    return false;
-                }
-                [moc reset];
-            }
-        }
-
-        contentGroups = [moc executeFetchRequest:request error:&fetchError];
-        if (fetchError) {
-            DDLogError(@"Error fetching content groups: %@", fetchError);
-            if (error) {
-                *error = fetchError;
-            }
-            return false;
-        }
-    }
-    return true;
 }
 
 - (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {

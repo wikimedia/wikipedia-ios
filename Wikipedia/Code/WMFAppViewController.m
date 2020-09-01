@@ -23,6 +23,7 @@
 
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
+#import <os/log.h>
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -237,6 +238,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
+    if (@available(iOS 14.0, *)) {
+        self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -260,7 +264,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (NSURL *)siteURL {
-    return [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
+    return [[self.dataStore.languageLinkController appLanguage] siteURL];
 }
 
 #pragma mark - Setup
@@ -408,14 +412,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
     [self updateExploreFeedPreferencesIfNecessary];
-    self.dataStore.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+    self.dataStore.feedContentController.siteURLs = [self.dataStore.languageLinkController preferredSiteURLs];
 }
 
 /**
  Updates explore feed preferences if new preferred language was appeneded or removed.
  */
 - (void)updateExploreFeedPreferencesIfNecessary {
-    MWKLanguageLinkController *languageLinkController = [MWKLanguageLinkController sharedInstance];
+    MWKLanguageLinkController *languageLinkController = self.dataStore.languageLinkController;
     NSArray<MWKLanguageLink *> *preferredLanguages = languageLinkController.preferredLanguages;
     NSArray<MWKLanguageLink *> *previousPreferredLanguages = languageLinkController.previousPreferredLanguages;
     if (preferredLanguages.count == previousPreferredLanguages.count) { // reordered
@@ -889,7 +893,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
 
-    BOOL locationAuthorized = [WMFLocationManager isAuthorized];
+    BOOL locationAuthorized = [LocationManagerFactory coarseLocationManager].isAuthorized;
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesWithDate:nil
                                                 userInitiated:NO
@@ -1246,9 +1250,21 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (nc.presentedViewController) {
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
-
+    
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler: [SchemeHandler sharedInstance]];
     articleVC.loadCompletion = completion;
+    
+    if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
+        os_log_t customLog = os_log_create("org.wikimedia.ios", "articleLoadTime");
+        NSDate *start = [NSDate date];
+        
+        articleVC.initialSetupCompletion = ^{
+        NSDate *end = [NSDate date];
+        NSTimeInterval articleLoadTime = [end timeIntervalSinceDate:start];
+        os_log_with_type(customLog, OS_LOG_TYPE_INFO, "article load time = %f", articleLoadTime);
+        };
+    }
+    
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
 }

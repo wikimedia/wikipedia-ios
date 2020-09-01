@@ -1,4 +1,4 @@
-#import "WMFArticle+CoreDataClass.h"
+#import <WMF/WMFArticle+CoreDataClass.h>
 
 @class ReadingList;
 

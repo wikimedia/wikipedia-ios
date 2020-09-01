@@ -1,6 +1,5 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "Wikipedia-Swift.h"
-#import "UILabel+WMFStyling.h"
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
@@ -25,7 +24,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.infoButton.imageView.contentMode = UIViewContentModeCenter;
-    [self.ownerButton.titleLabel wmf_applyDropShadow];
     [self wmf_configureSubviewsForDynamicType];
 }
 

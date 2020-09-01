@@ -7,8 +7,8 @@ default_platform :ios
 
 configurations_to_test_on_pull = [
   {device: 'iPhone X', os: '12.4'},
-  {device: 'iPhone 8', os: '13.4'},
-  {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13.4'}
+  {device: 'iPhone 8', os: '13.5'},
+  {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13.5'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
@@ -97,7 +97,7 @@ platform :ios do
     xcversion(version: `cat ../.xcversion`)
   end
 
-  desc "Runs unit tests, generates JUnit reports."
+  desc "Runs unit tests, generates reports."
   lane :verify do |options|
     read_xcversion
     reset_simulator_contents
@@ -106,13 +106,10 @@ platform :ios do
       opts = {
         devices: devices,
         scheme: scheme,
-        disable_concurrent_testing: true,
         project: 'Wikipedia.xcodeproj',
-        buildlog_path: './build',
-        output_directory: './build/reports',
-        output_style: 'basic',
         configuration: 'Test',
-        output_files: "#{scheme}.junit",
+        disable_concurrent_testing: true,
+        output_files: "#{scheme}.junit",		
         output_types: 'junit'
       }
       scan(opts)

@@ -65,8 +65,6 @@ module.exports = function (grunt) {
               '*.html',
               '*.css',
               'ios.json',
-              'languages.json',
-              'mainpages.json',
               '*.png',
               '*.pdf'
             ],

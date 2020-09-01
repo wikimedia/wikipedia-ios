@@ -84,7 +84,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     
     NSMutableArray *itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
 
-    NSArray<NSString *> *preferredLangCodes = [[[MWKLanguageLinkController sharedInstance] preferredLanguages] wmf_map:^NSString *(MWKLanguageLink *language) {
+    NSArray<NSString *> *preferredLangCodes = [MWKDataStore.shared.languageLinkController.preferredLanguages wmf_map:^NSString *(MWKLanguageLink *language) {
         return [language languageCode];
     }];
 

@@ -1,6 +1,6 @@
 #import <WMF/MWKList.h>
 #import <WMF/MWKRecentSearchEntry.h>
-#import "MWKDataStoreList.h"
+#import <WMF/MWKDataStoreList.h>
 
 @class MWKDataStore;
 

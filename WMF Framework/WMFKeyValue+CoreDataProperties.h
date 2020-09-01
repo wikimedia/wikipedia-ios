@@ -1,4 +1,4 @@
-#import "WMFKeyValue+CoreDataClass.h"
+#import <WMF/WMFKeyValue+CoreDataClass.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

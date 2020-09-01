@@ -107,7 +107,7 @@ public class WMFAuthenticationManager: Fetcher {
     @objc public static let sharedInstance = WMFAuthenticationManager()
     
     var loginSiteURL: URL? {
-        return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        return dataStore.languageLinkController.appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
     public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {

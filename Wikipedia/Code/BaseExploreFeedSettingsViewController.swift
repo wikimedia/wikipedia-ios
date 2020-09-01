@@ -167,7 +167,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     }
 
     var preferredLanguages: [MWKLanguageLink] {
-        return MWKLanguageLinkController.sharedInstance().preferredLanguages
+        return MWKDataStore.shared().languageLinkController.preferredLanguages
     }
 
     lazy var languages: [ExploreFeedSettingsLanguage] = {
