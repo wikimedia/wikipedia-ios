@@ -9,7 +9,7 @@ struct SignificantEventsViewModel {
     let events: [TimelineEventViewModel]
     let summaryText: String?
     
-    init?(significantEvents: SignificantEvents) {
+    init?(significantEvents: SignificantEvents, lastTimestamp: Date? = nil) {
         self.nextRvStartId = significantEvents.nextRvStartId
         self.sha = significantEvents.sha
         
@@ -36,7 +36,36 @@ struct SignificantEventsViewModel {
         
         //initialize events
         var eventViewModels: [TimelineEventViewModel] = []
+        var previousTimestamp = lastTimestamp
+        
         for originalEvent in significantEvents.typedEvents {
+            
+            //first determine if we need to inject a section header cell
+            //(we are bypassing using actual sections for simplicity)
+            if let isoDateFormatter = DateFormatter.wmf_iso8601() {
+                var currentTimestamp: Date?
+                
+                switch originalEvent {
+                case .largeChange(let largeChange):
+                    currentTimestamp = isoDateFormatter.date(from: largeChange.timestampString)
+                case .newTalkPageTopic(let newTalkPageTopic):
+                    currentTimestamp = isoDateFormatter.date(from: newTalkPageTopic.timestampString)
+                case .vandalismRevert(let vandalismRevert):
+                    currentTimestamp = isoDateFormatter.date(from: vandalismRevert.timestampString)
+                default:
+                    break
+                }
+                
+                if let currentTimestamp = currentTimestamp {
+                    if let sectionHeader = SectionHeaderViewModel(timestamp: currentTimestamp, previousTimestamp: previousTimestamp) {
+                        eventViewModels.append(.sectionHeader(sectionHeader))
+                    }
+                    
+                    previousTimestamp = currentTimestamp
+                }
+            }
+            
+            
             if let smallEventViewModel = SmallEventViewModel(timelineEvent: originalEvent) {
                 eventViewModels.append(.smallEvent(smallEventViewModel))
             } else if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
@@ -51,6 +80,34 @@ struct SignificantEventsViewModel {
 enum TimelineEventViewModel {
     case smallEvent(SmallEventViewModel)
     case largeEvent(LargeEventViewModel)
+    case sectionHeader(SectionHeaderViewModel)
+}
+
+class SectionHeaderViewModel {
+    let title: String
+    let subtitle: String
+    init?(timestamp: Date, previousTimestamp: Date?) {
+        
+        //do not instantiate if on same day as previous timestamp
+        if let previousTimestamp = previousTimestamp {
+            let calendar = NSCalendar.current
+            let unitFlags:Set<Calendar.Component> = [.day]
+            let components = calendar.dateComponents(unitFlags, from: previousTimestamp, to: timestamp)
+            if let numberOfDays = components.day {
+                if numberOfDays == 0 {
+                    return nil
+                }
+            }
+        }
+        
+        if let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear() {
+            
+            self.title = (timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
+            self.subtitle = dayMonthNumberYearDateFormatter.string(from: timestamp)
+        } else {
+            return nil
+        }
+    }
 }
 
 class SmallEventViewModel {
