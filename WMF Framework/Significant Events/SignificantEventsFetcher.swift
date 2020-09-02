@@ -39,15 +39,15 @@ public class SignificantEventsFetcher: Fetcher {
     }
     
     private func significantEventsURL(rvStartId: UInt? = nil, title: String, siteURL: URL) -> URL? {
-        
         let labsHost = "mobileapps-ios-experiments.wmflabs.org"
         guard let siteHost = siteURL.host else {
             return nil
         }
 
-        let pathComponents = [siteHost, "v1", "significant-events", title]
+        let pathComponents = [siteHost, "v1", "page", "significant-events", title]
         var components = URLComponents()
         components.host = labsHost
+        components.scheme = "https"
         components.replacePercentEncodedPathWithPathComponents(pathComponents)
         if let rvStartId = rvStartId {
             let queryParameters = ["rvStartId": rvStartId]

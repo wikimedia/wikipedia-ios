@@ -425,19 +425,6 @@ class ArticleViewController: ViewController, HintPresenting {
             callLoadCompletionIfNecessary()
         }
         
-        if let title = articleURL.wmf_titleWithUnderscores,
-        let siteURL = articleURL.wmf_site {
-            let eventsFetcher = SignificantEventsFetcher()
-            eventsFetcher.fetchSignificantEvents(title: title, siteURL: siteURL, completion: { (result) in
-                switch result {
-                case .success:
-                    break
-                case .failure:
-                    break
-                }
-            })
-        }
-        
         guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy, isPageView: true) else {
             showGenericError()
             state = .error

@@ -1,15 +1,13 @@
 
 import Foundation
-import WMF
-import UIKit
 
-struct SignificantEventsViewModel {
-    let nextRvStartId: UInt?
-    let sha: String?
-    let events: [TimelineEventViewModel]
-    let summaryText: String?
+public struct SignificantEventsViewModel {
+    public let nextRvStartId: UInt?
+    public let sha: String?
+    public let events: [TimelineEventViewModel]
+    public let summaryText: String?
     
-    init?(significantEvents: SignificantEvents, lastTimestamp: Date? = nil) {
+    public init?(significantEvents: SignificantEvents, lastTimestamp: Date? = nil) {
         self.nextRvStartId = significantEvents.nextRvStartId
         self.sha = significantEvents.sha
         
@@ -23,10 +21,7 @@ struct SignificantEventsViewModel {
             let unitFlags:Set<Calendar.Component> = [.day]
             let components = calendar.dateComponents(unitFlags, from: earliestDate, to: currentDate)
             if let numberOfDays = components.day {
-                summaryText = String.localizedStringWithFormat(WMFLocalizedString(
-                    "significant-events-summary-title",
-                    value:"{{PLURAL:%1$d|0=0 changes|%1$d change|%1$d changes}} by {{PLURAL:%2$d|0=0 editors|%2$d editor|%2$d editors}} in {{PLURAL:%3$d|0=0 days|%3$d day|%3$d days}}",
-                    comment:"Describes how many small changes are batched together in the significant events timeline view. %1$d is replaced by the number of accumulated changes editors made and %2$d is replaced with relative timeframe date that the edit counting started (e.g. 10 days ago)."),
+                summaryText = String.localizedStringWithFormat(CommonStrings.significantEventsSummaryTitle,
                                                                        significantEvents.summary.numChanges,
                                                                        significantEvents.summary.numUsers,
                                                                        numberOfDays)
@@ -77,15 +72,15 @@ struct SignificantEventsViewModel {
     }
 }
 
-enum TimelineEventViewModel {
+public enum TimelineEventViewModel {
     case smallEvent(SmallEventViewModel)
     case largeEvent(LargeEventViewModel)
     case sectionHeader(SectionHeaderViewModel)
 }
 
-class SectionHeaderViewModel {
-    let title: String
-    let subtitle: String
+public class SectionHeaderViewModel {
+    public let title: String
+    public let subtitle: String
     init?(timestamp: Date, previousTimestamp: Date?) {
         
         //do not instantiate if on same day as previous timestamp
@@ -110,7 +105,7 @@ class SectionHeaderViewModel {
     }
 }
 
-class SmallEventViewModel {
+public class SmallEventViewModel {
     
     private(set) var eventDescription: NSAttributedString?
     private var lastTraitCollection: UITraitCollection?
@@ -126,7 +121,7 @@ class SmallEventViewModel {
         }
     }
     
-    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         if let lastTraitCollection = lastTraitCollection,
            let eventDescription = eventDescription {
             if lastTraitCollection == traitCollection {
@@ -139,11 +134,7 @@ class SmallEventViewModel {
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
         let localizedString = String.localizedStringWithFormat(
-            WMFLocalizedString(
-                "significant-events-small-change-description",
-                value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}} made",
-                comment:"Describes how many small changes are batched together in the significant events timeline view. %1$d is replaced with the number of small changes."
-            ),
+            CommonStrings.smallChangeDescription,
             smallChange.count)
         
         let eventDescription = NSAttributedString(string: localizedString, attributes: attributes)
@@ -154,18 +145,18 @@ class SmallEventViewModel {
     }
 }
 
-class LargeEventViewModel {
+public class LargeEventViewModel {
     
-    enum ChangeDetail {
+    public enum ChangeDetail {
         case snippet(Snippet) //use for a basic horizontally scrolling snippet cell (will contain talk page topic snippets, added text snippets, article description updated snippets)
         case reference(Reference)
     }
     
-    struct Snippet {
+    public struct Snippet {
         let displayText: NSAttributedString
     }
     
-    struct Reference {
+    public struct Reference {
         let type: String
         let description: NSAttributedString
         let accessDateYearDisplay: String?
@@ -223,7 +214,7 @@ class LargeEventViewModel {
         self.timelineEvent = timelineEvent
     }
     
-    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
         if let lastTraitCollection = lastTraitCollection,
            let eventDescription = eventDescription {
@@ -232,18 +223,18 @@ class LargeEventViewModel {
             }
         }
         
-        let font = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
         let eventDescription: NSAttributedString
         switch timelineEvent {
         case .newTalkPageTopic:
-            let localizedString = WMFLocalizedString("significant-events-new-talk-topic-description", value: "New discussion about this article", comment: "Title displayed in a significant events timeline cell explaining that a new article talk page topic has been posted.")
+            let localizedString = CommonStrings.newTalkTopicDescription
             eventDescription = NSAttributedString(string: localizedString, attributes: attributes)
         case .vandalismRevert(let vandalismRevert):
             
-            let event = WMFLocalizedString("significant-events-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in a significant events timeline cell explaining that a vandalism revision was reverted.")
+            let event = CommonStrings.vandalismRevertDescription
             
             let mutableAttributedString = NSMutableAttributedString(string: event, attributes: attributes)
             
@@ -273,13 +264,13 @@ class LargeEventViewModel {
             case 2:
                 let firstDescription = sortedDescriptions[0].text
                 let secondDescription = sortedDescriptions[1].text
-                let mergedDescription = String.localizedStringWithFormat(WMFLocalizedString("significant-events-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in a significant events timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'"), firstDescription, secondDescription)
+                let mergedDescription = String.localizedStringWithFormat(CommonStrings.twoDescriptionsFormat, firstDescription, secondDescription)
                 eventDescription = NSAttributedString(string: mergedDescription, attributes: attributes)
             default:
                 //Note: This will not work properly in translations but for now this is works for an English-only feature
-                let finalDelimiter = WMFLocalizedString("significant-events-multiple-descriptions-last-delimiter", value: "and", comment: "Text to show as the last delimiter in a list of multiple event changes. These changes are shown in the description area of a significant events timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
-                let midDelimiter =
-                    WMFLocalizedString("significant-events-multiple-descriptions-delimiter", value: ",", comment: "Text to show as the delimiters in a list of multiple event changes. These changes are shown in the description area of a significant events timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
+                let finalDelimiter = CommonStrings.finalDelimiter
+                let midDelimiter = CommonStrings.midDelimiter
+                    
                 var finalDescription: String = ""
                 for (index, description) in sortedDescriptions.enumerated() {
                     
@@ -315,12 +306,10 @@ class LargeEventViewModel {
         for typedChange in typedChanges {
             switch typedChange {
             case .addedText(let addedText):
-                let description = String.localizedStringWithFormat(WMFLocalizedString("significant-events-added-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} added",
-                                                                                      comment:"Title displayed in a significant events timeline cell explaining that a revision has a certain number of characters added. %1$d is replaced by the number of characters added."), addedText.characterCount)
+                let description = String.localizedStringWithFormat(CommonStrings.addedTextDescription, addedText.characterCount)
                 descriptions.append(IndividualDescription(priority: 1, text: description))
             case .deletedText(let deletedText):
-                let description = String.localizedStringWithFormat(WMFLocalizedString("significant-events-deleted-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} deleted",
-                                                                                      comment:"Title displayed in a significant events timeline cell explaining that a revision has a certain number of characters deleted. %1$d is replaced by the number of characters deleted."), deletedText.characterCount)
+                let description = String.localizedStringWithFormat(CommonStrings.deletedTextDescription, deletedText.characterCount)
                 descriptions.append(IndividualDescription(priority: 2, text: description))
             case .newTemplate(let newTemplate):
                 var numArticleDescriptions = 0
@@ -337,8 +326,7 @@ class LargeEventViewModel {
                 }
                 
                 if numArticleDescriptions > 0 {
-                    let description = WMFLocalizedString("significant-events-article-description-updated-description", value:"Article title description updated",
-                                                         comment:"Title displayed in a significant events timeline cell explaining that an article's title description was updated in a revision.")
+                    let description = CommonStrings.articleDescriptionUpdatedDescription
                     descriptions.append(IndividualDescription(priority: 3, text: description))
                 }
             }
@@ -349,18 +337,17 @@ class LargeEventViewModel {
             case 0:
                 break
             case 1:
-                let description = WMFLocalizedString("significant-events-single-reference-added-description", value:"Reference added",
-                                                     comment:"Title displayed in a significant events timeline cell when a reference was added (and no other changes) to a revision.")
+                let description = CommonStrings.singleReferenceAddedDescription
                 descriptions.append(IndividualDescription(priority: 0, text: description))
             default:
-                let description = WMFLocalizedString("significant-events-multiple-references-added-description", value:"Multiple references added",
-                                                     comment:"Title displayed in a significant events timeline cell when multiple references were added (and no other changes) to a revision.")
+                let description = CommonStrings.multipleReferencesAddedDescription
                 descriptions.append(IndividualDescription(priority: 0, text: description))
             }
         } else {
-            let description = String.localizedStringWithFormat(WMFLocalizedString("significant-events-numerical-multiple-references-added-description", value:"{{PLURAL:%1$d|0=0 references|%1$d reference|%1$d references}} added",
-                                                                                  comment:"Title displayed in a significant events timeline cell explaining that multiple references were added to a revision. This string is use alongside other changes types like added characters. %1$d is replaced with the number of references."), numReferences)
-            descriptions.append(IndividualDescription(priority: 0, text: description))
+            if numReferences > 0 {
+                let description = String.localizedStringWithFormat(CommonStrings.numericalMultipleReferencesAddedDescription, numReferences)
+                descriptions.append(IndividualDescription(priority: 0, text: description))
+            }
         }
         
         return descriptions
@@ -375,13 +362,13 @@ class LargeEventViewModel {
             return nil
         case 1:
             let firstSection = sections[0]
-            localizedString = String.localizedStringWithFormat(WMFLocalizedString("significant-events-one-section-description", value: "in the %1$@ section", comment: "Text explaining what section a significant event change occured in, if occured in only one section. %1$@ is replaced with the section name."), firstSection)
+            localizedString = String.localizedStringWithFormat(CommonStrings.oneSectionDescription, firstSection)
         case 2:
             let firstSection = sections[0]
             let secondSection = sections[1]
-            localizedString = String.localizedStringWithFormat(WMFLocalizedString("significant-events-two-sections-description", value: "in the %1$@ and %2$@ sections", comment: "Text explaining what sections a significant event change occured in, if occured in two sections. %1$@ is replaced with the first section name, %2$@ with the second."), firstSection, secondSection)
+            localizedString = String.localizedStringWithFormat(CommonStrings.twoSectionsDescription, firstSection, secondSection)
         default:
-            localizedString = String.localizedStringWithFormat(WMFLocalizedString("significant-events-many-sections-description", value: "in %1$d sections", comment: "Text explaining what sections a significant event change occured in, if occured in 3+ sections. %1$d is replaced with the number of sections."), sections.count)
+            localizedString = String.localizedStringWithFormat(CommonStrings.manySectionsDescription, sections.count)
         }
         
         let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
@@ -412,7 +399,7 @@ class LargeEventViewModel {
         }
     }
     
-    func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
+    public func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
         if let lastTraitCollection = lastTraitCollection,
            let changeDetails = changeDetails {
             if lastTraitCollection == traitCollection {
@@ -493,17 +480,13 @@ class LargeEventViewModel {
             assertionFailure("This should not happen")
             return ""
         case .bookCitation:
-            typeString = WMFLocalizedString("significant-events-new-book-reference-title",
-                                                    value:"Book", comment: "Header text for a new book reference type that was added in a significant events revision cell.")
+            typeString = CommonStrings.newBookReferenceTitle
         case .journalCitation:
-            typeString = WMFLocalizedString("significant-events-new-journal-reference-title",
-                                                    value:"Journal", comment: "Header text for a new journal reference type that was added in a significant events revision cell.")
+            typeString = CommonStrings.newJournalReferenceTitle
         case .newsCitation:
-            typeString = WMFLocalizedString("significant-events-new-news-reference-title",
-                                                    value:"News", comment: "Header text for a new news reference type that was added in a significant events revision cell.")
+            typeString = CommonStrings.newNewsReferenceTitle
         case .websiteCitation:
-            typeString = WMFLocalizedString("significant-events-new-website-reference-title",
-                                                    value:"Website", comment: "Header text for a new website reference type that was added in a significant events revision cell.")
+            typeString = CommonStrings.newWebsiteReferenceTitle
             
         }
         
@@ -582,15 +565,13 @@ class LargeEventViewModel {
         
         var volumeString = ""
         if let volumeNumber = journalCitation.volumeNumber {
-            volumeString = String.localizedStringWithFormat(WMFLocalizedString("significant-events-new-journal-reference-volume",
-                                value:"Volume %1$@: ", comment: "Volume text for a new journal reference type that was added in a significant events revision cell. %1$@ is replaced by the journal volume number of the reference."), volumeNumber)
+            volumeString = String.localizedStringWithFormat(CommonStrings.newJournalReferenceVolume, volumeNumber)
         }
         let volumeAttributedString = NSAttributedString(string: volumeString, attributes: boldAttributes)
         
         var descriptionEnd = ""
         if let database = journalCitation.database {
-            let viaDatabaseString = String.localizedStringWithFormat(WMFLocalizedString("significant-events-new-journal-reference-database",
-                                                       value:"via %1$@ ", comment: "Database text for a new journal reference type that was added in a significant events revision cell. %1$@ is replaced by the database volume number of the reference."), database)
+            let viaDatabaseString = String.localizedStringWithFormat(CommonStrings.newJournalReferenceDatabase, database)
             if let pages = journalCitation.pages {
                 descriptionEnd += "\(pages) - \(viaDatabaseString). "
             } else {
@@ -662,8 +643,7 @@ class LargeEventViewModel {
         if let archiveDateString = websiteCitation.archiveDateString,
            let archiveUrlString = websiteCitation.archiveDotOrgUrlString,
            let archiveUrl = URL(string: archiveUrlString) {
-            let archiveLinkText = WMFLocalizedString("significant-events-new-website-reference-archive-url-text",
-                                                     value:"Archive.org URL", comment: "Archive.org url text for a new website reference type that was added in a significant events revision cell. This will be turned into a link that goes to the reference's archive.org url.")
+            let archiveLinkText = CommonStrings.newWebsiteReferenceArchiveUrlText
             let range = NSRange(location: 0, length: archiveLinkText.count)
             let archiveLinkMutableAttributedString = NSMutableAttributedString(string: titleString)
             archiveLinkMutableAttributedString.addAttributes([NSAttributedString.Key.link : archiveUrl,
@@ -671,8 +651,7 @@ class LargeEventViewModel {
             
             if let archiveLinkAttributedString = archiveLinkMutableAttributedString.copy() as? NSAttributedString {
                 
-                let lastText =  String.localizedStringWithFormat(WMFLocalizedString("significant-events-new-website-reference-archive-date-text",
-                                                            value:"from the original on %1$@", comment: "Text in a new website reference in a significant events timeline cell that describes when the reference was retrieved for Archive.org. %1$@ is replaced with the reference's archive date."), archiveDateString)
+                let lastText =  String.localizedStringWithFormat(CommonStrings.newWebsiteReferenceArchiveDateText, archiveDateString)
                 
                 let lastAttributedString = NSAttributedString(string: lastText, attributes: attributes)
                 
@@ -740,8 +719,7 @@ class LargeEventViewModel {
         
         var retrievedString = ""
         if let accessDate = newsCitation.accessDateString {
-            retrievedString = String.localizedStringWithFormat(WMFLocalizedString("significant-events-new-news-reference-retrieved-date",
-                                                       value:"Retrieved %1$@", comment: "Retrieved date text for a new news reference type that was added in a significant events revision cell. %1$@ is replaced by the reference's retrieved date."), accessDate)
+            retrievedString = String.localizedStringWithFormat(CommonStrings.newNewsReferenceRetrievedDate, accessDate)
         }
         
         let retrievedDateAttributedString = NSAttributedString(string: retrievedString, attributes: attributes)
@@ -835,7 +813,7 @@ class LargeEventViewModel {
         
     }
     
-    func timestampForDisplay() -> String {
+    public func timestampForDisplay() -> String {
         if let displayTimestamp = displayTimestamp {
             return displayTimestamp
         }
@@ -876,7 +854,7 @@ class LargeEventViewModel {
         return displayTimestamp
     }
     
-    func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    public func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         if let lastTraitCollection = lastTraitCollection,
            let userInfo = userInfo {
             if lastTraitCollection == traitCollection {
@@ -903,9 +881,7 @@ class LargeEventViewModel {
         
         var attributedString: NSAttributedString
         if userType != .anonymous {
-            let userInfo = String.localizedStringWithFormat( WMFLocalizedString(
-                "significant-events-revision-userInfo",
-                value:"Edit by %1$@ ({{PLURAL:%2$d|0=0 edits|%2$d edit|%2$d edits}})", comment: "Text describing details about the user that made a significant revision in the significant events view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made."), userName, editCount)
+            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, editCount)
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
@@ -930,8 +906,7 @@ class LargeEventViewModel {
             
             attributedString = NSAttributedString(string: userInfo, attributes: attributes)
         } else {
-            let anonymousUserInfo = String.localizedStringWithFormat(WMFLocalizedString("significant-events-revision-userInfo-anonymous",
-                                                       value:"Edit by %1$@", comment: "Text describing details about the anonyous user that made a significant revision in the significant events view. %1$@ is replaced by the editor's anonymous name."), userName)
+            let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,

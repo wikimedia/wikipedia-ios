@@ -17,7 +17,7 @@ public protocol SubCellProtocol {
     func deselectSelectedSubItems(animated: Bool)
 }
 
-public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol {
+open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
     var theme: Theme = Theme.standard
     
@@ -30,9 +30,9 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     internal var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
-    internal let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    public let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     internal let prototypeCell = ArticleRightAlignedImageCollectionViewCell()
-    var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
+    open var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
             titleLabel.semanticContentAttribute = semanticContentAttributeOverride
             subTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
@@ -98,7 +98,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     }
     public let spacing: CGFloat = 6
     
-    override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+    override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let layoutMargins = calculatedLayoutMargins
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
@@ -166,7 +166,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
     }
 
-    override public func updateBackgroundColorOfLabels() {
+    override open func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         titleLabel.backgroundColor = labelBackgroundColor
         subTitleLabel.backgroundColor = labelBackgroundColor
@@ -271,7 +271,7 @@ extension SideScrollingCollectionViewCell {
 }
 
 extension SideScrollingCollectionViewCell: Themeable {
-    public func apply(theme: Theme) {
+    open func apply(theme: Theme) {
         self.theme = theme
         imageView.alpha = theme.imageOpacity
         setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
