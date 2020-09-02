@@ -72,10 +72,10 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         guard let significantEventsSideScrollingCell = cell as? SignificantEventsSideScrollingCollectionViewCell else {
             return cell
         }
-//        guard let event = events[safeIndex: indexPath.item] else {
-//            return cell
-//        }
-        let event = events[1]
+        guard let event = events[safeIndex: indexPath.item] else {
+            return cell
+        }
+
         significantEventsSideScrollingCell.layoutMargins = layout.itemLayoutMargins
         
         switch event {
@@ -96,10 +96,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if events.count > 1 {
-            return 1
-        }
-        
+
         return events.count
     }
 

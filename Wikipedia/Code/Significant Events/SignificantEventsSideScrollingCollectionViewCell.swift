@@ -173,10 +173,6 @@ extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewData
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if changeDetails.count > 1 {
-            return 1
-        }
-        
         return changeDetails.count
     }
     

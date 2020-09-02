@@ -65,7 +65,7 @@ public struct SignificantEvents: Decodable {
             }
         
         init(forPrototypeText prototypeText: String) {
-            self.outputType = .newTalkPageTopic
+            self.outputType = .largeChange
             self.revId = 1
             self.timestampString = "2015-07-08T21:16:25Z"
             self.user = "Test.Name"
@@ -73,10 +73,11 @@ public struct SignificantEvents: Decodable {
             self.userGroups = ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"]
             self.userEditCount = 3
             self.count = nil
-            self.sections = nil
-            self.untypedChanges = nil
-            self.section = "== Test =="
+            self.sections = ["== Test =="]
+            self.section = nil
             self.snippet = prototypeText
+            let untypedChange = SignificantEvents.UntypedChange(outputType: .addedText, sections: ["== Test =="], snippet: prototypeText, snippetType: .addedLine, characterCount: UInt(prototypeText.count), untypedTemplates: nil)
+            self.untypedChanges = [untypedChange]
         }
     }
     

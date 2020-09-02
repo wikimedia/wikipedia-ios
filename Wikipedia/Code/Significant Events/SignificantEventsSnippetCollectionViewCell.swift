@@ -45,15 +45,17 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
     func configure(snippet: NSAttributedString, theme: Theme) {
         apply(theme: theme)
         backgroundColor = .clear
-        setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
+        contentView.backgroundColor = .clear
+        //setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
         backgroundView?.layer.cornerRadius = 3
         backgroundView?.layer.masksToBounds = true
         selectedBackgroundView?.layer.cornerRadius = 3
         selectedBackgroundView?.layer.masksToBounds = true
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowOpacity = 1.0
-        layer.shadowRadius = 3
-        layer.shadowColor = theme.colors.shadow.cgColor
+        titleTextView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        titleTextView.layer.shadowOpacity = 1.0
+        titleTextView.layer.shadowRadius = 3
+        titleTextView.layer.shadowColor = theme.colors.shadow.cgColor
+        titleTextView.layer.masksToBounds = false
         layer.masksToBounds = false
         setupTitle(for: snippet)
         layoutMargins = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
@@ -74,7 +76,9 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        setupTitle(for: titleTextView.attributedText)
+        if let attributedText = titleTextView.attributedText {
+            setupTitle(for: attributedText)
+        }
     }
     
     override func setup() {
@@ -91,7 +95,6 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
 extension SignificantEventsSnippetCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-        titleTextView.textColor = theme.colors.primaryText
         titleTextView.backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
     }
