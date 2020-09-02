@@ -172,8 +172,6 @@
 		674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABC2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		67540CA924D221E3008B2894 /* LocationManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CA824D221E3008B2894 /* LocationManagerFactory.swift */; };
-		67540CAE24D348F0008B2894 /* EPCStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CAD24D348F0008B2894 /* EPCStorageManager.swift */; };
-		67540CBF24D37AAF008B2894 /* EPCStorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CBE24D37AAF008B2894 /* EPCStorageManagerTests.swift */; };
 		6754E44922773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		6754E44A22773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		6754E44B22773588005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
@@ -3317,8 +3315,6 @@
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
-		67540CAD24D348F0008B2894 /* EPCStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPCStorageManager.swift; sourceTree = "<group>"; };
-		67540CBE24D37AAF008B2894 /* EPCStorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPCStorageManagerTests.swift; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
@@ -5798,7 +5794,6 @@
 		67540CBB24D37A78008B2894 /* Event Platform Client Tests */ = {
 			isa = PBXGroup;
 			children = (
-				67540CBE24D37AAF008B2894 /* EPCStorageManagerTests.swift */,
 				6768884824D8BEF300AA338C /* EPCNetworkManagerTests.swift */,
 			);
 			name = "Event Platform Client Tests";
@@ -6409,7 +6404,6 @@
 			children = (
 				982800D524D302BF004B1850 /* EventPlatformClientLibrary.swift */,
 				982800D724D302D4004B1850 /* EventPlatformClientProtocols.swift */,
-				67540CAD24D348F0008B2894 /* EPCStorageManager.swift */,
 				676C471F24D4C7DA0093E60F /* EPCNetworkManager.swift */,
 			);
 			path = "Event Platform Client";
@@ -9775,7 +9769,6 @@
 				B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */,
 				D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */,
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
-				67540CBF24D37AAF008B2894 /* EPCStorageManagerTests.swift in Sources */,
 				D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
@@ -10451,7 +10444,6 @@
 				83ACAAA224E6E38A003B3035 /* Wikipedia.swift in Sources */,
 				6779D45323F6EC2D002840CA /* CacheFetching.swift in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
-				67540CAE24D348F0008B2894 /* EPCStorageManager.swift in Sources */,
 				67D6C01D2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift in Sources */,
 				D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */,
 				8359BAC721E4C9C1009B5E6C /* Fetcher.swift in Sources */,

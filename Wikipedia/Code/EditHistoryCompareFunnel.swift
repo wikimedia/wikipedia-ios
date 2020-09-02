@@ -36,10 +36,10 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
          *   - Finalize stream name to what will be deployed in mediawiki-config/wmf-config
          *   - Finalize the schema (TBD in Gerrit patch to schemas/event/secondary repo)
          */
-        EPC.shared?.log(
+        EPC.shared?.submit(
             stream: "ios.edit_history_compare",
-            schema: "/analytics/mobile_apps/ios_edit_history_compare/1.0.0",
             data: [
+                "$schema": "/analytics/mobile_apps/ios_edit_history_compare/1.0.0" as NSCoding,
                 "action": action.rawValue as NSCoding,
                 "primary_language": self.primaryLanguage() as NSCoding,
                 "is_anon": self.isAnon as NSCoding

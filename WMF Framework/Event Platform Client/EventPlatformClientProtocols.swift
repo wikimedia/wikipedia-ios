@@ -39,22 +39,6 @@
 import Foundation
 
 /**
- * Storage manager will provide EPC with the ability to persist data and retrieve
- * persisted data, asynchronously.
- *
- * Makes the app's install ID available to EPC as `installID` for including in
- * events and determining sampling for streams configured to use the "device"
- * identifier (as opposed to those configured to use the "session" identifier).
- *
- * Also makes the user's "sharing usage data" preference available to EPC, for
- * disabling event logging if the user has opted out of sharing usage data.
- */
-public protocol EPCStorageManaging {
-    var installID: String? { get }
-    var sharingUsageData: Bool { get }
-}
-
-/**
  * Network manager provides EPC with the ability to interact with the network,
  * asynchronously.
  *
