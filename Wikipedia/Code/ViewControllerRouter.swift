@@ -76,20 +76,16 @@ class ViewControllerRouter: NSObject {
                 return false
             }
             return presentOrPush(talkPageVC, with: completion)
-        case .onThisDay(let date):
+        case .onThisDay(let indexOfSelectedEvent):
             let dataStore = MWKDataStore.shared()
             guard let contentGroup = dataStore.viewContext.newestGroup(of: .onThisDay), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
                 completion()
                 return false
             }
-
-            /// Prepare the VC to be presented as a push - remove the "X" button in top right, remove the bottom button, add appropriate buttons to nav bar.
-            onThisDayVC.navigationMode = .bar
-            onThisDayVC.footerButtonTitle = nil
-            onThisDayVC.setupWButton()
-            onThisDayVC.title = nil
-            onThisDayVC.navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
-
+            onThisDayVC.shouldShowNavigationBar = true
+            if let index = indexOfSelectedEvent, let selectedEvent = onThisDayVC.events.first(where: { $0.index == NSNumber(value: index) }) {
+                onThisDayVC.initialEvent = selectedEvent
+            }
             return presentOrPush(onThisDayVC, with: completion)
         default:
             completion()

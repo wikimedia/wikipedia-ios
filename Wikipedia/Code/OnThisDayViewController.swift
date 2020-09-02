@@ -11,6 +11,28 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     var initialEvent: WMFFeedOnThisDayEvent?
     let feedFunnelContext: FeedFunnelContext
     let contentGroupIDURIString: String?
+    var shouldShowNavigationBar: Bool = false {
+        didSet {
+            if shouldShowNavigationBar {
+                /// Prepare the VC to be presented as a push - remove the "X" button in top right, remove the bottom button, add appropriate buttons to nav bar.
+                navigationMode = .bar
+                footerButtonTitle = nil
+                setupWButton()
+                title = nil
+                navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+                if #available(iOS 14.0, *) {
+                    navigationItem.backButtonDisplayMode = .generic
+                    navigationItem.backButtonTitle = CommonStrings.onThisDayTitle
+                }
+            } else {
+                navigationItem.rightBarButtonItem = nil
+                navigationItem.titleView = nil
+                navigationMode = .detail
+                title = CommonStrings.onThisDayTitle
+
+            }
+        }
+    }
 
     required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, contentGroup: WMFContentGroup, theme: Theme) {
         self.events = events
@@ -36,7 +58,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
                 return true
             })
             
-            guard isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
+            guard !shouldShowNavigationBar, isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
                 title = CommonStrings.onThisDayTitle
                 return
             }
@@ -62,6 +84,11 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         scrollToInitialEvent()
+
+        /// When jumping back via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
+        if shouldShowNavigationBar {
+            setupWButton()
+        }
     }
     
     func scrollToInitialEvent() {
@@ -213,7 +240,13 @@ extension OnThisDayViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard indexPath.section > 0, kind == UICollectionView.elementKindSectionHeader else {
-            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+            if shouldShowNavigationBar {
+                let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
+                view.frame = .zero
+                return view
+            } else {
+                return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+            }
         }
         guard
             indexPath.section == 1,
