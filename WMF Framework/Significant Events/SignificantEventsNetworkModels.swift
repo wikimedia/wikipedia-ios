@@ -11,7 +11,7 @@ public struct SignificantEvents: Decodable {
     public let typedEvents: [TimelineEvent]
     public let summary: Summary
     
-    enum SnippetType: Int, Decodable {
+    public enum SnippetType: Int, Decodable {
         case addedLine = 1
         case addedAndDeletedInLine = 3
         case addedAndDeletedInMovedLine = 5
@@ -101,10 +101,10 @@ public struct SignificantEvents: Decodable {
     
     public struct AddedTextChange {
         let outputType: LargeChangeOutputType
-        let sections: [String]
-        let snippet: String
-        let snippetType: SnippetType
-        let characterCount: UInt
+        public let sections: [String]
+        public let snippet: String
+        public let snippetType: SnippetType
+        public let characterCount: UInt
         
         init?(untypedChange: UntypedChange) {
             guard let snippet = untypedChange.snippet,
@@ -123,8 +123,8 @@ public struct SignificantEvents: Decodable {
     
     public struct DeletedTextChange {
         let outputType: LargeChangeOutputType
-        let sections: [String]
-        let characterCount: UInt
+        public let sections: [String]
+        public let characterCount: UInt
         
         init?(untypedChange: UntypedChange) {
             guard let characterCount = untypedChange.characterCount else {
@@ -139,9 +139,9 @@ public struct SignificantEvents: Decodable {
     
     public struct NewTemplatesChange {
         let outputType: LargeChangeOutputType
-        let sections: [String]
+        public let sections: [String]
         private let untypedTemplates: [[String: String]]
-        let typedTemplates: [Template]
+        public let typedTemplates: [Template]
         
         init?(untypedChange: UntypedChange) {
             guard let untypedTemplates = untypedChange.untypedTemplates else {
@@ -189,13 +189,13 @@ public struct SignificantEvents: Decodable {
     
     public struct LargeChange {
         let outputType: TimelineEventOutputType
-        let revId: UInt
-        let timestampString: String
-        let user: String
-        let userId: UInt
-        let userGroups: [String]
-        let userEditCount: UInt
-        let typedChanges: [Change]
+        public let revId: UInt
+        public let timestampString: String
+        public let user: String
+        public let userId: UInt
+        public let userGroups: [String]
+        public let userEditCount: UInt
+        public let typedChanges: [Change]
         
         init?(untypedEvent: UntypedTimelineEvent) {
             guard let revId = untypedEvent.revId,
@@ -259,13 +259,13 @@ public struct SignificantEvents: Decodable {
     
     public struct VandalismRevert {
         let outputType: TimelineEventOutputType
-        let revId: UInt
-        let timestampString: String
-        let user: String
-        let userId: UInt
-        let sections: [String]
-        let userGroups: [String]
-        let userEditCount: UInt
+        public let revId: UInt
+        public let timestampString: String
+        public let user: String
+        public let userId: UInt
+        public let sections: [String]
+        public let userGroups: [String]
+        public let userEditCount: UInt
         
         init?(untypedEvent: UntypedTimelineEvent) {
             guard let revId = untypedEvent.revId,
@@ -291,11 +291,11 @@ public struct SignificantEvents: Decodable {
     
     public struct NewTalkPageTopic {
         let outputType: TimelineEventOutputType
-        public let revId: UInt
+        let revId: UInt
         public let timestampString: String
         public let user: String
         public let userId: UInt
-        let section: String
+        public let section: String
         public let snippet: String
         public let userGroups: [String]
         public let userEditCount: UInt
@@ -387,14 +387,14 @@ public struct SignificantEvents: Decodable {
     
     //https://en.wikipedia.org/wiki/Template:Cite_book/TemplateData
     public struct BookCitation {
-        let title: String
-        let lastName: String?
-        let firstName: String?
-        let yearPublished: String?
-        let locationPublished: String?
-        let publisher: String?
-        let pagesCited: String?
-        let isbn: String?
+        public let title: String
+        public let lastName: String?
+        public let firstName: String?
+        public let yearPublished: String?
+        public let locationPublished: String?
+        public let publisher: String?
+        public let pagesCited: String?
+        public let isbn: String?
         
         init?(dict: [String: String]) {
             guard let title = dict.nonEmptyValueForKey(key: "title") else {
@@ -446,28 +446,28 @@ public struct SignificantEvents: Decodable {
     }
     
     public struct ArticleDescription {
-        let description: String
+        public let text: String
         
         init?(dict: [String: String]) {
-            guard let description = dict.nonEmptyValueForKey(key: "1") else {
+            guard let text = dict.nonEmptyValueForKey(key: "1") else {
                 return nil
             }
             
-            self.description = description
+            self.text = text
         }
     }
     
     //https://en.wikipedia.org/wiki/Template:Cite_journal#TemplateData
     public struct JournalCitation {
-        let lastName: String?
-        let firstName: String?
-        let sourceDateString: String?
-        let title: String
-        let journal: String
-        let urlString: String?
-        let volumeNumber: String?
-        let pages: String?
-        let database: String?
+        public let lastName: String?
+        public let firstName: String?
+        public let sourceDateString: String?
+        public let title: String
+        public let journal: String
+        public let urlString: String?
+        public let volumeNumber: String?
+        public let pages: String?
+        public let database: String?
         
         init?(dict: [String: String]) {
             guard let title = dict.nonEmptyValueForKey(key: "title"),
@@ -497,13 +497,13 @@ public struct SignificantEvents: Decodable {
     
     //https://en.wikipedia.org/wiki/Template:Cite_news#TemplateData
     public struct NewsCitation {
-        let lastName: String?
-        let firstName: String?
-        let sourceDateString: String?
-        let title: String
-        let urlString: String?
-        let publication: String?
-        let accessDateString: String?
+        public let lastName: String?
+        public let firstName: String?
+        public let sourceDateString: String?
+        public let title: String
+        public let urlString: String?
+        public let publication: String?
+        public let accessDateString: String?
         
         init?(dict: [String: String]) {
             guard let title = dict.nonEmptyValueForKey(key: "title") else {
@@ -536,12 +536,12 @@ public struct SignificantEvents: Decodable {
     //https://en.wikipedia.org/wiki/Template:Cite_web#TemplateData
     public struct WebsiteCitation {
         
-        let urlString: String
-        let title: String
-        let publisher: String?
-        let accessDateString: String?
-        let archiveDateString: String?
-        let archiveDotOrgUrlString: String?
+        public let urlString: String
+        public let title: String
+        public let publisher: String?
+        public let accessDateString: String?
+        public let archiveDateString: String?
+        public let archiveDotOrgUrlString: String?
         
         init?(dict: [String: String]) {
             guard let title = dict.nonEmptyValueForKey(key: "title"),
