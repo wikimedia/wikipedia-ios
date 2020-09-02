@@ -190,12 +190,12 @@
 		6771299524FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */; };
 		6771299624FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */; };
 		6771299724FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */; };
-		6771299924FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299824FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift */; };
-		6771299A24FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299824FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift */; };
-		6771299B24FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299824FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift */; };
-		6771299C24FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299824FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift */; };
 		6771299D24FF8CC000E89CA5 /* SignificantEventsViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036524F94D0300D765AA /* SignificantEventsViewModels.swift */; };
 		6771299E24FF8CDC00E89CA5 /* SignificantEventsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036024F94CEE00D765AA /* SignificantEventsController.swift */; };
+		677129A024FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */; };
+		677129A124FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */; };
+		677129A224FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */; };
+		677129A324FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */; };
 		6773B1FE240F02E40022A70E /* PermanentlyPersistableURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */; };
 		6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */; };
 		6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */; };
@@ -3337,7 +3337,7 @@
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsViewController.swift; sourceTree = "<group>"; };
 		6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsSideScrollingCollectionViewCell.swift; sourceTree = "<group>"; };
-		6771299824FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsCollectionViewHeader.swift; sourceTree = "<group>"; };
+		6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsSnippetCollectionViewCell.swift; sourceTree = "<group>"; };
 		6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCache.swift; sourceTree = "<group>"; };
 		6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCacheDBWriter+SyncResources.swift"; sourceTree = "<group>"; };
 		6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheResourceDBWriting.swift; sourceTree = "<group>"; };
@@ -5920,7 +5920,7 @@
 			children = (
 				6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */,
 				6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */,
-				6771299824FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift */,
+				6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */,
 			);
 			path = "Significant Events";
 			sourceTree = "<group>";
@@ -9895,7 +9895,6 @@
 				830D71CF1F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0EFCD6D1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				67DC5BE923A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
-				6771299924FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */,
 				B0CD9DD61F70997300051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0524B6F214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				67F73E752267B9070079DEEF /* TalkPageReplyListViewController.swift in Sources */,
@@ -10080,6 +10079,7 @@
 				8382F8D920D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				D8B1668C1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				D82E95851F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
+				677129A024FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */,
 				7A82898C21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				B0E806951C0CEA7B0065EBC0 /* AboutViewController.m in Sources */,
 				B0E804D61C0CE0B40065EBC0 /* NSObject+WMFExtras.m in Sources */,
@@ -10734,6 +10734,7 @@
 				83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				7A610CBA220A30C900C266AE /* HintViewController.swift in Sources */,
 				7A23CED3211A24FF00441A79 /* FeedFunnel.swift in Sources */,
+				677129A324FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */,
 				83DAA9B323FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
 				7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
@@ -11009,7 +11010,6 @@
 				BA7683C71F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				6782DBAC2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				D8A42B4B1E815A9C00D8E281 /* WMFLanguageCell.m in Sources */,
-				6771299C24FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */,
 				7A1469C0220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				6798332C22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */,
 				7A27E85521B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
@@ -11168,7 +11168,6 @@
 				7A82896921B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
 				B0EFCD6E1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
-				6771299B24FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D87676A021E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				7ABE17192239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
@@ -11353,6 +11352,7 @@
 				7AFC79F921B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				8361474C24223689003E49D3 /* ArticleViewController+Announcements.swift in Sources */,
 				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
+				677129A224FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */,
 				6782DBC22343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+Animations.swift in Sources */,
 				67861A18223C13940044F69D /* FocusNavigationView.swift in Sources */,
@@ -11743,6 +11743,7 @@
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				7AA96D5E21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
+				677129A124FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */,
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				D8EC3E2E1E9BDA35006712EB /* SavedPagesFunnel.m in Sources */,
@@ -12018,7 +12019,6 @@
 				6782DBA52343B7EE003FA21B /* DiffHeaderSummaryView.swift in Sources */,
 				D8EC3F001E9BDA35006712EB /* DDLog+WMFLogger.m in Sources */,
 				7A70797F223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
-				6771299A24FF871200E89CA5 /* SignificantEventsCollectionViewHeader.swift in Sources */,
 				D818D3881ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				7A23CED1211A24FD00441A79 /* FeedFunnel.swift in Sources */,
 				D80ED25E1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,

@@ -54,7 +54,14 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             return estimate
         }
         placeholderCell.layoutMargins = layout.itemLayoutMargins
-        placeholderCell.configure(with: event, theme: theme)
+        
+        switch event {
+        case .largeEvent(let largeEvent):
+            placeholderCell.configure(with: largeEvent, theme: theme)
+        default:
+            break
+        }
+        
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
@@ -65,11 +72,20 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         guard let significantEventsSideScrollingCell = cell as? SignificantEventsSideScrollingCollectionViewCell else {
             return cell
         }
-        guard let event = events[safeIndex: indexPath.item] else {
-            return cell
-        }
+//        guard let event = events[safeIndex: indexPath.item] else {
+//            return cell
+//        }
+        let event = events[1]
         significantEventsSideScrollingCell.layoutMargins = layout.itemLayoutMargins
-        significantEventsSideScrollingCell.configure(with: event, theme: theme)
+        
+        switch event {
+        case .largeEvent(let largeEvent):
+            significantEventsSideScrollingCell.configure(with: largeEvent, theme: theme)
+            significantEventsSideScrollingCell.apply(theme: theme)
+        default:
+            break
+        }
+        
         //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.section == 0 ? false : true
 
         return significantEventsSideScrollingCell
@@ -80,6 +96,10 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if events.count > 1 {
+            return 1
+        }
+        
         return events.count
     }
 

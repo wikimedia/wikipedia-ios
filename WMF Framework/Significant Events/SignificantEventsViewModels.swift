@@ -53,7 +53,7 @@ public struct SignificantEventsViewModel {
                 
                 if let currentTimestamp = currentTimestamp {
                     if let sectionHeader = SectionHeaderViewModel(timestamp: currentTimestamp, previousTimestamp: previousTimestamp) {
-                        eventViewModels.append(.sectionHeader(sectionHeader))
+                        //eventViewModels.append(.sectionHeader(sectionHeader))
                     }
                     
                     previousTimestamp = currentTimestamp
@@ -62,7 +62,7 @@ public struct SignificantEventsViewModel {
             
             
             if let smallEventViewModel = SmallEventViewModel(timelineEvent: originalEvent) {
-                eventViewModels.append(.smallEvent(smallEventViewModel))
+                //eventViewModels.append(.smallEvent(smallEventViewModel))
             } else if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
                 eventViewModels.append(.largeEvent(largeEventViewModel))
             }
@@ -153,7 +153,7 @@ public class LargeEventViewModel {
     }
     
     public struct Snippet {
-        let displayText: NSAttributedString
+        public let displayText: NSAttributedString
     }
     
     public struct Reference {
@@ -212,6 +212,30 @@ public class LargeEventViewModel {
         }
         
         self.timelineEvent = timelineEvent
+    }
+    
+    public convenience init?(forPrototypeText prototypeText: String) {
+        let originalUntypedEvent = SignificantEvents.UntypedTimelineEvent(forPrototypeText: prototypeText)
+        guard let originalLargeChange = SignificantEvents.LargeChange(untypedEvent: originalUntypedEvent) else {
+            return nil
+        }
+        let originalTimelineEvent = SignificantEvents.TimelineEvent.largeChange(originalLargeChange)
+        self.init(timelineEvent: originalTimelineEvent)
+    }
+    
+    public func firstSnippetFromPrototypeModel(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
+        let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: theme)
+        if changeDetails.count > 0 {
+            let firstChangeDetail = changeDetails[0]
+            switch firstChangeDetail {
+            case .snippet(let snippet):
+                return snippet.displayText
+            default:
+                return nil
+            }
+        }
+        
+        return nil
     }
     
     public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {

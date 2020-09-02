@@ -63,6 +63,21 @@ public struct SignificantEvents: Decodable {
                 case snippet
                 case untypedChanges = "significantChanges"
             }
+        
+        init(forPrototypeText prototypeText: String) {
+            self.outputType = .newTalkPageTopic
+            self.revId = 1
+            self.timestampString = "2015-07-08T21:16:25Z"
+            self.user = "Test.Name"
+            self.userId = 2
+            self.userGroups = ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"]
+            self.userEditCount = 3
+            self.count = nil
+            self.sections = nil
+            self.untypedChanges = nil
+            self.section = "== Test =="
+            self.snippet = prototypeText
+        }
     }
     
     public enum TimelineEventOutputType: String, Decodable {
