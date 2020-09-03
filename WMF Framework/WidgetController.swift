@@ -7,7 +7,8 @@ public final class WidgetController: NSObject {
     // MARK: Nested Types
 
     public enum SupportedWidget: String {
-        case pictureOfTheDay = "org.wikipedia.widgets.potd"
+        case pictureOfTheDay = "org.wikimedia.wikipedia.widgets.potd"
+        case topRead = "org.wikimedia.wikipedia.widgets.topRead"
 
         public var identifier: String {
             return self.rawValue
