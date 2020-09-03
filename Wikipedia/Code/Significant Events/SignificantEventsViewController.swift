@@ -16,6 +16,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     
     required init(significantEventsViewModel: SignificantEventsViewModel, theme: Theme) {
         self.significantEventsViewModel = significantEventsViewModel
+        self.events = significantEventsViewModel.events
         super.init()
         self.theme = theme
     }

@@ -106,6 +106,44 @@ class ArticleWebMessagingController: NSObject {
         updateSetupParameters()
     }
     
+    //used only when significant events is active
+    //we are manually suppressing left and right margins in standard view so we get the edge to edge gray background
+    func customUpdateMargins(with layoutMargins: UIEdgeInsets) {
+        let javascript = """
+            function pleaseWork() {
+                 var headers = document.body.getElementsByTagName('header');
+                 if (headers.length > 0) {
+                      var firstHeader = headers[0];
+                      firstHeader.style.marginLeft = "\(layoutMargins.left)px";
+                      firstHeader.style.marginRight = "\(layoutMargins.right)px";
+                 }
+                 var sections = document.getElementById('pcs').getElementsByTagName('section');
+                 if (sections.length === 0) {
+                     return false;
+                 }
+                 for (var s = 0; s < sections.length; s++) {
+                        var section = sections[s];
+                        var childNodes = section.childNodes;
+                         for (var i = 0; i < childNodes.length; i++) {
+                             var childNode = childNodes[i];
+                             if (childNode.id !== undefined &&
+                                  childNode.id !== "significant-changes-container") {
+                                  childNode.style.marginLeft = "\(layoutMargins.left)px";
+                                  childNode.style.marginRight = "\(layoutMargins.right)px";
+                             }
+                         }
+                 }
+                 
+                 return true;
+            }
+            pleaseWork();
+        """
+        webView?.evaluateJavaScript(javascript) { (result, error) in
+            print(result)
+            print(error)
+        }
+    }
+    
     func updateTextSizeAdjustmentPercentage(_ percentage: Int) {
         let percentage = "\(percentage)%"
         let js = "pcs.c1.Page.setTextSizeAdjustmentPercentage('\(percentage)')"

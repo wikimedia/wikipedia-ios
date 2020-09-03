@@ -248,7 +248,16 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     internal func updateArticleMargins() {
-        messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+        if (shouldShowSignificantEvents()) {
+            var margins = articleMargins
+            margins.left = 0
+            margins.right = 0
+            messagingController.updateMargins(with: margins, leadImageHeight: leadImageHeightConstraint.constant)
+            messagingController.customUpdateMargins(with: articleMargins)
+        } else {
+            messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+        }
+        
         updateLeadImageMargins()
     }
 
@@ -379,9 +388,43 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     
+    func articleTitleAndSiteURL() -> (title: String, siteURL: URL)? {
+        if let title = articleURL.wmf_title?.denormalizedPageTitle,
+           let siteURL = articleURL.wmf_site {
+            return (title, siteURL)
+        }
+        
+        return nil
+    }
+    
+    func shouldShowSignificantEvents() -> Bool {
+        
+        //todo: need A/B test logic (falls in test and visiting article in allowed list)
+        let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
+        let isENWikipediaArticle: Bool
+        if let host = articleURL.host,
+           host == Configuration.Domain.englishWikipedia {
+            isENWikipediaArticle = true
+        } else {
+            isENWikipediaArticle = false
+        }
+        
+        let shouldShowSignificantEvents: Bool
+        if let _ = articleTitleAndSiteURL(),
+           !isDeviceRTL && isENWikipediaArticle {
+            shouldShowSignificantEvents = true
+        } else {
+            shouldShowSignificantEvents = false
+        }
+        
+        return shouldShowSignificantEvents
+    }
+    
     /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
     func setupArticleLoadWaitGroup() {
         assert(Thread.isMainThread)
+        
+        let shouldShowSignificantEvents = self.shouldShowSignificantEvents()
         
         guard articleLoadWaitGroup == nil else {
             return
@@ -392,6 +435,9 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup?.notify(queue: DispatchQueue.main) { [weak self] in
             self?.setupFooter()
             self?.shareIfNecessary()
+            if (shouldShowSignificantEvents) {
+                self?.injectSignificantEventsContent()
+            }
             self?.articleLoadWaitGroup = nil
         }
         
@@ -421,20 +467,12 @@ class ArticleViewController: ViewController, HintPresenting {
             }
         }
         
-        let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-        let isENWikipediaArticle: Bool
-        if let host = articleURL.host,
-           host == Configuration.Domain.englishWikipedia {
-            isENWikipediaArticle = true
-        } else {
-            isENWikipediaArticle = false
-        }
         
-        if let title = articleURL.wmf_title,
-           let siteURL = articleURL.wmf_site,
-           isDeviceRTL && isENWikipediaArticle {
+        
+        if let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
+           shouldShowSignificantEvents {
             articleLoadWaitGroup?.enter()
-            significantEventsController.fetchSignificantEvents(rvStartId: nil, title: title, siteURL: siteURL) { (result) in
+            significantEventsController.fetchSignificantEvents(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
                 defer {
                     self.articleLoadWaitGroup?.leave()
                 }
@@ -453,6 +491,7 @@ class ArticleViewController: ViewController, HintPresenting {
         if let significantEventsViewModel = significantEventsViewModel {
             let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, theme: theme)
             significantEvents.apply(theme: theme)
+            present(significantEvents, animated: true, completion: nil)
             guard motion == .motionShake else {
                 return
             }

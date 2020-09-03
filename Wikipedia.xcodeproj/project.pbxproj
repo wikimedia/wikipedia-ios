@@ -196,6 +196,10 @@
 		677129A124FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */; };
 		677129A224FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */; };
 		677129A324FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */; };
+		677129A82500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677129A72500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift */; };
+		677129A92500A81500E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677129A72500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift */; };
+		677129AA2500A81500E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677129A72500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift */; };
+		677129AB2500A81500E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677129A72500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift */; };
 		6773B1FE240F02E40022A70E /* PermanentlyPersistableURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */; };
 		6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */; };
 		6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */; };
@@ -3338,6 +3342,7 @@
 		6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsViewController.swift; sourceTree = "<group>"; };
 		6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsSideScrollingCollectionViewCell.swift; sourceTree = "<group>"; };
 		6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsSnippetCollectionViewCell.swift; sourceTree = "<group>"; };
+		677129A72500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+SignificantEvents.swift"; sourceTree = "<group>"; };
 		6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCache.swift; sourceTree = "<group>"; };
 		6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCacheDBWriter+SyncResources.swift"; sourceTree = "<group>"; };
 		6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheResourceDBWriting.swift; sourceTree = "<group>"; };
@@ -5918,6 +5923,7 @@
 		6798035A24F94CAE00D765AA /* Significant Events */ = {
 			isa = PBXGroup;
 			children = (
+				677129A72500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift */,
 				6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */,
 				6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */,
 				6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */,
@@ -9994,6 +10000,7 @@
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
+				677129A82500A81400E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */,
 				B0C17B9921FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				B0421AA2206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				B0F4761B21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
@@ -10693,6 +10700,7 @@
 				B0CD9DF01F70997500051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				6782DBA02343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				830D71D21F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
+				677129AB2500A81500E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */,
 				83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				67DC5BEC23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				B0EFCD701EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
@@ -11267,6 +11275,7 @@
 				00841DE524477805003CF74A /* AppTabBarDelegate.swift in Sources */,
 				D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */,
 				D8B166861FD97A0500097D8B /* ViewController.swift in Sources */,
+				677129AA2500A81500E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */,
 				B0421AA3206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				7A6ED52220ADBF950001849F /* LoginFunnel.swift in Sources */,
 				83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
@@ -11815,6 +11824,7 @@
 				7AFC79FA21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				6782DBC32343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				D8EC3E631E9BDA35006712EB /* WMFWelcomeContainerViewController.swift in Sources */,
+				677129A92500A81500E89CA5 /* ArticleViewController+SignificantEvents.swift in Sources */,
 				67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				6734EE7422976AE300F00B05 /* InfoBannerView.swift in Sources */,
 				D8EC3E641E9BDA35006712EB /* WMFAccountCreator.swift in Sources */,
