@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="ThreeLineCollectionReusableView" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="654" height="270"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" verticalCompressionResistancePriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="xgU-G3-zSZ" userLabel="Holding View">
+                    <rect key="frame" x="36" y="69" width="582" height="142"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="800" text="ON THIS DAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jmu-Hn-GLQ">
+                            <rect key="frame" x="8" y="8" width="566" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="September 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kty-S8-qVD">
+                            <rect key="frame" x="8" y="40.5" width="566" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="800" text="1072 - 2008" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6f-Ja-7a7">
+                            <rect key="frame" x="8" y="73" width="566" height="61"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="W6f-Ja-7a7" firstAttribute="leading" secondItem="xgU-G3-zSZ" secondAttribute="leadingMargin" id="63k-VD-IFG"/>
+                        <constraint firstItem="kty-S8-qVD" firstAttribute="top" secondItem="Jmu-Hn-GLQ" secondAttribute="bottom" constant="12" id="AeM-Ep-P8j"/>
+                        <constraint firstItem="W6f-Ja-7a7" firstAttribute="top" secondItem="kty-S8-qVD" secondAttribute="bottom" constant="12" id="JAD-fP-eJU"/>
+                        <constraint firstItem="Jmu-Hn-GLQ" firstAttribute="leading" secondItem="xgU-G3-zSZ" secondAttribute="leadingMargin" id="QmC-q0-yR9"/>
+                        <constraint firstItem="Jmu-Hn-GLQ" firstAttribute="top" secondItem="xgU-G3-zSZ" secondAttribute="topMargin" id="cGX-yO-l6Y"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="kty-S8-qVD" secondAttribute="trailing" id="n1a-cP-50y"/>
+                        <constraint firstItem="Jmu-Hn-GLQ" firstAttribute="trailing" secondItem="xgU-G3-zSZ" secondAttribute="trailingMargin" id="piQ-d0-CgE"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="W6f-Ja-7a7" secondAttribute="bottom" id="u2n-lw-c1m"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="W6f-Ja-7a7" secondAttribute="trailing" id="uUJ-CM-Ni5"/>
+                        <constraint firstItem="kty-S8-qVD" firstAttribute="leading" secondItem="xgU-G3-zSZ" secondAttribute="leadingMargin" id="yde-ZI-ToU"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstAttribute="bottomMargin" secondItem="xgU-G3-zSZ" secondAttribute="bottom" constant="25" id="ASW-5f-z8x"/>
+                <constraint firstItem="xgU-G3-zSZ" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="topMargin" constant="25" id="Evx-l2-eW2"/>
+                <constraint firstItem="xgU-G3-zSZ" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" constant="16" id="tsr-ag-c6W"/>
+                <constraint firstAttribute="trailingMargin" secondItem="xgU-G3-zSZ" secondAttribute="trailing" constant="16" id="w6o-t4-bFG"/>
+            </constraints>
+            <connections>
+                <outlet property="bottomSmallLine" destination="W6f-Ja-7a7" id="ZRE-Gc-7MU"/>
+                <outlet property="middleLargeLine" destination="kty-S8-qVD" id="Dux-vV-jnM"/>
+                <outlet property="topSmallLine" destination="Jmu-Hn-GLQ" id="iIt-yn-gqJ"/>
+            </connections>
+            <point key="canvasLocation" x="347.82608695652175" y="183.48214285714286"/>
+        </collectionReusableView>
+    </objects>
+</document>

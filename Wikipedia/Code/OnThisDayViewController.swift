@@ -4,6 +4,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
+    fileprivate static let threeLineHeaderReuseIdentifier = "ThreeLineCollectionReusableView"
 
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
@@ -14,12 +15,10 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     var shouldShowNavigationBar: Bool = false {
         didSet {
             if shouldShowNavigationBar {
-                /// Prepare the VC to be presented as a push - remove the "X" button in top right, remove the bottom button, add appropriate buttons to nav bar.
+                /// Prepare the VC to be presented as a push - remove the "X" button in top right, remove the bottom button.
                 navigationMode = .bar
                 footerButtonTitle = nil
-                setupWButton()
                 title = nil
-                navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
                 if #available(iOS 14.0, *) {
                     navigationItem.backButtonDisplayMode = .generic
                     navigationItem.backButtonTitle = CommonStrings.onThisDayTitle
@@ -79,16 +78,12 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
         layoutManager.register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
         layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(UINib(nibName: OnThisDayViewController.threeLineHeaderReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.threeLineHeaderReuseIdentifier, addPlaceholder: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         scrollToInitialEvent()
-
-        /// When jumping back via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
-        if shouldShowNavigationBar {
-            setupWButton()
-        }
     }
     
     func scrollToInitialEvent() {
@@ -248,18 +243,41 @@ extension OnThisDayViewController {
                 return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
             }
         }
-        guard
-            indexPath.section == 1,
-            kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath) as? OnThisDayViewControllerHeader
-        else {
+
+        guard indexPath.section == 1, kind == UICollectionView.elementKindSectionHeader else {
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
         }
-        
-        header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, midnightUTCDate: midnightUTCDate)
-        header.apply(theme: theme)
-        
-        return header
+
+        if !shouldShowNavigationBar, let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath) as? OnThisDayViewControllerHeader {
+            header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, midnightUTCDate: midnightUTCDate)
+            header.apply(theme: theme)
+            return header
+        } else if let smallerHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.threeLineHeaderReuseIdentifier, for: indexPath) as? ThreeLineCollectionReusableView {
+            smallerHeader.apply(theme: theme)
+
+            let language = events.first?.language
+            let locale = NSLocale.wmf_locale(for: language)
+            let semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+
+            smallerHeader.topSmallLine.semanticContentAttribute = semanticContentAttribute
+            smallerHeader.middleLargeLine.semanticContentAttribute = semanticContentAttribute
+            smallerHeader.bottomSmallLine.semanticContentAttribute = semanticContentAttribute
+
+            let eventCountText = String(format: WMFLocalizedString("on-this-day-detail-header-title", language: language, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occurred on the given day"), locale: locale, events.count).uppercased(with: locale)
+
+            smallerHeader.middleLargeLine.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
+
+            if let firstEventEraString = events.first?.yearString, let lastEventEraString = events.last?.yearString {
+                let dateRangeText = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
+                smallerHeader.bottomSmallLine.text = "\(eventCountText)\n\(dateRangeText)"
+            } else {
+                smallerHeader.bottomSmallLine.text = nil
+            }
+
+            return smallerHeader
+        } else {
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
+        }
     }
     
     @objc func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
