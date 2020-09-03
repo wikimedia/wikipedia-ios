@@ -81,7 +81,7 @@ struct TimelineView<Content: View>: View {
     var dotStyle: DotStyle
     var isLineTopFaded: Bool
     var isLineBottomFaded: Bool
-    var mainView: Content // need to set this as state maybe?
+    var mainView: Content
 
     var body: some View {
         let lineWidth: CGFloat = 1
@@ -102,13 +102,11 @@ struct TimelineView<Content: View>: View {
         .onPreferenceChange(SmallYValuePreferenceKey.self, perform: { yOffset in
             if dotStyle == .small {
                 self.circleYOffset = yOffset
-                print("TimelineViewSmall new size: \(yOffset) for dotStyle \(dotStyle)") // DON'T COMMIT THIS
             }
         })
         .onPreferenceChange(LargeYValuePreferenceKey.self, perform: { yOffset in
             if dotStyle == .large {
                 self.circleYOffset = yOffset
-                print("TimelineViewLarge new size: \(yOffset) for dotStyle \(dotStyle)") // DON'T COMMIT THIS
             }
         })
     }
@@ -297,16 +295,12 @@ struct OnThisDayAdditionalEventsElement: View {
     var body: some View {
         if otherEventsCount > 0 {
             TimelineView(dotStyle: .small, isLineTopFaded: true, isLineBottomFaded: false, mainView:
-//            Button(action: {}) {
-                    Text(String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount))
-                        .font(.footnote)
-                        .bold()
-                        .lineLimit(1)
-                        .foregroundColor(mainColor)
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-//                        .layoutPriority(1.5)
-//            }
-//            .frame(alignment: .top)
+                Text(String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount))
+                    .font(.footnote)
+                    .bold()
+                    .lineLimit(1)
+                    .foregroundColor(mainColor)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                 .overlay (
                     GeometryReader { geometryProxy in
                       Color.clear

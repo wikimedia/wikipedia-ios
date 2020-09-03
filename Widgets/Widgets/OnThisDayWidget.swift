@@ -63,7 +63,6 @@ final class OnThisDayData {
         MWKDataStore.shared()
     }
 
-//    let sampleEntry = OnThisDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription: "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.")
     let placeholderEntry = OnThisDayEntry(date: Date(), snippet: "Blah", year: 2018, page: nil, pageImage: nil, earliestYear: "2015", latestYear: "2019", contentURL: URL(string: "http://www.google.com")!, otherEventsCount: 5)
 
     // MARK: Public
@@ -172,10 +171,4 @@ struct OnThisDayEntry: TimelineEntry {
     let latestYear: String
     let contentURL: URL
     let otherEventsCount: Int
-}
-
-struct OnThisDayWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
-    }
 }
