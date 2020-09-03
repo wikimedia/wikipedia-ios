@@ -65,7 +65,36 @@ extension ArticleViewController {
         let gallery = getGalleryViewController(for: item, in: mediaList)
         present(gallery, animated: true)
     }
-    
+
+    func fetchAndDisplayGalleryViewController() {
+        /// We can't easily change the photos on the VC after it launches, so we create a loading VC screen and then add the proper galleryVC as a child after the data returns.
+
+        let emptyPhotoViewer = WMFImageGalleryViewController(photos: nil)
+        let activityIndicator = UIActivityIndicatorView(style: .white)
+        emptyPhotoViewer.view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: emptyPhotoViewer.view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: emptyPhotoViewer.view.centerYAnchor)
+        ])
+        activityIndicator.startAnimating()
+        present(emptyPhotoViewer, animated: true)
+
+        getMediaList { (result) in
+            switch result {
+            case .failure(let error):
+                let completion = {
+                    self.showError(error)
+                }
+                emptyPhotoViewer.dismiss(animated: true, completion: completion)
+            case .success(let mediaList):
+                activityIndicator.stopAnimating()
+                let gallery = self.getGalleryViewController(for: nil, in: mediaList)
+                emptyPhotoViewer.wmf_add(childController: gallery, andConstrainToEdgesOfContainerView: emptyPhotoViewer.view)
+            }
+        }
+    }
+
     func getGalleryViewController(for item: MediaListItem?, in mediaList: MediaList) -> MediaListGalleryViewController {
         return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, initialItem: item, theme: theme)
     }

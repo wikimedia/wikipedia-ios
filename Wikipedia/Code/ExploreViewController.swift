@@ -57,6 +57,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.viewWillAppear(animated)
         collectionViewUpdater?.isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
+
+        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewDidAppear`.
+        parent?.navigationItem.backButtonTitle = title
     }
 
     private func restoreScrollPositionIfNeeded() {
@@ -637,6 +640,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+		WidgetController.shared.reloadAllWidgets()
+		
         guard needsReloadVisibleCells else {
             return
         }

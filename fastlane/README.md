@@ -12,7 +12,7 @@ Install _fastlane_ using
 ```
 [sudo] gem install fastlane -NV
 ```
-or alternatively using `brew cask install fastlane`
+or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
@@ -50,7 +50,7 @@ Reads Xcode version from the .xcversion file and sets it using xcversion()
 ```
 fastlane ios verify
 ```
-Runs unit tests, generates JUnit reports.
+Runs unit tests, generates reports.
 ### ios record_visual_tests
 ```
 fastlane ios record_visual_tests

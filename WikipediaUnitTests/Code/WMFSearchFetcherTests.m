@@ -3,7 +3,6 @@
 #import "WMFSearchResults_Internal.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
-#import "MWKSite+Random.h"
 #import "LSStubResponseDSL+WithJSON.h"
 #import "XCTestCase+WMFBundleConvenience.h"
 #import "NSBundle+TestAssets.h"
@@ -36,7 +35,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for articles"];
 
     [self.fetcher fetchArticlesForSearchTerm:@"foo"
-        siteURL:[NSURL wmf_randomSiteURL]
+        siteURL:[NSURL URLWithString:@"https://en.wikipedia.org"]
         resultLimit:15
         failure:^(NSError *error) {
             XCTFail(@"Error");
@@ -64,7 +63,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for articles"];
 
     [self.fetcher fetchArticlesForSearchTerm:@"foo"
-        siteURL:[NSURL wmf_randomSiteURL]
+        siteURL:[NSURL URLWithString:@"https://en.wikipedia.org"]
         resultLimit:15
         failure:^(NSError *error) {
             XCTFail(@"Error");

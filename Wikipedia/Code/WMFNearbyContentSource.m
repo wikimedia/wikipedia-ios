@@ -1,8 +1,6 @@
-#import <WMF/WMFNearbyContentSource.h>
 #import <WMF/WMFLocationSearchResults.h>
 #import <WMF/MWKLocationSearchResult.h>
 
-#import <WMF/WMFLocationManager.h>
 #import <WMF/WMFLocationSearchFetcher.h>
 #import <WMF/CLLocation+WMFComparison.h>
 
@@ -10,11 +8,11 @@
 
 static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000;
 
-@interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
+@interface WMFNearbyContentSource () <LocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 @property (readwrite, nonatomic, strong) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFLocationManager *currentLocationManager;
+@property (nonatomic, strong, readwrite) id<LocationManagerProtocol> locationManager;
 @property (nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
 
 @property (readwrite, nonatomic, assign) BOOL isFetchingInitialLocation;
@@ -39,12 +37,12 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
     return self;
 }
 
-- (WMFLocationManager *)currentLocationManager {
-    if (_currentLocationManager == nil) {
-        _currentLocationManager = [WMFLocationManager coarseLocationManager];
-        _currentLocationManager.delegate = self;
+- (id<LocationManagerProtocol>)locationManager {
+    if (_locationManager == nil) {
+        _locationManager = [LocationManagerFactory coarseLocationManager];
+        _locationManager.delegate = self;
     }
-    return _currentLocationManager;
+    return _locationManager;
 }
 
 - (WMFLocationSearchFetcher *)locationSearchFetcher {
@@ -58,18 +56,18 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (void)startUpdating {
     self.isFetchingInitialLocation = NO;
-    if ([WMFLocationManager isAuthorized]) {
-        [self.currentLocationManager startMonitoringLocation];
+    if ([self.locationManager isAuthorized]) {
+        [self.locationManager startMonitoringLocation];
     }
 }
 
 - (void)stopUpdating {
-    [self.currentLocationManager stopMonitoringLocation];
+    [self.locationManager stopMonitoringLocation];
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (![WMFLocationManager isAuthorized]) {
+        if (![self.locationManager isAuthorized]) {
             [moc performBlock:^{
                 [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
                 if (![[NSUserDefaults standardUserDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
@@ -88,18 +86,18 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
                 [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
             }];
 
-            if (self.currentLocationManager.location == nil) {
+            if (self.locationManager.location == nil) {
                 self.isFetchingInitialLocation = YES;
                 self.moc = moc;
                 self.completion = completion;
-                [self.currentLocationManager startMonitoringLocation];
+                [self.locationManager startMonitoringLocation];
             } else {
                 dispatch_block_t done = ^{
                     if (completion) {
                         completion();
                     }
                 };
-                [self getGroupForLocation:self.currentLocationManager.location
+                [self getGroupForLocation:self.locationManager.location
                     inManagedObjectContext:moc
                     force:force
                     completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
@@ -135,7 +133,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)showAuthorizationPlaceholderInManagedObjectContext:(NSManagedObjectContext *)moc completion:(nonnull dispatch_block_t)completion {
-    NSString *preferredSiteURLString = [[MWKLanguageLinkController.sharedInstance.preferredSiteURLs firstObject] wmf_databaseKey];
+    NSString *preferredSiteURLString = [[self.dataStore.languageLinkController.preferredSiteURLs firstObject] wmf_databaseKey];
     NSString *mySiteURLString = self.siteURL.wmf_databaseKey;
     if (preferredSiteURLString && mySiteURLString && ![mySiteURLString isEqualToString:preferredSiteURLString]) {
         if (completion) {
@@ -194,7 +192,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 #pragma mark - WMFLocationManagerDelegate
 
-- (void)locationManager:(WMFLocationManager *)controller didUpdateLocation:(CLLocation *)location {
+- (void)locationManager:(id<LocationManagerProtocol>)locationManager didUpdateLocation:(CLLocation *)location {
     if ([[NSDate date] timeIntervalSinceDate:[location timestamp]] < 60 * 60 && self.isFetchingInitialLocation) {
         [self stopUpdating];
     }
@@ -230,7 +228,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         }];
 }
 
-- (void)locationManager:(WMFLocationManager *)controller didReceiveError:(NSError *)error {
+- (void)locationManager:(id<LocationManagerProtocol>)locationManager didReceiveError:(NSError *)error {
     if (self.isFetchingInitialLocation) {
         [self stopUpdating];
     }
@@ -264,7 +262,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
             return;
         }
 
-        [self.currentLocationManager reverseGeocodeLocation:location
+        [self reverseGeocodeLocation:location
             completion:^(CLPlacemark *_Nonnull placemark) {
                 completion(nil, location, placemark);
                 self.isProcessingLocation = NO;
@@ -337,6 +335,18 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
                                     [moc deleteObject:section];
                                 }
                             }];
+}
+
+- (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^)(CLPlacemark *placemark))completion
+                       failure:(void (^)(NSError *error))failure {
+    [[[CLGeocoder alloc] init] reverseGeocodeLocation:location
+                                    completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
+        if (failure && error) {
+            failure(error);
+        } else if (completion) {
+            completion(placemarks.firstObject);
+        }
+    }];
 }
 
 @end

@@ -11,6 +11,33 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     var initialEvent: WMFFeedOnThisDayEvent?
     let feedFunnelContext: FeedFunnelContext
     let contentGroupIDURIString: String?
+    var shouldShowNavigationBar: Bool = false {
+        didSet {
+            if shouldShowNavigationBar {
+                /// Prepare the VC to be presented as a push - remove the "X" button in top right, remove the bottom button.
+                navigationMode = .bar
+                footerButtonTitle = nil
+                title = nil
+                navigationBar.title = CommonStrings.onThisDayTitle
+                navigationBar.underBarViewPercentHiddenForShowingTitle = 0.3
+                navigationBar.isUnderBarViewHidingEnabled = true
+                navigationBar.delegate = self
+                navigationBar.isShadowHidingEnabled = true
+                addUnderBarHeader()
+                if #available(iOS 14.0, *) {
+                    navigationItem.backButtonDisplayMode = .generic
+                    navigationItem.backButtonTitle = CommonStrings.onThisDayTitle
+                }
+            } else {
+                navigationItem.rightBarButtonItem = nil
+                navigationItem.titleView = nil
+                navigationMode = .detail
+                title = CommonStrings.onThisDayTitle
+                navigationBar.underBarViewPercentHiddenForShowingTitle = nil
+                navigationBar.removeUnderNavigationBarView()
+            }
+        }
+    }
 
     required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, contentGroup: WMFContentGroup, theme: Theme) {
         self.events = events
@@ -36,7 +63,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
                 return true
             })
             
-            guard isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
+            guard !shouldShowNavigationBar, isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
                 title = CommonStrings.onThisDayTitle
                 return
             }
@@ -87,6 +114,34 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
         if isMovingFromParent {
             FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
         }
+    }
+
+    private func addUnderBarHeader() {
+        let headerView = ThreeLineHeaderView()
+        headerView.apply(theme: theme)
+
+        let language = events.first?.language
+        let locale = NSLocale.wmf_locale(for: language)
+        let semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+
+        headerView.topSmallLine.semanticContentAttribute = semanticContentAttribute
+        headerView.middleLargeLine.semanticContentAttribute = semanticContentAttribute
+        headerView.bottomSmallLine.semanticContentAttribute = semanticContentAttribute
+
+        headerView.topSmallLine.text = CommonStrings.onThisDayTitle.uppercased()
+
+        let eventCountText = CommonStrings.onThisDayAdditionalEventsMessage(with: language, locale: locale, eventsCount: events.count).uppercased(with: locale)
+
+        headerView.middleLargeLine.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
+
+        if let firstEventEraString = events.first?.yearString, let lastEventEraString = events.last?.yearString {
+            let dateRangeText = CommonStrings.onThisDayHeaderDateRangeMessage(with: language, locale: locale, lastEvent: lastEventEraString, firstEvent: firstEventEraString)
+            headerView.bottomSmallLine.text = "\(eventCountText)\n\(dateRangeText)"
+        } else {
+            headerView.bottomSmallLine.text = nil
+        }
+
+        navigationBar.addUnderNavigationBarView(headerView)
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -212,21 +267,28 @@ extension OnThisDayViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard !(shouldShowNavigationBar && (indexPath.section == 0 || indexPath.section == 1)) else {
+            // If showing navigation bar, hijack the first two headers and return empty ones instead.
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
+            view.frame = .zero
+            return view
+        }
+
         guard indexPath.section > 0, kind == UICollectionView.elementKindSectionHeader else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
-        guard
-            indexPath.section == 1,
-            kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath) as? OnThisDayViewControllerHeader
-        else {
+
+        guard indexPath.section == 1, kind == UICollectionView.elementKindSectionHeader else {
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
         }
-        
-        header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, midnightUTCDate: midnightUTCDate)
-        header.apply(theme: theme)
-        
-        return header
+
+        if !shouldShowNavigationBar, let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath) as? OnThisDayViewControllerHeader {
+            header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, midnightUTCDate: midnightUTCDate)
+            header.apply(theme: theme)
+            return header
+        } else {
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
+        }
     }
     
     @objc func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

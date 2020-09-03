@@ -1,5 +1,6 @@
 #import <WMF/MWKLanguageLinkController_Private.h>
 #import <WMF/WMF-Swift.h>
+#import <WMF/MWKDataStore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -9,28 +10,9 @@ NSString *const WMFAppLanguageDidChangeNotification = @"WMFAppLanguageDidChangeN
 
 static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
 
-/**
- * List of unsupported language codes.
- *
- * As of iOS 8, the system font doesn't support these languages, e.g. "arc" (Aramaic, Syriac font). [0]
- * As of iOS 9, it appears that Syriac languages are now natively supported in iOS.
- *
- * 0: http://syriaca.org/documentation/view-syriac.html
- */
-static NSArray *WMFUnsupportedLanguages() {
-    static NSArray *unsupportedLanguageCodes;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        unsupportedLanguageCodes = @[@"lez"];
-    });
-    return unsupportedLanguageCodes;
-}
-
 @interface MWKLanguageLinkController ()
 
-@property (copy, nonatomic) NSArray *preferredLanguages;
-
-@property (copy, nonatomic) NSArray *otherLanguages;
+@property (weak, nonatomic) NSManagedObjectContext *moc;
 
 @end
 
@@ -38,62 +20,27 @@ static NSArray *WMFUnsupportedLanguages() {
 
 static id _sharedInstance;
 
-+ (instancetype)sharedInstance {
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        _sharedInstance = [[[self class] alloc] init];
-    });
-    return _sharedInstance;
-}
-
-- (instancetype)init {
-    assert(_sharedInstance == nil);
-    self = [super init];
-    if (self) {
-        [self loadLanguagesFromFile];
+- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)moc {
+    if (self = [super init]) {
+        self.moc = moc;
     }
     return self;
 }
 
-#pragma mark - Loading
-
-- (void)loadLanguagesFromFile {
-    WMFAssetsFile *assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
-    NSParameterAssert(assetsFile.array);
-    self.allLanguages = [assetsFile.array wmf_map:^id(NSDictionary *langAsset) {
-        NSString *code = langAsset[@"code"];
-        NSString *localizedName = langAsset[@"canonical_name"];
-        if (![self isCompoundLanguageCode:code]) {
-            // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
-            // should be "Cantonese". It looks like iOS ignores anything after the "-".
-            NSString *iOSLocalizedName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:code];
-            if (iOSLocalizedName) {
-                localizedName = iOSLocalizedName;
-            }
-        }
-        return [[MWKLanguageLink alloc] initWithLanguageCode:code
-                                               pageTitleText:@""
-                                                        name:langAsset[@"name"]
-                                               localizedName:localizedName];
-    }];
-    NSParameterAssert(self.allLanguages.count);
-}
-
-- (BOOL)isCompoundLanguageCode:(NSString *)code {
-    return [code containsString:@"-"];
-}
-
 #pragma mark - Getters & Setters
 
-- (void)setAllLanguages:(NSArray *)allLanguages {
-    NSArray *unsupportedLanguages = WMFUnsupportedLanguages();
-    NSArray *supportedLanguageLinks = [allLanguages wmf_reject:^BOOL(MWKLanguageLink *languageLink) {
-        return [unsupportedLanguages containsObject:languageLink.languageCode];
-    }];
++ (NSArray<MWKLanguageLink *> *)allLanguages {
+    /// Separate static array here so the array is only bridged once
+    static dispatch_once_t onceToken;
+    static NSArray<MWKLanguageLink *> *allLanguages;
+    dispatch_once(&onceToken, ^{
+        allLanguages =  WikipediaLookup.allLanguageLinks;
+    });
+    return allLanguages;
+}
 
-    supportedLanguageLinks = [supportedLanguageLinks sortedArrayUsingSelector:@selector(compare:)];
-
-    _allLanguages = supportedLanguageLinks;
+- (NSArray<MWKLanguageLink *> *)allLanguages {
+    return [MWKLanguageLinkController allLanguages];
 }
 
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
@@ -177,10 +124,14 @@ static id _sharedInstance;
     [self savePreferredLanguageCodes:langCodes];
 }
 
-#pragma mark - Reading/Saving Preferred Language Codes to NSUserDefaults
+#pragma mark - Reading/Saving Preferred Language Codes
 
-- (NSArray<NSString *> *)readPreferredLanguageCodesWithoutOSPreferredLanguages {
-    NSArray<NSString *> *preferredLanguages = [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey] ?: @[];
+- (NSArray<NSString *>
+   *)readPreferredLanguageCodesWithoutOSPreferredLanguages {
+    __block NSArray<NSString *> *preferredLanguages = nil;
+    [self.moc performBlockAndWait:^{
+        preferredLanguages = [self.moc wmf_arrayValueForKey:WMFPreviousLanguagesKey] ?: @[];
+    }];
     return preferredLanguages;
 }
 
@@ -214,7 +165,9 @@ static id _sharedInstance;
     self.previousPreferredLanguages = self.preferredLanguages;
     NSString *previousAppLanguageCode = self.appLanguage.languageCode;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
-    [[NSUserDefaults standardUserDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
+    [self.moc performBlockAndWait:^{
+        [self.moc wmf_setValue:languageCodes forKey:WMFPreviousLanguagesKey];
+    }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
     if (self.appLanguage.languageCode && ![self.appLanguage.languageCode isEqualToString:previousAppLanguageCode]) {
@@ -225,7 +178,9 @@ static id _sharedInstance;
 // Reminder: "resetPreferredLanguages" is for testing only!
 - (void)resetPreferredLanguages {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
+    [self.moc performBlockAndWait:^{
+        [self.moc wmf_setValue:nil forKey:WMFPreviousLanguagesKey];
+    }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
@@ -236,6 +191,18 @@ static id _sharedInstance;
                BOOL answer = [obj isEqualToString:language.languageCode];
                return answer;
            }] != nil;
+}
+
+- (void)getPreferredLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
+    [self.moc performBlock:^{
+        completion([self readPreferredLanguageCodes]);
+    }];
+}
+
+// This method can only be safely called from the main app target, as an extension's standard `NSUserDefaults` are independent from the main app and other targets.
++ (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSArray *preferredLanguages = [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey];
+    [moc wmf_setValue:preferredLanguages forKey:WMFPreviousLanguagesKey];
 }
 
 @end

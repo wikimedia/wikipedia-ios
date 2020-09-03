@@ -51,7 +51,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil, hidesHistoryBackTitle: true)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil)
             return presentOrPush(diffContainerVC, with: completion)
         case .articleDiffSingle(let linkURL, let fromRevID, let toRevID):
             guard let siteURL = linkURL.wmf_site,
@@ -59,7 +59,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil, hidesHistoryBackTitle: true)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
             let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
@@ -76,6 +76,17 @@ class ViewControllerRouter: NSObject {
                 return false
             }
             return presentOrPush(talkPageVC, with: completion)
+        case .onThisDay(let indexOfSelectedEvent):
+            let dataStore = appViewController.dataStore
+            guard let contentGroup = dataStore.viewContext.newestGroup(of: .onThisDay), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
+                completion()
+                return false
+            }
+            onThisDayVC.shouldShowNavigationBar = true
+            if let index = indexOfSelectedEvent, let selectedEvent = onThisDayVC.events.first(where: { $0.index == NSNumber(value: index) }) {
+                onThisDayVC.initialEvent = selectedEvent
+            }
+            return presentOrPush(onThisDayVC, with: completion)
         default:
             completion()
             return false
