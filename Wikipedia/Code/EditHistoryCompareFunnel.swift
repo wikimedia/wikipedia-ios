@@ -19,9 +19,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     }
     
     private func event(action: Action) -> Dictionary<String, Any> {
-        
         let event: [String: Any] = ["action": action.rawValue, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        
         return event
     }
     
@@ -60,37 +58,31 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
      */
     public func logRevisionView(url: URL) {
         log(event(action: .revisionView), language: url.wmf_language)
-
         newLog(action: .revisionView, domain: url.wmf_site?.host)
     }
     
     public func logCompare1(articleURL: URL) {
         log(event(action: .compare1), language: articleURL.wmf_language)
-
         newLog(action: .compare1, domain: articleURL.wmf_site?.host)
     }
     
     public func logCompare2(articleURL: URL) {
         log(event(action: .compare2), language: articleURL.wmf_language)
-
         newLog(action: .compare2, domain: articleURL.wmf_site?.host)
     }
 
     public func logThankTry(siteURL: URL) {
         log(event(action: .thankTry), language: siteURL.wmf_language)
-
         newLog(action: .thankTry, domain: siteURL.host)
     }
 
     public func logThankSuccess(siteURL: URL) {
         log(event(action: .thankSuccess), language: siteURL.wmf_language)
-
         newLog(action: .thankSuccess, domain: siteURL.host)
     }
 
     public func logThankFail(siteURL: URL) {
         log(event(action: .thankFail), language: siteURL.wmf_language)
-
         newLog(action: .thankFail, domain: siteURL.host)
     }
 }
