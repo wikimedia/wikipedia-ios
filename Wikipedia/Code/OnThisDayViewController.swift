@@ -4,7 +4,6 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
-    fileprivate static let threeLineHeaderReuseIdentifier = "ThreeLineCollectionReusableView"
 
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
@@ -19,6 +18,11 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
                 navigationMode = .bar
                 footerButtonTitle = nil
                 title = nil
+                navigationBar.title = CommonStrings.onThisDayTitle
+                navigationBar.underBarViewPercentHiddenForShowingTitle = 0.3
+                navigationBar.isUnderBarViewHidingEnabled = true
+                navigationBar.delegate = self
+                addUnderBarHeader()
                 if #available(iOS 14.0, *) {
                     navigationItem.backButtonDisplayMode = .generic
                     navigationItem.backButtonTitle = CommonStrings.onThisDayTitle
@@ -28,7 +32,8 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
                 navigationItem.titleView = nil
                 navigationMode = .detail
                 title = CommonStrings.onThisDayTitle
-
+                navigationBar.underBarViewPercentHiddenForShowingTitle = nil
+                navigationBar.removeUnderNavigationBarView()
             }
         }
     }
@@ -78,7 +83,6 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
         layoutManager.register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
         layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
-        layoutManager.register(UINib(nibName: OnThisDayViewController.threeLineHeaderReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.threeLineHeaderReuseIdentifier, addPlaceholder: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,6 +113,34 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
         if isMovingFromParent {
             FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
         }
+    }
+
+    private func addUnderBarHeader() {
+        let headerView = ThreeLineHeaderView()
+        headerView.apply(theme: theme)
+
+        let language = events.first?.language
+        let locale = NSLocale.wmf_locale(for: language)
+        let semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+
+        headerView.topSmallLine.semanticContentAttribute = semanticContentAttribute
+        headerView.middleLargeLine.semanticContentAttribute = semanticContentAttribute
+        headerView.bottomSmallLine.semanticContentAttribute = semanticContentAttribute
+
+        headerView.topSmallLine.text = CommonStrings.onThisDayTitle.uppercased()
+
+        let eventCountText = String(format: WMFLocalizedString("on-this-day-detail-header-title", language: language, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occurred on the given day"), locale: locale, events.count).uppercased(with: locale)
+
+        headerView.middleLargeLine.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
+
+        if let firstEventEraString = events.first?.yearString, let lastEventEraString = events.last?.yearString {
+            let dateRangeText = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
+            headerView.bottomSmallLine.text = "\(eventCountText)\n\(dateRangeText)"
+        } else {
+            headerView.bottomSmallLine.text = nil
+        }
+
+        navigationBar.addUnderNavigationBarView(headerView)
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -234,14 +266,15 @@ extension OnThisDayViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard !(shouldShowNavigationBar && (indexPath.section == 0 || indexPath.section == 1)) else {
+            // If showing navigation bar, hijack the first two headers and return empty ones instead.
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
+            view.frame = .zero
+            return view
+        }
+
         guard indexPath.section > 0, kind == UICollectionView.elementKindSectionHeader else {
-            if shouldShowNavigationBar {
-                let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
-                view.frame = .zero
-                return view
-            } else {
-                return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
-            }
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
 
         guard indexPath.section == 1, kind == UICollectionView.elementKindSectionHeader else {
@@ -252,29 +285,6 @@ extension OnThisDayViewController {
             header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, midnightUTCDate: midnightUTCDate)
             header.apply(theme: theme)
             return header
-        } else if let smallerHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.threeLineHeaderReuseIdentifier, for: indexPath) as? ThreeLineCollectionReusableView {
-            smallerHeader.apply(theme: theme)
-
-            let language = events.first?.language
-            let locale = NSLocale.wmf_locale(for: language)
-            let semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
-
-            smallerHeader.topSmallLine.semanticContentAttribute = semanticContentAttribute
-            smallerHeader.middleLargeLine.semanticContentAttribute = semanticContentAttribute
-            smallerHeader.bottomSmallLine.semanticContentAttribute = semanticContentAttribute
-
-            let eventCountText = String(format: WMFLocalizedString("on-this-day-detail-header-title", language: language, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occurred on the given day"), locale: locale, events.count).uppercased(with: locale)
-
-            smallerHeader.middleLargeLine.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
-
-            if let firstEventEraString = events.first?.yearString, let lastEventEraString = events.last?.yearString {
-                let dateRangeText = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
-                smallerHeader.bottomSmallLine.text = "\(eventCountText)\n\(dateRangeText)"
-            } else {
-                smallerHeader.bottomSmallLine.text = nil
-            }
-
-            return smallerHeader
         } else {
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
         }
