@@ -77,7 +77,7 @@ class ViewControllerRouter: NSObject {
             }
             return presentOrPush(talkPageVC, with: completion)
         case .onThisDay(let indexOfSelectedEvent):
-            let dataStore = MWKDataStore.shared()
+            let dataStore = appViewController.dataStore
             guard let contentGroup = dataStore.viewContext.newestGroup(of: .onThisDay), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
                 completion()
                 return false

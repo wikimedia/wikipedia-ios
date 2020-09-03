@@ -21,6 +21,9 @@ class ThreeLineHeaderView: UIView {
         let verticalPadding: CGFloat = 25
         let paddingBetweenLabels: CGFloat = 15
 
+        topSmallLine.numberOfLines = 1
+        middleLargeLine.numberOfLines = 1
+        bottomSmallLine.numberOfLines = 2
 
         let holderView = UIView()
         [topSmallLine, middleLargeLine, bottomSmallLine].forEach({
