@@ -10,6 +10,7 @@ public class Router: NSObject {
         case userTalk(_: URL)
         case search(_: URL, term: String?)
         case audio(_: URL)
+        case onThisDay(_: Int?)
     }
     
     unowned let configuration: Configuration
@@ -72,6 +73,18 @@ public class Router: NSObject {
             return inAppLinkDestination
         case .main:
             return WikipediaURLTranslations.isMainpageTitle(title, in: language) ? inAppLinkDestination : Destination.article(url)
+        case .wikipedia:
+            let onThisDayURLSnippet = "On_this_day"
+            if title.uppercased().contains(onThisDayURLSnippet.uppercased()) {
+                // URL in form of https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?3. Take bit past question mark.
+                if let selected = url.query {
+                    return .onThisDay(Int(selected))
+                } else {
+                    return .onThisDay(nil)
+                }
+            } else {
+                fallthrough
+            }
         default:
             return inAppLinkDestination
         }
