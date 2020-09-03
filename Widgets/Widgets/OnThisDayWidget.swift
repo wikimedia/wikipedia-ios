@@ -103,7 +103,11 @@ final class OnThisDayData {
         }
 
         let successCompletion: (([WMFFeedOnThisDayEvent]?) -> Void) = { events in
-            guard let events = events, let topEvent = self.highestScoredEvent(events: events)  else {
+            guard let events = events,
+                  let topEvent = self.highestScoredEvent(events: events),
+                  let topEventIndex = events.firstIndex(of: topEvent),
+                  let destinationURL = URL(string:  "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(topEventIndex)")
+            else {
                 completion(self.placeholderEntry)
                 return
             }
@@ -143,7 +147,7 @@ final class OnThisDayData {
                                                     pageImage: image,
                                                     earliestYear: minYear,
                                                     latestYear: maxYear,
-                                                    contentURL: topEvent.siteURL!,
+                                                    contentURL: destinationURL,
                                                     otherEventsCount: events.count-1)
                 completion(onThisDayEntry)
             }
@@ -180,7 +184,7 @@ final class OnThisDayData {
 struct OnThisDayEntry: TimelineEntry {
     let date: Date
 
-    let snippet: String
+    let snippet: String?
     let year: Int?
     let page: WMFFeedArticlePreview?
     let pageImage: UIImage?

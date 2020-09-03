@@ -24,7 +24,7 @@ struct OnThisDayView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         MainOnThisDayElement(eventYear: entry.year, snippet: entry.snippet, widgetSize: family)
                         if let article = entry.page {
-                            ArticleRectangleElement(article: article, image: entry.pageImage)
+                            ArticleRectangleElement(article: article, image: entry.pageImage, link: entry.page?.articleURL ?? entry.contentURL)
                         }
                         TimelineElementSpacer().layoutPriority(1)
                         OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
@@ -252,38 +252,41 @@ struct MainOnThisDayElement: View {
 struct ArticleRectangleElement: View {
     var article: WMFFeedArticlePreview
     let image: UIImage?
+    let link: URL
 
     var body: some View {
         TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
-            HStack(spacing: 9) {
-                VStack {
-                    Text(article.displayTitle)
-                        .font(.caption)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    if let description = article.descriptionOrSnippet {
-                        Text(description)
+            Link(destination: link) {
+                HStack(spacing: 9) {
+                    VStack {
+                        Text(article.displayTitle)
                             .font(.caption)
-                            .lineLimit(1)
-                            .foregroundColor(grayColor)
+                            .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
+                        if let description = article.descriptionOrSnippet {
+                            Text(description)
+                                .font(.caption)
+                                .lineLimit(1)
+                                .foregroundColor(grayColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                    if let image = image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 36, height: 36, alignment: .center)
+                            .cornerRadius(2.0)
                     }
                 }
-                if let image = image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 36, height: 36, alignment: .center)
-                        .cornerRadius(2.0)
-                }
+                    .padding(9)
+                    .background(
+                        RoundedRectangle(cornerRadius: 2.0)
+                            .shadow(color: silverColor, radius: 4.0, x: 0, y: 2)
+                            .foregroundColor(.white)
+                    )
+                    .padding([.top, .bottom], 9)
             }
-                .padding(9)
-                .background(
-                    RoundedRectangle(cornerRadius: 2.0)
-                        .shadow(color: silverColor, radius: 4.0, x: 0, y: 2)
-                        .foregroundColor(.white)
-                )
-                .padding([.top, .bottom], 9)
         )
     }
 }
