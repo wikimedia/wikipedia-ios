@@ -22,6 +22,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
                 navigationBar.underBarViewPercentHiddenForShowingTitle = 0.3
                 navigationBar.isUnderBarViewHidingEnabled = true
                 navigationBar.delegate = self
+                navigationBar.isShadowHidingEnabled = true
                 addUnderBarHeader()
                 if #available(iOS 14.0, *) {
                     navigationItem.backButtonDisplayMode = .generic
