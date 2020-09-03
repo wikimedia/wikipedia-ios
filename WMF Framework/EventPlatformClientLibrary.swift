@@ -826,7 +826,7 @@ private extension EPC {
 
 //MARK: NetworkIntegration
 
-extension EPC {
+private extension EPC {
     /**
      * HTTP POST
      * - Parameter url: Where to POST data (`body`) to
