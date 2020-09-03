@@ -64,7 +64,7 @@ final class OnThisDayData {
     }
 
 //    let sampleEntry = OnThisDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription: "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.")
-    let placeholderEntry = OnThisDayEntry(date: Date(), snippet: "Blah", year: 2018, page: nil, pageImage: nil, earliestYear: 2015, latestYear: 2019, contentURL: URL(string: "http://www.google.com")!, otherEventsCount: 5)
+    let placeholderEntry = OnThisDayEntry(date: Date(), snippet: "Blah", year: 2018, page: nil, pageImage: nil, earliestYear: "2015", latestYear: "2019", contentURL: URL(string: "http://www.google.com")!, otherEventsCount: 5)
 
     // MARK: Public
 
@@ -106,32 +106,12 @@ final class OnThisDayData {
             guard let events = events,
                   let topEvent = self.highestScoredEvent(events: events),
                   let topEventIndex = events.firstIndex(of: topEvent),
-                  let destinationURL = URL(string:  "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(topEventIndex)")
+                  let destinationURL = URL(string:  "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(topEventIndex)"),
+                  let minYear = events.last?.yearString,
+                  let maxYear = events.first?.yearString
             else {
                 completion(self.placeholderEntry)
                 return
-            }
-
-            // CONTENT URL MIGHT BE WRONG HERE
-//            let allYears: [Int] = events.compactMap({ (event) in
-//                if let year = event.year {
-//                    return Int(exactly: year)
-//                }
-//                return nil
-//            })
-//
-//            let minYear = allYears.min()
-//            let maxYear = allYears.max()
-
-            /// This is in line with how we calcualte these for the explore feed. Was doing a `compactMap` to extract all years and then finding the min and max, but that is far less performant.
-            let minYear: Int?
-            let maxYear: Int?
-            if let firstYear = events.first?.year, let lastYear = events.last?.year {
-                maxYear = Int(exactly: firstYear)
-                minYear = Int(exactly: lastYear)
-            } else {
-                minYear = nil
-                maxYear = nil
             }
 
             let pageToPreview = self.bestArticleToDisplay(articles: topEvent.articlePreviews)
@@ -188,8 +168,8 @@ struct OnThisDayEntry: TimelineEntry {
     let year: Int?
     let page: WMFFeedArticlePreview?
     let pageImage: UIImage?
-    let earliestYear: Int?
-    let latestYear: Int?
+    let earliestYear: String
+    let latestYear: String
     let contentURL: URL
     let otherEventsCount: Int
 }

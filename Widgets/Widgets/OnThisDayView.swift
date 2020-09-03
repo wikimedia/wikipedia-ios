@@ -167,8 +167,8 @@ struct TimelineLargeCircleElement: View {
 
 struct OnThisDayHeaderElement: View {
     let date: Date
-    let minYear: Int?
-    let maxYear: Int?
+    let minYear: String
+    let maxYear: String
 
     var body: some View {
         Text(WMFLocalizedString("widget-onthisday-name", value: "On this day", comment: "Name of 'On this day' view in iOS widget gallery"))
@@ -183,14 +183,13 @@ struct OnThisDayHeaderElement: View {
             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, alignment: .leading)
-        if let minYear = minYear, let maxYear = maxYear {
-            Text(verbatim: "\(minYear) - \(maxYear)")
-                .foregroundColor(grayColor)
-                .font(.subheadline)
-                .bold()
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
+//            let yearsString = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
+        Text(verbatim: "\(minYear) - \(maxYear)")
+            .foregroundColor(grayColor)
+            .font(.subheadline)
+            .bold()
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -286,6 +285,7 @@ struct ArticleRectangleElement: View {
                             .foregroundColor(.white)
                     )
                     .padding([.top, .bottom], 9)
+                    .padding([.trailing], 35)
             }
         )
     }

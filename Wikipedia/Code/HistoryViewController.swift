@@ -19,7 +19,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
 
         emptyViewType = .noHistory
         
-            title = CommonStrings.historyTabTitle
+        title = CommonStrings.historyTabTitle
         
         deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history {{Identical|Clear}}")
         deleteAllConfirmationText =  WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
