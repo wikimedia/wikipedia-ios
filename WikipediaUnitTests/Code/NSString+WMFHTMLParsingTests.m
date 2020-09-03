@@ -87,22 +87,4 @@
     XCTAssertEqualObjects(newsPlainText, plaintext);
 }
 
-- (void)testRemovingHTMLRetainsMinusEntity {
-    //https://phabricator.wikimedia.org/T252047
-    NSString *displayTitle = @"<i>B</i> &#8722; <i>L</i>";
-    NSString *displayTitlePlainText = [displayTitle wmf_stringByRemovingHTML];
-    XCTAssertEqualObjects(@"B − L", displayTitlePlainText);
-    
-    UIFont *standard = [UIFont systemFontOfSize:12];
-    UIFont *italic = [UIFont italicSystemFontOfSize:12];
-    NSMutableAttributedString *displayTitleAttributedString = [displayTitle wmf_attributedStringFromHTMLWithFont:standard boldFont:nil italicFont:italic boldItalicFont:nil color:nil linkColor:nil handlingLinks:NO handlingLists:NO handlingSuperSubscripts:NO tagMapping:nil additionalTagAttributes:nil];
-    NSMutableAttributedString *attributedStringToCompare = [[NSMutableAttributedString alloc] initWithString:@"B − L"];
-    [attributedStringToCompare addAttributes:@{NSFontAttributeName: italic} range:NSMakeRange(0, 1)];
-    [attributedStringToCompare addAttributes:@{NSFontAttributeName: standard} range:NSMakeRange(1, 3)];
-    [attributedStringToCompare addAttributes:@{NSFontAttributeName: italic} range:NSMakeRange(4, 1)];
-    
-    XCTAssertEqualObjects(displayTitleAttributedString, attributedStringToCompare);
-    
-}
-
 @end

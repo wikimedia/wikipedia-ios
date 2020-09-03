@@ -101,7 +101,6 @@ class StorageAndSyncingSettingsViewController: SubSettingsViewController {
         if isSyncEnabled {
             showReadingListsSyncAlert()
         } else { // user logged in to an account that has sync disabled, prompt them to enable sync
-            
             wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
                 self.shouldShowReadingListsSyncAlertWhenSyncEnabled = true
             }

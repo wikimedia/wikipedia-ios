@@ -1,11 +1,10 @@
 const utilities = require('./utilities')
 
 class SelectedTextEditInfo {
-  constructor(selectedAndAdjacentText, isSelectedTextInTitleDescription, sectionID, descriptionSource) {
+  constructor(selectedAndAdjacentText, isSelectedTextInTitleDescription, sectionID) {
     this.selectedAndAdjacentText = selectedAndAdjacentText
     this.isSelectedTextInTitleDescription = isSelectedTextInTitleDescription
     this.sectionID = sectionID
-    this.descriptionSource = descriptionSource
   }
 }
 
@@ -52,16 +51,10 @@ const getSelectedTextEditInfo = () => {
   selection.removeAllRanges()
   selection.empty()
 
-  // EditTransform.IDS.TITLE_DESCRIPTION == 'pcs-edit-section-title-description'
-  const descriptionElement = document.getElementById('pcs-edit-section-title-description')
-  // EditTransform.DATA_ATTRIBUTE.DESCRIPTION_SOURCE == 'data-description-source'
-  const descriptionSource = descriptionElement && descriptionElement.getAttribute('data-description-source') || undefined
-
   return new SelectedTextEditInfo(
     selectedAndAdjacentText,
     isTitleDescriptionSelection,
-    sectionID,
-    descriptionSource
+    sectionID
   )
 }
 

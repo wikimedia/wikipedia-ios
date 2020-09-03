@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;
 
-- (void)showSplashView;
+- (void)showSplashViewIfNotShowing;
 
 - (void)hideSplashViewAnimated:(BOOL)animated;
 

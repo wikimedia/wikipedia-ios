@@ -6,9 +6,6 @@ extension String {
     public var wmf_hasNonWhitespaceText: Bool {
         return wmf_hasText && !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
-    public var wmf_hasAlphanumericText: Bool {
-        return wmf_hasText && (self.components(separatedBy: .alphanumerics).count > 1)
-    }
 }
 
 extension NSAttributedString {

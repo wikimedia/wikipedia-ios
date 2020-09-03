@@ -2,11 +2,10 @@ import UIKit
 import WMF
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController, HintPresenting {
+class ArticleViewController: ViewController {    
     enum ViewState {
         case initial
         case loading
-        case reloading
         case loaded
         case error
     }
@@ -25,7 +24,6 @@ class ArticleViewController: ViewController, HintPresenting {
     
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
-    /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
     /// Set internally to wait for content size changes to chill before restoring the scroll offset
     var isRestoringStateOnNextContentSizeChange: Bool = false
@@ -33,46 +31,31 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
     
-    /// Called when initial JS setup is complete
-    @objc public var initialSetupCompletion: (() -> Void)?
-    
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
     
     private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: ArticleCacheController
-    let surveyTimerController: ArticleSurveyTimerController
     
     let session = Session.shared
     let configuration = Configuration.current
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    internal lazy var imageFetcher: ImageFetcher = ImageFetcher(session: session, configuration: configuration)
 
     private var leadImageHeight: CGFloat = 210
 
+    //tells calls to try pulling from cache first so the user sees the article as quickly as possible
+    internal var fromNavStateRestoration: Bool = false
+
     private var contentSizeObservation: NSKeyValueObservation? = nil
-    
-    /// Current ETag of the web content response. Used to verify when content has changed on the server.
-    var currentETag: String?
-
-    /// Used to delay reloading the web view to prevent `UIScrollView` jitter
-    fileprivate var shouldPerformWebRefreshAfterScrollViewDeceleration = false
-
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return rc
     }()
     
-    lazy var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer = {
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(tappedWebViewBackground))
-        tapGR.delegate = self
-        webView.scrollView.addGestureRecognizer(tapGR)
-        tapGR.isEnabled = false
-        return tapGR
-    }()
-    
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler = SchemeHandler.shared) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, fromNavStateRestoration: Bool = false) {
         guard
             let article = dataStore.fetchOrCreateArticle(with: articleURL),
             let cacheController = ArticleCacheController.shared
@@ -86,10 +69,11 @@ class ArticleViewController: ViewController, HintPresenting {
         
         self.dataStore = dataStore
 
-        self.schemeHandler = schemeHandler
-        self.cacheController = cacheController
+        self.schemeHandler = SchemeHandler.shared
+        
+        self.fromNavStateRestoration = fromNavStateRestoration
 
-        self.surveyTimerController = ArticleSurveyTimerController(articleURL: articleURL, surveyController: SurveyAnnouncementsController.shared)
+        self.cacheController = cacheController
         
         super.init(theme: theme)
     }
@@ -97,14 +81,13 @@ class ArticleViewController: ViewController, HintPresenting {
     deinit {
         NotificationCenter.default.removeObserver(self)
         contentSizeObservation?.invalidate()
-        messagingController.removeScriptMessageHandler()
     }
     
     // MARK: WebView
     
     static let webProcessPool = WKProcessPool()
     
-    private(set) var messagingController = ArticleWebMessagingController()
+    lazy var messagingController: ArticleWebMessagingController = ArticleWebMessagingController(delegate: self)
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
@@ -116,12 +99,6 @@ class ArticleViewController: ViewController, HintPresenting {
     lazy var webView: WKWebView = {
         return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
     }()
-
-    private var verticalOffsetPercentageToRestore: CGFloat?
-    
-    // MARK: HintPresenting
-    
-    var hintController: HintController?
     
     // MARK: Find In Page
     
@@ -199,15 +176,6 @@ class ArticleViewController: ViewController, HintPresenting {
         containerView.addSubview(borderView)
         return containerView
     }()
-
-    lazy var refreshOverlay: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.alpha = 0
-        view.backgroundColor = .black
-        view.isUserInteractionEnabled = true
-        return view
-    }()
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -215,10 +183,11 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     func updateLeadImageMargins() {
-        let doesArticleUseLargeMargin = (tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible)
+        let imageSize = leadImageView.image?.size ?? .zero
+        let isImageNarrow = imageSize.height < 1 ? false : imageSize.width / imageSize.height < 2
         var marginWidth: CGFloat = 0
-        if doesArticleUseLargeMargin {
-            marginWidth = articleHorizontalMargin
+        if isImageNarrow && tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible {
+            marginWidth = 32
         }
         leadImageLeadingMarginConstraint.constant = marginWidth
         leadImageTrailingMarginConstraint.constant = marginWidth
@@ -240,43 +209,17 @@ class ArticleViewController: ViewController, HintPresenting {
         updateArticleMargins()
     }
     
-    internal func updateArticleMargins() {
+    private func updateArticleMargins() {
         messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
-        updateLeadImageMargins()
-    }
-
-    internal func stashOffsetPercentage() {
-        let offset = webView.scrollView.verticalOffsetPercentage
-        // negative and 0 offsets make small errors in scrolling, allow it to automatically handle those cases
-        if offset > 0 {
-            verticalOffsetPercentageToRestore = offset
-        }
-    }
-
-    private func restoreOffsetPercentageIfNecessary() {
-        guard let verticalOffsetPercentage = verticalOffsetPercentageToRestore else {
-            return
-        }
-        verticalOffsetPercentageToRestore = nil
-        webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        stashOffsetPercentage()
-        super.viewWillTransition(to: size, with: coordinator)
-        let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
-        coordinator.animate(alongsideTransition: marginUpdater)
     }
     
     // MARK: Loading
     
-    var state: ViewState = .initial {
+    internal var state: ViewState = .initial {
         didSet {
             switch state {
             case .initial:
                 break
-            case .reloading:
-                fallthrough
             case .loading:
                 fakeProgressController.start()
             case .loaded:
@@ -302,10 +245,6 @@ class ArticleViewController: ViewController, HintPresenting {
         super.viewDidLoad()
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         apply(theme: theme)
-        setupForStateRestorationIfNecessary()
-        surveyTimerController.timerFireBlock = { [weak self] result in
-            self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -314,16 +253,6 @@ class ArticleViewController: ViewController, HintPresenting {
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-        surveyTimerController.viewWillAppear(withState: state)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard isFirstAppearance else {
-            return
-        }
-        showAnnouncementIfNeeded()
-        isFirstAppearance = false
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -342,12 +271,11 @@ class ArticleViewController: ViewController, HintPresenting {
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController.viewWillDisappear(withState: state)
     }
     
     // MARK: Article load
     
-    var articleLoadWaitGroup: DispatchGroup?
+    var footerLoadGroup: DispatchGroup?
 
     func loadIfNecessary() {
         guard state == .initial else {
@@ -360,66 +288,52 @@ class ArticleViewController: ViewController, HintPresenting {
         state = .loading
         
         setupPageContentServiceJavaScriptInterface {
-            let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
+            let cachePolicy: WMFCachePolicy? = self.fromNavStateRestoration ? .foundation(.returnCacheDataElseLoad) : nil
             self.loadPage(cachePolicy: cachePolicy)
         }
     }
     
-    /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
-    func setupArticleLoadWaitGroup() {
-        assert(Thread.isMainThread)
-        
-        guard articleLoadWaitGroup == nil else {
-            return
-        }
-        
-        articleLoadWaitGroup = DispatchGroup()
-        articleLoadWaitGroup?.enter() // will leave on setup complete
-        articleLoadWaitGroup?.notify(queue: DispatchQueue.main) { [weak self] in
-            self?.setupFooter()
-            self?.shareIfNecessary()
-            self?.articleLoadWaitGroup = nil
-        }
-        
-        guard let key = article.key else {
-            return
-        }
-        
-        articleLoadWaitGroup?.enter()
-        // async to allow the page network requests some time to go through
-        DispatchQueue.main.async {
-            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
-            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
-                defer {
-                    self.articleLoadWaitGroup?.leave()
-                    self.updateMenuItems()
-                }
-                guard let article = article else {
-                    return
-                }
-                self.article = article
-                // Handle redirects
-                guard let newKey = article.key, newKey != key, let newURL = article.url else {
-                    return
-                }
-                self.articleURL = newURL
-                self.addToHistory()
-            }
-        }
-    }
-    
-    func loadPage(cachePolicy: WMFCachePolicy? = nil, revisionID: UInt64? = nil) {
+    func loadPage(cachePolicy: WMFCachePolicy? = nil) {
         defer {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy, isPageView: true) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, scheme: schemeHandler.scheme, cachePolicy: cachePolicy) else {
+
             showGenericError()
             state = .error
             return
         }
-
+        
+        footerLoadGroup = DispatchGroup()
+        footerLoadGroup?.enter() // will leave on setup complete
+        footerLoadGroup?.notify(queue: DispatchQueue.main) { [weak self] in
+            self?.setupFooter()
+            self?.shareIfNecessary()
+            self?.footerLoadGroup = nil
+        }
+        
         webView.load(request)
+        
+        guard let key = article.key else {
+            showGenericError()
+            state = .error
+            return
+        }
+        footerLoadGroup?.enter()
+        dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            defer {
+                self.footerLoadGroup?.leave()
+                self.updateMenuItems()
+            }
+            // Handle redirects
+            guard let article = article, let newKey = article.key, newKey != key, let newURL = article.url else {
+                return
+            }
+            self.article = article
+            self.articleURL = newURL
+            self.addToHistory()
+        }
     }
     
     func syncCachedResourcesIfNeeded() {
@@ -474,25 +388,16 @@ class ArticleViewController: ViewController, HintPresenting {
     
     // MARK: State Restoration
     
-    /// Save article scroll position for restoration later
     func saveArticleScrollPosition() {
         getVisibleSection { (sectionId, anchor) in
             assert(Thread.isMainThread)
             self.article.viewedScrollPosition = Double(self.webView.scrollView.contentOffset.y)
             self.article.viewedFragment = anchor
             try? self.article.managedObjectContext?.save()
+            
         }
     }
     
-    /// Perform any necessary initial configuration for state restoration
-    func setupForStateRestorationIfNecessary() {
-        guard isRestoringState else {
-            return
-        }
-        setWebViewHidden(true, animated: false)
-    }
-    
-    /// If state needs to be restored, listen for content size changes and restore the scroll position when those changes stop occurring
     func restoreStateIfNecessary() {
         guard isRestoringState else {
             return
@@ -502,21 +407,18 @@ class ArticleViewController: ViewController, HintPresenting {
         perform(#selector(restoreState), with: nil, afterDelay: 0.5) // failsafe, attempt to restore state after half a second regardless
     }
     
-    /// If state is supposed to be restored after the next content size change, restore that state
-    /// This should be called in a debounced manner when article content size changes
     func restoreStateIfNecessaryOnContentSizeChange() {
         guard isRestoringStateOnNextContentSizeChange else {
             return
         }
-        isRestoringStateOnNextContentSizeChange = false
         let scrollPosition = CGFloat(article.viewedScrollPosition)
         guard scrollPosition < webView.scrollView.bottomOffsetY else {
             return
         }
+        isRestoringStateOnNextContentSizeChange = false
         restoreState()
     }
     
-    /// Scroll to the state restoration scroll position now, canceling any previous attempts
     @objc func restoreState() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restoreState), object: nil)
         let scrollPosition = CGFloat(article.viewedScrollPosition)
@@ -525,19 +427,6 @@ class ArticleViewController: ViewController, HintPresenting {
         } else if let anchor = article.viewedFragment {
             scroll(to: anchor, animated: false)
         }
-        setWebViewHidden(false, animated: true)
-    }
-
-    func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
-        let block = {
-            self.webView.alpha = hidden ? 0 : 1
-        }
-        guard animated else {
-            block()
-            completion?(true)
-            return
-        }
-        UIView.animate(withDuration: 0.3, animations: block, completion: completion)
     }
     
     func callLoadCompletionIfNecessary() {
@@ -597,64 +486,21 @@ class ArticleViewController: ViewController, HintPresenting {
     // MARK: Refresh
     
     @objc public func refresh() {
-        state = .reloading
-        if !shouldPerformWebRefreshAfterScrollViewDeceleration {
-            updateRefreshOverlay(visible: true)
-        }
-        shouldPerformWebRefreshAfterScrollViewDeceleration = true
-    }
-    
-    /// Preserves the current scroll position, loads the provided revisionID or waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
-    internal func waitForNewContentAndRefresh(_ revisionID: UInt64? = nil) {
-        showNavigationBar()
-        state = .reloading
-        saveArticleScrollPosition()
-        isRestoringState = true
-        setupForStateRestorationIfNecessary()
-        // If a revisionID was provided, just load that revision
-        if let revisionID = revisionID {
-            performWebViewRefresh(revisionID)
-            return
-        }
-        // If no revisionID was provided, wait for the ETag to change
-        guard let eTag = currentETag else {
-            performWebViewRefresh()
-            return
-        }
-        fetcher.waitForMobileHTMLChange(articleURL: articleURL, eTag: eTag, maxAttempts: 5) { (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    self.showError(error, sticky: true)
-                    fallthrough
-                default:
-                    self.performWebViewRefresh()
-                }
-            }
-        }
-    }
-
-    internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
-        #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
-            webView.reloadFromOrigin()
-        #else // on release builds, just reload the page with a different cache policy
-            loadPage(cachePolicy: .noPersistentCacheOnError, revisionID: revisionID)
-        #endif
-    }
-
-    internal func updateRefreshOverlay(visible: Bool, animated: Bool = true) {
-        let duration = animated ? (visible ? 0.15 : 0.1) : 0.0
-        let alpha: CGFloat = visible ? 0.3 : 0.0
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: [.curveEaseIn], animations: {
-            self.refreshOverlay.alpha = alpha
-        })
-        toolbarController.setToolbarButtons(enabled: !visible)
+        loadPage(cachePolicy: .noPersistentCacheOnError)
     }
     
     // MARK: Overrideable functionality
     
     internal func handleLink(with href: String) {
-        guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
+        let urlComponentsString: String
+        if href.hasPrefix(".") || href.hasPrefix("/") {
+            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
+        } else {
+            urlComponentsString = href
+        }
+        let components = URLComponents(string: urlComponentsString)
+        // Resolve relative URLs
+        guard let resolvedURL = components?.url(relativeTo: articleURL)?.absoluteURL else {
             showGenericError()
             return
         }
@@ -722,9 +568,91 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     // MARK: Scroll
-
+    
+    func isBoundingClientRectVisible(_ rect: CGRect) -> Bool {
+        let scrollView = webView.scrollView
+        return rect.minY > scrollView.contentInset.top && rect.maxY < scrollView.bounds.size.height - scrollView.contentInset.bottom
+    }
+    
+    /// Used to wait for the callback that the anchor is ready for scrollin'
+    typealias ScrollToAnchorCompletion = (_ anchor: String, _ rect: CGRect) -> Void
     var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
+
+    func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
+        guard !anchor.isEmpty else {
+            webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
+            completion?()
+            return
+        }
+        
+        messagingController.prepareForScroll(to: anchor, highlight: highlighted) { (result) in
+            assert(Thread.isMainThread)
+            switch result {
+            case .failure(let error):
+                self.showError(error)
+                completion?()
+            case .success:
+                let scrollCompletion: ScrollToAnchorCompletion = { (anchor, rect) in
+                    let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.scrollView.contentOffset.y)
+                    self.scroll(to: point, centered: centered, animated: animated, completion: completion)
+                }
+                self.scrollToAnchorCompletions.insert(scrollCompletion, at: 0)
+            }
+        }
+    }
+    
     var scrollViewAnimationCompletions: [() -> Void] = []
+    func scroll(to offset: CGPoint, centered: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
+        assert(Thread.isMainThread)
+        let scrollView = webView.scrollView
+        guard !offset.x.isNaN && !offset.x.isInfinite && !offset.y.isNaN && !offset.y.isInfinite else {
+            completion?()
+            return
+        }
+        let overlayTop = self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight
+        let adjustmentY: CGFloat
+        if centered {
+            let overlayBottom = self.webView.scrollView.contentInset.bottom
+            let height = self.webView.scrollView.bounds.height
+            adjustmentY = -0.5 * (height - overlayTop - overlayBottom)
+        } else {
+            adjustmentY = overlayTop
+        }
+        let minY = 0 - scrollView.contentInset.top
+        let maxY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
+        let boundedY = min(maxY,  max(minY, offset.y + adjustmentY))
+        let boundedOffset = CGPoint(x: scrollView.contentOffset.x, y: boundedY)
+        guard WMFDistanceBetweenPoints(boundedOffset, scrollView.contentOffset) >= 2 else {
+            scrollView.flashScrollIndicators()
+            completion?()
+            return
+        }
+        guard animated else {
+            scrollView.setContentOffset(boundedOffset, animated: false)
+            completion?()
+            return
+        }
+        /*
+         Setting scrollView.contentOffset inside of an animation block
+         results in a broken animation https://phabricator.wikimedia.org/T232689
+         Calling [scrollView setContentOffset:offset animated:YES] inside
+         of an animation block fixes the animation but doesn't guarantee
+         the content offset will be updated when the animation's completion
+         block is called.
+         It appears the only reliable way to get a callback after the default
+         animation is to use scrollViewDidEndScrollingAnimation
+         */
+        if let completion = completion {
+            scrollViewAnimationCompletions.insert(completion, at: 0)
+        }
+        scrollView.setContentOffset(boundedOffset, animated: true)
+    }
+    
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndScrollingAnimation(scrollView)
+        // call the first completion
+        scrollViewAnimationCompletions.popLast()?()
+    }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
@@ -739,17 +667,6 @@ class ArticleViewController: ViewController, HintPresenting {
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         dismissReferencesPopover()
-        hintController?.dismissHintDueToUserInteraction()
-    }
-
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        super.scrollViewDidEndDecelerating(scrollView)
-        if shouldPerformWebRefreshAfterScrollViewDeceleration {
-            webView.scrollView.showsVerticalScrollIndicator = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                self.performWebViewRefresh()
-            })
-        }
     }
     
     // MARK: Analytics
@@ -767,7 +684,6 @@ private extension ArticleViewController {
         setupSearchButton()
         addNotificationHandlers()
         setupWebView()
-        setupMessagingController()
     }
     
     // MARK: Notifications
@@ -782,13 +698,13 @@ private extension ArticleViewController {
     }
     
     func contentSizeDidChange() {
+        tableOfContentsController.restoreOffsetPercentageIfNecessary()
         // debounce
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedContentSizeDidChange), object: nil)
         perform(#selector(debouncedContentSizeDidChange), with: nil, afterDelay: 0.1)
     }
     
     @objc func debouncedContentSizeDidChange() {
-        restoreOffsetPercentageIfNecessary()
         restoreStateIfNecessaryOnContentSizeChange()
     }
     
@@ -799,20 +715,14 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController.willResignActive(withState: state)
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
-        surveyTimerController.didBecomeActive(withState: state)
     }
     
     func setupSearchButton() {
         navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
-    }
-    
-    func setupMessagingController() {
-        messagingController.delegate = self
     }
     
     func setupWebView() {
@@ -834,16 +744,10 @@ private extension ArticleViewController {
         
         // Lead image
         setupLeadImageView()
-
-        // Add overlay to prevent interaction while reloading
-        webView.wmf_addSubviewWithConstraintsToEdges(refreshOverlay)
         
         // Delegates
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        
-        // User Agent
-        webView.customUserAgent = WikipediaAppUtils.versionedUserAgent()
     }
     
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints
@@ -940,7 +844,6 @@ extension ArticleViewController {
         }
         showError(error)
         refreshControl.endRefreshing()
-        updateRefreshOverlay(visible: false)
     }
     
     func articleLoadDidFail(with error: Error) {
@@ -970,42 +873,6 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: WKNavigationDelegate {
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
-            setupArticleLoadWaitGroup()
-            decisionHandler(.allow)
-        default:
-            decisionHandler(.cancel)
-        }
-    }
-    
-    @available(iOS 13.0, *)
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
-            setupArticleLoadWaitGroup()
-            decisionHandler(.allow, preferences)
-        default:
-            decisionHandler(.cancel, preferences)
-        }
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        defer {
-            decisionHandler(.allow)
-        }
-        guard let response = navigationResponse.response as? HTTPURLResponse else {
-            return
-        }
-        currentETag = response.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
-    }
-    
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         articleLoadDidFail(with: error)
     }
@@ -1013,39 +880,14 @@ extension ArticleViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         articleLoadDidFail(with: error)
     }
-    
-    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        // On process did terminate, the WKWebView goes blank
-        // Re-load the content in this case to show it again
-        webView.reload()
-    }
-
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        if shouldPerformWebRefreshAfterScrollViewDeceleration {
-            updateRefreshOverlay(visible: false)
-            webView.scrollView.showsVerticalScrollIndicator = true
-            shouldPerformWebRefreshAfterScrollViewDeceleration = false
-        }
-    }
-
 }
 
-extension ViewController  { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
-
+extension ViewController {
+    /// Allows for re-use by edit preview VC
     var articleMargins: UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: articleHorizontalMargin, bottom: 0, right: articleHorizontalMargin)
-    }
-
-    var articleHorizontalMargin: CGFloat {
-        let viewForCalculation: UIView = navigationController?.view ?? view
-
-        if let tableOfContentsVC = (self as? ArticleViewController)?.tableOfContentsController.viewController, tableOfContentsVC.isVisible {
-            // full width
-            return viewForCalculation.layoutMargins.left
-        } else {
-            // If (is EditPreviewVC) or (is TOC OffScreen) then use readableContentGuide to make text inset from screen edges.
-            // Since readableContentGuide has no effect on compact width, both paths of this `if` statement result in an identical result for smaller screens.
-            return viewForCalculation.readableContentGuide.layoutFrame.minX
-        }
+        var margins = navigationController?.view.layoutMargins ?? view.layoutMargins // view.layoutMargins is zero here so check nav controller first
+        margins.top = 8
+        margins.bottom = 0
+        return margins
     }
 }

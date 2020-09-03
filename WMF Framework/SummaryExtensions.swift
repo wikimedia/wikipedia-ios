@@ -63,10 +63,9 @@ extension WMFArticle {
         }
        
         wikidataDescription = summary.articleDescription
-        wikidataID = summary.wikidataID
         displayTitleHTML = summary.displayTitle ?? summary.title ?? ""
         snippet = summary.extract?.wmf_summaryFromText()
-        
+
         if let summaryCoordinate = summary.coordinates {
             coordinate = CLLocationCoordinate2D(latitude: summaryCoordinate.lat, longitude: summaryCoordinate.lon)
         } else {

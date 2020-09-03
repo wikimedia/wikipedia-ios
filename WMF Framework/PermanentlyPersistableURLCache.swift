@@ -2,6 +2,7 @@ import Foundation
 
 public struct Header {
     public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
+    //public static let persistentCacheETag = "Persistent-Cache-ETag"
     
     //existence of a PersistItemType in a URLRequest header indicates to the system that we want to reference the persistent cache for the use of passing through Etags (If-None-Match) and falling back on a cached response (or other variant of) in the case of a urlSession error.
     //pass PersistItemType header value urlRequest headers to gain different behaviors on how a request interacts with the cache, such as:
@@ -89,7 +90,6 @@ extension PermanentlyPersistableURLCache {
                 request.cachePolicy = cachePolicy
                 request.prefersPersistentCacheOverError = true
             case .noPersistentCacheOnError:
-                request.cachePolicy = .reloadIgnoringLocalCacheData
                 request.prefersPersistentCacheOverError = false
             }
         }
@@ -153,7 +153,6 @@ private extension PermanentlyPersistableURLCache {
 //MARK: Database key and variant creation
 
 extension PermanentlyPersistableURLCache {
-    
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
         guard let url = urlRequest.url,
             let type = typeFromURLRequest(urlRequest: urlRequest) else {
@@ -218,7 +217,7 @@ private extension PermanentlyPersistableURLCache {
     }
     
     func articleVariantForURL(_ url: URL) -> String? {
-        #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE || WMF_LOCAL_PAGE_CONTENT_SERVICE
+        #if WMF_APPS_LABS_MOBILE_HTML || WMF_LOCAL
             if let pathComponents = (url as NSURL).pathComponents,
             pathComponents.count >= 2 {
                 let newHost = pathComponents[1]
@@ -243,6 +242,22 @@ private extension PermanentlyPersistableURLCache {
     
     func imageInfoVariantForURL(_ url: URL) -> String? {
         return nil
+    }
+}
+
+//MARK: Unique file name and header file name creation
+
+private extension PermanentlyPersistableURLCache {
+
+    func uniqueHeaderFileNameForURL(_ url: URL, type: Header.PersistItemType) -> String? {
+        
+        guard let itemKey = itemKeyForURL(url, type: type) else {
+            return nil
+        }
+        
+        let variant = variantForURL(url, type: type)
+        
+        return uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
     }
 }
 
@@ -285,17 +300,6 @@ extension PermanentlyPersistableURLCache {
         
         return uniqueFileNameForItemKey(itemKey, variant: variant)
     }
-    
-    func uniqueHeaderFileNameForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        
-        guard let itemKey = itemKeyForURL(url, type: type) else {
-            return nil
-        }
-        
-        let variant = variantForURL(url, type: type)
-        
-        return uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-    }
 }
 
 //MARK: Private - Helpers
@@ -326,7 +330,7 @@ public enum CacheResponseContentType {
 
 extension PermanentlyPersistableURLCache {
     
-    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         guard let url = urlRequest.url else {
             failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest)
@@ -367,7 +371,7 @@ extension PermanentlyPersistableURLCache {
         switch content {
         case .data((let data)):
             dispatchGroup.enter()
-            CacheFileWriterHelper.saveData(data: data, toNewFileWithKey: contentFileName) { (result) in
+            CacheFileWriterHelper.saveData(data: data, toNewFileWithKey: contentFileName, mimeType: mimeType) { (result) in
                 
                 defer {
                     dispatchGroup.leave()
@@ -382,7 +386,7 @@ extension PermanentlyPersistableURLCache {
             }
         case .string(let string):
             dispatchGroup.enter()
-            CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName) { (result) in
+            CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName, mimeType: mimeType) { (result) in
                 defer {
                     dispatchGroup.leave()
                 }
@@ -435,7 +439,7 @@ extension PermanentlyPersistableURLCache {
             return
         }
         
-        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName) { (result) in
+        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName, mimeType: mimeType) { (result) in
             switch result {
             case .success, .exists:
                  CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": mimeType], toNewFileName: headerFileName) { (result) in
@@ -468,30 +472,8 @@ extension PermanentlyPersistableURLCache {
     
     private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
         
-        func customCacheUpdatingItemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
-            
-            //this inner method is a workaround to allow the mobile-html URLRequest with a revisionID in the url to update the cached response under the revisionless url.
-            //we intentionally don't want to modify the itemKeyForURLRequest(_ urlRequest: URLRequest) method to keep this a lighter touch
-            
-            guard let url = urlRequest.customCacheUpdatingURL ?? urlRequest.url,
-                let type = typeFromURLRequest(urlRequest: urlRequest) else {
-                return nil
-            }
-            
-            return itemKeyForURL(url, type: type)
-        }
         
-        func clearCustomCacheUpdatingResponseFromFoundation(with urlRequest: URLRequest) {
-            
-            //If we have a custom cache url to update, we need to remove that from foundation's URLCache, otherwise that
-            //will still take over even if we have updated the saved article cache.
-            
-            if let customCacheUpdatingURL = urlRequest.customCacheUpdatingURL {
-                let updatingRequest = URLRequest(url: customCacheUpdatingURL)
-                removeCachedResponse(for: updatingRequest)
-            }
-        }
-
+        
         let isArticleOrImageInfoRequest: Bool
         if let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
             let type = Header.PersistItemType(rawValue: typeRaw),
@@ -505,9 +487,7 @@ extension PermanentlyPersistableURLCache {
         //for articles and imageInfo's it's okay to update the alternative language variants in the cache.
         let variant: String? = isArticleOrImageInfoRequest ? nil : variantForURLRequest(request)
         
-        clearCustomCacheUpdatingResponseFromFoundation(with: request)
-        
-        guard let itemKey = customCacheUpdatingItemKeyForURLRequest(request),
+        guard let itemKey = itemKeyForURLRequest(request),
             let httpResponse = cachedResponse.response as? HTTPURLResponse,
             let moc = cacheManagedObjectContext,
             httpResponse.statusCode == 200 else {
@@ -555,9 +535,9 @@ extension PermanentlyPersistableURLCache {
             CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
                 switch result {
                 case .success:
-                    DDLogDebug("Successfully updated cached content file.")
+                    DDLogDebug("Successfully updated cached header file.")
                 case .failure(let error):
-                    DDLogDebug("Failed updating cached content file: \(error)")
+                    DDLogDebug("Failed updating cached header file: \(error)")
                 case .exists:
                     assertionFailure("This shouldn't happen.")
                     break
@@ -677,38 +657,35 @@ private extension PermanentlyPersistableURLCache {
         }
         
         //lookup fallback itemKey/variant in DB (language fallback logic for article item type, size fallback logic for image item type)
-
-        var response: CachedURLResponse? = nil
-        moc.performAndWait {
-            var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc)
-            
-            switch type {
-            case .image:
-                allVariantItems.sortAsImageCacheItems()
-            case .article, .imageInfo:
-                break
-            }
-            
-            if let fallbackItemKey = allVariantItems.first?.key {
-                
-                let fallbackVariant = allVariantItems.first?.variant
-                
-                //migrated images do not have urls. defaulting to url passed in here.
-                let fallbackURL = allVariantItems.first?.url ?? url
-                
-                //first see if URLCache has the fallback
-                let quickCheckRequest = URLRequest(url: fallbackURL)
-                if let systemCachedResponse = URLCache.shared.cachedResponse(for: quickCheckRequest) {
-                    response = systemCachedResponse
-                }
-                
-                //then see if persistent cache has the fallback
-                let request = PersistedResponseRequest.fallbackItemKeyAndVariant(url: fallbackURL, itemKey: fallbackItemKey, variant: fallbackVariant)
-                response = persistedResponseWithRequest(request)
-            }
+        
+        var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc)
+        
+        switch type {
+        case .image:
+            allVariantItems.sortAsImageCacheItems()
+        case .article, .imageInfo:
+            break
         }
         
-        return response
+        if let fallbackItemKey = allVariantItems.first?.key {
+            
+            let fallbackVariant = allVariantItems.first?.variant
+            
+            //migrated images do not have urls. defaulting to url passed in here.
+            let fallbackURL = allVariantItems.first?.url ?? url
+            
+            //first see if URLCache has the fallback
+            let quickCheckRequest = URLRequest(url: fallbackURL)
+            if let response = URLCache.shared.cachedResponse(for: quickCheckRequest) {
+                return response
+            }
+            
+            //then see if persistent cache has the fallback
+            let request = PersistedResponseRequest.fallbackItemKeyAndVariant(url: fallbackURL, itemKey: fallbackItemKey, variant: fallbackVariant)
+            return persistedResponseWithRequest(request)
+        }
+        
+        return nil
     }
 }
 
@@ -721,7 +698,6 @@ public extension HTTPURLResponse {
 public extension URLRequest {
     static let ifNoneMatchHeaderKey = "If-None-Match"
     static let customCachePolicyHeaderKey = "Custom-Cache-Policy"
-    static let customCacheUpdatingURL = "Custom-Cache-Updating-URL"
     
     var prefersPersistentCacheOverError: Bool {
         get {
@@ -738,19 +714,6 @@ public extension URLRequest {
             setValue(value, forHTTPHeaderField: URLRequest.customCachePolicyHeaderKey)
         }
         
-    }
-    
-    //if you need the response to this request written to the cache stored at a different url, set this value
-    var customCacheUpdatingURL: URL? {
-        get {
-            guard let urlString = allHTTPHeaderFields?[URLRequest.customCacheUpdatingURL] else {
-                return nil
-            }
-            return URL(string: urlString)
-        }
-        set {
-            setValue(newValue?.absoluteString, forHTTPHeaderField: URLRequest.customCacheUpdatingURL)
-        }
     }
 }
 

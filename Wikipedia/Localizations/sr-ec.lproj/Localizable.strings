@@ -5,7 +5,6 @@
 // Author: BadDog
 // Author: Bjankuloski06
 // Author: Fendo99
-// Author: MarinaSimic
 // Author: Mhurd
 // Author: Milicevic01
 // Author: Nemo bis
@@ -13,14 +12,13 @@
 // Author: Prevodim
 // Author: Rancher
 // Author: Srdjan m
-// Author: Srđan
 // Author: Zoranzoki21
 // Author: Милан Јелисавчић
 // Author: Сербијана
 
 "about-content-license" = "Лиценца садржаја";
-"about-content-license-details" = "Осим ако није другачије наведено, садржај је доступан под $1.";
-"about-content-license-details-share-alike-license" = "лиценцом Creative Commons Ауторство-Делити под истим условима";
+"about-content-license-details" = "Осим ако је другачије наведено, садржај је доступан под $1.";
+"about-content-license-details-share-alike-license" = "лиценцом Creative Commons Attribution-ShareAlike";
 "about-contributors" = "Сарадници";
 "about-libraries" = "Коришћене библиотеке";
 "about-libraries-complete-list" = "Целокупна листа";
@@ -57,7 +55,7 @@
 "account-creation-create-account" = "Отвори налог";
 "account-creation-have-account" = "Већ имате налог? $1";
 "account-creation-log-in" = "Пријави ме.";
-"account-creation-logging-in" = "Пријављивање…";
+"account-creation-logging-in" = "Пријављујем вас…";
 "account-creation-missing-fields" = "За отварање налога је потребно да унесете корисничко име, лозинку и потврду лозинке.";
 "account-creation-passwords-mismatched" = "Лозинке се не поклапају.";
 "account-creation-saving" = "Чување…";
@@ -82,7 +80,6 @@
 "action-remove" = "Уклони";
 "action-replace" = "Замени";
 "action-replace-all" = "Замени све";
-"action-retry" = "Покушај поново";
 "action-save" = "Сачувај";
 "action-saved" = "Сачувано";
 "action-saved-accessibility" = "Сачувано. Активирајте да бисте уклонили.";
@@ -117,8 +114,7 @@
 "article-languages-label" = "Одабир језика";
 "article-languages-others" = "Други језици";
 "article-languages-yours" = "Ваши језици";
-"article-read-more-title" = "Детаљније";
-"article-reference-view-title" = "Референца $1";
+"article-read-more-title" = "Прочитајте више";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
@@ -140,6 +136,7 @@
 "compass-direction" = "у $1 ч.";
 "continue-reading-empty-description" = "Истражите Википедију да бисте нашли још чланака за читање";
 "continue-reading-empty-title" = "Нема недавно прочитаних чланака";
+"description-add-link-title" = "Додај опис наслова";
 "description-add-title" = "Додавање описа";
 "description-edit-for-article" = "Опис наслова за страницу $1";
 "description-edit-learn-more" = "Сазнајте више";
@@ -262,7 +259,6 @@
 "edit-watch-list-learn-more-text" = "Сазнајте више о листама за надгледање";
 "edit-watch-this-page-text" = "Надгледај ову страницу";
 "editing-welcome-be-bold-title" = "Ваш глас је важан";
-"empty-insert-media-title" = "Изаберите датотеку са Викимедијине оставе";
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
 "empty-no-feed-message" = "Препоручене чланке ћете видети када будете онлајн";
@@ -427,6 +423,8 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Језик Википедије: $1";
 "in-the-news-sub-title-from-wikipedia" = "Са Википедије";
 "in-the-news-title" = "Вести";
+"info-box-close-text" = "Затвори";
+"info-box-title" = "Кратке чињенице";
 "insert-action-title" = "Уметни";
 "insert-link-title" = "Уметни везу";
 "insert-media-alternative-text-description" = "Опис текста за читаоце који не могу видети слику";
@@ -456,6 +454,8 @@
 "languages-settings-title" = "Језици";
 "languages-title" = "Промена језика";
 "languages-wikipedia" = "Језици Википедије";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Садржај је доступан под лиценцом $1, осим ако је другачије наведено.";
 "logged-out-continue-without-logging-in-button-title" = "Настави без пријаве";
 "logged-out-log-back-in-button-title" = "Поново ме пријави на налог";
 "logged-out-subtitle" = "Дошло је до грешке при потврди идентитета. Како бисте синхронизовали листе за читање и уређивали под корисничким именом, поново се пријавите.";
@@ -474,7 +474,7 @@
 "main-menu-heading-debug" = "Исправке";
 "main-menu-heading-legal" = "Приватност и услови";
 "main-menu-nearby" = "У близини";
-"main-menu-privacy-policy" = "Политика приватности";
+"main-menu-privacy-policy" = "Смернице за приватност";
 "main-menu-rate-app" = "Оцени апликацију";
 "main-menu-terms-of-use" = "Услови коришћења";
 "main-menu-title" = "Више";
@@ -504,6 +504,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 са $2 Википедије";
 "on-this-day-title" = "На данашњи дан";
 "original-tab-button-popover-description" = "Додирните „W” да бисте се вратили на почетну картицу";
+// Fuzzy
+"page-edit-history" = "Целокупна историја измена";
 "page-history-anonymous-edits" = "анонимне измене";
 "page-history-bot-edits" = "ботовске измене";
 "page-history-compare-accessibility-hint" = "Додирните како бисте изабрали две измене за упоређивање";
@@ -520,12 +522,18 @@
 "page-history-revisions-comparison-warning" = "Могу се изабрати само две измене";
 "page-history-stats-text" = "{{PLURAL:$1|$1 измена|$1 измене}} од $2";
 "page-history-user-edits" = "измене корисника";
+"page-issues" = "Проблеми са страницом";
+// Fuzzy
+"page-last-edited" = "{{PLURAL:$1|0=Уређено данас|1=Уређено јуче|Уређено пре $1 дана}}";
+"page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
 "page-protected-can-not-edit-title" = "Ова страница је заштићена";
 "page-protected-other" = "Ова страница је заштићена на следећим нивоима: $1";
 "page-protected-sysop" = "Ова страница је потпуно заштићена.";
+"page-read-in-other-languages" = "Доступно на још $1 језика";
 "page-similar-titles" = "Сличне странице";
+"page-talk-page" = "Прикажи страницу за разговор";
 "panel-compare-revisions-text" = "Упоређивање измена помаже да се покаже како се чланак временом мењао. Упоређивање две измене чланка показаће разлику између тих ревизија истицањем било ког садржаја који је промењен.";
 "panel-compare-revisions-title" = "Упоређивање измена";
 "pictured" = "на слици";
@@ -753,6 +761,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-heading" = "Садржај";
 "table-of-contents-hide-button-label" = "Сакриј садржај";
+"table-title-other" = "Више информација";
 "talk-page-add-discussion-accessibility-label" = "Додај дискусију";
 "talk-page-discussion-accessibility-hint" = "Притисните два пута да бисте отворили низ дискусије";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
@@ -764,7 +773,7 @@
 "talk-page-link-user-action-sheet-app" = "Погледај корисничку страницу за разговор у апликацији";
 "talk-page-link-user-action-sheet-safari" = "Погледај корисничку страницу у Сафарију";
 "talk-page-link-user-action-sheet-title" = "Корисничке странице";
-"talk-page-new-banner-subtitle" = "Не заборавите: Комуницирате са живим људима";
+"talk-page-new-banner-subtitle" = "Запамтите, сви смо ми овде људска бића";
 "talk-page-new-banner-title" = "Будите љубазни";
 "talk-page-new-body-textfield-accessibility-label" = "Тело дискусије";
 "talk-page-new-reply-body-accessibility-label" = "Састави одговор";
@@ -797,6 +806,7 @@
 "two-factor-login-with-regular-code" = "Користите кôд за верификацију";
 "unable-to-load-talk-page-title" = "Није могуће учитати страницу за разговор";
 "unknown-generic-text" = "Непознато";
+"view-in-browser-footer-link" = "Прикажи чланак у прегледачу";
 "welcome-exploration-explore-feed-description" = "Препоручени и дневни чланци од наше заједнице";
 "welcome-exploration-explore-feed-title" = "Фид „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратите се назад кроз време да бисте сазнали шта се одиграло на данашњи дан";

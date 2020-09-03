@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1100"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D4991434181D51DE00E6073C"
+               BuildableName = "Wikipedia.app"
+               BlueprintName = "Wikipedia"
+               ReferencedContainer = "container:Wikipedia.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Test"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D4991434181D51DE00E6073C"
+            BuildableName = "Wikipedia.app"
+            BlueprintName = "Wikipedia"
+            ReferencedContainer = "container:Wikipedia.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BC4273511A7C736800068882"
+               BuildableName = "WikipediaUnitTests.xctest"
+               BlueprintName = "WikipediaUnitTests"
+               ReferencedContainer = "container:Wikipedia.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ArticleFetcherTests">
+               </Test>
+               <Test
+                  Identifier = "ArticleLoadingTests">
+               </Test>
+               <Test
+                  Identifier = "CLLocation_WMFBearingTests">
+               </Test>
+               <Test
+                  Identifier = "CircularBitwiseRotationTests">
+               </Test>
+               <Test
+                  Identifier = "LegacyCoreDataMigratorTests">
+               </Test>
+               <Test
+                  Identifier = "MWKArticleEqualityCheckTests">
+               </Test>
+               <Test
+                  Identifier = "MWKArticleExtractionTests">
+               </Test>
+               <Test
+                  Identifier = "MWKArticlePreviewSerializationTests">
+               </Test>
+               <Test
+                  Identifier = "MWKArticleStoreTestCase">
+               </Test>
+               <Test
+                  Identifier = "MWKDataStoreListTests">
+               </Test>
+               <Test
+                  Identifier = "MWKDataStorePathTests">
+               </Test>
+               <Test
+                  Identifier = "MWKDataStoreStorageTests">
+               </Test>
+               <Test
+                  Identifier = "MWKHistoryListCorruptDataTests">
+               </Test>
+               <Test
+                  Identifier = "MWKHistoryListDataStoreTests">
+               </Test>
+               <Test
+                  Identifier = "MWKHistoryListPerformanceTests">
+               </Test>
+               <Test
+                  Identifier = "MWKHistoryListSharedTests">
+               </Test>
+               <Test
+                  Identifier = "MWKHistoryListUniquenessTests">
+               </Test>
+               <Test
+                  Identifier = "MWKImageFaceDetectionTests">
+               </Test>
+               <Test
+                  Identifier = "MWKImageInfoSerializationTest">
+               </Test>
+               <Test
+                  Identifier = "MWKImageInfo_MWKImageComparisonTests">
+               </Test>
+               <Test
+                  Identifier = "MWKImageListTests">
+               </Test>
+               <Test
+                  Identifier = "MWKImageStorageTests">
+               </Test>
+               <Test
+                  Identifier = "MWKLanguageLinkControllerTests">
+               </Test>
+               <Test
+                  Identifier = "MWKLanguageLinkFetcherTests">
+               </Test>
+               <Test
+                  Identifier = "MWKLanguageLinkResponseSerializerTests">
+               </Test>
+               <Test
+                  Identifier = "MWKListInsertionTests">
+               </Test>
+               <Test
+                  Identifier = "MWKListLegacyTests">
+               </Test>
+               <Test
+                  Identifier = "MWKListSharedTests">
+               </Test>
+               <Test
+                  Identifier = "MWKListTestBase">
+               </Test>
+               <Test
+                  Identifier = "MWKProtectionStatusTests">
+               </Test>
+               <Test
+                  Identifier = "MWKRecentSearchDataStoreTests">
+               </Test>
+               <Test
+                  Identifier = "MWKRecentSearchesSharedTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSavedPageListCorruptDataTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSavedPageListDataStoreTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSavedPageListSharedTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSavedPageListTogglingTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSectionHasTextDataTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSectionListHierarchyTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSectionListTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSection_HTMLImageParsingTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSection_WMFSharingTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSiteInfoFetcherTests">
+               </Test>
+               <Test
+                  Identifier = "MWKSiteTests">
+               </Test>
+               <Test
+                  Identifier = "MWKTestCase">
+               </Test>
+               <Test
+                  Identifier = "MWKTitleTests">
+               </Test>
+               <Test
+                  Identifier = "MWKUserTests">
+               </Test>
+               <Test
+                  Identifier = "NSArray_BKIndexTests">
+               </Test>
+               <Test
+                  Identifier = "NSArray_PredicateTests">
+               </Test>
+               <Test
+                  Identifier = "NSArray_WMFExtensionsTests">
+               </Test>
+               <Test
+                  Identifier = "NSAttributedString_WMFModifyTests">
+               </Test>
+               <Test
+                  Identifier = "NSAttributedString_WMFTrimTests">
+               </Test>
+               <Test
+                  Identifier = "NSDate_WMFRangesTests">
+               </Test>
+               <Test
+                  Identifier = "NSIndexSet_BKReduceTests">
+               </Test>
+               <Test
+                  Identifier = "NSMutableDictionary_WMFMaybeSetTests">
+               </Test>
+               <Test
+                  Identifier = "NSString_FormattedAttributedStringTests">
+               </Test>
+               <Test
+                  Identifier = "NSString_WMFHTMLParsingTests">
+               </Test>
+               <Test
+                  Identifier = "NSURLExtrasTests">
+               </Test>
+               <Test
+                  Identifier = "NSURL_WMFLinkParsingTests">
+               </Test>
+               <Test
+                  Identifier = "SavedArticlesFetcherTests">
+               </Test>
+               <Test
+                  Identifier = "SessionSingletonTests">
+               </Test>
+               <Test
+                  Identifier = "TWNStringsTests">
+               </Test>
+               <Test
+                  Identifier = "UIImageViewWMFImageFetchingVisualTests">
+               </Test>
+               <Test
+                  Identifier = "UIImageView_MWKImageTests">
+               </Test>
+               <Test
+                  Identifier = "UIViewController_WMFSearchButtonTests">
+               </Test>
+               <Test
+                  Identifier = "WMFArticleFetchIfNeededTests">
+               </Test>
+               <Test
+                  Identifier = "WMFArticleImageInjectionTests">
+               </Test>
+               <Test
+                  Identifier = "WMFArticleListCellVisualTests">
+               </Test>
+               <Test
+                  Identifier = "WMFAsyncTestCase">
+               </Test>
+               <Test
+                  Identifier = "WMFBackgroundTaskManagerTests">
+               </Test>
+               <Test
+                  Identifier = "WMFCollectionViewExtensionTests">
+               </Test>
+               <Test
+                  Identifier = "WMFDateFormatterTests">
+               </Test>
+               <Test
+                  Identifier = "WMFENFeaturedTitleFetcherTests">
+               </Test>
+               <Test
+                  Identifier = "WMFErrorForApiErrorObjectTests">
+               </Test>
+               <Test
+                  Identifier = "WMFGeometryTests">
+               </Test>
+               <Test
+                  Identifier = "WMFImageControllerTests">
+               </Test>
+               <Test
+                  Identifier = "WMFImageInfoControllerTests">
+               </Test>
+               <Test
+                  Identifier = "WMFImageURLParsingTests">
+               </Test>
+               <Test
+                  Identifier = "WMFJoinedPropertyParametersTests">
+               </Test>
+               <Test
+                  Identifier = "WMFLegacyImageDataMigrationTests">
+               </Test>
+               <Test
+                  Identifier = "WMFMathTests">
+               </Test>
+               <Test
+                  Identifier = "WMFModalArticleImageGalleryDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "WMFPicOfTheDayTableViewCellVisualTests">
+               </Test>
+               <Test
+                  Identifier = "WMFRecentPagesDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "WMFSafeAssignTests">
+               </Test>
+               <Test
+                  Identifier = "WMFSaveButtonControllerTests">
+               </Test>
+               <Test
+                  Identifier = "WMFSearchFetcherTests">
+               </Test>
+               <Test
+                  Identifier = "WMFSearchResultMergeTests">
+               </Test>
+               <Test
+                  Identifier = "WMFSearchResultsSerializationTests">
+               </Test>
+               <Test
+                  Identifier = "WMFSubstringUtilsTests">
+               </Test>
+               <Test
+                  Identifier = "XCTestCasePromiseKitSwiftTests">
+               </Test>
+               <Test
+                  Identifier = "XCTestCase_PromiseKitSwiftTests">
+               </Test>
+               <Test
+                  Identifier = "XCTestCase_PromiseKitTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = "he"
+      region = "IL"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D4991434181D51DE00E6073C"
+            BuildableName = "Wikipedia.app"
+            BlueprintName = "Wikipedia"
+            ReferencedContainer = "container:Wikipedia.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-AppleLocale he_IL"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-AppleLanguages (he)"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-WMFVisualTestBatchRecordMode NO"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "FB_REFERENCE_IMAGE_DIR"
+            value = "$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "TRAVIS"
+            value = "$(TRAVIS)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "WMF_FIXTURE_DIRECTORY"
+            value = "$(SOURCE_ROOT)/WikipediaUnitTests/Fixtures"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D4991434181D51DE00E6073C"
+            BuildableName = "Wikipedia.app"
+            BlueprintName = "Wikipedia"
+            ReferencedContainer = "container:Wikipedia.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>

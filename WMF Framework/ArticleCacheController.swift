@@ -47,7 +47,8 @@ public final class ArticleCacheController: CacheController {
                 //add new urls in file system
                 for urlRequest in syncResult.addURLRequests {
                     
-                    guard let uniqueKey = self.fileWriter.uniqueFileNameForURLRequest(urlRequest), urlRequest.url != nil else {
+                    guard let uniqueKey = self.fileWriter.uniqueFileNameForURLRequest(urlRequest),
+                        let url = urlRequest.url else {
                         continue
                     }
                     
@@ -55,7 +56,7 @@ public final class ArticleCacheController: CacheController {
                     
                     self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
                         switch fileWriterResult {
-                        case .success(let response, _):
+                        case .success(let response, let data):
                             
                             self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (dbWriterResult) in
                             
@@ -134,7 +135,7 @@ public final class ArticleCacheController: CacheController {
         }
     }
     
-    public func cacheFromMigration(desktopArticleURL: URL, content: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
+    public func cacheFromMigration(desktopArticleURL: URL, content: String, mimeType: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
             completionHandler(ArticleCacheControllerError.invalidDBWriterType)
@@ -145,7 +146,7 @@ public final class ArticleCacheController: CacheController {
             
             articleDBWriter.addMobileHtmlURLForMigration(desktopArticleURL: desktopArticleURL, success: { urlRequest in
                 
-                self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, success: {
+                self.fileWriter.addMobileHtmlContentForMigration(content: content, urlRequest: urlRequest, mimeType: mimeType, success: {
 
                     articleDBWriter.markDownloaded(urlRequest: urlRequest, response: nil) { (result) in
                         switch result {

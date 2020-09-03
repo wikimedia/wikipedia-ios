@@ -42,7 +42,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     } else {
         path = @[@"feed", @"featured"];
     }
-    return [[configuration wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:path] URL];
+    return [[configuration wikipediaMobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:path] URL];
 }
 
 + (NSRegularExpression *)cacheControlRegex {
@@ -144,8 +144,8 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     }
 
     NSString *domainPathComponent = [NSString stringWithFormat:@"%@.%@", language, domain];
-    NSArray<NSString *> *path = @[@"pageviews", @"per-article", domainPathComponent, @"all-access", @"user", title, @"daily", startDateString, endDateString];
-    NSURLComponents *components = [self.configuration metricsAPIURLComponentsAppendingPathComponents:path];
+    NSArray<NSString *> *path = @[@"metrics", @"pageviews", @"per-article", domainPathComponent, @"all-access", @"user", title, @"daily", startDateString, endDateString];
+    NSURLComponents *components = [self.configuration wikimediaMobileAppsServicesAPIURLComponentsAppendingPathComponents:path];
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
 
     [self.session getJSONDictionaryFromURL:components.URL

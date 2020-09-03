@@ -7,16 +7,10 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Th
     @IBOutlet weak var addEntriesSwitch: UISwitch!
     @IBOutlet weak var createListsSwitch: UISwitch!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var randomizeAcrossLanguagesSwitch: UISwitch!
     @IBOutlet weak var deleteAllListsSwitch: UISwitch!
     @IBOutlet weak var deleteAllEntriesSwitch: UISwitch!
     @IBOutlet weak var fullSyncSwitch: UISwitch!
     
-    @IBAction func addEntriesSwitchChanged(_ sender: UISwitch) {
-        if !sender.isOn {
-            randomizeAcrossLanguagesSwitch.isOn = false
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         let moc = MWKDataStore.shared().viewContext
@@ -44,7 +38,7 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Th
         
         activityIndicator.startAnimating()
         sender?.isEnabled = false
-        readingListsController.debugSync(createLists: createListsSwitch.isOn, listCount: listLimit, addEntries: addEntriesSwitch.isOn, randomizeLanguageEntries:randomizeAcrossLanguagesSwitch.isOn, entryCount: entryLimit, deleteLists: deleteAllListsSwitch.isOn, deleteEntries: deleteAllEntriesSwitch.isOn, doFullSync: fullSyncSwitch.isOn, completion:{
+        readingListsController.debugSync(createLists: createListsSwitch.isOn, listCount: listLimit, addEntries: addEntriesSwitch.isOn, entryCount: entryLimit, deleteLists: deleteAllListsSwitch.isOn, deleteEntries: deleteAllEntriesSwitch.isOn, doFullSync: fullSyncSwitch.isOn, completion:{
             DispatchQueue.main.async {
                 sender?.isEnabled = true
                 self.activityIndicator.stopAnimating()

@@ -1,7 +1,28 @@
-
-// MARK:- Context Menu for ArticleVC (iOS 13 and later)
-// All functions in this extension are for Context Menus (used in iOS 13 and later)
-extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
+extension ArticleViewController {
+    static let peekableImageExtensions: Set<String> = ["jpg", "jpeg", "gif", "png", "svg"]
+    
+    func getPeekViewControllerAsync(for linkURL: URL, completion: @escaping (UIViewController?) -> Void) {
+        let destination = configuration.router.destination(for: linkURL)
+        getPeekViewControllerAsync(for: destination, completion: completion)
+    }
+    
+    func getPeekViewController(for linkURL: URL) -> UIViewController? {
+        let destination = configuration.router.destination(for: linkURL)
+        return getPeekViewController(for: destination)
+    }
+    
+    func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
+        switch destination {
+        case .article(let articleURL):
+            let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+            articleVC?.articlePreviewingDelegate = self
+            articleVC?.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+            return articleVC
+        default:
+            return nil
+        }
+    }
+    
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void) {
         switch destination {
         case .inAppLink(let linkURL):
@@ -83,41 +104,21 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         
         return actions
     }
-
+    
     @available(iOS 13.0, *)
-    func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
-        self.contextMenuConfigurationForElement(elementInfo, completionHandler: completionHandler)
-    }
-
-    @available(iOS 13.0, *)
-    func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
-        guard
-            elementInfo.linkURL != nil,
-            animator.preferredCommitStyle != .dismiss,
-            let vc = animator.previewViewController
-            else {
-                return
-        }
-
-        animator.addCompletion {
-            self.commitPreview(of: vc)
-        }
-    }
-
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
-    func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
-        switch destination {
-        case .article(let articleURL):
-            let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-            articleVC?.articlePreviewingDelegate = self
-            articleVC?.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-            return articleVC
-        default:
+    func previewMenuElements(for previewViewController: UIViewController, suggestedActions: [UIMenuElement]) -> UIMenu? {
+        guard let vc = previewViewController as? ArticleViewController else {
             return nil
         }
+        let legacyActions = vc.previewActions
+        let menuItems = legacyActions.map { (legacyAction) -> UIMenuElement in
+            return UIAction(title: legacyAction.title) { (action) in
+                legacyAction.handler(legacyAction, previewViewController)
+            }
+        }
+        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
     }
-
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
+    
     func commitPreview(of viewControllerToCommit: UIViewController) {
         if let vc = viewControllerToCommit as? ArticleViewController {
             vc.wmf_removePeekableChildViewControllers()
@@ -131,18 +132,101 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     }
 }
 
-// MARK: Peek/Pop for ArticleVC (iOS 12 and earlier, on devices w/ 3D Touch)
-// All functions in this extension are for 3D Touch menus. (Can be removed when the oldest supported version is iOS 13.)
-extension ArticleViewController {
+extension ArticleViewController: WKUIDelegate {
+    // MARK: Context menus
+    
+    @available(iOS 13.0, *)
+    func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
+        let nullConfig = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
+            return nil
+        }) { (_) -> UIMenu? in
+            return nil
+        }
+        
+        let bail = {
+            completionHandler(nullConfig)
+        }
+        
+        guard let linkURL = elementInfo.linkURL else {
+            bail()
+            return
+        }
+        
+        // It's helpful if we can fetch the article before calling the completion
+        // However, we need to timeout if it takes too long
+        var config = nullConfig
+        var didCallCompletion = false
+        dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
+            if (!didCallCompletion) {
+                completionHandler(config)
+                didCallCompletion = true;
+            }
+        }
+        
+        getPeekViewControllerAsync(for: linkURL) { (peekParentVC) in
+            assert(Thread.isMainThread)
+            guard let peekParentVC = peekParentVC else {
+                bail()
+                return
+            }
+            
+            let peekVC = peekParentVC.wmf_PeekableChildViewController
+            
+            self.hideFindInPage()
+            config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
+                return peekParentVC
+            }) { (suggestedActions) -> UIMenu? in
+                return self.previewMenuElements(for: peekParentVC, suggestedActions: suggestedActions)
+            }
+            
+            if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
+                articlePeekVC.fetchArticle {
+                    assert(Thread.isMainThread)
+                    if (!didCallCompletion) {
+                        completionHandler(config)
+                        didCallCompletion = true
+                    }
+                }
+            } else {
+                completionHandler(config)
+            }
+        }
+        
+    }
+    
+    @available(iOS 13.0, *)
+    func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
+        guard
+            animator.preferredCommitStyle != .dismiss,
+            let vc = animator.previewViewController
+            else {
+                return
+        }
+        
+        animator.addCompletion {
+            self.commitPreview(of: vc)
+        }
+    }
+    
+    // MARK: Peek/Pop (can be removed when the oldest supported version is iOS 13)
+    
     func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
-        return self.shouldPreview(linkURL: elementInfo.linkURL)
+        guard let linkURL = elementInfo.linkURL else {
+            return false
+        }
+        return linkURL.isPreviewable
     }
-
+    
     func webView(_ webView: WKWebView, previewingViewControllerForElement elementInfo: WKPreviewElementInfo, defaultActions previewActions: [WKPreviewActionItem]) -> UIViewController? {
-        return self.previewingViewController(for: elementInfo.linkURL)
+        guard let linkURL = elementInfo.linkURL, let peekVC = getPeekViewController(for: linkURL) else {
+            return nil
+        }
+        hideFindInPage()
+        return peekVC
     }
-
+    
     func webView(_ webView: WKWebView, commitPreviewingViewController previewingViewController: UIViewController) {
         commitPreview(of: previewingViewController)
     }
+    
 }

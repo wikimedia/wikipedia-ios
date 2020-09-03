@@ -69,6 +69,7 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "timnaḍin deg usnas.";
 "appearance-settings-theme-options" = "Iɣewwaṛen n isental";
+"article-about-title" = "Ɣef umagrad-agi";
 "article-delete" = "Kkes";
 // Fuzzy
 "article-deleted-accessibility-notification" = "Amagrad yettwakkes";
@@ -76,6 +77,7 @@
 "article-languages-label" = "Fren tutlayt";
 "article-languages-others" = "Tutlayin-nniḍen";
 "article-languages-yours" = "Tutlayt-ik";
+"article-read-more-title" = "Ɣer ugar";
 "article-share" = "Bḍu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Asenqed n isental n tɣuri";
 "back-button-accessibility-label" = "Uɣal";
@@ -182,8 +184,12 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "Bḍu...";
 "in-the-news-title" = "Deg isallen";
+"info-box-close-text" = "Mdel";
+"info-box-title" = "Axeddim s tewzel";
 "languages-title" = "Fren tutlayt";
 "languages-wikipedia" = "Tutlayin n wikipedia";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Agbur yella ddaw $1 ḥaca ma abdar anemgal.";
 "login-forgot-password" = "Tettuḍ awal uffir?";
 "login-join-wikipedia" = "Ddu ar Wikipedia";
 "login-no-account" = "Ur tesɛiḍ ara amiḍan ? $1";
@@ -219,11 +225,21 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 n tedyant tamazrayt|$1 n tidyanin timazrayin}}";
 "on-this-day-footer" = "Ugar n tidyanin timazrayin ass-a";
 "on-this-day-title" = "Ass-a";
+// Fuzzy
+"page-edit-history" = "Amazray ummid n usnifel";
+"page-issues" = "Uguren n usebter";
+// Fuzzy
+"page-last-edited" = "Yettwaẓreg $1 n wussan aya";
+"page-location" = "Wali ɣef tkarḍa";
 "page-protected-autoconfirmed" = "Asebter-agi yettumesten s uzgen.";
 "page-protected-can-not-edit" = "Ur ɣur-k ara azref n usnifel n usebtre-agi";
 "page-protected-can-not-edit-title" = "Asebter-agi yettummesten";
 "page-protected-other" = "Asebter-agi yettummesten i yiswiren-agi: $1";
 "page-protected-sysop" = "Asebter-agi yettummesten meṛṛa.";
+// Fuzzy
+"page-read-in-other-languages" = "Yella deg $1 n tutlayin-nniḍen";
+"page-similar-titles" = "Isebtar icuban";
+"page-talk-page" = "Wali asebter n usqerdec";
 "pictured" = "s tugna";
 "places-accessibility-clear-saved-searches" = "Sfeḍ inadiyen yettwaskelsen";
 "places-accessibility-group" = "$1 n imagraden";
@@ -323,6 +339,7 @@
 "table-of-contents-close-accessibility-hint" = "Mdel";
 "table-of-contents-close-accessibility-label" = "Mdel agbur";
 "table-of-contents-heading" = "Igburen";
+"table-title-other" = "Ugar n telɣut";
 "theme-dark-display-name" = "Aberkan";
 "theme-default-display-name" = "Amezwer";
 "theme-sepia-display-name" = "Sepia";
@@ -334,6 +351,7 @@
 "two-factor-login-title" = "Qqen ar umiḍan-ik";
 "two-factor-login-with-backup-code" = "Seqdec yiwet si tengalin n uḥraz";
 "two-factor-login-with-regular-code" = "Seqdec tangalt n usenqed";
+"view-in-browser-footer-link" = "Sken amagrad deg iminig";
 "welcome-exploration-explore-feed-description" = "Taɣuri d imagraden n yal ass yelhan si tmezdagnut";
 "welcome-exploration-explore-feed-title" = "Snirem asuddem";
 "welcome-exploration-on-this-day-description" = "Uɣal ar deffir akken ad tissineḍ ayen yeḍran am ass-a deg umezruy.";

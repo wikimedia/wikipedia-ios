@@ -84,7 +84,11 @@ class TalkPageTopicCell: CollectionViewCell {
     }
     
     private func configureTitleLabel(title: String) {
-        let attributedString = title.byAttributingHTML(with: .body, boldWeight: .semibold, matching: traitCollection, color: titleLabel.textColor, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        
+        let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
+        let italicfont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleLabel.textColor, linkColor:nil, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a": "b"], additionalTagAttributes: nil)
         titleLabel.attributedText = attributedString
     }
     

@@ -120,8 +120,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>গত মাস</string>
 			<key>other</key>
 			<string>%1$d মাস আগে</string>
 			<key>zero</key>

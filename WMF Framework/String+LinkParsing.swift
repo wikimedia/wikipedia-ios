@@ -39,7 +39,7 @@ extension String {
 /// Page title transformation
 public extension String {
     var percentEncodedPageTitleForPathComponents: String? {
-        return denormalizedPageTitle?.addingPercentEncoding(withAllowedCharacters: .encodeURIComponentAllowed)
+        return denormalizedPageTitle?.addingPercentEncoding(withAllowedCharacters: .articleTitlePathComponentAllowed)
     }
 
      var normalizedPageTitle: String? {
@@ -49,15 +49,6 @@ public extension String {
      var denormalizedPageTitle: String? {
         return replacingOccurrences(of: " ", with: "_").precomposedStringWithCanonicalMapping
      }
-    
-    //assumes string is already normalized
-    var googleFormPercentEncodedPageTitle: String? {
-        return googleFormPageTitle?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-    }
-    
-    var googleFormPageTitle: String? {
-        return replacingOccurrences(of: " ", with: "+").precomposedStringWithCanonicalMapping
-    }
     
     var unescapedNormalizedPageTitle: String? {
         return removingPercentEncoding?.normalizedPageTitle

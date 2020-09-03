@@ -63,8 +63,7 @@ final class OnThisDayData {
         MWKDataStore.shared()
     }
 
-    // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
-    let placeholderEntry = OnThisDayEntry(monthDay: "January 15", earliestYear: "69", latestYear: "2019", otherEventsCount: 49, contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!, eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.", eventYear: 2001, articleTitle: "Wikipedia", articleSnippet: "Free online encyclopedia that anyone can edit", articleImage: UIImage(named: "W"), articleURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia"))
+    let placeholderEntry = OnThisDayEntry(date: Date(), snippet: "Blah", year: 2018, page: nil, pageImage: nil, earliestYear: "2015", latestYear: "2019", contentURL: URL(string: "http://www.google.com")!, otherEventsCount: 5)
 
     // MARK: Public
 
@@ -91,8 +90,6 @@ final class OnThisDayData {
 
 
         let now = Date()
-        // TODO: Update next line to the language being used instead of nil
-        let monthDay = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: nil).string(from: now)
         let components = Calendar.current.dateComponents([.month, .day], from: now)
         guard let month = components.month, let day = components.day else {
             completion(placeholderEntry)
@@ -108,8 +105,6 @@ final class OnThisDayData {
             events?.forEach({ $0.score = $0.calculateScore() })
             guard let events = events,
                   let topEvent = self.highestScoredEvent(events: events),
-                  let topEventYearNSNumber = topEvent.year,
-                  let topEventYear = Int(exactly: topEventYearNSNumber),
                   let topEventIndex = events.firstIndex(of: topEvent),
                   let destinationURL = URL(string:  "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(topEventIndex)"),
                   let minYear = events.last?.yearString,
@@ -121,18 +116,19 @@ final class OnThisDayData {
 
             let pageToPreview = self.bestArticleToDisplay(articles: topEvent.articlePreviews)
 
+            // REMOVE THIS FORCE UNWRPA ON NEXT ILNE
+            let topEventYear: Int? = topEvent.yearString != nil ? Int(exactly: topEvent.year!) : nil
+
             let sendDataToWidget: ((UIImage?) -> Void) = { (image) in
-                let onThisDayEntry = OnThisDayEntry(monthDay: monthDay,
+                let onThisDayEntry = OnThisDayEntry(date: now,
+                                                    snippet: topEvent.text ?? "",
+                                                    year: topEventYear,
+                                                    page: pageToPreview,
+                                                    pageImage: image,
                                                     earliestYear: minYear,
                                                     latestYear: maxYear,
-                                                    otherEventsCount: events.count-1,
                                                     contentURL: destinationURL,
-                                                    eventSnippet: topEvent.text ?? "",
-                                                    eventYear: topEventYear,
-                                                    articleTitle: pageToPreview?.displayTitle,
-                                                    articleSnippet: pageToPreview?.descriptionOrSnippet,
-                                                    articleImage: image,
-                                                    articleURL: pageToPreview?.articleURL)
+                                                    otherEventsCount: events.count-1)
                 completion(onThisDayEntry)
             }
 
@@ -166,17 +162,14 @@ final class OnThisDayData {
 // MARK: - Model
 
 struct OnThisDayEntry: TimelineEntry {
-    let date = Date()
+    let date: Date
 
-    let monthDay: String
+    let snippet: String?
+    let year: Int?
+    let page: WMFFeedArticlePreview?
+    let pageImage: UIImage?
     let earliestYear: String
     let latestYear: String
-    let otherEventsCount: Int
     let contentURL: URL
-    let eventSnippet: String?
-    let eventYear: Int?
-    let articleTitle: String?
-    let articleSnippet: String?
-    let articleImage: UIImage?
-    let articleURL: URL?
+    let otherEventsCount: Int
 }

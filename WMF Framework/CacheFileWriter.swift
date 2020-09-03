@@ -76,7 +76,7 @@ final class CacheFileWriter: CacheTaskTracking {
                     return
                 }
                 
-                self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), urlRequest: urlRequest, success: {
+                self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), mimeType: result.response.mimeType, urlRequest: urlRequest, success: {
                     completion(.success(response: httpUrlResponse, data: result.data))
                 }) { (error) in
                     completion(.failure(error))
@@ -153,7 +153,7 @@ final class CacheFileWriter: CacheTaskTracking {
 extension CacheFileWriter {
     
     //assumes urlRequest is already populated with the right type header
-    func addMobileHtmlContentForMigration(content: String, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func addMobileHtmlContentForMigration(content: String, urlRequest: URLRequest, mimeType: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         guard let url =  urlRequest.url else {
                 failure(CacheFileWriterError.missingURLInRequest)
@@ -166,7 +166,7 @@ extension CacheFileWriter {
             return
         }
         
-        fetcher.cacheResponse(httpUrlResponse: response, content: .string(content), urlRequest: urlRequest, success: {
+        fetcher.cacheResponse(httpUrlResponse: response, content: .string(content), mimeType: mimeType, urlRequest: urlRequest, success: {
             success()
         }) { (error) in
             failure(error)

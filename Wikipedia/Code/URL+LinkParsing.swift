@@ -8,38 +8,8 @@ extension URL {
         return components?.url
     }
     
-    /// Returns the percent encoded page title to handle titles with / characters
     public var percentEncodedPageTitleForPathComponents: String? {
         return wmf_title?.percentEncodedPageTitleForPathComponents
-    }
-    
-    /// Encodes the page title to handle titles with forward slash characters when splitting path components.
-    /// The callee should be a standardized page URL generated with wmf_databaseURL, non-article namespaces are OK
-    /// For example, https://en.wikipedia.org/wiki/G/O_Media becomes https://en.wikipedia.org/wiki/G%2FO_Media
-    public var encodedWikiURL: URL? {
-        guard let percentEncodedTitle = percentEncodedPageTitleForPathComponents else {
-            assert(false, "encodedWikiURL potentially called on a non-wiki URL")
-            return nil
-        }
-        let encodedPathComponents = ["wiki", percentEncodedTitle]
-        var encodedURLComponents = URLComponents(url: self, resolvingAgainstBaseURL: false)
-        encodedURLComponents?.replacePercentEncodedPathWithPathComponents(encodedPathComponents)
-        return encodedURLComponents?.url
-    }
-    
-    /// Resolves a relative href from a wiki page against the callee.
-    /// The callee should be a standardized page URL generated with wmf_databaseURL, non-article namespaces are OK
-    public func resolvingRelativeWikiHref(_ href: String) -> URL? {
-        let urlComponentsString: String
-        if href.hasPrefix(".") || href.hasPrefix("/") {
-            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
-        } else {
-            urlComponentsString = href
-        }
-        let components = URLComponents(string: urlComponentsString)
-        // Encode this URL to handle titles with forward slashes, otherwise URLComponents thinks they're separate path components
-        let encodedBaseURL = encodedWikiURL
-        return components?.url(relativeTo: encodedBaseURL)?.absoluteURL
     }
     
     public var wmf_language: String? {
@@ -137,46 +107,6 @@ extension URL {
     
     public var isPreviewable: Bool {
         return (self as NSURL).wmf_isPeekable
-    }
-    
-    /// Returns true if this is a URL for a media file hosted on Wikimedia Commons
-    private var isHostedFileLink: Bool {
-        return host?.lowercased() == Configuration.Domain.uploads
-    }
-    
-    /// Returns true if this is a URL with an extension indicating that it's ogg audio
-    private var hasOggAudioExtension: Bool {
-        let lowercasedExtension = pathExtension.lowercased()
-        return lowercasedExtension == "ogg" || lowercasedExtension == "oga"
-    }
-    
-    /// Returns true if this is a URL for an audio file hosted on the Wikimedia uploads host
-    public var isWikimediaHostedAudioFileLink: Bool {
-        return isHostedFileLink && hasOggAudioExtension
-    }
-    
-    /// Converts incompatible file links to compatible file links. Currently only translates ogg/oga links to mp3 links.
-    public var byMakingAudioFileCompatibilityAdjustments: URL {
-        assert(isWikimediaHostedAudioFileLink)
-        
-        var mutableComponents = pathComponents.filter { $0 != "/" } // exclude forward slashes to prevent double-slashes when rebuilding the path
-        
-        guard
-            let filename = mutableComponents.last,
-            let indexOfTranscoded = mutableComponents.firstIndex(of: "commons")?.advanced(by: 1) ?? mutableComponents.firstIndex(of: "wikipedia")?.advanced(by: 2), // + 2 for wikipedia links to put "transcoded" after the language path component
-            indexOfTranscoded < mutableComponents.count
-        else {
-            return self
-        }
-        
-        mutableComponents.insert("transcoded", at: indexOfTranscoded)
-    
-        let mp3Filename = filename.appending(".mp3")
-        mutableComponents.append(mp3Filename)
-
-        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)
-        urlComponents?.percentEncodedPath = "/" + mutableComponents.joined(separator: "/")
-        return urlComponents?.url ?? self
     }
 }
 

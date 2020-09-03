@@ -6,8 +6,6 @@
 
 @implementation WMFAnnouncement
 
-@synthesize actionURL = _actionURL;
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, identifier): @"id",
@@ -19,17 +17,14 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, placement): @"placement",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, text): @"text",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURLString): @"action.url",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @[@"image", @"image_url"],
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageHeight): @"image_height",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, negativeText): @"negative_text",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, loggedIn): @"logged_in",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, readingListSyncEnabled): @"reading_list_sync_enabled",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, beta): @"beta",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, domain): @"domain",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, articleTitles): @"articleTitles",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, displayDelay): @"displayDelay"
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, beta): @"beta"
     };
 }
 
@@ -37,19 +32,18 @@
     return 4;
 }
 
-- (NSURL *)actionURL {
-    if (!_actionURL) {
-        _actionURL = [NSURL wmf_optionalURLWithString: self.actionURLString];
-    }
-    
-    return _actionURL;
-}
-
-- (nullable NSURL *)actionURLReplacingPlaceholder:(nonnull NSString *)placeholder withValue: (nonnull NSString *)value {
-    
-    NSString *urlString = [self.actionURLString stringByReplacingOccurrencesOfString:placeholder withString:value];
-    
-    return [NSURL URLWithString:urlString];
++ (NSValueTransformer *)actionURLJSONTransformer {
+    return [MTLValueTransformer
+        transformerUsingForwardBlock:^NSURL *(NSString *urlString,
+                                              BOOL *success,
+                                              NSError *__autoreleasing *error) {
+            return [NSURL wmf_optionalURLWithString:urlString];
+        }
+        reverseBlock:^NSString *(NSURL *URL,
+                                 BOOL *success,
+                                 NSError *__autoreleasing *error) {
+            return [URL absoluteString];
+        }];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer {

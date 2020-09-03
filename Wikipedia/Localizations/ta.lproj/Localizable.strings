@@ -57,12 +57,14 @@
 "appearance-settings-reading-themes" = "தோற்றங்கள் படிக்கப்படுகிறது";
 "appearance-settings-set-automatic-table-opening" = "அட்டவணை அமைவுகள்";
 "appearance-settings-theme-options" = "தோற்ற அமைவுகள்";
+"article-about-title" = "இந்தக் கட்டுரையைப் பற்றி";
 "article-delete" = "அழிக்கவும்";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|கட்டுரை நீக்கப்பட்டது|கட்டுரைகள் நீக்கப்பட்டன}}";
 "article-languages-filter-placeholder" = "மொழியைக் கண்டறி";
 "article-languages-label" = "மொழியைத் தேர்ந்தெடுக்கவும்";
 "article-languages-others" = "மற்ற மொழிகளில்";
 "article-languages-yours" = "தங்களது மொழி";
+"article-read-more-title" = "மேலும் படிக்க";
 "article-share" = "பகிர்க";
 "back-button-accessibility-label" = "பின் செல்";
 "button-next" = "அடுத்தது";
@@ -154,8 +156,12 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "பகிர்க...";
 "in-the-news-title" = "செய்திகளில்";
+"info-box-close-text" = "மூடு";
+"info-box-title" = "விரைவு காரணி";
 "languages-title" = "மொழியை மாற்று";
 "languages-wikipedia" = "விக்கப்பீடியா மொழிகள்";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "வேறுவகையாகக் குறிப்பிடப்பட்டிருந்தாலன்றி இவ்வுள்ளடக்கம் $1 இல் கீழ் கிடைக்கும்.";
 "login-forgot-password" = "கடவுச்சொல் மறந்துவிட்டதா?";
 "login-join-wikipedia" = "விக்கிப்பீடியாவில் சேர்க";
 "login-no-account" = "பயனர் கணக்கு இல்லையா? $1";
@@ -190,11 +196,20 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 வரலாற்று நிகழ்வு|$1 வரலாற்று நிகழ்வுகள்}}";
 "on-this-day-footer" = "மேலும் இந்த நாளின் வரலாற்று நிகழ்வுகள்";
 "on-this-day-title" = "இந்த நாளில்";
+// Fuzzy
+"page-edit-history" = "முழு தொகுப்பு வரலாறு";
+"page-issues" = "பக்க சிக்கல்கள்";
+// Fuzzy
+"page-last-edited" = "{{PLURAL:$1|0=இன்று தொகுக்கப்பட்டது|1=நேற்று தொகுக்கப்பட்டது|$1 நாட்களுக்கு முன் தொகுக்கப்பட்டது}}";
+"page-location" = "நிலப்படத்தில் காட்டுக";
 "page-protected-autoconfirmed" = "இந்த பக்கம் அரைப் பாதுகாக்கபட்டுள்ளது.";
 "page-protected-can-not-edit" = "உங்களுக்கு இந்த பக்கத்தை தொகுக்கும் உரிமைகள் இல்லை";
 "page-protected-can-not-edit-title" = "இந்த பக்கம் பாதுகாக்கப்பட்டுள்ளது.";
 "page-protected-other" = "இந்தப்பக்கம் பின்வரும் நிலைகளில் பாதுகாக்கப்பட்டுள்ளது: $1";
 "page-protected-sysop" = "இந்த பக்கம் முழுமையாகப் பாதுகாக்கப்பட்டுள்ளது.";
+"page-read-in-other-languages" = "{{PLURAL:$1|$1 மற்ற மொழியில்|$1 மற்ற மொழிகளில்}} கிடைக்கத்தக்கது";
+"page-similar-titles" = "ஒத்த பக்கங்கள்";
+"page-talk-page" = "பேச்சுப் பக்கத்தைக் காண்க";
 "pictured" = "படம்";
 "places-accessibility-clear-saved-searches" = "சேமிக்கப்பட்ட தேடல்களை அழிக்கவும்";
 "places-accessibility-group" = "$1 கட்டுரைகள்";
@@ -256,6 +271,7 @@
 "table-of-contents-close-accessibility-hint" = "மூடுக";
 "table-of-contents-close-accessibility-label" = "உள்ளடக்க வரிசைப் பட்டியை மூடுக";
 "table-of-contents-heading" = "உள்ளடக்கம்";
+"table-title-other" = "மேலதிகத் தகவல்கள்";
 "theme-black-display-name" = "கருப்பு";
 "theme-dark-display-name" = "இருட்டான";
 "theme-default-display-name" = "இயல்பிருப்பு";

@@ -68,9 +68,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 
                 //append mobile-html-offline-resource URLRequests
                 for url in urls.offlineResourcesURLs {
-                    // We're OK with any Content-Type here because we don't use them directly, they're the related files that mobile-html might request
-                    let acceptAnyContentType = ["Accept": "*/*"]
-                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, headers: acceptAnyContentType) else {
+                    guard let urlRequest = self.articleFetcher.urlRequest(from: url) else {
                         continue
                     }
                     

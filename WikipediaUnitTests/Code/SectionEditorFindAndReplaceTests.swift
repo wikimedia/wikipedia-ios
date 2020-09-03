@@ -392,11 +392,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
 }
 
 extension SectionEditorFindAndReplaceTests: SectionEditorViewControllerDelegate {
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController) {
-        //no-op
-    }
-    
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>) {
+    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool) {
         //no-op
     }
     

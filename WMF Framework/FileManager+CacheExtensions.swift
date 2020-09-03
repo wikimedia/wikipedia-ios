@@ -2,10 +2,6 @@
 import Foundation
 
 extension FileManager {
-    /// DEPRECATED: This should only be used for migrating legacy data to the new cache format. The app should no longer need to store information in extended file attributes. Previously, this was used to store the MIME type of a cached file so the approrpriate Content-Type could be set when serving it as a cached response. Now, the response headers are cached in a separate file, removing the need to attach MIME type (or any other info) to the file itself. This function can be removed when the corresponding migration is removed.
-    /// - Parameter attributeName: Extended file attribute name
-    /// - Parameter path: Path of the file
-    /// - Returns: the attribute value for the given attributeName or nil if no such attribute exists on the file
     func getValueForExtendedFileAttributeNamed(_ attributeName: String, forFileAtPath path: String) -> String? {
         let name = (attributeName as NSString).utf8String
         let path = (path as NSString).fileSystemRepresentation
@@ -18,5 +14,19 @@ extension FileManager {
 
         let readLen = getxattr(path, name, buffer, bufferLength, 0, 0)
         return String(bytesNoCopy: buffer, length: readLen, encoding: .utf8, freeWhenDone: true)
+    }
+}
+
+extension FileManager {
+    func setValue(_ value: String, forExtendedFileAttributeNamed attributeName: String, forFileAtPath path: String) {
+        let attributeNamePointer = (attributeName as NSString).utf8String
+        let pathPointer = (path as NSString).fileSystemRepresentation
+        guard let valuePointer = (value as NSString).utf8String else {
+            assert(false, "unable to get value pointer from \(value)")
+            return
+        }
+
+        let result = setxattr(pathPointer, attributeNamePointer, valuePointer, strlen(valuePointer), 0, 0)
+        assert(result != -1)
     }
 }

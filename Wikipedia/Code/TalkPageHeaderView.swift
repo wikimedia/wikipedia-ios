@@ -111,7 +111,8 @@ class TalkPageHeaderView: UIView {
         headerLabel.text = viewModel.header
         
         if hasTitleText {
-            let titleAttributedString = viewModel.title.byAttributingHTML(with: .boldTitle1, boldWeight: .bold, matching: traitCollection, color: titleTextView.textColor, linkColor: theme?.colors.link, handlingSuperSubscripts: true)
+            let titleFont = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+            let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
             titleTextView.attributedText = titleAttributedString
             titleTextView.isHidden = false
         } else {
@@ -142,7 +143,11 @@ class TalkPageHeaderView: UIView {
     }
     
     private func setupIntro(text: String) {
-       introTextView.attributedText = text.byAttributingHTML(with: .footnote, boldWeight: .semibold, matching: traitCollection, color: introTextView.textColor, linkColor: theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        let introFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        let italicIntroFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+        
+        introTextView.attributedText = text.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a": "b"], additionalTagAttributes: nil)
     }
     
     @objc private func tappedIntro(sender: UITextView) {

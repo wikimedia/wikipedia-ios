@@ -47,11 +47,13 @@
 "announcements-dismiss" = "Paslēpt";
 "app-store-subtitle" = "Brīvā enciklopēdija";
 "appearance-settings-set-automatic-table-opening" = "Tabulu iestatījumi";
+"article-about-title" = "Par šo rakstu";
 "article-delete" = "Dzēst";
 "article-languages-filter-placeholder" = "Atrast valodu";
 "article-languages-label" = "Izvēlies valodu";
 "article-languages-others" = "Citas valodas";
 "article-languages-yours" = "Tavas valodas";
+"article-read-more-title" = "Lasīt vairāk";
 "article-reference-view-title" = "Atsauce $1";
 "article-share" = "Dalīties";
 "back-button-accessibility-label" = "Atpakaļ";
@@ -123,6 +125,8 @@
 "in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
 "in-the-news-notification-share-action-title" = "Dalīties…";
 "in-the-news-title" = "Ziņās";
+"info-box-close-text" = "Aizvērt";
+"info-box-title" = "Ātrie fakti";
 "insert-action-title" = "Ievietot";
 "insert-link-title" = "Ievietot saiti";
 "insert-media-caption-title" = "Paraksts";
@@ -132,6 +136,7 @@
 "insert-media-image-position-settings-title" = "Attēla pozīcija";
 "insert-media-image-preview-more-information-action-title" = "Vairāk informācijas";
 "languages-title" = "Mainīt valodu";
+"license-footer-name" = "CC-BY-SA 3.0";
 "main-menu-about" = "Par lietotni";
 "main-menu-account-login" = "Pieslēgties";
 "main-menu-account-logout" = "Iziet";
@@ -152,6 +157,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
+// Fuzzy
+"page-edit-history" = "Pilna labojumu vēsture";
 "page-history-compare-title" = "Salīdzināt";
 "page-history-revision-author-accessibility-label" = "Autors: $1";
 "page-history-revision-comment-accessibility-label" = "Komentārs $1";
@@ -160,6 +167,8 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 labojumi|$1 labojums|$1 labojumi}} kopš $2";
 "page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
 "page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
+"page-similar-titles" = "Līdzīgas lapas";
+"page-talk-page" = "Skatīt diskusiju lapu";
 "panel-compare-revisions-title" = "Versiju salīdzināšana";
 "places-accessibility-group" = "$1 rakstu";
 "places-enable-location-action-button-title" = "Iespējot atrašanās vietu";
@@ -226,6 +235,7 @@
 "table-of-contents-close-accessibility-hint" = "Aizvērt";
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";
 "table-of-contents-heading" = "Saturs";
+"table-title-other" = "Vairāk informācijas";
 "talk-page-new-banner-title" = "Lūdzu, esi jauks";
 "talk-page-new-subject-clear-button-accessibility" = "Notīrīt tematu";
 "talk-page-new-subject-placeholder-text" = "Temats";

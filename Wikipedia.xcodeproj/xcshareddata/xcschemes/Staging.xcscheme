@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
-               BuildableName = "Staging.app"
-               BlueprintName = "Staging"
+               BuildableName = "Wikipedia Beta.app"
+               BlueprintName = "Wikipedia Beta"
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
-            BuildableName = "Staging.app"
-            BlueprintName = "Staging"
+            BuildableName = "Wikipedia Beta.app"
+            BlueprintName = "Wikipedia Beta"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
-            BuildableName = "Staging.app"
-            BlueprintName = "Staging"
+            BuildableName = "Wikipedia Beta.app"
+            BlueprintName = "Wikipedia Beta"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

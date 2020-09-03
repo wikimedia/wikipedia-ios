@@ -73,6 +73,7 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "Sérét gégéséran di luhur pikeun ngarobah ukuran téks artikel. Mangpaatkeun ukuran téks sistim anjeun pikeun ngarobah ukuran aréa téks lian dina aplikasi.";
 "appearance-settings-theme-options" = "Opsi téma";
+"article-about-title" = "Ngeunaan ieu artikel";
 "article-delete" = "Pupus";
 // Fuzzy
 "article-deleted-accessibility-notification" = "Artikel kapupus";
@@ -80,6 +81,7 @@
 "article-languages-label" = "Pilih basa";
 "article-languages-others" = "Basa séjén";
 "article-languages-yours" = "Basa anjeun";
+"article-read-more-title" = "Baca leuwih jero";
 "article-share" = "Bagikeun";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Téma Bacaan";
 "back-button-accessibility-label" = "Balik deui";
@@ -190,9 +192,13 @@
 // Fuzzy
 "in-the-news-notification-share-action-title" = "Bagikeun...";
 "in-the-news-title" = "Dina warta";
+"info-box-close-text" = "Tutup";
+"info-box-title" = "Fakta Singget";
 "insert-media-image-preview-select-image-action-title" = "Pilih gambar";
 "languages-title" = "Robah basa";
 "languages-wikipedia" = "Basa Wikipédia";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Eusi nu nyangkaruk ditangtayungan ku $1 iwal lamun disebutkeun béda.";
 "login-forgot-password" = "Poho kecap sandi?";
 "login-join-wikipedia" = "Gabung ka Wikipédia";
 "login-no-account" = "Teu boga akun? $1";
@@ -229,11 +235,21 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 kajadian sajarah|$1 kajadian sajarah}}";
 "on-this-day-footer" = "Kajadian sajarah lianna dina poé ieu";
 "on-this-day-title" = "Dina poé ieu";
+// Fuzzy
+"page-edit-history" = "Sakumna jujutan édit";
+"page-issues" = "Masalah kaca";
+// Fuzzy
+"page-last-edited" = "Diédit $1 poé katukang";
+"page-location" = "Tempo dina péta";
 "page-protected-autoconfirmed" = "Ieu kaca geus rada-dilindungan";
 "page-protected-can-not-edit" = "Anjeun teu miboga hak pikeun ngédit ieu kaca";
 "page-protected-can-not-edit-title" = "Ieu kaca dilindungan";
 "page-protected-other" = "Ieu kaca geus dilinsungan pikeun lévél di handap: $1";
 "page-protected-sysop" = "Ieu kaca geus dilindungan sagemblengna";
+// Fuzzy
+"page-read-in-other-languages" = "Nyangkaruk dina $1 basa séjén";
+"page-similar-titles" = "Kaca nu sarua";
+"page-talk-page" = "Tempo kaca obrolan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Bersihkeun pamaluruhan kasimpen";
 "places-accessibility-group" = "$1 artikel";
@@ -340,6 +356,7 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup daptar eusi";
 "table-of-contents-heading" = "Eusi";
+"table-title-other" = "Informasi leuwih jero";
 "theme-black-display-name" = "Hideung";
 "theme-dark-display-name" = "Poék";
 "theme-default-display-name" = "Bawaan";
@@ -352,6 +369,7 @@
 "two-factor-login-title" = "Asup log kana akun anjeun";
 "two-factor-login-with-backup-code" = "Paké kode cadangan anjeun";
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
+"view-in-browser-footer-link" = "Tempo artikel di panyungsi";
 "welcome-exploration-explore-feed-description" = "Bacaan nu disarankeun jeung artikel poéan ti komunitas kami";
 "welcome-exploration-explore-feed-title" = "Langlang eupan";
 "welcome-exploration-on-this-day-description" = "Liar deui ka bihari pikeun nyangkem naon nu kajadian poé ayeuna dina sejarah";

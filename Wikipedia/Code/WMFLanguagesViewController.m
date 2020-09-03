@@ -415,10 +415,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 @end
 
-@interface WMFPreferredLanguagesViewController () <WMFAddLanguageDelegate>
-
-@end
-
 @implementation WMFPreferredLanguagesViewController
 
 @dynamic delegate;
@@ -470,7 +466,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     }
 }
 
-- (void)addLanguageButtonTapped {
+- (IBAction)addLanguages:(id)sender {
     WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController nonPreferredLanguagesViewController];
     languagesVC.delegate = self;
     [languagesVC applyTheme:self.theme];
@@ -506,7 +502,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
             [footer setButtonHidden:NO];
         }
         footer.title = title;
-        footer.delegate = self;
         [footer applyTheme:self.theme];
         return footer;
     } else {

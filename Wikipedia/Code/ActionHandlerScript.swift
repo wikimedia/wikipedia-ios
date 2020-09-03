@@ -6,11 +6,14 @@ import WebKit
 final class PageContentService   {
     struct Setup {
         struct Parameters: Codable {
-            var platform = "ios"
-            var version = 1
+            static let platform = "ios"
+            static let clientVersion = Bundle.main.wmf_shortVersionString() // static to only pull this once
+        
+            let platform = Parameters.platform
+            let clientVersion = Parameters.clientVersion
             
-            var theme: String
-            var dimImages: Bool
+            let theme: String
+            let dimImages: Bool
 
             struct Margins: Codable {
                 // these values are strings to allow for units to be included
@@ -19,13 +22,13 @@ final class PageContentService   {
                 let bottom: String
                 let left: String
             }
-            var margins: Margins
-            var leadImageHeight: String // units are included
+            let margins: Margins
+            let leadImageHeight: String // units are included
 
-            var areTablesInitiallyExpanded: Bool
-            var textSizeAdjustmentPercentage: String // string like '125%'
+            let areTablesInitiallyExpanded: Bool
+            let textSizeAdjustmentPercentage: String // string like '125%'
             
-            var userGroups: [String]
+            let userGroups: [String]
         }
     }
     
@@ -50,6 +53,8 @@ final class PageContentService   {
         }
         
         struct Parameters: Codable {
+            let platform = Setup.Parameters.platform
+            let clientVersion = Setup.Parameters.clientVersion
             let title: String
             let menu: Menu
             let readMore: ReadMore
@@ -66,22 +71,23 @@ final class PageContentService   {
         guard let string = String(data: data, encoding: .utf8) else {
             throw RequestError.invalidParameters
         }
-        return "JSON.parse(`\(string.sanitizedForJavaScriptTemplateLiterals)`)"
+        return "JSON.parse('\(string)')"
     }
     
-    final class SetupScript: PageUserScript {
+    final class SetupScript: WKUserScript {
         required init(_ parameters: Setup.Parameters) throws {
-            let source = """
+
+               let source = """
                document.pcsActionHandler = (action) => {
                 window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage(action)
                };
                document.pcsSetupSettings = \(try PageContentService.getJavascriptFor(parameters));
                """
-            super.init(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+               super.init(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
         }
     }
     
-    final class PropertiesScript: PageUserScript {
+    final class PropertiesScript: WKUserScript {
         static let source: String = {
             guard
                 let fileURL = Bundle.main.url(forResource: "Properties", withExtension: "js"),
@@ -92,12 +98,12 @@ final class PageContentService   {
             }
             return jsString
         }()
-        init() {
+        required override init() {
             super.init(source: PropertiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
     
-    final class UtilitiesScript: PageUserScript {
+    final class UtilitiesScript: WKUserScript {
         static let source: String = {
             guard
                 let fileURL = Bundle.wmf.url(forResource: "index", withExtension: "js", subdirectory: "assets"),
@@ -109,13 +115,13 @@ final class PageContentService   {
             return jsString
         }()
         
-        init() {
+        required override init() {
             super.init(source: UtilitiesScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
     
     
-    final class StyleScript: PageUserScript {
+    final class StyleScript: WKUserScript {
         static let source: String = {
             guard
                 let fileURL = Bundle.wmf.url(forResource: "styleoverrides", withExtension: "css", subdirectory: "assets"),
@@ -127,7 +133,7 @@ final class PageContentService   {
             return "const style = document.createElement('style'); style.innerHTML = `\(cssString)`; document.head.appendChild(style);"
         }()
         
-        init() {
+        required override init() {
             super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }

@@ -2,7 +2,9 @@
 # installs required tools for development
 
 scripts/brew_install
-scripts/setup_git_hooks
+
+rm -rf .git/hooks/pre-commit
+cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
 
 if ! xcode-select -p > /dev/null ; then \
 	xcode-select --install; \

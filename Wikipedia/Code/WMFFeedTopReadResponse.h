@@ -1,10 +1,10 @@
-#import <WMF/WMFMTLModel.h>
+@import Mantle;
 
 @class WMFFeedTopReadArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFeedTopReadResponse : WMFMTLModel <MTLJSONSerializing>
+@interface WMFFeedTopReadResponse : MTLModel <MTLJSONSerializing>
 
 @property (nullable, nonatomic, strong, readonly) NSDate *date;
 

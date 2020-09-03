@@ -1,6 +1,6 @@
+@objc(WMFSectionEditorViewControllerDelegate)
 protocol SectionEditorViewControllerDelegate: class {
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController)
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>)
+    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool)
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController)
 }
 
@@ -8,7 +8,7 @@ protocol SectionEditorViewControllerDelegate: class {
 class SectionEditorViewController: ViewController {
     @objc public static let editWasPublished = NSNotification.Name(rawValue: "EditWasPublished")
 
-    weak var delegate: SectionEditorViewControllerDelegate?
+    @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     private let sectionID: Int
     private let articleURL: URL
@@ -55,13 +55,6 @@ class SectionEditorViewController: ViewController {
         }
     }
     
-    struct ScriptMessageHandler {
-        let handler: WKScriptMessageHandler
-        let name: String
-    }
-    
-    private var scriptMessageHandlers: [ScriptMessageHandler] = []
-    
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
     init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
@@ -105,10 +98,6 @@ class SectionEditorViewController: ViewController {
         super.viewWillDisappear(animated)
     }
     
-    deinit {
-        removeScriptMessageHandlers()
-    }
-    
     @objc func keyboardDidHide() {
         inputViewsController.resetFormattingAndStyleSubmenus()
     }
@@ -147,26 +136,6 @@ class SectionEditorViewController: ViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
-    private func removeScriptMessageHandlers() {
-        
-        guard let userContentController = webView?.configuration.userContentController else {
-            return
-        }
-        
-        for handler in scriptMessageHandlers {
-            userContentController.removeScriptMessageHandler(forName: handler.name)
-        }
-        
-        scriptMessageHandlers.removeAll()
-    }
-    
-    private func addScriptMessageHandlers(to contentController: WKUserContentController) {
-        
-        for handler in scriptMessageHandlers {
-            contentController.add(handler.handler, name: handler.name)
-        }
-    }
-    
     private func configureWebView() {
         let configuration = WKWebViewConfiguration()
         configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
@@ -184,20 +153,15 @@ class SectionEditorViewController: ViewController {
         }
         
         contentController.addUserScript(setupUserScript)
+        contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
-        scriptMessageHandlers.append(ScriptMessageHandler(handler: setupUserScript, name: setupUserScript.messageHandlerName))
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
 
-        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage))
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
         
-        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage))
-        
-        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage))
-        
-        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage))
-
-        scriptMessageHandlers.append(ScriptMessageHandler(handler: messagingController, name: SectionEditorWebViewMessagingController.Message.Name.didSetWikitextMessage))
-        
-        addScriptMessageHandlers(to: contentController)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.didSetWikitextMessage)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -322,16 +286,12 @@ class SectionEditorViewController: ViewController {
     }
 
     private func loadWikitext() {
-        let isShowingStatusMessage = shouldFocusWebView
-        if isShowingStatusMessage {
+        if shouldFocusWebView {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
         }
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
             DispatchQueue.main.async {
-                if isShowingStatusMessage {
-                    WMFAlertManager.sharedInstance.dismissAlert()
-                }
                 switch result {
                 case .failure(let error):
                     self.didFocusWebViewCompletion = {
@@ -366,7 +326,7 @@ class SectionEditorViewController: ViewController {
     // MARK: - Accessibility
     
     override func accessibilityPerformEscape() -> Bool {
-        delegate?.sectionEditorDidCancelEditing(self)
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
         return true
     }
     
@@ -431,10 +391,13 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                 return
             } else if let wikitext = result {
                 if wikitext != self.wikitext {
-                    let vc = EditPreviewViewController(articleURL: self.articleURL)
+                    guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                        return
+                    }
                     self.inputViewsController.resetFormattingAndStyleSubmenus()
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
+                    vc.articleURL = self.articleURL
                     vc.sectionID = self.sectionID
                     vc.language = self.language
                     vc.wikitext = wikitext
@@ -452,7 +415,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidCancelEditing(self)
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -546,8 +509,8 @@ extension SectionEditorViewController: WKNavigationDelegate {
 // MARK - EditSaveViewControllerDelegate
 
 extension SectionEditorViewController: EditSaveViewControllerDelegate {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
-        delegate?.sectionEditorDidFinishEditing(self, result: result)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController) {
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: true)
     }
 }
 

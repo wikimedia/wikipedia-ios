@@ -8,51 +8,39 @@ protocol ArticleWebMessageHandling: class {
 class ArticleWebMessagingController: NSObject {
     
     private weak var webView: WKWebView?
-    weak var delegate: ArticleWebMessageHandling?
+    private weak var delegate: ArticleWebMessageHandling?
     
     private let bodyActionKey = "action"
     private let bodyDataKey = "data"
-    
-    var parameters: PageContentService.Setup.Parameters?
-    var contentController: WKUserContentController?
+
+    init(delegate: ArticleWebMessageHandling?) {
+        self.delegate = delegate
+    }
     
     func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
         let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.standard.wmf_articleFontSizeMultiplier() as? Int ?? 100
         let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
-        self.parameters = parameters
         self.webView = webView
         let contentController = webView.configuration.userContentController
         contentController.add(self, name: PageContentService.messageHandlerName)
-        self.contentController = contentController
         do {
-            try updateUserScripts(on: contentController, with: parameters)
+            let pcsSetup = try PageContentService.SetupScript(parameters)
+            contentController.removeAllUserScripts()
+            contentController.addUserScript(pcsSetup)
+            let propertiesScript = PageContentService.PropertiesScript()
+            contentController.addUserScript(propertiesScript)
+            let utilitiesScript = PageContentService.UtilitiesScript()
+            contentController.addUserScript(utilitiesScript)
+            let styleScript = PageContentService.StyleScript()
+            contentController.addUserScript(styleScript)
         } catch let error {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
         }
     }
     
-    func removeScriptMessageHandler() {
-        webView?.configuration.userContentController.removeScriptMessageHandler(forName: PageContentService.messageHandlerName)
-    }
-    
-    /// Update the scripts that run on page load. Utilize this when any parameters change.
-    func updateUserScripts(on contentController: WKUserContentController, with parameters: PageContentService.Setup.Parameters) throws {
-        let pcsSetup = try PageContentService.SetupScript(parameters)
-        // Unfortunately we can only remove all and re-add all
-        // it doesn't appear there's any way to just replace the script we need to update
-        contentController.removeAllUserScripts()
-        contentController.addUserScript(pcsSetup)
-        let propertiesScript = PageContentService.PropertiesScript()
-        contentController.addUserScript(propertiesScript)
-        let utilitiesScript = PageContentService.UtilitiesScript()
-        contentController.addUserScript(utilitiesScript)
-        let styleScript = PageContentService.StyleScript()
-        contentController.addUserScript(styleScript)
-    }
-    
     func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], lastModified: Date?) {
-        guard let title = articleURL.percentEncodedPageTitleForPathComponents else {
+        guard let title = articleURL.wmf_title else {
             return
         }
         var editedDaysAgo: Int?
@@ -76,20 +64,9 @@ class ArticleWebMessagingController: NSObject {
     
     // MARK: PCS
     
-    /// Update the pageSetupSettings so that they are correct on reload
-    /// Without updating these after changing settings like theme, text size, etc, the page will revert to the original settings on reload
-    func updateSetupParameters() {
-        guard let parameters = parameters, let contentController = contentController else {
-            return
-        }
-        try? updateUserScripts(on: contentController, with: parameters)
-    }
-    
     func updateTheme(_ theme: Theme) {
         let js = "pcs.c1.Page.setTheme(pcs.c1.Themes.\(theme.webName.uppercased()))"
         webView?.evaluateJavaScript(js)
-        parameters?.theme = theme.webName.lowercased()
-        updateSetupParameters()
     }
 
     func getPageContentServiceMargins(from insets: UIEdgeInsets, leadImageHeight: CGFloat = 0) -> PageContentService.Setup.Parameters.Margins {
@@ -102,16 +79,11 @@ class ArticleWebMessagingController: NSObject {
             return
         }
         webView?.evaluateJavaScript("pcs.c1.Page.setMargins(\(marginsJSON))")
-        parameters?.margins = margins
-        updateSetupParameters()
     }
     
     func updateTextSizeAdjustmentPercentage(_ percentage: Int) {
-        let percentage = "\(percentage)%"
-        let js = "pcs.c1.Page.setTextSizeAdjustmentPercentage('\(percentage)')"
+        let js = "pcs.c1.Page.setTextSizeAdjustmentPercentage('\(percentage)%')"
         webView?.evaluateJavaScript(js)
-        parameters?.textSizeAdjustmentPercentage = percentage
-        updateSetupParameters()
     }
     
     func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -162,9 +134,13 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
         case backLink(referenceId: String, referenceText: String, backLinks: [ReferenceBackLink])
+        case pronunciation(url: URL)
+        case properties
         case edit(sectionID: Int, descriptionSource: ArticleDescriptionSource?)
         case addTitleDescription
         case footerItem(type: PageContentService.Footer.Menu.Item, payload: Any?)
+        case readMoreTitlesRetrieved
+        case viewLicense
         case viewInBrowser
         case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
@@ -185,6 +161,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case edit = "edit_section"
         case addTitleDescription = "add_title_description"
         case footerItem = "footer_item"
+        case readMoreTitlesRetrieved = "read_more_titles_retrieved"
+        case viewLicense = "view_license"
         case viewInBrowser = "view_in_browser"
         case leadImage
         case tableOfContents
@@ -213,6 +191,10 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return .addTitleDescription
             case .footerItem:
                 return getFooterItemAction(with: data)
+            case .readMoreTitlesRetrieved:
+                return .readMoreTitlesRetrieved
+            case .viewLicense:
+                return .viewLicense
             case .viewInBrowser:
                 return .viewInBrowser
             case .link:
@@ -309,10 +291,16 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         }
         
         func getPronunciationAction(with data: [String: Any]?) -> Action? {
-            guard let urlString = data?["url"] as? String else {
+            guard var urlString = data?["url"] as? String else {
                 return nil
             }
-            return .link(href: urlString, text: nil, title: nil)
+            if urlString.hasPrefix("//") {
+                urlString = "https:" + urlString
+            }
+            guard let url = NSURL(string: urlString)?.wmf_URLByMakingiOSCompatibilityAdjustments else {
+                return nil
+            }
+            return .pronunciation(url: url)
         }
         
         func getFooterItemAction(with data: [String: Any]?) -> Action? {

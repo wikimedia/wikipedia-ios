@@ -9,7 +9,6 @@ public class Router: NSObject {
         case articleDiffSingle(_: URL, fromRevID: Int?, toRevID: Int?)
         case userTalk(_: URL)
         case search(_: URL, term: String?)
-        case audio(_: URL)
     }
     
     unowned let configuration: Configuration
@@ -25,10 +24,7 @@ public class Router: NSObject {
             guard configuration.isInAppLinkHost(url.host) else {
                 return .externalLink(url)
             }
-            guard url.isWikimediaHostedAudioFileLink else {
-                return .inAppLink(url)
-            }
-            return .audio(url.byMakingAudioFileCompatibilityAdjustments)
+            return .inAppLink(url)
         }
         
         return destinationForWikipediaHostURL(url)

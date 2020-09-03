@@ -16,7 +16,7 @@ fileprivate class MockSession: Session {
         fatalError("init(configuration:) has not been implemented")
     }
     
-    override public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+   override public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
         
         do {
             let result: NetworkBase = try jsonDecodeData(data: data)
@@ -62,7 +62,7 @@ class TalkPageFetcherTests: XCTestCase {
 
             switch result {
             case .success(let talkPage):
-                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk%3AUsername")
+                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
                 XCTAssertEqual(talkPage.revisionId, 5)
             case .failure:
                 XCTFail("Expected Success")
@@ -87,7 +87,7 @@ class TalkPageFetcherTests: XCTestCase {
             
             switch result {
             case .success(let talkPage):
-                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk%3AUsername")
+                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
                 XCTAssertEqual(talkPage.revisionId, 5)
             case .failure:
                 XCTFail("Expected Success")

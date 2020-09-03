@@ -153,6 +153,16 @@ class ReadingListsTests: XCTestCase {
             XCTAssert(false, "Should be able to add articles to \(readingListName) reading list: \(error)")
         }
     }
+    
+    // MARK: - Performance
+    
+    func testPerformanceCreatingReadingList() {
+        let name = "foo"
+        
+        self.measure {
+            _ = try? dataStore.readingListsController.createReadingList(named: name)
+        }
+    }
 }
 
 extension Array where Element: Hashable {

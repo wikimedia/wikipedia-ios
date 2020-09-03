@@ -2,12 +2,8 @@
 import UIKit
 import WMF
 
-struct SectionEditorChanges {
-    let newRevisionID: UInt64
-}
-
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController)
 }
 
 private enum NavigationMode : Int {
@@ -267,18 +263,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
-        let notifyDelegate: (Result<SectionEditorChanges, Error>) -> Void = { result in
+        let notifyDelegate = {
             DispatchQueue.main.async {
-                self.delegate?.editSaveViewControllerDidSave(self, result: result)
+                self.delegate?.editSaveViewControllerDidSave(self)
             }
         }
-        guard let fetchedData = result as? [String: Any], let newRevID = fetchedData["newrevid"] as? UInt64 else {
+        guard let fetchedData = result as? [String: Any], let newRevID = fetchedData["newrevid"] as? Int else {
             assertionFailure("Could not extract rev id as Int")
-            notifyDelegate(.failure(RequestError.unexpectedResponse))
+            notifyDelegate()
             return
         }
         editFunnel?.logSectionSaved(source: editFunnelSource, revision: newRevID, language: language)
-        notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
+        notifyDelegate()
     }
     
     private func handleEditFailure(with error: Error) {

@@ -321,7 +321,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             } else {
                 cell.isImageViewHidden = true
             }
-            cell.isUrgent = announcement.announcementType == .fundraising
+            cell.isUrgent = announcement.type == "fundraising"
             cell.messageHTML = announcement.text
             cell.actionButton.setTitle(announcement.actionTitle, for: .normal)
             cell.captionHTML = announcement.captionHTML

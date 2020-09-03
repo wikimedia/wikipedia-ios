@@ -55,7 +55,7 @@
         }
     }
 
-    private func event(action: Action, source: EditFunnelSource? = nil, sessionToken: String? = nil, wikidataDescriptionEdit: WikidataDescriptionEdit? = nil, editSummaryType: EditSummaryViewCannedButtonType? = nil, abuseFilterName: String? = nil, errorText: String? = nil, revision: UInt64? = nil) -> Dictionary<String, Any> {
+    private func event(action: Action, source: EditFunnelSource? = nil, sessionToken: String? = nil, wikidataDescriptionEdit: WikidataDescriptionEdit? = nil, editSummaryType: EditSummaryViewCannedButtonType? = nil, abuseFilterName: String? = nil, errorText: String? = nil, revision: Int? = nil) -> Dictionary<String, Any> {
         var event: [String : Any] = ["action": action.rawValue]
 
         if let source = source, let stringValue = source.stringValue {
@@ -169,7 +169,7 @@
         log(event(action: .saved, source: source, wikidataDescriptionEdit: WikidataDescriptionEdit(isAddingNewTitleDescription: isAddingNewTitleDescription)), language: language)
     }
 
-    public func logSectionSaved(source: EditFunnelSource, revision: UInt64?, language: String?) {
+    public func logSectionSaved(source: EditFunnelSource, revision: Int?, language: String?) {
         log(event(action: .saved, source: source, revision: revision), language: language)
     }
 

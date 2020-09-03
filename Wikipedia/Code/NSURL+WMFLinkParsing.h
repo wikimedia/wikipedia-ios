@@ -204,6 +204,16 @@ extern NSString *const WMFEditPencil;
  */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
+/**
+ *  Return YES if the URL is a link to commons
+ */
+@property (nonatomic, readonly) BOOL wmf_isCommonsLink;
+
+/**
+ *  Currently just updates ogg links to their mp3 counterparts
+ */
+@property (nonatomic, readonly) NSURL *wmf_URLByMakingiOSCompatibilityAdjustments;
+
 @end
 
 NS_ASSUME_NONNULL_END

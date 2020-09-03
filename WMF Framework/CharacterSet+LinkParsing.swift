@@ -1,6 +1,6 @@
 extension CharacterSet {
-    public static var encodeURIComponentAllowed: CharacterSet {
-        return NSCharacterSet.wmf_encodeURIComponentAllowed()
+    public static var articleTitlePathComponentAllowed: CharacterSet {
+        return NSCharacterSet.wmf_URLArticleTitlePathComponentAllowed()
     }
     
     public static var relativePathAndFragmentAllowed: CharacterSet {

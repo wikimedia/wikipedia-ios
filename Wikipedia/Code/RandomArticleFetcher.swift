@@ -4,7 +4,7 @@ import Foundation
 public final class RandomArticleFetcher: Fetcher {
     @objc public func fetchRandomArticle(withSiteURL siteURL: URL, completion: @escaping (Error?, URL?, ArticleSummary?) -> Void) {
         let pathComponents = ["page", "random", "summary"]
-        guard let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(siteURL.host, appending: pathComponents).url else {
+        guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(siteURL.host, appending: pathComponents).url else {
             completion(Fetcher.invalidParametersError, nil, nil)
             return
         }

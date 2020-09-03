@@ -569,6 +569,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         hideDidYouMeanButton()
         
         let siteURL = search.siteURL ?? self.siteURL
+        var searchTerm: String? = nil
+        let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
         currentSearchRegion = region
 
@@ -584,7 +586,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         } else if mapRegion == nil {
             mapRegion = region
         }
-                
+        
+        searchTerm = search.string
+        
         self.fakeProgressController.start()
         
         switch search.filter {

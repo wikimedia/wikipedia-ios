@@ -20,7 +20,6 @@
 // Author: Phantomize
 // Author: Ridmevo
 // Author: Shirayuki
-// Author: Siglite3
 // Author: SkyDaisy9
 // Author: Suchichi02
 // Author: Sujiniku
@@ -44,10 +43,10 @@
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-complete-list" = "完全なリスト";
 "about-libraries-license" = "ライセンス";
-"about-libraries-licenses-title" = "オープンソースソフトウェアを愛しています$1";
+"about-libraries-licenses-title" = "オープンソースソフトウェア$1を愛しています";
 "about-places-maps-license" = "付近のスポットで使用される地図のライセンス";
 "about-places-maps-license-details" = "付近のスポットの地図は Apple Maps により提供されています。$1。";
-"about-places-maps-license-details-link-text" = "ライセンスの詳細はこちらをご覧ください";
+"about-places-maps-license-details-link-text" = "ライセンスの詳細はこちらをご覧ください。";
 "about-product-of" = "あなたのようなボランティアの手助けのもと、$1 によって作られました";
 "about-repositories" = "リポジトリについて";
 "about-repositories-app-source-license" = "ソースコードは $1 で利用可能です。";
@@ -123,7 +122,7 @@
 "app-store-subtitle" = "フリー百科事典";
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整";
 "appearance-settings-expand-tables" = "表を展開する";
-"appearance-settings-expand-tables-footer" = "基本データ、参照、メモ、外部リンクを含め、すべての記事のすべての表を既定で開くように設定します。";
+"appearance-settings-expand-tables-footer" = "基本データ、参照、メモ、外部リンクを含め、すべての記事のすべての表をデフォルトで開くように設定します。";
 "appearance-settings-image-dimming-footer" = "ダークモードと黒モードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "閲覧時のテーマ";
 "appearance-settings-set-automatic-table-opening" = "表の書式設定";
@@ -131,14 +130,13 @@
 "appearance-settings-theme-options" = "テーマオプション";
 "article-about-title" = "この記事について";
 "article-delete" = "削除";
-"article-deleted-accessibility-notification" = "{{PLURAL:$1|記事}}を削除しました";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|article|記事}}を削除しました";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-languages-label" = "言語を選択";
 "article-languages-others" = "他の言語で読む";
 "article-languages-yours" = "お使いの言語";
 "article-read-more-title" = "さらに読む";
-"article-reference-view-title" = "情報源 $1";
-"article-save-error-not-enough-space" = "デバイスの空き容量が不足しているため、この記事を保存できません";
+"article-save-error-not-enough-space" = "デバイスの空き容量不足でこの記事を保存できません";
 "article-share" = "共有";
 "article-toolbar-reading-themes-controls-toolbar-item" = "テーマのコントロールを読み込む";
 "back-button-accessibility-label" = "戻る";
@@ -159,6 +157,7 @@
 "compass-direction" = "$1時の位置";
 "continue-reading-empty-description" = "Wikipediaでさらに多くの記事を読む";
 "continue-reading-empty-title" = "最近読んだ記事はありません";
+"description-add-link-title" = "記事の説明を追加";
 "description-add-title" = "説明を追加";
 "description-edit-for-article" = "$1の説明";
 "description-edit-learn-more" = "もっと詳しく";
@@ -194,23 +193,12 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
-"diff-compare-header-from-info-heading" = "差出人:";
 "diff-compare-header-heading" = "版を比較";
-"diff-compare-header-to-info-heading" = "宛先:";
 "diff-compare-title" = "版を比較";
 "diff-context-lines-collapsed-button-title" = "表示";
 "diff-context-lines-expanded-button-title" = "隠す";
-"diff-multi-line-format" = "$1 - $2行目";
-"diff-paragraph-moved" = "段落移動";
 "diff-paragraph-moved-direction-down" = "下へ";
 "diff-paragraph-moved-direction-up" = "上へ";
-"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1行}}";
-"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1節}}";
-"diff-paragraph-moved-format" = "段落が$1に$2移動";
-"diff-revision-error-title" = "版を読み込めませんでした。";
-"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1編集}}";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1バイト追加}}";
-"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1バイト除去}}";
 "diff-single-header-summary-heading" = "編集の要約";
 "diff-single-line-format" = "$1行目:";
 "diff-thanks-anonymous-no-thanks" = "匿名利用者に感謝することはできません";
@@ -452,6 +440,8 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1版ウィキペディアより";
 "in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
 "in-the-news-title" = "ニュースに関する記事";
+"info-box-close-text" = "閉じる";
+"info-box-title" = "概要";
 "insert-action-title" = "挿入";
 "insert-link-title" = "リンクを挿入";
 "insert-media-alternative-text-description" = "画像が見えない人のための説明テキスト";
@@ -468,7 +458,7 @@
 "insert-media-image-preview-more-information-action-title" = "詳細情報";
 "insert-media-image-preview-select-image-action-title" = "画像を選択";
 "insert-media-image-size-setting-custom" = "カスタム";
-"insert-media-image-size-setting-default" = "既定";
+"insert-media-image-size-setting-default" = "デフォルト";
 "insert-media-image-size-settings-px-unit-name" = "ピクセル";
 "insert-media-image-size-settings-title" = "画像サイズ";
 "insert-media-image-type-setting-basic" = "基本";
@@ -482,6 +472,8 @@
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
 "languages-wikipedia" = "ウィキペディアの言語";
+"license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
+"license-footer-text" = "特に記載がない限り、コンテンツは$1のライセンスで利用できます。";
 "logged-out-continue-without-logging-in-button-title" = "ログインしないで続ける";
 "logged-out-log-back-in-button-title" = "もう一度アカウントにログインする";
 "logged-out-subtitle" = "アカウント認証に失敗しました。あとで読むリストと編集履歴をあなたの利用者名で同期するには、もう一度ログインしてください。";
@@ -530,13 +522,14 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";
+// Fuzzy
+"page-edit-history" = "すべての編集履歴";
 "page-history-anonymous-edits" = "匿名編集";
 "page-history-bot-edits" = "ボット編集";
 "page-history-compare-accessibility-hint" = "比較する2つの版をタップして選択してください";
 "page-history-compare-title" = "比較";
 "page-history-minor-edits" = "細部の編集";
 "page-history-revision-author-accessibility-label" = "作者: $1";
-"page-history-revision-comment-accessibility-label" = "コメント $1";
 "page-history-revision-history-title" = "変更履歴";
 "page-history-revision-minor-edit-accessibility-label" = "細部の編集";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1バイト}}の追加";
@@ -545,11 +538,18 @@
 "page-history-revisions-comparison-warning" = "2つの版しか選べません";
 "page-history-stats-text" = "$2以降に{{PLURAL:$1|$1回の編集}}";
 "page-history-user-edits" = "利用者の編集";
+"page-issues" = "ページの問題点";
+// Fuzzy
+"page-last-edited" = "{{PLURAL:$1|0=今日編集|1=昨日編集|$1日前に編集}}";
+"page-location" = "地図で見る";
 "page-protected-autoconfirmed" = "このページは半保護されています。";
 "page-protected-can-not-edit" = "このページを編集する権限がありません";
 "page-protected-can-not-edit-title" = "このページは保護されています";
 "page-protected-other" = "このページは、次のレベルに保護されています:$1";
 "page-protected-sysop" = "このページは全保護されています。";
+"page-read-in-other-languages" = "他に{{PLURAL:$1|$1 言語}}で利用可能";
+"page-similar-titles" = "類似したページ";
+"page-talk-page" = "トークページを見る";
 "pictured" = "描かれた";
 "places-accessibility-clear-saved-searches" = "保存した検索結果を消去する";
 "places-accessibility-group" = "$1記事";
@@ -651,7 +651,7 @@
 "reading-lists-articles-not-synced-limit-exceeded" = "上限に達したため同期できなかった記事があります";
 "reading-lists-conflicting-reading-list-name-updated" = "リスト「$1」の名前を「$2」に変更しました";
 "reading-lists-count" = "{{PLURAL:$1|$1あとで読むリスト|$1あとで読むリスト}}";
-"reading-lists-default-list-description" = "保存した記事の、既定のリスト";
+"reading-lists-default-list-description" = "保存した記事の、デフォルトのリスト";
 "reading-lists-default-list-title" = "とりあえず";
 "reading-lists-delete-reading-list-alert-message" = "この操作は取り消せません。{{PLURAL:$1|このリスト|これらのリスト}}に保存された記事だけが削除されます。";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|リスト|リスト}}を削除？";
@@ -778,6 +778,7 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-of-contents-hide-button-label" = "目次を非表示にする";
+"table-title-other" = "さらに見る";
 "talk-page-add-discussion-accessibility-label" = "議論を追加";
 "talk-page-discussion-accessibility-hint" = "ダブルタップすると議論のスレッドが開きます";
 "talk-page-discussion-read-accessibility-label" = "既読";
@@ -825,6 +826,7 @@
 "two-factor-login-with-regular-code" = "確認コードを使用する";
 "unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "unknown-generic-text" = "不明";
+"view-in-browser-footer-link" = "ブラウザで記事を表示する";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "「探してみよう」フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";

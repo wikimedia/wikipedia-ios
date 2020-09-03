@@ -93,7 +93,6 @@
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|article|articles}} deleted";
-"article-fetcher-error-updated-content-timeout" = "The app wasn't able to retrieve the updated content in time. Please refresh this page later to see your changes reflected.";
 "article-languages-filter-placeholder" = "Find language";
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
@@ -121,7 +120,7 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"data-migration-status" = "Updating...";
+"description-add-link-title" = "Add title description";
 "description-add-title" = "Add description";
 "description-edit-for-article" = "Title description for $1";
 "description-edit-learn-more" = "Learn more";
@@ -424,6 +423,8 @@
 "in-the-news-sub-title-from-language-wikipedia" = "From $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "From Wikipedia";
 "in-the-news-title" = "In the news";
+"info-box-close-text" = "Close";
+"info-box-title" = "Quick Facts";
 "insert-action-title" = "Insert";
 "insert-link-title" = "Insert link";
 "insert-media-alternative-text-description" = "Text description for readers who cannot see the image";
@@ -460,6 +461,8 @@
 "languages-settings-title" = "Languages";
 "languages-title" = "Change language";
 "languages-wikipedia" = "Wikipedia languages";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Content is available under $1 unless otherwise noted.";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
 "logged-out-log-back-in-button-title" = "Log back in to your account";
 "logged-out-subtitle" = "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.";
@@ -508,6 +511,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
+"page-edit-history" = "View edit history";
 "page-history-anonymous-edits" = "anon edits";
 "page-history-bot-edits" = "bot edits";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
@@ -525,13 +529,18 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 edit|$1 edits}} since $2";
 "page-history-user-edits" = "user edits";
 "page-issues" = "Page issues";
+"page-issues-subtitle" = "Alerts about subpar or problematic content";
+"page-last-edited" = "{{PLURAL:$1|0=Updated today|1=Updated yesterday|Updated $1 days ago}}";
 "page-location" = "View on a map";
 "page-protected-autoconfirmed" = "This page has been semi-protected.";
 "page-protected-can-not-edit" = "You do not have the rights to edit this page";
 "page-protected-can-not-edit-title" = "This page is protected";
 "page-protected-other" = "This page has been protected to the following levels: $1";
 "page-protected-sysop" = "This page has been fully protected.";
+"page-read-in-other-languages" = "Available in {{PLURAL:$1|$1 other language|$1 other languages}}";
 "page-similar-titles" = "Similar pages";
+"page-talk-page" = "View talk page";
+"page-talk-page-subtitle" = "Discuss improvements to this article";
 "panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";
 "pictured" = "pictured";
@@ -652,7 +661,6 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntax Highlighting";
 "reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
 "reading-themes-controls-syntax-highlighting" = "Syntax Highlighting";
-"reference-section-button-accessibility-label" = "Jump to reference section";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|1=Yesterday|$1 days ago}}";
 "relative-date-hours-abbreviated" = "$1h";
@@ -763,7 +771,7 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
-"table-of-contents-subheading-label" = "Subheading $1";
+"table-title-other" = "More information";
 "talk-page-add-discussion-accessibility-label" = "Add discussion";
 "talk-page-discussion-accessibility-hint" = "Double tap to open discussion thread";
 "talk-page-discussion-read-accessibility-label" = "Read";
@@ -811,6 +819,7 @@
 "two-factor-login-with-regular-code" = "Use verification code";
 "unable-to-load-talk-page-title" = "Unable to load talk page";
 "unknown-generic-text" = "Unknown";
+"view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
 "welcome-exploration-on-this-day-description" = "Travel back in time to learn what happened today in history";

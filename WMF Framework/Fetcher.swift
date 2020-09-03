@@ -140,30 +140,24 @@ open class Fetcher: NSObject {
         return key
     }
     
-    /// Creates and kicks off a URLSessionTask, tracking it in case the session needs to cancel it later. From fetchers, prefer using this method over calling session.jsonDecodableTask directly as it ensures the task is tracked and uses the result type
-    @discardableResult public func trackedJSONDecodableTask<T: Decodable>(with urlRequest: URLRequest, completionHandler: @escaping (Result<T, Error>, HTTPURLResponse?) -> Swift.Void) -> URLSessionTask? {
+    @discardableResult public func performMobileAppsServicesGET<T: Decodable>(for URL: URL?, pathComponents: [String], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
         
+        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
+        let headers = ["Accept": "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\""]
+        let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
         let key = UUID().uuidString
-        let task = session.jsonDecodableTask(with: urlRequest) { (result: T?, response: URLResponse?, error: Error?) in
-            defer {
-                 self.untrack(taskFor: key)
-            }
-            guard let result = result else {
-                completionHandler(.failure(error ?? RequestError.unexpectedResponse), response as? HTTPURLResponse)
-                return
-            }
-            completionHandler(.success(result), response as? HTTPURLResponse)
+        let task = session.jsonDecodableTask(with: taskURL, headers: headers, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
+            completionHandler(result, response, error)
+            self.untrack(taskFor: key)
         }
-        
         track(task: task, for: key)
         return task
     }
     
-    /// Deprecated - use jsonDecodableTask for new work
-    @discardableResult public func performRESTBaseGET<T: Decodable>(for URL: URL?, pathComponents: [String], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
-        let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
+    @discardableResult public func performMobileAppsServicesGET<T: Decodable>(for urlRequest: URLRequest, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
+        
         let key = UUID().uuidString
-        let task = session.jsonDecodableTask(with: taskURL, cachePolicy: cachePolicy, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
+        let task = session.jsonDecodableTask(with: urlRequest) { (result: T?, response: URLResponse?, error: Error?) in
             completionHandler(result, response, error)
             self.untrack(taskFor: key)
         }

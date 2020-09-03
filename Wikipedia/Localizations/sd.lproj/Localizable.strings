@@ -98,12 +98,14 @@
 "appearance-settings-set-automatic-table-opening" = "جدول جون ترتيبون";
 "appearance-settings-text-sizing-example-text" = "اکرن جي ماپ بدلائڻ لاءِ ترڪائيندڙ کي ڇڪيو. پنھنجي سرشتي جي متن کي ڪتب آڻيندي ايپ جي ٻين متن ايراضين کي بدلايو.";
 "appearance-settings-theme-options" = "نظارن جا چارا";
+"article-about-title" = "هن مضمون بابت";
 "article-delete" = "ڊاھيو";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|مضمون|مضمونَ}} ڊھيل";
 "article-languages-filter-placeholder" = "ٻولي لھو";
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-others" = "ٻيون ٻوليون";
 "article-languages-yours" = "توھان جون ٻوليون";
+"article-read-more-title" = "وڌيڪ پڙهو";
 "article-save-error-not-enough-space" = "توھان کي پنھنجي آلي تي ايتري جڳھ ناھي جو ھي مضمون سانڍي سگھجي";
 "article-share" = "ونڊيو";
 "article-toolbar-reading-themes-controls-toolbar-item" = "پڙھڻ جي نظارن جا ضابطا";
@@ -125,6 +127,7 @@
 "compass-direction" = " $1 بجي";
 "continue-reading-empty-description" = "وڪيپيڊيا کي وڌيڪ مضمون پڙھڻ لاءِ کوجيو";
 "continue-reading-empty-title" = "ڪي بہ تازو پڙھيل مضمون ناھن";
+"description-add-link-title" = "عنوان جي تشريح وجھو";
 "description-add-title" = "تشريح وجھو";
 "description-edit-for-article" = "$1 لاءِ عنوان جي تشريح";
 "description-edit-learn-more" = "وڌيڪ سکو";
@@ -402,6 +405,8 @@
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وڪيپيڊيا مان";
 "in-the-news-sub-title-from-wikipedia" = "وڪيپيڊيا تان";
 "in-the-news-title" = "خبرن ۾";
+"info-box-close-text" = "بند ڪريو";
+"info-box-title" = "ترت ڄاڻ";
 "insert-action-title" = "وجھو";
 "insert-link-title" = "ڳنڍڻو وجھو";
 "insert-media-alternative-text-description" = "متن جي تشريح انھن پڙھندڙن جي لاءِ جيڪي عڪس ڏسي نٿا سگھن";
@@ -432,6 +437,8 @@
 "languages-settings-title" = "ٻوليون";
 "languages-title" = "ٻولي بدلايو";
 "languages-wikipedia" = "وڪيپيڊيا ٻوليون";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "مواد $1 ھيٺ موجود آهي نہ تہ ٻي صورت واضع ڪيل آھي.";
 "logged-out-continue-without-logging-in-button-title" = "داخل ٿيڻ سواءِ جاري رکو";
 "logged-out-log-back-in-button-title" = "پنھنجي کاتي ۾ واپس داخل ٿيو";
 "logged-out-title" = "توھان خارج ٿي چڪا آھيو";
@@ -479,6 +486,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 وڪيپيڊيا مان $1";
 "on-this-day-title" = "ھن ڏينھن تي";
 "original-tab-button-popover-description" = "جنھن ٽيب کان توھان شروع ڪيو ان ڏانھن ورڻ لاءِ 'W' تي ڇھو";
+// Fuzzy
+"page-edit-history" = "پوري سنوار جي سوانح";
 "page-history-anonymous-edits" = "گمنام سنوارون";
 "page-history-bot-edits" = "بوٽ سنوارون";
 "page-history-compare-accessibility-hint" = "ٻن ورجائن کي چونڊي ڀيٽڻ لاءِ ڇھو";
@@ -495,11 +504,18 @@
 "page-history-revisions-comparison-warning" = "صرف ٻہ ورجاءَ چونڊي سگھجن ٿا";
 "page-history-stats-text" = "$2 کان {{PLURAL:$1|$1 سنوار|$1 سنوارون}}";
 "page-history-user-edits" = "واپرائيندڙ سنوارون";
+"page-issues" = "صفحي جا مسئلا";
+// Fuzzy
+"page-last-edited" = "{{PLURAL:$1|0=اڄ سنواريل|1=ڪالھ سنواريل|$1 ڏينھن اڳ سنواريل}}";
+"page-location" = "نقشي تي ڏسو";
 "page-protected-autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";
 "page-protected-can-not-edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
 "page-protected-can-not-edit-title" = "هيءُ صفحو تحفظيل آهي";
 "page-protected-other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
 "page-protected-sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
+"page-read-in-other-languages" = "{{PLURAL:$1|$1 ٻي ٻولي|$1 ٻين ٻولين}} ۾ موجود";
+"page-similar-titles" = "ان جهڙا صفحا";
+"page-talk-page" = "بحث صفحو ڏسو";
 "panel-compare-revisions-title" = "ورجاءَ ڀيٽيندي";
 "pictured" = "تصوير لڳل";
 "places-accessibility-clear-saved-searches" = "سانڍيل ڳولائون ختم ڪريو";
@@ -678,6 +694,7 @@
 "table-of-contents-close-accessibility-hint" = "بند ڪريو";
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-heading" = "فھرست";
+"table-title-other" = "وڌيڪ معلومات";
 "talk-page-add-discussion-accessibility-label" = "تبصرو وجھو";
 "talk-page-discussion-accessibility-hint" = "تبصرو ڏور کولڻ لاءِ ٻٽو ڇھو";
 "talk-page-discussion-read-accessibility-label" = "پڙھو";
@@ -724,6 +741,7 @@
 "two-factor-login-with-regular-code" = "تصديقي ڪوڊ استعمال ڪيو";
 "unable-to-load-talk-page-title" = "بحث صفحو لاھڻ ۾ ناڪام";
 "unknown-generic-text" = "اڻڄاتل";
+"view-in-browser-footer-link" = "مضمون کي جھانگوءَ ۾ ڏسو";
 "welcome-exploration-explore-feed-description" = "اسان جي نيات طرفان سفارش ڪيل پڙھائي ۽ روزانو مضمون";
 "welcome-exploration-explore-feed-title" = "پھچ کوجيو";
 "welcome-exploration-on-this-day-description" = "اڄ تاريخ ۾ ڇا ٿيو ڄاڻڻ لاءِ وقت ۾ واپس سفر ڪريو";

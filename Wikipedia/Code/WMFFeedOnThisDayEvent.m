@@ -9,10 +9,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFFeedOnThisDayEvent
 
-+ (NSUInteger)modelVersion {
-    return 3;
-}
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
         WMF_SAFE_KEYPATH(WMFFeedOnThisDayEvent.new, year): @"year",
@@ -23,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)articlePreviewsJSONTransformer {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[WMFFeedArticlePreview class]];
+}
+
++ (NSUInteger)modelVersion {
+    return 3;
 }
 
 - (nullable NSURL *)siteURL {

@@ -18,9 +18,7 @@
 // Author: Platinawolf
 // Author: Pyscowicz
 // Author: Rockyfelle
-// Author: Sabelöga
 // Author: Skalman
-// Author: Technic2
 // Author: WikiPhoenix
 
 "about-content-license" = "Innehållslicens";
@@ -64,7 +62,7 @@
 "account-creation-log-in" = "Logga in.";
 "account-creation-logging-in" = "Loggar in...";
 "account-creation-missing-fields" = "Du måste ange ett användarnamn, lösenord och en lösenordsbekräftelse för att skapa ett konto.";
-"account-creation-passwords-mismatched" = "Lösenorden stämmer inte överens.";
+"account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
 "account-creation-title" = "Skapa ett nytt konto";
 "account-group-title" = "Ditt konto";
@@ -80,14 +78,13 @@
 "action-language-accessibility" = "Byt språk";
 "action-move-to" = "Flytta till...";
 "action-move-to-reading-list" = "Flytta till läslista";
-"action-next-revision-accessibility" = "Nästa sidversion";
+"action-next-revision-accessibility" = "Nästa version";
 "action-previous-revision-accessibility" = "Föregående sidversion";
 "action-read" = "Läs";
 "action-redo" = "Gör om";
 "action-remove" = "Ta bort";
 "action-replace" = "Ersätt";
 "action-replace-all" = "Ersätt alla";
-"action-retry" = "Försök igen";
 "action-save" = "Spara";
 "action-saved" = "Sparades";
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
@@ -115,7 +112,7 @@
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
 "appearance-settings-text-sizing-example-text" = "Dra i reglaget för att ändra textstorleken för artiklar. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
 "appearance-settings-theme-options" = "Temaalternativ";
-"article-about-title" = "Om denna artikel";
+"article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artiklar}} raderades";
 "article-languages-filter-placeholder" = "Hitta språk";
@@ -145,6 +142,7 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
+"description-add-link-title" = "Lägg till titelbeskrivning";
 "description-add-title" = "Lägg till beskrivning";
 "description-edit-for-article" = "Titelbeskrivning för $1";
 "description-edit-learn-more" = "Läs mer";
@@ -447,6 +445,8 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Från Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Från Wikipedia";
 "in-the-news-title" = "Aktuella händelser";
+"info-box-close-text" = "Stäng";
+"info-box-title" = "Snabbfakta";
 "insert-action-title" = "Infoga";
 "insert-link-title" = "Infoga länk";
 "insert-media-alternative-text-description" = "Textbeskrivning för läsare som inte kan se bilden";
@@ -483,6 +483,8 @@
 "languages-settings-title" = "Språk";
 "languages-title" = "Ändra språk";
 "languages-wikipedia" = "Wikipediaspråk";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
 "logged-out-log-back-in-button-title" = "Logga in på ditt konto igen";
 "logged-out-subtitle" = "Ett problem uppstod när ditt konto autentiserades. Du måste logga in igen för att synkronisera dina läslistor och redigera under ditt användarnamn.";
@@ -531,6 +533,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
+// Fuzzy
+"page-edit-history" = "Full redigeringshistorik";
 "page-history-anonymous-edits" = "anonyma redigeringar";
 "page-history-bot-edits" = "botredigeringar";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
@@ -548,13 +552,17 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
 "page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
+// Fuzzy
+"page-last-edited" = "Redigerades {{PLURAL:$1|0=idag|1=igår|för $1 dygn sedan}}";
 "page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page-protected-can-not-edit-title" = "Denna sida är skrivskyddad";
 "page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
+"page-read-in-other-languages" = "Tillgänglig på {{PLURAL:$1|$1 annat|$1 andra}} språk";
 "page-similar-titles" = "Liknande sidor";
+"page-talk-page" = "Visa diskussionssidan";
 "panel-compare-revisions-text" = "Jämför versioner för att se hur en artikel har ändrats med tiden. När två versioner av en artikel jämförs kommer skillnaden mellan dessa version visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "pictured" = "i bild";
@@ -785,6 +793,7 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
+"table-title-other" = "Mer information";
 "talk-page-add-discussion-accessibility-label" = "Lägg till diskussion";
 "talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";
 "talk-page-discussion-read-accessibility-label" = "Läst";
@@ -832,6 +841,7 @@
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
 "unable-to-load-talk-page-title" = "Kan inte läsa in diskussionssida";
 "unknown-generic-text" = "Okänd";
+"view-in-browser-footer-link" = "Visa artikeln i webbläsaren";
 "welcome-exploration-explore-feed-description" = "Dagens artiklar och lästips från vår gemenskap";
 "welcome-exploration-explore-feed-title" = "Utforskarflöde";
 "welcome-exploration-on-this-day-description" = "Res bakåt i tiden för att ta reda på vad som hände idag i historien";

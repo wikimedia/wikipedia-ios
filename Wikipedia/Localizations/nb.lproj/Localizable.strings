@@ -97,12 +97,14 @@
 "appearance-settings-set-automatic-table-opening" = "Tabellinnstillinger";
 "appearance-settings-text-sizing-example-text" = "Dra glidebryteren for å endre tekststørrelsen i artikler. Bruker systemets tekststørrelse for å endre størrelsen på andre tekstfelter i appen.";
 "appearance-settings-theme-options" = "Draktvalg";
+"article-about-title" = "Om artikkelen";
 "article-delete" = "Slett";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikkel|artikler}} slettet";
 "article-languages-filter-placeholder" = "Finn språk";
 "article-languages-label" = "Velg språk";
 "article-languages-others" = "Andre språk";
 "article-languages-yours" = "Dine språk";
+"article-read-more-title" = "Les mer";
 "article-save-error-not-enough-space" = "Du har ikke nok plass ledig på enheten din for å lagre denne artikkelen";
 "article-share" = "Del";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring av lesedrakter";
@@ -123,6 +125,7 @@
 "compass-direction" = "mot kl. $1";
 "continue-reading-empty-description" = "Utforsk Wikipedia for å finne flere artikler å lese";
 "continue-reading-empty-title" = "Ingen nylig leste artikler";
+"description-add-link-title" = "Legg til tittelbeskrivelse";
 "description-add-title" = "Legg til beskrivelse";
 "description-edit-for-article" = "Tittelbeskrivelse for $1";
 "description-edit-learn-more" = "Les mer";
@@ -388,9 +391,13 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Fra Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "Aktuelt";
+"info-box-close-text" = "Lukk";
+"info-box-title" = "Kjappe fakta";
 "languages-settings-title" = "Språk";
 "languages-title" = "Endre språk";
 "languages-wikipedia" = "Wikipedia-språk";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Innholdet er tilgjengelig under $1 med mindre annet er angitt.";
 "logged-out-continue-without-logging-in-button-title" = "Fortsett uten å logge inn";
 "logged-out-log-back-in-button-title" = "Logg inn på kontoen din igjen";
 "logged-out-subtitle" = "Et problem medførte at du ikke lenger er logget inn. Du må logge inn igjen for å kunne synkronisere leselister og redigere under brukernavnet ditt.";
@@ -439,11 +446,20 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
+// Fuzzy
+"page-edit-history" = "Fullstendig redigeringshistorikk";
+"page-issues" = "Merknader for siden";
+// Fuzzy
+"page-last-edited" = "{{PLURAL:$1|0=Redigert i dag|1=Redigert i går|Redigert for $1 dager siden}}";
+"page-location" = "Vis på kart";
 "page-protected-autoconfirmed" = "Denne siden er delvis beskyttet.";
 "page-protected-can-not-edit" = "Du har ikke rettigheter til å redigere denne siden";
 "page-protected-can-not-edit-title" = "Denne siden er beskyttet";
 "page-protected-other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
 "page-protected-sysop" = "Denne siden er beskyttet.";
+"page-read-in-other-languages" = "Tilgjengelig på {{PLURAL:$1|$1 annet språk|$1 andre språk}}";
+"page-similar-titles" = "Lignende sider";
+"page-talk-page" = "Vis diskusjonsside";
 "pictured" = "bildet";
 "places-accessibility-clear-saved-searches" = "Tøm lagrede søk";
 "places-accessibility-group" = "$1 artikler";
@@ -664,6 +680,7 @@
 "table-of-contents-close-accessibility-hint" = "Lukk";
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";
 "table-of-contents-heading" = "Innhold";
+"table-title-other" = "Mer informasjon";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "leːst";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʉːˈlɛst";
 "theme-black-display-name" = "Svart";
@@ -678,6 +695,7 @@
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";
+"view-in-browser-footer-link" = "Vis artikkelen i nettleseren";
 "welcome-exploration-explore-feed-description" = "Anbefalt lesning og daglige artikler utvalgt av fellesskapet";
 "welcome-exploration-explore-feed-title" = "Utforskingsside";
 "welcome-exploration-on-this-day-description" = "Reis tilbake i tid for å lære hva som skjedde på dagens dato i historien";

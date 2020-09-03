@@ -70,12 +70,14 @@
 "appearance-settings-expand-tables" = "Fairsingigh táblaí";
 "appearance-settings-reading-themes" = "Téamaí léitheoireachta";
 "appearance-settings-text-sizing-example-text" = "Tarraing an barra sleamhnáin le clómhéid téacs na n-alt a athrú. Athraigh do clómhéid córais chun an clómhéid a athrú don téacs eile san aip.";
+"article-about-title" = "Maidir leis an alt seo";
 "article-delete" = "Scrios";
 "article-deleted-accessibility-notification" = "Scriosadh $1 {{PLURAL:$1|alt amháin|alt}}";
 "article-languages-filter-placeholder" = "Aimsigh teanga";
 "article-languages-label" = "Roghnaigh teanga";
 "article-languages-others" = "Teangacha eile";
 "article-languages-yours" = "Do chuid teangacha";
+"article-read-more-title" = "Léigh a thuilleadh";
 "article-share" = "Comhroinn";
 "back-button-accessibility-label" = "Siar";
 "back-button-popover-title" = "Tapáil le gabháil siar";
@@ -90,6 +92,7 @@
 "compass-direction" = "i dtreo a $1 a chlog";
 "continue-reading-empty-description" = "Taiscéal Vicipéid le tuilleadh alt a léamh";
 "continue-reading-empty-title" = "Níor léadh aon alt le déanaí";
+"description-add-link-title" = "Cuir sainchuntas teidil leis";
 "description-add-title" = "Cuir cur síos leis";
 "description-edit-for-article" = "Sainchuntas teidil ar $1";
 "description-edit-learn-more" = "Foghlaim a thuilleadh";
@@ -254,12 +257,16 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Ó Vicipéid ($1)";
 "in-the-news-sub-title-from-wikipedia" = "Ón Vicipéid";
 "in-the-news-title" = "Sa nuacht";
+"info-box-close-text" = "Dún";
+"info-box-title" = "Fíricí Gasta";
 "insert-action-title" = "Ionsáigh";
 "insert-media-image-preview-more-information-action-title" = "Tuilleadh eolais";
 "insert-media-image-size-setting-default" = "Réamhshocrú";
 "languages-settings-title" = "Teangacha";
 "languages-title" = "Athraigh teanga";
 "languages-wikipedia" = "Teangacha Vicipéide";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Inneachar ar fáil faoi $1 mura luaitear a mhalairt.";
 "logged-out-continue-without-logging-in-button-title" = "Lean ar aghaidh gan logáil isteach";
 "logged-out-log-back-in-button-title" = "Logáil isteach i do chuntas arís";
 "logged-out-title" = "Logáladh amach tú";
@@ -299,9 +306,18 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ó Vicipéid ($2)";
 "on-this-day-title" = "Ar an lá seo";
 "original-tab-button-popover-description" = "Tapáil ar an 'W' le fill ar an táb inar thosaigh tú";
+// Fuzzy
+"page-edit-history" = "Stair iomlán eagarthóireachta";
+"page-issues" = "Ceisteanna le reitiu";
+// Fuzzy
+"page-last-edited" = "Curtha in eagar $1 lá ó shin";
+"page-location" = "Féach ar léarscáil";
 "page-protected-autoconfirmed" = "Tá an leathanach seo leath-chosanta.";
 "page-protected-can-not-edit-title" = "Tá an leathanach seo cosanta.";
 "page-protected-sysop" = "Tá an leathanach seo cosanta go hiomlán.";
+"page-read-in-other-languages" = "Ar fáil i {{PLURAL:$1|dteanga amháin eile|$1 teanga eile}}";
+"page-similar-titles" = "Leathanaigh den chineál céanna";
+"page-talk-page" = "Féach ar leathanach plé";
 "pictured" = "sa phictiúr";
 "places-accessibility-clear-saved-searches" = "Glan cuardaigh shábháilte";
 "places-accessibility-group" = "$1 alt";
@@ -440,6 +456,7 @@
 "table-of-contents-close-accessibility-hint" = "Dún";
 "table-of-contents-close-accessibility-label" = "Dún Clár ábhair";
 "table-of-contents-heading" = "Clár ábhair";
+"table-title-other" = "Tuilleadh eolais";
 "theme-black-display-name" = "Dubh";
 "theme-dark-display-name" = "Dorcha";
 "theme-default-display-name" = "Réamhshocrú";
@@ -451,6 +468,7 @@
 "two-factor-login-instructions" = "Iontráil cód fhíordheimhniú déshraithe";
 "two-factor-login-title" = "Logáil isteach i do chuntas";
 "two-factor-login-with-regular-code" = "Úsáid cód fíoraithe";
+"view-in-browser-footer-link" = "Féach ar alt i mbrabhsálaí";
 "welcome-exploration-explore-feed-description" = "Ábhar léimh molta agus ailt laethúla ónár gcomhphobal";
 "welcome-exploration-explore-feed-title" = "Fotha Taiscéal";
 "welcome-exploration-on-this-day-description" = "Taisteal siar sna blianta le foghlaim cad a tharla ar an lá seo sa stair";

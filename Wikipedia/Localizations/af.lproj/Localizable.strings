@@ -65,10 +65,12 @@
 // Fuzzy
 "announcements-dismiss" = "Nee dankie";
 "app-store-subtitle" = "Die vry ensiklopedie";
+"article-about-title" = "Oor hierdie artikel";
 "article-languages-filter-placeholder" = "Soek taal";
 "article-languages-label" = "Kies taal";
 "article-languages-others" = "Ander tale";
 "article-languages-yours" = "U tale";
+"article-read-more-title" = "Lees meer";
 "article-share" = "Deel";
 "back-button-accessibility-label" = "Terug";
 "button-next" = "Volgende";
@@ -148,9 +150,13 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Uit Wikipedia in $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "In die nuus";
+"info-box-close-text" = "Sluit";
+"info-box-title" = "Kitsfeite";
 "languages-settings-title" = "Tale";
 "languages-title" = "Verander taal";
 "languages-wikipedia" = "Wikipedia-tale";
+"license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "Inhoud is beskikbaar onder $1-lisensie tensy anders vermeld.";
 "login-forgot-password" = "U wagwoord vergeet?";
 "login-join-wikipedia" = "Sluit aan by Wikipedia";
 "login-no-account" = "Nog nie geregistreer nie? $1";
@@ -186,11 +192,18 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 uit Wikipedia in $2";
 "on-this-day-title" = "Op dié dag";
 "original-tab-button-popover-description" = "Raak op die 'W' om terug te gaan na die eerste oortjie";
+"page-issues" = "Bladprobleme";
+// Fuzzy
+"page-last-edited" = "$1 dae gelede gewysig";
+"page-location" = "Bekyk op ’n kaart";
 "page-protected-autoconfirmed" = "Hierdie blad is semi-beskerm.";
 "page-protected-can-not-edit" = "U het nie die regte om hierdie blad te wysig nie";
 "page-protected-can-not-edit-title" = "Hierdie blad is beskerm";
 "page-protected-other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
 "page-protected-sysop" = "Hierdie blad is volledig beskerm.";
+// Fuzzy
+"page-read-in-other-languages" = "Beskikbaar in nog $1 tale";
+"page-similar-titles" = "Soortgelyke bladsye";
 "places-accessibility-group" = "$1 artikels";
 "places-accessibility-show-as-list" = "Toon as lys";
 "places-accessibility-show-as-map" = "Toon as vouer";
@@ -245,6 +258,7 @@
 "table-of-contents-close-accessibility-label" = "Sluit Inhoudsopgawe";
 "table-of-contents-heading" = "Inhoud";
 "table-of-contents-hide-button-label" = "Steek die inhoudsopgawe";
+"table-title-other" = "Meer inligting";
 "theme-black-display-name" = "Swart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Verstek";

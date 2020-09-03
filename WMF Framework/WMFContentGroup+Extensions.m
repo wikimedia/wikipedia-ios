@@ -372,7 +372,7 @@
         return nil;
     }
     NSURLComponents *components = [NSURLComponents componentsWithURL:[self baseURL] resolvingAgainstBaseURL:NO];
-    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_encodeURIComponentAllowedCharacterSet]];
+    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLArticleTitlePathComponentAllowedCharacterSet]];
     NSString *path = [NSString pathWithComponents:@[@"/continue-reading", domain, language, encodedTitle]];
     components.percentEncodedPath = path;
     return components.URL;
@@ -390,7 +390,7 @@
         return nil;
     }
     NSURLComponents *components = [NSURLComponents componentsWithURL:[self baseURL] resolvingAgainstBaseURL:NO];
-    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_encodeURIComponentAllowedCharacterSet]];
+    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLArticleTitlePathComponentAllowedCharacterSet]];
     NSString *path = [NSString pathWithComponents:@[@"/related-pages", domain, language, encodedTitle]];
     components.percentEncodedPath = path;
     return components.URL;

@@ -29,8 +29,7 @@ struct ReadingListSyncState: OptionSet {
     static let needsLocalListClear    = ReadingListSyncState(rawValue: 1 << 6) // remove all lists
     
     static let needsRandomLists = ReadingListSyncState(rawValue: 1 << 7) // for debugging, populate random lists
-    static let needsRandomEntries = ReadingListSyncState(rawValue: 1 << 8) // for debugging, populate with random entries in any language
-    static let needsRandomEnEntries = ReadingListSyncState(rawValue: 1 << 9) // for debugging, populate with random english wikipedia entries
+    static let needsRandomEntries = ReadingListSyncState(rawValue: 1 << 8) // for debugging, populate with random entries
     
     static let needsEnable: ReadingListSyncState = [.needsRemoteEnable, .needsSync]
     static let needsLocalClear: ReadingListSyncState = [.needsLocalArticleClear, .needsLocalListClear]
@@ -345,7 +344,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
-    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, randomizeLanguageEntries: Bool, entryCount: Int64, deleteLists: Bool, deleteEntries: Bool, doFullSync: Bool, completion: @escaping () -> Void) {
+    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, entryCount: Int64, deleteLists: Bool, deleteEntries: Bool, doFullSync: Bool, completion: @escaping () -> Void) {
         dataStore.viewContext.wmf_setValue(NSNumber(value: listCount), forKey: "WMFCountOfListsToCreate")
         dataStore.viewContext.wmf_setValue(NSNumber(value: entryCount), forKey: "WMFCountOfEntriesToCreate")
         let oldValue = syncState
@@ -355,15 +354,11 @@ public typealias ReadingListsController = WMFReadingListsController
         } else {
             newValue.remove(.needsRandomLists)
         }
-        if randomizeLanguageEntries {
+        if addEntries {
             newValue.insert(.needsRandomEntries)
-        } else if addEntries {
-            newValue.insert(.needsRandomEnEntries)
         } else {
             newValue.remove(.needsRandomEntries)
-            newValue.remove(.needsRandomEnEntries)
         }
-        
         if deleteLists {
             newValue.insert(.needsLocalListClear)
         } else {

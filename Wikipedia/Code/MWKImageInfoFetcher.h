@@ -1,6 +1,6 @@
 @import Foundation;
-#import <WMF/WMFLegacyFetcher.h>
-#import <WMF/WMFBlockDefinitions.h>
+#import "WMFLegacyFetcher.h"
+#import "WMFBlockDefinitions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

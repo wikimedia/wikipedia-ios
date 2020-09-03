@@ -1,7 +1,6 @@
 import Foundation
 
 extension WMFContentGroup {
-	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
         switch detailType {
         case .page:

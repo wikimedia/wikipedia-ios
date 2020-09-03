@@ -32,7 +32,7 @@ extension MWKDataStore {
         }
 
         mobileviewConverter.convertMobileviewSavedDataToMobileHTML(articleURL: articleURL, article: legacyArticle) { (result, error) in
-            let removeArticleMobileviewSavedDataFolder = {
+            let blastMobileviewSavedDataFolder = {
                 // Remove old mobileview saved data folder for this article
                 do {
                     try FileManager.default.removeItem(atPath: self.path(forArticleURL: articleURL))
@@ -45,7 +45,7 @@ extension MWKDataStore {
                 // No need to keep mobileview section html if conversion failed, so ok to remove section data
                 // because we're setting `isDownloaded` next so saved article fetching will re-download from
                 // new mobilehtml endpoint.
-                removeArticleMobileviewSavedDataFolder()
+                blastMobileviewSavedDataFolder()
 
                 // If conversion failed above for any reason set "article.isDownloaded" to false so normal fetching logic picks it up
                 DispatchQueue.main.async {
@@ -70,9 +70,9 @@ extension MWKDataStore {
                 return
             }
 
-            articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML){ error in
+            articleCacheController.cacheFromMigration(desktopArticleURL: articleURL, content: mobileHTML, mimeType: "text/html"){ error in
                 // Conversion succeeded so can safely blast old mobileview folder.
-                removeArticleMobileviewSavedDataFolder()
+                blastMobileviewSavedDataFolder()
                 DispatchQueue.main.async {
                     do {
                         article.isConversionFromMobileViewNeeded = false

@@ -37,12 +37,12 @@ struct OnThisDayView: View {
             switch family {
             case .systemLarge:
                 VStack(spacing: 0) {
-                    OnThisDayHeaderElement(monthDay: entry.monthDay, minYear: entry.earliestYear, maxYear: entry.latestYear)
+                    OnThisDayHeaderElement(date: entry.date, minYear: entry.earliestYear, maxYear: entry.latestYear)
                     Spacer(minLength: 10)
                     VStack(alignment: .leading, spacing: 0) {
-                        MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
-                        if let title = entry.articleTitle, let snippet = entry.articleSnippet {
-                            ArticleRectangleElement(title: title, description: snippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
+                        MainOnThisDayElement(eventYear: entry.year, snippet: entry.snippet, widgetSize: family)
+                        if let article = entry.page {
+                            ArticleRectangleElement(article: article, image: entry.pageImage, link: entry.page?.articleURL ?? entry.contentURL)
                         }
                         TimelineElementSpacer().layoutPriority(1)
                         OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
@@ -51,7 +51,7 @@ struct OnThisDayView: View {
                 .padding(16)
             case .systemMedium:
                 VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
+                    MainOnThisDayElement(eventYear: entry.year, snippet: entry.snippet, widgetSize: family)
                     TimelineElementSpacer().layoutPriority(1)
                     OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
@@ -59,13 +59,13 @@ struct OnThisDayView: View {
             case .systemSmall:
                 /// While the medium and large sizes give a higher `layoutPriority` to `TimelineElementSpacer`, there is intentionally none here. When giving it a priority, it negatively affected the timeline element for `MainOnThisDayElement`, causing it's large dot to appear higher than it should.
                 VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
+                    MainOnThisDayElement(eventYear: entry.year, snippet: entry.snippet, widgetSize: family)
                     TimelineElementSpacer()
                 }
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 16, trailing: 16))
             @unknown default:
                 VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
+                    MainOnThisDayElement(eventYear: entry.year, snippet: entry.snippet, widgetSize: family)
                     TimelineElementSpacer()
                 }
             }
@@ -188,7 +188,7 @@ struct TimelineLargeCircleElement: View {
 struct OnThisDayHeaderElement: View {
     @Environment(\.colorScheme) var colorScheme
 
-    let monthDay: String
+    let date: Date
     let minYear: String
     let maxYear: String
 
@@ -199,8 +199,8 @@ struct OnThisDayHeaderElement: View {
             .bold()
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, alignment: .leading)
-        
-        Text(monthDay)
+        // TODO: Update next line to the language being used instead of nil
+        Text(DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: nil).string(from: date))
             .font(.title2)
             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
             .multilineTextAlignment(.leading)
@@ -274,8 +274,7 @@ struct MainOnThisDayElement: View {
 struct ArticleRectangleElement: View {
     @Environment(\.colorScheme) var colorScheme
 
-    let title: String
-    let description: String
+    var article: WMFFeedArticlePreview
     let image: UIImage?
     let link: URL
 
@@ -284,11 +283,11 @@ struct ArticleRectangleElement: View {
             Link(destination: link) {
                 HStack(spacing: 9) {
                     VStack {
-                        Text(title)
+                        Text(article.displayTitle)
                             .font(.caption)
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        if let description = description {
+                        if let description = article.descriptionOrSnippet {
                             Text(description)
                                 .font(.caption)
                                 .lineLimit(1)

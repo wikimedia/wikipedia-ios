@@ -1,9 +1,13 @@
 import UIKit
 
 public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
+    var descriptionFont:UIFont? = nil
+    var descriptionLinkFont:UIFont? = nil
 
     override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
+        descriptionFont = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        descriptionLinkFont = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         updateDescriptionHTMLStyle()
     }
     
@@ -13,11 +17,15 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
     }
     
     func updateDescriptionHTMLStyle() {
-        guard let descriptionHTML = descriptionHTML else {
+        guard
+            let descriptionHTML = descriptionHTML,
+            let descriptionFont = descriptionFont,
+            let descriptionLinkFont = descriptionLinkFont
+        else {
             descriptionLabel.text = nil
             return
         }
-        let attributedString = descriptionHTML.byAttributingHTML(with: .subheadline, boldWeight: .semibold, matching: traitCollection, color: descriptionLabel.textColor, tagMapping: ["a":"b"])
+        let attributedString = descriptionHTML.wmf_attributedStringFromHTML(with: descriptionFont, boldFont: descriptionLinkFont, italicFont: descriptionFont, boldItalicFont: descriptionLinkFont, color: descriptionLabel.textColor, linkColor: nil, handlingLists: false, handlingSuperSubscripts: false, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a":"b"], additionalTagAttributes: nil)
         descriptionLabel.attributedText = attributedString
     }
     

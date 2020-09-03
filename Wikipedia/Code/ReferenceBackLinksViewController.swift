@@ -1,3 +1,7 @@
+protocol ReferenceBackLinksViewControllerDelegate: ReferenceViewControllerDelegate {
+    func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController)
+}
+
 class ReferenceBackLinksViewController: ReferenceViewController {    
     var index = 0
     let backLinks: [ReferenceBackLink]
@@ -31,24 +35,19 @@ class ReferenceBackLinksViewController: ReferenceViewController {
 
     func setupToolbar() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        if #available(iOS 14.0, *) {
-            toolbar.items = [countItem, flexibleSpace, previousButton, nextButton]
-        } else if #available(iOS 13.5, *) {
-            /// `fakeButton`'s existance allows `nextButton` to work. Analysis - with a diagnosis of "likely iOS 13.5 bug" - here: https://phabricator.wikimedia.org/T255283
-            /// As of early betas of iOS 14, this bug has been fixed, and thus higher versions of iOS can use the typical code path.
-            let fakeButton = UIBarButtonItem(image: UIImage(named: "transparent-pixel"), landscapeImagePhone: nil, style: .plain, target: nil, action: nil)
-            fakeButton.isAccessibilityElement = false
-            toolbar.items = [countItem, flexibleSpace, previousButton, nextButton, fakeButton]
-        } else {
-            toolbar.items = [countItem, flexibleSpace, previousButton, nextButton]
-        }
-
+        toolbar.items = [countItem, flexibleSpace, previousButton, nextButton]
         if backLinks.count <= 1 {
             previousButton.isEnabled = false
             nextButton.isEnabled = false
         }
         enableToolbar()
         setToolbarHidden(false, animated: false)
+    }
+    
+
+    func setupTapGestureRecognizer() {
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(closeButtonPressed))
+        view.addGestureRecognizer(tapGR)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -58,29 +57,18 @@ class ReferenceBackLinksViewController: ReferenceViewController {
     
     // MARK: View Lifecycle
     
-    override func loadView() {
-        super.loadView()
-        self.view = PassthroughView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupToolbar()
+        setupTapGestureRecognizer()
         notifyDelegateOfNavigationToReference()
-
-        countLabel.isAccessibilityElement = true
-        nextButton.isAccessibilityElement = true
-        previousButton.isAccessibilityElement = true
-        accessibilityElements = [backToReferenceButton as Any, navigationItem.title as Any, closeButton as Any, countLabel as Any, previousButton as Any, nextButton as Any]
     }
     
     // MARK: Actions
 
     func notifyDelegateOfNavigationToReference() {
 
-        let refNumber = index + 1
-        let totalRef = backLinks.count
-        countLabel.text = "\(refNumber)/\(totalRef)"
+        countLabel.text = "\(index + 1)/\(backLinks.count)"
         let backLink = backLinks[index]
         (delegate as? ReferenceBackLinksViewControllerDelegate)?.referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: backLink, referenceBackLinksViewController: self)
     }

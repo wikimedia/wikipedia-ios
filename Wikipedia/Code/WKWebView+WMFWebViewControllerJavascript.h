@@ -6,6 +6,8 @@
 
 - (void)wmf_setTextSize:(NSInteger)textSize;
 
+- (void)wmf_scrollToFragment:(NSString *)fragment;
+
 - (void)wmf_accessibilityCursorToFragment:(NSString *)fragment;
 
 - (void)wmf_highlightLinkID:(NSString *)linkID;

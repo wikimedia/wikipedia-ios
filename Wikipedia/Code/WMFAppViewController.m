@@ -23,7 +23,6 @@
 
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
-#import <os/log.h>
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -55,12 +54,13 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
 static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
 @property (nonatomic, strong) WMFReachabilityNotifier *reachabilityNotifier;
 
+@property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
@@ -128,6 +128,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize placesViewController = _placesViewController;
+@synthesize splashView = _splashView;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -200,9 +201,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:[WMFUserDefaultsKey defaultTabType]
-                                               options:NSKeyValueObservingOptionNew
-                                               context:&kvo_NSUserDefaults_defaultTabType];
+                           forKeyPath:[WMFUserDefaultsKey defaultTabType]
+                              options:NSKeyValueObservingOptionNew
+                              context:&kvo_NSUserDefaults_defaultTabType];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exploreFeedPreferencesDidChange:)
@@ -231,7 +232,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageReplyWasPublished:) name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageTopicWasPublished:) name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referenceLinkTapped:) name:WMFReferenceLinkTappedNotification object:nil];
 
     [self setupReadingListsHelpers];
@@ -732,7 +733,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
-    WMFRootNavigationController *articleNavigationController = [[WMFRootNavigationController alloc] initWithRootViewController:self];
+    WMFThemeableNavigationController *articleNavigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self];
     articleNavigationController.themeableNavigationControllerDelegate = self;
     articleNavigationController.delegate = self;
     articleNavigationController.interactivePopGestureRecognizer.delegate = self;
@@ -740,7 +741,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [articleNavigationController setNavigationBarHidden:YES animated:NO];
     [window setRootViewController:articleNavigationController];
     [window makeKeyAndVisible];
-    [articleNavigationController applyTheme:self.theme];
     [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:articleNavigationController];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -766,36 +766,31 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         migrationsAllowed = NO;
     }];
 
-    //    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
-    //    dispatch_block_t bail = ^{
-    //        [self endMigrationBackgroundTask];
-    //        self.migrationActive = NO;
-    //    };
-    //    BOOL (^cancellationChecker)() = ^BOOL() {
-    //        return migrationsAllowed;
-    //    };
+//    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
+//    dispatch_block_t bail = ^{
+//        [self endMigrationBackgroundTask];
+//        self.migrationActive = NO;
+//    };
+//    BOOL (^cancellationChecker)() = ^BOOL() {
+//        return migrationsAllowed;
+//    };
 
     self.migrationActive = YES;
 
-    [self.dataStore
-        performLibraryUpdates:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.migrationComplete = YES;
-                self.migrationActive = NO;
-                [self endMigrationBackgroundTask];
-                [self checkRemoteAppConfigIfNecessary];
-                [self setupControllers];
-                if (!self.isWaitingToResumeApp) {
-                    [self resumeApp:NULL];
-                }
-            });
-        }
-        needsMigrateBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
-            });
-        }];
+    [self.dataStore performLibraryUpdates:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.migrationComplete = YES;
+            self.migrationActive = NO;
+            [self endMigrationBackgroundTask];
+            [self checkRemoteAppConfigIfNecessary];
+            [self setupControllers];
+            if (!self.isWaitingToResumeApp) {
+                [self resumeApp:NULL];
+            }
+        });
+    }];
 }
+
 
 #pragma mark - Start/Pause/Resume App
 
@@ -851,7 +846,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self showExplore];
             done();
         } else {
-            [self hideSplashViewAnimated:true];
+            [self hideSplashViewAnimated:!didShowOnboarding];
             done();
         }
     }];
@@ -905,8 +900,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         if (!NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
-
-        [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class] force:YES completion:NULL];
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
@@ -995,7 +988,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
-
+    
     [self endHousekeepingBackgroundTask];
 }
 
@@ -1146,17 +1139,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
-                switch (group.detailType) {
-                    case WMFFeedDisplayTypePhoto: {
-                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme];
-                        [self.navigationController presentViewController:vc animated:false completion:nil];
-                    }
-                    default: {
-                        UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
-                        if (vc) {
-                            [navController pushViewController:vc animated:animated];
-                        }
-                    }
+                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
+                if (vc) {
+                    [navController pushViewController:vc animated:animated];
                 }
             } else {
                 [self.exploreViewController updateFeedSourcesWithDate:nil
@@ -1226,9 +1211,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated {
     return [self showArticleWithURL:articleURL
-                           animated:animated
-                         completion:^{
-                         }];
+                          animated:animated
+                        completion:^{
+                        }];
 }
 
 - (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
@@ -1257,20 +1242,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:[SchemeHandler sharedInstance]];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme fromNavStateRestoration: NO];
     articleVC.loadCompletion = completion;
-
-    if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
-        os_log_t customLog = os_log_create("org.wikimedia.ios", "articleLoadTime");
-        NSDate *start = [NSDate date];
-
-        articleVC.initialSetupCompletion = ^{
-            NSDate *end = [NSDate date];
-            NSTimeInterval articleLoadTime = [end timeIntervalSinceDate:start];
-            os_log_with_type(customLog, OS_LOG_TYPE_INFO, "article load time = %f", articleLoadTime);
-        };
-    }
-
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
 }
@@ -1388,7 +1361,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         _savedViewController = [[UIStoryboard storyboardWithName:@"Saved" bundle:nil] instantiateInitialViewController];
         [_savedViewController applyTheme:self.theme];
         _savedViewController.dataStore = self.dataStore;
-        _savedViewController.tabBarDelegate = self;
         _savedViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-save"];
         _savedViewController.title = [WMFCommonStrings savedTabTitle];
     }
@@ -1458,11 +1430,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
-    [(WMFRootNavigationController *)self.navigationController showSplashView];
+    [(WMFThemeableNavigationController *)self.navigationController showSplashView];
+}
+
+- (void)showSplashViewIfNotShowing {
+    [(WMFThemeableNavigationController *)self.navigationController showSplashViewIfNotShowing];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
-    [(WMFRootNavigationController *)self.navigationController hideSplashViewAnimated:animated];
+    [(WMFThemeableNavigationController *)self.navigationController hideSplashViewAnimated:animated];
 }
 
 #pragma mark - Explore VC
@@ -1733,7 +1709,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];

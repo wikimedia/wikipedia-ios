@@ -175,8 +175,7 @@ private extension SavedArticlesFetcher {
         }
         
         if let articleURL = article?.url,
-            let articleKey = article?.key,
-            let articleObjectID = article?.objectID {
+            let articleKey = articleURL.wmf_databaseKey {
             
             articleCacheController.add(url: articleURL, groupKey: articleKey, individualCompletion: { (itemResult) in
                 switch itemResult {
@@ -190,13 +189,13 @@ private extension SavedArticlesFetcher {
                     switch groupResult {
                     case .success(let itemKeys):
                         DDLogDebug("🥶group completion: \(articleKey), itemKeyCount: \(itemKeys.count)")
-                        self.didFetchArticle(with: articleObjectID)
+                        self.didFetchArticle(with: articleKey)
                         self.spotlightManager.addToIndex(url: articleURL as NSURL)
                         self.updateCountOfFetchesInProcess()
                     case .failure(let error):
                         DDLogDebug("🥶failure in groupCompletion of \(articleKey): \(error)")
                         self.updateCountOfFetchesInProcess()
-                        self.didFailToFetchArticle(with: articleObjectID, error: error)
+                        self.didFailToFetchArticle(with: articleKey, error: error)
                     }
                     updateAgain()
                 }
@@ -222,12 +221,10 @@ private extension SavedArticlesFetcher {
             
             if let articleToDelete = articleToDelete {
                 
-                guard let articleKey = articleToDelete.key else {
+                guard let articleKey = articleToDelete.url?.wmf_databaseKey else {
                     noArticleToDeleteCompletion()
                     return
                 }
-                
-                let articleObjectID = articleToDelete.objectID
                 
                 articleCacheController.remove(groupKey: articleKey, individualCompletion: { (itemResult) in
                     switch itemResult {
@@ -248,7 +245,7 @@ private extension SavedArticlesFetcher {
                         // Ignoring failures to ensure the DB doesn't get stuck trying
                         // to remove a cache group that doesn't exist.
                         // TODO: Clean up these DB inconsistencies in the DatabaseHousekeeper
-                        self.didRemoveArticle(with: articleObjectID)
+                        self.didRemoveArticle(with: articleKey)
                         self.updateCountOfFetchesInProcess()
                         updateAgain()
                     }
@@ -259,14 +256,14 @@ private extension SavedArticlesFetcher {
         }
     }
     
-    func didFetchArticle(with managedObjectID: NSManagedObjectID) {
-        operateOnArticle(with: managedObjectID) { (article) in
+    func didFetchArticle(with key: String) {
+        operateOnArticles(with: key) { (article) in
             article.isDownloaded = true
         }
     }
     
-    func didFailToFetchArticle(with managedObjectID: NSManagedObjectID, error: Error) {
-        operateOnArticle(with: managedObjectID) { (article) in
+    func didFailToFetchArticle(with key: String, error: Error) {
+        operateOnArticles(with: key) { (article) in
             handleFailure(with: article, error: error)
         }
     }
@@ -343,17 +340,22 @@ private extension SavedArticlesFetcher {
         article.downloadRetryDate = Date(timeIntervalSinceNow: TimeInterval(integerLiteral: secondsFromNowToAttempt))
     }
 
-    func didRemoveArticle(with managedObjectID: NSManagedObjectID) {
-        operateOnArticle(with: managedObjectID) { (article) in
+    func didRemoveArticle(with key: String) {
+        operateOnArticles(with: key) { (article) in
             article.isDownloaded = false
         }
     }
     
-    func operateOnArticle(with managedObjectID: NSManagedObjectID, articleBlock: (WMFArticle) -> Void) {
-        guard let article = dataStore.viewContext.object(with: managedObjectID) as? WMFArticle else {
-            return
+    func operateOnArticles(with key: String, articleBlock: (WMFArticle) -> Void) {
+        do {
+            let articles = try dataStore.viewContext.fetchArticles(withKey: key)
+            for article in articles {
+                articleBlock(article)
+            }
+        } catch (let error) {
+            DDLogError("Error fetching WMFArticles after caching: \(error)");
         }
-        articleBlock(article)
+        
         do {
             try dataStore.save()
         } catch (let error) {
@@ -422,7 +424,6 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
 
         guard let nonNilArticle = article else {
-            stop()
             // No more articles to convert, ensure the legacy folder is deleted
             DispatchQueue.global(qos: .background).async {
                 self.dataStore.removeAllLegacyArticleData()

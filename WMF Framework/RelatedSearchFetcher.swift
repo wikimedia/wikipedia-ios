@@ -16,7 +16,7 @@ final class RelatedSearchFetcher: Fetcher {
         }
 
         let pathComponents = ["page", "related", articleTitle]
-        guard let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url else {
+        guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url else {
             completion(Fetcher.invalidParametersError, nil)
             return
         }

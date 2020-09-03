@@ -1,4 +1,4 @@
-#import <WMF/WMFContentGroup+CoreDataClass.h>
+#import "WMFContentGroup+CoreDataClass.h"
 @import CoreLocation;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isVisible;
 @property (nonatomic) BOOL wasDismissed;
 
+@property (nullable, nonatomic, copy) NSArray<id<NSCoding>> *content DEPRECATED_ATTRIBUTE; // use contentPreview for feed card content and fullContent for detail view content
 @property (nullable, nonatomic, copy) id<NSCoding> contentPreview;
 
 @property (nonatomic) int32_t dailySortPriority;

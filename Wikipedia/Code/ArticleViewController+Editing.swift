@@ -1,8 +1,6 @@
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-        // Only show the option sheet if the description is from Wikidata (descriptionSource == .central)
-        // Otherwise it needs to be changed in the section editor by editing the {{Short description}} template
-        if let descriptionSource = descriptionSource, descriptionSource == .central {
+        if let descriptionSource = descriptionSource {
             showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
@@ -42,12 +40,8 @@ extension ArticleViewController {
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
-        guard let wikidataID = article.wikidataID else {
-            showGenericError()
-            return
-        }
         editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
-        let editVC = DescriptionEditViewController.with(articleURL: articleURL, wikidataID: wikidataID, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
+        let editVC = DescriptionEditViewController.with(articleURL: articleURL, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
         editVC.delegate = self
         editVC.editFunnel = editFunnel
         editVC.editFunnelSource = funnelSource
@@ -81,7 +75,7 @@ extension ArticleViewController {
     }
     
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit title description", comment: "Title for button used to show title description editor")
         let editTitleDescriptionAction = UIAlertAction(title: editTitleDescriptionTitle, style: .default) { (action) in
@@ -95,6 +89,7 @@ extension ArticleViewController {
         }
         sheet.addAction(editLeadSectionAction)
         
+        
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
 
         present(sheet, animated: true)
@@ -103,17 +98,7 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: SectionEditorViewControllerDelegate {
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>) {
-        switch result {
-        case .failure(let error):
-            showError(error)
-        case .success(let changes):
-            dismiss(animated: true)
-            waitForNewContentAndRefresh(changes.newRevisionID)
-        }
-    }
-    
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController) {
+    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool) {
         dismiss(animated: true)
     }
 
@@ -124,7 +109,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController) {
-        waitForNewContentAndRefresh()
+        
     }
 }
 

@@ -1,4 +1,4 @@
-#import <WMF/WMFContentGroup+CoreDataClass.h>
+#import "WMFContentGroup+CoreDataClass.h"
 
 @import CoreLocation;
 

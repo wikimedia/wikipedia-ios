@@ -5,7 +5,7 @@ This document describes the dependencies for working on continuous-integration-r
 
 [fastlane](https://fastlane.tools) automates common development tasks - for example bumping version numbers, running tests on multiple configurations, or submitting to the App Store. You can list the available lanes (our project-specific scripts) using `bundle exec fastlane lanes`. You can list available actions (all actions available to be scripted via lanes) using `bundle exec fastlane actions`. The fastlane configuration and scripts are in the `fastlane` folder.
 
-Fastlane isn't necessary for normal development, but will be necessary if you need to automate tasks locally or you'll be updating the lanes run on our CI server.
+Fastlane isn't necessary for normal development, but will be necessary if you need to automate tasks locally or you'll be updating the lanes run on our CI sever.
 
 Similar to the [project's node setup for web dev](web_dev.md), we recommend using a Ruby version manager to install node and manage multiple versions of Ruby on the same machine.
 
@@ -67,4 +67,4 @@ You can set the Xcode version used by fastlane by editing the `.xcversion` file 
 Tests are run on [Jenkins](https://jenkins.io) on the `appsci` server in response to pull requests. You can run the same tests that are run on a pr locally by running `bundle exec fastlane verify_pull_request`.
 
 ## Release builds
-Are also handled by the `appsci` server. There is a Jenkins job for release that runs `bundle exec fastlane deploy`. This builds the app for release to the app store and uploads it to TestFlight. It also builds and deploys the corresponding Staging release. From there it is immediately released to internal beta and can be released to public beta and the app store after testing.
+Are also handled by the `appsci` server. There is a Jenkins job for release that runs `bundle exec fastlane push_beta`. This builds the app for release to the app store and uploads it to TestFlight. From there it is immediately released to internal beta and can be released to public beta and the app store after testing.

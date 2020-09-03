@@ -82,12 +82,13 @@
 "appearance-settings-image-dimming-footer" = "Digreskiñ divoullder skeudennoù an tem teñval";
 "appearance-settings-reading-themes" = "Temoù lenn";
 "appearance-settings-theme-options" = "Dibaboù an temoù";
+"article-about-title" = "Diwar-benn ar pennad-mañ";
 "article-delete" = "Diverkañ";
 "article-languages-filter-placeholder" = "Kavout ar yezh";
 "article-languages-label" = "Dibab ar yezh";
 "article-languages-others" = "Yezhoù all";
 "article-languages-yours" = "Ho yezhoù";
-"article-read-more-title" = "Lenn pelloc'h";
+"article-read-more-title" = "Lenn muioc'h";
 "article-share" = "Rannañ";
 "back-button-accessibility-label" = "Distreiñ";
 "button-next" = "War-lerc'h";
@@ -105,6 +106,7 @@
 "compass-direction" = "da $1 eur";
 "continue-reading-empty-description" = "Explorer Wikipedia evit kaout muioc'h a bennadoù da lenn";
 "continue-reading-empty-title" = "Pennad ebet lennet nevez zo";
+"description-add-link-title" = "Ouzhpennañ deskvrivadur an titl";
 "description-add-title" = "Ouzhpennañ un deskrivadur";
 "description-edit-for-article" = "Deskrivadur an titl evit $1";
 "description-edit-learn-more" = "Gouzout hiroc'h";
@@ -233,9 +235,13 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Eus $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Eus Wikipedia";
 "in-the-news-title" = "Er C'heleier";
+"info-box-close-text" = "Serriñ";
+"info-box-title" = "Fedoù berr-ha-berr";
 "languages-settings-title" = "Yezhoù";
 "languages-title" = "Cheñch yezh";
 "languages-wikipedia" = "Yezhoù Wikipedia";
+"license-footer-name" = "CC-BY-SA 3.0";
+"license-footer-text" = "An endalc'had a c'haller kavout dindan $1, nemet e vefe spisaet ar c'hontrol.";
 "logged-out-continue-without-logging-in-button-title" = "Kenderc'hel hep kevreañ";
 "logged-out-log-back-in-button-title" = "Adkevreit ouzh ho kont";
 "logged-out-title" = "Digevreet oc'h bet";
@@ -276,12 +282,21 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "Eus $1 - $2";
 "on-this-day-title" = "D'an deiz-mañ...";
+// Fuzzy
+"page-edit-history" = "Istor klok ar c'hemmoù";
+"page-issues" = "Kudennoù war ar bajenn";
+// Fuzzy
+"page-last-edited" = "Kemmet $1 deiz zo";
+"page-location" = "Diskwel war ur gartenn";
 "page-protected-autoconfirmed" = "Damwarezet eo bet ar bajenn-mañ.";
 "page-protected-can-not-edit" = "N'ho peus ket gwir da aozañ ar bajenn-mañ";
 "page-protected-can-not-edit-title" = "Gwarezet eo ar bajenn-mañ";
 "page-protected-other" = "Gwarezet eo bet ar bajenn-mañ gant al liveoù-mañ : $1";
 "page-protected-sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
-"page-similar-titles" = "Pajennoù kar";
+// Fuzzy
+"page-read-in-other-languages" = "A c'haller kaout e $1 yezh all";
+"page-similar-titles" = "Pajennoù damheñvel";
+"page-talk-page" = "Gwelet ar bajenn gaozeal";
 "places-accessibility-clear-saved-searches" = "Riñsañ an enklaskoù enrollet";
 "places-accessibility-group" = "$1 pennadoù";
 "places-accessibility-recenter-map-on-user-location" = "Adkreizañ en ho lec'hiadur";
@@ -380,6 +395,7 @@
 "table-of-contents-close-accessibility-hint" = "Serriñ";
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";
 "table-of-contents-heading" = "Endalc'had";
+"table-title-other" = "Muioc'h a ditouroù";
 "theme-black-display-name" = "Du";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

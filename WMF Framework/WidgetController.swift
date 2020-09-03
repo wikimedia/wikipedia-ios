@@ -1,7 +1,8 @@
 import Foundation
 import WidgetKit
 
-public final class WidgetController {
+@objc(WMFWidgetController)
+public final class WidgetController: NSObject {
 
     // MARK: Nested Types
 
@@ -16,11 +17,11 @@ public enum SupportedWidget: String {
 
     // MARK: Properties
 
-	public static let shared = WidgetController()
+	@objc public static let shared = WidgetController()
 
     // MARK: Public
 
-	public func reloadAllWidgets() {
+	@objc public func reloadAllWidgets() {
 		if #available(iOS 14.0, *) {
 			WidgetCenter.shared.reloadAllTimelines()
 		}

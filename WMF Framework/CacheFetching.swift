@@ -19,7 +19,7 @@ public protocol CacheFetching {
     typealias DataCompletion = (Result<CacheFetchingResult, Error>) -> Void
     
     //internally populates urlRequest with cache header fields
-    func dataForURL(_ url: URL, persistType: Header.PersistItemType, headers: [String: String], completion: @escaping DataCompletion) -> URLSessionTask?
+    func dataForURL(_ url: URL, persistType: Header.PersistItemType, completion: @escaping DataCompletion) -> URLSessionTask?
     
     //assumes urlRequest is already populated with cache header fields
     func dataForURLRequest(_ urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask?
@@ -28,7 +28,7 @@ public protocol CacheFetching {
     func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse?
     func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? //assumes urlRequest is already populated with the proper cache headers
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String?
-    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void)
+    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void)
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String?
     func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String?
     func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String?
@@ -72,9 +72,9 @@ extension CacheFetching where Self:Fetcher {
         return task
     }
     
-    @discardableResult public func dataForURL(_ url: URL, persistType: Header.PersistItemType, headers: [String: String] = [:], completion: @escaping DataCompletion) -> URLSessionTask? {
+    @discardableResult public func dataForURL(_ url: URL, persistType: Header.PersistItemType, completion: @escaping DataCompletion) -> URLSessionTask? {
         
-        guard let urlRequest = session.urlRequestFromPersistence(with: url, persistType: persistType, headers: headers) else {
+        guard let urlRequest = session.urlRequestFromPersistence(with: url, persistType: persistType) else {
             completion(.failure(CacheFetchingError.unableToDetermineURLRequest))
             return nil
         }
@@ -103,9 +103,9 @@ extension CacheFetching where Self:Fetcher {
         return session.uniqueKeyForURL(url, type: type)
     }
     
-    public func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    public func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, mimeType: String?, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
-        session.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
+        session.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, mimeType: mimeType, urlRequest: urlRequest, success: success, failure: failure)
     }
     
     public func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {

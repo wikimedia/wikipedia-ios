@@ -13,8 +13,6 @@ class SavedViewController: ViewController {
 
     private var savedArticlesViewController: SavedArticlesCollectionViewController?
     
-    @objc weak var tabBarDelegate: AppTabBarDelegate?
-    
     private lazy var readingListsViewController: ReadingListsViewController? = {
         guard let dataStore = dataStore else {
             assertionFailure("dataStore is nil")
@@ -312,14 +310,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         actionButton.isEnabled = !isEditing
-        if (newEditingState == .open),
-            let batchEditToolbar = savedArticlesViewController?.editController.batchEditToolbarView,
-            let contentView = containerView,
-            let appTabBar = tabBarDelegate?.tabBar {
-                accessibilityElements = [navigationBar, batchEditToolbar, contentView, appTabBar]
-        } else {
-            accessibilityElements = []
-        }
         guard isEditing else {
             return
         }

@@ -31,13 +31,13 @@ extension ExploreFeedSettingsItem {
     }
 }
 
-enum ExploreFeedSettingsMainType: Equatable {
+enum ExploreFeedSettingsMasterType: Equatable {
     case entireFeed
     case singleFeedCard(WMFContentGroupKind)
 }
 
 private extension WMFContentGroupKind {
-    var switchTitle: String {
+    var masterSwitchTitle: String {
         switch self {
         case .news:
             return WMFLocalizedString("explore-feed-preferences-show-news-title", value: "Show In the news card", comment: "Text for the setting that allows users to toggle the visibility of the In the news card")
@@ -66,16 +66,16 @@ private extension WMFContentGroupKind {
     }
 }
 
-class ExploreFeedSettingsPrimary: ExploreFeedSettingsItem {
+class ExploreFeedSettingsMaster: ExploreFeedSettingsItem {
     let title: String
     let controlTag: Int = -1
     var isOn: Bool = false
-    let type: ExploreFeedSettingsMainType
+    let type: ExploreFeedSettingsMasterType
 
-    init(for type: ExploreFeedSettingsMainType) {
+    init(for type: ExploreFeedSettingsMasterType) {
         self.type = type
         if case let .singleFeedCard(contentGroupKind) = type {
-            title = contentGroupKind.switchTitle
+            title = contentGroupKind.masterSwitchTitle
             isOn = contentGroupKind.isInFeed
         } else {
             title = WMFLocalizedString("explore-feed-preferences-explore-tab", value: "Explore tab", comment: "Text for the setting that allows users to toggle whether the Explore tab is enabled or not")
@@ -229,6 +229,9 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
 
     @objc private func exploreFeedPreferencesDidSave(_ notification: Notification) {
         updateFeedBeforeViewDisappears = true
+        guard displayType != .singleLanguage else {
+            return
+        }
         DispatchQueue.main.async {
             self.reload()
         }
@@ -250,9 +253,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         }
         view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
-        if viewIfLoaded?.window != nil {
-            tableView.reloadData()
-        }
+        tableView.reloadData()
     }
 
 }

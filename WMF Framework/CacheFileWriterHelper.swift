@@ -10,10 +10,13 @@ final class CacheFileWriterHelper {
         return CacheController.cacheURL.appendingPathComponent(key, isDirectory: false)
     }
     
-    static func saveData(data: Data, toNewFileWithKey key: String, completion: @escaping (FileSaveResult) -> Void) {
+    static func saveData(data: Data, toNewFileWithKey key: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
         do {
             let newFileURL = self.fileURL(for: key)
             try data.write(to: newFileURL)
+            if let mimeType = mimeType {
+                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
+            }
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
@@ -26,10 +29,13 @@ final class CacheFileWriterHelper {
         }
     }
     
-    static func copyFile(from fileURL: URL, toNewFileWithKey key: String, completion: @escaping (FileSaveResult) -> Void) {
+    static func copyFile(from fileURL: URL, toNewFileWithKey key: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
         do {
             let newFileURL = self.fileURL(for: key)
             try FileManager.default.copyItem(at: fileURL, to: newFileURL)
+            if let mimeType = mimeType {
+                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
+            }
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {
@@ -53,8 +59,10 @@ final class CacheFileWriterHelper {
     }
     
     static func saveResponseHeader(headerFields: [String: String], toNewFileName fileName: String, completion: (FileSaveResult) -> Void) {
+        
+        let contentData: Data = NSKeyedArchiver.archivedData(withRootObject: headerFields)
+        
         do {
-            let contentData: Data = try NSKeyedArchiver.archivedData(withRootObject: headerFields, requiringSecureCoding: false)
             let newFileURL = self.fileURL(for: fileName)
             try contentData.write(to: newFileURL)
             completion(.success)
@@ -80,12 +88,10 @@ final class CacheFileWriterHelper {
     }
     
     static func replaceResponseHeaderWithHeaderFields(_ headerFields:[String: String], atFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
-        do {
-            let headerData: Data = try NSKeyedArchiver.archivedData(withRootObject: headerFields, requiringSecureCoding:false)
-            replaceFileWithData(headerData, fileName: fileName, completion: completion)
-        } catch let error {
-            completion(.failure(error))
-        }
+        
+        let headerData: Data = NSKeyedArchiver.archivedData(withRootObject: headerFields)
+        
+        replaceFileWithData(headerData, fileName: fileName, completion: completion)
     }
     
     static func replaceFileWithData(_ data: Data, fileName: String, completion: @escaping (FileSaveResult) -> Void) {
@@ -115,11 +121,14 @@ final class CacheFileWriterHelper {
     }
 
     
-    static func saveContent(_ content: String, toNewFileName fileName: String, completion: @escaping (FileSaveResult) -> Void) {
+    static func saveContent(_ content: String, toNewFileName fileName: String, mimeType: String?, completion: @escaping (FileSaveResult) -> Void) {
         
         do {
             let newFileURL = self.fileURL(for: fileName)
             try content.write(to: newFileURL, atomically: true, encoding: .utf8)
+            if let mimeType = mimeType {
+                FileManager.default.setValue(mimeType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: newFileURL.path)
+            }
             completion(.success)
         } catch let error as NSError {
             if error.domain == NSCocoaErrorDomain, error.code == NSFileWriteFileExistsError {

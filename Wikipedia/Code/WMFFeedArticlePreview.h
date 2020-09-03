@@ -1,8 +1,8 @@
-#import <WMF/WMFMTLModel.h>
+#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFeedArticlePreview : WMFMTLModel <MTLJSONSerializing>
+@interface WMFFeedArticlePreview : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy, readonly) NSString *displayTitleHTML;
 

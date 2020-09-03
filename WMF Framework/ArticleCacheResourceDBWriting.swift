@@ -26,7 +26,7 @@ extension ArticleCacheResourceDBWriting {
     
     func fetchMediaListURLs(request: URLRequest, groupKey: String, completion: @escaping (Result<[ArticleFetcher.MediaListItem], ArticleCacheDBWriterError>) -> Void) {
         
-        guard request.url != nil else {
+        guard let url = request.url else {
             completion(.failure(.missingListURLInRequest))
             return
         }
@@ -53,7 +53,7 @@ extension ArticleCacheResourceDBWriting {
     
     func fetchOfflineResourceURLs(request: URLRequest, groupKey: String, completion: @escaping (Result<[URL], ArticleCacheDBWriterError>) -> Void) {
         
-        guard request.url != nil else {
+        guard let url = request.url else {
             completion(.failure(.missingListURLInRequest))
             return
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1200"
+   LastUpgradeVersion = "1100"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -41,6 +41,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D4991434181D51DE00E6073C"
+            BuildableName = "Wikipedia.app"
+            BlueprintName = "Wikipedia"
+            ReferencedContainer = "container:Wikipedia.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -53,12 +62,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "ArticleCacheReadingManualTests">
-               </Test>
-               <Test
-                  Identifier = "ArticleManualPerformanceTests">
-               </Test>
-               <Test
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
                <Test
@@ -69,12 +72,6 @@
                </Test>
                <Test
                   Identifier = "NSString_FormattedAttributedStringTests/testPerformanceExample">
-               </Test>
-               <Test
-                  Identifier = "ReadingListManualPerformanceTests">
-               </Test>
-               <Test
-                  Identifier = "TalkPageManualPerformanceTests">
                </Test>
                <Test
                   Identifier = "WMFSearchFetcherTests">

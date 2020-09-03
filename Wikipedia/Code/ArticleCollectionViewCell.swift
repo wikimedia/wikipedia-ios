@@ -17,11 +17,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     private func updateTitleLabel() {
         if let titleHTML = _titleHTML {
-            let attributedTitle = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
-            if let boldString = _titleBoldedString {
-                attributedTitle.applyBoldFont(to: boldString, textStyle: titleTextStyle, matching: traitCollection)
-            }
-            titleLabel.attributedText = attributedTitle
+            titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection, withBoldedString: _titleBoldedString)
         } else {
             let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
             titleLabel.font = titleFont

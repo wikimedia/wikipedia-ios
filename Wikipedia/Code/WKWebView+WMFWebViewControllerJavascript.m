@@ -15,6 +15,10 @@ static int const kMinimumTextSelectionLength = 2;
            }];
 }
 
+- (void)wmf_scrollToFragment:(NSString *)fragment {
+    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.scrollToFragment('%@')", fragment] completionHandler:nil];
+}
+
 - (void)wmf_accessibilityCursorToFragment:(NSString *)fragment {
     if (UIAccessibilityIsVoiceOverRunning()) {
         [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.accessibilityCursorToFragment('%@')", fragment] completionHandler:nil];

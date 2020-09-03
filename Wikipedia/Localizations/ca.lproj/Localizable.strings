@@ -141,6 +141,7 @@
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
+"description-add-link-title" = "Afegeix una descripció del títol";
 "description-add-title" = "Afegeix una descripció";
 "description-edit-for-article" = "Descripció del títol de $1";
 "description-edit-learn-more" = "Més informació";
@@ -443,6 +444,8 @@
 "in-the-news-sub-title-from-language-wikipedia" = "De la Viquipèdia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De la Viquipèdia";
 "in-the-news-title" = "Actualitat";
+"info-box-close-text" = "Tanca";
+"info-box-title" = "Dades ràpides";
 "insert-action-title" = "Insereix";
 "insert-link-title" = "Insereix un enllaç";
 "insert-media-alternative-text-description" = "Text de descripció per als lectors que no poden veure la imatge";
@@ -479,6 +482,8 @@
 "languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
 "languages-wikipedia" = "Llengües de la Viquipèdia";
+"license-footer-name" = "CC-BY-SA 3.0";
+"license-footer-text" = "Contingut disponible sota $1 a menys que s'indiqui el contrari.";
 "logged-out-continue-without-logging-in-button-title" = "Continua sense iniciar una sessió";
 "logged-out-log-back-in-button-title" = "Torna a iniciar la sessió amb el vostre compte";
 "logged-out-subtitle" = "S'ha produït un problema en autenticar el vostre compte. Per tal de sincronitzar les vostres llistes de lectura i editar amb el vostre nom d'usuari, torneu a iniciar una sessió.";
@@ -527,6 +532,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
+// Fuzzy
+"page-edit-history" = "Historial complet";
 "page-history-anonymous-edits" = "edicions anònimes";
 "page-history-bot-edits" = "edicions de bots";
 "page-history-compare-accessibility-hint" = "Toqueu per a seleccionar dues revisions per comparar";
@@ -543,14 +550,17 @@
 "page-history-revisions-comparison-warning" = "Només poden seleccionar-se dues revisions";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edició|$1 edicions}} des del $2";
 "page-history-user-edits" = "edicions d'usuaris";
-"page-issues" = "Incidències de la pàgina";
-"page-location" = "Mostra al mapa";
+"page-issues" = "Problemes de la pàgina";
+"page-last-edited" = "S’ha actualitzat {{PLURAL:$1|0=avui|1=ahir|fa $1 dies}}";
+"page-location" = "Mostra en un mapa";
 "page-protected-autoconfirmed" = "La pàgina ha estat semiprotegida.";
 "page-protected-can-not-edit" = "No teniu permisos per modificar la pàgina";
 "page-protected-can-not-edit-title" = "La pàgina està protegida";
 "page-protected-other" = "La pàgina ha estat protegida als nivells següents: $1";
 "page-protected-sysop" = "La pàgina està protegida.";
+"page-read-in-other-languages" = "Disponible en {{PLURAL:$1|$1 altra llengua|$1 altres llengües}}";
 "page-similar-titles" = "Pàgines similars";
+"page-talk-page" = "Mostra la pàgina de discussió";
 "panel-compare-revisions-text" = "Comparar revisions ajuda a mostrar com canvia un article al llarg del temps. Comparar dues revisions d'un article mostrarà la diferència entre les revisions ressaltant el contingut que hagi canviat.";
 "panel-compare-revisions-title" = "Comparació de revisions";
 "pictured" = "retratat";
@@ -781,6 +791,7 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-of-contents-hide-button-label" = "Amaga la taula de continguts";
+"table-title-other" = "Més informació";
 "talk-page-add-discussion-accessibility-label" = "Afegeix una discussió";
 "talk-page-discussion-accessibility-hint" = "Feu un toc doble per obrir el fil de discussió";
 "talk-page-discussion-read-accessibility-label" = "Llegit";
@@ -828,6 +839,7 @@
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
 "unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "unknown-generic-text" = "Desconegut";
+"view-in-browser-footer-link" = "Mostra l'article al navegador";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";
 "welcome-exploration-on-this-day-description" = "Aneu enrere en el temps per a saber què va passar avui al llarg de la història";
