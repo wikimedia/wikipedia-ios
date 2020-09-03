@@ -70,6 +70,7 @@ struct SparklineGrid: View {
 		switch gridStyle {
 		case .horizontal:
 			// TODO: Fix this
+			/*
 			VStack {
 				Spacer()
 				Rectangle().frame(height: 1)
@@ -79,6 +80,8 @@ struct SparklineGrid: View {
 				Rectangle().frame(height: 1)
 				Spacer()
 			}
+		*/
+			Spacer()
 		case .horizontalAndVertical:
 			ZStack {
 				VStack {
