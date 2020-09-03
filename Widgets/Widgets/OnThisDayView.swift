@@ -5,9 +5,27 @@ import UIKit
 
 // MARK: - Views
 
-let mainColor = Color(UIColor.blue50)
-let grayColor = Color(UIColor.base30)
-let silverColor = Color(UIColor.base70At55PercentAlpha)
+struct OnThisDayColors {
+    static func blueColor(_ colorScheme: ColorScheme) -> Color {
+        return colorScheme == .light ? Color(UIColor.blue50) : Color(UIColor.blue70)
+    }
+
+    static func grayColor(_ colorScheme: ColorScheme) -> Color {
+        return colorScheme == .light ? Color(UIColor.base30) : Color(UIColor.base70)
+    }
+
+    static func widgetBackgroundColor(_ colorScheme: ColorScheme) -> Color {
+        return colorScheme == .light ? .white : .black
+    }
+
+    static func boxShadowColor(_ colorScheme: ColorScheme) -> Color {
+        return colorScheme == .light ? Color(UIColor.base70At55PercentAlpha) : .clear
+    }
+
+    static func boxBackgroundColor(_ colorScheme: ColorScheme) -> Color {
+        return colorScheme == .light ? .white : Color(red: 34/255, green: 34/255, blue: 34/255)
+    }
+}
 
 struct OnThisDayView: View {
     @Environment(\.widgetFamily) private var family
@@ -76,6 +94,7 @@ struct TimelineView<Content: View>: View {
     enum DotStyle {
         case large, small, none
     }
+    @Environment(\.colorScheme) var colorScheme
 
     @SwiftUI.State private var circleYOffset: CGFloat = 0
     var dotStyle: DotStyle
@@ -96,7 +115,7 @@ struct TimelineView<Content: View>: View {
                 }
             }
                 .frame(width: TimelineLargeCircleElement.largeCircleHeight)
-                .foregroundColor(mainColor)
+            .foregroundColor(OnThisDayColors.blueColor(colorScheme))
             mainView
         }
         .onPreferenceChange(SmallYValuePreferenceKey.self, perform: { yOffset in
@@ -123,6 +142,8 @@ struct TimelinePathElement: Shape {
 }
 
 struct TimelineSmallCircleElement: View {
+    @Environment(\.colorScheme) var colorScheme
+
     static let smallCircleHeight: CGFloat = 9.0
     let lineWidth: CGFloat
     let circleYOffset: CGFloat
@@ -131,8 +152,8 @@ struct TimelineSmallCircleElement: View {
         Circle()
         .overlay(
             Circle()
-           .stroke(mainColor, lineWidth: lineWidth)
-        ).foregroundColor(.white)
+                .stroke(OnThisDayColors.blueColor(colorScheme), lineWidth: lineWidth)
+        ).foregroundColor(OnThisDayColors.widgetBackgroundColor(colorScheme))
             .frame(width: TimelineSmallCircleElement.smallCircleHeight, height: TimelineSmallCircleElement.smallCircleHeight)
             .padding(EdgeInsets(top: circleYOffset, leading: 0, bottom: 0, trailing: 0))
     }
@@ -140,6 +161,7 @@ struct TimelineSmallCircleElement: View {
 
 struct TimelineLargeCircleElement: View {
     static let largeCircleHeight: CGFloat = 17.0
+    @Environment(\.colorScheme) var colorScheme
 
     let lineWidth: CGFloat
     let circleYOffset: CGFloat
@@ -147,13 +169,13 @@ struct TimelineLargeCircleElement: View {
     var body: some View {
         GeometryReader { geometry in
         Circle()
-            .stroke(mainColor, lineWidth: lineWidth)
+            .stroke(OnThisDayColors.blueColor(colorScheme), lineWidth: lineWidth)
             .overlay(
                 Circle()
                 .overlay(
                     Circle()
-                    .stroke(mainColor, lineWidth: lineWidth)
-                    .foregroundColor(mainColor)
+                        .stroke(OnThisDayColors.blueColor(colorScheme), lineWidth: lineWidth)
+                        .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                 )
                     .frame(width: TimelineSmallCircleElement.smallCircleHeight, height: TimelineSmallCircleElement.smallCircleHeight)
             )
@@ -164,13 +186,15 @@ struct TimelineLargeCircleElement: View {
 }
 
 struct OnThisDayHeaderElement: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let date: Date
     let minYear: String
     let maxYear: String
 
     var body: some View {
         Text(WMFLocalizedString("widget-onthisday-name", value: "On this day", comment: "Name of 'On this day' view in iOS widget gallery"))
-            .foregroundColor(grayColor)
+            .foregroundColor(OnThisDayColors.grayColor(colorScheme))
             .font(.subheadline)
             .bold()
             .multilineTextAlignment(.leading)
@@ -183,7 +207,7 @@ struct OnThisDayHeaderElement: View {
             .frame(maxWidth: .infinity, alignment: .leading)
 //            let yearsString = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
         Text(verbatim: "\(minYear) - \(maxYear)")
-            .foregroundColor(grayColor)
+            .foregroundColor(OnThisDayColors.grayColor(colorScheme))
             .font(.subheadline)
             .bold()
             .multilineTextAlignment(.leading)
@@ -199,6 +223,7 @@ struct TimelineElementSpacer: View {
 
 struct MainOnThisDayElement: View {
     let eventYearPadding: CGFloat = 16.0
+    @Environment(\.colorScheme) var colorScheme
 
     var eventYear: Int?
     var snippet: String?
@@ -212,7 +237,7 @@ struct MainOnThisDayElement: View {
                 TimelineView(dotStyle: .large, isLineTopFaded: true, isLineBottomFaded: false, mainView:
                         Text(verbatim: "\(eventYear)")
                             .font(.subheadline)
-                            .foregroundColor(mainColor)
+                            .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .overlay (
                                 GeometryReader { geometryProxy in
@@ -225,7 +250,7 @@ struct MainOnThisDayElement: View {
                 TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
                         Text(String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: nil), (currentYear-eventYear)))
                             .font(.caption)
-                            .foregroundColor(grayColor)
+                            .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 3)
                 )
@@ -247,6 +272,8 @@ struct MainOnThisDayElement: View {
 }
 
 struct ArticleRectangleElement: View {
+    @Environment(\.colorScheme) var colorScheme
+
     var article: WMFFeedArticlePreview
     let image: UIImage?
     let link: URL
@@ -264,7 +291,7 @@ struct ArticleRectangleElement: View {
                             Text(description)
                                 .font(.caption)
                                 .lineLimit(1)
-                                .foregroundColor(grayColor)
+                                .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
@@ -279,8 +306,8 @@ struct ArticleRectangleElement: View {
                     .padding(9)
                     .background(
                         RoundedRectangle(cornerRadius: 2.0)
-                            .shadow(color: silverColor, radius: 4.0, x: 0, y: 2)
-                            .foregroundColor(.white)
+                            .shadow(color: OnThisDayColors.boxShadowColor(colorScheme), radius: 4.0, x: 0, y: 2)
+                            .foregroundColor(OnThisDayColors.boxBackgroundColor(colorScheme))
                     )
                     .padding([.top, .bottom], 9)
                     .padding([.trailing], 35)
@@ -290,6 +317,8 @@ struct ArticleRectangleElement: View {
 }
 
 struct OnThisDayAdditionalEventsElement: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let otherEventsCount: Int
 
     var body: some View {
@@ -299,7 +328,7 @@ struct OnThisDayAdditionalEventsElement: View {
                     .font(.footnote)
                     .bold()
                     .lineLimit(1)
-                    .foregroundColor(mainColor)
+                    .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 .overlay (
                     GeometryReader { geometryProxy in

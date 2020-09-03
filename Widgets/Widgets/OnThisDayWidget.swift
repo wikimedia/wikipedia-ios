@@ -102,6 +102,7 @@ final class OnThisDayData {
         }
 
         let successCompletion: (([WMFFeedOnThisDayEvent]?) -> Void) = { events in
+            events?.forEach({ $0.score = $0.calculateScore() })
             guard let events = events,
                   let topEvent = self.highestScoredEvent(events: events),
                   let topEventIndex = events.firstIndex(of: topEvent),
@@ -149,11 +150,11 @@ final class OnThisDayData {
     }
 
     private func highestScoredEvent(events: [WMFFeedOnThisDayEvent]) -> WMFFeedOnThisDayEvent? {
-        // TODO: This. And reuse code between here and existing code
-        return events.first
+        return events.max { a, b in (a.score?.floatValue ?? 0) < (b.score?.floatValue ?? 0) }
     }
 
     private func bestArticleToDisplay(articles: [WMFFeedArticlePreview]?) -> WMFFeedArticlePreview? {
+        /// In `OnThisDayViewController`, we display articles in order supplied to the array. Thus, the first one is the one we show here.
         return articles?.first
     }
 }
