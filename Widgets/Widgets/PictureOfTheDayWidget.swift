@@ -3,6 +3,17 @@ import SwiftUI
 import WMF
 import UIKit
 
+// TODO: Move into `PictureOfTheDay+LocalizedStrings.swift`
+extension PictureOfTheDayWidget {
+
+    enum LocalizedStrings {
+        static let pictureOfTheDayWidgetTitle = WMFLocalizedString("potd-widget-title", value:"Picture of the day", comment: "Text for title of Picture of the day widget.")
+        static let pictureOfTheDayWidgetDescription = WMFLocalizedString("potd-widget-description", value:"Enjoy a beautiful daily photo selected by our community.", comment: "Text for description of Picture of the day widget displayed when adding to home screen.")
+    }
+
+}
+
+
 // MARK: - Widget
 
 struct PictureOfTheDayWidget: Widget {
@@ -12,8 +23,8 @@ struct PictureOfTheDayWidget: Widget {
 		StaticConfiguration(kind: kind, provider: PictureOfTheDayProvider(), content: { entry in
 			PictureOfTheDayView(entry: entry)
 		})
-		.configurationDisplayName("Picture of the day")
-		.description("Enjoy a beautiful daily photo selected by our community.")
+        .configurationDisplayName(PictureOfTheDayWidget.LocalizedStrings.pictureOfTheDayWidgetTitle)
+        .description(PictureOfTheDayWidget.LocalizedStrings.pictureOfTheDayWidgetDescription)
 		.supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
 	}
 }
