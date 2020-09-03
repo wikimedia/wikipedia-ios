@@ -127,10 +127,10 @@ struct TopReadProvider: TimelineProvider {
 	}
 
 	func getSnapshot(in context: Context, completion: @escaping (TopReadEntry) -> Void) {
-		guard !context.isPreview else {
-			completion(dataStore.placeholder)
-			return
-		}
+//		guard !context.isPreview else {
+//			completion(dataStore.placeholder)
+//			return
+//		}
 
 		dataStore.fetchLatestAvailableTopRead { entry in
 			completion(entry)
