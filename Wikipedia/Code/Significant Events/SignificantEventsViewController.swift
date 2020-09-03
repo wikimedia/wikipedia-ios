@@ -5,7 +5,7 @@ import WMF
 class SignificantEventsViewController: ColumnarCollectionViewController {
     
     private let significantEventsController = SignificantEventsController()
-    private var significantEventsViewModel: SignificantEventsViewModel?
+    private let significantEventsViewModel: SignificantEventsViewModel
     private var events: [TimelineEventViewModel] = []
     
     fileprivate static let sideScrollingCellReuseIdentifier = "SignificantEventsSideScrollingCollectionViewCell"
@@ -14,7 +14,8 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         fatalError("init(coder:) not supported")
     }
     
-    required public override init(theme: Theme) {
+    required init(significantEventsViewModel: SignificantEventsViewModel, theme: Theme) {
+        self.significantEventsViewModel = significantEventsViewModel
         super.init()
         self.theme = theme
     }
@@ -27,22 +28,6 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
 
         layoutManager.register(SignificantEventsSideScrollingCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier, addPlaceholder: true)
-        
-        let title = "United_States"
-        let components = Configuration.current.articleURLForHost("en.wikipedia.org", appending: [title])
-        if let siteURL = components.url?.wmf_site {
-            significantEventsController.fetchSignificantEvents(title: title, siteURL: siteURL) { (result) in
-                switch result {
-                case .success(let significantEvents):
-                    self.events.append(contentsOf: significantEvents.events)
-                    self.significantEventsViewModel = significantEvents
-                    self.collectionView.reloadData()
-                case .failure(let error):
-                    print("failure")
-                }
-            }
-        }
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {

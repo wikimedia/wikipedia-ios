@@ -35,10 +35,9 @@ extension ArticleViewController {
         
         EditHistoryCompareFunnel.shared.logShowHistory(articleURL: articleURL)
         
-//        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
-        let significantEvents = SignificantEventsViewController(theme: theme)
-        significantEvents.apply(theme: theme)
-        present(significantEvents, animated: true, completion: nil)
+        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
+        historyVC.apply(theme: theme)
+        push(historyVC)
     }
     
     func showTalkPage() {

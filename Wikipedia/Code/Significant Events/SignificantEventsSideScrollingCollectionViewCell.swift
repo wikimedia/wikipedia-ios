@@ -50,7 +50,6 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         flowLayout?.scrollDirection = .horizontal
         collectionView.register(SignificantEventsSnippetCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsSideScrollingCollectionViewCell.snippetCellIdentifier)
         collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
@@ -123,13 +122,6 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         collectionView.backgroundColor = .clear
         collectionView.reloadData()
     }
-  
-    //what is this?
-//    override func updateBackgroundColorOfLabels() {
-//        super.updateBackgroundColorOfLabels()
-//        descriptionLabel.backgroundColor = labelBackgroundColor
-//        timelineView.backgroundColor = labelBackgroundColor
-//    }
     
     override func reset() {
         super.reset()
@@ -153,17 +145,6 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         
         resetContentOffset()
         setNeedsLayout()
-    }
-}
-
-extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //not supporting selecting snippets, but does that make link text not selectable?
-//        let selectedArticle = articles[indexPath.item]
-//        guard let articleURL = selectedArticle.articleURL else {
-//            return
-//        }
-//        selectionDelegate?.sideScrollingCollectionViewCell(self, didSelectArticleWithURL: articleURL, at: indexPath)
     }
 }
 

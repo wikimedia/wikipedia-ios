@@ -47,6 +47,8 @@ class ArticleViewController: ViewController, HintPresenting {
     let configuration = Configuration.current
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    private lazy var significantEventsController = SignificantEventsController()
+    private var significantEventsViewModel: SignificantEventsViewModel?
 
     private var leadImageHeight: CGFloat = 210
 
@@ -418,7 +420,45 @@ class ArticleViewController: ViewController, HintPresenting {
                 self.addToHistory()
             }
         }
+        
+        let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
+        let isENWikipediaArticle: Bool
+        if let host = articleURL.host,
+           host == Configuration.Domain.englishWikipedia {
+            isENWikipediaArticle = true
+        } else {
+            isENWikipediaArticle = false
+        }
+        
+        if let title = articleURL.wmf_title,
+           let siteURL = articleURL.wmf_site,
+           isDeviceRTL && isENWikipediaArticle {
+            articleLoadWaitGroup?.enter()
+            significantEventsController.fetchSignificantEvents(rvStartId: nil, title: title, siteURL: siteURL) { (result) in
+                defer {
+                    self.articleLoadWaitGroup?.leave()
+                }
+                switch result {
+                case .success(let significantEventsViewModel):
+                    self.significantEventsViewModel = significantEventsViewModel
+                case .failure(let error):
+                    DDLogDebug("Failure getting significant events models: \(error)")
+                }
+            }
+        }
     }
+    
+    #if DEBUG
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if let significantEventsViewModel = significantEventsViewModel {
+            let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, theme: theme)
+            significantEvents.apply(theme: theme)
+            guard motion == .motionShake else {
+                return
+            }
+        }
+    }
+    #endif
     
     func loadPage(cachePolicy: WMFCachePolicy? = nil, revisionID: UInt64? = nil) {
         defer {
