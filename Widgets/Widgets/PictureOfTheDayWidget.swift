@@ -191,15 +191,16 @@ struct PictureOfTheDayView: View {
 		let padding: CGFloat = 16
 
 		return VStack {
-			Spacer(minLength: padding)
+            Spacer().frame(height: padding)
 			GeometryReader { proxy in
 				Text(entry.imageDescription ?? "")
-					.frame(width: proxy.size.width, height: proxy.size.height, alignment: .leading)
-					.lineLimit(3)
+					.frame(width: proxy.size.width, alignment: .leading)
+					.lineLimit(3) // TODO: Can't support 3 full lines with these font size/margin requirements
+                    .lineSpacing(2)
 					.multilineTextAlignment(.leading)
 					.font(.caption)
 					.foregroundColor(.white)
-			}
+            }
 			Spacer(minLength: padding)
 		}
 		.padding([.leading, .trailing], padding)
