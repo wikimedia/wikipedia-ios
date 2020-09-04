@@ -111,30 +111,19 @@ class ArticleWebMessagingController: NSObject {
     func customUpdateMargins(with layoutMargins: UIEdgeInsets) {
         let javascript = """
             function pleaseWork() {
-                 var headers = document.body.getElementsByTagName('header');
-                 if (headers.length > 0) {
-                      var firstHeader = headers[0];
-                      firstHeader.style.marginLeft = "\(layoutMargins.left)px";
-                      firstHeader.style.marginRight = "\(layoutMargins.right)px";
+                 document.body.style.paddingLeft = "\(layoutMargins.left)px";
+                 document.body.style.paddingRight = "\(layoutMargins.right)px";
+                 var container = document.getElementById('significant-changes-container');
+                 if (container) {
+                                                   container.style.marginLeft = "-\(layoutMargins.left)px";
+                                                   container.style.marginRight = "-\(layoutMargins.right)px";
+                        return "made it";
+                 } else {
+                      return "didn't make it";
                  }
-                 var sections = document.getElementById('pcs').getElementsByTagName('section');
-                 if (sections.length === 0) {
-                     return false;
-                 }
-                 for (var s = 0; s < sections.length; s++) {
-                        var section = sections[s];
-                        var childNodes = section.childNodes;
-                         for (var i = 0; i < childNodes.length; i++) {
-                             var childNode = childNodes[i];
-                             if (childNode.id !== undefined &&
-                                  childNode.id !== "significant-changes-container") {
-                                  childNode.style.marginLeft = "\(layoutMargins.left)px";
-                                  childNode.style.marginRight = "\(layoutMargins.right)px";
-                             }
-                         }
-                 }
+
                  
-                 return true;
+                 return "default";
             }
             pleaseWork();
         """

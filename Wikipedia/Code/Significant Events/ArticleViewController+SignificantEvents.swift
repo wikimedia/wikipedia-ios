@@ -9,24 +9,27 @@ extension ArticleViewController {
             function pleaseWork() {
                  var sections = document.getElementById('pcs').getElementsByTagName('section');
                  if (sections.length === 0) {
-                     return false;
+                     return "insert element failure 1";
                  }
                  var firstSection = sections[0];
                  var pTags = firstSection.getElementsByTagName('p');
                  if (pTags.length === 0) {
-                     return false;
+                     return "insert element failure 2";
                  }
                  var button = document.createElement('BUTTON');
                  button.innerHTML = "CLICK ME";
                  var firstParagraph = pTags[0];
                  firstParagraph.insertAdjacentHTML("afterend","\(significantEventsBoxHTML)");
-                 return true;
+                 return "insert element success";
             }
             pleaseWork();
         """
         webView.evaluateJavaScript(javascript) { (result, error) in
             print(result)
             print(error)
+            DispatchQueue.main.async {
+                completion?()
+            }
         }
     }
 }

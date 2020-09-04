@@ -436,7 +436,9 @@ class ArticleViewController: ViewController, HintPresenting {
             self?.setupFooter()
             self?.shareIfNecessary()
             if (shouldShowSignificantEvents) {
-                self?.injectSignificantEventsContent()
+                self?.injectSignificantEventsContent({
+                    self?.updateArticleMargins()
+                })
             }
             self?.articleLoadWaitGroup = nil
         }
