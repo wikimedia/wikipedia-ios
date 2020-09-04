@@ -45,6 +45,10 @@ public class NavigationBarHider: NSObject {
     }
 
     public func setIsProgramaticallyScrolling(_ isProgramaticallyScrolling: Bool, yOffset: CGFloat, topContentInset: CGFloat) {
+        guard navigationBar?.isInteractiveHidingEnabled == true else {
+            return
+        }
+        
         self.isProgramaticallyScrolling = isProgramaticallyScrolling
 
         if isProgramaticallyScrolling {
@@ -65,9 +69,11 @@ public class NavigationBarHider: NSObject {
             return
         }
 
-        /// When programatically scrolling on a just-created scroll view, we need a layout pass to get accurate heights.
-        scrollView.layoutIfNeeded()
-        navigationBar.layoutIfNeeded()
+        if isProgramaticallyScrolling {
+            /// When programatically scrolling on a just-created scroll view, we need a layout pass to get accurate heights.
+            scrollView.layoutIfNeeded()
+            navigationBar.layoutIfNeeded()
+        }
 
         guard scrollView.contentSize.height > 0 else {
             if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  {
