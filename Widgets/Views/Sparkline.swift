@@ -137,7 +137,7 @@ struct Sparkline: View {
 	var containerBackgroundColor: Color {
 		switch style {
 		case .compactWithViewCount:
-			return colorScheme == .dark ? Color.white.opacity(0.12) : Color(.sRGB, red: 250/255.0, green: 250/255.0, blue: 250/255.0, opacity: 1)
+			return colorScheme == .dark ? Color.white.opacity(0.12) : Color(red: 248/255.0, green: 248/255.0, blue: 250/255.0, opacity: 1)
 		case .compact:
 			return colorScheme == .dark ? .black : .white
 		case .expanded:
