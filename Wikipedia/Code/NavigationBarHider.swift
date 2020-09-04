@@ -32,23 +32,43 @@ public class NavigationBarHider: NSObject {
     
     fileprivate var isUserScrolling: Bool = false
     fileprivate var isScrollingToTop: Bool = false
+    fileprivate var isProgramaticallyScrolling: Bool = false
     var initialScrollY: CGFloat = 0
     var initialNavigationBarPercentHidden: CGFloat = 0
+
+    private func setDataForScroll(yOffset: CGFloat, topContentInset: CGFloat) {
+        guard let navigationBar = navigationBar else {
+            return
+        }
+        initialScrollY = yOffset + topContentInset
+        initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
+    }
+
+    public func setIsProgramaticallyScrolling(_ isProgramaticallyScrolling: Bool, yOffset: CGFloat, topContentInset: CGFloat) {
+        self.isProgramaticallyScrolling = isProgramaticallyScrolling
+
+        if isProgramaticallyScrolling {
+            setDataForScroll(yOffset: yOffset, topContentInset: topContentInset)
+        }
+    }
     
     @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
+        guard navigationBar?.isInteractiveHidingEnabled == true else {
             return
         }
         isUserScrolling = true
-        initialScrollY = scrollView.contentOffset.y + scrollView.contentInset.top
-        initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
+        setDataForScroll(yOffset: scrollView.contentOffset.y, topContentInset: scrollView.contentInset.top)
     }
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar else {
             return
         }
-        
+
+        /// When programatically scrolling on a just-created scroll view, we need a layout pass to get accurate heights.
+        scrollView.layoutIfNeeded()
+        navigationBar.layoutIfNeeded()
+
         guard scrollView.contentSize.height > 0 else {
             if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  {
                 navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
@@ -78,7 +98,7 @@ public class NavigationBarHider: NSObject {
             }
         }
 
-        guard navigationBar.isInteractiveHidingEnabled, isUserScrolling || isScrollingToTop || scrollY < totalHideableHeight else {
+        guard navigationBar.isInteractiveHidingEnabled, isUserScrolling || isScrollingToTop || isProgramaticallyScrolling || scrollY < totalHideableHeight else {
             return
         }
         
@@ -234,8 +254,7 @@ public class NavigationBarHider: NSObject {
         guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
             return
         }
-        initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
-        initialScrollY = scrollView.contentOffset.y + scrollView.contentInset.top
+        setDataForScroll(yOffset: scrollView.contentOffset.y, topContentInset: scrollView.contentInset.top)
         isScrollingToTop = true
     }
 
