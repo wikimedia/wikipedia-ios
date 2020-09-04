@@ -143,6 +143,12 @@ struct TopReadView: View {
 
 	var entry: TopReadProvider.Entry?
 
+	var readersTextColor: Color {
+		colorScheme == .light
+			? Theme.light.colors.rankGradientEnd.asColor
+			: Theme.dark.colors.rankGradientEnd.asColor
+	}
+
 	@ViewBuilder
 	var body: some View {
 		GeometryReader { proxy in
@@ -215,14 +221,19 @@ struct TopReadView: View {
 						.font(.caption)
 						.bold()
 						.foregroundColor(Color(.label))
-					Text("\(entry?.rankedElements[index].description ?? "–")")
-						.lineLimit(2)
-						.font(.caption)
-						.foregroundColor(Color(.secondaryLabel))
 					if showSparkline {
+						Text("\(entry?.rankedElements[index].description ?? "–")")
+							.lineLimit(2)
+							.font(.caption)
+							.foregroundColor(Color(.secondaryLabel))
 						Sparkline(style: .compactWithViewCount, timeSeries: entry?.rankedElements[index].viewCounts)
 							.cornerRadius(4)
 							.frame(height: proxy.size.height / 3.0, alignment: .leading)
+					} else {
+						Text("\(viewCountOrEmpty(viewCount: entry?.rankedElements[index].viewCounts.last))")
+							.lineLimit(2)
+							.font(.caption)
+							.foregroundColor(readersTextColor)
 					}
 				}
 				Spacer()
@@ -244,6 +255,17 @@ struct TopReadView: View {
 		} else {
 			EmptyView()
 		}
+	}
+
+	// MARK: Private
+
+	private func viewCountOrEmpty(viewCount: NSNumber?) -> String {
+		guard let viewCount = viewCount else {
+			return "–"
+		}
+
+		// TODO: Localize
+		return NumberFormatter.localizedThousandsStringFromNumber(viewCount) + " " + "readers"
 	}
 }
 
@@ -334,7 +356,7 @@ struct TopReadOverlayView: View {
 				.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
 			if includeReaderCount {
 				// TODO: Localize
-				Text("\(currentViewCountOrEmpty) Readers")
+				Text("\(currentViewCountOrEmpty) readers")
 					.fontWeight(.bold)
 					.lineLimit(nil)
 					.font(.caption)
