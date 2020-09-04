@@ -232,18 +232,12 @@ struct PictureOfTheDayOverlayView: View {
 					.readableShadow()
 			}
 			Spacer()
-			VStack(alignment: .leading, spacing: 5) {
-				Text("Picture of the day")
-					.lineLimit(nil)
-					.font(.headline)
-					.readableShadow()
-				Image("Attribution")
-					.resizable()
-					.aspectRatio(contentMode: .fit)
-					.frame(height: 12)
-					.readableShadow()
-				}
-				.padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 45))
+            Image("Attribution")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 12)
+                .readableShadow()
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 45))
 		}
 		.foregroundColor(.white)
 	}
