@@ -163,7 +163,7 @@ struct PictureOfTheDayView: View {
 						.overlay(PictureOfTheDayOverlayView(), alignment: .bottomLeading)
 					description
 						.frame(width: proxy.size.width, height: proxy.size.height * 0.23)
-						.background(Color.black)
+                        .background(Color(red: 34/255.0, green: 34/255.0, blue: 34/255.0))
 				}
 			default:
 				image
