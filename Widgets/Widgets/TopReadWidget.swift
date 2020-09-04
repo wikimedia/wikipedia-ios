@@ -187,7 +187,8 @@ struct TopReadView: View {
 
 		VStack(alignment: .leading, spacing: 8) {
 			Text(TopReadWidget.LocalizedStrings.topReadWidgetTitle)
-				.font(.headline)
+				.font(.subheadline)
+				.fontWeight(.bold)
 			ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0) { elementIndex in
 				if let articleURL = entry?.rankedElements[elementIndex].articleURL {
 					Link(destination: articleURL, label: {
@@ -218,8 +219,8 @@ struct TopReadView: View {
 					.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 7))
 				VStack(alignment: .leading, spacing: 5) {
 					Text("\(entry?.rankedElements[index].title ?? "–")")
-						.font(.caption)
-						.bold()
+						.font(.subheadline)
+						.fontWeight(.semibold)
 						.foregroundColor(Color(.label))
 					if showSparkline {
 						Text("\(entry?.rankedElements[index].description ?? "–")")
