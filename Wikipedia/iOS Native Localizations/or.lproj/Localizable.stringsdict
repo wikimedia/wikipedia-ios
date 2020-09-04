@@ -616,24 +616,6 @@
 			<string>0 references</string>
 		</dict>
 	</dict>
-	<key>significant-events-revision-userInfo</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Edit by %1$@ (%#@v2@)</string>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d edit</string>
-			<key>other</key>
-			<string>%2$d edits</string>
-			<key>zero</key>
-			<string>0 edits</string>
-		</dict>
-	</dict>
 	<key>significant-events-small-change-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

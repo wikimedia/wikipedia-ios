@@ -17,7 +17,8 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
     private var largeEvent: LargeEventViewModel? {
         didSet {
             if let largeEvent = largeEvent {
-                changeDetails.append(contentsOf: largeEvent.changeDetailsForTraitCollection(traitCollection, theme: theme))
+                changeDetails = largeEvent.changeDetailsForTraitCollection(traitCollection, theme: theme)
+                collectionView.reloadData()
             }
         }
     }

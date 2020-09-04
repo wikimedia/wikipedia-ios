@@ -291,9 +291,10 @@ public class CommonStrings: NSObject {
     static let newNewsReferenceRetrievedDate = WMFLocalizedString("significant-events-new-news-reference-retrieved-date",
     value:"Retrieved %1$@", comment: "Retrieved date text for a new news reference type that was added in a significant events revision cell. %1$@ is replaced by the reference's retrieved date.")
     
+    //tonitodo: this fails with EXC_BADACCESS when I try to use plural edits
     static let revisionUserInfo = WMFLocalizedString(
     "significant-events-revision-userInfo",
-    value:"Edit by %1$@ ({{PLURAL:%2$d|0=0 edits|%2$d edit|%2$d edits}})", comment: "Text describing details about the user that made a significant revision in the significant events view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")
+    value:"Edit by %1$@ (%2$@ edits)", comment: "Text describing details about the user that made a significant revision in the significant events view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")
     
     static let revisionUserInfoAnonymous = WMFLocalizedString("significant-events-revision-userInfo-anonymous",
     value:"Edit by %1$@", comment: "Text describing details about the anonyous user that made a significant revision in the significant events view. %1$@ is replaced by the editor's anonymous name.")

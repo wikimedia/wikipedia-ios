@@ -7,7 +7,7 @@ protocol ArticleWebMessageHandling: class {
 
 class ArticleWebMessagingController: NSObject {
     
-    private weak var webView: WKWebView?
+    fileprivate weak var webView: WKWebView?
     weak var delegate: ArticleWebMessageHandling?
     
     private let bodyActionKey = "action"
@@ -15,6 +15,7 @@ class ArticleWebMessagingController: NSObject {
     
     var parameters: PageContentService.Setup.Parameters?
     var contentController: WKUserContentController?
+    var shouldAttemptToShowSignificantEvents = false
     
     func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
@@ -49,6 +50,10 @@ class ArticleWebMessagingController: NSObject {
         contentController.addUserScript(utilitiesScript)
         let styleScript = PageContentService.StyleScript()
         contentController.addUserScript(styleScript)
+        if shouldAttemptToShowSignificantEvents {
+            let significantEventsStyleScript = PageContentService.SignificantEventsStyleScript()
+            contentController.addUserScript(significantEventsStyleScript)
+        }
     }
     
     func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], lastModified: Date?) {
@@ -104,33 +109,6 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript("pcs.c1.Page.setMargins(\(marginsJSON))")
         parameters?.margins = margins
         updateSetupParameters()
-    }
-    
-    //used only when significant events is active
-    //we are manually suppressing left and right margins in standard view so we get the edge to edge gray background
-    func customUpdateMargins(with layoutMargins: UIEdgeInsets) {
-        let javascript = """
-            function pleaseWork() {
-                 document.body.style.paddingLeft = "\(layoutMargins.left)px";
-                 document.body.style.paddingRight = "\(layoutMargins.right)px";
-                 var container = document.getElementById('significant-changes-container');
-                 if (container) {
-                                                   container.style.marginLeft = "-\(layoutMargins.left)px";
-                                                   container.style.marginRight = "-\(layoutMargins.right)px";
-                        return "made it";
-                 } else {
-                      return "didn't make it";
-                 }
-
-                 
-                 return "default";
-            }
-            pleaseWork();
-        """
-        webView?.evaluateJavaScript(javascript) { (result, error) in
-            print(result)
-            print(error)
-        }
     }
     
     func updateTextSizeAdjustmentPercentage(_ percentage: Int) {
@@ -384,5 +362,98 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             return
         }
         delegate?.didRecieve(action: action)
+    }
+}
+
+//Significant Events
+
+extension ArticleWebMessagingController {
+    //tonitodo: possible way to have overlay link work - https://stackoverflow.com/a/46707009
+    func injectSignificantEventsContent(articleInsertHtmlSnippets: [String], _ completion: ((Bool) -> Void)? = nil) {
+        
+        guard articleInsertHtmlSnippets.count > 0 else {
+            completion?(false)
+            return
+        }
+        
+        var significantEventsBoxHTML = "<div id='significant-changes-container'><div id='significant-changes-inner-container'><h4 id='significant-changes-header'>RECENT CHANGES</h4><ul id='significant-changes-list'>"
+        
+        for articleInsertHtmlSnippet in articleInsertHtmlSnippets {
+            significantEventsBoxHTML += articleInsertHtmlSnippet
+        }
+        
+        significantEventsBoxHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>Read more updates</a></p></div></div>"
+        
+        print(significantEventsBoxHTML)
+        
+        let javascript = """
+            function injectSignificantEventsContent() {
+                 //first remove existing element if it's there
+                 var existing = document.getElementById('significant-changes-container');
+                 if (existing) {
+                     existing.remove();
+                 }
+                 //then create and insert new element
+                 var sections = document.getElementById('pcs').getElementsByTagName('section');
+                 if (sections.length === 0) {
+                     return false;
+                 }
+                 var firstSection = sections[0];
+                 var pTags = firstSection.getElementsByTagName('p');
+                 if (pTags.length === 0) {
+                     return false;
+                 }
+                 var firstParagraph = pTags[0];
+                 firstParagraph.insertAdjacentHTML("afterend","\(significantEventsBoxHTML)");
+                 return true;
+            }
+                injectSignificantEventsContent();
+        """
+        webView?.evaluateJavaScript(javascript) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    DDLogDebug("Failure in injectSignificantEventsContent: \(error)")
+                    completion?(false)
+                }
+                
+                if let boolResult = result as? Bool {
+                    completion?(boolResult)
+                }
+                
+                DDLogDebug("Failure in injectSignificantEventsContent")
+                completion?(false)
+            }
+        }
+    }
+    
+    //should be used only when significant events is active
+    //we are manually suppressing left and right body margins in standard view
+    //and adding back in as padding so we get the edge to edge gray background
+    func customUpdateMargins(with layoutMargins: UIEdgeInsets) {
+        let javascript = """
+            function customUpdateMargins() {
+                 document.body.style.paddingLeft = "\(layoutMargins.left)px";
+                 document.body.style.paddingRight = "\(layoutMargins.right)px";
+                 var seContainer = document.getElementById('significant-changes-container');
+                 if (seContainer) {
+                        seContainer.style.marginLeft = "-\(layoutMargins.left)px";
+                        seContainer.style.marginRight = "-\(layoutMargins.right)px";
+                        return true;
+                 } else {
+                      return false;
+                 }
+            }
+            customUpdateMargins();
+        """
+        webView?.evaluateJavaScript(javascript) { (success, error) in
+            if let error = error {
+                DDLogDebug("Failure in customUpdateMargins: \(error)")
+            }
+            
+            if let success = success as? Bool,
+               success == false {
+                DDLogDebug("Failure in customUpdateMargins")
+            }
+        }
     }
 }

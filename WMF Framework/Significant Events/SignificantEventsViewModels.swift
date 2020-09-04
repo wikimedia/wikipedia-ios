@@ -5,9 +5,21 @@ public struct SignificantEventsViewModel {
     public let nextRvStartId: UInt?
     public let sha: String?
     public let events: [TimelineEventViewModel]
+    public let articleInsertHtmlSnippets: [String]
     public let summaryText: String?
     
+    public init(nextRvStartId: UInt?, sha: String?, events: [TimelineEventViewModel], summaryText: String?, articleInsertHtmlSnippets: [String]) {
+        self.nextRvStartId = nextRvStartId
+        self.sha = sha
+        self.events = events
+        self.summaryText = summaryText
+        self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
+    }
+    
     public init?(significantEvents: SignificantEvents, lastTimestamp: Date? = nil) {
+        
+        let isFirstPage = lastTimestamp == nil
+        
         self.nextRvStartId = significantEvents.nextRvStartId
         self.sha = significantEvents.sha
         
@@ -29,10 +41,12 @@ public struct SignificantEventsViewModel {
         }
         self.summaryText = summaryText
         
-        //initialize events
+        //initialize events and articleHTMLSnippets
         var eventViewModels: [TimelineEventViewModel] = []
         var previousTimestamp = lastTimestamp
+        var articleInsertHtmlSnippets: [String] = []
         
+        let htmlSnippetCountMax = 3
         for originalEvent in significantEvents.typedEvents {
             
             //first determine if we need to inject a section header cell
@@ -64,11 +78,20 @@ public struct SignificantEventsViewModel {
             if let smallEventViewModel = SmallEventViewModel(timelineEvent: originalEvent) {
                 //eventViewModels.append(.smallEvent(smallEventViewModel))
             } else if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
+                if let htmlSnippet = largeEventViewModel.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0),
+                   articleInsertHtmlSnippets.count < htmlSnippetCountMax,
+                   isFirstPage {
+                    articleInsertHtmlSnippets.append(htmlSnippet)
+                    
+                }
+                
                 eventViewModels.append(.largeEvent(largeEventViewModel))
+                
             }
         }
         
         self.events = eventViewModels
+        self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
     }
 }
 
@@ -238,7 +261,94 @@ public class LargeEventViewModel {
         return nil
     }
     
+    public func articleInsertHtmlSnippet(isFirst: Bool = false) -> String? {
+        guard let timestampForDisplay = self.timestampForDisplay(),
+              let eventDescription = eventDescriptionHtmlSnippet(),
+              let userInfo = userInfoHtmlSnippet() else {
+            return nil
+        }
+        
+        let liElementIdName = isFirst ? "significant-changes-first-list" : "significant-changes-list"
+        
+        return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription)</p><p class='significant-changes-userInfo'>\(userInfo)</p></li>"
+    }
+    
+    private func eventDescriptionHtmlSnippet() -> String? {
+        
+        let sections = sectionsSet()
+        let sectionsHtml = localizedSectionHtmlSnippet(sectionsSet: sections)
+        
+        let eventDescription: String
+        switch timelineEvent {
+        case .newTalkPageTopic:
+            eventDescription = CommonStrings.newTalkTopicDescription
+        case .vandalismRevert:
+            let event = CommonStrings.vandalismRevertDescription
+            if let sectionsHtml = sectionsHtml {
+                eventDescription = event + sectionsHtml
+            } else {
+                eventDescription = event
+            }
+        case .largeChange(let largeChange):
+            
+            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges) else {
+                assertionFailure("This should not happen")
+                return nil
+            }
+            
+            if let sectionsHtml = sectionsHtml {
+                eventDescription = mergedDescription + sectionsHtml
+            } else {
+                eventDescription = mergedDescription
+            }
+            
+        case .smallChange:
+            assertionFailure("This should not happen")
+            return nil
+        }
+        
+        return eventDescription
+    }
+    
+    private func mergedDescriptionForTypedChanges(_ changes: [SignificantEvents.Change]) -> String? {
+        let individualDescriptions = self.individualDescriptionsForTypedChanges(changes)
+        let sortedDescriptions = individualDescriptions.sorted { $0.priority < $1.priority }
+        
+        switch sortedDescriptions.count {
+        case 0:
+            assertionFailure("This should not happen")
+            return nil
+        case 1:
+            let description = sortedDescriptions[0].text
+            return description
+        case 2:
+            let firstDescription = sortedDescriptions[0].text
+            let secondDescription = sortedDescriptions[1].text
+            let mergedDescription = String.localizedStringWithFormat(CommonStrings.twoDescriptionsFormat, firstDescription, secondDescription)
+            return mergedDescription
+        default:
+            //Note: This will not work properly in translations but for now this is works for an English-only feature
+            let finalDelimiter = CommonStrings.finalDelimiter
+            let midDelimiter = CommonStrings.midDelimiter
+                
+            var finalDescription: String = ""
+            for (index, description) in sortedDescriptions.enumerated() {
+                
+                let delimiter = index == sortedDescriptions.count - 2 ? finalDelimiter : midDelimiter
+                finalDescription += description.text
+                if index < sortedDescriptions.count - 1 {
+                    finalDescription += delimiter
+                }
+            }
+            
+            return finalDescription
+        }
+    }
+    
     public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+        
+        let sections = sectionsSet()
+        let sectionsAttributedString = localizedSectionAttributedString(sectionsSet: sections, traitCollection: traitCollection, theme: theme)
         
         if let lastTraitCollection = lastTraitCollection,
            let eventDescription = eventDescription {
@@ -251,71 +361,50 @@ public class LargeEventViewModel {
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
-        let eventDescription: NSAttributedString
+        let eventDescriptionMutableAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "")
         switch timelineEvent {
         case .newTalkPageTopic:
             let localizedString = CommonStrings.newTalkTopicDescription
-            eventDescription = NSAttributedString(string: localizedString, attributes: attributes)
-        case .vandalismRevert(let vandalismRevert):
+            let eventAttributedString = NSAttributedString(string: localizedString, attributes: attributes)
+            eventDescriptionMutableAttributedString.append(eventAttributedString)
+            
+        case .vandalismRevert:
             
             let event = CommonStrings.vandalismRevertDescription
             
-            let mutableAttributedString = NSMutableAttributedString(string: event, attributes: attributes)
-            
-            if let localizedSectionAttributedString = self.localizedSectionAttributedString(sectionsSet: Set(vandalismRevert.sections), traitCollection: traitCollection, theme: theme) {
-                mutableAttributedString.append(localizedSectionAttributedString)
-            }
-            
-            if let attributedString = mutableAttributedString.copy() as? NSAttributedString {
-                eventDescription = attributedString
-            } else {
-                assertionFailure("This should not happen")
-                eventDescription = NSAttributedString(string: "")
-            }
+            let eventAttributedString = NSAttributedString(string: event, attributes: attributes)
+            eventDescriptionMutableAttributedString.append(eventAttributedString)
         
         case .largeChange(let largeChange):
             
-            let individualDescriptions = self.individualDescriptionsForTypedChanges(largeChange.typedChanges)
-            let sortedDescriptions = individualDescriptions.sorted { $0.priority < $1.priority }
-            
-            switch sortedDescriptions.count {
-            case 0:
+            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges) else {
                 assertionFailure("This should not happen")
-                eventDescription = NSAttributedString(string: "")
-            case 1:
-                let description = individualDescriptions[0].text
-                eventDescription = NSAttributedString(string: description, attributes: attributes)
-            case 2:
-                let firstDescription = sortedDescriptions[0].text
-                let secondDescription = sortedDescriptions[1].text
-                let mergedDescription = String.localizedStringWithFormat(CommonStrings.twoDescriptionsFormat, firstDescription, secondDescription)
-                eventDescription = NSAttributedString(string: mergedDescription, attributes: attributes)
-            default:
-                //Note: This will not work properly in translations but for now this is works for an English-only feature
-                let finalDelimiter = CommonStrings.finalDelimiter
-                let midDelimiter = CommonStrings.midDelimiter
-                    
-                var finalDescription: String = ""
-                for (index, description) in sortedDescriptions.enumerated() {
-                    
-                    let delimiter = index == sortedDescriptions.count - 2 ? finalDelimiter : midDelimiter
-                    finalDescription += description.text
-                    if index < sortedDescriptions.count - 1 {
-                        finalDescription += delimiter
-                    }
-                }
-                
-                eventDescription = NSAttributedString(string: finalDescription, attributes: attributes)
+                break
             }
-           
+            
+            let mergedDescriptionAttributedString = NSAttributedString(string: mergedDescription, attributes: attributes)
+            eventDescriptionMutableAttributedString.append(mergedDescriptionAttributedString)
+            
         case .smallChange:
             assertionFailure("Unexpected timeline event type")
-            eventDescription = NSAttributedString(string: "")
+            break
         }
         
+        if let sectionsAttributedString = sectionsAttributedString {
+            eventDescriptionMutableAttributedString.append(sectionsAttributedString)
+        }
+        
+        guard let finalEventAttributedString = eventDescriptionMutableAttributedString.copy() as? NSAttributedString else {
+            assertionFailure("This should not happen")
+            let empty = NSAttributedString(string: "")
+            eventDescription = empty
+            self.lastTraitCollection = traitCollection
+            return empty
+        }
+        
+        eventDescription = finalEventAttributedString
         self.lastTraitCollection = traitCollection
-        self.eventDescription = eventDescription
-        return eventDescription
+        return finalEventAttributedString
     }
     
     struct IndividualDescription {
@@ -377,12 +466,39 @@ public class LargeEventViewModel {
         return descriptions
     }
     
-    private func localizedSectionAttributedString(sectionsSet: Set<String>, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
-        let sections = Array(sectionsSet)
-        let localizedString: String
+    private func sectionsSet() -> Set<String> {
+        let set: Set<String>
+        switch timelineEvent {
+        case .newTalkPageTopic:
+            set = Set<String>()
+        case .vandalismRevert(let vandalismRevert):
+            set = Set(vandalismRevert.sections)
+        case .largeChange(let largeChange):
+            var sections: [String] = []
+            for typedChange in largeChange.typedChanges {
+                switch typedChange {
+                case .addedText(let addedTextChange):
+                    sections.append(contentsOf: addedTextChange.sections)
+                case .deletedText(let deletedTextChange):
+                    sections.append(contentsOf: deletedTextChange.sections)
+                case .newTemplate(let newTemplate):
+                    sections.append(contentsOf: newTemplate.sections)
+                }
+            }
+            
+            set = Set(sections)
+        case .smallChange:
+            assertionFailure("This shouldn't happen")
+            set = Set<String>()
+        }
+        
+        return set
+    }
+    
+    private func localizedStringFromSections(sections: [String]) -> String? {
+        var localizedString: String
         switch sections.count {
         case 0:
-            assertionFailure("This should not happen.")
             return nil
         case 1:
             let firstSection = sections[0]
@@ -395,8 +511,50 @@ public class LargeEventViewModel {
             localizedString = String.localizedStringWithFormat(CommonStrings.manySectionsDescription, sections.count)
         }
         
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
+        return " " + localizedString
+    }
+    
+    private func localizedSectionHtmlSnippet(sectionsSet: Set<String>) -> String? {
+        
+        let sections = Array(sectionsSet)
+        guard let localizedString = localizedStringFromSections(sections: sections) else {
+            return nil
+        }
+        
+        let mutableLocalizedString = NSMutableString(string: localizedString)
+
+        var ranges: [NSRange] = []
+        for section in sections {
+            let rangeOfSection = (localizedString as NSString).range(of: section)
+            let rangeValid = rangeOfSection.location != NSNotFound && rangeOfSection.location + rangeOfSection.length <= localizedString.count
+            if rangeValid {
+                ranges.append(rangeOfSection)
+            }
+        }
+
+        for range in ranges {
+            let italicStart = "<i>"
+            let italicEnd = "</i>"
+            mutableLocalizedString.insert(italicStart, at: range.location)
+            mutableLocalizedString.insert(italicEnd, at: range.location + italicStart.count + range.length)
+        }
+        
+        if let returnString = mutableLocalizedString.copy() as? NSString {
+            return returnString as String
+        } else {
+            assertionFailure("This shouldn't happen")
+            return nil
+        }
+    }
+    
+    private func localizedSectionAttributedString(sectionsSet: Set<String>, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
+        let sections = Array(sectionsSet)
+        guard let localizedString = localizedStringFromSections(sections: sections) else {
+            return nil
+        }
+        
+        let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        let italicFont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
@@ -415,12 +573,12 @@ public class LargeEventViewModel {
             mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: italicFont, range: range)
         }
         
-        if let attributedString = mutableAttributedString.copy() as? NSAttributedString {
-            return attributedString
-        } else {
+        guard let attributedString = mutableAttributedString.copy() as? NSAttributedString else {
             assertionFailure("This shouldn't happen")
             return NSAttributedString(string: localizedString, attributes: attributes)
         }
+        
+        return attributedString
     }
     
     public func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
@@ -813,7 +971,7 @@ public class LargeEventViewModel {
         if let isbn = bookCitation.isbn {
             let mutableAttributedString = NSMutableAttributedString(string: isbn)
             let isbnTitle = "Special:BookSources"
-            let isbnURL = Configuration.current.articleURLForHost("en.wikipedia.org", appending: [isbnTitle, isbn]).url
+            let isbnURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [isbnTitle, isbn]).url
             let range = NSRange(location: 0, length: isbn.count)
             if let isbnURL = isbnURL {
                 mutableAttributedString.addAttributes([NSAttributedString.Key.link : isbnURL,
@@ -837,7 +995,7 @@ public class LargeEventViewModel {
         
     }
     
-    public func timestampForDisplay() -> String {
+    public func timestampForDisplay() -> String? {
         if let displayTimestamp = displayTimestamp {
             return displayTimestamp
         }
@@ -852,7 +1010,7 @@ public class LargeEventViewModel {
             timestampString = vandalismRevert.timestampString
         case .smallChange:
             assertionFailure("Shouldn't reach this point")
-            return ""
+            return nil
         }
         
         var displayTimestamp = timestampString
@@ -878,14 +1036,7 @@ public class LargeEventViewModel {
         return displayTimestamp
     }
     
-    public func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        if let lastTraitCollection = lastTraitCollection,
-           let userInfo = userInfo {
-            if lastTraitCollection == traitCollection {
-                return userInfo
-            }
-        }
-        
+    private func userNameAndEditCount() -> (userName: String, editCount: UInt)? {
         let userName: String
         let editCount: UInt
         switch timelineEvent {
@@ -899,13 +1050,68 @@ public class LargeEventViewModel {
             userName = vandalismRevert.user
             editCount = vandalismRevert.userEditCount
         case .smallChange:
+            return nil
+        }
+        
+        return (userName: userName, editCount: editCount)
+    }
+    
+    private func userInfoHtmlSnippet() -> String? {
+        guard let userNameAndEditCount = self.userNameAndEditCount() else {
+            assertionFailure("Shouldn't reach this point")
+            return nil
+        }
+        let userName = userNameAndEditCount.userName
+        let editCount = userNameAndEditCount.editCount
+        
+        if userType != .anonymous {
+            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, String(editCount))
+            
+            let rangeOfUserName = (userInfo as NSString).range(of: userName)
+            let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
+            let userNameHrefString = "./User:\(userName)"
+            if rangeValid {
+                
+                let mutableUserInfo = NSMutableString(string: userInfo)
+                
+                let linkStartInsert = "<a href='\(userNameHrefString)'>"
+                let linkEndInsert = "</a>"
+                mutableUserInfo.insert(linkStartInsert, at: rangeOfUserName.location)
+                mutableUserInfo.insert(linkEndInsert, at: rangeOfUserName.location + rangeOfUserName.length + linkStartInsert.count)
+                
+                if let userInfoResult = mutableUserInfo.copy() as? NSString {
+                    return (userInfoResult as String)
+                } else {
+                    assertionFailure("This shouldn't happen")
+                    return nil
+                }
+            }
+        } else {
+            let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
+            return anonymousUserInfo
+        }
+        
+        return nil
+    }
+    
+    public func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+        if let lastTraitCollection = lastTraitCollection,
+           let userInfo = userInfo {
+            if lastTraitCollection == traitCollection {
+                return userInfo
+            }
+        }
+        
+        guard let userNameAndEditCount = self.userNameAndEditCount() else {
             assertionFailure("Shouldn't reach this point")
             return NSAttributedString(string: "")
         }
+        let userName = userNameAndEditCount.userName
+        let editCount = userNameAndEditCount.editCount
         
         var attributedString: NSAttributedString
         if userType != .anonymous {
-            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, editCount)
+            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, String(editCount))
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
@@ -913,7 +1119,7 @@ public class LargeEventViewModel {
             let rangeOfUserName = (userInfo as NSString).range(of: userName)
             let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
             let title = "User:\(userName)"
-            let userNameURL = Configuration.current.articleURLForHost("en.wikipedia.org", appending: [title]).url
+            let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url
             if let userNameURL = userNameURL,
                rangeValid {
                 let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)

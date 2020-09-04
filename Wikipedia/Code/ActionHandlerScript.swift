@@ -131,4 +131,24 @@ final class PageContentService   {
             super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
+    
+    //tonitodo: this doesn't work for some reason 😩
+    //adding to styleoverrides instead
+    //but we should fix this to be in it's own css file so that we can easily theme later
+    final class SignificantEventsStyleScript: PageUserScript {
+        static let source: String = {
+            guard
+                let fileURL = Bundle.wmf.url(forResource: "significant-events-styles-light", withExtension: "css", subdirectory: "assets"),
+                let data = try? Data(contentsOf: fileURL),
+                let cssString = String(data: data, encoding: .utf8)?.sanitizedForJavaScriptTemplateLiterals
+            else {
+                return ""
+            }
+            return "const style = document.createElement('style'); style.innerHTML = `\(cssString)`; document.head.appendChild(style);"
+        }()
+        
+        init() {
+            super.init(source: SignificantEventsStyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        }
+    }
 }

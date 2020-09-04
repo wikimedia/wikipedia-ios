@@ -773,7 +773,7 @@
 "significant-events-new-website-reference-title" = "Website";
 "significant-events-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 references|$1 reference|$1 references}} added";
 "significant-events-one-section-description" = "in the $1 section";
-"significant-events-revision-userInfo" = "Edit by $1 ({{PLURAL:$2|0=0 edits|$2 edit|$2 edits}})";
+"significant-events-revision-userInfo" = "Edit by $1 ($2 edits)";
 "significant-events-revision-userInfo-anonymous" = "Edit by $1";
 "significant-events-single-reference-added-description" = "Reference added";
 "significant-events-small-change-description" = "{{PLURAL:$1|0=No small changes|$1 small change|$1 small changes}} made";

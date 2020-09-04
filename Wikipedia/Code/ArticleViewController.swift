@@ -48,7 +48,33 @@ class ArticleViewController: ViewController, HintPresenting {
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
     private lazy var significantEventsController = SignificantEventsController()
-    private var significantEventsViewModel: SignificantEventsViewModel?
+    
+    private var _significantEventsViewModel: SignificantEventsViewModel?
+    private var significantEventsViewModel: SignificantEventsViewModel? {
+        get {
+            return _significantEventsViewModel
+        }
+        set {
+            guard let newValue = newValue else {
+                //should only occur when resetting to nil shortly before a pull to refresh was triggered.
+                _significantEventsViewModel = nil
+                return
+            }
+            
+            if let oldModel = _significantEventsViewModel {
+                // should only be triggered via paging.
+                // update everything except sha and htmlInsert and
+                // append events instead of replace events
+                let appendedEvents = oldModel.events + newValue.events
+                let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
+                _significantEventsViewModel = SignificantEventsViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, events: appendedEvents, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
+                
+            } else {
+                // should only be triggered via pull to refresh or fresh load. update everything
+                _significantEventsViewModel = newValue
+            }
+        }
+    }
 
     private var leadImageHeight: CGFloat = 210
 
@@ -248,7 +274,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     internal func updateArticleMargins() {
-        if (shouldShowSignificantEvents()) {
+        if (shouldShowSignificantEvents) {
             var margins = articleMargins
             margins.left = 0
             margins.right = 0
@@ -397,7 +423,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return nil
     }
     
-    func shouldShowSignificantEvents() -> Bool {
+    var shouldAttemptToShowSignificantEvents: Bool {
         
         //todo: need A/B test logic (falls in test and visiting article in allowed list)
         let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
@@ -409,23 +435,31 @@ class ArticleViewController: ViewController, HintPresenting {
             isENWikipediaArticle = false
         }
         
-        let shouldShowSignificantEvents: Bool
+        let shouldAttemptToShowSignificantEvents: Bool
         if let _ = articleTitleAndSiteURL(),
            !isDeviceRTL && isENWikipediaArticle {
-            shouldShowSignificantEvents = true
+            shouldAttemptToShowSignificantEvents = true
         } else {
-            shouldShowSignificantEvents = false
+            shouldAttemptToShowSignificantEvents = false
         }
         
-        return shouldShowSignificantEvents
+        return shouldAttemptToShowSignificantEvents
+    }
+    
+    var shouldShowSignificantEvents: Bool {
+        if let significantEventsViewModel = significantEventsViewModel,
+                significantEventsViewModel.events.count > 0,
+                shouldAttemptToShowSignificantEvents {
+            return true
+        }
+        
+        return false
     }
     
     /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
     func setupArticleLoadWaitGroup() {
         assert(Thread.isMainThread)
-        
-        let shouldShowSignificantEvents = self.shouldShowSignificantEvents()
-        
+
         guard articleLoadWaitGroup == nil else {
             return
         }
@@ -433,14 +467,22 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup = DispatchGroup()
         articleLoadWaitGroup?.enter() // will leave on setup complete
         articleLoadWaitGroup?.notify(queue: DispatchQueue.main) { [weak self] in
-            self?.setupFooter()
-            self?.shareIfNecessary()
-            if (shouldShowSignificantEvents) {
-                self?.injectSignificantEventsContent({
-                    self?.updateArticleMargins()
-                })
+            
+            guard let self = self else {
+                return
             }
-            self?.articleLoadWaitGroup = nil
+            
+            self.setupFooter()
+            self.shareIfNecessary()
+            if let htmlSnippets = self.significantEventsViewModel?.articleInsertHtmlSnippets,
+               self.shouldShowSignificantEvents {
+                self.messagingController.injectSignificantEventsContent(articleInsertHtmlSnippets: htmlSnippets) { (success) in
+                    if (success) {
+                        self.updateArticleMargins()
+                    }
+                }
+            }
+            self.articleLoadWaitGroup = nil
         }
         
         guard let key = article.key else {
@@ -469,37 +511,44 @@ class ArticleViewController: ViewController, HintPresenting {
             }
         }
         
-        
-        
-        if let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
-           shouldShowSignificantEvents {
+        fetchInitialSignificantEvents {
             articleLoadWaitGroup?.enter()
-            significantEventsController.fetchSignificantEvents(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
-                defer {
-                    self.articleLoadWaitGroup?.leave()
-                }
-                switch result {
-                case .success(let significantEventsViewModel):
-                    self.significantEventsViewModel = significantEventsViewModel
-                case .failure(let error):
-                    DDLogDebug("Failure getting significant events models: \(error)")
-                }
+        } didLoadBlock: {
+            self.articleLoadWaitGroup?.leave()
+        }
+    }
+    
+    func fetchInitialSignificantEvents(willLoadBlock: () -> Void, didLoadBlock: @escaping () -> Void) {
+        
+        // triggered via initial load or pull to refresh
+        
+        guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
+              shouldAttemptToShowSignificantEvents else {
+            return
+        }
+        
+        willLoadBlock()
+        
+        significantEventsController.fetchSignificantEvents(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
+            defer {
+                didLoadBlock()
+            }
+            switch result {
+            case .success(let significantEventsViewModel):
+                self.significantEventsViewModel = significantEventsViewModel
+            case .failure(let error):
+                DDLogDebug("Failure getting significant events models: \(error)")
             }
         }
     }
     
-    #if DEBUG
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    private func presentSignificantEvents() {
         if let significantEventsViewModel = significantEventsViewModel {
             let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, theme: theme)
             significantEvents.apply(theme: theme)
             present(significantEvents, animated: true, completion: nil)
-            guard motion == .motionShake else {
-                return
-            }
         }
     }
-    #endif
     
     func loadPage(cachePolicy: WMFCachePolicy? = nil, revisionID: UInt64? = nil) {
         defer {
@@ -728,6 +777,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
+        significantEventsViewModel = nil
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -760,7 +810,11 @@ class ArticleViewController: ViewController, HintPresenting {
         guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
             return
         }
-        scroll(to: anchor, animated: true)
+        if anchor == "significant-events-read-more" {
+            presentSignificantEvents()
+        } else {
+            scroll(to: anchor, animated: true)
+        }
     }
     
     // MARK: Table of contents
@@ -975,6 +1029,7 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+        messagingController.shouldAttemptToShowSignificantEvents = shouldAttemptToShowSignificantEvents
         messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
