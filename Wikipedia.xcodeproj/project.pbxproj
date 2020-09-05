@@ -416,6 +416,14 @@
 		67E069142239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
 		67E06919223B32DF008550AC /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67E0691B223B32F1008550AC /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
+		67E2E48A2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E2E4892504527C0070F12D /* SignificantEventsHeaderView.xib */; };
+		67E2E48B2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E2E4892504527C0070F12D /* SignificantEventsHeaderView.xib */; };
+		67E2E48C2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E2E4892504527C0070F12D /* SignificantEventsHeaderView.xib */; };
+		67E2E48D2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E2E4892504527C0070F12D /* SignificantEventsHeaderView.xib */; };
+		67E2E48F250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */; };
+		67E2E490250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */; };
+		67E2E491250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */; };
+		67E2E492250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */; };
 		67E3992A24786E2100441831 /* ReadingListManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E3992924786E2100441831 /* ReadingListManualPerformanceTests.swift */; };
 		67E3992C24786E6D00441831 /* TalkPageManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E3992B24786E6D00441831 /* TalkPageManualPerformanceTests.swift */; };
 		67E466FA241BED770014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
@@ -3414,6 +3422,8 @@
 		67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFFindAndReplaceKeyboardBar.xib; sourceTree = "<group>"; };
 		67E06918223B32DF008550AC /* FocusNavigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FocusNavigationView.xib; sourceTree = "<group>"; };
 		67E0691A223B32F1008550AC /* FocusNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNavigationView.swift; sourceTree = "<group>"; };
+		67E2E4892504527C0070F12D /* SignificantEventsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignificantEventsHeaderView.xib; sourceTree = "<group>"; };
+		67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsHeaderView.swift; sourceTree = "<group>"; };
 		67E3992924786E2100441831 /* ReadingListManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67E3992B24786E6D00441831 /* TalkPageManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHistoryCompareFunnel.swift; sourceTree = "<group>"; };
@@ -5918,6 +5928,8 @@
 		6798035A24F94CAE00D765AA /* Significant Events */ = {
 			isa = PBXGroup;
 			children = (
+				67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */,
+				67E2E4892504527C0070F12D /* SignificantEventsHeaderView.xib */,
 				6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */,
 				6771299324FF775E00E89CA5 /* SignificantEventsSideScrollingCollectionViewCell.swift */,
 				6771299F24FFF43000E89CA5 /* SignificantEventsSnippetCollectionViewCell.swift */,
@@ -9142,6 +9154,7 @@
 				B0F4762021F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
 				D8D92B691DF22E1700B95311 /* NotificationButtonBackground@2x.png in Resources */,
 				7AEC985E219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
+				67E2E48A2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */,
 				7A707982223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9281,6 +9294,7 @@
 				B0C17B9621FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BB01F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0812022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
+				67E2E48D2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */,
 				6782DC0823453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
 				D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D322665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -9403,6 +9417,7 @@
 				B0C17B9421FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BAE1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
+				67E2E48C2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */,
 				6782DC0623453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D122665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -9525,6 +9540,7 @@
 				B0C17B9521FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BAF1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
+				67E2E48B2504527C0070F12D /* SignificantEventsHeaderView.xib in Resources */,
 				6782DC0723453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
 				7A9524D222665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -9896,6 +9912,7 @@
 				B0EFCD6D1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				67DC5BE923A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				B0CD9DD61F70997300051843 /* WMFWelcomeAnimationView.swift in Sources */,
+				67E2E48F250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */,
 				B0524B6F214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				67F73E752267B9070079DEEF /* TalkPageReplyListViewController.swift in Sources */,
 				67E8B0742268DA8B00537BC9 /* TalkPageTopicCell.swift in Sources */,
@@ -10882,6 +10899,7 @@
 				7A82898F21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				D8A42AE11E815A9C00D8E281 /* NSObject+WMFExtras.m in Sources */,
 				D8A42AE31E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.m in Sources */,
+				67E2E492250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */,
 				7A71565E226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				7A6ED51120ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				67E069142239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
@@ -11169,6 +11187,7 @@
 				B0EFCD6E1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				67E2E491250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */,
 				D87676A021E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				7ABE17192239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
@@ -11901,6 +11920,7 @@
 				D8E6FF7E2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				672C35ED22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */,
+				67E2E490250452E60070F12D /* SignificantEventsHeaderView.swift in Sources */,
 				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,

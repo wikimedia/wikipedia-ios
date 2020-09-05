@@ -644,9 +644,11 @@ public class LargeEventViewModel {
                     }
                 }
             }
-        case .vandalismRevert,
-             .smallChange:
+        case .vandalismRevert:
+            return []
+        case .smallChange:
             assertionFailure("This should not happen")
+            return []
         }
         
         self.lastTraitCollection = traitCollection

@@ -7,6 +7,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     private let significantEventsController = SignificantEventsController()
     private let significantEventsViewModel: SignificantEventsViewModel
     private var events: [TimelineEventViewModel] = []
+    private let articleTitle: String?
     
     fileprivate static let sideScrollingCellReuseIdentifier = "SignificantEventsSideScrollingCollectionViewCell"
     
@@ -14,9 +15,12 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         fatalError("init(coder:) not supported")
     }
     
-    required init(significantEventsViewModel: SignificantEventsViewModel, theme: Theme) {
+    private var headerView: SignificantEventsHeaderView?
+    
+    required init(significantEventsViewModel: SignificantEventsViewModel, articleTitle: String?, theme: Theme, locale: Locale = Locale.current) {
         self.significantEventsViewModel = significantEventsViewModel
         self.events = significantEventsViewModel.events
+        self.articleTitle = articleTitle
         super.init()
         self.theme = theme
     }
@@ -29,6 +33,30 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
 
         layoutManager.register(SignificantEventsSideScrollingCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier, addPlaceholder: true)
+        
+        setupHeaderView()
+    }
+    
+    private func setupHeaderView() {
+        
+        navigationMode = .forceBar
+        
+        if let headerView = SignificantEventsHeaderView.wmf_viewFromClassNib() {
+            //tonitodo: localize
+            let headerText = "Recent Changes"
+            self.headerView = headerView
+            headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: significantEventsViewModel.summaryText, theme: theme)
+            navigationBar.isBarHidingEnabled = false
+            navigationBar.isUnderBarViewHidingEnabled = true
+            navigationBar.allowsUnderbarHitsFallThrough = true
+            useNavigationBarVisibleHeightForScrollViewInsets = true
+            navigationBar.addUnderNavigationBarView(headerView)
+            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+            navigationBar.shadowColorKeyPath = \Theme.colors.border
+            navigationBar.title = headerText
+           
+            updateScrollViewInsets()
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {

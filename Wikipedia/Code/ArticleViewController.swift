@@ -544,8 +544,10 @@ class ArticleViewController: ViewController, HintPresenting {
     
     private func presentSignificantEvents() {
         if let significantEventsViewModel = significantEventsViewModel {
-            let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, theme: theme)
+            let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, theme: theme)
             significantEvents.apply(theme: theme)
+//            let navigationController = WMFThemeableNavigationController(rootViewController: significantEvents, theme: theme, style: .sheet)
+//            navigationController.isNavigationBarHidden = false
             present(significantEvents, animated: true, completion: nil)
         }
     }
