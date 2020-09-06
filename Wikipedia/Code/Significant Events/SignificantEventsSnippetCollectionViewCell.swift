@@ -24,7 +24,6 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         let adjustedMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
 
         let titleX = adjustedMargins.left
         
@@ -35,18 +34,14 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
         
         let finalHeight = adjustedMargins.top + titleTextViewFrame.size.height + adjustedMargins.bottom
         
-        //tonitodo: these heights still seem wrong
-        let textViewExtraHeight = titleTextView.textContainerInset.top
-        
-        let shadowSize = CGSize(width: size.width, height: finalHeight)
-        let totalSize = CGSize(width: size.width, height: finalHeight + textViewExtraHeight)
+        let finalSize = CGSize(width: titleTextViewFrame.width, height: finalHeight)
 
         if (apply) {
             titleTextView.textAlignment = .natural
-            layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: shadowSize), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
+            layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: finalSize), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
         }
         
-        return CGSize(width: totalSize.width, height: totalSize.height)
+        return finalSize
     }
     
     func configure(snippet: NSAttributedString, theme: Theme) {
@@ -60,7 +55,7 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
         selectedBackgroundView?.layer.cornerRadius = 3
         selectedBackgroundView?.layer.masksToBounds = true
         layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 1.0
+        layer.shadowOpacity = 0.3
         layer.shadowRadius = 3
                 
     }
@@ -103,7 +98,7 @@ extension SignificantEventsSnippetCollectionViewCell: Themeable {
         setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
         //contentView.backgroundColor = theme.colors.paperBackground
         //setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
-        layer.shadowColor = theme.colors.shadow.cgColor
+        layer.shadowColor = theme.colors.cardShadow.cgColor
     }
 }
 

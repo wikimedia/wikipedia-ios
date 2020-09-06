@@ -75,6 +75,8 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
     }
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let prototypeCell = SignificantEventsSnippetCollectionViewCell()
+    private var targetItemSizeHeight: CGFloat = 0
+    private var largestAttributedString: NSAttributedString?
     
     override func setup() {
         contentView.addSubview(descriptionLabel)
@@ -91,37 +93,17 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         
         wmf_configureSubviewsForDynamicType()
         
-        //Setup the prototype cell with the largest snippet content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
-        var largestSnippetCount: Int = 0
-        var largestSnippet: String = ""
-        for changeDetail in changeDetails {
-            switch changeDetail {
-            case .snippet(let snippet):
-                if snippet.displayText.string.count > largestSnippetCount {
-                    largestSnippetCount = snippet.displayText.string.count
-                    largestSnippet = snippet.displayText.string
-                }
-            case .reference(let reference):
-                if reference.description.string.count > largestSnippetCount {
-                    largestSnippetCount = reference.description.string.count
-                    largestSnippet = reference.description.string
-                }
-            }
-        }
-        if let largeEventViewModel = LargeEventViewModel(forPrototypeText: largestSnippet),
-           let snippetAttributedString = largeEventViewModel.firstSnippetFromPrototypeModel(traitCollection: traitCollection, theme: Theme.standard) { //standard theme since this cell is just for sizing
-        
-            prototypeCell.configure(snippet: snippetAttributedString, theme: theme)
-        }
-        
         prototypeCell.isHidden = true
+        
         descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
         collectionView.register(SignificantEventsSnippetCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsSideScrollingCollectionViewCell.snippetCellIdentifier)
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
+        collectionView.clipsToBounds = false
         
         super.setup()
     }
@@ -158,27 +140,31 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         
         let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: descriptionOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
-        let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY)
+        let descriptionCollectionViewSpacing = CGFloat(5)
+        
+        let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY + descriptionCollectionViewSpacing)
         
         let collectionViewSpacing: CGFloat = 10
-        var collectionViewHeight = prototypeCell.wmf_preferredHeight(at: collectionViewOrigin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, spacing: 2 * collectionViewSpacing, apply: false)
-
-        if changeDetails.isEmpty {
+        var collectionViewHeight: CGFloat = 0
+        if let largetAttributedString = largestAttributedString {
+                prototypeCell.configure(snippet: largetAttributedString, theme: theme)
+            collectionViewHeight = prototypeCell.wmf_preferredHeight(at: collectionViewOrigin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, spacing: 2 * collectionViewSpacing, apply: false)
+        } else {
             collectionViewHeight = 0
         }
 
         if (apply) {
-            flowLayout?.itemSize = CGSize(width: 250, height: collectionViewHeight - 2 * collectionViewSpacing)
+            targetItemSizeHeight = collectionViewHeight - 2 * collectionViewSpacing
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.minimumLineSpacing = 15
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: 0, bottom: collectionViewSpacing, right: collectionViewSpacing)
             collectionView.frame = CGRect(x: 0, y: collectionViewOrigin.y, width: size.width, height: collectionViewHeight)
-            collectionView.contentInset = UIEdgeInsets(top: 0, left: x - collectionViewSpacing, bottom: 0, right: 0)
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: x, bottom: 0, right: 0)
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
         }
         
-        let collectionViewUserInfoLabelSpacing = CGFloat(0)
+        let collectionViewUserInfoLabelSpacing = CGFloat(5)
         
         let userInfoOrigin = CGPoint(x: x, y: descriptionFrame.maxY + collectionViewHeight + collectionViewUserInfoLabelSpacing)
         
@@ -259,6 +245,8 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         thankButton.removeFromSuperview()
         viewChangesButton.removeFromSuperview()
         viewDiscussionButton.removeFromSuperview()
+        largestAttributedString = nil
+        targetItemSizeHeight = 0
     }
     
     func resetContentOffset() {
@@ -275,6 +263,22 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         timestampLabel.text = largeEvent.timestampForDisplay()
         timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         
+        //Grab largest attributed string within snippet cell, so we can use it to configure in sizeThatFits for collection view overall height sizing.
+        var largestSnippetCount: Int = 0
+        for changeDetail in changeDetails {
+            switch changeDetail {
+            case .snippet(let snippet):
+                if snippet.displayText.string.count > largestSnippetCount {
+                    largestSnippetCount = snippet.displayText.string.count
+                    largestAttributedString = snippet.displayText
+                }
+            case .reference(let reference):
+                if reference.description.string.count > largestSnippetCount {
+                    largestSnippetCount = reference.description.string.count
+                    largestAttributedString = reference.description
+                }
+            }
+        }
 
         switch largeEvent.buttonsToDisplay {
         case .thankAndViewChanges(let userId, let revisionId):
@@ -330,5 +334,23 @@ extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewData
             snippetCell.configure(snippet: reference.description, theme: theme)
             return snippetCell
         }
+    }
+}
+
+extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let changeDetail = changeDetails[indexPath.item]
+        
+        var snippetAttributedString: NSAttributedString
+        switch changeDetail {
+        case .snippet(let snippet):
+            snippetAttributedString = snippet.displayText
+        case .reference(let reference):
+            snippetAttributedString = reference.description
+        }
+        
+        prototypeCell.configure(snippet: snippetAttributedString, theme: theme)
+        return prototypeCell.sizeThatFits(CGSize(width: 250, height: targetItemSizeHeight), apply: false)
     }
 }
