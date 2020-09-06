@@ -91,8 +91,24 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         
         wmf_configureSubviewsForDynamicType()
         
-        //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
-        if let largeEventViewModel = LargeEventViewModel(forPrototypeText: "Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing "),
+        //Setup the prototype cell with the largest snippet content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
+        var largestSnippetCount: Int = 0
+        var largestSnippet: String = ""
+        for changeDetail in changeDetails {
+            switch changeDetail {
+            case .snippet(let snippet):
+                if snippet.displayText.string.count > largestSnippetCount {
+                    largestSnippetCount = snippet.displayText.string.count
+                    largestSnippet = snippet.displayText.string
+                }
+            case .reference(let reference):
+                if reference.description.string.count > largestSnippetCount {
+                    largestSnippetCount = reference.description.string.count
+                    largestSnippet = reference.description.string
+                }
+            }
+        }
+        if let largeEventViewModel = LargeEventViewModel(forPrototypeText: largestSnippet),
            let snippetAttributedString = largeEventViewModel.firstSnippetFromPrototypeModel(traitCollection: traitCollection, theme: Theme.standard) { //standard theme since this cell is just for sizing
         
             prototypeCell.configure(snippet: snippetAttributedString, theme: theme)

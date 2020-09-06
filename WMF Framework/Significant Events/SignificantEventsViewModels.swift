@@ -1127,19 +1127,19 @@ public class LargeEventViewModel {
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
             let rangeOfUserName = (userInfo as NSString).range(of: userName)
             let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
-            let title = "User:\(userName)"
-            let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url
-            if let userNameURL = userNameURL,
-               rangeValid {
-                let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)
-                mutableAttributedString.addAttribute(NSAttributedString.Key.link, value: userNameURL as NSURL, range: rangeOfUserName)
-                mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: theme.colors.link, range: rangeOfUserName)
-                
-                if let attributedString = mutableAttributedString.copy() as? NSAttributedString {
-                    return attributedString
-                } else {
-                    assertionFailure("This shouldn't happen")
-                    attributedString = NSAttributedString(string: "")
+            if let title = "User:\(userName)".denormalizedPageTitle {
+                let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url
+                if let userNameURL = userNameURL,
+                   rangeValid {
+                    let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)
+                    mutableAttributedString.addAttribute(NSAttributedString.Key.link, value: userNameURL as NSURL, range: rangeOfUserName)
+                    mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: theme.colors.link, range: rangeOfUserName)
+                    
+                    if let attributedString = mutableAttributedString.copy() as? NSAttributedString {
+                        return attributedString
+                    } else {
+                        assertionFailure("This shouldn't happen")
+                    }
                 }
             }
             

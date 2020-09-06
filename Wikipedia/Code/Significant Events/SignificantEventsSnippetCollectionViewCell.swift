@@ -23,7 +23,7 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left, bottom: 0, right: layoutMargins.right)
+        let adjustedMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
 
         let titleX = adjustedMargins.left
@@ -35,30 +35,34 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
         
         let finalHeight = adjustedMargins.top + titleTextViewFrame.size.height + adjustedMargins.bottom
         
+        //tonitodo: these heights still seem wrong
+        let textViewExtraHeight = titleTextView.textContainerInset.top
+        
+        let shadowSize = CGSize(width: size.width, height: finalHeight)
+        let totalSize = CGSize(width: size.width, height: finalHeight + textViewExtraHeight)
+
         if (apply) {
             titleTextView.textAlignment = .natural
+            layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: shadowSize), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
         }
         
-        return CGSize(width: size.width, height: finalHeight)
+        return CGSize(width: totalSize.width, height: totalSize.height)
     }
     
     func configure(snippet: NSAttributedString, theme: Theme) {
         apply(theme: theme)
-        backgroundColor = .clear
-        contentView.backgroundColor = .clear
         //setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
+        setupTitle(for: snippet)
+        updateFonts(with: traitCollection)
+        
         backgroundView?.layer.cornerRadius = 3
         backgroundView?.layer.masksToBounds = true
         selectedBackgroundView?.layer.cornerRadius = 3
         selectedBackgroundView?.layer.masksToBounds = true
-        titleTextView.layer.shadowOffset = CGSize(width: 0, height: 1)
-        titleTextView.layer.shadowOpacity = 1.0
-        titleTextView.layer.shadowRadius = 3
-        titleTextView.layer.shadowColor = theme.colors.shadow.cgColor
-        titleTextView.layer.masksToBounds = false
-        layer.masksToBounds = false
-        setupTitle(for: snippet)
-        updateFonts(with: traitCollection)
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 3
+                
     }
     
     override func reset() {
@@ -94,8 +98,12 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
 extension SignificantEventsSnippetCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-        titleTextView.backgroundColor = theme.colors.paperBackground
-        contentView.backgroundColor = theme.colors.paperBackground
+        backgroundColor = .clear
+        titleTextView.backgroundColor = .clear
+        setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
+        //contentView.backgroundColor = theme.colors.paperBackground
+        //setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
+        layer.shadowColor = theme.colors.shadow.cgColor
     }
 }
 
