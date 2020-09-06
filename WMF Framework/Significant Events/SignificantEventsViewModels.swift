@@ -181,7 +181,7 @@ public class LargeEventViewModel {
     
     public struct Reference {
         let type: String
-        let description: NSAttributedString
+        public let description: NSAttributedString
         let accessDateYearDisplay: String?
     }
     
@@ -191,7 +191,7 @@ public class LargeEventViewModel {
         case bot
     }
     
-    enum ButtonsToDisplay {
+    public enum ButtonsToDisplay {
         case thankAndViewChanges(userId: UInt, revisionId: UInt)
         case viewDiscussion(sectionName: String)
     }
@@ -203,7 +203,7 @@ public class LargeEventViewModel {
     private(set) var userInfo: NSAttributedString?
     let userId: UInt
     let userType: UserType
-    let buttonsToDisplay: ButtonsToDisplay?
+    public let buttonsToDisplay: ButtonsToDisplay
     private var lastTraitCollection: UITraitCollection?
     
     init?(timelineEvent: SignificantEvents.TimelineEvent) {
@@ -611,7 +611,7 @@ public class LargeEventViewModel {
                         
                         switch template {
                         case .articleDescription(let articleDescription):
-                            let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+                            let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
                             let attributes = [NSAttributedString.Key.font: font,
                                               NSAttributedString.Key.foregroundColor:
                                                 theme.colors.primaryText]
@@ -711,8 +711,8 @@ public class LargeEventViewModel {
     
     private func descriptionForJournalCitation(_ journalCitation: SignificantEvents.JournalCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
-        let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        let boldFont = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let boldFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -788,8 +788,8 @@ public class LargeEventViewModel {
     }
     
     private func descriptionForWebsiteCitation(_ websiteCitation:SignificantEvents.WebsiteCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -858,8 +858,8 @@ public class LargeEventViewModel {
     
     private func descriptionForNewsCitation(_ newsCitation: SignificantEvents.NewsCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
-        let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -927,8 +927,8 @@ public class LargeEventViewModel {
     
     private func descriptionForBookCitation(_ bookCitation: SignificantEvents.BookCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
-        let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]

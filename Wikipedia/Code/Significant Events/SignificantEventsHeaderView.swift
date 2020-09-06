@@ -21,6 +21,7 @@ class SignificantEventsHeaderView: SizeThatFitsReusableView {
             }
         }
     }
+    
     private var shouldShowSparkline: Bool {
         guard let editMetrics = editMetrics,
               editMetrics.count > 0 else {

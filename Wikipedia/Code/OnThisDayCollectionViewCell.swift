@@ -2,7 +2,7 @@ import UIKit
 
 public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
-    public let timelineView = OnThisDayTimelineView()
+    public let timelineView = TimelineView()
         
     override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
@@ -34,7 +34,7 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     override open func setup() {
         super.setup()
         timelineView.isOpaque = true
-        contentView.insertSubview(timelineView, belowSubview: collectionView)
+        insertSubview(timelineView, belowSubview: collectionView)
     }
     
     public var pauseDotsAnimation: Bool = true {

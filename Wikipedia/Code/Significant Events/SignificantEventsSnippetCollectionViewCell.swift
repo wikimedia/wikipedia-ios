@@ -58,7 +58,6 @@ class SignificantEventsSnippetCollectionViewCell: CollectionViewCell {
         titleTextView.layer.masksToBounds = false
         layer.masksToBounds = false
         setupTitle(for: snippet)
-        layoutMargins = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
         updateFonts(with: traitCollection)
     }
     

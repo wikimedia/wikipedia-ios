@@ -1,5 +1,6 @@
 
 import UIKit
+import WMF
 
 // Note: this is an amalgamation of both SideScrollingCollectionViewCell and OnThisDayCollectionViewCell
 // We are purposely not repurposing those classes to limit risk
@@ -11,8 +12,53 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
     private var theme: Theme = Theme.standard
     
     private let descriptionLabel = UILabel()
-    let timelineView = OnThisDayTimelineView()
-    let timelineViewWidth:CGFloat = 66.0
+    private let timestampLabel = UILabel()
+    private let userInfoTextView = UITextView()
+    //tonitodo: clean this button configuration up
+    private lazy var thankButton: AlignedImageButton = {
+        let button = AlignedImageButton()
+        button.setImage(#imageLiteral(resourceName: "places-more"), for: .normal) //tonitodo: proper image
+        //thankButton.isUserInteractionEnabled = false
+        button.titleLabel?.numberOfLines = 1
+        button.titleLabel?.textAlignment = .left
+        button.horizontalSpacing = 2
+        button.verticalPadding = 4
+        button.leftPadding = 10
+        button.rightPadding = 10
+        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setTitle(WMFLocalizedString("significant-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in significant events screen"), for: .normal)
+       return button
+    }()
+    private lazy var viewChangesButton: AlignedImageButton = {
+        let button = AlignedImageButton()
+        button.setImage(#imageLiteral(resourceName: "places-more"), for: .normal) //tonitodo: proper image
+        //thankButton.isUserInteractionEnabled = false
+        button.titleLabel?.numberOfLines = 1
+        button.titleLabel?.textAlignment = .left
+        button.horizontalSpacing = 2
+        button.verticalPadding = 4
+        button.leftPadding = 10
+        button.rightPadding = 10
+        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setTitle(WMFLocalizedString("significant-events-view-changes", value: "View changes", comment: "Button title on a significant event cell that sends user to the revision history screen."), for: .normal)
+       return button
+    }()
+    private lazy var viewDiscussionButton: AlignedImageButton = {
+        let button = AlignedImageButton()
+        button.setImage(#imageLiteral(resourceName: "places-more"), for: .normal) //tonitodo: proper image
+        //thankButton.isUserInteractionEnabled = false
+        button.titleLabel?.numberOfLines = 1
+        button.titleLabel?.textAlignment = .left
+        button.horizontalSpacing = 2
+        button.verticalPadding = 4
+        button.leftPadding = 10
+        button.rightPadding = 10
+        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setTitle(WMFLocalizedString("significant-events-view-discussion", value: "View discussion", comment: "Button title on a significant event cell that sends a user to the significant event's talk page topic."), for: .normal)
+       return button
+    }()
+    
+    let timelineView = TimelineView()
     
     private var largeEvent: LargeEventViewModel? {
         didSet {
@@ -31,10 +77,16 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
     private let prototypeCell = SignificantEventsSnippetCollectionViewCell()
     
     override func setup() {
-        descriptionLabel.isOpaque = true
         contentView.addSubview(descriptionLabel)
+        contentView.addSubview(userInfoTextView)
+        contentView.addSubview(timestampLabel)
         contentView.addSubview(collectionView)
         timelineView.isOpaque = true
+        timestampLabel.isOpaque = true
+        descriptionLabel.isOpaque = true
+        userInfoTextView.isOpaque = true
+        
+        timelineView.decoration = .singleDot
         contentView.insertSubview(timelineView, belowSubview: collectionView)
         
         wmf_configureSubviewsForDynamicType()
@@ -64,57 +116,101 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
             configure(with: largeEvent, theme: theme)
         }
     }
-    
-    private let spacing: CGFloat = 0 //was 6
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let x = layoutMargins.left
-        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: timelineViewWidth, bottom: 0, right: 0)
-        if apply {
-            timelineView.frame = CGRect(x: x, y: 0, width: timelineViewWidth, height: size.height)
-        }
-        
-        //return super.sizeThatFits(size, apply: apply)
+        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5)
         
         let layoutMargins = calculatedLayoutMargins
-        var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
-        let widthToFit = size.width - layoutMargins.left - layoutMargins.right
         
-        origin.y += spacing
-        origin.y += descriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, spacing: spacing, apply: apply)
+        let timelineTextSpacing = CGFloat(5)
+        let timelineWidth = CGFloat(15)
+        let x = layoutMargins.left + timelineWidth + timelineTextSpacing
+        let widthToFit = size.width - layoutMargins.right - x
+        
+        if apply {
+            timelineView.frame = CGRect(x: layoutMargins.left, y: 0, width: timelineWidth, height: size.height)
+        }
+        
+        
+        let timestampOrigin = CGPoint(x: x, y: layoutMargins.top)
+        
+        let timestampFrame = timestampLabel.wmf_preferredFrame(at: timestampOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
+        
+        let timestampDescriptionSpacing = CGFloat(6)
+        
+        let descriptionOrigin = CGPoint(x: x, y: timestampFrame.maxY + timestampDescriptionSpacing)
+        
+        let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: descriptionOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
+        
+        let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY)
         
         let collectionViewSpacing: CGFloat = 10
-        var height = prototypeCell.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, spacing: 2 * collectionViewSpacing, apply: false)
+        var collectionViewHeight = prototypeCell.wmf_preferredHeight(at: collectionViewOrigin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, spacing: 2 * collectionViewSpacing, apply: false)
 
         if changeDetails.isEmpty {
-            height = 0
+            collectionViewHeight = 0
         }
 
         if (apply) {
-            flowLayout?.itemSize = CGSize(width: 250, height: height - 2 * collectionViewSpacing)
+            flowLayout?.itemSize = CGSize(width: 250, height: collectionViewHeight - 2 * collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.minimumLineSpacing = 15
-            flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
-            collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
-            collectionView.contentInset = UIEdgeInsets(top: 0, left: layoutMargins.left - collectionViewSpacing, bottom: 0, right: 0)
+            flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: 0, bottom: collectionViewSpacing, right: collectionViewSpacing)
+            collectionView.frame = CGRect(x: 0, y: collectionViewOrigin.y, width: size.width, height: collectionViewHeight)
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: x - collectionViewSpacing, bottom: 0, right: 0)
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
         }
-
-        origin.y += height
-        origin.y += layoutMargins.bottom
         
-        return CGSize(width: size.width, height: origin.y)
+        let collectionViewUserInfoLabelSpacing = CGFloat(0)
+        
+        let userInfoOrigin = CGPoint(x: x, y: descriptionFrame.maxY + collectionViewHeight + collectionViewUserInfoLabelSpacing)
+        
+        let userInfoFrame =
+            userInfoTextView.wmf_preferredFrame(at: userInfoOrigin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, apply: apply)
+        
+        guard let largeEvent = largeEvent else {
+            let finalHeight = userInfoFrame.maxY + layoutMargins.bottom
+            return CGSize(width: size.width, height: finalHeight)
+        }
+        
+        let userInfoButtonsSpacing = CGFloat(4)
+        let buttonsSpacing = CGFloat(20)
+        let mysteriousButtonXOriginOffsetNeeded = CGFloat(10)
+        
+        var finalHeight = userInfoFrame.maxY
+        switch largeEvent.buttonsToDisplay {
+        case .thankAndViewChanges:
+            let thankOrigin = CGPoint(x: x + mysteriousButtonXOriginOffsetNeeded, y: userInfoFrame.maxY + userInfoButtonsSpacing)
+
+            let thankFrame = thankButton.wmf_preferredFrame(at: thankOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
+            
+            let viewChangesOrigin = CGPoint(x: thankFrame.maxX + buttonsSpacing, y: userInfoFrame.maxY + userInfoButtonsSpacing)
+            let _ = viewChangesButton.wmf_preferredFrame(at: viewChangesOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
+            finalHeight = thankFrame.maxY
+            thankButton.cornerRadius = thankFrame.height / 2
+            viewChangesButton.cornerRadius = thankFrame.height / 2
+        case .viewDiscussion:
+            let viewDiscussionOrigin = CGPoint(x: x + mysteriousButtonXOriginOffsetNeeded, y: userInfoFrame.maxY + userInfoButtonsSpacing)
+            let viewDiscussionFrame = viewDiscussionButton.wmf_preferredFrame(at: viewDiscussionOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
+            finalHeight = viewDiscussionFrame.maxY
+            viewDiscussionButton.cornerRadius = viewDiscussionFrame.height / 2
+        }
+        
+        let finalFinalHeight = finalHeight + layoutMargins.bottom
+        return CGSize(width: size.width, height: finalFinalHeight)
     }
+    
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        timelineView.dotsY = descriptionLabel.convert(descriptionLabel.bounds, to: timelineView).minY
+        timelineView.dotsY = timestampLabel.convert(timestampLabel.bounds, to: timelineView).midY
     }
     
     func apply(theme: Theme) {
         self.theme = theme
         timelineView.backgroundColor = theme.colors.paperBackground
-        timelineView.tintColor = theme.colors.link
+        timelineView.tintColor = theme.colors.accent
+        timestampLabel.textColor = theme.colors.accent
         
         if let largeEvent = largeEvent {
             configure(with: largeEvent, theme: theme)
@@ -122,6 +218,17 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         
         collectionView.backgroundColor = .clear
         collectionView.reloadData()
+        
+        if let largeEvent = largeEvent {
+            switch largeEvent.buttonsToDisplay {
+            case .thankAndViewChanges:
+                thankButton.backgroundColor = theme.colors.midBackground
+                viewChangesButton.backgroundColor = theme.colors.midBackground
+            case .viewDiscussion:
+                viewDiscussionButton.backgroundColor = theme.colors.midBackground
+            }
+        }
+        
     }
     
     override func reset() {
@@ -131,6 +238,11 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         changeDetails.removeAll()
         collectionView.reloadData()
         descriptionLabel.attributedText = nil
+        userInfoTextView.attributedText = nil
+        timestampLabel.text = nil
+        thankButton.removeFromSuperview()
+        viewChangesButton.removeFromSuperview()
+        viewDiscussionButton.removeFromSuperview()
     }
     
     func resetContentOffset() {
@@ -143,6 +255,36 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         self.largeEvent = largeEvent
     
         descriptionLabel.attributedText = largeEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
+        userInfoTextView.attributedText = largeEvent.userInfoForTraitCollection(traitCollection, theme: theme)
+        timestampLabel.text = largeEvent.timestampForDisplay()
+        timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        
+
+        switch largeEvent.buttonsToDisplay {
+        case .thankAndViewChanges(let userId, let revisionId):
+            contentView.addSubview(thankButton)
+            contentView.addSubview(viewChangesButton)
+            
+            thankButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            viewChangesButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            
+            thankButton.setTitleColor(theme.colors.link, for: .normal)
+            viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
+            
+            thankButton.setNeedsLayout()
+            thankButton.layoutIfNeeded()
+            viewChangesButton.setNeedsLayout()
+            viewChangesButton.layoutIfNeeded()
+        case .viewDiscussion(let sectionName):
+            
+            contentView.addSubview(viewDiscussionButton)
+            
+            viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            viewDiscussionButton.setTitleColor(theme.colors.link, for: .normal)
+            
+            viewDiscussionButton.setNeedsLayout()
+            viewDiscussionButton.layoutIfNeeded()
+        }
         
         resetContentOffset()
         setNeedsLayout()
@@ -168,8 +310,9 @@ extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewData
         case .snippet(let snippet):
             snippetCell.configure(snippet: snippet.displayText, theme: theme)
             return snippetCell
-        default:
-            return cell
+        case .reference(let reference):
+            snippetCell.configure(snippet: reference.description, theme: theme)
+            return snippetCell
         }
     }
 }
