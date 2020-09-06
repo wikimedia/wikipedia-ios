@@ -50,7 +50,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private lazy var significantEventsController = SignificantEventsController()
     
     private var _significantEventsViewModel: SignificantEventsViewModel?
-    private var significantEventsViewModel: SignificantEventsViewModel? {
+    internal var significantEventsViewModel: SignificantEventsViewModel? {
         get {
             return _significantEventsViewModel
         }
@@ -76,6 +76,7 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     private var significantEventsEditMetrics: [NSNumber]?
+    private var significantEventsViewController: SignificantEventsViewController?
 
     private var leadImageHeight: CGFloat = 210
 
@@ -553,6 +554,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 switch result {
                 case .failure(let error):
                     self.significantEventsEditMetrics = nil
+                    DDLogDebug("Error fetching edit metrics for significant events: \(error)")
                 case .success(let timeseriesOfEditCounts):
                     self.significantEventsEditMetrics = timeseriesOfEditCounts
                 }
@@ -562,11 +564,16 @@ class ArticleViewController: ViewController, HintPresenting {
     
     private func presentSignificantEvents() {
         if let significantEventsViewModel = significantEventsViewModel {
-            let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, editMetrics: significantEventsEditMetrics, theme: theme)
-            significantEvents.apply(theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: significantEvents, theme: theme)
-            navigationController.modalPresentationStyle = .pageSheet
-            present(navigationController, animated: true, completion: nil)
+            
+            significantEventsViewController = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, editMetrics: significantEventsEditMetrics, theme: theme, delegate: self)
+            significantEventsViewController?.apply(theme: theme)
+            
+            if let significantEventsViewController = significantEventsViewController {
+                let navigationController = WMFThemeableNavigationController(rootViewController: significantEventsViewController, theme: theme)
+                navigationController.modalPresentationStyle = .pageSheet
+                present(navigationController, animated: true, completion: nil)
+            }
+            
         }
     }
     
@@ -1214,6 +1221,26 @@ extension ViewController  { // Putting extension on ViewController rather than A
             // If (is EditPreviewVC) or (is TOC OffScreen) then use readableContentGuide to make text inset from screen edges.
             // Since readableContentGuide has no effect on compact width, both paths of this `if` statement result in an identical result for smaller screens.
             return viewForCalculation.readableContentGuide.layoutFrame.minX
+        }
+    }
+}
+
+extension ArticleViewController: SignificantEventsViewControllerDelegate {
+    func fetchNextPage(nextRvStartId: UInt) {
+        
+        guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
+              shouldAttemptToShowSignificantEvents else {
+            return
+        }
+        
+        significantEventsController.fetchSignificantEvents(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
+            switch result {
+            case .failure(let error):
+                DDLogDebug("Failure fetching next significant events page \(error)")
+            case .success(let significantEventsViewModel):
+                self.significantEventsViewModel = significantEventsViewModel
+                self.significantEventsViewController?.reloadData()
+            }
         }
     }
 }

@@ -15,8 +15,9 @@ public class SignificantEventsFetcher: Fetcher {
             return
         }
         
-        session.jsonDecodableTask(with: url) { (significantEvents: SignificantEvents?, response: URLResponse?, error: Error?) in
-            
+        let request = URLRequest(url: url)
+        
+        let _ = session.jsonDecodableTask(with: request) { (significantEvents: SignificantEvents?, response, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -50,7 +51,7 @@ public class SignificantEventsFetcher: Fetcher {
         components.scheme = "https"
         components.replacePercentEncodedPathWithPathComponents(pathComponents)
         if let rvStartId = rvStartId {
-            let queryParameters = ["rvStartId": rvStartId]
+            let queryParameters = ["rvstartid": rvStartId]
             components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
         }
         

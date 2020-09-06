@@ -35,6 +35,10 @@ public class SignificantEventsController {
     }
     
     public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], Error>) -> Void ) {
-        fetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL, completion: completion)
+        fetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { (result) in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
     }
 }

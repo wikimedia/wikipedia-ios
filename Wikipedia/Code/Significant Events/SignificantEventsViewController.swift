@@ -2,15 +2,21 @@
 import UIKit
 import WMF
 
+protocol SignificantEventsViewControllerDelegate: class {
+    func fetchNextPage(nextRvStartId: UInt)
+    var significantEventsViewModel: SignificantEventsViewModel? {
+        get
+    }
+}
+
 class SignificantEventsViewController: ColumnarCollectionViewController {
     
     private let significantEventsController = SignificantEventsController()
-    private let significantEventsViewModel: SignificantEventsViewModel
-    private var events: [TimelineEventViewModel] = []
     private let articleTitle: String?
     private var headerView: SignificantEventsHeaderView?
     private let headerText = WMFLocalizedString("significant-events-header-text", value: "Recent Changes", comment: "Header text of significant changes view.")
     private let editMetrics: [NSNumber]?
+    private weak var delegate: SignificantEventsViewControllerDelegate?
     
     fileprivate static let sideScrollingCellReuseIdentifier = "SignificantEventsSideScrollingCollectionViewCell"
     
@@ -18,13 +24,21 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         fatalError("init(coder:) not supported")
     }
     
-    required init(significantEventsViewModel: SignificantEventsViewModel, articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current) {
-        self.significantEventsViewModel = significantEventsViewModel
-        self.events = significantEventsViewModel.events
+    required init?(significantEventsViewModel: SignificantEventsViewModel, articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current, delegate: SignificantEventsViewControllerDelegate) {
+        
+        guard let _ = delegate.significantEventsViewModel else {
+            return nil
+        }
+        
         self.articleTitle = articleTitle
         self.editMetrics = editMetrics
         super.init()
         self.theme = theme
+        self.delegate = delegate
+    }
+    
+    func reloadData() {
+        collectionView.reloadData()
     }
 
     override func viewDidLoad() {
@@ -60,6 +74,11 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     }
     
     private func configureHeaderView(_ headerView: SignificantEventsHeaderView) {
+        
+        guard let significantEventsViewModel = delegate?.significantEventsViewModel else {
+            return
+        }
+        
         let headerText = self.headerText.uppercased(with: NSLocale.current)
         headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: significantEventsViewModel.summaryText, editMetrics: editMetrics, theme: theme)
         headerView.apply(theme: theme)
@@ -84,7 +103,12 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier) as? SignificantEventsSideScrollingCollectionViewCell else {
             return estimate
         }
-        guard let event = events[safeIndex: indexPath.item] else {
+        
+        guard let significantEventsViewModel = delegate?.significantEventsViewModel else {
+            return estimate
+        }
+        
+        guard let event = significantEventsViewModel.events[safeIndex: indexPath.item] else {
             return estimate
         }
         placeholderCell.layoutMargins = layout.itemLayoutMargins
@@ -101,12 +125,29 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         return estimate
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        guard let significantEventsViewModel = delegate?.significantEventsViewModel else {
+            return
+        }
+        
+        if indexPath.item == significantEventsViewModel.events.count - 1 {
+            guard let nextRvStartId = significantEventsViewModel.nextRvStartId,
+                  nextRvStartId != 0 else {
+                return
+            }
+            
+            delegate?.fetchNextPage(nextRvStartId: nextRvStartId)
+        }
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier, for: indexPath)
-        guard let significantEventsSideScrollingCell = cell as? SignificantEventsSideScrollingCollectionViewCell else {
+        guard let significantEventsSideScrollingCell = cell as? SignificantEventsSideScrollingCollectionViewCell,
+              let significantEventsViewModel = delegate?.significantEventsViewModel else {
             return cell
         }
-        guard let event = events[safeIndex: indexPath.item] else {
+        guard let event = significantEventsViewModel.events[safeIndex: indexPath.item] else {
             return cell
         }
 
@@ -130,8 +171,12 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        guard let significantEventsViewModel = delegate?.significantEventsViewModel else {
+            return 0
+        }
 
-        return events.count
+        return significantEventsViewModel.events.count
     }
 
     @objc func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
