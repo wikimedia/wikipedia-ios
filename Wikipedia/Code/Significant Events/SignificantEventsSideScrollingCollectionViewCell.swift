@@ -11,7 +11,7 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
     private var theme: Theme = Theme.standard
     
     private let descriptionLabel = UILabel()
-    private let timelineView = OnThisDayTimelineView()
+    let timelineView = OnThisDayTimelineView()
     let timelineViewWidth:CGFloat = 66.0
     
     private var largeEvent: LargeEventViewModel? {

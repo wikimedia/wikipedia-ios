@@ -56,4 +56,63 @@ public class SignificantEventsFetcher: Fetcher {
         
         return components.url
     }
+    
+    private struct EditMetrics: Decodable {
+        let items: [Item]?
+
+        struct Item: Decodable {
+            let results: [Result]?
+
+            struct Result: Decodable {
+                let edits: Int?
+            }
+        }
+    }
+    
+    public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], Error>) -> Void ) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard
+                let title = pageTitle.percentEncodedPageTitleForPathComponents,
+                let project = pageURL.wmf_site?.host,
+                let daysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date()),
+                let from = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: daysAgo),
+                let to = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: Date())
+            else {
+                completion(.failure(RequestError.invalidParameters))
+                return
+            }
+            let pathComponents = ["edits", "per-page", project, title, "all-editor-types", "daily", from, to]
+            let components =  self.configuration.metricsAPIURLComponents(appending: pathComponents)
+            guard let url = components.url else {
+                completion(.failure(RequestError.invalidParameters))
+                return
+            }
+            self.session.jsonDecodableTask(with: url) { (editMetrics: EditMetrics?, response: URLResponse?, error: Error?) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                    completion(.failure(RequestError.unexpectedResponse))
+                    return
+                }
+                var allEdits = [NSNumber]()
+                guard
+                    let items = editMetrics?.items,
+                    let firstItem = items.first,
+                    let results = firstItem.results
+                else {
+                    completion(.failure(RequestError.noNewData))
+                    return
+                }
+                for case let result in results {
+                    guard let edits = result.edits else {
+                        continue
+                    }
+                    allEdits.append(NSNumber(value: edits))
+                }
+                completion(.success(allEdits))
+            }
+        }
+    }
 }

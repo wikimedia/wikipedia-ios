@@ -608,8 +608,7 @@ public class LargeEventViewModel {
                     continue;
                 case .newTemplate(let newTemplate):
                     for template in newTemplate.typedTemplates {
-                        let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
-                        let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
+                        
                         switch template {
                         case .articleDescription(let articleDescription):
                             let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
@@ -619,23 +618,31 @@ public class LargeEventViewModel {
                             let attributedString = NSAttributedString(string: articleDescription.text, attributes: attributes)
                             let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
                             changeDetails.append(changeDetail)
+                            //tonitodo: these code blocks are all very similar. make a generic method instead?
                         case .bookCitation(let bookCitation):
-                            
+                            let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
+                            let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let bookCitationDescription = descriptionForBookCitation(bookCitation, traitCollection: traitCollection, theme: theme)
                             let reference = Reference(type: typeText, description: bookCitationDescription, accessDateYearDisplay: accessYear)
                             let changeDetail = ChangeDetail.reference(reference)
                             changeDetails.append(changeDetail)
                         case .journalCitation(let journalCitation):
+                            let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
+                            let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let citationDescription = descriptionForJournalCitation(journalCitation, traitCollection: traitCollection, theme: theme)
                             let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear)
                             let changeDetail = ChangeDetail.reference(reference)
                             changeDetails.append(changeDetail)
                         case .newsCitation(let newsCitation):
+                            let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
+                            let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let citationDescription = descriptionForNewsCitation(newsCitation, traitCollection: traitCollection, theme: theme)
                             let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear)
                             let changeDetail = ChangeDetail.reference(reference)
                             changeDetails.append(changeDetail)
                         case .websiteCitation(let websiteCitation):
+                            let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
+                            let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let citationDescription = descriptionForWebsiteCitation(websiteCitation, traitCollection: traitCollection, theme: theme)
                             let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear)
                             let changeDetail = ChangeDetail.reference(reference)

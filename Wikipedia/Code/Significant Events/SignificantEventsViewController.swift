@@ -8,6 +8,9 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     private let significantEventsViewModel: SignificantEventsViewModel
     private var events: [TimelineEventViewModel] = []
     private let articleTitle: String?
+    private var headerView: SignificantEventsHeaderView?
+    private let headerText = WMFLocalizedString("significant-events-header-text", value: "Recent Changes", comment: "Header text of significant changes view.")
+    private let editMetrics: [NSNumber]?
     
     fileprivate static let sideScrollingCellReuseIdentifier = "SignificantEventsSideScrollingCollectionViewCell"
     
@@ -15,48 +18,65 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         fatalError("init(coder:) not supported")
     }
     
-    private var headerView: SignificantEventsHeaderView?
-    
-    required init(significantEventsViewModel: SignificantEventsViewModel, articleTitle: String?, theme: Theme, locale: Locale = Locale.current) {
+    required init(significantEventsViewModel: SignificantEventsViewModel, articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current) {
         self.significantEventsViewModel = significantEventsViewModel
         self.events = significantEventsViewModel.events
         self.articleTitle = articleTitle
+        self.editMetrics = editMetrics
         super.init()
         self.theme = theme
     }
 
-    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
-    }
-
     override func viewDidLoad() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("close-button", value: "Close", comment: "Close button used in navigation bar that closes out a presented modal screen."), style: .done, target: self, action: #selector(closeButtonPressed))
+        
         super.viewDidLoad()
 
         layoutManager.register(SignificantEventsSideScrollingCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SignificantEventsHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier, addPlaceholder: true)
         
-        setupHeaderView()
+        self.title = headerText
     }
     
-    private func setupHeaderView() {
-        
-        navigationMode = .forceBar
-        
-        if let headerView = SignificantEventsHeaderView.wmf_viewFromClassNib() {
-            //tonitodo: localize
-            let headerText = "Recent Changes"
-            self.headerView = headerView
-            headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: significantEventsViewModel.summaryText, theme: theme)
-            navigationBar.isBarHidingEnabled = false
-            navigationBar.isUnderBarViewHidingEnabled = true
-            navigationBar.allowsUnderbarHitsFallThrough = true
-            useNavigationBarVisibleHeightForScrollViewInsets = true
-            navigationBar.addUnderNavigationBarView(headerView)
-            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-            navigationBar.shadowColorKeyPath = \Theme.colors.border
-            navigationBar.title = headerText
-           
-            updateScrollViewInsets()
+    @objc private func closeButtonPressed() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader,
+              let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsHeaderView.identifier, for: indexPath) as? SignificantEventsHeaderView else {
+            return UICollectionReusableView()
         }
+        
+        configureHeaderView(headerView)
+        self.headerView = headerView
+        
+        return headerView
+    }
+    
+    private func configureHeaderView(_ headerView: SignificantEventsHeaderView) {
+        let headerText = self.headerText.uppercased(with: NSLocale.current)
+        headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: significantEventsViewModel.summaryText, editMetrics: editMetrics, theme: theme)
+        headerView.apply(theme: theme)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 70)
+        
+        guard let headerView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier) as? SignificantEventsHeaderView else {
+            return estimate
+        }
+        
+        configureHeaderView(headerView)
+        estimate.height = headerView.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -100,7 +120,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             break
         }
         
-        //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.section == 0 ? false : true
+        significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
 
         return significantEventsSideScrollingCell
     }
@@ -120,5 +140,15 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     
     @objc func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
+    }
+    
+    override func apply(theme: Theme) {
+        guard isViewLoaded else {
+            return
+        }
+
+        super.apply(theme: theme)
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground //tonitodo: this doesn't seem to work
     }
 }

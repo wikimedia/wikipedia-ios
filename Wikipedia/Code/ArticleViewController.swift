@@ -75,6 +75,7 @@ class ArticleViewController: ViewController, HintPresenting {
             }
         }
     }
+    private var significantEventsEditMetrics: [NSNumber]?
 
     private var leadImageHeight: CGFloat = 210
 
@@ -540,15 +541,32 @@ class ArticleViewController: ViewController, HintPresenting {
                 DDLogDebug("Failure getting significant events models: \(error)")
             }
         }
+        
+        // purposefully not calling willLoadBlock or didLoadBlock here
+        // don't want to block article loading on yet another call
+        // if it seems to be a problem we'll add it back in.
+        significantEventsController.fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: articleURL) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .failure(let error):
+                    self.significantEventsEditMetrics = nil
+                case .success(let timeseriesOfEditCounts):
+                    self.significantEventsEditMetrics = timeseriesOfEditCounts
+                }
+            }
+        }
     }
     
     private func presentSignificantEvents() {
         if let significantEventsViewModel = significantEventsViewModel {
-            let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, theme: theme)
+            let significantEvents = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, editMetrics: significantEventsEditMetrics, theme: theme)
             significantEvents.apply(theme: theme)
-//            let navigationController = WMFThemeableNavigationController(rootViewController: significantEvents, theme: theme, style: .sheet)
-//            navigationController.isNavigationBarHidden = false
-            present(significantEvents, animated: true, completion: nil)
+            let navigationController = WMFThemeableNavigationController(rootViewController: significantEvents, theme: theme)
+            navigationController.modalPresentationStyle = .pageSheet
+            present(navigationController, animated: true, completion: nil)
         }
     }
     
