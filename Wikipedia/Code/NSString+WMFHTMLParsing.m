@@ -1,5 +1,4 @@
 #import <WMF/NSString+WMFHTMLParsing.h>
-#import <hpple/TFHpple.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/WMFComparison.h>
@@ -15,26 +14,11 @@
 
 @implementation NSString (WMFHTMLParsing)
 
-- (NSArray *)wmf_htmlTextNodes {
-    return [[[[TFHpple alloc]
-        initWithHTMLData:[self dataUsingEncoding:NSUTF8StringEncoding]]
-        searchWithXPathQuery:@"//text()"]
-        valueForKey:WMF_SAFE_KEYPATH([TFHppleElement new], content)];
-}
-
 - (NSString *)wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation {
     NSString *result = [self wmf_stringByCollapsingAllWhitespaceToSingleSpaces];
     result = [result wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes];
     result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return result;
-}
-
-- (NSString *)wmf_joinedHtmlTextNodes {
-    return [self wmf_joinedHtmlTextNodesWithDelimiter:@" "];
-}
-
-- (NSString *)wmf_joinedHtmlTextNodesWithDelimiter:(NSString *)delimiter {
-    return [[self wmf_htmlTextNodes] componentsJoinedByString:delimiter];
 }
 
 #pragma mark - String simplification and cleanup
