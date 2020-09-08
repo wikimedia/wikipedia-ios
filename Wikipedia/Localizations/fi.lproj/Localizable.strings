@@ -119,7 +119,7 @@
 "article-languages-label" = "Valitse kieli";
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
-"article-read-more-title" = "Lue lisää";
+"article-read-more-title" = "Samankaltaisia artikkeleita";
 "article-reference-view-title" = "Lähde $1";
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
@@ -705,7 +705,7 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Tallennettujen artikkeleiden tyhjentäminen poistaa ne käyttäjätunnukseltasi, jos sinulla on synkronointi käytössä tällä laitteella. Tätä toimintoa ei voi kumota.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Poistetaanko kaikki tallennetut artikkelit?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Poista";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Tallennettujen artikkeliesi poisto poistaa artikkelit käyttäjätunnukseltasi ja tältä laitteelta, vaikka synkronointi olisi kytketty päälle.\n\nPoisto vapauttaa tallennustilaa noin $1.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Tähän laitteeseen ja käyttäjätunnuksellesi tallennetut artikkelit poistetaan, vaikka synkronointi olisi kytketty päälle.\n\nTallennustilaa vapautuu noin $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Poista tallennetut artikkelit";
 "settings-storage-and-syncing-full-sync" = "Lukulistasi synkronoidaan taustalla";
 "settings-storage-and-syncing-server-sync-footer-text" = "Päivitä synkronoidut artikkelit ja lukulistat.";
@@ -806,7 +806,7 @@
 "welcome-send-data-sub-title" = "Auta tekemään sovelluksesta parempi kertomalla Wikimedia Foundationille kuinka käytät sitä. Kerätyt tiedot ovat anonyymejä.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
 "wikitext-downloading" = "Ladataan sisältöä...";
-"wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
+"wikitext-preview-changes" = "Ladataan esikatselua tehdyistä muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
 "wikitext-preview-link-external-preview-description" = "Tämä linkki ohjaa ulkoiselle sivustolle: $1";
 "wikitext-preview-link-external-preview-title" = "Ulkoinen linkki";
