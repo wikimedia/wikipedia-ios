@@ -63,7 +63,6 @@ class SignificantEventsHeaderView: SizeThatFitsReusableView {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        print("🎉\(layoutMargins)")
         let maximumWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
         let headerOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)

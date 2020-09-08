@@ -47,7 +47,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         
         super.viewDidLoad()
 
-        layoutManager.register(SignificantEventsSideScrollingCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SignificantEventsLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(SignificantEventsHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier, addPlaceholder: true)
         
         self.title = headerText
@@ -100,7 +100,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 350)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier) as? SignificantEventsSideScrollingCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier) as? SignificantEventsLargeEventCollectionViewCell else {
             return estimate
         }
         
@@ -143,10 +143,11 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.sideScrollingCellReuseIdentifier, for: indexPath)
-        guard let significantEventsSideScrollingCell = cell as? SignificantEventsSideScrollingCollectionViewCell,
+        guard let significantEventsSideScrollingCell = cell as? SignificantEventsLargeEventCollectionViewCell,
               let significantEventsViewModel = delegate?.significantEventsViewModel else {
             return cell
         }
+        
         guard let event = significantEventsViewModel.events[safeIndex: indexPath.item] else {
             return cell
         }

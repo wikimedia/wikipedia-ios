@@ -180,9 +180,9 @@ public class LargeEventViewModel {
     }
     
     public struct Reference {
-        let type: String
+        public let type: String
         public let description: NSAttributedString
-        let accessDateYearDisplay: String?
+        public let accessDateYearDisplay: String?
     }
     
     enum UserType {

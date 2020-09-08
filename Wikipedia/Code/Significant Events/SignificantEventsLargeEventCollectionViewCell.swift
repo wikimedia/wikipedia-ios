@@ -4,11 +4,13 @@ import WMF
 
 // Note: this is an amalgamation of both SideScrollingCollectionViewCell and OnThisDayCollectionViewCell
 // We are purposely not repurposing those classes to limit risk
-// However if experiment succeeds we should consider reworking SideScrollingCollectionViewCell to accept a generic side scrolling cell to work with, and have this class subclass from there instead.
+// However if experiment succeeds we should consider reworking SignificantEventsLargeEventCollectionViewCell to accept a generic side scrolling cell to work with, and have this class subclass from there instead.
 // Also note, as experiment is EN-only, this class doesn't support RTL
-class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
+class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
     
     static private let snippetCellIdentifier = "SignificantEventsSnippetCollectionViewCell"
+    static private let referenceCellIdentifier = "SignificantEventsReferenceCollectionViewCell"
+    
     private var theme: Theme = Theme.standard
     
     private let descriptionLabel = UILabel()
@@ -16,46 +18,13 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
     private let userInfoTextView = UITextView()
     //tonitodo: clean this button configuration up
     private lazy var thankButton: AlignedImageButton = {
-        let button = AlignedImageButton()
-        button.setImage(#imageLiteral(resourceName: "places-more"), for: .normal) //tonitodo: proper image
-        //thankButton.isUserInteractionEnabled = false
-        button.titleLabel?.numberOfLines = 1
-        button.titleLabel?.textAlignment = .left
-        button.horizontalSpacing = 2
-        button.verticalPadding = 4
-        button.leftPadding = 10
-        button.rightPadding = 10
-        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        button.setTitle(WMFLocalizedString("significant-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in significant events screen"), for: .normal)
-       return button
+        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("significant-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in significant events screen"))
     }()
     private lazy var viewChangesButton: AlignedImageButton = {
-        let button = AlignedImageButton()
-        button.setImage(#imageLiteral(resourceName: "places-more"), for: .normal) //tonitodo: proper image
-        //thankButton.isUserInteractionEnabled = false
-        button.titleLabel?.numberOfLines = 1
-        button.titleLabel?.textAlignment = .left
-        button.horizontalSpacing = 2
-        button.verticalPadding = 4
-        button.leftPadding = 10
-        button.rightPadding = 10
-        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        button.setTitle(WMFLocalizedString("significant-events-view-changes", value: "View changes", comment: "Button title on a significant event cell that sends user to the revision history screen."), for: .normal)
-       return button
+        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("significant-events-view-changes", value: "View changes", comment: "Button title on a significant event cell that sends user to the revision history screen."))
     }()
     private lazy var viewDiscussionButton: AlignedImageButton = {
-        let button = AlignedImageButton()
-        button.setImage(#imageLiteral(resourceName: "places-more"), for: .normal) //tonitodo: proper image
-        //thankButton.isUserInteractionEnabled = false
-        button.titleLabel?.numberOfLines = 1
-        button.titleLabel?.textAlignment = .left
-        button.horizontalSpacing = 2
-        button.verticalPadding = 4
-        button.leftPadding = 10
-        button.rightPadding = 10
-        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        button.setTitle(WMFLocalizedString("significant-events-view-discussion", value: "View discussion", comment: "Button title on a significant event cell that sends a user to the significant event's talk page topic."), for: .normal)
-       return button
+        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("significant-events-view-discussion", value: "View discussion", comment: "Button title on a significant event cell that sends a user to the significant event's talk page topic."))
     }()
     
     let timelineView = TimelineView()
@@ -74,9 +43,14 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private let prototypeCell = SignificantEventsSnippetCollectionViewCell()
-    private var targetItemSizeHeight: CGFloat = 0
-    private var largestAttributedString: NSAttributedString?
+    
+    private let snippetPrototypeCell = SignificantEventsSnippetCollectionViewCell()
+    private let referencePrototypeCell = SignificantEventsReferenceCollectionViewCell()
+    
+    private var collectionViewHeight: CGFloat = 0
+    private var cachedItemHeights: [String: CGFloat] = [:]
+    
+    private let maximumSideScrollingCellWidth = CGFloat(250)
     
     override func setup() {
         contentView.addSubview(descriptionLabel)
@@ -93,11 +67,13 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         
         wmf_configureSubviewsForDynamicType()
         
-        prototypeCell.isHidden = true
+        snippetPrototypeCell.isHidden = true
+        referencePrototypeCell.isHidden = true
         
         descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
-        collectionView.register(SignificantEventsSnippetCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsSideScrollingCollectionViewCell.snippetCellIdentifier)
+        collectionView.register(SignificantEventsSnippetCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.snippetCellIdentifier)
+        collectionView.register(SignificantEventsReferenceCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.referenceCellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
@@ -108,13 +84,6 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    override public func updateFonts(with traitCollection: UITraitCollection) {
-        super.updateFonts(with: traitCollection)
-        if let largeEvent = largeEvent {
-            configure(with: largeEvent, theme: theme)
-        }
-    }
-
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5)
         
@@ -144,20 +113,13 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         
         let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY + descriptionCollectionViewSpacing)
         
-        let collectionViewSpacing: CGFloat = 10
-        var collectionViewHeight: CGFloat = 0
-        if let largetAttributedString = largestAttributedString {
-                prototypeCell.configure(snippet: largetAttributedString, theme: theme)
-            collectionViewHeight = prototypeCell.wmf_preferredHeight(at: collectionViewOrigin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, spacing: 2 * collectionViewSpacing, apply: false)
-        } else {
-            collectionViewHeight = 0
-        }
+        collectionViewHeight = largestItemHeightForWidth(maximumSideScrollingCellWidth)
+        let collectionViewItemSpacing = CGFloat(10)
 
         if (apply) {
-            targetItemSizeHeight = collectionViewHeight - 2 * collectionViewSpacing
-            flowLayout?.minimumInteritemSpacing = collectionViewSpacing
+            flowLayout?.minimumInteritemSpacing = collectionViewItemSpacing
             flowLayout?.minimumLineSpacing = 15
-            flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: 0, bottom: collectionViewSpacing, right: collectionViewSpacing)
+            flowLayout?.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             collectionView.frame = CGRect(x: 0, y: collectionViewOrigin.y, width: size.width, height: collectionViewHeight)
             collectionView.contentInset = UIEdgeInsets(top: 0, left: x, bottom: 0, right: 0)
             collectionView.reloadData()
@@ -203,9 +165,56 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         return CGSize(width: size.width, height: finalFinalHeight)
     }
     
+    private func largestItemHeightForWidth(_ width: CGFloat) -> CGFloat {
+        var largestItemHeight: CGFloat = 0
+        for (i, change) in changeDetails.enumerated() {
+            let key = "\(i)-\(width)"
+            let height: CGFloat
+            if let cachedHeight = cachedItemHeights[key] {
+                height = cachedHeight
+            } else {
+                switch change {
+                case .snippet:
+                    snippetPrototypeCell.configure(change: change, theme: theme, delegate: self)
+                    height = snippetPrototypeCell.wmf_preferredHeight(at: .zero, maximumWidth: width, alignedBy: .forceLeftToRight, spacing: 0, apply: false)
+                case .reference:
+                    referencePrototypeCell.configure(change: change, theme: theme, delegate: self)
+                    height = referencePrototypeCell.wmf_preferredHeight(at: .zero, maximumWidth: width, alignedBy: .forceLeftToRight, spacing: 0, apply: false)
+                }
+            }
+            
+            if largestItemHeight < height {
+                largestItemHeight = height
+            }
+        }
+        
+        return largestItemHeight
+    }
+    
+    private func actionButton(with image: UIImage, text: String) -> AlignedImageButton {
+        let button = AlignedImageButton()
+        button.setImage(image, for: .normal) //tonitodo: proper image
+        button.titleLabel?.numberOfLines = 1
+        button.titleLabel?.textAlignment = .left
+        button.horizontalSpacing = 2
+        button.verticalPadding = 4
+        button.leftPadding = 10
+        button.rightPadding = 10
+        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setTitle(text, for: .normal)
+       return button
+    }
+    
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         timelineView.dotsY = timestampLabel.convert(timestampLabel.bounds, to: timelineView).midY
+    }
+    
+    override public func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
+        if let largeEvent = largeEvent {
+            configure(with: largeEvent, theme: theme)
+        }
     }
     
     func apply(theme: Theme) {
@@ -245,8 +254,8 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         thankButton.removeFromSuperview()
         viewChangesButton.removeFromSuperview()
         viewDiscussionButton.removeFromSuperview()
-        largestAttributedString = nil
-        targetItemSizeHeight = 0
+        cachedItemHeights.removeAll()
+        collectionViewHeight = 0
     }
     
     func resetContentOffset() {
@@ -262,23 +271,6 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
         userInfoTextView.attributedText = largeEvent.userInfoForTraitCollection(traitCollection, theme: theme)
         timestampLabel.text = largeEvent.timestampForDisplay()
         timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        
-        //Grab largest attributed string within snippet cell, so we can use it to configure in sizeThatFits for collection view overall height sizing.
-        var largestSnippetCount: Int = 0
-        for changeDetail in changeDetails {
-            switch changeDetail {
-            case .snippet(let snippet):
-                if snippet.displayText.string.count > largestSnippetCount {
-                    largestSnippetCount = snippet.displayText.string.count
-                    largestAttributedString = snippet.displayText
-                }
-            case .reference(let reference):
-                if reference.description.string.count > largestSnippetCount {
-                    largestSnippetCount = reference.description.string.count
-                    largestAttributedString = reference.description
-                }
-            }
-        }
 
         switch largeEvent.buttonsToDisplay {
         case .thankAndViewChanges(let userId, let revisionId):
@@ -311,7 +303,7 @@ class SignificantEventsSideScrollingCollectionViewCell: CollectionViewCell {
     }
 }
 
-extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewDataSource {
+extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -321,36 +313,53 @@ extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewData
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  SignificantEventsSideScrollingCollectionViewCell.snippetCellIdentifier, for: indexPath)
-        guard let snippetCell = cell as? SignificantEventsSnippetCollectionViewCell else {
-            return cell
-        }
+        
         let changeDetailForCell = changeDetails[indexPath.item]
+        
         switch changeDetailForCell {
-        case .snippet(let snippet):
-            snippetCell.configure(snippet: snippet.displayText, theme: theme)
+        case .snippet:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  SignificantEventsLargeEventCollectionViewCell.snippetCellIdentifier, for: indexPath)
+            
+            guard let snippetCell = cell as? SignificantEventsSnippetCollectionViewCell else {
+                return cell
+            }
+            
+            snippetCell.configure(change: changeDetailForCell, theme: theme, delegate: self)
             return snippetCell
-        case .reference(let reference):
-            snippetCell.configure(snippet: reference.description, theme: theme)
-            return snippetCell
+            
+        case .reference:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  SignificantEventsLargeEventCollectionViewCell.referenceCellIdentifier, for: indexPath)
+            
+            guard let referenceCell = cell as? SignificantEventsReferenceCollectionViewCell else {
+                return cell
+            }
+            
+            referenceCell.configure(change: changeDetailForCell, theme: theme, delegate: self)
+            return referenceCell
         }
     }
 }
 
-extension SignificantEventsSideScrollingCollectionViewCell: UICollectionViewDelegateFlowLayout {
+extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let changeDetail = changeDetails[indexPath.item]
         
-        var snippetAttributedString: NSAttributedString
         switch changeDetail {
-        case .snippet(let snippet):
-            snippetAttributedString = snippet.displayText
-        case .reference(let reference):
-            snippetAttributedString = reference.description
+        case .snippet:
+            snippetPrototypeCell.configure(change: changeDetail, theme: theme, delegate: self)
+            return snippetPrototypeCell.sizeThatFits(CGSize(width: maximumSideScrollingCellWidth, height: collectionViewHeight), apply: false)
+        case .reference:
+            referencePrototypeCell.configure(change: changeDetail, theme: theme, delegate: self)
+            return referencePrototypeCell.sizeThatFits(CGSize(width: maximumSideScrollingCellWidth, height: collectionViewHeight), apply: false)
         }
-        
-        prototypeCell.configure(snippet: snippetAttributedString, theme: theme)
-        return prototypeCell.sizeThatFits(CGSize(width: 250, height: targetItemSizeHeight), apply: false)
+    }
+}
+
+extension SignificantEventsLargeEventCollectionViewCell: SignificantEventsHorizontallyScrollingCellDelegate {
+    func tappedLink(_ url: URL, cell: SignificantEventsHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?) {
+        print("tapped link")
     }
 }
