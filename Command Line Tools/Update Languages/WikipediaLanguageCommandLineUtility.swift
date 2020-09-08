@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import CombineExt
 
 /// Command line tool for updating prebuilt language lists and lookup tables used in the app
 class WikipediaLanguageCommandLineUtility {
@@ -57,12 +56,10 @@ class WikipediaLanguageCommandLineUtility {
     }
 
     private func writeCodemirrorConfig(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable {
-        sites
-            .map { site in
+        Publishers.MergeMany(sites.map { site in
                 api.getCodeMirrorConfigJSON(for: site.languageCode)
                     .map { ($0, site) }
-            }
-            .merge()
+            })
             .sink(receiveCompletion: { (result) in
                 switch result {
                 case .finished:
@@ -78,12 +75,10 @@ class WikipediaLanguageCommandLineUtility {
     }
 
     private func writeNamespaceFiles(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable? {
-        return sites
-            .map { site in
+        return Publishers.MergeMany(sites.map { site in
                 api.getSiteInfo(with: site.languageCode)
                     .map { ($0, site) }
-            }
-            .merge()
+            })
             .map {
                 (self.getSiteInfoLookup(with: $0.0), $0.1)
             }

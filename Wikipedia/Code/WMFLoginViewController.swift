@@ -289,7 +289,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 self.funnel?.logError(error.localizedDescription)
             }
         }
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+        let siteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
             DispatchQueue.main.async {
                 self.captchaViewController?.captcha = info.captcha
@@ -308,7 +308,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
     
     public func captchaSiteURL() -> URL {
-        return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
+        return (MWKDataStore.shared().languageLinkController.appLanguage?.siteURL())!
     }
     
     func captchaKeyboardReturnKeyTapped() {

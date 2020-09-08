@@ -199,7 +199,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (MWKLanguageFilter *)languageFilter {
     if (!_languageFilter) {
-        _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:[MWKLanguageLinkController sharedInstance]];
+        _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:MWKDataStore.shared.languageLinkController];
     }
     return _languageFilter;
 }
@@ -274,7 +274,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (CGFloat)alphaForDeleteButton {
-    return !self.tableView.editing || ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? 0.f : 1.f;
+    return !self.tableView.editing || (MWKDataStore.shared.languageLinkController.preferredLanguages.count == 1) ? 0.f : 1.f;
 }
 
 - (MWKLanguageLink *)languageAtIndexPath:(NSIndexPath *)indexPath {
@@ -358,11 +358,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     switch (editingStyle) {
         case UITableViewCellEditingStyleInsert: {
             MWKLanguageLink *langLink = self.languageFilter.filteredOtherLanguages[indexPath.row];
-            [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:langLink];
+            [MWKDataStore.shared.languageLinkController appendPreferredLanguage:langLink];
         } break;
         case UITableViewCellEditingStyleDelete: {
             MWKLanguageLink *langLink = self.languageFilter.filteredPreferredLanguages[indexPath.row];
-            [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
+            [MWKDataStore.shared.languageLinkController removePreferredLanguage:langLink];
         } break;
         case UITableViewCellEditingStyleNone:
             break;
@@ -438,7 +438,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)reloadDataSections {
     [super reloadDataSections];
-    self.navigationItem.rightBarButtonItem = [MWKLanguageLinkController sharedInstance].preferredLanguages.count > 1 ? self.editButtonItem : nil;
+    self.navigationItem.rightBarButtonItem = MWKDataStore.shared.languageLinkController.preferredLanguages.count > 1 ? self.editButtonItem : nil;
 }
 
 - (void)viewDidLoad {
@@ -478,7 +478,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
-    [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
+    [MWKDataStore.shared.languageLinkController appendPreferredLanguage:language];
     [self reloadDataSections];
     [controller dismissViewControllerAnimated:YES completion:NULL];
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
@@ -486,7 +486,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)notifyDelegateThatPreferredLanguagesDidUpdate {
     if ([self.delegate respondsToSelector:@selector(languagesController:didUpdatePreferredLanguages:)]) {
-        [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+        [self.delegate languagesController:self didUpdatePreferredLanguages:MWKDataStore.shared.languageLinkController.preferredLanguages];
     }
 }
 
@@ -524,12 +524,12 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [MWKLanguageLinkController sharedInstance].preferredLanguages.count > 1;
+    return MWKDataStore.shared.languageLinkController.preferredLanguages.count > 1;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    MWKLanguageLink *langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
-    [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
+    MWKLanguageLink *langLink = MWKDataStore.shared.languageLinkController.preferredLanguages[sourceIndexPath.row];
+    [MWKDataStore.shared.languageLinkController reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
 
     // TODO: reloadData is a bit brute force, but had issues with the "PRIMARY" indicator
     // showing on more than one cell after re-ordering first cell.
@@ -541,7 +541,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
-    if ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) {
+    if (MWKDataStore.shared.languageLinkController.preferredLanguages.count == 1) {
         [self setEditing:NO animated:YES];
         self.navigationItem.rightBarButtonItem = nil;
     }
@@ -588,7 +588,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (MWKTitleLanguageController *)titleLanguageController {
     NSAssert(self.articleURL != nil, @"Article Title must be set before accessing titleLanguageController");
     if (!_titleLanguageController) {
-        _titleLanguageController = [[MWKTitleLanguageController alloc] initWithArticleURL:self.articleURL languageController:[MWKLanguageLinkController sharedInstance]];
+        _titleLanguageController = [[MWKTitleLanguageController alloc] initWithArticleURL:self.articleURL languageController:MWKDataStore.shared.languageLinkController];
     }
     return _titleLanguageController;
 }

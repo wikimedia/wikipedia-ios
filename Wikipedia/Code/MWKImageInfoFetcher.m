@@ -84,7 +84,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     
     NSMutableArray *itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
 
-    NSArray<NSString *> *preferredLangCodes = [[[MWKLanguageLinkController sharedInstance] preferredLanguages] wmf_map:^NSString *(MWKLanguageLink *language) {
+    NSArray<NSString *> *preferredLangCodes = [MWKDataStore.shared.languageLinkController.preferredLanguages wmf_map:^NSString *(MWKLanguageLink *language) {
         return [language languageCode];
     }];
 
@@ -128,12 +128,12 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
             [[MWKImageInfo alloc]
                 initWithCanonicalPageTitle:image[@"title"]
                           canonicalFileURL:[NSURL wmf_optionalURLWithString:imageInfo[@"url"]]
-                          imageDescription:[[description wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
+                          imageDescription:[[description wmf_stringByRemovingHTML] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
                      imageDescriptionIsRTL:descriptionIsRTL
                                    license:license
                                filePageURL:[NSURL wmf_optionalURLWithString:imageInfo[@"descriptionurl"]]
                              imageThumbURL:[NSURL wmf_optionalURLWithString:imageInfo[@"thumburl"]]
-                                     owner:[[artist wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
+                                     owner:[[artist wmf_stringByRemovingHTML] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
                                  imageSize:MWKImageInfoSizeFromJSON(imageInfo, @"width", @"height")
                                  thumbSize:MWKImageInfoSizeFromJSON(imageInfo, @"thumbwidth", @"thumbheight")];
         [itemListBuilder addObject:item];
