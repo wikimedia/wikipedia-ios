@@ -2,5 +2,6 @@
 # sets up pre commit hooks
 
 rm -rf .git/hooks/pre-commit
+mkdir -p .git/hooks
 cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
 cat scripts/strip_header >> .git/hooks/pre-commit

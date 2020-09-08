@@ -3,6 +3,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let deadlineController: RemoteNotificationsOperationsDeadlineController?
     private let operationQueue: OperationQueue
+    private let preferredLanguageCodesProvider: WMFPreferredLanguageCodesProviding
 
     private var isLocked: Bool = false {
         didSet {
@@ -12,7 +13,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
 
-    required init(session: Session, configuration: Configuration) {
+    required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageCodesProviding) {
         apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         var modelControllerInitializationError: Error?
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
@@ -24,7 +25,9 @@ class RemoteNotificationsOperationsController: NSObject {
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
-
+        
+        self.preferredLanguageCodesProvider = preferredLanguageCodesProvider
+        
         super.init()
 
         NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
@@ -73,15 +76,18 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
-        let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
-        let completionOperation = BlockOperation(block: completion)
-        
-        fetchOperation.addDependency(markAsReadOperation)
-        completionOperation.addDependency(fetchOperation)
-        
-        operationQueue.addOperation(markAsReadOperation)
-        operationQueue.addOperation(fetchOperation)
-        operationQueue.addOperation(completionOperation)
+        preferredLanguageCodesProvider.getPreferredLanguageCodes({ (languageCodes) in
+            let targetWikis = languageCodes + ["wikidata"]
+            let fetchOperation = RemoteNotificationsFetchOperation(with: self.apiController, modelController: modelController, targetWikis: targetWikis)
+            let completionOperation = BlockOperation(block: completion)
+            
+            fetchOperation.addDependency(markAsReadOperation)
+            completionOperation.addDependency(fetchOperation)
+            
+            self.operationQueue.addOperation(markAsReadOperation)
+            self.operationQueue.addOperation(fetchOperation)
+            self.operationQueue.addOperation(completionOperation)
+        })
     }
 
     // MARK: Notifications
