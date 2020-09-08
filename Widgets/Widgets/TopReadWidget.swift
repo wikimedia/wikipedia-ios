@@ -232,8 +232,9 @@ struct TopReadView: View {
 							.frame(height: proxy.size.height / 3.0, alignment: .leading)
 					} else {
 						Text("\(viewCountOrEmpty(viewCount: entry?.rankedElements[index].viewCounts.last))")
-							.lineLimit(2)
 							.font(.caption)
+							.fontWeight(.medium)
+							.lineLimit(2)
 							.foregroundColor(readersTextColor)
 					}
 				}
