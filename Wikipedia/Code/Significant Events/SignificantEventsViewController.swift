@@ -9,6 +9,51 @@ protocol SignificantEventsViewControllerDelegate: class {
     }
 }
 
+enum SignificantEventsSection {
+  case standard
+}
+
+extension TimelineEventViewModel: Hashable {
+    public static func == (lhs: TimelineEventViewModel, rhs: TimelineEventViewModel) -> Bool {
+        switch lhs {
+        case .largeEvent(let leftLargeEvent):
+            switch rhs {
+            case .largeEvent(let rightLargeEvent):
+                return leftLargeEvent.revId == rightLargeEvent.revId
+            default:
+                return false
+            }
+        case .sectionHeader(let leftSectionHeader):
+            switch rhs {
+            case .sectionHeader(let rightSectionHeader):
+                return leftSectionHeader.timestamp == rightSectionHeader.timestamp
+            default:
+                return false
+            }
+        case .smallEvent(let leftSmallEvent):
+            switch rhs {
+            case .smallEvent(let rightSmallEvent):
+                return leftSmallEvent.uuid == rightSmallEvent.uuid
+            default:
+                return false
+            }
+        
+        }
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case .sectionHeader(let viewModel):
+            hasher.combine(viewModel.timestamp)
+        case .smallEvent(let smallEvent):
+            hasher.combine(smallEvent.uuid)
+        case .largeEvent(let largeEvent):
+            hasher.combine(largeEvent.revId)
+        }
+    }
+}
+
+@available(iOS 13.0, *)
 class SignificantEventsViewController: ColumnarCollectionViewController {
     
     private let significantEventsController = SignificantEventsController()
@@ -22,6 +67,8 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     fileprivate static let sectionHeaderCellReuseIdentifier = "SignificantEventsSectionHeaderCell"
     fileprivate static let smallEventReuseIdentifier = "SignificantEventsSmallEventCollectionViewCell"
     fileprivate static let blankReuseIdentifier = "SignificantEventsBlankCell"
+    
+    private var dataSource: UICollectionViewDiffableDataSource<SignificantEventsSection, TimelineEventViewModel>!
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
@@ -38,6 +85,69 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         super.init()
         self.theme = theme
         self.delegate = delegate
+        
+        dataSource = UICollectionViewDiffableDataSource<SignificantEventsSection, TimelineEventViewModel>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: TimelineEventViewModel) -> UICollectionViewCell? in
+            
+            let cell: CollectionViewCell
+            switch event {
+            case .largeEvent(let largeEvent):
+                guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.largeEventCellReuseIdentifier, for: indexPath) as? SignificantEventsLargeEventCollectionViewCell else {
+                    return nil
+                }
+                
+                largeEventCell.configure(with: largeEvent, theme: theme)
+                cell = largeEventCell
+                //tonitodo: look into this commented out need
+                //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
+            case .smallEvent(let smallEvent):
+                guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.smallEventReuseIdentifier, for: indexPath) as? SignificantEventsSmallEventCollectionViewCell else {
+                    return nil
+                }
+                
+                smallEventCell.configure(viewModel: smallEvent, theme: theme)
+                cell = smallEventCell
+                //tonitodo: look into this commented out need
+                //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
+            case .sectionHeader(let sectionHeader):
+                guard let sectionHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.sectionHeaderCellReuseIdentifier, for: indexPath) as? SignificantEventsSectionHeaderCell else {
+                    return nil
+                }
+                
+                sectionHeaderCell.configure(viewModel: sectionHeader, theme: theme)
+                cell = sectionHeaderCell
+            }
+            
+            //cell.layoutMargins = layout.itemLayoutMargins
+            return cell
+            
+        }
+        
+
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+
+            guard kind == UICollectionView.elementKindSectionHeader,
+                  let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsHeaderView.identifier, for: indexPath) as? SignificantEventsHeaderView else {
+                return UICollectionReusableView()
+            }
+            
+            self.configureHeaderView(headerView)
+            self.headerView = headerView
+            
+            return headerView
+        }
+    }
+    
+    func addInitialEvents(timelineEvents: [TimelineEventViewModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<SignificantEventsSection, TimelineEventViewModel>()
+        snapshot.appendSections([.standard])
+        snapshot.appendItems(timelineEvents, toSection: .standard)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func addEvents(timelineEvents: [TimelineEventViewModel]) {
+        var currentSnapshot = dataSource.snapshot()
+        currentSnapshot.appendItems(timelineEvents, toSection: .standard)
+        dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
     func reloadData() {
@@ -65,18 +175,6 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader,
-              let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsHeaderView.identifier, for: indexPath) as? SignificantEventsHeaderView else {
-            return UICollectionReusableView()
-        }
-        
-        configureHeaderView(headerView)
-        self.headerView = headerView
-        
-        return headerView
     }
     
     private func configureHeaderView(_ headerView: SignificantEventsHeaderView) {
@@ -107,8 +205,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 350)
         
-        guard let significantEventsViewModel = delegate?.significantEventsViewModel,
-              let event = significantEventsViewModel.events[safeIndex: indexPath.item] else {
+        guard let event = dataSource.itemIdentifier(for: indexPath) else {
             return estimate
         }
         
@@ -151,7 +248,9 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             return
         }
         
-        if indexPath.item == significantEventsViewModel.events.count - 1 {
+        let numberOfEvents = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        
+        if indexPath.item == numberOfEvents - 1 {
             guard let nextRvStartId = significantEventsViewModel.nextRvStartId,
                   nextRvStartId != 0 else {
                 return
@@ -161,59 +260,6 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let blankCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.blankReuseIdentifier, for: indexPath)
-        guard let event = delegate?.significantEventsViewModel?.events[safeIndex: indexPath.item] else {
-            return blankCell
-        }
-        
-        let cell: CollectionViewCell
-        switch event {
-        case .largeEvent(let largeEvent):
-            guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.largeEventCellReuseIdentifier, for: indexPath) as? SignificantEventsLargeEventCollectionViewCell else {
-                return blankCell
-            }
-            
-            largeEventCell.configure(with: largeEvent, theme: theme)
-            cell = largeEventCell
-            //tonitodo: look into this commented out need
-            //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
-        case .smallEvent(let smallEvent):
-            guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.smallEventReuseIdentifier, for: indexPath) as? SignificantEventsSmallEventCollectionViewCell else {
-                return blankCell
-            }
-            
-            smallEventCell.configure(viewModel: smallEvent, theme: theme)
-            cell = smallEventCell
-            //tonitodo: look into this commented out need
-            //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
-        case .sectionHeader(let sectionHeader):
-            guard let sectionHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.sectionHeaderCellReuseIdentifier, for: indexPath) as? SignificantEventsSectionHeaderCell else {
-                return blankCell
-            }
-            
-            sectionHeaderCell.configure(viewModel: sectionHeader, theme: theme)
-            cell = sectionHeaderCell
-        }
-        
-        cell.layoutMargins = layout.itemLayoutMargins
-        return cell
-    }
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        guard let significantEventsViewModel = delegate?.significantEventsViewModel else {
-            return 0
-        }
-
-        return significantEventsViewModel.events.count
-    }
-
     @objc func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
     }

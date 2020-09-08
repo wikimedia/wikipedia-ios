@@ -104,6 +104,7 @@ public enum TimelineEventViewModel {
 public class SectionHeaderViewModel {
     public let title: String
     public let subtitle: String
+    public let timestamp: Date
     init?(timestamp: Date, previousTimestamp: Date?) {
         
         //do not instantiate if on same day as previous timestamp
@@ -122,6 +123,7 @@ public class SectionHeaderViewModel {
             
             self.title = (timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
             self.subtitle = dayMonthNumberYearDateFormatter.string(from: timestamp)
+            self.timestamp = timestamp
         } else {
             return nil
         }
@@ -130,9 +132,10 @@ public class SectionHeaderViewModel {
 
 public class SmallEventViewModel {
     
-    private(set) var eventDescription: NSAttributedString?
+    public private(set) var eventDescription: NSAttributedString?
     private var lastTraitCollection: UITraitCollection?
     private let smallChange: SignificantEvents.SmallChange
+    public let uuid: UUID
     
     init?(timelineEvent: SignificantEvents.TimelineEvent) {
         
@@ -142,6 +145,7 @@ public class SmallEventViewModel {
         default:
             return nil
         }
+        self.uuid = UUID()
     }
     
     public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
@@ -205,10 +209,11 @@ public class LargeEventViewModel {
     let userType: UserType
     public let buttonsToDisplay: ButtonsToDisplay
     private var lastTraitCollection: UITraitCollection?
+    public var revId: UInt = 0
     
     init?(timelineEvent: SignificantEvents.TimelineEvent) {
         
-        let userGroups: [String]
+        let userGroups: [String]?
         switch timelineEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             self.userId = newTalkPageTopic.userId
@@ -226,7 +231,8 @@ public class LargeEventViewModel {
             return nil
         }
         
-        if userGroups.contains("bot") {
+        if let userGroups = userGroups,
+           userGroups.contains("bot") {
             userType = .bot
         } else if self.userId == 0 {
             userType = .anonymous
@@ -235,6 +241,17 @@ public class LargeEventViewModel {
         }
         
         self.timelineEvent = timelineEvent
+        switch timelineEvent {
+        case .largeChange(let largeChange):
+            revId = largeChange.revId
+        case .newTalkPageTopic(let newTalkPageTopic):
+            revId = newTalkPageTopic.revId
+        case .vandalismRevert(let vandalismRevert):
+            revId = vandalismRevert.revId
+        default:
+            assertionFailure("Shouldn't happen")
+        }
+        
     }
     
     public convenience init?(forPrototypeText prototypeText: String) {
@@ -1045,9 +1062,9 @@ public class LargeEventViewModel {
         return displayTimestamp
     }
     
-    private func userNameAndEditCount() -> (userName: String, editCount: UInt)? {
+    private func userNameAndEditCount() -> (userName: String, editCount: UInt?)? {
         let userName: String
-        let editCount: UInt
+        let editCount: UInt?
         switch timelineEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             userName = newTalkPageTopic.user
@@ -1073,7 +1090,9 @@ public class LargeEventViewModel {
         let userName = userNameAndEditCount.userName
         let editCount = userNameAndEditCount.editCount
         
-        if userType != .anonymous {
+        if let editCount = editCount,
+           userType != .anonymous {
+            
             let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, String(editCount))
             
             let rangeOfUserName = (userInfo as NSString).range(of: userName)
@@ -1119,7 +1138,9 @@ public class LargeEventViewModel {
         let editCount = userNameAndEditCount.editCount
         
         var attributedString: NSAttributedString
-        if userType != .anonymous {
+        if let editCount = editCount,
+           userType != .anonymous {
+            
             let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, String(editCount))
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)

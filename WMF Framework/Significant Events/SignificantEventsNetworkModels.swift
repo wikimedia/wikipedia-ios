@@ -209,8 +209,8 @@ public struct SignificantEvents: Decodable {
         public let timestampString: String
         public let user: String
         public let userId: UInt
-        public let userGroups: [String]
-        public let userEditCount: UInt
+        public let userGroups: [String]?
+        public let userEditCount: UInt?
         public let typedChanges: [Change]
         
         init?(untypedEvent: UntypedTimelineEvent) {
@@ -218,8 +218,6 @@ public struct SignificantEvents: Decodable {
                   let timestampString = untypedEvent.timestampString,
                   let user = untypedEvent.user,
                   let userId = untypedEvent.userId,
-                  let userGroups = untypedEvent.userGroups,
-                  let userEditCount = untypedEvent.userEditCount,
                   let untypedChanges = untypedEvent.untypedChanges else {
                 return nil
             }
@@ -229,8 +227,8 @@ public struct SignificantEvents: Decodable {
             self.timestampString = timestampString
             self.user = user
             self.userId = userId
-            self.userGroups = userGroups
-            self.userEditCount = userEditCount
+            self.userGroups = untypedEvent.userGroups
+            self.userEditCount = untypedEvent.userEditCount
             
             var changes: [Change] = []
             
@@ -280,17 +278,15 @@ public struct SignificantEvents: Decodable {
         public let user: String
         public let userId: UInt
         public let sections: [String]
-        public let userGroups: [String]
-        public let userEditCount: UInt
+        public let userGroups: [String]?
+        public let userEditCount: UInt?
         
         init?(untypedEvent: UntypedTimelineEvent) {
             guard let revId = untypedEvent.revId,
                   let timestampString = untypedEvent.timestampString,
                   let user = untypedEvent.user,
                   let userId = untypedEvent.userId,
-                  let sections = untypedEvent.sections,
-                  let userGroups = untypedEvent.userGroups,
-                  let userEditCount = untypedEvent.userEditCount else {
+                  let sections = untypedEvent.sections else {
                 return nil
             }
             
@@ -300,8 +296,8 @@ public struct SignificantEvents: Decodable {
             self.user = user
             self.userId = userId
             self.sections = sections
-            self.userGroups = userGroups
-            self.userEditCount = userEditCount
+            self.userGroups = untypedEvent.userGroups
+            self.userEditCount = untypedEvent.userEditCount
         }
     }
     
@@ -313,8 +309,8 @@ public struct SignificantEvents: Decodable {
         public let userId: UInt
         public let section: String
         public let snippet: String
-        public let userGroups: [String]
-        public let userEditCount: UInt
+        public let userGroups: [String]?
+        public let userEditCount: UInt?
         
         init?(untypedEvent: UntypedTimelineEvent) {
             guard let revId = untypedEvent.revId,
@@ -322,9 +318,7 @@ public struct SignificantEvents: Decodable {
                   let user = untypedEvent.user,
                   let userId = untypedEvent.userId,
                   let section = untypedEvent.section,
-                  let snippet = untypedEvent.snippet,
-                  let userGroups = untypedEvent.userGroups,
-                  let userEditCount = untypedEvent.userEditCount else {
+                  let snippet = untypedEvent.snippet else {
                 return nil
             }
             
@@ -335,8 +329,8 @@ public struct SignificantEvents: Decodable {
             self.userId = userId
             self.section = section
             self.snippet = snippet
-            self.userGroups = userGroups
-            self.userEditCount = userEditCount
+            self.userGroups = untypedEvent.userGroups
+            self.userEditCount = untypedEvent.userEditCount
         }
     }
     

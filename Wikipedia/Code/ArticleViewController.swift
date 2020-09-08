@@ -55,28 +55,38 @@ class ArticleViewController: ViewController, HintPresenting {
             return _significantEventsViewModel
         }
         set {
-            guard let newValue = newValue else {
-                //should only occur when resetting to nil shortly before a pull to refresh was triggered.
-                _significantEventsViewModel = nil
-                return
-            }
-            
-            if let oldModel = _significantEventsViewModel {
-                // should only be triggered via paging.
-                // update everything except sha and htmlInsert and
-                // append events instead of replace events
-                let appendedEvents = oldModel.events + newValue.events
-                let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
-                _significantEventsViewModel = SignificantEventsViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, events: appendedEvents, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
+            if #available(iOS 13.0, *) {
+                guard let newValue = newValue else {
+                    //should only occur when resetting to nil shortly before a pull to refresh was triggered.
+                    _significantEventsViewModel = nil
+                    return
+                }
                 
-            } else {
-                // should only be triggered via pull to refresh or fresh load. update everything
-                _significantEventsViewModel = newValue
+                if let oldModel = _significantEventsViewModel {
+                    // should only be triggered via paging.
+                    // update everything except sha and htmlInsert and
+                    // append events instead of replace events
+                    let appendedEvents = oldModel.events + newValue.events
+                    let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
+                    _significantEventsViewModel = SignificantEventsViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, events: appendedEvents, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
+                    significantEventsViewController?.addEvents(timelineEvents: newValue.events)
+                    
+                } else {
+                    // should only be triggered via pull to refresh or fresh load. update everything
+                    _significantEventsViewModel = newValue
+                    //note, we aren't updating data source in VC here. So far we won't reach this situation where a refresh
+                    //is triggered while the events modal is still on screen, so not needed at this point.
+                }
             }
         }
     }
     private var significantEventsEditMetrics: [NSNumber]?
-    private var significantEventsViewController: SignificantEventsViewController?
+    
+    //making lazy to be able to limit just this property to 13+
+    @available(iOS 13.0, *)
+    private lazy var significantEventsViewController: SignificantEventsViewController? = {
+        return nil
+    }()
 
     private var leadImageHeight: CGFloat = 210
 
@@ -563,17 +573,20 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     private func presentSignificantEvents() {
-        if let significantEventsViewModel = significantEventsViewModel {
-            
-            significantEventsViewController = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, editMetrics: significantEventsEditMetrics, theme: theme, delegate: self)
-            significantEventsViewController?.apply(theme: theme)
-            
-            if let significantEventsViewController = significantEventsViewController {
-                let navigationController = WMFThemeableNavigationController(rootViewController: significantEventsViewController, theme: theme)
-                navigationController.modalPresentationStyle = .pageSheet
-                present(navigationController, animated: true, completion: nil)
+        if #available(iOS 13.0, *) {
+            if let significantEventsViewModel = significantEventsViewModel {
+                
+                significantEventsViewController = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, editMetrics: significantEventsEditMetrics, theme: theme, delegate: self)
+                    significantEventsViewController?.apply(theme: theme)
+                
+                if let significantEventsViewController = significantEventsViewController {
+                    let navigationController = WMFThemeableNavigationController(rootViewController: significantEventsViewController, theme: theme)
+                    navigationController.modalPresentationStyle = .pageSheet
+                    present(navigationController, animated: true) {
+                        significantEventsViewController.addInitialEvents(timelineEvents: significantEventsViewModel.events)
+                    }
+                }
             }
-            
         }
     }
     
@@ -1227,19 +1240,20 @@ extension ViewController  { // Putting extension on ViewController rather than A
 
 extension ArticleViewController: SignificantEventsViewControllerDelegate {
     func fetchNextPage(nextRvStartId: UInt) {
-        
-        guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
-              shouldAttemptToShowSignificantEvents else {
-            return
-        }
-        
-        significantEventsController.fetchSignificantEvents(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
-            switch result {
-            case .failure(let error):
-                DDLogDebug("Failure fetching next significant events page \(error)")
-            case .success(let significantEventsViewModel):
-                self.significantEventsViewModel = significantEventsViewModel
-                self.significantEventsViewController?.reloadData()
+        if #available(iOS 13.0, *) {
+            guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
+                  shouldAttemptToShowSignificantEvents else {
+                return
+            }
+            
+            significantEventsController.fetchSignificantEvents(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
+                switch result {
+                case .failure(let error):
+                    DDLogDebug("Failure fetching next significant events page \(error)")
+                case .success(let significantEventsViewModel):
+                    self.significantEventsViewModel = significantEventsViewModel
+                    self.significantEventsViewController?.reloadData()
+                }
             }
         }
     }
