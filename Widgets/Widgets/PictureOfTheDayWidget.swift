@@ -194,11 +194,12 @@ struct PictureOfTheDayView: View {
             Spacer().frame(height: padding)
 			GeometryReader { proxy in
 				Text(entry.imageDescription ?? "")
-					.frame(width: proxy.size.width, alignment: .leading)
-					.lineLimit(3) // TODO: Can't support 3 full lines with these font size/margin requirements
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .frame(width: proxy.size.width, alignment: .leading)
+					.lineLimit(3)
                     .lineSpacing(2)
 					.multilineTextAlignment(.leading)
-					.font(.caption)
 					.foregroundColor(.white)
             }
 			Spacer(minLength: padding)
