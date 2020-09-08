@@ -67,7 +67,7 @@ public struct SignificantEventsViewModel {
                 
                 if let currentTimestamp = currentTimestamp {
                     if let sectionHeader = SectionHeaderViewModel(timestamp: currentTimestamp, previousTimestamp: previousTimestamp) {
-                        //eventViewModels.append(.sectionHeader(sectionHeader))
+                        eventViewModels.append(.sectionHeader(sectionHeader))
                     }
                     
                     previousTimestamp = currentTimestamp
@@ -76,7 +76,7 @@ public struct SignificantEventsViewModel {
             
             
             if let smallEventViewModel = SmallEventViewModel(timelineEvent: originalEvent) {
-                //eventViewModels.append(.smallEvent(smallEventViewModel))
+                eventViewModels.append(.smallEvent(smallEventViewModel))
             } else if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
                 if let htmlSnippet = largeEventViewModel.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0),
                    articleInsertHtmlSnippets.count < htmlSnippetCountMax,

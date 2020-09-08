@@ -30,15 +30,7 @@ class SignificantEventsHorizontallyScrollingCell: CollectionViewCell {
     
     func configure(change: LargeEventViewModel.ChangeDetail, theme: Theme, delegate: SignificantEventsHorizontallyScrollingCellDelegate) {
         
-        let description: NSAttributedString
-        switch change {
-        case .snippet(let snippet):
-            description = snippet.displayText
-        case .reference(let reference):
-            description = reference.description
-        }
-        
-        setupDescription(for: description)
+        setupDescription(for: change)
         updateFonts(with: traitCollection)
         
         backgroundView?.layer.cornerRadius = 3
@@ -53,24 +45,26 @@ class SignificantEventsHorizontallyScrollingCell: CollectionViewCell {
         self.delegate = delegate
     }
     
-    func setupDescription(for attributedText: NSAttributedString) {
-        descriptionTextView.attributedText = attributedText
-        descriptionTextView.textContainer.maximumNumberOfLines = 3
-        descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-        setNeedsLayout()
-    }
-    
-    override func updateFonts(with traitCollection: UITraitCollection) {
-        super.updateFonts(with: traitCollection)
-        if let attributedText = descriptionTextView.attributedText {
-            setupDescription(for: attributedText)
+    func setupDescription(for change: LargeEventViewModel.ChangeDetail) {
+        
+        let description: NSAttributedString
+        switch change {
+        case .snippet(let snippet):
+            description = snippet.displayText
+        case .reference(let reference):
+            description = reference.description
         }
+        
+        descriptionTextView.attributedText = description
     }
     
     override func setup() {
         descriptionTextView.isEditable = false
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.delegate = self
+        descriptionTextView.textContainer.maximumNumberOfLines = 3
+        descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
+        descriptionTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         contentView.addSubview(descriptionTextView)
         super.setup()
     }

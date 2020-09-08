@@ -42,14 +42,10 @@ class SignificantEventsReferenceCollectionViewCell: SignificantEventsHorizontall
         return finalSize
     }
     
-    override func setupDescription(for attributedText: NSAttributedString) {
-        super.setupDescription(for: attributedText)
-        descriptionTextView.textContainer.maximumNumberOfLines = 0
-    }
-    
     override func setup() {
         
         super.setup()
+        descriptionTextView.textContainer.maximumNumberOfLines = 0
         contentView.addSubview(titleLabel)
         //adding icon badge in configure
     }
@@ -88,7 +84,6 @@ class SignificantEventsReferenceCollectionViewCell: SignificantEventsHorizontall
         
         updateFonts(with: traitCollection)
         apply(theme: theme)
-        setNeedsLayout()
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {

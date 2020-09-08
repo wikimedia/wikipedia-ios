@@ -31,10 +31,7 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
     
     private var largeEvent: LargeEventViewModel? {
         didSet {
-            if let largeEvent = largeEvent {
-                changeDetails = largeEvent.changeDetailsForTraitCollection(traitCollection, theme: theme)
-                collectionView.reloadData()
-            }
+            calculateChangeDetails()
         }
     }
     private var changeDetails: [LargeEventViewModel.ChangeDetail] = []
@@ -165,10 +162,14 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
         return CGSize(width: size.width, height: finalFinalHeight)
     }
     
+    func itemHeightCacheKeyForWidth(_ width: CGFloat, index: Int) -> String {
+        return "\(index)-\(width)"
+    }
+    
     private func largestItemHeightForWidth(_ width: CGFloat) -> CGFloat {
         var largestItemHeight: CGFloat = 0
         for (i, change) in changeDetails.enumerated() {
-            let key = "\(i)-\(width)"
+            let key = itemHeightCacheKeyForWidth(width, index: i)
             let height: CGFloat
             if let cachedHeight = cachedItemHeights[key] {
                 height = cachedHeight
@@ -177,9 +178,11 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
                 case .snippet:
                     snippetPrototypeCell.configure(change: change, theme: theme, delegate: self)
                     height = snippetPrototypeCell.wmf_preferredHeight(at: .zero, maximumWidth: width, alignedBy: .forceLeftToRight, spacing: 0, apply: false)
+                    cachedItemHeights[key] = height
                 case .reference:
                     referencePrototypeCell.configure(change: change, theme: theme, delegate: self)
                     height = referencePrototypeCell.wmf_preferredHeight(at: .zero, maximumWidth: width, alignedBy: .forceLeftToRight, spacing: 0, apply: false)
+                    cachedItemHeights[key] = height
                 }
             }
             
@@ -210,8 +213,17 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
         timelineView.dotsY = timestampLabel.convert(timestampLabel.bounds, to: timelineView).midY
     }
     
+    private func calculateChangeDetails() {
+        if let largeEvent = largeEvent {
+            changeDetails = largeEvent.changeDetailsForTraitCollection(traitCollection, theme: theme)
+            collectionView.reloadData()
+        }
+    }
+    
     override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
+        calculateChangeDetails()
+        
         if let largeEvent = largeEvent {
             configure(with: largeEvent, theme: theme)
         }
@@ -222,10 +234,8 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
         timelineView.backgroundColor = theme.colors.paperBackground
         timelineView.tintColor = theme.colors.accent
         timestampLabel.textColor = theme.colors.accent
-        
-        if let largeEvent = largeEvent {
-            configure(with: largeEvent, theme: theme)
-        }
+        userInfoTextView.backgroundColor = theme.colors.paperBackground
+        descriptionLabel.textColor = theme.colors.primaryText
         
         collectionView.backgroundColor = .clear
         collectionView.reloadData()
@@ -298,6 +308,7 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
             viewDiscussionButton.layoutIfNeeded()
         }
         
+        apply(theme: theme)
         resetContentOffset()
         setNeedsLayout()
     }
@@ -346,6 +357,10 @@ extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let changeDetail = changeDetails[indexPath.item]
+        let cacheKey = itemHeightCacheKeyForWidth(maximumSideScrollingCellWidth, index: indexPath.item)
+        if let height = cachedItemHeights[cacheKey] {
+            return CGSize(width: maximumSideScrollingCellWidth, height: height)
+        }
         
         switch changeDetail {
         case .snippet:
