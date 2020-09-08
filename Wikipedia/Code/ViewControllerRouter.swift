@@ -76,6 +76,17 @@ class ViewControllerRouter: NSObject {
                 return false
             }
             return presentOrPush(talkPageVC, with: completion)
+        case .onThisDay(let indexOfSelectedEvent):
+            let dataStore = appViewController.dataStore
+            guard let contentGroup = dataStore.viewContext.newestGroup(of: .onThisDay), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
+                completion()
+                return false
+            }
+            onThisDayVC.shouldShowNavigationBar = true
+            if let index = indexOfSelectedEvent, let selectedEvent = onThisDayVC.events.first(where: { $0.index == NSNumber(value: index) }) {
+                onThisDayVC.initialEvent = selectedEvent
+            }
+            return presentOrPush(onThisDayVC, with: completion)
         default:
             completion()
             return false
