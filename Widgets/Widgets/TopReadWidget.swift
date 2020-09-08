@@ -317,9 +317,18 @@ struct TopReadOverlayView: View {
 
 	var content: some View {
 		VStack(alignment: .leading) {
+			if isExpandedStyle {
+				// TODO: Localize
+				Text("\(currentViewCountOrEmpty) readers")
+					.fontWeight(.medium)
+					.lineLimit(nil)
+					.font(.subheadline)
+					.foregroundColor(readersForegroundColor)
+					.padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 0))
+			}
 			sparkline(expanded: isExpandedStyle)
 			Spacer()
-			description(includeReaderCount: isExpandedStyle)
+			description()
 		}
 		.foregroundColor(.white)
 	}
@@ -329,7 +338,7 @@ struct TopReadOverlayView: View {
 			Spacer()
 			if expanded {
 				Sparkline(style: .expanded, timeSeries: rankedElement?.viewCounts)
-					.padding(EdgeInsets(top: 16, leading: 8, bottom: 0, trailing: 16))
+					.padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 16))
 			} else {
 				Sparkline(style: .compact, timeSeries: rankedElement?.viewCounts)
 					.cornerRadius(4)
@@ -342,7 +351,7 @@ struct TopReadOverlayView: View {
 		}
 	}
 
-	func description(includeReaderCount: Bool = false) -> some View {
+	func description() -> some View {
 		VStack(alignment: .leading, spacing: 5) {
 			Text(TopReadWidget.LocalizedStrings.topReadWidgetTitle)
 				.font(.caption2)
@@ -355,15 +364,6 @@ struct TopReadOverlayView: View {
 				.font(.headline)
 				.foregroundColor(primaryTextColor)
 				.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
-			if includeReaderCount {
-				// TODO: Localize
-				Text("\(currentViewCountOrEmpty) readers")
-					.fontWeight(.bold)
-					.lineLimit(nil)
-					.font(.caption)
-					.foregroundColor(readersForegroundColor)
-					.readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
-			}
 		}
 		.padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
 	}
