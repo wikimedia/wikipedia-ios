@@ -112,6 +112,11 @@ public class EPC: NSObject {
     private let queue = DispatchQueue(label: "EventPlatformClient-" + UUID().uuidString)
 
     /**
+     * Serial dispatch queue for encoding data on a background thread
+     */
+    private let encodeQueue = DispatchQueue(label: "EventPlatformClientEncode-" + UUID().uuidString, qos: .background)
+
+    /**
      * Where to send events to for intake
      *
      * See [wikitech:Event Platform/EventGate](https://wikitech.wikimedia.org/wiki/Event_Platform/EventGate)
@@ -627,10 +632,16 @@ public class EPC: NSObject {
     }
     
     public func submit<E: EventInterface>(stream: Stream, schema: Schema, event: E, domain: String? = nil, clientDT: Date? = nil) {
-        guard self.sharingUsageData else {
+        encodeQueue.async {
+            self._submit(stream: stream, schema: schema, event: event, domain: domain, clientDT: clientDT)
+        }
+    }
+    
+    private func _submit<E: EventInterface>(stream: Stream, schema: Schema, event: E, domain: String? = nil, clientDT: Date? = nil){
+        guard sharingUsageData else {
             return
         }
-        guard let appInstallID = self.installID else {
+        guard let appInstallID = installID else {
             DDLogDebug("EPC: Could not retrieve app install ID")
             return
         }
