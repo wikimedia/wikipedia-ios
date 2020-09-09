@@ -137,10 +137,17 @@ public class EPC: NSObject {
      */
     private let streamConfigServiceURI: URL
 
+    private struct StreamConfiguration: Codable {
+        let sampling: Sampling?
+        struct Sampling: Codable {
+            let rate: Double?
+            let identifier: String?
+        }
+    }
     /**
      * Holds each stream's configuration.
      */
-    private var streamConfigurations: [String: [String: Any]]? {
+    private var streamConfigurations: [Stream: StreamConfiguration]? {
         get {
             queue.sync {
                 return _streamConfigurations
@@ -152,7 +159,7 @@ public class EPC: NSObject {
             }
         }
     }
-    private var _streamConfigurations: [String: [String: Any]]? = nil
+    private var _streamConfigurations: [Stream: StreamConfiguration]? = nil
     
     /**
      * Updated when app enters background, used for determining if the session has
@@ -403,43 +410,38 @@ public class EPC: NSObject {
      * ```
      */
     private func loadStreamConfiguration(_ data: Data) {
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: [String: [String: Any]]] else {
-                DDLogWarn("EPC: Problem processing JSON payload from response")
-                return
-        }
         #if DEBUG
         if let raw = String.init(data: data, encoding: String.Encoding.utf8) {
             DDLogDebug("EPC: Downloaded stream configs (raw): \(raw)")
         }
         #endif
-
-        guard let streamConfigs = json["streams"] else {
-            DDLogWarn("EPC: Problem extracting stream configs")
-            return
+        struct StreamConfigurationsJSON: Codable {
+            let streams: [String: StreamConfiguration]
         }
-
-        #if DEBUG
         do {
-            let jsonString = try streamConfigs.toPrettyPrintJSONString()
-            DDLogDebug("EPC: Processed stream configurations:\n\(jsonString)")
-        } catch let error {
-            DDLogError("EPC: \(error.localizedDescription)")
-        }
-        #endif
+            let json = try JSONDecoder().decode(StreamConfigurationsJSON.self, from: data)
 
-        // Make them available to any newly logged events before flushing
-        // buffer (this is set using serial queue but asynchronously)
-        self.streamConfigurations = streamConfigs
+            // Make them available to any newly logged events before flushing
+            // buffer (this is set using serial queue but asynchronously)
+            streamConfigurations = json.streams.reduce(into: [:], { (result, kv) in
+                guard let stream = Stream(rawValue: kv.key) else {
+                    return
+                }
+                result?[stream] = kv.value
+            })
 
-        // Process event buffer after making stream configs available
-        // NOTE: If any event is re-submitted while streamConfigurations
-        // is still being set (asynchronously), they will just go back to
-        // input buffer.
-        while let event = inputBufferPopFirst() {
-            guard inSample(stream: event.stream) else {
-                continue
+            // Process event buffer after making stream configs available
+            // NOTE: If any event is re-submitted while streamConfigurations
+            // is still being set (asynchronously), they will just go back to
+            // input buffer.
+            while let event = inputBufferPopFirst() {
+                guard inSample(stream: event.stream) else {
+                    continue
+                }
+                appendPostToOutputBuffer((url: streamIntakeServiceURI, body: data))
             }
-            appendPostToOutputBuffer((url: streamIntakeServiceURI, body: data))
+        } catch let error {
+            DDLogError("EPC: Problem processing JSON payload from response: \(error)")
         }
     }
 
@@ -506,31 +508,19 @@ public class EPC: NSObject {
             return cachedValue
         }
 
-        guard let config = configs[stream.rawValue] else {
+        guard let config = configs[stream] else {
             let error = """
             EPC: Invalid state, stream '\(stream)' must be present in streamConfigurations to check for inSample
-            but found only: \(configs.keys.joined(separator: ", "))
+            but found only: \(configs.keys.map(\.rawValue).joined(separator: ", "))
             """
             DDLogError(error)
             return false
         }
 
-        guard let samplingConfig = config["sampling"] as? [String: Any] else {
+        guard let rate = config.sampling?.rate else {
             /*
              * If stream is present in streamConfigurations but doesn't have
              * sampling settings, it is always in-sample.
-             */
-            cacheSamplingForStream(stream, inSample: true)
-            return true
-        }
-
-        /*
-         * If cache does not have a determination for stream, generate one.
-         */
-        guard let rate = samplingConfig["rate"] as? Double else {
-            /*
-             * If stream doesn't have a rate, assume 1.0 (always in-sample). Cache
-             * this determination for any future use.
              */
             cacheSamplingForStream(stream, inSample: true)
             return true
@@ -544,7 +534,7 @@ public class EPC: NSObject {
          */
         let sessionIdentifierType = "session"
         let deviceIdentifierType = "device"
-        let identifierType = samplingConfig["identifier"] as? String ?? sessionIdentifierType
+        let identifierType = config.sampling?.identifier ?? sessionIdentifierType
 
         guard identifierType == sessionIdentifierType || identifierType == deviceIdentifierType else {
             DDLogDebug("EPC: Logged to stream which is not configured for sampling based on \(sessionIdentifierType) or \(deviceIdentifierType) identifier")
@@ -656,8 +646,8 @@ public class EPC: NSObject {
                 return
             }
             
-            guard streamConfigs.keys.contains(stream.rawValue) else {
-                DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.joined(separator: ", "))")
+            guard streamConfigs.keys.contains(stream) else {
+                DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
                 return
             }
             
