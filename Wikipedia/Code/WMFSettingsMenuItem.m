@@ -53,7 +53,7 @@
                                                  iconName:@"settings-language"
                                                 iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode uppercaseString]
+                                           disclosureText:[MWKDataStore.shared.languageLinkController.appLanguage.languageCode uppercaseString]
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Search: {

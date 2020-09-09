@@ -96,7 +96,7 @@ private class FeedCard: ExploreFeedSettingsItem {
 
     private func multipleLanguagesDisclosureText(for contentGroupKind: WMFContentGroupKind) -> String {
         guard contentGroupKind.isGlobal else {
-            let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
+            let preferredLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages
             let languageCodes = contentGroupKind.languageCodes
             switch languageCodes.count {
             case preferredLanguages.count:

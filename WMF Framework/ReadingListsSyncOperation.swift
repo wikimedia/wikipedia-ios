@@ -388,7 +388,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 for i in 1...countOfEntriesToCreate {
                     
                     if !englishOnly {
-                        if let randomLanguage = MWKLanguageLinkController.sharedInstance().allLanguages.randomElement() {
+                        if let randomLanguage = dataStore.languageLinkController.allLanguages.randomElement() {
                             maybeSiteURL = randomLanguage.siteURL()
                         }
                     }
