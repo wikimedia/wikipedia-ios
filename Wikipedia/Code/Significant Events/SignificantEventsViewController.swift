@@ -13,27 +13,51 @@ enum SignificantEventsSection {
   case standard
 }
 
+extension LargeEventViewModel: Equatable {
+    public static func == (lhs: LargeEventViewModel, rhs: LargeEventViewModel) -> Bool {
+        return lhs.revId == rhs.revId
+    }
+}
+
+extension SectionHeaderViewModel: Equatable {
+    public static func == (lhs: SectionHeaderViewModel, rhs: SectionHeaderViewModel) -> Bool {
+        return lhs.timestamp == rhs.timestamp
+    }
+}
+
+extension SmallEventViewModel: Equatable {
+    public static func == (lhs: SmallEventViewModel, rhs: SmallEventViewModel) -> Bool {
+        return lhs.smallChanges == rhs.smallChanges
+    }
+}
+
+extension SignificantEvents.SmallChange: Equatable {
+    public static func == (lhs: SignificantEvents.SmallChange, rhs: SignificantEvents.SmallChange) -> Bool {
+        return lhs.revId == rhs.revId
+    }
+}
+
 extension TimelineEventViewModel: Hashable {
     public static func == (lhs: TimelineEventViewModel, rhs: TimelineEventViewModel) -> Bool {
         switch lhs {
         case .largeEvent(let leftLargeEvent):
             switch rhs {
             case .largeEvent(let rightLargeEvent):
-                return leftLargeEvent.revId == rightLargeEvent.revId
+                return leftLargeEvent == rightLargeEvent
             default:
                 return false
             }
         case .sectionHeader(let leftSectionHeader):
             switch rhs {
             case .sectionHeader(let rightSectionHeader):
-                return leftSectionHeader.timestamp == rightSectionHeader.timestamp
+                return leftSectionHeader == rightSectionHeader
             default:
                 return false
             }
         case .smallEvent(let leftSmallEvent):
             switch rhs {
             case .smallEvent(let rightSmallEvent):
-                return leftSmallEvent.uuid == rightSmallEvent.uuid
+                return leftSmallEvent == rightSmallEvent
             default:
                 return false
             }
@@ -46,7 +70,7 @@ extension TimelineEventViewModel: Hashable {
         case .sectionHeader(let viewModel):
             hasher.combine(viewModel.timestamp)
         case .smallEvent(let smallEvent):
-            hasher.combine(smallEvent.uuid)
+            smallEvent.smallChanges.forEach { hasher.combine($0.revId) }
         case .largeEvent(let largeEvent):
             hasher.combine(largeEvent.revId)
         }

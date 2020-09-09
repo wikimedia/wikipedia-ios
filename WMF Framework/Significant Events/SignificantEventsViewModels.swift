@@ -61,8 +61,8 @@ public struct SignificantEventsViewModel {
                     currentTimestamp = isoDateFormatter.date(from: newTalkPageTopic.timestampString)
                 case .vandalismRevert(let vandalismRevert):
                     currentTimestamp = isoDateFormatter.date(from: vandalismRevert.timestampString)
-                default:
-                    break
+                case .smallChange(let smallChange):
+                    currentTimestamp = isoDateFormatter.date(from: smallChange.timestampString)
                 }
                 
                 if let currentTimestamp = currentTimestamp {
@@ -75,9 +75,10 @@ public struct SignificantEventsViewModel {
             }
             
             
-            if let smallEventViewModel = SmallEventViewModel(timelineEvent: originalEvent) {
+            if let smallEventViewModel = SmallEventViewModel(timelineEvents: [originalEvent]) {
                 eventViewModels.append(.smallEvent(smallEventViewModel))
-            } else if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
+            } else
+            if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
                 if let htmlSnippet = largeEventViewModel.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0),
                    articleInsertHtmlSnippets.count < htmlSnippetCountMax,
                    isFirstPage {
@@ -90,7 +91,25 @@ public struct SignificantEventsViewModel {
             }
         }
         
-        self.events = eventViewModels
+        //collapse sibling small event view models
+        var collapsedEventViewModels: [TimelineEventViewModel] = []
+        var queuedSmallChanges: [SignificantEvents.SmallChange] = []
+        for eventVM in eventViewModels {
+            switch eventVM {
+            case .smallEvent(let smallEventViewModel):
+                queuedSmallChanges.append(contentsOf: smallEventViewModel.smallChanges)
+            default:
+                if queuedSmallChanges.count > 0 {
+                    
+                    collapsedEventViewModels.append(.smallEvent(SmallEventViewModel(smallChanges: queuedSmallChanges)))
+                    queuedSmallChanges.removeAll()
+                }
+                collapsedEventViewModels.append(eventVM)
+                continue
+            }
+        }
+        
+        self.events = collapsedEventViewModels
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
     }
 }
@@ -134,18 +153,29 @@ public class SmallEventViewModel {
     
     public private(set) var eventDescription: NSAttributedString?
     private var lastTraitCollection: UITraitCollection?
-    private let smallChange: SignificantEvents.SmallChange
-    public let uuid: UUID
+    public let smallChanges: [SignificantEvents.SmallChange]
     
-    init?(timelineEvent: SignificantEvents.TimelineEvent) {
+    init?(timelineEvents: [SignificantEvents.TimelineEvent]) {
         
-        switch timelineEvent {
-        case .smallChange(let smallChange):
-            self.smallChange = smallChange
-        default:
+        var smallChanges: [SignificantEvents.SmallChange] = []
+        for event in timelineEvents {
+            switch event {
+            case .smallChange(let smallChange):
+                smallChanges.append(smallChange)
+            default:
+                return nil
+            }
+        }
+        
+        guard smallChanges.count > 0 else {
             return nil
         }
-        self.uuid = UUID()
+        
+        self.smallChanges = smallChanges
+    }
+    
+    init(smallChanges: [SignificantEvents.SmallChange]) {
+        self.smallChanges = smallChanges
     }
     
     public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
@@ -162,7 +192,7 @@ public class SmallEventViewModel {
         
         let localizedString = String.localizedStringWithFormat(
             CommonStrings.smallChangeDescription,
-            smallChange.count)
+            smallChanges.count)
         
         let eventDescription = NSAttributedString(string: localizedString, attributes: attributes)
         
@@ -618,7 +648,11 @@ public class LargeEventViewModel {
                 switch typedChange {
                 case .addedText(let addedText):
                     //TODO: Add highlighting here. For snippetType 1, add a highlighting attribute across the whole string. Otherwise, seek out highlight-add span ranges and add those attributes
-                    let attributedString = addedText.snippet.byAttributingHTML(with: .subheadline, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+                    guard let snippet = addedText.snippet else {
+                        continue
+                    }
+                    
+                    let attributedString = snippet.byAttributingHTML(with: .subheadline, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
                     let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
                     changeDetails.append(changeDetail)
                 case .deletedText:
@@ -740,7 +774,7 @@ public class LargeEventViewModel {
         let titleAttributedString: NSAttributedString
         let titleString = "\"\(journalCitation.title)\""
         let range = NSRange(location: 0, length: titleString.count)
-        let mutableAttributedString = NSMutableAttributedString(string: titleString)
+        let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
         if let urlString = journalCitation.urlString,
            let url = URL(string: urlString) {
             
@@ -817,7 +851,7 @@ public class LargeEventViewModel {
         let titleAttributedString: NSAttributedString
         let titleString = "\"\(websiteCitation.title)\""
         let range = NSRange(location: 0, length: titleString.count)
-        let mutableAttributedString = NSMutableAttributedString(string: titleString)
+        let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
         let urlString = websiteCitation.urlString
         if let url = URL(string: urlString) {
             
@@ -853,7 +887,7 @@ public class LargeEventViewModel {
            let archiveUrl = URL(string: archiveUrlString) {
             let archiveLinkText = CommonStrings.newWebsiteReferenceArchiveUrlText
             let range = NSRange(location: 0, length: archiveLinkText.count)
-            let archiveLinkMutableAttributedString = NSMutableAttributedString(string: titleString)
+            let archiveLinkMutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
             archiveLinkMutableAttributedString.addAttributes([NSAttributedString.Key.link : archiveUrl,
                                          NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
             
@@ -887,7 +921,7 @@ public class LargeEventViewModel {
         let titleAttributedString: NSAttributedString
         let titleString = "\"\(newsCitation.title)\""
         let range = NSRange(location: 0, length: titleString.count)
-        let mutableAttributedString = NSMutableAttributedString(string: titleString)
+        let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
         if let urlString = newsCitation.urlString,
            let url = URL(string: urlString) {
             
@@ -995,7 +1029,7 @@ public class LargeEventViewModel {
         
         let isbnAttributedString: NSAttributedString
         if let isbn = bookCitation.isbn {
-            let mutableAttributedString = NSMutableAttributedString(string: isbn)
+            let mutableAttributedString = NSMutableAttributedString(string: isbn, attributes: attributes)
             let isbnTitle = "Special:BookSources"
             let isbnURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [isbnTitle, isbn]).url
             let range = NSRange(location: 0, length: isbn.count)

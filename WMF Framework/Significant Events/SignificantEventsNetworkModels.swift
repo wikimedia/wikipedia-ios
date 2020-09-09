@@ -118,20 +118,19 @@ public struct SignificantEvents: Decodable {
     public struct AddedTextChange {
         let outputType: LargeChangeOutputType
         public let sections: [String]
-        public let snippet: String
+        public let snippet: String?
         public let snippetType: SnippetType
         public let characterCount: UInt
         
         init?(untypedChange: UntypedChange) {
-            guard let snippet = untypedChange.snippet,
-                  let snippetType = untypedChange.snippetType,
+            guard let snippetType = untypedChange.snippetType,
                   let characterCount = untypedChange.characterCount else {
                 return nil
             }
             
             self.outputType = untypedChange.outputType
             self.sections = untypedChange.sections
-            self.snippet = snippet
+            self.snippet = untypedChange.snippet
             self.snippetType = snippetType
             self.characterCount = characterCount
         }
@@ -259,15 +258,18 @@ public struct SignificantEvents: Decodable {
     
     public struct SmallChange {
         let outputType: TimelineEventOutputType
-        public let count: UInt
+        public let revId: UInt
+        public let timestampString: String
         
         init?(untypedEvent: UntypedTimelineEvent) {
-            guard let count = untypedEvent.count else {
+            guard let revId = untypedEvent.revId,
+                  let timestampString = untypedEvent.timestampString else {
                 return nil
             }
             
             self.outputType = untypedEvent.outputType
-            self.count = count
+            self.revId = revId
+            self.timestampString = timestampString
         }
     }
     
