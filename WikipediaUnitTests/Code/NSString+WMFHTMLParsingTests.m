@@ -1,6 +1,5 @@
 #import <XCTest/XCTest.h>
 #import "NSString+WMFHTMLParsing.h"
-#import <hpple/TFHpple.h>
 #import "WMFTestFixtureUtilities.h"
 
 @interface NSString_WMFHTMLParsingTests : XCTestCase

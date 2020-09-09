@@ -296,7 +296,7 @@
 "empty-no-reading-lists-title" = "あとで読むリストに保存した記事を整理しましょう";
 "empty-no-saved-pages-in-reading-list-message" = "ページをこのリストに保存するとここに表示されます";
 "empty-no-saved-pages-in-reading-list-title" = "このリストに保存されたページはありません";
-"empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧することができます";
+"empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧できます";
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
 "empty-talk-page-title" = "このユーザーにはまだメッセージが投稿されていません";
