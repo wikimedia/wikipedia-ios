@@ -31,16 +31,12 @@
 "abuse-filter-disallow-heading" = "Ne možete objaviti ovu izmjenu. Vratite se i promijenite je.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Automatizirani filter utvrdio je da je ova izmjena potencijalno nekonstruktivna ili da predstavlja pokušaj vandalizma.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Pražnjenje članaka i spamovanje";
-// Fuzzy
-"abuse-filter-warning-caps" = "Pisanje VELIKIM SLOVIMA";
+"abuse-filter-warning-blanking" = "Brisanje odlomaka ili cijelih članaka";
+"abuse-filter-warning-caps" = "Tekst velikim slovima";
 "abuse-filter-warning-heading" = "Ovo liči na nekonstruktivnu izmjenu. Jeste li sigurni da je želite objaviti?";
 "abuse-filter-warning-irrelevant" = "Nerelevantni vanjski linkovi ili slike";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Znakovi koji se ponaaaavljaju";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Moguće je da Vaša izmjena sadrži nešto od sljedećeg:";
+"abuse-filter-warning-repeat" = "Ponavljajući znakovi";
+"abuse-filter-warning-subheading" = "Vaša izmjena možda sadrži:";
 "account-creation-captcha-cannot-see-image" = "Ne možete vidjeti sliku? $1";
 "account-creation-captcha-obtaining" = "Dobavljam novi CAPTCHA kôd...";
 "account-creation-captcha-request-account" = "Zatražite račun.";
@@ -53,20 +49,31 @@
 "account-creation-passwords-mismatched" = "Lozinke se ne poklapaju.";
 "account-creation-saving" = "Čuvam...";
 "account-creation-title" = "Napravi novi račun";
-// Fuzzy
+"account-group-title" = "Vaš račun";
+"account-talk-page-title" = "Vaša stranica za razgovor";
+"action-cancel" = "Otkaži";
 "action-find-in-page" = "Pronađi na stranici";
 "action-read" = "Čitaj";
+"action-redo" = "Ponovi";
+"action-remove" = "Ukloni";
+"action-replace" = "Zamijeni";
+"action-replace-all" = "Zamijeni sve";
+"action-retry" = "Pokušaj ponovo";
 "action-save" = "Sačuvaj";
 "action-saved" = "Sačuvano";
 "action-saved-accessibility" = "Sačuvano. Aktivirajte da biste obrisali.";
 "action-share" = "Podijeli";
 "action-unsave" = "Obriši";
+"action-update" = "Ažuriraj";
 "announcements-dismiss" = "Odbaci";
+"article-about-title" = "O članku";
 "article-delete" = "Obriši";
 "article-languages-filter-placeholder" = "Pronađi jezik";
 "article-languages-label" = "Izaberite jezik";
 "article-languages-others" = "Drugi jezici";
 "article-languages-yours" = "Vaši jezici";
+"article-read-more-title" = "Detaljnije";
+"article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali članak";
 "article-share" = "Podijeli";
 "back-button-accessibility-label" = "Nazad";
 "button-next" = "Sljedeće";

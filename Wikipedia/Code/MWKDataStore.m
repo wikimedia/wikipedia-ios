@@ -13,7 +13,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 10;
+static const NSInteger WMFCurrentLibraryVersion = 11;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -33,6 +33,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
+@property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
 
 @property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
@@ -95,12 +96,13 @@ static uint64_t bundleHash() {
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [self setupHistoryAndSavedPageLists];
+        self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
         self.feedContentController.dataStore = self;
-        self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+        self.feedContentController.siteURLs = self.languageLinkController.preferredSiteURLs;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current] preferredLanguageCodesProvider:self.languageLinkController];
         WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
@@ -460,6 +462,15 @@ static uint64_t bundleHash() {
         }
     }
 
+    if (currentLibraryVersion < 11) {
+        [MWKLanguageLinkController migratePreferredLanguagesToManagedObjectContext:moc];
+        [moc wmf_setValue:@(11) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+    
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 

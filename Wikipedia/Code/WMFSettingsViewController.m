@@ -287,7 +287,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (NSURL *)donationURL {
     NSString *url = WMFSettingsURLDonation;
 
-    NSString *languageCode = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
+    NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
     languageCode = [languageCode stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
     NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];

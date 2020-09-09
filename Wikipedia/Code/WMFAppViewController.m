@@ -264,7 +264,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (NSURL *)siteURL {
-    return [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
+    return [[self.dataStore.languageLinkController appLanguage] siteURL];
 }
 
 #pragma mark - Setup
@@ -414,14 +414,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
     [self updateExploreFeedPreferencesIfNecessary];
-    self.dataStore.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+    self.dataStore.feedContentController.siteURLs = [self.dataStore.languageLinkController preferredSiteURLs];
 }
 
 /**
  Updates explore feed preferences if new preferred language was appeneded or removed.
  */
 - (void)updateExploreFeedPreferencesIfNecessary {
-    MWKLanguageLinkController *languageLinkController = [MWKLanguageLinkController sharedInstance];
+    MWKLanguageLinkController *languageLinkController = self.dataStore.languageLinkController;
     NSArray<MWKLanguageLink *> *preferredLanguages = languageLinkController.preferredLanguages;
     NSArray<MWKLanguageLink *> *previousPreferredLanguages = languageLinkController.previousPreferredLanguages;
     if (preferredLanguages.count == previousPreferredLanguages.count) { // reordered
