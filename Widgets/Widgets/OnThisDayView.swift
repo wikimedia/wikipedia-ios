@@ -28,18 +28,18 @@ struct OnThisDayColors {
 }
 
 struct OnThisDayView: View {
-    @Environment(\.widgetFamily) private var family
+    @Environment(\.widgetFamily) private var widgetSize
     var entry: OnThisDayProvider.Entry
 
     @ViewBuilder
     var body: some View {
         GeometryReader { proxy in
-            switch family {
+            switch widgetSize {
             case .systemLarge:
                 VStack(alignment: .leading, spacing: 0) {
                     OnThisDayHeaderElement(monthDay: entry.monthDay, minYear: entry.earliestYear, maxYear: entry.latestYear)
                         .padding(.bottom, 9)
-                    MainOnThisDayTopElement(eventYear: entry.eventYear, widgetSize: family)
+                    MainOnThisDayTopElement(eventYear: entry.eventYear)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
                     if let eventSnippet = entry.eventSnippet, let title = entry.articleTitle, let articleSnippet = entry.articleSnippet {
                         ArticleRectangleElement(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
@@ -48,19 +48,19 @@ struct OnThisDayView: View {
                     }
                     OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
-                .padding(16)
+                .padding([.top, .leading, .trailing], 16)
             case .systemMedium:
                 VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
+                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet)
                     OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
-                .padding(EdgeInsets(top: 0, leading: 11, bottom: 16, trailing: 16))
+                .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             case .systemSmall:
-                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
-                .padding(EdgeInsets(top: 0, leading: 11, bottom: 16, trailing: 16))
+                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet)
+                .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             @unknown default:
-                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
-                .padding(EdgeInsets(top: 0, leading: 11, bottom: 16, trailing: 16))
+                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet)
+                .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             }
         }
         .widgetURL(entry.contentURL)
@@ -88,6 +88,7 @@ struct TimelineView<Content: View>: View {
         case large, small, none
     }
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.widgetFamily) private var widgetSize
 
     @SwiftUI.State private var circleYOffset: CGFloat = 0
     var dotStyle: DotStyle
@@ -95,20 +96,41 @@ struct TimelineView<Content: View>: View {
     var isLineBottomFaded: Bool
     var mainView: Content
 
+    var gradient: LinearGradient {
+        if isLineTopFaded {
+            let colorGradient = Gradient(stops: [
+                Gradient.Stop(color: OnThisDayColors.widgetBackgroundColor(colorScheme), location: 0),
+                Gradient.Stop(color: OnThisDayColors.blueColor(colorScheme), location: 0.65)
+            ])
+            return LinearGradient(gradient: colorGradient, startPoint: .top, endPoint: .bottom)
+        // No bottom gradient on large widgets. See Phab for details: INSERT PHAB HERE
+        } else if isLineBottomFaded && widgetSize != .systemLarge {
+            let colorGradient = Gradient(stops: [
+                // Small widgets have a much larger final section, and thus gradient starts later.
+                Gradient.Stop(color: OnThisDayColors.blueColor(colorScheme), location: (widgetSize == .systemSmall ? 0.75 : 0.45)),
+                Gradient.Stop(color: OnThisDayColors.widgetBackgroundColor(colorScheme), location: 1.0)
+            ])
+            return LinearGradient(gradient: colorGradient, startPoint: .top, endPoint: .bottom)
+        } else {
+            // plain blue
+            return LinearGradient(gradient: Gradient(colors: [OnThisDayColors.blueColor(colorScheme)]), startPoint: .top, endPoint: .bottom)
+        }
+    }
+
     var body: some View {
         let lineWidth: CGFloat = 1
         HStack(alignment: .top) {
             ZStack(alignment: .top) {
                 TimelinePathElement()
                     .stroke(lineWidth: lineWidth)
+                    .fill(gradient)
                 switch dotStyle {
                 case .large: TimelineLargeCircleElement(lineWidth: lineWidth, circleYOffset: circleYOffset)
                 case .small: TimelineSmallCircleElement(lineWidth: lineWidth, circleYOffset: circleYOffset)
                 case .none: EmptyView()
                 }
             }
-                .frame(width: TimelineLargeCircleElement.largeCircleHeight)
-            .foregroundColor(OnThisDayColors.blueColor(colorScheme))
+            .frame(width: TimelineLargeCircleElement.largeCircleHeight)
             mainView
         }
         .onPreferenceChange(SmallYValuePreferenceKey.self, perform: { yOffset in
@@ -168,9 +190,9 @@ struct TimelineLargeCircleElement: View {
                 .overlay(
                     Circle()
                         .stroke(OnThisDayColors.blueColor(colorScheme), lineWidth: lineWidth)
-                        .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                 )
                     .frame(width: TimelineSmallCircleElement.smallCircleHeight, height: TimelineSmallCircleElement.smallCircleHeight)
+                    .foregroundColor(OnThisDayColors.blueColor(colorScheme))
             )
             .frame(width: geometry.size.width, height: geometry.size.width)
             .padding(.top, circleYOffset)
@@ -199,9 +221,8 @@ struct OnThisDayHeaderElement: View {
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-    //            let yearsString = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
 
-            Text(verbatim: "\(minYear) - \(maxYear)")
+            Text(String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: nil, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: nil, minYear, maxYear))
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                 .font(.subheadline)
                 .bold()
@@ -212,21 +233,23 @@ struct OnThisDayHeaderElement: View {
 }
 
 struct MainOnThisDayElement: View {
+    @Environment(\.widgetFamily) private var widgetSize
+
     var eventYear: Int
     var snippet: String?
-    var widgetSize: WidgetFamily
 
     /// For unknown reasons, the layout of the `TimelineView` for a large widget is different from the rest. (A larger comment is above.) One side affect is that (as of iOS 14, beta 6) the large dot is not properly centered on the large widget. This `isLargeWidget` boolean allows us to manually correct for the error.
 
     var body: some View {
         VStack(spacing: 0) {
-            MainOnThisDayTopElement(eventYear: eventYear, widgetSize: widgetSize)
+            MainOnThisDayTopElement(eventYear: eventYear)
             if let snippet = snippet {
-                TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
+                TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: widgetSize == .systemSmall, mainView:
                         Text(snippet)
                             .font(.caption)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 9)
+                            .padding(.bottom, (widgetSize == .systemSmall ? 16 : 8))
                 ).layoutPriority(1.0)
             }
         }.layoutPriority(1.0)
@@ -236,15 +259,13 @@ struct MainOnThisDayElement: View {
 struct MainOnThisDayTopElement: View {
     let eventYearPadding: CGFloat = 16.0
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.widgetFamily) private var widgetSize
 
     var eventYear: Int
-    var widgetSize: WidgetFamily
 
     var firstLineText: String {
-        if widgetSize == .systemLarge {
+        if widgetSize == .systemLarge || widgetSize == .systemSmall {
             return "\(eventYear)"
-        } else if widgetSize == .systemSmall {
-            return String(eventYear)
         } else {
             let now = Date()
             let currentComponents = Calendar.current.dateComponents([.month, .day], from: now)
@@ -355,7 +376,7 @@ struct OnThisDayAdditionalEventsElement: View {
 
     var body: some View {
         if otherEventsCount > 0 {
-            TimelineView(dotStyle: .small, isLineTopFaded: true, isLineBottomFaded: false, mainView:
+            TimelineView(dotStyle: .small, isLineTopFaded: false, isLineBottomFaded: true, mainView:
                 Text(String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount))
                     .font(.footnote)
                     .bold()
@@ -370,6 +391,7 @@ struct OnThisDayAdditionalEventsElement: View {
                         /// The padding of 4 is a little arbitrary. These views aren't perfectly laid out in SwiftUI - see the "+20" comment above - and we needed an extra 4 points to make this layout properly.
                     }
                 )
+                .padding(.bottom, 16)
             )
         }
     }
