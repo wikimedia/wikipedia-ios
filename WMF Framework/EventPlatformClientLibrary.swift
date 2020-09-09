@@ -6,8 +6,8 @@
  *     ouput buffer where they are periodically bursted to a remote endpoint via
  *     HTTP POST.
  *
- *     Designed for use with Wikipedia iOS application producing events to the
- *     EventGate intake service.
+ *     Designed for use with Wikipedia iOS application producing events to a
+ *     stream intake service.
  *
  * LICENSE NOTICE
  *     Copyright 2019 Wikimedia Foundation
@@ -41,23 +41,18 @@ import Foundation
 /**
  * Event Platform Client (EPC)
  *
- * The static public API via the `shared` singleton allows callers to log events.
- * Use `log` to submit an event to a specific stream. For additional information
- * on instrumentation with the Modern Event Platform and the Event Platform Client
- * libraries, please refer to the following resources:
- * - [mw:Wikimedia Product/Analytics Infrastructure/Event Platform Client](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Event_Platform_Client)
- * - [wikitech:Event Platform/Instrumentation How To](https://wikitech.wikimedia.org/wiki/Event_Platform/Instrumentation_How_To)
- *
- * ## Logging API
- *
- * Use `EPC.shared?.submit(stream, data, domain?)` to submit (log) events to
+ * Use `EPC.shared?.submit(stream, data, domain?)` to submit ("log") events to
  * streams, making sure to include `$schema` in the event `data`. This interface
  * is consistent with Event Platform Client for MediaWiki:
  * `mw.eventLog.submit( streamName, eventData )`. The `$schema` field in event
  * `data` must use the `$id` of a schema in
  * [this repository](https://gerrit.wikimedia.org/g/schemas/event/secondary/)
+ * and must include the specific version of the schema that the instrumentation
+ * conforms to.
  *
- * For example:
+ * ## Example
+ *
+ * In Swift:
  *
  * ```
  * EPC.shared?.submit(
@@ -73,7 +68,7 @@ import Foundation
  * )
  * ```
  *
- * With Objective-C:
+ * In Objective-C:
  *
  * ```
  * [[WMFEventPlatformClient sharedInstance] submitWithStream:@"test.instrumentation"
@@ -121,19 +116,25 @@ public class EPC: NSObject {
      *
      * See [wikitech:Event Platform/EventGate](https://wikitech.wikimedia.org/wiki/Event_Platform/EventGate)
      * for more information. Specifically, the section on
-     * **eventgate-analytics-external**.
+     * **eventgate-analytics-external**.  This service uses the stream
+     * configurations from Meta wiki as its source of truth.
      */
     private let streamIntakeServiceURI: URL
     /**
      * MediaWiki API endpoint which returns stream configurations as JSON
      *
-     * Streams are configured via [mediawiki-config/wmf-config/InitialiseSettings.php](https://gerrit.wikimedia.org/r/plugins/gitiles/operations/mediawiki-config/+/master/wmf-config/InitialiseSettings.php), deployed in a
-     * [backport window](https://wikitech.wikimedia.org/wiki/Backport_windows)
-     * and made available for external consumption via MediaWiki API via
-     * [Extension:EventStreamConfig](https://gerrit.wikimedia.org/g/mediawiki/extensions/EventStreamConfig/)
+     * Streams are configured via [mediawiki-config/wmf-config/InitialiseSettings.php](https://gerrit.wikimedia.org/g/operations/mediawiki-config/+/master/wmf-config/InitialiseSettings.php)
      *
-     * In production, we use [Meta wiki](https://meta.wikimedia.org/wiki/Main_Page)'s
+     * The config changes are deployed in [backport windows](https://wikitech.wikimedia.org/wiki/Backport_windows)
+     * by scheduling on the [Deployments](https://wikitech.wikimedia.org/wiki/Deployments)
+     * page. Stream configurations are made available for external consumption via
+     * MediaWiki API via [Extension:EventStreamConfig](https://gerrit.wikimedia.org/g/mediawiki/extensions/EventStreamConfig/)
+     *
+     * In production, we use [Meta wiki](https://meta.wikimedia.org/wiki/Main_Page)
      * [streamconfigs endpoint](https://meta.wikimedia.org/w/api.php?action=help&modules=streamconfigs)
+     * with the constraint that the `destination_event_service` is configured to
+     * be "eventgate-analytics-external" (to filter out irrelevant streams from
+     * the returned list of stream configurations).
      */
     private let streamConfigServiceURI: URL
 
@@ -260,21 +261,10 @@ public class EPC: NSObject {
          * eventgate-analytics-external is set up as a public endpoint at
          * intake-analytics.wikimedia.org, where both EventLogging and this
          * library send analytics events to.
-         *
-         * = URIs =
-         * streamIntakeServiceURIs:
-         *  - Production: https://intake-analytics.wikimedia.org/v1/events
-         *  - Dev/test: https://pai-test.wmflabs.org/events
-         *
-         * Note: events sent to dev/test can be viewed at https://pai-test.wmflabs.org/view
-         *
-         * streamConfigServiceURIs:
-         *  - Production: https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external
-         *  - Dev/test: https://pai-test.wmflabs.org/streams
          */
         guard let streamIntakeServiceURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events"),
-            let streamConfigServiceURI = URL(string: "https://pai-test.wmflabs.org/streams") else {
-                DDLogError("EventPlatformClientLibrary - Unable to instantiate uris")
+            let streamConfigServiceURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external") else {
+                DDLogError("EPC: Unable to instantiate URIs for stream intake and stream config services")
                 return nil
         }
 

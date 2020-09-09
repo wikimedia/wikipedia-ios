@@ -40,6 +40,10 @@
     return [self wmf_valueOfClass:[NSString class] forKey:key];
 }
 
+- (nullable NSArray *)wmf_arrayValueForKey:(NSString *)key {
+    return [self wmf_valueOfClass:[NSArray class] forKey:key];
+}
+
 - (WMFKeyValue *)wmf_setValue:(nullable id<NSCoding>)value forKey:(NSString *)key {
     NSArray<WMFKeyValue *> *results = [self wmf_keyValuesForKey:key fetchLimit:0];
     if (results.count > 1) {

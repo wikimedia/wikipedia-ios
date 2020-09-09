@@ -10,6 +10,7 @@
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
 @class MobileviewToMobileHTMLConverter;
+@class MWKLanguageLinkController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -64,6 +65,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
 @property (readonly, strong, nonatomic) WMFArticleSummaryController *articleSummaryController;
+@property (readonly, strong, nonatomic) MWKLanguageLinkController *languageLinkController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
