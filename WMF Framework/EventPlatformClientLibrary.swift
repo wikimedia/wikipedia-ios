@@ -93,15 +93,7 @@ import Foundation
  *   originally submitted
  */
 @objc (WMFEventPlatformClient)
-public class EPC: NSObject {
-    public enum Stream: String, Codable {
-        case editHistoryCompare = "ios.edit_history_compare"
-    }
-    
-    public enum Schema: String, Codable {
-        case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/1.0.0"
-    }
-    
+public class EPC: NSObject {    
     // MARK: - Properties
 
     @objc(sharedInstance) public static let shared: EPC? = {
@@ -203,7 +195,7 @@ public class EPC: NSObject {
      * Only modify (append events to, remove events from) *synchronously* via
      * `queue.sync`
      */
-    private var inputBuffer: [(stream: String, data: [String: NSCoding], domain: String?)] = []
+    private var inputBuffer: [(stream: Stream, data: Data)] = []
 
     /**
      * Maximum number of events allowed in the input buffer
@@ -438,11 +430,11 @@ public class EPC: NSObject {
         // NOTE: If any event is re-submitted while streamConfigurations
         // is still being set (asynchronously), they will just go back to
         // input buffer.
-        var event: (stream: String, data: [String: NSCoding], domain: String?)?
+        var event: (stream: Stream, data: Data)?
         while !self.inputBufferIsEmpty() {
             event = self.inputBufferPopFirst()
-            if let event = event {
-                self.submit(stream: event.stream, data: event.data, domain: event.domain)
+            if let event = event, inSample(stream: event.stream) {
+                
             }
         }
     }
@@ -499,7 +491,7 @@ public class EPC: NSObject {
      * [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
      * for more information.
      */
-    private func inSample(stream: String) -> Bool {
+    private func inSample(stream: Stream) -> Bool {
 
         guard let configs = streamConfigurations else {
             DDLogDebug("EPC: Invalid state, must have streamConfigurations to check for inSample")
@@ -510,7 +502,7 @@ public class EPC: NSObject {
             return cachedValue
         }
 
-        guard let config = configs[stream] else {
+        guard let config = configs[stream.rawValue] else {
             let error = """
             EPC: Invalid state, stream '\(stream)' must be present in streamConfigurations to check for inSample
             but found only: \(configs.keys.joined(separator: ", "))
@@ -614,98 +606,6 @@ public class EPC: NSObject {
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    @objc public func submit(stream: String, data: [String: NSCoding], domain: String? = nil) -> Void {
-        guard self.sharingUsageData else {
-            return
-        }
-
-        /*
-         * EventGate needs to know which version of the schema to validate against
-         */
-        guard data.keys.contains("$schema") else {
-            DDLogError("EPC: Event data is missing the required '$schema' field")
-            return
-        }
-
-        var meta: [String: NSCoding] = data["meta"] as? [String: NSCoding] ?? [:]
-
-        if let domain = domain {
-            meta["domain"] = domain as NSCoding
-        }
-
-        var data = data
-        data["meta"] = meta as NSCoding
-
-        /*
-         * The top-level field `client_dt` is for recording the time the event
-         * was generated. EventGate sets `meta.dt` during ingestion, so for
-         * analytics events that field is used as "timestamp of reception" and
-         * is used for partitioning the events in the database. See Phab:T240460
-         * for more information.
-         */
-        if !data.keys.contains("client_dt") {
-            data["client_dt"] = iso8601Formatter.string(from: Date()) as NSCoding
-        }
-
-        /*
-         * Generated events have the session ID attached to them before stream
-         * config is available (in case they're generated offline) and before
-         * they're cc'd to any other streams (once config is available).
-         */
-        if !data.keys.contains("app_session_id") {
-            data["app_session_id"] = sessionID as NSCoding
-        }
-
-        #if DEBUG
-        do {
-            let jsonString = try data.toPrettyPrintJSONString()
-            DDLogDebug("EPC: Event logged to stream '\(stream)':\n\(jsonString)")
-        } catch let error {
-            DDLogError("EPC: \(error.localizedDescription)")
-        }
-        #endif
-
-        guard let streamConfigs = streamConfigurations else {
-            let event: (stream: String, data: [String: NSCoding], domain: String?) = (stream: stream, data: data, domain: domain)
-            appendEventToInputBuffer(event)
-            return
-        }
-
-        if !(streamConfigs.keys.contains(stream)) {
-            DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.joined(separator: ", "))")
-            return
-        }
-        
-        if !inSample(stream: stream) {
-            return
-        }
-
-        guard let appInstallID = self.installID else {
-            DDLogDebug("EPC: Could not retrieve app install ID")
-            return
-        }
-        data["app_install_id"] = appInstallID as NSCoding
-
-        meta["stream"] = stream as NSCoding
-        /*
-         * meta.id is *optional* and should only be done in case the client is
-         * known to send duplicates of events, otherwise we don't need to
-         * make the payload any heavier than it already is
-         */
-        meta["id"] = UUID().uuidString as NSCoding
-        data["meta"] = meta as NSCoding // update metadata
-
-        do {
-            #if DEBUG
-            let jsonString = try data.toJSONString()
-            DDLogDebug("EPC: Scheduling event to be sent to \(streamIntakeServiceURI) with POST body: \(jsonString)")
-            #endif
-            let jsonData = try JSONSerialization.data(withJSONObject: data)
-            self.appendPostToOutputBuffer((url: streamIntakeServiceURI, body: jsonData))
-        } catch let error {
-            DDLogError("EPC: \(error.localizedDescription)")
-        }
-    }
     
     private struct Event<D>: Codable where D: Codable {
         let schema: Schema
@@ -727,7 +627,7 @@ public class EPC: NSObject {
         }
     }
     
-    public func submit<E: EPCEventInterface>(_ event: E) {
+    public func submit<E: EventInterface>(stream: Stream, schema: Schema, event: E, domain: String? = nil, clientDT: Date? = nil) {
         guard self.sharingUsageData else {
             return
         }
@@ -735,16 +635,31 @@ public class EPC: NSObject {
             DDLogDebug("EPC: Could not retrieve app install ID")
             return
         }
-        let meta = Event<E.T>.Meta(stream: event.stream, id: UUID(), domain: event.domain)
-        let event = Event(schema: event.schema, meta: meta, appInstallID: appInstallID, clientDT: event.clientDT ?? Date(), data: event.data)
+        let meta = Event<E>.Meta(stream: stream, id: UUID(), domain: domain)
+        let eventPayload = Event(schema: schema, meta: meta, appInstallID: appInstallID, clientDT: clientDT ?? Date(), data: event)
         do {
-            let jsonData = try JSONEncoder().encode(event)
-            self.appendPostToOutputBuffer((url: streamIntakeServiceURI, body: jsonData))
+            let jsonData = try JSONEncoder().encode(eventPayload)
+            
+            guard let streamConfigs = streamConfigurations else {
+                let inputBufferedEvent: (stream: Stream, data: Data) = (stream: stream, data: jsonData)
+                appendEventToInputBuffer(inputBufferedEvent)
+                return
+            }
+            
+            guard streamConfigs.keys.contains(stream.rawValue) else {
+                DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.joined(separator: ", "))")
+                return
+            }
+            
+            guard inSample(stream: stream) else {
+                return
+            }
+            
+            appendPostToOutputBuffer((url: streamIntakeServiceURI, body: jsonData))
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
     }
-
 }
 
 //MARK: Thread-safe accessors for collection properties
@@ -754,7 +669,7 @@ private extension EPC {
     /**
      * Thread-safe synchronous retrieval of buffered events
      */
-    func getInputBuffer() -> [(stream: String, data: [String: NSCoding], domain: String?)] {
+    func getInputBuffer() -> [(stream: Stream, data: Data)] {
         queue.sync {
             return self.inputBuffer
         }
@@ -764,7 +679,7 @@ private extension EPC {
      * Thread-safe synchronous buffering of an event
      * - Parameter event: event to be buffered
      */
-    func appendEventToInputBuffer(_ event: (stream: String, data: [String: NSCoding], domain: String?)) {
+    func appendEventToInputBuffer(_ event: (stream: Stream, data: Data)) {
         queue.sync {
             /*
              * Check if input buffer has reached maximum allowed size. Practically
@@ -795,7 +710,7 @@ private extension EPC {
      * Thread-safe synchronous removal of first buffered event
      * - Returns: a previously buffered event
      */
-    func inputBufferPopFirst() -> (stream: String, data: [String: NSCoding], domain: String?)? {
+    func inputBufferPopFirst() -> (stream: Stream, data: Data)? {
         queue.sync {
             if self.inputBuffer.isEmpty {
                 return nil
@@ -811,9 +726,9 @@ private extension EPC {
      * - Parameter inSample: whether the stream was determined to be in-sample
      *   this session
      */
-    func cacheSamplingForStream(_ stream: String, inSample: Bool) {
+    func cacheSamplingForStream(_ stream: Stream, inSample: Bool) {
         queue.async {
-            self.samplingCache[stream] = inSample
+            self.samplingCache[stream.rawValue] = inSample
         }
     }
 
@@ -822,9 +737,9 @@ private extension EPC {
      * - Parameter stream: name of stream to retrieve determination for from the cache
      * - Returns: `true` if stream was determined to be in-sample this session, `false` otherwise
      */
-    func getSamplingForStream(_ stream: String) -> Bool? {
+    func getSamplingForStream(_ stream: Stream) -> Bool? {
         queue.sync {
-            return self.samplingCache[stream]
+            return self.samplingCache[stream.rawValue]
         }
     }
 
@@ -920,14 +835,6 @@ extension EPC: BackgroundFetcher {
     }
 }
 
-//MARK: EPCEventInterface
-
-public protocol EPCEventInterface {
-    associatedtype T where T : Codable
-    var stream: EPC.Stream { get }
-    var schema: EPC.Schema { get }
-    var domain: String? { get }
-    var clientDT: Date? { get }
-    var data: T { get }
-}
-
+// MARK: EventInterface
+/// In case we need to make events have additional properties for conformance
+public protocol EventInterface: Codable { }

@@ -1105,6 +1105,7 @@
 		833D6B4B229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
 		834400B020B3368A005F087D /* NSCharacterSet+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048C1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m */; };
 		834400B120B3368E005F087D /* NSCharacterSet+WMFExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048B1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		834ACA0B250921C300C495CA /* EventStreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ACA0A250921C300C495CA /* EventStreams.swift */; };
 		834C269E240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
 		834C269F240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
 		834C26A0240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
@@ -3610,6 +3611,7 @@
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
 		833D4FFA20A9E20800B44E7C /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageTopic+Extensions.swift"; sourceTree = "<group>"; };
+		834ACA0A250921C300C495CA /* EventStreams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStreams.swift; sourceTree = "<group>"; };
 		834C269B24042DBF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		834C269C24042DCF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hr; path = hr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		834C269D240D49F400245BE7 /* ReferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceViewController.swift; sourceTree = "<group>"; };
@@ -7770,6 +7772,7 @@
 				B3632E7E1EE5F97C007A2464 /* Event Logging New */,
 				0E728D141DAEE0790074EB4B /* Event Logging */,
 				982800D524D302BF004B1850 /* EventPlatformClientLibrary.swift */,
+				834ACA0A250921C300C495CA /* EventStreams.swift */,
 				D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */,
 				0E728D181DAEE2210074EB4B /* Sharing */,
 				B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */,
@@ -10423,6 +10426,7 @@
 				8359BAC721E4C9C1009B5E6C /* Fetcher.swift in Sources */,
 				0E728D211DAEE2B50074EB4B /* WMFFeedImage.m in Sources */,
 				D8FA18D31E1BD891009675C3 /* WMFTaskGroup.m in Sources */,
+				834ACA0B250921C300C495CA /* EventStreams.swift in Sources */,
 				D801C93D1EB9404A001FA294 /* WMFLocalization.m in Sources */,
 				0E728D301DAEE8FF0074EB4B /* WMFNearbyContentSource.m in Sources */,
 				67A6F14023BFF62300736539 /* ImageCacheController.swift in Sources */,

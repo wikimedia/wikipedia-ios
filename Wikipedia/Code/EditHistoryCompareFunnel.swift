@@ -2,9 +2,16 @@
 import Foundation
 
 final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    
+    struct Event: Codable {
+        let action: Action
+        let primary_language: String
+        let is_anon: Bool
+    }
+    
     public static let shared = EditHistoryCompareFunnel()
     
-    private enum Action: String {
+    enum Action: String, Codable {
         case showHistory = "show_history"
         case revisionView = "revision_view"
         case compare1
@@ -34,16 +41,8 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
          *   - Finalize stream name to what will be deployed in mediawiki-config/wmf-config
          *   - Finalize the schema (TBD in Gerrit patch to schemas/event/secondary repo)
          */
-        EPC.shared?.submit(
-            stream: "ios.edit_history_compare",
-            data: [
-                "$schema": "/analytics/mobile_apps/ios_edit_history_compare/1.0.0" as NSCoding,
-                "action": action.rawValue as NSCoding,
-                "primary_language": self.primaryLanguage() as NSCoding,
-                "is_anon": self.isAnon as NSCoding
-            ],
-            domain: domain
-        )
+        let event = Event(action: action, primary_language: primaryLanguage(), is_anon: isAnon.boolValue)
+        EPC.shared?.submit(stream: .editHistoryCompare, schema: .editHistoryCompare, event: event, domain: domain)
     }
     
     public func logShowHistory(articleURL: URL) {

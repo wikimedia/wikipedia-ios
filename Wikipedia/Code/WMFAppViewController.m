@@ -2005,8 +2005,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             }
             break;
         default:
-            // TODO: Remove prior to release
-            [[WMFEventPlatformClient sharedInstance] submitWithStream:@"test.instrumentation" data:@{@"$schema": @"/analytics/test/1.0.0", @"test_string": @"Opened Settings screen", @"test_map":@{@"file": @"Application/App View Controller/WMFAppViewController.m", @"method": @"showSettingsWithSubViewController()"}} domain: nil];
             [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
             break;
     }
