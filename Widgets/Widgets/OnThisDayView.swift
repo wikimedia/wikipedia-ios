@@ -36,38 +36,31 @@ struct OnThisDayView: View {
         GeometryReader { proxy in
             switch family {
             case .systemLarge:
-                VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
                     OnThisDayHeaderElement(monthDay: entry.monthDay, minYear: entry.earliestYear, maxYear: entry.latestYear)
-                    Spacer(minLength: 10)
-                    VStack(alignment: .leading, spacing: 0) {
-                        MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
-                        if let title = entry.articleTitle, let snippet = entry.articleSnippet {
-                            ArticleRectangleElement(title: title, description: snippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
-                        }
-                        TimelineElementSpacer().layoutPriority(1)
-                        OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
+                        .padding(.bottom, 9)
+                    MainOnThisDayTopElement(eventYear: entry.eventYear, widgetSize: family)
+                    /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
+                    if let eventSnippet = entry.eventSnippet, let title = entry.articleTitle, let articleSnippet = entry.articleSnippet {
+                        ArticleRectangleElement(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
+                            .padding(.top, 9)
+                            .layoutPriority(1.0)
                     }
+                    OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
                 .padding(16)
             case .systemMedium:
                 VStack(alignment: .leading, spacing: 0) {
                     MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
-                    TimelineElementSpacer().layoutPriority(1)
                     OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 16, trailing: 16))
             case .systemSmall:
-                /// While the medium and large sizes give a higher `layoutPriority` to `TimelineElementSpacer`, there is intentionally none here. When giving it a priority, it negatively affected the timeline element for `MainOnThisDayElement`, causing it's large dot to appear higher than it should.
-                VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
-                    TimelineElementSpacer()
-                }
+                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 16, trailing: 16))
             @unknown default:
-                VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
-                    TimelineElementSpacer()
-                }
+                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet, widgetSize: family)
+                .padding(EdgeInsets(top: 0, leading: 11, bottom: 16, trailing: 16))
             }
         }
         .widgetURL(entry.contentURL)
@@ -104,7 +97,7 @@ struct TimelineView<Content: View>: View {
 
     var body: some View {
         let lineWidth: CGFloat = 1
-        HStack {
+        HStack(alignment: .top) {
             ZStack(alignment: .top) {
                 TimelinePathElement()
                     .stroke(lineWidth: lineWidth)
@@ -131,11 +124,11 @@ struct TimelineView<Content: View>: View {
     }
 }
 
-/// This is extremely hacky. Once adding padding to views and/or a Spacer() view, the timeline portion of view doesn't take up the full vertical spacce that it should. After exploring numerous other options, I went with this choice - adding some arbitrary extra length to each end of the line. Someday when SwiftUI layout works better, we can remove the -15 and +20.
+/// This is extremely hacky. Once adding padding to views and/or a Spacer() view, the timeline portion of view doesn't take up the full vertical spacce that it should. After exploring numerous other options, I went with this choice - adding some arbitrary extra length to the end of the line. Someday when SwiftUI layout works better, we can remove the +20.
 struct TimelinePathElement: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY - 15))
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY + 20))
         return path
     }
@@ -193,39 +186,33 @@ struct OnThisDayHeaderElement: View {
     let maxYear: String
 
     var body: some View {
-        Text(WMFLocalizedString("widget-onthisday-name", value: "On this day", comment: "Name of 'On this day' view in iOS widget gallery"))
-            .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-            .font(.subheadline)
-            .bold()
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity, alignment: .leading)
-        
-        Text(monthDay)
-            .font(.title2)
-            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity, alignment: .leading)
-//            let yearsString = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
-        Text(verbatim: "\(minYear) - \(maxYear)")
-            .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-            .font(.subheadline)
-            .bold()
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
+        VStack(spacing: 8) {
+            Text(WMFLocalizedString("widget-onthisday-name", value: "On this day", comment: "Name of 'On this day' view in iOS widget gallery"))
+                .foregroundColor(OnThisDayColors.grayColor(colorScheme))
+                .font(.subheadline)
+                .bold()
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-struct TimelineElementSpacer: View {
-    var body: some View {
-        TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView: Spacer())
+            Text(monthDay)
+                .font(.title2)
+                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+    //            let yearsString = String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEventEraString, firstEventEraString)
+
+            Text(verbatim: "\(minYear) - \(maxYear)")
+                .foregroundColor(OnThisDayColors.grayColor(colorScheme))
+                .font(.subheadline)
+                .bold()
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
     }
 }
 
 struct MainOnThisDayElement: View {
-    let eventYearPadding: CGFloat = 16.0
-    @Environment(\.colorScheme) var colorScheme
-
-    var eventYear: Int?
+    var eventYear: Int
     var snippet: String?
     var widgetSize: WidgetFamily
 
@@ -233,40 +220,66 @@ struct MainOnThisDayElement: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            if let eventYear = eventYear, let currentYear = Calendar.current.dateComponents([.year], from: Date()).year {
-                TimelineView(dotStyle: .large, isLineTopFaded: true, isLineBottomFaded: false, mainView:
-                        Text(verbatim: "\(eventYear)")
-                            .font(.subheadline)
-                            .foregroundColor(OnThisDayColors.blueColor(colorScheme))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .overlay (
-                                GeometryReader { geometryProxy in
-                                  Color.clear
-                                    .preference(key: LargeYValuePreferenceKey.self, value: (widgetSize == .systemLarge ? 4 : 2) + startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineLargeCircleElement.largeCircleHeight))
-                                }
-                            )
-                            .padding(.top, eventYearPadding)
-                )
-                TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
-                        Text(String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: nil), (currentYear-eventYear)))
-                            .font(.caption)
-                            .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 3)
-                )
-            }
+            MainOnThisDayTopElement(eventYear: eventYear, widgetSize: widgetSize)
             if let snippet = snippet {
                 TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
                         Text(snippet)
                             .font(.caption)
-                            .lineLimit(3)
-                                // this makes the top dot move :BIGMAD:
-//                            .lineLimit(widgetSize == .systemSmall ? nil : 3)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 9)
-                            .fixedSize(horizontal: false, vertical: true)
-                )
+                ).layoutPriority(1.0)
             }
+        }.layoutPriority(1.0)
+    }
+}
+
+struct MainOnThisDayTopElement: View {
+    let eventYearPadding: CGFloat = 16.0
+    @Environment(\.colorScheme) var colorScheme
+
+    var eventYear: Int
+    var widgetSize: WidgetFamily
+
+    var dateString: String {
+        if widgetSize == .systemLarge {
+            return "\(eventYear)"
+        } else {
+            let now = Date()
+            let currentComponents = Calendar.current.dateComponents([.month, .day], from: now)
+            let dateComponentsInPast = DateComponents(year: eventYear, month: currentComponents.month, day: currentComponents.day)
+            guard let dateInPast = Calendar.current.date(from: dateComponentsInPast) else {
+                return "\(eventYear)"
+            }
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = .none
+            dateFormatter.dateStyle = .long
+            return dateFormatter.string(from: dateInPast)
+        }
+    }
+
+    var body: some View {
+        if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year {
+            TimelineView(dotStyle: .large, isLineTopFaded: true, isLineBottomFaded: false, mainView:
+                    Text(verbatim: dateString)
+                        .font(.subheadline)
+                        .foregroundColor(OnThisDayColors.blueColor(colorScheme))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .overlay (
+                            GeometryReader { geometryProxy in
+                              Color.clear
+                                .preference(key: LargeYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineLargeCircleElement.largeCircleHeight, topPadding: eventYearPadding))
+                            }
+                        )
+                        .padding(.top, eventYearPadding)
+            )
+            TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
+                    Text(String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: nil), (currentYear-eventYear)))
+                        .font(.caption)
+                        .foregroundColor(OnThisDayColors.grayColor(colorScheme))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 3)
+            )
         }
     }
 }
@@ -274,6 +287,7 @@ struct MainOnThisDayElement: View {
 struct ArticleRectangleElement: View {
     @Environment(\.colorScheme) var colorScheme
 
+    let eventSnippet: String
     let title: String
     let description: String
     let image: UIImage?
@@ -281,37 +295,42 @@ struct ArticleRectangleElement: View {
 
     var body: some View {
         TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
-            Link(destination: link) {
-                HStack(spacing: 9) {
-                    VStack {
-                        Text(title)
-                            .font(.caption)
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        if let description = description {
-                            Text(description)
+            VStack(alignment: .leading, spacing: 0) {
+                Text(eventSnippet)
+                    .font(.caption)
+                Link(destination: link) {
+                    HStack(spacing: 9) {
+                        VStack {
+                            Text(title)
                                 .font(.caption)
-                                .lineLimit(1)
-                                .foregroundColor(OnThisDayColors.grayColor(colorScheme))
+                                .bold()
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                            if let description = description {
+                                Text(description)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                    .foregroundColor(OnThisDayColors.grayColor(colorScheme))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        if let image = image {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 36, height: 36, alignment: .center)
+                                .cornerRadius(2.0)
                         }
                     }
-                    if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 36, height: 36, alignment: .center)
-                            .cornerRadius(2.0)
-                    }
+                        .padding(9)
+                        .background(
+                            RoundedRectangle(cornerRadius: 2.0)
+                                .shadow(color: OnThisDayColors.boxShadowColor(colorScheme), radius: 4.0, x: 0, y: 2)
+                                .foregroundColor(OnThisDayColors.boxBackgroundColor(colorScheme))
+                        )
+                        .padding([.top, .bottom], 9)
+                        .padding([.trailing], 35)
                 }
-                    .padding(9)
-                    .background(
-                        RoundedRectangle(cornerRadius: 2.0)
-                            .shadow(color: OnThisDayColors.boxShadowColor(colorScheme), radius: 4.0, x: 0, y: 2)
-                            .foregroundColor(OnThisDayColors.boxBackgroundColor(colorScheme))
-                    )
-                    .padding([.top, .bottom], 9)
-                    .padding([.trailing], 35)
+                Spacer(minLength: 0)
             }
         )
     }
@@ -331,10 +350,12 @@ struct OnThisDayAdditionalEventsElement: View {
                     .lineLimit(1)
                     .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
+                .padding(.top, 8)
                 .overlay (
                     GeometryReader { geometryProxy in
                       Color.clear
-                        .preference(key: SmallYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineSmallCircleElement.smallCircleHeight))
+                        .preference(key: SmallYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineSmallCircleElement.smallCircleHeight, topPadding: 4))
+                        /// The padding of 4 is a little arbitrary. These views aren't perfectly laid out in SwiftUI - see the "+20" comment above - and we needed an extra 4 points to make this layout properly.
                     }
                 )
             )
@@ -342,8 +363,8 @@ struct OnThisDayAdditionalEventsElement: View {
     }
 }
 
-private func startYOfCircle(viewHeight: CGFloat, circleHeight: CGFloat) -> CGFloat {
-    return (viewHeight - circleHeight)/2
+private func startYOfCircle(viewHeight: CGFloat, circleHeight: CGFloat, topPadding: CGFloat = 0) -> CGFloat {
+    return topPadding + ((viewHeight - circleHeight)/2)
 }
 
 // MARK: - Preview

@@ -174,7 +174,7 @@ struct OnThisDayEntry: TimelineEntry {
     let otherEventsCount: Int
     let contentURL: URL
     let eventSnippet: String?
-    let eventYear: Int?
+    let eventYear: Int
     let articleTitle: String?
     let articleSnippet: String?
     let articleImage: UIImage?
