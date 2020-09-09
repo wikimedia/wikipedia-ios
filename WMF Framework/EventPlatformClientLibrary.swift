@@ -449,17 +449,17 @@ public class EPC: NSObject {
      * Flush the queue of outgoing requests in a first-in-first-out,
      * fire-and-forget fashion
      */
-    private func postAllScheduled() {
-        if self.outputBufferIsEmpty() {
-            return
-        }
+    private func postAllScheduled(_ completion: (() -> Void)? = nil) {
         DDLogDebug("EPC: Posting all scheduled requests")
-        var item: (url: URL, body: Data)?
-        while !self.outputBufferIsEmpty() {
-            item = self.outputBufferPopFirst()
-            if let item = item {
-                self.httpPost(url: item.url, body: item.body)
+        let group = DispatchGroup()
+        while let item = outputBufferPopFirst() {
+            group.enter()
+            httpPost(url: item.url, body: item.body) {
+                group.leave()
             }
+        }
+        group.notify(queue: queue) {
+            completion?()
         }
     }
 
@@ -752,15 +752,7 @@ private extension EPC {
             self.outputBuffer.append(post)
         }
     }
-    /**
-     * Thread-safe synchronous check if any events have been scheduled
-     * - Returns: `true` if there are no scheduled evdents, `false` otherwise
-     */
-    func outputBufferIsEmpty() -> Bool {
-        queue.sync {
-            return self.outputBuffer.isEmpty
-        }
-    }
+    
     /**
      * Thread-safe synchronous removal of first scheduled event
      * - Returns: a previously scheduled event
@@ -783,13 +775,14 @@ private extension EPC {
      * - Parameter url: Where to POST data (`body`) to
      * - Parameter body: Body of the POST request
      */
-    private func httpPost(url: URL, body: Data? = nil) {
+    private func httpPost(url: URL, body: Data? = nil, completion: (() -> Void)? = nil) {
         DDLogDebug("EPC: Attempting to POST data to \(url.absoluteString)")
         let request = Session.shared.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = Session.shared.dataTask(with: request, completionHandler: { (_, response, error) in
             if error != nil {
                 DDLogError("EPC: An error occurred sending the request")
             }
+            completion?()
         })
         task?.resume()
     }
@@ -811,7 +804,7 @@ private extension EPC {
 
 extension EPC: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
-        self.postAllScheduled()
+        self.postAllScheduled(completion)
     }
 }
 
