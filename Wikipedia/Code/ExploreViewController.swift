@@ -114,18 +114,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func refreshControlActivated() {
         super.refreshControlActivated()
-
-        // TODO: Remove prior to release
-        let eventData = [
-            "$schema": "/analytics/test/1.0.0" as NSCoding,
-            "test_string": "Explore Feed refreshed" as NSCoding,
-            "test_map": [
-                "file": "Features/Feed/ExploreViewController.swift",
-                "method":"refreshControlActivated"
-            ] as NSCoding
-        ]
-        EPC.shared?.submit(stream: "test.instrumentation", data: eventData)
-        EPC.shared?.submit(stream: "test.instrumentation.sampled", data: eventData)
     }
     
     open override func refresh() {
