@@ -206,7 +206,7 @@ public class EPC: NSObject {
     /**
      * Holds events that have been scheduled for POSTing
      */
-    private var outputBuffer: [(url: URL, body: NSDictionary)] = []
+    private var outputBuffer: [(url: URL, body: Data)] = []
 
     /**
      * Cache of "in sample" / "out of sample" determination for each stream
@@ -449,7 +449,7 @@ public class EPC: NSObject {
             return
         }
         DDLogDebug("EPC: Posting all scheduled requests")
-        var item: (url: URL, body: NSDictionary)?
+        var item: (url: URL, body: Data)?
         while !self.outputBufferIsEmpty() {
             item = self.outputBufferPopFirst()
             if let item = item {
@@ -693,7 +693,8 @@ public class EPC: NSObject {
             let jsonString = try data.toJSONString()
             DDLogDebug("EPC: Scheduling event to be sent to \(streamIntakeServiceURI) with POST body: \(jsonString)")
             #endif
-            self.appendPostToOutputBuffer((url: streamIntakeServiceURI, body: data as NSDictionary))
+            let jsonData = try JSONSerialization.data(withJSONObject: data)
+            self.appendPostToOutputBuffer((url: streamIntakeServiceURI, body: jsonData))
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
@@ -796,7 +797,7 @@ private extension EPC {
      * - Parameter post: a tuple consisting of an `NSDictionary` `body` to be
      *   POSTed to the `url`
      */
-    func appendPostToOutputBuffer(_ post: (url: URL, body: NSDictionary)) {
+    func appendPostToOutputBuffer(_ post: (url: URL, body: Data)) {
         queue.async {
             self.outputBuffer.append(post)
         }
@@ -814,7 +815,7 @@ private extension EPC {
      * Thread-safe synchronous removal of first scheduled event
      * - Returns: a previously scheduled event
      */
-    func outputBufferPopFirst() -> (url: URL, body: NSDictionary)? {
+    func outputBufferPopFirst() -> (url: URL, body: Data)? {
         queue.sync {
             if self.outputBuffer.isEmpty {
                 return nil
@@ -832,9 +833,9 @@ private extension EPC {
      * - Parameter url: Where to POST data (`body`) to
      * - Parameter body: Body of the POST request
      */
-    private func httpPost(url: URL, body: Any? = nil) {
+    private func httpPost(url: URL, body: Data? = nil) {
         DDLogDebug("EPC: Attempting to POST data to \(url.absoluteString)")
-        let request = Session.shared.request(with: url, method: .post, bodyParameters: body, bodyEncoding: .json)
+        let request = Session.shared.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = Session.shared.dataTask(with: request, completionHandler: { (_, response, error) in
             if error != nil {
                 DDLogError("EPC: An error occurred sending the request")
