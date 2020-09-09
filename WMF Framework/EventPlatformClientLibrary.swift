@@ -430,12 +430,11 @@ public class EPC: NSObject {
         // NOTE: If any event is re-submitted while streamConfigurations
         // is still being set (asynchronously), they will just go back to
         // input buffer.
-        var event: (stream: Stream, data: Data)?
-        while !self.inputBufferIsEmpty() {
-            event = self.inputBufferPopFirst()
-            if let event = event, inSample(stream: event.stream) {
-                
+        while let event = inputBufferPopFirst() {
+            guard inSample(stream: event.stream) else {
+                continue
             }
+            appendPostToOutputBuffer((url: streamIntakeServiceURI, body: data))
         }
     }
 
@@ -693,16 +692,6 @@ private extension EPC {
                 _ = self.inputBuffer.remove(at: 0)
             }
             self.inputBuffer.append(event)
-        }
-    }
-
-    /**
-     * Thread-safe synchronous check if any events have been buffered
-     * - Returns: `true` if there are no buffered events, `false` if there are
-     */
-    func inputBufferIsEmpty() -> Bool {
-        queue.sync {
-            return self.inputBuffer.count == 0
         }
     }
 
