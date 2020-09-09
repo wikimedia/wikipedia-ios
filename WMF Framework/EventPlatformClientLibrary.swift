@@ -94,7 +94,14 @@ import Foundation
  */
 @objc (WMFEventPlatformClient)
 public class EPC: NSObject {
-
+    public enum Stream: String, Codable {
+        case editHistoryCompare = "ios.edit_history_compare"
+    }
+    
+    public enum Schema: String, Codable {
+        case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/1.0.0"
+    }
+    
     // MARK: - Properties
 
     @objc(sharedInstance) public static let shared: EPC? = {
@@ -699,6 +706,44 @@ public class EPC: NSObject {
             DDLogError("EPC: \(error.localizedDescription)")
         }
     }
+    
+    private struct Event<D>: Codable where D: Codable {
+        let schema: Schema
+        let meta: Meta
+        struct Meta: Codable {
+            let stream: Stream
+            let id: UUID
+            let domain: String?
+        }
+        let appInstallID: String
+        let clientDT: Date
+        let data: D
+        enum CodingKeys: String, CodingKey {
+            case schema = "$schema"
+            case meta
+            case appInstallID = "app_install_id"
+            case clientDT = "client_dt"
+            case data
+        }
+    }
+    
+    public func submit<E: EPCEventInterface>(_ event: E) {
+        guard self.sharingUsageData else {
+            return
+        }
+        guard let appInstallID = self.installID else {
+            DDLogDebug("EPC: Could not retrieve app install ID")
+            return
+        }
+        let meta = Event<E.T>.Meta(stream: event.stream, id: UUID(), domain: event.domain)
+        let event = Event(schema: event.schema, meta: meta, appInstallID: appInstallID, clientDT: event.clientDT ?? Date(), data: event.data)
+        do {
+            let jsonData = try JSONEncoder().encode(event)
+            self.appendPostToOutputBuffer((url: streamIntakeServiceURI, body: jsonData))
+        } catch let error {
+            DDLogError("EPC: \(error.localizedDescription)")
+        }
+    }
 
 }
 
@@ -874,3 +919,15 @@ extension EPC: BackgroundFetcher {
         }
     }
 }
+
+//MARK: EPCEventInterface
+
+public protocol EPCEventInterface {
+    associatedtype T where T : Codable
+    var stream: EPC.Stream { get }
+    var schema: EPC.Schema { get }
+    var domain: String? { get }
+    var clientDT: Date? { get }
+    var data: T { get }
+}
+
