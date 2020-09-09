@@ -103,7 +103,7 @@ struct TimelineView<Content: View>: View {
                 Gradient.Stop(color: OnThisDayColors.blueColor(colorScheme), location: 0.65)
             ])
             return LinearGradient(gradient: colorGradient, startPoint: .top, endPoint: .bottom)
-        // No bottom gradient on large widgets. See Phab for details: INSERT PHAB HERE
+        /// No bottom gradient on large widgets. See Phab for details: https://phabricator.wikimedia.org/T259840#6448845
         } else if isLineBottomFaded && widgetSize != .systemLarge {
             let colorGradient = Gradient(stops: [
                 // Small widgets have a much larger final section, and thus gradient starts later.
