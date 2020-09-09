@@ -240,9 +240,11 @@ struct MainOnThisDayTopElement: View {
     var eventYear: Int
     var widgetSize: WidgetFamily
 
-    var dateString: String {
+    var firstLineText: String {
         if widgetSize == .systemLarge {
             return "\(eventYear)"
+        } else if widgetSize == .systemSmall {
+            return String(eventYear)
         } else {
             let now = Date()
             let currentComponents = Calendar.current.dateComponents([.month, .day], from: now)
@@ -258,10 +260,20 @@ struct MainOnThisDayTopElement: View {
         }
     }
 
+    private var secondLineText: String? {
+        if widgetSize == .systemSmall {
+            return DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: nil).string(from: Date())
+        } else if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year {
+            return String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: nil), (currentYear-eventYear))
+        } else {
+            return nil
+        }
+    }
+
     var body: some View {
-        if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year {
+        if let secondLineText = secondLineText {
             TimelineView(dotStyle: .large, isLineTopFaded: true, isLineBottomFaded: false, mainView:
-                    Text(verbatim: dateString)
+                    Text(firstLineText)
                         .font(.subheadline)
                         .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -274,7 +286,7 @@ struct MainOnThisDayTopElement: View {
                         .padding(.top, eventYearPadding)
             )
             TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
-                    Text(String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: nil), (currentYear-eventYear)))
+                    Text(secondLineText)
                         .font(.caption)
                         .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
