@@ -114,7 +114,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func refreshControlActivated() {
         super.refreshControlActivated()
-        struct TestEvent: Codable {
+        struct TestEvent: EventInterface {
             let test_string: String
             let test_map: Map
             struct Map: Codable {

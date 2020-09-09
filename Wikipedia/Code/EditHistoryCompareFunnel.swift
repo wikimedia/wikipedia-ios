@@ -2,8 +2,7 @@
 import Foundation
 
 final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    
-    struct Event: Codable {
+    struct Event: EventInterface {
         let action: Action
         let primary_language: String
         let is_anon: Bool
