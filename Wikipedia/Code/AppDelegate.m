@@ -9,7 +9,7 @@
 #import "WMFQuoteMacros.h"
 
 static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
-static NSString *const WMFBackgoundAppRefreshTaskIdentifier = @"org.wikimedia.wikipedia.appRefresh";
+static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.wikipedia.appRefresh";
 
 @interface AppDelegate ()
 
@@ -63,7 +63,7 @@ static NSString *const WMFBackgoundAppRefreshTaskIdentifier = @"org.wikimedia.wi
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self registerBackgroundTasksForApplication:application];
-    
+
 #if DEBUG
     // Use NSLog so we can break and copy/paste. DDLogDebug is async.
     NSLog(@"\nSimulator container directory:\n\t%@\n",
@@ -215,20 +215,22 @@ static NSString *const WMFBackgoundAppRefreshTaskIdentifier = @"org.wikimedia.wi
 /// Register for any necessary background tasks or updates with the method appropriate for the platform
 - (void)registerBackgroundTasksForApplication:(UIApplication *)application {
     if (@available(iOS 13.0, *)) {
-        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgoundAppRefreshTaskIdentifier usingQueue:dispatch_get_main_queue() launchHandler:^(__kindof BGTask * _Nonnull task) {
-            [self.appViewController performBackgroundFetchWithCompletion:^(UIBackgroundFetchResult result) {
-                switch (result) {
-                    case UIBackgroundFetchResultFailed:
-                        [task setTaskCompletedWithSuccess:NO];
-                        break;
-                    default:
-                        [task setTaskCompletedWithSuccess:YES];
-                        break;
-                }
-                // The next task needs to be scheduled
-                [self scheduleBackgroundAppRefreshTask];
-            }];
-        }];
+        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier
+                                                              usingQueue:dispatch_get_main_queue()
+                                                           launchHandler:^(__kindof BGTask *_Nonnull task) {
+                                                               [self.appViewController performBackgroundFetchWithCompletion:^(UIBackgroundFetchResult result) {
+                                                                   switch (result) {
+                                                                       case UIBackgroundFetchResultFailed:
+                                                                           [task setTaskCompletedWithSuccess:NO];
+                                                                           break;
+                                                                       default:
+                                                                           [task setTaskCompletedWithSuccess:YES];
+                                                                           break;
+                                                                   }
+                                                                   // The next task needs to be scheduled
+                                                                   [self scheduleBackgroundAppRefreshTask];
+                                                               }];
+                                                           }];
     } else {
         [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
     }
@@ -237,7 +239,7 @@ static NSString *const WMFBackgoundAppRefreshTaskIdentifier = @"org.wikimedia.wi
 /// Schedule the next background refresh, if applicable on the current platform
 - (void)scheduleBackgroundAppRefreshTask {
     if (@available(iOS 13.0, *)) {
-        BGAppRefreshTaskRequest *appRefreshTask = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:WMFBackgoundAppRefreshTaskIdentifier];
+        BGAppRefreshTaskRequest *appRefreshTask = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier];
         appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
         NSError *taskSubmitError = nil;
         if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
