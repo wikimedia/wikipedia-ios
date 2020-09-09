@@ -228,7 +228,7 @@ public class EPC: NSObject {
      *
      * Only cache determinations asynchronously via `queue.async`
      */
-    private var samplingCache: [String: Bool] = [:]
+    private var samplingCache: [Stream: Bool] = [:]
 
     /**
      * Install ID, used for streams configured with
@@ -718,7 +718,7 @@ private extension EPC {
      */
     func cacheSamplingForStream(_ stream: Stream, inSample: Bool) {
         queue.async {
-            self.samplingCache[stream.rawValue] = inSample
+            self.samplingCache[stream] = inSample
         }
     }
 
@@ -729,7 +729,7 @@ private extension EPC {
      */
     func getSamplingForStream(_ stream: Stream) -> Bool? {
         queue.sync {
-            return self.samplingCache[stream.rawValue]
+            return self.samplingCache[stream]
         }
     }
 
