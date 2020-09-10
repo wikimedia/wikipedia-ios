@@ -357,7 +357,7 @@
 		6790AAF522D6861500D442D6 /* TalkPageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734114F22700A95005B31DA /* TalkPageControllerTests.swift */; };
 		6790AAF622D6861500D442D6 /* TalkPageTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734115122700C47005B31DA /* TalkPageTestHelpers.swift */; };
 		6790AAF722D6861500D442D6 /* TalkPageLocalHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116922739FD6005B31DA /* TalkPageLocalHandlerTests.swift */; };
-		6798037224F99AB200D765AA /* SignificantEventsNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036A24F94D6700D765AA /* SignificantEventsNetworkModels.swift */; };
+		6798037224F99AB200D765AA /* SignificantEventsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036A24F94D6700D765AA /* SignificantEventsModels.swift */; };
 		6798037324F99AB200D765AA /* SignificantEventsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */; };
 		6798331A22C174ED0073CE6F /* LinkOnlyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */; };
 		6798331B22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */; };
@@ -3414,7 +3414,7 @@
 		6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcher.swift; sourceTree = "<group>"; };
 		6798036024F94CEE00D765AA /* SignificantEventsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsController.swift; sourceTree = "<group>"; };
 		6798036524F94D0300D765AA /* SignificantEventsViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsViewModels.swift; sourceTree = "<group>"; };
-		6798036A24F94D6700D765AA /* SignificantEventsNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsNetworkModels.swift; sourceTree = "<group>"; };
+		6798036A24F94D6700D765AA /* SignificantEventsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsModels.swift; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingTests.swift; sourceTree = "<group>"; };
@@ -5850,6 +5850,13 @@
 			name = "Reading Themes Controls";
 			sourceTree = "<group>";
 		};
+		6771C958250A0C2000A7254B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6782DB8F2343B691003FA21B /* Diff */ = {
 			isa = PBXGroup;
 			children = (
@@ -5956,29 +5963,28 @@
 			isa = PBXGroup;
 			children = (
 				6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */,
+				6771C958250A0C2000A7254B /* Models */,
 				6771299324FF775E00E89CA5 /* SignificantEventsLargeEventCollectionViewCell.swift */,
 				6771299F24FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift */,
 				67B64D562507DE3E00FA27F3 /* SignificantEventsSectionHeaderCell.swift */,
 				67B64D5B2507E9FD00FA27F3 /* SignificantEventsSmallEventCollectionViewCell.swift */,
 				674711822507253500287951 /* SignificantEventsSnippetCollectionViewCell.swift */,
 				6747117D250703BB00287951 /* SignificantEventsReferenceCollectionViewCell.swift */,
-				6747118725072D1500287951 /* IconTitleBadge.swift */,
 				67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */,
 				6771C9532509FE6B00A7254B /* SignificantEventsHeaderView.xib */,
 			);
 			path = "Significant Events";
 			sourceTree = "<group>";
 		};
-		6798036F24F99A5300D765AA /* Significant Events */ = {
+		6798036F24F99A5300D765AA /* Significant Events Endpoint */ = {
 			isa = PBXGroup;
 			children = (
-				67E2E4932504E1C70070F12D /* TimelineView.swift */,
 				6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */,
-				6798036A24F94D6700D765AA /* SignificantEventsNetworkModels.swift */,
+				6798036A24F94D6700D765AA /* SignificantEventsModels.swift */,
 				6798036024F94CEE00D765AA /* SignificantEventsController.swift */,
 				6798036524F94D0300D765AA /* SignificantEventsViewModels.swift */,
 			);
-			path = "Significant Events";
+			path = "Significant Events Endpoint";
 			sourceTree = "<group>";
 		};
 		6798332722C3F2700073CE6F /* UITextView */ = {
@@ -6859,6 +6865,7 @@
 				672C35EA22D8E7C9007B8D46 /* EmptyViewController.swift */,
 				671F5E0A236B8CAF00111116 /* EmptyViewController.xib */,
 				67282FBC24855B7B00B73E20 /* ArticleContextMenuPresenting.swift */,
+				6747118725072D1500287951 /* IconTitleBadge.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -7804,7 +7811,7 @@
 		D844D96D1D6CB2600042D692 /* WMF Framework */ = {
 			isa = PBXGroup;
 			children = (
-				6798036F24F99A5300D765AA /* Significant Events */,
+				6798036F24F99A5300D765AA /* Significant Events Endpoint */,
 				D844D96E1D6CB2600042D692 /* WMF.h */,
 				8330531E23EF051900123141 /* NSArray+WMFMapping.h */,
 				8330532123EF05D000123141 /* WMFBlocksKit.swift */,
@@ -8290,6 +8297,7 @@
 		D8FA19081E1BDA72009675C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				67E2E4932504E1C70070F12D /* TimelineView.swift */,
 				7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */,
 				7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */,
 				0E28C4871D751ED6000C5919 /* WMFFeedContentDisplaying.h */,
@@ -10409,7 +10417,7 @@
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
 				8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */,
 				67D6C00C24058714005709B1 /* CacheItemMappingModel.xcmappingmodel in Sources */,
-				6798037224F99AB200D765AA /* SignificantEventsNetworkModels.swift in Sources */,
+				6798037224F99AB200D765AA /* SignificantEventsModels.swift in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
 				B0016CBF2136105900FA1096 /* SetupButton.swift in Sources */,

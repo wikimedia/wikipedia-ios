@@ -31,8 +31,8 @@ extension SmallEventViewModel: Equatable {
     }
 }
 
-extension SignificantEvents.SmallChange: Equatable {
-    public static func == (lhs: SignificantEvents.SmallChange, rhs: SignificantEvents.SmallChange) -> Bool {
+extension SignificantEvents.Event.Small: Equatable {
+    public static func == (lhs: SignificantEvents.Event.Small, rhs: SignificantEvents.Event.Small) -> Bool {
         return lhs.revId == rhs.revId
     }
 }

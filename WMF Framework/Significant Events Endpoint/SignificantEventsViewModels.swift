@@ -55,10 +55,10 @@ public struct SignificantEventsViewModel {
         for originalEvent in significantEvents.typedEvents {
             
             var maybeEvent: TimelineEventViewModel? = nil
-            if let smallEventViewModel = SmallEventViewModel(timelineEvents: [originalEvent]) {
+            if let smallEventViewModel = SmallEventViewModel(typedEvents: [originalEvent]) {
                 maybeEvent = .smallEvent(smallEventViewModel)
             } else
-            if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
+            if let largeEventViewModel = LargeEventViewModel(typedEvent: originalEvent) {
                 maybeEvent = .largeEvent(largeEventViewModel)
             }
             
@@ -68,13 +68,13 @@ public struct SignificantEventsViewModel {
             }
                 
             switch originalEvent {
-            case .largeChange(let largeChange):
+            case .large(let largeChange):
                 maybeCurrentTimestamp = isoDateFormatter.date(from: largeChange.timestampString)
             case .newTalkPageTopic(let newTalkPageTopic):
                 maybeCurrentTimestamp = isoDateFormatter.date(from: newTalkPageTopic.timestampString)
             case .vandalismRevert(let vandalismRevert):
                 maybeCurrentTimestamp = isoDateFormatter.date(from: vandalismRevert.timestampString)
-            case .smallChange(let smallChange):
+            case .small(let smallChange):
                 maybeCurrentTimestamp = isoDateFormatter.date(from: smallChange.timestampString)
             }
         
@@ -113,7 +113,7 @@ public struct SignificantEventsViewModel {
         var finalSections: [SectionHeaderViewModel] = []
         for section in sections {
             var collapsedEventViewModels: [TimelineEventViewModel] = []
-            var currentSmallChanges: [SignificantEvents.SmallChange] = []
+            var currentSmallChanges: [SignificantEvents.Event.Small] = []
             for event in section.events {
                 switch event {
                 case .smallEvent(let smallEventViewModel):
@@ -188,14 +188,14 @@ public class SmallEventViewModel {
     
     public private(set) var eventDescription: NSAttributedString?
     private var lastTraitCollection: UITraitCollection?
-    public let smallChanges: [SignificantEvents.SmallChange]
+    public let smallChanges: [SignificantEvents.Event.Small]
     
-    init?(timelineEvents: [SignificantEvents.TimelineEvent]) {
+    init?(typedEvents: [SignificantEvents.TypedEvent]) {
         
-        var smallChanges: [SignificantEvents.SmallChange] = []
-        for event in timelineEvents {
+        var smallChanges: [SignificantEvents.Event.Small] = []
+        for event in typedEvents {
             switch event {
-            case .smallChange(let smallChange):
+            case .small(let smallChange):
                 smallChanges.append(smallChange)
             default:
                 return nil
@@ -209,7 +209,7 @@ public class SmallEventViewModel {
         self.smallChanges = smallChanges
     }
     
-    init(smallChanges: [SignificantEvents.SmallChange]) {
+    init(smallChanges: [SignificantEvents.Event.Small]) {
         self.smallChanges = smallChanges
     }
     
@@ -265,7 +265,7 @@ public class LargeEventViewModel {
         case viewDiscussion(sectionName: String)
     }
     
-    private let timelineEvent: SignificantEvents.TimelineEvent
+    private let typedEvent: SignificantEvents.TypedEvent
     private(set) var eventDescription: NSAttributedString?
     private(set) var changeDetails: [ChangeDetail]?
     private(set) var displayTimestamp: String?
@@ -276,15 +276,15 @@ public class LargeEventViewModel {
     private var lastTraitCollection: UITraitCollection?
     public var revId: UInt = 0
     
-    init?(timelineEvent: SignificantEvents.TimelineEvent) {
+    init?(typedEvent: SignificantEvents.TypedEvent) {
         
         let userGroups: [String]?
-        switch timelineEvent {
+        switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             self.userId = newTalkPageTopic.userId
             userGroups = newTalkPageTopic.userGroups
             self.buttonsToDisplay = .viewDiscussion(sectionName: newTalkPageTopic.section)
-        case .largeChange(let largeChange):
+        case .large(let largeChange):
             self.userId = largeChange.userId
             userGroups = largeChange.userGroups
             self.buttonsToDisplay = .thankAndViewChanges(userId: largeChange.userId, revisionId: largeChange.revId)
@@ -292,7 +292,7 @@ public class LargeEventViewModel {
             self.userId = vandalismRevert.userId
             userGroups = vandalismRevert.userGroups
             self.buttonsToDisplay = .thankAndViewChanges(userId: vandalismRevert.userId, revisionId: vandalismRevert.revId)
-        case .smallChange:
+        case .small:
             return nil
         }
         
@@ -305,9 +305,9 @@ public class LargeEventViewModel {
             userType = .standard
         }
         
-        self.timelineEvent = timelineEvent
-        switch timelineEvent {
-        case .largeChange(let largeChange):
+        self.typedEvent = typedEvent
+        switch typedEvent {
+        case .large(let largeChange):
             revId = largeChange.revId
         case .newTalkPageTopic(let newTalkPageTopic):
             revId = newTalkPageTopic.revId
@@ -320,12 +320,12 @@ public class LargeEventViewModel {
     }
     
     public convenience init?(forPrototypeText prototypeText: String) {
-        let originalUntypedEvent = SignificantEvents.UntypedTimelineEvent(forPrototypeText: prototypeText)
-        guard let originalLargeChange = SignificantEvents.LargeChange(untypedEvent: originalUntypedEvent) else {
+        let originalUntypedEvent = SignificantEvents.UntypedEvent(forPrototypeText: prototypeText)
+        guard let originalLargeChange = SignificantEvents.Event.Large(untypedEvent: originalUntypedEvent) else {
             return nil
         }
-        let originalTimelineEvent = SignificantEvents.TimelineEvent.largeChange(originalLargeChange)
-        self.init(timelineEvent: originalTimelineEvent)
+        let originalTypedEvent = SignificantEvents.TypedEvent.large(originalLargeChange)
+        self.init(typedEvent: originalTypedEvent)
     }
     
     public func firstSnippetFromPrototypeModel(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
@@ -361,7 +361,7 @@ public class LargeEventViewModel {
         let sectionsHtml = localizedSectionHtmlSnippet(sectionsSet: sections)
         
         let eventDescription: String
-        switch timelineEvent {
+        switch typedEvent {
         case .newTalkPageTopic:
             eventDescription = CommonStrings.newTalkTopicDescription
         case .vandalismRevert:
@@ -371,7 +371,7 @@ public class LargeEventViewModel {
             } else {
                 eventDescription = event
             }
-        case .largeChange(let largeChange):
+        case .large(let largeChange):
             
             guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges) else {
                 assertionFailure("This should not happen")
@@ -384,7 +384,7 @@ public class LargeEventViewModel {
                 eventDescription = mergedDescription
             }
             
-        case .smallChange:
+        case .small:
             assertionFailure("This should not happen")
             return nil
         }
@@ -392,7 +392,7 @@ public class LargeEventViewModel {
         return eventDescription
     }
     
-    private func mergedDescriptionForTypedChanges(_ changes: [SignificantEvents.Change]) -> String? {
+    private func mergedDescriptionForTypedChanges(_ changes: [SignificantEvents.TypedChange]) -> String? {
         let individualDescriptions = self.individualDescriptionsForTypedChanges(changes)
         let sortedDescriptions = individualDescriptions.sorted { $0.priority < $1.priority }
         
@@ -444,7 +444,7 @@ public class LargeEventViewModel {
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
         let eventDescriptionMutableAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-        switch timelineEvent {
+        switch typedEvent {
         case .newTalkPageTopic:
             let localizedString = CommonStrings.newTalkTopicDescription
             let eventAttributedString = NSAttributedString(string: localizedString, attributes: attributes)
@@ -457,7 +457,7 @@ public class LargeEventViewModel {
             let eventAttributedString = NSAttributedString(string: event, attributes: attributes)
             eventDescriptionMutableAttributedString.append(eventAttributedString)
         
-        case .largeChange(let largeChange):
+        case .large(let largeChange):
             
             guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges) else {
                 assertionFailure("This should not happen")
@@ -467,7 +467,7 @@ public class LargeEventViewModel {
             let mergedDescriptionAttributedString = NSAttributedString(string: mergedDescription, attributes: attributes)
             eventDescriptionMutableAttributedString.append(mergedDescriptionAttributedString)
             
-        case .smallChange:
+        case .small:
             assertionFailure("Unexpected timeline event type")
             break
         }
@@ -494,7 +494,7 @@ public class LargeEventViewModel {
         let text: String
     }
     
-    private func individualDescriptionsForTypedChanges(_ typedChanges: [SignificantEvents.Change]) -> [IndividualDescription] {
+    private func individualDescriptionsForTypedChanges(_ typedChanges: [SignificantEvents.TypedChange]) -> [IndividualDescription] {
         
         var descriptions: [IndividualDescription] = []
         var numReferences = 0
@@ -550,12 +550,12 @@ public class LargeEventViewModel {
     
     private func sectionsSet() -> Set<String> {
         let set: Set<String>
-        switch timelineEvent {
+        switch typedEvent {
         case .newTalkPageTopic:
             set = Set<String>()
         case .vandalismRevert(let vandalismRevert):
             set = Set(vandalismRevert.sections)
-        case .largeChange(let largeChange):
+        case .large(let largeChange):
             var sections: [String] = []
             for typedChange in largeChange.typedChanges {
                 switch typedChange {
@@ -569,7 +569,7 @@ public class LargeEventViewModel {
             }
             
             set = Set(sections)
-        case .smallChange:
+        case .small:
             assertionFailure("This shouldn't happen")
             set = Set<String>()
         }
@@ -673,12 +673,12 @@ public class LargeEventViewModel {
         
         var changeDetails: [ChangeDetail] = []
         
-        switch timelineEvent {
+        switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             let attributedString = newTalkPageTopic.snippet.byAttributingHTML(with: .subheadline, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
             let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
             changeDetails.append(changeDetail)
-        case .largeChange(let largeChange):
+        case .large(let largeChange):
             for typedChange in largeChange.typedChanges {
                 switch typedChange {
                 case .addedText(let addedText):
@@ -739,7 +739,7 @@ public class LargeEventViewModel {
             }
         case .vandalismRevert:
             return []
-        case .smallChange:
+        case .small:
             assertionFailure("This should not happen")
             return []
         }
@@ -795,7 +795,7 @@ public class LargeEventViewModel {
         
     }
     
-    private func descriptionForJournalCitation(_ journalCitation: SignificantEvents.JournalCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForJournalCitation(_ journalCitation: SignificantEvents.Citation.Journal, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
         let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
@@ -873,7 +873,7 @@ public class LargeEventViewModel {
         
     }
     
-    private func descriptionForWebsiteCitation(_ websiteCitation:SignificantEvents.WebsiteCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForWebsiteCitation(_ websiteCitation: SignificantEvents.Citation.Website, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
@@ -942,7 +942,7 @@ public class LargeEventViewModel {
         return finalMutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
     }
     
-    private func descriptionForNewsCitation(_ newsCitation: SignificantEvents.NewsCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForNewsCitation(_ newsCitation: SignificantEvents.Citation.News, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
         let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
@@ -1011,7 +1011,7 @@ public class LargeEventViewModel {
         
     }
     
-    private func descriptionForBookCitation(_ bookCitation: SignificantEvents.BookCitation, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForBookCitation(_ bookCitation: SignificantEvents.Citation.Book, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
         let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
@@ -1096,14 +1096,14 @@ public class LargeEventViewModel {
         }
         
         let timestampString: String
-        switch timelineEvent {
+        switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             timestampString = newTalkPageTopic.timestampString
-        case .largeChange(let largeChange):
+        case .large(let largeChange):
             timestampString = largeChange.timestampString
         case .vandalismRevert(let vandalismRevert):
             timestampString = vandalismRevert.timestampString
-        case .smallChange:
+        case .small:
             assertionFailure("Shouldn't reach this point")
             return nil
         }
@@ -1134,17 +1134,17 @@ public class LargeEventViewModel {
     private func userNameAndEditCount() -> (userName: String, editCount: UInt?)? {
         let userName: String
         let editCount: UInt?
-        switch timelineEvent {
+        switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             userName = newTalkPageTopic.user
             editCount = newTalkPageTopic.userEditCount
-        case .largeChange(let largeChange):
+        case .large(let largeChange):
             userName = largeChange.user
             editCount = largeChange.userEditCount
         case .vandalismRevert(let vandalismRevert):
             userName = vandalismRevert.user
             editCount = vandalismRevert.userEditCount
-        case .smallChange:
+        case .small:
             return nil
         }
         

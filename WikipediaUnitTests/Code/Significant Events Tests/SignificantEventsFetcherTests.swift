@@ -87,9 +87,9 @@ class SignificantEventsFetcherTests: XCTestCase {
                 let firstEvent = significantEvents.typedEvents[0]
 
                 switch firstEvent {
-                case .smallChange(let smallChange):
+                case .small(let smallChange):
                     XCTAssertEqual(smallChange.count, 3)
-                    XCTAssertEqual(smallChange.outputType, .smallChange)
+                    XCTAssertEqual(smallChange.outputType, .small)
                 default:
                     XCTFail("Unexpected type for firstEvent.")
                 }
@@ -97,8 +97,8 @@ class SignificantEventsFetcherTests: XCTestCase {
                 let secondEvent = significantEvents.typedEvents[1]
 
                 switch secondEvent {
-                case .largeChange(let largeChange):
-                    XCTAssertEqual(largeChange.outputType, .largeChange)
+                case .large(let largeChange):
+                    XCTAssertEqual(largeChange.outputType, .large)
                     XCTAssertEqual(largeChange.revId, 975240668)
                     XCTAssertEqual(largeChange.timestampString, "2020-08-27T15:11:26Z")
                     XCTAssertEqual(largeChange.user, "Mason.Jones")
@@ -254,7 +254,7 @@ class SignificantEventsFetcherTests: XCTestCase {
                 XCTAssertNotNil(significantEvents.summary)
                 
                 switch significantEvents.typedEvents[0] {
-                case .largeChange(let largeChange):
+                case .large(let largeChange):
                     XCTAssertEqual(largeChange.revId, 670576931)
                     XCTAssertEqual(largeChange.timestampString, "2015-07-08T21:16:25Z")
                     XCTAssertEqual(largeChange.user, "CoffeeWithMarkets")
