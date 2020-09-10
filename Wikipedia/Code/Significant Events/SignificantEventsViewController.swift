@@ -78,10 +78,6 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     private let editMetrics: [NSNumber]?
     private weak var delegate: SignificantEventsViewControllerDelegate?
     
-    fileprivate static let largeEventCellReuseIdentifier = "SignificantEventsLargeEventCollectionViewCell"
-    fileprivate static let sectionHeaderCellReuseIdentifier = "SignificantEventsSectionHeaderCell"
-    fileprivate static let smallEventReuseIdentifier = "SignificantEventsSmallEventCollectionViewCell"
-    
     private var dataSource: UICollectionViewDiffableDataSource<SectionHeaderViewModel, TimelineEventViewModel>!
     
     required public init?(coder aDecoder: NSCoder) {
@@ -105,7 +101,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             let cell: CollectionViewCell
             switch event {
             case .largeEvent(let largeEvent):
-                guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.largeEventCellReuseIdentifier, for: indexPath) as? SignificantEventsLargeEventCollectionViewCell else {
+                guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.identifier, for: indexPath) as? SignificantEventsLargeEventCollectionViewCell else {
                     return nil
                 }
                 
@@ -114,7 +110,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
                 //tonitodo: look into this commented out need
                 //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
             case .smallEvent(let smallEvent):
-                guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.smallEventReuseIdentifier, for: indexPath) as? SignificantEventsSmallEventCollectionViewCell else {
+                guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsSmallEventCollectionViewCell.identifier, for: indexPath) as? SignificantEventsSmallEventCollectionViewCell else {
                     return nil
                 }
                 
@@ -147,19 +143,6 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             sectionHeaderView.configure(viewModel: section, theme: theme)
             return sectionHeaderView
             
-            //tonitodo: when we move to enum
-//            switch section {
-//            case .standard:
-//                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsHeaderView.identifier, for: indexPath) as? SignificantEventsHeaderView else {
-//                    return UICollectionReusableView()
-//                }
-//
-//                self.configureHeaderView(headerView)
-//                self.headerView = headerView
-//                return headerView
-//            default:
-//                return UICollectionReusableView()
-//            }
         }
     }
     
@@ -206,12 +189,31 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         
         super.viewDidLoad()
 
-        layoutManager.register(SignificantEventsLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.largeEventCellReuseIdentifier, addPlaceholder: true)
-        layoutManager.register(SignificantEventsSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.smallEventReuseIdentifier, addPlaceholder: true)
-        layoutManager.register(SignificantEventsHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier, addPlaceholder: true)
+        layoutManager.register(SignificantEventsLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(SignificantEventsSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsSmallEventCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(SignificantEventsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier, addPlaceholder: true)
         
         self.title = headerText
+        
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        
+        navigationMode = .forceBar
+        if let headerView = SignificantEventsHeaderView.wmf_viewFromClassNib() {
+            self.headerView = headerView
+            configureHeaderView(headerView)
+            navigationBar.isBarHidingEnabled = false
+            navigationBar.isUnderBarViewHidingEnabled = true
+            useNavigationBarVisibleHeightForScrollViewInsets = true
+            navigationBar.addUnderNavigationBarView(headerView)
+            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+            navigationBar.title = headerText
+            navigationBar.setNeedsLayout()
+            navigationBar.layoutIfNeeded()
+            updateScrollViewInsets()
+        }
     }
     
     @objc private func closeButtonPressed() {
@@ -249,24 +251,6 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         estimate.height = sectionHeaderView.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
-        
-        //tonitodo: for when we include other section header
-//        let headerView: SizeThatFitsReusableView
-//        switch section {
-//        case .standard:
-//            guard let firstHeaderView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier) as? SignificantEventsHeaderView else {
-//                return estimate
-//            }
-//            headerView = firstHeaderView
-//            configureHeaderView(firstHeaderView)
-//        default:
-//            guard let otherHeaderView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier) as? SignificantEventsSectionHeaderView else {
-//                return estimate
-//            }
-//
-//            headerView = otherHeaderView
-//            //tonitodo: how to configure other header view? need to pull section view model of some sort
-//        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -279,7 +263,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         let cell: CollectionViewCell
         switch event {
         case .largeEvent(let largeEvent):
-            guard let largeEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsViewController.largeEventCellReuseIdentifier) as? SignificantEventsLargeEventCollectionViewCell else {
+            guard let largeEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.identifier) as? SignificantEventsLargeEventCollectionViewCell else {
                 return estimate
             }
             
@@ -287,7 +271,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             largeEventCell.configure(with: largeEvent, theme: theme)
             cell = largeEventCell
         case .smallEvent(let smallEvent):
-            guard let smallEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsViewController.smallEventReuseIdentifier) as? SignificantEventsSmallEventCollectionViewCell else {
+            guard let smallEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsSmallEventCollectionViewCell.identifier) as? SignificantEventsSmallEventCollectionViewCell else {
                 return estimate
             }
             

@@ -65,7 +65,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 if let oldModel = _significantEventsViewModel {
                     // should only be triggered via paging.
                     // update everything except sha and htmlInsert and
-                    // append events instead of replace events
+                    // append sections instead of replace sections
                     let appendedSections = oldModel.sections + newValue.sections
                     let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
                     _significantEventsViewModel = SignificantEventsViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
@@ -582,6 +582,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 if let significantEventsViewController = significantEventsViewController {
                     let navigationController = WMFThemeableNavigationController(rootViewController: significantEventsViewController, theme: theme)
                     navigationController.modalPresentationStyle = .pageSheet
+                    navigationController.isNavigationBarHidden = true
                     present(navigationController, animated: true) {
                         significantEventsViewController.addInitialSections(sections: significantEventsViewModel.sections)
                     }

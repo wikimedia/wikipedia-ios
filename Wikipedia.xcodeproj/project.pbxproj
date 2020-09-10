@@ -208,6 +208,10 @@
 		677129A124FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift */; };
 		677129A224FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift */; };
 		677129A324FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift */; };
+		6771C9542509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* SignificantEventsHeaderView.xib */; };
+		6771C9552509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* SignificantEventsHeaderView.xib */; };
+		6771C9562509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* SignificantEventsHeaderView.xib */; };
+		6771C9572509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* SignificantEventsHeaderView.xib */; };
 		6773B1FE240F02E40022A70E /* PermanentlyPersistableURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */; };
 		6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */; };
 		6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */; };
@@ -3366,6 +3370,7 @@
 		6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsViewController.swift; sourceTree = "<group>"; };
 		6771299324FF775E00E89CA5 /* SignificantEventsLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		6771299F24FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsHorizontallyScrollingCell.swift; sourceTree = "<group>"; };
+		6771C9532509FE6B00A7254B /* SignificantEventsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignificantEventsHeaderView.xib; sourceTree = "<group>"; };
 		6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCache.swift; sourceTree = "<group>"; };
 		6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCacheDBWriter+SyncResources.swift"; sourceTree = "<group>"; };
 		6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheResourceDBWriting.swift; sourceTree = "<group>"; };
@@ -5950,7 +5955,6 @@
 		6798035A24F94CAE00D765AA /* Significant Events */ = {
 			isa = PBXGroup;
 			children = (
-				67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */,
 				6771298E24FF76AC00E89CA5 /* SignificantEventsViewController.swift */,
 				6771299324FF775E00E89CA5 /* SignificantEventsLargeEventCollectionViewCell.swift */,
 				6771299F24FFF43000E89CA5 /* SignificantEventsHorizontallyScrollingCell.swift */,
@@ -5959,6 +5963,8 @@
 				674711822507253500287951 /* SignificantEventsSnippetCollectionViewCell.swift */,
 				6747117D250703BB00287951 /* SignificantEventsReferenceCollectionViewCell.swift */,
 				6747118725072D1500287951 /* IconTitleBadge.swift */,
+				67E2E48E250452E60070F12D /* SignificantEventsHeaderView.swift */,
+				6771C9532509FE6B00A7254B /* SignificantEventsHeaderView.xib */,
 			);
 			path = "Significant Events";
 			sourceTree = "<group>";
@@ -9149,6 +9155,7 @@
 				D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */,
 				D8C4D3D31FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */,
+				6771C9542509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */,
 				B0E804121C0CDE480065EBC0 /* EditSaveViewController.storyboard in Resources */,
 				D8D92B641DF22E1700B95311 /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2932289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
@@ -9271,6 +9278,7 @@
 				6780D5C3237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172C2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8E23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
+				6771C9572509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */,
 				83E3E72D2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -9393,6 +9401,7 @@
 				6780D5C1237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8C23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
+				6771C9562509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */,
 				83E3E72B2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -9515,6 +9524,7 @@
 				6780D5C2237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
 				7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8D23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
+				6771C9552509FE6B00A7254B /* SignificantEventsHeaderView.xib in Resources */,
 				83E3E72C2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
