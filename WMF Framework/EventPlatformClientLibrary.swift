@@ -805,8 +805,8 @@ private extension EPC {
         DDLogDebug("EPC: Attempting to POST data to \(url.absoluteString)")
         let request = Session.shared.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = Session.shared.dataTask(with: request, completionHandler: { (_, response, error) in
-            if error != nil {
-                DDLogError("EPC: An error occurred sending the request")
+            if let error = error {
+                DDLogError("EPC: An error occurred sending the request: \(error)")
             }
             completion?()
         })
