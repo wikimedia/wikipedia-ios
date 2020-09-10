@@ -58,6 +58,7 @@ final class PictureOfTheDayData {
 		let sampleEntry = self.sampleEntry
 		let contentDate = contentGroup.date
 		let contentURL = contentGroup.url
+        let canonicalPageTitle = imageContent.canonicalPageTitle
 		let imageThumbnailURL = imageContent.imageThumbURL
 		let imageDescription = imageContent.imageDescription
 
@@ -74,28 +75,31 @@ final class PictureOfTheDayData {
 		ImageCacheController.shared?.fetchImage(withURL: imageThumbnailURL, failure: { _ in
 			completion(sampleEntry)
 		}, success: { fetchedImage in
-			let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription)
-			completion(entry)
+            self.fetchImageLicense(canonicalPageTitle: canonicalPageTitle) { license in
+                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, license: license)
+                completion(entry)
+            }
 		})
 	}
 
 	// MARK: Private
 
-	private func fetchImageLicense(forCanonicalPageTitle imageFile: String, _ completion: @escaping (MWKImageInfo?) -> Void) {
-		imageInfoFetcher.fetchImageInfo(forCommonsFiles: [imageFile], failure: { error in
-			completion(nil)
-		}, success: { infoArray in
-			guard let infoArray = infoArray as? [MWKImageInfo] else {
-				completion(nil)
-				return
-			}
+	private func fetchImageLicense(canonicalPageTitle: String, _ completion: @escaping (MWKLicense?) -> Void) {
+        guard let siteURL = NSURL.wmf_wikimediaCommons() else {
+            completion(nil)
+            return
+        }
 
-			if let _ = infoArray.first {
-				// TODO: info.license
-			} else {
-				completion(nil)
-			}
-		})
+        imageInfoFetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
+            completion(nil)
+        }, success: { imageInfo in
+            guard let imageInfo = imageInfo as? MWKImageInfo, let license = imageInfo.license else {
+                completion(nil)
+                return
+            }
+
+            completion(license)
+        })
 	}
 
 }
@@ -103,6 +107,16 @@ final class PictureOfTheDayData {
 // MARK: - Model
 
 struct PictureOfTheDayEntry: TimelineEntry {
+
+    // MARK: Nested Types
+
+    struct LicenseImage: Identifiable {
+        var id: String
+        var image: SwiftUI.Image
+    }
+
+    // MARK: Properties
+
 	let date: Date // for Timeline Entry
 	var contentDate: Date? = nil
 	var contentURL: URL? = nil
@@ -110,6 +124,23 @@ struct PictureOfTheDayEntry: TimelineEntry {
 	let image: UIImage?
 	var imageDescription: String? = nil
 	var license: MWKLicense? = nil
+
+    // MARK: License Image Parsing
+
+    var licenseImages: [LicenseImage] {
+        var licenseImages: [LicenseImage] = []
+        let licenseCodes: [String] = license?.code?.components(separatedBy: "-") ?? ["generic"]
+
+        for license in licenseCodes {
+            guard let image = UIImage(named: "license-\(license)") else {
+                continue
+            }
+            licenseImages.append(LicenseImage(id: license, image: Image(uiImage: image)))
+        }
+
+        return licenseImages
+    }
+
 }
 
 // MARK: - TimelineProvider
@@ -160,7 +191,7 @@ struct PictureOfTheDayView: View {
 				VStack(spacing: 0) {
 					image
 						.frame(width: proxy.size.width, height: proxy.size.height * 0.77)
-						.overlay(PictureOfTheDayOverlayView(), alignment: .bottomLeading)
+						.overlay(PictureOfTheDayOverlayView(entry: entry), alignment: .bottomLeading)
 					description
 						.frame(width: proxy.size.width, height: proxy.size.height * 0.23)
                         .background(Color(red: 34/255.0, green: 34/255.0, blue: 34/255.0))
@@ -168,7 +199,7 @@ struct PictureOfTheDayView: View {
 			default:
 				image
 					.frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
-					.overlay(PictureOfTheDayOverlayView(), alignment: .bottomLeading)
+					.overlay(PictureOfTheDayOverlayView(entry: entry), alignment: .bottomLeading)
 			}
 		}
 		.widgetURL(entry.contentURL)
@@ -209,6 +240,8 @@ struct PictureOfTheDayView: View {
 }
 
 struct PictureOfTheDayOverlayView: View {
+    var entry: PictureOfTheDayEntry
+
 	var body: some View {
 		content
 			.background(
@@ -234,12 +267,16 @@ struct PictureOfTheDayOverlayView: View {
 					.readableShadow()
 			}
 			Spacer()
-            Image("Attribution")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 12)
-                .readableShadow()
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 45))
+            HStack(alignment: .top, spacing: 1) {
+                ForEach(entry.licenseImages) { licenseImage in
+                    licenseImage.image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+            }
+            .frame(height: 14)
+            .readableShadow()
+            .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 45))
 		}
 		.foregroundColor(.white)
 	}
