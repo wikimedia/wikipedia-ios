@@ -664,7 +664,7 @@ public class EPC: NSObject {
             
             #if DEBUG
             let jsonString = String(data: jsonData, encoding: .utf8)!
-            DDLogDebug("EPC: Logging event:\n\(jsonString)")
+            DDLogDebug("EPC: Scheduling event to be sent to \(streamIntakeServiceURI) with POST body:\n\(jsonString)")
             #endif
             
             guard let streamConfigs = streamConfigurations else {
