@@ -41,32 +41,8 @@ import Foundation
 /**
  * Event Platform Client (EPC)
  *
- * Use `EPC.shared?.submit(stream, schema, event, domain?, date?)` to submit ("log") events to
- * streams. The event's structure must conform to the provided `Schema`.
- *
- * ## Example
- *
- * In Swift:
- *
- * ```
- * struct TestEvent: EventInterface {
- *   let test_string: String
- *   let test_map: SourceInfo
- *   struct SourceInfo: Codable {
- *       let file: String
- *       let method: String
- *   }
- * }
- *
- * let sourceInfo = TestEvent.SourceInfo(file: "Features/Feed/ExploreViewController.swift", method: "refreshControlActivated")
- * let event = TestEvent(test_string: "Explore Feeed refreshed", test_map: sourceInfo)
- *
- * EPC.shared?.submit(
- *   stream: .test, // Defined in `EPC.Stream`
- *   schema: .test, // Defined in `EPC.Schema`
- *   event: event
- * )
- * ```
+ * Use `EPC.shared?.submit(stream, event, domain?, date?)` to submit ("log") events to
+ * streams.
  *
  * iOS schemas will always include the following fields which are managed by EPC
  * and which will be assigned automatically by the library:
@@ -87,6 +63,15 @@ public class EPC: NSObject {
 
         return EPC(legacyEventLoggingService: legacyEventLoggingService)
     }()
+    
+    /**
+     * Streams are the event stream identifiers that can be utilized with the EventPlatformClientLibrary. They should
+     *  correspond to the `$id` of a schema in
+     * [this repository](https://gerrit.wikimedia.org/g/schemas/event/secondary/).
+     */
+    public enum Stream: String, Codable {
+        case editHistoryCompare = "ios.edit_history_compare"
+    }
 
     /**
      * Serial dispatch queue that enables working with properties in a thread-safe
@@ -533,7 +518,6 @@ public class EPC: NSObject {
     /// EventBody is used to encod event data into the POST body of a request to the Modern Event Platform
     struct EventBody<E>: Encodable where E: EventInterface {
         /// EventGate needs to know which version of the schema to validate against
-        let schema: Schema
         let meta: Meta
         struct Meta: Codable {
             let stream: Stream
@@ -581,11 +565,11 @@ public class EPC: NSObject {
         func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: CodingKeys.self)
             do {
-                try container.encode(schema, forKey: .schema)
                 try container.encode(meta, forKey: .meta)
                 try container.encode(appInstallID, forKey: .appInstallID)
                 try container.encode(appSessionID, forKey: .appSessionID)
                 try container.encode(clientDT, forKey: .clientDT)
+                try container.encode(E.schema, forKey: .schema)
                 try event.encode(to: encoder)
             } catch let error {
                 DDLogError("EPC: Error encoding event body: \(error)")
@@ -597,14 +581,29 @@ public class EPC: NSObject {
      * Submit an event according to the given stream's configuration.
      * - Parameters:
      *      - stream: The stream to submit the event to
-     *      - schema: The schema the event conforms to
      *      - event: The event data
      *      - domain: Optional domain to include for the event (without protocol)
      *      - date: Optional date for the event. This corresponds to the `client_dt`.
      *
      * An example call:
      * ```
-     * EPC.shared?.submit(.test, .test, ["hello": "world"])
+     * struct TestEvent: EventInterface {
+     *   static let schema = "/analytics/mobile_apps/test/1.0.0"
+     *   let test_string: String
+     *   let test_map: SourceInfo
+     *   struct SourceInfo: Codable {
+     *       let file: String
+     *       let method: String
+     *   }
+     * }
+     *
+     * let sourceInfo = TestEvent.SourceInfo(file: "Features/Feed/ExploreViewController.swift", method: "refreshControlActivated")
+     * let event = TestEvent(test_string: "Explore Feeed refreshed", test_map: sourceInfo)
+     *
+     * EPC.shared?.submit(
+     *   stream: .test, // Defined in `EPC.Stream`
+     *   event: event
+     * )
      * ```
      *
      * Regarding `domain`: this is *optional* and should be used when event needs
@@ -634,14 +633,14 @@ public class EPC: NSObject {
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    public func submit<E: EventInterface>(stream: Stream, schema: Schema, event: E, domain: String? = nil, date: Date? = nil) {
+    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, date: Date? = nil) {
         encodeQueue.async {
-            self._submit(stream: stream, schema: schema, event: event, domain: domain, date: date)
+            self._submit(stream: stream, event: event, domain: domain, date: date)
         }
     }
 
     /// Private, synchronous version of `submit`.
-    private func _submit<E: EventInterface>(stream: Stream, schema: Schema, event: E, domain: String? = nil, date: Date? = nil){
+    private func _submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, date: Date? = nil){
         guard sharingUsageData else {
             return
         }
@@ -651,7 +650,7 @@ public class EPC: NSObject {
         }
         let meta = EventBody<E>.Meta(stream: stream, id: UUID(), domain: domain)
 
-        let eventPayload = EventBody(schema: schema, meta: meta, appInstallID: appInstallID, appSessionID: sessionID, clientDT: date ?? Date(), event: event)
+        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, clientDT: date ?? Date(), event: event)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
@@ -851,4 +850,15 @@ extension EPC: BackgroundFetcher {
  * Protocol for event data.
  * Currently only requires conformance to Codable.
  */
-public protocol EventInterface: Codable { }
+public protocol EventInterface: Codable {
+    /**
+     * Schema specifies which schema (and specifically which version of that schema)
+     * a given event conforms to. Analytics schemas can be found in the jsonschema directory of
+     * [secondary repo](https://gerrit.wikimedia.org/g/schemas/event/secondary/).
+     * As an example, if instrumenting client-side error logging, a possible
+     * `$schema` would be `/mediawiki/client/error/1.0.0`. For the most part, the
+     * `$schema` will start with `/analytics`, since there's where
+     * analytics-related schemas are collected.
+     */
+    static var schema: String { get }
+}

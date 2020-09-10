@@ -2,15 +2,7 @@
 import Foundation
 
 final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    struct Event: EventInterface {
-        let action: Action
-        let primary_language: String
-        let is_anon: Bool
-    }
-    
-    public static let shared = EditHistoryCompareFunnel()
-    
-    enum Action: String, Codable {
+    private enum Action: String, Codable {
         case showHistory = "show_history"
         case revisionView = "revision_view"
         case compare1
@@ -19,7 +11,16 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
         case thankSuccess = "thank_success"
         case thankFail = "thank_fail"
     }
-
+    
+    private struct Event: EventInterface {
+        static let schema = "/analytics/mobile_apps/ios_edit_history_compare/1.0.0"
+        let action: Action
+        let primary_language: String
+        let is_anon: Bool
+    }
+    
+    public static let shared = EditHistoryCompareFunnel()
+    
     private override init() {
         super.init(schema: "MobileWikiAppiOSEditHistoryCompare", version: 19795952)
     }
@@ -41,7 +42,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
          *   - Finalize the schema (TBD in Gerrit patch to schemas/event/secondary repo)
          */
         let event = Event(action: action, primary_language: primaryLanguage(), is_anon: isAnon.boolValue)
-        EPC.shared?.submit(stream: .editHistoryCompare, schema: .editHistoryCompare, event: event, domain: domain)
+        EPC.shared?.submit(stream: .editHistoryCompare, event: event, domain: domain)
     }
     
     public func logShowHistory(articleURL: URL) {
