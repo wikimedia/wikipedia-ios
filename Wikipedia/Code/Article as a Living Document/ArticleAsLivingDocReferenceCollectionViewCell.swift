@@ -78,7 +78,7 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
             createIconTitleBadgeForReference(reference: reference)
             titleLabel.text = reference.type
         default:
-            assertionFailure("SignificantEventsReferenceCell configured with unexpected type")
+            assertionFailure("ArticleAsLivingDocReferenceCollectionViewCell configured with unexpected type")
             return
         }
         
