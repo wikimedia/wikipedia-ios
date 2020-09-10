@@ -63,6 +63,7 @@ struct OnThisDayView: View {
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             }
         }
+        .environment(\.layoutDirection, entry.isRTLLanguage ? .rightToLeft : .leftToRight)
         .widgetURL(entry.contentURL)
     }
 }
@@ -202,27 +203,29 @@ struct TimelineLargeCircleElement: View {
 
 struct OnThisDayHeaderElement: View {
     @Environment(\.colorScheme) var colorScheme
+    let language = MWKDataStore.shared().languageLinkController.appLanguage
 
     let monthDay: String
     let minYear: String
     let maxYear: String
 
     var body: some View {
-        VStack(spacing: 8) {
+        /// Custom spacing (handled by middle text element) from 10 Sept 2020 video call w/ Carolyn, the app designer.
+        VStack(spacing: 0) {
             Text(WMFLocalizedString("widget-onthisday-name", value: "On this day", comment: "Name of 'On this day' view in iOS widget gallery"))
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                 .font(.subheadline)
                 .bold()
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-
             Text(monthDay)
                 .font(.title2)
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-
-            Text(String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: nil, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: nil, minYear, maxYear))
+                .padding(.top, 5)
+                .padding(.bottom, 7)
+            Text(CommonStrings.onThisDayHeaderDateRangeMessage(with: language?.languageCode, locale: NSLocale.wmf_locale(for: language?.languageCode), lastEvent: minYear, firstEvent: maxYear))
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                 .font(.subheadline)
                 .bold()
@@ -282,10 +285,11 @@ struct MainOnThisDayTopElement: View {
     }
 
     private var secondLineText: String? {
+        let language = MWKDataStore.shared().languageLinkController.appLanguage
         if widgetSize == .systemSmall {
-            return DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: nil).string(from: Date())
+            return DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language?.languageCode).string(from: Date())
         } else if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year {
-            return String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: nil), (currentYear-eventYear))
+            return String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), (currentYear-eventYear))
         } else {
             return nil
         }
