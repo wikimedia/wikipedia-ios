@@ -161,7 +161,7 @@ public extension SignificantEvents {
             }
         }
         
-        public struct Small {
+        public struct Small: Equatable {
             let outputType: EventOutputType
             public let revId: UInt
             public let timestampString: String
@@ -175,6 +175,10 @@ public extension SignificantEvents {
                 self.outputType = untypedEvent.outputType
                 self.revId = revId
                 self.timestampString = timestampString
+            }
+            
+            public static func == (lhs: SignificantEvents.Event.Small, rhs: SignificantEvents.Event.Small) -> Bool {
+                return lhs.revId == rhs.revId
             }
         }
         

@@ -1,15 +1,15 @@
 
 import UIKit
 
-protocol SignificantEventsHorizontallyScrollingCellDelegate: class {
-    func tappedLink(_ url: URL, cell: SignificantEventsHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?)
+protocol ArticleAsLivingDocHorizontallyScrollingCellDelegate: class {
+    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?)
 }
 
-class SignificantEventsHorizontallyScrollingCell: CollectionViewCell {
+class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
     let descriptionTextView = UITextView()
     var theme: Theme?
     
-    weak var delegate: SignificantEventsHorizontallyScrollingCellDelegate?
+    weak var delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +28,7 @@ class SignificantEventsHorizontallyScrollingCell: CollectionViewCell {
         fatalError("Must override sizeThatFits in subclass")
     }
     
-    func configure(change: LargeEventViewModel.ChangeDetail, theme: Theme, delegate: SignificantEventsHorizontallyScrollingCellDelegate) {
+    func configure(change: ArticleAsLivingDocViewModel.Event.Large.ChangeDetail, theme: Theme, delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate) {
         
         setupDescription(for: change)
         updateFonts(with: traitCollection)
@@ -45,7 +45,7 @@ class SignificantEventsHorizontallyScrollingCell: CollectionViewCell {
         self.delegate = delegate
     }
     
-    func setupDescription(for change: LargeEventViewModel.ChangeDetail) {
+    func setupDescription(for change: ArticleAsLivingDocViewModel.Event.Large.ChangeDetail) {
         
         let description: NSAttributedString
         switch change {
@@ -70,14 +70,14 @@ class SignificantEventsHorizontallyScrollingCell: CollectionViewCell {
     }
 }
 
-extension SignificantEventsHorizontallyScrollingCell: UITextViewDelegate {
+extension ArticleAsLivingDocHorizontallyScrollingCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.tappedLink(URL, cell: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
         return false
     }
 }
 
-extension SignificantEventsHorizontallyScrollingCell: Themeable {
+extension ArticleAsLivingDocHorizontallyScrollingCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         backgroundColor = .clear

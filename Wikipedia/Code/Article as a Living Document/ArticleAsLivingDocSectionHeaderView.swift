@@ -1,7 +1,7 @@
 
 import UIKit
 
-class SignificantEventsSectionHeaderView: SizeThatFitsReusableView {
+class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     private var theme: Theme?
@@ -45,7 +45,7 @@ class SignificantEventsSectionHeaderView: SizeThatFitsReusableView {
         return CGSize(width: size.width, height: finalHeight)
     }
     
-    func configure(viewModel: SectionHeaderViewModel, theme: Theme) {
+    func configure(viewModel: ArticleAsLivingDocViewModel.SectionHeader, theme: Theme) {
         
         self.titleLabel.text = viewModel.title
         self.subtitleLabel.text = viewModel.subtitleTimestampDisplay
@@ -60,7 +60,7 @@ class SignificantEventsSectionHeaderView: SizeThatFitsReusableView {
     }
 }
 
-extension SignificantEventsSectionHeaderView: Themeable {
+extension ArticleAsLivingDocSectionHeaderView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         titleLabel.textColor = theme.colors.primaryText

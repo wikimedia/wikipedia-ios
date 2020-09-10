@@ -1,7 +1,7 @@
 
 import Foundation
 
-public class SignificantEventsController {
+public class ArticleAsLivingDocController {
     
     public enum Errors: Error {
         case viewModelInstantiationFailure
@@ -13,7 +13,7 @@ public class SignificantEventsController {
     
     private let fetcher = SignificantEventsFetcher()
     
-    public func fetchSignificantEvents(rvStartId: UInt? = nil, title: String, siteURL: URL, completion: @escaping ((Result<SignificantEventsViewModel, Error>) -> Void)) {
+    public func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
         fetcher.fetchSignificantEvents(rvStartId: rvStartId, title: title, siteURL: siteURL) { (result) in
             switch result {
             case .failure(let error):
@@ -21,13 +21,13 @@ public class SignificantEventsController {
                     completion(.failure(error))
                 }
             case .success(let significantEvents):
-                if let viewModel = SignificantEventsViewModel(significantEvents: significantEvents) {
+                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents) {
                     DispatchQueue.main.async {
                         completion(.success(viewModel))
                     }
                 } else {
                     DispatchQueue.main.async {
-                        completion(.failure(SignificantEventsController.Errors.viewModelInstantiationFailure))
+                        completion(.failure(ArticleAsLivingDocController.Errors.viewModelInstantiationFailure))
                     }
                 }
             }

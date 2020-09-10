@@ -224,84 +224,84 @@ public class CommonStrings: NSObject {
     
     public static let compareRevisionsTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
     
-    //Significant Events Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
+    //Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
     
     static let smallChangeDescription = WMFLocalizedString(
-        "significant-events-small-change-description",
+        "aaald-small-change-description",
         value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}} made",
-        comment:"Describes how many small changes are batched together in the significant events timeline view. %1$d is replaced with the number of small changes.")
-    static let newTalkTopicDescription = WMFLocalizedString("significant-events-new-talk-topic-description", value: "New discussion about this article", comment: "Title displayed in a significant events timeline cell explaining that a new article talk page topic has been posted.")
+        comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced with the number of small changes.")
+    static let newTalkTopicDescription = WMFLocalizedString("aaald-new-talk-topic-description", value: "New discussion about this article", comment: "Title displayed in an article as a living document timeline cell explaining that a new article talk page topic has been posted.")
     
-    static let vandalismRevertDescription = WMFLocalizedString("significant-events-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in a significant events timeline cell explaining that a vandalism revision was reverted.")
+    static let vandalismRevertDescription = WMFLocalizedString("aaald-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.")
     
-    static let twoDescriptionsFormat = WMFLocalizedString("significant-events-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in a significant events timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'")
+    static let twoDescriptionsFormat = WMFLocalizedString("aaald-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in an article as a living document timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'")
     
-    static let finalDelimiter = WMFLocalizedString("significant-events-multiple-descriptions-last-delimiter", value: " and ", comment: "Text to show as the last delimiter in a list of multiple event changes. These changes are shown in the description area of a significant events timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
+    static let finalDelimiter = WMFLocalizedString("aaald-multiple-descriptions-last-delimiter", value: " and ", comment: "Text to show as the last delimiter in a list of multiple event changes. These changes are shown in the description area of an article as a living document timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
     
-    static let midDelimiter = WMFLocalizedString("significant-events-multiple-descriptions-delimiter", value: ", ", comment: "Text to show as the delimiters in a list of multiple event changes. These changes are shown in the description area of a significant events timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
+    static let midDelimiter = WMFLocalizedString("aaald-multiple-descriptions-delimiter", value: ", ", comment: "Text to show as the delimiters in a list of multiple event changes. These changes are shown in the description area of an article as a living document cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
     
-    static let addedTextDescription = WMFLocalizedString("significant-events-added-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} added",
-    comment:"Title displayed in a significant events timeline cell explaining that a revision has a certain number of characters added. %1$d is replaced by the number of characters added.")
+    static let addedTextDescription = WMFLocalizedString("aaald-added-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} added",
+    comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. %1$d is replaced by the number of characters added.")
     
-    static let deletedTextDescription = WMFLocalizedString("significant-events-deleted-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} deleted",
-                                                           comment:"Title displayed in a significant events timeline cell explaining that a revision has a certain number of characters deleted. %1$d is replaced by the number of characters deleted.")
+    static let deletedTextDescription = WMFLocalizedString("aaald-deleted-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} deleted",
+                                                           comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters deleted. %1$d is replaced by the number of characters deleted.")
     
-    static let articleDescriptionUpdatedDescription =  WMFLocalizedString("significant-events-article-description-updated-description", value:"Article title description updated",
-    comment:"Title displayed in a significant events timeline cell explaining that an article's title description was updated in a revision.")
+    static let articleDescriptionUpdatedDescription =  WMFLocalizedString("aaald-article-description-updated-description", value:"Article title description updated",
+    comment:"Title displayed in an article as a living document cell explaining that an article's title description was updated in a revision.")
     
-    static let singleReferenceAddedDescription =  WMFLocalizedString("significant-events-single-reference-added-description", value:"Reference added",
-    comment:"Title displayed in a significant events timeline cell when a reference was added (and no other changes) to a revision.")
+    static let singleReferenceAddedDescription =  WMFLocalizedString("aaald-single-reference-added-description", value:"Reference added",
+    comment:"Title displayed in an article as a living document timeline cell when a reference was added (and no other changes) to a revision.")
     
-    static let multipleReferencesAddedDescription = WMFLocalizedString("significant-events-multiple-references-added-description", value:"Multiple references added",
-                                                                       comment:"Title displayed in a significant events timeline cell when multiple references were added (and no other changes) to a revision.")
+    static let multipleReferencesAddedDescription = WMFLocalizedString("aaald-multiple-references-added-description", value:"Multiple references added",
+                                                                       comment:"Title displayed in an article as a living document cell when multiple references were added (and no other changes) to a revision.")
     
-    static let numericalMultipleReferencesAddedDescription = WMFLocalizedString("significant-events-numerical-multiple-references-added-description", value:"{{PLURAL:%1$d|0=0 references|%1$d reference|%1$d references}} added",
-    comment:"Title displayed in a significant events timeline cell explaining that multiple references were added to a revision. This string is use alongside other changes types like added characters. %1$d is replaced with the number of references.")
+    static let numericalMultipleReferencesAddedDescription = WMFLocalizedString("aaald-numerical-multiple-references-added-description", value:"{{PLURAL:%1$d|0=0 references|%1$d reference|%1$d references}} added",
+    comment:"Title displayed in an article as a living document cell explaining that multiple references were added to a revision. This string is use alongside other changes types like added characters. %1$d is replaced with the number of references.")
     
-    static let oneSectionDescription = WMFLocalizedString("significant-events-one-section-description", value: "in the %1$@ section", comment: "Text explaining what section a significant event change occured in, if occured in only one section. %1$@ is replaced with the section name.")
+    static let oneSectionDescription = WMFLocalizedString("aaald-one-section-description", value: "in the %1$@ section", comment: "Text explaining what section an article as a living document event change occured in, if occured in only one section. %1$@ is replaced with the section name.")
     
-    static let twoSectionsDescription = WMFLocalizedString("significant-events-two-sections-description", value: "in the %1$@ and %2$@ sections", comment: "Text explaining what sections a significant event change occured in, if occured in two sections. %1$@ is replaced with the first section name, %2$@ with the second.")
+    static let twoSectionsDescription = WMFLocalizedString("aaald-two-sections-description", value: "in the %1$@ and %2$@ sections", comment: "Text explaining what sections an article as a living document event change occured in, if occured in two sections. %1$@ is replaced with the first section name, %2$@ with the second.")
     
-    static let manySectionsDescription = WMFLocalizedString("significant-events-many-sections-description", value: "in %1$d sections", comment: "Text explaining what sections a significant event change occured in, if occured in 3+ sections. %1$d is replaced with the number of sections.")
+    static let manySectionsDescription = WMFLocalizedString("aaald-many-sections-description", value: "in %1$d sections", comment: "Text explaining what sections an article as a living document change occured in, if occured in 3+ sections. %1$d is replaced with the number of sections.")
     
-    static let newBookReferenceTitle = WMFLocalizedString("significant-events-new-book-reference-title",
-    value:"Book", comment: "Header text for a new book reference type that was added in a significant events revision cell.")
+    static let newBookReferenceTitle = WMFLocalizedString("aaald-new-book-reference-title",
+    value:"Book", comment: "Header text for a new book reference type that was added in an article as a living document cell.")
     
-    static let newJournalReferenceTitle = WMFLocalizedString("significant-events-new-journal-reference-title",
-                                                             value:"Journal", comment: "Header text for a new journal reference type that was added in a significant events revision cell.")
+    static let newJournalReferenceTitle = WMFLocalizedString("aaald-new-journal-reference-title",
+                                                             value:"Journal", comment: "Header text for a new journal reference type that was added in an article as a living document cell.")
     
-    static let newNewsReferenceTitle = WMFLocalizedString("significant-events-new-news-reference-title",
-                                                          value:"News", comment: "Header text for a new news reference type that was added in a significant events revision cell.")
+    static let newNewsReferenceTitle = WMFLocalizedString("aaald-new-news-reference-title",
+                                                          value:"News", comment: "Header text for a new news reference type that was added in an article as a living document cell.")
     
-    static let newWebsiteReferenceTitle = WMFLocalizedString("significant-events-new-website-reference-title",
-                                                             value:"Website", comment: "Header text for a new website reference type that was added in a significant events revision cell.")
+    static let newWebsiteReferenceTitle = WMFLocalizedString("aaald-new-website-reference-title",
+                                                             value:"Website", comment: "Header text for a new website reference type that was added in an article as an living document cell.")
     
-    static let newJournalReferenceVolume = WMFLocalizedString("significant-events-new-journal-reference-volume",
-    value:"Volume %1$@: ", comment: "Volume text for a new journal reference type that was added in a significant events revision cell. %1$@ is replaced by the journal volume number of the reference.")
+    static let newJournalReferenceVolume = WMFLocalizedString("aaald-new-journal-reference-volume",
+    value:"Volume %1$@: ", comment: "Volume text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the journal volume number of the reference.")
     
-    static let newJournalReferenceDatabase = WMFLocalizedString("significant-events-new-journal-reference-database",
-    value:"via %1$@ ", comment: "Database text for a new journal reference type that was added in a significant events revision cell. %1$@ is replaced by the database volume number of the reference.")
+    static let newJournalReferenceDatabase = WMFLocalizedString("aaald-new-journal-reference-database",
+    value:"via %1$@ ", comment: "Database text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the database volume number of the reference.")
     
-    static let newWebsiteReferenceArchiveUrlText =  WMFLocalizedString("significant-events-new-website-reference-archive-url-text",
-    value:"Archive.org URL", comment: "Archive.org url text for a new website reference type that was added in a significant events revision cell. This will be turned into a link that goes to the reference's archive.org url.")
+    static let newWebsiteReferenceArchiveUrlText =  WMFLocalizedString("aaald-new-website-reference-archive-url-text",
+    value:"Archive.org URL", comment: "Archive.org url text for a new website reference type that was added in an article as a living document cell. This will be turned into a link that goes to the reference's archive.org url.")
     
-    static let newWebsiteReferenceArchiveDateText = WMFLocalizedString("significant-events-new-website-reference-archive-date-text",
-    value:"from the original on %1$@", comment: "Text in a new website reference in a significant events timeline cell that describes when the reference was retrieved for Archive.org. %1$@ is replaced with the reference's archive date.")
+    static let newWebsiteReferenceArchiveDateText = WMFLocalizedString("aaald-new-website-reference-archive-date-text",
+    value:"from the original on %1$@", comment: "Text in a new website reference in an article as a living document cell that describes when the reference was retrieved for Archive.org. %1$@ is replaced with the reference's archive date.")
     
-    static let newNewsReferenceRetrievedDate = WMFLocalizedString("significant-events-new-news-reference-retrieved-date",
-    value:"Retrieved %1$@", comment: "Retrieved date text for a new news reference type that was added in a significant events revision cell. %1$@ is replaced by the reference's retrieved date.")
+    static let newNewsReferenceRetrievedDate = WMFLocalizedString("aaald-new-news-reference-retrieved-date",
+    value:"Retrieved %1$@", comment: "Retrieved date text for a new news reference type that was added in an article as a living document cell. %1$@ is replaced by the reference's retrieved date.")
     
     //tonitodo: this fails with EXC_BADACCESS when I try to use plural edits
     static let revisionUserInfo = WMFLocalizedString(
-    "significant-events-revision-userInfo",
-    value:"Edit by %1$@ (%2$@ edits)", comment: "Text describing details about the user that made a significant revision in the significant events view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")
+    "aaald-revision-userInfo",
+    value:"Edit by %1$@ (%2$@ edits)", comment: "Text describing details about the user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")
     
-    static let revisionUserInfoAnonymous = WMFLocalizedString("significant-events-revision-userInfo-anonymous",
-    value:"Edit by %1$@", comment: "Text describing details about the anonyous user that made a significant revision in the significant events view. %1$@ is replaced by the editor's anonymous name.")
+    static let revisionUserInfoAnonymous = WMFLocalizedString("aaald-revision-userInfo-anonymous",
+    value:"Edit by %1$@", comment: "Text describing details about the anonyous user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor's anonymous name.")
     
-    static let significantEventsSummaryTitle = WMFLocalizedString(
-        "significant-events-summary-title",
+    static let articleAsLivingDocSummaryTitle = WMFLocalizedString(
+        "aaald-summary-title",
         value:"{{PLURAL:%1$d|0=0 changes|%1$d change|%1$d changes}} by {{PLURAL:%2$d|0=0 editors|%2$d editor|%2$d editors}} in {{PLURAL:%3$d|0=0 days|%3$d day|%3$d days}}",
-        comment:"Describes how many small changes are batched together in the significant events timeline view. %1$d is replaced by the number of accumulated changes editors made and %2$d is replaced with relative timeframe date that the edit counting started (e.g. 10 days ago).")
+        comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced by the number of accumulated changes editors made and %2$d is replaced with relative timeframe date that the edit counting started (e.g. 10 days ago).")
 }
 

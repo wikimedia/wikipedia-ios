@@ -47,44 +47,44 @@ class ArticleViewController: ViewController, HintPresenting {
     let configuration = Configuration.current
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
-    private lazy var significantEventsController = SignificantEventsController()
+    private lazy var articleAsLivingDocController = ArticleAsLivingDocController()
     
-    private var _significantEventsViewModel: SignificantEventsViewModel?
-    internal var significantEventsViewModel: SignificantEventsViewModel? {
+    private var _articleAsLivingDocViewModel: ArticleAsLivingDocViewModel?
+    internal var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         get {
-            return _significantEventsViewModel
+            return _articleAsLivingDocViewModel
         }
         set {
             if #available(iOS 13.0, *) {
                 guard let newValue = newValue else {
                     //should only occur when resetting to nil shortly before a pull to refresh was triggered.
-                    _significantEventsViewModel = nil
+                    _articleAsLivingDocViewModel = nil
                     return
                 }
                 
-                if let oldModel = _significantEventsViewModel {
+                if let oldModel = _articleAsLivingDocViewModel {
                     // should only be triggered via paging.
                     // update everything except sha and htmlInsert and
                     // append sections instead of replace sections
                     let appendedSections = oldModel.sections + newValue.sections
                     let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
-                    _significantEventsViewModel = SignificantEventsViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
-                    significantEventsViewController?.appendSections(newValue.sections)
+                    _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
+                    articleAsLivingDocViewController?.appendSections(newValue.sections)
                     
                 } else {
                     // should only be triggered via pull to refresh or fresh load. update everything
-                    _significantEventsViewModel = newValue
+                    _articleAsLivingDocViewModel = newValue
                     //note, we aren't updating data source in VC here. So far we won't reach this situation where a refresh
                     //is triggered while the events modal is still on screen, so not needed at this point.
                 }
             }
         }
     }
-    private var significantEventsEditMetrics: [NSNumber]?
+    private var articleAsLivingDocEditMetrics: [NSNumber]?
     
     //making lazy to be able to limit just this property to 13+
     @available(iOS 13.0, *)
-    private lazy var significantEventsViewController: SignificantEventsViewController? = {
+    private lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
         return nil
     }()
 
@@ -286,7 +286,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     internal func updateArticleMargins() {
-        if (shouldShowSignificantEvents) {
+        if (shouldShowArticleAsLivingDoc) {
             var margins = articleMargins
             margins.left = 0
             margins.right = 0
@@ -435,7 +435,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return nil
     }
     
-    var shouldAttemptToShowSignificantEvents: Bool {
+    var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
         //todo: need A/B test logic (falls in test and visiting article in allowed list)
         let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
@@ -447,21 +447,21 @@ class ArticleViewController: ViewController, HintPresenting {
             isENWikipediaArticle = false
         }
         
-        let shouldAttemptToShowSignificantEvents: Bool
+        let shouldAttemptToShowArticleAsLivingDoc: Bool
         if let _ = articleTitleAndSiteURL(),
            !isDeviceRTL && isENWikipediaArticle {
-            shouldAttemptToShowSignificantEvents = true
+            shouldAttemptToShowArticleAsLivingDoc = true
         } else {
-            shouldAttemptToShowSignificantEvents = false
+            shouldAttemptToShowArticleAsLivingDoc = false
         }
         
-        return shouldAttemptToShowSignificantEvents
+        return shouldAttemptToShowArticleAsLivingDoc
     }
     
-    var shouldShowSignificantEvents: Bool {
-        if let significantEventsViewModel = significantEventsViewModel,
-                significantEventsViewModel.sections.count > 0,
-                shouldAttemptToShowSignificantEvents {
+    var shouldShowArticleAsLivingDoc: Bool {
+        if let articleAsLivingDocViewModel = articleAsLivingDocViewModel,
+           articleAsLivingDocViewModel.sections.count > 0,
+           shouldAttemptToShowArticleAsLivingDoc {
             return true
         }
         
@@ -486,9 +486,9 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.setupFooter()
             self.shareIfNecessary()
-            if let htmlSnippets = self.significantEventsViewModel?.articleInsertHtmlSnippets,
-               self.shouldShowSignificantEvents {
-                self.messagingController.injectSignificantEventsContent(articleInsertHtmlSnippets: htmlSnippets) { (success) in
+            if let htmlSnippets = self.articleAsLivingDocViewModel?.articleInsertHtmlSnippets,
+               self.shouldShowArticleAsLivingDoc {
+                self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets) { (success) in
                     if (success) {
                         self.updateArticleMargins()
                     }
@@ -535,56 +535,56 @@ class ArticleViewController: ViewController, HintPresenting {
         // triggered via initial load or pull to refresh
         
         guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
-              shouldAttemptToShowSignificantEvents else {
+              shouldAttemptToShowArticleAsLivingDoc else {
             return
         }
         
         willLoadBlock()
         
-        significantEventsController.fetchSignificantEvents(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
+        articleAsLivingDocController.fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
             defer {
                 didLoadBlock()
             }
             switch result {
-            case .success(let significantEventsViewModel):
-                self.significantEventsViewModel = significantEventsViewModel
+            case .success(let articleAsLivingDocViewModel):
+                self.articleAsLivingDocViewModel = articleAsLivingDocViewModel
             case .failure(let error):
-                DDLogDebug("Failure getting significant events models: \(error)")
+                DDLogDebug("Failure getting article as living doc view models: \(error)")
             }
         }
         
         // purposefully not calling willLoadBlock or didLoadBlock here
         // don't want to block article loading on yet another call
         // if it seems to be a problem we'll add it back in.
-        significantEventsController.fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: articleURL) { [weak self] result in
+        articleAsLivingDocController.fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: articleURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
                     return
                 }
                 switch result {
                 case .failure(let error):
-                    self.significantEventsEditMetrics = nil
-                    DDLogDebug("Error fetching edit metrics for significant events: \(error)")
+                    self.articleAsLivingDocEditMetrics = nil
+                    DDLogDebug("Error fetching edit metrics for article as a living document: \(error)")
                 case .success(let timeseriesOfEditCounts):
-                    self.significantEventsEditMetrics = timeseriesOfEditCounts
+                    self.articleAsLivingDocEditMetrics = timeseriesOfEditCounts
                 }
             }
         }
     }
     
-    private func presentSignificantEvents() {
+    private func presentArticleAsLivingDoc() {
         if #available(iOS 13.0, *) {
-            if let significantEventsViewModel = significantEventsViewModel {
+            if let articleAsLivingDocViewModel = articleAsLivingDocViewModel {
                 
-                significantEventsViewController = SignificantEventsViewController(significantEventsViewModel: significantEventsViewModel, articleTitle: article.displayTitle, editMetrics: significantEventsEditMetrics, theme: theme, delegate: self)
-                    significantEventsViewController?.apply(theme: theme)
+                articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleAsLivingDocViewModel: articleAsLivingDocViewModel, articleTitle: article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: theme, delegate: self)
+                articleAsLivingDocViewController?.apply(theme: theme)
                 
-                if let significantEventsViewController = significantEventsViewController {
-                    let navigationController = WMFThemeableNavigationController(rootViewController: significantEventsViewController, theme: theme)
+                if let articleAsLivingDocViewController = articleAsLivingDocViewController {
+                    let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: theme)
                     navigationController.modalPresentationStyle = .pageSheet
                     navigationController.isNavigationBarHidden = true
                     present(navigationController, animated: true) {
-                        significantEventsViewController.addInitialSections(sections: significantEventsViewModel.sections)
+                        articleAsLivingDocViewController.addInitialSections(sections: articleAsLivingDocViewModel.sections)
                     }
                 }
             }
@@ -818,7 +818,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
-        significantEventsViewModel = nil
+        articleAsLivingDocViewModel = nil
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -852,7 +852,7 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         if anchor == "significant-events-read-more" {
-            presentSignificantEvents()
+            presentArticleAsLivingDoc()
         } else {
             scroll(to: anchor, animated: true)
         }
@@ -1070,7 +1070,7 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
-        messagingController.shouldAttemptToShowSignificantEvents = shouldAttemptToShowSignificantEvents
+        messagingController.shouldAttemptToShowArticleAsLivingDoc = shouldAttemptToShowArticleAsLivingDoc
         messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
@@ -1239,21 +1239,20 @@ extension ViewController  { // Putting extension on ViewController rather than A
     }
 }
 
-extension ArticleViewController: SignificantEventsViewControllerDelegate {
+extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
     func fetchNextPage(nextRvStartId: UInt) {
         if #available(iOS 13.0, *) {
             guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
-                  shouldAttemptToShowSignificantEvents else {
+                  shouldAttemptToShowArticleAsLivingDoc else {
                 return
             }
             
-            significantEventsController.fetchSignificantEvents(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
+            articleAsLivingDocController.fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
                 switch result {
                 case .failure(let error):
                     DDLogDebug("Failure fetching next significant events page \(error)")
-                case .success(let significantEventsViewModel):
-                    self.significantEventsViewModel = significantEventsViewModel
-                    self.significantEventsViewController?.reloadData()
+                case .success(let articleAsLivingDocViewModel):
+                    self.articleAsLivingDocViewModel = articleAsLivingDocViewModel
                 }
             }
         }

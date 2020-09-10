@@ -1,13 +1,13 @@
 
 import UIKit
 
-class SignificantEventsSmallEventCollectionViewCell: CollectionViewCell {
+class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     private let descriptionTextView = UITextView()
     private let timelineView = TimelineView()
 
     private var theme: Theme = Theme.standard
     
-    private var smallEvent: SmallEventViewModel?
+    private var smallEvent: ArticleAsLivingDocViewModel.Event.Small?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,7 +52,7 @@ class SignificantEventsSmallEventCollectionViewCell: CollectionViewCell {
         return CGSize(width: size.width, height: finalHeight)
     }
     
-    func configure(viewModel: SmallEventViewModel, theme: Theme) {
+    func configure(viewModel: ArticleAsLivingDocViewModel.Event.Small, theme: Theme) {
         
         self.smallEvent = viewModel
         
@@ -74,7 +74,7 @@ class SignificantEventsSmallEventCollectionViewCell: CollectionViewCell {
     }
 }
 
-extension SignificantEventsSmallEventCollectionViewCell: Themeable {
+extension ArticleAsLivingDocSmallEventCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         descriptionTextView.backgroundColor = theme.colors.paperBackground

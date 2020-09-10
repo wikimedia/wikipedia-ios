@@ -1,9 +1,9 @@
 import UIKit
 
-class SignificantEventsReferenceCollectionViewCell: SignificantEventsHorizontallyScrollingCell {
+class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCell {
     
     private let titleLabel = UILabel()
-    private var reference: LargeEventViewModel.Reference? = nil
+    private var reference: ArticleAsLivingDocViewModel.Event.Large.Reference? = nil
     private var iconTitleBadge: IconTitleBadge?
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -57,7 +57,7 @@ class SignificantEventsReferenceCollectionViewCell: SignificantEventsHorizontall
         titleLabel.text = nil
     }
     
-    private func createIconTitleBadgeForReference(reference: LargeEventViewModel.Reference) {
+    private func createIconTitleBadgeForReference(reference: ArticleAsLivingDocViewModel.Event.Large.Reference) {
         guard let year = reference.accessDateYearDisplay else {
             return
         }
@@ -68,7 +68,7 @@ class SignificantEventsReferenceCollectionViewCell: SignificantEventsHorizontall
         self.iconTitleBadge = iconTitleBadge
     }
     
-    override func configure(change: LargeEventViewModel.ChangeDetail, theme: Theme, delegate: SignificantEventsHorizontallyScrollingCellDelegate) {
+    override func configure(change: ArticleAsLivingDocViewModel.Event.Large.ChangeDetail, theme: Theme, delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate) {
         
         super.configure(change: change, theme: theme, delegate: delegate)
         

@@ -2,91 +2,31 @@
 import UIKit
 import WMF
 
-protocol SignificantEventsViewControllerDelegate: class {
+protocol ArticleAsLivingDocViewControllerDelegate: class {
     func fetchNextPage(nextRvStartId: UInt)
-    var significantEventsViewModel: SignificantEventsViewModel? {
+    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         get
     }
 }
 
-extension LargeEventViewModel: Equatable {
-    public static func == (lhs: LargeEventViewModel, rhs: LargeEventViewModel) -> Bool {
-        return lhs.revId == rhs.revId
-    }
-}
-
-extension SectionHeaderViewModel: Hashable {
-    public static func == (lhs: SectionHeaderViewModel, rhs: SectionHeaderViewModel) -> Bool {
-        return lhs.subtitleTimestampDisplay == rhs.subtitleTimestampDisplay
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(subtitleTimestampDisplay)
-    }
-}
-
-extension SmallEventViewModel: Equatable {
-    public static func == (lhs: SmallEventViewModel, rhs: SmallEventViewModel) -> Bool {
-        return lhs.smallChanges == rhs.smallChanges
-    }
-}
-
-extension SignificantEvents.Event.Small: Equatable {
-    public static func == (lhs: SignificantEvents.Event.Small, rhs: SignificantEvents.Event.Small) -> Bool {
-        return lhs.revId == rhs.revId
-    }
-}
-
-extension TimelineEventViewModel: Hashable {
-    public static func == (lhs: TimelineEventViewModel, rhs: TimelineEventViewModel) -> Bool {
-        switch lhs {
-        case .largeEvent(let leftLargeEvent):
-            switch rhs {
-            case .largeEvent(let rightLargeEvent):
-                return leftLargeEvent == rightLargeEvent
-            default:
-                return false
-            }
-        case .smallEvent(let leftSmallEvent):
-            switch rhs {
-            case .smallEvent(let rightSmallEvent):
-                return leftSmallEvent == rightSmallEvent
-            default:
-                return false
-            }
-        
-        }
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        switch self {
-        case .smallEvent(let smallEvent):
-            smallEvent.smallChanges.forEach { hasher.combine($0.revId) }
-        case .largeEvent(let largeEvent):
-            hasher.combine(largeEvent.revId)
-        }
-    }
-}
-
 @available(iOS 13.0, *)
-class SignificantEventsViewController: ColumnarCollectionViewController {
+class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     
-    private let significantEventsController = SignificantEventsController()
     private let articleTitle: String?
-    private var headerView: SignificantEventsHeaderView?
-    private let headerText = WMFLocalizedString("significant-events-header-text", value: "Recent Changes", comment: "Header text of significant changes view.")
+    private var headerView: ArticleAsLivingDocHeaderView?
+    private let headerText = WMFLocalizedString("aaald-header-text", value: "Recent Changes", comment: "Header text of article as a living document view.")
     private let editMetrics: [NSNumber]?
-    private weak var delegate: SignificantEventsViewControllerDelegate?
+    private weak var delegate: ArticleAsLivingDocViewControllerDelegate?
     
-    private var dataSource: UICollectionViewDiffableDataSource<SectionHeaderViewModel, TimelineEventViewModel>!
+    private var dataSource: UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>!
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
     }
     
-    required init?(significantEventsViewModel: SignificantEventsViewModel, articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current, delegate: SignificantEventsViewControllerDelegate) {
+    required init?(articleAsLivingDocViewModel: ArticleAsLivingDocViewModel, articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current, delegate: ArticleAsLivingDocViewControllerDelegate) {
         
-        guard let _ = delegate.significantEventsViewModel else {
+        guard let _ = delegate.articleAsLivingDocViewModel else {
             return nil
         }
         
@@ -96,12 +36,12 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         self.theme = theme
         self.delegate = delegate
         
-        dataSource = UICollectionViewDiffableDataSource<SectionHeaderViewModel, TimelineEventViewModel>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: TimelineEventViewModel) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
             
             let cell: CollectionViewCell
             switch event {
-            case .largeEvent(let largeEvent):
-                guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.identifier, for: indexPath) as? SignificantEventsLargeEventCollectionViewCell else {
+            case .large(let largeEvent):
+                guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocLargeEventCollectionViewCell else {
                     return nil
                 }
                 
@@ -109,8 +49,8 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
                 cell = largeEventCell
                 //tonitodo: look into this commented out need
                 //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
-            case .smallEvent(let smallEvent):
-                guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsSmallEventCollectionViewCell.identifier, for: indexPath) as? SignificantEventsSmallEventCollectionViewCell else {
+            case .small(let smallEvent):
+                guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
                     return nil
                 }
                 
@@ -136,7 +76,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             let section = self.dataSource.snapshot()
                 .sectionIdentifiers[indexPath.section]
             
-            guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier, for: indexPath) as? SignificantEventsSectionHeaderView else {
+            guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, for: indexPath) as? ArticleAsLivingDocSectionHeaderView else {
                 return UICollectionReusableView()
             }
             
@@ -146,24 +86,24 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         }
     }
     
-    func addInitialSections(sections: [SectionHeaderViewModel]) {
-        var snapshot = NSDiffableDataSourceSnapshot<SectionHeaderViewModel, TimelineEventViewModel>()
+    func addInitialSections(sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
+        var snapshot = NSDiffableDataSourceSnapshot<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>()
         snapshot.appendSections(sections)
         for section in sections {
-            snapshot.appendItems(section.events, toSection: section)
+            snapshot.appendItems(section.typedEvents, toSection: section)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    func appendSections(_ sections: [SectionHeaderViewModel]) {
+    func appendSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
         
         var currentSnapshot = dataSource.snapshot()
         
-        var existingSections: [SectionHeaderViewModel] = []
+        var existingSections: [ArticleAsLivingDocViewModel.SectionHeader] = []
         for currentSection in currentSnapshot.sectionIdentifiers {
             for proposedSection in sections {
                 if currentSection == proposedSection {
-                    currentSnapshot.appendItems(proposedSection.events, toSection: currentSection)
+                    currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
                     existingSections.append(proposedSection)
                 }
             }
@@ -172,7 +112,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         for section in sections {
             if !existingSections.contains(section) {
                 currentSnapshot.appendSections([section])
-                currentSnapshot.appendItems(section.events, toSection: section)
+                currentSnapshot.appendItems(section.typedEvents, toSection: section)
             }
         }
         
@@ -189,9 +129,9 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         
         super.viewDidLoad()
 
-        layoutManager.register(SignificantEventsLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(SignificantEventsSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsSmallEventCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(SignificantEventsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleAsLivingDocLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleAsLivingDocSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleAsLivingDocSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, addPlaceholder: true)
         
         self.title = headerText
         
@@ -201,7 +141,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     private func setupNavigationBar() {
         
         navigationMode = .forceBar
-        if let headerView = SignificantEventsHeaderView.wmf_viewFromClassNib() {
+        if let headerView = ArticleAsLivingDocHeaderView.wmf_viewFromClassNib() {
             self.headerView = headerView
             configureHeaderView(headerView)
             navigationBar.isBarHidingEnabled = false
@@ -224,14 +164,14 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
-    private func configureHeaderView(_ headerView: SignificantEventsHeaderView) {
+    private func configureHeaderView(_ headerView: ArticleAsLivingDocHeaderView) {
         
-        guard let significantEventsViewModel = delegate?.significantEventsViewModel else {
+        guard let articleAsLivingDocViewModel = delegate?.articleAsLivingDocViewModel else {
             return
         }
         
         let headerText = self.headerText.uppercased(with: NSLocale.current)
-        headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: significantEventsViewModel.summaryText, editMetrics: editMetrics, theme: theme)
+        headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: articleAsLivingDocViewModel.summaryText, editMetrics: editMetrics, theme: theme)
         headerView.apply(theme: theme)
     }
     
@@ -242,7 +182,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         let section = self.dataSource.snapshot()
             .sectionIdentifiers[section]
         
-        guard let sectionHeaderView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier) as? SignificantEventsSectionHeaderView else {
+        guard let sectionHeaderView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier) as? ArticleAsLivingDocSectionHeaderView else {
             return estimate
         }
         
@@ -262,16 +202,16 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         
         let cell: CollectionViewCell
         switch event {
-        case .largeEvent(let largeEvent):
-            guard let largeEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.identifier) as? SignificantEventsLargeEventCollectionViewCell else {
+        case .large(let largeEvent):
+            guard let largeEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier) as? ArticleAsLivingDocLargeEventCollectionViewCell else {
                 return estimate
             }
             
             
             largeEventCell.configure(with: largeEvent, theme: theme)
             cell = largeEventCell
-        case .smallEvent(let smallEvent):
-            guard let smallEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsSmallEventCollectionViewCell.identifier) as? SignificantEventsSmallEventCollectionViewCell else {
+        case .small(let smallEvent):
+            guard let smallEventCell = layoutManager.placeholder(forCellWithReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
                 return estimate
             }
             
@@ -288,7 +228,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        guard let significantEventsViewModel = delegate?.significantEventsViewModel else {
+        guard let articleAsLivingDocViewModel = delegate?.articleAsLivingDocViewModel else {
             return
         }
         
@@ -297,7 +237,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         
         if indexPath.section == numSections - 1 &&
             indexPath.item == numEvents - 1 {
-            guard let nextRvStartId = significantEventsViewModel.nextRvStartId,
+            guard let nextRvStartId = articleAsLivingDocViewModel.nextRvStartId,
                   nextRvStartId != 0 else {
                 return
             }

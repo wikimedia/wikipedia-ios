@@ -1,14 +1,17 @@
 
 import Foundation
 
-public struct SignificantEventsViewModel {
+//tonitodo: It makes more sense for this to live in the app. Can we move out of WMF?
+
+public struct ArticleAsLivingDocViewModel {
+    
     public let nextRvStartId: UInt?
     public let sha: String?
-    public let sections: [SectionHeaderViewModel]
+    public let sections: [SectionHeader]
     public let articleInsertHtmlSnippets: [String]
     public let summaryText: String?
     
-    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeaderViewModel], summaryText: String?, articleInsertHtmlSnippets: [String]) {
+    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String]) {
         self.nextRvStartId = nextRvStartId
         self.sha = sha
         self.sections = sections
@@ -36,7 +39,7 @@ public struct SignificantEventsViewModel {
             let unitFlags:Set<Calendar.Component> = [.day]
             let components = calendar.dateComponents(unitFlags, from: earliestDate, to: currentDate)
             if let numberOfDays = components.day {
-                summaryText = String.localizedStringWithFormat(CommonStrings.significantEventsSummaryTitle,
+                summaryText = String.localizedStringWithFormat(CommonStrings.articleAsLivingDocSummaryTitle,
                                                                        significantEvents.summary.numChanges,
                                                                        significantEvents.summary.numUsers,
                                                                        numberOfDays)
@@ -45,21 +48,20 @@ public struct SignificantEventsViewModel {
         self.summaryText = summaryText
         
         // loop through typed events, turn into view models and segment off into sections
-        
-        var currentSectionEvents: [TimelineEventViewModel] = []
-        var sections: [SectionHeaderViewModel] = []
+        var currentSectionEvents: [TypedEvent] = []
+        var sections: [SectionHeader] = []
         
         var maybeCurrentTimestamp: Date?
         var maybePreviousTimestamp: Date?
         
         for originalEvent in significantEvents.typedEvents {
             
-            var maybeEvent: TimelineEventViewModel? = nil
-            if let smallEventViewModel = SmallEventViewModel(typedEvents: [originalEvent]) {
-                maybeEvent = .smallEvent(smallEventViewModel)
+            var maybeEvent: TypedEvent? = nil
+            if let smallEventViewModel = Event.Small(typedEvents: [originalEvent]) {
+                maybeEvent = .small(smallEventViewModel)
             } else
-            if let largeEventViewModel = LargeEventViewModel(typedEvent: originalEvent) {
-                maybeEvent = .largeEvent(largeEventViewModel)
+            if let largeEventViewModel = Event.Large(typedEvent: originalEvent) {
+                maybeEvent = .large(largeEventViewModel)
             }
             
             guard let event = maybeEvent else {
@@ -87,7 +89,7 @@ public struct SignificantEventsViewModel {
                 let calendar = NSCalendar.current
                 if !calendar.isDate(previousTimestamp, inSameDayAs: currentTimestamp) {
                     //multiple days have passed since last event, package up current sections into new section
-                    let section = SectionHeaderViewModel(timestamp: previousTimestamp, events: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
+                    let section = SectionHeader(timestamp: previousTimestamp, typedEvents: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
                     sections.append(section)
                     currentSectionEvents.removeAll()
                     currentSectionEvents.append(event)
@@ -104,24 +106,24 @@ public struct SignificantEventsViewModel {
     
         //capture any final currentSectionEvents into new section
         if let currentTimestamp = maybeCurrentTimestamp {
-            let section = SectionHeaderViewModel(timestamp: currentTimestamp, events: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
+            let section = SectionHeader(timestamp: currentTimestamp, typedEvents: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
             sections.append(section)
             currentSectionEvents.removeAll()
         }
         
         //collapse sibling small event view models
-        var finalSections: [SectionHeaderViewModel] = []
+        var finalSections: [SectionHeader] = []
         for section in sections {
-            var collapsedEventViewModels: [TimelineEventViewModel] = []
+            var collapsedEventViewModels: [TypedEvent] = []
             var currentSmallChanges: [SignificantEvents.Event.Small] = []
-            for event in section.events {
+            for event in section.typedEvents {
                 switch event {
-                case .smallEvent(let smallEventViewModel):
+                case .small(let smallEventViewModel):
                     currentSmallChanges.append(contentsOf: smallEventViewModel.smallChanges)
                 default:
                     if currentSmallChanges.count > 0 {
                         
-                        collapsedEventViewModels.append(.smallEvent(SmallEventViewModel(smallChanges: currentSmallChanges)))
+                        collapsedEventViewModels.append(.small(Event.Small(smallChanges: currentSmallChanges)))
                         currentSmallChanges.removeAll()
                     }
                     collapsedEventViewModels.append(event)
@@ -131,11 +133,11 @@ public struct SignificantEventsViewModel {
             
             //add any final small changes
             if currentSmallChanges.count > 0 {
-                collapsedEventViewModels.append(.smallEvent(SmallEventViewModel(smallChanges: currentSmallChanges)))
+                collapsedEventViewModels.append(.small(Event.Small(smallChanges: currentSmallChanges)))
                 currentSmallChanges.removeAll()
             }
             
-            let collapsedSection = SectionHeaderViewModel(timestamp: section.timestamp, events: collapsedEventViewModels, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
+            let collapsedSection = SectionHeader(timestamp: section.timestamp, typedEvents: collapsedEventViewModels, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
             finalSections.append(collapsedSection)
         }
             
@@ -146,9 +148,9 @@ public struct SignificantEventsViewModel {
         let htmlSnippetCountMax = 3
         
         outerLoop: for section in finalSections {
-            for event in section.events {
+            for event in section.typedEvents {
                 switch event {
-                case .largeEvent(let largeEvent):
+                case .large(let largeEvent):
                     if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0) {
                         if articleInsertHtmlSnippets.count < htmlSnippetCountMax {
                             articleInsertHtmlSnippets.append(htmlSnippet)
@@ -166,54 +168,214 @@ public struct SignificantEventsViewModel {
     }
 }
 
-public enum TimelineEventViewModel {
-    case smallEvent(SmallEventViewModel)
-    case largeEvent(LargeEventViewModel)
-}
+//MARK: SectionHeader
 
-public class SectionHeaderViewModel {
-    public let title: String
-    public let subtitleTimestampDisplay: String
-    public let timestamp: Date
-    public let events: [TimelineEventViewModel]
-    init(timestamp: Date, events: [TimelineEventViewModel], subtitleDateFormatter: DateFormatter) {
-        self.title = (timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
-        self.subtitleTimestampDisplay = subtitleDateFormatter.string(from: timestamp)
-        self.timestamp = timestamp
-        self.events = events
+public extension ArticleAsLivingDocViewModel {
+    
+    class SectionHeader: Hashable {
+        public let title: String
+        public let subtitleTimestampDisplay: String
+        public let timestamp: Date
+        public let typedEvents: [TypedEvent]
+        init(timestamp: Date, typedEvents: [TypedEvent], subtitleDateFormatter: DateFormatter) {
+            self.title = (timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
+            self.subtitleTimestampDisplay = subtitleDateFormatter.string(from: timestamp)
+            self.timestamp = timestamp
+            self.typedEvents = typedEvents
+        }
+        
+        public static func == (lhs: ArticleAsLivingDocViewModel.SectionHeader, rhs: ArticleAsLivingDocViewModel.SectionHeader) -> Bool {
+            return lhs.subtitleTimestampDisplay == rhs.subtitleTimestampDisplay
+        }
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(subtitleTimestampDisplay)
+        }
     }
 }
 
-public class SmallEventViewModel {
+//MARK: Events
+
+public extension ArticleAsLivingDocViewModel {
     
-    public private(set) var eventDescription: NSAttributedString?
-    private var lastTraitCollection: UITraitCollection?
-    public let smallChanges: [SignificantEvents.Event.Small]
-    
-    init?(typedEvents: [SignificantEvents.TypedEvent]) {
+    enum TypedEvent: Hashable {
+        case small(Event.Small)
+        case large(Event.Large)
         
-        var smallChanges: [SignificantEvents.Event.Small] = []
-        for event in typedEvents {
-            switch event {
-            case .small(let smallChange):
-                smallChanges.append(smallChange)
-            default:
-                return nil
+        public static func == (lhs: ArticleAsLivingDocViewModel.TypedEvent, rhs: ArticleAsLivingDocViewModel.TypedEvent) -> Bool {
+            switch lhs {
+            case .large(let leftLargeEvent):
+                switch rhs {
+                case .large(let rightLargeEvent):
+                    return leftLargeEvent == rightLargeEvent
+                default:
+                    return false
+                }
+            case .small(let leftSmallEvent):
+                switch rhs {
+                case .small(let rightSmallEvent):
+                    return leftSmallEvent == rightSmallEvent
+                default:
+                    return false
+                }
+            
             }
         }
         
-        guard smallChanges.count > 0 else {
-            return nil
+        public func hash(into hasher: inout Hasher) {
+            switch self {
+            case .small(let smallEvent):
+                smallEvent.smallChanges.forEach { hasher.combine($0.revId) }
+            case .large(let largeEvent):
+                hasher.combine(largeEvent.revId)
+            }
+        }
+    }
+}
+
+public extension ArticleAsLivingDocViewModel {
+    
+    struct Event {
+        
+        public class Small: Equatable {
+            
+            public private(set) var eventDescription: NSAttributedString?
+            private var lastTraitCollection: UITraitCollection?
+            public let smallChanges: [SignificantEvents.Event.Small]
+            
+            init?(typedEvents: [SignificantEvents.TypedEvent]) {
+                
+                var smallChanges: [SignificantEvents.Event.Small] = []
+                for event in typedEvents {
+                    switch event {
+                    case .small(let smallChange):
+                        smallChanges.append(smallChange)
+                    default:
+                        return nil
+                    }
+                }
+                
+                guard smallChanges.count > 0 else {
+                    return nil
+                }
+                
+                self.smallChanges = smallChanges
+            }
+            
+            init(smallChanges: [SignificantEvents.Event.Small]) {
+                self.smallChanges = smallChanges
+            }
+            
+            public static func == (lhs: ArticleAsLivingDocViewModel.Event.Small, rhs: ArticleAsLivingDocViewModel.Event.Small) -> Bool {
+                return lhs.smallChanges == rhs.smallChanges
+            }
         }
         
-        self.smallChanges = smallChanges
+        public class Large: Equatable {
+            
+            public enum ChangeDetail {
+                case snippet(Snippet) //use for a basic horizontally scrolling snippet cell (will contain talk page topic snippets, added text snippets, article description updated snippets)
+                case reference(Reference)
+            }
+            
+            public struct Snippet {
+                public let displayText: NSAttributedString
+            }
+            
+            public struct Reference {
+                public let type: String
+                public let description: NSAttributedString
+                public let accessDateYearDisplay: String?
+            }
+            
+            enum UserType {
+                case standard
+                case anonymous
+                case bot
+            }
+            
+            public enum ButtonsToDisplay {
+                case thankAndViewChanges(userId: UInt, revisionId: UInt)
+                case viewDiscussion(sectionName: String)
+            }
+            
+            private let typedEvent: SignificantEvents.TypedEvent
+            private(set) var eventDescription: NSAttributedString?
+            private(set) var changeDetails: [ChangeDetail]?
+            private(set) var displayTimestamp: String?
+            private(set) var userInfo: NSAttributedString?
+            let userId: UInt
+            let userType: UserType
+            public let buttonsToDisplay: ButtonsToDisplay
+            private var lastTraitCollection: UITraitCollection?
+            public var revId: UInt = 0
+            
+            init?(typedEvent: SignificantEvents.TypedEvent) {
+                
+                let userGroups: [String]?
+                switch typedEvent {
+                case .newTalkPageTopic(let newTalkPageTopic):
+                    self.userId = newTalkPageTopic.userId
+                    userGroups = newTalkPageTopic.userGroups
+                    self.buttonsToDisplay = .viewDiscussion(sectionName: newTalkPageTopic.section)
+                case .large(let largeChange):
+                    self.userId = largeChange.userId
+                    userGroups = largeChange.userGroups
+                    self.buttonsToDisplay = .thankAndViewChanges(userId: largeChange.userId, revisionId: largeChange.revId)
+                case .vandalismRevert(let vandalismRevert):
+                    self.userId = vandalismRevert.userId
+                    userGroups = vandalismRevert.userGroups
+                    self.buttonsToDisplay = .thankAndViewChanges(userId: vandalismRevert.userId, revisionId: vandalismRevert.revId)
+                case .small:
+                    return nil
+                }
+                
+                if let userGroups = userGroups,
+                   userGroups.contains("bot") {
+                    userType = .bot
+                } else if self.userId == 0 {
+                    userType = .anonymous
+                } else {
+                    userType = .standard
+                }
+                
+                self.typedEvent = typedEvent
+                switch typedEvent {
+                case .large(let largeChange):
+                    revId = largeChange.revId
+                case .newTalkPageTopic(let newTalkPageTopic):
+                    revId = newTalkPageTopic.revId
+                case .vandalismRevert(let vandalismRevert):
+                    revId = vandalismRevert.revId
+                default:
+                    assertionFailure("Shouldn't happen")
+                }
+                
+            }
+            
+            public convenience init?(forPrototypeText prototypeText: String) {
+                let originalUntypedEvent = SignificantEvents.UntypedEvent(forPrototypeText: prototypeText)
+                guard let originalLargeChange = SignificantEvents.Event.Large(untypedEvent: originalUntypedEvent) else {
+                    return nil
+                }
+                let originalTypedEvent = SignificantEvents.TypedEvent.large(originalLargeChange)
+                self.init(typedEvent: originalTypedEvent)
+            }
+            
+            public static func == (lhs: ArticleAsLivingDocViewModel.Event.Large, rhs: ArticleAsLivingDocViewModel.Event.Large) -> Bool {
+                return lhs.revId == rhs.revId
+            }
+            
+        }
+
     }
+}
+
+//MARK: Small Event Type Helper methods
+
+public extension ArticleAsLivingDocViewModel.Event.Small {
     
-    init(smallChanges: [SignificantEvents.Event.Small]) {
-        self.smallChanges = smallChanges
-    }
-    
-    public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         if let lastTraitCollection = lastTraitCollection,
            let eventDescription = eventDescription {
             if lastTraitCollection == traitCollection {
@@ -237,98 +399,11 @@ public class SmallEventViewModel {
     }
 }
 
-public class LargeEventViewModel {
+//MARK: Large Event Type Helper methods
+
+public extension ArticleAsLivingDocViewModel.Event.Large {
     
-    public enum ChangeDetail {
-        case snippet(Snippet) //use for a basic horizontally scrolling snippet cell (will contain talk page topic snippets, added text snippets, article description updated snippets)
-        case reference(Reference)
-    }
-    
-    public struct Snippet {
-        public let displayText: NSAttributedString
-    }
-    
-    public struct Reference {
-        public let type: String
-        public let description: NSAttributedString
-        public let accessDateYearDisplay: String?
-    }
-    
-    enum UserType {
-        case standard
-        case anonymous
-        case bot
-    }
-    
-    public enum ButtonsToDisplay {
-        case thankAndViewChanges(userId: UInt, revisionId: UInt)
-        case viewDiscussion(sectionName: String)
-    }
-    
-    private let typedEvent: SignificantEvents.TypedEvent
-    private(set) var eventDescription: NSAttributedString?
-    private(set) var changeDetails: [ChangeDetail]?
-    private(set) var displayTimestamp: String?
-    private(set) var userInfo: NSAttributedString?
-    let userId: UInt
-    let userType: UserType
-    public let buttonsToDisplay: ButtonsToDisplay
-    private var lastTraitCollection: UITraitCollection?
-    public var revId: UInt = 0
-    
-    init?(typedEvent: SignificantEvents.TypedEvent) {
-        
-        let userGroups: [String]?
-        switch typedEvent {
-        case .newTalkPageTopic(let newTalkPageTopic):
-            self.userId = newTalkPageTopic.userId
-            userGroups = newTalkPageTopic.userGroups
-            self.buttonsToDisplay = .viewDiscussion(sectionName: newTalkPageTopic.section)
-        case .large(let largeChange):
-            self.userId = largeChange.userId
-            userGroups = largeChange.userGroups
-            self.buttonsToDisplay = .thankAndViewChanges(userId: largeChange.userId, revisionId: largeChange.revId)
-        case .vandalismRevert(let vandalismRevert):
-            self.userId = vandalismRevert.userId
-            userGroups = vandalismRevert.userGroups
-            self.buttonsToDisplay = .thankAndViewChanges(userId: vandalismRevert.userId, revisionId: vandalismRevert.revId)
-        case .small:
-            return nil
-        }
-        
-        if let userGroups = userGroups,
-           userGroups.contains("bot") {
-            userType = .bot
-        } else if self.userId == 0 {
-            userType = .anonymous
-        } else {
-            userType = .standard
-        }
-        
-        self.typedEvent = typedEvent
-        switch typedEvent {
-        case .large(let largeChange):
-            revId = largeChange.revId
-        case .newTalkPageTopic(let newTalkPageTopic):
-            revId = newTalkPageTopic.revId
-        case .vandalismRevert(let vandalismRevert):
-            revId = vandalismRevert.revId
-        default:
-            assertionFailure("Shouldn't happen")
-        }
-        
-    }
-    
-    public convenience init?(forPrototypeText prototypeText: String) {
-        let originalUntypedEvent = SignificantEvents.UntypedEvent(forPrototypeText: prototypeText)
-        guard let originalLargeChange = SignificantEvents.Event.Large(untypedEvent: originalUntypedEvent) else {
-            return nil
-        }
-        let originalTypedEvent = SignificantEvents.TypedEvent.large(originalLargeChange)
-        self.init(typedEvent: originalTypedEvent)
-    }
-    
-    public func firstSnippetFromPrototypeModel(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
+    func firstSnippetFromPrototypeModel(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: theme)
         if changeDetails.count > 0 {
             let firstChangeDetail = changeDetails[0]
@@ -343,7 +418,7 @@ public class LargeEventViewModel {
         return nil
     }
     
-    public func articleInsertHtmlSnippet(isFirst: Bool = false) -> String? {
+    func articleInsertHtmlSnippet(isFirst: Bool = false) -> String? {
         guard let timestampForDisplay = self.timestampForDisplay(),
               let eventDescription = eventDescriptionHtmlSnippet(),
               let userInfo = userInfoHtmlSnippet() else {
@@ -427,7 +502,7 @@ public class LargeEventViewModel {
         }
     }
     
-    public func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
         let sections = sectionsSet()
         let sectionsAttributedString = localizedSectionAttributedString(sectionsSet: sections, traitCollection: traitCollection, theme: theme)
@@ -663,7 +738,7 @@ public class LargeEventViewModel {
         return attributedString
     }
     
-    public func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
+    func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
         if let lastTraitCollection = lastTraitCollection,
            let changeDetails = changeDetails {
             if lastTraitCollection == traitCollection {
@@ -1090,7 +1165,7 @@ public class LargeEventViewModel {
         
     }
     
-    public func timestampForDisplay() -> String? {
+    func timestampForDisplay() -> String? {
         if let displayTimestamp = displayTimestamp {
             return displayTimestamp
         }
@@ -1191,7 +1266,7 @@ public class LargeEventViewModel {
         return nil
     }
     
-    public func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         if let lastTraitCollection = lastTraitCollection,
            let userInfo = userInfo {
             if lastTraitCollection == traitCollection {
@@ -1247,4 +1322,5 @@ public class LargeEventViewModel {
         self.lastTraitCollection = traitCollection
         return attributedString
     }
+    
 }

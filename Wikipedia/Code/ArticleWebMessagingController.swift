@@ -15,7 +15,7 @@ class ArticleWebMessagingController: NSObject {
     
     var parameters: PageContentService.Setup.Parameters?
     var contentController: WKUserContentController?
-    var shouldAttemptToShowSignificantEvents = false
+    var shouldAttemptToShowArticleAsLivingDoc = false
     
     func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
@@ -50,7 +50,7 @@ class ArticleWebMessagingController: NSObject {
         contentController.addUserScript(utilitiesScript)
         let styleScript = PageContentService.StyleScript()
         contentController.addUserScript(styleScript)
-        if shouldAttemptToShowSignificantEvents {
+        if shouldAttemptToShowArticleAsLivingDoc {
             let significantEventsStyleScript = PageContentService.SignificantEventsStyleScript()
             contentController.addUserScript(significantEventsStyleScript)
         }
@@ -369,22 +369,20 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
 
 extension ArticleWebMessagingController {
     //tonitodo: possible way to have overlay link work - https://stackoverflow.com/a/46707009
-    func injectSignificantEventsContent(articleInsertHtmlSnippets: [String], _ completion: ((Bool) -> Void)? = nil) {
+    func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], _ completion: ((Bool) -> Void)? = nil) {
         
         guard articleInsertHtmlSnippets.count > 0 else {
             completion?(false)
             return
         }
         
-        var significantEventsBoxHTML = "<div id='significant-changes-container'><div id='significant-changes-inner-container'><h4 id='significant-changes-header'>RECENT CHANGES</h4><ul id='significant-changes-list'>"
+        var articleAsLivingDocBoxHTML = "<div id='significant-changes-container'><div id='significant-changes-inner-container'><h4 id='significant-changes-header'>RECENT CHANGES</h4><ul id='significant-changes-list'>"
         
         for articleInsertHtmlSnippet in articleInsertHtmlSnippets {
-            significantEventsBoxHTML += articleInsertHtmlSnippet
+            articleAsLivingDocBoxHTML += articleInsertHtmlSnippet
         }
         
-        significantEventsBoxHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>Read more updates</a></p></div></div>"
-        
-        print(significantEventsBoxHTML)
+        articleAsLivingDocBoxHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>Read more updates</a></p></div></div>"
         
         let javascript = """
             function injectSignificantEventsContent() {
@@ -404,7 +402,7 @@ extension ArticleWebMessagingController {
                      return false;
                  }
                  var firstParagraph = pTags[0];
-                 firstParagraph.insertAdjacentHTML("afterend","\(significantEventsBoxHTML)");
+                 firstParagraph.insertAdjacentHTML("afterend","\(articleAsLivingDocBoxHTML)");
                  return true;
             }
                 injectSignificantEventsContent();
@@ -412,7 +410,7 @@ extension ArticleWebMessagingController {
         webView?.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in injectSignificantEventsContent: \(error)")
+                    DDLogDebug("Failure in injectArticleAsLivingDocContent: \(error)")
                     completion?(false)
                 }
                 
@@ -420,7 +418,7 @@ extension ArticleWebMessagingController {
                     completion?(boolResult)
                 }
                 
-                DDLogDebug("Failure in injectSignificantEventsContent")
+                DDLogDebug("Failure in injectArticleAsLivingDocContent")
                 completion?(false)
             }
         }

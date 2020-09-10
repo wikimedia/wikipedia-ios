@@ -1,7 +1,7 @@
 
 import UIKit
 
-class SignificantEventsSnippetCollectionViewCell: SignificantEventsHorizontallyScrollingCell {
+class ArticleAsLivingDocSnippetCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         

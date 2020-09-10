@@ -2,7 +2,7 @@
 
 import UIKit
 
-class SignificantEventsHeaderView: UIView {
+class ArticleAsLivingDocHeaderView: UIView {
 
     @IBOutlet private var headerLabel: UILabel!
     @IBOutlet private var titleLabel: UILabel!
@@ -48,7 +48,7 @@ class SignificantEventsHeaderView: UIView {
         titleLabel.numberOfLines = 0
         summaryLabel.numberOfLines = 0
         
-        viewFullHistoryButton.setTitle(WMFLocalizedString("significant-events-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the significant events screen."), for: .normal)
+        viewFullHistoryButton.setTitle(WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen."), for: .normal)
         viewFullHistoryButton.addTarget(self, action: #selector(tappedViewFullHistoryButton), for: .touchUpInside)
     }
     
@@ -101,7 +101,7 @@ class SignificantEventsHeaderView: UIView {
     }
 }
 
-extension SignificantEventsHeaderView {
+extension ArticleAsLivingDocHeaderView {
     func apply(theme: Theme) {
         self.theme = theme
         backgroundColor = theme.colors.paperBackground

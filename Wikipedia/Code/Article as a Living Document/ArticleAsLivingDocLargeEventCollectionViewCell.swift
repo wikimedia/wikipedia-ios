@@ -4,12 +4,9 @@ import WMF
 
 // Note: this is an amalgamation of both SideScrollingCollectionViewCell and OnThisDayCollectionViewCell
 // We are purposely not repurposing those classes to limit risk
-// However if experiment succeeds we should consider reworking SignificantEventsLargeEventCollectionViewCell to accept a generic side scrolling cell to work with, and have this class subclass from there instead.
+// However if experiment succeeds we should consider reworking SideScrollingCollectionViewCell to accept a generic side scrolling cell to work with, and have this class subclass from there instead.
 // Also note, as experiment is EN-only, this class doesn't support RTL
-class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
-    
-    static private let snippetCellIdentifier = "SignificantEventsSnippetCollectionViewCell"
-    static private let referenceCellIdentifier = "SignificantEventsReferenceCollectionViewCell"
+class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     
     private var theme: Theme = Theme.standard
     
@@ -18,31 +15,31 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
     private let userInfoTextView = UITextView()
     //tonitodo: clean this button configuration up
     private lazy var thankButton: AlignedImageButton = {
-        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("significant-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in significant events screen"))
+        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"))
     }()
     private lazy var viewChangesButton: AlignedImageButton = {
-        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("significant-events-view-changes", value: "View changes", comment: "Button title on a significant event cell that sends user to the revision history screen."))
+        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("aaald-view-changes", value: "View changes", comment: "Button title on a article as a living document cell that sends user to the revision history screen."))
     }()
     private lazy var viewDiscussionButton: AlignedImageButton = {
-        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("significant-events-view-discussion", value: "View discussion", comment: "Button title on a significant event cell that sends a user to the significant event's talk page topic."))
+        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("aaald-view-discussion", value: "View discussion", comment: "Button title on an article as a living document cell that sends a user to the event's talk page topic."))
     }()
     
     let timelineView = TimelineView()
     
-    private var largeEvent: LargeEventViewModel? {
+    private var largeEvent: ArticleAsLivingDocViewModel.Event.Large? {
         didSet {
             calculateChangeDetails()
         }
     }
-    private var changeDetails: [LargeEventViewModel.ChangeDetail] = []
+    private var changeDetails: [ArticleAsLivingDocViewModel.Event.Large.ChangeDetail] = []
     
     private var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    private let snippetPrototypeCell = SignificantEventsSnippetCollectionViewCell()
-    private let referencePrototypeCell = SignificantEventsReferenceCollectionViewCell()
+    private let snippetPrototypeCell = ArticleAsLivingDocSnippetCollectionViewCell()
+    private let referencePrototypeCell = ArticleAsLivingDocReferenceCollectionViewCell()
     
     private var collectionViewHeight: CGFloat = 0
     private var cachedItemHeights: [String: CGFloat] = [:]
@@ -69,8 +66,8 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
         
         descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
-        collectionView.register(SignificantEventsSnippetCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.snippetCellIdentifier)
-        collectionView.register(SignificantEventsReferenceCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsLargeEventCollectionViewCell.referenceCellIdentifier)
+        collectionView.register(ArticleAsLivingDocSnippetCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocSnippetCollectionViewCell.identifier)
+        collectionView.register(ArticleAsLivingDocReferenceCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocReferenceCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
@@ -273,7 +270,7 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
         collectionView.contentOffset = CGPoint(x: x, y: 0)
     }
     
-    func configure(with largeEvent: LargeEventViewModel, theme: Theme) {
+    func configure(with largeEvent: ArticleAsLivingDocViewModel.Event.Large, theme: Theme) {
 
         self.largeEvent = largeEvent
     
@@ -314,7 +311,7 @@ class SignificantEventsLargeEventCollectionViewCell: CollectionViewCell {
     }
 }
 
-extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDataSource {
+extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -330,9 +327,9 @@ extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDataSou
         switch changeDetailForCell {
         case .snippet:
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  SignificantEventsLargeEventCollectionViewCell.snippetCellIdentifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  ArticleAsLivingDocSnippetCollectionViewCell.identifier, for: indexPath)
             
-            guard let snippetCell = cell as? SignificantEventsSnippetCollectionViewCell else {
+            guard let snippetCell = cell as? ArticleAsLivingDocSnippetCollectionViewCell else {
                 return cell
             }
             
@@ -341,9 +338,9 @@ extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDataSou
             
         case .reference:
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  SignificantEventsLargeEventCollectionViewCell.referenceCellIdentifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  ArticleAsLivingDocReferenceCollectionViewCell.identifier, for: indexPath)
             
-            guard let referenceCell = cell as? SignificantEventsReferenceCollectionViewCell else {
+            guard let referenceCell = cell as? ArticleAsLivingDocReferenceCollectionViewCell else {
                 return cell
             }
             
@@ -353,7 +350,7 @@ extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDataSou
     }
 }
 
-extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDelegateFlowLayout {
+extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let changeDetail = changeDetails[indexPath.item]
@@ -373,8 +370,8 @@ extension SignificantEventsLargeEventCollectionViewCell: UICollectionViewDelegat
     }
 }
 
-extension SignificantEventsLargeEventCollectionViewCell: SignificantEventsHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL, cell: SignificantEventsHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?) {
+extension ArticleAsLivingDocLargeEventCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
+    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?) {
         print("tapped link")
     }
 }
