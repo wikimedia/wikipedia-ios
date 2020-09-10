@@ -9,19 +9,19 @@ protocol SignificantEventsViewControllerDelegate: class {
     }
 }
 
-enum SignificantEventsSection {
-  case standard
-}
-
 extension LargeEventViewModel: Equatable {
     public static func == (lhs: LargeEventViewModel, rhs: LargeEventViewModel) -> Bool {
         return lhs.revId == rhs.revId
     }
 }
 
-extension SectionHeaderViewModel: Equatable {
+extension SectionHeaderViewModel: Hashable {
     public static func == (lhs: SectionHeaderViewModel, rhs: SectionHeaderViewModel) -> Bool {
-        return lhs.timestamp == rhs.timestamp
+        return lhs.subtitleTimestampDisplay == rhs.subtitleTimestampDisplay
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(subtitleTimestampDisplay)
     }
 }
 
@@ -47,13 +47,6 @@ extension TimelineEventViewModel: Hashable {
             default:
                 return false
             }
-        case .sectionHeader(let leftSectionHeader):
-            switch rhs {
-            case .sectionHeader(let rightSectionHeader):
-                return leftSectionHeader == rightSectionHeader
-            default:
-                return false
-            }
         case .smallEvent(let leftSmallEvent):
             switch rhs {
             case .smallEvent(let rightSmallEvent):
@@ -67,8 +60,6 @@ extension TimelineEventViewModel: Hashable {
     
     public func hash(into hasher: inout Hasher) {
         switch self {
-        case .sectionHeader(let viewModel):
-            hasher.combine(viewModel.timestamp)
         case .smallEvent(let smallEvent):
             smallEvent.smallChanges.forEach { hasher.combine($0.revId) }
         case .largeEvent(let largeEvent):
@@ -90,9 +81,8 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
     fileprivate static let largeEventCellReuseIdentifier = "SignificantEventsLargeEventCollectionViewCell"
     fileprivate static let sectionHeaderCellReuseIdentifier = "SignificantEventsSectionHeaderCell"
     fileprivate static let smallEventReuseIdentifier = "SignificantEventsSmallEventCollectionViewCell"
-    fileprivate static let blankReuseIdentifier = "SignificantEventsBlankCell"
     
-    private var dataSource: UICollectionViewDiffableDataSource<SignificantEventsSection, TimelineEventViewModel>!
+    private var dataSource: UICollectionViewDiffableDataSource<SectionHeaderViewModel, TimelineEventViewModel>!
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
@@ -110,7 +100,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         self.theme = theme
         self.delegate = delegate
         
-        dataSource = UICollectionViewDiffableDataSource<SignificantEventsSection, TimelineEventViewModel>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: TimelineEventViewModel) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<SectionHeaderViewModel, TimelineEventViewModel>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: TimelineEventViewModel) -> UICollectionViewCell? in
             
             let cell: CollectionViewCell
             switch event {
@@ -130,18 +120,12 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
                 
                 smallEventCell.configure(viewModel: smallEvent, theme: theme)
                 cell = smallEventCell
-                //tonitodo: look into this commented out need
-                //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
-            case .sectionHeader(let sectionHeader):
-                guard let sectionHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: SignificantEventsViewController.sectionHeaderCellReuseIdentifier, for: indexPath) as? SignificantEventsSectionHeaderCell else {
-                    return nil
-                }
-                
-                sectionHeaderCell.configure(viewModel: sectionHeader, theme: theme)
-                cell = sectionHeaderCell
             }
             
-            //cell.layoutMargins = layout.itemLayoutMargins
+            if let layout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout {
+                cell.layoutMargins = layout.itemLayoutMargins
+            }
+            
             return cell
             
         }
@@ -149,28 +133,66 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
 
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
 
-            guard kind == UICollectionView.elementKindSectionHeader,
-                  let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsHeaderView.identifier, for: indexPath) as? SignificantEventsHeaderView else {
+            guard kind == UICollectionView.elementKindSectionHeader else {
                 return UICollectionReusableView()
             }
             
-            self.configureHeaderView(headerView)
-            self.headerView = headerView
+            let section = self.dataSource.snapshot()
+                .sectionIdentifiers[indexPath.section]
             
-            return headerView
+            guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier, for: indexPath) as? SignificantEventsSectionHeaderView else {
+                return UICollectionReusableView()
+            }
+            
+            sectionHeaderView.configure(viewModel: section, theme: theme)
+            return sectionHeaderView
+            
+            //tonitodo: when we move to enum
+//            switch section {
+//            case .standard:
+//                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SignificantEventsHeaderView.identifier, for: indexPath) as? SignificantEventsHeaderView else {
+//                    return UICollectionReusableView()
+//                }
+//
+//                self.configureHeaderView(headerView)
+//                self.headerView = headerView
+//                return headerView
+//            default:
+//                return UICollectionReusableView()
+//            }
         }
     }
     
-    func addInitialEvents(timelineEvents: [TimelineEventViewModel]) {
-        var snapshot = NSDiffableDataSourceSnapshot<SignificantEventsSection, TimelineEventViewModel>()
-        snapshot.appendSections([.standard])
-        snapshot.appendItems(timelineEvents, toSection: .standard)
+    func addInitialSections(sections: [SectionHeaderViewModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<SectionHeaderViewModel, TimelineEventViewModel>()
+        snapshot.appendSections(sections)
+        for section in sections {
+            snapshot.appendItems(section.events, toSection: section)
+        }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    func addEvents(timelineEvents: [TimelineEventViewModel]) {
+    func appendSections(_ sections: [SectionHeaderViewModel]) {
+        
         var currentSnapshot = dataSource.snapshot()
-        currentSnapshot.appendItems(timelineEvents, toSection: .standard)
+        
+        var existingSections: [SectionHeaderViewModel] = []
+        for currentSection in currentSnapshot.sectionIdentifiers {
+            for proposedSection in sections {
+                if currentSection == proposedSection {
+                    currentSnapshot.appendItems(proposedSection.events, toSection: currentSection)
+                    existingSections.append(proposedSection)
+                }
+            }
+        }
+        
+        for section in sections {
+            if !existingSections.contains(section) {
+                currentSnapshot.appendSections([section])
+                currentSnapshot.appendItems(section.events, toSection: section)
+            }
+        }
+        
         dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
@@ -187,8 +209,7 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         layoutManager.register(SignificantEventsLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.largeEventCellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(SignificantEventsSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.smallEventReuseIdentifier, addPlaceholder: true)
         layoutManager.register(SignificantEventsHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier, addPlaceholder: true)
-        layoutManager.register(SignificantEventsSectionHeaderCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.sectionHeaderCellReuseIdentifier, addPlaceholder: true)
-        layoutManager.register(UICollectionViewCell.self, forCellWithReuseIdentifier: SignificantEventsViewController.blankReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SignificantEventsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier, addPlaceholder: true)
         
         self.title = headerText
     }
@@ -216,14 +237,36 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
         
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 70)
         
-        guard let headerView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier) as? SignificantEventsHeaderView else {
+        let section = self.dataSource.snapshot()
+            .sectionIdentifiers[section]
+        
+        guard let sectionHeaderView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier) as? SignificantEventsSectionHeaderView else {
             return estimate
         }
         
-        configureHeaderView(headerView)
-        estimate.height = headerView.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        sectionHeaderView.configure(viewModel: section, theme: theme)
+        
+        estimate.height = sectionHeaderView.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
+        
+        //tonitodo: for when we include other section header
+//        let headerView: SizeThatFitsReusableView
+//        switch section {
+//        case .standard:
+//            guard let firstHeaderView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsHeaderView.identifier) as? SignificantEventsHeaderView else {
+//                return estimate
+//            }
+//            headerView = firstHeaderView
+//            configureHeaderView(firstHeaderView)
+//        default:
+//            guard let otherHeaderView = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SignificantEventsSectionHeaderView.identifier) as? SignificantEventsSectionHeaderView else {
+//                return estimate
+//            }
+//
+//            headerView = otherHeaderView
+//            //tonitodo: how to configure other header view? need to pull section view model of some sort
+//        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -250,13 +293,6 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             
             smallEventCell.configure(viewModel: smallEvent, theme: theme)
             cell = smallEventCell
-        case .sectionHeader(let sectionHeader):
-            guard let sectionHeaderCell = layoutManager.placeholder(forCellWithReuseIdentifier: SignificantEventsViewController.sectionHeaderCellReuseIdentifier) as? SignificantEventsSectionHeaderCell else {
-                return estimate
-            }
-            
-            sectionHeaderCell.configure(viewModel: sectionHeader, theme: theme)
-            cell = sectionHeaderCell
         }
         
         cell.layoutMargins = layout.itemLayoutMargins
@@ -272,9 +308,11 @@ class SignificantEventsViewController: ColumnarCollectionViewController {
             return
         }
         
-        let numberOfEvents = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        let numSections = dataSource.numberOfSections(in: collectionView)
+        let numEvents = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
-        if indexPath.item == numberOfEvents - 1 {
+        if indexPath.section == numSections - 1 &&
+            indexPath.item == numEvents - 1 {
             guard let nextRvStartId = significantEventsViewModel.nextRvStartId,
                   nextRvStartId != 0 else {
                 return

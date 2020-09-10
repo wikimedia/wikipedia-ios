@@ -4,29 +4,32 @@ import Foundation
 public struct SignificantEventsViewModel {
     public let nextRvStartId: UInt?
     public let sha: String?
-    public let events: [TimelineEventViewModel]
+    public let sections: [SectionHeaderViewModel]
     public let articleInsertHtmlSnippets: [String]
     public let summaryText: String?
     
-    public init(nextRvStartId: UInt?, sha: String?, events: [TimelineEventViewModel], summaryText: String?, articleInsertHtmlSnippets: [String]) {
+    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeaderViewModel], summaryText: String?, articleInsertHtmlSnippets: [String]) {
         self.nextRvStartId = nextRvStartId
         self.sha = sha
-        self.events = events
+        self.sections = sections
         self.summaryText = summaryText
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
     }
     
-    public init?(significantEvents: SignificantEvents, lastTimestamp: Date? = nil) {
+    public init?(significantEvents: SignificantEvents) {
         
-        let isFirstPage = lastTimestamp == nil
+        guard let isoDateFormatter = DateFormatter.wmf_iso8601(),
+              let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear() else {
+            assertionFailure("Unable to generate date formatters for Significant Events View Models")
+            return nil
+        }
         
         self.nextRvStartId = significantEvents.nextRvStartId
         self.sha = significantEvents.sha
         
         //initialize summary text
         var summaryText: String? = nil
-        if let dateFormatter = DateFormatter.wmf_iso8601(),
-           let earliestDate = dateFormatter.date(from: significantEvents.summary.earliestTimestampString) {
+        if let earliestDate = isoDateFormatter.date(from: significantEvents.summary.earliestTimestampString) {
             
             let currentDate = Date()
             let calendar = NSCalendar.current
@@ -41,75 +44,124 @@ public struct SignificantEventsViewModel {
         }
         self.summaryText = summaryText
         
-        //initialize events and articleHTMLSnippets
-        var eventViewModels: [TimelineEventViewModel] = []
-        var previousTimestamp = lastTimestamp
-        var articleInsertHtmlSnippets: [String] = []
+        // loop through typed events, turn into view models and segment off into sections
         
-        let htmlSnippetCountMax = 3
+        var currentSectionEvents: [TimelineEventViewModel] = []
+        var sections: [SectionHeaderViewModel] = []
+        
+        var maybeCurrentTimestamp: Date?
+        var maybePreviousTimestamp: Date?
+        
         for originalEvent in significantEvents.typedEvents {
             
-            //first determine if we need to inject a section header cell
-            //(we are bypassing using actual sections for simplicity)
-            if let isoDateFormatter = DateFormatter.wmf_iso8601() {
-                var currentTimestamp: Date?
-                
-                switch originalEvent {
-                case .largeChange(let largeChange):
-                    currentTimestamp = isoDateFormatter.date(from: largeChange.timestampString)
-                case .newTalkPageTopic(let newTalkPageTopic):
-                    currentTimestamp = isoDateFormatter.date(from: newTalkPageTopic.timestampString)
-                case .vandalismRevert(let vandalismRevert):
-                    currentTimestamp = isoDateFormatter.date(from: vandalismRevert.timestampString)
-                case .smallChange(let smallChange):
-                    currentTimestamp = isoDateFormatter.date(from: smallChange.timestampString)
-                }
-                
-                if let currentTimestamp = currentTimestamp {
-                    if let sectionHeader = SectionHeaderViewModel(timestamp: currentTimestamp, previousTimestamp: previousTimestamp) {
-                        eventViewModels.append(.sectionHeader(sectionHeader))
-                    }
-                    
-                    previousTimestamp = currentTimestamp
-                }
-            }
-            
-            
+            var maybeEvent: TimelineEventViewModel? = nil
             if let smallEventViewModel = SmallEventViewModel(timelineEvents: [originalEvent]) {
-                eventViewModels.append(.smallEvent(smallEventViewModel))
+                maybeEvent = .smallEvent(smallEventViewModel)
             } else
             if let largeEventViewModel = LargeEventViewModel(timelineEvent: originalEvent) {
-                if let htmlSnippet = largeEventViewModel.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0),
-                   articleInsertHtmlSnippets.count < htmlSnippetCountMax,
-                   isFirstPage {
-                    articleInsertHtmlSnippets.append(htmlSnippet)
-                    
-                }
-                
-                eventViewModels.append(.largeEvent(largeEventViewModel))
-                
+                maybeEvent = .largeEvent(largeEventViewModel)
             }
+            
+            guard let event = maybeEvent else {
+                assertionFailure("Unable to instantiate event view model, skipping event")
+                continue
+            }
+                
+            switch originalEvent {
+            case .largeChange(let largeChange):
+                maybeCurrentTimestamp = isoDateFormatter.date(from: largeChange.timestampString)
+            case .newTalkPageTopic(let newTalkPageTopic):
+                maybeCurrentTimestamp = isoDateFormatter.date(from: newTalkPageTopic.timestampString)
+            case .vandalismRevert(let vandalismRevert):
+                maybeCurrentTimestamp = isoDateFormatter.date(from: vandalismRevert.timestampString)
+            case .smallChange(let smallChange):
+                maybeCurrentTimestamp = isoDateFormatter.date(from: smallChange.timestampString)
+            }
+        
+            guard let currentTimestamp = maybeCurrentTimestamp else {
+                assertionFailure("Significant Events - Unable to determine event timestamp, skipping event.")
+                continue
+            }
+            
+            if let previousTimestamp = maybePreviousTimestamp {
+                let calendar = NSCalendar.current
+                if !calendar.isDate(previousTimestamp, inSameDayAs: currentTimestamp) {
+                    //multiple days have passed since last event, package up current sections into new section
+                    let section = SectionHeaderViewModel(timestamp: previousTimestamp, events: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
+                    sections.append(section)
+                    currentSectionEvents.removeAll()
+                    currentSectionEvents.append(event)
+                    maybePreviousTimestamp = currentTimestamp
+                } else {
+                    currentSectionEvents.append(event)
+                    maybePreviousTimestamp = currentTimestamp
+                }
+            } else {
+                currentSectionEvents.append(event)
+                maybePreviousTimestamp = currentTimestamp
+            }
+        }
+    
+        //capture any final currentSectionEvents into new section
+        if let currentTimestamp = maybeCurrentTimestamp {
+            let section = SectionHeaderViewModel(timestamp: currentTimestamp, events: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
+            sections.append(section)
+            currentSectionEvents.removeAll()
         }
         
         //collapse sibling small event view models
-        var collapsedEventViewModels: [TimelineEventViewModel] = []
-        var queuedSmallChanges: [SignificantEvents.SmallChange] = []
-        for eventVM in eventViewModels {
-            switch eventVM {
-            case .smallEvent(let smallEventViewModel):
-                queuedSmallChanges.append(contentsOf: smallEventViewModel.smallChanges)
-            default:
-                if queuedSmallChanges.count > 0 {
-                    
-                    collapsedEventViewModels.append(.smallEvent(SmallEventViewModel(smallChanges: queuedSmallChanges)))
-                    queuedSmallChanges.removeAll()
+        var finalSections: [SectionHeaderViewModel] = []
+        for section in sections {
+            var collapsedEventViewModels: [TimelineEventViewModel] = []
+            var currentSmallChanges: [SignificantEvents.SmallChange] = []
+            for event in section.events {
+                switch event {
+                case .smallEvent(let smallEventViewModel):
+                    currentSmallChanges.append(contentsOf: smallEventViewModel.smallChanges)
+                default:
+                    if currentSmallChanges.count > 0 {
+                        
+                        collapsedEventViewModels.append(.smallEvent(SmallEventViewModel(smallChanges: currentSmallChanges)))
+                        currentSmallChanges.removeAll()
+                    }
+                    collapsedEventViewModels.append(event)
+                    continue
                 }
-                collapsedEventViewModels.append(eventVM)
-                continue
+            }
+            
+            //add any final small changes
+            if currentSmallChanges.count > 0 {
+                collapsedEventViewModels.append(.smallEvent(SmallEventViewModel(smallChanges: currentSmallChanges)))
+                currentSmallChanges.removeAll()
+            }
+            
+            let collapsedSection = SectionHeaderViewModel(timestamp: section.timestamp, events: collapsedEventViewModels, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
+            finalSections.append(collapsedSection)
+        }
+            
+        self.sections = finalSections
+        
+        //grab first 3 large event html snippets
+        var articleInsertHtmlSnippets: [String] = []
+        let htmlSnippetCountMax = 3
+        
+        outerLoop: for section in finalSections {
+            for event in section.events {
+                switch event {
+                case .largeEvent(let largeEvent):
+                    if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0) {
+                        if articleInsertHtmlSnippets.count < htmlSnippetCountMax {
+                            articleInsertHtmlSnippets.append(htmlSnippet)
+                        } else {
+                            break outerLoop
+                        }
+                    }
+                default:
+                    continue
+                }
             }
         }
         
-        self.events = collapsedEventViewModels
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
     }
 }
@@ -117,35 +169,18 @@ public struct SignificantEventsViewModel {
 public enum TimelineEventViewModel {
     case smallEvent(SmallEventViewModel)
     case largeEvent(LargeEventViewModel)
-    case sectionHeader(SectionHeaderViewModel)
 }
 
 public class SectionHeaderViewModel {
     public let title: String
-    public let subtitle: String
+    public let subtitleTimestampDisplay: String
     public let timestamp: Date
-    init?(timestamp: Date, previousTimestamp: Date?) {
-        
-        //do not instantiate if on same day as previous timestamp
-        if let previousTimestamp = previousTimestamp {
-            let calendar = NSCalendar.current
-            let unitFlags:Set<Calendar.Component> = [.day]
-            let components = calendar.dateComponents(unitFlags, from: previousTimestamp, to: timestamp)
-            if let numberOfDays = components.day {
-                if numberOfDays == 0 {
-                    return nil
-                }
-            }
-        }
-        
-        if let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear() {
-            
-            self.title = (timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
-            self.subtitle = dayMonthNumberYearDateFormatter.string(from: timestamp)
-            self.timestamp = timestamp
-        } else {
-            return nil
-        }
+    public let events: [TimelineEventViewModel]
+    init(timestamp: Date, events: [TimelineEventViewModel], subtitleDateFormatter: DateFormatter) {
+        self.title = (timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
+        self.subtitleTimestampDisplay = subtitleDateFormatter.string(from: timestamp)
+        self.timestamp = timestamp
+        self.events = events
     }
 }
 

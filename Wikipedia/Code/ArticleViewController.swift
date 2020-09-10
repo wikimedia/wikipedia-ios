@@ -66,10 +66,10 @@ class ArticleViewController: ViewController, HintPresenting {
                     // should only be triggered via paging.
                     // update everything except sha and htmlInsert and
                     // append events instead of replace events
-                    let appendedEvents = oldModel.events + newValue.events
+                    let appendedSections = oldModel.sections + newValue.sections
                     let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
-                    _significantEventsViewModel = SignificantEventsViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, events: appendedEvents, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
-                    significantEventsViewController?.addEvents(timelineEvents: newValue.events)
+                    _significantEventsViewModel = SignificantEventsViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
+                    significantEventsViewController?.appendSections(newValue.sections)
                     
                 } else {
                     // should only be triggered via pull to refresh or fresh load. update everything
@@ -460,7 +460,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     var shouldShowSignificantEvents: Bool {
         if let significantEventsViewModel = significantEventsViewModel,
-                significantEventsViewModel.events.count > 0,
+                significantEventsViewModel.sections.count > 0,
                 shouldAttemptToShowSignificantEvents {
             return true
         }
@@ -583,7 +583,7 @@ class ArticleViewController: ViewController, HintPresenting {
                     let navigationController = WMFThemeableNavigationController(rootViewController: significantEventsViewController, theme: theme)
                     navigationController.modalPresentationStyle = .pageSheet
                     present(navigationController, animated: true) {
-                        significantEventsViewController.addInitialEvents(timelineEvents: significantEventsViewModel.events)
+                        significantEventsViewController.addInitialSections(sections: significantEventsViewModel.sections)
                     }
                 }
             }

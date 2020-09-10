@@ -1,10 +1,10 @@
 
 import UIKit
 
-class SignificantEventsSectionHeaderCell: CollectionViewCell {
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
-    var theme: Theme?
+class SignificantEventsSectionHeaderView: SizeThatFitsReusableView {
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private var theme: Theme?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -12,6 +12,14 @@ class SignificantEventsSectionHeaderCell: CollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override func setup() {
+        addSubview(titleLabel)
+        titleLabel.numberOfLines = 1
+        addSubview(subtitleLabel)
+        subtitleLabel.numberOfLines = 1
+        super.setup()
     }
     
     override func reset() {
@@ -40,7 +48,7 @@ class SignificantEventsSectionHeaderCell: CollectionViewCell {
     func configure(viewModel: SectionHeaderViewModel, theme: Theme) {
         
         self.titleLabel.text = viewModel.title
-        self.subtitleLabel.text = viewModel.subtitle
+        self.subtitleLabel.text = viewModel.subtitleTimestampDisplay
         
         apply(theme: theme)
     }
@@ -50,17 +58,9 @@ class SignificantEventsSectionHeaderCell: CollectionViewCell {
         titleLabel.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
     }
-    
-    override func setup() {
-        contentView.addSubview(titleLabel)
-        titleLabel.numberOfLines = 1
-        contentView.addSubview(subtitleLabel)
-        subtitleLabel.numberOfLines = 1
-        super.setup()
-    }
 }
 
-extension SignificantEventsSectionHeaderCell: Themeable {
+extension SignificantEventsSectionHeaderView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         titleLabel.textColor = theme.colors.primaryText

@@ -2,7 +2,7 @@
 
 import UIKit
 
-class SignificantEventsHeaderView: SizeThatFitsReusableView {
+class SignificantEventsHeaderView: SizeThatFitsView {
 
     private let headerLabel = UILabel()
     private let titleLabel = UILabel()
