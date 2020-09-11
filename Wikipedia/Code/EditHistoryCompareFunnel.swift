@@ -12,8 +12,9 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
         case thankFail = "thank_fail"
     }
     
+    
     private struct Event: EventInterface {
-        static let schema = "/analytics/mobile_apps/ios_edit_history_compare/1.0.0"
+        static let schema: EPC.Schema = .editHistoryCompareV1
         let action: Action
         let primary_language: String
         let is_anon: Bool
