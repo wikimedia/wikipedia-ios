@@ -195,7 +195,7 @@ extension OnThisDayEntry {
         if let date = calendar.date(from: components) {
             let fullDateFormatter = DateFormatter.wmf_longDateGMTFormatter(for: language)
             fullDate = fullDateFormatter.string(from: date)
-            let yearWithEraFormatter = DateFormatter.wmf_yearWithEraGMTDateFormatter(for: language)
+            let yearWithEraFormatter = DateFormatter.wmf_yearGMTDateFormatter(for: language)
             eventYear = yearWithEraFormatter.string(from: date)
         } else {
             fullDate = ""
