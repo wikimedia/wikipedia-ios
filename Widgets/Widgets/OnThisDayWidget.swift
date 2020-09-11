@@ -83,107 +83,66 @@ final class OnThisDayData {
     // MARK: Public
 
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ completion: @escaping (OnThisDayEntry) -> Void) {
-        guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage, WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
-            let isRTL = (MWLanguageInfo.semanticContentAttribute(forWMFLanguage: MWKDataStore.shared().languageLinkController.appLanguage?.languageCode) == .forceRightToLeft)
-
-            let destinationURL = URL(string: "wikipedia://explore")!
-            let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: false, doesLanguageSupportOnThisDay: false, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
-            completion(errorEntry)
-            return
+        let moc = dataStore.viewContext
+        moc.perform {
+            guard let latest = moc.newestVisibleGroup(of: .onThisDay),
+                  latest.isForToday
+            else {
+                guard !usingCache else {
+                    completion(self.placeholderEntry)
+                    return
+                }
+                self.fetchLatestOnThisDayEntryFromNetwork(completion)
+                return
+            }
+            self.assembleOnThisDayFromContentGroup(latest, completion: completion)
         }
-
-        let now = Date()
-        let monthDay = DateFormatter.wmf_monthNameDayNumberLocalFormatter(for: appLanguage.languageCode).string(from: now)
-        let components = Calendar.current.dateComponents([.month, .day], from: now)
-        guard let month = components.month, let day = components.day else {
+    }
+    
+    func fetchLatestOnThisDayEntryFromNetwork(_ completion: @escaping (OnThisDayEntry) -> Void) {
+        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
+            let moc = self.dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestVisibleGroup(of: .onThisDay) else {
+                    // If there's no content even after a network fetch, it's likely an error
+                    self.handleError(completion)
+                    return
+                }
+                self.assembleOnThisDayFromContentGroup(latest, completion: completion)
+            }
+        }
+    }
+    
+    func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, completion: @escaping (OnThisDayEntry) -> Void) {
+        guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
+              let previewEvent = previewEvents.first
+        else {
             completion(placeholderEntry)
             return
         }
-
-        let isRTL = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: appLanguage.languageCode) == .forceRightToLeft
-
-        let fetcher = WMFOnThisDayEventsFetcher()
-        let errorHandler: WMFErrorHandler = { error in
-            let destinationURL = URL(string: "wikipedia://explore")!
-            let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
-            completion(errorEntry)
-        }
-
-        let successCompletion: (([WMFFeedOnThisDayEvent]?) -> Void) = { events in
-            events?.forEach({ $0.score = $0.calculateScore() })
-            guard let events = events,
-                  let topEvent = self.highestScoredEvent(events: events),
-                  let topEventYearNSNumber = topEvent.year,
-                  let topEventYear = Int(exactly: topEventYearNSNumber),
-                  let topEventIndex = events.firstIndex(of: topEvent),
-                  // This next line gets updated to not expliciting use English Wikipedia only when we support add'l wikipedia URLs for deep linking into OnThisDay.
-                  let destinationURL = URL(string:  "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(topEventIndex)"),
-                  let minYear = events.last?.yearString,
-                  let maxYear = events.first?.yearString
-            else {
+        let sendDataToWidget: (UIImage?) -> Void = { image in
+            guard let entry = OnThisDayEntry(contentGroup: contentGroup, image: image) else {
                 completion(self.placeholderEntry)
                 return
             }
-
-            let pageToPreview = self.bestArticleToDisplay(articles: topEvent.articlePreviews)
-
-            let currentComponents = Calendar.current.dateComponents([.month, .day], from: now)
-            let dateComponentsInPast = DateComponents(year: topEventYear, month: currentComponents.month, day: currentComponents.day)
-            let fullDate = self.fullDateString(from: dateComponentsInPast)
-
-            let sendDataToWidget: ((UIImage?) -> Void) = { (image) in
-                let onThisDayEntry = OnThisDayEntry(isRTLLanguage: isRTL,
-                                                    hasConnectionError: false,
-                                                    doesLanguageSupportOnThisDay: true,
-                                                    monthDay: monthDay,
-                                                    fullDate: fullDate ?? "\(topEventYear)",
-                                                    earliestYear: minYear,
-                                                    latestYear: maxYear,
-                                                    otherEventsCount: events.count-1,
-                                                    contentURL: destinationURL,
-                                                    eventSnippet: topEvent.text ?? "",
-                                                    eventYear: topEventYear,
-                                                    articleTitle: pageToPreview?.displayTitle,
-                                                    articleSnippet: pageToPreview?.descriptionOrSnippet,
-                                                    articleImage: image,
-                                                    articleURL: pageToPreview?.articleURL)
-                completion(onThisDayEntry)
-            }
-
-            if let imageURL = pageToPreview?.thumbnailURL {
-                DispatchQueue.main.async {
-                    ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { _ in
-                        sendDataToWidget(nil)
-                    }, success: { fetchedImage in
-                        sendDataToWidget(fetchedImage.image.staticImage)
-                    })
-                }
-            } else {
-                sendDataToWidget(nil)
+            completion(entry)
+        }
+        if let imageURL = previewEvent.articlePreviews?.first?.thumbnailURL  {
+            DispatchQueue.main.async {
+                ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { _ in
+                    sendDataToWidget(nil)
+                }, success: { fetchedImage in
+                    sendDataToWidget(fetchedImage.image.staticImage)
+                })
             }
         }
-
-        fetcher.fetchOnThisDayEvents(for: appLanguage.siteURL(), month: UInt(month), day: UInt(day), failure: errorHandler, success: successCompletion)
     }
-
-    private func fullDateString(from components: DateComponents) -> String? {
-        guard let dateInPast = Calendar.current.date(from: components) else {
-            return nil
-        }
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .none
-        dateFormatter.dateStyle = .long
-        return dateFormatter.string(from: dateInPast)
-    }
-
-    private func highestScoredEvent(events: [WMFFeedOnThisDayEvent]) -> WMFFeedOnThisDayEvent? {
-        return events.max { a, b in (a.score?.floatValue ?? 0) < (b.score?.floatValue ?? 0) }
-    }
-
-    private func bestArticleToDisplay(articles: [WMFFeedArticlePreview]?) -> WMFFeedArticlePreview? {
-        /// In `OnThisDayViewController`, we display articles in order supplied to the array. Thus, the first one is the one we show here.
-        return articles?.first
+    
+    func handleError(_ completion: @escaping (OnThisDayEntry) -> Void) {
+        let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
+        let destinationURL = URL(string: "wikipedia://explore")!
+        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
+        completion(errorEntry)
     }
 }
 
@@ -208,4 +167,37 @@ struct OnThisDayEntry: TimelineEntry {
     let articleSnippet: String?
     let articleImage: UIImage?
     let articleURL: URL?
+}
+
+extension OnThisDayEntry {
+    init?(contentGroup: WMFContentGroup, image: UIImage?) {
+        guard
+            let midnightUTCDate = contentGroup.midnightUTCDate,
+            let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
+            let previewEvent = previewEvents.first,
+            let allEvents = contentGroup.fullContent?.object as? [WMFFeedOnThisDayEvent],
+            let earliestEventYear = allEvents.last?.yearString,
+            let latestEventYear = allEvents.first?.yearString,
+            let article = previewEvents.first?.articlePreviews?.first,
+            let year = previewEvent.year?.intValue,
+            let eventsCount = contentGroup.countOfFullContent?.intValue
+        else {
+            return nil
+        }
+        monthDay = DateFormatter.wmf_utcMonthNameDayOfMonthNumber()?.string(from: midnightUTCDate) ?? ""
+        fullDate = DateFormatter.wmf_utcDayNameMonthNameDayOfMonthNumber()?.string(from: midnightUTCDate) ?? ""
+        isRTLLanguage = contentGroup.isRTL
+        hasConnectionError = false
+        doesLanguageSupportOnThisDay = true
+        eventYear = year
+        earliestYear = earliestEventYear
+        latestYear = latestEventYear
+        otherEventsCount = eventsCount - 1
+        contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
+        eventSnippet = previewEvent.text
+        articleTitle = article.displayTitle
+        articleSnippet = article.descriptionOrSnippet
+        articleImage = image
+        articleURL = article.articleURL
+    }
 }
