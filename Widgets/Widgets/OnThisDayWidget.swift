@@ -82,10 +82,14 @@ final class OnThisDayData {
 
     // MARK: Public
 
+    private var siteURL: URL? {
+        return dataStore.languageLinkController.appLanguage?.siteURL()
+    }
+    
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ completion: @escaping (OnThisDayEntry) -> Void) {
         let moc = dataStore.viewContext
         moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .onThisDay),
+            guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL),
                   latest.isForToday
             else {
                 guard !usingCache else {
@@ -103,7 +107,7 @@ final class OnThisDayData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .onThisDay) else {
+                guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL) else {
                     // If there's no content even after a network fetch, it's likely an error
                     self.handleError(completion)
                     return
@@ -141,7 +145,7 @@ final class OnThisDayData {
     func handleError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
         let destinationURL = URL(string: "wikipedia://explore")!
-        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
+        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: false, monthDay: "", fullDate: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
         completion(errorEntry)
     }
 }
