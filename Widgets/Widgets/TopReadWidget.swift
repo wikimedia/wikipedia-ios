@@ -38,49 +38,71 @@ final class TopReadData {
 	}
 
 	func fetchLatestAvailableTopRead(_ completion: @escaping (TopReadEntry) -> Void) {
-		guard
-			let appLanguage = dataStore.languageLinkController.appLanguage,
-			let topRead = dataStore.viewContext.group(of: .topRead, for: Date(), siteURL: appLanguage.siteURL()),
-			let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
-				completion(placeholder)
-				return
-		}
-
-		var rankedElements: [TopReadEntry.RankedElement] = []
-
-		for article in results {
-			if let articlePreview = self.dataStore.fetchArticle(with: article.articleURL) {
-				if let viewCounts = articlePreview.pageViewsSortedByDate {
-					rankedElements.append(.init(title: article.displayTitle, description: article.wikidataDescription ?? article.snippet ?? "", articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
-				}
-			}
-		}
-
-		rankedElements = Array(rankedElements.prefix(maximumRankedArticles))
-
-		let group = DispatchGroup()
-
-		for (index, element) in rankedElements.enumerated() {
-			group.enter()
-			guard let thumbnailURL = element.thumbnailURL, let fetcher = ImageCacheController.shared else {
-				group.leave()
-				continue
-			}
-
-			fetcher.fetchImage(withURL: thumbnailURL, failure: { _ in
-				group.leave()
-			}, success: { fetchedImage in
-				rankedElements[index].image = fetchedImage.image.staticImage
-				group.leave()
-			})
-		}
-
-		group.notify(queue: .main) {
-			let layoutDirection: LayoutDirection = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: appLanguage.languageCode) == .forceRightToLeft ? .rightToLeft : .leftToRight
-			completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url, contentLayoutDirection: layoutDirection))
-		}
+        let moc = dataStore.viewContext
+        moc.perform {
+            guard let latest = moc.newestVisibleGroup(of: .topRead),
+                  latest.isForToday
+            else {
+                self.fetchLatestAvailableTopReadFromNetwork(completion)
+                return
+            }
+            self.assembleTopReadFromContentGroup(latest, completion: completion)
+        }
 	}
+    
+    func fetchLatestAvailableTopReadFromNetwork(_ completion: @escaping (TopReadEntry) -> Void) {
+        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
+            let moc = self.dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestVisibleGroup(of: .topRead) else {
+                    completion(self.placeholder)
+                    return
+                }
+                self.assembleTopReadFromContentGroup(latest, completion: completion)
+            }
+        }
+    }
+    
+    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, completion: @escaping (TopReadEntry) -> Void) {
+        guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
+            completion(placeholder)
+            return
+        }
 
+        var rankedElements: [TopReadEntry.RankedElement] = []
+
+        for article in results {
+            if let articlePreview = self.dataStore.fetchArticle(with: article.articleURL) {
+                if let viewCounts = articlePreview.pageViewsSortedByDate {
+                    rankedElements.append(.init(title: article.displayTitle, description: article.wikidataDescription ?? article.snippet ?? "", articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
+                }
+            }
+        }
+
+        rankedElements = Array(rankedElements.prefix(maximumRankedArticles))
+
+        let group = DispatchGroup()
+
+        for (index, element) in rankedElements.enumerated() {
+            group.enter()
+            guard let thumbnailURL = element.thumbnailURL, let fetcher = ImageCacheController.shared else {
+                group.leave()
+                continue
+            }
+
+            fetcher.fetchImage(withURL: thumbnailURL, failure: { _ in
+                group.leave()
+            }, success: { fetchedImage in
+                rankedElements[index].image = fetchedImage.image.staticImage
+                group.leave()
+            })
+        }
+
+        group.notify(queue: .main) {
+            let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
+            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url, contentLayoutDirection: layoutDirection))
+        }
+    }
 }
 
 // MARK: - Model
