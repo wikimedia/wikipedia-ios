@@ -184,7 +184,8 @@ public final class ImageCacheController: CacheController {
     
     // MARK: Cache
     
-    func cachedImage(withURL url: URL?) -> Image? {
+    /// Retrieves the image with the given url from the memory or file cache
+    public func cachedImage(withURL url: URL?) -> Image? {
         guard let url = url else {
             return nil
         }
@@ -203,6 +204,7 @@ public final class ImageCacheController: CacheController {
         return image
     }
     
+    /// Retrieves the image data from the file cache
     func data(withURL url: URL) -> TypedImageData? {
         guard let response = imageFetcher.cachedResponseForURL(url, type: .image) else {
             return TypedImageData(data: nil, MIMEType: nil)
@@ -213,6 +215,7 @@ public final class ImageCacheController: CacheController {
     
     // MARK: Memory Cache
     
+    /// Retrieves the image with the given url from the memory cache
     public func memoryCachedImage(withURL url: URL) -> Image? {
         
         guard let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image) else {

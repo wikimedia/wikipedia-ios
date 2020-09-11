@@ -37,20 +37,24 @@ final class TopReadData {
 		MWKDataStore.shared()
 	}
 
-    func fetchLatestAvailableTopRead(usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+    func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         let moc = dataStore.viewContext
         moc.perform {
             guard let latest = moc.newestVisibleGroup(of: .topRead),
                   latest.isForToday
             else {
-                self.fetchLatestAvailableTopReadFromNetwork(usingImageCache: usingImageCache, completion: completion)
+                guard !usingCache else {
+                    completion(self.placeholder)
+                    return
+                }
+                self.fetchLatestAvailableTopReadFromNetwork(completion: completion)
                 return
             }
-            self.assembleTopReadFromContentGroup(latest, usingImageCache: usingImageCache, completion: completion)
+            self.assembleTopReadFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
 	}
     
-    func fetchLatestAvailableTopReadFromNetwork(usingImageCache: Bool, completion: @escaping (TopReadEntry) -> Void) {
+    func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
@@ -58,12 +62,12 @@ final class TopReadData {
                     completion(self.placeholder)
                     return
                 }
-                self.assembleTopReadFromContentGroup(latest, usingImageCache: usingImageCache, completion: completion)
+                self.assembleTopReadFromContentGroup(latest, completion: completion)
             }
         }
     }
     
-    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool, completion: @escaping (TopReadEntry) -> Void) {
+    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
@@ -91,11 +95,11 @@ final class TopReadData {
             }
             
             if usingImageCache {
-                if let cachedImage = fetcher.memoryCachedImage(withURL: thumbnailURL) {
+                if let cachedImage = fetcher.cachedImage(withURL: thumbnailURL) {
                     rankedElements[index].image = cachedImage.staticImage
                     group.leave()
-                    continue
                 }
+                continue
             }
 
             fetcher.fetchImage(withURL: thumbnailURL, failure: { _ in
@@ -159,7 +163,7 @@ struct TopReadProvider: TimelineProvider {
 	}
 
 	func getSnapshot(in context: Context, completion: @escaping (TopReadEntry) -> Void) {
-        dataStore.fetchLatestAvailableTopRead(usingImageCache: context.isPreview) { (entry) in
+        dataStore.fetchLatestAvailableTopRead(usingCache: true) { (entry) in
             completion(entry)
         }
 	}
