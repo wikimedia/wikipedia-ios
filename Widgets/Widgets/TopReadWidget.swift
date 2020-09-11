@@ -97,8 +97,8 @@ final class TopReadData {
             if usingImageCache {
                 if let cachedImage = fetcher.cachedImage(withURL: thumbnailURL) {
                     rankedElements[index].image = cachedImage.staticImage
-                    group.leave()
                 }
+                group.leave()
                 continue
             }
 
