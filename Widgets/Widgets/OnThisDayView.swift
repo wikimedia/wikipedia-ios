@@ -71,6 +71,8 @@ struct OnThisDayView: View {
     var errorBox: some View {
         if !entry.doesLanguageSupportOnThisDay {
             return AnyView(MissingOnThisDaySquare())
+        } else if entry.hasConnectionError {
+            return AnyView(NoInternetSquare())
         } else {
             return AnyView(EmptyView())
         }
@@ -103,7 +105,7 @@ struct MissingOnThisDaySquare: View {
                     .font(.caption)
                     .bold()
                     .multilineTextAlignment(.leading)
-                    .frame(maxHeight: .infinity, alignment: .bottomLeading)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                     .foregroundColor(.white)
                     .padding([.leading, .top, .bottom], 16)
                     .padding(.trailing, widgetSize == .systemSmall ? 16 : 90)
@@ -121,7 +123,7 @@ struct NoInternetSquare: View {
                     .font(.caption)
                     .bold()
                     .multilineTextAlignment(.leading)
-                    .frame(maxHeight: .infinity, alignment: .bottomLeading)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                     .foregroundColor(.white)
                     .padding([.leading, .top, .bottom], 16)
                     .padding(.trailing, widgetSize == .systemSmall ? 16 : 90)

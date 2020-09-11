@@ -114,7 +114,6 @@ final class OnThisDayData {
 //            return
 //        }
 
-
         let now = Date()
         let monthDay = DateFormatter.wmf_monthNameDayNumberLocalFormatter(for: appLanguage.languageCode).string(from: now)
         let components = Calendar.current.dateComponents([.month, .day], from: now)
