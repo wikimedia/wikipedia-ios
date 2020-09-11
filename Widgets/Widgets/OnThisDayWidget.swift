@@ -54,6 +54,29 @@ struct OnThisDayProvider: TimelineProvider {
 /// A data source and operation helper for all On This Day of the day widget data
 final class OnThisDayData {
 
+    enum ErrorType {
+        case noInternet, featureNotSupportedInLanguage
+
+        var errorColor: Color {
+            switch self {
+            case .featureNotSupportedInLanguage:
+                return Color(UIColor.base30)
+            case .noInternet:
+                return Color(white: 22/255)
+            }
+        }
+
+        var errorText: String {
+            /// These are intentionally in the iOS system language, not the app's primary language. Everything else in this widget is in the app's primary language.
+            switch self {
+            case .featureNotSupportedInLanguage:
+                return WMFLocalizedString("on-this-day-language-does-not-support-error", value: "Your primary Wikipedia language does not support On this day. You can update your primary Wikipedia in the app’s Settings menu.", comment: "Error message shown when the user's primary language Wikipedia does not have the 'On this day' feature.")
+            case .noInternet:
+                return WMFLocalizedString("on-this-day-no-internet-error", value: "No data available", comment: "error message shown when device is not connected to internet")
+            }
+        }
+    }
+
     // MARK: Properties
 
     static let shared = OnThisDayData()
@@ -65,8 +88,7 @@ final class OnThisDayData {
 
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
     let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
-                                          hasConnectionError: false,
-                                          doesLanguageSupportOnThisDay: true,
+                                          error: nil,
                                           onThisDayTitle: "On this day",
                                           monthDay: "January 15",
                                           fullDate: "January 15, 2001",
@@ -88,6 +110,12 @@ final class OnThisDayData {
     }
     
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ completion: @escaping (OnThisDayEntry) -> Void) {
+        guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage, WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
+            let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
+            completion(errorEntry)
+            return
+        }
+
         let moc = dataStore.viewContext
         moc.perform {
             guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL),
@@ -110,7 +138,7 @@ final class OnThisDayData {
             moc.perform {
                 guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL) else {
                     // If there's no content even after a network fetch, it's likely an error
-                    self.handleError(completion)
+                    self.handleNoInternetError(completion)
                     return
                 }
                 self.assembleOnThisDayFromContentGroup(latest, completion: completion)
@@ -143,10 +171,8 @@ final class OnThisDayData {
         }
     }
     
-    func handleError(_ completion: @escaping (OnThisDayEntry) -> Void) {
-        let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
-        let destinationURL = URL(string: "wikipedia://explore")!
-        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: false, onThisDayTitle: "", monthDay: "", fullDate: "", otherEventsText: "", contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
+    func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
+        let errorEntry = OnThisDayEntry.errorEntry(for: .noInternet)
         completion(errorEntry)
     }
 }
@@ -156,9 +182,7 @@ final class OnThisDayData {
 struct OnThisDayEntry: TimelineEntry {
     let date = Date()
     let isRTLLanguage: Bool
-
-    let hasConnectionError: Bool
-    let doesLanguageSupportOnThisDay: Bool
+    let error: OnThisDayData.ErrorType?
 
     let onThisDayTitle: String
     let monthDay: String
@@ -207,8 +231,7 @@ extension OnThisDayEntry {
         }
         onThisDayTitle = CommonStrings.onThisDayTitle(with: language)
         isRTLLanguage = contentGroup.isRTL
-        hasConnectionError = false
-        doesLanguageSupportOnThisDay = true
+        error = nil
         otherEventsText = CommonStrings.onThisDayFooterWith(with: (eventsCount - 1), language: language)
         contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
         eventSnippet = previewEvent.text
@@ -221,5 +244,11 @@ extension OnThisDayEntry {
         let yearsSinceEvent = currentYear - year
         eventYearsAgo = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)
         yearRange = CommonStrings.onThisDayHeaderDateRangeMessage(with: language, locale: locale, lastEvent: earliestEventYear, firstEvent: latestEventYear)
+    }
+
+    static func errorEntry(for error: OnThisDayData.ErrorType) -> OnThisDayEntry {
+        let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
+        let destinationURL = URL(string: "wikipedia://explore")!
+        return OnThisDayEntry(isRTLLanguage: isRTL, error: error, onThisDayTitle: "", monthDay: "", fullDate: "", otherEventsText: "", contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
     }
 }
