@@ -45,7 +45,7 @@ struct OnThisDayProvider: TimelineProvider {
 
     func getSnapshot(in context: Context, completion: @escaping (OnThisDayEntry) -> Void) {
         dataStore.fetchLatestAvailableOnThisDayEntry(usingCache: context.isPreview) { entry in
-            completion(OnThisDayData().placeholderEntry)
+            completion(entry)
         }
     }
 
