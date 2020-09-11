@@ -286,7 +286,7 @@ struct MainOnThisDayElement: View {
     @Environment(\.widgetFamily) private var widgetSize
 
     var monthDay: String
-    var eventYear: Int
+    var eventYear: String
     var eventYearsAgo: String?
     var fullDate: String
     var snippet: String?
@@ -315,13 +315,13 @@ struct MainOnThisDayTopElement: View {
     @Environment(\.widgetFamily) private var widgetSize
 
     var monthDay: String
-    var eventYear: Int
+    var eventYear: String
     var eventYearsAgo: String?
     var fullDate: String
 
     var firstLineText: String {
         if widgetSize != .systemMedium {
-            return "\(eventYear)"
+            return eventYear
         } else {
             return fullDate
         }

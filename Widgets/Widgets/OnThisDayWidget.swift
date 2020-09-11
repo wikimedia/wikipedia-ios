@@ -74,7 +74,7 @@ final class OnThisDayData {
                                           otherEventsCount: 49,
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
                                           eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
-                                          eventYear: 2001,
+                                          eventYear: "2001",
                                           eventYearsAgo: nil,
                                           articleTitle: "Wikipedia",
                                           articleSnippet: "Free online encyclopedia that anyone can edit",
@@ -142,7 +142,7 @@ final class OnThisDayData {
     func handleError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
         let destinationURL = URL(string: "wikipedia://explore")!
-        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
+        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
         completion(errorEntry)
     }
 }
@@ -163,7 +163,7 @@ struct OnThisDayEntry: TimelineEntry {
     let otherEventsCount: Int
     let contentURL: URL
     let eventSnippet: String?
-    let eventYear: Int
+    let eventYear: String
     let eventYearsAgo: String?
     let articleTitle: String?
     let articleSnippet: String?
@@ -195,13 +195,15 @@ extension OnThisDayEntry {
         if let date = calendar.date(from: components) {
             let fullDateFormatter = DateFormatter.wmf_longDateGMTFormatter(for: language)
             fullDate = fullDateFormatter.string(from: date)
+            let yearWithEraFormatter = DateFormatter.wmf_yearWithEraGMTDateFormatter(for: language)
+            eventYear = yearWithEraFormatter.string(from: date)
         } else {
             fullDate = ""
+            eventYear = ""
         }
         isRTLLanguage = contentGroup.isRTL
         hasConnectionError = false
         doesLanguageSupportOnThisDay = true
-        eventYear = year
         earliestYear = earliestEventYear
         latestYear = latestEventYear
         otherEventsCount = eventsCount - 1
@@ -213,7 +215,7 @@ extension OnThisDayEntry {
         articleURL = article.articleURL
         let locale = NSLocale.wmf_locale(for: language)
         let currentYear = Calendar.current.component(.year, from: Date())
-        let yearsSinceEvent = currentYear - eventYear
+        let yearsSinceEvent = currentYear - year
         eventYearsAgo = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)
     }
 }
