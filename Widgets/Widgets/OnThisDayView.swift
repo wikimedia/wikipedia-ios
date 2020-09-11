@@ -39,7 +39,7 @@ struct OnThisDayView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     OnThisDayHeaderElement(monthDay: entry.monthDay, minYear: entry.earliestYear, maxYear: entry.latestYear)
                         .padding(.bottom, 9)
-                    MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate)
+                    MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
                     if let eventSnippet = entry.eventSnippet, let title = entry.articleTitle, let articleSnippet = entry.articleSnippet {
                         ArticleRectangleElement(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
@@ -51,15 +51,15 @@ struct OnThisDayView: View {
                 .padding([.top, .leading, .trailing], 16)
             case .systemMedium:
                 VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fulLDate: entry.fullDate, snippet: entry.eventSnippet)
+                    MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                     OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             case .systemSmall:
-                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fulLDate: entry.fullDate, snippet: entry.eventSnippet)
+                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             @unknown default:
-                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fulLDate: entry.fullDate, snippet: entry.eventSnippet)
+                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             }
         }
@@ -287,14 +287,14 @@ struct MainOnThisDayElement: View {
 
     var monthDay: String
     var eventYear: Int
-    var fulLDate: String
+    var fullDate: String
     var snippet: String?
 
     /// For unknown reasons, the layout of the `TimelineView` for a large widget is different from the rest. (A larger comment is above.) One side affect is that (as of iOS 14, beta 6) the large dot is not properly centered on the large widget. This `isLargeWidget` boolean allows us to manually correct for the error.
 
     var body: some View {
         VStack(spacing: 0) {
-            MainOnThisDayTopElement(monthDay: monthDay, eventYear: eventYear, fullDate: fulLDate)
+            MainOnThisDayTopElement(monthDay: monthDay, eventYear: eventYear, fullDate: fullDate)
             if let snippet = snippet {
                 TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: widgetSize == .systemSmall, mainView:
                         Text(snippet)
@@ -315,6 +315,7 @@ struct MainOnThisDayTopElement: View {
 
     var monthDay: String
     var eventYear: Int
+    var eventYearsAgo: String?
     var fullDate: String
 
     var firstLineText: String {
@@ -326,13 +327,10 @@ struct MainOnThisDayTopElement: View {
     }
 
     private var secondLineText: String? {
-        let language = MWKDataStore.shared().languageLinkController.appLanguage
         if widgetSize == .systemSmall {
             return monthDay
-        } else if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year {
-            return String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), (currentYear-eventYear))
         } else {
-            return nil
+            return eventYearsAgo
         }
     }
 

@@ -75,6 +75,7 @@ final class OnThisDayData {
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
                                           eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
                                           eventYear: 2001,
+                                          eventYearsAgo: nil,
                                           articleTitle: "Wikipedia",
                                           articleSnippet: "Free online encyclopedia that anyone can edit",
                                           articleImage: UIImage(named: "W"),
@@ -141,7 +142,7 @@ final class OnThisDayData {
     func handleError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
         let destinationURL = URL(string: "wikipedia://explore")!
-        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
+        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
         completion(errorEntry)
     }
 }
@@ -163,6 +164,7 @@ struct OnThisDayEntry: TimelineEntry {
     let contentURL: URL
     let eventSnippet: String?
     let eventYear: Int
+    let eventYearsAgo: String?
     let articleTitle: String?
     let articleSnippet: String?
     let articleImage: UIImage?
@@ -199,5 +201,10 @@ extension OnThisDayEntry {
         articleSnippet = article.descriptionOrSnippet
         articleImage = image
         articleURL = article.articleURL
+        let language = contentGroup.siteURL?.wmf_language
+        let locale = NSLocale.wmf_locale(for: language)
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let yearsSinceEvent = currentYear - eventYear
+        eventYearsAgo = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)
     }
 }
