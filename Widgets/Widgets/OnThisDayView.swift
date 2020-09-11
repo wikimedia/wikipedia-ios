@@ -69,10 +69,8 @@ struct OnThisDayView: View {
     }
 
     var errorBox: some View {
-        if !entry.doesLanguageSupportOnThisDay {
-            return AnyView(MissingOnThisDaySquare())
-        } else if entry.hasConnectionError {
-            return AnyView(NoInternetSquare())
+        if let error = entry.error {
+            return AnyView(ErrorSquare(error: error))
         } else {
             return AnyView(EmptyView())
         }
@@ -95,31 +93,14 @@ struct SmallYValuePreferenceKey: PreferenceKey {
     }
 }
 
-struct MissingOnThisDaySquare: View {
+struct ErrorSquare: View {
     @Environment(\.widgetFamily) private var widgetSize
+    let error: OnThisDayData.ErrorType
 
     var body: some View {
-        Rectangle().foregroundColor(Color(UIColor.base30))
+        Rectangle().foregroundColor(error.errorColor)
             .overlay(
-                Text(WMFLocalizedString("on-this-day-language-does-not-support-error", value: "Your primary Wikipedia language does not support On this day. You can update your primary Wikipedia in the app’s Settings menu.", comment: "Error message shown when the user's primary language Wikipedia does not have the 'On this day' feature."))
-                    .font(.caption)
-                    .bold()
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                    .foregroundColor(.white)
-                    .padding([.leading, .top, .bottom], 16)
-                    .padding(.trailing, widgetSize == .systemSmall ? 16 : 90)
-            )
-    }
-}
-
-struct NoInternetSquare: View {
-    @Environment(\.widgetFamily) private var widgetSize
-
-    var body: some View {
-        Rectangle().foregroundColor(Color(white: 22/255))
-            .overlay(
-                Text(WMFLocalizedString("on-this-day-no-internet-error", value: "No data available", comment: "error message shown when device is not connected to internet"))
+                Text(error.errorText)
                     .font(.caption)
                     .bold()
                     .multilineTextAlignment(.leading)
