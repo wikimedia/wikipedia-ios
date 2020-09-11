@@ -76,7 +76,8 @@ final class TopReadData {
 		}
 
 		group.notify(queue: .main) {
-			completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url))
+			let layoutDirection: LayoutDirection = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: appLanguage.languageCode) == .forceRightToLeft ? .rightToLeft : .leftToRight
+			completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url, contentLayoutDirection: layoutDirection))
 		}
 	}
 
@@ -99,6 +100,7 @@ struct TopReadEntry: TimelineEntry {
 	let date: Date // for Timeline Entry
 	var rankedElements: [RankedElement] = Array(repeating: RankedElement.init(title: "–", description: "–", image: nil, viewCounts: [.init(floatLiteral: 0)]), count: 4)
 	var groupURL: URL? = nil
+	var contentLayoutDirection: LayoutDirection = .leftToRight
 }
 
 // MARK: - TimelineProvider
@@ -166,6 +168,8 @@ struct TopReadView: View {
 					.widgetURL(entry?.rankedElements.first?.articleURL)
 			}
 		}
+		.environment(\.layoutDirection, entry?.contentLayoutDirection ?? .leftToRight)
+		.flipsForRightToLeftLayoutDirection(true)
 	}
 
 	// MARK: View Components
