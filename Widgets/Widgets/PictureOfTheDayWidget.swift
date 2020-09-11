@@ -43,14 +43,14 @@ final class PictureOfTheDayData {
 		MWKDataStore.shared()
 	}
 
-	let sampleEntry = PictureOfTheDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription: "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.")
+	let sampleEntry = PictureOfTheDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription:  WMFLocalizedString("potd-widget-description", value:"Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.", comment: "Text for sample entry image caption. It is displayed when we we are unable to fetch Picture of the Day data."))
 	let placeholderEntry = PictureOfTheDayEntry(date: Date(), contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
 
 	// MARK: Public
 
 	func fetchLatestAvailablePictureEntry(usingImageCache: Bool = false, _ completion: @escaping (PictureOfTheDayEntry) -> Void) {
 		// We could Result type the completion, but it's not probably worth the complexity for the widget's use cases
-		guard let contentGroup = dataStore.viewContext.newestGroup(of: .pictureOfTheDay), let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
+		guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .pictureOfTheDay), let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
 			completion(sampleEntry)
 			return
 		}
