@@ -37,7 +37,7 @@ struct OnThisDayView: View {
             switch widgetSize {
             case .systemLarge:
                 VStack(alignment: .leading, spacing: 0) {
-                    OnThisDayHeaderElement(monthDay: entry.monthDay, minYear: entry.earliestYear, maxYear: entry.latestYear)
+                    OnThisDayHeaderElement(yearRange: entry.yearRange, monthDay: entry.monthDay)
                         .padding(.bottom, 9)
                     MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
@@ -250,11 +250,8 @@ struct TimelineLargeCircleElement: View {
 
 struct OnThisDayHeaderElement: View {
     @Environment(\.colorScheme) var colorScheme
-    let language = MWKDataStore.shared().languageLinkController.appLanguage
-
+    let yearRange: String
     let monthDay: String
-    let minYear: String
-    let maxYear: String
 
     var body: some View {
         /// Custom spacing (handled by middle text element) from 10 Sept 2020 video call w/ Carolyn, the app designer.
@@ -272,7 +269,7 @@ struct OnThisDayHeaderElement: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 5)
                 .padding(.bottom, 7)
-            Text(CommonStrings.onThisDayHeaderDateRangeMessage(with: language?.languageCode, locale: NSLocale.wmf_locale(for: language?.languageCode), lastEvent: minYear, firstEvent: maxYear))
+            Text(yearRange)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                 .font(.subheadline)
                 .bold()

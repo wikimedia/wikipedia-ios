@@ -69,8 +69,6 @@ final class OnThisDayData {
                                           doesLanguageSupportOnThisDay: true,
                                           monthDay: "January 15",
                                           fullDate: "January 15, 2001",
-                                          earliestYear: "69",
-                                          latestYear: "2019",
                                           otherEventsCount: 49,
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
                                           eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
@@ -79,7 +77,8 @@ final class OnThisDayData {
                                           articleTitle: "Wikipedia",
                                           articleSnippet: "Free online encyclopedia that anyone can edit",
                                           articleImage: UIImage(named: "W"),
-                                          articleURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia"))
+                                          articleURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia"),
+                                          yearRange: CommonStrings.onThisDayHeaderDateRangeMessage(with: "en", locale: Locale(identifier: "en"), lastEvent: "69", firstEvent: "2019"))
 
     // MARK: Public
 
@@ -142,7 +141,7 @@ final class OnThisDayData {
     func handleError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
         let destinationURL = URL(string: "wikipedia://explore")!
-        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
+        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
         completion(errorEntry)
     }
 }
@@ -158,8 +157,6 @@ struct OnThisDayEntry: TimelineEntry {
 
     let monthDay: String
     let fullDate: String
-    let earliestYear: String
-    let latestYear: String
     let otherEventsCount: Int
     let contentURL: URL
     let eventSnippet: String?
@@ -169,6 +166,7 @@ struct OnThisDayEntry: TimelineEntry {
     let articleSnippet: String?
     let articleImage: UIImage?
     let articleURL: URL?
+    let yearRange: String
 }
 
 extension OnThisDayEntry {
@@ -204,8 +202,6 @@ extension OnThisDayEntry {
         isRTLLanguage = contentGroup.isRTL
         hasConnectionError = false
         doesLanguageSupportOnThisDay = true
-        earliestYear = earliestEventYear
-        latestYear = latestEventYear
         otherEventsCount = eventsCount - 1
         contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
         eventSnippet = previewEvent.text
@@ -217,5 +213,6 @@ extension OnThisDayEntry {
         let currentYear = Calendar.current.component(.year, from: Date())
         let yearsSinceEvent = currentYear - year
         eventYearsAgo = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)
+        yearRange = CommonStrings.onThisDayHeaderDateRangeMessage(with: language, locale: locale, lastEvent: earliestEventYear, firstEvent: latestEventYear)
     }
 }
