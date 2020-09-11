@@ -33,6 +33,7 @@
 // Author: Simoarmanni
 // Author: Statix64
 // Author: SuperVirtual
+// Author: Yacine Boussoufa
 
 "about-content-license" = "Licenza contenuto";
 "about-content-license-details" = "Se non diversamente specificato, il contenuto è disponibile il base alla $1.";
@@ -74,6 +75,7 @@
 "account-creation-saving" = "Salvataggio...";
 "account-creation-title" = "Crea una nuova utenza";
 "account-group-title" = "La tua utenza";
+"account-talk-page-title" = "La tua pagina di discussione";
 "action-add-to" = "Aggiungi a…";
 "action-add-to-reading-list" = "Aggiungi all'elenco di lettura";
 "action-add-to-reading-list-short" = "Aggiungi all'elenco";
