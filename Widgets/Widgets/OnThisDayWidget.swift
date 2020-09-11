@@ -64,11 +64,36 @@ final class OnThisDayData {
     }
 
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
-    let placeholderEntry = OnThisDayEntry(isRTLLanguage: false, monthDay: "January 15", earliestYear: "69", latestYear: "2019", otherEventsCount: 49, contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!, eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.", eventYear: 2001, articleTitle: "Wikipedia", articleSnippet: "Free online encyclopedia that anyone can edit", articleImage: UIImage(named: "W"), articleURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia"))
+    let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
+                                          hasConnectionError: false,
+                                          doesLanguageSupportOnThisDay: true,
+                                          monthDay: "January 15",
+                                          fullDate: "January 15, 2001",
+                                          earliestYear: "69",
+                                          latestYear: "2019",
+                                          otherEventsCount: 49,
+                                          contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
+                                          eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
+                                          eventYear: 2001,
+                                          articleTitle: "Wikipedia",
+                                          articleSnippet: "Free online encyclopedia that anyone can edit",
+                                          articleImage: UIImage(named: "W"),
+                                          articleURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia"))
 
     // MARK: Public
 
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ completion: @escaping (OnThisDayEntry) -> Void) {
+        guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage, WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
+            let isRTL = (MWLanguageInfo.semanticContentAttribute(forWMFLanguage: MWKDataStore.shared().languageLinkController.appLanguage?.languageCode) == .forceRightToLeft)
+
+            let destinationURL = URL(string: "wikipedia://explore")!
+            let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: false, doesLanguageSupportOnThisDay: false, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
+            completion(errorEntry)
+            return
+        }
+
+
+        
 //        if usingCache {
 //            guard let contentGroup = dataStore.viewContext.newestGroup(of: .onThisDay), let imageContent = contentGroup.contentPreview as? WMFFeedOnThisDayEvent else {
 //                completion(sampleEntry)
@@ -91,17 +116,20 @@ final class OnThisDayData {
 
 
         let now = Date()
-        let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage
-        let monthDay = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: appLanguage?.languageCode).string(from: now)
+        let monthDay = DateFormatter.wmf_monthNameDayNumberLocalFormatter(for: appLanguage.languageCode).string(from: now)
         let components = Calendar.current.dateComponents([.month, .day], from: now)
-        guard let month = components.month, let day = components.day, let siteURL = appLanguage?.siteURL() else {
+        guard let month = components.month, let day = components.day else {
             completion(placeholderEntry)
             return
         }
 
+        let isRTL = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: appLanguage.languageCode) == .forceRightToLeft
+
         let fetcher = WMFOnThisDayEventsFetcher()
-        let blah: WMFErrorHandler = { error in
-            //show error FIX ME HERE
+        let errorHandler: WMFErrorHandler = { error in
+            let destinationURL = URL(string: "wikipedia://explore")!
+            let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: true, monthDay: "", fullDate: "", earliestYear: "", latestYear: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: 0, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil)
+            completion(errorEntry)
         }
 
         let successCompletion: (([WMFFeedOnThisDayEvent]?) -> Void) = { events in
@@ -122,9 +150,16 @@ final class OnThisDayData {
 
             let pageToPreview = self.bestArticleToDisplay(articles: topEvent.articlePreviews)
 
+            let currentComponents = Calendar.current.dateComponents([.month, .day], from: now)
+            let dateComponentsInPast = DateComponents(year: topEventYear, month: currentComponents.month, day: currentComponents.day)
+            let fullDate = self.fullDateString(from: dateComponentsInPast)
+
             let sendDataToWidget: ((UIImage?) -> Void) = { (image) in
-                let onThisDayEntry = OnThisDayEntry(isRTLLanguage: MWLanguageInfo.semanticContentAttribute(forWMFLanguage: appLanguage?.languageCode) == .forceRightToLeft,
+                let onThisDayEntry = OnThisDayEntry(isRTLLanguage: isRTL,
+                                                    hasConnectionError: false,
+                                                    doesLanguageSupportOnThisDay: true,
                                                     monthDay: monthDay,
+                                                    fullDate: fullDate ?? "\(topEventYear)",
                                                     earliestYear: minYear,
                                                     latestYear: maxYear,
                                                     otherEventsCount: events.count-1,
@@ -151,7 +186,18 @@ final class OnThisDayData {
             }
         }
 
-        fetcher.fetchOnThisDayEvents(for: siteURL, month: UInt(month), day: UInt(day), failure: blah, success: successCompletion)
+        fetcher.fetchOnThisDayEvents(for: appLanguage.siteURL(), month: UInt(month), day: UInt(day), failure: errorHandler, success: successCompletion)
+    }
+
+    private func fullDateString(from components: DateComponents) -> String? {
+        guard let dateInPast = Calendar.current.date(from: components) else {
+            return nil
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateStyle = .long
+        return dateFormatter.string(from: dateInPast)
     }
 
     private func highestScoredEvent(events: [WMFFeedOnThisDayEvent]) -> WMFFeedOnThisDayEvent? {
@@ -170,7 +216,11 @@ struct OnThisDayEntry: TimelineEntry {
     let date = Date()
     let isRTLLanguage: Bool
 
+    let hasConnectionError: Bool
+    let doesLanguageSupportOnThisDay: Bool
+
     let monthDay: String
+    let fullDate: String
     let earliestYear: String
     let latestYear: String
     let otherEventsCount: Int

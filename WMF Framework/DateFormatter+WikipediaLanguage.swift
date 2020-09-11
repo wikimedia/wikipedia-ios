@@ -60,4 +60,19 @@ extension DateFormatter {
         wmf_monthNameDayNumberGMTFormatterCache[wikipediaLanguage] = dateFormatter
         return dateFormatter
     }
+
+    private static var wmf_monthNameDayNumberLocalFormatterCache: [String: DateFormatter] = [:]
+
+    public static func wmf_monthNameDayNumberLocalFormatter(for wikipediaLanguage: String?) -> DateFormatter {
+        let wikipediaLanguage = wikipediaLanguage ?? "en"
+        if let formatter = wmf_monthNameDayNumberLocalFormatterCache[wikipediaLanguage] {
+            return formatter
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale.wmf_locale(for: wikipediaLanguage)
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM d")
+        wmf_monthNameDayNumberGMTFormatterCache[wikipediaLanguage] = dateFormatter
+        return dateFormatter
+    }
 }

@@ -39,7 +39,7 @@ struct OnThisDayView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     OnThisDayHeaderElement(monthDay: entry.monthDay, minYear: entry.earliestYear, maxYear: entry.latestYear)
                         .padding(.bottom, 9)
-                    MainOnThisDayTopElement(eventYear: entry.eventYear)
+                    MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
                     if let eventSnippet = entry.eventSnippet, let title = entry.articleTitle, let articleSnippet = entry.articleSnippet {
                         ArticleRectangleElement(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
@@ -51,20 +51,29 @@ struct OnThisDayView: View {
                 .padding([.top, .leading, .trailing], 16)
             case .systemMedium:
                 VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet)
+                    MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fulLDate: entry.fullDate, snippet: entry.eventSnippet)
                     OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             case .systemSmall:
-                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet)
+                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fulLDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             @unknown default:
-                MainOnThisDayElement(eventYear: entry.eventYear, snippet: entry.eventSnippet)
+                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fulLDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             }
         }
+        .overlay(errorBox)
         .environment(\.layoutDirection, entry.isRTLLanguage ? .rightToLeft : .leftToRight)
         .widgetURL(entry.contentURL)
+    }
+
+    var errorBox: some View {
+        if !entry.doesLanguageSupportOnThisDay {
+            return AnyView(MissingOnThisDaySquare())
+        } else {
+            return AnyView(EmptyView())
+        }
     }
 }
 
@@ -81,6 +90,42 @@ struct SmallYValuePreferenceKey: PreferenceKey {
     static var defaultValue: CGFloat = 20
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
+    }
+}
+
+struct MissingOnThisDaySquare: View {
+    @Environment(\.widgetFamily) private var widgetSize
+
+    var body: some View {
+        Rectangle().foregroundColor(Color(UIColor.base30))
+            .overlay(
+                Text(WMFLocalizedString("on-this-day-language-does-not-support-error", value: "English Wikipedia does not support On this day", comment: "error message shown when the language's Wikipedia does not have 'On this day' feature. Instead of 'English Wikipedia', use the language being translated into"))
+                    .font(.caption)
+                    .bold()
+                    .multilineTextAlignment(.leading)
+                    .frame(maxHeight: .infinity, alignment: .bottomLeading)
+                    .foregroundColor(.white)
+                    .padding([.leading, .top, .bottom], 16)
+                    .padding(.trailing, widgetSize == .systemSmall ? 16 : 90)
+            )
+    }
+}
+
+struct NoInternetSquare: View {
+    @Environment(\.widgetFamily) private var widgetSize
+
+    var body: some View {
+        Rectangle().foregroundColor(Color(white: 22/255))
+            .overlay(
+                Text(WMFLocalizedString("on-this-day-no-internet-error", value: "No data available", comment: "error message shown when device is not connected to internet"))
+                    .font(.caption)
+                    .bold()
+                    .multilineTextAlignment(.leading)
+                    .frame(maxHeight: .infinity, alignment: .bottomLeading)
+                    .foregroundColor(.white)
+                    .padding([.leading, .top, .bottom], 16)
+                    .padding(.trailing, widgetSize == .systemSmall ? 16 : 90)
+            )
     }
 }
 
@@ -238,14 +283,16 @@ struct OnThisDayHeaderElement: View {
 struct MainOnThisDayElement: View {
     @Environment(\.widgetFamily) private var widgetSize
 
+    var monthDay: String
     var eventYear: Int
+    var fulLDate: String
     var snippet: String?
 
     /// For unknown reasons, the layout of the `TimelineView` for a large widget is different from the rest. (A larger comment is above.) One side affect is that (as of iOS 14, beta 6) the large dot is not properly centered on the large widget. This `isLargeWidget` boolean allows us to manually correct for the error.
 
     var body: some View {
         VStack(spacing: 0) {
-            MainOnThisDayTopElement(eventYear: eventYear)
+            MainOnThisDayTopElement(monthDay: monthDay, eventYear: eventYear, fullDate: fulLDate)
             if let snippet = snippet {
                 TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: widgetSize == .systemSmall, mainView:
                         Text(snippet)
@@ -264,30 +311,22 @@ struct MainOnThisDayTopElement: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.widgetFamily) private var widgetSize
 
+    var monthDay: String
     var eventYear: Int
+    var fullDate: String
 
     var firstLineText: String {
-        if widgetSize == .systemLarge || widgetSize == .systemSmall {
+        if widgetSize != .systemMedium {
             return "\(eventYear)"
         } else {
-            let now = Date()
-            let currentComponents = Calendar.current.dateComponents([.month, .day], from: now)
-            let dateComponentsInPast = DateComponents(year: eventYear, month: currentComponents.month, day: currentComponents.day)
-            guard let dateInPast = Calendar.current.date(from: dateComponentsInPast) else {
-                return "\(eventYear)"
-            }
-
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeStyle = .none
-            dateFormatter.dateStyle = .long
-            return dateFormatter.string(from: dateInPast)
+            return fullDate
         }
     }
 
     private var secondLineText: String? {
         let language = MWKDataStore.shared().languageLinkController.appLanguage
         if widgetSize == .systemSmall {
-            return DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language?.languageCode).string(from: Date())
+            return monthDay
         } else if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year {
             return String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), (currentYear-eventYear))
         } else {
