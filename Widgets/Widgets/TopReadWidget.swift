@@ -300,7 +300,7 @@ struct TopReadView: View {
 		}
         
         let formattedCount = NumberFormatter.localizedThousandsStringFromNumber(viewCount)
-		return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.topReadWidgetReadersCountFormat, formattedCount)
+		return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.readersCountFormat, formattedCount)
 	}
 }
 
@@ -331,7 +331,7 @@ struct TopReadOverlayView: View {
 		}
 
 		let formattedCount = NumberFormatter.localizedThousandsStringFromNumber(currentViewCount)
-        return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.topReadWidgetReadersCountFormat, formattedCount)
+        return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.readersCountFormat, formattedCount)
 	}
 
 	var body: some View {
