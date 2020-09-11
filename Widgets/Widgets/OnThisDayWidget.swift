@@ -73,7 +73,7 @@ final class OnThisDayData {
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
                                           eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
                                           eventYear: "2001",
-                                          eventYearsAgo: nil,
+                                          eventYearsAgo: "19 years ago",
                                           articleTitle: "Wikipedia",
                                           articleSnippet: "Free online encyclopedia that anyone can edit",
                                           articleImage: UIImage(named: "W"),
