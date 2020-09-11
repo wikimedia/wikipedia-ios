@@ -11,8 +11,8 @@ struct TopReadWidget: Widget {
 		StaticConfiguration(kind: kind, provider: TopReadProvider(), content: { entry in
 			TopReadView(entry: entry)
 		})
-		.configurationDisplayName(LocalizedStrings.topReadWidgetTitle)
-		.description(LocalizedStrings.topReadWidgetDescription)
+		.configurationDisplayName(LocalizedStrings.widgetTitle)
+		.description(LocalizedStrings.widgetDescription)
 		.supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
 	}
 }
@@ -219,7 +219,7 @@ struct TopReadView: View {
 		let rowCount = family == .systemLarge ? 4 : 2
 
 		VStack(alignment: .leading, spacing: 8) {
-			Text(TopReadWidget.LocalizedStrings.topReadWidgetTitle)
+			Text(TopReadWidget.LocalizedStrings.widgetTitle)
 				.font(.subheadline)
 				.fontWeight(.bold)
 			ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0) { elementIndex in
@@ -387,7 +387,7 @@ struct TopReadOverlayView: View {
 
 	func description() -> some View {
 		VStack(alignment: .leading, spacing: 5) {
-			Text(TopReadWidget.LocalizedStrings.topReadWidgetTitle)
+			Text(TopReadWidget.LocalizedStrings.widgetTitle)
 				.font(.caption2)
 				.fontWeight(.heavy)
 				.aspectRatio(contentMode: .fit)
