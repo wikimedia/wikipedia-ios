@@ -11,7 +11,7 @@ struct OnThisDayWidget: Widget {
         StaticConfiguration(kind: kind, provider: OnThisDayProvider(), content: { entry in
             OnThisDayView(entry: entry)
         })
-        .configurationDisplayName(WMFLocalizedString("widget-onthisday-name", value: "On this day", comment: "Name of 'On this day' view in iOS widget gallery"))
+        .configurationDisplayName(CommonStrings.onThisDayTitle)
         .description(WMFLocalizedString("widget-onthisday-description", value: "Explore what happened on this day in history.", comment: "Description for 'On this day' view in iOS widget gallery"))
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
@@ -45,7 +45,7 @@ struct OnThisDayProvider: TimelineProvider {
 
     func getSnapshot(in context: Context, completion: @escaping (OnThisDayEntry) -> Void) {
         dataStore.fetchLatestAvailableOnThisDayEntry(usingCache: context.isPreview) { entry in
-            completion(entry)
+            completion(OnThisDayData().placeholderEntry)
         }
     }
 
@@ -67,9 +67,10 @@ final class OnThisDayData {
     let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
                                           hasConnectionError: false,
                                           doesLanguageSupportOnThisDay: true,
+                                          onThisDayTitle: "On this day",
                                           monthDay: "January 15",
                                           fullDate: "January 15, 2001",
-                                          otherEventsCount: 49,
+                                          otherEventsText: "49 more historical events on this day",
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
                                           eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
                                           eventYear: "2001",
@@ -145,7 +146,7 @@ final class OnThisDayData {
     func handleError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
         let destinationURL = URL(string: "wikipedia://explore")!
-        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: false, monthDay: "", fullDate: "", otherEventsCount: 0, contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
+        let errorEntry = OnThisDayEntry(isRTLLanguage: isRTL, hasConnectionError: true, doesLanguageSupportOnThisDay: false, onThisDayTitle: "", monthDay: "", fullDate: "", otherEventsText: "", contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
         completion(errorEntry)
     }
 }
@@ -159,9 +160,10 @@ struct OnThisDayEntry: TimelineEntry {
     let hasConnectionError: Bool
     let doesLanguageSupportOnThisDay: Bool
 
+    let onThisDayTitle: String
     let monthDay: String
     let fullDate: String
-    let otherEventsCount: Int
+    let otherEventsText: String
     let contentURL: URL
     let eventSnippet: String?
     let eventYear: String
@@ -203,10 +205,11 @@ extension OnThisDayEntry {
             fullDate = ""
             eventYear = ""
         }
+        onThisDayTitle = CommonStrings.onThisDayTitle(with: language)
         isRTLLanguage = contentGroup.isRTL
         hasConnectionError = false
         doesLanguageSupportOnThisDay = true
-        otherEventsCount = eventsCount - 1
+        otherEventsText = CommonStrings.onThisDayFooterWith(with: (eventsCount - 1), language: language)
         contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
         eventSnippet = previewEvent.text
         articleTitle = article.displayTitle

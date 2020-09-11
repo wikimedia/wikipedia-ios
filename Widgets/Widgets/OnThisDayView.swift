@@ -37,7 +37,7 @@ struct OnThisDayView: View {
             switch widgetSize {
             case .systemLarge:
                 VStack(alignment: .leading, spacing: 0) {
-                    OnThisDayHeaderElement(yearRange: entry.yearRange, monthDay: entry.monthDay)
+                    OnThisDayHeaderElement(widgetTitle: entry.onThisDayTitle, yearRange: entry.yearRange, monthDay: entry.monthDay)
                         .padding(.bottom, 9)
                     MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
@@ -46,13 +46,13 @@ struct OnThisDayView: View {
                             .padding(.top, 9)
                             .layoutPriority(1.0)
                     }
-                    OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
+                    OnThisDayAdditionalEventsElement(otherEventsText: entry.otherEventsText)
                 }
                 .padding([.top, .leading, .trailing], 16)
             case .systemMedium:
                 VStack(alignment: .leading, spacing: 0) {
                     MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate, snippet: entry.eventSnippet)
-                    OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
+                    OnThisDayAdditionalEventsElement(otherEventsText: entry.otherEventsText)
                 }
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             case .systemSmall:
@@ -250,13 +250,14 @@ struct TimelineLargeCircleElement: View {
 
 struct OnThisDayHeaderElement: View {
     @Environment(\.colorScheme) var colorScheme
+    let widgetTitle: String
     let yearRange: String
     let monthDay: String
 
     var body: some View {
         /// Custom spacing (handled by middle text element) from 10 Sept 2020 video call w/ Carolyn, the app designer.
         VStack(spacing: 0) {
-            Text(WMFLocalizedString("widget-onthisday-name", value: "On this day", comment: "Name of 'On this day' view in iOS widget gallery"))
+            Text(widgetTitle)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                 .font(.subheadline)
                 .bold()
@@ -413,28 +414,26 @@ struct ArticleRectangleElement: View {
 struct OnThisDayAdditionalEventsElement: View {
     @Environment(\.colorScheme) var colorScheme
 
-    let otherEventsCount: Int
+    let otherEventsText: String
 
     var body: some View {
-        if otherEventsCount > 0 {
-            TimelineView(dotStyle: .small, isLineTopFaded: false, isLineBottomFaded: true, mainView:
-                Text(CommonStrings.onThisDayFooterWith(with: otherEventsCount))
-                    .font(.footnote)
-                    .bold()
-                    .lineLimit(1)
-                    .foregroundColor(OnThisDayColors.blueColor(colorScheme))
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                .padding(.top, 8)
-                .overlay (
-                    GeometryReader { geometryProxy in
-                      Color.clear
-                        .preference(key: SmallYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineSmallCircleElement.smallCircleHeight, topPadding: 4))
-                        /// The padding of 4 is a little arbitrary. These views aren't perfectly laid out in SwiftUI - see the "+20" comment above - and we needed an extra 4 points to make this layout properly.
-                    }
-                )
-                .padding(.bottom, 16)
+        TimelineView(dotStyle: .small, isLineTopFaded: false, isLineBottomFaded: true, mainView:
+            Text(otherEventsText)
+                .font(.footnote)
+                .bold()
+                .lineLimit(1)
+                .foregroundColor(OnThisDayColors.blueColor(colorScheme))
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+            .padding(.top, 8)
+            .overlay (
+                GeometryReader { geometryProxy in
+                  Color.clear
+                    .preference(key: SmallYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineSmallCircleElement.smallCircleHeight, topPadding: 4))
+                    /// The padding of 4 is a little arbitrary. These views aren't perfectly laid out in SwiftUI - see the "+20" comment above - and we needed an extra 4 points to make this layout properly.
+                }
             )
-        }
+            .padding(.bottom, 16)
+        )
     }
 }
 
