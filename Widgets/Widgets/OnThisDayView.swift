@@ -51,15 +51,15 @@ struct OnThisDayView: View {
                 .padding([.top, .leading, .trailing], 16)
             case .systemMedium:
                 VStack(alignment: .leading, spacing: 0) {
-                    MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate, snippet: entry.eventSnippet)
+                    MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                     OnThisDayAdditionalEventsElement(otherEventsCount: entry.otherEventsCount)
                 }
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             case .systemSmall:
-                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate, snippet: entry.eventSnippet)
+                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             @unknown default:
-                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, fullDate: entry.fullDate, snippet: entry.eventSnippet)
+                MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 16))
             }
         }
@@ -287,6 +287,7 @@ struct MainOnThisDayElement: View {
 
     var monthDay: String
     var eventYear: Int
+    var eventYearsAgo: String?
     var fullDate: String
     var snippet: String?
 
@@ -294,7 +295,7 @@ struct MainOnThisDayElement: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            MainOnThisDayTopElement(monthDay: monthDay, eventYear: eventYear, fullDate: fullDate)
+            MainOnThisDayTopElement(monthDay: monthDay, eventYear: eventYear, eventYearsAgo: eventYearsAgo, fullDate: fullDate)
             if let snippet = snippet {
                 TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: widgetSize == .systemSmall, mainView:
                         Text(snippet)
