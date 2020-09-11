@@ -430,7 +430,21 @@ public class EPC: NSObject {
         let group = DispatchGroup()
         while let item = outputBufferPopFirst() {
             group.enter()
-            httpPost(url: item.url, body: item.body) {
+            httpPost(url: item.url, body: item.body) { result in
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    switch error {
+                    case .networkingLibraryError:
+                        /// Retry on networking library failure
+                        self.appendPostToOutputBuffer(item)
+                    default:
+                        /// Give up on events rejected by the server
+                        assert(false, "The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
+                        break
+                    }
+                }
                 group.leave()
             }
         }
@@ -809,19 +823,38 @@ private extension EPC {
 //MARK: NetworkIntegration
 
 private extension EPC {
+    /// PostEventError describes the possible failure cases when POSTing an event
+    enum PostEventError: Error {
+        case networkingLibraryError(_ error: Error)
+        case missingResponse
+        case unexepectedResponse(_ httpCode: Int)
+    }
     /**
      * HTTP POST
      * - Parameter url: Where to POST data (`body`) to
      * - Parameter body: Body of the POST request
      */
-    private func httpPost(url: URL, body: Data? = nil, completion: (() -> Void)? = nil) {
+    private func httpPost(url: URL, body: Data? = nil, completion: @escaping ((Result<Void, PostEventError>) -> Void)) {
         DDLogDebug("EPC: Attempting to POST data to \(url.absoluteString)")
         let request = Session.shared.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = Session.shared.dataTask(with: request, completionHandler: { (_, response, error) in
-            if let error = error {
-                DDLogError("EPC: An error occurred sending the request: \(error)")
+            let fail: (PostEventError) ->  Void = { error in
+                DDLogDebug("EPC: An error occurred sending the request: \(error)")
+                completion(.failure(error))
             }
-            completion?()
+            if let error = error {
+                fail(PostEventError.networkingLibraryError(error))
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                fail(PostEventError.missingResponse)
+                return
+            }
+            guard httpResponse.statusCode == 201 else {
+                fail(PostEventError.unexepectedResponse(httpResponse.statusCode))
+                return
+            }
+            completion(.success(()))
         })
         task?.resume()
     }
