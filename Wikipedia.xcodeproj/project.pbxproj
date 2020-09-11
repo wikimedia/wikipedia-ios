@@ -9843,7 +9843,6 @@
 				0033D79924F818EC00CAB5B3 /* TopReadWidget+LocalizedStrings.swift in Sources */,
 				006D273724D8D8D100947551 /* Date+Extensions.swift in Sources */,
 				FF9416D824E203030070FEE7 /* OnThisDayWidget.swift in Sources */,
-				006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */,
 				FF9416DE24E2098C0070FEE7 /* OnThisDayView.swift in Sources */,
 				0033D79D24F8193900CAB5B3 /* UIColor+Extensions.swift in Sources */,
 				006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */,
