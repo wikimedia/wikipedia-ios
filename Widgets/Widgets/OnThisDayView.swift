@@ -418,7 +418,7 @@ struct OnThisDayAdditionalEventsElement: View {
     var body: some View {
         if otherEventsCount > 0 {
             TimelineView(dotStyle: .small, isLineTopFaded: false, isLineBottomFaded: true, mainView:
-                Text(String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount))
+                Text(CommonStrings.onThisDayFooterWith(with: otherEventsCount))
                     .font(.footnote)
                     .bold()
                     .lineLimit(1)
