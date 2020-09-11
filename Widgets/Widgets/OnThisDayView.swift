@@ -101,7 +101,7 @@ struct MissingOnThisDaySquare: View {
     var body: some View {
         Rectangle().foregroundColor(Color(UIColor.base30))
             .overlay(
-                Text(WMFLocalizedString("on-this-day-language-does-not-support-error", value: "English Wikipedia does not support On this day", comment: "error message shown when the language's Wikipedia does not have 'On this day' feature. Instead of 'English Wikipedia', use the language being translated into"))
+                Text(WMFLocalizedString("on-this-day-language-does-not-support-error", value: "Your primary Wikipedia language does not support On this day. You can update your primary Wikipedia in the app’s Settings menu.", comment: "error message shown when the language's Wikipedia does not have 'On this day' feature. Instead of 'English Wikipedia', use the language being translated into"))
                     .font(.caption)
                     .bold()
                     .multilineTextAlignment(.leading)
