@@ -175,6 +175,7 @@ extension OnThisDayEntry {
     init?(contentGroup: WMFContentGroup, image: UIImage?) {
         guard
             let midnightUTCDate = contentGroup.midnightUTCDate,
+            let calendar = NSCalendar.wmf_utcGregorian(),
             let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
             let previewEvent = previewEvents.first,
             let allEvents = contentGroup.fullContent?.object as? [WMFFeedOnThisDayEvent],
@@ -186,8 +187,17 @@ extension OnThisDayEntry {
         else {
             return nil
         }
-        monthDay = DateFormatter.wmf_utcMonthNameDayOfMonthNumber()?.string(from: midnightUTCDate) ?? ""
-        fullDate = DateFormatter.wmf_utcDayNameMonthNameDayOfMonthNumber()?.string(from: midnightUTCDate) ?? ""
+        let language = contentGroup.siteURL?.wmf_language
+        let monthDayFormatter = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language)
+        monthDay = monthDayFormatter.string(from: midnightUTCDate)
+        var components = calendar.components([.month, .year, .day], from: midnightUTCDate)
+        components.year = year
+        if let date = calendar.date(from: components) {
+            let fullDateFormatter = DateFormatter.wmf_longDateGMTFormatter(for: language)
+            fullDate = fullDateFormatter.string(from: date)
+        } else {
+            fullDate = ""
+        }
         isRTLLanguage = contentGroup.isRTL
         hasConnectionError = false
         doesLanguageSupportOnThisDay = true
@@ -201,7 +211,6 @@ extension OnThisDayEntry {
         articleSnippet = article.descriptionOrSnippet
         articleImage = image
         articleURL = article.articleURL
-        let language = contentGroup.siteURL?.wmf_language
         let locale = NSLocale.wmf_locale(for: language)
         let currentYear = Calendar.current.component(.year, from: Date())
         let yearsSinceEvent = currentYear - eventYear
