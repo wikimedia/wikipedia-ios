@@ -92,28 +92,6 @@ final class OnThisDayData {
             return
         }
 
-
-        
-//        if usingCache {
-//            guard let contentGroup = dataStore.viewContext.newestGroup(of: .onThisDay), let imageContent = contentGroup.contentPreview as? WMFFeedOnThisDayEvent else {
-//                completion(sampleEntry)
-//                return
-//            }
-
-//            let contentDate = contentGroup.date
-//            let contentURL = contentGroup.url
-//            let imageThumbnailURL = imageContent.imageThumbURL
-//            let imageDescription = imageContent.imageDescription
-//
-//            if let cachedImage = ImageCacheController.shared?.memoryCachedImage(withURL: imageThumbnailURL) {
-//                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
-//                completion(entry)
-//            } else {
-//                completion(sampleEntry)
-//            }
-//            return
-//        }
-
         let now = Date()
         let monthDay = DateFormatter.wmf_monthNameDayNumberLocalFormatter(for: appLanguage.languageCode).string(from: now)
         let components = Calendar.current.dateComponents([.month, .day], from: now)
