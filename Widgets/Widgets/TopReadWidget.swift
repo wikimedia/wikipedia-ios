@@ -11,8 +11,8 @@ struct TopReadWidget: Widget {
 		StaticConfiguration(kind: kind, provider: TopReadProvider(), content: { entry in
 			TopReadView(entry: entry)
 		})
-		.configurationDisplayName(LocalizedStrings.topReadWidgetTitle)
-		.description(LocalizedStrings.topReadWidgetDescription)
+		.configurationDisplayName(LocalizedStrings.widgetTitle)
+		.description(LocalizedStrings.widgetDescription)
 		.supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
 	}
 }
@@ -37,20 +37,26 @@ final class TopReadData {
 		MWKDataStore.shared()
 	}
 
-	func fetchLatestAvailableTopRead(_ completion: @escaping (TopReadEntry) -> Void) {
+    func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+
         let moc = dataStore.viewContext
         moc.perform {
             guard let latest = moc.newestVisibleGroup(of: .topRead),
                   latest.isForToday
             else {
-                self.fetchLatestAvailableTopReadFromNetwork(completion)
+                guard !usingCache else {
+                    completion(self.placeholder)
+                    return
+                }
+                self.fetchLatestAvailableTopReadFromNetwork(completion: completion)
                 return
             }
-            self.assembleTopReadFromContentGroup(latest, completion: completion)
+            self.assembleTopReadFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
 	}
     
-    func fetchLatestAvailableTopReadFromNetwork(_ completion: @escaping (TopReadEntry) -> Void) {
+    func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
+
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
@@ -63,7 +69,8 @@ final class TopReadData {
         }
     }
     
-    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, completion: @escaping (TopReadEntry) -> Void) {
+    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
@@ -86,6 +93,14 @@ final class TopReadData {
         for (index, element) in rankedElements.enumerated() {
             group.enter()
             guard let thumbnailURL = element.thumbnailURL, let fetcher = ImageCacheController.shared else {
+                group.leave()
+                continue
+            }
+            
+            if usingImageCache {
+                if let cachedImage = fetcher.cachedImage(withURL: thumbnailURL) {
+                    rankedElements[index].image = cachedImage.staticImage
+                }
                 group.leave()
                 continue
             }
@@ -151,10 +166,9 @@ struct TopReadProvider: TimelineProvider {
 	}
 
 	func getSnapshot(in context: Context, completion: @escaping (TopReadEntry) -> Void) {
-		// TODO: Support context.isPreview
-		dataStore.fetchLatestAvailableTopRead { entry in
-			completion(entry)
-		}
+        dataStore.fetchLatestAvailableTopRead(usingCache: true) { (entry) in
+            completion(entry)
+        }
 	}
 
 }
@@ -212,7 +226,7 @@ struct TopReadView: View {
 		let rowCount = family == .systemLarge ? 4 : 2
 
 		VStack(alignment: .leading, spacing: 8) {
-			Text(TopReadWidget.LocalizedStrings.topReadWidgetTitle)
+			Text(TopReadWidget.LocalizedStrings.widgetTitle)
 				.font(.subheadline)
 				.fontWeight(.bold)
 			ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0) { elementIndex in
@@ -257,7 +271,7 @@ struct TopReadView: View {
 							.cornerRadius(4)
 							.frame(height: proxy.size.height / 3.0, alignment: .leading)
 					} else {
-						Text("\(viewCountOrEmpty(viewCount: entry?.rankedElements[index].viewCounts.last))")
+						Text("\(numberOfReadersTextOrEmptyForViewCount(entry?.rankedElements[index].viewCounts.last))")
 							.font(.caption)
 							.fontWeight(.medium)
 							.lineLimit(2)
@@ -287,13 +301,13 @@ struct TopReadView: View {
 
 	// MARK: Private
 
-	private func viewCountOrEmpty(viewCount: NSNumber?) -> String {
+	private func numberOfReadersTextOrEmptyForViewCount(_ viewCount: NSNumber?) -> String {
 		guard let viewCount = viewCount else {
 			return "–"
 		}
-
-		// TODO: Localize
-		return NumberFormatter.localizedThousandsStringFromNumber(viewCount) + " " + "readers"
+        
+        let formattedCount = NumberFormatter.localizedThousandsStringFromNumber(viewCount)
+		return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.readersCountFormat, formattedCount)
 	}
 }
 
@@ -318,12 +332,13 @@ struct TopReadOverlayView: View {
 			: .white
 	}
 
-	private var currentViewCountOrEmpty: String {
+	private var currentNumberOfReadersTextOrEmpty: String {
 		guard let currentViewCount = rankedElement?.viewCounts.last else {
 			return "–"
 		}
 
-		return NumberFormatter.localizedThousandsStringFromNumber(currentViewCount)
+		let formattedCount = NumberFormatter.localizedThousandsStringFromNumber(currentViewCount)
+        return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.readersCountFormat, formattedCount)
 	}
 
 	var body: some View {
@@ -345,8 +360,7 @@ struct TopReadOverlayView: View {
 	var content: some View {
 		VStack(alignment: .leading) {
 			if isExpandedStyle {
-				// TODO: Localize
-				Text("\(currentViewCountOrEmpty) readers")
+				Text(currentNumberOfReadersTextOrEmpty)
 					.fontWeight(.medium)
 					.lineLimit(nil)
 					.font(.subheadline)
@@ -380,7 +394,7 @@ struct TopReadOverlayView: View {
 
 	func description() -> some View {
 		VStack(alignment: .leading, spacing: 5) {
-			Text(TopReadWidget.LocalizedStrings.topReadWidgetTitle)
+			Text(TopReadWidget.LocalizedStrings.widgetTitle)
 				.font(.caption2)
 				.fontWeight(.heavy)
 				.aspectRatio(contentMode: .fit)
