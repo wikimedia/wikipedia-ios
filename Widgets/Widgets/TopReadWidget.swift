@@ -93,9 +93,10 @@ final class TopReadData {
             if usingImageCache {
                 if let cachedImage = fetcher.memoryCachedImage(withURL: thumbnailURL) {
                     rankedElements[index].image = cachedImage.staticImage
-                    group.leave()
-                    continue
                 }
+                
+                group.leave()
+                continue
             }
 
             fetcher.fetchImage(withURL: thumbnailURL, failure: { _ in
@@ -264,7 +265,7 @@ struct TopReadView: View {
 							.cornerRadius(4)
 							.frame(height: proxy.size.height / 3.0, alignment: .leading)
 					} else {
-						Text("\(viewCountOrEmpty(viewCount: entry?.rankedElements[index].viewCounts.last))")
+						Text("\(numberOfReadersTextOrEmptyForViewCount(entry?.rankedElements[index].viewCounts.last))")
 							.font(.caption)
 							.fontWeight(.medium)
 							.lineLimit(2)
@@ -294,7 +295,7 @@ struct TopReadView: View {
 
 	// MARK: Private
 
-	private func viewCountOrEmpty(viewCount: NSNumber?) -> String {
+	private func numberOfReadersTextOrEmptyForViewCount(_ viewCount: NSNumber?) -> String {
 		guard let viewCount = viewCount else {
 			return "–"
 		}
@@ -325,7 +326,7 @@ struct TopReadOverlayView: View {
 			: .white
 	}
 
-	private var currentViewCountOrEmpty: String {
+	private var currentNumberOfReadersTextOrEmpty: String {
 		guard let currentViewCount = rankedElement?.viewCounts.last else {
 			return "–"
 		}
@@ -353,7 +354,7 @@ struct TopReadOverlayView: View {
 	var content: some View {
 		VStack(alignment: .leading) {
 			if isExpandedStyle {
-				Text(currentViewCountOrEmpty)
+				Text(currentNumberOfReadersTextOrEmpty)
 					.fontWeight(.medium)
 					.lineLimit(nil)
 					.font(.subheadline)
