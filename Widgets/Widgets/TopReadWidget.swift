@@ -298,9 +298,9 @@ struct TopReadView: View {
 		guard let viewCount = viewCount else {
 			return "–"
 		}
-
-		// TODO: Localize
-		return NumberFormatter.localizedThousandsStringFromNumber(viewCount) + " " + "readers"
+        
+        let formattedCount = NumberFormatter.localizedThousandsStringFromNumber(viewCount)
+		return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.topReadWidgetReadersCountFormat, formattedCount)
 	}
 }
 
@@ -330,7 +330,8 @@ struct TopReadOverlayView: View {
 			return "–"
 		}
 
-		return NumberFormatter.localizedThousandsStringFromNumber(currentViewCount)
+		let formattedCount = NumberFormatter.localizedThousandsStringFromNumber(currentViewCount)
+        return String.localizedStringWithFormat(TopReadWidget.LocalizedStrings.topReadWidgetReadersCountFormat, formattedCount)
 	}
 
 	var body: some View {
@@ -352,8 +353,7 @@ struct TopReadOverlayView: View {
 	var content: some View {
 		VStack(alignment: .leading) {
 			if isExpandedStyle {
-				// TODO: Localize
-				Text("\(currentViewCountOrEmpty) readers")
+				Text(currentViewCountOrEmpty)
 					.fontWeight(.medium)
 					.lineLimit(nil)
 					.font(.subheadline)
