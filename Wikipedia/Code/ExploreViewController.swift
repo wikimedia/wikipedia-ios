@@ -112,6 +112,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     // MARK - Refresh
     
+    override func refreshControlActivated() {
+        super.refreshControlActivated()
+    }
+    
     open override func refresh() {
         FeedFunnel.shared.logFeedRefreshed()
         updateFeedSources(with: nil, userInitiated: true) {

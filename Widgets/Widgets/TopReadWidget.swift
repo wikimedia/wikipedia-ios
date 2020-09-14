@@ -38,12 +38,9 @@ final class TopReadData {
 	}
 
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
-
         let moc = dataStore.viewContext
         moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .topRead),
-                  latest.isForToday
-            else {
+            guard let latest = moc.newestVisibleGroup(of: .topRead), latest.isForToday else {
                 guard !usingCache else {
                     completion(self.placeholder)
                     return
@@ -53,7 +50,7 @@ final class TopReadData {
             }
             self.assembleTopReadFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
-	}
+    }
     
     func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
 
@@ -169,7 +166,7 @@ struct TopReadProvider: TimelineProvider {
         dataStore.fetchLatestAvailableTopRead(usingCache: true) { (entry) in
             completion(entry)
         }
-	}
+    }
 
 }
 

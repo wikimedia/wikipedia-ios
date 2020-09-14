@@ -22,7 +22,10 @@ public final class WidgetController: NSObject {
 
     // MARK: Public
 
-	@objc public func reloadAllWidgets() {
+	@objc public func reloadAllWidgetsIfNecessary() {
+        guard !Bundle.main.isAppExtension else {
+            return
+        }
 		if #available(iOS 14.0, *) {
 			WidgetCenter.shared.reloadAllTimelines()
 		}
