@@ -8,6 +8,7 @@
 #import <WMF/WMFLogging.h>
 #import <WMF/NSCharacterSet+WMFLinkParsing.h>
 #import <WMF/MWKLanguageLinkController.h>
+#import <WMF/MWLanguageInfo.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -489,6 +490,14 @@
 
 - (BOOL)isForToday {
     return [self.midnightUTCDate wmf_UTCDateIsTodayLocal];
+}
+
+- (BOOL)isRTL {
+    NSString *language = self.siteURL.wmf_language;
+    if (!language) {
+        return NO;
+    }
+    return [MWLanguageInfo semanticContentAttributeForWMFLanguage:language] == UISemanticContentAttributeForceRightToLeft;
 }
 
 - (void)markDismissed {
