@@ -211,7 +211,8 @@ extension OnThisDayEntry {
             let latestEventYear = allEvents.first?.yearString,
             let article = previewEvents.first?.articlePreviews?.first,
             let year = previewEvent.year?.intValue,
-            let eventsCount = contentGroup.countOfFullContent?.intValue
+            let eventsCount = contentGroup.countOfFullContent?.intValue,
+            let previewEventIndex = allEvents.firstIndex(of: previewEvent)
         else {
             return nil
         }
@@ -233,7 +234,7 @@ extension OnThisDayEntry {
         isRTLLanguage = contentGroup.isRTL
         error = nil
         otherEventsText = CommonStrings.onThisDayFooterWith(with: (eventsCount - 1), language: language)
-        contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
+        contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(previewEventIndex)")!
         eventSnippet = previewEvent.text
         articleTitle = article.displayTitle
         articleSnippet = article.descriptionOrSnippet
