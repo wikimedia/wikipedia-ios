@@ -402,6 +402,9 @@
 		67DC5BF023A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
 		67DC5BF123A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
 		67DC5BF223A1427D00B03A84 /* ActionHandlerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */; };
+		67DDD188250C1A27006C0F93 /* ThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */; };
+		67DDD189250C1A27006C0F93 /* ThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */; };
+		67DDD18A250C1A28006C0F93 /* ThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */; };
 		67E069062238A396008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
 		67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
 		67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* ReadingThemesControlsViewController.swift */; };
@@ -10781,6 +10784,7 @@
 				B0ACB13621265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				8382F8D620D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				B0C7A0811F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
+				67DDD18A250C1A28006C0F93 /* ThreeLineHeaderView.swift in Sources */,
 				678D79ED235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */,
 				B0432347210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
@@ -11633,6 +11637,7 @@
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				D8CE26071E698E2400DAE2E0 /* WMFAlertManager.swift in Sources */,
+				67DDD189250C1A27006C0F93 /* ThreeLineHeaderView.swift in Sources */,
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D8CE260A1E698E2400DAE2E0 /* WMFLoginFunnel.m in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
@@ -11726,6 +11731,7 @@
 				7A1C4997227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				D8EC3DEF1E9BDA35006712EB /* UIApplication+RTL.swift in Sources */,
 				D8EC3DF21E9BDA35006712EB /* WMFWelcomePanelViewController.swift in Sources */,
+				67DDD188250C1A27006C0F93 /* ThreeLineHeaderView.swift in Sources */,
 				D8533ED71ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				7ADF853823516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
