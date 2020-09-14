@@ -20,6 +20,7 @@
 // Author: Meelo
 // Author: Mirzali
 // Author: MrSchipunov
+// Author: MuratTheTurkish
 // Author: Nemo bis
 // Author: Rapsar
 // Author: Sadrettin
@@ -512,7 +513,7 @@
 "main-menu-debug-tweaks" = "Geliştirici ayarları";
 "main-menu-heading-debug" = "Ayıkla";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";
-"main-menu-nearby" = "Yakınındakiler";
+"main-menu-nearby" = "Yakınımdakiler";
 "main-menu-privacy-policy" = "Gizlilik politikası";
 "main-menu-rate-app" = "Uygulamayı puanla";
 "main-menu-terms-of-use" = "Kullanım Şartları";
@@ -598,7 +599,7 @@
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-this-area" = "Bu bölgedeki sonuçlar";
 "places-search-top-articles" = "En çok okunan tüm maddeler";
-"places-search-top-articles-that-match-scope" = "Yakınındakiler";
+"places-search-top-articles-that-match-scope" = "Yakınımdakiler";
 "places-search-your-current-location" = "Mevcut konumunuz";
 "places-title" = "Yerler";
 "places-unknown-distance" = "bilinmeyen uzaklık";
