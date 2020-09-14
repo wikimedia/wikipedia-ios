@@ -16,6 +16,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         view.bringSubviewToFront(resultsViewController.view)
         resultsViewController.view.isHidden = true
+
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonTitle = title
+            navigationItem.backButtonDisplayMode = .default
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -26,9 +31,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
             searchBar.becomeFirstResponder()
         }
-
-        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewDidAppear`.
-        parent?.navigationItem.backButtonTitle = title
     }
     
     override func viewDidAppear(_ animated: Bool) {
