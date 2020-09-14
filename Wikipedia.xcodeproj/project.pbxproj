@@ -1217,6 +1217,7 @@
 		83A642762226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
 		83A642772226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
 		83A642782226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
+		83A6D44325100BEE00F9F909 /* Bundle+IsAppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A6D44225100BEE00F9F909 /* Bundle+IsAppExtension.swift */; };
 		83A72BBF24E70BB200732493 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A72BBE24E70BB200732493 /* localization.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
@@ -3696,6 +3697,7 @@
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
 		83A422B422786E2000BA446A /* Local-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Local-Info.plist"; sourceTree = "<group>"; };
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
+		83A6D44225100BEE00F9F909 /* Bundle+IsAppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+IsAppExtension.swift"; sourceTree = "<group>"; };
 		83A72BBE24E70BB200732493 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = "Command Line Tools/Update Localizations/localization.swift"; sourceTree = SOURCE_ROOT; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
@@ -7840,6 +7842,7 @@
 				D8FB46A11E26BC6600F2620F /* QuadKey.swift */,
 				D8F36F021EEEBA130087D4DD /* Licenses.swift */,
 				D81A28BD231E8F4C001CC77D /* ExtensionViewController.swift */,
+				83A6D44225100BEE00F9F909 /* Bundle+IsAppExtension.swift */,
 				D8CC94D62178972C007293E7 /* Core Data */,
 				D8650B7920350FEE0044DFFA /* NSString+SHA256.h */,
 				D8650B7A20350FEE0044DFFA /* NSString+SHA256.m */,
@@ -10564,6 +10567,7 @@
 				D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */,
 				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
+				83A6D44325100BEE00F9F909 /* Bundle+IsAppExtension.swift in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
 				A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */,
 				8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */,

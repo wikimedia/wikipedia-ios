@@ -209,7 +209,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 [self.dataStore teardownFeedImportContext];
                                                 [[NSUserDefaults standardUserDefaults] wmf_setFeedRefreshDate:[NSDate date]];
-                                                [[WMFWidgetController shared] reloadAllWidgets];
+                                                [[WMFWidgetController shared] reloadAllWidgetsIfNecessary];
                                                 if (completion) {
                                                     completion();
                                                 }
@@ -305,7 +305,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             }
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                            [[WMFWidgetController shared] reloadAllWidgets];
+                                            [[WMFWidgetController shared] reloadAllWidgetsIfNecessary];
                                             if (completionHandler) {
                                                 completionHandler(didUpdate ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
                                             }
