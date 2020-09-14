@@ -414,7 +414,7 @@ public class EPC: NSObject {
                 guard inSample(stream: event.stream) else {
                     continue
                 }
-                appendPostToOutputBuffer((url: streamIntakeServiceURI, body: data))
+                appendPostToOutputBuffer((url: streamIntakeServiceURI, body: event.data))
             }
         } catch let error {
             DDLogError("EPC: Problem processing JSON payload from response: \(error)")
