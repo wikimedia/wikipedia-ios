@@ -640,7 +640,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-		WidgetController.shared.reloadAllWidgets()
 		
         guard needsReloadVisibleCells else {
             return

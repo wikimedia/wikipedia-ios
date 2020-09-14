@@ -3,17 +3,6 @@ import SwiftUI
 import WMF
 import UIKit
 
-// TODO: Move into `PictureOfTheDay+LocalizedStrings.swift`
-extension PictureOfTheDayWidget {
-
-    enum LocalizedStrings {
-        static let pictureOfTheDayWidgetTitle = WMFLocalizedString("potd-widget-title", value:"Picture of the day", comment: "Text for title of Picture of the day widget.")
-        static let pictureOfTheDayWidgetDescription = WMFLocalizedString("potd-widget-description", value:"Enjoy a beautiful daily photo selected by our community.", comment: "Text for description of Picture of the day widget displayed when adding to home screen.")
-    }
-
-}
-
-
 // MARK: - Widget
 
 struct PictureOfTheDayWidget: Widget {
@@ -23,8 +12,8 @@ struct PictureOfTheDayWidget: Widget {
 		StaticConfiguration(kind: kind, provider: PictureOfTheDayProvider(), content: { entry in
 			PictureOfTheDayView(entry: entry)
 		})
-        .configurationDisplayName(PictureOfTheDayWidget.LocalizedStrings.pictureOfTheDayWidgetTitle)
-        .description(PictureOfTheDayWidget.LocalizedStrings.pictureOfTheDayWidgetDescription)
+        .configurationDisplayName(PictureOfTheDayWidget.LocalizedStrings.widgetTitle)
+        .description(PictureOfTheDayWidget.LocalizedStrings.widgetDescription)
 		.supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
 	}
 }
@@ -43,14 +32,14 @@ final class PictureOfTheDayData {
 		MWKDataStore.shared()
 	}
 
-	let sampleEntry = PictureOfTheDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription: "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.")
+    let sampleEntry = PictureOfTheDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
 	let placeholderEntry = PictureOfTheDayEntry(date: Date(), contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
 
 	// MARK: Public
 
 	func fetchLatestAvailablePictureEntry(usingImageCache: Bool = false, _ completion: @escaping (PictureOfTheDayEntry) -> Void) {
 		// We could Result type the completion, but it's not probably worth the complexity for the widget's use cases
-		guard let contentGroup = dataStore.viewContext.newestGroup(of: .pictureOfTheDay), let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
+		guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .pictureOfTheDay), let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
 			completion(sampleEntry)
 			return
 		}
