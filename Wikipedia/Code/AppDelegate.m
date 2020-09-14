@@ -1,5 +1,6 @@
 #import "AppDelegate.h"
 @import UserNotifications;
+@import BackgroundTasks;
 @import WMF.NSUserActivity_WMFExtensions;
 @import WMF.NSFileManager_WMFGroup;
 #import "WMFAppViewController.h"
@@ -8,6 +9,7 @@
 #import "WMFQuoteMacros.h"
 
 static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
+static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.wikipedia.appRefresh";
 
 @interface AppDelegate ()
 
@@ -60,7 +62,8 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
+    [self registerBackgroundTasksForApplication:application];
+
 #if DEBUG
     // Use NSLog so we can break and copy/paste. DDLogDebug is async.
     NSLog(@"\nSimulator container directory:\n\t%@\n",
@@ -89,6 +92,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self cancelPendingBackgroundTasks];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -189,6 +193,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     [self updateDynamicIconShortcutItems];
+    [self scheduleBackgroundAppRefreshTask];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -201,6 +206,49 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [self.appViewController performBackgroundFetchWithCompletion:completionHandler];
+}
+
+/// Cancels any pending background tasks, if applicable on the current platform
+- (void)cancelPendingBackgroundTasks {
+    if (@available(iOS 13.0, *)) {
+        [[BGTaskScheduler sharedScheduler] cancelAllTaskRequests];
+    }
+}
+
+/// Register for any necessary background tasks or updates with the method appropriate for the platform
+- (void)registerBackgroundTasksForApplication:(UIApplication *)application {
+    if (@available(iOS 13.0, *)) {
+        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier
+                                                              usingQueue:dispatch_get_main_queue()
+                                                           launchHandler:^(__kindof BGTask *_Nonnull task) {
+                                                               [self.appViewController performBackgroundFetchWithCompletion:^(UIBackgroundFetchResult result) {
+                                                                   switch (result) {
+                                                                       case UIBackgroundFetchResultFailed:
+                                                                           [task setTaskCompletedWithSuccess:NO];
+                                                                           break;
+                                                                       default:
+                                                                           [task setTaskCompletedWithSuccess:YES];
+                                                                           break;
+                                                                   }
+                                                                   // The next task needs to be scheduled
+                                                                   [self scheduleBackgroundAppRefreshTask];
+                                                               }];
+                                                           }];
+    } else {
+        [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
+    }
+}
+
+/// Schedule the next background refresh, if applicable on the current platform
+- (void)scheduleBackgroundAppRefreshTask {
+    if (@available(iOS 13.0, *)) {
+        BGAppRefreshTaskRequest *appRefreshTask = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier];
+        appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
+        NSError *taskSubmitError = nil;
+        if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
+            DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
+        }
+    }
 }
 
 @end
