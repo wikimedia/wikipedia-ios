@@ -196,7 +196,7 @@ public class EPC: NSObject {
      * Only modify (append events to, remove events from) *synchronously* via
      * `queue.sync`
      */
-    private var inputBuffer: [(stream: Stream, data: Data)] = []
+    private var inputBuffer: [EventRequest] = []
 
     /**
      * Maximum number of events allowed in the input buffer
@@ -206,7 +206,7 @@ public class EPC: NSObject {
     /**
      * Holds events that have been scheduled for POSTing
      */
-    private var outputBuffer: [(url: URL, body: Data)] = []
+    private var outputBuffer: [EventRequest] = []
 
     /**
      * Cache of "in sample" / "out of sample" determination for each stream
@@ -368,7 +368,7 @@ public class EPC: NSObject {
     }
 
     /**
-     * Processes fetched stream config to local Dictionary
+     * Processes fetched stream config
      * - Parameter data: JSON-serialized stream configuration
      *
      * Example of a retrieved config:
@@ -414,7 +414,7 @@ public class EPC: NSObject {
                 guard inSample(stream: event.stream) else {
                     continue
                 }
-                appendPostToOutputBuffer((url: streamIntakeServiceURI, body: event.data))
+                appendPostToOutputBuffer(event)
             }
         } catch let error {
             DDLogError("EPC: Problem processing JSON payload from response: \(error)")
@@ -430,15 +430,19 @@ public class EPC: NSObject {
         let group = DispatchGroup()
         while let item = outputBufferPopFirst() {
             group.enter()
-            httpPost(url: item.url, body: item.body) { result in
+            httpPost(url: item.url, body: item.data) { result in
                 switch result {
                 case .success:
                     break
                 case .failure(let error):
                     switch error {
                     case .networkingLibraryError:
+                        guard item.attempt < 10 else {
+                            break
+                        }
+                        let nextRequest = EventRequest(url: item.url, data: item.data, stream: item.stream, attempt: item.attempt + 1)
                         /// Retry on networking library failure
-                        self.appendPostToOutputBuffer(item)
+                        self.appendPostToOutputBuffer(nextRequest)
                     default:
                         /// Give up on events rejected by the server
                         assert(false, "The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
@@ -541,7 +545,7 @@ public class EPC: NSObject {
         cacheSamplingForStream(stream, inSample: result)
         return result
     }
-
+    
     /// EventBody is used to encod event data into the POST body of a request to the Modern Event Platform
     struct EventBody<E>: Encodable where E: EventInterface {
         /// EventGate needs to know which version of the schema to validate against
@@ -602,6 +606,14 @@ public class EPC: NSObject {
                 DDLogError("EPC: Error encoding event body: \(error)")
             }
         }
+    }
+    
+    /// EventRequest stores the necessary information for persisting Event requests
+    struct EventRequest: Codable {
+        let url: URL
+        let data: Data
+        let stream: Stream
+        var attempt: Int = 1
     }
     
     /**
@@ -693,9 +705,9 @@ public class EPC: NSObject {
             DDLogDebug("EPC: Scheduling event to be sent to \(streamIntakeServiceURI) with POST body:\n\(jsonString)")
             #endif
             
+            let request = EventRequest(url: streamIntakeServiceURI, data: jsonData, stream: stream)
             guard let streamConfigs = streamConfigurations else {
-                let inputBufferedEvent: (stream: Stream, data: Data) = (stream: stream, data: jsonData)
-                appendEventToInputBuffer(inputBufferedEvent)
+                appendEventToInputBuffer(request)
                 return
             }
             
@@ -707,8 +719,7 @@ public class EPC: NSObject {
             guard inSample(stream: stream) else {
                 return
             }
-            
-            appendPostToOutputBuffer((url: streamIntakeServiceURI, body: jsonData))
+            appendPostToOutputBuffer(request)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
@@ -722,7 +733,7 @@ private extension EPC {
     /**
      * Thread-safe synchronous retrieval of buffered events
      */
-    func getInputBuffer() -> [(stream: Stream, data: Data)] {
+    func getInputBuffer() -> [EventRequest] {
         queue.sync {
             return self.inputBuffer
         }
@@ -732,7 +743,7 @@ private extension EPC {
      * Thread-safe synchronous buffering of an event
      * - Parameter event: event to be buffered
      */
-    func appendEventToInputBuffer(_ event: (stream: Stream, data: Data)) {
+    func appendEventToInputBuffer(_ event: EventRequest) {
         queue.sync {
             /*
              * Check if input buffer has reached maximum allowed size. Practically
@@ -753,7 +764,7 @@ private extension EPC {
      * Thread-safe synchronous removal of first buffered event
      * - Returns: a previously buffered event
      */
-    func inputBufferPopFirst() -> (stream: Stream, data: Data)? {
+    func inputBufferPopFirst() -> EventRequest? {
         queue.sync {
             if self.inputBuffer.isEmpty {
                 return nil
@@ -797,10 +808,9 @@ private extension EPC {
 
     /**
      * Thread-safe asynchronous buffering of an event scheduled for POSTing
-     * - Parameter post: a tuple consisting of an `NSDictionary` `body` to be
-     *   POSTed to the `url`
+     * - Parameter post: an EventRequest
      */
-    func appendPostToOutputBuffer(_ post: (url: URL, body: Data)) {
+    func appendPostToOutputBuffer(_ post: EventRequest) {
         queue.async {
             self.outputBuffer.append(post)
         }
@@ -810,7 +820,7 @@ private extension EPC {
      * Thread-safe synchronous removal of first scheduled event
      * - Returns: a previously scheduled event
      */
-    func outputBufferPopFirst() -> (url: URL, body: Data)? {
+    func outputBufferPopFirst() -> EventRequest? {
         queue.sync {
             if self.outputBuffer.isEmpty {
                 return nil
