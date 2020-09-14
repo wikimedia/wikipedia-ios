@@ -179,7 +179,10 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             }
             return
         }
-        
+
+        /// Need to prune on every VC appearance, and must be done prior to updateNavigationItems being called.
+        (navigationController as? RootNavigationController)?.pruneSearchControllers()
+
         if navigationMode == .forceBar {
             ownsNavigationBar = true
             showsNavigationBar = true

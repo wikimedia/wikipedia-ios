@@ -43,4 +43,15 @@ class RootNavigationController: WMFThemeableNavigationController {
     @objc func triggerMigratingAnimation() {
         splashScreenViewController?.triggerMigratingAnimation()
     }
+
+    func pruneSearchControllers() {
+        let count = viewControllers.count
+        if count - 2 > 1 {
+            viewControllers[1..<count-2].forEach({ vc in
+                if vc.isKind(of: SearchViewController.self) {
+                    vc.removeFromParent()
+                }
+            })
+        }
+    }
 }

@@ -1591,26 +1591,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    NSArray *viewControllers = navigationController.viewControllers;
-    NSInteger count = viewControllers.count;
-    NSMutableIndexSet *indiciesToRemove = [NSMutableIndexSet indexSet];
-    NSInteger index = 1;
-    NSInteger limit = count - 2;
-    while (index < limit) {
-        if ([viewControllers[index] isKindOfClass:[SearchViewController class]]) {
-            [indiciesToRemove addIndex:index];
-        }
-        index++;
-    }
-
-    if (indiciesToRemove.count > 0) {
-        NSMutableArray *mutableViewControllers = [navigationController.viewControllers mutableCopy];
-        [mutableViewControllers removeObjectsAtIndexes:indiciesToRemove];
-        [navigationController setViewControllers:mutableViewControllers animated:NO];
-    }
-}
-
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
     return [self.transitionsController navigationController:navigationController interactionControllerForAnimationController:animationController];
 }
