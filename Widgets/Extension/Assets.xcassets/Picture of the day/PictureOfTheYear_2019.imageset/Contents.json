@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "PictureOfTheYear_2019.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

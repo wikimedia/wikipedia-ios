@@ -200,9 +200,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                           forKeyPath:[WMFUserDefaultsKey defaultTabType]
-                              options:NSKeyValueObservingOptionNew
-                              context:&kvo_NSUserDefaults_defaultTabType];
+                                            forKeyPath:[WMFUserDefaultsKey defaultTabType]
+                                               options:NSKeyValueObservingOptionNew
+                                               context:&kvo_NSUserDefaults_defaultTabType];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exploreFeedPreferencesDidChange:)
@@ -231,7 +231,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageReplyWasPublished:) name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageTopicWasPublished:) name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referenceLinkTapped:) name:WMFReferenceLinkTappedNotification object:nil];
 
     [self setupReadingListsHelpers];
@@ -769,35 +769,36 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         migrationsAllowed = NO;
     }];
 
-//    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
-//    dispatch_block_t bail = ^{
-//        [self endMigrationBackgroundTask];
-//        self.migrationActive = NO;
-//    };
-//    BOOL (^cancellationChecker)() = ^BOOL() {
-//        return migrationsAllowed;
-//    };
+    //    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
+    //    dispatch_block_t bail = ^{
+    //        [self endMigrationBackgroundTask];
+    //        self.migrationActive = NO;
+    //    };
+    //    BOOL (^cancellationChecker)() = ^BOOL() {
+    //        return migrationsAllowed;
+    //    };
 
     self.migrationActive = YES;
 
-    [self.dataStore performLibraryUpdates:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.migrationComplete = YES;
-            self.migrationActive = NO;
-            [self endMigrationBackgroundTask];
-            [self checkRemoteAppConfigIfNecessary];
-            [self setupControllers];
-            if (!self.isWaitingToResumeApp) {
-                [self resumeApp:NULL];
-            }
-        });
-    } needsMigrateBlock: ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
-        });
-    }];
+    [self.dataStore
+        performLibraryUpdates:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.migrationComplete = YES;
+                self.migrationActive = NO;
+                [self endMigrationBackgroundTask];
+                [self checkRemoteAppConfigIfNecessary];
+                [self setupControllers];
+                if (!self.isWaitingToResumeApp) {
+                    [self resumeApp:NULL];
+                }
+            });
+        }
+        needsMigrateBlock:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
+            });
+        }];
 }
-
 
 #pragma mark - Start/Pause/Resume App
 
@@ -907,7 +908,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         if (!NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
-        
+
         [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class] force:YES completion:NULL];
     }
 
@@ -997,7 +998,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
-    
+
     [self endHousekeepingBackgroundTask];
 }
 
@@ -1148,9 +1149,17 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
-                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
-                if (vc) {
-                    [navController pushViewController:vc animated:animated];
+                switch (group.detailType) {
+                    case WMFFeedDisplayTypePhoto: {
+                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme];
+                        [self.navigationController presentViewController:vc animated:false completion:nil];
+                    }
+                    default: {
+                        UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
+                        if (vc) {
+                            [navController pushViewController:vc animated:animated];
+                        }
+                    }
                 }
             } else {
                 [self.exploreViewController updateFeedSourcesWithDate:nil
@@ -1220,9 +1229,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated {
     return [self showArticleWithURL:articleURL
-                          animated:animated
-                        completion:^{
-                        }];
+                           animated:animated
+                         completion:^{
+                         }];
 }
 
 - (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
@@ -1250,21 +1259,21 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (nc.presentedViewController) {
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
-    
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler: [SchemeHandler sharedInstance]];
+
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:[SchemeHandler sharedInstance]];
     articleVC.loadCompletion = completion;
-    
+
     if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
         os_log_t customLog = os_log_create("org.wikimedia.ios", "articleLoadTime");
         NSDate *start = [NSDate date];
-        
+
         articleVC.initialSetupCompletion = ^{
-        NSDate *end = [NSDate date];
-        NSTimeInterval articleLoadTime = [end timeIntervalSinceDate:start];
-        os_log_with_type(customLog, OS_LOG_TYPE_INFO, "article load time = %f", articleLoadTime);
+            NSDate *end = [NSDate date];
+            NSTimeInterval articleLoadTime = [end timeIntervalSinceDate:start];
+            os_log_with_type(customLog, OS_LOG_TYPE_INFO, "article load time = %f", articleLoadTime);
         };
     }
-    
+
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
 }
@@ -1727,7 +1736,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
