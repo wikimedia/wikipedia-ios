@@ -2,9 +2,7 @@
 import Foundation
 
 final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    public static let shared = EditHistoryCompareFunnel()
-    
-    private enum Action: String {
+    private enum Action: String, Codable {
         case showHistory = "show_history"
         case revisionView = "revision_view"
         case compare1
@@ -13,7 +11,17 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
         case thankSuccess = "thank_success"
         case thankFail = "thank_fail"
     }
-
+    
+    
+    private struct Event: EventInterface {
+        static let schema: EPC.Schema = .editHistoryCompareV1
+        let action: Action
+        let primary_language: String
+        let is_anon: Bool
+    }
+    
+    public static let shared = EditHistoryCompareFunnel()
+    
     private override init() {
         super.init(schema: "MobileWikiAppiOSEditHistoryCompare", version: 19795952)
     }
@@ -28,22 +36,8 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     }
 
     private func newLog(action: Action, domain: String?) {
-        /*
-         * TODO: The following still need to be resolved before this
-         * instrumentation upgrade can be called done:
-         *   - Finalize stream name to what will be deployed in mediawiki-config/wmf-config
-         *   - Finalize the schema (TBD in Gerrit patch to schemas/event/secondary repo)
-         */
-        EPC.shared?.submit(
-            stream: "ios.edit_history_compare",
-            data: [
-                "$schema": "/analytics/mobile_apps/ios_edit_history_compare/1.0.0" as NSCoding,
-                "action": action.rawValue as NSCoding,
-                "primary_language": self.primaryLanguage() as NSCoding,
-                "is_anon": self.isAnon as NSCoding
-            ],
-            domain: domain
-        )
+        let event = Event(action: action, primary_language: primaryLanguage(), is_anon: isAnon.boolValue)
+        EPC.shared?.submit(stream: .editHistoryCompare, event: event, domain: domain)
     }
     
     public func logShowHistory(articleURL: URL) {
