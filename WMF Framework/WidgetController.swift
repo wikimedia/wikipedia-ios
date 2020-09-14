@@ -8,6 +8,7 @@ public final class WidgetController: NSObject {
 
     public enum SupportedWidget: String {
         case pictureOfTheDay = "org.wikimedia.wikipedia.widgets.potd"
+        case onThisDay = "org.wikimedia.wikipedia.widgets.onThisDay"
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
 
         public var identifier: String {
