@@ -177,7 +177,8 @@ public enum WMFCachePolicy {
         return request(with: requestURL, method: .get)
     }
 
-    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
+    /// If `bodyData` is set, it will be used. Otherwise, `bodyParameters` will be encoded into the provided `bodyEncoding`
+    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyData: Data? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest {
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
         if let cachePolicy = cachePolicy {
@@ -201,29 +202,35 @@ public enum WMFCachePolicy {
         if let xWMFUUID = xWMFUUID {
             request.setValue(xWMFUUID, forHTTPHeaderField: "X-WMF-UUID")
         }
-        guard let bodyParameters = bodyParameters else {
+        guard bodyParameters != nil || bodyData != nil else {
             return request
         }
         switch bodyEncoding {
         case .json:
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: bodyParameters, options: [])
-                request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            } catch let error {
-                DDLogError("error serializing JSON: \(error)")
+            if let data = bodyData {
+                request.httpBody = data
+            } else if let bodyParameters = bodyParameters {
+                do {
+                    request.httpBody = try JSONSerialization.data(withJSONObject: bodyParameters, options: [])
+                } catch let error {
+                    DDLogError("error serializing JSON: \(error)")
+                }
             }
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         case .form:
-            guard let bodyParametersDictionary = bodyParameters as? [String: Any] else {
-                break
+            if let data = bodyData {
+                request.httpBody = data
+            } else if let bodyParametersDictionary = bodyParameters as? [String: Any] {
+                let queryString = URLComponents.percentEncodedQueryStringFrom(bodyParametersDictionary)
+                request.httpBody = queryString.data(using: String.Encoding.utf8)
             }
-            let queryString = URLComponents.percentEncodedQueryStringFrom(bodyParametersDictionary)
-            request.httpBody = queryString.data(using: String.Encoding.utf8)
             request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         case .html:
-            guard let body = bodyParameters as? String else {
-                break
+            if let data = bodyData {
+                request.httpBody = data
+            } else if let  body = bodyParameters as? String {
+                request.httpBody = body.data(using: .utf8)
             }
-            request.httpBody = body.data(using: .utf8)
             request.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
         return request

@@ -66,6 +66,7 @@
 "action-remove" = "ဖယ်ရှားရန်";
 "action-replace" = "အစားထိုးရန်";
 "action-replace-all" = "အကုန်လုံး အစားထိုးရန်";
+"action-retry" = "ပြန်လုပ်";
 "action-save" = "သိမ်းရန်";
 "action-saved" = "သိမ်းဆည်းပြီး";
 "action-saved-accessibility" = "သိမ်းပြီးပြီ။ မသိမ်းတော့ရန် အတည်ပြုပါ။";
@@ -86,12 +87,15 @@
 "appearance-settings-adjust-text-sizing" = "ဆောင်းပါး စာသားအရွယ်အစား ချိန်ညှိရန်";
 "appearance-settings-expand-tables" = "ဇယားများကို ချဲ့ကားရန်";
 "appearance-settings-set-automatic-table-opening" = "ဇယား အပြင်အဆင်များ";
+"article-about-title" = "ဤဆောင်းပါးအကြောင်း";
 "article-delete" = "ဖျက်​ပါ​";
 "article-deleted-accessibility-notification" = "ဆောင်းပါး {{PLURAL:$1|ခု|ခု}} ဖျက်ပစ်ခဲ့သည်";
 "article-languages-filter-placeholder" = "ဘာသာစကား ရှာဖွေရန်";
 "article-languages-label" = "ဘာသာစကားရွေးချယ်ရန်";
 "article-languages-others" = "အခြားဘာသာစကားများ";
 "article-languages-yours" = "သင့်ဘာသာစကားများ";
+"article-read-more-title" = "ပိုမို ဖတ်ရန်";
+"article-reference-view-title" = "ရည်ညွှန်း $1";
 "article-save-error-not-enough-space" = "ဤဆောင်းပါးကို သိမ်းဆည်းရန် သင်၏စက်ပစ္စည်းတွင် သိုလှောင်လက်ကျန် မလုံလောက်ပါ";
 "article-share" = "မျှဝေ";
 "back-button-accessibility-label" = "နောက်သို့";
@@ -394,6 +398,7 @@
 "page-protected-can-not-edit-title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
 "page-protected-other" = "ဤစာမျက်နှာအား အောက်ပါအဆင့်များသို့ ကာကွယ်ထားသည်: $1";
 "page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
+"page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
 "places-accessibility-clear-saved-searches" = "သိမ်းဆည်းခဲ့သော ရှာဖွေမှုများကို ရှင်းရန်";
 "places-accessibility-group" = "ဆောင်းပါး $1 များ";
 "places-accessibility-show-as-list" = "စာရင်းအဖြစ် ပြရန်။";
