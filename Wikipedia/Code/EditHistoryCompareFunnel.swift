@@ -36,12 +36,6 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     }
 
     private func newLog(action: Action, domain: String?) {
-        /*
-         * TODO: The following still need to be resolved before this
-         * instrumentation upgrade can be called done:
-         *   - Finalize stream name to what will be deployed in mediawiki-config/wmf-config
-         *   - Finalize the schema (TBD in Gerrit patch to schemas/event/secondary repo)
-         */
         let event = Event(action: action, primary_language: primaryLanguage(), is_anon: isAnon.boolValue)
         EPC.shared?.submit(stream: .editHistoryCompare, event: event, domain: domain)
     }
