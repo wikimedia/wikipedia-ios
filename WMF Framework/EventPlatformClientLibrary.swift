@@ -622,7 +622,6 @@ public class EPC: NSObject {
      *      - stream: The stream to submit the event to
      *      - event: The event data
      *      - domain: Optional domain to include for the event (without protocol)
-     *      - date: Optional date for the event. This corresponds to the `client_dt`.
      *
      * An example call:
      * ```
@@ -672,14 +671,15 @@ public class EPC: NSObject {
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, date: Date? = nil) {
+    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil) {
+        let date = Date() // Record the date synchronously so there's no delay
         encodeQueue.async {
-            self._submit(stream: stream, event: event, domain: domain, date: date)
+            self._submit(stream: stream, event: event, date: date, domain: domain)
         }
     }
 
     /// Private, synchronous version of `submit`.
-    private func _submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, date: Date? = nil){
+    private func _submit<E: EventInterface>(stream: Stream, event: E, date: Date, domain: String? = nil){
         guard sharingUsageData else {
             return
         }
@@ -689,7 +689,7 @@ public class EPC: NSObject {
         }
         let meta = EventBody<E>.Meta(stream: stream, id: UUID(), domain: domain)
 
-        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, clientDT: date ?? Date(), event: event)
+        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, clientDT: date, event: event)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
