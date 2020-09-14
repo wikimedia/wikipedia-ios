@@ -213,7 +213,7 @@ public final class ImageCacheController: CacheController {
     
     // MARK: Memory Cache
     
-    func memoryCachedImage(withURL url: URL) -> Image? {
+    public func memoryCachedImage(withURL url: URL) -> Image? {
         
         guard let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image) else {
             return nil
