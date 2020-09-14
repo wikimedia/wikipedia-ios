@@ -439,6 +439,7 @@
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
+"reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
 "reading-list-create-new-list-button-title" = "Crea elenco di lettura";
 "reading-list-create-new-list-description" = "Descrizione";
 "reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
@@ -448,9 +449,12 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
 "reading-list-list-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura per utenza.";
 "reading-list-login-button-title" = "Accedi per sincronizzare le tue voci salvate";
+"reading-list-sync-disabled-panel-title" = "Sincronizzazione disattivata";
+"reading-list-sync-enable-button-title" = "Attiva sincronizzazione";
 "reading-list-sync-enabled-panel-message" = "La sincronizzazione degli elenchi di lettura è attivata su questo account. Per bloccarla, puoi disattivare la sincronizzazione di questo account aggiornando le tue impostazioni.";
 "reading-list-sync-enabled-panel-title" = "La sincronizzazione è attivata su questo account";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
+"reading-lists-article-not-synced" = "Non sincronizzato";
 "reading-lists-count" = "{{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura";
 "reading-lists-default-list-description" = "Elenco predefinito per le tue voci salvate";
 "reading-lists-default-list-title" = "Salvato";
@@ -485,6 +489,7 @@
 "reverted-edit-back-to-article-button-title" = "Torna alla voce";
 "reverted-edit-notification-body" = "La modifica che hai fatto alla voce $1 è stata annullata da $2";
 "reverted-edit-notification-read-more-action-title" = "Per saperne di più";
+"reverted-edit-possible-reasons" = "- Il tuo contributo non segue alcune linee guida. $1\n\n- Il tuo contributo è sembrato un test o un vandalismo";
 "reverted-edit-thanks-for-editing-title" = "Grazie per aver modificato Wikipedia!";
 "reverted-edit-title" = "Modifica annullata";
 "reverted-edit-view-guidelines-text" = "Vedi le linee guida";
@@ -507,6 +512,8 @@
 "search-title" = "Ricerca";
 "settings-account" = "Utenza";
 "settings-appearance" = "Preferenze di lettura";
+"settings-clear-cache" = "Cancella i dati nella cache";
+"settings-clear-cache-are-you-sure-message" = "Cancellando i dati della cache libererai circa $1 di spazio. Questo non cancellerà gli elenchi di lettura.";
 "settings-clear-cache-are-you-sure-title" = "Vuoi cancellare i dati nella cache?";
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
@@ -548,11 +555,15 @@
 "talk-page-discussion-read-accessibility-label" = "Leggi";
 "talk-page-discussion-unread-accessibility-label" = "Non lette";
 "talk-page-error-unable-to-post-reply" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
+"talk-page-error-unable-to-post-topic" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
 "talk-page-info-active-conversations-generic" = "Conversazioni attive su Wikipedia";
+"talk-page-link-user-action-sheet-app" = "Visualizza la pagina di discussione dell'utente nell'app";
+"talk-page-link-user-action-sheet-safari" = "Visualizza la pagina dell'utente su Safari";
 "talk-page-link-user-action-sheet-title" = "Pagine utente";
 "talk-page-new-banner-subtitle" = "Ricorda, siamo tutti umani qui";
 "talk-page-new-banner-title" = "Per favore, sii gentile";
 "talk-page-new-reply-body-accessibility-label" = "Scrivi una risposta";
+"talk-page-new-reply-body-placeholder-text" = "Scrivi una risposta";
 "talk-page-new-reply-success-text" = "La tua risposta è stata pubblicata con successo";
 "talk-page-new-subject-placeholder-text" = "Oggetto";
 "talk-page-new-subject-textfield-accessibility-label" = "Oggetto";
