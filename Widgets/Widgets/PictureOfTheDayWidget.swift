@@ -37,41 +37,69 @@ final class PictureOfTheDayData {
 
 	// MARK: Public
 
-	func fetchLatestAvailablePictureEntry(usingImageCache: Bool = false, _ completion: @escaping (PictureOfTheDayEntry) -> Void) {
-		// We could Result type the completion, but it's not probably worth the complexity for the widget's use cases
-		guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .pictureOfTheDay), let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
-			completion(sampleEntry)
-			return
-		}
+    func fetchLatestAvailablePictureEntry(usingCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
+        let moc = dataStore.viewContext
+        moc.perform {
+            guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay), latest.isForToday else {
+                guard !usingCache else {
+                    completion(self.sampleEntry)
+                    return
+                }
+                self.fetchLatestAvailablePictureEntry(completion: completion)
+                return
+            }
+            self.assemblePictureEntryFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
+        }
+    }
 
-		let sampleEntry = self.sampleEntry
-		let contentDate = contentGroup.date
-		let contentURL = contentGroup.url
+	// MARK: Private
+
+    private func fetchLatestAvailablePictureEntryFromNetwork(completion: @escaping (PictureOfTheDayEntry) -> Void) {
+        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
+            let moc = self.dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestVisibleGroup(of: .topRead) else {
+                    completion(self.sampleEntry)
+                    return
+                }
+                self.assemblePictureEntryFromContentGroup(latest, completion: completion)
+            }
+        }
+
+    }
+
+    private func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
+        guard let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
+            completion(self.sampleEntry)
+            return
+        }
+
+        let sampleEntry = self.sampleEntry
+        let contentDate = contentGroup.date
+        let contentURL = contentGroup.url
         let canonicalPageTitle = imageContent.canonicalPageTitle
-		let imageThumbnailURL = imageContent.imageThumbURL
-		let imageDescription = imageContent.imageDescription
+        let imageThumbnailURL = imageContent.imageThumbURL
+        let imageDescription = imageContent.imageDescription
 
-		guard !usingImageCache else {
-			if let cachedImage = ImageCacheController.shared?.memoryCachedImage(withURL: imageThumbnailURL) {
-				let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
-				completion(entry)
-			} else {
-				completion(sampleEntry)
-			}
-			return
-		}
+        guard !usingImageCache else {
+            if let cachedImage = ImageCacheController.shared?.cachedImage(withURL: imageThumbnailURL) {
+                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
+                completion(entry)
+            } else {
+                completion(sampleEntry)
+            }
+            return
+        }
 
-		ImageCacheController.shared?.fetchImage(withURL: imageThumbnailURL, failure: { _ in
-			completion(sampleEntry)
-		}, success: { fetchedImage in
+        ImageCacheController.shared?.fetchImage(withURL: imageThumbnailURL, failure: { _ in
+            completion(sampleEntry)
+        }, success: { fetchedImage in
             self.fetchImageLicense(canonicalPageTitle: canonicalPageTitle) { license in
                 let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, license: license)
                 completion(entry)
             }
-		})
-	}
-
-	// MARK: Private
+        })
+    }
 
 	private func fetchImageLicense(canonicalPageTitle: String, _ completion: @escaping (MWKLicense?) -> Void) {
         guard let siteURL = NSURL.wmf_wikimediaCommons() else {
@@ -159,7 +187,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
 	}
 
 	func getSnapshot(in context: Context, completion: @escaping (PictureOfTheDayEntry) -> Void) {
-		dataStore.fetchLatestAvailablePictureEntry(usingImageCache: context.isPreview) { entry in
+		dataStore.fetchLatestAvailablePictureEntry(usingCache: context.isPreview) { entry in
 			completion(entry)
 		}
 	}
