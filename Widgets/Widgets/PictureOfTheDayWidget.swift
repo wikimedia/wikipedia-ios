@@ -28,35 +28,34 @@ final class PictureOfTheDayData {
 	static let shared = PictureOfTheDayData()
 
 	private var imageInfoFetcher = MWKImageInfoFetcher()
-	private var dataStore: MWKDataStore {
-		MWKDataStore.shared()
-	}
 
     let sampleEntry = PictureOfTheDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
 	let placeholderEntry = PictureOfTheDayEntry(date: Date(), contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
 
 	// MARK: Public
 
-    func fetchLatestAvailablePictureEntry(usingCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
-        let moc = dataStore.viewContext
-        moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay), latest.isForToday else {
-                guard !usingCache else {
-                    completion(self.sampleEntry)
+    func fetchLatestAvailablePictureEntry(usingCache: Bool = false, completion userCompletion: @escaping (PictureOfTheDayEntry) -> Void) {
+        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+            let moc = dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay), latest.isForToday else {
+                    guard !usingCache else {
+                        completion(self.sampleEntry)
+                        return
+                    }
+                    self.fetchLatestAvailablePictureEntry(completion: completion)
                     return
                 }
-                self.fetchLatestAvailablePictureEntry(completion: completion)
-                return
+                self.assemblePictureEntryFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
             }
-            self.assemblePictureEntryFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
     }
 
 	// MARK: Private
 
-    private func fetchLatestAvailablePictureEntryFromNetwork(completion: @escaping (PictureOfTheDayEntry) -> Void) {
+    private func fetchLatestAvailablePictureEntryFromNetwork(with dataStore: MWKDataStore, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = self.dataStore.viewContext
+            let moc = dataStore.viewContext
             moc.perform {
                 guard let latest = moc.newestVisibleGroup(of: .topRead) else {
                     completion(self.sampleEntry)
