@@ -57,7 +57,7 @@ final class PictureOfTheDayData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .topRead) else {
+                guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay) else {
                     completion(self.sampleEntry)
                     return
                 }
@@ -107,14 +107,20 @@ final class PictureOfTheDayData {
         }
 
         imageInfoFetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
-            completion(nil)
+            DispatchQueue.main.async {
+                completion(nil)
+            }
         }, success: { imageInfo in
             guard let imageInfo = imageInfo as? MWKImageInfo, let license = imageInfo.license else {
-                completion(nil)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
                 return
             }
 
-            completion(license)
+            DispatchQueue.main.async {
+                completion(license)
+            }
         })
 	}
 
