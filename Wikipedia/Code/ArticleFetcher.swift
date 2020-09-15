@@ -290,8 +290,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     public func urlRequest(from url: URL, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
-        
-        let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy, headers: headers)
+        var requestHeaders = configuration.pageContentServiceHeaders(for: url.wmf_language)
+        requestHeaders.merge(headers)  { (_, updated) in updated }
+        let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy, headers: requestHeaders)
         
         return request
     }
@@ -429,5 +430,67 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             return nil
         }
         return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+    }
+    
+    // MARK: - Article Summaries from /api/rest_v1/page/summary
+    
+    /// Returns the API URL to fetch an article summary for the given canonical article URL
+    private func summaryURL(articleURL: URL) throws -> URL {
+        guard
+            let articleTitle = articleURL.wmf_title,
+            let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
+            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["page", "summary", percentEncodedTitle]).url
+        else {
+            throw RequestError.invalidParameters
+        }
+        return url
+    }
+    
+    /// Returns the API request to fetch an article summary for the given canonical article URL
+    private func summaryRequest(articleURL: URL, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
+        let url = try summaryURL(articleURL: articleURL)
+        
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
+            return urlRequest
+        } else {
+            throw ArticleFetcherError.unableToGenerateURLRequest
+        }
+    }
+    
+    /// Fetches ArticleSummaries from the Page Content Service for the given articleKeys
+    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], cachePolicy: URLRequest.CachePolicy? = nil, completion: @escaping ([String: ArticleSummary]) -> Void) -> [URLSessionTask] {
+        
+        var tasks: [URLSessionTask] = []
+        articleKeys.asyncMapToDictionary(block: { (articleKey, asyncMapCompletion) in
+            let task = fetchSummaryForArticle(with: articleKey, cachePolicy: cachePolicy, completion: { (responseObject, response, error) in
+                asyncMapCompletion(articleKey, responseObject)
+            })
+            if let task = task {
+                tasks.append(task)
+            }
+        }, completion: completion)
+        
+        return tasks
+    }
+    
+    /// Fetches a single ArticleSummary or the given articleKey from the Page Content Service
+    @discardableResult public func fetchSummaryForArticle(with articleKey: String, cachePolicy: URLRequest.CachePolicy? = nil, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+        do {
+            guard let articleURL = URL(string: articleKey) else {
+                throw Fetcher.invalidParametersError
+            }
+            let request = try summaryRequest(articleURL: articleURL)
+            return trackedJSONDecodableTask(with: request) { (result: Result<ArticleSummary, Error>, response) in
+                switch result {
+                case .success(let summary):
+                    completion(summary, response, nil)
+                case .failure(let error):
+                    completion(nil, response, error)
+                }
+            }
+        } catch let error {
+            completion(nil, nil, error)
+            return nil
+        }
     }
 }
