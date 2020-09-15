@@ -68,6 +68,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self cancelCrossProcessCoreDataNotifier];
 }
 
 - (instancetype)init {
@@ -138,7 +139,9 @@ static uint64_t bundleHash() {
         return;
     }
     const char *name = [channelName UTF8String];
+    @weakify(self)
     notify_register_dispatch(name, &_crossProcessNotificationToken, dispatch_get_main_queue(), ^(int token) {
+        @strongify(self)
         uint64_t state;
         notify_get_state(token, &state);
         BOOL isExternal = state != bundleHash();
@@ -146,6 +149,12 @@ static uint64_t bundleHash() {
             [self handleCrossProcessCoreDataNotificationWithState:state];
         }
     });
+}
+
+- (void)cancelCrossProcessCoreDataNotifier {
+    if (_crossProcessNotificationToken != 0) {
+        notify_cancel(_crossProcessNotificationToken);
+    }
 }
 
 - (NSDictionary *)unarchivedDictionaryFromFileURL:(NSURL *)fileURL error:(NSError **)error {
