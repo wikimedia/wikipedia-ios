@@ -37,7 +37,8 @@ final class TopReadData {
 		MWKDataStore.shared()
 	}
 
-    func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+    func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
+        let completion =  WidgetController.shared.startBackgroundTask(reason: "Update Top Read Widget", userCompletion: userCompletion)
         let moc = dataStore.viewContext
         moc.perform {
             guard let latest = moc.newestVisibleGroup(of: .topRead), latest.isForToday else {

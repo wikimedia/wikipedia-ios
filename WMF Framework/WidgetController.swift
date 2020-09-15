@@ -30,5 +30,18 @@ public final class WidgetController: NSObject {
 			WidgetCenter.shared.reloadAllTimelines()
 		}
 	}
+    
+    /// For requesting background time from widgets
+    /// - Parameter reason: the reason for requesting background time
+    /// - Parameter userCompletion: completion to be called from within the background task completion
+    /// - Returns a completion block to be called when the background task is completed
+    public func startBackgroundTask<T>(reason: String, userCompletion: @escaping (T) ->  Void) -> (T) -> Void  {
+        let processInfo = ProcessInfo.processInfo
+        let start = processInfo.beginActivity(options: .background, reason: reason)
+        return { entry in
+            userCompletion(entry)
+            processInfo.endActivity(start)
+        }
+    }
 
 }

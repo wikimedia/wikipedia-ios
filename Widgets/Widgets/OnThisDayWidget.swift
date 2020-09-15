@@ -40,6 +40,7 @@ struct OnThisDayProvider: TimelineProvider {
             let currentDate = Date()
             let timeline = Timeline(entries: [entry], policy: .after(currentDate.dateAtMidnight() ?? currentDate))
             completion(timeline)
+            
         }
     }
 
@@ -109,7 +110,8 @@ final class OnThisDayData {
         return dataStore.languageLinkController.appLanguage?.siteURL()
     }
     
-    func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ completion: @escaping (OnThisDayEntry) -> Void) {
+    func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ userCompletion: @escaping (OnThisDayEntry) -> Void) {
+        let completion =  WidgetController.shared.startBackgroundTask(reason: "Update On This Day Widget", userCompletion: userCompletion)
         guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage, WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
             let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
             completion(errorEntry)
