@@ -58,7 +58,7 @@ final class PictureOfTheDayData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .topRead) else {
+                guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay) else {
                     completion(self.sampleEntry)
                     return
                 }
