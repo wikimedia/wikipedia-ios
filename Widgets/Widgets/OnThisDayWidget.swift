@@ -83,9 +83,6 @@ final class OnThisDayData {
     static let shared = OnThisDayData()
 
     private var imageInfoFetcher = MWKImageInfoFetcher()
-    private var dataStore: MWKDataStore {
-        MWKDataStore.shared()
-    }
 
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
     let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
@@ -105,40 +102,38 @@ final class OnThisDayData {
                                           yearRange: CommonStrings.onThisDayHeaderDateRangeMessage(with: "en", locale: Locale(identifier: "en"), lastEvent: "69", firstEvent: "2019"))
 
     // MARK: Public
-
-    private var siteURL: URL? {
-        return dataStore.languageLinkController.appLanguage?.siteURL()
-    }
     
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ userCompletion: @escaping (OnThisDayEntry) -> Void) {
-        let completion =  WidgetController.shared.startBackgroundTask(reason: "Update On This Day Widget", userCompletion: userCompletion)
-        guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage, WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
-            let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
-            completion(errorEntry)
-            return
-        }
-
-        let moc = dataStore.viewContext
-        moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL),
-                  latest.isForToday
-            else {
-                guard !usingCache else {
-                    completion(self.placeholderEntry)
-                    return
-                }
-                self.fetchLatestOnThisDayEntryFromNetwork(completion)
+        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+            guard let appLanguage = dataStore.languageLinkController.appLanguage,
+                WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
+                let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
+                completion(errorEntry)
                 return
             }
-            self.assembleOnThisDayFromContentGroup(latest, completion: completion)
+            let siteURL = appLanguage.siteURL()
+            let moc = dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: siteURL),
+                      latest.isForToday
+                else {
+                    guard !usingCache else {
+                        completion(self.placeholderEntry)
+                        return
+                    }
+                    self.fetchLatestOnThisDayEntryFromNetwork(with: dataStore, siteURL: siteURL, completion)
+                    return
+                }
+                self.assembleOnThisDayFromContentGroup(latest, completion: completion)
+            }
         }
     }
     
-    func fetchLatestOnThisDayEntryFromNetwork(_ completion: @escaping (OnThisDayEntry) -> Void) {
+    func fetchLatestOnThisDayEntryFromNetwork(with dataStore: MWKDataStore, siteURL: URL, _ completion: @escaping (OnThisDayEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = self.dataStore.viewContext
+            let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL) else {
+                guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: siteURL) else {
                     // If there's no content even after a network fetch, it's likely an error
                     self.handleNoInternetError(completion)
                     return

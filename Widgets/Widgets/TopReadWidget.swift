@@ -33,49 +33,45 @@ final class TopReadData {
 
 	// MARK: Public
 
-	private var dataStore: MWKDataStore {
-		MWKDataStore.shared()
-	}
-
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
-        let completion =  WidgetController.shared.startBackgroundTask(reason: "Update Top Read Widget", userCompletion: userCompletion)
-        let moc = dataStore.viewContext
-        moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .topRead), latest.isForToday else {
-                guard !usingCache else {
-                    completion(self.placeholder)
+        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+            let moc = dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestVisibleGroup(of: .topRead), latest.isForToday else {
+                    guard !usingCache else {
+                        completion(self.placeholder)
+                        return
+                    }
+                    self.fetchLatestAvailableTopReadFromNetwork(from: dataStore, completion: completion)
                     return
                 }
-                self.fetchLatestAvailableTopReadFromNetwork(completion: completion)
-                return
+                self.assembleTopReadFromContentGroup(latest, with: dataStore, usingImageCache: usingCache, completion: completion)
             }
-            self.assembleTopReadFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
     }
     
-    func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
+    func fetchLatestAvailableTopReadFromNetwork(from dataStore: MWKDataStore, completion: @escaping (TopReadEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = self.dataStore.viewContext
+            let moc = dataStore.viewContext
             moc.perform {
                 guard let latest = moc.newestVisibleGroup(of: .topRead) else {
                     completion(self.placeholder)
                     return
                 }
-                self.assembleTopReadFromContentGroup(latest, completion: completion)
+                self.assembleTopReadFromContentGroup(latest, with: dataStore, completion: completion)
             }
         }
     }
     
-    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
         }
 
         var rankedElements: [TopReadEntry.RankedElement] = []
-
         for article in results {
-            if let articlePreview = self.dataStore.fetchArticle(with: article.articleURL) {
+            if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate {
                     rankedElements.append(.init(title: article.displayTitle, description: article.wikidataDescription ?? article.snippet ?? "", articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
                 }

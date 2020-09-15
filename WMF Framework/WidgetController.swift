@@ -32,16 +32,52 @@ public final class WidgetController: NSObject {
 	}
     
     /// For requesting background time from widgets
-    /// - Parameter reason: the reason for requesting background time
-    /// - Parameter userCompletion: completion to be called from within the background task completion
-    /// - Returns a completion block to be called when the background task is completed
-    public func startBackgroundTask<T>(reason: String, userCompletion: @escaping (T) ->  Void) -> (T) -> Void  {
+    /// - Parameter userCompletion: the completion block to call with the result
+    /// - Parameter task: block that takes the `MWKDataStore` to use for updates and the completion block to call when done as parameters
+    public func startWidgetUpdateTask<T>(_ userCompletion: @escaping (T) -> Void, _ task: @escaping (MWKDataStore, @escaping (T) -> Void) -> Void)  {
         let processInfo = ProcessInfo.processInfo
-        let start = processInfo.beginActivity(options: .background, reason: reason)
-        return { entry in
-            userCompletion(entry)
+        let start = processInfo.beginActivity(options: .background, reason: "Updating Wikipedia Widgets - " + UUID().uuidString)
+        let dataStore = getRetainedSharedDataStore()
+        task(dataStore, { result in
+            userCompletion(result)
+            self.releaseSharedDataStore()
             processInfo.endActivity(start)
-        }
+        })
     }
-
+    
+    private var dataStoreRetainCount: Int = 0
+    private var _dataStore: MWKDataStore?
+    private let lock = NSRecursiveLock()
+    
+    /// Returns a `MWKDataStore`for use with widget updates.
+    /// Manages a shared instance and a reference count for use by multiple widgets.
+    /// Call `releaseSharedDataStore()` when finished with the data store.
+    private func getRetainedSharedDataStore() -> MWKDataStore {
+        lock.lock()
+        defer {
+            dataStoreRetainCount += 1
+            lock.unlock()
+        }
+        if let dataStore = _dataStore {
+            return dataStore
+        }
+        let dataStore = MWKDataStore()
+        _dataStore = dataStore
+        return dataStore
+    }
+    
+    /// Releases the shared `MWKDataStore` returned by `getRetainedSharedDataStore()`.
+    private func releaseSharedDataStore() {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        dataStoreRetainCount -= 1
+        guard dataStoreRetainCount <= 0 else {
+            return
+        }
+        _dataStore = nil
+        dataStoreRetainCount = 0
+    }
+    
 }
