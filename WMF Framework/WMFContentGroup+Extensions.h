@@ -112,6 +112,8 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind;
 
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind forSiteURL:(nullable NSURL *)siteURL;
+
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate;
 
 - (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind;

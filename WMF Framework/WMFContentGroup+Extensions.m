@@ -684,6 +684,14 @@
     return [self newestGroupWithPredicate:compoundPredicate ?: predicate];
 }
 
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind forSiteURL:(nullable NSURL *)siteURL {
+    if (!siteURL) {
+        return [self newestGroupOfKind:kind requireIsVisible:YES];
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    return [self newestVisibleGroupOfKind:kind withPredicate:predicate];
+}
+
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
     return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:YES];
 }
