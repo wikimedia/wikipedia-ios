@@ -29,6 +29,15 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         return NavigationBarHider()
     }()
 
+    var isProgramaticallyScrolling: Bool = false {
+        didSet {
+            guard let yOffset = scrollView?.contentOffset.y, let topInset = scrollView?.contentInset.top else {
+                return
+            }
+            navigationBarHider.setIsProgramaticallyScrolling(isProgramaticallyScrolling, yOffset: yOffset, topContentInset: topInset)
+        }
+    }
+
     private var keyboardFrame: CGRect? {
         didSet {
             keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)

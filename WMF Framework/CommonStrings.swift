@@ -43,7 +43,10 @@ public class CommonStrings: NSObject {
 
     @objc public static let exploreFeedTitle = WMFLocalizedString("welcome-exploration-explore-feed-title", value:"Explore feed", comment:"Title for Explore feed")
     @objc public static let featuredArticleTitle = WMFLocalizedString("explore-featured-article-heading", value: "Featured article", comment: "Text for 'Featured article' header")
-    @objc public static let onThisDayTitle = WMFLocalizedString("on-this-day-title", value: "On this day", comment: "Title for the 'On this day' feed section")
+    @objc public static let onThisDayTitle = CommonStrings.onThisDayTitle()
+    @objc public static func onThisDayTitle(with language: String? = nil) -> String {
+        WMFLocalizedString("on-this-day-title", language: language, value: "On this day", comment: "Title for the 'On this day' feed section")
+    }
     @objc public static let topReadTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment: "Title of places search filter that searches top articles")
     @objc public static let pictureOfTheDayTitle = WMFLocalizedString("explore-potd-heading", value: "Picture of the day", comment: "Text for 'Picture of the day' header");
     @objc public static let randomizerTitle = WMFLocalizedString("explore-randomizer", value: "Randomizer", comment: "Displayed on a button that loads another random article - it's a 'Randomizer'");
@@ -229,5 +232,8 @@ public class CommonStrings: NSObject {
     }
     @objc public static func onThisDayHeaderDateRangeMessage(with language: String?, locale: Locale, lastEvent: String, firstEvent: String) -> String {
         return String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEvent, firstEvent)
+    }
+    public static func onThisDayFooterWith(with eventCount: Int, language: String? = nil, locale: Locale = Locale.autoupdatingCurrent) -> String {
+        return String(format: WMFLocalizedString("on-this-day-footer-with-event-count", language: language, value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), locale: locale, eventCount)
     }
 }

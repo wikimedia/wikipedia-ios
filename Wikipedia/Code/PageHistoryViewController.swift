@@ -332,7 +332,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         if let siteURL = pageURL.wmf_site {
             
             if type == .single {
-                EditHistoryCompareFunnel.shared.logRevisionView(language: pageURL.wmf_language)
+                EditHistoryCompareFunnel.shared.logRevisionView(url: pageURL)
             }
             
             let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision)

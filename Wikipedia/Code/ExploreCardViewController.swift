@@ -276,7 +276,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             let eventsCount = contentGroup?.countOfFullContent?.intValue {
             let otherEventsCount = eventsCount - collectionView.numberOfItems(inSection: 0)
             if otherEventsCount > 0 {
-                return String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount)
+                return CommonStrings.onThisDayFooterWith(with: otherEventsCount)
             } else {
                 return contentGroup?.footerText
             }
