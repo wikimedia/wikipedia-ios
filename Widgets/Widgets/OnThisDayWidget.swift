@@ -233,7 +233,6 @@ extension OnThisDayEntry {
         isRTLLanguage = contentGroup.isRTL
         error = nil
         otherEventsText = CommonStrings.onThisDayFooterWith(with: (eventsCount - 1), language: language)
-        contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
         eventSnippet = previewEvent.text
         articleTitle = article.displayTitle
         articleSnippet = article.descriptionOrSnippet
@@ -244,6 +243,13 @@ extension OnThisDayEntry {
         let yearsSinceEvent = currentYear - year
         eventYearsAgo = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)
         yearRange = CommonStrings.onThisDayHeaderDateRangeMessage(with: language, locale: locale, lastEvent: earliestEventYear, firstEvent: latestEventYear)
+
+        if let previewEventIndex = allEvents.firstIndex(of: previewEvent),
+           let dynamicURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(previewEventIndex)") {
+            contentURL = dynamicURL
+        } else {
+            contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
+        }
     }
 
     static func errorEntry(for error: OnThisDayData.ErrorType) -> OnThisDayEntry {
