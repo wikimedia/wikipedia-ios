@@ -25,7 +25,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
-@property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
+@property (readwrite, nonatomic, weak) MWKDataStore *userDataStore;
 @property (readwrite, nonatomic, strong) WMFNotificationsController *notificationsController;
 
 @property (readwrite, nonatomic, strong) WMFFeedContentFetcher *fetcher;
