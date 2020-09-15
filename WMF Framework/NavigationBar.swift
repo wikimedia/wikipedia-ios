@@ -268,8 +268,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopBottomConstraint = topAnchor.constraint(equalTo: underBarView.topAnchor)
         
-        let underBarViewLeadingConstraint = safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
-        let underBarViewTrailingConstraint = safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
+        let underBarViewLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
+        let underBarViewTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
         
         extendedViewHeightConstraint = extendedView.heightAnchor.constraint(equalToConstant: 0)
         extendedView.addConstraint(extendedViewHeightConstraint)
