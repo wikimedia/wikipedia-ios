@@ -268,9 +268,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopBottomConstraint = topAnchor.constraint(equalTo: underBarView.topAnchor)
         
-        let underBarViewLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
-        let underBarViewTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
-        
+        let underBarViewLeadingConstraint = safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
+        let underBarViewTrailingConstraint = safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
+
         extendedViewHeightConstraint = extendedView.heightAnchor.constraint(equalToConstant: 0)
         extendedView.addConstraint(extendedViewHeightConstraint)
         
@@ -359,6 +359,20 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         set {
             setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, topSpacingPercentHidden: _topSpacingPercentHidden, animated: false)
+        }
+    }
+
+    private var shouldUnderBarIgnoreSafeArea: Bool = false {
+        didSet {
+            guard shouldUnderBarIgnoreSafeArea != oldValue else {
+                return
+            }
+
+            safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: underBarView.leadingAnchor).isActive = !shouldUnderBarIgnoreSafeArea
+            safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: underBarView.trailingAnchor).isActive = !shouldUnderBarIgnoreSafeArea
+
+            leadingAnchor.constraint(equalTo: underBarView.leadingAnchor).isActive = shouldUnderBarIgnoreSafeArea
+            trailingAnchor.constraint(equalTo: underBarView.trailingAnchor).isActive = shouldUnderBarIgnoreSafeArea
         }
     }
     
@@ -596,11 +610,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         extendedViewHeightConstraint.isActive = true
     }
     
-    @objc public func addUnderNavigationBarView(_ view: UIView) {
+    @objc public func addUnderNavigationBarView(_ view: UIView, shouldIgnoreSafeArea: Bool = false) {
         guard underBarView.subviews.first == nil else {
             return
         }
         underBarViewHeightConstraint.isActive = false
+        shouldUnderBarIgnoreSafeArea = shouldIgnoreSafeArea
         underBarView.wmf_addSubviewWithConstraintsToEdges(view)
     }
     
