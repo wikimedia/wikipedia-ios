@@ -82,8 +82,6 @@ final class OnThisDayData {
 
     static let shared = OnThisDayData()
 
-    private var imageInfoFetcher = MWKImageInfoFetcher()
-
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
     let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
                                           error: nil,
