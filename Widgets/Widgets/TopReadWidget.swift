@@ -53,7 +53,6 @@ final class TopReadData {
     }
     
     func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
-
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
@@ -67,7 +66,6 @@ final class TopReadData {
     }
     
     func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
-
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
