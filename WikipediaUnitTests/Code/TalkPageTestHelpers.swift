@@ -28,7 +28,7 @@ class TalkPageTestHelpers {
     }
     
     static func networkTalkPage(for urlString: String, data: Data, revisionId: Int) -> NetworkTalkPage? {
-        let session = MWKDataStore.shared().session
+        let session = MWKDataStore.temporary().session
         
         do {
             let result: NetworkBase = try session.jsonDecodeData(data: data)
