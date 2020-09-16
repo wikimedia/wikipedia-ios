@@ -25,6 +25,7 @@
 "aaald-two-descriptions-format" = "$1 and $2";
 "aaald-two-sections-description" = "in the $1 and $2 sections";
 "aaald-vandalism-revert-description" = "Suspected Vandalism reverted";
+"aaald-view-full-history-button" = "View full article history";
 "about-content-license" = "Content license";
 "about-content-license-details" = "Unless otherwise specified, content is available under a $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";

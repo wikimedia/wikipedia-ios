@@ -48,7 +48,7 @@ class ArticleAsLivingDocHeaderView: UIView {
         titleLabel.numberOfLines = 0
         summaryLabel.numberOfLines = 0
         
-        viewFullHistoryButton.setTitle(WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen."), for: .normal)
+        viewFullHistoryButton.setTitle(CommonStrings.viewFullHistoryText, for: .normal)
     }
     
     func configure(headerText: String, titleText: String?, summaryText: String?, editMetrics: [NSNumber]?, theme: Theme) {

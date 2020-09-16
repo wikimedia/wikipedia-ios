@@ -36,6 +36,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         super.init()
         self.theme = theme
         self.delegate = delegate
+        footerButtonTitle = CommonStrings.viewFullHistoryText
         
         dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
             
@@ -70,20 +71,29 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
 
-            guard kind == UICollectionView.elementKindSectionHeader else {
+            guard kind == UICollectionView.elementKindSectionHeader || kind == UICollectionView.elementKindSectionFooter else {
                 return UICollectionReusableView()
             }
-            
-            let section = self.dataSource.snapshot()
-                .sectionIdentifiers[indexPath.section]
-            
-            guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, for: indexPath) as? ArticleAsLivingDocSectionHeaderView else {
-                return UICollectionReusableView()
+
+            if kind == UICollectionView.elementKindSectionHeader {
+                let section = self.dataSource.snapshot()
+                    .sectionIdentifiers[indexPath.section]
+
+                guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, for: indexPath) as? ArticleAsLivingDocSectionHeaderView else {
+                    return UICollectionReusableView()
+                }
+
+                sectionHeaderView.configure(viewModel: section, theme: theme)
+                return sectionHeaderView
+            } else if kind == UICollectionView.elementKindSectionFooter {
+                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath) as? CollectionViewFooter else {
+                    return UICollectionReusableView()
+                }
+                self.configure(footer: footer, forSectionAt: indexPath.section, layoutOnly: false)
+                return footer
             }
-            
-            sectionHeaderView.configure(viewModel: section, theme: theme)
-            return sectionHeaderView
-            
+
+            return UICollectionReusableView()
         }
     }
     
@@ -270,5 +280,9 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     
     @objc func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
+    }
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        tappedViewFullHistoryButton()
     }
 }

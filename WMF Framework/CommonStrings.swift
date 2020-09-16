@@ -228,7 +228,8 @@ public class CommonStrings: NSObject {
     public static let compareRevisionsTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
     
     //Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
-    
+
+    public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
     static let smallChangeDescription = WMFLocalizedString(
         "aaald-small-change-description",
         value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}} made",

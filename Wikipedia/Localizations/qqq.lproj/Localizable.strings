@@ -25,6 +25,7 @@
 "aaald-two-descriptions-format" = "Format for two change types to insert into a revision's event description in an article as a living document timeline cell. $1 is replaced by the first change type and $2 is replaced by the second change type, e.g. '612 characters added and 323 characters removed'";
 "aaald-two-sections-description" = "Text explaining what sections an article as a living document event change occured in, if occured in two sections. $1 is replaced with the first section name, $2 with the second.";
 "aaald-vandalism-revert-description" = "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.";
+"aaald-view-full-history-button" = "Text displayed in a button for pushing to the full article history view on the article as a living document screen.";
 "about-content-license" = "Header text for content license section";
 "about-content-license-details" = "Text explaining license of app content. $1 is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}.";
 "about-content-license-details-share-alike-license" = "Name of the \"Creative Commons Attribution-ShareAlike\" license";
