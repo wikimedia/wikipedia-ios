@@ -7,15 +7,16 @@ class ArticleCacheReadingTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
+        LSNocilla.sharedInstance().start()
         ArticleTestHelpers.pullDataFromFixtures(inBundle: wmf_bundle())
-
+        ArticleTestHelpers.stubCompleteMobileHTMLResponse(inBundle: wmf_bundle())
     }
     
     override func tearDown() {
         super.tearDown()
         
         URLCache.shared.removeAllCachedResponses()
+        LSNocilla.sharedInstance().stop()
     }
     
     func stub200Responses() {
@@ -32,6 +33,11 @@ class ArticleCacheReadingTests: XCTestCase {
         .andReturn(200)?
         .withHeaders(["Cache-Control": "public, max-age=86400, s-maxage=86400"])?
             .withBody(fixtureData.html as NSData)
+        
+        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
+        .andReturn(200)?
+        .withHeaders(["Cache-Control": "public, max-age=86400, s-maxage=86400"])?
+            .withBody(fixtureData.css as NSData)
         
         let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
         .andReturn(200)?
@@ -77,7 +83,6 @@ class ArticleCacheReadingTests: XCTestCase {
     
     func testBasicArticleLoad() {
         
-        LSNocilla.sharedInstance().start()
         stub200Responses()
         
         let basicVC = BasicCachingWebViewController()
@@ -121,13 +126,10 @@ class ArticleCacheReadingTests: XCTestCase {
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
         wait(for: [cssExpectation], timeout: timeout)
-        
-        LSNocilla.sharedInstance().stop()
     }
     
     func testBasicNetworkNotModifiedWithCachedArticle() {
         
-        LSNocilla.sharedInstance().start()
         stub304Responses()
         ArticleTestHelpers.writeCachedPiecesToCachingSystem()
         
@@ -173,12 +175,10 @@ class ArticleCacheReadingTests: XCTestCase {
         wait(for: [imageExpectation], timeout: timeout)
         wait(for: [cssExpectation], timeout: timeout)
         
-        LSNocilla.sharedInstance().stop()
     }
     
     func testBasicNetworkFailureWithCachedArticle() {
         
-        LSNocilla.sharedInstance().start()
         stub500Responses()
         ArticleTestHelpers.writeCachedPiecesToCachingSystem()
         
@@ -223,12 +223,9 @@ class ArticleCacheReadingTests: XCTestCase {
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
         wait(for: [cssExpectation], timeout: timeout)
-        
-        LSNocilla.sharedInstance().stop()
     }
     
     func testVariantFallbacksUponNetworkFailure() {
-        LSNocilla.sharedInstance().start()
         stub500ZhResponses()
         ArticleTestHelpers.writeVariantPiecesToCachingSystem()
         
@@ -275,7 +272,5 @@ class ArticleCacheReadingTests: XCTestCase {
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
         wait(for: [cssExpectation], timeout: timeout)
-        
-        LSNocilla.sharedInstance().stop()
     }
 }
