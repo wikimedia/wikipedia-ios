@@ -191,6 +191,16 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
 
     private var shadowHeightConstraint: NSLayoutConstraint!
     private var extendedViewHeightConstraint: NSLayoutConstraint!
+
+    private lazy var safeAreaUnderBarConstraints = [
+        safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: underBarView.leadingAnchor),
+        safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
+    ]
+
+    private lazy var fullWidthUnderBarConstraints = [
+        leadingAnchor.constraint(equalTo: underBarView.leadingAnchor),
+        trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
+    ]
     
     private var titleBarTopConstraint: NSLayoutConstraint!
     private var barTopConstraint: NSLayoutConstraint!
@@ -267,9 +277,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarViewTopBarBottomConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopBottomConstraint = topAnchor.constraint(equalTo: underBarView.topAnchor)
-        
-        let underBarViewLeadingConstraint = safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
-        let underBarViewTrailingConstraint = safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
 
         extendedViewHeightConstraint = extendedView.heightAnchor.constraint(equalToConstant: 0)
         extendedView.addConstraint(extendedViewHeightConstraint)
@@ -294,7 +301,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         shadowTopExtendedViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
         shadowTopUnderBarViewBottomConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
 
-        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewTopBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
+        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewTopBottomConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
+        updatedConstraints.append(contentsOf: safeAreaUnderBarConstraints)
         addConstraints(updatedConstraints)
         
         updateTitleBarConstraints()
@@ -368,11 +376,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 return
             }
 
-            safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: underBarView.leadingAnchor).isActive = !shouldUnderBarIgnoreSafeArea
-            safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: underBarView.trailingAnchor).isActive = !shouldUnderBarIgnoreSafeArea
-
-            leadingAnchor.constraint(equalTo: underBarView.leadingAnchor).isActive = shouldUnderBarIgnoreSafeArea
-            trailingAnchor.constraint(equalTo: underBarView.trailingAnchor).isActive = shouldUnderBarIgnoreSafeArea
+            NSLayoutConstraint.deactivate(shouldUnderBarIgnoreSafeArea ? safeAreaUnderBarConstraints : fullWidthUnderBarConstraints)
+            NSLayoutConstraint.activate(shouldUnderBarIgnoreSafeArea ? fullWidthUnderBarConstraints : safeAreaUnderBarConstraints)
         }
     }
     
