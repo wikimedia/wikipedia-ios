@@ -225,10 +225,11 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
                 continue
             }
             let imageURLsToPrefetch = imageURLs.subtracting(imageURLsCurrentlyBeingPrefetched)
-            let imageController = ImageCacheController.shared
+            // SINGLETONTODO
+            let imageController = MWKDataStore.shared().cacheController.imageCache
             imageURLsCurrentlyBeingPrefetched.formUnion(imageURLsToPrefetch)
             for imageURL in imageURLsToPrefetch {
-                imageController?.prefetch(withURL: imageURL) {
+                imageController.prefetch(withURL: imageURL) {
                     self.imageURLsCurrentlyBeingPrefetched.remove(imageURL)
                 }
             }

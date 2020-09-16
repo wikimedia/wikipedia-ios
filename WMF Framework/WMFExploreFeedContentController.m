@@ -116,8 +116,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
         for (NSURL *siteURL in self.siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
-                                                                                      userDataStore:self.dataStore
-                                                                            notificationsController:[WMFNotificationsController sharedNotificationsController]];
+                                                                                      userDataStore:self.dataStore];
             feedContentSource.notificationSchedulingEnabled = YES;
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
@@ -715,7 +714,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)debugSendRandomInTheNewsNotification {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
+        [self.dataStore.notificationsController requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
             if (!granted) {
                 return;
             }

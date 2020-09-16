@@ -43,7 +43,7 @@
                                             [[WMFAlertManager sharedInstance] showErrorAlert:error ?: [WMFFetcher unexpectedResponseError] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
                                             return;
                                         }
-                                        WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler: [SchemeHandler sharedInstance]];
+                                        WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
                                         NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
                                         [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
                                         [self.navigationController setViewControllers:viewControllers];

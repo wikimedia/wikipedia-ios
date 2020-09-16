@@ -32,27 +32,6 @@ let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"
 open class ImageController : NSObject {
     // MARK: - Initialization
     
-    @objc(sharedInstance) public static let shared: ImageController = {
-        let session = Session.urlSession
-        let cache = URLCache.shared
-        let fileManager = FileManager.default
-        var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Cache", isDirectory: true)
-        
-        do {
-            try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
-        } catch let error {
-            DDLogError("Error creating permanent cache: \(error)")
-        }
-        do {
-            var values = URLResourceValues()
-            values.isExcludedFromBackup = true
-            try permanentStorageDirectory.setResourceValues(values)
-        } catch let error {
-            DDLogError("Error excluding from backup: \(error)")
-        }
-        return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
-    }()
-    
     fileprivate let session: URLSession
     fileprivate let cache: URLCache
     fileprivate let permanentStorageDirectory: URL
@@ -622,7 +601,7 @@ open class ImageController : NSObject {
     @objc public static func temporaryController() -> ImageController {
         let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
         let imageControllerDirectory = temporaryDirectory.appendingPathComponent("ImageController-" + UUID().uuidString)
-        let config = Session.defaultConfiguration
+        let config = URLSessionConfiguration.default
         let cache = URLCache(memoryCapacity: 1000000000, diskCapacity: 1000000000, diskPath: imageControllerDirectory.path)
         config.urlCache = cache
         let session = URLSession(configuration: config)

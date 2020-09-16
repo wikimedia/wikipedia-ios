@@ -1,8 +1,8 @@
 class MediaListGalleryViewController: WMFImageGalleryViewController {
-    let imageController: ImageCacheController? = ImageCacheController.shared
+    let imageController: ImageCacheController
     let imageInfoFetcher = MWKImageInfoFetcher()
     let articleURL: URL
-    required init(articleURL: URL, mediaList: MediaList, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
+    required init(articleURL: URL, mediaList: MediaList, dataStore: MWKDataStore, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
         self.articleURL = articleURL
         let photos = mediaList.items.compactMap { MediaListItemNYTPhotoWrapper($0) }
         let initialPhoto: WMFPhoto?
@@ -11,6 +11,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
         } else {
             initialPhoto = photos.first
         }
+        imageController = dataStore.cacheController.imageCache
         super.init(photos: photos, initialPhoto: initialPhoto, delegate: nil, theme: theme, overlayViewTopBarHidden:overlayViewTopBarHidden)
         fetchImageForPhoto(initialPhoto)
     }
@@ -76,7 +77,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             return
         }
         
-        imageController?.fetchImage(withURL: imageURL, failure: { (error) in
+        imageController.fetchImage(withURL: imageURL, failure: { (error) in
             DispatchQueue.main.async {
                 self.wmf_showAlertWithError(error as NSError)
             }

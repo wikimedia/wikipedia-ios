@@ -21,15 +21,15 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageCacheContro
 
 #pragma mark - Associated Objects
 
-- (WMFImageCacheControllerWrapper *__nullable)wmf_imageController {
-    WMFImageCacheControllerWrapper *controller = objc_getAssociatedObject(self, WMFImageControllerAssociationKey);
+- (WMFPermanentCacheController *__nullable)wmf_imageController {
+    WMFPermanentCacheController *controller = objc_getAssociatedObject(self, WMFImageControllerAssociationKey);
     if (!controller) {
-        controller = [WMFImageCacheControllerWrapper shared];
+        controller = [MWKDataStore shared].cacheController;
     }
     return controller;
 }
 
-- (void)wmf_setImageController:(nullable WMFImageCacheControllerWrapper *)imageController {
+- (void)wmf_setImageController:(nullable WMFPermanentCacheController *)imageController {
     objc_setAssociatedObject(self, WMFImageControllerAssociationKey, imageController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

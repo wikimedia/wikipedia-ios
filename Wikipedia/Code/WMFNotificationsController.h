@@ -18,9 +18,11 @@ extern NSString *const WMFNotificationInfoArticleExtractKey;
 extern NSString *const WMFNotificationInfoViewCountsKey;
 extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
+@class MWKDataStore;
+
 @interface WMFNotificationsController : NSObject
 
-+ (WMFNotificationsController *)sharedNotificationsController;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 @property (nonatomic, getter=isApplicationActive) BOOL applicationActive;

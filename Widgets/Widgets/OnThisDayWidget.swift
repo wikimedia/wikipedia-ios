@@ -122,7 +122,7 @@ final class OnThisDayData {
                     self.fetchLatestOnThisDayEntryFromNetwork(with: dataStore, siteURL: siteURL, completion)
                     return
                 }
-                self.assembleOnThisDayFromContentGroup(latest, completion: completion)
+                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, completion: completion)
             }
         }
     }
@@ -136,12 +136,12 @@ final class OnThisDayData {
                     self.handleNoInternetError(completion)
                     return
                 }
-                self.assembleOnThisDayFromContentGroup(latest, completion: completion)
+                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, completion: completion)
             }
         }
     }
     
-    func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, completion: @escaping (OnThisDayEntry) -> Void) {
+    func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, completion: @escaping (OnThisDayEntry) -> Void) {
         guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
               let previewEvent = previewEvents.first
         else {
@@ -157,7 +157,7 @@ final class OnThisDayData {
         }
         if let imageURL = previewEvent.articlePreviews?.first?.thumbnailURL  {
             DispatchQueue.main.async {
-                ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { _ in
+                dataStore.cacheController.imageCache.fetchImage(withURL: imageURL, failure: { _ in
                     sendDataToWidget(nil)
                 }, success: { fetchedImage in
                     sendDataToWidget(fetchedImage.image.staticImage)

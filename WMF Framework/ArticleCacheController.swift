@@ -3,23 +3,14 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
-    //use to cache entire article and all dependent resources and images
-    public static let shared: ArticleCacheController? = {
-        
-        guard let cacheBackgroundContext = CacheController.backgroundCacheContext,
-        let imageCacheController = ImageCacheController.shared else {
-            return nil
-        }
-        
-        let articleFetcher = ArticleFetcher()
-        let imageInfoFetcher = MWKImageInfoFetcher()
-        
+    init(moc: NSManagedObjectContext, imageCacheController: ImageCacheController, session: Session, configuration: Configuration) {
+        let articleFetcher = ArticleFetcher(session: session, configuration: configuration)
+        let imageInfoFetcher = MWKImageInfoFetcher(session: session, configuration: configuration)
         let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher)
         
-        let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: cacheBackgroundContext, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
-        
-        return ArticleCacheController(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
-    }()
+        let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: moc, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
+        super.init(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
+    }
 
     enum ArticleCacheControllerError: Error {
         case invalidDBWriterType

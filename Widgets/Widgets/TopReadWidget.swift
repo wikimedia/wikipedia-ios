@@ -84,10 +84,12 @@ final class TopReadData {
 
         for (index, element) in rankedElements.enumerated() {
             group.enter()
-            guard let thumbnailURL = element.thumbnailURL, let fetcher = ImageCacheController.shared else {
+            guard let thumbnailURL = element.thumbnailURL else {
                 group.leave()
                 continue
             }
+            
+            let fetcher = dataStore.cacheController.imageCache
             
             if usingImageCache {
                 if let cachedImage = fetcher.cachedImage(withURL: thumbnailURL) {

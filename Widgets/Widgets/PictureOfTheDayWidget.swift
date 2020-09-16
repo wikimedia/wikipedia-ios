@@ -27,8 +27,6 @@ final class PictureOfTheDayData {
 
 	static let shared = PictureOfTheDayData()
 
-	private var imageInfoFetcher = MWKImageInfoFetcher()
-
     let sampleEntry = PictureOfTheDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
 	let placeholderEntry = PictureOfTheDayEntry(date: Date(), contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
 
@@ -46,7 +44,7 @@ final class PictureOfTheDayData {
                     self.fetchLatestAvailablePictureEntry(completion: completion)
                     return
                 }
-                self.assemblePictureEntryFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
+                self.assemblePictureEntryFromContentGroup(latest, dataStore: dataStore, usingImageCache: usingCache, completion: completion)
             }
         }
     }
@@ -61,13 +59,13 @@ final class PictureOfTheDayData {
                     completion(self.sampleEntry)
                     return
                 }
-                self.assemblePictureEntryFromContentGroup(latest, completion: completion)
+                self.assemblePictureEntryFromContentGroup(latest, dataStore: dataStore, completion: completion)
             }
         }
 
     }
 
-    private func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
+    private func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         guard let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
             completion(self.sampleEntry)
             return
@@ -81,7 +79,7 @@ final class PictureOfTheDayData {
         let imageDescription = imageContent.imageDescription
 
         guard !usingImageCache else {
-            if let cachedImage = ImageCacheController.shared?.cachedImage(withURL: imageThumbnailURL) {
+            if let cachedImage = dataStore.cacheController.imageCache.cachedImage(withURL: imageThumbnailURL) {
                 let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
                 completion(entry)
             } else {
@@ -90,30 +88,33 @@ final class PictureOfTheDayData {
             return
         }
 
-        ImageCacheController.shared?.fetchImage(withURL: imageThumbnailURL, failure: { _ in
+        dataStore.cacheController.imageCache.fetchImage(withURL: imageThumbnailURL, failure: { _ in
             completion(sampleEntry)
         }, success: { fetchedImage in
-            self.fetchImageLicense(canonicalPageTitle: canonicalPageTitle) { license in
+            self.fetchImageLicense(from: dataStore, canonicalPageTitle: canonicalPageTitle) { license in
                 let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, license: license)
                 completion(entry)
             }
         })
     }
-
-	private func fetchImageLicense(canonicalPageTitle: String, _ completion: @escaping (MWKLicense?) -> Void) {
+    
+    var imageInfoFetcher: MWKImageInfoFetcher?
+    private func fetchImageLicense(from dataStore: MWKDataStore, canonicalPageTitle: String, _ completion: @escaping (MWKLicense?) -> Void) {
         guard let siteURL = NSURL.wmf_wikimediaCommons() else {
             completion(nil)
             return
         }
-
-        imageInfoFetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
+        let fetcher = MWKImageInfoFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        imageInfoFetcher = fetcher // needs to be retained to complete the fetch
+        fetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
+            self.imageInfoFetcher = nil
             completion(nil)
         }, success: { imageInfo in
+            self.imageInfoFetcher = nil
             guard let imageInfo = imageInfo as? MWKImageInfo, let license = imageInfo.license else {
                 completion(nil)
                 return
             }
-
             completion(license)
         })
 	}

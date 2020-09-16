@@ -43,8 +43,13 @@ class ArticleViewController: ViewController, HintPresenting {
     private let cacheController: ArticleCacheController
     let surveyTimerController: ArticleSurveyTimerController
     
-    let session = Session.shared
-    let configuration = Configuration.current
+    var session: Session {
+        return dataStore.session
+    }
+    
+    var configuration: Configuration {
+        return dataStore.configuration
+    }
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
 
@@ -72,21 +77,18 @@ class ArticleViewController: ViewController, HintPresenting {
         return tapGR
     }()
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler = SchemeHandler.shared) {
-        guard
-            let article = dataStore.fetchOrCreateArticle(with: articleURL),
-            let cacheController = ArticleCacheController.shared
-            else {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+        guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
         }
-        
+        let cacheController = dataStore.cacheController.articleCache
+
         self.articleURL = articleURL
         self.articleLanguage = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
         self.article = article
         
         self.dataStore = dataStore
-
-        self.schemeHandler = schemeHandler
+        self.schemeHandler = SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
 
         self.surveyTimerController = ArticleSurveyTimerController(articleURL: articleURL, surveyController: SurveyAnnouncementsController.shared)

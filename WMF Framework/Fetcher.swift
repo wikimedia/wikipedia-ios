@@ -19,7 +19,8 @@ open class Fetcher: NSObject {
     private let semaphore = DispatchSemaphore.init(value: 1)
     
     @objc override public convenience init() {
-        self.init(session: Session.shared, configuration: Configuration.current)
+        let dataStore = MWKDataStore.shared()
+        self.init(session: dataStore.session, configuration: dataStore.configuration)
     }
     
     @objc required public init(session: Session, configuration: Configuration) {

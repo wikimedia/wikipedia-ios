@@ -25,6 +25,9 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     dispatch_semaphore_t _handleCrossProcessChangesSemaphore;
 }
 
+@property (nonatomic, strong) WMFSession *session;
+@property (nonatomic, strong) WMFConfiguration *configuration;
+
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 
@@ -34,6 +37,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 @property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
+@property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
 @property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
@@ -43,6 +47,8 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
+
+@property (nonatomic, strong) WMFPermanentCacheController *cacheController;
 
 @property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
 @property (nonatomic) int crossProcessNotificationToken;
@@ -88,6 +94,10 @@ static uint64_t bundleHash() {
 - (instancetype)initWithContainerURL:(NSURL *)containerURL {
     self = [super init];
     if (self) {
+        WMFConfiguration *configuration = [WMFConfiguration current];
+        WMFSession *session = [[WMFSession alloc] initWithConfiguration:configuration];
+        self.session = session;
+        self.configuration = configuration;
         _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
@@ -102,9 +112,9 @@ static uint64_t bundleHash() {
         self.feedContentController.dataStore = self;
         self.feedContentController.siteURLs = self.languageLinkController.preferredSiteURLs;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current] preferredLanguageCodesProvider:self.languageLinkController];
-        WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:session configuration:configuration];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];
+        WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:session configuration:configuration];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
@@ -487,10 +497,12 @@ static uint64_t bundleHash() {
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
     dispatch_block_t combinedCompletion = ^{
-        [WMFImageCacheControllerWrapper performLibraryUpdates:^(NSError * _Nullable error) {
+        [WMFPermanentCacheController setupCoreDataStack:^(NSManagedObjectContext * _Nullable moc, NSError * _Nullable error) {
             if (error) {
                 DDLogError(@"Error during cache controller migration: %@", error);
             }
+            WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc session:self.session configuration:self.configuration];
+            self.cacheController = permanentCacheController;
             if (completion) {
                 completion();
             }
@@ -806,7 +818,7 @@ static uint64_t bundleHash() {
 
 - (void)clearTemporaryCache {
     [self clearMemoryCache];
-    [WMFSession clearTemporaryCache];
+    [self.session clearTemporaryCache];
     NSSet<NSString *> *typesToClear = [NSSet setWithObjects:WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache, nil];
     [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:typesToClear modifiedSince:[NSDate distantPast] completionHandler:^{}];
 }
@@ -824,9 +836,9 @@ static uint64_t bundleHash() {
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
 
     // Site info
-    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
+    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
     [taskGroup enter];
-    [[WMFSession shared] getJSONDictionaryFromURL:components.URL
+    [self.session getJSONDictionaryFromURL:components.URL
                                       ignoreCache:YES
                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -849,7 +861,7 @@ static uint64_t bundleHash() {
     // Remote config
     NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
     [taskGroup enter];
-    [[WMFSession shared] getJSONDictionaryFromURL:remoteConfigURL
+    [self.session getJSONDictionaryFromURL:remoteConfigURL
                                       ignoreCache:YES
                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                     dispatch_async(dispatch_get_main_queue(), ^{

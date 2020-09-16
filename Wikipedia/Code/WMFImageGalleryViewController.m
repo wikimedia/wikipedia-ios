@@ -7,9 +7,9 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 @import CoreServices;
 
+// SINGLETONTODO - this whole file, find [MWKDataStore shared]
+
 NS_ASSUME_NONNULL_BEGIN
-
-
 
 @protocol WMFExposedDataSource <NYTPhotosViewControllerDataSource>
 
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!_typedImageData) {
             NSURL *URL = self.imageInfo.canonicalFileURL;
             if (URL) {
-                _typedImageData = [[WMFImageCacheControllerWrapper shared] dataWithURL:URL];
+                _typedImageData = [[[MWKDataStore shared] cacheController] dataWithURL:URL];
             }
         }
         return _typedImageData;
@@ -217,7 +217,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL *url = [info imageURLForTargetWidth:targetWidth];
 
     @weakify(self);
-    [[WMFImageCacheControllerWrapper shared] fetchImageWithURL:url
+    [[[MWKDataStore shared] cacheController] fetchImageWithURL:url
         failure:^(NSError *_Nonnull error) {
             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
@@ -364,7 +364,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)placeholderImage {
     NSURL *url = [self thumbnailImageURL];
     if (url) {
-        return [[[WMFImageCacheControllerWrapper shared] cachedImageWithURL:url] staticImage];
+        return [[[[MWKDataStore shared] cacheController] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -377,7 +377,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)image {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[[WMFImageCacheControllerWrapper shared] cachedImageWithURL:url] staticImage];
+        return [[[[MWKDataStore shared] cacheController] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -386,7 +386,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)memoryCachedImage {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[[WMFImageCacheControllerWrapper shared] cachedImageWithURL:url] staticImage];
+        return [[[[MWKDataStore shared] cacheController] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -483,7 +483,7 @@ NS_ASSUME_NONNULL_BEGIN
     UIImage *memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
         
-        [[WMFImageCacheControllerWrapper shared] fetchImageWithURL:[galleryImage bestImageURL]
+        [[[MWKDataStore shared] cacheController] fetchImageWithURL:[galleryImage bestImageURL]
         failure:^(NSError *_Nonnull error) {
             if (error) {
                 //show error

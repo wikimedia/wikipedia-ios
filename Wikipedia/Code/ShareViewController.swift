@@ -86,7 +86,7 @@ class ShareViewController: UIViewController, Themeable {
                 self.imageLicense = imageInfo.license
             })
             loadGroup.enter()
-            let _ = ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { (fail) in
+            MWKDataStore.shared().cacheController.imageCache.fetchImage(withURL: imageURL, failure: { (fail) in
                 self.loadGroup.leave()
             }) { (download) in
                 self.image = download.image.staticImage

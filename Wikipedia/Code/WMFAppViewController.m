@@ -1262,7 +1262,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:[SchemeHandler sharedInstance]];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
     articleVC.loadCompletion = completion;
 
     if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
@@ -1347,7 +1347,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (WMFNotificationsController *)notificationsController {
-    WMFNotificationsController *controller = [WMFNotificationsController sharedNotificationsController];
+    WMFNotificationsController *controller = self.dataStore.notificationsController;
     controller.applicationActive = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
     return controller;
 }

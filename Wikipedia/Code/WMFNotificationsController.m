@@ -28,23 +28,16 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 @interface WMFNotificationsController ()
 
 @property (nonatomic, readwrite, getter=isAuthorized) BOOL authorized;
+@property (weak, nonatomic) MWKDataStore *dataStore;
 
 @end
 
 @implementation WMFNotificationsController
 
-+ (WMFNotificationsController *)sharedNotificationsController {
-    static dispatch_once_t onceToken;
-    static WMFNotificationsController *notificationsController;
-    dispatch_once(&onceToken, ^{
-        notificationsController = [[WMFNotificationsController alloc] init];
-    });
-    return notificationsController;
-}
-
-- (instancetype)init {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     self = [super init];
     if (self) {
+        self.dataStore = dataStore;
 #if WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION
         [self requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error){
 
@@ -169,8 +162,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         return;
     }
 
-    WMFImageCacheControllerWrapper *imageController = [WMFImageCacheControllerWrapper shared];
-    [imageController fetchDataWithURL:thumbnailURL
+    [self.dataStore.cacheController fetchDataWithURL:thumbnailURL
         failure:^(NSError *_Nonnull error) {
             [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];
         }

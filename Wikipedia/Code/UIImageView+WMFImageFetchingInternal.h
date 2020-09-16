@@ -1,7 +1,7 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import <WMF/WMFBlockDefinitions.h>
 @class MWKImage;
-@class WMFImageCacheControllerWrapper;
+@class WMFPermanentCacheController;
 @class WMFFaceDetectionCache;
 @class FLAnimatedImage;
 
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [WMFImageCacheControllerWrapper sharedInstance].
  */
-@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageCacheControllerWrapper *wmf_imageController;
+@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFPermanentCacheController *wmf_imageController;
 
 /**
  *  Fetch the receiver's @c wmf_imageURLToFetch

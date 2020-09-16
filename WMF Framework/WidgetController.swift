@@ -37,12 +37,13 @@ public final class WidgetController: NSObject {
     public func startWidgetUpdateTask<T>(_ userCompletion: @escaping (T) -> Void, _ task: @escaping (MWKDataStore, @escaping (T) -> Void) -> Void)  {
         let processInfo = ProcessInfo.processInfo
         let start = processInfo.beginActivity(options: .background, reason: "Updating Wikipedia Widgets - " + UUID().uuidString)
-        let dataStore = getRetainedSharedDataStore()
-        task(dataStore, { result in
-            userCompletion(result)
-            self.releaseSharedDataStore()
-            processInfo.endActivity(start)
-        })
+        getRetainedSharedDataStore { dataStore in
+            task(dataStore, { result in
+                userCompletion(result)
+                self.releaseSharedDataStore()
+                processInfo.endActivity(start)
+            })
+        }
     }
     
     private var dataStoreRetainCount: Int = 0
@@ -52,18 +53,21 @@ public final class WidgetController: NSObject {
     /// Returns a `MWKDataStore`for use with widget updates.
     /// Manages a shared instance and a reference count for use by multiple widgets.
     /// Call `releaseSharedDataStore()` when finished with the data store.
-    private func getRetainedSharedDataStore() -> MWKDataStore {
+    private func getRetainedSharedDataStore(completion: @escaping (MWKDataStore) -> Void) {
         lock.lock()
-        defer {
-            dataStoreRetainCount += 1
-            lock.unlock()
-        }
         if let dataStore = _dataStore {
-            return dataStore
+            completion(dataStore)
+            return
         }
         let dataStore = MWKDataStore()
-        _dataStore = dataStore
-        return dataStore
+        dataStore.performLibraryUpdates {
+            self.dataStoreRetainCount += 1
+            self._dataStore = dataStore
+            self.lock.unlock()
+            completion(dataStore)
+        } needsMigrateBlock: {
+            DDLogDebug("Needed a migration from the widgets")
+        }
     }
     
     /// Releases the shared `MWKDataStore` returned by `getRetainedSharedDataStore()`.

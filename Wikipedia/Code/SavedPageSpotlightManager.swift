@@ -35,9 +35,10 @@ public extension WMFArticle {
 
         searchableItem.subject = wikidataDescription
         searchableItem.contentDescription = snippet
-        if let imageURL = imageURL(forWidth: WMFImageWidth.medium.rawValue) {
-            searchableItem.thumbnailData = ImageCacheController.shared?.data(withURL: imageURL)?.data
-        }
+        /// SINGLETONTODO
+//        if let imageURL = imageURL(forWidth: WMFImageWidth.medium.rawValue) {
+//            searchableItem.thumbnailData = ImageCacheController.shared?.data(withURL: imageURL)?.data
+//        }
         return searchableItem
     }
 }
