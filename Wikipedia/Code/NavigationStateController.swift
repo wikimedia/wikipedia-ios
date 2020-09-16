@@ -157,6 +157,9 @@ final class NavigationStateController: NSObject {
                 else {
                     return
                 }
+                if let onThisDayVC = detailVC as? OnThisDayViewController, let shouldShowNavigationBar = viewController.info?.shouldShowNavigationBar {
+                    onThisDayVC.shouldShowNavigationBar = shouldShowNavigationBar
+                }
                 pushOrPresent(detailVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.singleWebPage, let info):
                 guard let url = info?.url else {
@@ -235,7 +238,8 @@ final class NavigationStateController: NSObject {
             info = Info(readingListURIString: readingListDetailVC.readingList.objectID.uriRepresentation().absoluteString)
         case let detailPresenting as DetailPresentingFromContentGroup:
             kind = .detail
-            info = Info(contentGroupIDURIString: detailPresenting.contentGroupIDURIString)
+            let shouldShowNavigationBar = (viewController as? OnThisDayViewController)?.shouldShowNavigationBar
+            info = Info(shouldShowNavigationBar: shouldShowNavigationBar, contentGroupIDURIString: detailPresenting.contentGroupIDURIString)
         case let singlePageWebViewController as SinglePageWebViewController:
             kind = .singleWebPage
             info = Info(url: singlePageWebViewController.url)
