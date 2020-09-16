@@ -302,7 +302,7 @@ public class CommonStrings: NSObject {
     static let articleAsLivingDocSummaryTitle = WMFLocalizedString(
         "aaald-summary-title",
         value:"{{PLURAL:%1$d|0=0 changes|%1$d change|%1$d changes}} by {{PLURAL:%2$d|0=0 editors|%2$d editor|%2$d editors}} in {{PLURAL:%3$d|0=0 days|%3$d day|%3$d days}}",
-        comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced by the number of accumulated changes editors made and %2$d is replaced with relative timeframe date that the edit counting started (e.g. 10 days ago).")
+        comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced by the number of accumulated changes editors made, %2$d is replaced by the number of editors that made that change and %3$d is replaced with relative timeframe date that the edit counting started (e.g. 10 days).")
 
     @objc public static func onThisDayAdditionalEventsMessage(with language: String?, locale: Locale, eventsCount: Int) -> String {
         return String(format: WMFLocalizedString("on-this-day-detail-header-title", language: language, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occurred on the given day"), locale: locale, eventsCount)
