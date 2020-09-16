@@ -53,6 +53,9 @@ class ArticleViewControllerTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = articleVC
     
         wait(for: [setupExpectation], timeout: timeout)
+        
+        UIApplication.shared.keyWindow?.rootViewController = nil
+        dataStore.session.cancelAllRequests()
     }
 
 }

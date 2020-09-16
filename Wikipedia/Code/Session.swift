@@ -129,6 +129,11 @@ public enum WMFCachePolicy {
         defaultURLSession.invalidateAndCancel()
     }
     
+    public func cancelAllRequests() {
+        defaultURLSession.invalidateAndCancel()
+        defaultURLSession = Session.getURLSession(with: permanentCache, delegate: sessionDelegate)
+    }
+    
     public let wifiOnlyURLSession: URLSession = {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage
