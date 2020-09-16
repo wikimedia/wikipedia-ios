@@ -31,11 +31,11 @@ final class TopReadData {
 		return TopReadEntry(date: Date())
 	}
 
-	// MARK: Public
+    private var dataStore: MWKDataStore {
+        MWKDataStore.shared()
+    }
 
-	private var dataStore: MWKDataStore {
-		MWKDataStore.shared()
-	}
+	// MARK: Public
 
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         let moc = dataStore.viewContext
@@ -51,8 +51,10 @@ final class TopReadData {
             self.assembleTopReadFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
     }
+
+    // MARK: Private
     
-    func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
+    private func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
@@ -65,7 +67,7 @@ final class TopReadData {
         }
     }
     
-    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+    private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
@@ -113,6 +115,7 @@ final class TopReadData {
             completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url, contentLayoutDirection: layoutDirection))
         }
     }
+
 }
 
 // MARK: - Model
@@ -161,7 +164,7 @@ struct TopReadProvider: TimelineProvider {
 	}
 
 	func getSnapshot(in context: Context, completion: @escaping (TopReadEntry) -> Void) {
-        dataStore.fetchLatestAvailableTopRead(usingCache: true) { (entry) in
+        dataStore.fetchLatestAvailableTopRead(usingCache: context.isPreview) { (entry) in
             completion(entry)
         }
     }
