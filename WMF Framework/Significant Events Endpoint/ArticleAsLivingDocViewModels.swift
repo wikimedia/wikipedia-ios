@@ -1292,7 +1292,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
             let rangeOfUserName = (userInfo as NSString).range(of: userName)
             let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
-            if let title = "User:\(userName)".denormalizedPageTitle {
+            if let title = "User:\(userName)".percentEncodedPageTitleForPathComponents {
                 let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url
                 if let userNameURL = userNameURL,
                    rangeValid {
