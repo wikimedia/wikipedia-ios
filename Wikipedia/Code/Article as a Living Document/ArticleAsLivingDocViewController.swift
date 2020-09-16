@@ -7,6 +7,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         get
     }
+    func showEditHistory()
 }
 
 @available(iOS 13.0, *)
@@ -173,8 +174,25 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         let headerText = self.headerText.uppercased(with: NSLocale.current)
         headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: articleAsLivingDocViewModel.summaryText, editMetrics: editMetrics, theme: theme)
         headerView.apply(theme: theme)
+
+        headerView.viewFullHistoryButton.addTarget(self, action: #selector(tappedViewFullHistoryButton), for: .touchUpInside)
     }
-    
+
+    override func apply(theme: Theme) {
+        guard isViewLoaded else {
+            return
+        }
+
+        super.apply(theme: theme)
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground //tonitodo: this doesn't seem to work
+    }
+
+    @objc func tappedViewFullHistoryButton() {
+        self.dismiss(animated: true, completion: delegate?.showEditHistory)
+    }
+
+    // MARK:- CollectionView functions
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 70)
@@ -252,15 +270,5 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     
     @objc func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
-    }
-    
-    override func apply(theme: Theme) {
-        guard isViewLoaded else {
-            return
-        }
-
-        super.apply(theme: theme)
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground //tonitodo: this doesn't seem to work
     }
 }

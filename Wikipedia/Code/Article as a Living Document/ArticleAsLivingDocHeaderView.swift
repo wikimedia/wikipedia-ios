@@ -8,7 +8,7 @@ class ArticleAsLivingDocHeaderView: UIView {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var summaryLabel: UILabel!
     @IBOutlet private var sparklineView: WMFSparklineView!
-    @IBOutlet private var viewFullHistoryButton: ActionButton!
+    @IBOutlet var viewFullHistoryButton: ActionButton!
     @IBOutlet private var dividerView: UIView!
     
     private var editMetrics: [NSNumber]? {
@@ -49,7 +49,6 @@ class ArticleAsLivingDocHeaderView: UIView {
         summaryLabel.numberOfLines = 0
         
         viewFullHistoryButton.setTitle(WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen."), for: .normal)
-        viewFullHistoryButton.addTarget(self, action: #selector(tappedViewFullHistoryButton), for: .touchUpInside)
     }
     
     func configure(headerText: String, titleText: String?, summaryText: String?, editMetrics: [NSNumber]?, theme: Theme) {
@@ -94,10 +93,6 @@ class ArticleAsLivingDocHeaderView: UIView {
         titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         summaryLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         viewFullHistoryButton.updateFonts(with: traitCollection)
-    }
-    
-    @objc func tappedViewFullHistoryButton() {
-        print("tapped view full history button")
     }
 }
 
