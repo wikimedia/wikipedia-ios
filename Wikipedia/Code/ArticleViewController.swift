@@ -77,7 +77,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return tapGR
     }()
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
         }
@@ -88,7 +88,7 @@ class ArticleViewController: ViewController, HintPresenting {
         self.article = article
         
         self.dataStore = dataStore
-        self.schemeHandler = SchemeHandler(scheme: "app", session: dataStore.session)
+        self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
 
         self.surveyTimerController = ArticleSurveyTimerController(articleURL: articleURL, surveyController: SurveyAnnouncementsController.shared)

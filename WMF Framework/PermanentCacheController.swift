@@ -5,11 +5,13 @@ public final class PermanentCacheController: NSObject {
     public let imageCache: ImageCacheController
     public let articleCache: ArticleCacheController
     let urlCache: PermanentlyPersistableURLCache
+    let managedObjectContext: NSManagedObjectContext
     
     @objc public init(moc: NSManagedObjectContext, session: Session, configuration: Configuration) {
         imageCache = ImageCacheController(moc: moc, session: session, configuration: configuration)
         articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, session: session, configuration: configuration)
         urlCache = PermanentlyPersistableURLCache(moc: moc)
+        managedObjectContext = moc
         super.init()
         session.permanentCache = self
     }
@@ -47,4 +49,10 @@ public final class PermanentCacheController: NSObject {
     @objc public func data(withURL url: URL) -> TypedImageData? {
         return imageCache.data(withURL: url)
     }
+    #if TEST
+    @objc public static func testController(with directory: URL, session: Session, configuration: Configuration) -> PermanentCacheController {
+        let moc = CacheController.createCacheContext(cacheURL: directory)!
+        return PermanentCacheController(moc: moc, session: session, configuration: configuration)
+    }
+    #endif
 }

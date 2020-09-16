@@ -61,6 +61,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock;
 - (void)performInitialLibrarySetup;
+#if TEST
+- (void)performTestLibrarySetup;
+#endif
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;

@@ -5,7 +5,7 @@ import XCTest
 
 class TalkPageNetworkDataTests: XCTestCase {
     
-    let session = Session.shared
+    let session = MWKDataStore.shared().session
 
     func testLocalJsonDecodesToTalkPage() {
         

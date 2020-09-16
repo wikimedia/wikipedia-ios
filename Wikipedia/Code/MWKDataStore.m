@@ -538,6 +538,13 @@ static uint64_t bundleHash() {
     }
 }
 
+#if TEST
+- (void)performTestLibrarySetup {
+    WMFPermanentCacheController *permanentCacheController = [WMFPermanentCacheController testControllerWith:self.containerURL session:self.session configuration:self.configuration];
+    self.cacheController = permanentCacheController;
+}
+#endif
+
 - (void)markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:(NSManagedObjectContext *)moc {
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES && isConversionFromMobileViewNeeded == NO"];

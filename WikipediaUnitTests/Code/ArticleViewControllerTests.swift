@@ -35,7 +35,7 @@ class ArticleViewControllerTests: XCTestCase {
         let dataStore = MWKDataStore.temporary()
         let theme = Theme.light
         let url = URL(string: "https://en.wikipedia.org/wiki/Dog")!
-        let schemeHandler = MockSchemeHandler(scheme: "app", session: Session.shared)
+        let schemeHandler = MockSchemeHandler(scheme: "app", session: dataStore.session)
         guard let articleVC = ArticleViewController(articleURL: url, dataStore: dataStore, theme: theme, schemeHandler: schemeHandler) else {
             XCTFail("Failure initializing Article View Controller")
             return
