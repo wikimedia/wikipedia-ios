@@ -132,8 +132,10 @@ final class OnThisDayData {
             self.assembleOnThisDayFromContentGroup(latest, completion: completion)
         }
     }
-    
-    func fetchLatestOnThisDayEntryFromNetwork(_ completion: @escaping (OnThisDayEntry) -> Void) {
+
+    // MARK: Private
+
+    private func fetchLatestOnThisDayEntryFromNetwork(_ completion: @escaping (OnThisDayEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
@@ -147,7 +149,7 @@ final class OnThisDayData {
         }
     }
     
-    func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, completion: @escaping (OnThisDayEntry) -> Void) {
+    private func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, completion: @escaping (OnThisDayEntry) -> Void) {
         guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
               let previewEvent = previewEvents.first
         else {
@@ -172,7 +174,7 @@ final class OnThisDayData {
         }
     }
     
-    func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
+    private func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let errorEntry = OnThisDayEntry.errorEntry(for: .noInternet)
         completion(errorEntry)
     }
