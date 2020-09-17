@@ -15,6 +15,7 @@
 @class WMFConfiguration;
 @class WMFPermanentCacheController;
 @class WMFNotificationsController;
+@class WMFAuthenticationManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -69,6 +70,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
 @property (readonly, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
+@property (readonly, strong, nonatomic) WMFAuthenticationManager *authenticationManager;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;

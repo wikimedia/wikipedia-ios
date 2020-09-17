@@ -21,12 +21,13 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
 }
 
-@interface MWKDataStore () {
+@interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate> {
     dispatch_semaphore_t _handleCrossProcessChangesSemaphore;
 }
 
 @property (nonatomic, strong) WMFSession *session;
 @property (nonatomic, strong) WMFConfiguration *configuration;
+@property (nonatomic, strong) WMFAuthenticationManager *authenticationManager;
 
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
@@ -96,8 +97,12 @@ static uint64_t bundleHash() {
     if (self) {
         WMFConfiguration *configuration = [WMFConfiguration current];
         WMFSession *session = [[WMFSession alloc] initWithConfiguration:configuration];
+        session.authenticationDelegate = self;
+        WMFAuthenticationManager *authenticationManager = [[WMFAuthenticationManager alloc] initWithSession:session configuration:configuration];
+        authenticationManager.delegate = self;
         self.session = session;
         self.configuration = configuration;
+        self.authenticationManager = authenticationManager;
         _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
@@ -1004,6 +1009,31 @@ static uint64_t bundleHash() {
 
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
     return [self isArticleWithURLExcludedFromFeed:articleURL inManagedObjectContext:self.viewContext];
+}
+
+#pragma mark - WMFAuthenticationManagerDelegate
+
+- (nullable NSURL*)loginSiteURL {
+    return self.languageLinkController.appLanguage.siteURL;
+}
+
+- (void)authenticationManagerDidLogin {
+    [self clearMemoryCache];
+}
+
+- (void)authenticationManagerDidReset {
+    [self clearMemoryCache];
+    [self.readingListsController setSyncEnabled:NO shouldDeleteLocalLists:NO shouldDeleteRemoteLists:NO];
+}
+
+#pragma mark - WMFSessionAuthenticationDelegate
+
+- (void)attemptReauthentication {
+    [self.authenticationManager attemptLoginWithLogoutOnFailureInitiatedBy:LogoutInitiatorServer completion:^{}];
+}
+
+- (void)deauthenticate {
+    [self.authenticationManager logoutInitiatedBy:LogoutInitiatorServer completion:^{}];
 }
 
 @end

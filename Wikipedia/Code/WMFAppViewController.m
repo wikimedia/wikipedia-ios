@@ -866,7 +866,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
-    [[WMFAuthenticationManager sharedInstance]
+    [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
@@ -2078,7 +2078,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showLoggedOutPanelIfNeeded {
-    WMFAuthenticationManager *authenticationManager = WMFAuthenticationManager.sharedInstance;
+    WMFAuthenticationManager *authenticationManager = self.dataStore.authenticationManager;
     BOOL isUserUnawareOfLogout = authenticationManager.isUserUnawareOfLogout;
     if (!isUserUnawareOfLogout) {
         return;

@@ -39,7 +39,6 @@ class ArticleViewController: ViewController, HintPresenting {
     internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
     
-    private let authManager: WMFAuthenticationManager = WMFAuthenticationManager.sharedInstance
     private let cacheController: ArticleCacheController
     let surveyTimerController: ArticleSurveyTimerController
     
@@ -49,6 +48,10 @@ class ArticleViewController: ViewController, HintPresenting {
     
     var configuration: Configuration {
         return dataStore.configuration
+    }
+    
+    private var authManager: WMFAuthenticationManager {
+        return dataStore.authenticationManager
     }
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)

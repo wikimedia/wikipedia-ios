@@ -1,6 +1,9 @@
 import UIKit
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable {
+    // SINGLETONTODO
+    let dataStore = MWKDataStore.shared()
+    
     @IBOutlet fileprivate var usernameField: ThemeableTextField!
     @IBOutlet fileprivate var passwordField: ThemeableTextField!
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
@@ -161,7 +164,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("One or more of the required parameters are nil")
             return
         }
-        WMFAuthenticationManager.sharedInstance.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
+        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
             switch loginResult {
             case .success(_):
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
@@ -289,7 +292,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 self.funnel?.logError(error.localizedDescription)
             }
         }
-        let siteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL()
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
             DispatchQueue.main.async {
                 self.captchaViewController?.captcha = info.captcha
@@ -308,7 +311,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
     
     public func captchaSiteURL() -> URL {
-        return (MWKDataStore.shared().languageLinkController.appLanguage?.siteURL())!
+        return (dataStore.languageLinkController.appLanguage?.siteURL())!
     }
     
     func captchaKeyboardReturnKeyTapped() {

@@ -15,7 +15,14 @@ public enum WMFCachePolicy {
     }
 }
 
-@objc(WMFSession) public class Session: NSObject {
+@objc(WMFSessionAuthenticationDelegate)
+protocol SessionAuthenticationDelegate: NSObjectProtocol {
+    func deauthenticate()
+    func attemptReauthentication()
+}
+
+@objc(WMFSession)
+public class Session: NSObject {
     
     public struct Request {
         public enum Method {
@@ -82,7 +89,7 @@ public enum WMFCachePolicy {
         }
     }
     
-    public func removeAllCookies() {
+    @objc public func removeAllCookies() {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return
         }
@@ -118,6 +125,7 @@ public enum WMFCachePolicy {
     private let configuration: Configuration
     public var defaultURLSession: URLSession
     private let sessionDelegate: SessionDelegate
+    @objc weak var authenticationDelegate: SessionAuthenticationDelegate?
     
     @objc public required init(configuration: Configuration) {
         self.configuration = configuration
@@ -322,26 +330,12 @@ public enum WMFCachePolicy {
         guard let response = response, let httpResponse = response as? HTTPURLResponse else {
             return
         }
-        
-        let logout = {
-            WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
-                self.removeAllCookies()
-            }
-        }
         switch httpResponse.statusCode {
         case 401:
             if (reattemptLoginOn401Response) {
-                WMFAuthenticationManager.sharedInstance.attemptLogin(reattemptOn401Response: false) { (loginResult) in
-                    switch loginResult {
-                    case .failure(let error):
-                        DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
-                        logout()
-                    default:
-                        break
-                    }
-                }
+                authenticationDelegate?.attemptReauthentication()
             } else {
-                logout()
+                authenticationDelegate?.deauthenticate()
             }
         default:
             break
