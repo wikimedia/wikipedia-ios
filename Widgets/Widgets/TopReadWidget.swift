@@ -31,7 +31,6 @@ final class TopReadData {
 		return TopReadEntry(date: Date())
 	}
 
-	// MARK: Public
 
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
         WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
@@ -49,8 +48,10 @@ final class TopReadData {
             }
         }
     }
+
+    // MARK: Private
     
-    func fetchLatestAvailableTopReadFromNetwork(from dataStore: MWKDataStore, completion: @escaping (TopReadEntry) -> Void) {
+    private func fetchLatestAvailableTopReadFromNetwork(from dataStore: MWKDataStore, completion: @escaping (TopReadEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = dataStore.viewContext
             moc.perform {
@@ -63,7 +64,7 @@ final class TopReadData {
         }
     }
     
-    func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+    private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
@@ -112,6 +113,7 @@ final class TopReadData {
             completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url, contentLayoutDirection: layoutDirection))
         }
     }
+
 }
 
 // MARK: - Model
