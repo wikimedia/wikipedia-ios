@@ -4492,7 +4492,7 @@
 		D84448561DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFContentGroup+CoreDataProperties.h"; sourceTree = "<group>"; };
 		D84448571DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFContentGroup+CoreDataProperties.m"; sourceTree = "<group>"; };
 		D844485C1DDCE4E500425630 /* WMFContentGroup+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFContentGroup+Extensions.h"; sourceTree = "<group>"; };
-		D844485D1DDCE4E500425630 /* WMFContentGroup+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFContentGroup+Extensions.m"; sourceTree = "<group>"; };
+		D844485D1DDCE4E500425630 /* WMFContentGroup+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFContentGroup+Extensions.m"; sourceTree = "<group>"; usesTabs = 0; };
 		D844D96C1D6CB2600042D692 /* WMF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D844D96E1D6CB2600042D692 /* WMF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = WMF.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D844D96F1D6CB2600042D692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
