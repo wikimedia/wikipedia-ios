@@ -40,7 +40,7 @@ final class PictureOfTheDayData {
     func fetchLatestAvailablePictureEntry(usingCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         let moc = dataStore.viewContext
         moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay), latest.isForToday else {
+            guard let latest = moc.newestGroup(of: .pictureOfTheDay), latest.isForToday else {
                 guard !usingCache else {
                     completion(self.sampleEntry)
                     return
@@ -58,7 +58,7 @@ final class PictureOfTheDayData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay) else {
+                guard let latest = moc.newestGroup(of: .pictureOfTheDay) else {
                     completion(self.sampleEntry)
                     return
                 }
