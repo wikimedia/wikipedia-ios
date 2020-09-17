@@ -51,7 +51,7 @@ final class InsertMediaViewController: ViewController {
         navigationBar.isTopSpacingHidingEnabled = false
 
         addChild(selectedImageViewController)
-        navigationBar.addUnderNavigationBarView(selectedImageViewController.view)
+        navigationBar.addUnderNavigationBarView(selectedImageViewController.view, shouldIgnoreSafeArea: true)
         selectedImageViewController.didMove(toParent: self)
 
         addChild(searchViewController)
