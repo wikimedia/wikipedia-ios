@@ -153,6 +153,8 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     }
 
     public func resetContentOffset() {
+        /// Without a layout pass, RTL languages on LTR chrome have an incorrect initial inset.
+        layoutIfNeeded()
         let x: CGFloat = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width + collectionView.contentInset.right : -collectionView.contentInset.left
         collectionView.contentOffset = CGPoint(x: x, y: 0)
     }
