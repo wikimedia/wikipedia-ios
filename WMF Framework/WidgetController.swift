@@ -23,12 +23,10 @@ public final class WidgetController: NSObject {
     // MARK: Public
 
 	@objc public func reloadAllWidgetsIfNecessary() {
-        guard !Bundle.main.isAppExtension else {
+        guard #available(iOS 14.0, *), !Bundle.main.isAppExtension else {
             return
         }
-		if #available(iOS 14.0, *) {
-			WidgetCenter.shared.reloadAllTimelines()
-		}
+        WidgetCenter.shared.reloadAllTimelines()
 	}
     
     /// For requesting background time from widgets
