@@ -40,7 +40,7 @@ final class TopReadData {
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         let moc = dataStore.viewContext
         moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .topRead), latest.isForToday else {
+            guard let latest = moc.newestGroup(of: .topRead), latest.isForToday else {
                 guard !usingCache else {
                     completion(self.placeholder)
                     return
@@ -58,7 +58,7 @@ final class TopReadData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .topRead) else {
+                guard let latest = moc.newestGroup(of: .topRead) else {
                     completion(self.placeholder)
                     return
                 }
