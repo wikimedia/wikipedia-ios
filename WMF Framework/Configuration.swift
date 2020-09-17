@@ -185,6 +185,9 @@ public class Configuration: NSObject {
         guard let apiLanguage = wikipediaLanguage else {
             return [:]
         }
+        // If the language supports variants, only send a single code with variant for that language.
+        // This is a workaround for an issue with server-side Accept-Language header handling and
+        // can be removed when https://phabricator.wikimedia.org/T256491 is fixed.
         guard let preferredLanguage = Locale.preferredWikipediaLanguageVariant(wmf_language: apiLanguage) else {
             return [:]
         }
