@@ -21,7 +21,26 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     }
 }
 
+@interface MWKImageInfoFetcher ()
+
+@property (weak, nonatomic) MWKDataStore *dataStore;
+
+@end
+
 @implementation MWKImageInfoFetcher
+
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+    self = [super initWithSession:dataStore.session configuration:dataStore.configuration];
+    if (self) {
+        self.dataStore = dataStore;
+    }
+    return self;
+}
+
+- (instancetype)initWithSession:(WMFSession *)session configuration:(WMFConfiguration *)configuration {
+    assert(false);
+    self = [self initWithDataStore:[MWKDataStore shared]];
+}
 
 - (void)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
@@ -84,7 +103,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     
     NSMutableArray *itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
 
-    NSArray<NSString *> *preferredLangCodes = [MWKDataStore.shared.languageLinkController.preferredLanguages wmf_map:^NSString *(MWKLanguageLink *language) {
+    NSArray<NSString *> *preferredLangCodes = [self.dataStore.languageLinkController.preferredLanguages wmf_map:^NSString *(MWKLanguageLink *language) {
         return [language languageCode];
     }];
 

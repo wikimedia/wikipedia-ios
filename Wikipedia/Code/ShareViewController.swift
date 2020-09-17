@@ -12,7 +12,8 @@ class ShareViewController: UIViewController, Themeable {
     var theme: Theme
     var image: UIImage?
     var imageLicense: MWKLicense?
-    let infoFetcher = MWKImageInfoFetcher()
+    // SINGLETONTODO
+    let infoFetcher = MWKImageInfoFetcher(dataStore: MWKDataStore.shared())
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var busyView: UIView!

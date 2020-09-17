@@ -5,6 +5,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class NSURLSessionDataTask;
+@class MWKDataStore;
 
 @protocol MWKImageInfoRequest <NSObject>
 
@@ -13,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface MWKImageInfoFetcher : WMFLegacyFetcher
+
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore NS_DESIGNATED_INITIALIZER;
 
 /**
  * Fetch the imageinfo for the given image page titles.

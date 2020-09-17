@@ -104,7 +104,7 @@ final class PictureOfTheDayData {
             completion(nil)
             return
         }
-        let fetcher = MWKImageInfoFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        let fetcher = MWKImageInfoFetcher(dataStore: dataStore)
         imageInfoFetcher = fetcher // needs to be retained to complete the fetch
         fetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
             self.imageInfoFetcher = nil

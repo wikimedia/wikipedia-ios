@@ -7,13 +7,15 @@ public final class PermanentCacheController: NSObject {
     let urlCache: PermanentlyPersistableURLCache
     let managedObjectContext: NSManagedObjectContext
     
-    @objc public init(moc: NSManagedObjectContext, session: Session, configuration: Configuration) {
-        imageCache = ImageCacheController(moc: moc, session: session, configuration: configuration)
-        articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, session: session, configuration: configuration)
+    /// - Parameter moc: the managed object context for the cache
+    /// - Parameter dataStore: the data store for the cache - weakly referenced
+    @objc public init(moc: NSManagedObjectContext, dataStore: MWKDataStore) {
+        imageCache = ImageCacheController(moc: moc, session: dataStore.session, configuration: dataStore.configuration)
+        articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, dataStore: dataStore)
         urlCache = PermanentlyPersistableURLCache(moc: moc)
         managedObjectContext = moc
         super.init()
-        session.permanentCache = self
+        dataStore.session.permanentCache = self
     }
     
     /// Performs any necessary migrations on the CacheController's internal storage

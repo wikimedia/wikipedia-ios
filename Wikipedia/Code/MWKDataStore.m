@@ -506,7 +506,7 @@ static uint64_t bundleHash() {
             if (error) {
                 DDLogError(@"Error during cache controller migration: %@", error);
             }
-            WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc session:self.session configuration:self.configuration];
+            WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc dataStore:self];
             self.cacheController = permanentCacheController;
             if (completion) {
                 completion();

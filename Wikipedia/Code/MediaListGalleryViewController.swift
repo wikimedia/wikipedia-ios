@@ -1,6 +1,6 @@
 class MediaListGalleryViewController: WMFImageGalleryViewController {
     let imageController: ImageCacheController
-    let imageInfoFetcher = MWKImageInfoFetcher()
+    let imageInfoFetcher: MWKImageInfoFetcher
     let articleURL: URL
     required init(articleURL: URL, mediaList: MediaList, dataStore: MWKDataStore, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
         self.articleURL = articleURL
@@ -11,6 +11,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
         } else {
             initialPhoto = photos.first
         }
+        imageInfoFetcher = MWKImageInfoFetcher(dataStore: dataStore)
         imageController = dataStore.cacheController.imageCache
         super.init(photos: photos, initialPhoto: initialPhoto, delegate: nil, theme: theme, overlayViewTopBarHidden:overlayViewTopBarHidden)
         fetchImageForPhoto(initialPhoto)

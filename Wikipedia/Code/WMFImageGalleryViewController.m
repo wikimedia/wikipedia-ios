@@ -425,7 +425,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     self = [super initWithPhotos:photos initialPhoto:nil delegate:nil theme:theme overlayViewTopBarHidden:overlayViewTopBarHidden];
     if (self) {
-        self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
+        // SINGLETONTODO
+        self.infoFetcher = [[MWKImageInfoFetcher alloc] initWithDataStore:[MWKDataStore shared]];
     }
 
     return self;
