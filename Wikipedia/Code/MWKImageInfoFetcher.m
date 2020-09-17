@@ -40,6 +40,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
 - (instancetype)initWithSession:(WMFSession *)session configuration:(WMFConfiguration *)configuration {
     assert(false);
     self = [self initWithDataStore:[MWKDataStore shared]];
+    return self;
 }
 
 - (void)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
