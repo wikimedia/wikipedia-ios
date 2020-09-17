@@ -1,5 +1,6 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
+// Author: 1233qwer1234qwer4
 // Author: Agilight
 // Author: Alexander Yukal
 // Author: Alexandr Efremov
@@ -154,7 +155,7 @@
 "article-share" = "Поделиться";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "back-button-accessibility-label" = "Назад";
-"back-button-popover-title" = "Нажмите, чтоб вернуться назад";
+"back-button-popover-title" = "Нажмите, чтобы вернуться назад";
 "button-next" = "Далее";
 "button-ok" = "OK";
 "button-publish" = "Опубликовать";
@@ -169,7 +170,7 @@
 "clear-title-accessibility-label" = "Очистить";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
-"continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
+"continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
 "description-add-title" = "Добавить описание";
 "description-edit-for-article" = "Краткое описание «$1»";
