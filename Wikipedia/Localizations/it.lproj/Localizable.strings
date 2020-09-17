@@ -33,6 +33,7 @@
 // Author: Simoarmanni
 // Author: Statix64
 // Author: SuperVirtual
+// Author: Superpes15
 // Author: Yacine Boussoufa
 
 "about-content-license" = "Licenza contenuto";
@@ -76,6 +77,9 @@
 "account-creation-title" = "Crea una nuova utenza";
 "account-group-title" = "La tua utenza";
 "account-talk-page-title" = "La tua pagina di discussione";
+"account-talk-preferences-auto-sign-discussions" = "Firma automaticamente nelle discussioni";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Per firmare automaticamente nelle discussioni verrà utilizzata la firma definita nelle impostazioni della firma";
+"account-talk-preferences-title" = "Preferenze della pagina di discussione";
 "action-add-to" = "Aggiungi a…";
 "action-add-to-reading-list" = "Aggiungi all'elenco di lettura";
 "action-add-to-reading-list-short" = "Aggiungi all'elenco";
@@ -111,12 +115,14 @@
 "appearance-settings-expand-tables" = "Espandi le tabelle";
 "appearance-settings-set-automatic-table-opening" = "Impostazioni tabella";
 "appearance-settings-theme-options" = "Opzioni tema";
+"article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|voce cancellata|voci cancellate}}";
 "article-languages-filter-placeholder" = "Trova lingua";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-others" = "Altre lingue";
 "article-languages-yours" = "Le tue lingue";
+"article-read-more-title" = "Per saperne di più";
 "article-reference-view-title" = "Riferimento $1";
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
@@ -265,6 +271,7 @@
 "featured-article-empty-title" = "Nessuna voce in vetrina disponibile oggi";
 "feed-news-notification-button-text" = "Attiva le notifiche";
 "fetcher-error-generic" = "Qualcosa è andato storto. Riprova più tardi.";
+"fetcher-error-unexpected-response" = "L'applicazione ha ricevuto una risposta inaspettata dal server. Si prega di riprovare più tardi.";
 "field-alert-captcha-invalid" = "CAPTCHA non valido";
 "field-alert-password-confirm-mismatch" = "Le password non corrispondono";
 "field-alert-token-invalid" = "Codice non valido";
@@ -303,6 +310,7 @@
 "home-more-like-footer" = "Altro come $1";
 "home-nearby-footer" = "Altri luoghi vicini alla tua posizione";
 "home-nearby-location-footer" = "Altro nelle vicinanze di $1";
+"home-reading-list-prompt" = "Le tue voci slavate ora possono essere organizzate in elenchi di lettura e sincronizzati tra più dispositivi. Effettua l'accesso per permettere ai tuoi elenchi di lettura di essere salvati tra le tue preferenze.";
 "home-title" = "Esplora";
 "icon-shortcut-nearby-title" = "Voci nelle vicinanze";
 "icon-shortcut-random-title" = "Voce a caso";
@@ -395,19 +403,30 @@
 "on-this-day-footer" = "Alti eventi storici in questo giorno";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
+"page-history-anonymous-edits" = "modifiche di utenti anonimi";
+"page-history-bot-edits" = "modifiche dei bot";
+"page-history-compare-accessibility-hint" = "Clicca per selezionare due versioni da confrontare";
 "page-history-compare-title" = "Confronta";
+"page-history-minor-edits" = "modifiche minori";
 "page-history-revision-author-accessibility-label" = "Autore: $1";
 "page-history-revision-comment-accessibility-label" = "Commento $1";
+"page-history-revision-history-title" = "Cronologia";
 "page-history-revision-minor-edit-accessibility-label" = "Modifica minore";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Aggiunto|Aggiunti}} $1 byte";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
+"page-history-revisions-comparison-warning" = "Possono essere selezionate solamente due versioni";
 "page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";
+"page-history-user-edits" = "modifiche dell'utente";
+"page-issues" = "Problemi con la pagina";
 "page-location" = "Visualizza sulla mappa";
 "page-protected-autoconfirmed" = "Questa pagina è stata semi-protetta.";
 "page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";
 "page-protected-can-not-edit-title" = "Questa pagina è protetta";
 "page-protected-other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
 "page-protected-sysop" = "Questa pagina è stata protetta.";
+"page-similar-titles" = "Pagine simili";
+"panel-compare-revisions-text" = "Confrontare le versioni aiuta a far vedere come una voce è cambiata nel tempo. Confrontando due versioni di una voce verranno mostrate le differenze tra di esse mettendo in evidenza ogni contenuto che è stato modificato.";
+"panel-compare-revisions-title" = "Confronta versioni";
 "places-accessibility-clear-saved-searches" = "Cancella le ricerche salvate";
 "places-accessibility-group" = "$1 voci";
 "places-accessibility-show-as-list" = "Mostra come elenco";
@@ -422,6 +441,7 @@
 "places-filter-saved-articles" = "Voci salvate";
 "places-filter-top-articles" = "Più letti";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|$1 voce|$1 voci}}";
+"places-filter-top-read-articles" = "Voci più lette";
 "places-no-saved-articles-have-location" = "Nessuno dei tuoi articoli salvati ha informazione di localizzazione";
 "places-search-default-text" = "Cerca luoghi";
 "places-search-did-you-mean" = "Forse cercavi $1?";
@@ -586,6 +606,7 @@
 "two-factor-login-continue" = "Continua l'accesso";
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
 "two-factor-login-title" = "Accedi alla tua utenza";
+"two-factor-login-with-backup-code" = "Usa uno dei tuoi codici usa e getta";
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
 "unable-to-load-talk-page-title" = "Impossibile caricare la pagina di discussione";
 "unknown-generic-text" = "Sconosciuto";
