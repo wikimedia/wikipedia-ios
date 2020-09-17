@@ -241,6 +241,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
                 var line = editor.state.search.posTo.line
                 var ch = editor.state.search.posTo.ch
                 window.webkit.messageHandlers.\(messageHandlerKeyCurrentSearchLocation).postMessage({'\(cursorLineKey)': line, '\(cursorCharacterKey)': ch})
+                true
             """) { (result, error) in
                 
                 currentSearchLocationExpectation.fulfill()
@@ -274,7 +275,8 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         webView.evaluateJavaScript("""
                 var line = editor.state.search.posFrom.line
                 var ch = editor.state.search.posFrom.ch
-            window.webkit.messageHandlers.\(messageHandlerKeyNextSearchLocation).postMessage({'\(cursorLineKey)': line, '\(cursorCharacterKey)': ch})
+                window.webkit.messageHandlers.\(messageHandlerKeyNextSearchLocation).postMessage({'\(cursorLineKey)': line, '\(cursorCharacterKey)': ch})
+                true
             """) { (result, error) in
                 
                 nextSearchLocationExpectation.fulfill()
@@ -325,6 +327,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
                 var line = editor.state.search.posFrom.line
                 var ch = editor.state.search.posFrom.ch
                 window.webkit.messageHandlers.\(messageHandlerKeyCurrentSearchLocation).postMessage({'\(cursorLineKey)': line, '\(cursorCharacterKey)': ch})
+                true
             """) { (result, error) in
                 
                 currentSearchLocationExpectation.fulfill()
@@ -368,8 +371,9 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         userContentController.add(self, name: messageHandlerKeyReplace)
         
         webView.evaluateJavaScript("""
-            var replaceText = editor.getRange({line: \(newLocationFrom.line), ch: \(newLocationFrom.ch)}, {line: \(newLocationTo.line), ch: \(newLocationTo.ch)})
+                var replaceText = editor.getRange({line: \(newLocationFrom.line), ch: \(newLocationFrom.ch)}, {line: \(newLocationTo.line), ch: \(newLocationTo.ch)})
                 window.webkit.messageHandlers.\(messageHandlerKeyReplace).postMessage(replaceText)
+                true
             """) { (result, error) in
                 
                 replacedTextExpectation.fulfill()
