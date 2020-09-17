@@ -60,4 +60,21 @@ extension DateFormatter {
         wmf_monthNameDayNumberGMTFormatterCache[wikipediaLanguage] = dateFormatter
         return dateFormatter
     }
+    
+    private static var wmf_longDateGMTFormatterCache: [String: DateFormatter] = [:]
+
+    public static func wmf_longDateGMTFormatter(for wikipediaLanguage: String?) -> DateFormatter {
+        let wikipediaLanguage = wikipediaLanguage ?? "en"
+        if let formatter = wmf_longDateGMTFormatterCache[wikipediaLanguage] {
+            return formatter
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale.wmf_locale(for: wikipediaLanguage)
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateStyle = .long
+        wmf_longDateGMTFormatterCache[wikipediaLanguage] = dateFormatter
+        return dateFormatter
+    }
+
 }

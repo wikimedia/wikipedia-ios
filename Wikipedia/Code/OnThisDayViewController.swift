@@ -96,7 +96,9 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
             return
         }
         let sectionIndex = eventIndex + 1 // index + 1 because section 0 is the header
+        isProgramaticallyScrolling = true
         collectionView.scrollToItem(at: IndexPath(item: 0, section: sectionIndex), at: sectionIndex < 1 ? .top : .centeredVertically, animated: false)
+        isProgramaticallyScrolling = false
     }
     
     override func scrollViewInsetsDidChange() {
@@ -147,6 +149,12 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+
+        /// When presenting with navigation bar, first two section headers do not exist.
+        guard !shouldShowNavigationBar || section >= 2 else {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+        }
+
         guard section > 0 else {
             return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
         }

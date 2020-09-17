@@ -275,6 +275,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self.periodicWorkerController add:self.dataStore.readingListsController];
     [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
+    [self.periodicWorkerController add:[WMFEventPlatformClient sharedInstance]];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
@@ -282,6 +283,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
     [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
+    [self.backgroundFetcherController add:[WMFEventPlatformClient sharedInstance]];
 }
 
 - (void)loadMainUI {
@@ -1589,26 +1591,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [self updateActiveTitleAccessibilityButton:viewController];
-}
-
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    NSArray *viewControllers = navigationController.viewControllers;
-    NSInteger count = viewControllers.count;
-    NSMutableIndexSet *indiciesToRemove = [NSMutableIndexSet indexSet];
-    NSInteger index = 1;
-    NSInteger limit = count - 2;
-    while (index < limit) {
-        if ([viewControllers[index] isKindOfClass:[SearchViewController class]]) {
-            [indiciesToRemove addIndex:index];
-        }
-        index++;
-    }
-
-    if (indiciesToRemove.count > 0) {
-        NSMutableArray *mutableViewControllers = [navigationController.viewControllers mutableCopy];
-        [mutableViewControllers removeObjectsAtIndexes:indiciesToRemove];
-        [navigationController setViewControllers:mutableViewControllers animated:NO];
-    }
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
