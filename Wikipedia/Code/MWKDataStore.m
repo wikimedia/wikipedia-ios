@@ -107,8 +107,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:session configuration:configuration];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self];
-        WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:session configuration:configuration];
-        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
+        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;

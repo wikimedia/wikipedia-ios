@@ -160,18 +160,6 @@ open class Fetcher: NSObject {
         return task
     }
     
-    /// Deprecated - use jsonDecodableTask for new work
-    @discardableResult public func performRESTBaseGET<T: Decodable>(for URL: URL?, pathComponents: [String], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
-        let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
-        let key = UUID().uuidString
-        let task = session.jsonDecodableTask(with: taskURL, cachePolicy: cachePolicy, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
-            completionHandler(result, response, error)
-            self.untrack(taskFor: key)
-        }
-        track(task: task, for: key)
-        return task
-    }
-    
     @objc(trackTask:forKey:)
     public func track(task: URLSessionTask?, for key: String) {
         guard let task = task else {
