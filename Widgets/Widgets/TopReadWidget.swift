@@ -54,8 +54,9 @@ final class TopReadData {
     private func fetchLatestAvailableTopReadFromNetwork(from dataStore: MWKDataStore, completion: @escaping (TopReadEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = dataStore.viewContext
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
             moc.perform {
-                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: self.primaryAppLanguageSiteURL) else {
+                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL) else {
                     completion(self.placeholder)
                     return
                 }
