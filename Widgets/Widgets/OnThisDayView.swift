@@ -29,7 +29,12 @@ struct OnThisDayColors {
 
 struct OnThisDayView: View {
     @Environment(\.widgetFamily) private var widgetSize
+    @Environment(\.sizeCategory) var textSize
     var entry: OnThisDayProvider.Entry
+
+    var doesNeedVerticalCompression: Bool {
+        return textSize == .extraExtraExtraLarge
+    }
 
     @ViewBuilder
     var body: some View {
@@ -38,12 +43,12 @@ struct OnThisDayView: View {
             case .systemLarge:
                 VStack(alignment: .leading, spacing: 0) {
                     OnThisDayHeaderElement(widgetTitle: entry.onThisDayTitle, yearRange: entry.yearRange, monthDay: entry.monthDay)
-                        .padding(.bottom, 9)
+                        .padding(.bottom, doesNeedVerticalCompression ? 3 : 9)
                     MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
                     if let eventSnippet = entry.eventSnippet, let title = entry.articleTitle, let articleSnippet = entry.articleSnippet {
                         ArticleRectangleElement(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
-                            .padding(.top, 9)
+                            .padding(.top, doesNeedVerticalCompression ? 3 : 9)
                             .layoutPriority(1.0)
                     }
                     OnThisDayAdditionalEventsElement(otherEventsText: entry.otherEventsText)
@@ -231,9 +236,14 @@ struct TimelineLargeCircleElement: View {
 
 struct OnThisDayHeaderElement: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.sizeCategory) var textSize
     let widgetTitle: String
     let yearRange: String
     let monthDay: String
+
+    var doesNeedVerticalCompression: Bool {
+        return textSize == .extraExtraExtraLarge
+    }
 
     var body: some View {
         /// Custom spacing (handled by middle text element) from 10 Sept 2020 video call w/ Carolyn, the app designer.
@@ -249,8 +259,8 @@ struct OnThisDayHeaderElement: View {
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 5)
-                .padding(.bottom, 7)
+                .padding(.top, doesNeedVerticalCompression ? 2 : 5)
+                .padding(.bottom, doesNeedVerticalCompression ? 2 : 7)
             Text(yearRange)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                 .font(.subheadline)
