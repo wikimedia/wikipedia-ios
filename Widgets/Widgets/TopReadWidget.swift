@@ -35,8 +35,9 @@ final class TopReadData {
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
         WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
             let moc = dataStore.viewContext
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
             moc.perform {
-                guard let latest = moc.newestGroup(of: .topRead), latest.isForToday else {
+                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL), latest.isForToday else {
                     guard !usingCache else {
                         completion(self.placeholder)
                         return
