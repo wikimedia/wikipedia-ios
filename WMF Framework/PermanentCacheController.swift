@@ -52,9 +52,9 @@ public final class PermanentCacheController: NSObject {
         return imageCache.data(withURL: url)
     }
     #if TEST
-    @objc public static func testController(with directory: URL, session: Session, configuration: Configuration) -> PermanentCacheController {
+    @objc public static func testController(with directory: URL, dataStore: MWKDataStore) -> PermanentCacheController {
         let moc = CacheController.createCacheContext(cacheURL: directory)!
-        return PermanentCacheController(moc: moc, session: session, configuration: configuration)
+        return PermanentCacheController(moc: moc, dataStore: dataStore)
     }
     #endif
 }

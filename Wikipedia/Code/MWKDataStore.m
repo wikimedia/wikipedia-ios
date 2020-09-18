@@ -461,7 +461,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 #if TEST
 - (void)performTestLibrarySetup {
-    WMFPermanentCacheController *permanentCacheController = [WMFPermanentCacheController testControllerWith:self.containerURL session:self.session configuration:self.configuration];
+    WMFPermanentCacheController *permanentCacheController = [WMFPermanentCacheController testControllerWith:self.containerURL dataStore:self];
     self.cacheController = permanentCacheController;
 }
 #endif
