@@ -92,7 +92,7 @@ final class PictureOfTheDayData {
             completion(sampleEntry)
         }, success: { fetchedImage in
             self.fetchImageLicense(from: dataStore, canonicalPageTitle: canonicalPageTitle) { license in
-                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, license: license)
+                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, licenseCode: license?.code)
                 completion(entry)
             }
         })
@@ -135,7 +135,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
 
     struct LicenseImage: Identifiable {
         var id: String
-        var image: SwiftUI.Image
+        var image: UIImage // the system encodes this entry and it crashes if this is a SwiftUI.Image
     }
 
     // MARK: Properties
@@ -146,19 +146,19 @@ struct PictureOfTheDayEntry: TimelineEntry {
 	var imageURL: URL? = nil
 	let image: UIImage?
 	var imageDescription: String? = nil
-	var license: MWKLicense? = nil
+	var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
 
     // MARK: License Image Parsing
 
     var licenseImages: [LicenseImage] {
         var licenseImages: [LicenseImage] = []
-        let licenseCodes: [String] = license?.code?.components(separatedBy: "-") ?? ["generic"]
+        let licenseCodes: [String] = licenseCode?.components(separatedBy: "-") ?? ["generic"]
 
         for license in licenseCodes {
             guard let image = UIImage(named: "license-\(license)") else {
                 continue
             }
-            licenseImages.append(LicenseImage(id: license, image: Image(uiImage: image)))
+            licenseImages.append(LicenseImage(id: license, image: image))
         }
 
         return licenseImages
@@ -292,7 +292,7 @@ struct PictureOfTheDayOverlayView: View {
 			Spacer()
             HStack(alignment: .top, spacing: 1) {
                 ForEach(entry.licenseImages) { licenseImage in
-                    licenseImage.image
+                    Image(uiImage: licenseImage.image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
