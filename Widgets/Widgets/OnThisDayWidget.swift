@@ -128,7 +128,7 @@ final class OnThisDayData {
                                           monthDay: monthDay,
                                           fullDate: fullDate,
                                           otherEventsText: CommonStrings.onThisDayFooterWith(with: 49, language: language?.languageCode),
-                                          contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
+                                          contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today"),
                                           eventSnippet: eventSnippet,
                                           eventYear: eventYear,
                                           eventYearsAgo: String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), locale: locale, (Calendar.current.component(.year, from: Date()) - 2001)),
@@ -223,7 +223,7 @@ struct OnThisDayEntry: TimelineEntry {
     let monthDay: String
     let fullDate: String
     let otherEventsText: String
-    let contentURL: URL
+    let contentURL: URL?
     let eventSnippet: String?
     let eventYear: String
     let eventYearsAgo: String?
@@ -283,13 +283,13 @@ extension OnThisDayEntry {
            let dynamicURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(previewEventIndex)") {
             contentURL = dynamicURL
         } else {
-            contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
+            contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")
         }
     }
 
     static func errorEntry(for error: OnThisDayData.ErrorType) -> OnThisDayEntry {
         let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
-        let destinationURL = URL(string: "wikipedia://explore")!
+        let destinationURL = URL(string: "wikipedia://explore")
         return OnThisDayEntry(isRTLLanguage: isRTL, error: error, onThisDayTitle: "", monthDay: "", fullDate: "", otherEventsText: "", contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
     }
 }

@@ -47,7 +47,7 @@ struct OnThisDayView: View {
                     MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
                     if let eventSnippet = entry.eventSnippet, let title = entry.articleTitle, let articleSnippet = entry.articleSnippet {
-                        ArticleRectangleElement(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
+                        LargeWidgetMiddleSection(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
                             .padding(.top, doesNeedVerticalCompression ? 3 : 9)
                             .layoutPriority(1.0)
                     }
@@ -350,55 +350,69 @@ struct MainOnThisDayTopElement: View {
     }
 }
 
-struct ArticleRectangleElement: View {
-    @Environment(\.colorScheme) var colorScheme
-
+struct LargeWidgetMiddleSection: View {
     let eventSnippet: String
     let title: String
     let description: String
     let image: UIImage?
-    let link: URL
+    let link: URL?
 
     var body: some View {
         TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
             VStack(alignment: .leading, spacing: 0) {
                 Text(eventSnippet)
                     .font(.caption)
-                Link(destination: link) {
-                    HStack(spacing: 9) {
-                        VStack {
-                            Text(title)
-                                .font(.caption)
-                                .bold()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            if let description = description {
-                                Text(description)
-                                    .font(.caption)
-                                    .lineLimit(1)
-                                    .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                        }
-                        if let image = image {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 36, height: 36, alignment: .center)
-                                .cornerRadius(2.0)
-                        }
+                if let link = link {
+                    Link(destination: link) {
+                        ArticleRectangleBox(title: title, description: description, image: image)
                     }
-                        .padding(9)
-                        .background(
-                            RoundedRectangle(cornerRadius: 2.0)
-                                .shadow(color: OnThisDayColors.boxShadowColor(colorScheme), radius: 4.0, x: 0, y: 2)
-                                .foregroundColor(OnThisDayColors.boxBackgroundColor(colorScheme))
-                        )
-                        .padding([.top, .bottom], 9)
-                        .padding([.trailing], 35)
+                } else {
+                    ArticleRectangleBox(title: title, description: description, image: image)
                 }
                 Spacer(minLength: 0)
             }
         )
+    }
+}
+
+struct ArticleRectangleBox: View {
+    @Environment(\.colorScheme) var colorScheme
+
+    let title: String
+    let description: String
+    let image: UIImage?
+
+    var body: some View {
+        HStack(spacing: 9) {
+            VStack {
+                Text(title)
+                    .font(.caption)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                if let description = description {
+                    Text(description)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .foregroundColor(OnThisDayColors.grayColor(colorScheme))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            if let image = image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 36, height: 36, alignment: .center)
+                    .cornerRadius(2.0)
+            }
+        }
+        .padding(9)
+        .background(
+            RoundedRectangle(cornerRadius: 2.0)
+                .shadow(color: OnThisDayColors.boxShadowColor(colorScheme), radius: 4.0, x: 0, y: 2)
+                .foregroundColor(OnThisDayColors.boxBackgroundColor(colorScheme))
+        )
+        .padding([.top, .bottom], 9)
+        .padding([.trailing], 35)
     }
 }
 
