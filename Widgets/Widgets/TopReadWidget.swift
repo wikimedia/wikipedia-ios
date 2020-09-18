@@ -70,6 +70,11 @@ final class TopReadData {
             return
         }
 
+        // The WMFContentGroup can only be accessed synchronously
+        // re-accessing it from the main queue or another queue might lead to unexpected behavior
+        let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
+        let groupURL = topRead.url
+        
         var rankedElements: [TopReadEntry.RankedElement] = []
         for article in results {
             if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
@@ -109,8 +114,7 @@ final class TopReadData {
         }
 
         group.notify(queue: .main) {
-            let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
-            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url, contentLayoutDirection: layoutDirection))
+            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: groupURL, contentLayoutDirection: layoutDirection))
         }
     }
 

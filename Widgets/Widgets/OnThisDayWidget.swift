@@ -143,17 +143,17 @@ final class OnThisDayData {
     
     func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, completion: @escaping (OnThisDayEntry) -> Void) {
         guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
-              let previewEvent = previewEvents.first
+              let previewEvent = previewEvents.first,
+              let entry = OnThisDayEntry(contentGroup)
         else {
             completion(placeholderEntry)
             return
         }
+        
         let sendDataToWidget: (UIImage?) -> Void = { image in
-            guard let entry = OnThisDayEntry(contentGroup: contentGroup, image: image) else {
-                completion(self.placeholderEntry)
-                return
-            }
-            completion(entry)
+            var entryWithImage = entry
+            entryWithImage.articleImage = image
+            completion(entryWithImage)
         }
         if let imageURL = previewEvent.articlePreviews?.first?.thumbnailURL  {
             DispatchQueue.main.async {
@@ -189,13 +189,13 @@ struct OnThisDayEntry: TimelineEntry {
     let eventYearsAgo: String?
     let articleTitle: String?
     let articleSnippet: String?
-    let articleImage: UIImage?
+    var articleImage: UIImage?
     let articleURL: URL?
     let yearRange: String
 }
 
 extension OnThisDayEntry {
-    init?(contentGroup: WMFContentGroup, image: UIImage?) {
+    init?(_ contentGroup: WMFContentGroup) {
         guard
             let midnightUTCDate = contentGroup.midnightUTCDate,
             let calendar = NSCalendar.wmf_utcGregorian(),
@@ -231,7 +231,6 @@ extension OnThisDayEntry {
         eventSnippet = previewEvent.text
         articleTitle = article.displayTitle
         articleSnippet = article.descriptionOrSnippet
-        articleImage = image
         articleURL = article.articleURL
         let locale = NSLocale.wmf_locale(for: language)
         let currentYear = Calendar.current.component(.year, from: Date())
