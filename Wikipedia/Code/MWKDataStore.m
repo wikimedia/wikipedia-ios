@@ -395,8 +395,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             return;
         }
         
-        [self moveImageControllerCacheFolderWithError:&migrationError];
-        if (migrationError) {
+        if (![self moveImageControllerCacheFolderWithError:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
         }
@@ -516,13 +515,13 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 }
 
-- (void)moveImageControllerCacheFolderWithError: (NSError **)error {
+- (BOOL)moveImageControllerCacheFolderWithError:(NSError **)error {
     
     NSURL *legacyDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Image Cache" isDirectory:YES];
     NSURL *newDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Cache" isDirectory:YES];
     
     //move legacy image cache to new non-image path name
-    [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
+    return [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
 }
 
 - (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
