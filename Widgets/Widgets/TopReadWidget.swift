@@ -35,12 +35,16 @@ final class TopReadData {
         MWKDataStore.shared()
     }
 
+    private var primaryAppLanguageSiteURL: URL? {
+        return dataStore.languageLinkController.appLanguage?.siteURL()
+    }
+
 	// MARK: Public
 
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         let moc = dataStore.viewContext
         moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .topRead), latest.isForToday else {
+            guard let latest = moc.newestGroup(of: .topRead, forSiteURL: self.primaryAppLanguageSiteURL), latest.isForToday else {
                 guard !usingCache else {
                     completion(self.placeholder)
                     return
@@ -58,7 +62,7 @@ final class TopReadData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .topRead) else {
+                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: self.primaryAppLanguageSiteURL) else {
                     completion(self.placeholder)
                     return
                 }
