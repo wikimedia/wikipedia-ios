@@ -29,6 +29,7 @@ static uint64_t bundleHash() {
     if (self) {
         _semaphore = dispatch_semaphore_create(1);
         self.containerURL = directoryURL;
+        self.identifier = identifier;
     }
     return self;
 }
