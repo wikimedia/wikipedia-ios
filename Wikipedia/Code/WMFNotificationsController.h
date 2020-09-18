@@ -31,6 +31,9 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents; //null date components will send the notification ASAP
 
+/// Registers notification categories for the app. Should only be called once at launch.
+- (void)updateCategories;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -43,7 +43,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
         }];
 #endif
-        [self updateCategories];
     }
     return self;
 }
@@ -98,7 +97,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 }
 
 - (void)requestAuthenticationWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
-    [self updateCategories];
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound
                           completionHandler:^(BOOL granted, NSError *_Nullable error) {
