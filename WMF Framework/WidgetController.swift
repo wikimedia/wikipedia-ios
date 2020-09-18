@@ -37,32 +37,42 @@ public final class WidgetController: NSObject {
         let start = processInfo.beginActivity(options: .background, reason: "Updating Wikipedia Widgets - " + UUID().uuidString)
         getRetainedSharedDataStore { dataStore in
             task(dataStore, { result in
-                userCompletion(result)
-                self.releaseSharedDataStore()
-                processInfo.endActivity(start)
+                DispatchQueue.main.async {
+                    userCompletion(result)
+                    self.releaseSharedDataStore()
+                    processInfo.endActivity(start)
+                }
             })
         }
     }
     
     private var dataStoreRetainCount: Int = 0
     private var _dataStore: MWKDataStore?
-    private let semaphore = DispatchSemaphore(value: 1)
+    private var completions: [(MWKDataStore) -> Void] = []
+    private var isCreatingDataStore: Bool = false
     
     /// Returns a `MWKDataStore`for use with widget updates.
     /// Manages a shared instance and a reference count for use by multiple widgets.
     /// Call `releaseSharedDataStore()` when finished with the data store.
     private func getRetainedSharedDataStore(completion: @escaping (MWKDataStore) -> Void) {
-        semaphore.wait()
+        assert(Thread.isMainThread, "Data store must be obtained from the main queue")
+        completions.append(completion)
         if let dataStore = _dataStore {
             completion(dataStore)
             return
         }
+        guard !isCreatingDataStore else {
+            return
+        }
         let dataStore = MWKDataStore()
         dataStore.performLibraryUpdates {
-            self.dataStoreRetainCount += 1
-            self._dataStore = dataStore
-            self.semaphore.signal()
-            completion(dataStore)
+            DispatchQueue.main.async {
+                self.dataStoreRetainCount += 1
+                self._dataStore = dataStore
+                self.isCreatingDataStore = false
+                self.completions.forEach { $0(dataStore) }
+                self.completions.removeAll()
+            }
         } needsMigrateBlock: {
             DDLogDebug("Needed a migration from the widgets")
         }
@@ -70,10 +80,7 @@ public final class WidgetController: NSObject {
     
     /// Releases the shared `MWKDataStore` returned by `getRetainedSharedDataStore()`.
     private func releaseSharedDataStore() {
-        semaphore.wait()
-        defer {
-            semaphore.signal()
-        }
+        assert(Thread.isMainThread, "Data store must be released from the main queue")
         dataStoreRetainCount -= 1
         guard dataStoreRetainCount <= 0 else {
             return
