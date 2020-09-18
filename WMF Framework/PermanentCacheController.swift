@@ -50,7 +50,7 @@ public final class PermanentCacheController: NSObject {
         imageCache.fetchData(withURL: url, failure: failure, success: success)
     }
     
-    @objc public func data(withURL url: URL) -> TypedImageData? {
+    @objc public func imageData(withURL url: URL) -> TypedImageData? {
         return imageCache.data(withURL: url)
     }
     #if TEST

@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!_typedImageData) {
             NSURL *URL = self.imageInfo.canonicalFileURL;
             if (URL) {
-                _typedImageData = [[[MWKDataStore shared] cacheController] dataWithURL:URL];
+                _typedImageData = [[[MWKDataStore shared] cacheController] imageDataWithURL:URL];
             }
         }
         return _typedImageData;
