@@ -232,7 +232,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageControllerA
 }
 
 - (void)wmf_cancelImageDownload {
-    [self.wmf_imageController cancelFetchWithURL:[self wmf_imageURLToCancel] token:[self wmf_imageTokenToCancel]];
+    [self.wmf_imageController cancelImageFetchWithURL:[self wmf_imageURLToCancel] token:[self wmf_imageTokenToCancel]];
     [[UIImageView faceDetectionCache] cancelFaceDetectionForURL:[self wmf_faceDetectionImageURLToCancel]];
     self.wmf_imageURL = nil;
     self.wmf_imageURLToCancel = nil;

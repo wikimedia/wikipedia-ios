@@ -38,7 +38,7 @@ public final class PermanentCacheController: NSObject {
         return imageCache.fetchImage(withURL: url, priority: priority, failure: failure, success: success)
     }
     
-    @objc public func cancelFetch(withURL url: URL?, token: String?) {
+    @objc public func cancelImageFetch(withURL url: URL?, token: String?) {
         imageCache.cancelFetch(withURL: url, token: token)
     }
     
