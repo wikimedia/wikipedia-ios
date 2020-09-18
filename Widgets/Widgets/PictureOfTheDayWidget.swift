@@ -41,7 +41,7 @@ final class PictureOfTheDayData {
                         completion(self.sampleEntry)
                         return
                     }
-                    self.fetchLatestAvailablePictureEntry(completion: completion)
+                    self.fetchLatestAvailablePictureEntryFromNetwork(with: dataStore, completion: completion)
                     return
                 }
                 self.assemblePictureEntryFromContentGroup(latest, dataStore: dataStore, usingImageCache: usingCache, completion: completion)
