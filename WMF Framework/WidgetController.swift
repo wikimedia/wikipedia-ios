@@ -64,6 +64,7 @@ public final class WidgetController: NSObject {
         guard !isCreatingDataStore else {
             return
         }
+        isCreatingDataStore = true
         let dataStore = MWKDataStore()
         dataStore.performLibraryUpdates {
             DispatchQueue.main.async {
