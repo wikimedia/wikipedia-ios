@@ -65,6 +65,18 @@ public final class ImageCacheController: CacheController {
         addToMemoryCache(image, url: url)
     }
     
+    // MARK: Errors
+    public enum FetchError: Error {
+        case dataNotFound
+        case invalidOrEmptyURL
+        case invalidImageCache
+        case invalidResponse
+        case duplicateRequest
+        case fileError
+        case dbError
+        case `deinit`
+    }
+    
     // MARK: Fetching
     
     /// Fetches data from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
@@ -120,10 +132,10 @@ public final class ImageCacheController: CacheController {
     }
     
     /// Fetches an image from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
-    func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
+    public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
         assert(Thread.isMainThread)
         guard let url = url else {
-            failure(ImageControllerError.invalidOrEmptyURL)
+            failure(FetchError.invalidOrEmptyURL)
             return nil
         }
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
@@ -133,7 +145,7 @@ public final class ImageCacheController: CacheController {
         return fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
             guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
                 DispatchQueue.main.async {
-                    failure(ImageControllerError.invalidResponse)
+                    failure(FetchError.invalidResponse)
                 }
                 return
             }
@@ -148,7 +160,7 @@ public final class ImageCacheController: CacheController {
         let _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
-   func cancelFetch(withURL url: URL?, token: String?) {
+   public func cancelFetch(withURL url: URL?, token: String?) {
     
         guard let url = url,
             let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image),
@@ -278,3 +290,18 @@ fileprivate extension Error {
         }
     }
 }
+
+
+
+@objc(WMFTypedImageData)
+open class TypedImageData: NSObject {
+    @objc public let data:Data?
+    @objc public let MIMEType:String?
+    
+    @objc public init(data data_: Data?, MIMEType type_: String?) {
+        data = data_
+        MIMEType = type_
+    }
+}
+
+let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"
