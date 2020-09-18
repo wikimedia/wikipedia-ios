@@ -21,7 +21,7 @@ public final class PermanentCacheController: NSObject {
     }
     
     /// Performs any necessary migrations on the CacheController's internal storage
-    /// Exists on this @objc ImageCacheControllerWrapper so it can be accessed from WMFDataStore
+    /// Exists on this @objc PermanentCacheController so it can be accessed from WMFDataStore
     @objc public static func setupCoreDataStack(_ completion: @escaping (NSManagedObjectContext?, Error?) -> Void) {
         CacheController.setupCoreDataStack(completion)
     }

@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The image controller used to fetch image data.
  *
- *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [WMFImageCacheControllerWrapper sharedInstance].
+ *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [MWKDataStore shared]'s cacheController.
  */
 @property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFPermanentCacheController *wmf_imageController;
 
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
- *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFImageCacheControllerWrapper.
+ *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFPermanentCacheController.
  *
  *  @see wmf_imageURLToFetch
  */

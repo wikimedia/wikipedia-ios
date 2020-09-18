@@ -15,7 +15,7 @@ static const char *const MWKFaceDetectionURLToCancelAssociationKey = "MWKFaceDet
 
 static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 
-static const char *const WMFImageControllerAssociationKey = "WMFImageCacheControllerWrapper";
+static const char *const WMFImageControllerAssociationKey = "WMFImageControllerAssociationKey";
 
 @implementation UIImageView (WMFImageFetchingInternal)
 
