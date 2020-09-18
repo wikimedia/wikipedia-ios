@@ -38,7 +38,14 @@ struct OnThisDayProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<OnThisDayEntry>) -> Void) {
         dataStore.fetchLatestAvailableOnThisDayEntry { entry in
             let currentDate = Date()
-            let timeline = Timeline(entries: [entry], policy: .after(currentDate.dateAtMidnight() ?? currentDate))
+            let nextUpdate: Date
+            if entry.error == nil {
+                nextUpdate = currentDate.dateAtMidnight() ?? currentDate
+            } else {
+                let components = DateComponents(hour: 2)
+                nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
+            }
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
             completion(timeline)
             
         }
