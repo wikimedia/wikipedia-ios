@@ -46,13 +46,13 @@ public final class WidgetController: NSObject {
     
     private var dataStoreRetainCount: Int = 0
     private var _dataStore: MWKDataStore?
-    private let lock = NSRecursiveLock()
+    private let semaphore = DispatchSemaphore(value: 1)
     
     /// Returns a `MWKDataStore`for use with widget updates.
     /// Manages a shared instance and a reference count for use by multiple widgets.
     /// Call `releaseSharedDataStore()` when finished with the data store.
     private func getRetainedSharedDataStore(completion: @escaping (MWKDataStore) -> Void) {
-        lock.lock()
+        semaphore.wait()
         if let dataStore = _dataStore {
             completion(dataStore)
             return
@@ -61,7 +61,7 @@ public final class WidgetController: NSObject {
         dataStore.performLibraryUpdates {
             self.dataStoreRetainCount += 1
             self._dataStore = dataStore
-            self.lock.unlock()
+            self.semaphore.signal()
             completion(dataStore)
         } needsMigrateBlock: {
             DDLogDebug("Needed a migration from the widgets")
@@ -70,9 +70,9 @@ public final class WidgetController: NSObject {
     
     /// Releases the shared `MWKDataStore` returned by `getRetainedSharedDataStore()`.
     private func releaseSharedDataStore() {
-        lock.lock()
+        semaphore.wait()
         defer {
-            lock.unlock()
+            semaphore.signal()
         }
         dataStoreRetainCount -= 1
         guard dataStoreRetainCount <= 0 else {
