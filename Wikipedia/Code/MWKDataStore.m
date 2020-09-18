@@ -1,5 +1,5 @@
 #import <WMF/WMF-Swift.h>
-#include <notify.h>
+#import <WMF/WMFCrossProcessCoreDataSynchronizer.h>
 #import "WMFAnnouncement.h"
 
 @import CoreData;
@@ -21,9 +21,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
 }
 
-@interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate> {
-    dispatch_semaphore_t _handleCrossProcessChangesSemaphore;
-}
+@interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate>
 
 @property (nonatomic, strong) WMFSession *session;
 @property (nonatomic, strong) WMFConfiguration *configuration;
@@ -51,8 +49,8 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 @property (nonatomic, strong) WMFPermanentCacheController *cacheController;
 
-@property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
-@property (nonatomic) int crossProcessNotificationToken;
+@property (nonatomic, strong) WMFCrossProcessCoreDataSynchronizer *librarySynchronizer;
+@property (nonatomic, strong) WMFCrossProcessCoreDataSynchronizer *cacheSynchronizer;
 
 @property (nonatomic, strong) NSURL *containerURL;
 
@@ -75,21 +73,12 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self cancelCrossProcessCoreDataNotifier];
+    [self stopCoreDataSynchronizers];
 }
 
 - (instancetype)init {
     self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL]];
     return self;
-}
-
-static uint64_t bundleHash() {
-    static dispatch_once_t onceToken;
-    static uint64_t bundleHash;
-    dispatch_once(&onceToken, ^{
-        bundleHash = (uint64_t)[[[NSBundle mainBundle] bundleIdentifier] hash];
-    });
-    return bundleHash;
 }
 
 - (instancetype)initWithContainerURL:(NSURL *)containerURL {
@@ -103,14 +92,12 @@ static uint64_t bundleHash() {
         self.session = session;
         self.configuration = configuration;
         self.authenticationManager = authenticationManager;
-        _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
         [self setupLegacyDataStore];
-        NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
-        self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
-        [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
+        [self setupCoreDataSynchronizersWithContainerURL:containerURL];
+        [self startSynchronizingLibraryContexts];
         [self setupHistoryAndSavedPageLists];
         self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
@@ -126,16 +113,35 @@ static uint64_t bundleHash() {
     return self;
 }
 
-- (NSDictionary *)loadSharedInfoDictionaryWithContainerURL:(NSURL *)containerURL {
+- (void)setupCoreDataSynchronizersWithContainerURL:(NSURL *)containerURL {
     NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
     NSError *unarchiveError = nil;
     NSDictionary *infoDictionary = [self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError];
     if (unarchiveError) {
         DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
     }
-    if (!infoDictionary[@"CrossProcessNotificiationChannelName"]) {
+    
+    BOOL needsWrite = false;
+    
+    // The main cross process notification channel is for the main core data stack (articles, feed, library values, etc)
+    NSString *key = @"CrossProcessNotificiationChannelName";
+    if (!infoDictionary[key]) {
         NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
-        infoDictionary = @{@"CrossProcessNotificiationChannelName": channelName};
+        infoDictionary = @{key: channelName};
+        needsWrite = YES;
+    }
+    self.librarySynchronizer = [[WMFCrossProcessCoreDataSynchronizer alloc] initWithIdentifier:infoDictionary[key] storageDirectory:containerURL];
+    
+    // The cache context cross process notification channel is for the cache's core data stack (cached images, offline article content)
+    key = @"CacheContextCrossProcessNotificiationChannelName";
+    if (!infoDictionary[key]) {
+        NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cache-cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
+        infoDictionary = @{key: channelName};
+        needsWrite = YES;
+    }
+    self.cacheSynchronizer = [[WMFCrossProcessCoreDataSynchronizer alloc] initWithIdentifier:infoDictionary[key] storageDirectory:containerURL];
+    
+    if (needsWrite) {
         NSError *archiveError = nil;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary requiringSecureCoding:false error:&archiveError];
         if (archiveError) {
@@ -143,52 +149,25 @@ static uint64_t bundleHash() {
         }
         [data writeToURL:infoDictionaryURL atomically:YES];
     }
-    return infoDictionary;
 }
 
-- (void)setupCrossProcessCoreDataNotifier {
-    NSString *channelName = self.crossProcessNotificationChannelName;
-    assert(channelName);
-    if (!channelName) {
-        DDLogError(@"missing channel name");
-        return;
-    }
-    const char *name = [channelName UTF8String];
-    @weakify(self)
-    notify_register_dispatch(name, &_crossProcessNotificationToken, dispatch_get_main_queue(), ^(int token) {
-        @strongify(self)
-        uint64_t state;
-        notify_get_state(token, &state);
-        BOOL isExternal = state != bundleHash();
-        if (isExternal) {
-            [self handleCrossProcessCoreDataNotificationWithState:state];
-        }
-    });
+- (void)startSynchronizingLibraryContexts {
+    [self.librarySynchronizer startSynchronizingContexts:@[self.viewContext]];
 }
 
-- (void)cancelCrossProcessCoreDataNotifier {
-    if (_crossProcessNotificationToken != 0) {
-        notify_cancel(_crossProcessNotificationToken);
-    }
+- (void)startSynchronizingCacheContext:(NSManagedObjectContext *)moc {
+    [self.cacheSynchronizer startSynchronizingContexts:@[moc]];
+}
+
+- (void)stopCoreDataSynchronizers {
+    [self.librarySynchronizer stop];
+    [self.cacheSynchronizer stop];
 }
 
 - (NSDictionary *)unarchivedDictionaryFromFileURL:(NSURL *)fileURL error:(NSError **)error {
     NSData *data = [NSData dataWithContentsOfURL:fileURL];
     NSSet *allowedClasses = [NSSet setWithArray:[NSSecureUnarchiveFromDataTransformer allowedTopLevelClasses]];
     return [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:error];
-}
-
-- (void)handleCrossProcessCoreDataNotificationWithState:(uint64_t)state {
-    NSURL *baseURL = self.containerURL;
-    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
-    NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
-    NSError *unarchiveError = nil;
-    NSDictionary *userInfo = [self unarchivedDictionaryFromFileURL:fileURL error:&unarchiveError];
-    if (unarchiveError) {
-        DDLogError(@"Error unarchiving cross process core data notification: %@", unarchiveError);
-        return;
-    }
-    [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
 }
 
 - (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL {
@@ -229,68 +208,6 @@ static uint64_t bundleHash() {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 }
 
-- (nullable id)archiveableNotificationValueForValue:(id)value {
-    if ([value isKindOfClass:[NSManagedObject class]]) {
-        return [[value objectID] URIRepresentation];
-    } else if ([value isKindOfClass:[NSManagedObjectID class]]) {
-        return [value URIRepresentation];
-    } else if ([value isKindOfClass:[NSSet class]] || [value isKindOfClass:[NSArray class]]) {
-        return [value wmf_map:^id(id obj) {
-            return [self archiveableNotificationValueForValue:obj];
-        }];
-    } else if ([value conformsToProtocol:@protocol(NSCoding)]) {
-        return value;
-    } else {
-        return nil;
-    }
-}
-
-- (NSDictionary *)archivableNotificationUserInfoForUserInfo:(NSDictionary *)userInfo {
-    NSMutableDictionary *archiveableUserInfo = [NSMutableDictionary dictionaryWithCapacity:userInfo.count];
-    NSArray *allKeys = userInfo.allKeys;
-    for (NSString *key in allKeys) {
-        id value = userInfo[key];
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            value = [self archivableNotificationUserInfoForUserInfo:value];
-        } else {
-            value = [self archiveableNotificationValueForValue:value];
-        }
-        if (value) {
-            archiveableUserInfo[key] = value;
-        }
-    }
-    return archiveableUserInfo;
-}
-
-- (void)handleCrossProcessChangesFromContextDidSaveNotification:(NSNotification *)note {
-    dispatch_semaphore_wait(_handleCrossProcessChangesSemaphore, DISPATCH_TIME_FOREVER);
-    NSDictionary *userInfo = note.userInfo;
-    if (!userInfo) {
-        return;
-    }
-
-    uint64_t state = bundleHash();
-
-    NSDictionary *archiveableUserInfo = [self archivableNotificationUserInfoForUserInfo:userInfo];
-    
-    NSError *archiveError = nil;
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:archiveableUserInfo requiringSecureCoding:NO error:&archiveError];
-    if (archiveError) {
-        DDLogError(@"Error archiving cross process changes: %@", archiveError);
-        return;
-    }
-    
-    NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
-    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
-    NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
-    [data writeToURL:fileURL atomically:YES];
-
-    const char *name = [self.crossProcessNotificationChannelName UTF8String];
-    notify_set_state(_crossProcessNotificationToken, state);
-    notify_post(name);
-    dispatch_semaphore_signal(_handleCrossProcessChangesSemaphore);
-}
-
 - (void)viewContextDidChange:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
@@ -329,7 +246,6 @@ static uint64_t bundleHash() {
         notificationName = WMFBackgroundContextDidSave;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:note.object userInfo:note.userInfo];
-    [self handleCrossProcessChangesFromContextDidSaveNotification:note];
 }
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
@@ -508,6 +424,7 @@ static uint64_t bundleHash() {
             }
             WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc dataStore:self];
             self.cacheController = permanentCacheController;
+            [self startSynchronizingCacheContext:moc];
             if (completion) {
                 completion();
             }

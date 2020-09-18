@@ -1221,6 +1221,8 @@
 		83A72BBF24E70BB200732493 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A72BBE24E70BB200732493 /* localization.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
+		83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		83A933472514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A933452514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m */; };
 		83ACAA9924E6D112003B3035 /* Collection+AsyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51421766E570012F940 /* Collection+AsyncMap.swift */; };
 		83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
 		83ACAA9E24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAA9D24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift */; };
@@ -3704,6 +3706,8 @@
 		83A72BBE24E70BB200732493 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = "Command Line Tools/Update Localizations/localization.swift"; sourceTree = SOURCE_ROOT; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
+		83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCrossProcessCoreDataSynchronizer.h; sourceTree = "<group>"; };
+		83A933452514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFCrossProcessCoreDataSynchronizer.m; sourceTree = "<group>"; };
 		83ACAA9D24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKSearchResult+PageNamespace.swift"; sourceTree = "<group>"; };
 		83ACAAA124E6E38A003B3035 /* Wikipedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wikipedia.swift; sourceTree = "<group>"; };
 		83ACAAA324E6E42A003B3035 /* wikipedia-languages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-languages.json"; sourceTree = "<group>"; };
@@ -5432,6 +5436,8 @@
 			children = (
 				B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */,
 				B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */,
+				83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */,
+				83A933452514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m */,
 				D8BD63BE1EA7E28700BBC082 /* SummaryExtensions.swift */,
 				D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */,
 				D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */,
@@ -8459,6 +8465,7 @@
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
 				D8FA18BD1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.h in Headers */,
 				D8FA18B01E1BD891009675C3 /* NSBundle+WMFInfoUtils.h in Headers */,
+				83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */,
 				D8FA18AD1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */,
 				83DF1D1424F53878007E08D8 /* WMFPrefferedLanguageCodesProviding.h in Headers */,
 				D8FA18EA1E1BD8B9009675C3 /* WMFHashing.h in Headers */,
@@ -10618,6 +10625,7 @@
 				D84C363C1F32428A00895FA1 /* CircledRankView.swift in Sources */,
 				678F512A23A7EE5100CE5357 /* ArticleCacheDBWriter.swift in Sources */,
 				D82972941E4361BF0061550A /* WMFKeyValue+CoreDataClass.m in Sources */,
+				83A933472514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m in Sources */,
 				D84C361B1F32403D00895FA1 /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8FA18C91E1BD891009675C3 /* WMFGeometry.c in Sources */,
 				D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */,
