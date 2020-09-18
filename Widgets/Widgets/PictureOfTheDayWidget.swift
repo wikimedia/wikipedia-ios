@@ -36,7 +36,7 @@ final class PictureOfTheDayData {
         WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
             let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay), latest.isForToday else {
+                guard let latest = moc.newestGroup(of: .pictureOfTheDay), latest.isForToday else {
                     guard !usingCache else {
                         completion(self.sampleEntry)
                         return
@@ -55,7 +55,7 @@ final class PictureOfTheDayData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .pictureOfTheDay) else {
+                guard let latest = moc.newestGroup(of: .pictureOfTheDay) else {
                     completion(self.sampleEntry)
                     return
                 }

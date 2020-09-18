@@ -36,7 +36,7 @@ final class TopReadData {
         WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
             let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .topRead), latest.isForToday else {
+                guard let latest = moc.newestGroup(of: .topRead), latest.isForToday else {
                     guard !usingCache else {
                         completion(self.placeholder)
                         return
@@ -55,7 +55,7 @@ final class TopReadData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .topRead) else {
+                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: self.primaryAppLanguageSiteURL) else {
                     completion(self.placeholder)
                     return
                 }

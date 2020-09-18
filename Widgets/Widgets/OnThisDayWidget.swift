@@ -112,7 +112,7 @@ final class OnThisDayData {
             let siteURL = appLanguage.siteURL()
             let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: siteURL),
+                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL),
                       latest.isForToday
                 else {
                     guard !usingCache else {
@@ -131,7 +131,7 @@ final class OnThisDayData {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: siteURL) else {
+                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL) else {
                     // If there's no content even after a network fetch, it's likely an error
                     self.handleNoInternetError(completion)
                     return
@@ -166,7 +166,7 @@ final class OnThisDayData {
         }
     }
     
-    func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
+    private func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let errorEntry = OnThisDayEntry.errorEntry(for: .noInternet)
         completion(errorEntry)
     }
