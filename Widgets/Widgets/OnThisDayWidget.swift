@@ -92,21 +92,52 @@ final class OnThisDayData {
 	}
 
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
-    let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
+    var placeholderEntry: OnThisDayEntry {
+        let language = dataStore.languageLinkController.appLanguage
+        let locale = NSLocale.wmf_locale(for: language?.languageCode)
+        let isRTL = (MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language?.languageCode) == UISemanticContentAttribute.forceRightToLeft)
+
+        let fullDate: String
+        let eventYear: String
+        let monthDay: String
+        let calendar = NSCalendar.wmf_utcGregorian()
+        let date = calendar?.date(from: DateComponents(year: 2001, month: 01, day: 15, hour: 0, minute: 0, second: 0))
+        if let date = date {
+            let fullDateFormatter = DateFormatter.wmf_longDateGMTFormatter(for: language?.languageCode)
+            fullDate = fullDateFormatter.string(from: date)
+            let yearWithEraFormatter = DateFormatter.wmf_yearGMTDateFormatter(for: language?.languageCode)
+            eventYear = yearWithEraFormatter.string(from: date)
+            let monthDayFormatter = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language?.languageCode)
+            monthDay = monthDayFormatter.string(from: date)
+        } else {
+            fullDate = "January 15, 2001"
+            eventYear = "2001"
+            monthDay = "January 15"
+        }
+
+        let eventSnippet = WMFLocalizedString("widget-onthisday-placeholder-event-snippet", language: language?.languageCode, value: "Wikipedia, a free wiki content encyclopedia, goes online.", comment: "Placeholder text for On This Day widget: Event describing launch of Wikipedia")
+        let articleSnippet = WMFLocalizedString("widget-onthisday-placeholder-article-snippet", language: language?.languageCode, value: "Free online encyclopedia that anyone can edit", comment: "Placeholder text for On This Day widget: Article description for an article about Wikipedia")
+
+        let articleURL = URL(string: ((language?.siteURL().absoluteString ?? "https://en.wikipedia.org") + "/wiki/Wikipedia"))
+
+        let entry: OnThisDayEntry = OnThisDayEntry(isRTLLanguage: isRTL,
                                           error: nil,
-                                          onThisDayTitle: "On this day",
-                                          monthDay: "January 15",
-                                          fullDate: "January 15, 2001",
-                                          otherEventsText: "49 more historical events on this day",
+
+                                          onThisDayTitle: CommonStrings.onThisDayTitle(with: language?.languageCode),
+                                          monthDay: monthDay,
+                                          fullDate: fullDate,
+                                          otherEventsText: CommonStrings.onThisDayFooterWith(with: 49, language: language?.languageCode),
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
-                                          eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
-                                          eventYear: "2001",
-                                          eventYearsAgo: "\(Calendar.current.component(.year, from: Date()) - 2001) years ago",
-                                          articleTitle: "Wikipedia",
-                                          articleSnippet: "Free online encyclopedia that anyone can edit",
+                                          eventSnippet: eventSnippet,
+                                          eventYear: eventYear,
+                                          eventYearsAgo: String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), locale: locale, (Calendar.current.component(.year, from: Date()) - 2001)),
+                                          articleTitle: CommonStrings.plainWikipediaName(with: language?.languageCode),
+                                          articleSnippet: articleSnippet,
                                           articleImage: UIImage(named: "W"),
-                                          articleURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia"),
-                                          yearRange: CommonStrings.onThisDayHeaderDateRangeMessage(with: "en", locale: Locale(identifier: "en"), lastEvent: "69", firstEvent: "2019"))
+                                          articleURL: articleURL,
+                                          yearRange: CommonStrings.onThisDayHeaderDateRangeMessage(with: language?.languageCode, locale: locale, lastEvent: "69", firstEvent: "2019"))
+        return entry
+    }
 
     // MARK: Public
     
