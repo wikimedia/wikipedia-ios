@@ -56,6 +56,7 @@ public final class WidgetController: NSObject {
     /// Call `releaseSharedDataStore()` when finished with the data store.
     private func getRetainedSharedDataStore(completion: @escaping (MWKDataStore) -> Void) {
         assert(Thread.isMainThread, "Data store must be obtained from the main queue")
+        dataStoreRetainCount += 1
         if let dataStore = _dataStore {
             completion(dataStore)
             return
@@ -68,7 +69,6 @@ public final class WidgetController: NSObject {
         let dataStore = MWKDataStore()
         dataStore.performLibraryUpdates {
             DispatchQueue.main.async {
-                self.dataStoreRetainCount += 1
                 self._dataStore = dataStore
                 self.isCreatingDataStore = false
                 self.completions.forEach { $0(dataStore) }
