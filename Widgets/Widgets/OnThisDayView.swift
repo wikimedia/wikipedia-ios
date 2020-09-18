@@ -256,7 +256,7 @@ struct OnThisDayHeaderElement: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text(monthDay)
                 .font(.title2)
-                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                .bold()
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, doesNeedVerticalCompression ? 2 : 5)
