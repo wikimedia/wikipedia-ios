@@ -162,7 +162,16 @@ struct TopReadProvider: TimelineProvider {
 
 	func getTimeline(in context: Context, completion: @escaping (Timeline<TopReadEntry>) -> Void) {
 		dataStore.fetchLatestAvailableTopRead { entry in
-			let timeline = Timeline(entries: [entry], policy: .atEnd)
+            let timeline: Timeline<TopReadEntry>
+            let isError = (entry.groupURL == nil)
+            if !isError {
+                timeline = Timeline(entries: [entry], policy: .atEnd)
+            } else {
+                let currentDate = Date()
+                let components = DateComponents(hour: 2)
+                let nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
+                timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+            }
 			completion(timeline)
 		}
 	}

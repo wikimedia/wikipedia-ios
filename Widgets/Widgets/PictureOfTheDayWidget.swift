@@ -187,7 +187,15 @@ struct PictureOfTheDayProvider: TimelineProvider {
 	func getTimeline(in context: Context, completion: @escaping (Timeline<PictureOfTheDayEntry>) -> Void) {
 		dataStore.fetchLatestAvailablePictureEntry { entry in
 			let currentDate = Date()
-			let timeline = Timeline(entries: [entry], policy: .after(currentDate.dateAtMidnight() ?? currentDate))
+            let nextUpdate: Date
+            let isError = (entry.imageDescription == dataStore.sampleEntry.imageDescription)
+            if !isError {
+                nextUpdate = currentDate.dateAtMidnight() ?? currentDate
+            } else {
+                let components = DateComponents(hour: 2)
+                nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
+            }
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
 			completion(timeline)
 		}
 	}
