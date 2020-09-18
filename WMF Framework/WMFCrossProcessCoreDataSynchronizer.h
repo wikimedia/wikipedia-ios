@@ -5,7 +5,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// Keeps a shared persistent store in sync across different processes
-/// Likely should be replaced with Persistent History Tracking introduced in iOS 13: https://developer.apple.com/videos/play/wwdc2017/210/
+/// Likely should be replaced with Persistent History Tracking introduced in iOS 13:
+/// https://developer.apple.com/videos/play/wwdc2017/210/
+/// https://www.avanderlee.com/swift/persistent-history-tracking-core-data/
 
 @interface WMFCrossProcessCoreDataSynchronizer : NSObject
 
