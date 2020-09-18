@@ -8,14 +8,16 @@ public final class PermanentCacheController: NSObject {
     let managedObjectContext: NSManagedObjectContext
     
     /// - Parameter moc: the managed object context for the cache
-    /// - Parameter dataStore: the data store for the cache - weakly referenced
-    @objc public init(moc: NSManagedObjectContext, dataStore: MWKDataStore) {
-        imageCache = ImageCacheController(moc: moc, session: dataStore.session, configuration: dataStore.configuration)
-        articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, dataStore: dataStore)
+    /// - Parameter session: the session to utilize for image and article requests
+    /// - Parameter configuration: the configuration to utilize for configuring requests
+    /// - Parameter preferredLanguageDelegate: the preferredLanguageDelegate to utilize for determining the user's preferred languages
+    @objc public init(moc: NSManagedObjectContext, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageCodesProviding) {
+        imageCache = ImageCacheController(moc: moc, session: session, configuration: configuration)
+        articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, session: session, configuration: configuration, preferredLanguageDelegate: preferredLanguageDelegate)
         urlCache = PermanentlyPersistableURLCache(moc: moc)
         managedObjectContext = moc
         super.init()
-        dataStore.session.permanentCache = self
+        session.permanentCache = self
     }
     
     /// Performs any necessary migrations on the CacheController's internal storage
@@ -54,7 +56,7 @@ public final class PermanentCacheController: NSObject {
     #if TEST
     @objc public static func testController(with directory: URL, dataStore: MWKDataStore) -> PermanentCacheController {
         let moc = CacheController.createCacheContext(cacheURL: directory)!
-        return PermanentCacheController(moc: moc, dataStore: dataStore)
+        return PermanentCacheController(moc: moc, session: dataStore.session, configuration: dataStore.configuration, preferredLanguageDelegate: dataStore.languageLinkController)
     }
     #endif
 }

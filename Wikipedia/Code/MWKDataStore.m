@@ -421,7 +421,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             if (error) {
                 DDLogError(@"Error during cache controller migration: %@", error);
             }
-            WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc dataStore:self];
+            WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc session:self.session configuration:self.configuration preferredLanguageDelegate:self.languageLinkController];
             self.cacheController = permanentCacheController;
             [self startSynchronizingCacheContext:moc];
             if (completion) {

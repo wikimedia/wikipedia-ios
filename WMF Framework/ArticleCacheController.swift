@@ -3,9 +3,10 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
-    init(moc: NSManagedObjectContext, imageCacheController: ImageCacheController, dataStore: MWKDataStore) {
-        let articleFetcher = ArticleFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        let imageInfoFetcher = MWKImageInfoFetcher(dataStore: dataStore)
+    init(moc: NSManagedObjectContext, imageCacheController: ImageCacheController, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageCodesProviding) {
+        let articleFetcher = ArticleFetcher(session: session, configuration: configuration)
+        let imageInfoFetcher = MWKImageInfoFetcher(session: session, configuration: configuration)
+        imageInfoFetcher.preferredLanguageDelegate = preferredLanguageDelegate
         let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher)
         
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: moc, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
