@@ -16,8 +16,8 @@ class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
     
     init() {
         self.permanentCache = ArticleTestHelpers.cacheController
-        self.session = ArticleTestHelpers.session
-        self.configuration = ArticleTestHelpers.configuration
+        self.session = ArticleTestHelpers.dataStore.session
+        self.configuration = ArticleTestHelpers.dataStore.configuration
         self.schemeHandler = SchemeHandler(scheme: "app", session: session)
         super.init(nibName: nil, bundle: nil)
     }
@@ -79,13 +79,12 @@ class ArticleTestHelpers {
     }
     static var fixtureData: FixtureData?
     
-    static let configuration = Configuration.current
-    static let session = Session(configuration: configuration)
+    static let dataStore = MWKDataStore.temporary()
     static let cacheController: PermanentCacheController = {
         let tempPath = WMFRandomTemporaryPath()!
         let randomURL = NSURL.fileURL(withPath: tempPath)
         let temporaryCacheURL = randomURL.appendingPathComponent("Permanent Cache", isDirectory: true)
-        return PermanentCacheController.testController(with: temporaryCacheURL, session: session, configuration: configuration)
+        return PermanentCacheController.testController(with: temporaryCacheURL, dataStore: dataStore)
     }()
     
     static func pullDataFromFixtures(inBundle bundle: Bundle) {
