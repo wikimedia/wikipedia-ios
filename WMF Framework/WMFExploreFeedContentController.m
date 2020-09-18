@@ -253,7 +253,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             DDLogError(@"Error saving: %@", saveError);
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                            [[WMFWidgetController shared] reloadAllWidgetsIfNecessary];
                                             if (completion) {
                                                 completion();
                                             }
