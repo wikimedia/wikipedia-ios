@@ -161,7 +161,7 @@ final class OnThisDayData {
                 self.fetchLatestOnThisDayEntryFromNetwork(completion)
                 return
             }
-            self.assembleOnThisDayFromContentGroup(latest, completion: completion)
+            self.assembleOnThisDayFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
     }
 
@@ -181,29 +181,37 @@ final class OnThisDayData {
         }
     }
     
-    private func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, completion: @escaping (OnThisDayEntry) -> Void) {
+    private func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (OnThisDayEntry) -> Void) {
         guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
               let previewEvent = previewEvents.first
         else {
             completion(placeholderEntry)
             return
         }
+
         let sendDataToWidget: (UIImage?) -> Void = { image in
-            guard let entry = OnThisDayEntry(contentGroup: contentGroup, image: image) else {
-                completion(self.placeholderEntry)
-                return
-            }
-            completion(entry)
-        }
-        if let imageURL = previewEvent.articlePreviews?.first?.thumbnailURL  {
             DispatchQueue.main.async {
-                ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { _ in
-                    sendDataToWidget(nil)
-                }, success: { fetchedImage in
-                    sendDataToWidget(fetchedImage.image.staticImage)
-                })
+                guard let entry = OnThisDayEntry(contentGroup: contentGroup, image: image) else {
+                    completion(self.placeholderEntry)
+                    return
+                }
+                completion(entry)
             }
         }
+
+        let imageURLRaw = previewEvent.articlePreviews?.first?.thumbnailURL
+        guard let imageURL = imageURLRaw, !usingImageCache else {
+            /// The argument sent to `sendDataToWidget` on the next line could be nil because `imageURLRaw` is nil, or `cachedImage` returns nil.
+            /// `sendDataToWidget` will appropriately handle a nil image, so we don't need to worry about that here.
+            sendDataToWidget(ImageCacheController.shared?.cachedImage(withURL: imageURLRaw)?.staticImage)
+            return
+        }
+
+        ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { _ in
+            sendDataToWidget(nil)
+        }, success: { fetchedImage in
+            sendDataToWidget(fetchedImage.image.staticImage)
+        })
     }
     
     private func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
