@@ -188,7 +188,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
         dataStore.fetchLatestAvailablePictureEntry { entry in
             let currentDate = Date()
             let nextUpdate: Date
-            let isError = (entry.imageDescription == dataStore.sampleEntry.imageDescription)
+            let isError = (entry.image == nil || entry.image == dataStore.sampleEntry.image)
             if !isError {
                 nextUpdate = currentDate.dateAtMidnight() ?? currentDate
             } else {
