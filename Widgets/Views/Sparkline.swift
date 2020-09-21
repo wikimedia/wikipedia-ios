@@ -175,7 +175,7 @@ struct Sparkline: View {
 					SparklineShape(data: timeSeries)
 						.stroke(
 							LinearGradient(gradient: Gradient(colors: [gradientStartColor, gradientEndColor]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
-						.frame(width: 30, alignment: .leading)
+						.frame(width: style == .compact ? 22 : 30, alignment: .leading)
 						.padding([.top, .bottom, .leading, .trailing], 3)
 				}
 				if style == .compactWithViewCount {
