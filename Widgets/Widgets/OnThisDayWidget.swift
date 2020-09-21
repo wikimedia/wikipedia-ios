@@ -82,9 +82,14 @@ final class OnThisDayData {
     static let shared = OnThisDayData()
 
     private var imageInfoFetcher = MWKImageInfoFetcher()
+
     private var dataStore: MWKDataStore {
         MWKDataStore.shared()
     }
+
+	private var primaryAppLanguageSiteURL: URL? {
+		return dataStore.languageLinkController.appLanguage?.siteURL()
+	}
 
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
     let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
@@ -104,10 +109,6 @@ final class OnThisDayData {
                                           yearRange: CommonStrings.onThisDayHeaderDateRangeMessage(with: "en", locale: Locale(identifier: "en"), lastEvent: "69", firstEvent: "2019"))
 
     // MARK: Public
-
-    private var siteURL: URL? {
-        return dataStore.languageLinkController.appLanguage?.siteURL()
-    }
     
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ completion: @escaping (OnThisDayEntry) -> Void) {
         guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage, WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
@@ -118,7 +119,7 @@ final class OnThisDayData {
 
         let moc = dataStore.viewContext
         moc.perform {
-            guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL),
+			guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: self.primaryAppLanguageSiteURL),
                   latest.isForToday
             else {
                 guard !usingCache else {
@@ -131,12 +132,14 @@ final class OnThisDayData {
             self.assembleOnThisDayFromContentGroup(latest, completion: completion)
         }
     }
-    
-    func fetchLatestOnThisDayEntryFromNetwork(_ completion: @escaping (OnThisDayEntry) -> Void) {
+
+    // MARK: Private
+
+    private func fetchLatestOnThisDayEntryFromNetwork(_ completion: @escaping (OnThisDayEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
             let moc = self.dataStore.viewContext
             moc.perform {
-                guard let latest = moc.newestVisibleGroup(of: .onThisDay, forSiteURL: self.siteURL) else {
+				guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: self.primaryAppLanguageSiteURL) else {
                     // If there's no content even after a network fetch, it's likely an error
                     self.handleNoInternetError(completion)
                     return
@@ -146,7 +149,7 @@ final class OnThisDayData {
         }
     }
     
-    func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, completion: @escaping (OnThisDayEntry) -> Void) {
+    private func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, completion: @escaping (OnThisDayEntry) -> Void) {
         guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
               let previewEvent = previewEvents.first
         else {
@@ -171,7 +174,7 @@ final class OnThisDayData {
         }
     }
     
-    func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
+    private func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
         let errorEntry = OnThisDayEntry.errorEntry(for: .noInternet)
         completion(errorEntry)
     }
