@@ -159,7 +159,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         title = CommonStrings.historyTabTitle
         if #available(iOS 14.0, *) {
             navigationItem.backButtonTitle = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view")
-            if (navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+            if (navigationItem.responds(to: #selector(setter: navigationItem.backButtonDisplayMode))) {
                 navigationItem.backButtonDisplayMode = .generic
             }
         }

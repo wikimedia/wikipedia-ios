@@ -83,7 +83,7 @@ class ReadingListDetailViewController: ViewController {
         navigationBar.title = readingList.name
         if #available(iOS 14.0, *) {
             navigationItem.backButtonTitle = readingList.name
-            if (navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+            if (navigationItem.responds(to: #selector(setter: navigationItem.backButtonDisplayMode))) {
                 navigationItem.backButtonDisplayMode = .generic
             }
         }

@@ -313,7 +313,7 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         if #available(iOS 14.0, *) {
             self.navigationItem.backButtonTitle = articleURL.wmf_title
-            if (navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+            if (navigationItem.responds(to: #selector(setter: navigationItem.backButtonDisplayMode))) {
                 navigationItem.backButtonDisplayMode = .generic
             }
         }

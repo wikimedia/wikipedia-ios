@@ -334,7 +334,7 @@ private extension TalkPageReplyListViewController {
             let titleWithoutHTML = title.removingHTML
             navigationBar.title = titleWithoutHTML
             if #available(iOS 14.0, *), !titleWithoutHTML.isEmpty {
-                if (navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+                if (navigationItem.responds(to: #selector(setter: navigationItem.backButtonDisplayMode))) {
                     navigationItem.backButtonDisplayMode = .generic
                 }
                 navigationItem.backButtonTitle = titleWithoutHTML
