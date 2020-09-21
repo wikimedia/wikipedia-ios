@@ -704,6 +704,14 @@
     return [self newestGroupOfKind:kind requireIsVisible:NO];
 }
 
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind forSiteURL:(nullable NSURL *)siteURL {
+    if (!siteURL) {
+        return [self newestGroupOfKind:kind requireIsVisible:NO];
+    }    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:NO];
+}
+
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
