@@ -9,7 +9,9 @@ class SinglePageWebViewController: ViewController {
         self.theme = theme
         if #available(iOS 14.0, *) {
             self.navigationItem.backButtonTitle = url.lastPathComponent
-            self.navigationItem.backButtonDisplayMode = .generic
+            if (self.navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+                self.navigationItem.backButtonDisplayMode = .generic
+            }
         }
     }
     

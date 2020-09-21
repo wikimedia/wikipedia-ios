@@ -239,7 +239,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
     if (@available(iOS 14.0, *)) {
-        self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
+        if ([self.navigationItem respondsToSelector:@selector(backButtonDisplayMode)]) {
+            self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
+        }
     }
 }
 

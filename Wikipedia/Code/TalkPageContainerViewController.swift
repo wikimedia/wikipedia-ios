@@ -168,7 +168,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         self.theme = theme
 
         if #available(iOS 14.0, *) {
-            navigationItem.backButtonDisplayMode = .generic
+            if (navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+                navigationItem.backButtonDisplayMode = .generic
+            }
             navigationItem.backButtonTitle = title
         }
     }

@@ -269,7 +269,9 @@ class DiffContainerViewController: ViewController, HintPresenting {
                 buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
             }
             navigationItem.backButtonTitle = buttonTitle
-            navigationItem.backButtonDisplayMode = .generic
+            if (navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+                navigationItem.backButtonDisplayMode = .generic
+            }
         }
     }
 }

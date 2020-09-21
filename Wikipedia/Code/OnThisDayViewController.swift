@@ -25,7 +25,9 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
                 navigationBar.isShadowHidingEnabled = true
                 addUnderBarHeader()
                 if #available(iOS 14.0, *) {
-                    navigationItem.backButtonDisplayMode = .generic
+                    if (navigationItem.responds(to: #selector(getter: navigationItem.backButtonDisplayMode))) {
+                        navigationItem.backButtonDisplayMode = .generic
+                    }
                     navigationItem.backButtonTitle = CommonStrings.onThisDayTitle
                 }
             } else {
