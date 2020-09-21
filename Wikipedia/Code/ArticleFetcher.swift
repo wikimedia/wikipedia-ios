@@ -47,7 +47,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
 
     private static let mobileHTMLOutputHeaderKey = "output-mode"
-    
+    private static let acceptHeaderKey = "Accept"
+    private static let acceptHTMLValue = "text/html; charset=utf-8"
+
     struct MediaListItem {
         let imageURL: URL
         let imageTitle: String
@@ -148,6 +150,13 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         }
     }
     
+    private func previewHeaders(with articleURL: URL, mobileHTMLOutput: MobileHTMLType) -> [String: String] {
+        var headers = configuration.pageContentServiceHeaders(for: articleURL.wmf_language)
+        headers[ArticleFetcher.mobileHTMLOutputHeaderKey] = mobileHTMLOutput.rawValue
+        headers[ArticleFetcher.acceptHeaderKey] = ArticleFetcher.acceptHTMLValue
+        return headers
+    }
+    
     public func wikitextToMobileHTMLPreviewRequest(articleURL: URL, wikitext: String, mobileHTMLOutput: MobileHTMLType = .contentAndReferences) throws -> URLRequest {
         guard
             let articleTitle = articleURL.wmf_title,
@@ -157,13 +166,8 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         let params: [String: String] = ["wikitext": wikitext]
-        let paramsJSON = try JSONEncoder().encode(params)
-        var request = URLRequest(url: url)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.setValue(mobileHTMLOutput.rawValue, forHTTPHeaderField: ArticleFetcher.mobileHTMLOutputHeaderKey)
-        request.httpBody = paramsJSON
-        request.httpMethod = "POST"
-        return request
+        let headers = previewHeaders(with: articleURL, mobileHTMLOutput: mobileHTMLOutput)
+        return session.request(with: url, method: .post, bodyParameters: params, bodyEncoding: .json, headers: headers)
     }
     
     public func wikitextToHTMLRequest(articleURL: URL, wikitext: String, mobileHTMLOutput: MobileHTMLType) throws -> URLRequest {
@@ -186,7 +190,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         #endif
 
         let params: [String: String] = ["wikitext": wikitext]
-        let headers = [ArticleFetcher.mobileHTMLOutputHeaderKey: mobileHTMLOutput.rawValue]
+        let headers = previewHeaders(with: articleURL, mobileHTMLOutput: mobileHTMLOutput)
         return session.request(with: url, method: .post, bodyParameters: params, bodyEncoding: .json, headers: headers)
     }
     
@@ -198,8 +202,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         else {
             throw RequestError.invalidParameters
         }
-
-        let headers = [ArticleFetcher.mobileHTMLOutputHeaderKey: mobileHTMLOutput.rawValue]
+        let headers = previewHeaders(with: articleURL, mobileHTMLOutput: mobileHTMLOutput)
         return session.request(with: url, method: .post, bodyParameters: html, bodyEncoding: .html, headers: headers)
     }
 
@@ -293,7 +296,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         var requestHeaders = configuration.pageContentServiceHeaders(for: url.wmf_language)
         requestHeaders.merge(headers)  { (_, updated) in updated }
         let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy, headers: requestHeaders)
-        
+
         return request
     }
     
@@ -306,7 +309,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             urlComponents?.scheme = scheme
             url = urlComponents?.url ?? url
         }
-        let acceptUTF8HTML = ["Accept": "text/html; charset=utf-8"]
+        let acceptUTF8HTML = [ArticleFetcher.acceptHeaderKey: ArticleFetcher.acceptHTMLValue]
         if var urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
             if revisionID != nil {
                 // Enables the caching system to update the revisionless url cache when this call goes through
