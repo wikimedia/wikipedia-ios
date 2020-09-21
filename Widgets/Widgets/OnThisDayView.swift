@@ -32,7 +32,7 @@ struct OnThisDayView: View {
     @Environment(\.sizeCategory) var textSize
     var entry: OnThisDayProvider.Entry
 
-    var doesNeedVerticalCompression: Bool {
+    var needsVerticalCompression: Bool {
         return textSize == .extraExtraExtraLarge
     }
 
@@ -43,12 +43,12 @@ struct OnThisDayView: View {
             case .systemLarge:
                 VStack(alignment: .leading, spacing: 0) {
                     OnThisDayHeaderElement(widgetTitle: entry.onThisDayTitle, yearRange: entry.yearRange, monthDay: entry.monthDay)
-                        .padding(.bottom, doesNeedVerticalCompression ? 3 : 9)
+                        .padding(.bottom, needsVerticalCompression ? 3 : 9)
                     MainOnThisDayTopElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate)
                     /// The full `MainOnThisDayElement` is not used in the large widget. We need the `Spacer` and the `eventSnippet` text to be part of the same `VStack` to render correctly. (Otherwise, the "text is so long it must be cutoff" and/or the "text is so short we need blank space at the bottom" scenario perform incorrectly.)
                     if let eventSnippet = entry.eventSnippet, let title = entry.articleTitle, let articleSnippet = entry.articleSnippet {
                         LargeWidgetMiddleSection(eventSnippet: eventSnippet, title: title, description: articleSnippet, image: entry.articleImage, link: entry.articleURL ?? entry.contentURL)
-                            .padding(.top, doesNeedVerticalCompression ? 3 : 9)
+                            .padding(.top, needsVerticalCompression ? 3 : 9)
                             .layoutPriority(1.0)
                     }
                     OnThisDayAdditionalEventsElement(otherEventsText: entry.otherEventsText)
@@ -241,7 +241,7 @@ struct OnThisDayHeaderElement: View {
     let yearRange: String
     let monthDay: String
 
-    var doesNeedVerticalCompression: Bool {
+    var needsVerticalCompression: Bool {
         return textSize == .extraExtraExtraLarge
     }
 
@@ -259,8 +259,8 @@ struct OnThisDayHeaderElement: View {
                 .bold()
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, doesNeedVerticalCompression ? 2 : 5)
-                .padding(.bottom, doesNeedVerticalCompression ? 2 : 7)
+                .padding(.top, needsVerticalCompression ? 2 : 5)
+                .padding(.bottom, needsVerticalCompression ? 2 : 7)
             Text(yearRange)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                 .font(.subheadline)
