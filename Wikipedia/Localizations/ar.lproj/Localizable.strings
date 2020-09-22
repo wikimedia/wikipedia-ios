@@ -71,7 +71,7 @@
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة سر، وتأكيد كلمة السر لإنشاء حساب.";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
-"account-creation-title" = "أنشئ حسابًا جديدًا";
+"account-creation-title" = "أنشئ حسابا جديدا";
 "account-group-title" = "حسابك";
 "account-talk-page-title" = "صفحة النقاش الخاصة بك";
 "account-talk-preferences-auto-sign-discussions" = "التوقيع التلقائي للنقاشات";
