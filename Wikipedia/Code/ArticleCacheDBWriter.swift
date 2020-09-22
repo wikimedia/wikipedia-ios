@@ -51,7 +51,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
             
             switch result {
             case .success(let urls):
-                
+                let language = url.wmf_language
                 var mustHaveURLRequests: [URLRequest] = []
                 
                 let mobileHTMLRequest: URLRequest
@@ -71,7 +71,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 for url in urls.offlineResourcesURLs {
                     // We're OK with any Content-Type here because we don't use them directly, they're the related files that mobile-html might request
                     let acceptAnyContentType = ["Accept": "*/*"]
-                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, headers: acceptAnyContentType) else {
+                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, language: language, headers: acceptAnyContentType) else {
                         continue
                     }
                     
@@ -200,10 +200,10 @@ extension ArticleCacheDBWriter {
                 completion(.failure(ArticleCacheDBWriterError.unableToDetermineDatabaseKey))
                 return
             }
-            
-            let baseCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.baseCSS)
-            let pcsCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsCSS)
-            let pcsJSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsJS)
+            let language = desktopArticleURL.wmf_language
+            let baseCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.baseCSS, language: language)
+            let pcsCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsCSS, language: language)
+            let pcsJSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsJS, language: language)
             
             let bundledURLRequests = [baseCSSRequest, pcsCSSRequest, pcsJSRequest].compactMap { $0 }
             

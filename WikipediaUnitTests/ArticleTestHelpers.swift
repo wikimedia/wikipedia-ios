@@ -55,7 +55,7 @@ class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
         for (key, value) in acceptUTF8HTML {
             extraHeaders[key] = value
         }
-        return fetcher.urlRequest(from: articleURL, headers: extraHeaders)
+        return fetcher.urlRequest(from: articleURL, language:articleURL.wmf_language, headers: extraHeaders)
     }
     
     private func setupWebView() {
