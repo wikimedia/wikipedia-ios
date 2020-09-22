@@ -489,10 +489,13 @@ class ArticleViewController: ViewController, HintPresenting {
             if let htmlSnippets = self.articleAsLivingDocViewModel?.articleInsertHtmlSnippets,
                self.shouldShowArticleAsLivingDoc {
                 self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets) { (success) in
+                    self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
                     if (success) {
                         self.updateArticleMargins()
                     }
                 }
+            } else if self.shouldAttemptToShowArticleAsLivingDoc {
+                self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
             }
             self.articleLoadWaitGroup = nil
         }
@@ -1045,6 +1048,10 @@ private extension ArticleViewController {
         imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
+        
+        if (shouldAttemptToShowArticleAsLivingDoc) {
+            toggleContentVisibilityExceptLeadImage(shouldHide: true)
+        }
     }
     
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {

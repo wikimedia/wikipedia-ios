@@ -1,4 +1,13 @@
 extension ArticleViewController: ArticleWebMessageHandling {
+    
+    func toggleContentVisibilityExceptLeadImage(shouldHide: Bool) {
+        webView.scrollView.subviews.forEach { (view) in
+            if view != leadImageContainerView {
+                view.isHidden = shouldHide
+            }
+        }
+    }
+    
     func didRecieve(action: ArticleWebMessagingController.Action) {
         dismissReferencesPopover()
         switch action {

@@ -412,10 +412,15 @@ extension ArticleWebMessagingController {
                 if let error = error {
                     DDLogDebug("Failure in injectArticleAsLivingDocContent: \(error)")
                     completion?(false)
+                    return
                 }
                 
                 if let boolResult = result as? Bool {
+                    if !boolResult {
+                        DDLogDebug("Failure in injectArticleAsLivingDocContent")
+                    }
                     completion?(boolResult)
+                    return
                 }
                 
                 DDLogDebug("Failure in injectArticleAsLivingDocContent")
