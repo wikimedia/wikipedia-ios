@@ -14,7 +14,7 @@ public final class PermanentCacheController: NSObject {
     @objc public init(moc: NSManagedObjectContext, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageCodesProviding) {
         imageCache = ImageCacheController(moc: moc, session: session, configuration: configuration)
         articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, session: session, configuration: configuration, preferredLanguageDelegate: preferredLanguageDelegate)
-        urlCache = PermanentlyPersistableURLCache(moc: moc)
+        urlCache = PermanentlyPersistableURLCache(moc: moc, configuration: configuration)
         managedObjectContext = moc
         super.init()
         session.permanentCache = self

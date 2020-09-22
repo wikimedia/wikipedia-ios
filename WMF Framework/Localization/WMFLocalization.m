@@ -20,7 +20,7 @@
     NSString *bundleName = language;
     if ([language isEqualToString:@"zh"]) {
         bundleName = @"zh-hans";
-        for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
+        for (NSString *code in [WMFConfiguration current].preferredWikipediaLanguages) {
             if (![code hasPrefix:@"zh"]) {
                 continue;
             }

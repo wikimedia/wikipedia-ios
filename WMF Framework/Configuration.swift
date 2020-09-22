@@ -1,9 +1,8 @@
 import Foundation
 
-
 /// Configuration handles the current environment - production, beta, staging, labs
-/// It has the functions that build URLs for the various APIs utilized by the app.
-/// It also maintains the list of relevant domains - default domain, domains that require the CentralAuth cookies to be copied, etc.
+/// It has the functions that build requests for the various APIs utilized by the app.
+/// It maintains the list of relevant domains for those requests - default domain, domains that require the CentralAuth cookies to be copied, etc.
 @objc(WMFConfiguration)
 public class Configuration: NSObject {
     @objc public static let current: Configuration = {
@@ -19,14 +18,18 @@ public class Configuration: NSObject {
     }()
     
     // MARK: Configurations
-    
     public static let production: Configuration = {
+        return productionConfiguration(with: Locale.preferredLanguages)
+    }()
+    
+    public static func productionConfiguration(with preferredLanguages: [String]) -> Configuration {
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
             pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
-            mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
+            mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory(),
+            preferredLanguages: preferredLanguages
         )
-    }()
+    }
     
     static let localPageContentService: Configuration = {
         var pageContentServiceHostComponents = URLComponents()
@@ -124,7 +127,13 @@ public class Configuration: NSObject {
        return Router(configuration: self)
     }()
 
-    required init(defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, wikiFeedsAPIURLComponentsBuilderFactory: ((String?) -> APIURLComponentsBuilder)? = nil, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder) {
+    /// - Parameter defaultSiteDomain: Default domain for constructing requests and for
+    /// - Parameter otherDomains: Other domains to consider valid Wikipedia hosts and valid hosts for links to handle in the app instead of an external browser
+    /// - Parameter pageContentServiceAPIURLComponentsBuilderFactory: block that takes a host string as an input and returns an `APIURLComponentsBuilder` for the [Page Content Servce](https://www.mediawiki.org/wiki/Page_Content_Service)
+    /// - Parameter wikiFeedsAPIURLComponentsBuilderFactory: block that takes a host string as an input and returns an `APIURLComponentsBuilder` for [Wikifeeds](https://www.mediawiki.org/wiki/Wikifeeds). Useful when running wikifeeds locally or in staging at a separate host from the Page Content Service. Defaults to the `pageContentServiceAPIURLComponentsBuilderFactory`
+    /// - Parameter mediaWikiRestAPIURLComponentsBuilderFactory: block that takes a host string as an input and returns an `APIURLComponentsBuilder` for the [MediaWiki Rest API](https://www.mediawiki.org/wiki/API:REST_API)
+    /// - Parameter preferredLanguages: Array of preferred language codes in preference order. Defaults to `Locale.preferredLanguages`
+    required init(defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, wikiFeedsAPIURLComponentsBuilderFactory: ((String?) -> APIURLComponentsBuilder)? = nil, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, preferredLanguages: [String] = Locale.preferredLanguages) { // When preferred languages changes, the app is restarted and Locale.preferredLanguages will be re-read
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
         components.scheme = "https"
@@ -141,6 +150,10 @@ public class Configuration: NSObject {
         self.pageContentServiceAPIURLComponentsBuilderFactory = pageContentServiceAPIURLComponentsBuilderFactory
         self.wikiFeedsAPIURLComponentsBuilderFactory = wikiFeedsAPIURLComponentsBuilderFactory ?? pageContentServiceAPIURLComponentsBuilderFactory
         self.mediaWikiRestAPIURLComponentsBuilderFactory = mediaWikiRestAPIURLComponentsBuilderFactory
+        self.preferredLanguages = preferredLanguages
+        self.preferredWikipediaLanguages = Configuration.uniqueWikipediaLanguages(with: preferredLanguages)
+        self.preferredWikipediaLanguagesWithVariants = Configuration.uniqueWikipediaLanguages(with: preferredLanguages, includingLanguagesWithoutVariants: false) // cache this filtered view as it is used to calculate request headers
+        self.defaultAcceptLanguageHeader = Configuration.acceptLanguageHeader(with: preferredLanguages)
     }
     
     let pageContentServiceAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
@@ -180,6 +193,17 @@ public class Configuration: NSObject {
         return builder.components(byAppending: pathComponents)
     }
     
+
+    /// Returns the default request headers for Page Content Service API requests
+    public func pageContentServiceHeaders(for wikipediaLanguage: String? = nil) -> [String: String] {
+        // If the language supports variants, only send a single code with variant for that language.
+        // This is a workaround for an issue with server-side Accept-Language header handling and
+        // can be removed when https://phabricator.wikimedia.org/T256491 is fixed.
+        guard let preferredLanguage = preferredWikipediaLanguageVariant(for: wikipediaLanguage) else {
+            return [:]
+        }
+        return ["Accept-Language": preferredLanguage]
+    }
     
     private let metricsAPIURLComponentsBuilder = APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory()(Domain.wikimedia)
     /// The metrics API lives only on wikimedia.org: https://wikimedia.org/api/rest_v1/
@@ -262,6 +286,84 @@ public class Configuration: NSObject {
             }
         }
         return false
+    }
+    
+    // MARK: - Preferred Languages
+
+    let preferredLanguages: [String]
+    
+    @objc public let preferredWikipediaLanguages: [String]
+    /// List of Wikipedia languages with variants in the order that the user preferrs them. Currently only supports zh and sr.
+    @objc public let preferredWikipediaLanguagesWithVariants: [String]
+    
+    let defaultAcceptLanguageHeader: String
+    
+    /// - Parameter wikiLanguage: The language to check
+    /// - Parameter preferredLanguages: The list of preferred languages to check. Defaults to a list of the user's preferred Wikipedia languages that support variants.
+    /// - Returns: The first preferred language variant for a given URL, or nil if the URL is for a Wikipedia with a language that doesn't support variants
+    public func preferredWikipediaLanguageVariant(for wikiLanguage: String?) -> String? {
+        guard let language = wikiLanguage else {
+            return nil
+        }
+        for languageCode in preferredLanguages {
+            guard languageCode.hasPrefix(language + "-") else {
+                continue
+            }
+            return languageCode
+        }
+        return nil
+    }
+    
+    /// - Parameter languageIdentifiers: List of `Locale` language identifers
+    /// - Parameter includingLanguagesWithoutVariants: Pass true to include Wikipedias without variants, passing false will only return languages with variants (currently only supporting zh and sr)
+    /// - Returns: An array of preferred Wikipedia languages based on the provided array of language identifiers
+    public static func uniqueWikipediaLanguages(with languageIdentifiers: [String], includingLanguagesWithoutVariants: Bool = true) -> [String] {
+        var uniqueLanguageCodes = [String]()
+        for languageIdentifier in languageIdentifiers {
+            let locale = Locale(identifier: languageIdentifier)
+            if let languageCode = locale.languageCode?.lowercased() {
+                if let scriptLookup = wmf_mediaWikiCodeLookupGlobal[languageCode] {
+                    let scriptCode = locale.scriptCode?.lowercased() ?? wmf_mediaWikiCodeLookupDefaultKeyGlobal
+                    if let regionLookup = scriptLookup[scriptCode] ?? scriptLookup[wmf_mediaWikiCodeLookupDefaultKeyGlobal] {
+                        let regionCode = locale.regionCode?.lowercased() ?? wmf_mediaWikiCodeLookupDefaultKeyGlobal
+                        if let mediaWikiCode = regionLookup[regionCode] ?? regionLookup[wmf_mediaWikiCodeLookupDefaultKeyGlobal] {
+                            if !uniqueLanguageCodes.contains(mediaWikiCode) {
+                                uniqueLanguageCodes.append(mediaWikiCode)
+                            }
+                            continue
+                        }
+                    }
+                }
+                if includingLanguagesWithoutVariants {
+                    let lowercased = languageIdentifier.lowercased()
+                    if !uniqueLanguageCodes.contains(lowercased) {
+                        uniqueLanguageCodes.append(lowercased)
+                    }
+                }
+            }
+        }
+        return uniqueLanguageCodes
+    }
+    
+    /// Calculates an accept language header given a list of preferred language codes
+    /// - Parameter preferredLanguageCodes: Array of preferred language codes in preferential order from most preferred to least preferred
+    /// - Returns: An accept language header value
+    static func acceptLanguageHeader(with preferredLanguageCodes: [String]) -> String {
+        let count: Double = Double(preferredLanguageCodes.count)
+        var q: Double = 1.0
+        let qDelta = 1.0/count
+        var acceptLanguageString = ""
+        for languageCode in preferredLanguageCodes {
+            if q < 1.0 {
+                acceptLanguageString += ", "
+            }
+            acceptLanguageString += languageCode
+            if q < 1.0 {
+                acceptLanguageString += String(format: ";q=%.2g", q)
+            }
+            q -= qDelta
+        }
+        return acceptLanguageString
     }
 }
 

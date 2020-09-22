@@ -21,8 +21,10 @@ public struct Header {
 
 class PermanentlyPersistableURLCache: URLCache {
     let cacheManagedObjectContext: NSManagedObjectContext
-    
-    init(moc: NSManagedObjectContext) {
+    private let configuration: Configuration
+
+    init(moc: NSManagedObjectContext, configuration: Configuration) {
+        self.configuration = configuration
         cacheManagedObjectContext = moc
         super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: URLCache.shared.diskCapacity, diskPath: nil)
     }
@@ -230,16 +232,16 @@ private extension PermanentlyPersistableURLCache {
                 } else {
                     let potentialLanguage = hostComponents[0]
                     if potentialLanguage == "m" {
-                        return Locale.preferredWikipediaLanguageVariant(for: url)
+                        return configuration.preferredWikipediaLanguageVariant(for: url.wmf_language)
                     } else {
-                        return Locale.preferredWikipediaLanguageVariant(for: url, urlLanguage: potentialLanguage)
+                        return configuration.preferredWikipediaLanguageVariant(for: potentialLanguage)
                     }
                 }
             }
         
-            return Locale.preferredWikipediaLanguageVariant(for: url)
+            return configuration.preferredWikipediaLanguageVariant(for: url.wmf_language)
         #else
-            return Locale.preferredWikipediaLanguageVariant(for: url)
+            return configuration.preferredWikipediaLanguageVariant(for: url.wmf_language)
         #endif
     }
     

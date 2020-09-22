@@ -202,7 +202,7 @@ public class Session: NSObject {
             "Accept": "application/json; charset=utf-8",
             "Accept-Encoding": "gzip",
             "User-Agent": WikipediaAppUtils.versionedUserAgent(),
-            "Accept-Language": NSLocale.wmf_acceptLanguageHeaderForPreferredLanguages
+            "Accept-Language": configuration.defaultAcceptLanguageHeader
         ]
         for (key, value) in defaultHeaders {
             guard headers[key] == nil else {
