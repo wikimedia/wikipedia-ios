@@ -34,4 +34,13 @@ class LocaleTests: XCTestCase {
         XCTAssertEqual(header, "zh-cn, zh-sg;q=0.8, zh-mo;q=0.6, zh-tw;q=0.4, zh-hk;q=0.2", "Accept-language header value should be correct")
     }
     
+    func testPCSHeaders() {
+        let configuration = Configuration.productionConfiguration(with: ["en", "zh-hant", "sr-ec"])
+        let zhHeaders = configuration.pageContentServiceHeaders(for: "zh")
+        XCTAssertEqual(zhHeaders["Accept-Language"], "zh-hant", "Page content service headers should only contain a single accept language code until https://phabricator.wikimedia.org/T256491 is fixed")
+        let srHeaders = configuration.pageContentServiceHeaders(for: "sr")
+        XCTAssertEqual(srHeaders["Accept-Language"], "sr-ec", "Page content service headers should only contain a single accept language code until https://phabricator.wikimedia.org/T256491 is fixed")
+        let enHeaders = configuration.pageContentServiceHeaders(for: "en")
+        XCTAssertEqual(enHeaders["Accept-Language"], nil, "Page content service headers should only contain Accept-Language for languages with variants")
+    }
 }
