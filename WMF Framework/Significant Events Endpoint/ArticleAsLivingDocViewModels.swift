@@ -9,14 +9,16 @@ public struct ArticleAsLivingDocViewModel {
     public let sha: String?
     public let sections: [SectionHeader]
     public let articleInsertHtmlSnippets: [String]
+    public let newChangesTimestamp: String?
     public let summaryText: String?
     
-    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String]) {
+    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String], newChangesTimestamp: String?) {
         self.nextRvStartId = nextRvStartId
         self.sha = sha
         self.sections = sections
         self.summaryText = summaryText
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
+        self.newChangesTimestamp = newChangesTimestamp
     }
     
     public init?(significantEvents: SignificantEvents) {
@@ -145,6 +147,7 @@ public struct ArticleAsLivingDocViewModel {
         
         //grab first 3 large event html snippets
         var articleInsertHtmlSnippets: [String] = []
+        var newChangesTimestamp: String?
         let htmlSnippetCountMax = 3
         
         outerLoop: for section in finalSections {
@@ -154,6 +157,9 @@ public struct ArticleAsLivingDocViewModel {
                     if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0) {
                         if articleInsertHtmlSnippets.count < htmlSnippetCountMax {
                             articleInsertHtmlSnippets.append(htmlSnippet)
+                            if articleInsertHtmlSnippets.count == 1 {
+                                newChangesTimestamp = largeEvent.timestampForDisplay()
+                            }
                         } else {
                             break outerLoop
                         }
@@ -165,6 +171,7 @@ public struct ArticleAsLivingDocViewModel {
         }
         
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
+        self.newChangesTimestamp = newChangesTimestamp
     }
 }
 

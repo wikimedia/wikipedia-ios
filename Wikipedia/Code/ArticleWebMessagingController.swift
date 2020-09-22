@@ -369,7 +369,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
 
 extension ArticleWebMessagingController {
     //tonitodo: possible way to have overlay link work - https://stackoverflow.com/a/46707009
-    func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], _ completion: ((Bool) -> Void)? = nil) {
+    func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], shouldShowNewChangesBadge: Bool = false, newChangesTimestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
         
         guard articleInsertHtmlSnippets.count > 0 else {
             completion?(false)
@@ -384,7 +384,7 @@ extension ArticleWebMessagingController {
         
         articleAsLivingDocBoxHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>Read more updates</a></p></div></div>"
         
-        let javascript = """
+        var javascript = """
             function injectSignificantEventsContent() {
                  //first remove existing element if it's there
                  var existing = document.getElementById('significant-changes-container');
@@ -405,8 +405,39 @@ extension ArticleWebMessagingController {
                  firstParagraph.insertAdjacentHTML("afterend","\(articleAsLivingDocBoxHTML)");
                  return true;
             }
-                injectSignificantEventsContent();
+            injectSignificantEventsContent();
         """
+
+            
+        
+        if shouldShowNewChangesBadge {
+            var newChangesBadgeHTML = "<div id='new-changes-container'><div id='new-changes-inner-container'><span id='new-changes-dot'></span><span id='new-changes-text'>New changes</span></div>"
+            if let newChangesTimestamp = newChangesTimestamp {
+                newChangesBadgeHTML += "<span id='new-changes-timestamp'>\(newChangesTimestamp)</span>"
+            }
+            newChangesBadgeHTML += "</div>"
+            
+            javascript += """
+                function injectNewChangesBadge() {
+                    //first remove existing element if it's there
+                    var existing = document.getElementById('new-changes-container');
+                    if (existing) {
+                        existing.remove();
+                    }
+                    //then create and insert new element
+                    var headers = document.getElementById('pcs').getElementsByTagName('header');
+                    if (headers.length === 0) {
+                        return false;
+                    }
+                    var firstHeader = headers[0];
+                    firstHeader.insertAdjacentHTML("afterbegin","\(newChangesBadgeHTML)");
+                    return true;
+                }
+                
+                injectNewChangesBadge();
+            """
+        }
+        
         webView?.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {

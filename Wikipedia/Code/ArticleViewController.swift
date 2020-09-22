@@ -68,7 +68,8 @@ class ArticleViewController: ViewController, HintPresenting {
                     // append sections instead of replace sections
                     let appendedSections = oldModel.sections + newValue.sections
                     let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
-                    _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets)
+                    let oldNewChangesTimestamp = oldModel.newChangesTimestamp
+                    _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp)
                     articleAsLivingDocViewController?.appendSections(newValue.sections)
                     
                 } else {
@@ -486,10 +487,14 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.setupFooter()
             self.shareIfNecessary()
-            if let htmlSnippets = self.articleAsLivingDocViewModel?.articleInsertHtmlSnippets,
+            if let viewModel = self.articleAsLivingDocViewModel,
                self.shouldShowArticleAsLivingDoc {
-                self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets) { (success) in
+                let htmlSnippets = viewModel.articleInsertHtmlSnippets
+                let shaKey = "significant-events-sha"
+                let shouldShowNewChangesBadge = viewModel.sha != nil ? UserDefaults.standard.string(forKey: shaKey) != viewModel.sha : false
+                self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, shouldShowNewChangesBadge: shouldShowNewChangesBadge, newChangesTimestamp: viewModel.newChangesTimestamp) { (success) in
                     self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
+                    UserDefaults.standard.setValue(viewModel.sha, forKey: shaKey)
                     if (success) {
                         self.updateArticleMargins()
                     }
