@@ -27,48 +27,45 @@ final class PictureOfTheDayData {
 
     static let shared = PictureOfTheDayData()
 
-    private var imageInfoFetcher = MWKImageInfoFetcher()
-    private var dataStore: MWKDataStore {
-        MWKDataStore.shared()
-    }
-
     let sampleEntry = PictureOfTheDayEntry(date: Date(), image: #imageLiteral(resourceName: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
     let placeholderEntry = PictureOfTheDayEntry(date: Date(), contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
 
     // MARK: Public
 
-    func fetchLatestAvailablePictureEntry(usingCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
-        let moc = dataStore.viewContext
-        moc.perform {
-            guard let latest = moc.newestGroup(of: .pictureOfTheDay), latest.isForToday else {
-                guard !usingCache else {
-                    completion(self.sampleEntry)
+    func fetchLatestAvailablePictureEntry(usingCache: Bool = false, completion userCompletion: @escaping (PictureOfTheDayEntry) -> Void) {
+        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+            let moc = dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestGroup(of: .pictureOfTheDay), latest.isForToday else {
+                    guard !usingCache else {
+                        completion(self.sampleEntry)
+                        return
+                    }
+                    self.fetchLatestAvailablePictureEntryFromNetwork(with: dataStore, completion: completion)
                     return
                 }
-                self.fetchLatestAvailablePictureEntry(completion: completion)
-                return
+                self.assemblePictureEntryFromContentGroup(latest, dataStore: dataStore, usingImageCache: usingCache, completion: completion)
             }
-            self.assemblePictureEntryFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
     }
 
     // MARK: Private
 
-    private func fetchLatestAvailablePictureEntryFromNetwork(completion: @escaping (PictureOfTheDayEntry) -> Void) {
+    private func fetchLatestAvailablePictureEntryFromNetwork(with dataStore: MWKDataStore, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = self.dataStore.viewContext
+            let moc = dataStore.viewContext
             moc.perform {
                 guard let latest = moc.newestGroup(of: .pictureOfTheDay) else {
                     completion(self.sampleEntry)
                     return
                 }
-                self.assemblePictureEntryFromContentGroup(latest, completion: completion)
+                self.assemblePictureEntryFromContentGroup(latest, dataStore: dataStore, completion: completion)
             }
         }
 
     }
 
-    private func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
+    private func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         guard let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
             completion(self.sampleEntry)
             return
@@ -82,7 +79,7 @@ final class PictureOfTheDayData {
         let imageDescription = imageContent.imageDescription
 
         guard !usingImageCache else {
-            if let cachedImage = ImageCacheController.shared?.cachedImage(withURL: imageThumbnailURL) {
+            if let cachedImage = dataStore.cacheController.imageCache.cachedImage(withURL: imageThumbnailURL) {
                 let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
                 completion(entry)
             } else {
@@ -91,34 +88,38 @@ final class PictureOfTheDayData {
             return
         }
 
-        ImageCacheController.shared?.fetchImage(withURL: imageThumbnailURL, failure: { _ in
+        dataStore.cacheController.imageCache.fetchImage(withURL: imageThumbnailURL, failure: { _ in
             completion(sampleEntry)
         }, success: { fetchedImage in
-            self.fetchImageLicense(canonicalPageTitle: canonicalPageTitle) { license in
-                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, license: license)
+            self.fetchImageLicense(from: dataStore, canonicalPageTitle: canonicalPageTitle) { license in
+                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, licenseCode: license?.code)
                 completion(entry)
             }
         })
     }
+    
+    var imageInfoFetcher: MWKImageInfoFetcher?
+    private func fetchImageLicense(from dataStore: MWKDataStore, canonicalPageTitle: String, _ completion: @escaping (MWKLicense?) -> Void) {
 
-    private func fetchImageLicense(canonicalPageTitle: String, _ completion: @escaping (MWKLicense?) -> Void) {
         guard let siteURL = NSURL.wmf_wikimediaCommons() else {
             completion(nil)
             return
         }
-
-        imageInfoFetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
+        let fetcher = MWKImageInfoFetcher(dataStore: dataStore)
+        imageInfoFetcher = fetcher // needs to be retained to complete the fetch
+        fetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
+            self.imageInfoFetcher = nil
             DispatchQueue.main.async {
                 completion(nil)
             }
         }, success: { imageInfo in
+            self.imageInfoFetcher = nil
             guard let imageInfo = imageInfo as? MWKImageInfo, let license = imageInfo.license else {
                 DispatchQueue.main.async {
                     completion(nil)
                 }
                 return
             }
-
             DispatchQueue.main.async {
                 completion(license)
             }
@@ -135,30 +136,30 @@ struct PictureOfTheDayEntry: TimelineEntry {
 
     struct LicenseImage: Identifiable {
         var id: String
-        var image: SwiftUI.Image
+        var image: UIImage // the system encodes this entry and it crashes if this is a SwiftUI.Image
     }
 
     // MARK: Properties
 
-    let date: Date // for Timeline Entry
-    var contentDate: Date? = nil
-    var contentURL: URL? = nil
-    var imageURL: URL? = nil
-    let image: UIImage?
-    var imageDescription: String? = nil
-    var license: MWKLicense? = nil
+	let date: Date // for Timeline Entry
+	var contentDate: Date? = nil
+	var contentURL: URL? = nil
+	var imageURL: URL? = nil
+	let image: UIImage?
+	var imageDescription: String? = nil
+	var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
 
     // MARK: License Image Parsing
 
     var licenseImages: [LicenseImage] {
         var licenseImages: [LicenseImage] = []
-        let licenseCodes: [String] = license?.code?.components(separatedBy: "-") ?? ["generic"]
+        let licenseCodes: [String] = licenseCode?.components(separatedBy: "-") ?? ["generic"]
 
         for license in licenseCodes {
             guard let image = UIImage(named: "license-\(license)") else {
                 continue
             }
-            licenseImages.append(LicenseImage(id: license, image: Image(uiImage: image)))
+            licenseImages.append(LicenseImage(id: license, image: image))
         }
 
         return licenseImages
@@ -300,7 +301,7 @@ struct PictureOfTheDayOverlayView: View {
             Spacer()
             HStack(alignment: .top, spacing: 1) {
                 ForEach(entry.licenseImages) { licenseImage in
-                    licenseImage.image
+                    Image(uiImage: licenseImage.image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }

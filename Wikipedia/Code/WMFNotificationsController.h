@@ -18,9 +18,11 @@ extern NSString *const WMFNotificationInfoArticleExtractKey;
 extern NSString *const WMFNotificationInfoViewCountsKey;
 extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
+@class MWKDataStore;
+
 @interface WMFNotificationsController : NSObject
 
-+ (WMFNotificationsController *)sharedNotificationsController;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 @property (nonatomic, getter=isApplicationActive) BOOL applicationActive;
@@ -28,6 +30,9 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler;
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents; //null date components will send the notification ASAP
+
+/// Registers notification categories for the app. Should only be called once at launch.
+- (void)updateCategories;
 
 @end
 

@@ -36,7 +36,7 @@ final class NavigationStateController: NSObject {
             }
         }
         if navigationState.shouldAttemptLogin {
-            WMFAuthenticationManager.sharedInstance.attemptLogin {
+            dataStore.authenticationManager.attemptLogin {
                 restore()
             }
         } else {

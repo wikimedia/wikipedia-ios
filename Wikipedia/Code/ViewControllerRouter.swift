@@ -17,14 +17,19 @@ class ViewControllerRouter: NSObject {
             return false
         }
 
-        if viewController is AVPlayerViewController {
-            navigationController.present(viewController, animated: true, completion: completion)
-        } else if let presented = navigationController.presentedViewController {
-            let wrapper = WMFThemeableNavigationController(rootViewController: viewController, theme:appViewController.theme, style: .gallery)
-            presented.present(wrapper, animated: true, completion: completion)
+        let showNewVC = {
+            if viewController is AVPlayerViewController {
+                navigationController.present(viewController, animated: true, completion: completion)
+            } else {
+                navigationController.pushViewController(viewController, animated: true)
+                completion()
+            }
+        }
+
+        if let presentedVC = navigationController.presentedViewController {
+            presentedVC.dismiss(animated: false, completion: showNewVC)
         } else {
-            navigationController.pushViewController(viewController, animated: true)
-            completion()
+            showNewVC()
         }
         
         return true

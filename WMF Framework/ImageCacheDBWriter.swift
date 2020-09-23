@@ -9,7 +9,7 @@ enum ImageCacheDBWriterError: Error {
 
 final class ImageCacheDBWriter: CacheDBWriting {
 
-    private let cacheBackgroundContext: NSManagedObjectContext
+    let context: NSManagedObjectContext
     private let imageFetcher: ImageFetcher
     
     var fetcher: CacheFetching {
@@ -20,7 +20,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     init(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext) {
         self.imageFetcher = imageFetcher
-        self.cacheBackgroundContext = cacheBackgroundContext
+        self.context = cacheBackgroundContext
     }
     
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
@@ -44,11 +44,6 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
         
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
-            return
-        }
-        
         guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
             completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
             return
@@ -57,12 +52,12 @@ final class ImageCacheDBWriter: CacheDBWriting {
         let variant = fetcher.variantForURLRequest(urlRequest)
     
         context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: context) else {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: self.context) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
                 return
             }
             cacheItem.isDownloaded = true
-            CacheDBWriterHelper.save(moc: context) { (result) in
+            CacheDBWriterHelper.save(moc: self.context) { (result) in
                 switch result {
                 case .success:
                     completion(.success)
@@ -78,13 +73,11 @@ final class ImageCacheDBWriter: CacheDBWriting {
         guard let variant = variant else {
             return true
         }
-        
-        let context = self.cacheBackgroundContext
 
         var result: Bool = false
         context.performAndWait {
         
-            let allVariantCacheItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: context)
+            let allVariantCacheItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: self.context)
                 let allVariantItems = allVariantCacheItems.compactMap { return CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }
                 
                 result = shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
@@ -128,8 +121,6 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
 private extension ImageCacheDBWriter {
     func cacheImages(groupKey: String, urlRequests: [URLRequest], completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
-        
-        let context = self.cacheBackgroundContext
         context.perform {
         
             let dispatchGroup = DispatchGroup()
@@ -149,13 +140,13 @@ private extension ImageCacheDBWriter {
                 
                 let variant = self.imageFetcher.variantForURLRequest(urlRequest)
                     
-                guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
+                guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: self.context) else {
                     errorRequests.append(urlRequest)
                     dispatchGroup.leave()
                     continue
                 }
                 
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: self.context) else {
                     errorRequests.append(urlRequest)
                     dispatchGroup.leave()
                     continue
@@ -164,7 +155,7 @@ private extension ImageCacheDBWriter {
                 item.variant = variant
                 group.addToCacheItems(item)
                 
-                CacheDBWriterHelper.save(moc: context) { (result) in
+                CacheDBWriterHelper.save(moc: self.context) { (result) in
                     
                     defer {
                         dispatchGroup.leave()

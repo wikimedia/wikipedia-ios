@@ -12,7 +12,7 @@
     return item;
 }
 
-- (UIButton *)wmf_UIButton {
+- (nullable UIButton *)wmf_UIButton {
     return [self.customView isKindOfClass:[UIButton class]] ? (UIButton *)self.customView : nil;
 }
 
