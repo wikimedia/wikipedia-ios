@@ -194,7 +194,10 @@ platform :ios do
     version = options[:version] || ''
     number = options[:number] || ''
     
-    gym(scheme: scheme_name, output_directory: build_dir, export_options: 'fastlane/ExportOptions.plist')
+    sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" archive"
+    sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
+    sh "zip -rq \"#{build_dir}/#{product_name}_#{version}_(#{number}).xcarchive.zip\" \"#{build_dir}/#{product_name}.xcarchive\""
+    sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
   end
   
   desc "Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers."
