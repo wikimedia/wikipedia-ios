@@ -17,9 +17,10 @@ public enum ArticleCacheDBWriterError: Error {
 final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
     
     let articleFetcher: ArticleFetcher
-    let cacheBackgroundContext: NSManagedObjectContext
-    private let imageController: ImageCacheController
+    let context: NSManagedObjectContext
+    let imageController: ImageCacheController
     let imageInfoFetcher: MWKImageInfoFetcher
+    
     
     var fetcher: CacheFetching {
         return articleFetcher
@@ -30,7 +31,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
     init(articleFetcher: ArticleFetcher, cacheBackgroundContext: NSManagedObjectContext, imageController: ImageCacheController, imageInfoFetcher: MWKImageInfoFetcher) {
         
         self.articleFetcher = articleFetcher
-        self.cacheBackgroundContext = cacheBackgroundContext
+        self.context = cacheBackgroundContext
         self.imageController = imageController
         self.imageInfoFetcher = imageInfoFetcher
    }
@@ -115,11 +116,6 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
     
     func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
         
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(.failure(CacheDBWritingMarkDownloadedError.missingMOC))
-            return
-        }
-        
         guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
             completion(.failure(CacheDBWritingMarkDownloadedError.unableToDetermineItemKey))
             return
@@ -128,7 +124,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         let variant = fetcher.variantForURLRequest(urlRequest)
     
         context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: nil, in: context) else {
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: nil, in: self.context) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
                 return
             }
@@ -140,7 +136,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 cacheItem.variant = variant
             }
             
-            CacheDBWriterHelper.save(moc: context) { (result) in
+            CacheDBWriterHelper.save(moc: self.context) { (result) in
                 switch result {
                 case .success:
                     completion(.success)
@@ -192,7 +188,7 @@ extension ArticleCacheDBWriter {
     }
     
     func addBundledResourcesForMigration(desktopArticleURL: URL, completion: @escaping CacheDBWritingCompletionWithURLRequests) {
-        cacheBackgroundContext.perform {
+        context.perform {
                 
             
             guard let offlineResources = self.articleFetcher.bundledOfflineResourceURLs() else {
@@ -227,7 +223,7 @@ extension ArticleCacheDBWriter {
     func bundledResourcesAreCached() -> Bool {
         
         var result: Bool = false
-        cacheBackgroundContext.performAndWait {
+        context.performAndWait {
             
             var bundledOfflineResourceKeys: [String] = []
             guard let offlineResources = articleFetcher.bundledOfflineResourceURLs() else {
@@ -256,7 +252,7 @@ extension ArticleCacheDBWriter {
             
             fetchRequest.predicate = NSPredicate(format: "key IN %@", bundledOfflineResourceKeys)
             do {
-                let items = try cacheBackgroundContext.fetch(fetchRequest)
+                let items = try context.fetch(fetchRequest)
                 
                 guard items.count == articleFetcher.expectedNumberOfBundledOfflineResources else {
                     result = false

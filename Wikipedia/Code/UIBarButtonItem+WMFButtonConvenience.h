@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIBarButtonItem *)wmf_buttonType:(WMFButtonType)type target:(nullable id)target action:(nullable SEL)action;
 
 // If self.customView is UIButton return it else return nil.
-- (UIButton *)wmf_UIButton;
+- (nullable UIButton *)wmf_UIButton;
 
 + (UIBarButtonItem *)wmf_barButtonItemOfFixedWidth:(CGFloat)width;
 

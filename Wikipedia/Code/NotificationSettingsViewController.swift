@@ -68,7 +68,8 @@ class NotificationSettingsViewController: SubSettingsViewController {
             }, switchAction: { [weak self] (isOn) in
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if (isOn) {
-                    WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { [weak self] (granted, error) in
+                    // SINGLETONTODO
+                    MWKDataStore.shared().notificationsController.requestAuthenticationIfNecessary(completionHandler: { [weak self] (granted, error) in
                         if let error = error as NSError? {
                             self?.wmf_showAlertWithError(error)
                         }

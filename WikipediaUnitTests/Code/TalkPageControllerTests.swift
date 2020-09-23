@@ -79,7 +79,7 @@ class TalkPageControllerTests: XCTestCase {
         tempDataStore = MWKDataStore.temporary()
         
         if let data = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") {
-            talkPageFetcher = MockTalkPageFetcher(session: Session.shared, configuration: Configuration.current, data: data)
+            talkPageFetcher = MockTalkPageFetcher(session: tempDataStore.session, configuration: tempDataStore.configuration, data: data)
         } else {
             XCTFail("Failure setting up MockTalkPageFetcher")
         }

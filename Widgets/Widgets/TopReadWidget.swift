@@ -31,56 +31,54 @@ final class TopReadData {
         return TopReadEntry(date: Date())
     }
 
-    private var dataStore: MWKDataStore {
-        MWKDataStore.shared()
-    }
-
-    private var primaryAppLanguageSiteURL: URL? {
-        return dataStore.languageLinkController.appLanguage?.siteURL()
-    }
-
-    // MARK: Public
-
-    func fetchLatestAvailableTopRead(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
-        let moc = dataStore.viewContext
-        moc.perform {
-            guard let latest = moc.newestGroup(of: .topRead, forSiteURL: self.primaryAppLanguageSiteURL), latest.isForToday else {
-                guard !usingCache else {
-                    completion(self.placeholder)
+    func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
+        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+            let moc = dataStore.viewContext
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+            moc.perform {
+                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL), latest.isForToday else {
+                    guard !usingCache else {
+                        completion(self.placeholder)
+                        return
+                    }
+                    self.fetchLatestAvailableTopReadFromNetwork(from: dataStore, completion: completion)
                     return
                 }
-                self.fetchLatestAvailableTopReadFromNetwork(completion: completion)
-                return
+                self.assembleTopReadFromContentGroup(latest, with: dataStore, usingImageCache: usingCache, completion: completion)
             }
-            self.assembleTopReadFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
         }
     }
 
     // MARK: Private
     
-    private func fetchLatestAvailableTopReadFromNetwork(completion: @escaping (TopReadEntry) -> Void) {
+    private func fetchLatestAvailableTopReadFromNetwork(from dataStore: MWKDataStore, completion: @escaping (TopReadEntry) -> Void) {
         dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = self.dataStore.viewContext
+            let moc = dataStore.viewContext
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
             moc.perform {
-                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: self.primaryAppLanguageSiteURL) else {
+                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL) else {
                     completion(self.placeholder)
                     return
                 }
-                self.assembleTopReadFromContentGroup(latest, completion: completion)
+                self.assembleTopReadFromContentGroup(latest, with: dataStore, completion: completion)
             }
         }
     }
     
-    private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
+    private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
         }
 
+        // The WMFContentGroup can only be accessed synchronously
+        // re-accessing it from the main queue or another queue might lead to unexpected behavior
+        let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
+        let groupURL = topRead.url
+        
         var rankedElements: [TopReadEntry.RankedElement] = []
-
         for article in results {
-            if let articlePreview = self.dataStore.fetchArticle(with: article.articleURL) {
+            if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate {
                     rankedElements.append(.init(title: article.displayTitle, description: article.wikidataDescription ?? article.snippet ?? "", articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
                 }
@@ -93,10 +91,12 @@ final class TopReadData {
 
         for (index, element) in rankedElements.enumerated() {
             group.enter()
-            guard let thumbnailURL = element.thumbnailURL, let fetcher = ImageCacheController.shared else {
+            guard let thumbnailURL = element.thumbnailURL else {
                 group.leave()
                 continue
             }
+            
+            let fetcher = dataStore.cacheController.imageCache
             
             if usingImageCache {
                 if let cachedImage = fetcher.cachedImage(withURL: thumbnailURL) {
@@ -115,8 +115,7 @@ final class TopReadData {
         }
 
         group.notify(queue: .main) {
-            let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
-            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: topRead.url, contentLayoutDirection: layoutDirection))
+            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: groupURL, contentLayoutDirection: layoutDirection))
         }
     }
 

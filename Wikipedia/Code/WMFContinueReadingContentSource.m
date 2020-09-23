@@ -8,7 +8,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 @interface WMFContinueReadingContentSource ()
 
-@property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
+@property (readwrite, nonatomic, weak) MWKDataStore *userDataStore;
 
 @end
 

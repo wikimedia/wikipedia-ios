@@ -22,6 +22,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     @IBOutlet fileprivate weak var scrollContainer: UIView!
     
+    // SINGLETONTODO
+    let dataStore = MWKDataStore.shared()
+    
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
     let accountCreator = WMFAccountCreator()
     
@@ -111,7 +114,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate func getCaptcha() {
         let failure: WMFErrorHandler = {error in }
-        let siteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL()
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
         accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
             DispatchQueue.main.async {
                 self.captchaViewController?.captcha = info.captcha
@@ -204,7 +207,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     public func captchaSiteURL() -> URL {
-        return (MWKDataStore.shared().languageLinkController.appLanguage?.siteURL())!
+        return (dataStore.languageLinkController.appLanguage?.siteURL())!
     }
     
     public func captchaHideSubtitle() -> Bool {
@@ -215,7 +218,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         let username = usernameField.text ?? ""
         let password = passwordField.text ?? ""
-        WMFAuthenticationManager.sharedInstance.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
+        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
             switch loginResult {
             case .success(_):
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
@@ -322,7 +325,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        let siteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL()
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
         accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
             DispatchQueue.main.async {
                 self.login()

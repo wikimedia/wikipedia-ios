@@ -6,12 +6,25 @@ import Foundation
 class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
     static let webProcessPool = WKProcessPool()
     
-    let schemeHandler = SchemeHandler.shared
+    let schemeHandler: SchemeHandler
     var articleURL = URL(string: "app://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States")!
-    let session = Session.shared
-    let configuration = Configuration.current
+    let session: Session
+    let configuration: Configuration
+    let permanentCache: PermanentCacheController
     var didReceiveDataCallback: ((WKURLSchemeTask, Data) -> Void)?
     var extraHeaders: [String: String] = [:]
+    
+    init() {
+        self.permanentCache = ArticleTestHelpers.cacheController
+        self.session = ArticleTestHelpers.dataStore.session
+        self.configuration = ArticleTestHelpers.dataStore.configuration
+        self.schemeHandler = SchemeHandler(scheme: "app", session: session)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
     
@@ -66,13 +79,13 @@ class ArticleTestHelpers {
     }
     static var fixtureData: FixtureData?
     
-    static func setupTemporaryCacheController() {
+    static let dataStore = MWKDataStore.temporary()
+    static let cacheController: PermanentCacheController = {
         let tempPath = WMFRandomTemporaryPath()!
         let randomURL = NSURL.fileURL(withPath: tempPath)
         let temporaryCacheURL = randomURL.appendingPathComponent("Permanent Cache", isDirectory: true)
-
-        CacheController.temporaryCacheURL = temporaryCacheURL
-    }
+        return PermanentCacheController.testController(with: temporaryCacheURL, dataStore: dataStore)
+    }()
     
     static func pullDataFromFixtures(inBundle bundle: Bundle) {
         
@@ -197,10 +210,7 @@ class ArticleTestHelpers {
     }
     
     static func writeCachedPiecesToCachingSystem() {
-        guard let moc = CacheController.backgroundCacheContext else {
-            XCTFail("Unable to pull backgroundCacheContext")
-            return
-        }
+        let moc = cacheController.managedObjectContext
          
         let mobileHTMLURLString = "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"
         let cssString = "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site"
@@ -229,7 +239,7 @@ class ArticleTestHelpers {
         }
         
         //set up file names and content
-        let fileNameGenerator = PermanentlyPersistableURLCache()
+        let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
         guard let htmlURL = URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
             let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {
@@ -322,10 +332,7 @@ class ArticleTestHelpers {
     }
     
     static func writeVariantPiecesToCachingSystem() {
-        guard let moc = CacheController.backgroundCacheContext else {
-            XCTFail("Unable to pull backgroundCacheContext")
-            return
-        }
+        let moc = cacheController.managedObjectContext
          
         let mobileHTMLURLString = "https://zh.wikipedia.org/api/rest_v1/page/mobile-html/%E7%BE%8E%E5%9B%BD"
         let cssString = "https://zh.wikipedia.org/api/rest_v1/data/css/mobile/site"
@@ -355,7 +362,7 @@ class ArticleTestHelpers {
         }
         
         //set up file names and content
-        let fileNameGenerator = PermanentlyPersistableURLCache()
+        let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
         guard let htmlURL = URL(string: mobileHTMLURLString),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
             let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {

@@ -32,7 +32,7 @@ struct OnThisDayProvider: TimelineProvider {
     // MARK: TimelineProvider
 
     func placeholder(in: Context) -> OnThisDayEntry {
-        return dataStore.placeholderEntry
+        return dataStore.placeholderEntryFromLanguage(nil)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<OnThisDayEntry>) -> Void) {
@@ -47,6 +47,7 @@ struct OnThisDayProvider: TimelineProvider {
             }
             let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
             completion(timeline)
+            
         }
     }
 
@@ -88,19 +89,8 @@ final class OnThisDayData {
 
     static let shared = OnThisDayData()
 
-    private var imageInfoFetcher = MWKImageInfoFetcher()
-
-    private var dataStore: MWKDataStore {
-        MWKDataStore.shared()
-    }
-
-	private var primaryAppLanguageSiteURL: URL? {
-		return dataStore.languageLinkController.appLanguage?.siteURL()
-	}
-
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
-    var placeholderEntry: OnThisDayEntry {
-        let language = dataStore.languageLinkController.appLanguage
+    func placeholderEntryFromLanguage(_ language: MWKLanguageLink?) -> OnThisDayEntry {
         let locale = NSLocale.wmf_locale(for: language?.languageCode)
         let isRTL = (MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language?.languageCode) == UISemanticContentAttribute.forceRightToLeft)
 
@@ -149,72 +139,73 @@ final class OnThisDayData {
 
     // MARK: Public
     
-    func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ completion: @escaping (OnThisDayEntry) -> Void) {
-        guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage, WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
-            let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
-            completion(errorEntry)
-            return
-        }
-
-        let moc = dataStore.viewContext
-        moc.perform {
-			guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: self.primaryAppLanguageSiteURL),
-                  latest.isForToday
-            else {
-                guard !usingCache else {
-                    completion(self.placeholderEntry)
-                    return
-                }
-                self.fetchLatestOnThisDayEntryFromNetwork(completion)
+    func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ userCompletion: @escaping (OnThisDayEntry) -> Void) {
+        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+            guard let appLanguage = dataStore.languageLinkController.appLanguage,
+                WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
+                let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
+                completion(errorEntry)
                 return
             }
-            self.assembleOnThisDayFromContentGroup(latest, usingImageCache: usingCache, completion: completion)
-        }
-    }
-
-    // MARK: Private
-
-    private func fetchLatestOnThisDayEntryFromNetwork(_ completion: @escaping (OnThisDayEntry) -> Void) {
-        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = self.dataStore.viewContext
+            let siteURL = appLanguage.siteURL()
+            let moc = dataStore.viewContext
             moc.perform {
-				guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: self.primaryAppLanguageSiteURL) else {
-                    // If there's no content even after a network fetch, it's likely an error
-                    self.handleNoInternetError(completion)
+                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL),
+                      latest.isForToday
+                else {
+                    guard !usingCache else {
+                        completion(self.placeholderEntryFromLanguage(appLanguage))
+                        return
+                    }
+                    self.fetchLatestOnThisDayEntryFromNetwork(with: dataStore, siteURL: siteURL, completion)
                     return
                 }
-                self.assembleOnThisDayFromContentGroup(latest, completion: completion)
+                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, usingImageCache: usingCache, completion: completion)
             }
         }
     }
     
-    private func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, usingImageCache: Bool = false, completion: @escaping (OnThisDayEntry) -> Void) {
-        guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
-              let previewEvent = previewEvents.first
-        else {
-            completion(placeholderEntry)
-            return
-        }
-
-        let sendDataToWidget: (UIImage?) -> Void = { image in
-            DispatchQueue.main.async {
-                guard let entry = OnThisDayEntry(contentGroup: contentGroup, image: image) else {
-                    completion(self.placeholderEntry)
+    func fetchLatestOnThisDayEntryFromNetwork(with dataStore: MWKDataStore, siteURL: URL, _ completion: @escaping (OnThisDayEntry) -> Void) {
+        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
+            let moc = dataStore.viewContext
+            moc.perform {
+                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL) else {
+                    // If there's no content even after a network fetch, it's likely an error
+                    self.handleNoInternetError(completion)
                     return
                 }
-                completion(entry)
+                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, completion: completion)
             }
         }
+    }
+    
+    private func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (OnThisDayEntry) -> Void) {
 
-        let imageURLRaw = previewEvent.articlePreviews?.first?.thumbnailURL
-        guard let imageURL = imageURLRaw, !usingImageCache else {
-            /// The argument sent to `sendDataToWidget` on the next line could be nil because `imageURLRaw` is nil, or `cachedImage` returns nil.
-            /// `sendDataToWidget` will appropriately handle a nil image, so we don't need to worry about that here.
-            sendDataToWidget(ImageCacheController.shared?.cachedImage(withURL: imageURLRaw)?.staticImage)
+        guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
+              let previewEvent = previewEvents.first,
+              let entry = OnThisDayEntry(contentGroup)
+        else {
+            let language = dataStore.languageLinkController.appLanguage
+            completion(placeholderEntryFromLanguage(language))
             return
         }
-
-        ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { _ in
+        
+        let sendDataToWidget: (UIImage?) -> Void = { image in
+            var entryWithImage = entry
+            entryWithImage.articleImage = image
+            completion(entryWithImage)
+        }
+        
+        let imageURLRaw = previewEvent.articlePreviews?.first?.thumbnailURL
+        guard let imageURL = imageURLRaw, !usingImageCache else {
+                    /// The argument sent to `sendDataToWidget` on the next line could be nil because `imageURLRaw` is nil, or `cachedImage` returns nil.
+                    /// `sendDataToWidget` will appropriately handle a nil image, so we don't need to worry about that here.
+            let cachedImage = dataStore.cacheController.imageCache.cachedImage(withURL: imageURLRaw)?.staticImage
+            sendDataToWidget(cachedImage)
+            return
+        }
+        
+        dataStore.cacheController.imageCache.fetchImage(withURL: imageURL, failure: { _ in
             sendDataToWidget(nil)
         }, success: { fetchedImage in
             sendDataToWidget(fetchedImage.image.staticImage)
@@ -244,13 +235,13 @@ struct OnThisDayEntry: TimelineEntry {
     let eventYearsAgo: String?
     let articleTitle: String?
     let articleSnippet: String?
-    let articleImage: UIImage?
+    var articleImage: UIImage?
     let articleURL: URL?
     let yearRange: String
 }
 
 extension OnThisDayEntry {
-    init?(contentGroup: WMFContentGroup, image: UIImage?) {
+    init?(_ contentGroup: WMFContentGroup) {
         guard
             let midnightUTCDate = contentGroup.midnightUTCDate,
             let calendar = NSCalendar.wmf_utcGregorian(),
@@ -286,7 +277,6 @@ extension OnThisDayEntry {
         eventSnippet = previewEvent.text
         articleTitle = article.displayTitle
         articleSnippet = article.descriptionOrSnippet
-        articleImage = image
         articleURL = article.articleURL
         let locale = NSLocale.wmf_locale(for: language)
         let currentYear = Calendar.current.component(.year, from: Date())

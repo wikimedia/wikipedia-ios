@@ -23,12 +23,13 @@ struct PlaceSearchResult
 
 class PlaceSearchService
 {
-    public var dataStore: MWKDataStore!
+    public let dataStore: MWKDataStore
     private let locationSearchFetcher = WMFLocationSearchFetcher()
-    private let wikidataFetcher = WikidataFetcher(session: Session.shared, configuration: Configuration.current)
+    private let wikidataFetcher: WikidataFetcher
     
     init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
+        self.wikidataFetcher = WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
     }
     
     var fetchRequestForSavedArticlesWithLocation: NSFetchRequest<WMFArticle> {

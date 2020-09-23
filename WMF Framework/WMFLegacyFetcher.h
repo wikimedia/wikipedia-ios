@@ -9,6 +9,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Bridge from old Obj-C fetcher classes to new Swift fetcher class
 @interface WMFLegacyFetcher : NSObject
 
+- (instancetype)initWithSession:(WMFSession *)session configuration:(WMFConfiguration *)configuration NS_DESIGNATED_INITIALIZER;
+- (instancetype)init;
+
 @property (nonatomic, readonly) WMFSession *session;
 @property (nonatomic, readonly) WMFConfiguration *configuration;
 @property (nonatomic, strong, readonly) WMFFetcher *fetcher;

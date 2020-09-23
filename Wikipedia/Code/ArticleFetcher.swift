@@ -23,9 +23,9 @@ enum ArticleFetcherError: LocalizedError {
 final public class ArticleFetcher: Fetcher, CacheFetching {    
     @objc required public init(session: Session, configuration: Configuration) {
         #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE
-        super.init(session: Session.shared, configuration: Configuration.appsLabsPageContentService)
+        super.init(session: session, configuration: Configuration.appsLabsPageContentService)
         #elseif WMF_LOCAL_PAGE_CONTENT_SERVICE
-        super.init(session: Session.shared, configuration: Configuration.localPageContentService)
+        super.init(session: session, configuration: Configuration.localPageContentService)
         #else
         super.init(session: session, configuration: configuration)
         #endif

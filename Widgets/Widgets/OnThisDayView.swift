@@ -450,7 +450,7 @@ private func startYOfCircle(viewHeight: CGFloat, circleHeight: CGFloat, topPaddi
 
 struct OnThisDayDayWidget_Previews: PreviewProvider {
     static var previews: some View {
-        OnThisDayView(entry: OnThisDayData.shared.placeholderEntry)
+        OnThisDayView(entry: OnThisDayData.shared.placeholderEntryFromLanguage(nil))
             .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }

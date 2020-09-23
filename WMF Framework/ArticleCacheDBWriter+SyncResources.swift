@@ -31,7 +31,7 @@ extension ArticleCacheDBWriter {
             return lhs.itemKeyAndVariant == rhs.itemKeyAndVariant
         }
     }
-    
+        
     //adds new resources to DB, returns old resources in completion
     func syncResources(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (Result<CacheDBWritingSyncSuccessResult, Error>) -> Void) {
         
@@ -123,7 +123,7 @@ extension ArticleCacheDBWriter {
                     }
                     
                     let allVariantItems = similarItems.map { $0.itemKeyAndVariant }
-                    if ImageCacheController.shared?.shouldDownloadVariantForAllVariantItems(variant: item.itemKeyAndVariant.variant, allVariantItems) ?? false {
+                    if self.imageController.shouldDownloadVariantForAllVariantItems(variant: item.itemKeyAndVariant.variant, allVariantItems) {
                         finalMediaListItems.append(item)
                     }
                 }
@@ -149,13 +149,11 @@ extension ArticleCacheDBWriter {
                 let networkItemsForAdd: Set<NetworkItem> = Set(offlineResourceItems + finalMediaListItems + imageInfoItems)
                 let networkItemsForRemove: Set<NetworkItem> = Set([mobileHTMLNetworkItem] + [mediaListNetworkItem] + offlineResourceItems + finalMediaListItems + imageInfoItems)
                 
-                guard let context = CacheController.backgroundCacheContext else {
-                    completion(.failure(ArticleCacheDBWriterSyncError.missingMOC))
-                    return
-                }
-                
-                context.perform {
-                    guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: context) else {
+                self.context.perform { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
+                    guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: self.context) else {
                         completion(.failure(ArticleCacheDBWriterSyncError.cannotFindCacheGroup))
                         return
                     }
@@ -215,11 +213,9 @@ extension ArticleCacheDBWriter {
     }
     
     private func cacheItems(groupKey: String, items: Set<NetworkItem>, completion: @escaping ((SaveResult) -> Void)) {
-
-        let context = self.cacheBackgroundContext
         context.perform {
 
-            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
+            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: self.context) else {
                 completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateCacheGroup))
                 return
             }
@@ -235,7 +231,7 @@ extension ArticleCacheDBWriter {
                 let itemKey = item.itemKeyAndVariant.itemKey
                 let variant = item.itemKeyAndVariant.variant
                 
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: context) else {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: self.context) else {
                     completion(.failure(ArticleCacheDBWriterSyncError.failureFetchOrCreateCacheItem))
                     return
                 }
@@ -243,7 +239,7 @@ extension ArticleCacheDBWriter {
                 group.addToCacheItems(item)
             }
             
-            CacheDBWriterHelper.save(moc: context, completion: completion)
+            CacheDBWriterHelper.save(moc: self.context, completion: completion)
         }
     }
 }
