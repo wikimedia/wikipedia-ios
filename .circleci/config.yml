@@ -23,7 +23,6 @@ commands:
 jobs:
   test_pr:
     executor: xcode
-    resource_class: large
     steps:
       - checkout
       - install_dependencies
