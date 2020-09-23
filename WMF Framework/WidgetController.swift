@@ -33,14 +33,13 @@ public final class WidgetController: NSObject {
     /// - Parameter userCompletion: the completion block to call with the result
     /// - Parameter task: block that takes the `MWKDataStore` to use for updates and the completion block to call when done as parameters
     public func startWidgetUpdateTask<T>(_ userCompletion: @escaping (T) -> Void, _ task: @escaping (MWKDataStore, @escaping (T) -> Void) -> Void)  {
-        let processInfo = ProcessInfo.processInfo
-        let start = processInfo.beginActivity(options: [.background, .suddenTerminationDisabled, .automaticTerminationDisabled], reason: "Updating Wikipedia Widgets - " + UUID().uuidString)
         getRetainedSharedDataStore { dataStore in
             task(dataStore, { result in
                 DispatchQueue.main.async {
-                    userCompletion(result)
                     self.releaseSharedDataStore()
-                    processInfo.endActivity(start)
+                    DispatchQueue.main.async {
+                        userCompletion(result)
+                    }
                 }
             })
         }
