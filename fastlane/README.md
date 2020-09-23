@@ -41,11 +41,6 @@ Runs tests against the beta cluster to check for upstream changes.
 fastlane ios verify_pull_request
 ```
 Runs tests on select platforms for verifying pull requests
-### ios read_xcversion
-```
-fastlane ios read_xcversion
-```
-Reads Xcode version from the .xcversion file and sets it using xcversion()
 ### ios verify
 ```
 fastlane ios verify
