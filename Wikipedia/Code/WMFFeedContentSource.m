@@ -51,7 +51,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (WMFFeedContentFetcher *)fetcher {
     if (_fetcher == nil) {
-        _fetcher = [[WMFFeedContentFetcher alloc] init];
+        _fetcher = [[WMFFeedContentFetcher alloc] initWithSession:self.userDataStore.session configuration:self.userDataStore.configuration];
     }
     return _fetcher;
 }
