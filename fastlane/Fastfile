@@ -6,26 +6,21 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 11 Pro', os: '14'},
-  {device: 'iPhone 8', os: '12'},
-  {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13'}
+  {device: 'iPhone 11 Pro', os: '14.0'},
+  {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13.5'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone X', os: '12', scheme: "WikipediaRTL"}
-]
-
-beta_cluster_configurations_to_test = [
-  {device: 'iPhone X', os: '12', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone 11 Pro', os: '13.5', scheme: "WikipediaRTL"}
 ]
 
 def get_devices_by_scheme_from_options(options)
-  configs = options[:configurations] || [{device: 'iPhone X', os: '12'}]
+  configs = options[:configurations] || [{device: 'iPhone 11 Pro', os: '14.0'}]
   devices_by_scheme = {}
   configs.each do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    device = options[:device] || 'iPhone X'
-    os = options[:os]         || '12'
+    device = options[:device] || 'iPhone 11 Pro'
+    os = options[:os]         || '14.0'
     sim = "#{device} (#{os})"
     devices = devices_by_scheme[scheme] || []
     devices << sim
@@ -72,7 +67,7 @@ platform :ios do
       scheme: "Wikipedia",
       configuration: "Debug",
       sdk: 'iphonesimulator',
-      destination: 'platform=iOS Simulator,OS=14.0,name=iPhone X',
+      destination: 'platform=iOS Simulator,OS=14.0,name=iPhone 11 Pro',
       analyze: true
     )
   end
@@ -80,11 +75,6 @@ platform :ios do
   desc "Runs tests on the primary platforms and configurations"
   lane :verify_test_platforms do
     verify({configurations: configurations_to_test})
-  end
-  
-  desc "Runs tests against the beta cluster to check for upstream changes."
-  lane :beta_cluster_tests do
-    verify({configurations: beta_cluster_configurations_to_test})
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
