@@ -87,6 +87,33 @@ public final class WidgetController: NSObject {
         }
         _dataStore = nil
         dataStoreRetainCount = 0
+        #if DEBUG
+        DispatchQueue.main.async {
+            let openFiles = self.openFilePaths()
+            let openSqliteFile = openFiles.first(where: { $0.hasSuffix(".sqlite") })
+            assert(openSqliteFile == nil, "There should be no open sqlite files (which in our case are Core Data persistent stores) in the shared app container after the data store is released. The widget still has a lock on these files: \(openFiles)")
+        }
+        #endif
     }
+    
+    #if DEBUG
+    /// From https://developer.apple.com/forums/thread/655225?page=2
+    func openFilePaths() -> [String] {
+        (0..<getdtablesize()).compactMap { fd in
+            // Return nil for invalid file descriptors.
+            var flags: CInt = 0
+            guard fcntl(fd, F_GETFL, &flags) >= 0 else {
+                return nil
+            }
+            // Return "?" for file descriptors not associated with a path, for
+            // example, a socket.
+            var path = [CChar](repeating: 0, count: Int(MAXPATHLEN))
+            guard fcntl(fd, F_GETPATH, &path) >= 0 else {
+                return "?"
+            }
+            return String(cString: path)
+        }
+    }
+    #endif
     
 }
