@@ -60,7 +60,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         let permanentStorageURL = permanentStorageDirectory.appendingPathComponent("Events.sqlite")
         DDLogDebug("EventLoggingService: Events persistent store: \(permanentStorageURL)")
         
-        return EventLoggingService(session: Session.shared, permanentStorageURL: permanentStorageURL)
+        // SINGLETONTODO
+        return EventLoggingService(session: MWKDataStore.shared().session, permanentStorageURL: permanentStorageURL)
     }()
     
     @objc

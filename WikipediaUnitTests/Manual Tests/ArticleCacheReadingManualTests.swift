@@ -8,7 +8,6 @@ class ArticleCacheReadingManualTests: XCTestCase {
         super.setUp()
         
         ArticleTestHelpers.pullDataFromFixtures(inBundle: wmf_bundle())
-        ArticleTestHelpers.setupTemporaryCacheController()
     }
     
     override func tearDown() {

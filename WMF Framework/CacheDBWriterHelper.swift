@@ -71,13 +71,7 @@ final class CacheDBWriterHelper {
     }
     
     static func isCached(itemKey: CacheController.ItemKey, variant: String?, in moc: NSManagedObjectContext, completion: @escaping (Bool) -> Void){
-        
-        guard let context = CacheController.backgroundCacheContext else {
-            completion(false)
-            return
-        }
-        
-        return context.perform {
+        return moc.perform {
             let isCached = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: moc) != nil
             completion(isCached)
         }

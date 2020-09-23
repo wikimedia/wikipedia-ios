@@ -1220,7 +1220,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     var isLoggedIn: Bool {
-        return WMFAuthenticationManager.sharedInstance.isLoggedIn
+        // SINGLETONTODO
+        return MWKDataStore.shared().authenticationManager.isLoggedIn
     }
 }
 

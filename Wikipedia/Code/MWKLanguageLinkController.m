@@ -167,6 +167,10 @@ static id _sharedInstance;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [self.moc performBlockAndWait:^{
         [self.moc wmf_setValue:languageCodes forKey:WMFPreviousLanguagesKey];
+        NSError *preferredLanguageCodeSaveError = nil;
+        if (![self.moc save:&preferredLanguageCodeSaveError]) {
+            DDLogError(@"Error saving preferred languages: %@", preferredLanguageCodeSaveError);
+        }
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];

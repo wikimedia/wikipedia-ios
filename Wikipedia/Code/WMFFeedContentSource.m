@@ -25,7 +25,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
-@property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
+@property (readwrite, nonatomic, weak) MWKDataStore *userDataStore;
 @property (readwrite, nonatomic, strong) WMFNotificationsController *notificationsController;
 
 @property (readwrite, nonatomic, strong) WMFFeedContentFetcher *fetcher;
@@ -36,13 +36,13 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @implementation WMFFeedContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL userDataStore:(MWKDataStore *)userDataStore {
     NSParameterAssert(siteURL);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
-        self.notificationsController = notificationsController;
+        self.notificationsController = userDataStore.notificationsController;
     }
     return self;
 }

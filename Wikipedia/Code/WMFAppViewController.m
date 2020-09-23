@@ -307,6 +307,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
+    
+    [self.dataStore.notificationsController updateCategories];
 }
 
 - (void)configureTabController {
@@ -868,7 +870,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
-    [[WMFAuthenticationManager sharedInstance]
+    [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
@@ -1264,9 +1266,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:[SchemeHandler sharedInstance]];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:nil];
     articleVC.loadCompletion = completion;
-
+    
+    #if DEBUG
     if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
         os_log_t customLog = os_log_create("org.wikimedia.ios", "articleLoadTime");
         NSDate *start = [NSDate date];
@@ -1277,6 +1280,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             os_log_with_type(customLog, OS_LOG_TYPE_INFO, "article load time = %f", articleLoadTime);
         };
     }
+    #endif
 
     [nc pushViewController:articleVC animated:YES];
     return articleVC;
@@ -1349,7 +1353,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (WMFNotificationsController *)notificationsController {
-    WMFNotificationsController *controller = [WMFNotificationsController sharedNotificationsController];
+    WMFNotificationsController *controller = self.dataStore.notificationsController;
     controller.applicationActive = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
     return controller;
 }
@@ -2078,7 +2082,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showLoggedOutPanelIfNeeded {
-    WMFAuthenticationManager *authenticationManager = WMFAuthenticationManager.sharedInstance;
+    WMFAuthenticationManager *authenticationManager = self.dataStore.authenticationManager;
     BOOL isUserUnawareOfLogout = authenticationManager.isUserUnawareOfLogout;
     if (!isUserUnawareOfLogout) {
         return;

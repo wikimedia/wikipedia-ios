@@ -15,7 +15,14 @@ public enum WMFCachePolicy {
     }
 }
 
-@objc(WMFSession) public class Session: NSObject {
+@objc(WMFSessionAuthenticationDelegate)
+protocol SessionAuthenticationDelegate: NSObjectProtocol {
+    func deauthenticate()
+    func attemptReauthentication()
+}
+
+@objc(WMFSession)
+public class Session: NSObject {
     
     public struct Request {
         public enum Method {
@@ -82,7 +89,7 @@ public enum WMFCachePolicy {
         }
     }
     
-    public func removeAllCookies() {
+    @objc public func removeAllCookies() {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return
         }
@@ -96,41 +103,48 @@ public enum WMFCachePolicy {
         }
     }
     
-    @objc public static var defaultConfiguration: URLSessionConfiguration {
+    @objc public func clearTemporaryCache() {
+        defaultURLSession.configuration.urlCache?.removeAllCachedResponses()
+    }
+    
+    /// The permanent cache to utilize for this session
+    weak var permanentCache: PermanentCacheController? {
+        didSet {
+            defaultURLSession.finishTasksAndInvalidate()
+            defaultURLSession = Session.getURLSession(with: permanentCache, delegate: sessionDelegate)
+        }
+    }
+    
+    private static func getURLSession(with permanentCacheController: PermanentCacheController? = nil, delegate: SessionDelegate) -> URLSession {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage
-        config.urlCache = permanentCache
-        return config
+        config.urlCache = permanentCacheController?.urlCache ?? URLCache.shared
+        return URLSession(configuration: config, delegate: delegate, delegateQueue: delegate.delegateQueue)
     }
-    
-    private static let permanentCache = PermanentlyPersistableURLCache()
-    
-    @objc public static let urlSession: URLSession = {
-        return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
-    }()
-    
-    @objc public static func clearTemporaryCache() {
-        urlSession.configuration.urlCache?.removeAllCachedResponses()
-    }
-    
-    private static let sessionDelegate: SessionDelegate = {
-        return SessionDelegate()
-    }()
     
     private let configuration: Configuration
+    public var defaultURLSession: URLSession
+    private let sessionDelegate: SessionDelegate
+    @objc weak var authenticationDelegate: SessionAuthenticationDelegate?
     
-    public required init(configuration: Configuration) {
+    @objc public required init(configuration: Configuration) {
         self.configuration = configuration
+        self.sessionDelegate = SessionDelegate()
+        self.defaultURLSession = Session.getURLSession(delegate: sessionDelegate)
     }
     
-    @objc public static let shared = Session(configuration: Configuration.current)
+    deinit {
+        defaultURLSession.invalidateAndCancel()
+    }
     
-    public let defaultURLSession = Session.urlSession
-    private let sessionDelegate = Session.sessionDelegate
-    private var defaultPermanentCache = Session.permanentCache
+    public func cancelAllRequests() {
+        defaultURLSession.invalidateAndCancel()
+        defaultURLSession = Session.getURLSession(with: permanentCache, delegate: sessionDelegate)
+    }
     
     public let wifiOnlyURLSession: URLSession = {
-        var config = Session.defaultConfiguration
+        let config = URLSessionConfiguration.default
+        config.httpCookieStorage = Session.defaultCookieStorage
         config.allowsCellularAccess = false
         return URLSession(configuration: config)
     }()
@@ -247,7 +261,7 @@ public enum WMFCachePolicy {
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
         
         if request.cachePolicy == .returnCacheDataElseLoad,
-            let cachedResponse = defaultPermanentCache.cachedResponse(for: request) {
+            let cachedResponse = permanentCache?.urlCache.cachedResponse(for: request) {
             callback.response?(cachedResponse.response)
             callback.data?(cachedResponse.data)
             callback.success()
@@ -266,7 +280,7 @@ public enum WMFCachePolicy {
             if let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 304 {
                 
-                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request) {
+                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }
@@ -274,7 +288,7 @@ public enum WMFCachePolicy {
             
             if let _ = error {
                 
-                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request) {
+                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }
@@ -316,26 +330,12 @@ public enum WMFCachePolicy {
         guard let response = response, let httpResponse = response as? HTTPURLResponse else {
             return
         }
-        
-        let logout = {
-            WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
-                self.removeAllCookies()
-            }
-        }
         switch httpResponse.statusCode {
         case 401:
             if (reattemptLoginOn401Response) {
-                WMFAuthenticationManager.sharedInstance.attemptLogin(reattemptOn401Response: false) { (loginResult) in
-                    switch loginResult {
-                    case .failure(let error):
-                        DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
-                        logout()
-                    default:
-                        break
-                    }
-                }
+                authenticationDelegate?.attemptReauthentication()
             } else {
-                logout()
+                authenticationDelegate?.deauthenticate()
             }
         default:
             break
@@ -465,7 +465,7 @@ public enum WMFCachePolicy {
             if let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 304 {
                 
-                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request),
+                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
                     return
@@ -475,7 +475,7 @@ public enum WMFCachePolicy {
             if let _ = error,
                 request.prefersPersistentCacheOverError {
                 
-                if let cachedResponse = self.defaultPermanentCache.cachedResponse(for: request),
+                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
                     return
@@ -560,7 +560,9 @@ extension Session {
     
     func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
         
-        var permanentCacheRequest = defaultPermanentCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy)
+        guard var permanentCacheRequest = permanentCache?.urlCache.urlRequestFromURL(url, type: persistType, cachePolicy: cachePolicy) else {
+            return nil
+        }
         
         let sessionRequest = request(with: url, method: .get, bodyParameters: nil, bodyEncoding: .json, headers: headers, cachePolicy: permanentCacheRequest.cachePolicy)
         
@@ -574,70 +576,76 @@ extension Session {
     }
     
     public func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
-        return defaultPermanentCache.typeHeadersForType(type)
+        return permanentCache?.urlCache.typeHeadersForType(type) ?? [:]
     }
     
     public func additionalHeadersForType(_ type: Header.PersistItemType, urlRequest: URLRequest) -> [String: String] {
-        return defaultPermanentCache.additionalHeadersForType(type, urlRequest: urlRequest)
+        return permanentCache?.urlCache.additionalHeadersForType(type, urlRequest: urlRequest) ?? [:]
     }
     
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        return defaultPermanentCache.uniqueFileNameForURL(url, type: type)
+        return permanentCache?.urlCache.uniqueFileNameForURL(url, type: type)
     }
     
     func isCachedWithURLRequest(_ urlRequest: URLRequest, completion: @escaping (Bool) -> Void) {
-        return defaultPermanentCache.isCachedWithURLRequest(urlRequest, completion: completion)
+        guard let urlCache = permanentCache?.urlCache else {
+            completion(false)
+            return
+        }
+        urlCache.isCachedWithURLRequest(urlRequest, completion: completion)
     }
     
     func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse? {
         
-        let request = defaultPermanentCache.urlRequestFromURL(url, type: type)
+        guard let request = permanentCache?.urlCache.urlRequestFromURL(url, type: type) else {
+            return nil
+        }
         
         return cachedResponseForURLRequest(request)
     }
     
     //assumes urlRequest is already populated with the proper cache headers
     func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? {
-        return defaultPermanentCache.cachedResponse(for: urlRequest)
+        return permanentCache?.urlCache.cachedResponse(for: urlRequest)
     }
     
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
-        defaultPermanentCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
+        permanentCache?.urlCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
     }
     
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
-        return defaultPermanentCache.uniqueFileNameForItemKey(itemKey, variant: variant)
+        return permanentCache?.urlCache.uniqueFileNameForItemKey(itemKey, variant: variant)
     }
     
     func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return defaultPermanentCache.uniqueFileNameForURLRequest(urlRequest)
+        return permanentCache?.urlCache.uniqueFileNameForURLRequest(urlRequest)
     }
     
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return defaultPermanentCache.itemKeyForURLRequest(urlRequest)
+        return permanentCache?.urlCache.itemKeyForURLRequest(urlRequest)
     }
     
     func variantForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return defaultPermanentCache.variantForURLRequest(urlRequest)
+        return permanentCache?.urlCache.variantForURLRequest(urlRequest)
     }
     
     func itemKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        return defaultPermanentCache.itemKeyForURL(url, type: type)
+        return permanentCache?.urlCache.itemKeyForURL(url, type: type)
     }
     
     func variantForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        return defaultPermanentCache.variantForURL(url, type: type)
+        return permanentCache?.urlCache.variantForURL(url, type: type)
     }
     
     func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
-        return defaultPermanentCache.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+        return permanentCache?.urlCache.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
     }
     
     //Bundled migration only - copies files into cache
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
         
-        defaultPermanentCache.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
+        permanentCache?.urlCache.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
     }
 }
 

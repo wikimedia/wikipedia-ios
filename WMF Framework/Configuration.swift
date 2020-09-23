@@ -180,6 +180,20 @@ public class Configuration: NSObject {
         return builder.components(byAppending: pathComponents)
     }
     
+    /// Returns the default request headers for Page Content Service API requests
+    public func pageContentServiceHeaders(for wikipediaLanguage: String? = nil) -> [String: String] {
+        guard let apiLanguage = wikipediaLanguage else {
+            return [:]
+        }
+        // If the language supports variants, only send a single code with variant for that language.
+        // This is a workaround for an issue with server-side Accept-Language header handling and
+        // can be removed when https://phabricator.wikimedia.org/T256491 is fixed.
+        guard let preferredLanguage = Locale.preferredWikipediaLanguageVariant(wmf_language: apiLanguage) else {
+            return [:]
+        }
+        return ["Accept-Language": preferredLanguage]
+    }
+    
     
     private let metricsAPIURLComponentsBuilder = APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory()(Domain.wikimedia)
     /// The metrics API lives only on wikimedia.org: https://wikimedia.org/api/rest_v1/

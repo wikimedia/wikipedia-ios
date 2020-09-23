@@ -7,8 +7,8 @@ private class MockSchemeHandler: SchemeHandler {
     
     required init(scheme: String, session: Session) {
         super.init(scheme: scheme, session: session)
-        let didReceiveDataCallback: ((WKURLSchemeTask, Data) -> Void)? = { _, _ in
-            self.accessed = true
+        let didReceiveDataCallback: ((WKURLSchemeTask, Data) -> Void)? = { [weak self] _, _ in
+            self?.accessed = true
         }
         self.didReceiveDataCallback = didReceiveDataCallback
     }
@@ -35,7 +35,7 @@ class ArticleViewControllerTests: XCTestCase {
         let dataStore = MWKDataStore.temporary()
         let theme = Theme.light
         let url = URL(string: "https://en.wikipedia.org/wiki/Dog")!
-        let schemeHandler = MockSchemeHandler(scheme: "app", session: Session.shared)
+        let schemeHandler = MockSchemeHandler(scheme: "app", session: dataStore.session)
         guard let articleVC = ArticleViewController(articleURL: url, dataStore: dataStore, theme: theme, schemeHandler: schemeHandler) else {
             XCTFail("Failure initializing Article View Controller")
             return
@@ -48,6 +48,7 @@ class ArticleViewControllerTests: XCTestCase {
             XCTAssert(schemeHandler.accessed, "SchemeHandler was not accessed during article load.")
             UIApplication.shared.keyWindow?.rootViewController = nil
             dataStore.clearTemporaryCache()
+            dataStore.session.cancelAllRequests()
         }
             
         UIApplication.shared.keyWindow?.rootViewController = articleVC

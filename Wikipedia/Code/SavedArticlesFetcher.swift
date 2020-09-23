@@ -29,13 +29,8 @@ final class SavedArticlesFetcher: NSObject {
     
     @objc init?(dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        
-        if let articleCacheController = ArticleCacheController.shared {
-            self.articleCacheController = articleCacheController
-        } else {
-            return nil
-        }
-        
+        self.articleCacheController = dataStore.cacheController.articleCache
+
         spotlightManager = WMFSavedPageSpotlightManager(dataStore: dataStore)
         
         super.init()
