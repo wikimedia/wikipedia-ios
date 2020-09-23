@@ -12,23 +12,17 @@
 
 @implementation WMFAnnouncementsContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL session:(WMFSession *)session configuration:(WMFConfiguration *)configuration {
     NSParameterAssert(siteURL);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
+        self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession:session configuration:configuration];
     }
     return self;
 }
 
 #pragma mark - Accessors
-
-- (WMFAnnouncementsFetcher *)fetcher {
-    if (_fetcher == nil) {
-        _fetcher = [[WMFAnnouncementsFetcher alloc] init];
-    }
-    return _fetcher;
-}
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
 }
