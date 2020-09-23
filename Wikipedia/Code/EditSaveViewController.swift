@@ -22,6 +22,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var sectionID: Int?
     var articleURL: URL?
     var language: String?
+    var dataStore: MWKDataStore?
     
     var wikitext = ""
     var theme: Theme = .standard
@@ -202,7 +203,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         vc.apply(theme: theme)
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
         
-        if WMFAuthenticationManager.sharedInstance.isLoggedIn {
+        if dataStore?.authenticationManager.isLoggedIn ?? false {
             licenseLoginTextView.isHidden = true
         }
         

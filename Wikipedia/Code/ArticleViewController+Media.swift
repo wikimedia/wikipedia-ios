@@ -96,6 +96,6 @@ extension ArticleViewController {
     }
 
     func getGalleryViewController(for item: MediaListItem?, in mediaList: MediaList) -> MediaListGalleryViewController {
-        return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, initialItem: item, theme: theme)
+        return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme)
     }
 }

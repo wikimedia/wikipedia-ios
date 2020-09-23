@@ -82,7 +82,7 @@ import WMF
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
-        loginLabel.isHidden = WMFAuthenticationManager.sharedInstance.isLoggedIn
+        loginLabel.isHidden = dataStore.authenticationManager.isLoggedIn
     }
     
     override func viewDidAppear(_ animated: Bool) {

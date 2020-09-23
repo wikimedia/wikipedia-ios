@@ -18,7 +18,7 @@ extern NSInteger const WMFFeedNotificationMaxPerDay;
 
 @property (nonatomic, getter=isNotificationSchedulingEnabled) BOOL notificationSchedulingEnabled;
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL userDataStore:(MWKDataStore *)userDataStore;
 
 - (instancetype)init NS_UNAVAILABLE;
 

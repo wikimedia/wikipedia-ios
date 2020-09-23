@@ -314,18 +314,20 @@ extension UIViewController {
                 return
             }
         }
+        // SINGLETONTODO
+        let dataStore = MWKDataStore.shared()
         let presenter = self.presentedViewController ?? self
         guard !isAlreadyPresenting(presenter),
-            WMFAuthenticationManager.sharedInstance.isLoggedIn,
-            MWKDataStore.shared().readingListsController.isSyncRemotelyEnabled,
-            !MWKDataStore.shared().readingListsController.isSyncEnabled else {
-                didNotPresentPanelCompletion?()
-                return
+              dataStore.authenticationManager.isLoggedIn,
+              dataStore.readingListsController.isSyncRemotelyEnabled,
+              !dataStore.readingListsController.isSyncEnabled else {
+            didNotPresentPanelCompletion?()
+            return
         }
         let enableSyncTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 guard self.hasSavedArticles() else {
-                    MWKDataStore.shared().readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
                     SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
                     return
                 }
@@ -383,13 +385,15 @@ extension UIViewController {
     }
     
     fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
+        // SINGLETONTODO
+        let dataStore = MWKDataStore.shared()
         let addSavedArticlesToReadingListsTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            MWKDataStore.shared().readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+            dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
         let deleteSavedArticlesFromDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            MWKDataStore.shared().readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
+            dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
@@ -479,10 +483,12 @@ extension UIViewController {
     }
     
     @objc func wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: Theme) {
+        // SINGLETONTODO
+        let dataStore = MWKDataStore.shared()
         guard
-            !WMFAuthenticationManager.sharedInstance.isLoggedIn &&
+            !dataStore.authenticationManager.isLoggedIn &&
             !UserDefaults.standard.wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
-            !MWKDataStore.shared().readingListsController.isSyncEnabled
+            !dataStore.readingListsController.isSyncEnabled
         else {
             return
         }

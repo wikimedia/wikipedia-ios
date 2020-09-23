@@ -41,22 +41,24 @@ public class CacheController {
     }
     
     /// Performs any necessary migrations on the CacheController's internal storage
-    static func performLibraryUpdates(_ completion: @escaping (CacheControllerError?) -> Void) {
+    static func setupCoreDataStack(_ completion: @escaping (NSManagedObjectContext?, CacheControllerError?) -> Void) {
         // Expensive file & db operations happen as a part of this migration, so async it to a non-main queue
         DispatchQueue.global(qos: .default).async {
             // Instantiating the moc will perform the migrations in CacheItemMigrationPolicy
-            guard let moc = backgroundCacheContext else {
-                completion(.unableToCreateBackgroundCacheContext)
+            guard let moc = createCacheContext(cacheURL: cacheURL) else {
+                completion(nil, .unableToCreateBackgroundCacheContext)
                 return
             }
             // do a moc.perform in case anything else needs to be run before the context is ready
             moc.perform {
-                completion(nil)
+                DispatchQueue.main.async {
+                    completion(moc, nil)
+                }
             }
         }
     }
 
-    static let backgroundCacheContext: NSManagedObjectContext? = {
+    static func createCacheContext(cacheURL: URL) -> NSManagedObjectContext? {
         
         //create cacheURL directory
         do {
@@ -103,7 +105,7 @@ public class CacheController {
         cacheBackgroundContext.persistentStoreCoordinator = persistentStoreCoordinator
 
         return cacheBackgroundContext
-    }()
+    }
     
     public typealias ItemKey = String
     public typealias GroupKey = String

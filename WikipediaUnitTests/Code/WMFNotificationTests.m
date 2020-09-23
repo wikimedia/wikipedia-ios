@@ -28,7 +28,7 @@
 
     self.dataStore = [MWKDataStore temporaryDataStore];
     NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
-    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
+    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore];
     self.feedContentSource.notificationSchedulingEnabled = YES;
 
     self.calendar = [NSCalendar wmf_gregorianCalendar];
