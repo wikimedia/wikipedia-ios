@@ -18,13 +18,25 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
 
 @implementation WMFFeedContentFetcher
 
+- (instancetype)initWithSession:(WMFSession *)session configuration:(WMFConfiguration *)configuration {
+    self = [super initWithSession:session configuration:configuration];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
-        NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.feedcontentfetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
-        self.serialQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
+        [self setup];
     }
     return self;
+}
+
+- (void)setup {
+    NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.feedcontentfetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
+    self.serialQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
 }
 
 + (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date configuration:(WMFConfiguration *)configuration {
