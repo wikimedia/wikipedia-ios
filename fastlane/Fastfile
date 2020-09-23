@@ -6,8 +6,8 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone X', os: '12.4'},
-  {device: 'iPhone 8', os: '13.5'},
+  {device: 'iPhone 11 Pro', os: '14.0'},
+  {device: 'iPhone 8', os: '12.4'},
   {device: 'iPad Pro (12.9-inch) (4th generation)', os: '13.5'}
 ]
 
@@ -100,7 +100,6 @@ platform :ios do
   desc "Runs unit tests, generates reports."
   lane :verify do |options|
     read_xcversion
-    reset_simulator_contents
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
