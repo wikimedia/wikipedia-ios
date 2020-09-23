@@ -66,6 +66,7 @@ platform :ios do
 
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
+    read_xcversion
     xcodebuild(
       project: "Wikipedia.xcodeproj",
       scheme: "Wikipedia",
@@ -91,8 +92,14 @@ platform :ios do
     verify({configurations: configurations_to_test_on_pull})
   end
 
+  desc "Reads Xcode version from the .xcversion file and sets it using xcversion()"
+  lane :read_xcversion do |options|
+    xcversion(version: `cat ../.xcversion`)
+  end
+
   desc "Runs unit tests, generates reports."
   lane :verify do |options|
+    read_xcversion
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
@@ -110,6 +117,7 @@ platform :ios do
   
   desc "Records visual tests."
   lane :record_visual_tests do |options|
+    read_xcversion
     clean_out_reference_images
     options[:configurations] ||= configurations_to_test 
     devices_by_scheme = get_devices_by_scheme_from_options(options)
@@ -194,6 +202,8 @@ platform :ios do
     version = options[:version] || ''
     number = options[:number] || ''
     
+    read_xcversion
+
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" archive"
     sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
     sh "zip -rq \"#{build_dir}/#{product_name}_#{version}_(#{number}).xcarchive.zip\" \"#{build_dir}/#{product_name}.xcarchive\""
