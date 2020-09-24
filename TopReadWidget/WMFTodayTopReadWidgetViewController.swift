@@ -131,8 +131,8 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         let completion = { (result: Bool) in
             DDLogDebug("Widget did finish")
         }
-        WidgetController.shared.startWidgetUpdateTask(completion) { (dataStore, completion) in
-            self.updateViewAsync(with: dataStore, completion: completion)
+        WidgetController.shared.startWidgetUpdateTask(completion) { (dataStore, updateTaskCompletion) in
+            self.updateViewAsync(with: dataStore, completion: updateTaskCompletion)
         }
     }
     
