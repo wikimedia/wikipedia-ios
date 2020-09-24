@@ -84,7 +84,16 @@ platform :ios do
 
   desc "Reads Xcode version from the .xcversion file and sets it using xcversion()"
   lane :read_xcversion do |options|
-    xcversion(version: `cat ../.xcversion`)
+    version = `cat ../.xcversion`
+    if ENV['IS_GITHUB_ACTIONS']
+      # GitHub actions keeps beta versions around that confuse xcversion()
+      # Use the absolute path to select the right version instead
+      # Remove trailing 0's to match GitHub's naming conventions
+      version_name = version.split('.').select { |n| n != '0' }.join('.')
+      `xcode-select -s /Applications/Xcode_#{version_name}.app`
+    else
+      xcversion(version: version)
+    end
   end
 
   desc "Runs unit tests, generates reports."
