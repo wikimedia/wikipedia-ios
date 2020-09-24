@@ -134,11 +134,14 @@ class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotific
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
             statusView.isHidden = false
             statusLabel.text = WMFLocalizedString("status-saving-for-later", value:"Saving for later...", comment: "Indicates to the user that the article is being saved for later")
-            let dataStore = MWKDataStore.shared()
-            dataStore.savedPageList.addSavedPage(with: articleURL)
-            self.statusView.isHidden = false
-            self.statusLabel.text = WMFLocalizedString("status-saved-for-later", value:"Saved for later", comment: "Indicates to the user that the article has been saved for later")
-            completion(.dismiss)
+            WidgetController.shared.startWidgetUpdateTask(completion) { (dataStore, completion) in
+                DispatchQueue.main.async {
+                    dataStore.savedPageList.addSavedPage(with: articleURL)
+                    self.statusView.isHidden = false
+                    self.statusLabel.text = WMFLocalizedString("status-saved-for-later", value:"Saved for later", comment: "Indicates to the user that the article has been saved for later")
+                    completion(.dismiss)
+                }
+            }
         case WMFInTheNewsNotificationShareActionIdentifier:
             completion(.dismissAndForwardAction)
         case WMFInTheNewsNotificationReadNowActionIdentifier:
