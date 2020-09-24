@@ -88,7 +88,7 @@ public final class WidgetController: NSObject {
         _dataStore = nil
         dataStoreRetainCount = 0
         #if DEBUG
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
             let openFiles = self.openFilePaths()
             let openSqliteFile = openFiles.first(where: { $0.hasSuffix(".sqlite") })
             assert(openSqliteFile == nil, "There should be no open sqlite files (which in our case are Core Data persistent stores) in the shared app container after the data store is released. The widget still has a lock on these files: \(openFiles)")
