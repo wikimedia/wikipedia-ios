@@ -245,10 +245,9 @@ platform :ios do
   end
 
   lane :get_latest_tag_with_prefix do |options|
-    prefix = options[:prefix] || "betas/"
-    remote_prefix = "refs/tags/"
-    remote_tag = `git ls-remote --tags --sort=-creatordate origin | grep #{remote_prefix}#{prefix} | head -n 1`
-    remote_tag.gsub(/\s+/m, " ").split(" ")[-1][remote_prefix.length..-1]
+    prefix = options[:prefix] || 'betas/'
+    remote_tag = `git ls-remote --tags --sort=-creatordate origin | grep refs/tags/#{prefix} | head -n 1`
+    remote_tag.gsub(/[a-f0-9]+\srefs\/tags\/+/m, '')
   end
   
   lane :get_latest_build_number do |options|
