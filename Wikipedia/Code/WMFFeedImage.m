@@ -89,8 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
         thumbnailBucketSize = WMFImageWidthExtraExtraLarge;
     }
     NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, thumbnailBucketSize);
-    NSURL *adujstedURL = [NSURL URLWithString:adjustedString];
-    return adujstedURL ?: self.imageThumbURL ?: self.imageURL;
+    NSURL *adjustedURL = [NSURL URLWithString:adjustedString];
+    return adjustedURL ?: self.imageThumbURL ?: self.imageURL;
 }
 
 @end
