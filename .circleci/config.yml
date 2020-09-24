@@ -31,7 +31,22 @@ jobs:
           command: bundle exec fastlane verify_pull_request
       - store_test_results:
           path: fastlane/test_output/
+  deploy:
+    executor: xcode
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Deploy
+          command: echo "deploy"
 workflows:
+  deploy:
+    jobs:
+      - request_deploy:
+        type: approval
+      - deploy:
+        requires:
+          - request_deploy
   test_pr:
     jobs:
       - test_pr
