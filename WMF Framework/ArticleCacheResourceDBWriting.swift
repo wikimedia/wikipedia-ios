@@ -19,7 +19,7 @@ protocol ArticleCacheResourceDBWriting: CacheDBWriting {
     func cacheURLs(groupKey: String, mustHaveURLRequests: [URLRequest], niceToHaveURLRequests: [URLRequest], completion: @escaping ((SaveResult) -> Void))
     var articleFetcher: ArticleFetcher { get }
     var imageInfoFetcher: MWKImageInfoFetcher { get }
-    var cacheBackgroundContext: NSManagedObjectContext { get }
+    var context: NSManagedObjectContext { get }
 }
 
 extension ArticleCacheResourceDBWriting {
@@ -79,12 +79,9 @@ extension ArticleCacheResourceDBWriting {
     }
     
     func cacheURLs(groupKey: String, mustHaveURLRequests: [URLRequest], niceToHaveURLRequests: [URLRequest], completion: @escaping ((SaveResult) -> Void)) {
-
-
-        let context = self.cacheBackgroundContext
         context.perform {
 
-            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: context) else {
+            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: self.context) else {
                 completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateCacheGroup))
                 return
             }
@@ -98,7 +95,7 @@ extension ArticleCacheResourceDBWriting {
                 }
                 
                 //note, we purposefully do not set variant here. We need to wait until CacheFileWriter determines if the response varies on language, then set it when we call markDownloaded
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: nil, in: context) else {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: nil, in: self.context) else {
                     completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem))
                     return
                 }
@@ -114,14 +111,14 @@ extension ArticleCacheResourceDBWriting {
                         continue
                 }
                 
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: nil, in: context) else {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: nil, in: self.context) else {
                     continue
                 }
                 
                 group.addToCacheItems(item)
             }
             
-            CacheDBWriterHelper.save(moc: context, completion: completion)
+            CacheDBWriterHelper.save(moc: self.context, completion: completion)
         }
     }
     

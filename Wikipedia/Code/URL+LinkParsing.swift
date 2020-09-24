@@ -31,10 +31,14 @@ extension URL {
     /// The callee should be a standardized page URL generated with wmf_databaseURL, non-article namespaces are OK
     public func resolvingRelativeWikiHref(_ href: String) -> URL? {
         let urlComponentsString: String
-        if href.hasPrefix(".") || href.hasPrefix("/") {
-            urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
+
+        /// The link is sometimes encoded, and sometimes unencoded. (In some cases, this depends on whether an editor put added an escaped or unescaped version of the URL.) So we remove any potential encoding, so that we can be assured we are starting with an unencoded string.
+        let hrefWithoutEncoding = href.removingPercentEncoding ?? href
+
+        if hrefWithoutEncoding.hasPrefix(".") || hrefWithoutEncoding.hasPrefix("/") {
+            urlComponentsString = hrefWithoutEncoding.addingPercentEncoding(withAllowedCharacters: .relativePathAndFragmentAllowed) ?? href
         } else {
-            urlComponentsString = href
+            urlComponentsString = hrefWithoutEncoding
         }
         let components = URLComponents(string: urlComponentsString)
         // Encode this URL to handle titles with forward slashes, otherwise URLComponents thinks they're separate path components

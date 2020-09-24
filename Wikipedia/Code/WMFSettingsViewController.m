@@ -61,7 +61,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    self.authManager = [WMFAuthenticationManager sharedInstance];
+    self.authManager = self.dataStore.authenticationManager;
 
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 #if UI_TEST
@@ -81,7 +81,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         return;
     }
 
-    NSString *keyPath = WMF_SAFE_KEYPATH([WMFAuthenticationManager sharedInstance], loggedInUsername);
+    NSString *keyPath = WMF_SAFE_KEYPATH(authManager, loggedInUsername);
 
     [_authManager removeObserver:self forKeyPath:keyPath context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
     _authManager = authManager;
@@ -309,7 +309,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Log in and out
 
 - (void)showLoginOrAccount {
-    NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
+    NSString *userName = self.dataStore.authenticationManager.loggedInUsername;
     if (userName) {
         WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
         accountVC.dataStore = self.dataStore;
@@ -346,7 +346,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
                                                                      theme:self.theme
                                                                 completion:^{
-                                                                    [[WMFAuthenticationManager sharedInstance] logoutInitiatedBy:LogoutInitiatorUser completion:^{
+                                                                    [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser completion:^{
                                                                         [[LoginFunnel shared] logLogoutInSettings];
                                                                     }];
                                                                 }];
