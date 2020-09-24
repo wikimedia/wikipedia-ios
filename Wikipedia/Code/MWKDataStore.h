@@ -10,6 +10,12 @@
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
 @class MobileviewToMobileHTMLConverter;
+@class MWKLanguageLinkController;
+@class WMFSession;
+@class WMFConfiguration;
+@class WMFPermanentCacheController;
+@class WMFNotificationsController;
+@class WMFAuthenticationManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,20 +56,29 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 - (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
 
 @property (readonly, strong, nonatomic) NSURL *containerURL;
+@property (readonly, strong, nonatomic) WMFSession *session;
+@property (readonly, strong, nonatomic) WMFConfiguration *configuration;
+@property (readonly, strong, nonatomic) WMFPermanentCacheController *cacheController;
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock;
 - (void)performInitialLibrarySetup;
+#if TEST
+- (void)performTestLibrarySetup;
+#endif
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
 @property (readonly, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
+@property (readonly, strong, nonatomic) WMFAuthenticationManager *authenticationManager;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
 @property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
 @property (readonly, strong, nonatomic) WMFArticleSummaryController *articleSummaryController;
+@property (readonly, strong, nonatomic) MWKLanguageLinkController *languageLinkController;
+@property (readonly, strong, nonatomic) WMFNotificationsController *notificationsController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;

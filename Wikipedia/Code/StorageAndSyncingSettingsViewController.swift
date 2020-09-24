@@ -239,10 +239,11 @@ extension StorageAndSyncingSettingsViewController {
                 self.dataStore?.readingListsController.fullSync({})
                 self.shouldShowReadingListsSyncAlertWhenViewAppears = true
             }
-            if WMFAuthenticationManager.sharedInstance.isLoggedIn && isSyncEnabled {
+            let isLoggedIn = dataStore?.authenticationManager.isLoggedIn ?? false
+            if isLoggedIn && isSyncEnabled {
                 dataStore?.readingListsController.fullSync({})
                 showReadingListsSyncAlert()
-            } else if !WMFAuthenticationManager.sharedInstance.isLoggedIn {
+            } else if !isLoggedIn {
                 wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
             } else {
                 wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
@@ -295,7 +296,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         let isSwitchOn = sender.isOn
         
         switch settingsItemType {
-        case .syncSavedArticlesAndLists where !WMFAuthenticationManager.sharedInstance.isLoggedIn:
+        case .syncSavedArticlesAndLists where !dataStore.authenticationManager.isLoggedIn:
             assert(!isSyncEnabled, "Sync cannot be enabled if user is not logged in")
             let dismissHandler = {
                 sender.setOn(false, animated: true)
@@ -305,7 +306,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
                 SettingsFunnel.shared.logSyncEnabledInSettings()
             }
             wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
-        case .syncSavedArticlesAndLists where WMFAuthenticationManager.sharedInstance.isLoggedIn:
+        case .syncSavedArticlesAndLists where dataStore.authenticationManager.isLoggedIn:
             let setSyncEnabled = {
                 dataStore.readingListsController.setSyncEnabled(isSwitchOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !isSwitchOn)
                 if isSwitchOn {

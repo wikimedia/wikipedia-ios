@@ -1052,7 +1052,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
             return
         }
         
-        EditHistoryCompareFunnel.shared.logRevisionView(language: siteURL.wmf_language)
+        EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
         
         let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision)
         push(singleDiffVC, animated: true)
@@ -1174,16 +1174,16 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        EditHistoryCompareFunnel.shared.logThankTry(language: siteURL.wmf_language)
+        EditHistoryCompareFunnel.shared.logThankTry(siteURL: siteURL)
         
         guard !isAlreadySelected else {
-            EditHistoryCompareFunnel.shared.logThankFail(language: siteURL.wmf_language)
+            EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
             self.show(hintViewController: AuthorAlreadyThankedHintVC())
             return
         }
         
         guard !toModel.isAnon else {
-            EditHistoryCompareFunnel.shared.logThankFail(language: siteURL.wmf_language)
+            EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
             self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
             return
         }
@@ -1198,9 +1198,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let thankCompletion: (Error?) -> Void = { (error) in
             if error == nil {
                 self.diffToolbarView?.isThankSelected = true
-                EditHistoryCompareFunnel.shared.logThankSuccess(language: self.siteURL.wmf_language)
+                EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: self.siteURL)
             } else {
-                EditHistoryCompareFunnel.shared.logThankFail(language: self.siteURL.wmf_language)
+                EditHistoryCompareFunnel.shared.logThankFail(siteURL: self.siteURL)
             }
         }
 
@@ -1218,7 +1218,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     var isLoggedIn: Bool {
-        return WMFAuthenticationManager.sharedInstance.isLoggedIn
+        // SINGLETONTODO
+        return MWKDataStore.shared().authenticationManager.isLoggedIn
     }
 }
 

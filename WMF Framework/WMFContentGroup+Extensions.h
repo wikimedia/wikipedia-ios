@@ -75,6 +75,7 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 
 - (BOOL)isForLocalDate:(NSDate *)date;           //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone
+@property (nonatomic, readonly) BOOL isRTL; //content is in an RTL language
 
 // Utilizes featuredContentIdentifier for storage so can't be set along with featuredContentIdentifier
 @property (nonatomic) NSInteger featuredContentIndex;
@@ -111,9 +112,13 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind;
 
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind forSiteURL:(nullable NSURL *)siteURL;
+
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate;
 
 - (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind;
+
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind forSiteURL:(nullable NSURL *)siteURL;
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;
 

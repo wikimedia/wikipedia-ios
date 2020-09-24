@@ -27,7 +27,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             searchBar.becomeFirstResponder()
         }
 
-        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewDidAppear`.
+        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         parent?.navigationItem.backButtonTitle = title
     }
     
@@ -103,7 +103,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     var siteURL: URL? {
         get {
-            return _siteURL ?? searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+            return _siteURL ?? searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKDataStore.shared().languageLinkController.appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
         }
         set {
             _siteURL = newValue

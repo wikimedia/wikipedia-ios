@@ -63,13 +63,14 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let appLanguage = MWKLanguageLinkController.sharedInstance().appLanguage else {
+        userStore = MWKDataStore.shared()
+
+        guard let appLanguage = userStore.languageLinkController.appLanguage else {
             return
         }
     
         siteURL = appLanguage.siteURL()
-        userStore = MWKDataStore.shared()
-        contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore, notificationsController: nil)
+        contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore)
 
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         view.addGestureRecognizer(tapGR)

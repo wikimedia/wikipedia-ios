@@ -11,7 +11,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 @interface WMFNearbyContentSource () <LocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
-@property (readwrite, nonatomic, strong) MWKDataStore *dataStore;
+@property (readwrite, nonatomic, weak) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) id<LocationManagerProtocol> locationManager;
 @property (nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
 
@@ -47,7 +47,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (WMFLocationSearchFetcher *)locationSearchFetcher {
     if (_locationSearchFetcher == nil) {
-        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
+        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] initWithSession:self.dataStore.session configuration:self.dataStore.configuration];
     }
     return _locationSearchFetcher;
 }
@@ -133,7 +133,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)showAuthorizationPlaceholderInManagedObjectContext:(NSManagedObjectContext *)moc completion:(nonnull dispatch_block_t)completion {
-    NSString *preferredSiteURLString = [[MWKLanguageLinkController.sharedInstance.preferredSiteURLs firstObject] wmf_databaseKey];
+    NSString *preferredSiteURLString = [[self.dataStore.languageLinkController.preferredSiteURLs firstObject] wmf_databaseKey];
     NSString *mySiteURLString = self.siteURL.wmf_databaseKey;
     if (preferredSiteURLString && mySiteURLString && ![mySiteURLString isEqualToString:preferredSiteURLString]) {
         if (completion) {

@@ -8,6 +8,7 @@
 #import <WMF/WMFLogging.h>
 #import <WMF/NSCharacterSet+WMFLinkParsing.h>
 #import <WMF/MWKLanguageLinkController.h>
+#import <WMF/MWLanguageInfo.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -491,6 +492,14 @@
     return [self.midnightUTCDate wmf_UTCDateIsTodayLocal];
 }
 
+- (BOOL)isRTL {
+    NSString *language = self.siteURL.wmf_language;
+    if (!language) {
+        return NO;
+    }
+    return [MWLanguageInfo semanticContentAttributeForWMFLanguage:language] == UISemanticContentAttributeForceRightToLeft;
+}
+
 - (void)markDismissed {
     self.wasDismissed = YES;
 }
@@ -675,6 +684,14 @@
     return [self newestGroupWithPredicate:compoundPredicate ?: predicate];
 }
 
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind forSiteURL:(nullable NSURL *)siteURL {
+    if (!siteURL) {
+        return [self newestGroupOfKind:kind requireIsVisible:YES];
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    return [self newestVisibleGroupOfKind:kind withPredicate:predicate];
+}
+
 - (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
     return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:YES];
 }
@@ -685,6 +702,14 @@
 
 - (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind {
     return [self newestGroupOfKind:kind requireIsVisible:NO];
+}
+
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind forSiteURL:(nullable NSURL *)siteURL {
+    if (!siteURL) {
+        return [self newestGroupOfKind:kind requireIsVisible:NO];
+    }    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:NO];
 }
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {

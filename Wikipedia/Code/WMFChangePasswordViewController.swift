@@ -108,7 +108,8 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
             return
         }
 
-        WMFAuthenticationManager.sharedInstance.login(username: userName, password: password, retypePassword: retypePassword, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
+        // SINGLETONTODO
+        MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: retypePassword, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
             switch loginResult {
             case .success(_):
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)

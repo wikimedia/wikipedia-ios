@@ -23,7 +23,8 @@
 + (WMFSettingsMenuItem *)itemForType:(WMFSettingsMenuItemType)type {
     switch (type) {
         case WMFSettingsMenuItemType_LoginAccount: {
-            NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
+            // SINGLETONTODO
+            NSString *userName = [MWKDataStore shared].authenticationManager.loggedInUsername;
 
             NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in. {{Identical|Log in}}");
 
@@ -53,7 +54,7 @@
                                                  iconName:@"settings-language"
                                                 iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode uppercaseString]
+                                           disclosureText:[MWKDataStore.shared.languageLinkController.appLanguage.languageCode uppercaseString]
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Search: {
@@ -127,6 +128,7 @@
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SendUsageReports: {
+            BOOL loggingEnabled = [WMFEventLoggingService sharedInstance].isEnabled;
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"preference-title-eventlogging-opt-in", nil, nil, @"Send usage reports", @"Title of preference that when checked enables data collection of user behavior.")
@@ -134,7 +136,7 @@
                                                 iconColor:[UIColor wmf_colorWithHex:0x95D15A]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
-                                               isSwitchOn:[WMFEventLoggingService sharedInstance].isEnabled];
+                                               isSwitchOn:loggingEnabled];
         }
         case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
             return

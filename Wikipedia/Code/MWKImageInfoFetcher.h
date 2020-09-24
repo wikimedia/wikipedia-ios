@@ -1,10 +1,12 @@
 @import Foundation;
 #import <WMF/WMFLegacyFetcher.h>
 #import <WMF/WMFBlockDefinitions.h>
+#import <WMF/WMFPreferredLanguageCodesProviding.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class NSURLSessionDataTask;
+@class MWKDataStore;
 
 @protocol MWKImageInfoRequest <NSObject>
 
@@ -13,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface MWKImageInfoFetcher : WMFLegacyFetcher
+
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
 /**
  * Fetch the imageinfo for the given image page titles.
@@ -54,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles fromSiteURL: (NSURL *)siteURL;
 
 - (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url;
+
+@property (weak, nonatomic) id<WMFPreferredLanguageCodesProviding> preferredLanguageDelegate;
 
 @end
 

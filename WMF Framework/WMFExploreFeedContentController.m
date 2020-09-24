@@ -110,20 +110,23 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (NSArray<id<WMFContentSource>> *)contentSources {
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.siteURLs);
+    WMFSession *session = self.dataStore.session;
+    WMFConfiguration *configuration = self.dataStore.configuration;
+    NSParameterAssert(session);
+    NSParameterAssert(configuration);
     if (!_contentSources) {
         NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + self.siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
         for (NSURL *siteURL in self.siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
-                                                                                      userDataStore:self.dataStore
-                                                                            notificationsController:[WMFNotificationsController sharedNotificationsController]];
+                                                                                      userDataStore:self.dataStore];
             feedContentSource.notificationSchedulingEnabled = YES;
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
-                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]]];
+                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
+                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
+                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration]]];
         }
         _contentSources = [mutableContentSources copy];
     }
@@ -209,6 +212,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 [self.dataStore teardownFeedImportContext];
                                                 [[NSUserDefaults standardUserDefaults] wmf_setFeedRefreshDate:[NSDate date]];
+                                                [[WMFWidgetController shared] reloadAllWidgetsIfNecessary];
                                                 if (completion) {
                                                     completion();
                                                 }
@@ -304,6 +308,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             }
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                            [[WMFWidgetController shared] reloadAllWidgetsIfNecessary];
                                             if (completionHandler) {
                                                 completionHandler(didUpdate ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
                                             }
@@ -401,7 +406,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (NSSet <NSURL *> *)preferredSiteURLs {
-    return [NSSet setWithArray:[MWKLanguageLinkController sharedInstance].preferredSiteURLs];
+    return [NSSet setWithArray:self.dataStore.languageLinkController.preferredSiteURLs];
 }
 
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -552,6 +557,8 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                         [op finish];
                         if (updateFeed) {
                             [self updateFeedSourcesUserInitiated:NO completion:nil];
+                        } else {
+                            [[WMFWidgetController shared] reloadAllWidgetsIfNecessary];
                         }
                     });
                 }];
@@ -713,7 +720,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)debugSendRandomInTheNewsNotification {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
+        [self.dataStore.notificationsController requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
             if (!granted) {
                 return;
             }

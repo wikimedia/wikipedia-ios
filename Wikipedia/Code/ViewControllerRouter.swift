@@ -17,14 +17,19 @@ class ViewControllerRouter: NSObject {
             return false
         }
 
-        if viewController is AVPlayerViewController {
-            navigationController.present(viewController, animated: true, completion: completion)
-        } else if let presented = navigationController.presentedViewController {
-            let wrapper = WMFThemeableNavigationController(rootViewController: viewController, theme:appViewController.theme, style: .gallery)
-            presented.present(wrapper, animated: true, completion: completion)
+        let showNewVC = {
+            if viewController is AVPlayerViewController {
+                navigationController.present(viewController, animated: true, completion: completion)
+            } else {
+                navigationController.pushViewController(viewController, animated: true)
+                completion()
+            }
+        }
+
+        if let presentedVC = navigationController.presentedViewController {
+            presentedVC.dismiss(animated: false, completion: showNewVC)
         } else {
-            navigationController.pushViewController(viewController, animated: true)
-            completion()
+            showNewVC()
         }
         
         return true
@@ -76,6 +81,17 @@ class ViewControllerRouter: NSObject {
                 return false
             }
             return presentOrPush(talkPageVC, with: completion)
+        case .onThisDay(let indexOfSelectedEvent):
+            let dataStore = appViewController.dataStore
+            guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .onThisDay, forSiteURL: dataStore.languageLinkController.appLanguage?.siteURL()), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
+                completion()
+                return false
+            }
+            onThisDayVC.shouldShowNavigationBar = true
+            if let index = indexOfSelectedEvent, let selectedEvent = onThisDayVC.events.first(where: { $0.index == NSNumber(value: index) }) {
+                onThisDayVC.initialEvent = selectedEvent
+            }
+            return presentOrPush(onThisDayVC, with: completion)
         default:
             completion()
             return false

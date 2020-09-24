@@ -61,7 +61,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    self.authManager = [WMFAuthenticationManager sharedInstance];
+    self.authManager = self.dataStore.authenticationManager;
 
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 #if UI_TEST
@@ -81,7 +81,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         return;
     }
 
-    NSString *keyPath = WMF_SAFE_KEYPATH([WMFAuthenticationManager sharedInstance], loggedInUsername);
+    NSString *keyPath = WMF_SAFE_KEYPATH(authManager, loggedInUsername);
 
     [_authManager removeObserver:self forKeyPath:keyPath context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
     _authManager = authManager;
@@ -104,7 +104,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.navigationController.toolbarHidden = YES;
     [self loadSections];
 
-    /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewDidAppear`.
+    /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
     self.parentViewController.navigationItem.backButtonTitle = self.title;
 }
 
@@ -181,9 +181,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports: {
             WMFEventLoggingService *eventLoggingService = [WMFEventLoggingService sharedInstance];
+            WMFEventPlatformClient *epc = [WMFEventPlatformClient sharedInstance];
             eventLoggingService.isEnabled = isOn;
             if (isOn) {
                 [eventLoggingService reset];
+                [epc reset];
                 [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
                 [[SessionsFunnel shared] logSessionStart];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
@@ -191,6 +193,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [[SessionsFunnel shared] logSessionEnd];
                 [[UserHistoryFunnel shared] logSnapshot];
                 [eventLoggingService reset];
+                [epc reset];
             }
         } break;
         default:
@@ -284,7 +287,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (NSURL *)donationURL {
     NSString *url = WMFSettingsURLDonation;
 
-    NSString *languageCode = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
+    NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
     languageCode = [languageCode stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
     NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
@@ -306,7 +309,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Log in and out
 
 - (void)showLoginOrAccount {
-    NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
+    NSString *userName = self.dataStore.authenticationManager.loggedInUsername;
     if (userName) {
         WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
         accountVC.dataStore = self.dataStore;
@@ -343,7 +346,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
                                                                      theme:self.theme
                                                                 completion:^{
-                                                                    [[WMFAuthenticationManager sharedInstance] logoutInitiatedBy:LogoutInitiatorUser completion:^{
+                                                                    [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser completion:^{
                                                                         [[LoginFunnel shared] logLogoutInSettings];
                                                                     }];
                                                                 }];

@@ -388,7 +388,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 for i in 1...countOfEntriesToCreate {
                     
                     if !englishOnly {
-                        if let randomLanguage = MWKLanguageLinkController.sharedInstance().allLanguages.randomElement() {
+                        if let randomLanguage = dataStore.languageLinkController.allLanguages.randomElement() {
                             maybeSiteURL = randomLanguage.siteURL()
                         }
                     }
@@ -737,7 +737,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         guard !readingListEntries.isEmpty else {
             return
         }
-        let summaryFetcher = ArticleSummaryFetcher(session: apiController.session, configuration: Configuration.current)
+        let summaryFetcher = ArticleFetcher(session: apiController.session, configuration: Configuration.current)
         let group = WMFTaskGroup()
         let semaphore = DispatchSemaphore(value: 1)
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]

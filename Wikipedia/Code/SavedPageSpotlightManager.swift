@@ -28,20 +28,6 @@ extension NSURL {
     }
 }
 
-public extension WMFArticle {
-    var searchableItemAttributes: CSSearchableItemAttributeSet {
-        let searchableItem = url?.searchableItemAttributes ??
-                CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
-
-        searchableItem.subject = wikidataDescription
-        searchableItem.contentDescription = snippet
-        if let imageURL = imageURL(forWidth: WMFImageWidth.medium.rawValue) {
-            searchableItem.thumbnailData = ImageCacheController.shared?.data(withURL: imageURL)?.data
-        }
-        return searchableItem
-    }
-}
-
 public class WMFSavedPageSpotlightManager: NSObject {
     private let queue = DispatchQueue(label: "org.wikimedia.saved_page_spotlight_manager", qos: DispatchQoS.background, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
     private let dataStore: MWKDataStore
@@ -63,13 +49,25 @@ public class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
+    private func searchableItemAttribues(for article: WMFArticle) -> CSSearchableItemAttributeSet {
+        let searchableItem = article.url?.searchableItemAttributes ??
+                CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
+
+        searchableItem.subject = article.wikidataDescription
+        searchableItem.contentDescription = article.snippet
+        if let imageURL = article.imageURL(forWidth: WMFImageWidth.medium.rawValue) {
+            searchableItem.thumbnailData = dataStore.cacheController.imageCache.data(withURL: imageURL)?.data
+        }
+        return searchableItem
+    }
+    
     @objc public func addToIndex(url: NSURL) {
         guard let article = dataStore.fetchArticle(with: url as URL), let identifier = NSURL.wmf_desktopURL(for: url as URL)?.absoluteString else {
             return
         }
         
         queue.async {
-            let searchableItemAttributes = article.searchableItemAttributes
+            let searchableItemAttributes = self.searchableItemAttribues(for: article)
             searchableItemAttributes.keywords?.append("Saved")
             
             let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)

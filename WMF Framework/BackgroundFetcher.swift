@@ -29,6 +29,7 @@ import Foundation
                     break
                 }
             }
+
             completion(combinedResult)
             guard let strongSelf = self else {
                 return

@@ -276,7 +276,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             let eventsCount = contentGroup?.countOfFullContent?.intValue {
             let otherEventsCount = eventsCount - collectionView.numberOfItems(inSection: 0)
             if otherEventsCount > 0 {
-                return String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount)
+                return CommonStrings.onThisDayFooterWith(with: otherEventsCount)
             } else {
                 return contentGroup?.footerText
             }
@@ -571,7 +571,7 @@ extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func dismissAnnouncementCell(_ cell: AnnouncementCollectionViewCell) {
         contentGroup?.markDismissed()
-        contentGroup?.updateVisibilityForUserIsLogged(in: Session.shared.isAuthenticated)
+        contentGroup?.updateVisibilityForUserIsLogged(in: dataStore.session.isAuthenticated)
         do {
             try dataStore.save()
         } catch let error {
@@ -596,7 +596,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             LoginFunnel.shared.logLoginStartInFeed()
             dismissAnnouncementCell(cell)
         case .notification:
-            WMFNotificationsController.shared().requestAuthenticationIfNecessary { (granted, error) in
+            dataStore.notificationsController.requestAuthenticationIfNecessary { (granted, error) in
                 if let error = error {
                     self.wmf_showAlertWithError(error as NSError)
                 }

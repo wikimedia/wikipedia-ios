@@ -1,6 +1,8 @@
 #import <WMF/MWKLanguageFilter.h>
-
+#import <WMF/WMFPreferredLanguageCodesProviding.h>
+@class NSManagedObjectContext;
 @class MWKLanguageLink;
+@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -8,9 +10,10 @@ extern NSString *const WMFPreferredLanguagesDidChangeNotification;
 
 extern NSString *const WMFAppLanguageDidChangeNotification;
 
-@interface MWKLanguageLinkController : NSObject <MWKLanguageFilterDataSource>
+@interface MWKLanguageLinkController : NSObject <MWKLanguageFilterDataSource, WMFPreferredLanguageCodesProviding>
 
-+ (instancetype)sharedInstance;
+/// Initializes `MWKLanguageLinkController` with the `NSManagedObjectContext` used for storage
+- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)moc;
 
 /**
  * Returns all languages of the receiver, sorted by name, minus unsupported languages.
@@ -83,6 +86,8 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL;
 
 - (nullable MWKLanguageLink *)languageForLanguageCode:(NSString *)languageCode;
+
++ (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc;
 
 @end
 
