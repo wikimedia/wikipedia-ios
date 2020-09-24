@@ -188,7 +188,6 @@ platform :ios do
     product_name = options[:product_name] || "Wikipedia"
     project_name = options[:project] || product_name
     scheme_name = options[:scheme] || product_name
-    app_see_api_key = ENV['WMF_APP_SEE_API_KEY'] || ''
     version = options[:version] || ''
     number = options[:number] || ''
     
