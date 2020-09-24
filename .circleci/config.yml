@@ -1,0 +1,37 @@
+# For a detailed guide to building and testing on iOS, read the docs:
+# https://circleci.com/docs/2.0/testing-ios/
+
+version: 2.1
+
+executors:
+  xcode:
+    macos:
+      xcode: 12.0.0
+
+commands:
+  install_dependencies:
+    description: "Install dependencies"
+    steps:
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+      - run: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+jobs:
+  test_pr:
+    executor: xcode
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane verify_pull_request
+      - store_test_results:
+          path: fastlane/test_output/
+workflows:
+  test_pr:
+    jobs:
+      - test_pr

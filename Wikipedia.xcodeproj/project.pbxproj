@@ -16698,7 +16698,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
@@ -16947,7 +16946,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -18270,7 +18268,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18449,7 +18446,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
@@ -19614,7 +19610,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -19728,7 +19723,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
@@ -20217,7 +20211,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -20436,7 +20429,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
