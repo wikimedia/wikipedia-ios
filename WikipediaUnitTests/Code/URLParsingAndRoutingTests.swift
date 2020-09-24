@@ -115,4 +115,59 @@ class URLParsingAndRoutingTests: XCTestCase {
         url = URL(string: "https://en.wikipedia.org/commons/3/3f/DeanScream.ogg")!
         XCTAssertFalse(url.isWikimediaHostedAudioFileLink)
     }
+
+    func testSpecialCharactersEncodedOnWiki() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("./COVID-19-Pandemie_in_Baden-W%C3%BCrttemberg")?.absoluteString, "https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_Baden-W%C3%BCrttemberg")
+    }
+
+    func testSpecialCharactersUnencodedOnWiki() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("./COVID-19-Pandemie_in_Baden-Württemberg")?.absoluteString, "https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_Baden-W%C3%BCrttemberg")
+    }
+
+    func testSpecialCharactersEncodedOnAnotherWiki() {
+        let url = URL(string: "https://en.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//de.wikipedia.org/wiki/COVID-19-Pandemie_in_Baden-W%C3%BCrttemberg")?.absoluteString, "https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_Baden-W%C3%BCrttemberg")
+    }
+
+    func testSpecialCharactersUnencodedOnAnotherWiki() {
+        let url = URL(string: "https://en.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//de.wikipedia.org/wiki/COVID-19-Pandemie_in_Baden-Württemberg")?.absoluteString, "https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_Baden-W%C3%BCrttemberg")
+    }
+
+    func testSpecialCharactersEncodedOnCommons() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg")?.absoluteString, "https://commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg")
+    }
+
+    func testSpecialCharactersUnencodedOnCommons() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-Württemberg")?.absoluteString, "https://commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg")
+    }
+
+    func testSpecialCharactersEncodedOffWiki() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.p%C3%BCzzledpint.com")?.absoluteString, "https://www.p%C3%BCzzledpint.com")
+    }
+
+    func testSpecialCharactersUnencodedOffWiki() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.püzzledpint.com")?.absoluteString, "https://www.p%C3%BCzzledpint.com")
+    }
+
+    func testQuestionMark() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.puzzledpint.com/page?test=yes")?.absoluteString, "https://www.puzzledpint.com/page?test=yes")
+    }
+
+    func testSpecialCharactersEncodedWithQuestionMark() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg?uselang=de")?.absoluteString, "https://commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg?uselang=de")
+    }
+
+    func testSpecialCharactersUnencodedWithQuestionMark() {
+        let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-Württemberg?uselang=de")?.absoluteString, "https://commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg?uselang=de")
+    }
 }
