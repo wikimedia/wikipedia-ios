@@ -187,7 +187,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
             return
         }
         WidgetController.shared.startWidgetUpdateTask { (done: Bool) in
-            
+            DDLogDebug("Widget did finish: \(done)")
         } _: { (dataStore, completion) in
             dataStore.viewContext.perform {
                 let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: articleKey)
