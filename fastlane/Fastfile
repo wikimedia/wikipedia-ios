@@ -90,7 +90,7 @@ platform :ios do
       # Use the absolute path to select the right version instead
       # Remove trailing 0's to match GitHub's naming conventions
       version_name = version.split('.').select { |n| n != '0' }.join('.')
-      `xcode-select -s /Applications/Xcode_#{version_name}.app`
+      `sudo xcode-select -s /Applications/Xcode_#{version_name}.app`
     else
       xcversion(version: version)
     end
