@@ -21,9 +21,6 @@ class SchemeHandler: NSObject {
     
     private let cacheQueue: OperationQueue = OperationQueue()
     
-    @objc(sharedInstance)
-    public static let shared = SchemeHandler(scheme: "app", session: Session.shared)
-    
     required init(scheme: String, session: Session) {
         self.scheme = scheme
         self.session = session

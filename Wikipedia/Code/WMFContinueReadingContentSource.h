@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFContinueReadingContentSource : NSObject <WMFContentSource, WMFAutoUpdatingContentSource>
 
-@property (readonly, nonatomic, strong) MWKDataStore *userDataStore;
+@property (readonly, nonatomic, weak) MWKDataStore *userDataStore;
 
 - (instancetype)initWithUserDataStore:(MWKDataStore *)userDataStore;
 

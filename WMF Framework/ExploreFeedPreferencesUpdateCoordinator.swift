@@ -1,5 +1,5 @@
 @objc public class ExploreFeedPreferencesUpdateCoordinator: NSObject {
-    private let feedContentController: WMFExploreFeedContentController
+    private unowned let feedContentController: WMFExploreFeedContentController
     private var oldExploreFeedPreferences = Dictionary<String, Any>()
     private var newExploreFeedPreferences = Dictionary<String, Any>()
     private var willTurnOnContentGroupOrLanguage = false

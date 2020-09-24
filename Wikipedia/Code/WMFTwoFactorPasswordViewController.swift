@@ -267,7 +267,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
-        WMFAuthenticationManager.sharedInstance.login(username: userName, password: password, retypePassword: nil, oathToken: token(), captchaID: captchaID, captchaWord: captchaWord) { (loginResult) in
+        MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), captchaID: captchaID, captchaWord: captchaWord) { (loginResult) in
             switch loginResult {
             case .success(_):
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)

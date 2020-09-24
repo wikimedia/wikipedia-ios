@@ -21,20 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFOnThisDayContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL session:(WMFSession *)session configuration:(WMFConfiguration *)configuration {
     NSParameterAssert(siteURL);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
+        self.fetcher = [[WMFOnThisDayEventsFetcher alloc] initWithSession:session configuration:configuration];
     }
     return self;
-}
-
-- (WMFOnThisDayEventsFetcher *)fetcher {
-    if (_fetcher == nil) {
-        _fetcher = [[WMFOnThisDayEventsFetcher alloc] init];
-    }
-    return _fetcher;
 }
 
 #pragma mark - WMFContentSource

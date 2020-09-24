@@ -12,7 +12,8 @@ class ShareViewController: UIViewController, Themeable {
     var theme: Theme
     var image: UIImage?
     var imageLicense: MWKLicense?
-    let infoFetcher = MWKImageInfoFetcher()
+    // SINGLETONTODO
+    let infoFetcher = MWKImageInfoFetcher(dataStore: MWKDataStore.shared())
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var busyView: UIView!
@@ -86,7 +87,7 @@ class ShareViewController: UIViewController, Themeable {
                 self.imageLicense = imageInfo.license
             })
             loadGroup.enter()
-            let _ = ImageCacheController.shared?.fetchImage(withURL: imageURL, failure: { (fail) in
+            MWKDataStore.shared().cacheController.imageCache.fetchImage(withURL: imageURL, failure: { (fail) in
                 self.loadGroup.leave()
             }) { (download) in
                 self.image = download.image.staticImage
