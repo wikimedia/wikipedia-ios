@@ -6,7 +6,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     
     // Model
     var groupURL: URL?
-    var siteURL: URL?
     var results: [WMFFeedTopReadArticlePreview] = []
 
     @IBOutlet weak var chevronImageView: UIImageView!
@@ -159,6 +158,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
         
         var language: String? = nil
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
         if let languageCode = siteURL?.wmf_language {
             language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(languageCode)
         }
@@ -342,7 +342,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
         self.groupURL = topRead.url
         self.results = content
-        self.siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
         self.updateViewAsync(with: dataStore) { didUpdate in
             completionHandler(didUpdate ? .newData : .noData)
         }
