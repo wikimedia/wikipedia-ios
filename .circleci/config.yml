@@ -40,7 +40,6 @@ jobs:
           name: Deploy
           command: echo "deploy"
 workflows:
-  version: 2
   deploy:
     jobs:
       - request_deploy:
