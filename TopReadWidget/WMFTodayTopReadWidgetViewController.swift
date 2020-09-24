@@ -5,14 +5,8 @@ import WMF
 class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProviding {
     
     // Model
-    var siteURL: URL!
     var groupURL: URL?
     var results: [WMFFeedTopReadArticlePreview] = []
-    
-    var feedContentFetcher = WMFFeedContentFetcher()
-    
-    var userStore: MWKDataStore!
-    var contentSource: WMFFeedContentSource!
 
     @IBOutlet weak var chevronImageView: UIImageView!
     
@@ -62,16 +56,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        userStore = MWKDataStore.shared()
-
-        guard let appLanguage = userStore.languageLinkController.appLanguage else {
-            return
-        }
     
-        siteURL = appLanguage.siteURL()
-        contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore)
-
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         view.addGestureRecognizer(tapGR)
         
@@ -141,7 +126,9 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         chevronImageView.tintColor = theme.colors.secondaryText
     }
     
-    @objc func updateView() {
+    
+    
+    func update(with dataStore: MWKDataStore, completion: @escaping () -> Void) {
         guard viewIfLoaded != nil else {
             return
         }
@@ -162,8 +149,8 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
         
         var language: String? = nil
-        let siteURL = self.siteURL as NSURL
-        if let languageCode = siteURL.wmf_language {
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+        if let languageCode = siteURL?.wmf_language {
             language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(languageCode)
         }
         
@@ -183,7 +170,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
         for result in results[0...(maximumRowCount - 1)] {
-            let articlePreview = self.userStore.fetchArticle(with: result.articleURL)
+            let articlePreview = dataStore.fetchArticle(with: result.articleURL)
             guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
@@ -200,7 +187,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
                 }
             }
         }
-
+        let group = DispatchGroup()
         var i = 0
         while i < count {
             var vc: WMFArticlePreviewViewController
@@ -220,15 +207,16 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
 
             vc.titleHTML = result.displayTitleHTML
             if let wikidataDescription = result.wikidataDescription {
-                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
+                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL?.wmf_language)
             } else {
                 vc.subtitleLabel.text = result.snippet
             }
+            vc.imageView.wmf_imageController = dataStore.cacheController
             vc.imageView.wmf_reset()
             let rankString = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: i + 1))
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("rank-accessibility-label", value:"Number %1$@", comment: "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. %1$@ is replaced with the ranking {{Identical|Number}}"), rankString)
-            if let articlePreview = self.userStore.fetchArticle(with: result.articleURL) {
+            if let articlePreview = dataStore.fetchArticle(with: result.articleURL) {
                 if var viewCounts = articlePreview.pageViewsSortedByDate, viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
@@ -258,10 +246,14 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
             }
             
             if let imageURL = result.thumbnailURL {
+                vc.collapseImageAndWidenLabels = true
+                group.enter()
                 vc.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                     vc.collapseImageAndWidenLabels = true
+                    group.leave()
                 }) {
                     vc.collapseImageAndWidenLabels = false
+                    group.leave()
                 }
             } else {
                 vc.collapseImageAndWidenLabels = true
@@ -276,6 +268,11 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
             i += 1
         }
         
+        group.notify(queue: .main, execute: completion)
+        updateView()
+    }
+    
+    @objc func updateView() {
         stackViewHeightConstraint.isActive = false
         stackViewWidthConstraint.constant = maximumSize.width
         var sizeToFit = UIView.layoutFittingCompressedSize
@@ -319,58 +316,44 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     }
 
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        fetch(siteURL: siteURL, date:Date(), attempt: 1, completionHandler: completionHandler)
-    }
-    
-    func updateUIWithTopReadFromContentStoreForSiteURL(siteURL: URL, date: Date) -> NCUpdateResult {
-        if let topRead = self.userStore.viewContext.group(of: .topRead, for: date, siteURL: siteURL) {
-            if let content = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] {
-                if let previousGroupURL = self.groupURL,
-                    let topReadURL = topRead.url,
-                    !self.results.isEmpty,
-                    previousGroupURL == topReadURL {
-                    return .noData
-                }
-                self.groupURL = topRead.url
-                self.results = content
-                self.updateView()
-                return .newData
-            }
+        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in
+            self.fetch(dataStore: dataStore, completionHandler: completion)
         }
-        return .failed
     }
     
-    
-    
-    func fetch(siteURL: URL, date: Date, attempt: Int, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
-        let result = updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date)
-        guard result == .failed else {
-            completionHandler(result)
+    func updateUIWithTopRead(with dataStore: MWKDataStore, moc: NSManagedObjectContext, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+        guard let topRead = moc.newestGroup(of: .topRead, forSiteURL: siteURL),
+              let content = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
+            completionHandler(.failed)
             return
         }
-
-        guard attempt < 4 else {
+        if let previousGroupURL = self.groupURL,
+            let topReadURL = topRead.url,
+            !self.results.isEmpty,
+            previousGroupURL == topReadURL {
             completionHandler(.noData)
             return
         }
-        contentSource.loadContent(for: date, in: userStore.viewContext, force: false) {
-            DispatchQueue.main.async(execute: {
-                let result = self.updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date)
-                guard result != .failed else {
-                    if (attempt == 1) {
-                        let todayUTC = (date as NSDate).wmf_midnightLocalDateForEquivalentUTC as Date
-                        self.fetch(siteURL: siteURL, date: todayUTC, attempt: attempt + 1, completionHandler: completionHandler)
-                    } else {
-                        guard let previousDate = NSCalendar.wmf_gregorian().date(byAdding: .day, value: -1, to: date, options: .matchStrictly) else {
-                            completionHandler(.noData)
-                            return
-                        }
-                         self.fetch(siteURL: siteURL, date: previousDate, attempt: attempt + 1, completionHandler: completionHandler)
-                    }
-                    return
-                }
+        self.groupURL = topRead.url
+        self.results = content
+        self.update(with: dataStore) {
+            completionHandler(.newData)
+        }
+    }
+
+    func fetch(dataStore: MWKDataStore, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
+        updateUIWithTopRead(with: dataStore, moc: dataStore.viewContext) { result in
+            guard result == .failed else {
                 completionHandler(result)
-            })
+                return
+            }
+            dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
+                let moc = dataStore.viewContext
+                moc.perform {
+                    self.updateUIWithTopRead(with: dataStore, moc: moc, completionHandler: completionHandler)
+                }
+            }
         }
     }
     

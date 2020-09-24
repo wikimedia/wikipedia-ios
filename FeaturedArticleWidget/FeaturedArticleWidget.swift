@@ -68,20 +68,6 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         }
     }
     
-    var dataStore: MWKDataStore? {
-        return MWKDataStore.shared()
-    }
-    
-    var article: WMFArticle? {
-        guard
-            let dataStore = dataStore,
-            let featuredContentGroup = dataStore.viewContext.newestVisibleGroup(of: .featuredArticle) ?? dataStore.viewContext.newestGroup(of: .featuredArticle),
-            let articleURL = featuredContentGroup.contentPreview as? URL else {
-                return nil
-        }
-        return dataStore.fetchArticle(with: articleURL)
-    }
-    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
@@ -94,20 +80,37 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         expandedArticleView.tintColor = theme.colors.link
     }
     
+    var articleURL: URL?
+    
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        defer {
-            updateView()
+        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in
+            let moc = dataStore.viewContext
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+            moc.perform {
+                guard let featuredContentGroup = moc.newestGroup(of: .featuredArticle, forSiteURL: siteURL),
+                    let articleURL = featuredContentGroup.contentPreview as? URL else {
+                    completionHandler(.noData)
+                    return
+                }
+                self.collapsedArticleView.imageView.wmf_imageController = dataStore.cacheController
+                self.expandedArticleView.imageView.wmf_imageController = dataStore.cacheController
+                let article = moc.fetchArticle(with: articleURL)
+                let result = self.update(with: article)
+                completionHandler(result ? .newData : .noData)
+            }
         }
-        guard let article = self.article,
+    }
+    
+    func update(with article: WMFArticle?) -> Bool {
+        articleURL = article?.url
+        guard let article = article,
             let articleKey = article.key else {
                 isEmptyViewHidden = false
-                completionHandler(.failed)
-                return
+                return false
         }
         
         guard articleKey != currentArticleKey else {
-            completionHandler(.noData)
-            return
+            return false
         }
         
         currentArticleKey = articleKey
@@ -121,8 +124,8 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
         expandedArticleView.tintColor = theme.colors.link
         expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
-        
-        completionHandler(.newData)
+        updateView()
+        return true
     }
     
     func updateViewAlpha(isExpanded: Bool) {
@@ -166,17 +169,24 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
     }
     
     @objc func saveButtonPressed() {
-        guard let article = self.article, let articleKey = article.key else {
+        guard let articleKey = articleURL?.wmf_databaseKey else {
             return
         }
-        let isSaved = dataStore?.savedPageList.toggleSavedPage(forKey: articleKey) ?? false
-        expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
+        WidgetController.shared.startWidgetUpdateTask { (done: Bool) in
+            
+        } _: { (dataStore, completion) in
+            dataStore.viewContext.perform {
+                let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: articleKey)
+                self.expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
+                completion(isSaved)
+            }
+        }
     }
 
     @objc func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
         guard tapGR.state == .recognized else {
             return
         }
-        openApp(with: self.article?.url)
+        openApp(with: articleURL)
     }
 }

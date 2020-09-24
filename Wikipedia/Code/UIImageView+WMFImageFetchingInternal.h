@@ -41,13 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable, setter=wmf_setImageTokenToCancel:) NSString *wmf_imageTokenToCancel;
 
 /**
- *  The image controller used to fetch image data.
- *
- *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [MWKDataStore shared]'s cacheController.
- */
-@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFPermanentCacheController *wmf_imageController;
-
-/**
  *  Fetch the receiver's @c wmf_imageURLToFetch
  *
  *  @param detectFaces Whether or not face detection & centering is desired.
