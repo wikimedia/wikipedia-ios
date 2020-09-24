@@ -90,12 +90,12 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
             moc.perform {
                 guard let featuredContentGroup = moc.newestGroup(of: .featuredArticle, forSiteURL: siteURL),
                     let articleURL = featuredContentGroup.contentPreview as? URL else {
-                    completionHandler(.noData)
+                    completion(.noData)
                     return
                 }
                 let article = moc.fetchArticle(with: articleURL)
                 self.update(with: article, dataStore: dataStore) { result in
-                    completionHandler(result ? .newData : .noData)
+                    completion(result ? .newData : .noData)
                 }
             }
         }
