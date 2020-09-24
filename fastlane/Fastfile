@@ -246,7 +246,8 @@ platform :ios do
 
   lane :get_latest_tag_with_prefix do |options|
     prefix = options[:prefix] || "betas/"
-    `git tag -l #{prefix}* --sort=-creatordate | head -n 1`
+    remote_prefix = 'refs/tags/'
+    `git ls-remote --tags --sort=-creatordate origin | grep #{remote_prefix}#{prefix}* | head -n 1`.split.last[remote_prefix.length..-1]
   end
   
   lane :get_latest_build_number do |options|
