@@ -6,6 +6,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     
     // Model
     var groupURL: URL?
+    var siteURL: URL?
     var results: [WMFFeedTopReadArticlePreview] = []
 
     @IBOutlet weak var chevronImageView: UIImageView!
@@ -125,11 +126,19 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
         chevronImageView.tintColor = theme.colors.secondaryText
     }
+
+    @objc func updateView() {
+        let completion = { (result: Bool) in
+            DDLogDebug("Widget did finish")
+        }
+        WidgetController.shared.startWidgetUpdateTask(completion) { (dataStore, completion) in
+            self.updateViewAsync(with: dataStore, completion: completion)
+        }
+    }
     
-    
-    
-    func update(with dataStore: MWKDataStore, completion: @escaping () -> Void) {
+    func updateViewAsync(with dataStore: MWKDataStore, completion: @escaping (Bool) -> Void) {
         guard viewIfLoaded != nil else {
+            completion(false)
             return
         }
         if let context = self.extensionContext {
@@ -145,11 +154,11 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
 
         let count = min(results.count, maximumRowCount)
         guard count > 0 else {
+            completion(false)
             return
         }
         
         var language: String? = nil
-        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
         if let languageCode = siteURL?.wmf_language {
             language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(languageCode)
         }
@@ -225,7 +234,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
                         viewCounts.removeFirst(countToRemove)
                     }
                     vc.sparklineView.dataValues = viewCounts
-                    
                     if let count = viewCounts.last {
                         vc.viewCountLabel.text = NumberFormatter.localizedThousandsStringFromNumber(count)
                         if let numberString = NumberFormatter.threeSignificantDigitWholeNumberFormatter.string(from: count) {
@@ -246,14 +254,13 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
             }
             
             if let imageURL = result.thumbnailURL {
-                vc.collapseImageAndWidenLabels = true
                 group.enter()
                 vc.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                    group.leave()
                     vc.collapseImageAndWidenLabels = true
-                    group.leave()
                 }) {
-                    vc.collapseImageAndWidenLabels = false
                     group.leave()
+                    vc.collapseImageAndWidenLabels = false
                 }
             } else {
                 vc.collapseImageAndWidenLabels = true
@@ -268,11 +275,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
             i += 1
         }
         
-        group.notify(queue: .main, execute: completion)
-        updateView()
-    }
-    
-    @objc func updateView() {
         stackViewHeightConstraint.isActive = false
         stackViewWidthConstraint.constant = maximumSize.width
         var sizeToFit = UIView.layoutFittingCompressedSize
@@ -298,6 +300,9 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         
         preferredContentSize = rowCount == 1 ? articlePreviewViewControllers[0].view.frame.size : size
         activityIndicatorHidden = true
+        group.notify(queue: .main) {
+            completion(true)
+        }
     }
     
     var activityIndicatorHidden: Bool = false {
@@ -337,8 +342,9 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
         self.groupURL = topRead.url
         self.results = content
-        self.update(with: dataStore) {
-            completionHandler(.newData)
+        self.siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+        self.updateViewAsync(with: dataStore) { didUpdate in
+            completionHandler(didUpdate ? .newData : .noData)
         }
     }
 
