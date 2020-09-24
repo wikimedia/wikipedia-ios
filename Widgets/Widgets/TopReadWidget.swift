@@ -27,9 +27,9 @@ final class TopReadData {
 
     let maximumRankedArticles = 4
 
-    lazy var placeholder: TopReadEntry = {
-        return TopReadEntry(date: Date(timeIntervalSince1970: 1577836800))
-    }()
+    var placeholder: TopReadEntry {
+        return TopReadEntry(date: Date())
+    }
 
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
         WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
