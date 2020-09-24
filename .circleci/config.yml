@@ -44,10 +44,10 @@ workflows:
   deploy:
     jobs:
       - request_deploy:
-          type: approval
+        type: approval
       - deploy:
-          requires:
-            - request_deploy
+        requires:
+          - request_deploy
   test_pr:
     jobs:
       - test_pr
