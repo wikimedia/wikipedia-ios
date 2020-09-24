@@ -1,5 +1,6 @@
 // Messages for Japanese (日本語)
 // Exported from translatewiki.net
+// Author: A2y4
 // Author: Aefgh39622
 // Author: Afaz
 // Author: Barrel0116
@@ -64,17 +65,17 @@
 "abuse-filter-disallow-unconstructive" = "自動フィルターがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。戻って編集をやり直してください。";
 "abuse-filter-warning-blanking" = "記事の節もしくは全文の削除";
 "abuse-filter-warning-caps" = "すべて大文字で表記";
-"abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも公開しますか？";
+"abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも公開しますか?";
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
 "abuse-filter-warning-spam" = "記事にスパムを追加";
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
-"account-creation-captcha-cannot-see-image" = "画像が表示できませんか？ $1";
+"account-creation-captcha-cannot-see-image" = "画像が表示できませんか? $1";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";
 "account-creation-captcha-request-account" = "アカウントをリクエストする。";
 "account-creation-captcha-title" = "CAPTCHAセキュリティチェック";
 "account-creation-create-account" = "アカウントを作成";
-"account-creation-have-account" = "すでにアカウントをお持ちですか？ $1";
+"account-creation-have-account" = "すでにアカウントをお持ちですか? $1";
 "account-creation-log-in" = "ログインしてください。";
 "account-creation-logging-in" = "ログイン中...";
 "account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
@@ -186,8 +187,8 @@
 "description-help-wikidata-guide" = "説明を記述するためのウィキデータガイド";
 "description-published-button-title" = "完了";
 "description-published-footer" = "アプリ内で記事も編集できます。次回は鉛筆アイコンをクリックして、誤字を直したり、文を編集したりを試してみましょう。";
-"description-published-subtitle" = "みんなのためにウィキペディアを改善しました。やったね！";
-"description-published-title" = "説明が公開されました！";
+"description-published-subtitle" = "みんなのためにウィキペディアを改善しました。";
+"description-published-title" = "説明が公開されました!";
 "description-welcome-concise-sub-title" = "説明は1行のみで、30文字程度で書いてください";
 "description-welcome-concise-title" = "できるだけ短くしましょう";
 "description-welcome-descriptions-sub-title" = "記事を要約して、読者がひと目でテーマが分かるようにします。";
@@ -209,15 +210,21 @@
 "diff-paragraph-moved-format" = "段落が$1に$2移動";
 "diff-revision-error-title" = "版を読み込めませんでした。";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1編集}}";
+"diff-single-header-editor-title" = "編集者の情報";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1バイト追加}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1バイト除去}}";
 "diff-single-header-summary-heading" = "編集の要約";
+"diff-single-intro-title" = "イントロ";
 "diff-single-line-format" = "$1行目:";
 "diff-thanks-anonymous-no-thanks" = "匿名利用者に感謝することはできません";
+"diff-thanks-login-subtitle" = "'感謝' はウィキペディアを編集する編集者へ感謝を示す簡単な方法です。'感謝' を送信するにはログインする必要があります。";
 "diff-thanks-login-title" = "ログインして感謝を送信";
 "diff-thanks-send-button-title" = "感謝を示す";
+"diff-thanks-send-subtitle" = "'感謝' はウィキペディアを編集する編集者へ感謝を示す簡単な方法です。'感謝' は元に戻すことはできず、誰でも見ることができます。";
 "diff-thanks-send-title" = "感謝を公に示す";
 "diff-thanks-sent" = "あなたの感謝は $1 に送られました。";
+"diff-thanks-sent-already" = "すでにこの編集に対して '感謝' を送信しています";
+"diff-thanks-sent-cannot-unsend" = "感謝は取り消すことはできません";
 "dim-images" = "暗い画像";
 "edit-bold-accessibility-label" = "太字にする";
 "edit-bold-remove-accessibility-label" = "太字の解除";
@@ -247,7 +254,7 @@
 "edit-ordered-list-accessibility-label" = "この行を数字付きリストにする";
 "edit-ordered-list-remove-accessibility-label" = "この行を標準の文に戻す";
 "edit-published" = "公開しました!";
-"edit-published-subtitle" = "みんなのためにウィキペディアを改善しました。やったね！";
+"edit-published-subtitle" = "みんなのためにウィキペディアを改善しました。";
 "edit-reference-accessibility-label" = "出典を追加する";
 "edit-reference-remove-accessibility-label" = "出典を削除";
 "edit-signature-accessibility-label" = "署名を追加する";
@@ -357,15 +364,15 @@
 "explore-feed-preferences-top-read-description" = "今日の最も読まれた記事";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "「探してみよう」フィードを解除";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "「探してみよう」フィードのカードをすべて非表示にすると、「探してみよう」タブが解除され、代わりに設定タブを表示します";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "「探してみよう」フィードをオフにしますか？";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "「探してみよう」フィードをオフにしますか?";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "オフにする";
 "explore-feed-preferences-turn-off-explore-tab-message" = "「探してみよう」タブを再表示するには、「探してみよう」フィードの設定画面に移動します";
-"explore-feed-preferences-turn-off-explore-tab-title" = "「探してみよう」タブをオフにしますか？";
+"explore-feed-preferences-turn-off-explore-tab-title" = "「探してみよう」タブをオフにしますか?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "「探してみよう」タブをオフにすると、設定タブに入れ替わります。";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "「探してみよう」フィードのカードをオンにすると、「探してみよう」タブも表示されます";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "「探してみよう」をオンにする";
 "explore-feed-preferences-turn-on-explore-tab-message" = "これは設定タブを非表示にして「探してみよう」タブを表示します。設定タブは「探してみよう」画面の上部の歯車アイコンをタップすると開きます";
-"explore-feed-preferences-turn-on-explore-tab-title" = "「探してみよう」タブをオンにしますか？";
+"explore-feed-preferences-turn-on-explore-tab-title" = "「探してみよう」タブをオンにしますか?";
 "explore-hide-card-prompt" = "このカードを隠す";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
 "explore-main-page-heading" = "今日についての記事";
@@ -457,7 +464,7 @@
 "insert-media-alternative-text-description" = "画像が見えない人のための説明テキスト";
 "insert-media-alternative-text-placeholder" = "この画像を説明する";
 "insert-media-alternative-text-title" = "代替テキスト";
-"insert-media-caption-caption-placeholder" = "この画像は記事にどのように関連していますか？";
+"insert-media-caption-caption-placeholder" = "この画像は記事にどのように関連していますか?";
 "insert-media-caption-description" = "すべての読者に向けた、アイテムの隣のラベル";
 "insert-media-caption-title" = "キャプション";
 "insert-media-image-position-setting-center" = "中央揃え";
@@ -486,9 +493,9 @@
 "logged-out-log-back-in-button-title" = "もう一度アカウントにログインする";
 "logged-out-subtitle" = "アカウント認証に失敗しました。あとで読むリストと編集履歴をあなたの利用者名で同期するには、もう一度ログインしてください。";
 "logged-out-title" = "ログアウトしました";
-"login-forgot-password" = "パスワードをお忘れですか？";
+"login-forgot-password" = "パスワードをお忘れですか?";
 "login-join-wikipedia" = "ウィキペディアに参加する。";
-"login-no-account" = "アカウントをお持ちではありませんか？$1";
+"login-no-account" = "アカウントをお持ちではありませんか? $1";
 "login-title" = "自分のアカウントにログイン";
 "main-menu-about" = "アプリについて";
 "main-menu-account-login" = "ログイン";
@@ -545,11 +552,14 @@
 "page-history-revisions-comparison-warning" = "2つの版しか選べません";
 "page-history-stats-text" = "$2以降に{{PLURAL:$1|$1回の編集}}";
 "page-history-user-edits" = "利用者の編集";
+"page-issues" = "ページの問題点";
+"page-location" = "地図で見る";
 "page-protected-autoconfirmed" = "このページは半保護されています。";
 "page-protected-can-not-edit" = "このページを編集する権限がありません";
 "page-protected-can-not-edit-title" = "このページは保護されています";
 "page-protected-other" = "このページは、次のレベルに保護されています:$1";
 "page-protected-sysop" = "このページは全保護されています。";
+"page-similar-titles" = "類似したページ";
 "pictured" = "描かれた";
 "places-accessibility-clear-saved-searches" = "保存した検索結果を消去する";
 "places-accessibility-group" = "$1記事";
@@ -589,10 +599,10 @@
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
-"reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか？";
-"reading-list-add-hint-title" = "「$1」をあとで読むリストに保存しますか？";
+"reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか?";
+"reading-list-add-hint-title" = "「$1」をあとで読むリストに保存しますか?";
 "reading-list-add-saved-button-title" = "はい、記事をあとで読むリストに追加します";
-"reading-list-add-saved-subtitle" = "ウィキペディアアプリに保存された記事があります。その記事をそのままにして、あなたのアカウントに同期したあとで読むリストに統合しますか？";
+"reading-list-add-saved-subtitle" = "ウィキペディアアプリに保存された記事があります。その記事をそのままにして、あなたのアカウントに同期したあとで読むリストに統合しますか?";
 "reading-list-add-saved-title" = "保存した記事が見つかりました";
 "reading-list-api-error-entry-limit" = "このリストに保存できる記事の数が上限に達したため、この記事は同期できません";
 "reading-list-api-error-generic" = "あとで読むリストの同期中に予期せぬエラーが発生しました";
@@ -609,10 +619,10 @@
 "reading-list-exists-with-same-name" = "そのあとで読むリストの名前は使用中です";
 "reading-list-generic-error" = "あとで読むリストの更新中に予期せぬエラーが発生しました";
 "reading-list-keep-button-title" = "はい、記事をこのデバイスに残します";
-"reading-list-keep-subtitle" = "ウィキペディアアカウントと同期した記事があります。ログアウトした後でもその記事をこのデバイスに残しますか？";
+"reading-list-keep-subtitle" = "ウィキペディアアカウントと同期した記事があります。ログアウトした後でもその記事をこのデバイスに残しますか?";
 "reading-list-keep-sync-disabled-additional-subtitle" = "同期をオフにすると、これらの記事は紐付けられたあなたのアカウントからも削除されます。つまり、このデバイスからその記事を削除すると、将来もう一度同期をオンにしても復元はできません。";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "いいえ、デバイス内からもウィキペディアのアカウントからも記事を削除します。";
-"reading-list-keep-title" = "アプリ内の保存した記事を残しますか？";
+"reading-list-keep-title" = "アプリ内の保存した記事を残しますか?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "記事を並び替え";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "並び替えしてない記事については5000件の上限があります。既存の記事をリストに並び替えしてから、並び替えてない記事の同期を続けてください。";
 "reading-list-limit-hit-for-unsorted-articles-title" = "並び替えてない記事数の上限に達しました";
@@ -623,7 +633,7 @@
 "reading-list-login-or-create-account-button-title" = "ログインまたはアカウント作成";
 "reading-list-login-or-create-account-title" = "ログインして保存した記事を同期する";
 "reading-list-login-subtitle" = "ログインもしくはアカウントを作成して、保存した記事とあとで読むリストをデバイス間で同期し、ユーザー設定に保存しましょう。";
-"reading-list-login-title" = "保存した記事を同期しますか？";
+"reading-list-login-title" = "保存した記事を同期しますか?";
 "reading-list-name-user-created-annotation" = "_[ユーザー名]";
 "reading-list-new-list-description-placeholder" = "短い説明(オプション)";
 "reading-list-new-list-name-placeholder" = "あとで読むリスト名";
@@ -631,7 +641,7 @@
 "reading-list-sync-disabled-panel-title" = "同期は無効になっています";
 "reading-list-sync-enable-button-title" = "同期を有効にする";
 "reading-list-sync-enable-subtitle" = "保存した記事とあとで読むリストはあなたのウィキペディアアカウントに保存して、ウィキペディアアプリ間で同期できるようになりました。";
-"reading-list-sync-enable-title" = "あとで読むリストの同期を有効にしますか？";
+"reading-list-sync-enable-title" = "あとで読むリストの同期を有効にしますか?";
 "reading-list-sync-enabled-panel-message" = "このアカウントではあとで読むリストの同期が有効になっています。このアカウントでの同期を停止したい場合は、設定画面で行ってください。";
 "reading-list-sync-enabled-panel-title" = "このアカウントでは同期が有効になっています";
 "reading-list-unable-to-add-entry" = "あとで読むリストにエントリを追加しようとした際に予期せぬエラーが発生しました。後でもう一度試してください。";
@@ -654,7 +664,7 @@
 "reading-lists-default-list-description" = "保存した記事の、既定のリスト";
 "reading-lists-default-list-title" = "とりあえず";
 "reading-lists-delete-reading-list-alert-message" = "この操作は取り消せません。{{PLURAL:$1|このリスト|これらのリスト}}に保存された記事だけが削除されます。";
-"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|リスト|リスト}}を削除？";
+"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|リスト|リスト}}を削除しますか?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|$1記事}}と{{PLURAL:$2|$2あとで読むリスト}}があなたのアカウントから同期されました";
 "reading-lists-list-not-synced-limit-exceeded" = "上限に達したためリストが同期できませんでした";
 "reading-lists-sort-saved-articles" = "保存した記事を並び替え";
@@ -696,7 +706,7 @@
 "reverted-edit-notification-read-more-action-title" = "さらに詳しく";
 "reverted-edit-possible-reasons" = "- あなたの貢献の内容がガイドラインのひとつに反しています。$1 \n\n - あなたの貢献の内容は実験か不正行為と見なされました";
 "reverted-edit-possible-reasons-subtitle" = "あなたがベストを尽くそうとしたのはよく分かりますが、レビュアーは懸念を持ったようです。\n\nあなたの編集が差し戻された理由としては、以下のような可能性があります。";
-"reverted-edit-thanks-for-editing-title" = "ウィキペディアを編集していただきありがとうございます！";
+"reverted-edit-thanks-for-editing-title" = "ウィキペディアを編集していただきありがとうございます!";
 "reverted-edit-title" = "差し戻された編集";
 "reverted-edit-view-guidelines-text" = "ガイドラインを表示";
 "saved-all-articles-title" = "すべての記事";
@@ -707,7 +717,7 @@
 "saved-search-default-text" = "保存した記事の検索";
 "saved-title" = "保存済み";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|この記事を削除|これらの記事を削除}}すると、すべての関連するあとで読むリストから消去されます";
-"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|記事|記事}}を削除しますか？";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|記事|記事}}を削除しますか?";
 "search-button-accessibility-label" = "ウィキペディア内を検索";
 "search-clear-title" = "消去";
 "search-did-you-mean" = "もしかして: $1";
@@ -725,7 +735,7 @@
 "settings-appearance" = "閲覧設定";
 "settings-clear-cache" = "キャッシュを消去";
 "settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約 $1 の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
-"settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか？";
+"settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか?";
 "settings-clear-cache-cancel" = "キャンセル";
 "settings-clear-cache-ok" = "消去";
 "settings-help-and-feedback" = "ヘルプとフィードバック";
@@ -745,7 +755,7 @@
 "settings-storage-and-syncing-enable-sync-footer-text" = "ログインして同期した際に、ウィキメディア財団が、あなたのユーザー設定に保存した記事とあとで読むリストを保存することを許可する";
 "settings-storage-and-syncing-enable-sync-title" = "保存した記事とリストの同期";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "同期を有効にしている場合、保存した記事を消去すると、あなたのアカウントからとこのデバイスの両方から消去されます。この操作は取り消せません。";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "保存した記事をすべて削除しますか？";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "保存した記事をすべて削除しますか?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "削除";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "ウィキペディアのアカウントとデバイスの同期が有効になっている場合、保存した記事を削除すると、アカウントの方からも削除されます。\n\n保存した記事を削除することで、容量が$1空きます。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "保存した記事を削除";
@@ -841,7 +851,7 @@
 "welcome-intro-free-encyclopedia-title" = "フリー百科事典";
 "welcome-languages-add-button" = "言語を追加";
 "welcome-languages-add-or-edit-button" = "優先言語の追加または編集";
-"welcome-languages-description" = "お使いの端末で次の言語が見つかりました：";
+"welcome-languages-description" = "お使いの端末で次の言語が見つかりました:";
 "welcome-languages-search-title" = "約300言語で検索";
 "welcome-notifications-tell-me-more-creation" = "通知はアプリケーションによってデバイス上で作成され、配信されるもので、当財団（または第三者）のサーバーから届くものではありません。";
 "welcome-notifications-tell-me-more-storage" = "通知設定はデバイスに保存されます。個人情報や活動に基づくものではありません。";
