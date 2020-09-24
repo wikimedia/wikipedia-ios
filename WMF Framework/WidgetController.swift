@@ -36,8 +36,7 @@ public final class WidgetController: NSObject {
         getRetainedSharedDataStore { dataStore in
             task(dataStore, { result in
                 DispatchQueue.main.async {
-                    self.releaseSharedDataStore()
-                    DispatchQueue.main.async {
+                    self.releaseSharedDataStore {
                         userCompletion(result)
                     }
                 }
@@ -49,6 +48,7 @@ public final class WidgetController: NSObject {
     private var _dataStore: MWKDataStore?
     private var completions: [(MWKDataStore) -> Void] = []
     private var isCreatingDataStore: Bool = false
+    private var backgroundActivity: NSObjectProtocol?
     
     /// Returns a `MWKDataStore`for use with widget updates.
     /// Manages a shared instance and a reference count for use by multiple widgets.
@@ -65,6 +65,7 @@ public final class WidgetController: NSObject {
             return
         }
         isCreatingDataStore = true
+        backgroundActivity = ProcessInfo.processInfo.beginActivity(options: [.background, .suddenTerminationDisabled, .automaticTerminationDisabled], reason: "Wikipedia Extension - " + UUID().uuidString)
         let dataStore = MWKDataStore()
         dataStore.performLibraryUpdates {
             DispatchQueue.main.async {
@@ -79,7 +80,7 @@ public final class WidgetController: NSObject {
     }
     
     /// Releases the shared `MWKDataStore` returned by `getRetainedSharedDataStore()`.
-    private func releaseSharedDataStore() {
+    private func releaseSharedDataStore(completion: @escaping () -> Void) {
         assert(Thread.isMainThread, "Data store must be released from the main queue")
         dataStoreRetainCount -= 1
         guard dataStoreRetainCount <= 0 else {
@@ -87,13 +88,20 @@ public final class WidgetController: NSObject {
         }
         _dataStore = nil
         dataStoreRetainCount = 0
-        #if DEBUG
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+        let asyncBackgroundActivity = backgroundActivity
+        // Give a bit of a buffer for other async activity to cease
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            completion()
+            if let asyncBackgroundActivity = asyncBackgroundActivity {
+                ProcessInfo.processInfo.endActivity(asyncBackgroundActivity)
+            }
+            #if DEBUG
             let openFiles = self.openFilePaths()
             let openSqliteFile = openFiles.first(where: { $0.hasSuffix(".sqlite") })
             assert(openSqliteFile == nil, "There should be no open sqlite files (which in our case are Core Data persistent stores) in the shared app container after the data store is released. The widget still has a lock on these files: \(openFiles)")
+            #endif
         }
-        #endif
+        backgroundActivity = nil
     }
     
     #if DEBUG
