@@ -1,3 +1,4 @@
+import CocoaLumberjackSwift
 
 internal enum ReadingListsOperationError: Error {
     case cancelled

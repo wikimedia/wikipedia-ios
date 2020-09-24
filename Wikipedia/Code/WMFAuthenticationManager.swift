@@ -1,4 +1,6 @@
 
+import CocoaLumberjackSwift
+
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */

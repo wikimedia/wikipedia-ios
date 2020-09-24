@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 protocol SectionEditorViewControllerDelegate: class {
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController)
     func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>)

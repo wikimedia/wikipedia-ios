@@ -1,4 +1,5 @@
 import WebKit
+import CocoaLumberjackSwift
 
 class WKWebViewWithSettableInputViews: WKWebView {
     private var storedInputView: UIView?

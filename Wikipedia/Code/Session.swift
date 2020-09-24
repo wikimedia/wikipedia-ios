@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 public enum WMFCachePolicy {
     case foundation(URLRequest.CachePolicy)

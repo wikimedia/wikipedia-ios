@@ -1,5 +1,6 @@
 
 import Foundation
+import CocoaLumberjackSwift
 
 enum CacheFileWriterError: Error {
     case missingTemporaryFileURL

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -358,6 +358,7 @@
 		67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13923BFEA0400736539 /* ImageFetcher.swift */; };
 		67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */; };
 		67A6F14023BFF62300736539 /* ImageCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13F23BFF62200736539 /* ImageCacheController.swift */; };
+		67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */; };
 		67ADEE9623A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9723A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9823A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
@@ -1409,9 +1410,7 @@
 		B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */; };
 		B018501620BC846600A508F1 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B018501820BC84E300A508F1 /* WMF.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B018501B20BC861300A508F1 /* CocoaLumberjackSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B018501C20BC864200A508F1 /* FLAnimatedImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B018501E20BC869700A508F1 /* CocoaLumberjack.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B018501F20BC86B900A508F1 /* Mantle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B019FED02029347300BDE9C9 /* UIStackView+SubviewVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B019FECE2029347200BDE9C9 /* UIStackView+SubviewVerification.swift */; };
 		B01CFC5F1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
@@ -1918,11 +1917,6 @@
 		D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
-		D82FDB331DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
-		D82FDB341DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
-		D82FDB361DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
-		D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
-		D82FDB391DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
 		D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D82FDB3D1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D82FDB3F1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
@@ -1947,8 +1941,6 @@
 		D83FD2A61EF473B300532B15 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D83FD2B01EF4744700532B15 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
-		D83FD2B41EF4746F00532B15 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
-		D83FD2B51EF4746F00532B15 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8421B51203CC8420040F50B /* DebugReadingListsViewController.swift */; };
 		D8421B54203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8421B51203CC8420040F50B /* DebugReadingListsViewController.swift */; };
 		D8421B55203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8421B51203CC8420040F50B /* DebugReadingListsViewController.swift */; };
@@ -2275,10 +2267,8 @@
 		D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
-		D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8A42BA71E815A9C00D8E281 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D8A42BA81E815A9C00D8E281 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
-		D8A42BA91E815A9C00D8E281 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
 		D8A42BAA1E815A9C00D8E281 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D8A42BAD1E815A9C00D8E281 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D8A42BAE1E815A9C00D8E281 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
@@ -2382,11 +2372,6 @@
 		D8CC94DA217897FB007293E7 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */; };
 		D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */; };
-		D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
-		D8CE211D1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
-		D8CE211E1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
-		D8CE211F1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
-		D8CE21201E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE24E11E698E2400DAE2E0 /* UserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */; };
 		D8CE24E21E698E2400DAE2E0 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805991C0CE2E40065EBC0 /* WMFSearchFunnel.m */; };
 		D8CE24E31E698E2400DAE2E0 /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
@@ -2515,10 +2500,8 @@
 		D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
-		D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D8CE262C1E698E2400DAE2E0 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
-		D8CE262D1E698E2400DAE2E0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
 		D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D8CE262F1E698E2400DAE2E0 /* Tweaks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D810C3481DF1C0A4003427DA /* Tweaks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8CE26321E698E2400DAE2E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -2775,10 +2758,8 @@
 		D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
-		D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D8EC3F2E1E9BDA35006712EB /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
-		D8EC3F2F1E9BDA35006712EB /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
 		D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D8EC3F311E9BDA35006712EB /* Tweaks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D810C3481DF1C0A4003427DA /* Tweaks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8EC3F341E9BDA35006712EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -3130,9 +3111,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				B018501F20BC86B900A508F1 /* Mantle.framework in CopyFiles */,
-				B018501E20BC869700A508F1 /* CocoaLumberjack.framework in CopyFiles */,
 				B018501C20BC864200A508F1 /* FLAnimatedImage.framework in CopyFiles */,
-				B018501B20BC861300A508F1 /* CocoaLumberjackSwift.framework in CopyFiles */,
 				B018501820BC84E300A508F1 /* WMF.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4453,7 +4432,6 @@
 		D82E95841F16502E007BD960 /* WMFLanguagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFLanguagesViewController.xib; sourceTree = "<group>"; };
 		D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NYTPhotoViewer.framework; path = Carthage/Build/iOS/NYTPhotoViewer.framework; sourceTree = SOURCE_ROOT; };
-		D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAnimatedImage.framework; path = Carthage/Build/iOS/FLAnimatedImage.framework; sourceTree = SOURCE_ROOT; };
 		D834DAA823E8538700B7B0E9 /* Wikipedia 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 3.xcdatamodel"; sourceTree = "<group>"; };
 		D837B5A51F06AA8C00DCB9CD /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -4655,7 +4633,6 @@
 		D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
-		D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		D8CE26AF1E698E2400DAE2E0 /* Experimental.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Experimental.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CE26B01E698E2500DAE2E0 /* Experimental-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Experimental-Info.plist"; path = "Wikipedia/Experimental-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D8CE9AFD1FDEB14E00AE7D49 /* NavigationBarHider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationBarHider.swift; path = ../Wikipedia/Code/NavigationBarHider.swift; sourceTree = "<group>"; };
@@ -4798,9 +4775,7 @@
 				D8FA190A1E1BDB79009675C3 /* WMF.framework in Frameworks */,
 				D82FDB3F1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
-				D8CE211E1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
-				D82FDB361DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4830,10 +4805,8 @@
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */,
-				D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D844D9731D6CB2600042D692 /* WMF.framework in Frameworks */,
-				D82FDB331DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D82FDAE31DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
@@ -4846,8 +4819,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D83FD2B41EF4746F00532B15 /* CocoaLumberjack.framework in Frameworks */,
-				D83FD2B51EF4746F00532B15 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D83FD2A61EF473B300532B15 /* WMF.framework in Frameworks */,
 				D83FD28A1EF4724700532B15 /* NotificationCenter.framework in Frameworks */,
 				D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */,
@@ -4861,10 +4832,9 @@
 			files = (
 				83B019D624F6C31B0014B5EF /* WidgetKit.framework in Frameworks */,
 				D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */,
-				D8CE21201E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
-				D82FDB391DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
+				67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4875,9 +4845,7 @@
 				D8FA190B1E1BDB7D009675C3 /* WMF.framework in Frameworks */,
 				D82FDB401DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
-				D8CE211F1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
-				D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4893,10 +4861,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8FA19091E1BDB74009675C3 /* WMF.framework in Frameworks */,
-				D82FDB341DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
 				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
-				D8CE211D1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB3D1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDAE41DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 			);
@@ -4910,10 +4876,8 @@
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
 				D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */,
 				D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */,
-				D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8A42BA71E815A9C00D8E281 /* CoreData.framework in Frameworks */,
 				D8A42BA81E815A9C00D8E281 /* WMF.framework in Frameworks */,
-				D8A42BA91E815A9C00D8E281 /* CocoaLumberjack.framework in Frameworks */,
 				D8A42BAA1E815A9C00D8E281 /* CoreGraphics.framework in Frameworks */,
 				D8A42BAD1E815A9C00D8E281 /* UIKit.framework in Frameworks */,
 				D8A42BAE1E815A9C00D8E281 /* Mantle.framework in Frameworks */,
@@ -4937,10 +4901,8 @@
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */,
 				D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */,
-				D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
 				D8CE262C1E698E2400DAE2E0 /* WMF.framework in Frameworks */,
-				D8CE262D1E698E2400DAE2E0 /* CocoaLumberjack.framework in Frameworks */,
 				D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */,
 				D8CE262F1E698E2400DAE2E0 /* Tweaks.framework in Frameworks */,
 				D8CE26321E698E2400DAE2E0 /* UIKit.framework in Frameworks */,
@@ -4958,10 +4920,8 @@
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */,
 				D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */,
-				D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
 				D8EC3F2E1E9BDA35006712EB /* WMF.framework in Frameworks */,
-				D8EC3F2F1E9BDA35006712EB /* CocoaLumberjack.framework in Frameworks */,
 				D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */,
 				D8EC3F311E9BDA35006712EB /* Tweaks.framework in Frameworks */,
 				D8EC3F341E9BDA35006712EB /* UIKit.framework in Frameworks */,
@@ -7701,8 +7661,6 @@
 				D85F000A1DF0C54000A56797 /* FBSnapshotTestCase.framework */,
 				D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */,
 				D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */,
-				D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */,
-				D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */,
 				D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */,
 			);
 			path = Carthage;
@@ -8586,6 +8544,9 @@
 			dependencies = (
 			);
 			name = WMF;
+			packageProductDependencies = (
+				67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */,
+			);
 			productName = WMF;
 			productReference = D844D96C1D6CB2600042D692 /* WMF.framework */;
 			productType = "com.apple.product-type.framework";
@@ -9027,6 +8988,7 @@
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
+				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -9648,17 +9610,13 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/NYTPhotoViewer.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -9677,7 +9635,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\"";
+			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8A1B5EC1FACFD0D007773F8 /* Page Library Development */ = {
@@ -9702,17 +9660,13 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/NYTPhotoViewer.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -9746,19 +9700,15 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/NYTPhotoViewer.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Tweaks.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -9770,11 +9720,9 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/FBSnapshotTestCase.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Nocilla.framework",
 			);
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FBSnapshotTestCase.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Nocilla.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9802,19 +9750,15 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/NYTPhotoViewer.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mantle.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjack.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FLAnimatedImage.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Tweaks.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -20785,6 +20729,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */ = {

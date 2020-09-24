@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import CocoaLumberjackSwift
 
 import MapKit
 

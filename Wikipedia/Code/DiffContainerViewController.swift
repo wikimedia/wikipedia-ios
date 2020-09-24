@@ -1,5 +1,6 @@
 
 import UIKit
+import CocoaLumberjackSwift
 
 struct StubRevisionModel {
     let revisionId: Int

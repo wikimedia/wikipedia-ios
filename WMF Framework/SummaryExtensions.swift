@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 extension WMFArticle {
     func merge(_ article: WMFArticle) {
         guard article.objectID != objectID else {
