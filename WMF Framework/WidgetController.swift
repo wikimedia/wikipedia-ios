@@ -84,6 +84,7 @@ public final class WidgetController: NSObject {
         assert(Thread.isMainThread, "Data store must be released from the main queue")
         dataStoreRetainCount -= 1
         guard dataStoreRetainCount <= 0 else {
+            completion()
             return
         }
         _dataStore = nil
