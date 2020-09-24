@@ -94,39 +94,52 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
                     return
                 }
                 let article = moc.fetchArticle(with: articleURL)
-                let result = self.update(with: article, dataStore: dataStore)
-                completionHandler(result ? .newData : .noData)
+                self.update(with: article, dataStore: dataStore) { result in
+                    completionHandler(result ? .newData : .noData)
+                }
             }
         }
     }
     
-    func update(with article: WMFArticle?, dataStore: MWKDataStore) -> Bool {
+    func update(with article: WMFArticle?, dataStore: MWKDataStore, completion: ((Bool) -> Void)?  = nil) {
         collapsedArticleView.imageView.wmf_imageController = dataStore.cacheController
         expandedArticleView.imageView.wmf_imageController = dataStore.cacheController
         articleURL = article?.url
         guard let article = article,
             let articleKey = article.key else {
                 isEmptyViewHidden = false
-                return false
+                completion?(false)
+                return
         }
         
         guard articleKey != currentArticleKey else {
-            return false
+            completion?(false)
+            return
         }
         
         currentArticleKey = articleKey
         isEmptyViewHidden = true
         
-        collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false)
+        let group = DispatchGroup()
+        group.enter()
+        collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false) {
+            group.leave()
+        }
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
         collapsedArticleView.tintColor = theme.colors.link
 
-        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
+        group.enter()
+        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false) {
+            group.leave()
+        }
         expandedArticleView.tintColor = theme.colors.link
         expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         updateView()
-        return true
+        
+        group.notify(queue: .main) {
+            completion?(true)
+        }
     }
     
     func updateViewAlpha(isExpanded: Bool) {
