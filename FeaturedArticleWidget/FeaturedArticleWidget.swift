@@ -53,6 +53,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         expandedArticleView.preservesSuperviewLayoutMargins = true
         expandedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         expandedArticleView.frame = view.bounds
+        
         view.addSubview(expandedArticleView)
 
         view.wmf_addSubviewWithConstraintsToEdges(emptyView)
@@ -92,16 +93,16 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
                     completionHandler(.noData)
                     return
                 }
-                self.collapsedArticleView.imageView.wmf_imageController = dataStore.cacheController
-                self.expandedArticleView.imageView.wmf_imageController = dataStore.cacheController
                 let article = moc.fetchArticle(with: articleURL)
-                let result = self.update(with: article)
+                let result = self.update(with: article, dataStore: dataStore)
                 completionHandler(result ? .newData : .noData)
             }
         }
     }
     
-    func update(with article: WMFArticle?) -> Bool {
+    func update(with article: WMFArticle?, dataStore: MWKDataStore) -> Bool {
+        collapsedArticleView.imageView.wmf_imageController = dataStore.cacheController
+        expandedArticleView.imageView.wmf_imageController = dataStore.cacheController
         articleURL = article?.url
         guard let article = article,
             let articleKey = article.key else {
