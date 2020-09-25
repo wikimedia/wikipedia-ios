@@ -85,7 +85,7 @@ platform :ios do
   desc "Reads Xcode version from the .xcversion file and sets it using xcversion()"
   lane :read_xcversion do |options|
     version = `cat ../.xcversion`
-    if ENV['IS_GITHUB_ACTIONS']
+    if ENV['GITHUB_ACTIONS']
       # GitHub actions keeps beta versions around that confuse xcversion()
       # Use the absolute path to select the right version instead
       # Remove trailing 0's to match GitHub's naming conventions
@@ -98,6 +98,13 @@ platform :ios do
 
   desc "Runs unit tests, generates reports."
   lane :verify do |options|
+    slack_message = nil
+    if ENV.key?('CIRCLECI')
+      url = ENV['CIRCLE_BUILD_URL']
+      number = ENV['CIRCLE_BUILD_NUM']
+      job = ENV['CIRCLE_JOB']
+      slack_message = "<#{url}|CircleCI #{job} ##{number}>"
+    end
     read_xcversion
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
@@ -108,7 +115,8 @@ platform :ios do
         configuration: 'Test',
         disable_concurrent_testing: true,
         output_files: "#{scheme}.junit",		
-        output_types: 'junit'
+        output_types: 'junit',
+        slack_message: slack_message
       }
       scan(opts)
     end
@@ -203,8 +211,6 @@ platform :ios do
     read_xcversion
 
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" archive"
-    sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
-    sh "zip -rq \"#{build_dir}/#{product_name}_#{version}_(#{number}).xcarchive.zip\" \"#{build_dir}/#{product_name}.xcarchive\""
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
   end
   
