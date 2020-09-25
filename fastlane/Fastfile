@@ -282,14 +282,14 @@ platform :ios do
       version: version
     )
 
-    pilot(
-      ipa: ipa_path,
-      skip_waiting_for_build_processing: true,
-      skip_submission: true,
-      distribute_external: false,
-      app_identifier:  app_identifier,
-      beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org"
-    )
+    # pilot(
+    #   ipa: ipa_path,
+    #   skip_waiting_for_build_processing: true,
+    #   skip_submission: true,
+    #   distribute_external: false,
+    #   app_identifier:  app_identifier,
+    #   beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org"
+    # )
   end
 
   desc "Upload app store metadata"
