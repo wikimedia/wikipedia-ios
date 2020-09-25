@@ -80,7 +80,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = "org.wikimedia.wikipedia.widgets.onThisDay"
+            value = "org.wikimedia.wikipedia.widgets.potd"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable

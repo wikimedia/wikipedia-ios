@@ -14,6 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, copy) NSURL *imageURL;
 
+@property (nonatomic, readonly, copy, nullable) NSNumber *imageWidth;
+
+@property (nonatomic, readonly, copy, nullable) NSNumber *imageHeight;
+
+- (nullable NSURL *)getImageURLForWidth:(double)width height:(double)height;
+
 @end
 
 NS_ASSUME_NONNULL_END

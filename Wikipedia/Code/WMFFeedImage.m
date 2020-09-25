@@ -3,13 +3,14 @@
 #import <WMF/WMFImageURLParsing.h>
 #import <WMF/NSURL+WMFExtras.h>
 #import <WMF/MWLanguageInfo.h>
+#import <WMF/UIScreen+WMFImageWidth.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFFeedImage
 
 + (NSUInteger)modelVersion {
-    return 2;
+    return 3;
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -17,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
              WMF_SAFE_KEYPATH(WMFFeedImage.new, imageDescription): @"description.text",
              WMF_SAFE_KEYPATH(WMFFeedImage.new, imageDescriptionIsRTL): @"description.lang",
              WMF_SAFE_KEYPATH(WMFFeedImage.new, imageURL): @"image.source",
+             WMF_SAFE_KEYPATH(WMFFeedImage.new, imageWidth): @"image.width",
+             WMF_SAFE_KEYPATH(WMFFeedImage.new, imageHeight): @"image.height",
              WMF_SAFE_KEYPATH(WMFFeedImage.new, imageThumbURL): @"thumbnail.source"};
 }
 
@@ -26,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
             NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(urlString);
-            if (sizePrefix < 640) {
-                urlString = WMFChangeImageSourceURLSizePrefix(urlString, 640);
+            if (sizePrefix < WMFImageWidthExtraLarge) {
+                urlString = WMFChangeImageSourceURLSizePrefix(urlString, WMFImageWidthExtraLarge);
             }
             return [NSURL wmf_optionalURLWithString:urlString];
         }
@@ -56,6 +59,38 @@ NS_ASSUME_NONNULL_BEGIN
     return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *lang, BOOL *success, NSError *__autoreleasing *error) {
         return @(lang && [[MWLanguageInfo rtlLanguages] containsObject:lang]);
     }];
+}
+
+- (nullable NSURL *)getImageURLForWidth:(double)width height:(double)height {
+    if (!self.imageWidth || !self.imageHeight) {
+        return self.imageThumbURL ?: self.imageURL;
+    }
+    double imageWidth = self.imageWidth.doubleValue;
+    double imageHeight = self.imageHeight.doubleValue;
+    double widthScale = width / imageWidth;
+    double heightScale = height / imageHeight;
+    double maxScale = MAX(widthScale, heightScale);
+    NSInteger targetWidth = imageWidth * maxScale;
+    NSInteger targetHeight = imageHeight * maxScale;
+    if (targetHeight > WMFImageWidthExtraExtraLarge) {
+        double scaleDownForTooTallImage = (double)WMFImageWidthExtraLarge / targetHeight;
+        targetWidth = targetWidth * scaleDownForTooTallImage;
+    }
+    if (targetWidth > imageWidth) {
+        // We can't request a width larger than the original width, so return the original image URL
+        return self.imageURL;
+    }
+    NSInteger thumbnailBucketSize;
+    if (targetWidth <= WMFImageWidthLarge) {
+        thumbnailBucketSize = WMFImageWidthLarge;
+    } else if (targetWidth <= WMFImageWidthExtraLarge) {
+        thumbnailBucketSize = WMFImageWidthExtraLarge;
+    } else {
+        thumbnailBucketSize = WMFImageWidthExtraExtraLarge;
+    }
+    NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, thumbnailBucketSize);
+    NSURL *adjustedURL = [NSURL URLWithString:adjustedString];
+    return adjustedURL ?: self.imageThumbURL ?: self.imageURL;
 }
 
 @end
