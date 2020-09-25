@@ -98,6 +98,13 @@ platform :ios do
 
   desc "Runs unit tests, generates reports."
   lane :verify do |options|
+    slack_message = nil
+    if ENV.key?('CIRCLECI')
+      url = ENV['CIRCLE_BUILD_URL']
+      number = ENV['CIRCLE_BUILD_NUM']
+      job = ENV['CIRCLE_JOB']
+      slack_message = "<#{url}|CircleCI #{job} ##{number}>"
+    end
     read_xcversion
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
@@ -108,7 +115,8 @@ platform :ios do
         configuration: 'Test',
         disable_concurrent_testing: true,
         output_files: "#{scheme}.junit",		
-        output_types: 'junit'
+        output_types: 'junit',
+        slack_message: slack_message
       }
       scan(opts)
     end
