@@ -1,15 +1,18 @@
 import Foundation
 
 public extension ArticleCollectionViewCell {
-    @objc(configureWithArticle:displayType:index:theme:layoutOnly:)
-    func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
+    @objc(configureWithArticle:displayType:index:theme:layoutOnly:completion:)
+    func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool, completion:(() -> Void)? = nil) {
         apply(theme: theme)
+        
+        let group = DispatchGroup()
         
         let imageWidthToRequest = displayType.imageWidthCompatibleWithTraitCollection(traitCollection)
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                group.enter()
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in group.leave() }, success: { group.leave() })
             }
         } else {
             isImageViewHidden = true
@@ -73,37 +76,39 @@ public extension ArticleCollectionViewCell {
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         setNeedsLayout()
+        group.notify(queue: .main) {
+            completion?()
+        }
     }
 }
 
 public extension ArticleRightAlignedImageCollectionViewCell {
-    @objc func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    @objc func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool, completion:(() -> Void)? = nil) {
         if shouldShowSeparators {
             self.topSeparator.isHidden = index != 0
             self.bottomSeparator.isHidden = false
         } else {
             self.bottomSeparator.isHidden = true
         }
-        super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly)
-        
+        super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly, completion: completion)
     }
 }
 
 public extension RankedArticleCollectionViewCell {
-    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool, completion:(() -> Void)? = nil) {
         rankView.rank = index + 1
         let percent = CGFloat(index + 1) / CGFloat(5)
         rankView.rankColor = theme.colors.rankGradient.color(at: percent)
-        super.configure(article: article, displayType: displayType, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, layoutOnly: layoutOnly)
+        super.configure(article: article, displayType: displayType, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, layoutOnly: layoutOnly, completion: completion)
     }
     
-    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
-        configure(article: article, displayType: displayType, index: index, shouldShowSeparators: false, theme: theme, layoutOnly: layoutOnly)
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool, completion:(() -> Void)? = nil) {
+        configure(article: article, displayType: displayType, index: index, shouldShowSeparators: false, theme: theme, layoutOnly: layoutOnly, completion: completion)
     }
 }
 
 public extension ArticleFullWidthImageCollectionViewCell {
-    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool, completion:(() -> Void)? = nil) {
         switch displayType {
         case .random:
             fallthrough
@@ -112,6 +117,6 @@ public extension ArticleFullWidthImageCollectionViewCell {
         default:
             isSaveButtonHidden = true
         }
-        super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly)
+        super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly, completion: completion)
     }
 }

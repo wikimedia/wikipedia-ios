@@ -47,7 +47,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (WMFLocationSearchFetcher *)locationSearchFetcher {
     if (_locationSearchFetcher == nil) {
-        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
+        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] initWithSession:self.dataStore.session configuration:self.dataStore.configuration];
     }
     return _locationSearchFetcher;
 }

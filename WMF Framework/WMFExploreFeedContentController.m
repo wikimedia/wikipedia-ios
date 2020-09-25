@@ -110,6 +110,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (NSArray<id<WMFContentSource>> *)contentSources {
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.siteURLs);
+    WMFSession *session = self.dataStore.session;
+    WMFConfiguration *configuration = self.dataStore.configuration;
+    NSParameterAssert(session);
+    NSParameterAssert(configuration);
     if (!_contentSources) {
         NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + self.siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
@@ -120,9 +124,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             feedContentSource.notificationSchedulingEnabled = YES;
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
-                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]]];
+                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
+                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
+                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration]]];
         }
         _contentSources = [mutableContentSources copy];
     }

@@ -6,7 +6,6 @@ enum ImageCacheControllerError: Error {
 }
 
 public final class ImageCacheController: CacheController {
-    
     // MARK: Permanent Cache
     
     //batch inserts to db and selectively decides which file variant to download. Used when inserting multiple image urls from media-list endpoint via ArticleCacheController.
@@ -90,13 +89,19 @@ public final class ImageCacheController: CacheController {
         
         let token = UUID().uuidString
         let completion = ImageControllerDataCompletion(success: success, failure: failure)
-        dataCompletionManager.add(completion, priority: priority, forIdentifier: uniqueKey, token: token) { (isFirst) in
+        dataCompletionManager.add(completion, priority: priority, forIdentifier: uniqueKey, token: token) { [weak self] (isFirst) in
+            guard let self = self else {
+                return
+            }
             guard isFirst else {
                 return
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
             let acceptAnyContentType = ["Accept": "*/*"]
-            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { (result) in
+            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { [weak self] (result) in
+                guard let self = self else {
+                    return
+                }
                 switch result {
                 case .failure(let error):
                     guard !self.isCancellationError(error) else {

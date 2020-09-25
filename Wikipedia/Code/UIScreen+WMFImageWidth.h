@@ -23,7 +23,11 @@ typedef NS_ENUM(NSInteger, WMFImageWidth) {
     /**
      *  A slightly larger width, e.g. modal gallery.
      */
-    WMFImageWidthLarge = 640
+    WMFImageWidthLarge = 640,
+
+    WMFImageWidthExtraLarge = 1280,
+    
+    WMFImageWidthExtraExtraLarge = 1920
 };
 
 @interface UIScreen (WMFImageWidth)
