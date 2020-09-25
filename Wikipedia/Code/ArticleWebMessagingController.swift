@@ -48,11 +48,13 @@ class ArticleWebMessagingController: NSObject {
         contentController.addUserScript(propertiesScript)
         let utilitiesScript = PageContentService.UtilitiesScript()
         contentController.addUserScript(utilitiesScript)
-        let styleScript = PageContentService.StyleScript()
-        contentController.addUserScript(styleScript)
+        
         if shouldAttemptToShowArticleAsLivingDoc {
-            let significantEventsStyleScript = PageContentService.SignificantEventsStyleScript()
+            let significantEventsStyleScript = PageContentService.SignificantEventsStyleScript(theme: parameters.theme)
             contentController.addUserScript(significantEventsStyleScript)
+        } else {
+            let styleScript = PageContentService.StyleScript()
+            contentController.addUserScript(styleScript)
         }
     }
     
@@ -91,10 +93,16 @@ class ArticleWebMessagingController: NSObject {
     }
     
     func updateTheme(_ theme: Theme) {
+        let webTheme = theme.webName.lowercased()
         let js = "pcs.c1.Page.setTheme(pcs.c1.Themes.\(theme.webName.uppercased()))"
         webView?.evaluateJavaScript(js)
-        parameters?.theme = theme.webName.lowercased()
+        parameters?.theme = webTheme
         updateSetupParameters()
+        
+        if shouldAttemptToShowArticleAsLivingDoc {
+            let significantEventsJS = PageContentService.SignificantEventsStyleScript.sourceForTheme(webTheme)
+            webView?.evaluateJavaScript(significantEventsJS)
+        }
     }
 
     func getPageContentServiceMargins(from insets: UIEdgeInsets, leadImageHeight: CGFloat = 0) -> PageContentService.Setup.Parameters.Margins {

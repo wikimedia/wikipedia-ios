@@ -1,16 +1,16 @@
 
 div#significant-changes-container{
-    background-color:#eaecf0;
-    box-shadow:inset 0 -5px 10px rgba(0,0,0,0.1),inset 0 5px 10px rgba(0,0,0,0.1);
+    background-color:#2E3136;
+    box-shadow: none;
     padding:.8em .6em
 }
 div#significant-changes-inner-container{
-    background-color:#fff;
-    box-shadow:5px 5px 5px rgba(0,0,0,0.1);
+    background-color:#27292D;
+    box-shadow: none;
     padding:.75em .75em .1em
 }
 h4#significant-changes-header{
-    color:#72777d;
+    color:#C8CCD1;
     font-size:100%
 }
 ul#significant-changes-list{
@@ -59,17 +59,17 @@ p.significant-changes-timestamp{
     font-weight:600;
     color:#00af89
 }
-p.significant-changes-description{
-    color:#202122
-}
 p.significant-changes-userInfo{
     font-size:85%;
-    color:#72777d
+    color:#C8CCD1
+}
+p.significant-changes-description{
+    color:#F8F9FA
 }
 hr#significant-changes-hr{
     margin-left:20px;
     margin-right:20px;
-    color:#72777d
+    color:#C8CCD1
 }
 p#significant-changes-read-more{
     text-align:center;
@@ -100,7 +100,7 @@ span#new-changes-text {
 }
 span#new-changes-timestamp {
     font-size: 93%;
-    color: #72777d;
+    color: #C8CCD1;
     padding-left: .5em;
 }
 div#new-changes-container {
