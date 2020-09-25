@@ -585,20 +585,18 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     
-    private func presentArticleAsLivingDoc() {
+    private func presentArticleAsLivingDoc(scrollToInitialIndexPath initialIndexPath: IndexPath? = nil) {
         if #available(iOS 13.0, *) {
-            if let articleAsLivingDocViewModel = articleAsLivingDocViewModel {
+            if let _ = articleAsLivingDocViewModel {
                 
-                articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleAsLivingDocViewModel: articleAsLivingDocViewModel, articleTitle: article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: theme, delegate: self)
+                articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: theme, delegate: self, scrollToInitialIndexPath: initialIndexPath)
                 articleAsLivingDocViewController?.apply(theme: theme)
                 
                 if let articleAsLivingDocViewController = articleAsLivingDocViewController {
                     let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: theme)
                     navigationController.modalPresentationStyle = .pageSheet
                     navigationController.isNavigationBarHidden = true
-                    present(navigationController, animated: true) {
-                        articleAsLivingDocViewController.addInitialSections(sections: articleAsLivingDocViewModel.sections)
-                    }
+                    present(navigationController, animated: true)
                 }
             }
         }
@@ -864,11 +862,21 @@ class ArticleViewController: ViewController, HintPresenting {
         guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
             return
         }
-        if anchor == "significant-events-read-more" {
-            presentArticleAsLivingDoc()
-        } else {
-            scroll(to: anchor, animated: true)
+        
+        guard anchor.contains("significant-events") else {
+            return
         }
+        
+        let splitItems = anchor.split(separator: "-")
+        guard splitItems.count == 4,
+              let item = Int(splitItems[2]),
+              let section = Int(splitItems[3]) else { //last two items are initialIndexPath to scroll to
+            presentArticleAsLivingDoc()
+            return
+        }
+        
+        let indexPath = IndexPath(item: item, section: section)
+        presentArticleAsLivingDoc(scrollToInitialIndexPath: indexPath)
     }
     
     // MARK: Table of contents

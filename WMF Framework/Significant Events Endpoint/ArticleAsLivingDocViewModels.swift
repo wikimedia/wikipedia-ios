@@ -150,11 +150,12 @@ public struct ArticleAsLivingDocViewModel {
         var newChangesTimestamp: String?
         let htmlSnippetCountMax = 3
         
-        outerLoop: for section in finalSections {
-            for event in section.typedEvents {
+        outerLoop: for (sectionIndex, section) in finalSections.enumerated() {
+            for (itemIndex, event) in section.typedEvents.enumerated() {
                 switch event {
                 case .large(let largeEvent):
-                    if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0) {
+                    let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
+                    if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0, indexPath: indexPath) {
                         if articleInsertHtmlSnippets.count < htmlSnippetCountMax {
                             articleInsertHtmlSnippets.append(htmlSnippet)
                             if articleInsertHtmlSnippets.count == 1 {
@@ -425,9 +426,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return nil
     }
     
-    func articleInsertHtmlSnippet(isFirst: Bool = false) -> String? {
+    func articleInsertHtmlSnippet(isFirst: Bool = false, indexPath: IndexPath) -> String? {
         guard let timestampForDisplay = self.timestampForDisplay(),
-              let eventDescription = eventDescriptionHtmlSnippet(),
+              let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath),
               let userInfo = userInfoHtmlSnippet() else {
             return nil
         }
@@ -437,7 +438,15 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription)</p><p class='significant-changes-userInfo'>\(userInfo)</p></li>"
     }
     
-    private func eventDescriptionHtmlSnippet() -> String? {
+    private func htmlSignificantEventsLinkOpeningTagForIndexPath(_ indexPath: IndexPath) -> String {
+        return "<a href='#significant-events-\(indexPath.item)-\(indexPath.section)'>"
+    }
+    
+    private var htmlSignificantEventsLinkEndingTag: String {
+        return "</a>"
+    }
+    
+    private func eventDescriptionHtmlSnippet(indexPath: IndexPath) -> String? {
         
         let sections = sectionsSet()
         let sectionsHtml = localizedSectionHtmlSnippet(sectionsSet: sections)
@@ -445,9 +454,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let eventDescription: String
         switch typedEvent {
         case .newTalkPageTopic:
-            eventDescription = CommonStrings.newTalkTopicDescription
+            let discussionText = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath) + CommonStrings.newTalkTopicDiscussion + htmlSignificantEventsLinkEndingTag
+            eventDescription = String.localizedStringWithFormat(CommonStrings.newTalkTopicDescriptionFormat, discussionText)
         case .vandalismRevert:
-            let event = CommonStrings.vandalismRevertDescription
+            let event = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath) + CommonStrings.vandalismRevertDescription + htmlSignificantEventsLinkEndingTag
             if let sectionsHtml = sectionsHtml {
                 eventDescription = event + sectionsHtml
             } else {
@@ -455,7 +465,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             }
         case .large(let largeChange):
             
-            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges) else {
+            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges, htmlInsertIndexPath: indexPath) else {
                 assertionFailure("This should not happen")
                 return nil
             }
@@ -474,9 +484,26 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return eventDescription
     }
     
-    private func mergedDescriptionForTypedChanges(_ changes: [SignificantEvents.TypedChange]) -> String? {
+    private func mergedDescriptionForTypedChanges(_ changes: [SignificantEvents.TypedChange], htmlInsertIndexPath: IndexPath?) -> String? {
+        
         let individualDescriptions = self.individualDescriptionsForTypedChanges(changes)
         let sortedDescriptions = individualDescriptions.sorted { $0.priority < $1.priority }
+        
+        // Slightly different logic when creating this for the article content html insert.
+        // We need to wrap individual descriptions into links, and condense multiple changes into "Multiple changes made" link.
+        
+        if let htmlInsertIndexPath = htmlInsertIndexPath {
+            switch sortedDescriptions.count {
+            case 0:
+                assertionFailure("This should not happen")
+                return nil
+            case 1:
+                let description = sortedDescriptions[0].text
+                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath) + description + htmlSignificantEventsLinkEndingTag
+            default:
+                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath) + CommonStrings.multipleChangesMadeDescription + htmlSignificantEventsLinkEndingTag
+            }
+        }
         
         switch sortedDescriptions.count {
         case 0:
@@ -528,7 +555,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let eventDescriptionMutableAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "")
         switch typedEvent {
         case .newTalkPageTopic:
-            let localizedString = CommonStrings.newTalkTopicDescription
+            let localizedString = String.localizedStringWithFormat(CommonStrings.newTalkTopicDescriptionFormat, CommonStrings.newTalkTopicDiscussion)
             let eventAttributedString = NSAttributedString(string: localizedString, attributes: attributes)
             eventDescriptionMutableAttributedString.append(eventAttributedString)
             
@@ -541,7 +568,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         case .large(let largeChange):
             
-            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges) else {
+            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges, htmlInsertIndexPath: nil) else {
                 assertionFailure("This should not happen")
                 break
             }

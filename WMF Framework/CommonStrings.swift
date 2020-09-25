@@ -239,9 +239,13 @@ public class CommonStrings: NSObject {
         "aaald-small-change-description",
         value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}} made",
         comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced with the number of small changes.")
-    static let newTalkTopicDescription = WMFLocalizedString("aaald-new-talk-topic-description", value: "New discussion about this article", comment: "Title displayed in an article as a living document timeline cell explaining that a new article talk page topic has been posted.")
+    
+    static let newTalkTopicDescriptionFormat = WMFLocalizedString("aaald-new-talk-topic-description-format", value: "%1$@ about this article", comment: "Title displayed in an article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted. %1$@ is replaced by `New discussion` text.")
+    static let newTalkTopicDiscussion = WMFLocalizedString("aaald-new-discussion", value: "New discussion", comment: "Portion of title displayed in article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted.")
     
     static let vandalismRevertDescription = WMFLocalizedString("aaald-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.")
+    
+    static let multipleChangesMadeDescription = WMFLocalizedString("aaald-multiple-changes-description", value: "Multiple changes made", comment: "title discplayed in article as a living document content insert explaining that multiple changes were made in a revision.")
     
     static let twoDescriptionsFormat = WMFLocalizedString("aaald-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in an article as a living document timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'")
     

@@ -20,12 +20,13 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     private weak var delegate: ArticleAsLivingDocViewControllerDelegate?
     
     private var dataSource: UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>!
+    private var initialIndexPath: IndexPath?
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
     }
     
-    required init?(articleAsLivingDocViewModel: ArticleAsLivingDocViewModel, articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current, delegate: ArticleAsLivingDocViewControllerDelegate) {
+    required init?(articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current, delegate: ArticleAsLivingDocViewControllerDelegate, scrollToInitialIndexPath initialIndexPath: IndexPath?) {
         
         guard let _ = delegate.articleAsLivingDocViewModel else {
             return nil
@@ -36,6 +37,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         super.init()
         self.theme = theme
         self.delegate = delegate
+        self.initialIndexPath = initialIndexPath
         footerButtonTitle = CommonStrings.viewFullHistoryText
         
         dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
@@ -65,7 +67,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
             }
             
             return cell
-            
+
         }
         
 
@@ -103,7 +105,17 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         for section in sections {
             snapshot.appendItems(section.typedEvents, toSection: section)
         }
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: true) {
+            self.scrollToInitialIndexPathIfNeeded()
+        }
+    }
+    
+    func scrollToInitialIndexPathIfNeeded() {
+        guard let initialIndexPath = initialIndexPath else {
+            return
+        }
+        
+        collectionView.scrollToItem(at: initialIndexPath, at: .top, animated: true)
     }
     
     func appendSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
@@ -147,6 +159,10 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         self.title = headerText
         
         setupNavigationBar()
+        
+        if let viewModel = delegate?.articleAsLivingDocViewModel {
+            addInitialSections(sections: viewModel.sections)
+        }
     }
     
     private func setupNavigationBar() {
