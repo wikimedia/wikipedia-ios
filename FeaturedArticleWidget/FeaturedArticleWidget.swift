@@ -53,6 +53,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         expandedArticleView.preservesSuperviewLayoutMargins = true
         expandedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         expandedArticleView.frame = view.bounds
+        
         view.addSubview(expandedArticleView)
 
         view.wmf_addSubviewWithConstraintsToEdges(emptyView)
@@ -68,20 +69,6 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         }
     }
     
-    var dataStore: MWKDataStore? {
-        return MWKDataStore.shared()
-    }
-    
-    var article: WMFArticle? {
-        guard
-            let dataStore = dataStore,
-            let featuredContentGroup = dataStore.viewContext.newestVisibleGroup(of: .featuredArticle) ?? dataStore.viewContext.newestGroup(of: .featuredArticle),
-            let articleURL = featuredContentGroup.contentPreview as? URL else {
-                return nil
-        }
-        return dataStore.fetchArticle(with: articleURL)
-    }
-    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
@@ -94,35 +81,65 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         expandedArticleView.tintColor = theme.colors.link
     }
     
+    var articleURL: URL?
+    
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        defer {
-            updateView()
+        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in
+            let moc = dataStore.viewContext
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+            moc.perform {
+                guard let featuredContentGroup = moc.newestGroup(of: .featuredArticle, forSiteURL: siteURL),
+                    let articleURL = featuredContentGroup.contentPreview as? URL else {
+                    completion(.noData)
+                    return
+                }
+                let article = moc.fetchArticle(with: articleURL)
+                self.update(with: article, dataStore: dataStore) { result in
+                    completion(result ? .newData : .noData)
+                }
+            }
         }
-        guard let article = self.article,
+    }
+    
+    func update(with article: WMFArticle?, dataStore: MWKDataStore, completion: ((Bool) -> Void)?  = nil) {
+        collapsedArticleView.imageView.wmf_imageController = dataStore.cacheController
+        expandedArticleView.imageView.wmf_imageController = dataStore.cacheController
+        articleURL = article?.url
+        guard let article = article,
             let articleKey = article.key else {
                 isEmptyViewHidden = false
-                completionHandler(.failed)
+                completion?(false)
                 return
         }
         
         guard articleKey != currentArticleKey else {
-            completionHandler(.noData)
+            completion?(false)
             return
         }
         
         currentArticleKey = articleKey
         isEmptyViewHidden = true
         
-        collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false)
+        let group = DispatchGroup()
+        group.enter()
+        collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false) {
+            group.leave()
+        }
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
         collapsedArticleView.tintColor = theme.colors.link
 
-        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
+        group.enter()
+        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false) {
+            group.leave()
+        }
         expandedArticleView.tintColor = theme.colors.link
         expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+        updateView()
         
-        completionHandler(.newData)
+        group.notify(queue: .main) {
+            completion?(true)
+        }
     }
     
     func updateViewAlpha(isExpanded: Bool) {
@@ -166,17 +183,24 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
     }
     
     @objc func saveButtonPressed() {
-        guard let article = self.article, let articleKey = article.key else {
+        guard let articleKey = articleURL?.wmf_databaseKey else {
             return
         }
-        let isSaved = dataStore?.savedPageList.toggleSavedPage(forKey: articleKey) ?? false
-        expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
+        WidgetController.shared.startWidgetUpdateTask { (done: Bool) in
+            DDLogDebug("Widget did finish: \(done)")
+        } _: { (dataStore, completion) in
+            dataStore.viewContext.perform {
+                let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: articleKey)
+                self.expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
+                completion(isSaved)
+            }
+        }
     }
 
     @objc func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
         guard tapGR.state == .recognized else {
             return
         }
-        openApp(with: self.article?.url)
+        openApp(with: articleURL)
     }
 }

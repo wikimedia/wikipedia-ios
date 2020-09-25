@@ -1,5 +1,7 @@
 @import UIKit;
 @class MWKImage;
+@class WMFPermanentCacheController;
+
 #import <WMF/WMFBlockDefinitions.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,6 +33,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A URL to the image to display in the receiver, or @c nil if none is set.
  */
 @property (nonatomic, strong, nullable, readonly) NSURL *wmf_imageURLToFetch;
+
+/**
+ *  The image controller used to fetch image data.
+ *
+ *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [MWKDataStore shared]'s cacheController.
+ */
+@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFPermanentCacheController *wmf_imageController;
+
 
 @end
 

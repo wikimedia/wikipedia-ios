@@ -1,6 +1,10 @@
 {
   "colors" : [
     {
+      "color" : {
+        "platform" : "ios",
+        "reference" : "systemBackgroundColor"
+      },
       "idiom" : "universal"
     }
   ],
