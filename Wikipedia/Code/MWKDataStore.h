@@ -55,6 +55,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
 
+/// Call to cancel any async tasks and wait for completion
+- (void)teardown:(nullable dispatch_block_t)completion;
+
 @property (readonly, strong, nonatomic) NSURL *containerURL;
 @property (readonly, strong, nonatomic) WMFSession *session;
 @property (readonly, strong, nonatomic) WMFConfiguration *configuration;

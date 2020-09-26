@@ -116,22 +116,31 @@ public final class WidgetController: NSObject {
             completion()
             return
         }
-        _dataStore = nil
         dataStoreRetainCount = 0
         let asyncBackgroundActivity = backgroundActivity
-        // Give a bit of a buffer for other async activity to cease
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-            completion()
+        defer {
+            backgroundActivity = nil
+        }
+        let finishBackgroundActivity = {
             if let asyncBackgroundActivity = asyncBackgroundActivity {
                 ProcessInfo.processInfo.endActivity(asyncBackgroundActivity)
             }
+        }
+        guard let dataStoreToTeardown = _dataStore else {
+            completion()
+            finishBackgroundActivity()
+            return
+        }
+        _dataStore = nil
+        dataStoreToTeardown.teardown {
+            completion()
+            finishBackgroundActivity()
             #if DEBUG
             let openFiles = self.openFilePaths()
             let openSqliteFile = openFiles.first(where: { $0.hasSuffix(".sqlite") })
             assert(openSqliteFile == nil, "There should be no open sqlite files (which in our case are Core Data persistent stores) in the shared app container after the data store is released. The widget still has a lock on these files: \(openFiles)")
             #endif
         }
-        backgroundActivity = nil
     }
     
     #if DEBUG

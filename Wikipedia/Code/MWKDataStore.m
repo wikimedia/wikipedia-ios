@@ -113,6 +113,18 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return self;
 }
 
+- (void)teardown:(nullable dispatch_block_t)completion {
+    if (self.cacheController) {
+        [self.cacheController teardown:^{
+            if (completion) {
+                completion();
+            }
+        }];
+    } else if (completion) {
+        completion();
+    }
+}
+
 - (void)setupCoreDataSynchronizersWithContainerURL:(NSURL *)containerURL {
     NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
     NSError *unarchiveError = nil;
