@@ -321,8 +321,8 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     }
 
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in
-            self.fetch(dataStore: dataStore, completionHandler: completion)
+        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, updateTaskCompletion) in
+            self.fetch(dataStore: dataStore, completionHandler: updateTaskCompletion)
         }
     }
     
