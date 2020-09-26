@@ -348,18 +348,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     }
 
     func fetch(dataStore: MWKDataStore, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
-        updateUIWithTopRead(with: dataStore, moc: dataStore.viewContext) { result in
-            guard result == .failed else {
-                completionHandler(result)
-                return
-            }
-            dataStore.feedContentController.performDeduplicatedFetch {
-                let moc = dataStore.viewContext
-                moc.perform {
-                    self.updateUIWithTopRead(with: dataStore, moc: moc, completionHandler: completionHandler)
-                }
-            }
-        }
+        updateUIWithTopRead(with: dataStore, moc: dataStore.viewContext, completionHandler: completionHandler)
     }
     
     func showAllTopReadInApp() {
