@@ -44,6 +44,35 @@ public final class WidgetController: NSObject {
         }
     }
     
+    public func fetchNewestWidgetContentGroup(with kind: WMFContentGroupKind, in dataStore: MWKDataStore, isNetworkFetchAllowed: Bool, completion:  @escaping (WMFContentGroup?) -> Void) {
+        fetchCachedWidgetContentGroup(with: kind, in: dataStore) { (contentGroup) in
+            guard let todaysContentGroup = contentGroup, todaysContentGroup.isForToday else {
+                guard isNetworkFetchAllowed else {
+                    completion(contentGroup)
+                    return
+                }
+                self.updateFeedContent(in: dataStore) {
+                    // if there's no cached content group after update, return nil
+                    self.fetchCachedWidgetContentGroup(with: kind, in: dataStore, completion: completion)
+                }
+                return
+            }
+            completion(todaysContentGroup)
+        }
+    }
+    
+    private func fetchCachedWidgetContentGroup(with kind: WMFContentGroupKind, in dataStore: MWKDataStore, completion:  @escaping (WMFContentGroup?) -> Void) {
+        let moc = dataStore.viewContext
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+        moc.perform {
+            completion(moc.newestGroup(of: kind, forSiteURL: siteURL))
+        }
+    }
+    
+    public func updateFeedContent(in dataStore: MWKDataStore, completion: @escaping () -> Void) {
+        dataStore.feedContentController.performDeduplicatedFetch(completion)
+    }
+    
     private var dataStoreRetainCount: Int = 0
     private var _dataStore: MWKDataStore?
     private var completions: [(MWKDataStore) -> Void] = []

@@ -353,7 +353,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
                 completionHandler(result)
                 return
             }
-            dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
+            dataStore.feedContentController.performDeduplicatedFetch {
                 let moc = dataStore.viewContext
                 moc.perform {
                     self.updateUIWithTopRead(with: dataStore, moc: moc, completionHandler: completionHandler)
