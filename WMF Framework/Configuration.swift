@@ -22,12 +22,13 @@ public class Configuration: NSObject {
         return productionConfiguration(with: Locale.preferredLanguages)
     }()
     
-    public static func productionConfiguration(with preferredLanguages: [String]) -> Configuration {
+    /// - Parameter preferredLanguageCodesFromSystemSettings: An array, in order from most to least preferred, of the user's preferred language codes from the iOS system settings.
+    public static func productionConfiguration(with preferredLanguageCodesFromSystemSettings: [String]) -> Configuration {
         return Configuration(
             defaultSiteDomain: Domain.wikipedia,
             pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
             mediaWikiRestAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory(),
-            preferredLanguages: preferredLanguages
+            preferredLanguageCodesFromSystemSettings: preferredLanguageCodesFromSystemSettings
         )
     }
     
@@ -132,8 +133,8 @@ public class Configuration: NSObject {
     /// - Parameter pageContentServiceAPIURLComponentsBuilderFactory: block that takes a host string as an input and returns an `APIURLComponentsBuilder` for the [Page Content Servce](https://www.mediawiki.org/wiki/Page_Content_Service)
     /// - Parameter wikiFeedsAPIURLComponentsBuilderFactory: block that takes a host string as an input and returns an `APIURLComponentsBuilder` for [Wikifeeds](https://www.mediawiki.org/wiki/Wikifeeds). Useful when running wikifeeds locally or in staging at a separate host from the Page Content Service. Defaults to the `pageContentServiceAPIURLComponentsBuilderFactory`
     /// - Parameter mediaWikiRestAPIURLComponentsBuilderFactory: block that takes a host string as an input and returns an `APIURLComponentsBuilder` for the [MediaWiki Rest API](https://www.mediawiki.org/wiki/API:REST_API)
-    /// - Parameter preferredLanguages: Array of preferred language codes in preference order. Defaults to `Locale.preferredLanguages`
-    required init(defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, wikiFeedsAPIURLComponentsBuilderFactory: ((String?) -> APIURLComponentsBuilder)? = nil, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, preferredLanguages: [String] = Locale.preferredLanguages) { // When preferred languages changes, the app is restarted and Locale.preferredLanguages will be re-read
+    /// - Parameter preferredLanguageCodesFromSystemSettings: An array, in order from most to least preferred, of the user's preferred language codes. Defaults to `Locale.preferredLanguages`, which is that list from the user's iOS system settings.
+    required init(defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, wikiFeedsAPIURLComponentsBuilderFactory: ((String?) -> APIURLComponentsBuilder)? = nil, mediaWikiRestAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, preferredLanguageCodesFromSystemSettings: [String] = Locale.preferredLanguages) { // When preferred languages changes, the app is restarted and Locale.preferredLanguages will be re-read
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
         components.scheme = "https"
@@ -150,10 +151,10 @@ public class Configuration: NSObject {
         self.pageContentServiceAPIURLComponentsBuilderFactory = pageContentServiceAPIURLComponentsBuilderFactory
         self.wikiFeedsAPIURLComponentsBuilderFactory = wikiFeedsAPIURLComponentsBuilderFactory ?? pageContentServiceAPIURLComponentsBuilderFactory
         self.mediaWikiRestAPIURLComponentsBuilderFactory = mediaWikiRestAPIURLComponentsBuilderFactory
-        self.preferredLanguages = preferredLanguages
-        self.preferredWikipediaLanguages = Configuration.uniqueWikipediaLanguages(with: preferredLanguages)
-        self.preferredWikipediaLanguagesWithVariants = Configuration.uniqueWikipediaLanguages(with: preferredLanguages, includingLanguagesWithoutVariants: false) // cache this filtered view as it is used to calculate request headers
-        self.defaultAcceptLanguageHeader = Configuration.acceptLanguageHeader(with: preferredLanguages)
+        self.preferredLanguageCodesFromSystemSettings = preferredLanguageCodesFromSystemSettings
+        self.preferredWikipediaLanguagesFromSystemSettings = Configuration.uniqueWikipediaLanguages(with: preferredLanguageCodesFromSystemSettings)
+        self.preferredWikipediaLanguagesWithVariantsFromSystemSettings = Configuration.uniqueWikipediaLanguages(with: preferredLanguageCodesFromSystemSettings, includingLanguagesWithoutVariants: false) // cache this filtered view as it is used to calculate request headers
+        self.defaultAcceptLanguageHeader = Configuration.acceptLanguageHeader(with: preferredLanguageCodesFromSystemSettings)
     }
     
     let pageContentServiceAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
@@ -290,11 +291,11 @@ public class Configuration: NSObject {
     
     // MARK: - Preferred Languages
 
-    let preferredLanguages: [String]
+    let preferredLanguageCodesFromSystemSettings: [String]
     
-    @objc public let preferredWikipediaLanguages: [String]
+    @objc public let preferredWikipediaLanguagesFromSystemSettings: [String]
     /// List of Wikipedia languages with variants in the order that the user preferrs them. Currently only supports zh and sr.
-    @objc public let preferredWikipediaLanguagesWithVariants: [String]
+    @objc public let preferredWikipediaLanguagesWithVariantsFromSystemSettings: [String]
     
     let defaultAcceptLanguageHeader: String
     
@@ -302,16 +303,11 @@ public class Configuration: NSObject {
     /// - Parameter preferredLanguages: The list of preferred languages to check. Defaults to a list of the user's preferred Wikipedia languages that support variants.
     /// - Returns: The first preferred language variant for a given URL, or nil if the URL is for a Wikipedia with a language that doesn't support variants
     public func preferredWikipediaLanguageVariant(for wikiLanguage: String?) -> String? {
-        guard let language = wikiLanguage else {
+        guard let wikiLanguage = wikiLanguage else {
             return nil
         }
-        for languageCode in preferredLanguages {
-            guard languageCode.hasPrefix(language + "-") else {
-                continue
-            }
-            return languageCode
-        }
-        return nil
+        let prefix = wikiLanguage + "-"
+        return preferredWikipediaLanguagesFromSystemSettings.first { $0.hasPrefix(prefix) }
     }
     
     /// - Parameter languageIdentifiers: List of `Locale` language identifers
