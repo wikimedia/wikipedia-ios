@@ -186,7 +186,10 @@ public extension ArticleAsLivingDocViewModel {
         public let timestamp: Date
         public let typedEvents: [TypedEvent]
         init(timestamp: Date, typedEvents: [TypedEvent], subtitleDateFormatter: DateFormatter) {
-            self.title = (timestamp as NSDate).wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
+            let nsTimestamp = timestamp as NSDate
+            self.title = nsTimestamp.wmf_isTodayUTC()
+                ? nsTimestamp.wmf_localizedRelativeDateFromMidnightUTCDate()
+                : nsTimestamp.wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
             self.subtitleTimestampDisplay = subtitleDateFormatter.string(from: timestamp)
             self.timestamp = timestamp
             self.typedEvents = typedEvents
