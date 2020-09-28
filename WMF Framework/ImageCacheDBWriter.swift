@@ -9,7 +9,7 @@ enum ImageCacheDBWriterError: Error {
 
 final class ImageCacheDBWriter: CacheDBWriting {
 
-    let context: NSManagedObjectContext
+    let contextProvider: ManagedObjectContextProviding
     private let imageFetcher: ImageFetcher
     
     var fetcher: CacheFetching {
@@ -18,9 +18,9 @@ final class ImageCacheDBWriter: CacheDBWriting {
     
     var groupedTasks: [String : [IdentifiedTask]] = [:]
     
-    init(imageFetcher: ImageFetcher, cacheBackgroundContext: NSManagedObjectContext) {
+    init(imageFetcher: ImageFetcher, contextProvider: ManagedObjectContextProviding) {
         self.imageFetcher = imageFetcher
-        self.context = cacheBackgroundContext
+        self.contextProvider = contextProvider
     }
     
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
@@ -51,13 +51,13 @@ final class ImageCacheDBWriter: CacheDBWriting {
         
         let variant = fetcher.variantForURLRequest(urlRequest)
     
-        context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: self.context) else {
+        contextProvider.perform { moc in
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: moc) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheItem))
                 return
             }
             cacheItem.isDownloaded = true
-            CacheDBWriterHelper.save(moc: self.context) { (result) in
+            CacheDBWriterHelper.save(moc: moc) { (result) in
                 switch result {
                 case .success:
                     completion(.success)
@@ -75,9 +75,9 @@ final class ImageCacheDBWriter: CacheDBWriting {
         }
 
         var result: Bool = false
-        context.performAndWait {
+        contextProvider.performAndWait { moc in
         
-            let allVariantCacheItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: self.context)
+            let allVariantCacheItems = CacheDBWriterHelper.allVariantItems(itemKey: itemKey, in: moc)
                 let allVariantItems = allVariantCacheItems.compactMap { return CacheController.ItemKeyAndVariant(itemKey: $0.key, variant: $0.variant) }
                 
                 result = shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
@@ -121,7 +121,7 @@ final class ImageCacheDBWriter: CacheDBWriting {
 
 private extension ImageCacheDBWriter {
     func cacheImages(groupKey: String, urlRequests: [URLRequest], completion: @escaping (CacheDBWritingResultWithURLRequests) -> Void) {
-        context.perform {
+        contextProvider.perform { moc in
         
             let dispatchGroup = DispatchGroup()
             var successRequests: [URLRequest] = []
@@ -140,13 +140,13 @@ private extension ImageCacheDBWriter {
                 
                 let variant = self.imageFetcher.variantForURLRequest(urlRequest)
                     
-                guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: self.context) else {
+                guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: moc) else {
                     errorRequests.append(urlRequest)
                     dispatchGroup.leave()
                     continue
                 }
                 
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: self.context) else {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: moc) else {
                     errorRequests.append(urlRequest)
                     dispatchGroup.leave()
                     continue
@@ -155,7 +155,7 @@ private extension ImageCacheDBWriter {
                 item.variant = variant
                 group.addToCacheItems(item)
                 
-                CacheDBWriterHelper.save(moc: self.context) { (result) in
+                CacheDBWriterHelper.save(moc: moc) { (result) in
                     
                     defer {
                         dispatchGroup.leave()

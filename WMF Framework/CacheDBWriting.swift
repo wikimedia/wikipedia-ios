@@ -35,7 +35,7 @@ enum CacheDBWritingRemoveError: Error {
 }
 
 protocol CacheDBWriting: CacheTaskTracking {
-    var context: NSManagedObjectContext { get }
+    var contextProvider: ManagedObjectContextProviding { get }
     
     typealias CacheDBWritingCompletionWithURLRequests = (CacheDBWritingResultWithURLRequests) -> Void
     typealias CacheDBWritingCompletionWithItemAndVariantKeys = (CacheDBWritingResultWithItemAndVariantKeys) -> Void
@@ -57,8 +57,8 @@ protocol CacheDBWriting: CacheTaskTracking {
 extension CacheDBWriting {
 
     func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys) {
-        context.perform {
-            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: self.context) else {
+        contextProvider.perform { moc in
+            guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: moc) else {
                 completion(.failure(CacheDBWritingMarkDownloadedError.cannotFindCacheGroup))
                 return
             }
@@ -76,15 +76,15 @@ extension CacheDBWriting {
     }
     
     func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void) {
-        context.perform {
-            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemAndVariantKey.itemKey, variant: itemAndVariantKey.variant, in: self.context) else {
+        contextProvider.perform { moc in
+            guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemAndVariantKey.itemKey, variant: itemAndVariantKey.variant, in: moc) else {
                 completion(.failure(CacheDBWritingRemoveError.cannotFindCacheItem))
                 return
             }
             
-            self.context.delete(cacheItem)
+            moc.delete(cacheItem)
             
-            CacheDBWriterHelper.save(moc: self.context) { (result) in
+            CacheDBWriterHelper.save(moc: moc) { (result) in
                 switch result {
                 case .success:
                     completion(.success)
@@ -96,15 +96,15 @@ extension CacheDBWriting {
     }
     
     func remove(groupKey: CacheController.GroupKey, completion: @escaping (CacheDBWritingResult) -> Void) {
-        context.perform {
-            guard let cacheGroup = CacheDBWriterHelper.cacheGroup(with: groupKey, in: self.context) else {
+        contextProvider.perform { moc in
+            guard let cacheGroup = CacheDBWriterHelper.cacheGroup(with: groupKey, in: moc) else {
                 completion(.failure(CacheDBWritingRemoveError.cannotFindCacheItem))
                 return
             }
             
-            self.context.delete(cacheGroup)
+            moc.delete(cacheGroup)
             
-            CacheDBWriterHelper.save(moc: self.context) { (result) in
+            CacheDBWriterHelper.save(moc: moc) { (result) in
                 switch result {
                 case .success:
                     completion(.success)

@@ -20,10 +20,10 @@ public struct Header {
 }
 
 class PermanentlyPersistableURLCache: URLCache {
-    let cacheManagedObjectContext: NSManagedObjectContext
+    let contextProvider: ManagedObjectContextProviding
     
-    init(moc: NSManagedObjectContext) {
-        cacheManagedObjectContext = moc
+    init(contextProvider: ManagedObjectContextProviding) {
+        self.contextProvider = contextProvider
         super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: URLCache.shared.diskCapacity, diskPath: nil)
     }
     
@@ -127,10 +127,10 @@ extension PermanentlyPersistableURLCache {
             completion(false)
             return
         }
-        let moc = cacheManagedObjectContext
         let variant = variantForURLRequest(urlRequest)
-        
-        return CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: completion)
+        contextProvider.perform { moc in
+            CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: completion)
+        }
     }
 }
 
@@ -515,59 +515,58 @@ extension PermanentlyPersistableURLCache {
             return
         }
         
-        let moc = cacheManagedObjectContext
-        
-        CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: { (isCached) in
-            guard isCached else {
-                return
-            }
-
-            let cachedHeaders = self.permanentlyCachedHeaders(for: request)
-            let cachedETag = cachedHeaders?[HTTPURLResponse.etagHeaderKey]
-            let responseETag = httpResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
-            guard cachedETag == nil || cachedETag != responseETag else {
-                return
-            }
-            
-            let headerFileName: String
-            let contentFileName: String
-            
-            if isArticleOrImageInfoRequest,
-                let topVariant = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc).first {
-                
-                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: topVariant.variant)
-                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: topVariant.variant)
-                
-            } else {
-                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
-            }
-            
-            CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
-                switch result {
-                case .success:
-                    DDLogDebug("Successfully updated cached header file.")
-                case .failure(let error):
-                    DDLogDebug("Failed updating cached header file: \(error)")
-                case .exists:
-                    assertionFailure("This shouldn't happen.")
-                    break
+        contextProvider.perform { moc in
+            CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: { (isCached) in
+                guard isCached else {
+                    return
                 }
-            }
-            
-            CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
-                switch result {
-                case .success:
-                    DDLogDebug("Successfully updated cached content file.")
-                case .failure(let error):
-                    DDLogDebug("Failed updating cached content file: \(error)")
-                case .exists:
-                    assertionFailure("This shouldn't happen.")
-                    break
-                }
-            }
-        })
 
+                let cachedHeaders = self.permanentlyCachedHeaders(for: request)
+                let cachedETag = cachedHeaders?[HTTPURLResponse.etagHeaderKey]
+                let responseETag = httpResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+                guard cachedETag == nil || cachedETag != responseETag else {
+                    return
+                }
+                
+                let headerFileName: String
+                let contentFileName: String
+                
+                if isArticleOrImageInfoRequest,
+                    let topVariant = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc).first {
+                    
+                    headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: topVariant.variant)
+                    contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: topVariant.variant)
+                    
+                } else {
+                    headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+                    contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
+                }
+                
+                CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
+                    switch result {
+                    case .success:
+                        DDLogDebug("Successfully updated cached header file.")
+                    case .failure(let error):
+                        DDLogDebug("Failed updating cached header file: \(error)")
+                    case .exists:
+                        assertionFailure("This shouldn't happen.")
+                        break
+                    }
+                }
+                
+                CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
+                    switch result {
+                    case .success:
+                        DDLogDebug("Successfully updated cached content file.")
+                    case .failure(let error):
+                        DDLogDebug("Failed updating cached content file: \(error)")
+                    case .exists:
+                        assertionFailure("This shouldn't happen.")
+                        break
+                    }
+                }
+            })
+        }
     }
 }
 
@@ -591,16 +590,17 @@ private extension PermanentlyPersistableURLCache {
     }
     
     func permanentlyCachedResponse(for request: URLRequest) -> CachedURLResponse? {
-        
         //1. try pulling from Persistent Cache
         if let persistedCachedResponse = persistedResponseWithURLRequest(request) {
             return persistedCachedResponse
-        //2. else try pulling a fallback from Persistent Cache
-        } else if let fallbackCachedResponse = fallbackPersistedResponse(urlRequest: request, moc: cacheManagedObjectContext) {
-            return fallbackCachedResponse
         }
         
-        return nil
+        //2. else try pulling a fallback from Persistent Cache
+        var fallbackCachedResponse: CachedURLResponse?
+        contextProvider.performAndWait { moc in
+            fallbackCachedResponse = fallbackPersistedResponse(urlRequest: request, moc: moc)
+        }
+        return fallbackCachedResponse
     }
     
     enum PersistedResponseRequest {

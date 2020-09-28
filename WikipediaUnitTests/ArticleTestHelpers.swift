@@ -210,247 +210,252 @@ class ArticleTestHelpers {
     }
     
     static func writeCachedPiecesToCachingSystem() {
-        let moc = cacheController.managedObjectContext
-         
-        let mobileHTMLURLString = "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"
-        let cssString = "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site"
-        
-        //save objects database
-        guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
-            let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: nil, in: moc),
-            let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png")!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States.svg", variant: "960", in: moc),
-            let cssCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: cssString)!, itemKey: cssString, variant: nil, in: moc) else {
-            XCTFail("Unable to create Cache DB objects")
-            return
-        }
-        
-        cacheGroup.addToCacheItems(htmlCacheItem)
-        cacheGroup.addToCacheItems(imageCacheItem)
-        cacheGroup.addToCacheItems(cssCacheItem)
-        
-        CacheDBWriterHelper.save(moc: moc) { (result) in
+        let contextProvider = cacheController.contextProvider
+        contextProvider.performAndWait { moc in
+            let mobileHTMLURLString = "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"
+            let cssString = "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site"
             
-            switch result {
-            case .success:
-                break
-            case .failure:
-                XCTFail("Failure saving Cache DB objects")
-            }
-        }
-        
-        //set up file names and content
-        let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
-        guard let htmlURL = URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"),
-            let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
-            let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {
-                XCTFail("Failure determining html file name")
+            //save objects database
+            guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
+                let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: nil, in: moc),
+                let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png")!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States.svg", variant: "960", in: moc),
+                let cssCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: cssString)!, itemKey: cssString, variant: nil, in: moc) else {
+                XCTFail("Unable to create Cache DB objects")
                 return
-        }
-        
-        guard let cssURL = URL(string: "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site"),
-            let uniqueCSSFileName = fileNameGenerator.uniqueFileNameForURL(cssURL, type: .article),
-            let uniqueCSSHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(cssURL, type: .article) else {
-                XCTFail("Failure determining html file name")
-                return
-        }
-        
-        guard let imageURL = URL(string: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png"),
-            let uniqueImageFileName = fileNameGenerator.uniqueFileNameForURL(imageURL, type: .image),
-        let uniqueImageHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(imageURL, type: .image) else {
-                XCTFail("Failure determining image file name")
-                return
-        }
-        
-        guard let fixtureData = self.fixtureData else {
-                XCTFail("Failure pulling data from Fixtures")
-                return
-        }
-        
-        //save content in file system
-        CacheFileWriterHelper.saveData(data: fixtureData.cachedHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving html data")
             }
-        }
-        
-        CacheFileWriterHelper.saveData(data: fixtureData.image, toNewFileWithKey: uniqueImageFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving image data")
+            
+            cacheGroup.addToCacheItems(htmlCacheItem)
+            cacheGroup.addToCacheItems(imageCacheItem)
+            cacheGroup.addToCacheItems(cssCacheItem)
+            
+            CacheDBWriterHelper.save(moc: moc) { (result) in
+                
+                switch result {
+                case .success:
+                    break
+                case .failure:
+                    XCTFail("Failure saving Cache DB objects")
+                }
             }
-        }
-        
-        CacheFileWriterHelper.saveData(data: fixtureData.cachedCSS, toNewFileWithKey: uniqueCSSFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving css data")
+            
+            //set up file names and content
+            let fileNameGenerator = PermanentlyPersistableURLCache(contextProvider: contextProvider)
+            guard let htmlURL = URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"),
+                let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
+                let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {
+                    XCTFail("Failure determining html file name")
+                    return
             }
-        }
-        
-        //save headers in file system
-        let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;"]
-        
-        CacheFileWriterHelper.saveResponseHeader(headerFields: htmlHeaders, toNewFileName: uniqueHTMLHeaderFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving html header")
+            
+            guard let cssURL = URL(string: "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site"),
+                let uniqueCSSFileName = fileNameGenerator.uniqueFileNameForURL(cssURL, type: .article),
+                let uniqueCSSHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(cssURL, type: .article) else {
+                    XCTFail("Failure determining html file name")
+                    return
             }
-        }
-        
-        let imageHeaders: [String: String] = ["Content-Type": "image/jpeg",
-                                              "Content-Length": String((fixtureData.image as NSData).length)]
-        
-        CacheFileWriterHelper.saveResponseHeader(headerFields: imageHeaders, toNewFileName: uniqueImageHeaderFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving image header")
+            
+            guard let imageURL = URL(string: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png"),
+                let uniqueImageFileName = fileNameGenerator.uniqueFileNameForURL(imageURL, type: .image),
+            let uniqueImageHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(imageURL, type: .image) else {
+                    XCTFail("Failure determining image file name")
+                    return
             }
-        }
-        
-        let cssHeaders: [String: String] = ["Content-Type": "text/css; charset=utf-8;",
-                                            "Content-Length": String((fixtureData.cachedCSS as NSData).length)]
-        
-        CacheFileWriterHelper.saveResponseHeader(headerFields: cssHeaders, toNewFileName: uniqueCSSHeaderFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving css header")
+            
+            guard let fixtureData = self.fixtureData else {
+                    XCTFail("Failure pulling data from Fixtures")
+                    return
             }
+            
+            //save content in file system
+            CacheFileWriterHelper.saveData(data: fixtureData.cachedHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving html data")
+                }
+            }
+            
+            CacheFileWriterHelper.saveData(data: fixtureData.image, toNewFileWithKey: uniqueImageFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving image data")
+                }
+            }
+            
+            CacheFileWriterHelper.saveData(data: fixtureData.cachedCSS, toNewFileWithKey: uniqueCSSFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving css data")
+                }
+            }
+            
+            //save headers in file system
+            let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;"]
+            
+            CacheFileWriterHelper.saveResponseHeader(headerFields: htmlHeaders, toNewFileName: uniqueHTMLHeaderFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving html header")
+                }
+            }
+            
+            let imageHeaders: [String: String] = ["Content-Type": "image/jpeg",
+                                                  "Content-Length": String((fixtureData.image as NSData).length)]
+            
+            CacheFileWriterHelper.saveResponseHeader(headerFields: imageHeaders, toNewFileName: uniqueImageHeaderFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving image header")
+                }
+            }
+            
+            let cssHeaders: [String: String] = ["Content-Type": "text/css; charset=utf-8;",
+                                                "Content-Length": String((fixtureData.cachedCSS as NSData).length)]
+            
+            CacheFileWriterHelper.saveResponseHeader(headerFields: cssHeaders, toNewFileName: uniqueCSSHeaderFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving css header")
+                }
+            }
+            
         }
+         
+        
     }
     
     static func writeVariantPiecesToCachingSystem() {
-        let moc = cacheController.managedObjectContext
-         
-        let mobileHTMLURLString = "https://zh.wikipedia.org/api/rest_v1/page/mobile-html/%E7%BE%8E%E5%9B%BD"
-        let cssString = "https://zh.wikipedia.org/api/rest_v1/data/css/mobile/site"
-        let imageURLString = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/640px-Flag_of_the_United_States_%28Pantone%29.svg.png"
-        
-        //save objects database
-        guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
-            let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: "zh-hans", in: moc),
-            let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: imageURLString)!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States_%28Pantone%29.svg", variant: "640", in: moc),
-            let cssCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: cssString)!, itemKey: cssString, variant: nil, in: moc) else {
-            XCTFail("Unable to create Cache DB objects")
-            return
-        }
-        imageCacheItem.isDownloaded = true
-        cacheGroup.addToCacheItems(htmlCacheItem)
-        cacheGroup.addToCacheItems(imageCacheItem)
-        cacheGroup.addToCacheItems(cssCacheItem)
-        
-        CacheDBWriterHelper.save(moc: moc) { (result) in
+        let contextProvider = cacheController.contextProvider
+        contextProvider.performAndWait { moc in
+            let mobileHTMLURLString = "https://zh.wikipedia.org/api/rest_v1/page/mobile-html/%E7%BE%8E%E5%9B%BD"
+            let cssString = "https://zh.wikipedia.org/api/rest_v1/data/css/mobile/site"
+            let imageURLString = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/640px-Flag_of_the_United_States_%28Pantone%29.svg.png"
             
-            switch result {
-            case .success:
-                break
-            case .failure:
-                XCTFail("Failure saving Cache DB objects")
-            }
-        }
-        
-        //set up file names and content
-        let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
-        guard let htmlURL = URL(string: mobileHTMLURLString),
-            let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
-            let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {
-                XCTFail("Failure determining html file name")
+            //save objects database
+            guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
+                let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: "zh-hans", in: moc),
+                let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: imageURLString)!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States_%28Pantone%29.svg", variant: "640", in: moc),
+                let cssCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: cssString)!, itemKey: cssString, variant: nil, in: moc) else {
+                XCTFail("Unable to create Cache DB objects")
                 return
-        }
-        
-        guard let cssURL = URL(string: cssString),
-            let uniqueCSSFileName = fileNameGenerator.uniqueFileNameForURL(cssURL, type: .article),
-            let uniqueCSSHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(cssURL, type: .article) else {
-                XCTFail("Failure determining html file name")
-                return
-        }
-        
-        guard let imageURL = URL(string: imageURLString),
-            let uniqueImageFileName = fileNameGenerator.uniqueFileNameForURL(imageURL, type: .image),
-        let uniqueImageHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(imageURL, type: .image) else {
-                XCTFail("Failure determining image file name")
-                return
-        }
-        
-        guard let fixtureData = self.fixtureData else {
-                XCTFail("Failure pulling data from Fixtures")
-                return
-        }
-        
-        //save content in file system
-        CacheFileWriterHelper.saveData(data: fixtureData.cachedZhansHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving html data")
             }
-        }
-        
-        CacheFileWriterHelper.saveData(data: fixtureData.imageZh640, toNewFileWithKey: uniqueImageFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving image data")
+            imageCacheItem.isDownloaded = true
+            cacheGroup.addToCacheItems(htmlCacheItem)
+            cacheGroup.addToCacheItems(imageCacheItem)
+            cacheGroup.addToCacheItems(cssCacheItem)
+            
+            CacheDBWriterHelper.save(moc: moc) { (result) in
+                
+                switch result {
+                case .success:
+                    break
+                case .failure:
+                    XCTFail("Failure saving Cache DB objects")
+                }
             }
-        }
-        
-        CacheFileWriterHelper.saveData(data: fixtureData.cachedZhCSS, toNewFileWithKey: uniqueCSSFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving css data")
+            
+            //set up file names and content
+            let fileNameGenerator = PermanentlyPersistableURLCache(contextProvider: contextProvider)
+            guard let htmlURL = URL(string: mobileHTMLURLString),
+                let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
+                let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {
+                    XCTFail("Failure determining html file name")
+                    return
             }
-        }
-        
-        //save headers in file system
-        let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;",
-                                             "Vary": "Accept-Language, Accept-Encoding"]
-        
-        CacheFileWriterHelper.saveResponseHeader(headerFields: htmlHeaders, toNewFileName: uniqueHTMLHeaderFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving html header")
+            
+            guard let cssURL = URL(string: cssString),
+                let uniqueCSSFileName = fileNameGenerator.uniqueFileNameForURL(cssURL, type: .article),
+                let uniqueCSSHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(cssURL, type: .article) else {
+                    XCTFail("Failure determining html file name")
+                    return
             }
-        }
-        
-        let imageHeaders: [String: String] = ["Content-Type": "image/jpeg",
-                                              "Content-Length": String((fixtureData.imageZh640 as NSData).length)]
-        
-        CacheFileWriterHelper.saveResponseHeader(headerFields: imageHeaders, toNewFileName: uniqueImageHeaderFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving image header")
+            
+            guard let imageURL = URL(string: imageURLString),
+                let uniqueImageFileName = fileNameGenerator.uniqueFileNameForURL(imageURL, type: .image),
+            let uniqueImageHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(imageURL, type: .image) else {
+                    XCTFail("Failure determining image file name")
+                    return
             }
-        }
-        
-        let cssHeaders: [String: String] = ["Content-Type": "text/css; charset=utf-8;",
-                                            "Content-Length": String((fixtureData.cachedZhCSS as NSData).length)]
-        
-        CacheFileWriterHelper.saveResponseHeader(headerFields: cssHeaders, toNewFileName: uniqueCSSHeaderFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                break
-            case .failure:
-                XCTFail("Failure saving css header")
+            
+            guard let fixtureData = self.fixtureData else {
+                    XCTFail("Failure pulling data from Fixtures")
+                    return
+            }
+            
+            //save content in file system
+            CacheFileWriterHelper.saveData(data: fixtureData.cachedZhansHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving html data")
+                }
+            }
+            
+            CacheFileWriterHelper.saveData(data: fixtureData.imageZh640, toNewFileWithKey: uniqueImageFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving image data")
+                }
+            }
+            
+            CacheFileWriterHelper.saveData(data: fixtureData.cachedZhCSS, toNewFileWithKey: uniqueCSSFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving css data")
+                }
+            }
+            
+            //save headers in file system
+            let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;",
+                                                 "Vary": "Accept-Language, Accept-Encoding"]
+            
+            CacheFileWriterHelper.saveResponseHeader(headerFields: htmlHeaders, toNewFileName: uniqueHTMLHeaderFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving html header")
+                }
+            }
+            
+            let imageHeaders: [String: String] = ["Content-Type": "image/jpeg",
+                                                  "Content-Length": String((fixtureData.imageZh640 as NSData).length)]
+            
+            CacheFileWriterHelper.saveResponseHeader(headerFields: imageHeaders, toNewFileName: uniqueImageHeaderFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving image header")
+                }
+            }
+            
+            let cssHeaders: [String: String] = ["Content-Type": "text/css; charset=utf-8;",
+                                                "Content-Length": String((fixtureData.cachedZhCSS as NSData).length)]
+            
+            CacheFileWriterHelper.saveResponseHeader(headerFields: cssHeaders, toNewFileName: uniqueCSSHeaderFileName) { (result) in
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure:
+                    XCTFail("Failure saving css header")
+                }
             }
         }
     }

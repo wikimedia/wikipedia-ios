@@ -1222,7 +1222,7 @@
 		83A72BBF24E70BB200732493 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A72BBE24E70BB200732493 /* localization.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
-		83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A933472514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A933452514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m */; };
 		83ACAA9924E6D112003B3035 /* Collection+AsyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51421766E570012F940 /* Collection+AsyncMap.swift */; };
 		83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
@@ -2641,6 +2641,7 @@
 		D8E78FA41FB4C8250094B968 /* ReadingListsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E78FA31FB4C8250094B968 /* ReadingListsController.swift */; };
 		D8E78FA61FB4C8740094B968 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E78FA51FB4C8740094B968 /* Session.swift */; };
 		D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E892242176124F00587F61 /* PeriodicWorker.swift */; };
+		D8EB75C92520A82400A62CA6 /* PermanentCacheManagedObjectContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EB75C82520A82400A62CA6 /* PermanentCacheManagedObjectContextProvider.swift */; };
 		D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */; };
 		D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */; };
 		D8EC3DD81E9BDA35006712EB /* UserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */; };
@@ -4717,6 +4718,7 @@
 		D8E78FA31FB4C8250094B968 /* ReadingListsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsController.swift; path = Wikipedia/Code/ReadingListsController.swift; sourceTree = SOURCE_ROOT; };
 		D8E78FA51FB4C8740094B968 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D8E892242176124F00587F61 /* PeriodicWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicWorker.swift; sourceTree = "<group>"; };
+		D8EB75C82520A82400A62CA6 /* PermanentCacheManagedObjectContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentCacheManagedObjectContextProvider.swift; sourceTree = "<group>"; };
 		D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+JSON.swift"; sourceTree = "<group>"; };
 		D8EC3FB41E9BDA35006712EB /* Staging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Staging.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5951,6 +5953,7 @@
 			isa = PBXGroup;
 			children = (
 				83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */,
+				D8EB75C82520A82400A62CA6 /* PermanentCacheManagedObjectContextProvider.swift */,
 				67A6F13423BFB4E700736539 /* ImageCache */,
 				67F9AE5423AD7FF1003D4F5E /* MobileHTML Article Cache */,
 				678C7C3923BE944F001AC4D5 /* BaseCache */,
@@ -10639,6 +10642,7 @@
 				D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,
 				D8FA18F11E1BDA35009675C3 /* UIImage+WMFImageProcessing.m in Sources */,
 				D8FA18E71E1BD8AF009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
+				D8EB75C92520A82400A62CA6 /* PermanentCacheManagedObjectContextProvider.swift in Sources */,
 				7A3159CF206458B000143119 /* ReadingListAlertType.swift in Sources */,
 				7A3AD05820ADB1A900C92E04 /* WMFAuthenticationManager.swift in Sources */,
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
